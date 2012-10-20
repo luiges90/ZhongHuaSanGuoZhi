@@ -77,7 +77,6 @@
             catch
             {
             }
-            appliedTroop.RemoveAll((a) => { return a.Destroyed; });
         }
 
         public void DoWork(Architecture architecture)
