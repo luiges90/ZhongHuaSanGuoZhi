@@ -1297,7 +1297,8 @@
                 this.StartAttackArchitecture(architecture,damage);
                 if ((this.BaseAroundAttackRadius > 0) || (this.AroundAttackRadius > 0))
                 {
-                    foreach (Troop troop in this.GetAreaAttackTroops(this.Position, this.AroundAttackRadius, true))
+                    int radius = Math.Max(this.BaseAroundAttackRadius, this.AroundAttackRadius);
+                    foreach (Troop troop in this.GetAreaAttackTroops(this.Position, radius, true))
                     {
                         if ((troop != this) && (!this.TroopNoAccidentalInjury || !this.IsFriendly(troop.BelongedFaction)))
                         {
@@ -1349,7 +1350,8 @@
                 }
                 if ((this.BaseAroundAttackRadius > 0) || (this.AroundAttackRadius > 0))
                 {
-                    foreach (Troop troop2 in this.GetAreaAttackTroops(this.Position, this.AroundAttackRadius, true))
+                    int radius = Math.Max(this.BaseAroundAttackRadius, this.AroundAttackRadius);
+                    foreach (Troop troop2 in this.GetAreaAttackTroops(this.Position, radius, true))
                     {
                         if (((troop2 != troop) && (troop2 != this)) && (!this.TroopNoAccidentalInjury || !this.IsFriendly(troop2.BelongedFaction)))
                         {
@@ -2710,6 +2712,13 @@
             this.FinalizeOffenceArea();
             this.FinalizeStratagemArea();
             this.FinalizeViewArea();
+            this.Persons.PurifyInfluences();
+            this.PurifyFactionInfluences();
+            if (this.CurrentCombatMethod != null)
+            {
+                this.CurrentCombatMethod.Purify(this);
+                this.CurrentCombatMethod = null;
+            }
         }
 
         public void DetectAmbush(Troop troop)
@@ -3267,7 +3276,8 @@
             }
             if ((this.BaseAroundAttackRadius > 0) || (this.AroundAttackRadius > 0))
             {
-                foreach (Troop troop2 in this.GetAreaAttackTroops(position, this.AroundAttackRadius, true))
+                int radius = Math.Max(this.BaseAroundAttackRadius, this.AroundAttackRadius);
+                foreach (Troop troop2 in this.GetAreaAttackTroops(position, radius, true))
                 {
                     if ((troop2 != troop) && (troop2 != this))
                     {
