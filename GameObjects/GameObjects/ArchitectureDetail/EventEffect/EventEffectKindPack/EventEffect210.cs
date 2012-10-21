@@ -9,8 +9,7 @@
         {
             if (person.BelongedFaction == null && person.LocationArchitecture != null)
             {
-                person.LocationArchitecture.RemoveNoFactionPerson(person);
-                person.LocationArchitecture.AddPerson(person);
+                person.Status = GameObjects.PersonDetail.PersonStatus.Normal;
                 person.ChangeFaction(person.LocationArchitecture.BelongedFaction);
             }
             else if (person.LocationArchitecture != null && person.BelongedCaptive != null)

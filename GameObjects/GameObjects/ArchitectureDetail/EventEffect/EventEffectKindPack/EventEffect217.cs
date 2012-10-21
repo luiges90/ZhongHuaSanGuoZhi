@@ -7,14 +7,10 @@
     {
         public override void ApplyEffectKind(Person person, Event e)
         {
-            if (person.FeiZiLocationArchitecture != null)
+            if (person.LocationArchitecture != null && person.Status == GameObjects.PersonDetail.PersonStatus.Princess)
             {
-                Architecture originalLocationArch = person.FeiZiLocationArchitecture;
-                originalLocationArch.AddPerson(person);
-                originalLocationArch.BelongedFaction.AddPerson(person);
-                originalLocationArch.feiziliebiao.Remove(person);
-                person.LocationArchitecture = originalLocationArch;
-                person.suozaijianzhu = null;
+                Architecture originalLocationArch = person.LocationArchitecture;
+                person.Status = GameObjects.PersonDetail.PersonStatus.Normal;
             }
         }
 

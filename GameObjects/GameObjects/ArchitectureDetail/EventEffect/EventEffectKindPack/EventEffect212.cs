@@ -9,9 +9,7 @@
         {
             if (person.LocationArchitecture != null)
             {
-                person.LocationArchitecture.RemovePersonFromWorkingList(person);
                 Captive captive = Captive.Create(base.Scenario, person, person.LocationArchitecture.BelongedFaction);
-                person.LocationArchitecture.AddCaptive(captive);
             }
         }
 

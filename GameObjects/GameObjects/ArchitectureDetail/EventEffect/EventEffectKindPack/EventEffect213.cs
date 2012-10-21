@@ -9,12 +9,7 @@
         {
             if (person.LocationArchitecture != null)
             {
-                person.LocationArchitecture.RemovePersonFromWorkingList(person);
-                Architecture originalLocationArch = person.LocationArchitecture;
-                originalLocationArch.RemovePerson(person);
-                originalLocationArch.BelongedFaction.RemovePerson(person);
-                originalLocationArch.feiziliebiao.Add(person);
-                person.suozaijianzhu = originalLocationArch;
+                person.Status = GameObjects.PersonDetail.PersonStatus.Princess;
             }
         }
 

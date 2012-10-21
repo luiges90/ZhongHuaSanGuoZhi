@@ -76,20 +76,13 @@
             if (!p.Available)
             {
                 p.AvailableLocation = this.lastArchitecture.ID;
-                this.lastArchitecture.RemovePerson(p);
-                if (this.lastArchitecture.BelongedFaction != null)
-                {
-                    this.lastArchitecture.BelongedFaction.RemovePerson(p);
-                }
+                p.Status = PersonStatus.None;
             }
             else
             {
                 p.AvailableLocation = 0;
-                this.lastArchitecture.AddPerson(p);
-                if (this.lastArchitecture.BelongedFaction != null)
-                {
-                    this.lastArchitecture.BelongedFaction.AddPerson(p);
-                }
+                p.LocationArchitecture = this.lastArchitecture;
+                p.Status = PersonStatus.Normal;
             }
         }
 
@@ -552,14 +545,8 @@
                 for (int i = 0; i < this.dgvPersons.SelectedRows.Count; i++)
                 {
                     Person dataBoundItem = this.dgvPersons.SelectedRows[i].DataBoundItem as Person;
-                    if (dataBoundItem.LocationArchitecture != null)
-                    {
-                        dataBoundItem.LocationArchitecture.RemovePerson(dataBoundItem);
-                    }
-                    if (dataBoundItem.BelongedFaction != null)
-                    {
-                        dataBoundItem.BelongedFaction.RemovePerson(dataBoundItem);
-                    }
+                    dataBoundItem.LocationArchitecture = null;
+                    dataBoundItem.Status = PersonStatus.None;
                     this.MainForm.Scenario.Persons.Remove(dataBoundItem);
                 }
                 this.RebindDataSource();

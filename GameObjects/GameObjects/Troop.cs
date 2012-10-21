@@ -61,7 +61,6 @@
         public Faction BelongedFaction = null;
         public Legion BelongedLegion;
         public bool CanAttackAfterRout;
-        public CaptiveList Captives = new CaptiveList();
         private TroopCastDefaultKind castDefaultKind;
         private TroopCastTargetKind castTargetKind;
         public int ChanceDecrementOfCriticalStrike;
@@ -256,7 +255,6 @@
         public int OutburstOffenceMultiple = 1;
         public bool OutburstPreventCriticalStrike = false;
         private TroopPathFinder pathFinder;
-        public PersonList Persons = new PersonList();
         public bool PierceAttack;
         private Point position;
         private TroopPreAction preAction;
@@ -377,7 +375,6 @@
 
         public int captureChance = 0;
 
-
         public event Ambush OnAmbush;
 
         public event AntiArrowAttack OnAntiArrowAttack;
@@ -468,6 +465,38 @@
             this.simplepathFinder.OnGetCost += new TierPathFinder.GetCost(this.simplepathFinder_OnGetCost);
         }
 
+        public PersonList Persons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationTroop == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public CaptiveList Captives
+        {
+            get
+            {
+                CaptiveList result = new CaptiveList();
+                foreach (Captive i in base.Scenario.Captives)
+                {
+                    if (i.LocationTroop == this && i.LocationArchitecture == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
         private void AddAreaInfluences(Point p)
         {
             if (this.OffenceRateIncrementInViewArea > 0f)
@@ -519,8 +548,6 @@
 
         public void AddCaptive(Captive captive)
         {
-            this.Captives.Add(captive);
-            captive.LocationTroop = this;
             captive.CaptivePerson.LocationTroop = this;
             foreach (Treasure treasure in captive.CaptivePerson.Treasures.GetList())
             {
@@ -580,12 +607,6 @@
                     this.Action = TroopAction.Stop;
                 }
             }
-        }
-
-        public void AddPerson(Person person)
-        {
-            this.Persons.Add(person);
-            person.LocationTroop = this;
         }
 
         public void AddRoutCount()
@@ -1433,10 +1454,6 @@
                         {
                             this.StartingArchitecture = this.BelongedFaction.Capital;
                         }
-                        else
-                        {
-                            this.BelongedFaction.RemovePerson(person);
-                        }
                     }
                     if (this.StartingArchitecture != null)
                     {
@@ -1895,35 +1912,17 @@
                 }
                 this.BelongedFaction.Troops.Remove(this);
                 this.BelongedFaction.RemoveTroopKnownAreaData(this);
-                foreach (Person person in this.Persons)
-                {
-                    this.BelongedFaction.RemovePerson(person);
-                }
-                foreach (Captive captive in this.Captives)
-                {
-                    this.BelongedFaction.RemoveCaptive(captive);
-                }
                 this.BelongedFaction.RemoveMilitary(this.Army);
                 this.BelongedFaction = null;
                 faction.AddTroop(this);
                 faction.AddTroopKnownAreaData(this);
-                foreach (Person person in this.Persons)
-                {
-                    faction.AddPerson(person);
-                }
                 foreach (Captive captive in this.Captives.GetList())
                 {
                     if (captive.CaptiveFaction == faction)
                     {
                         captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
                         captive.CaptivePerson.BelongedCaptive = null;
-                        this.RemoveCaptive(captive);
-                        captive.CaptiveFaction.RemoveSelfCaptive(captive);
                         base.Scenario.Captives.Remove(captive);
-                    }
-                    else
-                    {
-                        faction.AddCaptive(captive);
                     }
                 }
                 faction.AddMilitary(this.Army);
@@ -1967,12 +1966,12 @@
                 {
                     foreach (Person person in personlist)
                     {
-                        troop.RemovePerson(person);
                         Captive captive = Captive.Create(base.Scenario, person, this.BelongedFaction);
                         if (captive != null)
                         {
                             this.AddCaptive(captive);
                         }
+                        person.LocationTroop = this;
                     }
                     if (this.OnGetNewCaptive != null)
                     {
@@ -1998,12 +1997,13 @@
                 {
                     foreach (Person person in personlist)
                     {
-                        a.RemovePerson(person);
                         Captive captive = Captive.Create(base.Scenario, person, this.BelongedFaction);
                         if (captive != null)
                         {
                             this.AddCaptive(captive);
                         }
+                        person.LocationArchitecture = null;
+                        person.LocationTroop = this;
                     }
                     if (this.OnGetNewCaptive != null)
                     {
@@ -2225,11 +2225,9 @@
             troop.ID = troop.Scenario.Troops.GetFreeGameObjectID();
             foreach (Person person in persons.GetList())
             {
-                troop.AddPerson(person);
-                if (person.LocationArchitecture != null)
-                {
-                    person.LocationArchitecture.RemovePerson(person);
-                }
+                person.LocationArchitecture = null;
+                person.LocationTroop = troop;
+                person.WorkKind = ArchitectureWorkKind.无;
             }
             troop.SetLeader(leader);
             if (from.BelongedFaction != null)
@@ -2291,6 +2289,7 @@
             foreach (Person p in troop.Persons)
             {
                 p.LocationTroop = troop;
+                p.LocationArchitecture = null;
             }
             troop.Persons.ApplyInfluences();
             troop.RefreshAllData();
@@ -2306,7 +2305,7 @@
             {
                 foreach (Person person in persons)
                 {
-                    troop.AddPerson(person);
+                    person.LocationTroop = troop;
                 }
                 troop.SetLeader(persons[0] as Person);
                 troop.BackupArmyLeaderID = (military.Leader != null) ? military.Leader.ID : -1;
@@ -2314,10 +2313,6 @@
                 troop.BackupArmyLeader = military.Leader;
                 troop.Army = military;
                 troop.SimulateInitializePosition(startPosition);
-                foreach (Person person in persons)
-                {
-                    person.LocationTroop = null;
-                }
             }
             troop.Simulating = false;
             military.Leader = troop.BackupArmyLeader;
@@ -2338,7 +2333,7 @@
             {
                 foreach (Person person in persons)
                 {
-                    troop.AddPerson(person);
+                    person.LocationTroop = troop;
                 }
                 troop.SetLeader(Leader);
             }
@@ -2353,10 +2348,6 @@
             if (persons != null)
             {
                 troop.SimulateInitializePosition(startPosition);
-                foreach (Person person in persons)
-                {
-                    person.LocationTroop = null;
-                }
             }
             troop.Simulating = false;
             if (military != null)
@@ -2795,14 +2786,10 @@
                 PersonList list = new PersonList();
                 foreach (Person person in this.Persons)
                 {
-                    list.Add(person);
-                    a.AddPerson(person);
+                    person.LocationTroop = null;
+                    person.LocationArchitecture = a;
                 }
                 this.Persons.ApplyInfluences();
-                foreach (Person person in list)
-                {
-                    this.RemovePerson(person);
-                }
                 if (this.Army.ShelledMilitary == null)
                 {
                     if (this.Army.Quantity > this.Army.Kind.MaxScale)
@@ -2849,10 +2836,6 @@
             }
             foreach (Person person in this.Persons)
             {
-                if (person.BelongedFaction != null)
-                {
-                    person.BelongedFaction.RemovePerson(person);
-                }
                 person.MoveToArchitecture(this.StartingArchitecture);
             }
             this.Destroy();
@@ -4099,6 +4082,7 @@
             GameArea area = new GameArea();
             foreach (Point point in sourceArea.Area)
             {
+                PersonList originalPersons = this.Persons;
                 int fightingForce = CreateSimulateTroop(this.Persons, this.Army, point).FightingForce;
                 if (fightingForce > num)
                 {
@@ -4109,6 +4093,10 @@
                 else if (fightingForce == num)
                 {
                     area.AddPoint(point);
+                }
+                foreach (Person p in originalPersons)
+                {
+                    p.LocationTroop = this;
                 }
             }
             return area;
@@ -6325,7 +6313,8 @@
                 Person person = persons[int.Parse(str)];
                 if (person != null)
                 {
-                    this.AddPerson(person);
+                    person.LocationTroop = this;
+                    person.LocationArchitecture = null;
                     if (person.ID == leaderID)
                     {
                         this.Leader = person;
@@ -6410,8 +6399,8 @@
         {
             foreach (Captive captive in this.Captives.GetList())
             {
-                des.AddCaptive(captive);
-                this.RemoveCaptive(captive);
+                captive.CaptivePerson.LocationTroop = null;
+                captive.CaptivePerson.LocationArchitecture = des;
             }
         }
 
@@ -7542,7 +7531,7 @@
             }
             foreach (Person person2 in personList)
             {
-                this.AddPerson(person2);
+                person2.LocationTroop = this;
             }
             if ((currentStunt != null) && (stuntDayLeft > 0))
             {
@@ -7572,12 +7561,9 @@
                     if (((captive.CaptivePerson != null) && (captive.CaptiveFaction != null)) && (captive.CaptiveFaction.Capital != null))
                     {
                         personlist.Add(captive.CaptivePerson);
+                        captive.CaptivePerson.Status = PersonStatus.Normal;
                         captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
                         captive.CaptivePerson.BelongedCaptive = null;
-                        this.RemoveCaptive(captive);
-                        this.BelongedFaction.RemoveCaptive(captive);
-                        captive.CaptiveFaction.RemoveSelfCaptive(captive);
-                        base.Scenario.Captives.Remove(captive);
                     }
                 }
                 if ((personlist.Count > 0) && (this.OnReleaseCaptive != null))
@@ -7590,18 +7576,6 @@
         private void RemoveAreaInfluences(Point p)
         {
             base.Scenario.RemovePositionAreaInfluence(this, p);
-        }
-
-        public void RemoveCaptive(Captive captive)
-        {
-            this.Captives.Remove(captive);
-            captive.LocationTroop = null;
-        }
-
-        public void RemovePerson(Person person)
-        {
-            this.Persons.Remove(person);
-            person.LocationTroop = null;
         }
 
         public void ResetAnimationIndex()

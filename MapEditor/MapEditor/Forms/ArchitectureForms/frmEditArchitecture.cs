@@ -162,7 +162,8 @@
                 gameObject.Available = true;
                 try
                 {
-                    this.editingArchitecture.AddNoFactionPerson(gameObject);
+                    gameObject.LocationArchitecture = this.editingArchitecture;
+                    gameObject.Status = GameObjects.PersonDetail.PersonStatus.NoFaction;
                 }
                 catch
                 {
@@ -181,11 +182,8 @@
             {
                 Person gameObject = this.editingArchitecture.Scenario.Persons.GetGameObject(num) as Person;
                 gameObject.Available = true;
-                this.editingArchitecture.AddPerson(gameObject);
-                if (this.editingArchitecture.BelongedFaction != null)
-                {
-                    this.editingArchitecture.BelongedFaction.AddPerson(gameObject);
-                }
+                gameObject.LocationArchitecture = this.editingArchitecture;
+                gameObject.Status = GameObjects.PersonDetail.PersonStatus.Normal;
             }
             this.RefreshPersons();
         }
@@ -367,7 +365,8 @@
             foreach (object obj2 in this.clbNoFactionPerson.CheckedItems)
             {
                 (obj2 as Person).Available = false;
-                this.editingArchitecture.RemoveNoFactionPerson(obj2 as Person);
+                (obj2 as Person).Status = GameObjects.PersonDetail.PersonStatus.None;
+                (obj2 as Person).LocationArchitecture = null;
             }
             this.RefreshNoFactionPersons();
         }
@@ -377,8 +376,8 @@
             foreach (object obj2 in this.clbPersons.CheckedItems)
             {
                 (obj2 as Person).Available = false;
-                this.editingArchitecture.RemovePerson(obj2 as Person);
-                this.editingArchitecture.BelongedFaction.RemovePerson(obj2 as Person);
+                (obj2 as Person).Status = GameObjects.PersonDetail.PersonStatus.None;
+                (obj2 as Person).LocationArchitecture = null;
             }
             this.RefreshPersons();
         }
@@ -393,7 +392,6 @@
                 if ((list.SelectedFaction != null) && !list.SelectedFaction.HasArchitecture(this.editingArchitecture))
                 {
                     list.SelectedFaction.AddArchitecture(this.editingArchitecture);
-                    list.SelectedFaction.AddArchitecturePersons(this.editingArchitecture);
                     list.SelectedFaction.AddArchitectureMilitaries(this.editingArchitecture);
                     if ((list.SelectedFaction.FirstSection != null) && !list.SelectedFaction.FirstSection.HasArchitecture(this.editingArchitecture))
                     {

@@ -25,7 +25,6 @@
         public bool faxianhuaiyun = false;
 
         public int suoshurenwu = -1;
-        public Architecture suozaijianzhu = null;
  
         private bool alive;
         private int ambition;
@@ -34,7 +33,6 @@
         private int availableLocation;
         private float baseImpactRate;
         public Captive BelongedCaptive;
-        public GameObjects.Faction BelongedFaction = null;
         private PersonBornRegion bornRegion;
         private int braveness;
         private int brother = -1;
@@ -159,7 +157,6 @@
         public float RateIncrementOfTechnologyAbility;
         public float RateIncrementOfTrainingAbility;
         private Military recruitmentMilitary;
-        private int recruitmentMilitaryID;
         private int reputation;
         public bool RewardFinished;
         private int routCount;
@@ -182,14 +179,14 @@
         private float tacticsExperience;
         public Architecture TargetArchitecture;
         private int taskDays;
-        private Military trainingMilitary;
-        private int trainingMilitaryID;
         public TreasureList Treasures = new TreasureList();
         private PersonValuationOnGovernment valuationOnGovernment;
         private ArchitectureWorkKind workKind = ArchitectureWorkKind.无;
         private int yearAvailable;
         private int yearBorn;
         private int yearDead;
+
+        private PersonStatus status;
 
         private Person waitForFeiZi = null;
         private int waitForFeiZiPeriod = 0;
@@ -205,67 +202,55 @@
         public string preferredTroopPersonsString;
 
         public Architecture LocationArchitecture = null;
-        /*public Architecture LocationArchitecture
+
+        public PersonStatus Status
         {
             get
             {
-                Architecture result = null;
-                foreach (Architecture a in base.Scenario.Architectures)
-                {
-                    if (a.Persons.GameObjects.Contains(this))
-                    {
-                        if (result != null)
-                        {
-                            result.Persons.Remove(this);
-                            result.NoFactionPersons.Remove(this);
-                            //throw new Exception("Person " + this.Name + " is found in more than one locations! It is both found in " + result.Name + " and " + a.Name);
-                        }
-                        bool found = false;
-                        for (int i = 0; i < a.Persons.GameObjects.Count; ++i)
-                        {
-                            if (a.Persons.GameObjects[i] == this)
-                            {
-                                if (!found)
-                                {
-                                    found = true;
-                                }
-                                else
-                                {
-                                    a.Persons.RemoveAt(i);
-                                    i--;
-                                }
-                            }
-                        }
-                        result = a;
-                    }
-                    if (a.NoFactionPersons.GameObjects.Contains(this))
-                    {
-                        if (result != null)
-                        {
-                            result.Persons.Remove(this);
-                            result.NoFactionPersons.Remove(this);
-                            //throw new Exception("Person " + this.Name + " is found in more than one locations! It is both found in " + result.Name + " and " + a.Name);
-                        }
-                        result = a;
-                    }
-                }
-                foreach (Captive c in base.Scenario.Captives)
-                {
-                    if (c.CaptivePerson == this)
-                    {
-                        if (result != null)
-                        {
-                            result.Persons.Remove(c.CaptivePerson);
-                            result.NoFactionPersons.Remove(c.CaptivePerson);
-                            //throw new Exception("Person " + this.Name + " is found in more than one locations! It is both found in " + result.Name + " and " + c.LocationArchitecture);
-                        }
-                        result = c.LocationArchitecture;
-                    }
-                }
-                return result;
+                return status;
             }
-            set { } // temporary fix!
-        }*/
+            set
+            {
+                if (value != PersonStatus.Normal)
+                {
+                    this.WorkKind = ArchitectureWorkKind.无;
+                    this.PurifySkills();
+                    this.PurifyTitles();
+                    this.PurifyTreasures();
+                    this.PurifyArchitectureInfluence();
+                    this.PurifyFactionInfluence();
+                }
+                else
+                {
+                    this.ApplySkills();
+                    this.ApplyTitles();
+                    this.ApplyTreasures();
+                    this.ApplyArchitectureInfluence();
+                    this.ApplyFactionInfluence();
+                }
+                status = value;
+            }
+        }
+
+        public Faction BelongedFaction
+        {
+            get
+            {
+                if ((this.Status == PersonStatus.Normal || this.Status == PersonStatus.Moving) && this.LocationArchitecture != null)
+                {
+                    return this.LocationArchitecture.BelongedFaction;
+                }
+                else if (this.Status == PersonStatus.Normal && this.LocationTroop != null)
+                {
+                    return this.LocationTroop.BelongedFaction;
+                }
+                else if (this.Status == PersonStatus.Captive)
+                {
+                    return this.BelongedCaptive.CaptiveFaction;
+                }
+                return null;
+            }
+        }
 
         public Person WaitForFeiZi
         {
@@ -529,37 +514,6 @@
             this.routedCount++;
         }
 
-
-
-        public void AddTrainingExperience(int increment)
-        {
-            if (this.TrainingMilitary != null)
-            {
-                switch (this.TrainingMilitary.Kind.Type)
-                {
-                    case MilitaryType.步兵:
-                        this.AddBubingExperience(increment);
-                        break;
-
-                    case MilitaryType.弩兵:
-                        this.AddNubingExperience(increment);
-                        break;
-
-                    case MilitaryType.骑兵:
-                        this.AddQibingExperience(increment);
-                        break;
-
-                    case MilitaryType.水军:
-                        this.AddShuijunExperience(increment);
-                        break;
-
-                    case MilitaryType.器械:
-                        this.AddQixieExperience(increment);
-                        break;
-                }
-            }
-        }
-
         public void AddTreasureToList(TreasureList list)
         {
             foreach (Treasure treasure in this.Treasures)
@@ -620,6 +574,14 @@
             }
         }
 
+        public void PurifyTreasures()
+        {
+            foreach (Treasure treasure in this.Treasures)
+            {
+                treasure.Influences.PurifyInfluence(this);
+            }
+        }
+
         public void ApplyTreasures()
         {
             foreach (Treasure treasure in this.Treasures)
@@ -659,14 +621,6 @@
 
         public void ChangeFaction(GameObjects.Faction faction)
         {
-            if (this.BelongedFaction != null)
-            {
-                if (this.LocationTroop != null)
-                {
-                }
-                this.BelongedFaction.RemovePerson(this);
-            }
-            faction.AddPerson(this);
             this.InitialLoyalty();
         }
 
@@ -729,19 +683,11 @@
             Architecture locationArchitecture = this.LocationArchitecture;
             GameObjects.Faction belongedFaction = this.BelongedFaction;
             this.Alive = false;  //死亡
+            this.Status = PersonStatus.None;
+            this.LocationArchitecture = null;
             if (this.OnDeath != null && locationArchitecture !=null )
             {
                 this.OnDeath(this, locationArchitecture);
-            }
-            if (belongedFaction == null)
-            {
-                if (locationArchitecture != null)
-                {
-                    locationArchitecture.RemoveNoFactionPerson(this);
-                }
-                base.Scenario.AvailablePersons.Remove(this);
-                this.Alive = false;
-                //base.Scenario.Persons.Remove(this);
             }
             else if (this == belongedFaction.Leader)
             {
@@ -770,18 +716,11 @@
                 }
                 else
                 {
-                    if (locationArchitecture != null)
-                    {
-                        locationArchitecture.RemovePerson(this);
-                    }
                     foreach (Architecture architecture2 in belongedFaction.Architectures.GetList())
                     {
                         architecture2.ResetFaction(null);
                     }
-                    belongedFaction.RemovePerson(this);
                     belongedFaction.Destroy();
-                    base.Scenario.AvailablePersons.Remove(this);
-                    //base.Scenario.Persons.Remove(this);
                 }
             }
             else
@@ -796,13 +735,6 @@
                     baowu.Available = false;
                     baowu.HidePlace = locationArchitecture;
                 }
-                if (locationArchitecture != null)
-                {
-                    locationArchitecture.RemovePerson(this);
-                }
-                belongedFaction.RemovePerson(this);
-                base.Scenario.AvailablePersons.Remove(this);
-                //base.Scenario.Persons.Remove(this);
             }
         }
 
@@ -1001,7 +933,7 @@
 
                     if (this.suoshurenwu == -1)
                     {
-                        this.suoshurenwu = this.FeiZiLocationArchitecture.BelongedFaction.LeaderID;
+                        this.suoshurenwu = this.LocationArchitecture.BelongedFaction.LeaderID;
                     }
                     haizifuqin = this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person;
 
@@ -1138,27 +1070,17 @@
                                 base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.ConvincingPerson.BelongedFaction.ID, -10);
                             }
                         }
-                        else
-                        {
-                            belongedFaction = null ;
-
-                        }
 
                         Architecture from = null;
                         if (this.ConvincingPerson.IsCaptive)
                         {
                             from = this.ConvincingPerson.BelongedCaptive.LocationArchitecture;
-                            if (this.ConvincingPerson.BelongedCaptive.BelongedFaction != null)
-                            {
-                                this.ConvincingPerson.BelongedCaptive.BelongedFaction.RemoveCaptive(this.ConvincingPerson.BelongedCaptive);
-                            }
-                            if (this.ConvincingPerson.BelongedCaptive.CaptiveFaction != null)
-                            {
-                                this.ConvincingPerson.BelongedCaptive.CaptiveFaction.RemoveSelfCaptive(this.ConvincingPerson.BelongedCaptive);
-                            }
-                            this.ConvincingPerson.BelongedCaptive.LocationArchitecture.RemoveCaptive(this.ConvincingPerson.BelongedCaptive);
-                            base.Scenario.Captives.Remove(this.ConvincingPerson.BelongedCaptive);
+                            this.ConvincingPerson.Status = PersonStatus.Normal;
                             this.ConvincingPerson.BelongedCaptive = null;
+                        }
+                        else
+                        {
+                            from = this.ConvincingPerson.LocationArchitecture;
                         }
 
                         this.ConvincingPerson.ChangeFaction(this.BelongedFaction);
@@ -1656,20 +1578,16 @@
             if (!(this.ImmunityOfCaptive || GameObject.Random((a.Domination * 10 + a.Morale)) + 200 <= GameObject.Random(this.CaptiveAbility) * 60) ||
                 (!this.ImmunityOfCaptive && GameObject.Chance(a.captureChance)))
             {
-                this.TargetArchitecture.RemovePerson(this);
-                this.TargetArchitecture.MovingPersons.Remove(this);
                 this.ArrivingDays = 0;
                 this.TargetArchitecture = null;
                 this.TaskDays = 0;
                 this.OutsideTask = OutsideTaskKind.无;
                 Captive captive = Captive.Create(base.Scenario, this, a.BelongedFaction);
-                if (captive != null)
+                this.Status = PersonStatus.Captive;
+                this.LocationArchitecture = a;
+                if (this.OnCapturedByArchitecture != null)
                 {
-                    if (this.OnCapturedByArchitecture != null)
-                    {
-                        this.OnCapturedByArchitecture(this, a);
-                    }
-                    a.AddCaptive(captive);
+                    this.OnCapturedByArchitecture(this, a);
                 }
                 return true;
             }
@@ -1902,7 +1820,7 @@
 
         public bool YoukenengChuangjianXinShili()
         {
-            if (this.LeaderPossibility == false || this.IsCaptive || this.LocationArchitecture == null || this.FeiZiLocationArchitecture != null)
+            if (this.LeaderPossibility == false || this.IsCaptive || this.LocationArchitecture == null)
             {
                 return false;
             }
@@ -2073,9 +1991,8 @@
                 this.OutsideTask = OutsideTaskKind.搜索;
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = 10;
-                this.TargetArchitecture.RemovePerson(this);
-                this.TargetArchitecture.MovingPersons.Add(this);
                 this.TaskDays = this.ArrivingDays;
+                this.Status = PersonStatus.Moving;
             }
         }
 
@@ -2104,9 +2021,8 @@
                 this.OutsideTask = OutsideTaskKind.技能;
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = Parameters.LearnSkillDays;
-                this.TargetArchitecture.RemovePerson(this);
-                this.TargetArchitecture.MovingPersons.Add(this);
                 this.TaskDays = this.ArrivingDays;
+                this.Status = PersonStatus.Moving;
             }
         }
 
@@ -2118,8 +2034,7 @@
                 this.StudyingStunt = desStunt;
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = Parameters.LearnStuntDays;
-                this.TargetArchitecture.RemovePerson(this);
-                this.TargetArchitecture.MovingPersons.Add(this);
+                this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
             }
         }
@@ -2132,8 +2047,7 @@
                 this.StudyingTitle = desTitle;
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = this.LocationArchitecture.DayLearnTitleDay;
-                this.TargetArchitecture.RemovePerson(this);
-                this.TargetArchitecture.MovingPersons.Add(this);
+                this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
             }
         }
@@ -2142,8 +2056,7 @@
         {
             this.TargetArchitecture = this.LocationArchitecture;
             this.ArrivingDays = base.Scenario.GetReturnDays(destination, this.TargetArchitecture.ArchitectureArea);
-            this.TargetArchitecture.RemovePerson(this);
-            this.TargetArchitecture.MovingPersons.Add(this);
+            this.Status = PersonStatus.Moving;
         }
 
         private void HandleSpyMessage(SpyMessage sm)
@@ -2251,8 +2164,8 @@
                 }
                 this.Alive = false;
                 this.ArrivingDays = 0;
-                this.LocationArchitecture.RemoveNoFactionPerson(this);
-                base.Scenario.AvailablePersons.Remove(this);
+                this.Status = PersonStatus.None;
+                this.LocationArchitecture = null;
             }
             else if ((this.TargetArchitecture != null) && (this.BelongedFaction == null))
             {
@@ -2272,7 +2185,7 @@
                 }
                 this.Alive = false;
                 this.ArrivingDays = 0;
-                this.TargetArchitecture.NoFactionMovingPersons.Remove(this);
+                this.status = PersonStatus.None;
                 base.Scenario.AvailablePersons.Remove(this);
             }
         }
@@ -2426,19 +2339,16 @@
         {
             Architecture locationArchitecture = this.LocationArchitecture;
 
-            this.LocationArchitecture.RemovePersonFromWorkingList(this);
             if (TargetArchitecture != null)
             {
-                this.TargetArchitecture.MovingPersons.Remove(this);
                 this.TargetArchitecture = null;
                 this.ArrivingDays = 0;
                 this.TaskDays = 0;
                 this.OutsideTask = OutsideTaskKind.无;
             }
-            locationArchitecture.RemovePerson(this);
-            this.BelongedFaction.RemovePerson(this);
-            locationArchitecture.AddNoFactionPerson(this);
-            //base.Scenario.detectDuplication();
+
+            this.Status = PersonStatus.NoFaction;
+
             if (this.OnLeave != null)
             {
                 this.OnLeave(this, locationArchitecture);
@@ -2449,10 +2359,7 @@
         public  void BeLeaveToNoFaction()
         {
             Architecture locationArchitecture = this.LocationArchitecture;
-            this.LocationArchitecture.RemovePersonFromWorkingList(this);
-            locationArchitecture.RemovePerson(this);
-            this.BelongedFaction.RemovePerson(this);
-            locationArchitecture.AddNoFactionPerson(this);
+            this.Status = PersonStatus.NoFaction;
             this.ProhibitedFactionID = locationArchitecture.BelongedFaction.ID;
         }
 
@@ -2593,11 +2500,6 @@
 
             if (a == null) return;
 
-            if (this.LocationArchitecture != null)
-            {
-                this.LocationArchitecture.RemovePersonFromWorkingList(this);
-            }
-
             if (this.LocationArchitecture != a || (startingPoint != null && startingPoint != a))
             {
                 Point position = this.Position;
@@ -2634,30 +2536,15 @@
             }
             if (this.TargetArchitecture != null)
             {
+                this.LocationArchitecture = this.TargetArchitecture;
+                this.workKind = ArchitectureWorkKind.无;
                 if (this.BelongedFaction != null)
                 {
-                    if (this.LocationArchitecture != null)
-                    {
-                        this.LocationArchitecture.RemovePerson(this);
-                    }
-                    if (targetArchitecture != null)
-                    {
-                        targetArchitecture.MovingPersons.Remove(this);
-                    }
-                    this.TargetArchitecture.MovingPersons.Add(this);
-
+                    this.Status = PersonStatus.Moving;
                 }
                 else
                 {
-                    if (this.LocationArchitecture != null)
-                    {
-                        this.LocationArchitecture.RemoveNoFactionPerson(this);
-                    }
-                    if (targetArchitecture != null)
-                    {
-                        targetArchitecture.NoFactionMovingPersons.Remove(this);
-                    }
-                    this.TargetArchitecture.NoFactionMovingPersons.Add(this);
+                    this.Status = PersonStatus.NoFactionMoving;
                 }
 
             }
@@ -2732,6 +2619,10 @@
 
         public void PreDayEvent()
         {
+            if (this.ID == 547)
+            {
+                int i = 1;
+            }
             this.SetDayInfluence();
         }
 
@@ -2758,8 +2649,7 @@
                     {
                         if (this.TargetArchitecture.BelongedFaction == this.BelongedFaction)
                         {
-                            this.TargetArchitecture.AddPerson(this);
-                            this.TargetArchitecture.MovingPersons.Remove(this);
+                            this.Status = PersonStatus.Normal;
 
                             if (this.Scenario.IsCurrentPlayer(this.BelongedFaction) && this.TargetArchitecture.TodayPersonArriveNote == false
                                 && this.TargetArchitecture.BelongedSection!=null  && this.TargetArchitecture.BelongedSection.AIDetail.ID == 0)
@@ -2775,16 +2665,13 @@
                         }
                         else   //这种情况在现在的程序中应该不会出现。
                         {
-                            this.TargetArchitecture.MovingPersons.Remove(this);
-                            this.BelongedFaction.RemovePerson(this);
-                            this.TargetArchitecture.AddNoFactionPerson(this);
+                            this.Status = PersonStatus.NoFaction;
                             this.TargetArchitecture = null;
                         }
                     }
                     else
                     {
-                        this.TargetArchitecture.NoFactionMovingPersons.Remove(this);
-                        this.TargetArchitecture.AddNoFactionPerson(this);
+                        this.Status = PersonStatus.NoFaction;
                         this.TargetArchitecture = null;
                     }
                 }
@@ -2871,28 +2758,6 @@
             if (flag && (this.OnShowMessage != null))
             {
                 this.OnShowMessage(this, personMessage);
-            }
-        }
-
-        public void StopRecruitment()
-        {
-            if (this.RecruitmentMilitary != null)
-            {
-                this.RecruitmentMilitary.RecruitmentPerson = null;
-                this.RecruitmentMilitary.RecruitmentPersonID = -1;
-                this.RecruitmentMilitary = null;
-                this.RecruitmentMilitaryID = -1;
-            }
-        }
-
-        public void StopTraining()
-        {
-            if (this.TrainingMilitary != null)
-            {
-                this.TrainingMilitary.TrainingPerson = null;
-                this.TrainingMilitary.TrainingPersonID = -1;
-                this.TrainingMilitary = null;
-                this.TrainingMilitaryID = -1;
             }
         }
 
@@ -4464,35 +4329,21 @@
             }
         }
 
+        public void RecruitMilitary(Military m)
+        {
+            this.WorkKind = ArchitectureWorkKind.补充;
+            this.RecruitmentMilitary = m;
+        }
+
         public Military RecruitmentMilitary
         {
             get
             {
-                if (this.recruitmentMilitary == null && this.RecruitmentMilitaryID >= 0 && this.LocationArchitecture != null)
-                {
-                    this.recruitmentMilitary = this.LocationArchitecture.Militaries.GetGameObject(this.RecruitmentMilitaryID) as Military;
-                    if (this.recruitmentMilitary != null)
-                    {
-                        this.recruitmentMilitary.RecruitmentPerson = this;
-                    }
-                }
                 return this.recruitmentMilitary;
             }
             set
             {
                 this.recruitmentMilitary = value;
-            }
-        }
-
-        public int RecruitmentMilitaryID
-        {
-            get
-            {
-                return this.recruitmentMilitaryID;
-            }
-            set
-            {
-                this.recruitmentMilitaryID = value;
             }
         }
 
@@ -4828,41 +4679,6 @@
             }
         }
 
-        public Military TrainingMilitary
-        {
-            get
-            {
-                if (this.trainingMilitary == null)
-                {
-                    if (this.LocationArchitecture != null)
-                    {
-                        this.trainingMilitary = this.LocationArchitecture.Militaries.GetGameObject(this.trainingMilitaryID) as Military;
-                        if (this.trainingMilitary != null)
-                        {
-                            this.trainingMilitary.TrainingPerson = this;
-                        }
-                    }
-                }
-                return this.trainingMilitary;
-            }
-            set
-            {
-                this.trainingMilitary = value;
-            }
-        }
-
-        public int TrainingMilitaryID
-        {
-            get
-            {
-                return this.trainingMilitaryID;
-            }
-            set
-            {
-                this.trainingMilitaryID = value;
-            }
-        }
-
         public int TrainingWeighing
         {
             get
@@ -4944,6 +4760,10 @@
             }
             set
             {
+                if (value != ArchitectureWorkKind.补充)
+                {
+                    this.RecruitmentMilitary = null;
+                }
                 this.workKind = value;
             }
         }
@@ -5358,7 +5178,7 @@
                 }
             }
 
-            Architecture bornArch = father.FeiZiLocationArchitecture == null ? mother.FeiZiLocationArchitecture : father.FeiZiLocationArchitecture;
+            Architecture bornArch = father.LocationArchitecture == null ? mother.LocationArchitecture : father.LocationArchitecture;
 
             try //best-effort approach for getting PersonBornRegion
             {
@@ -5638,26 +5458,12 @@
         public Person XuanZeMeiNv(Person nvren)
         {
             Person tookSpouse = null;
-            /*  人物死亡时的程序
-                locationArchitecture.RemovePerson(this);
-                belongedFaction.RemovePerson(this);
-                base.Scenario.AvailablePersons.Remove(this);
-                base.Scenario.Persons.Remove(this);
-                */
-            Architecture originalLocationArch = nvren.LocationArchitecture;
 
-            originalLocationArch.RemovePersonFromWorkingList(nvren);
+            nvren.LocationArchitecture.DecreaseFund(50000);
 
-            originalLocationArch.DecreaseFund(50000);
+            nvren.Status = PersonStatus.Princess;
+            nvren.workKind = ArchitectureWorkKind.无;
 
-            originalLocationArch.RemovePerson(nvren);
-            originalLocationArch.BelongedFaction.RemovePerson(nvren);
-            //this.mainGameScreen.Scenario.AvailablePersons.Remove(this.CurrentPerson);
-            //this.CurrentPerson.suoshurenwu = this.CurrentArchitecture.BelongedFaction.Leader;
-            originalLocationArch.feiziliebiao.Add(nvren);
-            //nvren.suoshurenwu = originalLocationArch.BelongedFaction.LeaderID;
-            nvren.suozaijianzhu = originalLocationArch;
-            nvren.LocationArchitecture = originalLocationArch;
             nvren.LocationTroop = null;
             nvren.TargetArchitecture = null;
 
@@ -5672,7 +5478,7 @@
                     }
                 }
 
-                if ((p != null) && p.ID != originalLocationArch.BelongedFaction.LeaderID)
+                if ((p != null) && p.ID != nvren.LocationArchitecture.BelongedFaction.LeaderID)
                 {
                     if (p.Alive)
                     {
@@ -5735,40 +5541,9 @@
                 this.OutsideTask = OutsideTaskKind.后宮;
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = houGongDays;
-                this.TargetArchitecture.RemovePerson(this);
-                this.TargetArchitecture.MovingPersons.Add(this);
+                this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
             }
-        }
-
-
-        public Architecture FeiZiLocationArchitecture
-        {
-            get
-            {
-                ArchitectureList allArch = base.Scenario.Architectures;
-                foreach (Architecture i in allArch)
-                {
-                    if (i.feiziliebiao.GameObjects.Contains(this))
-                    {
-                        return i;
-                    }
-                }
-                return null;
-            }
-        }
-
-        public void FixLocationArchitecture()
-        {
-            foreach (Architecture a in base.Scenario.Architectures)
-            {
-                if (a.Persons.GameObjects.Contains(this) || a.NoFactionPersons.GameObjects.Contains(this))
-                {
-                    this.LocationArchitecture = a;
-                    return;
-                }
-            }
-            this.LocationArchitecture = null;
         }
 
         public String FoundPregnantString
