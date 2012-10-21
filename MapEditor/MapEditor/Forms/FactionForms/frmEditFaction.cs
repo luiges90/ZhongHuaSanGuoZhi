@@ -63,7 +63,6 @@
                 if (gameObject != null)
                 {
                     this.editingFaction.AddArchitecture(gameObject);
-                    this.editingFaction.AddArchitecturePersons(gameObject);
                     this.editingFaction.AddArchitectureMilitaries(gameObject);
                 }
             }
@@ -120,11 +119,11 @@
         {
             foreach (Architecture architecture in this.clbArchitectures.CheckedItems)
             {
-                this.editingFaction.RemoveArchitecturePersons(architecture);
                 this.editingFaction.RemoveArchitectureMilitaries(architecture);
                 foreach (Person person in architecture.Persons.GetList())
                 {
-                    architecture.RemovePerson(person);
+                    person.Status = GameObjects.PersonDetail.PersonStatus.None;
+                    person.LocationArchitecture = null;
                 }
                 foreach (Military military in architecture.Militaries.GetList())
                 {

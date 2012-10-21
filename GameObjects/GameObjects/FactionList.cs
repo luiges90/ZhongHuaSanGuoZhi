@@ -67,10 +67,6 @@
         {
             if (base.HasGameObject(faction))
             {
-                foreach (Person person in faction.Persons.GetList())
-                {
-                    faction.RemovePerson(person);
-                }
                 foreach (Architecture architecture in faction.Architectures.GetList())
                 {
                     faction.RemoveArchitecture(architecture);

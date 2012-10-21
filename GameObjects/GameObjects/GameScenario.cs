@@ -26,8 +26,6 @@
         private Dictionary<int, Architecture> AllArchitectures = new Dictionary<int, Architecture>();
         private Dictionary<int, Person> AllPersons = new Dictionary<int, Person>();
         public ArchitectureList Architectures = new ArchitectureList();
-        public PersonList AvailablePersons = new PersonList();
-        public CaptiveList Captives = new CaptiveList();
         public Faction CurrentFaction;
         public Faction CurrentPlayer;
         public GameDate Date = new GameDate();
@@ -79,6 +77,42 @@
         {
             this.GameScreen = screen;
             this.GeneratorOfTileAnimation = new TileAnimationGenerator(this);
+        }
+
+        public CaptiveList Captives
+        {
+            get
+            {
+                CaptiveList result = new CaptiveList();
+                foreach (Person i in this.Persons)
+                {
+                    if (i.Status == PersonStatus.Captive)
+                    {
+                        if (i.BelongedCaptive == null)
+                        {
+                            throw new Exception("Every captive must bear a BelongedCaptive Object!");
+                        }
+                        result.Add(i.BelongedCaptive);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList AvailablePersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in this.Persons)
+                {
+                    if (i.Status != PersonStatus.None && i.Alive && i.Available)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
         }
 
         public void AddPositionAreaInfluence(Troop troop, Point position, AreaInfluenceKind kind, int offset, float rate)
@@ -207,76 +241,52 @@
                     treasure.Available = true;
                 }
 
-                Person p = this.Persons.GetGameObject(person.Father) as Person;
+                Person joinToPerson = this.Persons.GetGameObject(person.Father) as Person;
 
-                if (p!=null && p.Available && p.Alive &&  p.BelongedFaction != null && p.BelongedCaptive == null)
+                if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive &&  joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
-                    if (p.LocationArchitecture != null)
-                    {
-                        p.LocationArchitecture.AddPerson(person);
-                    }
-                    else
-                    {
-                        p.BelongedFaction.Capital.AddPerson(person);
-                    }
-                    p.BelongedFaction.AddPerson(person);
+                    person.LocationArchitecture = joinToPerson.LocationArchitecture;
+                    person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
-                    this.GameScreen.xianshishijiantupian(p.BelongedFaction.Leader, p.Name, "ChildJoin", "", "", person.Name, false);
+                    this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, "ChildJoin", "", "", person.Name, false);
                     this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, "ChildJoinSelfTalk", "", "", false);
                     this.AvailablePersons.Add(person);
                     continue;
                 }
 
-                p = this.Persons.GetGameObject(person.Mother) as Person;
-                if (p != null && p.Available && p.Alive && p.BelongedFaction != null && p.BelongedCaptive == null)
+                joinToPerson = this.Persons.GetGameObject(person.Mother) as Person;
+                if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive && joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
-                    if (p.LocationArchitecture != null)
-                    {
-                        p.LocationArchitecture.AddPerson(person);
-                    }
-                    else
-                    {
-                        p.BelongedFaction.Capital.AddPerson(person);
-                    }
-                    p.BelongedFaction.AddPerson(person);
+                    person.LocationArchitecture = joinToPerson.LocationArchitecture;
+                    person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
-                    this.GameScreen.xianshishijiantupian(p.BelongedFaction.Leader, p.Name, "ChildJoin", "", "", person.Name, false);
+                    this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, "ChildJoin", "", "", person.Name, false);
                     this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, "ChildJoinSelfTalk", "", "", false);
                     this.AvailablePersons.Add(person);
                     continue;
                 }
 
-                p = this.Persons.GetGameObject(person.Spouse) as Person;
-                if (p != null && p.Available && p.Alive && p.BelongedFaction != null && p.BelongedCaptive == null)
+                joinToPerson = this.Persons.GetGameObject(person.Spouse) as Person;
+                if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive && joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
-                    if (p.LocationArchitecture != null)
-                    {
-                        p.LocationArchitecture.AddPerson(person);
-                    }
-                    else
-                    {
-                        p.BelongedFaction.Capital.AddPerson(person);
-                    }
-                    p.BelongedFaction.AddPerson(person);
+                    person.LocationArchitecture = joinToPerson.LocationArchitecture;
+                    person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
                     if (person.Sex) //女的
                     {
-                        this.GameScreen.xianshishijiantupian(person, p.Name, "FemaleSpouseJoin", "", "", false);
+                        this.GameScreen.xianshishijiantupian(person, joinToPerson.Name, "FemaleSpouseJoin", "", "", false);
                     }
                     else
                     {
-                        this.GameScreen.xianshishijiantupian(person, p.Name, "MaleSpouseJoin", "", "", false);
+                        this.GameScreen.xianshishijiantupian(person, joinToPerson.Name, "MaleSpouseJoin", "", "", false);
 
                     }
                     this.AvailablePersons.Add(person);
                     continue;
                 }
 
-
-                Architecture gameObject = this.Architectures.GetGameObject(person.AvailableLocation) as Architecture;
-
-                gameObject.AddNoFactionPerson(person);
-                this.AvailablePersons.Add(person);
+                person.LocationArchitecture = this.Architectures.GetGameObject(person.AvailableLocation) as Architecture;
+                person.Status = PersonStatus.NoFaction;
             }
             this.PreparedAvailablePersons.Clear();
         }
@@ -289,26 +299,13 @@
                 treasure.Available = true;
             }
 
-            this.AvailablePersons.Add(person);
-            if (muqin.suozaijianzhu != null) //only real feizi has this value, but muqin may not be feizi (female king)
+            person.LocationArchitecture = muqin.BelongedArchitecture;
+            person.ChangeFaction(muqin.BelongedFaction);
+            person.Status = PersonStatus.Normal;
+
+            if (GlobalVariables.lockChildrenLoyalty)
             {
-                muqin.suozaijianzhu.AddPerson(person);
-                person.ChangeFaction(muqin.suozaijianzhu.BelongedFaction);
-                if (GlobalVariables.lockChildrenLoyalty)
-                {
-                    person.Loyalty = 120;
-                }
-                //this.detectDuplication();
-            }
-            else
-            {
-                muqin.BelongedArchitecture.AddPerson(person);
-                person.ChangeFaction(muqin.BelongedFaction);
-                if (GlobalVariables.lockChildrenLoyalty)
-                {
-                    person.Loyalty = 120;
-                }
-                //this.detectDuplication();
+                person.Loyalty = 120;
             }
             if (doAffect)
             {
@@ -519,23 +516,21 @@
 
             Architecture newFactionCapital = leader.LocationArchitecture;
             Faction oldFaction = newFactionCapital.BelongedFaction;
+
             if (leader.BelongedFaction == null)
             {
-                newFactionCapital.RemoveNoFactionPerson(leader);
+                leader.Status = PersonStatus.Normal;
             }
             else
             {
-                newFactionCapital.BelongedFaction.RemovePerson(leader);
-                newFactionCapital.RemovePerson(leader);
                 this.ChangeDiplomaticRelation(newFaction.ID, newFactionCapital.BelongedFaction.ID, -500);
             }
+
             newFactionCapital.ResetFaction(newFaction);
             newFaction.Capital = newFactionCapital;
             newFaction.PrepareData();
             newFaction.AddArchitectureKnownData(newFactionCapital);
             newFaction.FirstSection.AddArchitecture(newFactionCapital);
-            newFactionCapital.AddPerson(leader);
-            newFaction.AddPerson(leader);
             newFactionCapital.CheckIsFrontLine();
             if (oldFaction != null && !GameObject.Chance((int) oldFaction.Leader.PersonalLoyalty * 10))
             {
@@ -543,7 +538,7 @@
             }
             foreach (Person p in this.AvailablePersons)
             {
-                if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.FeiZiLocationArchitecture==null)
+                if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.Status != PersonStatus.Princess)
                 {
                     if (p.Father == leader.ID || p.Mother == leader.ID || p.ID == leader.Father || p.ID == leader.Mother ||
                         (p.Father != -1 && p.Father == leader.Father) || (p.Mother != -1 && p.Mother == leader.Mother) ||
@@ -597,61 +592,6 @@
             {
                 this.OnNewFactionAppear(newFaction);
             }
-        }
-
-        public void CheckRepeatedPerson()
-        {
-            foreach (Person person in this.Persons)
-            {
-                int num = 0;
-                foreach (Architecture a in this.Architectures)
-                {
-                    //if (a != this)
-                    {
-                        if (a.Persons.GameObjects.Contains(person))
-                        {
-                            num++;
-                        }
-                        if (a.MovingPersons.GameObjects.Contains(person))
-                        {
-                            num++;
-                        }
-                        if (a.NoFactionPersons.GameObjects.Contains(person))
-                        {
-                            num++;
-                        }
-                        if (a.NoFactionMovingPersons.GameObjects.Contains(person))
-                        {
-                            num++;
-                        }
-
-
-
-                        foreach (Captive captive in a.Captives)
-                        {
-                            if (captive.CaptivePerson == person)
-                            {
-                                num++;
-                            }
-                        }
-
-                    }
-                }// end foreach (Architecture a in this.Architectures)
-
-                foreach (Troop troop in this.Troops)
-                {
-                    if (troop.Persons.GameObjects.Contains(person))
-                    {
-                        num++;
-                    }
-                }
-
-                if (num > 1&&person.ID!=7108)
-                {
-                    throw new Exception("error");
-                }
-            }// end foreach (Person person in this.Persons)
-
         }
 
         public void DayPassedEvent()
@@ -1635,19 +1575,6 @@
                 {
                     captive.RansomArchitecture = this.Architectures.GetGameObject(captive.RansomArchitectureID) as Architecture;
                 }
-                if ((captive.LocationArchitecture != null) && (captive.LocationArchitecture.BelongedFaction != null))
-                {
-                    captive.LocationArchitecture.BelongedFaction.AddCaptive(captive);
-                }
-                else if ((captive.LocationTroop != null) && (captive.LocationTroop.BelongedFaction != null))
-                {
-                    captive.LocationTroop.BelongedFaction.AddCaptive(captive);
-                }
-                if (captive.CaptiveFaction != null)
-                {
-                    captive.CaptiveFaction.AddPerson(captive.CaptivePerson);
-                    captive.CaptiveFaction.AddSelfCaptive(captive);
-                }
             }
         }
 
@@ -2017,8 +1944,7 @@
                 person.RewardFinished = (bool)reader["RewardFinished"];
                 person.WorkKind = (ArchitectureWorkKind)((short)reader["WorkKind"]);
                 person.OldWorkKind = (ArchitectureWorkKind)((short)reader["OldWorkKind"]);
-                person.TrainingMilitaryID = (short)reader["TrainingMilitaryID"];
-                person.RecruitmentMilitaryID = (short)reader["RecruitmentMilitaryID"];
+                person.RecruitmentMilitary = null;
                 person.ArrivingDays = (short)reader["ArrivingDays"];
                 person.TaskDays = (short)reader["TaskDays"];
                 person.OutsideTask = (OutsideTaskKind)((short)reader["OutsideTask"]);
@@ -2127,8 +2053,14 @@
                 military.FollowedLeaderID = (short)reader["FollowedLeaderID"];
                 military.LeaderID = (short)reader["LeaderID"];
                 military.LeaderExperience = (int)reader["LeaderExperience"];
-                military.TrainingPersonID = (short)reader["TrainingPersonID"];
-                military.RecruitmentPersonID = (short)reader["RecruitmentPersonID"];
+                int recruiter = (short)reader["RecruitmentPersonID"];
+                foreach (Person p in this.Persons)
+                {
+                    if (p.ID == recruiter)
+                    {
+                        p.RecruitmentMilitary = military;
+                    }
+                }
                 military.ShelledMilitaryID = (short)reader["ShelledMilitary"];
                 this.Militaries.AddMilitary(military);
             }
@@ -2762,74 +2694,6 @@
             }
         }
 
-        public void clearupRepeatedOfficers()
-        {
-            Dictionary<Person, Architecture> at = new Dictionary<Person, Architecture>();
-            for (int i = 0; i < 5; ++i){
-                Architecture a = this.Architectures[GameObject.Random(this.Architectures.Count)] as Architecture;
-                foreach (Person p in a.Persons)
-                {
-                    try
-                    {
-                        Architecture havePeopleAlready = at[p];
-                        if (havePeopleAlready != a)
-                        {
-                            a.Persons.Remove(p);
-                        }
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        at.Add(p, a);
-                    }
-                }
-                foreach (Person p in a.MovingPersons)
-                {
-                    try
-                    {
-                        Architecture havePeopleAlready = at[p];
-                        if (havePeopleAlready != a)
-                        {
-                            a.MovingPersons.Remove(p);
-                        }
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        at.Add(p, a);
-                    }
-                }
-                foreach (Person p in a.NoFactionPersons)
-                {
-                    try
-                    {
-                        Architecture havePeopleAlready = at[p];
-                        if (havePeopleAlready != a)
-                        {
-                            a.NoFactionPersons.Remove(p);
-                        }
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        at.Add(p, a);
-                    }
-                }
-                foreach (Person p in a.NoFactionMovingPersons)
-                {
-                    try
-                    {
-                        Architecture havePeopleAlready = at[p];
-                        if (havePeopleAlready != a)
-                        {
-                            a.NoFactionMovingPersons.Remove(p);
-                        }
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        at.Add(p, a);
-                    }
-                }
-            }
-        }
-
         public void MonthStartingEvent()
         {
         }
@@ -3434,8 +3298,8 @@
                     row["FollowedLeaderID"] = (military.FollowedLeader != null) ? military.FollowedLeader.ID : -1;
                     row["LeaderID"] = (military.Leader != null) ? military.Leader.ID : -1;
                     row["LeaderExperience"] = military.LeaderExperience;
-                    row["TrainingPersonID"] = military.TrainingPersonID;
-                    row["RecruitmentPersonID"] = military.RecruitmentPersonID;
+                    row["TrainingPersonID"] = -1;
+                    row["RecruitmentPersonID"] = military.RecruitmentPerson == null ? -1 : military.RecruitmentPerson.ID;
                     row["ShelledMilitary"] = (military.ShelledMilitary != null) ? military.ShelledMilitary.ID : -1;
                     row.EndEdit();
                     dataSet.Tables["Military"].Rows.Add(row);
@@ -3543,8 +3407,8 @@
                     row["RewardFinished"] = person.RewardFinished;
                     row["WorkKind"] = person.WorkKind;
                     row["OldWorkKind"] = person.OldWorkKind;
-                    row["TrainingMilitaryID"] = person.TrainingMilitaryID;
-                    row["RecruitmentMilitaryID"] = person.RecruitmentMilitaryID;
+                    row["TrainingMilitaryID"] = -1;
+                    row["RecruitmentMilitaryID"] = person.RecruitmentMilitary == null ? -1 : person.RecruitmentMilitary.ID;
                     row["ArrivingDays"] = person.ArrivingDays;
                     row["TaskDays"] = person.TaskDays;
                     row["OutsideTask"] = person.OutsideTask;
@@ -3760,81 +3624,84 @@
                 }
                 foreach (TerrainDetail t in this.GameCommonData.AllTerrainDetails.TerrainDetails.Values)
                 {
-                    foreach (Texture u in t.Textures.BasicTextures)
+                    if (t.Textures != null)
                     {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.BottomEdgeTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.BottomLeftCornerTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.BottomLeftTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.BottomRightCornerTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.BottomRightTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.BottomTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.CentreTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.LeftEdgeTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.LeftTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.RightEdgeTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.RightTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.LeftEdgeTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.TopEdgeTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.TopLeftCornerTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.TopLeftTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.TopRightCornerTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.TopRightTextures)
-                    {
-                        u.Dispose();
-                    }
-                    foreach (Texture u in t.Textures.TopTextures)
-                    {
-                        u.Dispose();
+                        foreach (Texture u in t.Textures.BasicTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.BottomEdgeTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.BottomLeftCornerTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.BottomLeftTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.BottomRightCornerTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.BottomRightTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.BottomTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.CentreTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.LeftEdgeTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.LeftTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.RightEdgeTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.RightTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.LeftEdgeTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.TopEdgeTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.TopLeftCornerTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.TopLeftTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.TopRightCornerTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.TopRightTextures)
+                        {
+                            u.Dispose();
+                        }
+                        foreach (Texture u in t.Textures.TopTextures)
+                        {
+                            u.Dispose();
+                        }
                     }
                     t.Textures = null;
                 }

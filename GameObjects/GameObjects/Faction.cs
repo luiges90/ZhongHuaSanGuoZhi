@@ -45,7 +45,6 @@
         public MilitaryKindTable BaseMilitaryKinds = new MilitaryKindTable();
         private Architecture capital;
         private int capitalID;
-        public CaptiveList Captives = new CaptiveList();
         public Dictionary<Point, object> ClosedRouteways = new Dictionary<Point, object>();
         private int colorIndex;
         private bool controlling;
@@ -105,7 +104,6 @@
         public float OffenceRateWhileCombatMethodOfQixie;
         public float OffenceRateWhileCombatMethodOfShuijun;
         private bool passed;
-        public PersonList Persons = new PersonList();
         public Technique PlanTechnique;
         public Architecture PlanTechniqueArchitecture;
         public List<int> PreferredTechniqueKinds = new List<int>();
@@ -124,7 +122,6 @@
         public int SecondTierXResidue = 0;
         public int SecondTierYResidue = 0;
         public SectionList Sections = new SectionList();
-        public CaptiveList SelfCaptives = new CaptiveList();
         public Dictionary<Point, object> SpyMessageCloseList = new Dictionary<Point, object>();
         public bool StopToControl;
         public MilitaryKindTable TechniqueMilitaryKinds = new MilitaryKindTable();
@@ -162,6 +159,55 @@
         {
             this.RoutewayPathBuilder.OnGetCost += new RoutewayPathFinder.GetCost(this.RoutewayPathBuilder_OnGetCost);
             this.RoutewayPathBuilder.OnGetPenalizedCost += new RoutewayPathFinder.GetPenalizedCost(this.RoutewayPathBuilder_OnGetPenalizedCost);
+        }
+
+        public PersonList Persons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if ((i.Status == GameObjects.PersonDetail.PersonStatus.Normal || i.Status == GameObjects.PersonDetail.PersonStatus.Moving) 
+                        && i.BelongedFaction == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public CaptiveList Captives
+        {
+            get
+            {
+                CaptiveList result = new CaptiveList();
+                foreach (Captive i in base.Scenario.Captives)
+                {
+                    if (i.BelongedFaction == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public CaptiveList SelfCaptives
+        {
+            get
+            {
+                CaptiveList result = new CaptiveList();
+                foreach (Captive i in base.Scenario.Captives)
+                {
+                    if (i.CaptiveFaction == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
         }
 
         public void AddArchitecture(Architecture architecture)
@@ -211,30 +257,6 @@
             }
         }
 
-        public void AddArchitectureMovingPersons(Architecture architecture)
-        {
-            foreach (Person person in architecture.MovingPersons)
-            {
-                this.AddPerson(person);
-            }
-        }
-
-
-
-        public void AddArchitecturePersons(Architecture architecture)
-        {
-            foreach (Person person in architecture.Persons)
-            {
-                this.AddPerson(person);
-            }
-        }
-
-        public void AddCaptive(Captive captive)
-        {
-            this.Captives.Add(captive);
-            captive.BelongedFaction = this;
-        }
-
         public void AddInformation(Information information)
         {
             this.Informations.AddInformation(information);
@@ -251,21 +273,6 @@
         {
             this.Militaries.AddMilitary(military);
             military.BelongedFaction = this;
-        }
-
-        public void AddPerson(Person person)
-        {
-            if (this.Persons.GameObjects.Contains(person)) return;
-            this.Persons.Add(person);
-            if (person.BelongedFaction != null)
-            {
-                if (person.BelongedFaction == this)
-                {
-                    return;
-                }
-                person.BelongedFaction.RemovePerson(person);
-            }
-            person.BelongedFaction = this;
         }
 
         public void AddPositionInformation(Point position, InformationLevel level)
@@ -302,11 +309,6 @@
         {
             this.Sections.Add(section);
             section.BelongedFaction = this;
-        }
-
-        public void AddSelfCaptive(Captive selfCaptive)
-        {
-            this.SelfCaptives.Add(selfCaptive);
         }
 
         public void AddTechniqueMilitaryKind(int kindID)
@@ -376,14 +378,6 @@
             else
             {
                 this.AddMilitary(troop.Army.ShelledMilitary);
-            }
-        }
-
-        public void AddTroopPersons(Troop troop)
-        {
-            foreach (Person person in troop.Persons)
-            {
-                this.AddPerson(person);
             }
         }
 
@@ -887,11 +881,6 @@
             {
                 troop.ChangeFaction(faction);
             }
-            foreach (Captive captive in this.SelfCaptives.GetList())
-            {
-                this.RemoveSelfCaptive(captive);
-                faction.AddSelfCaptive(captive);
-            }
             foreach (Section section in this.Sections.GetList())
             {
                 this.RemoveSection(section);
@@ -912,11 +901,7 @@
         {
             Person leader = this.Leader;
             Architecture locationArchitecture = this.Leader.LocationArchitecture;
-            if (this.Leader.LocationArchitecture!=null)
-            {
-                this.Leader.LocationArchitecture.RemovePerson(this.Leader);
-            }
-            this.RemovePerson(this.Leader);
+            this.Leader.Status = GameObjects.PersonDetail.PersonStatus.None;
             this.Leader.Available = false;
             //base.Scenario.Persons.Remove(this.Leader);
             base.Scenario.AvailablePersons.Remove(this.Leader);
@@ -1817,16 +1802,7 @@
                 if (gameObject != null)
                 {
                     this.AddArchitecture(gameObject);
-                    this.AddArchitecturePersons(gameObject);
-                    this.AddArchitectureMovingPersons(gameObject);
                     this.AddArchitectureMilitaries(gameObject);
-                    /*if (gameObject.feiziliebiao.Count > 0)
-                    {
-                        foreach (Person feizi in gameObject.feiziliebiao)
-                        {
-                            feizi.suoshurenwu = this.LeaderID;
-                        }
-                    }*/
                 }
             }
         }
@@ -1891,21 +1867,6 @@
             }
         }
 
-        public void LoadSelfCaptivesFromString(CaptiveList selfCaptives, string dataString)
-        {
-            char[] separator = new char[] { ' ', '\n', '\r' };
-            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            this.SelfCaptives.Clear();
-            foreach (string str in strArray)
-            {
-                Captive gameObject = selfCaptives.GetGameObject(int.Parse(str)) as Captive;
-                if (gameObject != null)
-                {
-                    this.AddSelfCaptive(gameObject);
-                }
-            }
-        }
-
         public void LoadTroopsFromString(TroopList troops, string dataString)
         {
             char[] separator = new char[] { ' ', '\n', '\r' };
@@ -1917,7 +1878,6 @@
                 if (gameObject != null)
                 {
                     this.AddTroop(gameObject);
-                    this.AddTroopPersons(gameObject);
                     this.AddTroopMilitary(gameObject);
                 }
             }
@@ -2115,7 +2075,6 @@
         {
             this.Architectures.Remove(architecture);
             architecture.BelongedFaction = null;
-            this.RemoveArchitecturePersons(architecture);
         }
 
         public void RemoveArchitectureKnownData(Architecture a)
@@ -2151,20 +2110,6 @@
             }
         }
 
-        public void RemoveArchitecturePersons(Architecture architecture)
-        {
-            foreach (Person person in architecture.Persons)
-            {
-                this.RemovePerson(person);
-            }
-        }
-
-        public void RemoveCaptive(Captive captive)
-        {
-            this.Captives.Remove(captive);
-            captive.BelongedFaction = null;
-        }
-
         public void RemoveInformation(Information information)
         {
             this.Informations.Remove(information);
@@ -2181,16 +2126,6 @@
         {
             this.Militaries.Remove(military);
             military.BelongedFaction = null;
-        }
-
-        public void RemovePerson(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                person.LocationArchitecture.RemovePersonFromWorkingList(person);
-            }
-            this.Persons.Remove(person);
-            person.BelongedFaction = null;
         }
 
         public void RemovePositionInformation(Point position, InformationLevel level)
@@ -2211,11 +2146,6 @@
         {
             this.Sections.Remove(section);
             section.BelongedFaction = null;
-        }
-
-        public void RemoveSelfCaptive(Captive selfCaptive)
-        {
-            this.SelfCaptives.Remove(selfCaptive);
         }
 
         public void RemoveTroop(Troop troop)
@@ -2246,14 +2176,6 @@
         public void RemoveTroopMilitary(Troop troop)
         {
             this.RemoveMilitary(troop.Army);
-        }
-
-        public void RemoveTroopPersons(Troop troop)
-        {
-            foreach (Person person in troop.Persons)
-            {
-                this.RemovePerson(person);
-            }
         }
 
         public bool adjacentTo(Faction f)

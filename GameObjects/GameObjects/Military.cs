@@ -343,16 +343,6 @@
             if (this.RecruitmentPerson != null)
             {
                 this.RecruitmentPerson.WorkKind = ArchitectureWorkKind.无;
-                this.RecruitmentPerson.StopRecruitment();
-            }
-        }
-
-        public void StopTraining()
-        {
-            if (this.TrainingPerson != null)
-            {
-                this.TrainingPerson.WorkKind = ArchitectureWorkKind.无;
-                this.TrainingPerson.StopTraining();
             }
         }
 
@@ -907,36 +897,14 @@
         {
             get
             {
-                if (this.recruitmentPersonID < 0) return null;
-                if (this.BelongedArchitecture == null)
+                foreach (Person p in base.Scenario.Persons)
                 {
-                    return this.recruitmentPerson;
-                }
-                if (this.recruitmentPerson == null)
-                {
-                    this.recruitmentPerson = this.BelongedArchitecture.Persons.GetGameObject(this.recruitmentPersonID) as Person;
-                    if (this.recruitmentPerson != null)
+                    if (p.RecruitmentMilitary == this)
                     {
-                        this.recruitmentPerson.RecruitmentMilitary = this;
+                        return p;
                     }
                 }
-                return this.recruitmentPerson;
-            }
-            set
-            {
-                this.recruitmentPerson = value;
-            }
-        }
-
-        public int RecruitmentPersonID
-        {
-            get
-            {
-                return this.recruitmentPersonID;
-            }
-            set
-            {
-                this.recruitmentPersonID = value;
+                return null;
             }
         }
 
@@ -973,43 +941,6 @@
             get
             {
                 return (this.Quantity + this.InjuryQuantity);
-            }
-        }
-
-        public Person TrainingPerson
-        {
-            get
-            {
-                if (this.trainingPersonID < 0) return null;
-                if (this.BelongedArchitecture == null)
-                {
-                    return this.trainingPerson;
-                }
-                if (this.trainingPerson == null)
-                {
-                    this.trainingPerson = this.BelongedArchitecture.Persons.GetGameObject(this.trainingPersonID) as Person;
-                    if (this.trainingPerson != null)
-                    {
-                        this.trainingPerson.TrainingMilitary = this;
-                    }
-                }
-                return this.trainingPerson;
-            }
-            set
-            {
-                this.trainingPerson = value;
-            }
-        }
-
-        public int TrainingPersonID
-        {
-            get
-            {
-                return this.trainingPersonID;
-            }
-            set
-            {
-                this.trainingPersonID = value;
             }
         }
 

@@ -1032,6 +1032,7 @@
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind2365.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind998.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind999.cs" />
+    <Compile Include="GameObjects\PersonDetail\PersonStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">

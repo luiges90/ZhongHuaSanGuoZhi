@@ -26,13 +26,6 @@
         public int CaptionID=0;
         //private bool shoudongluyongshibai=false;
         public  bool HasManualHire = false;
-        private PersonList agriculturePersons = new PersonList();  //AI使用
-        public PersonList AgricultureWorkingPersons = new PersonList();
-        private PersonList trainingPersons = new PersonList();  //AI使用
-        public PersonList TrainingWorkingPersons = new PersonList();
-        private PersonList zhenzaiPersons = new PersonList();   //AI使用
-        public PersonList zhenzaiWorkingPersons = new PersonList();
-        public PersonList feiziliebiao = new PersonList();
 
         public Dictionary<int, LinkNode> AIAllLinkNodes = new Dictionary<int, LinkNode>();
         public ArchitectureList AILandLinks = new ArchitectureList();
@@ -54,16 +47,12 @@
         private int buildingDaysLeft;
         private int buildingFacility = -1;
         public MilitaryList CampaignMilitaryList = new MilitaryList();
-        public CaptiveList Captives = new CaptiveList();
         public ArchitectureList ChangeCapitalArchitectureList = new ArchitectureList();
         public InfluenceTable Characteristics = new InfluenceTable();
         public ArchitectureList ClosestArchitectures;
         public int CombativityOfRecruitment = 50;
         private int commerce;
-        private PersonList commercePersons = new PersonList();
-        public PersonList CommerceWorkingPersons = new PersonList();
         private GameArea contactArea;
-        public PersonList ConvinceDestinationPersonList = new PersonList();
         public bool CriticalHostile;
         public bool DayAvoidInfluenceByBattle;
         public bool DayAvoidInternalDecrementOnBattle;
@@ -75,11 +64,7 @@
         public Legion DefensiveLegion;
         public int DefensiveLegionID;
         private int domination;
-        private PersonList dominationPersons = new PersonList();
-        public PersonList DominationWorkingPersons = new PersonList();
         private int endurance;
-        private PersonList endurancePersons = new PersonList();
-        public PersonList EnduranceWorkingPersons = new PersonList();
         public FacilityList Facilities = new FacilityList();
         private bool facilityEnabled;
         private int food;
@@ -121,23 +106,13 @@
         public MilitaryList Militaries = new MilitaryList();
         private int morale;
         public int MoraleOfRecruitment = 50;
-        private PersonList moralePersons = new PersonList();
-        public PersonList MoraleWorkingPersons = new PersonList();
-        public PersonList MovingPersons = new PersonList();
         public int MultipleOfRecovery = 1;
         public int MultipleOfTraining = 1;
         public MilitaryKindList NewMilitaryKindList = new MilitaryKindList();
         public bool NoCounterStrikeInArchitecture;
-        public PersonList NoFactionMovingPersons = new PersonList();
-        public PersonList NoFactionPersons = new PersonList();
         public bool orientationFrontLine;
         public ArchitectureList OtherArchitectureList = new ArchitectureList();
         private int PathRoutewayID = -1;
-        public PersonList PersonConveneList = new PersonList();
-        public PersonList Persons = new PersonList();
-        public PersonList PersonStudySkillList = new PersonList();
-        public PersonList PersonStudyStuntList = new PersonList();
-        public PersonList PersonStudyTitleList = new PersonList();
         public Architecture PlanArchitecture;
         public int PlanArchitectureID;
         public FacilityKind PlanFacilityKind;
@@ -179,7 +154,6 @@
         public int RecentlyAttacked;
         public int RecentlyBreaked;
         public MilitaryList RecruitmentMilitaryList = new MilitaryList();
-        private PersonList recruitmentPersons = new PersonList();
         public CaptiveList RedeemCaptiveList = new CaptiveList();
         public GameObjectList ResetDiplomaticRelationList = new GameObjectList();
         public PersonList RewardPersonList = new PersonList();
@@ -193,15 +167,11 @@
         internal List<SpyPack> SpyPacks = new List<SpyPack>();
         private float surplusRate;
         private int technology;
-        private PersonList technologyPersons = new PersonList();
-        public PersonList TechnologyWorkingPersons = new PersonList();
         public SpyMessage TodayNewMilitarySpyMessage;
         public SpyMessage TodayNewTroopSpyMessage;
         public int TotalFriendlyForce;
         public int TotalHostileForce;
         public MilitaryList TrainingMilitaryList = new MilitaryList();
-        
-
         public ArchitectureList TransferArchitectureList = new ArchitectureList();
         public Architecture TransferFoodArchitecture;
         public int TransferFoodArchitectureID;
@@ -209,7 +179,6 @@
         public int TransferFundArchitectureID;
         public bool TroopershipAvailable;
         private GameArea viewArea = null;
-        private MilitaryList weighingMilitaries = new MilitaryList();
         public zainanlei zainan = new zainanlei();
         public Texture2D CaptionTexture;
         public bool noFactionFrontline;
@@ -245,6 +214,230 @@
 
         public event RewardPersons OnRewardPersons;
 
+        public CaptiveList Captives
+        {
+            get
+            {
+                CaptiveList result = new CaptiveList();
+                foreach (Captive i in base.Scenario.Captives)
+                {
+                    if (i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList Persons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList MovingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Moving && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList NoFactionPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList NoFactionMovingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList feiziliebiao
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Princess && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList zhenzaiWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.赈灾 && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList AgricultureWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.农业 && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList CommerceWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.商业 && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList TechnologyWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.技术 && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList DominationWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.统治 && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList MoraleWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.民心 && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList EnduranceWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.耐久 && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList TrainingWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.训练 && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
         public MilitaryList ZhengzaiBuchongDeBiandui()
         {
             MilitaryList zhengzaiBuchongDeBiandui = new MilitaryList();
@@ -258,8 +451,6 @@
             return zhengzaiBuchongDeBiandui;
         }
 
-        
-        
         public int MilitaryPopulation
         {
             get
@@ -347,12 +538,6 @@
                 int type = BuildingFacility;
                 GameObjectList fkl = base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKindList();
 
-                if (this.FacilityPositionCount>0 && this.FacilityPositionLeft <= 0)
-                {
-                    return "已建满";
-                }
-                
-
                 foreach (FacilityKind i in fkl)
                 {
                     if (type == i.ID)
@@ -360,6 +545,12 @@
                         return i.Name;
                     }
                 }
+
+                if (this.FacilityPositionCount>0 && this.FacilityPositionLeft <= 0)
+                {
+                    return "已建满";
+                }
+
                 return this.FacilityPositionString ;
             }
         }
@@ -375,13 +566,6 @@
                     base.Scenario.MapTileData[point.X, point.Y].AddSupplyingArchitecture(this);
                 }
             }
-        }
-
-        public void AddCaptive(Captive captive)
-        {
-            this.Captives.Add(captive);
-            captive.LocationArchitecture = this;
-            //captive.CaptivePerson.LocationArchitecture = this;
         }
 
         private void AddCloseRoutewayDestinationArchitectures(Architecture a, float previousrate)
@@ -445,307 +629,6 @@
         {
             this.Militaries.AddMilitary(military);
             military.BelongedArchitecture = this;
-        }
-
-        public void AddNoFactionPerson(Person person)
-        {
-            if (person.BelongedFaction != null)
-            {
-                return;
-                //throw new Exception("人物已经属于某势力。一般是由于剧本设计中没有把某势力人物的Available属性设置为True。");
-            }
-
-            if (this.NoFactionPersons.GameObjects.Contains(person)) return;
-
-            this.NoFactionPersons.Add(person);
-
-            /*
-            if (this.NoFactionPersons.GameObjects.Contains(person))
-            {
-                throw new Exception("zhege jianzhu yijing you zhege ren le");
-
-            }
-
-            else
-            {
-                this.NoFactionPersons.Add(person);
-
-            }
-            */
-
-
-            person.LocationArchitecture = this;
-
-
-            //this.CheckRepeatedPerson(person);
-
-        }
-
-
-        internal  void StartAddPerson(Person person)  //开始时建筑添加人物，和AddPerson功能一样，但不添加工作
-        {
-            if (this.Persons.GameObjects.Contains(person)) return;
-
-            this.Persons.Add(person);
-
-            if (person.LocationArchitecture != null)
-            {
-                person.LocationArchitecture.RemovePerson(person);
-            }
-
-            person.LocationArchitecture = this;
-            /*
-            if (person.OldWorkKind != ArchitectureWorkKind.无)
-            {
-                this.AddPersonToWorkingList(person, person.OldWorkKind);
-            }
-            */
-
-
-
-        }
-
-        public void AddPerson(Person person)
-        {
-            if (this.Persons.GameObjects.Contains(person)) return;
-
-            this.Persons.Add(person);
-            /*
-            if (this.Persons.GameObjects.Contains(person))
-            {
-                throw new Exception("zhege jianzhu yijing you zhege ren le");
-            }
-            else
-            {
-                this.Persons.Add(person);
-
-            }
-            */
-
-
-            person.LocationArchitecture = this;
-
-
-
-            if (person.OldWorkKind != ArchitectureWorkKind.无)
-            {
-                this.AddPersonToWorkingList(person, person.OldWorkKind);
-            }
-            /*
-            if ((person.LocationArchitecture != null) && (person.LocationArchitecture != this))
-            {
-                person.LocationArchitecture.RemovePerson(person);
-            }
-            */
-
-            //this.CheckRepeatedPerson(person);
-
-            person.ApplyArchitectureInfluence();
-            person.ApplyFactionInfluence();
-            person.ApplySkills();
-            person.ApplyTitles();
-
-        }
-
-
-        private void CheckRepeatedPerson(Person person)
-        {
-           
-            foreach (Architecture a in base.Scenario.Architectures)
-            {
-                if (a != this)
-                {
-                    if (a.Persons.GameObjects.Contains(person))
-                    {
-                        throw new Exception("1");
-                    }
-                    else if (a.MovingPersons.GameObjects.Contains(person))
-                    {
-                        throw new Exception("2");
-                    }
-                    else if (a.NoFactionPersons.GameObjects.Contains(person))
-                    {
-                        throw new Exception("3");
-                    }
-                    else if (a.NoFactionMovingPersons.GameObjects.Contains(person))
-                    {
-                        throw new Exception("4");
-                    }
-
-
-
-                    foreach (Captive captive in a.Captives)
-                    {
-                        if (captive.CaptivePerson == person)
-                        {
-                            throw new Exception("captive");
-                        }
-                    }
-                            
-                }
-
-
-            }
-
-        }
-        /*    发现和RemovePersonFromWorkingList重复
-        public void removeAllWorkKind(Person person)
-        {
-            person.OldWorkKind = person.WorkKind;
-            this.zhenzaiWorkingPersons.Remove(person);
-            this.AgricultureWorkingPersons.Remove(person);
-            this.TrainingWorkingPersons.Remove(person);
-            this.CommerceWorkingPersons.Remove(person);
-            this.TechnologyWorkingPersons.Remove(person);
-            this.DominationWorkingPersons.Remove(person);
-            this.MoraleWorkingPersons.Remove(person);
-            this.EnduranceWorkingPersons.Remove(person);
-            //person.StopTraining();
-            person.StopRecruitment();
-            person.WorkKind = ArchitectureWorkKind.无;
-        }
-        */
-
-        public void RemovePersonFromWorkingList(Person person)
-        {
-            person.OldWorkKind = person.WorkKind;
-            this.zhenzaiWorkingPersons.Remove(person);
-            this.AgricultureWorkingPersons.Remove(person);
-            this.CommerceWorkingPersons.Remove(person);
-            this.TechnologyWorkingPersons.Remove(person);
-            this.DominationWorkingPersons.Remove(person);
-            this.MoraleWorkingPersons.Remove(person);
-            this.EnduranceWorkingPersons.Remove(person);
-            this.TrainingWorkingPersons.Remove(person);
-            //person.StopTraining();
-            person.StopRecruitment();
-            person.WorkKind = ArchitectureWorkKind.无;
-        }
-
-
-
-        public void AddPersonToAgricultureWorkingList(Person person)
-        {
-            RemovePersonFromWorkingList(person);
-            
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            this.AgricultureWorkingPersons.Add(person);
-            person.WorkKind = ArchitectureWorkKind.农业;
-        }
-
-        public void AddPersonToTrainingWorkingList(Person person)
-        {
-            RemovePersonFromWorkingList(person);
-
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            this.TrainingWorkingPersons.Add(person);
-            person.WorkKind = ArchitectureWorkKind.训练;
-        }
-
-        public void AddPersonTozhenzaiWorkingList(Person person)
-        {
-            RemovePersonFromWorkingList(person);
-            
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            this.zhenzaiWorkingPersons.Add(person);
-            person.WorkKind = ArchitectureWorkKind.赈灾;
-        }
-        public void AddPersonToCommerceWorkingList(Person person)
-        {
-            RemovePersonFromWorkingList(person);
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            person.WorkKind = ArchitectureWorkKind.商业;
-            this.CommerceWorkingPersons.Add(person);
-        }
-
-        public void AddPersonToDominationWorkingList(Person person)
-        {
-            RemovePersonFromWorkingList(person);
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            person.WorkKind = ArchitectureWorkKind.统治;
-            this.DominationWorkingPersons.Add(person);
-        }
-
-        public void AddPersonToEnduranceWorkingList(Person person)
-        {
-            RemovePersonFromWorkingList(person);
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            person.WorkKind = ArchitectureWorkKind.耐久;
-            this.EnduranceWorkingPersons.Add(person);
-        }
-
-        public void AddPersonToMoraleWorkingList(Person person)
-        {
-            RemovePersonFromWorkingList(person);
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            person.WorkKind = ArchitectureWorkKind.民心;
-            this.MoraleWorkingPersons.Add(person);
-        }
-
-        public void AddPersonToRecuitmentWork(Person person, Military military)
-        {
-            RemovePersonFromWorkingList(person);
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            person.WorkKind = ArchitectureWorkKind.补充;
-            military.StopTraining();
-            military.StopRecruitment();
-            person.RecruitmentMilitaryID = military.ID;
-            person.RecruitmentMilitary = military;
-            military.RecruitmentPersonID = person.ID;
-            military.RecruitmentPerson = person;
-        }
-
-
-
-        public void AddPersonToTechnologyWorkingList(Person person)
-        {
-            RemovePersonFromWorkingList(person);
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            person.WorkKind = ArchitectureWorkKind.技术;
-            this.TechnologyWorkingPersons.Add(person);
-        }
-
-        public void AddPersonToTrainingWork(Person person, Military military)
-        {
-            RemovePersonFromWorkingList(person);
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            person.WorkKind = ArchitectureWorkKind.训练;
-            military.StopTraining();
-            military.StopRecruitment();
-            person.TrainingMilitaryID = military.ID;
-            person.TrainingMilitary = military;
-            military.TrainingPersonID = person.ID;
-            military.TrainingPerson = person;
         }
 
         private void AddPersonToTroop(Troop t)
@@ -839,42 +722,6 @@
                     }
                 }
                 if (personCnt >= 5) break;
-            }
-        }
-
-        public void AddPersonToWorkingList(Person person, ArchitectureWorkKind workKind)
-        {
-            switch (workKind)
-            {
-                case ArchitectureWorkKind.训练 :
-                    this.AddPersonToTrainingWorkingList(person);
-                    break;
-                case ArchitectureWorkKind.赈灾 :
-                    this.AddPersonTozhenzaiWorkingList(person);
-                    break;
-                case ArchitectureWorkKind.农业:
-                    this.AddPersonToAgricultureWorkingList(person);
-                    break;
-
-                case ArchitectureWorkKind.商业:
-                    this.AddPersonToCommerceWorkingList(person);
-                    break;
-
-                case ArchitectureWorkKind.技术:
-                    this.AddPersonToTechnologyWorkingList(person);
-                    break;
-
-                case ArchitectureWorkKind.统治:
-                    this.AddPersonToDominationWorkingList(person);
-                    break;
-
-                case ArchitectureWorkKind.民心:
-                    this.AddPersonToMoraleWorkingList(person);
-                    break;
-
-                case ArchitectureWorkKind.耐久:
-                    this.AddPersonToEnduranceWorkingList(person);
-                    break;
             }
         }
 
@@ -2015,10 +1862,23 @@
             }
             this.StopAllWork();
             if (this.Fund < 100) return;
+
+            PersonList zhenzaiPersons = new PersonList();
+            PersonList agriculturePersons = new PersonList();
+            PersonList commercePersons = new PersonList();
+            PersonList technologyPersons = new PersonList();
+            PersonList dominationPersons = new PersonList();
+            PersonList moralePersons = new PersonList();
+            PersonList endurancePersons = new PersonList();
+            PersonList trainingPersons = new PersonList();
+            PersonList recruitmentPersons = new PersonList();
+            MilitaryList weighingMilitaries = new MilitaryList();
+
             if ((forPlayer || ((this.PlanArchitecture == null) || GameObject.Chance(10))) && this.HasPerson())
             {
                 int num;
-                this.ReSortAllWeighingList();
+                this.ReSortAllWeighingList(zhenzaiPersons, agriculturePersons, commercePersons, technologyPersons, dominationPersons,
+                                        moralePersons, endurancePersons, recruitmentPersons, trainingPersons, weighingMilitaries);
                 bool isFundAbundant = this.IsFundAbundant;
                 if (this.Fund < ((100 * this.AreaCount) + ((30 - base.Scenario.Date.Day) * this.FacilityMaintenanceCost)))
                 {
@@ -2028,11 +1888,10 @@
                         trainingMilitaryList.IsNumber = true;
                         trainingMilitaryList.PropertyName = "Weighing";
                         trainingMilitaryList.ReSort();
-                        GameObjectList maxObjects = this.trainingPersons.GetMaxObjects(trainingMilitaryList.Count);
+                        GameObjectList maxObjects = trainingPersons.GetMaxObjects(trainingMilitaryList.Count);
                         for (num = 0; num < maxObjects.Count; num++)
                         {
-                            //this.AddPersonToTrainingWork(maxObjects[num] as Person, trainingMilitaryList[num] as Military);
-                            this.AddPersonToTrainingWorkingList(maxObjects[num] as Person);
+                            (maxObjects[num] as Person).WorkKind = ArchitectureWorkKind.训练;
                         }
                     }
                     int num2 = 0;
@@ -2052,29 +1911,17 @@
                     {
                         for (num = 0; num < (this.Persons.Count - trainingMilitaryList.Count); num += num2)
                         {
-                            foreach (Person person in this.dominationPersons)
+                            foreach (Person person in dominationPersons)
                             {
-                                if (person.WorkKind == ArchitectureWorkKind.无)
-                                {
-                                    this.AddPersonToDominationWorkingList(person);
-                                    break;
-                                }
+                                person.WorkKind = ArchitectureWorkKind.统治;
                             }
-                            foreach (Person person in this.endurancePersons)
+                            foreach (Person person in endurancePersons)
                             {
-                                if (person.WorkKind == ArchitectureWorkKind.无)
-                                {
-                                    this.AddPersonToEnduranceWorkingList(person);
-                                    break;
-                                }
+                                person.WorkKind = ArchitectureWorkKind.耐久;
                             }
-                            foreach (Person person in this.moralePersons)
+                            foreach (Person person in moralePersons)
                             {
-                                if (person.WorkKind == ArchitectureWorkKind.无)
-                                {
-                                    this.AddPersonToMoraleWorkingList(person);
-                                    break;
-                                }
+                                person.WorkKind = ArchitectureWorkKind.民心;
                             }
                         }
                     }
@@ -2248,84 +2095,84 @@
                                 switch (rate.workKind)
                                 {
                                     case ArchitectureWorkKind.农业:
-                                        foreach (Person person in this.agriculturePersons)
+                                        foreach (Person person in agriculturePersons)
                                         {
                                             if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.AgricultureAbility >= (120 + (this.AreaCount * 5)))))
                                             {
-                                                this.AddPersonToAgricultureWorkingList(person);
+                                                person.WorkKind = ArchitectureWorkKind.农业;
                                                 break;
                                             }
                                         }
                                         break;
 
                                     case ArchitectureWorkKind.商业:
-                                        foreach (Person person in this.commercePersons)
+                                        foreach (Person person in commercePersons)
                                         {
                                             if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.CommerceAbility >= (120 + (this.AreaCount * 5)))))
                                             {
-                                                this.AddPersonToCommerceWorkingList(person);
+                                                person.WorkKind = ArchitectureWorkKind.商业;
                                                 break;
                                             }
                                         }
                                         break;
 
                                     case ArchitectureWorkKind.技术:
-                                        foreach (Person person in this.technologyPersons)
+                                        foreach (Person person in technologyPersons)
                                         {
                                             if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.TechnologyAbility >= (120 + (this.AreaCount * 5)))))
                                             {
-                                                this.AddPersonToTechnologyWorkingList(person);
+                                                person.WorkKind = ArchitectureWorkKind.技术;
                                                 break;
                                             }
                                         }
                                         break;
 
                                     case ArchitectureWorkKind.统治:
-                                        foreach (Person person in this.dominationPersons)
+                                        foreach (Person person in dominationPersons)
                                         {
                                             if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.DominationAbility >= (120 + (this.AreaCount * 5)))))
                                             {
-                                                this.AddPersonToDominationWorkingList(person);
+                                                person.WorkKind = ArchitectureWorkKind.统治;
                                                 break;
                                             }
                                         }
                                         break;
 
                                     case ArchitectureWorkKind.民心:
-                                        foreach (Person person in this.moralePersons)
+                                        foreach (Person person in moralePersons)
                                         {
                                             if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.MoraleAbility >= (120 + (this.AreaCount * 5)))))
                                             {
-                                                this.AddPersonToMoraleWorkingList(person);
+                                                person.WorkKind = ArchitectureWorkKind.民心;
                                                 break;
                                             }
                                         }
                                         break;
 
                                     case ArchitectureWorkKind.耐久:
-                                        foreach (Person person in this.endurancePersons)
+                                        foreach (Person person in endurancePersons)
                                         {
                                             if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.EnduranceAbility >= (120 + (this.AreaCount * 5)))))
                                             {
-                                                this.AddPersonToEnduranceWorkingList(person);
+                                                person.WorkKind = ArchitectureWorkKind.耐久;
                                                 break;
                                             }
                                         }
                                         break;
 
                                     case ArchitectureWorkKind.赈灾:
-                                        foreach (Person person in this.zhenzaiPersons)
+                                        foreach (Person person in zhenzaiPersons)
                                         {
                                             if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.zhenzaiAbility >= (120 + (this.AreaCount * 5)))))
                                             {
-                                                this.AddPersonTozhenzaiWorkingList(person);
+                                                person.WorkKind = ArchitectureWorkKind.赈灾;
                                                 break;
                                             }
                                         }
                                         break;
 
                                     case ArchitectureWorkKind.训练:
-                                        foreach (Person person in this.trainingPersons)
+                                        foreach (Person person in trainingPersons)
                                         {
                                             if (person.WorkKind == ArchitectureWorkKind.无)
                                             {
@@ -2335,10 +2182,9 @@
                                                 list4.ReSort();
                                                 foreach (Military military in list4)
                                                 {
-                                                    if (military.RecruitmentPersonID < 0 && military.TrainingPersonID < 0)
+                                                    if (military.RecruitmentPerson == null)
                                                     {
-                                                        //this.AddPersonToTrainingWork(person, military);
-                                                        this.AddPersonToTrainingWorkingList(person);
+                                                        person.WorkKind = ArchitectureWorkKind.训练;
                                                         break;
                                                     }
                                                 }
@@ -2348,7 +2194,7 @@
                                         break;
 
                                     case ArchitectureWorkKind.补充:
-                                        foreach (Person person in this.recruitmentPersons)
+                                        foreach (Person person in recruitmentPersons)
                                         {
                                             if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.RecruitmentAbility >= 120)))
                                             {
@@ -2360,7 +2206,7 @@
                                                     {
                                                         if (military.KindID == 29)
                                                         {
-                                                            this.AddPersonToRecuitmentWork(person, military);
+                                                            person.RecruitMilitary(military);
                                                             recruited = true;
                                                             break;
                                                         }
@@ -2374,9 +2220,9 @@
                                                         recruitmentMilitaryList.ReSort();
                                                         foreach (Military military in recruitmentMilitaryList)
                                                         {
-                                                            if (military.TrainingPersonID < 0 && military.RecruitmentPersonID < 0)
+                                                            if (military.RecruitmentPerson == null)
                                                             {
-                                                                this.AddPersonToRecuitmentWork(person, military);
+                                                                person.RecruitMilitary(military);
                                                                 break;
                                                             }
                                                         }
@@ -2487,7 +2333,7 @@
 
                                 if ((((this.Population != 0) && (!GlobalVariables.PopulationRecruitmentLimit || (this.ArmyQuantity <= this.Population))) && ((this.Fund >= (Parameters.RecruitmentFundCost * this.AreaCount)) && (this.Domination >= Parameters.RecruitmentDomination))) && (((this.Morale >= Parameters.RecruitmentMorale) && ((transportTeam.RecruitmentPerson != null) && (transportTeam.RecruitmentPerson.BelongedFaction != null))) && (transportTeam.Quantity < transportTeam.Kind.MaxScale)))
                                 {
-                                    this.AddPersonToRecuitmentWork(recruitTransportPerson, transportTeam);
+                                    recruitTransportPerson.RecruitMilitary(transportTeam);
                                 }
                             }
                         }
@@ -4511,7 +4357,7 @@
                         military3.SetShelledMilitary(military);
                         military2 = military3;
                     }*/
-                    if ((military2.FollowedLeader != null) && this.Persons.HasGameObject(military2.FollowedLeader) && military2.FollowedLeader.WaitForFeiZi == null)
+                    if ((military2.FollowedLeader != null) && this.Persons.HasGameObject(military2.FollowedLeader) && military2.FollowedLeader.WaitForFeiZi == null && military2.FollowedLeader.LocationTroop == null)
                     {
                         list2 = new PersonList();
                         list2.Add(military2.FollowedLeader);
@@ -4522,7 +4368,7 @@
                         continue;
                     }
                     if ((((military2.Leader != null) && (military2.LeaderExperience >= 10)) && (((military2.Leader.Strength >= 80) || (military2.Leader.Command >= 80)) || military2.Leader.HasLeaderValidCombatTitle)) 
-                        && this.Persons.HasGameObject(military2.Leader) && military2.Leader.WaitForFeiZi == null)
+                        && this.Persons.HasGameObject(military2.Leader) && military2.Leader.WaitForFeiZi == null && military2.Leader.LocationTroop == null)
                     {
                         list2 = new PersonList();
                         list2.Add(military2.Leader);
@@ -4534,7 +4380,7 @@
                     }
                     foreach (Person person in this.Persons)
                     {
-                        if (!person.Selected && (person.Command >= 40) && person.WaitForFeiZi == null)
+                        if (!person.Selected && (person.Command >= 40) && person.WaitForFeiZi == null && person.LocationTroop == null)
                         {
                             list2 = new PersonList();
                             list2.Add(person);
@@ -4799,18 +4645,6 @@
                         this.BelongedFaction.RemoveRouteway(routeway);
                     }
                 }
-                foreach (Person person in this.Persons)
-                {
-                    this.BelongedFaction.RemovePerson(person);
-                }
-                foreach (Person person in this.MovingPersons)
-                {
-                    this.BelongedFaction.RemovePerson(person);
-                }
-                foreach (Captive captive in this.Captives)
-                {
-                    this.BelongedFaction.RemoveCaptive(captive);
-                }
                 foreach (Military military in this.Militaries)
                 {
                     this.BelongedFaction.RemoveMilitary(military);
@@ -4819,23 +4653,12 @@
                 this.BelongedFaction = null;
                 faction.AddArchitecture(this);
                 faction.AddArchitectureKnownData(this);
-                faction.AddArchitecturePersons(this);
-                foreach (Person person in this.MovingPersons)
-                {
-                    faction.AddPerson(person);
-                }
                 foreach (Captive captive in this.Captives.GetList())
                 {
                     if (captive.CaptiveFaction == faction)
                     {
+                        captive.CaptivePerson.Status = PersonStatus.Normal;
                         captive.CaptivePerson.BelongedCaptive = null;
-                        this.RemoveCaptive(captive);
-                        captive.CaptiveFaction.RemoveSelfCaptive(captive);
-                        base.Scenario.Captives.Remove(captive);
-                    }
-                    else
-                    {
-                        faction.AddCaptive(captive);
                     }
                 }
                 this.InformationCoolDown = 0;
@@ -5071,45 +4894,26 @@
 
         private void ClearWork()
         {
-            PersonList renwuliebiao = new PersonList();
-
             if (this.Agriculture >= this.AgricultureCeiling)
             {
-
                 foreach (Person person in this.AgricultureWorkingPersons)
                 {
-                    renwuliebiao.Add(person);
+                    person.WorkKind = ArchitectureWorkKind.无;
                 }
-                foreach (Person person in renwuliebiao)
-                {
-                    this.RemovePersonFromWorkingList(person);
-                }
-                renwuliebiao.Clear();
             }
             if (this.Commerce >= this.CommerceCeiling)
             {
                 foreach (Person person in this.CommerceWorkingPersons)
                 {
-                    renwuliebiao.Add(person);
+                    person.WorkKind = ArchitectureWorkKind.无;
                 }
-
-                foreach (Person person in renwuliebiao )
-                {
-                    this.RemovePersonFromWorkingList(person);
-                }
-                renwuliebiao.Clear();
             }
             if (this.Technology >= this.TechnologyCeiling)
             {
                 foreach (Person person in this.TechnologyWorkingPersons)
                 {
-                    renwuliebiao.Add(person);
+                    person.WorkKind = ArchitectureWorkKind.无;
                 }
-                foreach (Person person in renwuliebiao)
-                {
-                    this.RemovePersonFromWorkingList(person);
-                }
-                renwuliebiao.Clear();
             }
             /*        统治到顶时不停止工作
             if (this.Domination >= this.DominationCeiling)
@@ -5125,35 +4929,19 @@
             {
                 foreach (Person person in this.MoraleWorkingPersons)
                 {
-                    renwuliebiao.Add(person);
+                    person.WorkKind = ArchitectureWorkKind.无;
                 }
-                foreach (Person person in renwuliebiao)
-                {
-                    this.RemovePersonFromWorkingList(person);
-                }
-                renwuliebiao.Clear();
             }
             if (this.Endurance >= this.EnduranceCeiling)
             {
                 foreach (Person person in this.EnduranceWorkingPersons)
                 {
-                    renwuliebiao.Add(person);
+                    person.WorkKind = ArchitectureWorkKind.无;
                 }
-                foreach (Person person in renwuliebiao)
-                {
-                    this.RemovePersonFromWorkingList(person);
-                }
-                renwuliebiao.Clear();
             }
             
             foreach (Military military in this.Militaries)
             {
-                /*
-                if ((military.Morale >= military.MoraleCeiling) && (military.Combativity >= military.CombativityCeiling))
-                {
-                    military.StopTraining();
-                    
-                }*/
                 if (military.Quantity >= military.Kind.MaxScale||this.Domination<50||this.Morale<100)
                 {
                     military.StopRecruitment();
@@ -5161,19 +4949,12 @@
                 }
             }
 
-
             if (suoyouJunduiDouYijingXunlianHao())
             {
-
-                foreach (Person person in this.TrainingWorkingPersons )
+                foreach (Person person in this.TrainingWorkingPersons)
                 {
-                    renwuliebiao.Add(person);
+                    person.WorkKind = ArchitectureWorkKind.无;
                 }
-                foreach (Person person in renwuliebiao)
-                {
-                    this.RemovePersonFromWorkingList(person);
-                }
-                renwuliebiao.Clear();
             }
 
         }
@@ -5521,17 +5302,10 @@
 
         public void tingzhizhenzai()
         {
-            PersonList renwuliebiao = new PersonList();
-
             foreach (Person person in this.zhenzaiWorkingPersons)
             {
-                renwuliebiao.Add(person);
+                person.WorkKind = ArchitectureWorkKind.无;
             }
-            foreach (Person person in renwuliebiao)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            renwuliebiao.Clear();
         }
 
         private void zainanshijian()
@@ -5861,7 +5635,7 @@
                             if ((isBesideWater || (military.Kind.Type != MilitaryType.水军)) && (((((this.Endurance < 30) || military.Kind.AirOffence) || (military.Scales >= 2)) && (military.Morale > 0x2d)) && ((this.Endurance < 30) || (military.InjuryQuantity < military.Kind.MinScale))))
                             {
                                 PersonList list5;
-                                if ((military.FollowedLeader != null) && this.Persons.HasGameObject(military.FollowedLeader))
+                                if ((military.FollowedLeader != null) && this.Persons.HasGameObject(military.FollowedLeader) && military.FollowedLeader.LocationTroop == null)
                                 {
                                     list5 = new PersonList();
                                     list5.Add(military.FollowedLeader);
@@ -5871,7 +5645,7 @@
                                 }
                                 else
                                 {
-                                    if ((((military.Leader != null) && (military.LeaderExperience >= 10)) && (((military.Leader.Strength >= 80) || (military.Leader.Command >= 80)) || military.Leader.HasLeaderValidCombatTitle)) && this.Persons.HasGameObject(military.Leader))
+                                    if ((((military.Leader != null) && (military.LeaderExperience >= 10)) && (((military.Leader.Strength >= 80) || (military.Leader.Command >= 80)) || military.Leader.HasLeaderValidCombatTitle)) && this.Persons.HasGameObject(military.Leader) && military.Leader.LocationTroop == null)
                                     {
                                         list5 = new PersonList();
                                         list5.Add(military.Leader);
@@ -5883,7 +5657,7 @@
                                     }
                                     foreach (Person person in this.Persons)
                                     {
-                                        if (!person.Selected)
+                                        if (!person.Selected && person.LocationTroop == null)
                                         {
                                             list5 = new PersonList();
                                             list5.Add(person);
@@ -5971,7 +5745,7 @@
                                 if (((i.Kind == LinkKind.Land && military.Kind.Type != MilitaryType.水军) || i.Kind == LinkKind.Water) && (military.Morale > 90) && (military.InjuryQuantity < military.Kind.MinScale))
                                 {
                                     PersonList list5;
-                                    if ((military.FollowedLeader != null) && i.A.Persons.HasGameObject(military.FollowedLeader))
+                                    if ((military.FollowedLeader != null) && i.A.Persons.HasGameObject(military.FollowedLeader) && military.FollowedLeader.LocationTroop == null)
                                     {
                                         list5 = new PersonList();
                                         list5.Add(military.FollowedLeader);
@@ -5981,7 +5755,7 @@
                                     }
                                     else
                                     {
-                                        if ((((military.Leader != null) && (military.LeaderExperience >= 10)) && (((military.Leader.Strength >= 80) || (military.Leader.Command >= 80)) || military.Leader.HasLeaderValidCombatTitle)) && i.A.Persons.HasGameObject(military.Leader))
+                                        if ((((military.Leader != null) && (military.LeaderExperience >= 10)) && (((military.Leader.Strength >= 80) || (military.Leader.Command >= 80)) || military.Leader.HasLeaderValidCombatTitle)) && i.A.Persons.HasGameObject(military.Leader) && military.Leader.LocationTroop == null)
                                         {
                                             list5 = new PersonList();
                                             list5.Add(military.Leader);
@@ -5992,7 +5766,7 @@
                                         }
                                         foreach (Person person in i.A.Persons)
                                         {
-                                            if (!person.Selected)
+                                            if (!person.Selected && person.LocationTroop == null)
                                             {
                                                 list5 = new PersonList();
                                                 list5.Add(person);
@@ -6970,24 +6744,26 @@
             return null;
         }
 
+        public PersonList ConvinceDestinationPersonList = new PersonList();
         public PersonList GetConvinceDestinationPersonList(Faction faction)
         {
-            this.ConvinceDestinationPersonList.Clear();
+            PersonList result = new PersonList();
             if (this.BelongedFaction == faction)
             {
                 foreach (Captive captive in this.Captives)
                 {
-                    this.ConvinceDestinationPersonList.Add(captive.CaptivePerson);
+                    result.Add(captive.CaptivePerson);
                 }
             }
             else
             {
                 foreach (Person person in this.Persons)
                 {
-                    this.ConvinceDestinationPersonList.Add(person);
+                    result.Add(person);
                 }
             }
-            return this.ConvinceDestinationPersonList;
+            ConvinceDestinationPersonList = result;
+            return result;
         }
 
         public GameArea GetPersonTransferArchitectureArea()
@@ -7551,20 +7327,22 @@
             return jianzhuliebiao ;
         }
 
+        public PersonList PersonConveneList = new PersonList();
         public PersonList GetPersonConveneList()
         {
-            this.PersonConveneList.Clear();
+            PersonList result = new PersonList();
             foreach (Architecture architecture in this.BelongedFaction.Architectures)
             {
                 if (architecture != this)
                 {
                     foreach (Person person in architecture.Persons)
                     {
-                        this.PersonConveneList.Add(person);
+                        result.Add(person);
                     }
                 }
             }
-            return this.PersonConveneList;
+            PersonConveneList = result;
+            return result;
         }
 
         public PersonList GetPersonListExceptLeader()
@@ -7583,43 +7361,49 @@
             return list;
         }
 
+        public PersonList PersonStudySkillList = new PersonList();
         public PersonList GetPersonStudySkillList()
         {
-            this.PersonStudySkillList.Clear();
+            PersonList result = new PersonList();
             foreach (Person person in this.Persons)
             {
                 if (person.HasLearnableSkill)
                 {
-                    this.PersonStudySkillList.Add(person);
+                    result.Add(person);
                 }
             }
-            return this.PersonStudySkillList;
+            PersonStudySkillList = result;
+            return result;
         }
 
+        public PersonList PersonStudyStuntList = new PersonList();
         public PersonList GetPersonStudyStuntList()
         {
-            this.PersonStudyStuntList.Clear();
+            PersonList result = new PersonList();
             foreach (Person person in this.Persons)
             {
                 if (person.HasLearnableStunt)
                 {
-                    this.PersonStudyStuntList.Add(person);
+                    result.Add(person);
                 }
             }
-            return this.PersonStudyStuntList;
+            PersonStudyStuntList = result;
+            return result;
         }
 
+        public PersonList PersonStudyTitleList = new PersonList();
         public PersonList GetPersonStudyTitleList()
         {
-            this.PersonStudyTitleList.Clear();
+            PersonList result = new PersonList();
             foreach (Person person in this.Persons)
             {
                 if (person.HasLearnableTitle)
                 {
-                    this.PersonStudyTitleList.Add(person);
+                    result.Add(person);
                 }
             }
-            return this.PersonStudyTitleList;
+            PersonStudyTitleList = result;
+            return result;
         }
 
         public GameArea GetRealTroopEnterableArea(Troop troop)
@@ -8410,8 +8194,7 @@
             }
             foreach (Person person in personList)
             {
-                this.RemoveNoFactionPerson(person);
-                this.AddPerson(person);
+                person.Status = PersonStatus.Normal;
                 person.ChangeFaction(this.BelongedFaction);
                 this.Scenario.GameScreen.xianshishijiantupian(person, this.Name, "ArchitectureHirePerson", "", "", this.BelongedFaction.Name, false);
 
@@ -8481,8 +8264,7 @@
                             && (!person.HatedPersons.Contains(this.BelongedFaction.LeaderID))
                            )
                     {
-                        this.RemoveNoFactionPerson(person);
-                        this.AddPerson(person);
+                        person.Status = PersonStatus.Normal;
                         person.ChangeFaction(this.BelongedFaction);
 
                         this.Scenario.GameScreen.xianshishijiantupian(person, this.Name, "ArchitectureHirePerson", "", "", this.BelongedFaction.Name, false);
@@ -9088,13 +8870,14 @@
         {
             char[] separator = new char[] { ' ', '\n', '\r' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            this.Captives.Clear();
             foreach (string str in strArray)
             {
                 Captive gameObject = captives.GetGameObject(int.Parse(str)) as Captive;
                 if (gameObject != null)
                 {
-                    this.AddCaptive(gameObject);
+                    gameObject.CaptivePerson.LocationArchitecture = this;
+                    gameObject.CaptivePerson.LocationTroop = null;
+                    gameObject.CaptivePerson.Status = PersonStatus.Captive;
                 }
             }
         }
@@ -9144,13 +8927,14 @@
         {
             char[] separator = new char[] { ' ', '\n', '\r' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            this.MovingPersons.Clear();
             foreach (string str in strArray)
             {
                 Person t = persons[int.Parse(str)];
                 if (t != null)
                 {
-                    this.MovingPersons.Add(t);
+                    t.LocationArchitecture = this;
+                    t.LocationTroop = null;
+                    t.Status = PersonStatus.Moving;
                     t.TargetArchitecture = this;
                 }
             }
@@ -9160,13 +8944,14 @@
         {
             char[] separator = new char[] { ' ', '\n', '\r' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            this.NoFactionMovingPersons.Clear();
             foreach (string str in strArray)
             {
                 Person t = persons[int.Parse(str)];
                 if (t != null)
                 {
-                    this.NoFactionMovingPersons.Add(t);
+                    t.LocationArchitecture = this;
+                    t.LocationTroop = null;
+                    t.Status = PersonStatus.NoFactionMoving;
                     t.TargetArchitecture = this;
                 }
             }
@@ -9176,13 +8961,14 @@
         {
             char[] separator = new char[] { ' ', '\n', '\r' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            this.NoFactionPersons.Clear();
             foreach (string str in strArray)
             {
                 Person person = persons[int.Parse(str)];
                 if (person != null && !base.Scenario.isInCaptiveList(person.ID))
                 {
-                    this.AddNoFactionPerson(person);
+                    person.LocationArchitecture = this;
+                    person.LocationTroop = null;
+                    person.Status = PersonStatus.NoFaction;
                 }
             }
         }
@@ -9191,25 +8977,14 @@
         {
             char[] separator = new char[] { ' ', '\n', '\r' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            this.feiziliebiao.Clear();
             foreach (string str in strArray)
             {
                 Person person = persons[int.Parse(str)];
                 if (person != null)
                 {
-                    this.feiziliebiao.Add(person);
-
-                    if (person.LocationArchitecture != null)
-                    {
-                        person.LocationArchitecture.RemovePerson(person);
-                    }
-
-                    person.LocationArchitecture = null;
-                    person.suozaijianzhu = this;
-
+                    person.Status = PersonStatus.Princess;
+                    person.LocationArchitecture = this;
                     person.LocationTroop = null;
-                    person.TargetArchitecture = null;
-                    person.BelongedFaction = null;
 
                     /*if (person.suoshurenwu == -1)
                     {
@@ -9223,14 +8998,14 @@
         {
             char[] separator = new char[] { ' ', '\n', '\r' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            this.Persons.Clear();
             foreach (string str in strArray)
             {
                 Person t = persons[int.Parse(str)];
                 if (t != null && !base.Scenario.isInCaptiveList(t.ID))
                 {
-                    this.StartAddPerson(t);
-                    //t.LocationArchitecture = this;
+                    t.LocationArchitecture = this;
+                    t.LocationTroop = null;
+                    t.Status = PersonStatus.Normal;
                 }
             }
         }
@@ -10783,12 +10558,9 @@
                     if (((captive.CaptivePerson != null) && (captive.CaptiveFaction != null)) && (captive.CaptiveFaction.Capital != null))
                     {
                         persons.Add(captive.CaptivePerson);
+                        captive.CaptivePerson.Status = PersonStatus.Normal;
                         captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
                         captive.CaptivePerson.BelongedCaptive = null;
-                        this.RemoveCaptive(captive);
-                        this.BelongedFaction.RemoveCaptive(captive);
-                        captive.CaptiveFaction.RemoveSelfCaptive(captive);
-                        base.Scenario.Captives.Remove(captive);
                     }
                 }
                 if ((persons.Count > 0) && (this.OnReleaseCaptiveAfterOccupied != null))
@@ -10814,12 +10586,6 @@
             }
         }
 
-        public void RemoveCaptive(Captive captive)
-        {
-            this.Captives.Remove(captive);
-            captive.LocationArchitecture = null;
-        }
-
         public void RemoveInactiveRouteways()
         {
             foreach (Routeway routeway in this.Routeways.GetList())
@@ -10834,33 +10600,9 @@
         public void RemoveMilitary(Military military)
         {
             this.Militaries.Remove(military);
-            military.StopTraining();
             military.StopRecruitment();
             military.BelongedArchitecture = null;
         }
-
-        public void RemoveNoFactionPerson(Person person)
-        {
-            this.NoFactionPersons.Remove(person);
-            person.LocationArchitecture = null;
-        }
-
-        public void RemovePerson(Person person)
-        {
-            person.PurifyArchitectureInfluence();
-            person.PurifyFactionInfluence();
-            person.PurifySkills();
-            person.PurifyTitles();
-
-            if (person.WorkKind != ArchitectureWorkKind.无)
-            {
-                this.RemovePersonFromWorkingList(person);
-            }
-            this.Persons.Remove(person);
-            person.LocationArchitecture = null;
-        }
-
-
 
         internal void RemovePopulationPack(PopulationPack pp)
         {
@@ -10933,9 +10675,7 @@
                     while (this.Persons.Count > 0)
                     {
                         Person person2 = this.Persons[0] as Person;
-                        this.BelongedFaction.RemovePerson(person2);
-                        this.RemovePerson(person2);
-                        this.AddNoFactionPerson(person2);
+                        person2.Status = PersonStatus.NoFaction;
                         person2.LocationArchitecture = this;
                     }
                     //this.Persons.Clear();
@@ -10944,14 +10684,7 @@
                         Person person2 = this.MovingPersons[0] as Person;
                         person2.OutsideTask = OutsideTaskKind.无;
                         person2.TaskDays = 0;
-                        if (person2.BelongedFaction != null)
-                        {
-                            person2.BelongedFaction.RemovePerson(person2);
-                        }
-                        this.BelongedFaction.RemovePerson(person2);
-
-                        this.AddNoFactionPerson(person2);
-                        this.MovingPersons.Remove(person2);
+                        person2.Status = PersonStatus.NoFaction;
 
                         person2.LocationArchitecture = this;
                         person2.TargetArchitecture = null;
@@ -10980,64 +10713,14 @@
                 }
                 else
                 {
-                    /*bool needExtraRemoval = false;
-                    while (this.Persons.Count>0)
-                    {
-                        if ((this.Persons[0] as Person).LocationArchitecture == null)
-                        {
-                            needExtraRemoval = true;
-                        }
-                        (this.Persons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital);
-                        if (needExtraRemoval)
-                        {
-                            this.Persons.Remove(this.Persons[0]);
-                        }
-                    }*/
                     while (this.Persons.Count > 0)
                     {
-                        if ((this.Persons[0] as Person).LocationArchitecture == null)
-                        {
-                            (this.Persons[0] as Person).FixLocationArchitecture();
-                        }
                         if ((this.Persons[0] as Person).LocationArchitecture != null)
                         {
                             (this.Persons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital);
                         }
-                        else
-                        {
-                            //this should not happen...
-                            this.Persons.Remove(this.Persons[0]);
-                        }
-                    }
-                    /*
-                    PersonList list2 = new PersonList();
-                    foreach (Person person2 in this.Persons)
-                    {
-                        person2.MoveToArchitecture(this.BelongedFaction.Capital);
-                        list2.Add(person2);
-                    }
-                    
-                    foreach (Person person2 in list2)
-                    {
-                        this.RemovePerson(person2);
-                    }
-                    */
-                    while (this.MovingPersons.Count > 0)
-                    {
-                        (this.MovingPersons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital);
-                        if (this.MovingPersons.Count > 0)
-                        {
-                            this.MovingPersons.RemoveAt(0);
-                        }
                     }
 
-                    /*
-                    foreach (Person person2 in this.MovingPersons)
-                    {
-                        person2.MoveToArchitecture(this.BelongedFaction.Capital);
-                    }
-                    this.MovingPersons.Clear();
-                    */
                 }
                 if (this.BelongedFaction != null)
                 {
@@ -11050,7 +10733,6 @@
                     faction.AddArchitecture(this);
                     this.ApplyFactionInfluences();
                     faction.AddArchitectureMilitaries(this);
-                    faction.AddArchitecturePersons(this);
                 }
                 else
                 {
@@ -11084,109 +10766,111 @@
             this.CheckIsFrontLine();
         }
 
-        private void ReSortAllWeighingList()
+        private void ReSortAllWeighingList(PersonList zhenzaiPersons, PersonList agriculturePersons, PersonList commercePersons,
+            PersonList technologyPersons, PersonList dominationPersons, PersonList moralePersons, PersonList endurancePersons,
+            PersonList recruitmentPersons, PersonList trainingPersons, MilitaryList weighingMilitaries)
         {
-            this.zhenzaiPersons.Clear();
+            zhenzaiPersons.Clear();
             if (this.kezhenzai())
             {
                 foreach (Person person in this.Persons)
                 {
-                    this.zhenzaiPersons.Add(person);
+                    zhenzaiPersons.Add(person);
                 }
-                this.zhenzaiPersons.IsNumber = true;
-                this.zhenzaiPersons.PropertyName = "zhenzaiWeighing";
-                this.zhenzaiPersons.ReSort();
+                zhenzaiPersons.IsNumber = true;
+                zhenzaiPersons.PropertyName = "zhenzaiWeighing";
+                zhenzaiPersons.ReSort();
             }
-            this.agriculturePersons.Clear();
+            agriculturePersons.Clear();
             if (this.Kind.HasAgriculture)
             {
                 foreach (Person person in this.Persons)
                 {
-                    this.agriculturePersons.Add(person);
+                    agriculturePersons.Add(person);
                 }
-                this.agriculturePersons.IsNumber = true;
-                this.agriculturePersons.PropertyName = "AgricultureWeighing";
-                this.agriculturePersons.ReSort();
+                agriculturePersons.IsNumber = true;
+                agriculturePersons.PropertyName = "AgricultureWeighing";
+                agriculturePersons.ReSort();
             }
-            this.commercePersons.Clear();
+            commercePersons.Clear();
             if (this.Kind.HasCommerce)
             {
                 foreach (Person person in this.Persons)
                 {
-                    this.commercePersons.Add(person);
+                    commercePersons.Add(person);
                 }
-                this.commercePersons.IsNumber = true;
-                this.commercePersons.PropertyName = "CommerceWeighing";
-                this.commercePersons.ReSort();
+                commercePersons.IsNumber = true;
+                commercePersons.PropertyName = "CommerceWeighing";
+                commercePersons.ReSort();
             }
-            this.technologyPersons.Clear();
+            technologyPersons.Clear();
             if (this.Kind.HasTechnology)
             {
                 foreach (Person person in this.Persons)
                 {
-                    this.technologyPersons.Add(person);
+                    technologyPersons.Add(person);
                 }
-                this.technologyPersons.IsNumber = true;
-                this.technologyPersons.PropertyName = "TechnologyWeighing";
-                this.technologyPersons.ReSort();
+                technologyPersons.IsNumber = true;
+                technologyPersons.PropertyName = "TechnologyWeighing";
+                technologyPersons.ReSort();
             }
-            this.dominationPersons.Clear();
+            dominationPersons.Clear();
             if (this.Kind.HasDomination)
             {
                 foreach (Person person in this.Persons)
                 {
-                    this.dominationPersons.Add(person);
+                    dominationPersons.Add(person);
                 }
-                this.dominationPersons.IsNumber = true;
-                this.dominationPersons.PropertyName = "DominationWeighing";
-                this.dominationPersons.ReSort();
+                dominationPersons.IsNumber = true;
+                dominationPersons.PropertyName = "DominationWeighing";
+                dominationPersons.ReSort();
             }
-            this.moralePersons.Clear();
+            moralePersons.Clear();
             if (this.Kind.HasMorale)
             {
                 foreach (Person person in this.Persons)
                 {
-                    this.moralePersons.Add(person);
+                    moralePersons.Add(person);
                 }
-                this.moralePersons.IsNumber = true;
-                this.moralePersons.PropertyName = "MoraleWeighing";
-                this.moralePersons.ReSort();
+                moralePersons.IsNumber = true;
+                moralePersons.PropertyName = "MoraleWeighing";
+                moralePersons.ReSort();
             }
-            this.endurancePersons.Clear();
+            endurancePersons.Clear();
             if (this.Kind.HasEndurance)
             {
                 foreach (Person person in this.Persons)
                 {
-                    this.endurancePersons.Add(person);
+                    endurancePersons.Add(person);
                 }
-                this.endurancePersons.IsNumber = true;
-                this.endurancePersons.PropertyName = "EnduranceWeighing";
-                this.endurancePersons.ReSort();
+                endurancePersons.IsNumber = true;
+                endurancePersons.PropertyName = "EnduranceWeighing";
+                endurancePersons.ReSort();
             }
-            this.trainingPersons.Clear();
+            trainingPersons.Clear();
             foreach (Person person in this.Persons)
             {
-                this.trainingPersons.Add(person);
+                trainingPersons.Add(person);
             }
-            this.trainingPersons.IsNumber = true;
-            this.trainingPersons.PropertyName = "TrainingWeighing";
-            this.trainingPersons.ReSort();
-            this.recruitmentPersons.Clear();
+            trainingPersons.IsNumber = true;
+            trainingPersons.PropertyName = "TrainingWeighing";
+            trainingPersons.ReSort();
+            recruitmentPersons.Clear();
             foreach (Person person in this.Persons)
             {
-                this.recruitmentPersons.Add(person);
+                recruitmentPersons.Add(person);
             }
-            this.recruitmentPersons.IsNumber = true;
-            this.recruitmentPersons.PropertyName = "RecruitmentWeighing";
-            this.recruitmentPersons.ReSort();
-            this.weighingMilitaries.Clear();
+            recruitmentPersons.IsNumber = true;
+            recruitmentPersons.PropertyName = "RecruitmentWeighing";
+            recruitmentPersons.ReSort();
+            weighingMilitaries.Clear();
             foreach (Military military in this.Militaries)
             {
-                this.weighingMilitaries.Add(military);
+                weighingMilitaries.Add(military);
             }
-            this.weighingMilitaries.IsNumber = true;
-            this.weighingMilitaries.PropertyName = "Weighing";
-            this.weighingMilitaries.ReSort();
+            weighingMilitaries.IsNumber = true;
+            weighingMilitaries.PropertyName = "Weighing";
+            weighingMilitaries.ReSort();
         }
 
         public void RewardAll()
@@ -11432,10 +11116,8 @@
         {
             foreach (Person person in this.Persons)
             {
-                if (person.WorkKind != ArchitectureWorkKind.无)
-                {
-                    this.RemovePersonFromWorkingList(person);
-                }
+                person.WorkKind = ArchitectureWorkKind.无;
+                person.RecruitmentMilitary = null;
             }
         }
 
@@ -11445,7 +11127,8 @@
             {
                 if ((person.WorkKind != ArchitectureWorkKind.无) && (person.WorkKind != ArchitectureWorkKind.训练))
                 {
-                    this.RemovePersonFromWorkingList(person);
+                     person.WorkKind = ArchitectureWorkKind.无;
+                     person.RecruitmentMilitary = null;
                 }
             }
         }

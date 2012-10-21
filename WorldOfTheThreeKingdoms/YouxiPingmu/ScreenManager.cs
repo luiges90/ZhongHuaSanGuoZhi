@@ -353,7 +353,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
                 {
                     this.CurrentPerson = this.CurrentGameObjects[0] as Person;
-                    this.CurrentArchitecture.AddPersonToRecuitmentWork(this.CurrentPerson, this.CurrentMilitary);
+                    this.CurrentPerson.WorkKind = ArchitectureWorkKind.补充;
+                    this.CurrentPerson.RecruitmentMilitary = this.CurrentMilitary;
                 }
             }
         }
@@ -557,19 +558,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetTrainingPerson()  //修改后未用
-        {
-            if (this.CurrentArchitecture != null)
-            {
-                this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
-                if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
-                {
-                    this.CurrentPerson = this.CurrentGameObjects[0] as Person;
-                    this.CurrentArchitecture.AddPersonToTrainingWork(this.CurrentPerson, this.CurrentMilitary);
-                }
-            }
-        }
-
         private void FrameFunction_Architecture_PersonConvene()
         {
             if (this.CurrentArchitecture != null)
@@ -615,11 +603,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     {
                         if (person.Selected)
                         {
-                            this.CurrentArchitecture.AddPersonToWorkingList(person, this.CurrentArchitectureWorkKind);
+                            person.WorkKind = this.CurrentArchitectureWorkKind;
                         }
                         else if (person.WorkKind == this.CurrentArchitectureWorkKind)
                         {
-                            this.CurrentArchitecture.RemovePersonFromWorkingList(person);
+                            person.WorkKind = ArchitectureWorkKind.无;
                         }
                     }
                     Person extremePersonFromWorkingList = this.CurrentArchitecture.GetExtremePersonFromWorkingList(this.CurrentArchitectureWorkKind, true);
@@ -634,7 +622,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     {
                         if (person.Selected)
                         {
-                            this.CurrentArchitecture.RemovePersonFromWorkingList(person);
+                            person.WorkKind = ArchitectureWorkKind.无;
                             person.OldWorkKind = ArchitectureWorkKind.无;
                         }
                     }
@@ -736,14 +724,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case FrameFunction.GetStudyStunt:
                     this.FrameFunction_Architecture_AfterGetStudyStunt();
-                    break;
-
-                case FrameFunction.GetTrainingMilitary:  //修改后未用
-                    this.FrameFunction_Architecture_AfterGetTrainingMilitary();
-                    break;
-
-                case FrameFunction.GetTrainingPerson:  //修改后未用
-                    this.FrameFunction_Architecture_AfterGetTrainingPerson();
                     break;
 
                 case FrameFunction.GetNewMilitaryKind:

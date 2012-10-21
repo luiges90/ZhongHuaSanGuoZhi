@@ -1670,9 +1670,8 @@
                 foreach (Person person in this.Scenario.Persons)
                 {
                     person.Available = false;
-                    person.BelongedFaction = null;
                     person.BelongedCaptive = null;
-                    //person.LocationArchitecture = null;
+                    person.LocationArchitecture = null;
                     person.LocationTroop = null;
                 }
                 foreach (GameObjects.ArchitectureDetail.State state in this.Scenario.States)
@@ -1700,12 +1699,8 @@
                     if (person.LocationArchitecture != null)
                     {
                         person.Available = false;
-                        if (person.BelongedFaction != null)
-                        {
-                            person.BelongedFaction.RemovePerson(person);
-                        }
                         person.BelongedCaptive = null;
-                        //person.LocationArchitecture = null;
+                        person.LocationArchitecture = null;
                     }
                 }
                 this.pnlMap.Invalidate();

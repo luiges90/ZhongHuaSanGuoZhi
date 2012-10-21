@@ -68,7 +68,21 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                                 Rectangle jianzhubiaotiPosition = this.mainMapLayer.GetDestination(point);
                                 //////////architecture.jianzhubiaoti.DisplayOffset = new Point(0, -this.mainMapLayer.TileWidth / 2);
                                 //architecture.jianzhubiaoti.Draw(spriteBatch, 0.7999f);
-                                Rectangle jianzhubiaotibeijingweizhi = new Rectangle(jianzhubiaotiPosition.X + this.mainMapLayer.TileWidth / 2 - architecture.CaptionTexture.Width/2, jianzhubiaotiPosition.Y + this.mainMapLayer.TileHeight / 2 - architecture.CaptionTexture.Height / 2, architecture.CaptionTexture.Width, architecture.CaptionTexture.Height);
+
+                                if (architecture.CaptionTexture == null)
+                                {
+                                    try
+                                    {
+                                        architecture.CaptionTexture = Texture2D.FromFile(this.screen.GraphicsDevice, "Resources/Architecture/Caption/" + architecture.CaptionID + ".png");
+                                    }
+                                    catch
+                                    {
+                                        architecture.CaptionTexture = Texture2D.FromFile(this.screen.GraphicsDevice, "Resources/Architecture/Caption/None.png");
+                                    }
+                                }
+
+                                Rectangle jianzhubiaotibeijingweizhi;
+                                jianzhubiaotibeijingweizhi = new Rectangle(jianzhubiaotiPosition.X + this.mainMapLayer.TileWidth / 2 - architecture.CaptionTexture.Width / 2, jianzhubiaotiPosition.Y + this.mainMapLayer.TileHeight / 2 - architecture.CaptionTexture.Height / 2, architecture.CaptionTexture.Width, architecture.CaptionTexture.Height);
                                 //spriteBatch.Draw(this.screen.Textures.jianzhubiaotibeijing, jianzhubiaotibeijingweizhi, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.79996f);
                                 spriteBatch.Draw(architecture.CaptionTexture , jianzhubiaotibeijingweizhi, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.79996f);
 
@@ -136,6 +150,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
 
                             else if (architecture.Kind.ID != 1 && architecture.Kind.ID != 2) 
                             {
+                                if (architecture.Texture == null)
+                                {
+                                    architecture.Kind.Texture = Texture2D.FromFile(this.screen.GraphicsDevice, "Resources/Architecture/" + architecture.Kind.ID.ToString() + ".png");
+                                }
                                 spriteBatch.Draw(architecture.Texture, this.mainMapLayer.GetDestination(point), null, zainanyanse, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
 
                             }
