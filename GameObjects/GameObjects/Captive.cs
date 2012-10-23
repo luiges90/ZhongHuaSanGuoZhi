@@ -134,6 +134,7 @@
 
         private void DoRelease()
         {
+            
             if ((this.CaptivePerson.BelongedFaction!=null) && this.CaptivePerson.BelongedFaction.Capital != null)
             {
                 this.CaptivePerson.MoveToArchitecture(this.CaptivePerson.BelongedFaction.Capital);

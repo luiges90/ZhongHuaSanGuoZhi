@@ -2042,7 +2042,7 @@
                 captive.RansomArchitectureID = (short)reader["RansomArchitecture"];
                 captive.RansomFund = (int)reader["RansomFund"];
                 captive.RansomArriveDays = (int)reader["RansomArriveDays"];
-
+                captive.CaptivePerson.Status = PersonStatus.Captive;
                 if (!isInCaptiveList(captive.CaptivePerson.ID))
                 {
                     this.Captives.AddCaptiveWithEvent(captive);
