@@ -260,6 +260,7 @@
                 if (this.CreatingArchitecture.GetCampaignMilitaryList().Count == 1)
                 {
                     this.CreatingTroop = Troop.CreateSimulateTroop(this.CreatingArchitecture, this.CreatingPersons, this.CreatingLeader, this.CreatingMilitary, this.RationDays, this.CreatingArchitecture.Position);
+                    this.MoveCandidatesToPersons();
                     this.CreatingMilitary = this.CreatingArchitecture.CampaignMilitaryList[0] as Military;
                     this.AfterSelectMilitary();
                 }
@@ -270,6 +271,7 @@
                 if (this.CreatingArchitecture.GetCampaignMilitaryList().Count == 1)
                 {
                     this.CreatingTroop = Troop.CreateSimulateTroop(this.CreatingArchitecture, this.CreatingPersons, this.CreatingLeader, this.CreatingMilitary, this.RationDays, this.CreatingArchitecture.Position);
+                    this.MoveCandidatesToPersons();
                     this.CreatingMilitary.SetShelledMilitary(this.CreatingArchitecture.CampaignMilitaryList[0] as Military);
                     this.AfterSelectMilitary();
                 }
@@ -280,6 +282,17 @@
         internal void Initialize(Screen screen)
         {
             this.screen = screen;
+        }
+
+        private void MoveCandidatesToPersons()
+        {
+            if (this.CreatingTroop.Candidates != null)
+            {
+                foreach (Person p in this.CreatingTroop.Candidates)
+                {
+                    p.LocationTroop = this.CreatingTroop;
+                }
+            }
         }
 
         private void RefreshDetailDisplay()
@@ -313,6 +326,7 @@
                     }
                 }
                 this.CreatingTroop = Troop.CreateSimulateTroop(this.CreatingArchitecture, this.CreatingPersons, this.CreatingLeader, this.CreatingMilitary, this.RationDays, this.CreatingArchitecture.Position);
+                this.MoveCandidatesToPersons();
                 if ((!this.shezhizijin && !this.setttingRation && (this.CreatingMilitary != null)) && (this.CreatingPersons != null))
                 {
                     /*
@@ -789,6 +803,7 @@
                         foreach (Person p in this.CreatingPersons)
                         {
                             this.CreatingTroop = Troop.CreateSimulateTroop(this.CreatingArchitecture, this.CreatingPersons, p, this.CreatingMilitary, this.RationDays, this.CreatingArchitecture.Position);
+                            this.MoveCandidatesToPersons();
                             if (this.CreatingTroop.FightingForce > maxFightingAbility)
                             {
                                 maxFightingAbility = this.CreatingTroop.FightingForce;
