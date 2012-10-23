@@ -214,13 +214,16 @@
                 if (value != PersonStatus.Normal)
                 {
                     this.WorkKind = ArchitectureWorkKind.无;
+                }
+                if (value != PersonStatus.Normal && status == PersonStatus.Normal)
+                {
                     this.PurifySkills();
                     this.PurifyTitles();
                     this.PurifyTreasures();
                     this.PurifyArchitectureInfluence();
                     this.PurifyFactionInfluence();
                 }
-                else
+                else if (value == PersonStatus.Normal && status == PersonStatus.Moving)
                 {
                     this.ApplySkills();
                     this.ApplyTitles();
