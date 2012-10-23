@@ -1214,7 +1214,7 @@
                     leader.WaitForFeiZi = null;
                 } else if (this.fund >= 50000)
                 {
-                    if (leader.LocationArchitecture == this && leader.WaitForFeiZi.LocationArchitecture == this)
+                    if (leader.LocationArchitecture == this && leader.Status == PersonStatus.Normal && this.nvxingwujiang().GameObjects.Contains(leader.WaitForFeiZi))
                     {
                         leader.XuanZeMeiNv(leader.WaitForFeiZi);
                         leader.WaitForFeiZi.WaitForFeiZi = null;
