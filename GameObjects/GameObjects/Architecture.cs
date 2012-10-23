@@ -10721,7 +10721,13 @@
                             (this.Persons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital);
                         }
                     }
-
+                    while (this.MovingPersons.Count > 0)
+                    {
+                        if ((this.MovingPersons[0] as Person).LocationArchitecture != null)
+                        {
+                            (this.MovingPersons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital);
+                        }
+                    }
                 }
                 if (this.BelongedFaction != null)
                 {
