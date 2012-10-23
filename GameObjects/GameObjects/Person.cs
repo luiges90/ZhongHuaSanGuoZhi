@@ -211,6 +211,43 @@
             }
             set
             {
+                if (status == PersonStatus.Princess)
+                {
+                    throw new Exception("Feizi cannot turn into any other state");
+                }
+                if (value == PersonStatus.Princess && this.LocationTroop != null)
+                {
+                    throw new Exception("Feizi cannot be in any troop");
+                }
+                if (value == PersonStatus.Princess && this.LocationArchitecture == null)
+                {
+                    throw new Exception("Feizi must be in some architectures");
+                }
+                if (value == PersonStatus.Captive && this.BelongedCaptive == null)
+                {
+                    throw new Exception("Captives must bear a belonged captive object");
+                }
+                if ((value == PersonStatus.NoFaction || value == PersonStatus.NoFactionMoving) && this.LocationTroop != null)
+                {
+                    throw new Exception("No faction persons cannot be in a troop");
+                }
+                if (value == PersonStatus.None && (this.LocationTroop != null || this.LocationArchitecture != null || this.BelongedCaptive != null))
+                {
+                    throw new Exception("Dead or unavailable person cannot be in anything!");
+                }
+                if ((value == PersonStatus.Moving || value == PersonStatus.NoFactionMoving) && this.ArrivingDays <= 0)
+                {
+                    throw new Exception("Moving persons must have arriving days set");
+                }
+                if (this.ArrivingDays == 0 && (value == PersonStatus.Moving || value == PersonStatus.NoFactionMoving))
+                {
+                    throw new Exception("Person finished moving must not remain moving");
+                }
+
+                if (value == PersonStatus.Moving && this.LocationTroop != null)
+                {
+                    this.LocationTroop = null;
+                }
                 if (value != PersonStatus.Normal)
                 {
                     this.WorkKind = ArchitectureWorkKind.无;
@@ -687,8 +724,9 @@
             Architecture locationArchitecture = this.LocationArchitecture;
             GameObjects.Faction belongedFaction = this.BelongedFaction;
             this.Alive = false;  //死亡
-            this.Status = PersonStatus.None;
+            this.BelongedCaptive = null;
             this.LocationArchitecture = null;
+            this.Status = PersonStatus.None;
             if (this.OnDeath != null && locationArchitecture !=null )
             {
                 this.OnDeath(this, locationArchitecture);
@@ -2562,7 +2600,7 @@
 
         public void NoFactionMove()
         {
-            if (((((this.BelongedFaction == null) && (this.ArrivingDays == 0)) && (this.LocationArchitecture != null)) && !this.IsCaptive) && GameObject.Chance((2 + (int) this.Ambition) + (this.LeaderPossibility ? 10 : 0)))
+            if (((((this.BelongedFaction == null) && (this.ArrivingDays == 0)) && (this.LocationArchitecture != null)) && !this.IsCaptive) && GameObject.Chance((2 + (int) this.Ambition) + (this.LeaderPossibility ? 10 : 0)) && this.Status != PersonStatus.Princess)
             {
                 if (GameObject.Chance(50 + (this.LeaderPossibility ? 10 : 0)))
                 {

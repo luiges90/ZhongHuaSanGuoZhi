@@ -375,6 +375,8 @@
 
         public int captureChance = 0;
 
+        public PersonList Candidates = new PersonList();
+
         public event Ambush OnAmbush;
 
         public event AntiArrowAttack OnAntiArrowAttack;
@@ -1448,6 +1450,7 @@
                 }
                 foreach (Person person in this.Persons)
                 {
+                    person.LocationTroop = null;
                     if ((this.StartingArchitecture == null) || (this.BelongedFaction != this.StartingArchitecture.BelongedFaction))
                     {
                         if (this.BelongedFaction.Capital != null)
@@ -1463,7 +1466,6 @@
                     {
                         person.MoveToArchitecture(base.Scenario.Architectures[0] as Architecture);
                     }
-                    person.LocationTroop = null;
                 }
                 this.Destroy();
                 this.BelongedLegion.RemoveTroop(this);
@@ -2315,6 +2317,11 @@
                 troop.SimulateInitializePosition(startPosition);
             }
             troop.Simulating = false;
+            troop.Candidates = persons as PersonList;
+            foreach (Person person in persons)
+            {
+                person.LocationTroop = null;
+            }
             military.Leader = troop.BackupArmyLeader;
             military.LeaderExperience = troop.BackupArmyLeaderExperience;
             military.LeaderID = troop.BackupArmyLeaderID;
@@ -2350,6 +2357,11 @@
                 troop.SimulateInitializePosition(startPosition);
             }
             troop.Simulating = false;
+            troop.Candidates = persons as PersonList;
+            foreach (Person person in persons)
+            {
+                person.LocationTroop = null;
+            }
             if (military != null)
             {
                 military.Leader = troop.BackupArmyLeader;
@@ -4083,7 +4095,7 @@
             foreach (Point point in sourceArea.Area)
             {
                 PersonList originalPersons = this.Persons;
-                int fightingForce = CreateSimulateTroop(this.Persons, this.Army, point).FightingForce;
+                int fightingForce = CreateSimulateTroop(this.Candidates, this.Army, point).FightingForce;
                 if (fightingForce > num)
                 {
                     num = fightingForce;
@@ -6739,10 +6751,7 @@
                 this.SoundFileLocation = soundFileLocation;
                 try
                 {
-                    Thread thread = new Thread(new ThreadStart(this.PlaySound));
-                    thread.Start();
-                    thread.Join();
-                    thread = null;
+                    this.PlaySound();
                 }
                 catch
                 {

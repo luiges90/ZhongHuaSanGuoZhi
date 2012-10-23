@@ -1266,7 +1266,7 @@
                             //leader.LocationArchitecture.RemovePerson(leader);
                             leader.WaitForFeiZi = toTake;
                         }
-                        if (toTake.LocationArchitecture == this)
+                        if (toTake.LocationArchitecture == this && toTake.Status == PersonStatus.Normal)
                         {
                             if (leader.LocationArchitecture == this)
                             {
@@ -4406,9 +4406,9 @@
                     {
                         break;
                     }
-                    Person leader = troop2.Persons[0] as Person;
+                    Person leader = troop2.Candidates[0] as Person;
                     this.AddPersonToTroop(troop2);
-                    troop = this.CreateTroop(troop2.Persons, leader, troop2.Army, -1, nullable.Value);
+                    troop = this.CreateTroop(troop2.Candidates, leader, troop2.Army, -1, nullable.Value);
                     troop.WillArchitecture = destination;
                     Legion legion = this.BelongedFaction.GetLegion(destination);
                     if (legion == null)
@@ -5695,9 +5695,9 @@
                                 }
                             }
                             //if (troop.Army.Scales <= 5) continue;
-                            Person leader = troop.Persons[0] as Person;
+                            Person leader = troop.Candidates[0] as Person;
                             this.AddPersonToTroop(troop);
-                            troop2 = this.CreateTroop(troop.Persons, leader, troop.Army, -1, nullable.Value);
+                            troop2 = this.CreateTroop(troop.Candidates, leader, troop.Army, -1, nullable.Value);
                             troop2.WillArchitecture = this;
                             if (this.DefensiveLegion == null)
                             {
@@ -5795,9 +5795,9 @@
                                 {
                                     continue;
                                 }
-                                Person leader = troop.Persons[0] as Person;
+                                Person leader = troop.Candidates[0] as Person;
                                 i.A.AddPersonToTroop(troop);
-                                troop2 = i.A.CreateTroop(troop.Persons, leader, troop.Army, -1, nullable.Value);
+                                troop2 = i.A.CreateTroop(troop.Candidates, leader, troop.Army, -1, nullable.Value);
                                 troop2.WillArchitecture = this;
                                 if (this.DefensiveLegion == null)
                                 {
@@ -8980,9 +8980,10 @@
                 Person person = persons[int.Parse(str)];
                 if (person != null)
                 {
-                    person.Status = PersonStatus.Princess;
                     person.LocationArchitecture = this;
                     person.LocationTroop = null;
+                    person.Status = PersonStatus.Princess;
+                    
 
                     /*if (person.suoshurenwu == -1)
                     {
@@ -10555,10 +10556,12 @@
                 {
                     if (((captive.CaptivePerson != null) && (captive.CaptiveFaction != null)) && (captive.CaptiveFaction.Capital != null))
                     {
+                        Architecture moveTo = captive.CaptiveFaction.Capital;
                         persons.Add(captive.CaptivePerson);
-                        captive.CaptivePerson.Status = PersonStatus.Normal;
-                        captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
+                        Person p = captive.CaptivePerson;
                         captive.CaptivePerson.BelongedCaptive = null;
+                        p.Status = PersonStatus.Normal;
+                        p.MoveToArchitecture(moveTo);
                     }
                 }
                 if ((persons.Count > 0) && (this.OnReleaseCaptiveAfterOccupied != null))

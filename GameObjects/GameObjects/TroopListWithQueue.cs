@@ -205,13 +205,15 @@
 
         private void TroopMoveThread(Troop troop)
         {
+            troop.Move();
+            /*
             Thread thread;
 
             thread = new Thread(new ThreadStart(troop.Move));
             thread.Start();
             thread.Join();
 
-            thread = null;
+            thread = null;*/
         }
 
 
