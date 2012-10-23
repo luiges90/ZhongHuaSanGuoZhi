@@ -1663,6 +1663,19 @@
 
         private void InitializeTroopData()
         {
+            TroopList toRemove = new TroopList();
+            foreach (Troop troop in this.Troops)
+            {
+                if (troop.Leader == null)
+                {
+                    toRemove.Add(troop);
+                }
+            }
+            foreach (Troop troop in toRemove)
+            {
+                this.Troops.Remove(troop);
+            }
+
             foreach (Troop troop in this.Troops)
             {
                 troop.Initialize();
