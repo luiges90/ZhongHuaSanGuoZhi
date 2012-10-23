@@ -8194,7 +8194,6 @@
             }
             foreach (Person person in personList)
             {
-                person.Status = PersonStatus.Normal;
                 person.ChangeFaction(this.BelongedFaction);
                 this.Scenario.GameScreen.xianshishijiantupian(person, this.Name, "ArchitectureHirePerson", "", "", this.BelongedFaction.Name, false);
 
@@ -8264,7 +8263,6 @@
                             && (!person.HatedPersons.Contains(this.BelongedFaction.LeaderID))
                            )
                     {
-                        person.Status = PersonStatus.Normal;
                         person.ChangeFaction(this.BelongedFaction);
 
                         this.Scenario.GameScreen.xianshishijiantupian(person, this.Name, "ArchitectureHirePerson", "", "", this.BelongedFaction.Name, false);

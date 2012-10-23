@@ -301,7 +301,6 @@
 
             person.LocationArchitecture = muqin.BelongedArchitecture;
             person.ChangeFaction(muqin.BelongedFaction);
-            person.Status = PersonStatus.Normal;
 
             if (GlobalVariables.lockChildrenLoyalty)
             {

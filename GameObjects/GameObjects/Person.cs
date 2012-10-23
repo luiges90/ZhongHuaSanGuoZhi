@@ -624,6 +624,7 @@
 
         public void ChangeFaction(GameObjects.Faction faction)
         {
+            this.Status = PersonStatus.Normal;
             this.InitialLoyalty();
         }
 
