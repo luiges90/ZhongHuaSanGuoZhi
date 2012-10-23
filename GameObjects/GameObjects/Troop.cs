@@ -2358,9 +2358,12 @@
             }
             troop.Simulating = false;
             troop.Candidates = persons as PersonList;
-            foreach (Person person in persons)
+            if (persons != null)
             {
-                person.LocationTroop = null;
+                foreach (Person person in persons)
+                {
+                    person.LocationTroop = null;
+                }
             }
             if (military != null)
             {
