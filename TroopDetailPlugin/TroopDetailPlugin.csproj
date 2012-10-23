@@ -21,7 +21,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <OutputPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameComponents\TroopDetail\</OutputPath>
+    <OutputPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\GameComponents\TroopDetail\</OutputPath>
     <DebugSymbols>false</DebugSymbols>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>

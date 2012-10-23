@@ -504,13 +504,12 @@
                 {
                     if (captive.BelongedFaction == null)
                     {
-                        this.SelfCaptives.Remove(captive);
-                        base.Scenario.Captives.Remove(captive);
-                        captive.CaptivePerson.BelongedCaptive = null;
+                        captive.CaptivePerson.Status = GameObjects.PersonDetail.PersonStatus.Normal;
                         if ((captive.CaptivePerson != null) && (captive.CaptiveFaction != null))
                         {
                             captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
                         }
+                        captive.CaptivePerson.BelongedCaptive = null;
                         continue;
                     }
                     if ((captive.BelongedFaction.Capital != null) && (captive.RansomArriveDays <= 0))
