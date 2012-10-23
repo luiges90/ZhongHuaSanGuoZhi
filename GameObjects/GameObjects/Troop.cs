@@ -375,7 +375,7 @@
 
         public int captureChance = 0;
 
-        public PersonList Candidates = new PersonList();
+        public GameObjectList Candidates;
 
         public event Ambush OnAmbush;
 
@@ -2357,7 +2357,7 @@
                 troop.SimulateInitializePosition(startPosition);
             }
             troop.Simulating = false;
-            troop.Candidates = persons as PersonList;
+            troop.Candidates = persons as GameObjectList;
             if (persons != null)
             {
                 foreach (Person person in persons)
