@@ -6315,6 +6315,7 @@
                 {
                     person.LocationTroop = this;
                     person.LocationArchitecture = null;
+                    person.Status = PersonStatus.Normal;
                     if (person.ID == leaderID)
                     {
                         this.Leader = person;
