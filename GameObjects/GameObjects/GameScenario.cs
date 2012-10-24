@@ -1665,14 +1665,21 @@
             TroopList toRemove = new TroopList();
             foreach (Troop troop in this.Troops)
             {
-                if (troop.Leader == null || troop.Persons.Count == 0)
+                if (troop.Leader == null)
                 {
                     toRemove.Add(troop);
+                }
+                else if (troop.Persons.Count == 0)
+                {
+                    troop.Leader.LocationTroop = troop;
                 }
             }
             foreach (Troop troop in toRemove)
             {
-                troop.BelongedFaction.RemoveTroop(troop);
+                if (troop.BelongedFaction != null)
+                {
+                    troop.BelongedFaction.RemoveTroop(troop);
+                }
                 this.Troops.Remove(troop);
             }
 
