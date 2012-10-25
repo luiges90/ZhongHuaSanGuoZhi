@@ -10,16 +10,18 @@
 
         public override void ApplyInfluenceKind(Person person)
         {
-            InfluenceKind6050 temp = new InfluenceKind6050();
-            temp.InitializeParameter(rate.ToString());
-            temp.ApplyInfluenceKind(person.LocationArchitecture);
+            foreach (Person i in person.LocationArchitecture.Persons) 
+            {
+                i.ExperienceRate += rate;
+            }
         }
 
         public override void PurifyInfluenceKind(Person person)
         {
-            InfluenceKind6050 temp = new InfluenceKind6050();
-            temp.InitializeParameter(rate.ToString());
-            temp.PurifyInfluenceKind(person.LocationArchitecture);
+            foreach (Person i in person.LocationArchitecture.Persons) 
+            {
+                i.ExperienceRate -= rate;
+            }
         }
 
         public override void InitializeParameter(string parameter)

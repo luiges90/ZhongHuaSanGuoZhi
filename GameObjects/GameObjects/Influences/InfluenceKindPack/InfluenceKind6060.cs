@@ -10,21 +10,17 @@
 
         public override void ApplyInfluenceKind(Troop troop)
         {
-            InfluenceKind6050 temp = new InfluenceKind6050();
-            temp.InitializeParameter(rate.ToString());
-            foreach (Person p in troop.Persons)
+            foreach (Person i in troop.Persons)
             {
-                temp.ApplyInfluenceKind(p);
+                i.ExperienceRate += rate;
             }
         }
 
         public override void PurifyInfluenceKind(Troop troop)
         {
-            InfluenceKind6050 temp = new InfluenceKind6050();
-            temp.InitializeParameter(rate.ToString());
-            foreach (Person p in troop.Persons)
+            foreach (Person i in troop.Persons)
             {
-                temp.PurifyInfluenceKind(p);
+                i.ExperienceRate -= rate;
             }
         }
 
