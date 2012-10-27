@@ -1450,6 +1450,7 @@
                 }
                 foreach (Person person in this.Persons)
                 {
+                    Point from = person.LocationTroop.Position;
                     person.LocationTroop = null;
                     if ((this.StartingArchitecture == null) || (this.BelongedFaction != this.StartingArchitecture.BelongedFaction))
                     {
@@ -1460,11 +1461,11 @@
                     }
                     if (this.StartingArchitecture != null)
                     {
-                        person.MoveToArchitecture(this.StartingArchitecture);
+                        person.MoveToArchitecture(this.StartingArchitecture, from);
                     }
                     else if (base.Scenario.Architectures.Count > 0)
                     {
-                        person.MoveToArchitecture(base.Scenario.Architectures[0] as Architecture);
+                        person.MoveToArchitecture(base.Scenario.Architectures[0] as Architecture, from);
                     }
                 }
                 this.Destroy();
