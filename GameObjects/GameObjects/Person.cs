@@ -1126,7 +1126,14 @@
                         }
 
                         this.ConvincingPerson.ChangeFaction(this.BelongedFaction);
-                        this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Centre);
+                        if (from == null)
+                        {
+                            this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture, null);
+                        }
+                        else
+                        {
+                            this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Area[0]);
+                        }
                         /*if (!(flag || (this.ConvincingPerson.LocationArchitecture == null)))
                         {
                             this.ConvincingPerson.LocationArchitecture.RemovePerson(this.ConvincingPerson);
