@@ -1126,7 +1126,7 @@
                         }
 
                         this.ConvincingPerson.ChangeFaction(this.BelongedFaction);
-                        this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture, from);
+                        this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Centre);
                         /*if (!(flag || (this.ConvincingPerson.LocationArchitecture == null)))
                         {
                             this.ConvincingPerson.LocationArchitecture.RemovePerson(this.ConvincingPerson);
@@ -2536,19 +2536,19 @@
         }
         */
 
-        public void MoveToArchitecture(Architecture a, Architecture startingPoint)
+        public void MoveToArchitecture(Architecture a, Point? startingPoint)
         {
             Architecture targetArchitecture = this.TargetArchitecture;
 
             if (a == null) return;
 
-            if (this.LocationArchitecture != a || (startingPoint != null && startingPoint != a))
+            if (this.LocationArchitecture != a || startingPoint != null)
             {
                 Point position = this.Position;
                 this.TargetArchitecture = a;
-                if (startingPoint != null)
+                if (startingPoint.HasValue)
                 {
-                    this.ArrivingDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(startingPoint.ArchitectureArea, a.ArchitectureArea) / 10.0));
+                    this.ArrivingDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(startingPoint.Value, a.ArchitectureArea) / 10.0));
                 } 
                 else if (this.LocationArchitecture != null)
                 {
