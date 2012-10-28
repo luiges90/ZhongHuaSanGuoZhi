@@ -5107,6 +5107,10 @@
                 if (p.ID == id)
                 {
                     id++;
+                    if (id >= 7000 && id < 10000)
+                    {
+                        id = 10000;
+                    }
                 }
                 else if (p.ID > id)
                 {
