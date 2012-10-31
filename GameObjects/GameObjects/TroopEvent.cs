@@ -274,7 +274,7 @@
             {
                 PersonDialog item = new PersonDialog();
                 int num2 = int.Parse(strArray[i]);
-                if (!persons.ContainsKey(num2)) continue;
+                if (num2 >= 0 && !persons.ContainsKey(num2)) continue;
                 if (num2 >= 0)
                 {
                     item.SpeakingPerson = persons[num2];
