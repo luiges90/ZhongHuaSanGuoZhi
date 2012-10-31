@@ -11252,7 +11252,7 @@
                 {
                     if (military.Morale < military.MoraleCeiling)
                     {
-                        int randomValue = StaticMethods.GetRandomValue((int)((pingjunXunlianNengli * this.MultipleOfTraining) * Parameters.TrainingRate), 200 + (10 * military.Scales));
+                        int randomValue = StaticMethods.GetRandomValue((int)((pingjunXunlianNengli * this.MultipleOfTraining) * Parameters.TrainingRate), 200 + (10 * (military.Scales + military.InjuryQuantity / military.Kind.MinScale)));
                         if (randomValue > 0)
                         {
                             if (!base.Scenario.IsPlayer(this.BelongedFaction))
@@ -11284,7 +11284,7 @@
                     }
                     if (military != null && military.Combativity < military.CombativityCeiling && this.TrainingWorkingPersons.Count > 0)
                     {
-                        int increment = StaticMethods.GetRandomValue((int)((pingjunXunlianNengli * this.MultipleOfTraining) * Parameters.TrainingRate), 50 + (5 * military.Scales));
+                        int increment = StaticMethods.GetRandomValue((int)((pingjunXunlianNengli * this.MultipleOfTraining) * Parameters.TrainingRate), 50 + (5 * (military.Scales + military.InjuryQuantity / military.Kind.MinScale)));
                         if (increment > 0)
                         {
                             if (!base.Scenario.IsPlayer(this.BelongedFaction))
