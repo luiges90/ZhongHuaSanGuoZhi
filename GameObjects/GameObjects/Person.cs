@@ -211,7 +211,7 @@
             }
             set
             {
-                if (status == PersonStatus.Princess)
+                /*if (status == PersonStatus.Princess)
                 {
                     throw new Exception("Feizi cannot turn into any other state");
                 }
@@ -242,7 +242,7 @@
                 if (this.ArrivingDays == 0 && (value == PersonStatus.Moving || value == PersonStatus.NoFactionMoving))
                 {
                     throw new Exception("Person finished moving must not remain moving");
-                }
+                }*/
 
                 if (value == PersonStatus.Moving && this.LocationTroop != null)
                 {
