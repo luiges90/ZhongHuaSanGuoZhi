@@ -1516,8 +1516,50 @@
         private bool BuildThreeTierPath()
         {
             bool path = false;
+            
             if (!this.HasPath)
             {
+                if (this.BelongedFaction != null && !base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture == null &&
+                    this.TargetTroop == null)
+                {
+                    foreach (LinkNode i in this.StartingArchitecture.AIAllLinkNodes.Values)
+                    {
+                        if (i.A == this.WillArchitecture)
+                        {
+                            if (i.RoutewayPath != null && i.RoutewayPath.Count > 0)
+                            {
+                                this.SecondTierPath = i.RoutewayPath;
+                                this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                                if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
+                                {
+                                    this.HasPath = true;
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                Point? p1;
+                                Point? p2;
+                                base.Scenario.GetClosestPointsBetweenTwoAreas(this.StartingArchitecture.ArchitectureArea, this.WillArchitecture.ArchitectureArea, out p1, out p2);
+                                if (p1.HasValue && p2.HasValue) {
+                                    i.RoutewayPath = this.pathFinder.GetSimplePath(p1.Value, p2.Value);
+                                    if (i.RoutewayPath != null && i.RoutewayPath.Count > 0)
+                                    {
+                                        this.SecondTierPath = i.RoutewayPath;
+                                        this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                                        if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
+                                        {
+                                            this.HasPath = true;
+                                            return true;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
+
                 this.EnableOneAdaptablility = true;
                 bool flag2 = false;
                 if ((this.BelongedFaction != null) && !GameObject.Chance(0x21))
@@ -2294,7 +2336,7 @@
                 p.LocationTroop = troop;
                 p.LocationArchitecture = null;
             }
-            troop.Persons.ApplyInfluences();
+            //troop.Persons.ApplyInfluences();
             troop.RefreshAllData();
             return troop;
         }

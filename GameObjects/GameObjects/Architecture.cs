@@ -2918,6 +2918,25 @@
 
 
         */
+
+        private Point? GetRandomStartingPosition(Troop troop)
+        {
+            GameArea allAvailableArea = this.GetAllAvailableArea(false);
+            GameArea sourceArea = new GameArea();
+            foreach (Point point in allAvailableArea.Area)
+            {
+                if (((base.Scenario.GetArchitectureByPosition(point) == this) && (base.Scenario.GetTroopByPosition(point) == null)) || troop.IsMovableOnPosition(point))
+                {
+                    sourceArea.Area.Add(point);
+                }
+            }
+            if (sourceArea.Count == 0)
+            {
+                return null;
+            }
+            return sourceArea[GameObject.Random(sourceArea.Count)];
+        }
+
         private Troop BuildTransportTroop(Architecture destination, Military military, int food, int fund)
         {
             Troop troop;
@@ -2933,8 +2952,7 @@
                 }
             }
             troop = Troop.CreateSimulateTroop(leader, military, this.Position);
-            //this.AddPersonToTroop(troop);
-            Point? nullable = this.GetCampaignPosition(troop, destination.ArchitectureArea.Area, true);
+            Point? nullable = this.GetRandomStartingPosition(troop);
             if (!nullable.HasValue)
             {
                 return null;
@@ -4401,7 +4419,7 @@
                     {
                         break;
                     }
-                    Point? nullable = this.GetCampaignPosition(troop2, destination.ArchitectureArea.Area, true);
+                    Point? nullable = this.GetRandomStartingPosition(troop2);
                     if (!nullable.HasValue)
                     {
                         break;
@@ -8712,7 +8730,7 @@
             }
         }
 
-        private int RoutewayPathBuilder_OnGetCost(Point position, out float consumptionRate)
+        public int RoutewayPathBuilder_OnGetCost(Point position, out float consumptionRate)
         {
             GameArea singleton = new GameArea();
             singleton.AddPoint(position);
@@ -8724,13 +8742,13 @@
                 {
                     return 0x3e8;
                 }
-                if (pathFinder.MultipleWaterCost && !base.Scenario.IsWaterPositionRoutewayable(position))
+                if (findLinksPathFinder.MultipleWaterCost && !base.Scenario.IsWaterPositionRoutewayable(position))
                 {
                     return 0x3e8;
                 }
 
-                int dist = (int) Math.Ceiling(Math.Min(Math.Min(base.Scenario.GetDistance(singleton, this.pathFinder.startingArchitecture.ArchitectureArea),
-                    base.Scenario.GetDistance(singleton, this.pathFinder.targetArchitecture.ArchitectureArea)), 8));
+                int dist = (int) Math.Ceiling(Math.Min(Math.Min(base.Scenario.GetDistance(singleton, this.findLinksPathFinder.startingArchitecture.ArchitectureArea),
+                    base.Scenario.GetDistance(singleton, this.findLinksPathFinder.targetArchitecture.ArchitectureArea)), 8));
                 for (int i = -dist; i <= dist; ++i)
                 {
                     for (int j = Math.Abs(i) - dist; j <= dist - Math.Abs(i); ++j)
@@ -8738,7 +8756,7 @@
                         Point loc = new Point(position.X + i, position.Y + j);
                         Architecture landedArch = base.Scenario.GetArchitectureByPosition(loc);
                         
-                        if (landedArch != null && landedArch != this.pathFinder.startingArchitecture && landedArch != this.pathFinder.targetArchitecture)
+                        if (landedArch != null && landedArch != this.findLinksPathFinder.startingArchitecture && landedArch != this.findLinksPathFinder.targetArchitecture)
                         {
                             return 1000;
                         }
@@ -8751,11 +8769,11 @@
                     consumptionRate = terrainDetailByPositionNoCheck.RoutewayConsumptionRate;
                     int routewayBuildWorkCost = terrainDetailByPositionNoCheck.RoutewayBuildWorkCost;
                     int routewayWorkForce = 100;
-                    if (this.pathFinder.MultipleWaterCost && (terrainDetailByPositionNoCheck.ID == 6))
+                    if (this.findLinksPathFinder.MultipleWaterCost && (terrainDetailByPositionNoCheck.ID == 6))
                     {
                         routewayBuildWorkCost = 1000;
                     }
-                    if (this.pathFinder.MustUseWater && (terrainDetailByPositionNoCheck.ID != 6))
+                    if (this.findLinksPathFinder.MustUseWater && (terrainDetailByPositionNoCheck.ID != 6))
                     {
                         routewayBuildWorkCost = 1000;
                     }
@@ -8765,20 +8783,20 @@
             return 0x3e8;
         }
 
-        private int RoutewayPathBuilder_OnGetPenalizedCost(Point position)
+        public int RoutewayPathBuilder_OnGetPenalizedCost(Point position)
         {
             return 0;
         }
 
         public void FindLinks(ArchitectureList allArch)
         {
-            pathFinder.OnGetCost += new RoutewayPathFinder.GetCost(RoutewayPathBuilder_OnGetCost);
-            pathFinder.OnGetPenalizedCost += new RoutewayPathFinder.GetPenalizedCost(RoutewayPathBuilder_OnGetPenalizedCost);
+            findLinksPathFinder.OnGetCost += new RoutewayPathFinder.GetCost(RoutewayPathBuilder_OnGetCost);
+            findLinksPathFinder.OnGetPenalizedCost += new RoutewayPathFinder.GetPenalizedCost(RoutewayPathBuilder_OnGetPenalizedCost);
             FindLandLinks(allArch, 50);
             FindWaterLinks(allArch, 50);
         }
 
-        private RoutewayPathFinder pathFinder = new RoutewayPathFinder();
+        internal RoutewayPathFinder findLinksPathFinder = new RoutewayPathFinder();
         private void FindLandLinks(ArchitectureList allArch, int maxDistance)
         {
             foreach (Architecture i in allArch)
@@ -8787,15 +8805,15 @@
                 if (i.AILandLinks.GameObjects.Contains(this)) continue;
                 if (base.Scenario.GetSimpleDistance(i.Position, this.Position) < maxDistance)
                 {
-                    pathFinder.ConsumptionMax = 0.7f;
-                    pathFinder.startingArchitecture = this;
-                    pathFinder.targetArchitecture = i;
+                    findLinksPathFinder.ConsumptionMax = 0.7f;
+                    findLinksPathFinder.startingArchitecture = this;
+                    findLinksPathFinder.targetArchitecture = i;
                     Point? p1;
                     Point? p2;
                     base.Scenario.GetClosestPointsBetweenTwoAreas(this.ArchitectureArea.GetContactArea(false), i.ArchitectureArea.GetContactArea(false), out p1, out p2);
                     if (p1.HasValue && p2.HasValue)
                     {
-                        if (pathFinder.GetPath(p1.Value, p2.Value, true))
+                        if (findLinksPathFinder.GetPath(p1.Value, p2.Value, true))
                         {
                             this.AILandLinks.Add(i);
                             i.AILandLinks.Add(this);
@@ -8813,18 +8831,18 @@
                 if (i == this) continue;
                 if (!i.IsBesideWater) continue;
                 if (i.AIWaterLinks.GameObjects.Contains(this)) continue;
-                pathFinder.startingArchitecture = this;
-                pathFinder.targetArchitecture = i;
-                pathFinder.MustUseWater = true;
+                findLinksPathFinder.startingArchitecture = this;
+                findLinksPathFinder.targetArchitecture = i;
+                findLinksPathFinder.MustUseWater = true;
                 if (base.Scenario.GetSimpleDistance(i.Position, this.Position) < maxDistance)
                 {
-                    pathFinder.ConsumptionMax = 0.7f;
+                    findLinksPathFinder.ConsumptionMax = 0.7f;
                     Point? p1;
                     Point? p2;
                     base.Scenario.GetClosestPointsBetweenTwoAreas(this.ArchitectureArea.GetContactArea(false), i.ArchitectureArea.GetContactArea(false), out p1, out p2);
                     if (p1.HasValue && p2.HasValue)
                     {
-                        if (pathFinder.GetPath(p1.Value, p2.Value, true))
+                        if (findLinksPathFinder.GetPath(p1.Value, p2.Value, true))
                         {
                             this.AIWaterLinks.Add(i);
                             i.AIWaterLinks.Add(this);
