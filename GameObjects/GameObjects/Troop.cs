@@ -2875,7 +2875,10 @@
                 }
                 this.MoveCaptiveIntoArchitecture(a);
                 this.Destroy();
-                this.BelongedLegion.RemoveTroop(this);
+                if (this.BelongedLegion != null)
+                {
+                    this.BelongedLegion.RemoveTroop(this);
+                }
                 this.BelongedFaction.RemoveTroop(this);
                 base.Scenario.Troops.RemoveTroop(this);
                 
