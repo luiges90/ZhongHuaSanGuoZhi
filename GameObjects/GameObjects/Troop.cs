@@ -1529,7 +1529,7 @@
                             if (i.RoutewayPath != null && i.RoutewayPath.Count > 0)
                             {
                                 this.SecondTierPath = i.RoutewayPath;
-                                this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                                this.FirstTierPath = this.pathFinder.GetSimplePath(this.position, this.GetFirstTierDestinationFromSecondTier());
                                 if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
                                 {
                                     this.HasPath = true;
@@ -1546,7 +1546,7 @@
                                     if (i.RoutewayPath != null && i.RoutewayPath.Count > 0)
                                     {
                                         this.SecondTierPath = i.RoutewayPath;
-                                        this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                                        this.FirstTierPath = this.pathFinder.GetSimplePath(this.position, this.GetFirstTierDestinationFromSecondTier());
                                         if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
                                         {
                                             this.HasPath = true;

@@ -1438,7 +1438,9 @@
                             }
                         } else break;
                         otherArchitectureList.Remove(src);
-                    } while (this.PersonCount + this.MovingPersonCount < Math.Max(Math.Max(this.MilitaryCount * 2, this.Population / 10000), 6) && otherArchitectureList.Count > 0);
+                    } while (//this.PersonCount + this.MovingPersonCount < Math.Max(Math.Max(this.MilitaryCount * 2, this.Population / 10000), 6) && 
+                        otherArchitectureList.Count > 0 &&
+                        this.PersonCount + this.MovingPersonCount < Math.Max(this.Fund / 1500, 6));
                     
                 }
                 else
