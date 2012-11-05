@@ -33,7 +33,19 @@
             {
                 try
                 {
-                    result = ((int)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((int)StaticMethods.GetPropertyValue(y, this.propertyName));
+                    long longResult = ((long)(int)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((long)(int)StaticMethods.GetPropertyValue(y, this.propertyName));
+                    if (longResult > 0)
+                    {
+                        result = 1;
+                    }
+                    else if (longResult < 0)
+                    {
+                        result = -1;
+                    }
+                    else
+                    {
+                        result = 0;
+                    }
                 }
                 catch (InvalidCastException)
                 {
