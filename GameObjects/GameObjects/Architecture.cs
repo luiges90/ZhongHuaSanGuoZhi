@@ -2918,6 +2918,25 @@
 
 
         */
+
+        private Point? GetRandomStartingPosition(Troop troop)
+        {
+            GameArea allAvailableArea = this.GetAllAvailableArea(false);
+            GameArea sourceArea = new GameArea();
+            foreach (Point point in allAvailableArea.Area)
+            {
+                if (((base.Scenario.GetArchitectureByPosition(point) == this) && (base.Scenario.GetTroopByPosition(point) == null)) || troop.IsMovableOnPosition(point))
+                {
+                    sourceArea.Area.Add(point);
+                }
+            }
+            if (sourceArea.Count == 0)
+            {
+                return null;
+            }
+            return sourceArea[GameObject.Random(sourceArea.Count)];
+        }
+
         private Troop BuildTransportTroop(Architecture destination, Military military, int food, int fund)
         {
             Troop troop;
@@ -2933,8 +2952,7 @@
                 }
             }
             troop = Troop.CreateSimulateTroop(leader, military, this.Position);
-            //this.AddPersonToTroop(troop);
-            Point? nullable = this.GetCampaignPosition(troop, destination.ArchitectureArea.Area, true);
+            Point? nullable = this.GetRandomStartingPosition(troop);
             if (!nullable.HasValue)
             {
                 return null;
@@ -4401,7 +4419,7 @@
                     {
                         break;
                     }
-                    Point? nullable = this.GetCampaignPosition(troop2, destination.ArchitectureArea.Area, true);
+                    Point? nullable = this.GetRandomStartingPosition(troop2);
                     if (!nullable.HasValue)
                     {
                         break;

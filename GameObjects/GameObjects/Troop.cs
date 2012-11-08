@@ -2294,7 +2294,7 @@
                 p.LocationTroop = troop;
                 p.LocationArchitecture = null;
             }
-            troop.Persons.ApplyInfluences();
+            //troop.Persons.ApplyInfluences();
             troop.RefreshAllData();
             return troop;
         }
