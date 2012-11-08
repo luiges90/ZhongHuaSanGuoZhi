@@ -1414,7 +1414,7 @@
                         }
                         if (src != null)
                         {
-                            int num = src.FrontLine ? src.PersonCount - src.MilitaryCount : Math.Min(src.PersonCount, 3);
+                            int num = src.FrontLine ? src.PersonCount - src.MilitaryCount : src.PersonCount;
                             GameObjectList list = src.Persons.GetList();
                             if (list.Count > 1)
                             {
@@ -1443,10 +1443,10 @@
                 }
                 else
                 {
-                    if (this.IdlingPersonCount > this.PersonCount * 0.5)
+                    if (this.IdlingPersonCount > this.PersonCount / 2)
                     {
                         idleDays++;
-                        if (idleDays > 3)
+                        if (idleDays > 3 && this.PersonCount > 3)
                         {
                             ArchitectureList otherArchitectureList = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Architectures : this.BelongedFaction.Architectures;
                             Architecture dest = null;
@@ -1460,7 +1460,7 @@
                                     dest = i;
                                 }
                             }
-                            int num = this.FrontLine ? this.PersonCount - this.MilitaryCount : Math.Min(this.PersonCount, 3);
+                            int num = this.FrontLine ? this.PersonCount - this.MilitaryCount : this.PersonCount - 3;
                             GameObjectList list = this.Persons.GetList();
                             if (this.FrontLine)
                             {
@@ -1490,6 +1490,55 @@
                     else
                     {
                         idleDays = 0;
+                        if (this.FrontLine || this.noFactionFrontline)
+                        {
+                            ArchitectureList otherArchitectureList = this.BelongedSection.Architectures;
+                            do
+                            {
+                                Architecture src = null;
+                                foreach (Architecture i in otherArchitectureList)
+                                {
+                                    double minDist = double.MaxValue;
+                                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
+                                    if (distance < minDist && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this && !i.FrontLine && !i.noFactionFrontline
+                                        && i.PersonCount > this.PersonCount)
+                                    {
+                                        minDist = distance;
+                                        src = i;
+                                    }
+                                }
+                                if (src != null)
+                                {
+                                    int num = src.PersonCount / 2;
+                                    GameObjectList list = src.Persons.GetList();
+                                    if (list.Count > 1)
+                                    {
+                                        list.IsNumber = true;
+                                        list.SmallToBig = false;
+                                        list.PropertyName = "Merit";
+                                        list.ReSort();
+                                    }
+                                    if (src != null)
+                                    {
+                                        num2 = 0;
+                                        while (num2 < num)
+                                        {
+                                            Person p = list[num2] as Person;
+                                            if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null)
+                                            {
+                                                p.MoveToArchitecture(this);
+                                            }
+                                            num2++;
+                                        }
+                                    }
+                                }
+                                else break;
+                                otherArchitectureList.Remove(src);
+                            } while (//this.PersonCount + this.MovingPersonCount < Math.Max(Math.Max(this.MilitaryCount * 2, this.Population / 10000), 6) && 
+                                otherArchitectureList.Count > 0 && 
+                                this.PersonCount + this.MovingPersonCount < this.MilitaryCount &&
+                                this.PersonCount + this.MovingPersonCount < this.Fund / 3000);
+                        }
                     }
                 }
 
