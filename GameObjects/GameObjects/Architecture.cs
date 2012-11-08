@@ -2937,6 +2937,16 @@
             return sourceArea[GameObject.Random(sourceArea.Count)];
         }
 
+        private Point? GetRandomStartingPosition()
+        {
+            GameArea allAvailableArea = this.GetAllAvailableArea(false);
+            if (allAvailableArea.Count == 0)
+            {
+                return null;
+            }
+            return allAvailableArea[GameObject.Random(allAvailableArea.Count)];
+        }
+
         private Troop BuildTransportTroop(Architecture destination, Military military, int food, int fund)
         {
             Troop troop;
@@ -3032,7 +3042,7 @@
                 }
             }
 
-            if (target == null && GameObject.Random(4) == 0)
+            if (target == null && GameObject.Random(10) == 0)
             {
                 foreach (LinkNode i in this.AIAllLinkNodes.Values)
                 {
@@ -3114,17 +3124,18 @@
                     foreach (Military i in this.Militaries.GetRandomList())
                     {
                         if (this.ArmyScale < reserve) break;
+                        if (this.Persons.Count <= 0) break;
                         if (i.KindID == 29) continue;
                         if (this.Persons.HasGameObject(i.Leader))
                         {
-                            this.BuildOffensiveTroop(target.A, target.Kind, false);
+                            this.BuildTroopForTransfer(i, target.A, target.Kind);
                         }
                         else
                         {
                             Person armyLeader = i.FollowedLeader != null ? i.FollowedLeader : i.Leader;
                             if (armyLeader == null)
                             {
-                                this.BuildOffensiveTroop(target.A, target.Kind, false);
+                                this.BuildTroopForTransfer(i, target.A, target.Kind);
                             } 
                             else if (!armyLeader.IsCaptive && armyLeader.LocationArchitecture != null && armyLeader.LocationArchitecture.BelongedSection == this.BelongedSection)
                             {
@@ -3135,6 +3146,69 @@
                 }
             }
         }
+
+        private Troop BuildTroopForTransfer(Military military, Architecture destination, LinkKind linkkind)
+        {
+            if (linkkind == LinkKind.None)
+            {
+                return null;
+            }
+            if (this.Persons.Count == 0) return null;
+            TroopList list = new TroopList();
+            this.Persons.ClearSelected();
+            if ((military.Scales > 5) && (military.Morale >= 80) && (military.Combativity >= 80) && (military.InjuryQuantity < military.Kind.MinScale))
+            {
+                PersonList list2;
+                Military military2 = military;
+                if ((military2.FollowedLeader != null) && this.Persons.HasGameObject(military2.FollowedLeader) && military2.FollowedLeader.WaitForFeiZi == null && military2.FollowedLeader.LocationTroop == null)
+                {
+                    list2 = new PersonList();
+                    list2.Add(military2.FollowedLeader);
+                    military2.FollowedLeader.Selected = true;
+                    Point? nullable = this.GetRandomStartingPosition();
+                    if (!nullable.HasValue)
+                    {
+                        return null;
+                    }
+                    return this.CreateTroop(list2, military2.FollowedLeader, military2, -1, nullable.Value);
+                }
+                if ((((military2.Leader != null) && (military2.LeaderExperience >= 10)) && (((military2.Leader.Strength >= 80) || (military2.Leader.Command >= 80)) || military2.Leader.HasLeaderValidCombatTitle))
+                    && this.Persons.HasGameObject(military2.Leader) && military2.Leader.WaitForFeiZi == null && military2.Leader.LocationTroop == null)
+                {
+                    list2 = new PersonList();
+                    list2.Add(military2.Leader);
+                    military2.Leader.Selected = true;
+                    Point? nullable = this.GetRandomStartingPosition();
+                    if (!nullable.HasValue)
+                    {
+                        return null;
+                    }
+                    return this.CreateTroop(list2, military2.Leader, military2, -1, nullable.Value);
+                }
+                GameObjectList sortedList = this.Persons.GetList() as GameObjectList;
+                sortedList.PropertyName = "FightingForce";
+                sortedList.IsNumber = true;
+                sortedList.SmallToBig = true;
+                sortedList.ReSort();
+                foreach (Person person in sortedList)
+                {
+                    if (!person.Selected && person.WaitForFeiZi == null && person.LocationTroop == null)
+                    {
+                        list2 = new PersonList();
+                        list2.Add(person);
+                        person.Selected = true;
+                        Point? nullable = this.GetRandomStartingPosition();
+                        if (!nullable.HasValue)
+                        {
+                            break;
+                        }
+                        return this.CreateTroop(list2, person, military2, -1, nullable.Value);
+                    }
+                }
+            }
+            return null;
+        }
+
 
         private void AIMilitaryTransfer_OLD()
         {
