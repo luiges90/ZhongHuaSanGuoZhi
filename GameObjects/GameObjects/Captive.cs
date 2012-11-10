@@ -39,6 +39,7 @@
             captive.CaptiveFaction = person.BelongedFaction;
             person.BelongedCaptive = captive;
             person.Status = GameObjects.PersonDetail.PersonStatus.Captive;
+            person.HeldCaptiveCount++;
             scenario.Captives.AddCaptiveWithEvent(captive);
             return captive;
         }
@@ -208,6 +209,7 @@
             {
                 this.OnEscape(this);
             }
+            this.CaptivePerson.FleeCount++;
             this.Scenario.GameScreen.xianshishijiantupian(this.CaptivePerson , this.BelongedFaction.Name, "CaptiveEscape", "", "", false);
             this.DoReturn();
             this.DoRelease();

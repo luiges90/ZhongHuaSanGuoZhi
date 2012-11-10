@@ -30,7 +30,6 @@
         private Person trainingPerson;
         private int trainingPersonID = -1;
 
-
         public int Merit
         {
             get
