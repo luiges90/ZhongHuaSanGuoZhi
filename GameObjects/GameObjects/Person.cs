@@ -203,6 +203,26 @@
 
         public Architecture LocationArchitecture = null;
 
+        public int YearJoin{ get; set; }
+        public int TroopDamageDealt{ get; set; }
+        public int TroopBeDamageDealt{ get; set; }
+        public int ArchitectureDamageDealt{ get; set; }
+        public int RebelCount{ get; set; }
+        public int ExecuteCount{ get; set; }
+        public int FleeCount{ get; set; }
+        public int HeldCaptiveCount{ get; set; }
+        public int CaptiveCount { get; set; }
+        public int StratagemSuccessCount { get; set; }
+        public int StratagemFailCount { get; set; }
+
+        public int ServedYears
+        {
+            get
+            {
+                return this.Status == PersonStatus.Normal || this.Status == PersonStatus.Moving ? base.Scenario.Date.Year - this.YearJoin : 0;
+            }
+        }
+
         public PersonStatus Status
         {
             get
@@ -542,16 +562,6 @@
                         break;
                 }
             }
-        }
-
-        public void AddRoutCount()
-        {
-            this.routCount++;
-        }
-
-        public void AddRoutedCount()
-        {
-            this.routedCount++;
         }
 
         public void AddTreasureToList(TreasureList list)
@@ -1111,6 +1121,7 @@
                             {
                                 base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.ConvincingPerson.BelongedFaction.ID, -10);
                             }
+                            this.ConvincingPerson.RebelCount++;
                         }
 
                         Architecture from = null;
@@ -1134,6 +1145,8 @@
                         {
                             this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Area[0]);
                         }
+
+                        this.ConvincingPerson.YearJoin = base.Scenario.Date.Year;
                         /*if (!(flag || (this.ConvincingPerson.LocationArchitecture == null)))
                         {
                             this.ConvincingPerson.LocationArchitecture.RemovePerson(this.ConvincingPerson);
@@ -2248,6 +2261,7 @@
         public void execute(Faction executingFaction)
         {
             Person executor = executingFaction.Leader;
+            executor.ExecuteCount++;
 
             if (this.BelongedCaptive != null && this.BelongedCaptive.CaptiveFaction != null && this.BelongedCaptive.CaptiveFaction != executingFaction)
             {

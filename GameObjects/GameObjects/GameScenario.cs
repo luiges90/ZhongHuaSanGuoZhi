@@ -73,6 +73,8 @@
 
         public event NewFactionAppear OnNewFactionAppear;
 
+        public int DaySince { get; set; }
+
         public GameScenario(Screen screen)
         {
             this.GameScreen = screen;
@@ -664,6 +666,8 @@
                 captive.DayEvent();
             }
             this.CheckGameEnd();
+
+            this.DaySince++;
 
             this.GameScreen.LoadScenarioInInitialization = false;
         }
@@ -2024,6 +2028,25 @@
                     person.preferredTroopPersonsString = "";
                 }
 
+                try
+                {
+                    person.YearJoin = (short)reader["YearJoin"];
+                    person.TroopDamageDealt = (int)reader["TroopDamageDealt"];
+                    person.TroopBeDamageDealt = (int)reader["TroopBeDamageDealt"];
+                    person.ArchitectureDamageDealt = (int)reader["ArchitectureDamageDealt"];
+                    person.RebelCount = (short)reader["RebelCount"];
+                    person.ExecuteCount = (short)reader["ExecuteCount"];
+                    person.FleeCount = (short)reader["FleeCount"];
+                    person.HeldCaptiveCount = (short)reader["HeldCaptiveCount"];
+                    person.CaptiveCount = (short)reader["CaptiveCount"];
+                    person.StratagemSuccessCount = (int)reader["StratagemSuccessCount"];
+                    person.StratagemFailCount = (int)reader["StratagemFailCount"];
+                }
+                catch
+                {
+                    // all zeroes.
+                }
+
                 this.Persons.AddPersonWithEvent(person);  //所有武将，并加载武将事件
                 this.AllPersons.Add(person.ID, person);   //武将字典
                 if (person.Available && person.Alive)
@@ -2611,6 +2634,13 @@
             this.Factions.LoadQueueFromString(reader["FactionQueue"].ToString());
             this.FireTable.LoadFromString(reader["FireTable"].ToString());
             this.NoFoodDictionary.LoadFromString(reader["NoFoodTable"].ToString());
+            try
+            {
+                this.DaySince = (int)reader["DaySince"];
+            }
+            catch
+            {
+            }
             dbConnection.Close();
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
@@ -3451,6 +3481,17 @@
                     row["WaitForFeizi"] = (person.WaitForFeiZi != null) ? person.WaitForFeiZi.ID : -1;
                     row["WaitForFeiziPeriod"] = person.WaitForFeiZiPeriod;
                     row["PreferredTroopPersons"] = person.preferredTroopPersons.SaveToString();
+                    row["YearJoin"] = person.YearJoin;
+                    row["TroopDamageDealt"] = person.TroopDamageDealt;
+                    row["TroopBeDamageDealt"] = person.TroopBeDamageDealt;
+                    row["ArchitectureDamageDealt"] = person.ArchitectureDamageDealt;
+                    row["RebelCount"] = person.RebelCount;
+                    row["ExecuteCount"] = person.ExecuteCount;
+                    row["FleeCount"] = person.FleeCount;
+                    row["CaptiveCount"] = person.CaptiveCount;
+                    row["HeldCaptiveCount"] = person.HeldCaptiveCount;
+                    row["StratagemSuccessCount"] = person.StratagemSuccessCount;
+                    row["StratagemFailCount"] = person.StratagemFailCount;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
@@ -3585,6 +3626,7 @@
                 row["FactionQueue"] = this.Factions.SaveQueueToString();
                 row["FireTable"] = this.FireTable.SaveToString();
                 row["NoFoodTable"] = this.NoFoodDictionary.SaveToString();
+                row["DaySince"] = this.DaySince;
                 row.EndEdit();
                 dataSet.Tables["GameData"].Rows.Add(row);
                 adapter.Update(dataSet, "GameData");
