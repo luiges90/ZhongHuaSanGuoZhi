@@ -175,6 +175,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbLeadershipOffenceRate;
         private CheckBox checkLiangdaoXitong;
         private CheckBox wujiangYoukenengDuli;
+        private TextBox tbBattleSpeed;
+        private Label label48;
         private Label getChildrenRateLabel;
 
         public formOptions()
@@ -349,6 +351,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label48 = new System.Windows.Forms.Label();
+            this.tbBattleSpeed = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageEnvironment.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -374,6 +378,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageEnvironment
             // 
+            this.tabPageEnvironment.Controls.Add(this.tbBattleSpeed);
+            this.tabPageEnvironment.Controls.Add(this.label48);
             this.tabPageEnvironment.Controls.Add(this.wujiangYoukenengDuli);
             this.tabPageEnvironment.Controls.Add(this.checkLiangdaoXitong);
             this.tabPageEnvironment.Controls.Add(this.groupBox1);
@@ -437,7 +443,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.groupBox1.Controls.Add(this.rbNormal);
             this.groupBox1.Controls.Add(this.rbEasy);
             this.groupBox1.Controls.Add(this.rbBeginner);
-            this.groupBox1.Location = new System.Drawing.Point(253, 126);
+            this.groupBox1.Location = new System.Drawing.Point(253, 139);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(94, 151);
             this.groupBox1.TabIndex = 104;
@@ -1808,6 +1814,24 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(257, 114);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(53, 12);
+            this.label48.TabIndex = 107;
+            this.label48.Text = "战斗速度";
+            // 
+            // tbBattleSpeed
+            // 
+            this.tbBattleSpeed.Location = new System.Drawing.Point(316, 111);
+            this.tbBattleSpeed.MaxLength = 2;
+            this.tbBattleSpeed.Name = "tbBattleSpeed";
+            this.tbBattleSpeed.Size = new System.Drawing.Size(27, 22);
+            this.tbBattleSpeed.TabIndex = 108;
+            this.tbBattleSpeed.Text = "1";
+            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -1886,7 +1910,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.changeDifficultySelection((Difficulty) Enum.Parse(typeof(Difficulty), nextSibling.Attributes.GetNamedItem("GameDifficulty").Value));
             this.checkLiangdaoXitong.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("LiangdaoXitong").Value);
             this.wujiangYoukenengDuli.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("WujiangYoukenengDuli").Value);
-
+            this.tbBattleSpeed.Text = nextSibling.Attributes.GetNamedItem("FastBattleSpeed").Value;
         }
 
         private void LoadParameterDoc()
@@ -1985,7 +2009,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("LeadershipOffenceRate").Value = this.tbLeadershipOffenceRate.Text;
             nextSibling.Attributes.GetNamedItem("LiangdaoXitong").Value = this.checkLiangdaoXitong.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("WujiangYoukenengDuli").Value = this.wujiangYoukenengDuli.Checked.ToString();
-
+            nextSibling.Attributes.GetNamedItem("FastBattleSpeed").Value = this.tbBattleSpeed.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 
