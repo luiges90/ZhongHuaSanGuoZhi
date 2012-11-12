@@ -63,11 +63,7 @@
         {
             get
             {
-                if (GlobalVariables.FastBattleSpeed)
-                {
-                    return (this.stayCount / 2);
-                }
-                return this.stayCount;
+                return this.stayCount / GlobalVariables.FastBattleSpeed;
             }
             set
             {

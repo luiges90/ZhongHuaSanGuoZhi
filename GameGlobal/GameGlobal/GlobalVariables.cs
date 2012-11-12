@@ -22,7 +22,7 @@
         public static bool DrawMapVeil = true;
         public static bool DrawTroopAnimation = true;
         public static long FactionRunningTicksLimitInOneFrame = 0x186a0;
-        public static bool FastBattleSpeed = false;
+        public static int FastBattleSpeed = 1;
         public const float FloatingPartDepth = 0.25f;
         public const float FrameContentDepth = 0.35f;
         public const float FrontTileAnimationLayerDepth = 0.65f;
@@ -501,6 +501,15 @@
             {
                 exception = exception24;
                 throw new Exception("WujiangYoukenengDuli:\n" + exception.ToString());
+            }
+            try
+            {
+                FastBattleSpeed = int.Parse(nextSibling.Attributes.GetNamedItem("FastBattleSpeed").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("FastBattleSpeed:\n" + exception.ToString());
             }
             return true;
         }

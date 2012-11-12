@@ -84,7 +84,7 @@
                             }
                             break;
                     }
-                    if ((gameTime.TotalGameTime.TotalMilliseconds - this.currentTime) >= (GlobalVariables.FastBattleSpeed ? 600.0 : 1200.0))
+                    if ((gameTime.TotalGameTime.TotalMilliseconds - this.currentTime) >= 1200.0 / GlobalVariables.FastBattleSpeed)
                     {
                         this.Clear();
                     }

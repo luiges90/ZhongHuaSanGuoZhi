@@ -82,13 +82,13 @@
             if (this.CurrentTroop != null)
             {
 
-                this.TroopMoveThread(this.CurrentTroop);
-
-                /*
+                //this.TroopMoveThread(this.CurrentTroop);
+                Thread thread;
+                
                 thread = new Thread(new ThreadStart(this.CurrentTroop.Move));
                 thread.Start();
                 thread.Join();
-                */
+                
                 if (this.CurrentTroop.StepFinished || (this.CurrentTroop.MovabilityLeft <= 0))
                 {
                     if (!this.CurrentTroop.OperationDone)
@@ -205,15 +205,15 @@
 
         private void TroopMoveThread(Troop troop)
         {
-            troop.Move();
-            /*
+            //troop.Move();
+            
             Thread thread;
 
             thread = new Thread(new ThreadStart(troop.Move));
             thread.Start();
             thread.Join();
 
-            thread = null;*/
+            thread = null;
         }
 
 

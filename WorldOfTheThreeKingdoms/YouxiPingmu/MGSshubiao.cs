@@ -37,10 +37,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
 
             this.scrollSpeedScale = this.scrollSpeedScaleSpeedy;
-            if (!base.Scenario.LoadAndSaveAvail())
+            /*if (!base.Scenario.LoadAndSaveAvail())
             {
                 GlobalVariables.FastBattleSpeed = this.mouseState.LeftButton == ButtonState.Pressed;
-            }
+            }*/
         }
 
         public override void EarlyMouseLeftUp()
@@ -48,7 +48,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             base.EarlyMouseLeftUp();
             this.DrawingSelector = false;
             this.scrollSpeedScale = this.scrollSpeedScaleDefault;
-            GlobalVariables.FastBattleSpeed = false;
+            //GlobalVariables.FastBattleSpeed = false;
         }
 
         public override void EarlyMouseMove()

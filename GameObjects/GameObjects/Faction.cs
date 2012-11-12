@@ -2354,7 +2354,7 @@
 
         public bool Run()
         {
-            //Thread thread;
+            Thread thread;
             if (!this.preUserControlFinished)
             {
                 this.Develop();
@@ -2372,11 +2372,11 @@
                     {
                         if (!this.AIFinished)
                         {
-                            /*thread = new Thread(new ThreadStart(this.PlayerAI));
+                            thread = new Thread(new ThreadStart(this.PlayerAI));
                             thread.Start();
                             thread.Join();
-                            thread = null;*/
-                            this.PlayerAI();
+                            thread = null;
+                            //this.PlayerAI();
                             return false;
                         }
                         this.Controlling = true;
@@ -2392,11 +2392,11 @@
                 {
                     if (!this.AIFinished)
                     {
-                        /*thread = new Thread(new ThreadStart(this.PlayerAI));
+                        thread = new Thread(new ThreadStart(this.PlayerAI));
                             thread.Start();
                             thread.Join();
-                            thread = null;*/
-                        this.PlayerAI();
+                            thread = null;
+                        //this.PlayerAI();
                         return false;
                     }
                     this.Passed = true;
@@ -2408,11 +2408,11 @@
             {
                 if (!this.AIFinished)
                 {
-                    /*thread = new Thread(new ThreadStart(this.AI));
+                    thread = new Thread(new ThreadStart(this.AI));
                             thread.Start();
                             thread.Join();
-                            thread = null;*/
-                    this.AI();
+                            thread = null;
+                    //this.AI();
                     return false;
                 }
                 this.Passed = true;
