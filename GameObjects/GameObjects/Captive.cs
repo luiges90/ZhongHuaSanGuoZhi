@@ -52,9 +52,14 @@
                 {
                     return this.CaptivePerson.LocationArchitecture.BelongedFaction;
                 }
-                else
+                else if (this.CaptivePerson.LocationTroop != null)
                 {
                     return this.CaptivePerson.LocationTroop.BelongedFaction;
+                }
+                else
+                {
+                    // this should not happen...
+                    return null;
                 }
             }
         }

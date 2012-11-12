@@ -44,7 +44,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\x86\Release</OutputPath>
+    <OutputPath>..\bin\x86\Release\GameComponents\AirView\</OutputPath>
     <DefineConstants>TRACE;WINDOWS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -57,11 +57,6 @@
     <Reference Include="GameFreeText, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\x86\Debug\GameFreeText.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GameGlobal, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Debug\GameGlobal.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GameObjects, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
@@ -153,6 +148,12 @@
       <ProductName>Microsoft XNA Framework Redistributable 3.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\GameGlobal\GameGlobal.csproj">
+      <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
+      <Name>GameGlobal</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

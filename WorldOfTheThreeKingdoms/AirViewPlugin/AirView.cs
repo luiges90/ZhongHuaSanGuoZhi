@@ -239,7 +239,7 @@ namespace AirViewPlugin
                 else if (StaticMethods.PointInRectangle(position, this.MapPosition))
                 {
                     this.isPreparedToJump = true;
-                    if (!GlobalVariables.FastBattleSpeed)
+                    if (GlobalVariables.FastBattleSpeed <= 1)
                     {
                         this.screen.ResetMouse();
                         if (leftDown)

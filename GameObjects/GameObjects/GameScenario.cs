@@ -2041,6 +2041,8 @@
                     person.CaptiveCount = (short)reader["CaptiveCount"];
                     person.StratagemSuccessCount = (int)reader["StratagemSuccessCount"];
                     person.StratagemFailCount = (int)reader["StratagemFailCount"];
+                    person.StratagemBeSuccessCount = (int)reader["StratagemBeSuccessCount"];
+                    person.StratagemBeFailCount = (int)reader["StratagemBeFailCount"];
                 }
                 catch
                 {
@@ -3492,6 +3494,8 @@
                     row["HeldCaptiveCount"] = person.HeldCaptiveCount;
                     row["StratagemSuccessCount"] = person.StratagemSuccessCount;
                     row["StratagemFailCount"] = person.StratagemFailCount;
+                    row["StratagemBeSuccessCount"] = person.StratagemBeSuccessCount;
+                    row["StratagemBeFailCount"] = person.StratagemBeFailCount;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }

@@ -490,7 +490,7 @@
                 CaptiveList result = new CaptiveList();
                 foreach (Captive i in base.Scenario.Captives)
                 {
-                    if (i.LocationTroop == this && i.LocationArchitecture == null)
+                    if (i.LocationTroop == this)
                     {
                         result.Add(i);
                     }
@@ -1469,7 +1469,10 @@
                     }
                 }
                 this.Destroy();
-                this.BelongedLegion.RemoveTroop(this);
+                if (this.BelongedLegion != null)
+                {
+                    this.BelongedLegion.RemoveTroop(this);
+                }
                 if (this.Army.ShelledMilitary == null)
                 {
                     this.BelongedFaction.RemoveMilitary(this.Army);
@@ -3781,7 +3784,7 @@
             if (this.MoveAnimationFrames.Count > this.moveFrameIndex)
             {
                 this.moveStayCount++;
-                if (this.moveStayCount > (GlobalVariables.FastBattleSpeed ? (GlobalVariables.TroopMoveSpeed / 2) : GlobalVariables.TroopMoveSpeed))
+                if (this.moveStayCount > GlobalVariables.TroopMoveSpeed / GlobalVariables.FastBattleSpeed)
                 {
                     this.moveStayCount = 0;
                     this.moveFrameIndex++;
@@ -3889,6 +3892,14 @@
                             p.StratagemSuccessCount++;
                         }
                     }
+                    maxIntelPerson = troop.Persons.GetMaxIntelligencePerson();
+                    foreach (Person p in troop.Persons)
+                    {
+                        if (p == maxIntelPerson || GameObject.Chance(50))
+                        {
+                            p.StratagemBeSuccessCount++;
+                        }
+                    }
                 }
                 else
                 {
@@ -3907,6 +3918,14 @@
                         if (p == maxIntelPerson || GameObject.Chance(50))
                         {
                             p.StratagemFailCount++;
+                        }
+                    }
+                    maxIntelPerson = troop.Persons.GetMaxIntelligencePerson();
+                    foreach (Person p in troop.Persons)
+                    {
+                        if (p == maxIntelPerson || GameObject.Chance(50))
+                        {
+                            p.StratagemBeFailCount++;
                         }
                     }
                 }

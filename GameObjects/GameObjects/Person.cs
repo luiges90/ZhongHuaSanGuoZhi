@@ -214,6 +214,8 @@
         public int CaptiveCount { get; set; }
         public int StratagemSuccessCount { get; set; }
         public int StratagemFailCount { get; set; }
+        public int StratagemBeSuccessCount { get; set; }
+        public int StratagemBeFailCount { get; set; }
 
         public int ServedYears
         {
@@ -672,6 +674,7 @@
         public void ChangeFaction(GameObjects.Faction faction)
         {
             this.Status = PersonStatus.Normal;
+            this.YearJoin = base.Scenario.Date.Year;
             this.InitialLoyalty();
         }
 
@@ -1146,7 +1149,6 @@
                             this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Area[0]);
                         }
 
-                        this.ConvincingPerson.YearJoin = base.Scenario.Date.Year;
                         /*if (!(flag || (this.ConvincingPerson.LocationArchitecture == null)))
                         {
                             this.ConvincingPerson.LocationArchitecture.RemovePerson(this.ConvincingPerson);
