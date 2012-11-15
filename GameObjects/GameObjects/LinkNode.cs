@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using Microsoft.Xna.Framework;
 
     public class LinkNode
     {
@@ -11,6 +12,7 @@
         internal LinkKind Kind;
         internal int Level;
         internal List<Architecture> Path = new List<Architecture>();
+        internal List<Point> RoutewayPath = new List<Point>();
 
         public override string ToString()
         {
