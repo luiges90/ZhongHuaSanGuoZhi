@@ -1515,12 +1515,84 @@
             }
         }
 
+        private Point getClosestPointOnPath(List<Point> p, out int index)
+        {
+            Point result = p[0];
+            index = 0;
+            int shortest = int.MaxValue;
+            for (int i = 0; i < p.Count; ++i)
+            {
+                int distance = base.Scenario.GetSimpleDistance(this.Position, p[i]) - i;
+                if (distance <= shortest)
+                {
+                    result = p[i];
+                    index = i;
+                    shortest = distance;
+                }
+            }
+            return result;
+        }
+
         private int cannotFindRouteRounds = 0;
         private bool BuildThreeTierPath()
         {
             bool path = false;
             if (!this.HasPath)
             {
+                /*if (this.BelongedFaction != null && !base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture == null &&
+                    this.TargetTroop == null)
+                {
+                    foreach (LinkNode i in this.StartingArchitecture.AIAllLinkNodes.Values)
+                    {
+                        if (i.A == this.WillArchitecture)
+                        {
+                            if (i.RoutewayPath != null && i.RoutewayPath.Count > 0)
+                            {
+                                int index;
+                                Point center = this.getClosestPointOnPath(i.RoutewayPath, out index);
+                                this.FirstTierPath = this.pathFinder.GetSimplePath(this.position, center);
+                                this.FirstIndex = 0;
+                                this.SecondTierPath = i.RoutewayPath;
+                                this.SecondIndex = index;
+                                if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
+                                {
+                                    this.HasPath = true;
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                Point? p1;
+                                Point? p2;
+                                base.Scenario.GetClosestPointsBetweenTwoAreas(this.StartingArchitecture.ArchitectureArea, this.WillArchitecture.ArchitectureArea, out p1, out p2);
+                                if (p1.HasValue && p2.HasValue)
+                                {
+                                    bool ftPath = this.pathFinder.GetFirstTierPath(p1.Value, p2.Value);
+                                    if (ftPath)
+                                    {
+                                        i.RoutewayPath = this.FirstTierPath;
+                                        if (i.RoutewayPath != null && i.RoutewayPath.Count > 0)
+                                        {
+                                            int index;
+                                            Point center = this.getClosestPointOnPath(i.RoutewayPath, out index);
+                                            this.FirstTierPath = this.pathFinder.GetSimplePath(this.position, center);
+                                            this.FirstIndex = 0;
+                                            this.SecondTierPath = i.RoutewayPath;
+                                            this.SecondIndex = index;
+                                            if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
+                                            {
+                                                this.HasPath = true;
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }*/
+
                 this.EnableOneAdaptablility = true;
                 bool flag2 = false;
                 if ((this.BelongedFaction != null) && !GameObject.Chance(0x21))
