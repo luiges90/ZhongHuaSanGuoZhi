@@ -12,7 +12,6 @@
         internal LinkKind Kind;
         internal int Level;
         internal List<Architecture> Path = new List<Architecture>();
-        internal List<Point> RoutewayPath = new List<Point>();
 
         public override string ToString()
         {

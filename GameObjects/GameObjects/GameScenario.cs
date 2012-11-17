@@ -75,6 +75,8 @@
 
         public int DaySince { get; set; }
 
+        internal Dictionary<PathCacheKey, List<Point>> pathCache = new Dictionary<PathCacheKey, List<Point>>();
+
         public GameScenario(Screen screen)
         {
             this.GameScreen = screen;
@@ -251,7 +253,10 @@
                     person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, "ChildJoin", "", "", person.Name, false);
-                    this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, "ChildJoinSelfTalk", "", "", false);
+                    if (person.LocationArchitecture != null)
+                    {
+                        this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, "ChildJoinSelfTalk", "", "", false);
+                    }
                     this.AvailablePersons.Add(person);
                     continue;
                 }
@@ -2609,7 +2614,29 @@
             {
                 DbConnection.Close();
             }
-
+            try
+            {
+                DbConnection.Open();
+                reader = new OleDbCommand("Select * From AAPaths", DbConnection).ExecuteReader();
+                while (reader.Read())
+                {
+                    int aid1 = (short)reader["Architecture1"];
+                    int aid2 = (short)reader["Architecture2"];
+                    Architecture a1 = this.Architectures.GetGameObject(aid1) as Architecture;
+                    Architecture a2 = this.Architectures.GetGameObject(aid2) as Architecture;
+                    List<Point> path = new List<Point>();
+                    StaticMethods.LoadFromString(path, (string) reader["Path"]);
+                    this.pathCache[new PathCacheKey(a1, a2)] = path;
+                }
+            }
+            catch
+            {
+                //ignore, let there be empty cache
+            }
+            finally
+            {
+                DbConnection.Close();
+            }
             this.AllPersons.Clear();
             this.AllArchitectures.Clear();
             
@@ -3615,6 +3642,24 @@
                 }
                 adapter.Update(dataSet, "Event");
                 dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from AAPaths", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "AAPaths");
+                dataSet.Tables["AAPaths"].Rows.Clear();
+                foreach (KeyValuePair<PathCacheKey, List<Point>> kv in this.pathCache)
+                {
+                    row = dataSet.Tables["AAPaths"].NewRow();
+                    row.BeginEdit();
+                    row["Architecture1"] = kv.Key.a1.ID;
+                    row["Architecture2"] = kv.Key.a2.ID;
+                    row["Path"] = StaticMethods.SaveToString(kv.Value);
+                    row.EndEdit();
+                    dataSet.Tables["AAPaths"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "AAPaths");
+                dataSet.Clear();
+
                 //}
                 //catch
                 //{

@@ -930,6 +930,7 @@
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect2130.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect2131.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect2200.cs" />
+    <Compile Include="GameObjects\PathCacheKey.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1402.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1403.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1404.cs" />

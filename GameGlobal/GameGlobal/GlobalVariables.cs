@@ -100,6 +100,8 @@
 
         public static int DialogShowTime = 10;
 
+        public static bool AINoTeamTransfer = false;
+
         public bool InitialGlobalVariables()
         {
             Exception exception;

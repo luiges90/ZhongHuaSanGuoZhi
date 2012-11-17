@@ -1853,46 +1853,57 @@
                     }
 
                     //if there is transport team here, lets transport!
-                    Military transportTeam = null;
-                    foreach (Military m in Militaries)
+                    if (GlobalVariables.AINoTeamTransfer)
                     {
-                        if (m.Kind.ID == 29 && (transportTeam == null || transportTeam.Quantity <= m.Quantity))
-                        {
-                            transportTeam = m;
-                        }
-                    }
-                    if (transportTeam != null)
-                    {
-                        //reduce amount of food if it is not possible to transport that much of food at all
-                        if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < transferFood)
-                        {
-                            transferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
-                        }
-                        if ((transportTeam.Quantity > 0 && (this.RecentlyAttacked <= 0 || this.Endurance == 0 || transportTeam.Quantity >= transportTeam.Kind.MaxScale)) && transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays >= transferFood)
-                        {
-                            //ensure enough crop for task
-                            if (transferFood >= transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * (dest.Distance / (transportTeam.Kind.Movability / (transportTeam.Kind.PlainAdaptability * 2))))
-                            {
-                                //build the troop
-                                this.BuildTransportTroop(dest.A, transportTeam, transferFood, transferFund);
-
-                                //and don't transfer within 3 days.
-                                transferCountDown = 3;
-                            }
-                            this.TransferFoodArchitecture = null;
-                        }
+                        //if no transfer, just let the fund and food magically arrives ;)
+                        this.Food -= transferFood;
+                        this.Fund -= transferFund;
+                        dest.A.Food += transferFood;
+                        dest.A.Fund += transferFund;
                     }
                     else
                     {
-                        //otherwise, get a new one
-                        MilitaryKind mk;
-                        base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
-                        this.CreateMilitary(mk);
+                        Military transportTeam = null;
+                        foreach (Military m in Militaries)
+                        {
+                            if (m.Kind.ID == 29 && (transportTeam == null || transportTeam.Quantity <= m.Quantity))
+                            {
+                                transportTeam = m;
+                            }
+                        }
+                        if (transportTeam != null)
+                        {
+                            //reduce amount of food if it is not possible to transport that much of food at all
+                            if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < transferFood)
+                            {
+                                transferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
+                            }
+                            if ((transportTeam.Quantity > 0 && (this.RecentlyAttacked <= 0 || this.Endurance == 0 || transportTeam.Quantity >= transportTeam.Kind.MaxScale)) && transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays >= transferFood)
+                            {
+                                //ensure enough crop for task
+                                if (transferFood >= transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * (dest.Distance / (transportTeam.Kind.Movability / (transportTeam.Kind.PlainAdaptability * 2))))
+                                {
+                                    //build the troop
+                                    this.BuildTransportTroop(dest.A, transportTeam, transferFood, transferFund);
 
-                        //let AIWork to recruit this team
+                                    //and don't transfer within 3 days.
+                                    transferCountDown = 3;
+                                }
+                                this.TransferFoodArchitecture = null;
+                            }
+                        }
+                        else
+                        {
+                            //otherwise, get a new one
+                            MilitaryKind mk;
+                            base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
+                            this.CreateMilitary(mk);
 
-                        //and mark that we are going to transfer
-                        this.TransferFoodArchitecture = dest.A;
+                            //let AIWork to recruit this team
+
+                            //and mark that we are going to transfer
+                            this.TransferFoodArchitecture = dest.A;
+                        }
                     }
                 }
             }
@@ -3244,14 +3255,28 @@
                         if (i.KindID == 29) continue;
                         if (this.Persons.HasGameObject(i.Leader))
                         {
-                            this.BuildTroopForTransfer(i, target.A, target.Kind);
+                            if (GlobalVariables.AINoTeamTransfer && !target.A.FrontLine)
+                            {
+                                i.BelongedArchitecture = target.A;
+                            }
+                            else
+                            {
+                                this.BuildTroopForTransfer(i, target.A, target.Kind);
+                            }
                         }
                         else
                         {
                             Person armyLeader = i.FollowedLeader != null ? i.FollowedLeader : i.Leader;
                             if (armyLeader == null)
                             {
-                                this.BuildTroopForTransfer(i, target.A, target.Kind);
+                                if (GlobalVariables.AINoTeamTransfer && !target.A.FrontLine)
+                                {
+                                    i.BelongedArchitecture = target.A;
+                                }
+                                else
+                                {
+                                    this.BuildTroopForTransfer(i, target.A, target.Kind);
+                                }
                             } 
                             else if (!armyLeader.IsCaptive && armyLeader.LocationArchitecture != null && armyLeader.LocationArchitecture.BelongedSection == this.BelongedSection)
                             {

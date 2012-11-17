@@ -261,14 +261,14 @@
 
         public bool GetPath(Point start, Point end)
         {
-            if (Troop.LaunchThirdPathFinder(start, end))
+            /*if (Troop.LaunchThirdPathFinder(start, end))
             {
                 return this.GetThirdTierPath(start, end);
             }
             if (Troop.LaunchSecondPathFinder(start, end))
             {
                 return this.GetSecondTierPath(start, end);
-            }
+            }*/
             return this.GetFirstTierPath(start, end);
         }
 
