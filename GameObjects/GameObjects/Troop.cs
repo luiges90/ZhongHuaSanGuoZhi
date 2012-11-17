@@ -1092,7 +1092,6 @@
                     }
                 }
             }
-            this.RealDestination = pack3.Position;
             if (this.BelongedLegion != null)
             {
                 this.BelongedLegion.TakenPositions.Add(pack3.Position);
@@ -1138,6 +1137,14 @@
                 this.CastTargetKind = TroopCastTargetKind.智低默认;
                 this.TargetTroop = null;
                 this.TargetArchitecture = null;
+            }
+            if (this.TargetTroop == null && this.TargetArchitecture == null)
+            {
+                this.RealDestination = base.Scenario.GetClosestPoint(this.WillArchitecture.ArchitectureArea, this.Position);
+            }
+            else
+            {
+                this.RealDestination = pack3.Position;
             }
             return true;
         }
@@ -1533,111 +1540,157 @@
             return result;
         }
 
+        private bool ConstructTruePath(List<Point> reference)
+        {
+            int minDistance = int.MaxValue;
+            Point closestPoint = reference[0];
+
+            // find and go to reference path
+            List<Point> onReference = new List<Point>(reference);
+            int i = 0;
+            foreach (Point p in reference)
+            {
+                int distance = base.Scenario.GetSimpleDistance(p, this.Position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestPoint = p;
+                    onReference.RemoveRange(0, i + 1);
+                    i = 0;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            // create path from here to reference path
+            List<Point> section;
+            if (minDistance > 0){
+                this.pathFinder.GetFirstTierPath(this.Position, closestPoint);
+                if (this.FirstTierPath == null) return false;
+                section = new List<Point>(this.FirstTierPath);
+                section.AddRange(onReference);
+            } else {
+                section = new List<Point>();
+                section.Add(this.Position);
+                section.AddRange(onReference);
+            }
+
+            // create path from end of reference path to destination
+            if (section[section.Count - 1] != this.Destination)
+            {
+                this.pathFinder.GetFirstTierPath(section[section.Count - 1], this.Destination);
+                if (this.FirstTierPath == null) return false;
+                section.RemoveAt(section.Count - 1);
+                this.FirstTierPath.InsertRange(0, section);
+            }
+            else
+            {
+                this.FirstTierPath = section;
+            }
+
+            this.firstTierPathIndex = 0;
+
+            this.SecondTierPath = null;
+            this.ThirdTierPath = null;
+            this.secondTierPathDestinationIndex = 0;
+            this.thirdTierPathDestinationIndex = 0;
+
+            return true;
+            
+        }
+
         private int cannotFindRouteRounds = 0;
         private bool BuildThreeTierPath()
         {
             bool path = false;
             if (!this.HasPath)
             {
-                /*if (this.BelongedFaction != null && !base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture == null &&
+                if (this.BelongedFaction != null && !base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture == null &&
                     this.TargetTroop == null)
                 {
-                    foreach (LinkNode i in this.StartingArchitecture.AIAllLinkNodes.Values)
+                    List<Point> refPath;
+                    try
                     {
-                        if (i.A == this.WillArchitecture)
+                        refPath = base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture)];
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        refPath = null;
+                    }
+                    if (refPath != null && refPath.Count > 0)
+                    {
+                        path = ConstructTruePath(refPath);
+                    }
+                    else
+                    {
+                        Point? p1;
+                        Point? p2;
+                        base.Scenario.GetClosestPointsBetweenTwoAreas(this.StartingArchitecture.ArchitectureArea, this.WillArchitecture.ArchitectureArea, out p1, out p2);
+                        if (p1.HasValue && p2.HasValue)
                         {
-                            if (i.RoutewayPath != null && i.RoutewayPath.Count > 0)
+                            bool ftPath = this.pathFinder.GetFirstTierPath(p1.Value, p2.Value);
+                            if (ftPath)
                             {
-                                int index;
-                                Point center = this.getClosestPointOnPath(i.RoutewayPath, out index);
-                                this.FirstTierPath = this.pathFinder.GetSimplePath(this.position, center);
-                                this.FirstIndex = 0;
-                                this.SecondTierPath = i.RoutewayPath;
-                                this.SecondIndex = index;
                                 if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
                                 {
-                                    this.HasPath = true;
-                                    return true;
+                                    base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture)] = this.FirstTierPath;
+                                    path = ConstructTruePath(this.FirstTierPath);
                                 }
                             }
-                            else
-                            {
-                                Point? p1;
-                                Point? p2;
-                                base.Scenario.GetClosestPointsBetweenTwoAreas(this.StartingArchitecture.ArchitectureArea, this.WillArchitecture.ArchitectureArea, out p1, out p2);
-                                if (p1.HasValue && p2.HasValue)
-                                {
-                                    bool ftPath = this.pathFinder.GetFirstTierPath(p1.Value, p2.Value);
-                                    if (ftPath)
-                                    {
-                                        i.RoutewayPath = this.FirstTierPath;
-                                        if (i.RoutewayPath != null && i.RoutewayPath.Count > 0)
-                                        {
-                                            int index;
-                                            Point center = this.getClosestPointOnPath(i.RoutewayPath, out index);
-                                            this.FirstTierPath = this.pathFinder.GetSimplePath(this.position, center);
-                                            this.FirstIndex = 0;
-                                            this.SecondTierPath = i.RoutewayPath;
-                                            this.SecondIndex = index;
-                                            if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
-                                            {
-                                                this.HasPath = true;
-                                                return true;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            break;
                         }
                     }
-                }*/
+                }
+                
+                if (!path){
 
-                this.EnableOneAdaptablility = true;
-                bool flag2 = false;
-                if ((this.BelongedFaction != null) && !GameObject.Chance(0x21))
-                {
-                    flag2 = true;
-                    foreach (Troop troop in this.BelongedFaction.Troops)
+                    this.EnableOneAdaptablility = true;
+                    bool flag2 = false;
+                    if ((this.BelongedFaction != null) && !GameObject.Chance(0x21))
                     {
-                        if (!((troop == this) || troop.Destroyed))
+                        flag2 = true;
+                        foreach (Troop troop in this.BelongedFaction.Troops)
                         {
-                            base.Scenario.SetPenalizedMapDataByPosition(troop.Position, this.RealMovability);
+                            if (!((troop == this) || troop.Destroyed))
+                            {
+                                base.Scenario.SetPenalizedMapDataByPosition(troop.Position, this.RealMovability);
+                            }
                         }
                     }
-                }
-                path = this.pathFinder.GetPath(this.Position, this.Destination);
-                if ((this.BelongedFaction != null) && flag2)
-                {
-                    foreach (Troop troop in this.BelongedFaction.Troops)
+                    path = this.pathFinder.GetPath(this.Position, this.Destination);
+                    if ((this.BelongedFaction != null) && flag2)
                     {
-                        if (!((troop == this) || troop.Destroyed))
+                        foreach (Troop troop in this.BelongedFaction.Troops)
                         {
-                            base.Scenario.ClearPenalizedMapDataByPosition(troop.Position);
+                            if (!((troop == this) || troop.Destroyed))
+                            {
+                                base.Scenario.ClearPenalizedMapDataByPosition(troop.Position);
+                            }
                         }
                     }
-                }
-                this.EnableOneAdaptablility = false;
-                if ((this.ThirdTierPath != null) && (this.SecondTierPath == null))
-                {
-                    if (!path)
+                    this.EnableOneAdaptablility = false;
+                    if ((this.ThirdTierPath != null) && (this.SecondTierPath == null))
                     {
-                        path = this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier());
+                        if (!path)
+                        {
+                            path = this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier());
+                        }
+                        else
+                        {
+                            this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier());
+                        }
                     }
-                    else
+                    if ((this.SecondTierPath != null) && (this.FirstTierPath == null))
                     {
-                        this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier());
-                    }
-                }
-                if ((this.SecondTierPath != null) && (this.FirstTierPath == null))
-                {
-                    if (!path)
-                    {
-                        path = this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
-                    }
-                    else
-                    {
-                        this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                        if (!path)
+                        {
+                            path = this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                        }
+                        else
+                        {
+                            this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                        }
                     }
                 }
                 if (this.FirstTierPath != null)
@@ -6564,6 +6617,11 @@
 
             }
 
+            if (!flag && this.MovabilityLeft < 0)
+            {
+                this.OperationDone = true;
+            }
+
             if (this.mingling == "入城" && this.Position == this.minglingweizhi && base.Scenario.GetTroopByPosition(this.Position)==this )
             {
                 if (this.TargetArchitecture != null)
@@ -11202,6 +11260,7 @@
             set
             {
                 this.targetArchitecture = value;
+                this.HasPath = false;
                 if (value != null)
                 {
                     this.targetArchitectureID = value.ID;
@@ -11267,6 +11326,7 @@
             set
             {
                 this.targetTroop = value;
+                this.HasPath = false;
                 if (value != null)
                 {
                     this.targetTroopID = value.ID;

@@ -2160,6 +2160,11 @@
 
         public void InitialLoyalty()
         {
+            if (this.BelongedFaction == null)
+            {
+                this.Loyalty = 0;
+                return;
+            }
             int num = (60 + (10 * (int)this.PersonalLoyalty)) - (GetIdealOffset(this, this.BelongedFaction.Leader) / 5);
             if (this.Ideal == this.BelongedFaction.Leader.Ideal)
             {
