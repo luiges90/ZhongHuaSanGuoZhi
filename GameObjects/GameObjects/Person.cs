@@ -221,7 +221,10 @@
         {
             get
             {
-                return this.Status == PersonStatus.Normal || this.Status == PersonStatus.Moving ? base.Scenario.Date.Year - this.YearJoin : 0;
+                if (this.Status != PersonStatus.Normal && this.Status != PersonStatus.Moving) return 0;
+                int year = base.Scenario.Date.Year - this.YearJoin;
+                int sinceBeginning = base.Scenario.DaySince / 360;
+                return Math.Min(year, sinceBeginning);
             }
         }
 

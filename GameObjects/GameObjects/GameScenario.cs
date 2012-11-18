@@ -2683,13 +2683,6 @@
             this.Factions.LoadQueueFromString(reader["FactionQueue"].ToString());
             this.FireTable.LoadFromString(reader["FireTable"].ToString());
             this.NoFoodDictionary.LoadFromString(reader["NoFoodTable"].ToString());
-            try
-            {
-                this.DaySince = (int)reader["DaySince"];
-            }
-            catch
-            {
-            }
             dbConnection.Close();
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
@@ -2725,6 +2718,13 @@
             this.Factions.LoadQueueFromString(reader["FactionQueue"].ToString());
             this.FireTable.LoadFromString(reader["FireTable"].ToString());
             this.NoFoodDictionary.LoadFromString(reader["NoFoodTable"].ToString());
+            try
+            {
+                this.DaySince = (int)reader["DaySince"];
+            }
+            catch
+            {
+            }
             dbConnection.Close();
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
