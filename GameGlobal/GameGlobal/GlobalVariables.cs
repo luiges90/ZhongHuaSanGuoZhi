@@ -513,6 +513,15 @@
                 exception = exception24;
                 throw new Exception("FastBattleSpeed:\n" + exception.ToString());
             }
+            try
+            {
+                AINoTeamTransfer = bool.Parse(nextSibling.Attributes.GetNamedItem("AINoTeamTransfer").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("AINoTeamTransfer:\n" + exception.ToString());
+            }
             return true;
         }
     }

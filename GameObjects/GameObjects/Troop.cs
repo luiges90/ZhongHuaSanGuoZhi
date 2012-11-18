@@ -254,7 +254,7 @@
         public bool OutburstNeverBeIntoChaos = false;
         public int OutburstOffenceMultiple = 1;
         public bool OutburstPreventCriticalStrike = false;
-        private TroopPathFinder pathFinder;
+        internal TroopPathFinder pathFinder;
         public bool PierceAttack;
         private Point position;
         private TroopPreAction preAction;
@@ -1613,7 +1613,7 @@
                     List<Point> refPath;
                     try
                     {
-                        refPath = base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture)];
+                        refPath = base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)];
                     }
                     catch (KeyNotFoundException)
                     {
@@ -1623,7 +1623,7 @@
                     {
                         path = ConstructTruePath(refPath);
                     }
-                    else
+                    else if (refPath == null)
                     {
                         Point? p1;
                         Point? p2;
@@ -1635,8 +1635,12 @@
                             {
                                 if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
                                 {
-                                    base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture)] = this.FirstTierPath;
+                                    base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)] = this.FirstTierPath;
                                     path = ConstructTruePath(this.FirstTierPath);
+                                }
+                                else
+                                {
+                                    base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)] = new List<Point>();
                                 }
                             }
                         }
@@ -5829,19 +5833,19 @@
                     return ((troop.Offence < this.Offence) && (troop.Defence < this.Defence));
 
                 case TroopAttackTargetKind.无反默认:
-                    return (last || !this.CounterAttackAvail(troop));
+                    return ((last || this.BaseAttackEveryAround || this.AttackEveryAround) || !this.CounterAttackAvail(troop));
 
                 case TroopAttackTargetKind.目标默认:
-                    return (last || (troop == this.TargetTroop));
+                    return ((last || this.BaseAttackEveryAround || this.AttackEveryAround) || (troop == this.TargetTroop));
 
                 case TroopAttackTargetKind.攻弱默认:
-                    return (last || (troop.Offence < this.Offence));
+                    return ((last || this.BaseAttackEveryAround || this.AttackEveryAround) || (troop.Offence < this.Offence));
 
                 case TroopAttackTargetKind.防弱默认:
-                    return (last || (troop.Defence < this.Defence));
+                    return ((last || this.BaseAttackEveryAround || this.AttackEveryAround) || (troop.Defence < this.Defence));
 
                 case TroopAttackTargetKind.攻防皆弱默认:
-                    return (last || ((troop.Offence < this.Offence) && (troop.Defence < this.Defence)));
+                    return ((last || this.BaseAttackEveryAround || this.AttackEveryAround) || ((troop.Offence < this.Offence) && (troop.Defence < this.Defence)));
             }
             return false;
         }
