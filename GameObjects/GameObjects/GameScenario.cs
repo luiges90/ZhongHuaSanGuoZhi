@@ -1570,6 +1570,24 @@
                 }
                 architecture.GenerateAllAILinkNodes(3);
             }
+
+            /*foreach (Architecture a in this.Architectures)
+            {
+                foreach (LinkNode i in a.AILandLinks)
+                {
+                    Point? p1;
+                    Point? p2;
+                    this.GetClosestPointsBetweenTwoAreas(a.ArchitectureArea, i.A.ArchitectureArea, out p1, out p2);
+
+                    if (p1 != null && p2 != null){
+                        Military m = new Military();
+                        Troop t = new Troop();
+
+                        t.pathFinder.GetFirstTierPath(p1.Value, p2.Value);
+                        this.pathCache[new PathCacheKey(a, i.A)] = new List<Point>(t.FirstTierPath);
+                    }
+                }
+            }*/
         }
 
         private void InitializeCaptiveData()
@@ -2622,11 +2640,13 @@
                 {
                     int aid1 = (short)reader["Architecture1"];
                     int aid2 = (short)reader["Architecture2"];
+                    int kid = (short)reader["MilitaryKind"];
                     Architecture a1 = this.Architectures.GetGameObject(aid1) as Architecture;
                     Architecture a2 = this.Architectures.GetGameObject(aid2) as Architecture;
+                    MilitaryKind mk = this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(kid);
                     List<Point> path = new List<Point>();
                     StaticMethods.LoadFromString(path, (string) reader["Path"]);
-                    this.pathCache[new PathCacheKey(a1, a2)] = path;
+                    this.pathCache[new PathCacheKey(a1, a2, mk)] = path;
                 }
             }
             catch
@@ -3653,6 +3673,7 @@
                     row.BeginEdit();
                     row["Architecture1"] = kv.Key.a1.ID;
                     row["Architecture2"] = kv.Key.a2.ID;
+                    row["MilitaryKind"] = kv.Key.k.ID;
                     row["Path"] = StaticMethods.SaveToString(kv.Value);
                     row.EndEdit();
                     dataSet.Tables["AAPaths"].Rows.Add(row);
