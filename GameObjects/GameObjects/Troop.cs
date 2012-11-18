@@ -6621,10 +6621,10 @@
 
             }
 
-            if (!flag && this.MovabilityLeft < 0)
+            /*if (!flag && this.MovabilityLeft < 0)
             {
                 this.OperationDone = true;
-            }
+            }*/
 
             if (this.mingling == "入城" && this.Position == this.minglingweizhi && base.Scenario.GetTroopByPosition(this.Position)==this )
             {
