@@ -5517,6 +5517,8 @@
             this.captiveEscape();
             this.checkEvent();
             this.JustAttacked = false;
+            ExpectedFoodCache = -1;
+            ExpectedFundCache = -1;
         }
 
         private void captiveEscape()
@@ -12134,10 +12136,15 @@
             }
         }
 
+        private int ExpectedFoodCache = -1;
         public int ExpectedFood
         {
             get
             {
+                if (ExpectedFoodCache >= 0)
+                {
+                    return ExpectedFoodCache;
+                }
                 int num = this.Agriculture + ((int)((Math.Pow((double)this.Population, 0.3) * Math.Pow((double)this.Agriculture, 0.8)) * 47.0));
                 num += this.IncrementOfMonthFood;
                 num += (int)(this.RateIncrementOfMonthFood * num);
@@ -12167,6 +12174,7 @@
                     num *= 2;
                 }
                 num += 10000;
+                ExpectedFoodCache = num;
                 return num;
             }
         }
@@ -12179,10 +12187,15 @@
             }
         }
 
+        private int ExpectedFundCache = -1;
         public int ExpectedFund
         {
             get
             {
+                if (ExpectedFundCache >= 0)
+                {
+                    return ExpectedFundCache;
+                }
                 int num = this.Commerce + ((int)((Math.Pow((double)this.Population, 0.6) * Math.Pow((double)this.Commerce, 0.8)) / 59.0));
                 num += this.IncrementOfMonthFund;
                 num += (int)(this.RateIncrementOfMonthFund * num);
@@ -12211,6 +12224,7 @@
                     num *= 2;
                 }
                 num += 100;
+                ExpectedFundCache = num;
                 return num;
             }
         }
