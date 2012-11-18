@@ -141,7 +141,7 @@
                         {
                             item.OperationDone = true;
                         }
-                        if (!item.StepFinished || item.chongshemubiaoweizhibiaoji)
+                        if ((!item.StepFinished || item.chongshemubiaoweizhibiaoji) && item.MovabilityLeft >= 0)
                         {
                             this.CurrentTroop = item;
                             break;
