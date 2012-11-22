@@ -72,6 +72,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private ViewMove viewMove;
         internal FreeText qizidezi;
 
+        private void RunAI()
+        {
+            this.GameGo(new GameTime());
+        }
+
+        private Thread aiThread;
 
         public MainGameScreen(MainGame game)
             : base(game)
@@ -118,7 +124,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             base.Scenario.Date.OnYearStarting += new GameDate.YearStartingEvent(this.Date_OnYearStarting);
             base.Scenario.Date.OnYearPassed += new GameDate.YearPassedEvent(this.Date_OnYearPassed);
             this.Player.PlayStateChange+=(new _WMPOCXEvents_PlayStateChangeEventHandler(this.Player_PlayStateChange));
-
         }
 
 
@@ -2635,6 +2640,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 try
                 {
+                    
                     this.UpdateCount++;
                     base.Update(gameTime);
                     this.CalculateFrameRate(gameTime);
@@ -2642,18 +2648,24 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     switch (base.UndoneWorks.Peek().Kind)
                     {
                         case UndoneWorkKind.None:
+
+
                             this.UpdateToolBar(gameTime);
                             this.UpdateScreenBlind(gameTime);
                             //this.Plugins.youcelanPlugin.Update(gameTime);
                             //this.Plugins.youcelanPlugin.IsShowing = false;
 
 
-
-
-
                             this.HandleLaterMouseEvent(gameTime);
                             this.ScrollTheMainMap(gameTime);
                             this.HandleKey(gameTime);
+
+                            /*if (aiThread == null || !aiThread.IsAlive)
+                            {
+                                aiThread = null;
+                                aiThread = new Thread(new ThreadStart(RunAI));
+                                aiThread.Start();
+                            }*/
 
                             this.GameGo(gameTime);
 
