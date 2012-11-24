@@ -654,13 +654,13 @@
         {
             if (this.ControlAvail() && !this.Destroyed)
             {
-                if (!this.IsRobber)
+                if (!this.IsRobber && this.BelongedLegion != null)
                 {
                     this.PrepareAI();
                     this.PreActionAI();
                 }
                 this.WillAI();
-                if (!this.IsRobber)
+                if (!this.IsRobber && this.BelongedLegion != null)
                 {
                     this.PostActionAI();
                 }
@@ -672,6 +672,13 @@
             CreditPack moveCreditByPosition;
             double num4;
             double distance;
+
+            if (this.willArchitectureID < 0)
+            {
+                this.GoBack();
+                return false;
+            }
+
             if (!this.IsRobber)
             {
                 //ensure troops won't get stuck forever
@@ -1010,7 +1017,7 @@
                     }
                 }
             }
-            if (credit <= 0)
+            if (credit < 0)
             {
                 this.AttackTargetKind = TroopAttackTargetKind.攻防皆弱默认;
                 this.TargetTroop = null;
@@ -1981,6 +1988,39 @@
                 }
             }
             return (this.EnterList.Count > 0);
+        }
+
+        public bool ArrivedAtWillArchitecture()
+        {
+            if (this.IsRobber)
+            {
+                return false;
+            }
+            if (!this.ControlAvail())
+            {
+                return false;
+            }
+            if (base.Scenario.GetArchitectureByPositionNoCheck(this.Position) == this.WillArchitecture)
+            {
+                return true;
+            }
+            if (base.Scenario.GetArchitectureByPosition(new Point(this.Position.X - 1, this.Position.Y)) == this.WillArchitecture)
+            {
+                return true;
+            }
+            if (base.Scenario.GetArchitectureByPosition(new Point(this.Position.X + 1, this.Position.Y)) == this.WillArchitecture)
+            {
+                return true;
+            }
+            if (base.Scenario.GetArchitectureByPosition(new Point(this.Position.X, this.Position.Y - 1)) == this.WillArchitecture)
+            {
+                return true;
+            }
+            if (base.Scenario.GetArchitectureByPosition(new Point(this.Position.X, this.Position.Y + 1)) == this.WillArchitecture)
+            {
+                return true;
+            }
+            return false;
         }
 
         public bool Canrucheng()
@@ -2979,7 +3019,10 @@
                 }
                 this.MoveCaptiveIntoArchitecture(a);
                 this.Destroy();
-                this.BelongedLegion.RemoveTroop(this);
+                if (this.BelongedLegion != null)
+                {
+                    this.BelongedLegion.RemoveTroop(this);
+                }
                 this.BelongedFaction.RemoveTroop(this);
                 base.Scenario.Troops.RemoveTroop(this);
                 
@@ -4319,7 +4362,7 @@
                 return 0;
             }
             int num = 0;
-            if ((this.BelongedFaction.GetKnownAreaData(position) >= GlobalVariables.ScoutRoutewayInformationLevel) && (this.BelongedLegion.HasCuttingRoutewayTroop || GameObject.Chance(10)))
+            if ((this.BelongedFaction.GetKnownAreaData(position) >= GlobalVariables.ScoutRoutewayInformationLevel) && this.BelongedLegion != null && (this.BelongedLegion.HasCuttingRoutewayTroop || GameObject.Chance(10)))
             {
                 foreach (Routeway routeway in base.Scenario.GetActiveRoutewayListByPosition(position))
                 {
@@ -6599,8 +6642,6 @@
 
         public void Move()
         {
-
-
 
 
             bool flag = false;
@@ -9415,7 +9456,11 @@
         {
             if (this.Will == TroopWill.行军)
             {
-                if (this.AIResetDestination())
+                if (this.ArrivedAtWillArchitecture())
+                {
+                    this.Enter(this.WillArchitecture);
+                } 
+                else if (this.AIResetDestination())
                 {
                     this.WillTroop = this.TargetTroop;
                 }
