@@ -1617,6 +1617,7 @@
                 if (this.BelongedFaction != null && !base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture == null &&
                     this.TargetTroop == null)
                 {
+                    MilitaryKind trueKind = this.Army.KindID == 28 ? this.Army.RealMilitaryKind : this.Army.Kind;
                     List<Point> refPath;
                     try
                     {
@@ -1997,6 +1998,10 @@
                 return false;
             }
             if (!this.ControlAvail())
+            {
+                return false;
+            }
+            if (this.BelongedLegion.Kind == LegionKind.Defensive)
             {
                 return false;
             }
