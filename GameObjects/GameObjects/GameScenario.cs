@@ -761,7 +761,7 @@
             this.Factions.SetControlling(false);
             foreach (Troop troop in this.Troops.GetList())
             {
-                if (troop.BelongedFaction == null)
+                if (troop.BelongedFaction == null || troop.BelongedLegion == null)
                 {
                     troop.AI();
                 }

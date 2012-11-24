@@ -72,13 +72,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private ViewMove viewMove;
         internal FreeText qizidezi;
 
-        private void RunAI()
-        {
-            this.GameGo(new GameTime());
-        }
-
-        private Thread aiThread;
-
         public MainGameScreen(MainGame game)
             : base(game)
         {
@@ -2634,6 +2627,16 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+
+        private void RunAI()
+        {
+            this.GameGo(sharedGameTime);
+        }
+
+        private Thread aiThread;
+
+        private GameTime sharedGameTime;
+
         public override void Update(GameTime gameTime)   //视野内容更新
         {
             if (base.EnableUpdate)
@@ -2662,11 +2665,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                             /*if (aiThread == null || !aiThread.IsAlive)
                             {
+                                sharedGameTime = gameTime;
                                 aiThread = null;
                                 aiThread = new Thread(new ThreadStart(RunAI));
                                 aiThread.Start();
                             }*/
-
+                            
                             this.GameGo(gameTime);
 
                             if (this.Scenario.PlayerFactions.Count == 0)

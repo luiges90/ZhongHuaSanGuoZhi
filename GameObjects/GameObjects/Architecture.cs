@@ -3243,7 +3243,14 @@
                 {
                     if (this.ArmyScale < reserve) break;
                     if (i.KindID == 29) continue;
-                    this.BuildOffensiveTroop(target.A, target.Kind, false);
+                    if (GlobalVariables.AINoTeamTransfer && !target.A.FrontLine)
+                    {
+                        i.BelongedArchitecture = target.A;
+                    }
+                    else
+                    {
+                        this.BuildTroopForTransfer(i, target.A, target.Kind);
+                    }
                 }
 
                 if (this.ArmyScale >= reserve)
@@ -3311,7 +3318,16 @@
                     {
                         return null;
                     }
-                    return this.CreateTroop(list2, military2.FollowedLeader, military2, -1, nullable.Value);
+                    
+                    Troop troop = this.CreateTroop(list2, military2.FollowedLeader, military2, -1, nullable.Value);
+                    troop.WillArchitecture = destination;
+                    Legion legion = this.BelongedFaction.GetLegion(destination);
+                    if (legion == null)
+                    {
+                        legion = this.CreateOffensiveLegion(destination);
+                    }
+                    legion.AddTroop(troop);
+                    return troop;
                 }
                 if ((((military2.Leader != null) && (military2.LeaderExperience >= 10)) && (((military2.Leader.Strength >= 80) || (military2.Leader.Command >= 80)) || military2.Leader.HasLeaderValidCombatTitle))
                     && this.Persons.HasGameObject(military2.Leader) && military2.Leader.WaitForFeiZi == null && military2.Leader.LocationTroop == null)
@@ -3324,7 +3340,15 @@
                     {
                         return null;
                     }
-                    return this.CreateTroop(list2, military2.Leader, military2, -1, nullable.Value);
+                    Troop troop = this.CreateTroop(list2, military2.Leader, military2, -1, nullable.Value);
+                    troop.WillArchitecture = destination;
+                    Legion legion = this.BelongedFaction.GetLegion(destination);
+                    if (legion == null)
+                    {
+                        legion = this.CreateOffensiveLegion(destination);
+                    }
+                    legion.AddTroop(troop);
+                    return troop;
                 }
                 GameObjectList sortedList = this.Persons.GetList() as GameObjectList;
                 sortedList.PropertyName = "FightingForce";
@@ -3343,7 +3367,15 @@
                         {
                             break;
                         }
-                        return this.CreateTroop(list2, person, military2, -1, nullable.Value);
+                        Troop troop = this.CreateTroop(list2, person, military2, -1, nullable.Value);
+                        troop.WillArchitecture = destination;
+                        Legion legion = this.BelongedFaction.GetLegion(destination);
+                        if (legion == null)
+                        {
+                            legion = this.CreateOffensiveLegion(destination);
+                        }
+                        legion.AddTroop(troop);
+                        return troop;
                     }
                 }
             }
