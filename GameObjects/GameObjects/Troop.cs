@@ -2001,7 +2001,7 @@
             {
                 return false;
             }
-            if (this.BelongedLegion.Kind == LegionKind.Defensive)
+            if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Defensive)
             {
                 return false;
             }

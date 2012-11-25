@@ -1513,18 +1513,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 Provider = "Microsoft.Jet.OLEDB.4.0"
             };
             base.Scenario.ScenarioMap.JumpPosition = this.mainMapLayer.GetCurrentScreenCenter(base.viewportSize);
-            if (!base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString))
+            try
             {
-                File.Copy("GameData/Common/SaveTemplate.mdb", path, true);
-                builder = new OleDbConnectionStringBuilder
-                {
-                    DataSource = path,
-                    Provider = "Microsoft.Jet.OLEDB.4.0"
-                };
-                if (!base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString))
-                {
-                    throw new Exception("Save failed.");
-                }
+                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString);
+            }
+            catch (Exception ex)
+            {
+                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString);
             }
             File.Delete(tempFilePath);
             GC.Collect();
