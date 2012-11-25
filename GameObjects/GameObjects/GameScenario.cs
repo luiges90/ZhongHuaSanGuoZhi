@@ -3724,7 +3724,7 @@
                     this.OnAfterSaveScenario(this);
                 }
             }
-            catch (Exception)
+            finally
             {
                 //try to free as many memory as possible at this critical state
                 foreach (MilitaryKind kind in this.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values)
@@ -3840,7 +3840,7 @@
                 }
 
                 GC.Collect();
-                return false;
+                //return false;
             }
             return true;
         }
