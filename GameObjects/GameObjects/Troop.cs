@@ -1621,7 +1621,7 @@
                     List<Point> refPath;
                     try
                     {
-                        refPath = base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)];
+                        refPath = base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, trueKind)];
                     }
                     catch (KeyNotFoundException)
                     {
