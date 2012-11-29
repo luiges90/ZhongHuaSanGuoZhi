@@ -1398,7 +1398,7 @@
                 if (this.HasHostileTroopsInView())
                 {
                     idleDays = 0;
-                    ArchitectureList otherArchitectureList = this.BelongedSection.Architectures;
+                    ArchitectureList otherArchitectureList = this.BelongedFaction.Architectures;
                     do
                     {
                         Architecture src = null;
