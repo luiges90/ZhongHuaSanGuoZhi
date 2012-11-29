@@ -1398,7 +1398,7 @@
                 if (this.HasHostileTroopsInView())
                 {
                     idleDays = 0;
-                    ArchitectureList otherArchitectureList = this.BelongedFaction.Architectures;
+                    ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
                     do
                     {
                         Architecture src = null;
@@ -1415,6 +1415,10 @@
                         if (src != null)
                         {
                             int num = src.FrontLine ? src.PersonCount - src.MilitaryCount : src.PersonCount;
+                            if (src.HasHostileTroopsInView())
+                            {
+                                num /= 2;
+                            }
                             GameObjectList list = src.Persons.GetList();
                             if (list.Count > 1)
                             {
