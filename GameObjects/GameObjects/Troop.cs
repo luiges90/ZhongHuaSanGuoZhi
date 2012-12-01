@@ -9463,7 +9463,14 @@
             {
                 if (this.ArrivedAtWillArchitecture())
                 {
-                    this.Enter(this.WillArchitecture);
+                    if (this.WillArchitecture.BelongedFaction == this.BelongedFaction)
+                    {
+                        this.Enter(this.WillArchitecture);
+                    }
+                    else
+                    {
+                        this.Destination = this.WillArchitecture.Position;
+                    }
                 } 
                 else if (this.AIResetDestination())
                 {
