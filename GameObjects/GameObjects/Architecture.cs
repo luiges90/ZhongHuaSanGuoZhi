@@ -7203,7 +7203,7 @@
                 {
                     int idealOffset = Person.GetIdealOffset(c.CaptivePerson, this.BelongedFaction.Leader);
                     if ((!GlobalVariables.IdealTendencyValid || (idealOffset <= c.CaptivePerson.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                        && (!c.CaptivePerson.HatedPersons.Contains(this.BelongedFaction.LeaderID)))
+                        && (!c.CaptivePerson.HatedPersons.Contains(this.BelongedFaction.LeaderID)) && (!this.BelongedFaction.IsAlien || c.CaptivePerson.PersonalLoyalty < 2))
                     {
                         if (c.CaptivePerson.Loyalty < lowestLoyalty)
                         {
@@ -7243,7 +7243,8 @@
                 foreach (Person c in list)
                 {
                     int idealOffset = Person.GetIdealOffset(c, this.BelongedFaction.Leader);
-                    if ((!GlobalVariables.IdealTendencyValid || (idealOffset <= c.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)))
+                    if ((!GlobalVariables.IdealTendencyValid || (idealOffset <= c.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
+                        && (!c.HatedPersons.Contains(this.BelongedFaction.LeaderID)) && (!this.BelongedFaction.IsAlien || c.PersonalLoyalty < 2))
                     {
                         if (c.Loyalty < lowestLoyalty)
                         {
