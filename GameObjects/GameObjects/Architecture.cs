@@ -10571,6 +10571,7 @@
             return false;
         }
 
+        private int crlm_recurse_level = 0;
         private bool CanRecruitLowerMilitary_r(MilitaryKind mk)
         {
             MilitaryKind current;
@@ -10600,6 +10601,11 @@
             foreach (MilitaryKind i in base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values){
                 if (i.LevelUpKindID == mk.ID)
                 {
+                    crlm_recurse_level++;
+                    if (crlm_recurse_level > 50)
+                    {
+                        return false;
+                    }
                     if (CanRecruitLowerMilitary_r(i))
                     {
                         return true;
@@ -10611,6 +10617,7 @@
 
         public bool CanRecruitMilitary(MilitaryKind mk)
         {
+            crlm_recurse_level = 0;
             return CanRecruitLowerMilitary_r(mk);
         }
 

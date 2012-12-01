@@ -533,8 +533,6 @@
             {
                 this.ChangeDiplomaticRelation(newFaction.ID, newFactionCapital.BelongedFaction.ID, -500);
             }
-            leader.MoveToArchitecture(newFactionCapital);
-
             newFaction.PrepareData();
 
             newFactionCapital.ResetFaction(newFaction);
