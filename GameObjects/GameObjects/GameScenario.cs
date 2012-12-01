@@ -523,6 +523,8 @@
             Architecture newFactionCapital = leader.LocationArchitecture;
             Faction oldFaction = newFactionCapital.BelongedFaction;
 
+            newFaction.Capital = newFactionCapital;
+
             if (leader.BelongedFaction == null)
             {
                 leader.Status = PersonStatus.Normal;
@@ -533,12 +535,13 @@
             }
             leader.MoveToArchitecture(newFactionCapital);
 
-            newFactionCapital.ResetFaction(newFaction);
-            newFaction.Capital = newFactionCapital;
             newFaction.PrepareData();
+
+            newFactionCapital.ResetFaction(newFaction);
+            
             newFaction.AddArchitectureKnownData(newFactionCapital);
             newFaction.FirstSection.AddArchitecture(newFactionCapital);
-            newFactionCapital.CheckIsFrontLine();
+
             if (oldFaction != null && !GameObject.Chance((int) oldFaction.Leader.PersonalLoyalty * 10))
             {
                 oldFaction.Leader.HatedPersons.Add(leader.ID);
@@ -2481,6 +2484,12 @@
                 catch
                 {
                     faction.IsAlien = false;
+                }
+                if (faction.AvailableMilitaryKinds.GetMilitaryKindList().Count == 0)
+                {
+                    faction.AvailableMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(0));
+                    faction.AvailableMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(1));
+                    faction.AvailableMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(2));
                 }
                 this.Factions.AddFactionWithEvent(faction);
             }

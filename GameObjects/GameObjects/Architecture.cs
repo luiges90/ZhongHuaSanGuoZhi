@@ -10930,7 +10930,7 @@
                 this.AutoRewarding = true;
 
             }
-            if (this.BelongedFaction != null)
+            if (this.BelongedFaction != null && this.BelongedFaction != faction)
             {
                 this.ClearFundPacks();
                 this.ClearRouteways();
