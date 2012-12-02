@@ -682,7 +682,8 @@
             if (!this.IsRobber)
             {
                 //ensure troops won't get stuck forever
-                if (stuckPosition == new Point(-1, -1) || this.HasHostileArchitectureInView() || this.HasHostileTroopInView()
+                if (stuckPosition == new Point(-1, -1) || (this.HasHostileArchitectureInView() && this.TargetArchitecture != null) || 
+                    this.HasHostileTroopInView()
                     || (this.WillArchitecture.BelongedFaction != this.BelongedFaction && this.WillArchitecture.LongViewArea.Area.Contains(this.position)))
                 { 
                     stuckPosition = this.Position;
@@ -9469,7 +9470,7 @@
                     }
                     else
                     {
-                        this.Destination = this.WillArchitecture.Position;
+                        this.GoIntoArchitecture();
                     }
                 } 
                 else if (this.AIResetDestination())
