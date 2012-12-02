@@ -39,7 +39,7 @@ public class ExtensionInterface
         }
     }
 
-    private static void loadCompiledTypes()
+    public static void loadCompiledTypes()
     {
         if (compiledTypes == null)
         {
@@ -72,7 +72,6 @@ public class ExtensionInterface
 
     public static void call(String methodName, Object[] param)
     {
-        loadCompiledTypes();
         foreach (Type t in compiledTypes)
         {
             try
