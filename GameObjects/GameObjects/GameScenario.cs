@@ -1404,7 +1404,10 @@
 
         public int GetWaterPositionMapCost(MilitaryType militaryType, Point position)
         {
-            return 0;
+            if (GlobalVariables.LandArmyCanGoDownWater)
+            {
+                return 0;
+            }
             if (this.ScenarioMap.MapData[position.X, position.Y] == 6)
             {
                 if (this.GetArchitectureByPositionNoCheck(position) != null)

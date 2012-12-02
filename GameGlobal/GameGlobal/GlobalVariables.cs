@@ -102,6 +102,8 @@
 
         public static bool AINoTeamTransfer = false;
 
+        public static bool LandArmyCanGoDownWater = true;
+
         public bool InitialGlobalVariables()
         {
             Exception exception;

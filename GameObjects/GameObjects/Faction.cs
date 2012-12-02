@@ -1514,7 +1514,12 @@
             {
                 terrainAdaptability = troop.GetTerrainAdaptability((TerrainKind) this.mapData[position.X, position.Y]);
             }
-            return ((terrainAdaptability + base.Scenario.GetWaterPositionMapCost(troop.Army.Kind.Type, position)) + base.Scenario.GetPositionMapCost(this, position));
+            int waterPunishment = 0;
+            if (this.mapData[position.X, position.Y] == 6 && troop.Army.Kind.Type != MilitaryType.水军 && base.Scenario.GetArchitectureByPositionNoCheck(position) == null)
+            {
+                waterPunishment = 3;
+            }
+            return ((terrainAdaptability + base.Scenario.GetWaterPositionMapCost(troop.Army.Kind.Type, position)) + base.Scenario.GetPositionMapCost(this, position) + waterPunishment);
         }
 
         public FactionList GetOtherFactions()
