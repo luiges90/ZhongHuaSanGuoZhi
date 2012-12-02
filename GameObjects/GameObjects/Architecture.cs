@@ -9016,7 +9016,7 @@
                 }
 
                 int dist = (int) Math.Ceiling(Math.Min(Math.Min(base.Scenario.GetDistance(singleton, this.pathFinder.startingArchitecture.ArchitectureArea),
-                    base.Scenario.GetDistance(singleton, this.pathFinder.targetArchitecture.ArchitectureArea)), 8));
+                    base.Scenario.GetDistance(singleton, this.pathFinder.targetArchitecture.ArchitectureArea)), 20));
                 for (int i = -dist; i <= dist; ++i)
                 {
                     for (int j = Math.Abs(i) - dist; j <= dist - Math.Abs(i); ++j)
