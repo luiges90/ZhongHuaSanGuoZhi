@@ -668,6 +668,7 @@
             }
             if (gameObject != null)
             {
+				ExtensionInterface.call("PersonBecomeAvailable", new Object[] { this.Scenario, this });
                 base.Scenario.PreparedAvailablePersons.Add(this);
                 return true;
             }
@@ -735,8 +736,6 @@
 
         public void ToDeath()
         {
-
-
             Architecture locationArchitecture = this.LocationArchitecture;
             GameObjects.Faction belongedFaction = this.BelongedFaction;
             this.Alive = false;  //死亡
@@ -794,6 +793,7 @@
                     baowu.HidePlace = locationArchitecture;
                 }
             }
+			ExtensionInterface.call("PersonDie", new Object[] { this.Scenario, this });
         }
 
         private void CheckDeath()
@@ -931,6 +931,7 @@
                     }
                 }
             }
+			ExtensionInterface.call("ConfiscatedTreasure", new Object[] { this.Scenario, this });
         }
 
         public static int ControversyWinningChance(Person source, Person destination)
@@ -972,6 +973,7 @@
                 //if (this.huaiyuntianshu == 30)
                 if (GameObject.Chance((this.huaiyuntianshu - 20) * 5) && !this.faxianhuaiyun)
                 {
+					ExtensionInterface.call("FoundPregnant", new Object[] { this.Scenario, this });
                     this.faxianhuaiyun = true;
                     if (this.BelongedFaction != null && this == this.BelongedFaction.Leader)  //女君主自己怀孕
                     {
@@ -1160,6 +1162,7 @@
                         this.IncreaseReputation(40);
                         this.BelongedFaction.IncreaseReputation(20 * this.MultipleOfTacticsReputation);
                         this.BelongedFaction.IncreaseTechniquePoint((20 * this.MultipleOfTacticsTechniquePoint) * 100);
+						ExtensionInterface.call("DoConvinceSuccess", new Object[] { this.Scenario, this });
                         if (this.OnConvinceSuccess != null)
                         {
                             this.OnConvinceSuccess(this, this.ConvincingPerson, belongedFaction);
@@ -1169,9 +1172,12 @@
                             CheckCapturedByArchitecture(architectureByPosition);
                         }
                     }
-                    else if (this.OnConvinceFailed != null)
+                    else 
                     {
-                        this.OnConvinceFailed(this, this.ConvincingPerson);
+						ExtensionInterface.call("DoConvinceFail", new Object[] { this.Scenario, this });
+						if (this.OnConvinceFailed != null) {
+							this.OnConvinceFailed(this, this.ConvincingPerson);
+						}
                     }
                 }
             }
@@ -1206,15 +1212,20 @@
                             this.OnDestroySuccess(this, architectureByPosition, randomValue);
                         }
                         architectureByPosition.DecrementNumberList.AddNumber(randomValue, CombatNumberKind.人数, architectureByPosition.Position);
+						ExtensionInterface.call("DoDestroySuccess", new Object[] { this.Scenario, this, randomValue });
                     }
-                    else if (this.OnDestroyFailed != null)
+                    else 
                     {
-                        this.OnDestroyFailed(this, architectureByPosition);
+						ExtensionInterface.call("DoDestroyFail", new Object[] { this.Scenario, this });
+						if (this.OnDestroyFailed != null) {
+							this.OnDestroyFailed(this, architectureByPosition);
+						}
                     }
                     CheckCapturedByArchitecture(architectureByPosition);
                 }
                 else if (this.OnDestroyFailed != null)
                 {
+					ExtensionInterface.call("DoDestroyFail", new Object[] { this.Scenario, this });
                     this.OnDestroyFailed(this, architectureByPosition);
                 }
             }
@@ -1249,20 +1260,27 @@
                         {
                             base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, architectureByPosition.BelongedFaction.ID, -5);
                         }
+						ExtensionInterface.call("DoGossipSuccess", new Object[] { this.Scenario, this });
                         if (this.OnGossipSuccess != null)
                         {
                             this.OnGossipSuccess(this, architectureByPosition);
                         }
                     }
-                    else if (this.OnGossipFailed != null)
+                    else 
                     {
-                        this.OnGossipFailed(this, architectureByPosition);
+						ExtensionInterface.call("DoGossipFail", new Object[] { this.Scenario, this });
+						if (this.OnGossipFailed != null) {
+							this.OnGossipFailed(this, architectureByPosition);
+						}
                     }
                     CheckCapturedByArchitecture(architectureByPosition);
                 }
-                else if (this.OnGossipFailed != null)
+                else 
                 {
-                    this.OnGossipFailed(this, architectureByPosition);
+					ExtensionInterface.call("DoGossipFail", new Object[] { this.Scenario, this });
+					if (this.OnGossipFailed != null) {
+						this.OnGossipFailed(this, architectureByPosition);
+					}
                 }
             }
         }
@@ -1280,6 +1298,7 @@
                         information.Position = this.OutsideDestination.Value;
                         information.Oblique = this.CurrentInformationKind.Oblique;
                         information.DaysLeft = (int) Math.Max(5, this.CurrentInformationKind.Days * (this.InformationAbility / 300.0 + 0.5));
+						
                         base.Scenario.Informations.AddInformation(information);
                         this.BelongedFaction.AddInformation(information);
                         information.Apply();
@@ -1293,6 +1312,7 @@
                         this.IncreaseReputation(increment * 2);
                         this.BelongedFaction.IncreaseReputation(increment * this.MultipleOfTacticsReputation);
                         this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfTacticsTechniquePoint) * 100);
+						ExtensionInterface.call("DoInformationSuccess", new Object[] { this.Scenario, this, information });
                         if (this.OnInformationObtained != null)
                         {
                             this.OnInformationObtained(this, information);
@@ -1306,6 +1326,7 @@
                         this.AddIntelligenceExperience(increment);
                         this.CurrentInformationKind = null;
                         this.OutsideTask = OutsideTaskKind.无;
+						ExtensionInterface.call("DoInformationFail", new Object[] { this.Scenario, this });
                         if (this.qingbaoshibaishijian != null)
                         {
                             this.qingbaoshibaishijian(this);
@@ -1342,16 +1363,23 @@
                             this.OnInstigateSuccess(this, architectureByPosition, randomValue);
                         }
                         architectureByPosition.DecrementNumberList.AddNumber(randomValue, CombatNumberKind.士气, architectureByPosition.Position);
+						ExtensionInterface.call("DoInstigateSuccess", new Object[] { this.Scenario, this, randomValue });
                     }
-                    else if (this.OnInstigateFailed != null)
+                    else 
                     {
-                        this.OnInstigateFailed(this, architectureByPosition);
+						ExtensionInterface.call("DoinstigateFail", new Object[] { this.Scenario, this });
+						if (this.OnInstigateFailed != null){
+							this.OnInstigateFailed(this, architectureByPosition);
+						}
                     }
                     CheckCapturedByArchitecture(architectureByPosition);
                 }
-                else if (this.OnInstigateFailed != null)
+                else 
                 {
-                    this.OnInstigateFailed(this, architectureByPosition);
+					ExtensionInterface.call("DoinstigateFail", new Object[] { this.Scenario, this });
+					if (this.OnInstigateFailed != null){
+						this.OnInstigateFailed(this, architectureByPosition);
+					}
                 }
             }
         }
@@ -1495,6 +1523,7 @@
                         this.OnSearchFinished(this, this.TargetArchitecture, pack);
                     }
                 }
+				ExtensionInterface.call("DoSearch", new Object[] { this.Scenario, this, pack });
             }
         }
 
@@ -1615,20 +1644,27 @@
                         this.IncreaseReputation(20);
                         this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
                         this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
+						ExtensionInterface.call("DoSpySuccess", new Object[] { this.Scenario, this, this.SpyDays });
                         if (this.OnSpySuccess != null)
                         {
                             this.OnSpySuccess(this, architectureByPosition);
                         }
                     }
-                    else if (this.OnSpyFailed != null)
+                    else 
                     {
-                        this.OnSpyFailed(this, architectureByPosition);
+						ExtensionInterface.call("DoSpyFail", new Object[] { this.Scenario, this });
+						if (this.OnSpyFailed != null){
+							this.OnSpyFailed(this, architectureByPosition);
+						}
                     }
                     CheckCapturedByArchitecture(architectureByPosition);
                 }
                 else if (this.OnSpyFailed != null)
                 {
-                    this.OnSpyFailed(this, architectureByPosition);
+					ExtensionInterface.call("DoSpyFail", new Object[] { this.Scenario, this });
+					if (this.OnSpyFailed != null){
+						this.OnSpyFailed(this, architectureByPosition);
+					}
                 }
             }
         }
@@ -1652,6 +1688,7 @@
                 Captive captive = Captive.Create(base.Scenario, this, a.BelongedFaction);
                 this.Status = PersonStatus.Captive;
                 this.LocationArchitecture = a;
+				ExtensionInterface.call("CapturedByArchitecture", new Object[] { this.Scenario, this, a });
                 if (this.OnCapturedByArchitecture != null)
                 {
                     this.OnCapturedByArchitecture(this, a);
@@ -1772,6 +1809,7 @@
                     skill.Influences.ApplyInfluence(this);
                     skillString = skillString + "•" + skill.Name;
                     num++;
+					ExtensionInterface.call("StudySkill", new Object[] { this.Scenario, this, skill });
                 }
             }
             if (this.OnStudySkillFinished != null&&this.ManualStudy )
@@ -1790,14 +1828,18 @@
                 if (GameObject.Chance(0x4b))
                 {
                     this.Stunts.AddStunt(this.StudyingStunt);
+					ExtensionInterface.call("StudyStuntSuccess", new Object[] { this.Scenario, this, this.StudyingStunt });
                     if (this.OnStudyStuntFinished != null && this.ManualStudy)
                     {
                         this.OnStudyStuntFinished(this, this.StudyingStunt, true);
                     }
                 }
-                else if (this.OnStudyStuntFinished != null && this.ManualStudy)
+                else 
                 {
-                    this.OnStudyStuntFinished(this, this.StudyingStunt, false);
+					ExtensionInterface.call("StudyStuntFail", new Object[] { this.Scenario, this, this.StudyingStunt });
+					if (this.OnStudyStuntFinished != null && this.ManualStudy) {
+						this.OnStudyStuntFinished(this, this.StudyingStunt, false);
+					}
                 }
                 this.StudyingStunt = null;
             }
@@ -1839,14 +1881,18 @@
                         this.ApplyTitles();
                         this.ApplySkills();
                     }
+					ExtensionInterface.call("StudyTitleSuccess", new Object[] { this.Scenario, this, this.StudyingTitle });
                     if (this.OnStudyTitleFinished != null && this.ManualStudy)
                     {
                         this.OnStudyTitleFinished(this, this.StudyingTitle, true);
                     }
                 }
-                else if (this.OnStudyTitleFinished != null && this.ManualStudy)
+                else 
                 {
-                    this.OnStudyTitleFinished(this, this.StudyingTitle, false);
+					ExtensionInterface.call("StudyTitleFail", new Object[] { this.Scenario, this, this.StudyingTitle });
+					if (this.OnStudyTitleFinished != null && this.ManualStudy) {
+						this.OnStudyTitleFinished(this, this.StudyingTitle, false);
+					}
                 }
                 this.StudyingTitle = null;
                 this.ManualStudy = false;
@@ -1999,6 +2045,7 @@
                 this.LocationArchitecture.DecreaseFund(this.LocationArchitecture.ConvincePersonFund);
                 this.GoToDestinationAndReturn(this.OutsideDestination.Value);
                 this.TaskDays = (this.ArrivingDays + 1) / 2;
+				ExtensionInterface.call("GoForConvince", new Object[] { this.Scenario, this, person});
             }
         }
 
@@ -2011,6 +2058,7 @@
                 this.LocationArchitecture.DecreaseFund(this.LocationArchitecture.DestroyArchitectureFund);
                 this.GoToDestinationAndReturn(position);
                 this.TaskDays = (this.ArrivingDays + 1) / 2;
+				ExtensionInterface.call("GoForDestroy", new Object[] { this.Scenario, this, position});
             }
         }
 
@@ -2023,6 +2071,7 @@
                 this.LocationArchitecture.DecreaseFund(this.LocationArchitecture.GossipArchitectureFund);
                 this.GoToDestinationAndReturn(position);
                 this.TaskDays = (this.ArrivingDays + 1) / 2;
+				ExtensionInterface.call("GoForGossip", new Object[] { this.Scenario, this, position});
             }
         }
 
@@ -2036,6 +2085,7 @@
                 this.LocationArchitecture.DecreaseFund(this.CurrentInformationKind.CostFund);
                 this.GoToDestinationAndReturn(position);
                 this.TaskDays = this.ArrivingDays;
+				ExtensionInterface.call("GoForInformation", new Object[] { this.Scenario, this, position});
             }
         }
 
@@ -2048,6 +2098,7 @@
                 this.LocationArchitecture.DecreaseFund(this.LocationArchitecture.InstigateArchitectureFund);
                 this.GoToDestinationAndReturn(position);
                 this.TaskDays = (this.ArrivingDays + 1) / 2;
+				ExtensionInterface.call("GoForInstigate", new Object[] { this.Scenario, this, position});
             }
         }
 
@@ -2060,6 +2111,7 @@
                 this.ArrivingDays = 10;
                 this.TaskDays = this.ArrivingDays;
                 this.Status = PersonStatus.Moving;
+				ExtensionInterface.call("GoForSearch", new Object[] { this.Scenario, this });
             }
         }
 
@@ -2078,6 +2130,7 @@
                 this.LocationArchitecture.DecreaseFund(this.LocationArchitecture.SpyArchitectureFund);
                 this.GoToDestinationAndReturn(position);
                 this.TaskDays = (this.ArrivingDays + 1) / 2;
+				ExtensionInterface.call("GoForSpy", new Object[] { this.Scenario, this, position});
             }
         }
 
@@ -2090,6 +2143,7 @@
                 this.ArrivingDays = Parameters.LearnSkillDays;
                 this.TaskDays = this.ArrivingDays;
                 this.Status = PersonStatus.Moving;
+				ExtensionInterface.call("GoForStudySkill", new Object[] { this.Scenario, this });
             }
         }
 
@@ -2103,6 +2157,7 @@
                 this.ArrivingDays = Parameters.LearnStuntDays;
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
+				ExtensionInterface.call("GoForStudyStunt", new Object[] { this.Scenario, this });
             }
         }
 
@@ -2116,6 +2171,7 @@
                 this.ArrivingDays = this.LocationArchitecture.DayLearnTitleDay;
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
+				ExtensionInterface.call("GoForStudyTitle", new Object[] { this.Scenario, this });
             }
         }
 
@@ -2315,6 +2371,8 @@
                     }
                 }
             }
+			
+			ExtensionInterface.call("Executed", new Object[] { this.Scenario, this, executingFaction });
 
             base.Scenario.YearTable.addExecuteEntry(base.Scenario.Date, executor, this);
             this.ToDeath();
@@ -2363,7 +2421,8 @@
             {
                 if ((this.Loyalty < 50) && (GameObject.Random(this.Loyalty * (1 + (int)this.PersonalLoyalty)) <= GameObject.Random(5)))
                 {
-                    this.LeaveToNoFaction();
+					this.LeaveToNoFaction();
+					ExtensionInterface.call("LeaveFaction", new Object[] { this.Scenario, this });
                 }
                 else if (((GlobalVariables.IdealTendencyValid && (this.IdealTendency != null)) && (this.IdealTendency.Offset <= 1)) && (this.BelongedFaction.Leader != null))
                 {
@@ -2386,6 +2445,7 @@
                             {
                                 this.LeaveToNoFaction();
                                 this.MoveToArchitecture(faction2.Capital);
+								ExtensionInterface.call("LeaveFaction", new Object[] { this.Scenario, this });
                                 //this.LocationArchitecture.RemoveNoFactionPerson(this);
                                 //base.Scenario.detectDuplication();
                             }
@@ -2399,6 +2459,7 @@
                         this.LeaveToNoFaction();
                         ArchitectureList allArch = base.Scenario.Architectures;
                         this.MoveToArchitecture(allArch[GameObject.Random(allArch.Count)] as Architecture);
+						ExtensionInterface.call("LeaveFaction", new Object[] { this.Scenario, this });
                         //this.LocationArchitecture.RemoveNoFactionPerson(this);
                         //base.Scenario.detectDuplication();
                     }
@@ -2692,10 +2753,6 @@
 
         public void PreDayEvent()
         {
-            if (this.ID == 547)
-            {
-                int i = 1;
-            }
             this.SetDayInfluence();
         }
 
@@ -2716,7 +2773,6 @@
                 this.ArrivingDays--;
                 if ((this.ArrivingDays == 0) && (this.TargetArchitecture != null))
                 {
-
 
                     if (this.BelongedFaction != null)
                     {
@@ -2747,6 +2803,7 @@
                         this.Status = PersonStatus.NoFaction;
                         this.TargetArchitecture = null;
                     }
+					ExtensionInterface.call("ArrivedAtArchitecture", new Object[] { this.Scenario, this, this.TargetArchitecture });
                 }
             }
         }
@@ -5466,6 +5523,8 @@
                     }
                 }
             }
+			
+			ExtensionInterface.call("CreateChildren", new Object[] { this.Scenario, this, r });
 
             return r;
         }
@@ -5535,7 +5594,7 @@
         public Person XuanZeMeiNv(Person nvren)
         {
             Person tookSpouse = null;
-
+			
             nvren.LocationArchitecture.DecreaseFund(50000);
 
             nvren.Status = PersonStatus.Princess;
@@ -5584,6 +5643,8 @@
                     }
                 }
             }// end if (this.CurrentPerson.Spouse != -1)
+			ExtensionInterface.call("TakeToHouGong", new Object[] { this.Scenario, this, nvren });
+			
             return tookSpouse;
         }
 
@@ -5620,6 +5681,7 @@
                 this.ArrivingDays = houGongDays;
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
+				ExtensionInterface.call("GoForHouGong", new Object[] { this.Scenario, this, nvren });
             }
         }
 

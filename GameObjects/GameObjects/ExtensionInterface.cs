@@ -45,28 +45,29 @@ public class ExtensionInterface
         {
             compiledTypes = new List<Type>();
             loadAllExtensionFiles();
-            TextWriter tw = new StreamWriter("Resources/Extensions/Errors.txt");
-            foreach (KeyValuePair<String, String> file in extensionFiles)
+            using (TextWriter tw = new StreamWriter("Resources/Extensions/Errors.txt"))
             {
-                var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
-                var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll", "GameObjects.dll", "GameGlobal.dll" });
-                parameters.GenerateExecutable = false;
-                CompilerResults results = csc.CompileAssemblyFromSource(parameters, file.Value);
-                if (results.Errors.Count <= 0)
+                foreach (KeyValuePair<String, String> file in extensionFiles)
                 {
-                    Type t = results.CompiledAssembly.GetModules()[0].GetTypes()[0];
-                    compiledTypes.Add(t);
-                }
-                else
-                {
-                    tw.WriteLine(">>> Cannot compile file " + file.Key);
-                    foreach (CompilerError error in results.Errors)
+                    var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
+                    var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll", "GameObjects.dll", "GameGlobal.dll" });
+                    parameters.GenerateExecutable = false;
+                    CompilerResults results = csc.CompileAssemblyFromSource(parameters, file.Value);
+                    if (results.Errors.Count <= 0)
                     {
-                        tw.WriteLine(error.ErrorText);
+                        Type t = results.CompiledAssembly.GetModules()[0].GetTypes()[0];
+                        compiledTypes.Add(t);
+                    }
+                    else
+                    {
+                        tw.WriteLine(">>> Cannot compile file " + file.Key);
+                        foreach (CompilerError error in results.Errors)
+                        {
+                            tw.WriteLine(error.ErrorText);
+                        }
                     }
                 }
             }
-            tw.Close();
         }
     }
 
@@ -79,9 +80,13 @@ public class ExtensionInterface
                 MethodInfo m = t.GetMethod(methodName);
                 m.Invoke(Activator.CreateInstance(t), param);
             }
-            catch
+            catch (Exception ex)
             {
-                //ignore
+                using (StreamWriter w = File.AppendText("Resources/Extensions/RuntimeError.txt"))
+                {
+                    w.WriteLine(">>> In extension " + t.Name);
+                    w.WriteLine(ex.Message);
+                }
             }
         }
     }

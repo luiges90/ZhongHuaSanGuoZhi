@@ -595,6 +595,8 @@
                     }
                 }
             }
+			ExtensionInterface.call("CreateNewFaction", new Object[]{this, oldFaction, newFaction, newFactionCapital});
+			
             this.YearTable.addNewFactionEntry(this.Date, oldFaction, newFaction, newFactionCapital);
             if (this.OnNewFactionAppear != null)
             {
@@ -674,6 +676,8 @@
             this.CheckGameEnd();
 
             this.DaySince++;
+			
+			ExtensionInterface.call("PostDayEvent", new Object[] { this });
 
             this.GameScreen.LoadScenarioInInitialization = false;
         }
@@ -2669,13 +2673,14 @@
             }
             this.AllPersons.Clear();
             this.AllArchitectures.Clear();
-            
+            ExtensionInterface.call("Load", new Object[] { this });
         }  
 
 
         public bool LoadGameScenarioFromDatabase(string connectionString)  //读取剧本
         {
             this.Clear();
+            ExtensionInterface.loadCompiledTypes();
             OleDbConnection dbConnection = new OleDbConnection(connectionString);
             this.LoadGameDataFromDataBase(dbConnection);
             OleDbCommand command = new OleDbCommand("Select * From GameData", dbConnection);
@@ -2705,7 +2710,6 @@
             this.Persons.ApplyInfluences();
             this.Preparing = false;
             this.InitialGameData();
-            ExtensionInterface.loadCompiledTypes();
             if (this.OnAfterLoadScenario != null)
             {
                 this.OnAfterLoadScenario(this);
@@ -2729,6 +2733,7 @@
         public bool LoadSaveFileFromDatabase(string connectionString) //读取存档
         {
             this.Clear();
+            ExtensionInterface.loadCompiledTypes();
             OleDbConnection dbConnection = new OleDbConnection(connectionString);
             this.LoadGameDataFromDataBase(dbConnection);
             OleDbCommand command = new OleDbCommand("Select * From GameData", dbConnection);
@@ -2760,7 +2765,6 @@
             this.Persons.ApplyInfluences();
             this.Preparing = false;
             this.InitialGameData();
-            ExtensionInterface.loadCompiledTypes();
             if (this.OnAfterLoadScenario != null)
             {
                 this.OnAfterLoadScenario(this);
@@ -2784,6 +2788,7 @@
 
         public void MonthPassedEvent()
         {
+			ExtensionInterface.call("MonthEvent", new Object[] { this });
             foreach (Faction faction in this.Factions.GetRandomList())
             {
                 faction.MonthEvent();
@@ -2825,6 +2830,7 @@
 
         public void SeasonChangeEvent()
         {
+			ExtensionInterface.call("SeasonEvent", new Object[] { this });
             if ((this.Date.Month == 3 || this.Date.Month == 6 || this.Date.Month == 9 || this.Date.Month == 12) && this.Date.Day == 1)
             {
                 foreach (Faction faction in this.Factions.GetRandomList())
@@ -3867,6 +3873,7 @@
                 GC.Collect();
                 //return false;
             }
+			ExtensionInterface.call("Save", new Object[] { this });
             return true;
         }
 
@@ -3988,6 +3995,7 @@
 
         public void YearPassedEvent()
         {
+			ExtensionInterface.call("YearEvent", new Object[] { this });
             foreach (Architecture architecture in this.Architectures.GetRandomList())
             {
                 architecture.YearEvent();

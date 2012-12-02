@@ -862,6 +862,7 @@
                 {
                     this.OnInitiativeChangeCapital(this, capital, this.Capital);
                 }
+				ExtensionInterface.call("ChangeCapital", new Object[] { this.Scenario, this });
             }
         }
 
@@ -894,6 +895,7 @@
             {
                 troop.RefreshViewArchitectureRelatedArea();
             }
+			ExtensionInterface.call("ChangeFaction", new Object[] { this.Scenario, this });
         }
 
         public Faction ChangeLeaderAfterLeaderDeath()
@@ -1083,6 +1085,7 @@
                     leader.LoseTreasure(treasure);
                     this.Leader.ReceiveTreasure(treasure);
                 }
+				ExtensionInterface.call("ChangeKing", new Object[] { this.Scenario, this });
                 base.Scenario.YearTable.addChangeKingEntry(base.Scenario.Date, this.Leader);
                 return this;
             }
@@ -1375,6 +1378,7 @@
             base.Scenario.Factions.Remove(this);
             base.Scenario.PlayerFactions.Remove(this);
             this.Destroyed = true;
+			ExtensionInterface.call("FactionDestroyed", new Object[] { this.Scenario, this });
         }
 
         private void Develop()
@@ -1668,6 +1672,7 @@
                     base.Scenario.YearTable.addChangeCapitalEntry(base.Scenario.Date, this, this.Capital);
                 }
             }
+			ExtensionInterface.call("ForceChangeCapital", new Object[] { this.Scenario, this });
         }
 
         public bool HasArchitecture(Architecture architecture)
@@ -2634,6 +2639,7 @@
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
             this.Capital.DecreaseFund(100000);
 
+            ExtensionInterface.call("BecomeEmperorLegally", new Object[] { this.Scenario, this });
             this.Scenario.BecomeNoEmperor();
         }
 
@@ -2700,6 +2706,7 @@
             {
                 this.DoSelfBecomeEmperorInfluence();
             }
+            ExtensionInterface.call("SelfBecomeEmperor", new Object[] { this.Scenario, this });
         }
 
         private void DoSelfBecomeEmperorInfluence()
@@ -2745,7 +2752,7 @@
             this.Scenario.GameScreen.xiejinxingjilu("shengguan", this.LeaderName,
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
             base.Scenario.YearTable.addAdvanceGuanjueEntry(base.Scenario.Date, this, this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue));
-
+			ExtensionInterface.call("Advancement", new Object[] { this.Scenario, this });
         }
 
         private void SelfAdvancement()
@@ -2756,6 +2763,7 @@
             this.Scenario.GameScreen.xiejinxingjilu("Zili", this.LeaderName,
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
             base.Scenario.YearTable.addSelfAdvanceGuanjueEntry(base.Scenario.Date, this, this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue));
+			ExtensionInterface.call("SelfAdvancement", new Object[] { this.Scenario, this });
         }
 
         public int chengchigeshu()
@@ -3314,6 +3322,7 @@
                         {
                             this.OnTechniqueFinished(this, technique);
                         }
+						ExtensionInterface.call("TechniqueUpgradeComplete", new Object[] { this.Scenario, this });
                         base.Scenario.YearTable.addFactionTechniqueCompletedEntry(base.Scenario.Date, this, technique);
                     }
                     this.UpgradingTechnique = -1;
@@ -3340,6 +3349,7 @@
             }
             this.DecreaseTechniquePoint(this.getTechniqueActualPointCost(technique));
             architecture.DecreaseFund(this.getTechniqueActualFundCost(technique));
+			ExtensionInterface.call("UpgradeTechnique", new Object[] { this.Scenario, this });
             if (this.OnUpgradeTechnique != null)
             {
                 this.OnUpgradeTechnique(this, technique, architecture);

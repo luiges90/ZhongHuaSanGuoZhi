@@ -758,6 +758,7 @@
             this.AIWork(false);
             this.InsideTacticsAI();
             this.AITransfer();
+			ExtensionInterface.call("AIArchitecture", new Object[] { this.Scenario, this });
         }
 
         private void AIExecute()
@@ -4556,6 +4557,7 @@
             {
                 this.CreateNewFacilitySpyMessage(facilityKind);
             }
+			ExtensionInterface.call("StartBuildFacility", new Object[] { this.Scenario, this, facilityKind });
         }
 
         public void BuildFacility(FacilityKind facilityKind)
@@ -4575,6 +4577,7 @@
             {
                 this.OnFacilityCompleted(this, facility);
             }
+			ExtensionInterface.call("BuiltFacility", new Object[] { this.Scenario, this, facilityKind });
         }
 
         public bool BuildFacilityAvail()
@@ -4838,6 +4841,7 @@
         {
             this.DecreaseFund(spendFund);
             this.IncreaseFood(spendFund * Parameters.FundToFoodMultiple);
+			ExtensionInterface.call("BuyFood", new Object[] { this.Scenario, this });
         }
 
         public bool BuyFoodAvail()
@@ -5095,6 +5099,7 @@
                 }
             }
             this.IncreaseFood(num / 4);
+			ExtensionInterface.call("ClearField", new Object[] { this.Scenario, this });
         }
 
         private void ClearFieldAI()
@@ -5438,6 +5443,7 @@
             Troop troop = this.CreateTroop(persons, gameObject, military, 0, position);
             troop.WillArchitecture = this;
             this.RobberTroop = troop;
+			ExtensionInterface.call("CreateRobberTroop", new Object[] { this.Scenario, this, troop });
         }
 
         public Routeway CreateRouteway(Point p)
@@ -5465,6 +5471,7 @@
                     routeway.EndArchitecture = routewayArchitecturesByPosition[0] as Architecture;
                     routeway.DestinationArchitecture = routeway.EndArchitecture;
                 }
+				ExtensionInterface.call("CreateRouteway", new Object[] { this.Scenario, this, routeway });
                 return routeway;
             }
             return null;
@@ -5493,6 +5500,7 @@
             {
                 routeway.Extend(pointlist[num2]);
             }
+			ExtensionInterface.call("CreateRouteway", new Object[] { this.Scenario, this, routeway });
             return routeway;
         }
 
@@ -5515,6 +5523,7 @@
                     person.DecreaseLoyalty(StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
                 }
             }
+			ExtensionInterface.call("GossipDamage", new Object[] { this.Scenario, this, damage });
         }
 
         public void checkEvent()
@@ -5632,6 +5641,7 @@
                         this.zainan.zainanzhonglei = base.Scenario.GameCommonData.suoyouzainanzhonglei.Getzainanzhonglei(kindID);
                         this.zainan.shengyutianshu = this.zainan.zainanzhonglei.shijianxiaxian + GameObject.Random(this.zainan.zainanzhonglei.shijianshangxian - this.zainan.zainanzhonglei.shijianxiaxian);
                         this.youzainan = true;
+						ExtensionInterface.call("DisasterHappened", new Object[] { this.Scenario, this, this.zainan });
                         foreach (Military military in this.Militaries)//发生灾难时不能补充
                         {
                             military.StopRecruitment();
@@ -6106,6 +6116,7 @@
             }
             this.Facilities.Remove(facility);
             base.Scenario.Facilities.Remove(facility);
+			ExtensionInterface.call("FacilityDemolished", new Object[] { this.Scenario, this, facility });
         }
 
         public bool DestroyAvail()
@@ -6462,6 +6473,7 @@
             this.RemoveMilitary(m);
             this.BelongedFaction.RemoveMilitary(m);
             base.Scenario.Militaries.Remove(m);
+			ExtensionInterface.call("DisbandMilitary", new Object[] { this.Scenario, this, m });
         }
 
         public bool DisbandSectionAvail()
@@ -8467,8 +8479,8 @@
             foreach (Person person in personList)
             {
                 person.ChangeFaction(this.BelongedFaction);
+				ExtensionInterface.call("HirePerson", new Object[] { this.Scenario, this, person });
                 this.Scenario.GameScreen.xianshishijiantupian(person, this.Name, "ArchitectureHirePerson", "", "", this.BelongedFaction.Name, false);
-
             }
             if (personList.Count > 0)
             {
@@ -8536,7 +8548,8 @@
                            )
                     {
                         person.ChangeFaction(this.BelongedFaction);
-
+						ExtensionInterface.call("HirePerson", new Object[] { this.Scenario, this, person });
+						
                         this.Scenario.GameScreen.xianshishijiantupian(person, this.Name, "ArchitectureHirePerson", "", "", this.BelongedFaction.Name, false);
                         if (this.HasSpy)
                         {
@@ -8981,6 +8994,7 @@
                 m.Quantity = num;
                 m.Experience = num2;
                 m.Name = m.Kind.Name + "队";
+				ExtensionInterface.call("LevelUpMilitary", new Object[] { this.Scenario, this, m });
             }
         }
 
@@ -10327,6 +10341,7 @@
                 {
                     int decrement = maxValue * num;
                     this.DecreasePopulation(decrement);
+					ExtensionInterface.call("PopulationEscape", new Object[] { this.Scenario, this, decrement });
                     if (this.OnPopulationEscape != null)
                     {
                         this.OnPopulationEscape(this, decrement);
@@ -10505,12 +10520,12 @@
         {
             if (receivedDamage.Damage > 0)
             {
-                ExtensionInterface.call("ArchitectureReceiveDamage", new Object[] { this.Scenario, this });
                 int maxValue = 2 + (receivedDamage.Damage / 5);
                 this.DecreaseAgriculture(GameObject.Random(maxValue));
                 this.DecreaseCommerce(GameObject.Random(maxValue));
                 this.DecreaseTechnology(GameObject.Random(maxValue));
                 this.DecreaseMorale(GameObject.Random(maxValue));
+				ExtensionInterface.call("ArchitectureReceiveDamage", new Object[] { this.Scenario, this, receivedDamage });
             }
             return receivedDamage;
         }
@@ -10530,6 +10545,7 @@
                 {
                     this.OnPopulationEnter(this, quantity);
                 }
+				ExtensionInterface.call("ReceivePopulation", new Object[] { this.Scenario, this, quantity });
             }
         }
 
@@ -10931,6 +10947,7 @@
 
         public void ResetFaction(Faction faction)
         {
+			Faction oldFaction = this.BelongedFaction;
             this.ResetAuto();
             if ((faction != null) && base.Scenario.IsPlayer(faction))
             {
@@ -11050,6 +11067,7 @@
                 i.A.CheckIsFrontLine();
             }
             this.CheckIsFrontLine();
+			ExtensionInterface.call("ArchitectureResetFaction", new Object[] { this.Scenario, this, oldFaction });
         }
 
         private void ReSortAllWeighingList(PersonList zhenzaiPersons, PersonList agriculturePersons, PersonList commercePersons,
@@ -11229,6 +11247,7 @@
             this.DecreaseFund(this.RewardPersonFund);
             int idealOffset = Person.GetIdealOffset(p, this.BelongedFaction.Leader);
             p.IncreaseLoyalty((15 - (idealOffset / 5)) +(int) p.PersonalLoyalty);
+			ExtensionInterface.call("RewardPerson", new Object[] { this.Scenario, this, p });
             return true;
         }
 
@@ -11314,6 +11333,7 @@
         {
             this.DecreaseFood(spendFood);
             this.IncreaseFund(spendFood / Parameters.FoodToFundDivisor);
+			ExtensionInterface.call("SellFood", new Object[] { this.Scenario, this });
         }
 
         public bool SellFoodAvail()
@@ -11330,6 +11350,7 @@
         {
             if (this.RecentlyAttacked <= 0)
             {
+				ExtensionInterface.call("ArchitectureBeingAttacked", new Object[] { this.Scenario, this });
                 this.JustAttacked = true;
                 if (this.BelongedFaction != null)
                 {
@@ -11365,6 +11386,7 @@
                 {
                     int decrement = (num - this.AreaCount) * Parameters.SurroundArchitectureDominationUnit;
                     decrement = this.DecreaseDomination(decrement);
+					ExtensionInterface.call("ArchitectureSurrounded", new Object[] { this.Scenario, this });
                     if (decrement > 0)
                     {
                         this.DecrementNumberList.AddNumber(decrement, CombatNumberKind.士气, this.Position);

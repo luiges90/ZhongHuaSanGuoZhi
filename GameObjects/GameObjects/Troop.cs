@@ -665,6 +665,7 @@
                     this.PostActionAI();
                 }
             }
+			ExtensionInterface.call("TroopAI", new Object[] { this.Scenario, this });
         }
 
         private bool AIResetDestination()
@@ -1219,6 +1220,7 @@
                     this.OnDiscoverAmbush(null, troop);
                 }
             }
+			ExtensionInterface.call("AmbushDetected", new Object[] { this.Scenario, this, troop });
         }
 
         private void ApplyAreaInfluences(Point p)
@@ -1299,6 +1301,7 @@
                     }
                 }
             }
+			ExtensionInterface.call("BeGongXin", new Object[] { this.Scenario, this, troop, baseDecrement });
         }
 
         private void ApplyStratagemEffect()
@@ -1346,6 +1349,7 @@
                     }
                 }
             }
+			ExtensionInterface.call("AttackArchitecture", new Object[] { this.Scenario, this, architecture });
         }
 
         private void AttackTroop(Troop troop)
@@ -1411,6 +1415,7 @@
                 }
                 this.StartAttackTroop(troop, damage, false);
             }
+			ExtensionInterface.call("AttackTroop", new Object[] { this.Scenario, this, troop });
         }
 
         public bool AutoAvail()
@@ -1427,6 +1432,7 @@
             {
                 this.OnOutburst(this, this.CurrentOutburstKind);
             }
+			ExtensionInterface.call("BeAngry", new Object[] { this.Scenario, this });
         }
 
         private void BeQuiet()
@@ -1438,6 +1444,7 @@
             {
                 this.OnOutburst(this, this.CurrentOutburstKind);
             }
+			ExtensionInterface.call("BeQuiet", new Object[] { this.Scenario, this });
         }
 
         public void BeRouted()
@@ -1528,6 +1535,7 @@
                     }
                 }
             }
+			ExtensionInterface.call("BeRouted", new Object[] { this.Scenario, this });
         }
 
         private Point getClosestPointOnPath(List<Point> p, out int index)
@@ -2160,6 +2168,7 @@
                                 p.CaptiveCount++;
                             }
                         }
+						ExtensionInterface.call("CapturedByTroop", new Object[] { this.Scenario, this, person });
                     }
                     if (this.OnGetNewCaptive != null)
                     {
@@ -2199,6 +2208,7 @@
                                 p.CaptiveCount++;
                             }
                         }
+						ExtensionInterface.call("CapturedByTroopOccupy", new Object[] { this.Scenario, this, person });
                     }
                     if (this.OnGetNewCaptive != null)
                     {
@@ -2488,6 +2498,7 @@
             }
             //troop.Persons.ApplyInfluences();
             troop.RefreshAllData();
+			ExtensionInterface.call("CreateTroop", new Object[] { troop.Scenario, troop });
             return troop;
         }
 
@@ -2633,6 +2644,7 @@
                     }
                 }
             }
+			ExtensionInterface.call("CutRouteway", new Object[] { this.Scenario, this });
             if (this.OnEndCutRouteway != null)
             {
                 this.OnEndCutRouteway(this, success);
@@ -3032,7 +3044,7 @@
                 this.BelongedFaction.RemoveTroop(this);
                 base.Scenario.Troops.RemoveTroop(this);
                 
-                
+                ExtensionInterface.call("EnterArchitecture", new Object[] { this.Scenario, this, a });
             }
         }
 
@@ -6545,6 +6557,7 @@
                 {
                     this.OnLevyFieldFood(this, food);
                 }
+				ExtensionInterface.call("LevyFood", new Object[] { this.Scenario, this });
             }
         }
 
@@ -7008,6 +7021,7 @@
                     }
                      
                 }
+				ExtensionInterface.call("Occupy", new Object[] { this.Scenario, this, this.CurrentArchitecture });
             }
         }
 
@@ -7226,6 +7240,7 @@
             {
                 receivedDamage.Injury = receivedDamage.DestinationTroop.Quantity;
             }
+			ExtensionInterface.call("TroopReceiveAttackDamage", new Object[] { this.Scenario, this, receivedDamage });
             return receivedDamage;
         }
 
@@ -7243,6 +7258,7 @@
             this.DecreaseQuantity(decrement);
             this.IncreaseInjuryQuantity((decrement * this.InjuryChance) / 100);
             CheckTroopRout(this);
+			ExtensionInterface.call("TroopReceiveFireDamage", new Object[] { this.Scenario, this, decrement });
         }
 
         private void RefillFoodByStartArchitecture()
@@ -7859,6 +7875,7 @@
                         captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
                         captive.CaptivePerson.BelongedCaptive = null;
                     }
+					ExtensionInterface.call("TroopReleaseCaptive", new Object[] { this.Scenario, this, captive });
                 }
                 if ((personlist.Count > 0) && (this.OnReleaseCaptive != null))
                 {
@@ -8189,6 +8206,7 @@
             }
             int num2 = (2 + (damage.Critical ? 1 : 0)) + (this.CombatMethodApplied ? 1 : 0);
             this.IncreaseAttackExperience(num2 * 2);
+			ExtensionInterface.call("TroopSendArchitectureDamage", new Object[] { this.Scenario, this, damage, architecture });
             return damage;
         }
 
@@ -8398,6 +8416,7 @@
                 num4 /= 2;
             }
             damage.Damage = num4;
+			ExtensionInterface.call("TroopSendTroopDamage", new Object[] { this.Scenario, this, damage, troop, counter });
             return damage;
         }
 
@@ -8407,6 +8426,7 @@
             this.OperationDone = true;
             this.MovabilityLeft = -1;
             this.IncreaseStratagemExperience(2, true);
+			ExtensionInterface.call("StartAmbush", new Object[] { this.Scenario, this });
         }
 
         public void SetArmy(Military m)
@@ -8430,6 +8450,7 @@
                 this.RefreshOffence();
                 this.RefreshDefence();
                 this.CutRoutewayDays = 0;
+				ExtensionInterface.call("GoIntoChaos", new Object[] { this.Scenario, this });
                 if (this.OnChaos != null)
                 {
                     this.OnChaos(this, deepChaos);
@@ -8991,6 +9012,7 @@
                 this.MovabilityLeft = -1;
 
             }
+			ExtensionInterface.call("CastSelf", new Object[] { this.Scenario, this });
         }
 
         private void StartCastTroop(Troop troop)
@@ -9033,6 +9055,7 @@
                     this.RealDestination = this.Position ;
 
                 }*/
+				ExtensionInterface.call("Cast", new Object[] { this.Scenario, this, troop });
             }
             
         }
