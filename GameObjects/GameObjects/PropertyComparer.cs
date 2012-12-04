@@ -18,8 +18,8 @@
             this.SmallToBig = SmallToBig;
         }
 
-        private Regex dateMatcher = new Regex("^(\\d+)年(1?\\d)月([123]?\\d)日$", RegexOptions.Compiled);
-        private Regex slashMatcher = new Regex("^(\\d+)/(\\d+)$", RegexOptions.Compiled);
+        private static Regex dateMatcher = new Regex("^(\\d+)年(1?\\d)月([123]?\\d)日$", RegexOptions.Compiled);
+        private static Regex slashMatcher = new Regex("^(\\d+)/(\\d+)$", RegexOptions.Compiled);
         public int Compare(GameObject x, GameObject y)
         {
             if ((x == null) || (y == null))

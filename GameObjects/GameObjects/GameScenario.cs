@@ -325,7 +325,7 @@
 
         public void ApplyFireTable()
         {
-            foreach (Point point in this.FireTable.Positions.Values)
+            foreach (Point point in this.FireTable.Positions)
             {
                 this.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.火焰, point, true);
             }
@@ -784,7 +784,7 @@
         public void FireDayEvent()
         {
             List<Point> list = new List<Point>();
-            foreach (Point point in this.FireTable.Positions.Values)
+            foreach (Point point in this.FireTable.Positions)
             {
                 if (GameObject.Chance(Parameters.FireStayProb))
                 {
@@ -796,7 +796,7 @@
                 this.ClearPositionFire(point);
             }
             list.Clear();
-            foreach (Point point in this.FireTable.Positions.Values)
+            foreach (Point point in this.FireTable.Positions)
             {
                 list.Add(point);
             }

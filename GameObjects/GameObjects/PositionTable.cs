@@ -7,15 +7,17 @@
 
     public class PositionTable
     {
-        public Dictionary<int, Point> Positions = new Dictionary<int, Point>();
+        //public Dictionary<int, Point> Positions = new Dictionary<int, Point>();
+        public HashSet<Point> Positions = new HashSet<Point>();
 
         public void AddPosition(Point position)
         {
-            int hashCode = position.ToString().GetHashCode();
+            /*int hashCode = position.ToString().GetHashCode();
             if (!this.Positions.ContainsKey(hashCode))
             {
                 this.Positions.Add(hashCode, position);
-            }
+            }*/
+            this.Positions.Add(position);
         }
 
         public void Clear()
@@ -25,8 +27,9 @@
 
         public bool HasPosition(Point position)
         {
-            int hashCode = position.ToString().GetHashCode();
-            return this.Positions.ContainsKey(hashCode);
+            /*int hashCode = position.ToString().GetHashCode();
+            return this.Positions.ContainsKey(hashCode);*/
+            return this.Positions.Contains(position);
         }
 
         public void LoadFromString(string dataString)
@@ -42,14 +45,15 @@
 
         public bool RemovePosition(Point position)
         {
-            int hashCode = position.ToString().GetHashCode();
-            return this.Positions.Remove(hashCode);
+            /*int hashCode = position.ToString().GetHashCode();
+            return this.Positions.Remove(hashCode);*/
+            return this.Positions.Remove(position);
         }
 
         public string SaveToString()
         {
             StringBuilder builder = new StringBuilder();
-            foreach (Point point in this.Positions.Values)
+            foreach (Point point in this.Positions)
             {
                 builder.Append(point.X.ToString() + " " + point.Y.ToString() + " ");
             }
