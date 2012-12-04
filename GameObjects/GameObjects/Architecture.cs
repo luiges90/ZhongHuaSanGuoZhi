@@ -1921,6 +1921,7 @@
 
         private void AIWork(bool forPlayer)
         {
+
             if (!forPlayer)
             {
                 this.AIAutoHire();
@@ -5564,6 +5565,7 @@
             this.JustAttacked = false;
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
+            this.remindedAboutAttack = false;
         }
 
         private void captiveEscape()
@@ -11362,6 +11364,20 @@
                 }
             }
             this.RecentlyAttacked = 10;
+            this.AttackedReminder();
+        }
+
+        private bool remindedAboutAttack = false;
+        public void AttackedReminder()
+        {
+            if (!remindedAboutAttack && this.PersonCount > 0 && this.MilitaryCount > 0)
+            {
+                if (this.OnBeginRecentlyAttacked != null)
+                {
+                    this.OnBeginRecentlyAttacked(this);
+                }
+                remindedAboutAttack = true;
+            }
         }
 
         public void SetViewArea(GameArea area)
