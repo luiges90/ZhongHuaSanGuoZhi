@@ -104,6 +104,8 @@
 
         public static bool LandArmyCanGoDownWater = true;
 
+        public static bool EnableResposiveThreading = false;
+
         public bool InitialGlobalVariables()
         {
             Exception exception;

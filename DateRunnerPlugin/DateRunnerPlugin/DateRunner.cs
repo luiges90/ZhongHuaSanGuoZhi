@@ -71,7 +71,7 @@
 
         internal void DateStop()
         {
-            if (this.Date.EndRunning())
+            if (this.Date.EndRunning() && !GlobalVariables.EnableResposiveThreading)
             {
                 if (this.yizhiyunxing)
                 {

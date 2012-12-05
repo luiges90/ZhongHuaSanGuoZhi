@@ -449,19 +449,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         }
 
 
-
-        public override void GameGo(GameTime gameTime)
-        {
-            if ((this.viewMove == ViewMove.Stop) && !this.AfterDayPassed(gameTime))
-            {
-                this.Plugins.DateRunnerPlugin.DateGo();
-                if (!this.AfterDayStarting(gameTime))
-                {
-                    this.Plugins.DateRunnerPlugin.DateStop();
-                }
-            }
-        }
-
         public override Rectangle GetDestination(Point mapPosition)
         {
             return this.mainMapLayer.GetDestination(mapPosition);
@@ -2622,6 +2609,22 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        
+        private volatile bool roundDone = false;
+        private object roundDoneLock = new object();
+
+        public override void GameGo(GameTime gameTime)
+        {
+            if ((this.viewMove == ViewMove.Stop) && !this.AfterDayPassed(gameTime))
+            {
+                this.Plugins.DateRunnerPlugin.DateGo();
+                if (!this.AfterDayStarting(gameTime))
+                {
+                    roundDone = true;
+                    //this.Plugins.DateRunnerPlugin.DateStop();
+                }
+            }
+        }
 
         private void RunAI()
         {
@@ -2658,15 +2661,29 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             this.ScrollTheMainMap(gameTime);
                             this.HandleKey(gameTime);
 
-                            /*if (aiThread == null || !aiThread.IsAlive)
+                            if (GlobalVariables.EnableResposiveThreading)
                             {
-                                sharedGameTime = gameTime;
-                                aiThread = null;
-                                aiThread = new Thread(new ThreadStart(RunAI));
-                                aiThread.Start();
-                            }*/
-                            
-                            this.GameGo(gameTime);
+                                if (aiThread == null || !aiThread.IsAlive)
+                                {
+                                    sharedGameTime = gameTime;
+                                    aiThread = null;
+                                    aiThread = new Thread(new ThreadStart(RunAI));
+                                    aiThread.Start();
+                                }
+
+                                lock (roundDoneLock)
+                                {
+                                    if (roundDone)
+                                    {
+                                        roundDone = false;
+                                        this.Plugins.DateRunnerPlugin.DateStop();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                this.GameGo(gameTime);
+                            }
 
                             if (this.Scenario.PlayerFactions.Count == 0)
                             {
