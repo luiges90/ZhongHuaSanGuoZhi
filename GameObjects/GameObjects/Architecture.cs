@@ -11370,7 +11370,7 @@
         private bool remindedAboutAttack = false;
         public void AttackedReminder()
         {
-            if (!remindedAboutAttack && this.PersonCount > 0 && this.MilitaryCount > 0)
+            if (!remindedAboutAttack && this.PersonCount > 0 && this.MilitaryCount > 0 && !this.HasOwnFactionTroopsInView())
             {
                 if (this.OnBeginRecentlyAttacked != null)
                 {
