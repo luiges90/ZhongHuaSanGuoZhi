@@ -82,11 +82,11 @@ public class ExtensionInterface
             }
             catch (Exception ex)
             {
-                using (StreamWriter w = File.AppendText("Resources/Extensions/RuntimeError.txt"))
+                /*using (StreamWriter w = File.AppendText("Resources/Extensions/RuntimeError.txt"))
                 {
                     w.WriteLine(">>> In extension " + t.Name);
                     w.WriteLine(ex.Message);
-                }
+                }*/
             }
         }
     }
