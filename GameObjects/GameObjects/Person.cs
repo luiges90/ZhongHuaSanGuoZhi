@@ -746,10 +746,10 @@
             {
                 this.OnDeath(this, locationArchitecture);
             }
-            else if (this == belongedFaction.Leader)
+            if (this == belongedFaction.Leader)
             {
                 string name = belongedFaction.Name;
-                base.Scenario.YearTable.addKingDeathEntry(base.Scenario.Date, this);
+                base.Scenario.YearTable.addKingDeathEntry(base.Scenario.Date, this, belongedFaction);
                 GameObjects.Faction faction2 = belongedFaction.ChangeLeaderAfterLeaderDeath();
                 if (faction2 != null)
                 {

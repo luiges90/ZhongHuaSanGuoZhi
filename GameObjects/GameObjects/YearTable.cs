@@ -65,15 +65,15 @@
                 String.Format(yearTableStrings["upgradeTechniqueCompleted"], f.Name, t.Name), false);
         }
 
-        public void addKingDeathEntry(GameDate date, Person p)
+        public void addKingDeathEntry(GameDate date, Person p, Faction oldFaction)
         {
-            this.addTableEntry(date, composeFactionList(p.BelongedFaction), 
-                String.Format(yearTableStrings["kingDeath"], p.BelongedFaction.Name, p.Name), true);
+            this.addTableEntry(date, composeFactionList(oldFaction), 
+                String.Format(yearTableStrings["kingDeath"], oldFaction.Name, p.Name), true);
         }
 
         public void addChangeKingEntry(GameDate date, Person p)
         {
-            this.addTableEntry(date, composeFactionList(p.BelongedFaction), 
+            this.addTableEntry(date, composeFactionList(p.BelongedFaction),
                 String.Format(yearTableStrings["changeKing"], p.BelongedFaction.Name, p.Name), true);
         }
 
