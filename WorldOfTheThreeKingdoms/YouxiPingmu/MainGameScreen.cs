@@ -2620,20 +2620,27 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.DateRunnerPlugin.DateGo();
                 if (!this.AfterDayStarting(gameTime))
                 {
-                    roundDone = true;
-                    //this.Plugins.DateRunnerPlugin.DateStop();
+                    if (GlobalVariables.EnableResposiveThreading)
+                    {
+                        roundDone = true;
+                    }
+                    else
+                    {
+                        this.Plugins.DateRunnerPlugin.DateStop();
+                    }
                 }
             }
         }
 
         private void RunAI()
         {
-            this.GameGo(sharedGameTime);
+            do
+            {
+                this.GameGo(new GameTime());
+            } while (true);
         }
 
         private Thread aiThread;
-
-        private GameTime sharedGameTime;
 
         public override void Update(GameTime gameTime)   //视野内容更新
         {
@@ -2665,7 +2672,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             {
                                 if (aiThread == null || !aiThread.IsAlive)
                                 {
-                                    sharedGameTime = gameTime;
                                     aiThread = null;
                                     aiThread = new Thread(new ThreadStart(RunAI));
                                     aiThread.Start();

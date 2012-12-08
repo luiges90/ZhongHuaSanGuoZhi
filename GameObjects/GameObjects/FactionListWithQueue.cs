@@ -67,16 +67,19 @@
             else if (!this.QueueEmpty)
             {
                 this.RunningFaction = this.factionQueue.Dequeue();
-                if (this.RunningFaction.Leader.BelongedFaction == null)
+                if (this.RunningFaction != null)
                 {
-                    this.RunningFaction = null;
-                }
-                else
-                {
-                    this.RunningFaction.Scenario.CurrentFaction = this.RunningFaction;
-                    if (this.RunningFaction.Run())
+                    if (this.RunningFaction.Leader.BelongedFaction == null)
                     {
                         this.RunningFaction = null;
+                    }
+                    else
+                    {
+                        this.RunningFaction.Scenario.CurrentFaction = this.RunningFaction;
+                        if (this.RunningFaction.Run())
+                        {
+                            this.RunningFaction = null;
+                        }
                     }
                 }
             }
