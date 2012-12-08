@@ -5130,6 +5130,11 @@
 
         private int GetTerrainCredit(Point position)
         {
+            int waterDecredit = 0;
+            if (this.Army.Kind.Type != MilitaryType.水军 && base.Scenario.GetTerrainKindByPosition(position) == TerrainKind.水域)
+            {
+                waterDecredit = -300;
+            }
             if (this.BelongedFaction != null)
             {
                 int positionIndexInCurrentPath = this.GetPositionIndexInCurrentPath(position);
@@ -5138,12 +5143,12 @@
                     float terranRateByPosition = this.GetTerranRateByPosition(position);
                     if (!(!this.ViewingWillArchitecture || GameObject.Chance(10)))
                     {
-                        return (int) ((terranRateByPosition - this.CurrentRate) * 10f);
+                        return (int) ((terranRateByPosition - this.CurrentRate) * 10f + waterDecredit);
                     }
-                    return ((positionIndexInCurrentPath * 0x1d) + ((int) ((terranRateByPosition - this.CurrentRate) * 10f)));
+                    return ((positionIndexInCurrentPath * 0x1d) + ((int) ((terranRateByPosition - this.CurrentRate) * 10f)) + waterDecredit);
                 }
             }
-            return 0;
+            return waterDecredit;
         }
 
         private float GetTerranRateByPosition(Point position)
