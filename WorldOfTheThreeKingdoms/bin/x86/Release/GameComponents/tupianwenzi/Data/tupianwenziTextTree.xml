@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <Branch Name="ArchitectureBeginRecentlyAttacked">
+    <Leaf Text="探马来报，" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="城外发现敌军。" Color="4294967295"></Leaf>
+  </Branch>
+
+
+  <Branch Name="PersonLeave">
+    <Leaf Text="继续为" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
+    <Leaf Text="效力已经没有任何意义，是时候另作打算了。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonBeKilled">
+    <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
+    <Leaf Text="在" Color="4294967295"></Leaf>
+    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="被处死。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="FactionAfterCatchLeader">
+    <Leaf Text="大事不成，甘愿就死！烦劳阁下将刀磨得快些。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="NewFactionAppear">
+    <Leaf Text="今后" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="就由我" Color="4294967295"></Leaf>
+    <Leaf Property="Name" Color="4286644223"></Leaf>
+    <Leaf Text="掌控了。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="FactionChangeLeaderKeepName">
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="军以后将由我" Color="4294967295"></Leaf>
+    <Leaf Property="Name" Color="4286644223"></Leaf>
+    <Leaf Text="继承和发扬，为了缅怀逝者，保持势力名号不变。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="FactionChangeLeaderChangeName">
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="军今后将在我" Color="4294967295"></Leaf>
+    <Leaf Property="Name" Color="4286644223"></Leaf>
+    <Leaf Text="的统治下开创新局面，势力名号变为" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="军。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="FactionLeaderDeathChangeFaction">
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="临终前将" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="军托付给我" Color="4294967295"></Leaf>
+    <Leaf Property="Name" Color="4286644223"></Leaf>
+    <Leaf Text="，我等一定不会辜负他的在天之灵。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="GameEndWithUnite">
+    <Leaf Text="终于扫平了一切抵抗势力。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="CutRouteway">
+    <Leaf Text="切断敌军的粮道，让他们不战自乱吧。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="不过，" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
+    <Leaf Text="天之内，本部队将无法行动。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="StopCutRouteway">
+    <Leaf Text="要切断敌军粮道仍需要" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
+    <Leaf Text="天时间，确定终止本行动吗？" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SpyMessageNewMilitary">
+    <Leaf Text="据密报：于" Color="4294967295"></Leaf>
+    <Leaf Property="Message4" Color="4286644223"></Leaf>
+    <Leaf Text="，" Color="4294967295"></Leaf>
+    <Leaf Property="Message1" Color="4286644223"></Leaf>
+    <Leaf Text="在" Color="4294967295"></Leaf>
+    <Leaf Property="Message2" Color="4286644223"></Leaf>
+    <Leaf Text="新建了" Color="4294967295"></Leaf>
+    <Leaf Property="Message3" Color="4286644223"></Leaf>
+    <Leaf Text="等编队。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SpyMessageMilitaryScale">
+    <Leaf Text="据密报：于" Color="4294967295"></Leaf>
+    <Leaf Property="Message4" Color="4286644223"></Leaf>
+    <Leaf Text="，" Color="4294967295"></Leaf>
+    <Leaf Property="Message1" Color="4286644223"></Leaf>
+    <Leaf Text="在" Color="4294967295"></Leaf>
+    <Leaf Property="Message2" Color="4286644223"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="Message3" Color="4286644223"></Leaf>
+    <Leaf Text="士兵数量超过了" Color="4294967295"></Leaf>
+    <Leaf Property="Message5" Color="4286644223"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SpyMessageNewFacility">
+    <Leaf Text="据密报：于" Color="4294967295"></Leaf>
+    <Leaf Property="Message4" Color="4286644223"></Leaf>
+    <Leaf Text="，" Color="4294967295"></Leaf>
+    <Leaf Property="Message1" Color="4286644223"></Leaf>
+    <Leaf Text="在" Color="4294967295"></Leaf>
+    <Leaf Property="Message2" Color="4286644223"></Leaf>
+    <Leaf Text="新建了设施" Color="4294967295"></Leaf>
+    <Leaf Property="Message3" Color="4286644223"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SpyMessageNewTroop">
+    <Leaf Text="据密报：" Color="4294967295"></Leaf>
+    <Leaf Property="Message1" Color="4286644223"></Leaf>
+    <Leaf Text="军的" Color="4294967295"></Leaf>
+    <Leaf Property="Message3" Color="4286644223"></Leaf>
+    <Leaf Text="等部队已于" Color="4294967295"></Leaf>
+    <Leaf Property="Message4" Color="4286644223"></Leaf>
+    <Leaf Text="，从" Color="4294967295"></Leaf>
+    <Leaf Property="Message2" Color="4286644223"></Leaf>
+    <Leaf Text="出征。目标" Color="4294967295"></Leaf>
+    <Leaf Property="Message5" Color="4286644223"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SpyMessageHireNewPerson">
+    <Leaf Text="据密报：于" Color="4294967295"></Leaf>
+    <Leaf Property="Message4" Color="4286644223"></Leaf>
+    <Leaf Text="，" Color="4294967295"></Leaf>
+    <Leaf Property="Message1" Color="4286644223"></Leaf>
+    <Leaf Text="在" Color="4294967295"></Leaf>
+    <Leaf Property="Message2" Color="4286644223"></Leaf>
+    <Leaf Text="录用了" Color="4294967295"></Leaf>
+    <Leaf Property="Message3" Color="4286644223"></Leaf>
+    <Leaf Text="等人。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonSpyFound">
+    <Leaf Text="情况不妙，在下已经与" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
+    <Leaf Text="的间谍失去了联系。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonTreasureFound">
+    <Leaf Text="大妙！居然在" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
+    <Leaf Text="发现了宝物" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="ReleaseCaptive">
+    <Leaf Property="CaptiveFactionString" Color="4286644223"></Leaf>
+    <Leaf Text="军送来赎金" Color="4294967295"></Leaf>
+    <Leaf Property="RansomFund" Color="4278232306"></Leaf>
+    <Leaf Text="请求我军释放" Color="4294967295"></Leaf>
+    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="。是否同意？" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeSourceWin">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="发起单挑，得胜而归。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeSourceLose">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="发起单挑，败阵而回。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeAfterSourceWin">
+    <Leaf Text="看来" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="也不过如此，太令我失望了。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeAfterSourceLose">
+    <Leaf Text="哼，" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="无非又是一个不知死活的蠢货！" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonControversySourceWin">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceControversyPersonName" Color="4278255360"></Leaf>
+    <Leaf Text="向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationControversyPersonName" Color="4278255360"></Leaf>
+    <Leaf Text="发起论战，得胜而归。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonControversySourceLose">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceControversyPersonName" Color="4278255360"></Leaf>
+    <Leaf Text="向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationControversyPersonName" Color="4278255360"></Leaf>
+    <Leaf Text="发起论战，败阵而回。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonControversyAfterSourceWin">
+    <Leaf Text="原来" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationControversyPersonName" Color="4278255360"></Leaf>
+    <Leaf Text="不过是徒有其名，着实令人发笑。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonControversyAfterSourceLose">
+    <Leaf Property="CurrentSourceControversyPersonName" Color="4278255360"></Leaf>
+    <Leaf Text="，下次看清楚对手再来挑战！" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonStudyTitleSuccess">
+    <Leaf Text="遍访名士，终于获评" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="称号。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonStudyTitleFailed">
+    <Leaf Text="可惜，未能获评" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="称号。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonStudySkillSuccess">
+    <Leaf Text="本次研习，学得了" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="等技能。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonStudySkillFailed">
+    <Leaf Text="惭愧，本次研习未能获得新的技能。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonStudyStuntSuccess">
+    <Leaf Text="本次研习，学得了" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="特技。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonStudyStuntFailed">
+    <Leaf Text="…………未能学得" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="特技。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="FactionTechniqueFinished">
+    <Leaf Text="已经完成势力技巧" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="的升级。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="ArchitectureFacilityCompleted">
+    <Leaf Property="TextResultString" Color="4278232306"></Leaf>
+    <Leaf Text="的设施" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="已经修建完毕。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonBeAwardedTreasure">
+    <Leaf Text="当真要赐予在下" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="吗？不才必效死命！" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="PersonBeConfiscatedTreasure">
+    <Leaf Text="什么？竟然取走我的" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="！主公的气量竟然只有这样？！" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="zhanling">
+
+    <Leaf Property="Name" Color="4278255360"></Leaf>
+    
+    <Leaf Text="军攻克了" Color="4294967295"></Leaf>
+
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+    
+  </Branch>
+  <Branch Name="chongxing">
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="将军您可来了，想死奴家了。让奴家服侍您休息吧。" Color="4294967295"></Leaf>
+
+  </Branch>
+
+  <Branch Name="nafei">
+    <Leaf Text="能成为" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="将军的妃子，" Color="4294967295"></Leaf>
+    <Leaf Text="妾身感到万分荣幸。" Color="4294967295"></Leaf>
+  </Branch>
+
+  <Branch Name="fashengzainan">
+    <Leaf Text="大事不好！" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278232306"></Leaf>
+    <Leaf Text="发生了" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="FactionDestroy">
+    <Leaf Property="TextResultString" Color="4292673536"></Leaf>
+    <Leaf Text="的势力灭亡了……" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="renwusiwang">
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="离开了人世。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="shengguan">
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="忠于职守，勤政爱民，特加封为" Color="4294967295"></Leaf>
+
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+  </Branch>
+
+
+  <Branch Name="SearchFailed">
+    <Leaf Property="" Text="很遗憾，在" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="的搜索工作没有任何斩获。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SearchFundFound">
+    <Leaf Property="" Text="巧得很，在" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="的附近偶遇富商，得到其捐赠的资金" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SearchFoodFound">
+    <Leaf Property="" Text="本次搜索，在" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="周边搜集到粮草" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SearchTechniqueFound">
+    <Leaf Property="" Text="遍访" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="四周的能工巧匠，终于有所得。现上交技巧点数" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SearchSpyFound">
+    <Leaf Property="" Text="发现并铲除了" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="派来" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="的奸细。不过，还有其他的间谍也未可知……" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="SearchPersonFound">
+    <Leaf Property="" Text="属下于" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="周遭巡视时，发现了在野人才" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="。" Color="4294967295"></Leaf>
+  </Branch>
+
+  <Branch Name="luyongshibai">
+    <Leaf Text="我乃一介草民，没有做官的才能。" Color="4294967295"></Leaf>
+
+  </Branch>
+  <Branch Name="LinianButong">
+    <Leaf Text="我与大人理念不同，恕不能从命。" Color="4294967295"></Leaf>
+
+  </Branch>
+  <Branch Name="CaptiveEscape">
+    <Leaf Text="终于有机会逃出去了，我再也不想呆在这漆黑的牢房里。" Color="4294967295"></Leaf>
+
+  </Branch>
+
+  <Branch Name="ChildJoin">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="的孩子" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="已经长大成人，加入我军。" Color="4294967295"></Leaf>
+
+
+  </Branch>
+
+  <Branch Name="ChildJoinSelfTalk">
+    <Leaf Text="我绝不会辜负父母的期望，" Color="4294967295"></Leaf>
+    <Leaf Text="看我在" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="的表现吧！" Color="4294967295"></Leaf>
+
+  </Branch>
+  <Branch Name="FemaleSpouseJoin">
+    <Leaf Text="臣的夫君" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="效力于将军，臣今日也加入将军麾下，与夫君并肩作战。" Color="4294967295"></Leaf>
+
+  </Branch>
+  <Branch Name="MaleSpouseJoin">
+    <Leaf Text="臣的妻室" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="效力于将军，臣今日也加入将军麾下，与妻室并肩作战。" Color="4294967295"></Leaf>
+
+  </Branch>
+
+  <Branch Name="KillSelfPerson">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="处斩了自己的武将" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="。" Color="4294967295"></Leaf>
+
+
+  </Branch>
+
+  <Branch Name="KillCaptive">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="处斩了被俘虏的" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="。" Color="4294967295"></Leaf>
+
+
+  </Branch>
+  <Branch Name="ReleaseSelfPerson">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="玩忽职守，懈怠渎职，" Color="4294967295"></Leaf>
+    <Leaf Property="" Text="今予以流放。" Color="4294967295"></Leaf>
+
+
+  </Branch>
+
+  <Branch Name="ArchitectureHirePerson">
+    <Leaf Text="我" Color="4294967295"></Leaf>
+    <Leaf Property="Name" Color="4286644223"></Leaf>
+    <Leaf Text="将在" Color="4294967295"></Leaf>
+
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="为" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
+    <Leaf Text="军立下汗马功劳！" Color="4294967295"></Leaf>
+  </Branch>
+
+  <Branch Name="SelectPrince">
+    <Leaf Property="" Text="爱子" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="天资聪颖，功勋卓著，今立为储君。我百年之后，诸位共辅之。" Color="4294967295"></Leaf>
+
+
+  </Branch>
+  <Branch Name="Zili">
+    <Leaf Text="承蒙各位爱戴，今日我自封为" Color="4294967295"></Leaf>
+
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="。我们齐心协力，共创大业！" Color="4294967295"></Leaf>
+  </Branch>
+
+  <Branch Name="BecomeEmperorLegally">
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="英明神武，众望所归。我才疏德浅，难当社稷大任，今禅位于他，以肃承天命。" Color="4294967295"></Leaf>
+
+  </Branch>
+  <Branch Name="SelfBecomeEmperorInfluence">
+    <Leaf Text="手下官员和民众竟然对我称帝抱有怨言，真是气死我了！" Color="4294967295"></Leaf>
+
+  </Branch>
+</Root>
