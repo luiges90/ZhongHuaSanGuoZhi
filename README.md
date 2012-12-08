@@ -2,4 +2,5 @@
 
 注意：源碼需以VS2008 + XNA3.0才能開啟
 
-注意：這裡只有源碼，不含任何資源檔及可執行檔，以減少佔用空間。
+注意：資源檔中在WorldOfTheThreeKingdoms/bin/x86/Release中，不含已編譯檔案。另外下列檔案名稱需改名才能正確運行：
+GameData/Common/CommonDataPublic.mdb => GameData/Common/CommonData.mdb
