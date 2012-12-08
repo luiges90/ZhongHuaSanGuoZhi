@@ -162,12 +162,15 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
-WorldOfTheThreeKingdoms/bin
-!WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents
-!WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GlobalVariablesPublic.xml
-!WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GameParametersPublic.xml
-!WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario
-!WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/SaveTemplate.mdb
-!WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/CommonDataPublic.mdb
+WorldOfTheThreeKingdoms/bin/x86/Debug
+WorldOfTheThreeKingdoms/bin/x86/public
+WorldOfTheThreeKingdoms/bin/x86/*.zip
+WorldOfTheThreeKingdoms/bin/x86/v*
 WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/PersonPortrait/PlayerImage
 WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/meinvtupian
+WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GameParameters.xml
+WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GlobalVariables.xml
+WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/CommonData.mdb
+WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Save
+WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/generatedScen.mdb
+WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/private_*
