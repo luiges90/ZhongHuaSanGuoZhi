@@ -38,7 +38,8 @@
         {
             if (this.endurance != this.EnduranceCeiling)
             {
-                this.endurance += (this.EnduranceCeiling / this.Days) / 2 + extraInc;
+                int increase = (this.EnduranceCeiling / this.Days) / 2 + extraInc;
+                this.endurance += increase < 1 ? 1 : increase;
                 if (this.endurance > this.EnduranceCeiling)
                 {
                     this.endurance = this.EnduranceCeiling;

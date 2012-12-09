@@ -746,7 +746,7 @@
             {
                 this.OnDeath(this, locationArchitecture);
             }
-            if (this == belongedFaction.Leader)
+            if (belongedFaction != null && this == belongedFaction.Leader)
             {
                 string name = belongedFaction.Name;
                 base.Scenario.YearTable.addKingDeathEntry(base.Scenario.Date, this, belongedFaction);
