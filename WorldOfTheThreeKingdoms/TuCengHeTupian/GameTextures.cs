@@ -31,7 +31,8 @@ namespace WorldOfTheThreeKingdoms.Resources
             public Texture2D huangditupian;
             //public Texture2D jianzhubiaotibeijing;
             public Texture2D zidongcundangtupian;
-            public Texture2D[] chengchitupian=new Texture2D[2];
+            public Dictionary<int, Texture2D> mediumCityImg = new Dictionary<int, Texture2D>();
+            public Dictionary<int, Texture2D> largeCityImg = new Dictionary<int, Texture2D>();
             public Texture2D[] guandetupian = new Texture2D[3];
             public Texture2D wanggetupian;
             
@@ -297,8 +298,32 @@ namespace WorldOfTheThreeKingdoms.Resources
                     throw new Exception("The huangdi Textures are not completely loaded.\n" + exception.ToString());
                 }
                 //this.jianzhubiaotibeijing = Texture2D.FromFile(device, "Resources/Architecture/jianzhubiaotibeijing.png");
-                this.chengchitupian[0] = Texture2D.FromFile(device, "Resources/Architecture/chengchi13.png");
-                this.chengchitupian[1] = Texture2D.FromFile(device, "Resources/Architecture/chengchi5.png");
+
+                string[] filePaths = Directory.GetFiles("Resources/Architecture/", "*.png");
+                foreach (String s in filePaths)
+                {
+                    string fileName = s.Substring(s.LastIndexOf('/') + 1, s.LastIndexOf('.') - s.LastIndexOf('/') - 1);
+                    if (fileName.IndexOf('-') < 0)
+                    {
+                        continue;
+                    }
+                    string archIdStr = fileName.Substring(0, fileName.IndexOf('-'));
+                    string size = fileName.Substring(fileName.IndexOf('-') + 1);
+
+                    int archId;
+                    if (int.TryParse(archIdStr, out archId) && (size.Equals("5") || size.Equals("13")))
+                    {
+                        if (size == "5")
+                        {
+                            mediumCityImg.Add(archId, Texture2D.FromFile(device, s));
+                        }
+                        else
+                        {
+                            largeCityImg.Add(archId, Texture2D.FromFile(device, s));
+                        }
+                    }
+                }
+
                 this.guandetupian[0] = Texture2D.FromFile(device, "Resources/Architecture/hengguan3.png");
                 this.guandetupian[1] = Texture2D.FromFile(device, "Resources/Architecture/shuguan3.png");
                 this.guandetupian[2] = Texture2D.FromFile(device, "Resources/Architecture/shuguan5.png");

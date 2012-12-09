@@ -194,22 +194,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
             {
                 return tupian;
             }
-            if (architecture.Kind.ID == 1)
-            {
-                if (architecture.JianzhuGuimo == 13)
-                {
-                    tupian = this.screen.Textures.chengchitupian[0];
-                }
-                else if (architecture.JianzhuGuimo == 5)
-                {
-                    tupian = this.screen.Textures.chengchitupian[1];
-                }
-                else
-                {
-                    tupian = architecture.Texture;
-                }
-            }
-            else if (architecture.Kind.ID == 2)
+            if (architecture.Kind.ID == 2)
             {
                 if (architecture.JianzhuGuimo == 1)
                 {
@@ -243,7 +228,25 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
 
                 }
 
-            }//end if (architecture.Kind.ID == 1)
+            }
+            else
+            {
+                try
+                {
+                    if (architecture.JianzhuGuimo == 13)
+                    {
+                        tupian = this.screen.Textures.largeCityImg[architecture.Kind.ID];
+                    }
+                    else if (architecture.JianzhuGuimo == 5)
+                    {
+                        tupian = this.screen.Textures.mediumCityImg[architecture.Kind.ID];
+                    }
+                }
+                catch (KeyNotFoundException)
+                {
+                    tupian = architecture.Texture;
+                }
+            }
             return tupian;
         }
 
