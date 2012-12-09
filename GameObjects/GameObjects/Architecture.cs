@@ -5600,10 +5600,8 @@
                 this.zhixingzainanshanghai();
 
                 this.zainan.shengyutianshu--;
-                if (base.Scenario.Date.Day % 10 == 0)
-                {
-                    this.zainan.shengyutianshu -= this.zhenzaijianshaotianshu();
-                }
+                this.zainan.shengyutianshu -= this.zhenzaijianshaotianshu();
+
                 if (this.zainan.shengyutianshu <= 0)
                 {
                     this.youzainan = false;
@@ -5660,14 +5658,11 @@
             int zhenzainenglizonghe = 0;
             foreach (Person person in this.zhenzaiWorkingPersons)
             {
-                zhenzainenglizonghe += person.zhenzaiAbility; ;
+                zhenzainenglizonghe += person.zhenzaiAbility;
             }
-            tianshu = zhenzainenglizonghe / 300;
-            if (tianshu > 5)
-            {
-                tianshu = 5;
-            }
-            return tianshu;
+            float extraProb = (zhenzainenglizonghe % 3000) / 30.0f;
+            tianshu = zhenzainenglizonghe / 3000;
+            return tianshu + (GameObject.Chance((int) extraProb) ? 1 : 0);
         }
 
         private float jianzaixishu()
@@ -5676,12 +5671,16 @@
             int zhenzainenglizonghe=0;
             foreach (Person person in this.zhenzaiWorkingPersons)
             {
-                zhenzainenglizonghe += person.zhenzaiAbility; ;
+                zhenzainenglizonghe += person.zhenzaiAbility;
             }
-            xishu = 1 - zhenzainenglizonghe / 1500f;
+            xishu = 500.0f / zhenzainenglizonghe;
             if (xishu < 0.01f)
             {
                 xishu = 0.01f;
+            }
+            if (xishu > 1f)
+            {
+                xishu = 1f;
             }
             return xishu;
         }
