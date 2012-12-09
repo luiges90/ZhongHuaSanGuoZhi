@@ -11048,7 +11048,7 @@
         {
             get
             {
-                return (this.Army.RationDays + this.IncrementOfRationDays);
+                return ((this.Army.KindID == 28 ? this.Army.RealMilitaryKind.RationDays : this.Army.RationDays) + this.IncrementOfRationDays);
             }
         }
 
