@@ -313,7 +313,7 @@ namespace WorldOfTheThreeKingdoms.Resources
                     int archId;
                     if (int.TryParse(archIdStr, out archId) && (size.Equals("5") || size.Equals("13")))
                     {
-                        if (size == "5")
+                        if (size.Equals("5"))
                         {
                             mediumCityImg.Add(archId, Texture2D.FromFile(device, s));
                         }
