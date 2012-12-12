@@ -1947,10 +1947,10 @@
             {
                 if (GlobalVariables.WujiangYoukenengDuli == false) return false;
                 if (this == this.BelongedFaction.Leader) return false;
-                if (this.Father > 0 && this.Father == this.BelongedFaction.Leader.ID) return false;  //隐含父亲活着，下同。
-                if (this.Mother > 0 && this.Mother == this.BelongedFaction.Leader.ID) return false;
-                if (this.Spouse > 0 && this.Spouse == this.BelongedFaction.Leader.ID) return false;
-                if (this.Brother > 0 && this.Brother == this.BelongedFaction.Leader.ID) return false;
+                if (this.Father >= 0 && this.Father == this.BelongedFaction.Leader.ID) return false;  //隐含父亲活着，下同。
+                if (this.Mother >= 0 && this.Mother == this.BelongedFaction.Leader.ID) return false;
+                if (this.Spouse >= 0 && this.Spouse == this.BelongedFaction.Leader.ID) return false;
+                if (this.Brother >= 0 && this.Brother == this.BelongedFaction.Leader.ID) return false;
                 if (this.Strain == this.BelongedFaction.Leader.Strain) return false;  //同一血缘不能独立，孙子不能从爷爷手下独立。
                 return true; 
             }

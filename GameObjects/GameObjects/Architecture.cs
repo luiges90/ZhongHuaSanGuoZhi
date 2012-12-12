@@ -11745,6 +11745,7 @@
                 return ((((((((this.AreaCount + this.PersonCount) + this.MilitaryCount) + 
                     ((this.TransferFoodArchitecture != null) ? 10 : 0)) + (this.IsCapital ? (4 * this.AreaCount) : 0)) + (this.IsImportant ? 6 : 0)) * 0x3e8) + 
                     (this.FacilityMaintenanceCost * 60)) + (this.RoutewayActiveCost * 60) +
+                    ((this.BelongedFaction.BecomeEmperorLegallyAvail() || this.BelongedFaction.SelfBecomeEmperorAvail()) && this.BelongedFaction.Capital == this ? 100000 : 0) +
                     (this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0) + (this.PlanFacilityKind != null ? this.PlanFacilityKind.FundCost : 0));
             }
         }
@@ -12211,8 +12212,9 @@
             get
             {
                 return ((((((((this.AreaCount + this.PersonCount) + this.MilitaryCount) + 
-                    ((this.TransferFoodArchitecture != null) ? 5 : 0)) + (this.IsCapital ? (2 * this.AreaCount) : 0)) + (this.IsImportant ? 3 : 0)) * 500) + 
+                    ((this.TransferFoodArchitecture != null) ? 5 : 0)) + (this.IsCapital ? (2 * this.AreaCount) : 0)) + (this.IsImportant ? 3 : 0)) * 500) +
                     (this.FacilityMaintenanceCost * 30)) + (this.RoutewayActiveCost * 30) + 
+                    ((this.BelongedFaction.BecomeEmperorLegallyAvail() || this.BelongedFaction.SelfBecomeEmperorAvail()) && this.BelongedFaction.Capital == this ? 100000 : 0) + 
                     (this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0) + (this.PlanFacilityKind != null ? this.PlanFacilityKind.FundCost : 0));
             }
         }

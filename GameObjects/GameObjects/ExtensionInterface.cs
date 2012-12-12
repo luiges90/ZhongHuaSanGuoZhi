@@ -68,6 +68,10 @@ public class ExtensionInterface
                     }
                 }
             }
+            try
+            {
+                File.Delete("Resources/Extensions/RuntimeError.txt");
+            } catch {}
         }
     }
 
@@ -78,15 +82,18 @@ public class ExtensionInterface
             try
             {
                 MethodInfo m = t.GetMethod(methodName);
-                m.Invoke(Activator.CreateInstance(t), param);
+                if (m != null)
+                {
+                    m.Invoke(Activator.CreateInstance(t), param);
+                }
             }
             catch (Exception ex)
             {
-                /*using (StreamWriter w = File.AppendText("Resources/Extensions/RuntimeError.txt"))
+                using (StreamWriter w = File.AppendText("Resources/Extensions/RuntimeError.txt"))
                 {
-                    w.WriteLine(">>> In extension " + t.Name);
+                    w.WriteLine(">>> In extension " + t.Name + " invoking " + methodName);
                     w.WriteLine(ex.Message);
-                }*/
+                }
             }
         }
     }

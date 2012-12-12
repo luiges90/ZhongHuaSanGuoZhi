@@ -2597,7 +2597,7 @@
                         this.BecomeEmperorLegally();
                     }
                     else if (this.Leader.ValuationOnGovernment == PersonValuationOnGovernment.无视 ||
-                        (this.Leader.ValuationOnGovernment == PersonValuationOnGovernment.普通 && GameObject.Chance(1)))
+                        (this.Leader.ValuationOnGovernment == PersonValuationOnGovernment.普通 && GameObject.Chance(5)))
                     {
                         /*Faction owningEmperor = null;
                         foreach (Faction f in base.Scenario.Factions.GameObjects)
