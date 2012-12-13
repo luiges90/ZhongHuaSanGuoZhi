@@ -1399,12 +1399,13 @@
                 if (this.HasHostileTroopsInView())
                 {
                     idleDays = 0;
-                    ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
+                    ArchitectureList otherArchitectureList = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Architectures : this.GetOtherArchitectureList();
                     do
                     {
                         Architecture src = null;
                         foreach (Architecture i in otherArchitectureList)
                         {
+                            if (i == this) continue;
                             double minDist = double.MaxValue;
                             double distance = base.Scenario.GetDistance(this.Position, i.Position);
                             if (distance < minDist && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
@@ -5911,7 +5912,6 @@
                         int num3 = (this.TotalHostileForce * 5) - this.TotalFriendlyForce;
                         TroopList list4 = new TroopList();
                         bool isBesideWater = this.IsBesideWater;
-                    //Label_033D:
                         foreach (Military military in this.Militaries.GetRandomList())
                         {
                             if ((isBesideWater || (military.Kind.Type != MilitaryType.水军)) && (((((this.Endurance < 30) || military.Kind.AirOffence) || (military.Scales >= 2)) && (military.Morale > 0x2d)) && ((this.Endurance < 30) || (military.InjuryQuantity < military.Kind.MinScale))))
@@ -5950,49 +5950,44 @@
                                 }
                             }
                         }
-                        if (list4.Count <= 0)
+                        if (list4.Count > 0)
                         {
-                            break;
-                        }
-                        list4.IsNumber = true;
-                        list4.PropertyName = "FightingForce";
-                        list4.ReSort();
-                        foreach (Troop troop in list4.GetList())
-                        {
-                            if (((troop.FightingForce < 10000) && (troop.FightingForce < (num3 / 25))) && (troop.Army.Scales < 10))
+                            list4.IsNumber = true;
+                            list4.PropertyName = "FightingForce";
+                            list4.ReSort();
+                            foreach (Troop troop in list4.GetList())
                             {
-                                continue;
-                            }
-                            Point? nullable = this.GetCampaignPosition(troop, orientations, troop.Army.Scales > 0);
-                            if (!nullable.HasValue)
-                            {
-                                continue;
-                            }
-                            if (troop.Army.Kind.AirOffence && (troop.Army.Scales < 2))
-                            {
-                                Architecture architectureByPositionNoCheck = base.Scenario.GetArchitectureByPositionNoCheck(nullable.Value);
-                                if ((architectureByPositionNoCheck == null) || (architectureByPositionNoCheck.Endurance == 0))
+                                if (((troop.FightingForce < 10000) && (troop.FightingForce < (num3 / 25))) && (troop.Army.Scales < 10))
+                                {
+                                    break;
+                                }
+                                Point? nullable = this.GetCampaignPosition(troop, orientations, troop.Army.Scales > 0);
+                                if (!nullable.HasValue)
                                 {
                                     continue;
                                 }
+                                if (troop.Army.Kind.AirOffence && (troop.Army.Scales < 2))
+                                {
+                                    Architecture architectureByPositionNoCheck = base.Scenario.GetArchitectureByPositionNoCheck(nullable.Value);
+                                    if ((architectureByPositionNoCheck == null) || (architectureByPositionNoCheck.Endurance == 0))
+                                    {
+                                        continue;
+                                    }
+                                }
+                                //if (troop.Army.Scales <= 5) continue;
+                                Person leader = troop.Candidates[0] as Person;
+                                this.AddPersonToTroop(troop);
+                                troop2 = this.CreateTroop(troop.Candidates, leader, troop.Army, -1, nullable.Value);
+                                troop2.WillArchitecture = this;
+                                if (this.DefensiveLegion == null)
+                                {
+                                    this.CreateDefensiveLegion();
+                                }
+                                this.DefensiveLegion.AddTroop(troop2);
+                                this.PostCreateTroop(troop2, false);
+                                this.TotalFriendlyForce += troop2.FightingForce;
+                                break;
                             }
-                            //if (troop.Army.Scales <= 5) continue;
-                            Person leader = troop.Candidates[0] as Person;
-                            this.AddPersonToTroop(troop);
-                            troop2 = this.CreateTroop(troop.Candidates, leader, troop.Army, -1, nullable.Value);
-                            troop2.WillArchitecture = this;
-                            if (this.DefensiveLegion == null)
-                            {
-                                this.CreateDefensiveLegion();
-                            }
-                            this.DefensiveLegion.AddTroop(troop2);
-                            this.PostCreateTroop(troop2, false);
-                            this.TotalFriendlyForce += troop2.FightingForce;
-                            break;
-                        }
-                        if (!(this.HasCampaignableMilitary() && this.HasPerson()))
-                        {
-                            break;
                         }
                     }
                 }
