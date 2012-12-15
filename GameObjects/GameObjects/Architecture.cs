@@ -5903,13 +5903,11 @@
                 if (hostileTroopsInView.Count > 0)
                 {
                     TroopList friendlyTroopsInView = this.GetFriendlyTroopsInView();
-                    int num = 0;
+                    int troopSent = 0;
                     int militaryCount = this.MilitaryCount;
-                    while ((num < militaryCount) && (this.TotalFriendlyForce < (this.TotalHostileForce * 5)))
+                    while ((troopSent < militaryCount) && (this.TotalFriendlyForce < (this.TotalHostileForce * 5)) && this.MilitaryCount > 0 && this.PersonCount > 0)
                     {
                         Troop troop2;
-                        num++;
-                        int num3 = (this.TotalHostileForce * 5) - this.TotalFriendlyForce;
                         TroopList list4 = new TroopList();
                         bool isBesideWater = this.IsBesideWater;
                         foreach (Military military in this.Militaries.GetRandomList())
@@ -5955,10 +5953,32 @@
                             list4.IsNumber = true;
                             list4.PropertyName = "FightingForce";
                             list4.ReSort();
+                            bool stopSendingTroop = false;
+                            bool hasEvetSentTroop = false;
                             foreach (Troop troop in list4.GetList())
                             {
-                                if (((troop.FightingForce < 10000) && (troop.FightingForce < (num3 / 25))) && (troop.Army.Scales < 10))
+                                bool personAlreadyOut = false;
+                                foreach (Person p in troop.Candidates)
                                 {
+                                    if (p.LocationTroop != null)
+                                    {
+                                        personAlreadyOut = true;
+                                        break;
+                                    }
+                                }
+                                bool militaryOut = true;
+                                foreach (Military m in this.Militaries){
+                                    if (troop.Army == m)
+                                    {
+                                        militaryOut = false;
+                                        break;
+                                    }
+                                }
+                                if (personAlreadyOut) continue;
+                                if (militaryOut) continue;
+                                if (((troop.FightingForce < 10000) && (troop.FightingForce < (((this.TotalHostileForce * 5) - this.TotalFriendlyForce) / 25))) && (troop.Army.Scales < 10))
+                                {
+                                    stopSendingTroop = true;
                                     break;
                                 }
                                 Point? nullable = this.GetCampaignPosition(troop, orientations, troop.Army.Scales > 0);
@@ -5974,6 +5994,7 @@
                                         continue;
                                     }
                                 }
+                                hasEvetSentTroop = true;
                                 //if (troop.Army.Scales <= 5) continue;
                                 Person leader = troop.Candidates[0] as Person;
                                 this.AddPersonToTroop(troop);
@@ -5986,8 +6007,14 @@
                                 this.DefensiveLegion.AddTroop(troop2);
                                 this.PostCreateTroop(troop2, false);
                                 this.TotalFriendlyForce += troop2.FightingForce;
-                                break;
+                                troopSent++;
                             }
+                            if (stopSendingTroop) break;
+                            if (!hasEvetSentTroop) break;
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                 }
