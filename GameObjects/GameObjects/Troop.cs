@@ -2486,6 +2486,7 @@
                 from.DecreaseFood(troop.Food);
             }
             troop.InitializePosition(position);
+            troop.Scenario.SetMapTileTroop(troop);
             troop.Scenario.Troops.AddTroopWithEvent(troop);
             if (troop.OnTroopCreate != null)
             {
@@ -11745,6 +11746,18 @@
                     return "----";
                 }
                 return this.WillArchitecture.Name;
+            }
+        }
+
+        public string StartArchitectureString
+        {
+            get
+            {
+                if (this.StartingArchitecture == null)
+                {
+                    return "----";
+                }
+                return this.StartingArchitecture.Name;
             }
         }
 

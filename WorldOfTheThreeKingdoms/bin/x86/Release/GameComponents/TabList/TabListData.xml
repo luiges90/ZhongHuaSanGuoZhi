@@ -1686,6 +1686,13 @@
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
+		<Column ID="94" Name="StartArchitectureString" IsNumber="false" DisplayName="出发建筑" MinWidth="100"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+        </Column>
         <Column ID="100" Name="PlainRate" IsNumber="false" DisplayName="平原乘数" MinWidth="70"
                 FontName="宋体"
                 FontSize="12"
@@ -1800,7 +1807,7 @@
         </Tab>
         <Tab ID="7"  Name="Character" DisplayName="特色" Columns="0 13 15 16 17 40 41 80 81 82">
         </Tab>
-        <Tab ID="8"  Name="Target" DisplayName="目标*" Columns="0 90 91 92 93">
+        <Tab ID="8"  Name="Target" DisplayName="目标*" Columns="0 90 91 92 93 94">
         </Tab>
       </Tabs>
     </ListKind>

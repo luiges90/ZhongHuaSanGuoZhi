@@ -64,7 +64,6 @@
             {
                 String xStr = StaticMethods.GetPropertyValue(x, this.propertyName).ToString();
                 String yStr = StaticMethods.GetPropertyValue(y, this.propertyName).ToString();
-
                 Match xMatch = slashMatcher.Match(xStr);
                 Match yMatch = slashMatcher.Match(yStr);
 
