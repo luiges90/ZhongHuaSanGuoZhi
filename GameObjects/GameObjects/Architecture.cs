@@ -4671,6 +4671,26 @@
                 list.ReSort();
                 foreach (Troop troop2 in list.GetList())
                 {
+                    bool personAlreadyOut = false;
+                    foreach (Person p in troop2.Candidates)
+                    {
+                        if (p.LocationTroop != null)
+                        {
+                            personAlreadyOut = true;
+                            break;
+                        }
+                    }
+                    bool militaryOut = true;
+                    foreach (Military m in this.Militaries)
+                    {
+                        if (troop2.Army == m)
+                        {
+                            militaryOut = false;
+                            break;
+                        }
+                    }
+                    if (personAlreadyOut) continue;
+                    if (militaryOut) continue;
                     if (troop2.FightingForce < 10000 && offensive)
                     {
                         break;
@@ -4691,7 +4711,6 @@
                     }
                     legion.AddTroop(troop);
                     this.PostCreateTroop(troop, false);
-                    return troop;
                 }
             }
             return null;
