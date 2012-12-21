@@ -143,6 +143,7 @@
                 this.OriginalSection.OrientationFaction = this.EditingSection.OrientationFaction;
                 this.OriginalSection.OrientationSection = this.EditingSection.OrientationSection;
                 this.OriginalSection.OrientationState = this.EditingSection.OrientationState;
+                this.OriginalSection.OrientationArchitecture = this.EditingSection.OrientationArchitecture;
                 GameObjectList list = this.OriginalSection.Architectures.GetList();
                 foreach (Architecture architecture in list)
                 {
@@ -211,7 +212,26 @@
 
         private void RefreshOKButton()
         {
-            this.OKButtonEnabled = (((this.EditingSection.ArchitectureCount > 0) && ((this.IsNew || (this.EditingFaction.SectionCount > 1)) || (this.EditingSection.ArchitectureCount == this.EditingFaction.ArchitectureCount))) && (((this.EditingFaction.SectionCount <= 1) || (this.EditingSection.ArchitectureCount < this.EditingFaction.ArchitectureCount)) && (this.EditingSection.AIDetail != null))) && ((((this.EditingSection.AIDetail.OrientationKind == SectionOrientationKind.无) || ((this.EditingSection.AIDetail.OrientationKind == SectionOrientationKind.军区) && (this.EditingSection.OrientationSection != null))) || ((this.EditingSection.AIDetail.OrientationKind == SectionOrientationKind.势力) && (this.EditingSection.OrientationFaction != null))) || ((this.EditingSection.AIDetail.OrientationKind == SectionOrientationKind.州域) && (this.EditingSection.OrientationState != null)));
+            this.OKButtonEnabled = 
+                (
+                    ((this.EditingSection.ArchitectureCount > 0) && 
+                        (
+                            (this.IsNew || (this.EditingFaction.SectionCount > 1)) || 
+                            (this.EditingSection.ArchitectureCount == this.EditingFaction.ArchitectureCount)
+                        )
+                    ) && (
+                        ((this.EditingFaction.SectionCount <= 1) || (this.EditingSection.ArchitectureCount < this.EditingFaction.ArchitectureCount)) &&
+                        (this.EditingSection.AIDetail != null)
+                    )
+                ) && (
+                    (
+                        (this.EditingSection.AIDetail.OrientationKind == SectionOrientationKind.无) || 
+                        ((this.EditingSection.AIDetail.OrientationKind == SectionOrientationKind.军区) && (this.EditingSection.OrientationSection != null)) ||
+                        ((this.EditingSection.AIDetail.OrientationKind == SectionOrientationKind.势力) && (this.EditingSection.OrientationFaction != null)) ||
+                        ((this.EditingSection.AIDetail.OrientationKind == SectionOrientationKind.州域) && (this.EditingSection.OrientationState != null)) ||
+                        ((this.EditingSection.AIDetail.OrientationKind == SectionOrientationKind.建筑) && (this.EditingSection.OrientationArchitecture != null))
+                    )
+                );
         }
 
         private void RefreshOrientationButton()
@@ -439,6 +459,23 @@
                         }
                         break;
                     }
+                    case SectionOrientationKind.建筑:
+                    {
+                        ArchitectureList allArch = this.EditingFaction.Scenario.Architectures;
+                        ArchitectureList targetArch = new ArchitectureList();
+                        foreach (Architecture a in allArch)
+                        {
+                            if (a.BelongedFaction != this.EditingFaction)
+                            {
+                                targetArch.Add(a);
+                            }
+                        }
+                        if (targetArch.Count == 1)
+                        {
+                            this.EditingSection.OrientationArchitecture = targetArch[0] as Architecture;
+                        }
+                        break;
+                    }
                 }
                 this.RefreshOKButton();
                 if (this.IsNew)
@@ -496,6 +533,7 @@
                         function = delegate {
                             this.EditingSection.OrientationFaction = null;
                             this.EditingSection.OrientationState = null;
+                            this.EditingSection.OrientationArchitecture = null;
                             this.EditingSection.OrientationSection = this.TabListPlugin.SelectedItem as Section;
                             this.RefreshOKButton();
                             this.RefreshLabelTextsDisplay();
@@ -518,6 +556,7 @@
                         function2 = delegate {
                             this.EditingSection.OrientationSection = null;
                             this.EditingSection.OrientationState = null;
+                            this.EditingSection.OrientationArchitecture = null;
                             DiplomaticRelationDisplay selectedItem = this.TabListPlugin.SelectedItem as DiplomaticRelationDisplay;
                             if (selectedItem.LinkedFaction1 == this.EditingFaction)
                             {
@@ -549,6 +588,40 @@
                             this.EditingSection.OrientationFaction = null;
                             this.EditingSection.OrientationSection = null;
                             this.EditingSection.OrientationState = this.TabListPlugin.SelectedItem as State;
+                            this.EditingSection.OrientationArchitecture = null;
+                            this.RefreshOKButton();
+                            this.RefreshLabelTextsDisplay();
+                        };
+                    }
+                    this.GameFramePlugin.SetOKFunction(function3);
+                    break;
+
+                case SectionOrientationKind.建筑:
+                    ArchitectureList allArch = this.EditingFaction.Scenario.Architectures;
+                    ArchitectureList targetArch = new ArchitectureList();
+                    foreach (Architecture a in allArch)
+                    {
+                        if (a.BelongedFaction != this.EditingFaction)
+                        {
+                            targetArch.Add(a);
+                        }
+                    }
+                    this.TabListPlugin.InitialValues(targetArch, null, this.screen.MouseState.ScrollWheelValue, "");
+                    this.TabListPlugin.SetListKindByName("Architecture", true, false);
+                    this.TabListPlugin.SetSelectedTab("");
+                    this.GameFramePlugin.Kind = FrameKind.Architecture;
+                    this.GameFramePlugin.Function = FrameFunction.GetFaction;
+                    this.GameFramePlugin.SetFrameContent(this.TabListPlugin.TabList, this.screen.viewportSize);
+                    this.GameFramePlugin.OKButtonEnabled = false;
+                    this.GameFramePlugin.CancelButtonEnabled = true;
+                    if (function3 == null)
+                    {
+                        function3 = delegate
+                        {
+                            this.EditingSection.OrientationFaction = null;
+                            this.EditingSection.OrientationSection = null;
+                            this.EditingSection.OrientationState = null;
+                            this.EditingSection.OrientationArchitecture = this.TabListPlugin.SelectedItem as Architecture;
                             this.RefreshOKButton();
                             this.RefreshLabelTextsDisplay();
                         };
