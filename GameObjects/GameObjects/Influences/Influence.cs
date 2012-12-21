@@ -52,7 +52,7 @@
         public void ApplyInfluence(Person person)
         {
             if (appliedPerson.Contains(person) && 
-                (person.LocationTroop == null || appliedTroop.Contains(person.LocationTroop) || this.Type == InfluenceType.战斗)) return;
+                (person.LocationTroop == null || appliedTroop.Contains(person.LocationTroop) || this.Type != InfluenceType.战斗)) return;
             appliedPerson.Add(person);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
