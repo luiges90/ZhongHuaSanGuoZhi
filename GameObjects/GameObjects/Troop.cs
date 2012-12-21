@@ -371,6 +371,8 @@
         public bool YesOrNoOfObliqueStratagem;
         public bool YesOrNoOfObliqueView;
 
+        public bool ManualControl;
+
         public List<int> AllowedStrategems = new List<int>();
 
         public int captureChance = 0;
@@ -652,7 +654,7 @@
 
         public void AI()
         {
-            if (this.ControlAvail() && !this.Destroyed)
+            if (this.ControlAvail() && !this.Destroyed && !this.ManualControl)
             {
                 if (!this.IsRobber && this.BelongedLegion != null)
                 {

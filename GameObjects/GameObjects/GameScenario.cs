@@ -2395,6 +2395,13 @@
                 catch
                 {
                 }
+                try
+                {
+                    troop.ManualControl = (bool)reader["ManualControl"];
+                }
+                catch
+                {
+                }
                 troop.minglingweizhi = troop.RealDestination;
                 this.Troops.AddTroopWithEvent(troop);
             }
@@ -3309,6 +3316,7 @@
                     row["CurrentStunt"] = (troop.CurrentStunt != null) ? troop.CurrentStunt.ID : -1;
                     row["StuntDayLeft"] = troop.StuntDayLeft;
                     row["mingling"] = troop.mingling;
+                    row["ManualControl"] = troop.ManualControl;
                     row.EndEdit();
                     dataSet.Tables["Troop"].Rows.Add(row);
                 }
@@ -3952,6 +3960,14 @@
             if (this.MapTileData[troop.PreviousPosition.X, troop.PreviousPosition.Y].TileTroop == troop)
             {
                 this.MapTileData[troop.PreviousPosition.X, troop.PreviousPosition.Y].TileTroop = null;
+                /*foreach (Troop t in this.Troops)
+                {
+                    if (!t.Destroyed && t.Position == troop.PreviousPosition)
+                    {
+                        this.MapTileData[troop.PreviousPosition.X, troop.PreviousPosition.Y].TileTroop = t;
+                        break;
+                    }
+                }*/
             }
             TileData data2 = this.MapTileData[troop.Position.X, troop.Position.Y];
             data2.TroopCount++;

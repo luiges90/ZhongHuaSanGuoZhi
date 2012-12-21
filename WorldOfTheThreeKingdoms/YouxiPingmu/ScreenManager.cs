@@ -927,6 +927,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             this.CurrentTroop = this.CurrentArchitecture.CreateTroop(this.CurrentGameObjects, this.CurrentPerson, this.CurrentMilitary, this.CurrentNumber, position);
             this.CurrentTroop.zijin = this.Currentzijin;
+            this.CurrentTroop.ManualControl = true;
             this.CurrentTroop.mingling = "——";
             this.CurrentArchitecture.DecreaseFund(this.CurrentTroop.zijin);
             if ((this.CurrentArchitecture.DefensiveLegion == null) || (this.CurrentArchitecture.DefensiveLegion.Troops.Count == 0))

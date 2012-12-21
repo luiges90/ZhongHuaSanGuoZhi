@@ -55,10 +55,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\public\GameFreeText\GameFreeText.csproj">
-      <Project>{E13A763D-DC5B-447F-AF3F-392343B8875B}</Project>
-      <Name>GameFreeText</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">
       <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
       <Name>GameGlobal</Name>
