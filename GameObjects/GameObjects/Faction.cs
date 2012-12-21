@@ -1206,7 +1206,7 @@
                 foreach (Architecture a in this.Architectures.GetRandomList())
                 {
                     int canGiveFund = a.Fund - a.AbundantFund;
-                    if (canGiveFund > 0)
+                    if (canGiveFund >= 1000)
                     {
                         if (canGiveFund + givenValue >= cashToGive)
                         {
