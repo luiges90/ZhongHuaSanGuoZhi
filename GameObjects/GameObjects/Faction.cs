@@ -1182,82 +1182,46 @@
             if (base.Scenario.youhuangdi() && !base.Scenario.IsPlayer(this)&&!this.IsAlien
                 && (this.guanjue < this.Scenario.GameCommonData.suoyouguanjuezhonglei.Count - 1))
             {
-                if (this.Architectures.HasGameObject(base.Scenario.huangdisuozaijianzhu()))
+                if (base.Scenario.Date.Month == 3)
                 {
-                    if (base.Scenario.Date.Month == 3 && base.Scenario.Date.Day == 1)
-                    {
-                        this.AIjingong();
-                    }
-
-                }
-                else
-                {
-                    if (base.Scenario.Date.Month == 3 && base.Scenario.Date.Day == 10)
-                    {
-                        this.AIjingong();
-                    }
+                    this.AIjingong();
                 }
             }
         }
 
         private void AIjingong()
         {
-            int cashToGive = this.shengguanxuyaogongxiandu - this.chaotinggongxiandu;
+            int cashToGive = 0;
+            foreach (guanjuezhongleilei g in this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhongleiliebiao())
+            {
+                if (g.xuyaochengchi <= this.ArchitectureCount)
+                {
+                    cashToGive = g.xuyaogongxiandu - this.chaotinggongxiandu;
+                }
+            }
 
             if (cashToGive > 0)
             {
-                Architecture givingArch = null;
-                bool giveCrop = false;
-                foreach (Architecture a in this.Architectures)
+                int givenValue = 0;
+                foreach (Architecture a in this.Architectures.GetRandomList())
                 {
-                    if (a.Fund - cashToGive > a.AbundantFund)
+                    int canGiveFund = a.Fund - a.AbundantFund;
+                    if (canGiveFund > 0)
                     {
-                        givingArch = a;
-                    }
-                    else if (a.Food - cashToGive * 200 > a.AbundantFood)
-                    {
-                        givingArch = a;
-                        giveCrop = true;
-                    }
-                }
-                if (givingArch == null)
-                {
-                    foreach (Architecture a in this.Architectures)
-                    {
-                        if (a.Fund - cashToGive > a.EnoughFund)
+                        if (canGiveFund + givenValue >= cashToGive)
                         {
-                            givingArch = a;
+                            canGiveFund = cashToGive - givenValue;
                         }
-                        else if (a.Food - cashToGive * 200 > a.EnoughFood)
-                        {
-                            givingArch = a;
-                            giveCrop = true;
-                        }
-                    }
-                }
-
-                if (givingArch != null)
-                {
-                    if (giveCrop)
-                    {
-                        givingArch.DecreaseFood(cashToGive * 200);
+                        givenValue += canGiveFund;
+                        a.DecreaseFund(canGiveFund);
                         if (!this.Architectures.HasGameObject(base.Scenario.huangdisuozaijianzhu()))
                         {
-                            base.Scenario.huangdisuozaijianzhu().IncreaseFood(cashToGive * 200);
+                            base.Scenario.huangdisuozaijianzhu().IncreaseFund(canGiveFund);
                         }
-                        this.chaotinggongxiandu += cashToGive;
-                        this.Scenario.GameScreen.shilijingong(this, cashToGive * 200, "粮草");
+                        this.chaotinggongxiandu += canGiveFund;
+                        this.Scenario.GameScreen.shilijingong(this, canGiveFund, "资金");
                     }
-                    else
-                    {
-                        givingArch.DecreaseFund(cashToGive);
-                        if (!this.Architectures.HasGameObject(base.Scenario.huangdisuozaijianzhu()))
-                        {
-                            base.Scenario.huangdisuozaijianzhu().IncreaseFund(cashToGive);
-                        }
-                        this.chaotinggongxiandu += cashToGive;
-                        this.Scenario.GameScreen.shilijingong(this, cashToGive, "资金");
-                    }
+                    if (givenValue >= cashToGive) break;
                 }
             }
 
