@@ -91,7 +91,7 @@ WorldOfTheThreeKingdoms/bin/x86/Debug
 WorldOfTheThreeKingdoms/bin/x86/public
 WorldOfTheThreeKingdoms/bin/x86/*.zip
 WorldOfTheThreeKingdoms/bin/x86/v*
-WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/PersonPortrait/PlayerImage
+WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/PersonPortrait/
 WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/meinvtupian
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GameParameters.xml
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GlobalVariables.xml
@@ -99,8 +99,7 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/CommonData.mdb
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Save
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/generatedScen.mdb
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/private_*
-WorldOfTheThreeKingdoms/bin/x86/Release/Resources/Extensions/
-WorldOfTheThreeKingdoms/bin/x86/Release/Resources/Troop/
+WorldOfTheThreeKingdoms/bin/x86/Release/Resources/
 
 ~*
 

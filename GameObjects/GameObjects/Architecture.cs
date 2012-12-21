@@ -4460,14 +4460,14 @@
 
         private void AutoDecrement()
         {
-            if (!(((this.BelongedFaction == null) || (this.RecentlyAttacked <= 0)) || this.DayAvoidInternalDecrementOnBattle))
+            /*if (!(((this.BelongedFaction == null) || (this.RecentlyAttacked <= 0)) || this.DayAvoidInternalDecrementOnBattle))
             {
                 int maxValue = (this.RecentlyAttacked / 2) + 1;
                 this.DecreaseAgriculture(GameObject.Random(maxValue));
                 this.DecreaseCommerce(GameObject.Random(maxValue));
                 this.DecreaseTechnology(GameObject.Random(maxValue));
                 this.DecreaseMorale(GameObject.Random(maxValue));
-            }
+            }*/
         }
 
         public bool AutoHiringAvail()
