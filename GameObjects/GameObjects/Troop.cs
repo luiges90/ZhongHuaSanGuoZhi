@@ -1103,6 +1103,15 @@
                     }
                 }
             }
+            if (pack3 == null)
+            {
+                this.AttackTargetKind = TroopAttackTargetKind.无反默认;
+                this.WillTroop = null;
+                this.TargetTroop = null;
+                this.TargetArchitecture = null;
+                this.GoBack();
+                return false;
+            }
             if (this.BelongedLegion != null)
             {
                 this.BelongedLegion.TakenPositions.Add(pack3.Position);

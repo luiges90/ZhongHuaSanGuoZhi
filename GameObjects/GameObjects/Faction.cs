@@ -1203,6 +1203,7 @@
             if (cashToGive > 0)
             {
                 int givenValue = 0;
+                Dictionary<Architecture, int> archGiveFund = new Dictionary<Architecture, int>();
                 foreach (Architecture a in this.Architectures.GetRandomList())
                 {
                     int canGiveFund = a.Fund - a.AbundantFund;
@@ -1213,15 +1214,22 @@
                             canGiveFund = cashToGive - givenValue;
                         }
                         givenValue += canGiveFund;
-                        a.DecreaseFund(canGiveFund);
-                        if (!this.Architectures.HasGameObject(base.Scenario.huangdisuozaijianzhu()))
-                        {
-                            base.Scenario.huangdisuozaijianzhu().IncreaseFund(canGiveFund);
-                        }
-                        this.chaotinggongxiandu += canGiveFund;
-                        this.Scenario.GameScreen.shilijingong(this, canGiveFund, "资金");
+                        archGiveFund[a] = canGiveFund;
                     }
-                    if (givenValue >= cashToGive) break;
+                    if (givenValue >= cashToGive)
+                    {
+                        foreach (KeyValuePair<Architecture, int> i in archGiveFund)
+                        {
+                            i.Key.DecreaseFund(i.Value);
+                            if (!this.Architectures.HasGameObject(base.Scenario.huangdisuozaijianzhu()))
+                            {
+                                base.Scenario.huangdisuozaijianzhu().IncreaseFund(i.Value);
+                            }
+                            this.chaotinggongxiandu += i.Value;
+                            this.Scenario.GameScreen.shilijingong(this, i.Value, "资金");
+                        }
+                        break;
+                    }
                 }
             }
 
