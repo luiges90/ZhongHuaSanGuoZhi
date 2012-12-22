@@ -4799,7 +4799,8 @@
                 base.Scenario.GetClosestPointsBetweenTwoAreas(this.GetRoutewayStartPoints(), node.A.GetAIRoutewayEndPoints(this, true), out nullable, out nullable2);
                 if (nullable.HasValue && nullable2.HasValue)
                 {
-                    this.BelongedFaction.RoutewayPathBuilder.MultipleWaterCost = node.Kind == LinkKind.Land;
+                    this.BelongedFaction.RoutewayPathBuilder.MultipleWaterCost = false;
+                    this.BelongedFaction.RoutewayPathBuilder.MustUseWater = node.Kind == LinkKind.Water;
                     if (this.BelongedFaction.RoutewayPathAvail(nullable.Value, nullable2.Value, hasEnd))
                     {
                         Routeway routeway = this.CreateRouteway(this.BelongedFaction.GetCurrentRoutewayPath());
@@ -9712,7 +9713,7 @@
                                 routeway.Building = false;
                                 this.PlanArchitecture = wayToTarget.A;
                             }
-                            else if ((routeway.LastPoint.ConsumptionRate >= 0.1f) && (((int)(routeway.Length * (routeway.LastPoint.ConsumptionRate + 0.2f))) > routeway.LastActivePointIndex))
+                            else if (GlobalVariables.LiangdaoXitong && (routeway.LastPoint.ConsumptionRate >= 0.1f) && (((int)(routeway.Length * (routeway.LastPoint.ConsumptionRate + 0.2f))) > routeway.LastActivePointIndex))
                             {
                                 routeway.Building = true;
                                 this.PlanArchitecture = wayToTarget.A;
