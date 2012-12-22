@@ -9565,7 +9565,7 @@
                         {
                             maxLevel++;
                         }
-                        if (this.IsFriendly(i.A.BelongedFaction) || i.Kind == LinkKind.None || i.Kind == LinkKind.Both)
+                        if (this.IsFriendly(i.A.BelongedFaction) || i.Kind == LinkKind.None)
                         {
                             continue;
                         }
