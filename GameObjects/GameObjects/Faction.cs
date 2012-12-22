@@ -1374,6 +1374,10 @@
         public void EndControl()
         {
             this.ClearRouteways();
+            foreach (Troop t in this.Troops)
+            {
+                t.ManualControl = false;
+            }
         }
 
         public Section GetAnotherSection(Section section)
