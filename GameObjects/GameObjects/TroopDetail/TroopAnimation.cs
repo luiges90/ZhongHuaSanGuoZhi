@@ -11,6 +11,14 @@
 
         public List<Point> GetDirectionAnimation(Point direction)
         {
+            if (Math.Abs(direction.X) > 1)
+            {
+                direction.X = direction.X > 0 ? 1 : -1;
+            }
+            if (Math.Abs(direction.Y) > 1)
+            {
+                direction.Y = direction.Y > 0 ? 1 : -1;
+            }
             return this.Animations[direction];
         }
 

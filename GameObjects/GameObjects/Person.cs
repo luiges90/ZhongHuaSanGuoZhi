@@ -1066,7 +1066,7 @@
         public void DoConvince()
         {
             this.OutsideTask = OutsideTaskKind.无;
-            if (this.ConvincingPerson != null)
+            if (this.ConvincingPerson != null && this.BelongedFaction != null)
             {
                 Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
                 if ((architectureByPosition != null) && ((architectureByPosition.BelongedFaction != null) && (this.ConvincingPerson.IsCaptive || (architectureByPosition.BelongedFaction != this.BelongedFaction))))
