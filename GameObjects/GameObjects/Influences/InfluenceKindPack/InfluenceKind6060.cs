@@ -10,6 +10,7 @@
 
         public override void ApplyInfluenceKind(Troop troop)
         {
+            return;
             foreach (Person i in troop.Persons)
             {
                 i.ExperienceRate += rate;
@@ -18,6 +19,7 @@
 
         public override void PurifyInfluenceKind(Troop troop)
         {
+            return;
             foreach (Person i in troop.Persons)
             {
                 i.ExperienceRate -= rate;

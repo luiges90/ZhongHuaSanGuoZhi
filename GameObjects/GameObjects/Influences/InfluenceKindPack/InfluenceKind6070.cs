@@ -10,6 +10,7 @@
 
         public override void ApplyInfluenceKind(Person person)
         {
+            return;
             foreach (Person i in person.LocationArchitecture.Persons) 
             {
                 i.ExperienceRate += rate;
@@ -18,6 +19,7 @@
 
         public override void PurifyInfluenceKind(Person person)
         {
+            return;
             foreach (Person i in person.LocationArchitecture.Persons) 
             {
                 i.ExperienceRate -= rate;
