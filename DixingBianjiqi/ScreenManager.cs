@@ -72,68 +72,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void FrameFunction_Architecture_Afterxuanzemeinv()
         {
-            this.CurrentPerson = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
-            if (this.CurrentPerson != null)
-            {
-                /*  人物死亡时的程序
-                locationArchitecture.RemovePerson(this);
-                belongedFaction.RemovePerson(this);
-                base.Scenario.AvailablePersons.Remove(this);
-                base.Scenario.Persons.Remove(this);
-                */
-                this.CurrentArchitecture.DecreaseFund(50000);
-
-                this.CurrentArchitecture.RemovePerson(this.CurrentPerson);
-                this.CurrentArchitecture.BelongedFaction.RemovePerson(this.CurrentPerson);
-                //this.mainGameScreen.Scenario.AvailablePersons.Remove(this.CurrentPerson);
-                //this.CurrentPerson.suoshurenwu = this.CurrentArchitecture.BelongedFaction.Leader;
-                this.CurrentArchitecture.feiziliebiao.Add(this.CurrentPerson);
-                this.CurrentPerson.suoshurenwu = this.CurrentArchitecture.BelongedFaction.LeaderID;
-                this.CurrentPerson.suozaijianzhu = this.CurrentArchitecture;
-                this.mainGameScreen.xianshishijiantupian(this.CurrentPerson, (this.gameScenario.Persons.GetGameObject(this.CurrentPerson.suoshurenwu) as Person).Name, "nafei", "nafei.bmp", "nafei.wma",true );
-
-                if (this.CurrentPerson.Spouse != -1)
-                {
-                    Person p = new Person();
-                    foreach (Person person in this.mainGameScreen.Scenario.Persons)
-                    {
-                        if (person.ID == this.CurrentPerson.Spouse)
-                        {
-                            p = person;
-                        }
-                    }
-
-                    if ((p != null)&&p.ID !=this.CurrentPerson.suoshurenwu )
-                    {
-                        if (p.Alive)
-                        {
-                            this.mainGameScreen.PersonBeiDuoqi(p, this.CurrentArchitecture.BelongedFaction);
-                            p.HatedPersons.Add(this.CurrentArchitecture.BelongedFaction.LeaderID);
-                            if (p.Available == false)
-                            {
-                                p.ProhibitedFactionID = this.CurrentArchitecture.BelongedFaction.ID;
-
-                            }
-                            else if (p.BelongedFaction == null)
-                            {
-                                p.ProhibitedFactionID = this.CurrentArchitecture.BelongedFaction.ID;
-                            }
-                            else if (p.BelongedFaction != this.CurrentArchitecture.BelongedFaction)
-                            {
-                                p.ProhibitedFactionID = this.CurrentArchitecture.BelongedFaction.ID;
-                            }
-                            else if (p.BelongedFaction == this.CurrentArchitecture.BelongedFaction)
-                            {
-                                p.ProhibitedFactionID = this.CurrentArchitecture.BelongedFaction.ID;
-
-                                p.Loyalty = -100;
-                            }
-                        }
-                    }
-                }// end if (this.CurrentPerson.Spouse != -1)
-            }
-
-
+            
         }
 
         private void FrameFunction_Architecture_chongxingmeinv()
@@ -358,18 +297,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void FrameFunction_Architecture_AfterGetOneArchitecture()
         {
-            if (this.CurrentArchitecture != null)
-            {
-                GameObjectList selectedList = this.CurrentArchitecture.TransferArchitectureList.GetSelectedList();
-                if ((selectedList != null) && (selectedList.Count == 1))
-                {
-                    foreach (Person person in this.CurrentGameObjects)
-                    {
-                        person.MoveToArchitecture(selectedList[0] as Architecture);
-                        this.CurrentArchitecture.RemovePerson(person);
-                    }
-                }
-            }
         }
 
         private void FrameFunction_Architecture_AfterGetRecruitmentMilitary()
@@ -384,15 +311,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void FrameFunction_Architecture_AfterGetRecruitmentPerson()
         {
-            if (this.CurrentArchitecture != null)
-            {
-                this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
-                if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
-                {
-                    this.CurrentPerson = this.CurrentGameObjects[0] as Person;
-                    this.CurrentArchitecture.AddPersonToRecuitmentWork(this.CurrentPerson, this.CurrentMilitary);
-                }
-            }
         }
 
         private void FrameFunction_Architecture_AfterGetRedeemCaptive()
@@ -593,31 +511,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void FrameFunction_Architecture_AfterGetTrainingPerson()
         {
-            if (this.CurrentArchitecture != null)
-            {
-                this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
-                if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
-                {
-                    this.CurrentPerson = this.CurrentGameObjects[0] as Person;
-                    this.CurrentArchitecture.AddPersonToTrainingWork(this.CurrentPerson, this.CurrentMilitary);
-                }
-            }
         }
 
         private void FrameFunction_Architecture_PersonConvene()
         {
-            if (this.CurrentArchitecture != null)
-            {
-                this.CurrentGameObjects = this.CurrentArchitecture.PersonConveneList.GetSelectedList();
-                if (this.CurrentGameObjects != null)
-                {
-                    foreach (Person person in this.CurrentGameObjects)
-                    {
-                        person.MoveToArchitecture(this.CurrentArchitecture);
-                        person.LocationArchitecture.RemovePerson(person);
-                    }
-                }
-            }
         }
 
         private void FrameFunction_Architecture_PersonTransfer()
@@ -634,39 +531,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void FrameFunction_Architecture_WorkingList()
         {
-            if (this.CurrentArchitecture != null)
-            {
-                if (this.CurrentArchitectureWorkKind != ArchitectureWorkKind.无)
-                {
-                    foreach (Person person in this.CurrentArchitecture.Persons)
-                    {
-                        if (person.Selected)
-                        {
-                            this.CurrentArchitecture.AddPersonToWorkingList(person, this.CurrentArchitectureWorkKind);
-                        }
-                        else if (person.WorkKind == this.CurrentArchitectureWorkKind)
-                        {
-                            this.CurrentArchitecture.RemovePersonFromWorkingList(person);
-                        }
-                    }
-                    Person extremePersonFromWorkingList = this.CurrentArchitecture.GetExtremePersonFromWorkingList(this.CurrentArchitectureWorkKind, true);
-                    if (extremePersonFromWorkingList != null)
-                    {
-                        this.mainGameScreen.Plugins.PersonBubblePlugin.AddPerson(extremePersonFromWorkingList, this.CurrentArchitecture.Position, "Work");
-                    }
-                }
-                else
-                {
-                    foreach (Person person in this.CurrentArchitecture.Persons)
-                    {
-                        if (person.Selected)
-                        {
-                            this.CurrentArchitecture.RemovePersonFromWorkingList(person);
-                            person.OldWorkKind = ArchitectureWorkKind.无;
-                        }
-                    }
-                }
-            }
+            
         }
 
         private void FrameFunction_Troop_AfterGetAttackDefaultKind()

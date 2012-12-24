@@ -34,8 +34,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
         //private Texture2D BackgroundMap3;
         //private Texture2D BackgroundMap4;
 
-        private int kuaishu = 20;
-        private int meikuaidexiaokuaishu = 10;
         public List<Tile> DisplayingTiles = new List<Tile>();
 
         public List<MapTile> DisplayingMapTiles = new List<MapTile>();
@@ -676,14 +674,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
             }
 
             this.MapTiles = null;
-            this.MapTiles = new MapTile[this.kuaishu, this.kuaishu];
-            for (int i = 0; i < this.kuaishu; i++)
+            this.MapTiles = new MapTile[this.mainMap.NumberOfTiles, this.mainMap.NumberOfTiles];
+            for (int i = 0; i < this.mainMap.NumberOfTiles; i++)
             {
-                for (int j = 0; j < this.kuaishu; j++)
+                for (int j = 0; j < this.mainMap.NumberOfTiles; j++)
                 {
                     this.MapTiles[i, j] = new MapTile();
                     this.MapTiles[i, j].Position = new Point(i, j);
-                    this.MapTiles[i, j].number = (i + j*this.kuaishu ).ToString();
+                    this.MapTiles[i, j].number = (i + j * this.mainMap.NumberOfTiles).ToString();
                     /*TerrainDetail terrainDetailByPositionNoCheck = this.screen.Scenario.GetTerrainDetailByPositionNoCheck(this.Tiles[i, j].Position);
                     
                     if (terrainDetailByPositionNoCheck != null)
@@ -738,10 +736,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
             
             foreach (MapTile maptile in this.DisplayingMapTiles)
             {
-                maptile.Destination.X = this.leftEdge + (maptile.Position.X * this.TileWidth*this.meikuaidexiaokuaishu);
-                maptile.Destination.Y = this.topEdge + (maptile.Position.Y * this.TileHeight*this.meikuaidexiaokuaishu);
-                maptile.Destination.Width =this.TileWidth*this.meikuaidexiaokuaishu;
-                maptile.Destination.Height =this.TileHeight*this.meikuaidexiaokuaishu;
+                maptile.Destination.X = this.leftEdge + (maptile.Position.X * this.TileWidth * this.mainMap.NumberOfSquaresInEachTile);
+                maptile.Destination.Y = this.topEdge + (maptile.Position.Y * this.TileHeight * this.mainMap.NumberOfSquaresInEachTile);
+                maptile.Destination.Width = this.TileWidth * this.mainMap.NumberOfSquaresInEachTile;
+                maptile.Destination.Height = this.TileHeight * this.mainMap.NumberOfSquaresInEachTile;
             }
         }
 
@@ -767,13 +765,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
             if (this.MapTiles != null)
             {
                 this.DisplayingMapTiles.Clear();
-                for (int i = this.screen.TopLeftPosition.X; i <= this.screen.BottomRightPosition.X+this.meikuaidexiaokuaishu; i+=this.meikuaidexiaokuaishu)
+                for (int i = this.screen.TopLeftPosition.X; i <= this.screen.BottomRightPosition.X + this.mainMap.NumberOfSquaresInEachTile; i += this.mainMap.NumberOfSquaresInEachTile)
                 {
-                    for (int j = this.screen.TopLeftPosition.Y; j <= this.screen.BottomRightPosition.Y+this.meikuaidexiaokuaishu; j+=this.meikuaidexiaokuaishu)
+                    for (int j = this.screen.TopLeftPosition.Y; j <= this.screen.BottomRightPosition.Y + this.mainMap.NumberOfSquaresInEachTile; j += this.mainMap.NumberOfSquaresInEachTile)
                     {
                         if ((((i >= 0) && (i < this.mainMap.MapDimensions.X)) && (j >= 0)) && (j < this.mainMap.MapDimensions.Y))
                         {
-                            this.DisplayingMapTiles.Add(this.MapTiles[i/this.meikuaidexiaokuaishu, j/this.meikuaidexiaokuaishu]);
+                            this.DisplayingMapTiles.Add(this.MapTiles[i / this.mainMap.NumberOfSquaresInEachTile, j / this.mainMap.NumberOfSquaresInEachTile]);
                         }
                     }
                 }

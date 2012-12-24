@@ -648,10 +648,6 @@
             }
         }
 
-
-
-
-
         public void AI()
         {
             if (this.ControlAvail() && !this.Destroyed && !this.ManualControl)
@@ -668,6 +664,19 @@
                 }
             }
 			ExtensionInterface.call("TroopAI", new Object[] { this.Scenario, this });
+        }
+
+        public int recoverCost
+        {
+            get
+            {
+                int result = this.Army.Kind.CreateCost / 20 + this.Army.Experience;
+                if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.Army))
+                {
+                    result += 1000;
+                }
+                return result;
+            }
         }
 
         private bool AIResetDestination()
