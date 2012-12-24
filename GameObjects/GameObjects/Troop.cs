@@ -2021,7 +2021,7 @@
             {
                 return false;
             }
-            if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Defensive)
+            if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Defensive && this.WillArchitecture.HasHostileTroopsInView())
             {
                 return false;
             }
@@ -6278,6 +6278,7 @@
                     }
                 }
             }
+            base.Scenario.MapTileData[this.Position.X, this.Position.Y].TileTroop = this;
             this.RefreshAllData();
         }
 

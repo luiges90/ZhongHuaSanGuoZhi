@@ -170,7 +170,7 @@
                                 if (node.A.AIAllLinkNodes.TryGetValue(this.WillArchitecture.ID, out node2))
                                 {
                                     routeway = node.A.GetRouteway(node2, true);
-                                    if ((routeway != null) && (node.A.Fund >= (routeway.LastPoint.BuildFundCost * 2)))
+                                    if ((routeway != null) && (routeway.LastPoint != null) && (node.A.Fund >= (routeway.LastPoint.BuildFundCost * 2)))
                                     {
                                         routeway.Building = true;
                                         this.PreferredRouteway = routeway;
