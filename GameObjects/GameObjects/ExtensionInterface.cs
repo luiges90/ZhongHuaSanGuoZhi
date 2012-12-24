@@ -45,8 +45,10 @@ public class ExtensionInterface
         {
             compiledTypes = new List<Type>();
             loadAllExtensionFiles();
-            using (TextWriter tw = new StreamWriter("Resources/Extensions/Errors.txt"))
+            TextWriter tw = null;
+            try
             {
+                tw = new StreamWriter("Resources/Extensions/Errors.txt");
                 foreach (KeyValuePair<String, String> file in extensionFiles)
                 {
                     var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
@@ -66,6 +68,16 @@ public class ExtensionInterface
                             tw.WriteLine(error.ErrorText);
                         }
                     }
+                }
+            }
+            catch (DirectoryNotFoundException)
+            {
+            }
+            finally
+            {
+                if (tw != null)
+                {
+                    tw.Dispose();
                 }
             }
             try
