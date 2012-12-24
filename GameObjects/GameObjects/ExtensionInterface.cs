@@ -101,10 +101,22 @@ public class ExtensionInterface
             }
             catch (Exception ex)
             {
-                using (StreamWriter w = File.AppendText("Resources/Extensions/RuntimeError.txt"))
+                StreamWriter w = null;
+                try
                 {
+                    w = File.AppendText("Resources/Extensions/RuntimeError.txt");
                     w.WriteLine(">>> In extension " + t.Name + " invoking " + methodName);
                     w.WriteLine(ex.Message);
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    if (w != null)
+                    {
+                        w.Dispose();
+                    }
                 }
             }
         }
