@@ -7048,7 +7048,7 @@
                     }
                      
                 }
-				ExtensionInterface.call("Occupy", new Object[] { this.Scenario, this, this.CurrentArchitecture });
+				ExtensionInterface.call("Occupy", new Object[] { this.Scenario, this, currentArchitecture });
             }
         }
 
