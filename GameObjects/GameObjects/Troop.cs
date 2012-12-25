@@ -2034,6 +2034,10 @@
             {
                 return false;
             }
+            if (this.WillArchitecture.BelongedFaction != this.BelongedFaction && this.WillArchitecture.Endurance > 0)
+            {
+                return false;
+            }
             if (base.Scenario.GetArchitectureByPositionNoCheck(this.Position) == this.WillArchitecture)
             {
                 return true;
@@ -5152,7 +5156,7 @@
         private int GetTerrainCredit(Point position)
         {
             int waterDecredit = 0;
-            if (this.Army.Kind.Type != MilitaryType.水军 && base.Scenario.GetTerrainKindByPosition(position) == TerrainKind.水域)
+            if (this.Army.RealMilitaryKind.Type != MilitaryType.水军 && base.Scenario.GetTerrainKindByPosition(position) == TerrainKind.水域)
             {
                 waterDecredit = -300;
             }
@@ -5164,9 +5168,9 @@
                     float terranRateByPosition = this.GetTerranRateByPosition(position);
                     if (!(!this.ViewingWillArchitecture || GameObject.Chance(10)))
                     {
-                        return (int) ((terranRateByPosition - this.CurrentRate) * 10f + waterDecredit);
+                        return (int) ((terranRateByPosition - this.CurrentRate + 1) * 10f + waterDecredit);
                     }
-                    return ((positionIndexInCurrentPath * 0x1d) + ((int) ((terranRateByPosition - this.CurrentRate) * 10f)) + waterDecredit);
+                    return ((positionIndexInCurrentPath * 0x1d) + ((int) ((terranRateByPosition - this.CurrentRate + 1) * 10f)) + waterDecredit);
                 }
             }
             return waterDecredit;
