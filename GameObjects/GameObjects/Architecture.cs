@@ -11413,6 +11413,10 @@
         {
             if (!remindedAboutAttack && this.PersonCount > 0 && this.MilitaryCount > 0 && !this.HasOwnFactionTroopsInView())
             {
+                if (this.BelongedFaction != null)
+                {
+                    this.BelongedFaction.StopToControl = true;
+                }
                 if (this.OnBeginRecentlyAttacked != null)
                 {
                     this.OnBeginRecentlyAttacked(this);
