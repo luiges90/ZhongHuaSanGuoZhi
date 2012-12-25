@@ -59,7 +59,7 @@
                 FontColor="4294967295"
                 Align="Left">
     </Label>
-    <Text X="500" Y="40" Width="20" Height="28" PropertyName="Age"
+    <Text X="500" Y="40" Width="20" Height="28" PropertyName="DisplayedAge"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"

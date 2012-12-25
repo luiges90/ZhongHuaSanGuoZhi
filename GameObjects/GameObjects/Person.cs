@@ -2917,6 +2917,14 @@
             }
         }
 
+        public string DisplayedAge
+        {
+            get
+            {
+                return GlobalVariables.PersonNaturalDeath ? (base.Scenario.Date.Year - this.yearBorn).ToString() : "--";
+            }
+        }
+
         public int AgricultureAbility
         {
             get
