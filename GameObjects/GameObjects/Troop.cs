@@ -666,14 +666,14 @@
 			ExtensionInterface.call("TroopAI", new Object[] { this.Scenario, this });
         }
 
-        public int recoverCost
+        public int RecoverCost
         {
             get
             {
-                int result = this.Army.Kind.CreateCost / 20 + this.Army.Experience;
-                if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.Army))
+                int result = (int) (this.Army.Kind.CreateCost * (1 + (this.Army.Experience + (this.Army.Leader == this.Leader ? 1000 : this.Army.LeaderExperience)) / 1000.0));
+                if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.Army.RealMilitaryKind))
                 {
-                    result += 1000;
+                    result += 50000;
                 }
                 return result;
             }
@@ -760,7 +760,7 @@
                 if (this.BelongedFaction != null)
                 {
                     if ((((this.WillArchitecture.Endurance >= 30) && (this.WillArchitecture.BelongedFaction != this.BelongedFaction))
-                        && (this.Morale <= 0x4b))
+                        && (this.Morale <= 75))
                         && (((this.BelongedLegion.PreferredRouteway != null) && (this.BelongedLegion.PreferredRouteway.LastActivePointIndex < 0)) ||
                             (((this.BelongedLegion.PreferredRouteway != null) && (this.BelongedLegion.PreferredRouteway.LastActivePoint != null)) &&
                                 !this.BelongedLegion.PreferredRouteway.IsEnough(this.BelongedLegion.PreferredRouteway.LastActivePoint.ConsumptionRate, this.FoodCostPerDay))))
@@ -774,6 +774,33 @@
                         {
                             this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         }
+                        this.WillTroop = null;
+                        this.TargetTroop = null;
+                        this.TargetArchitecture = null;
+                        return false;
+                    }
+                }
+                //retreat if run out of crop in an offensive
+                if (this.BelongedLegion != null)
+                {
+                    if (this.Food < this.FoodCostPerDay && !this.StartingArchitecture.IsFoodEnough && this.BelongedLegion.Kind == LegionKind.Offensive)
+                    {
+                        this.GoBack();
+                        this.AttackTargetKind = TroopAttackTargetKind.无反默认;
+                        this.WillTroop = null;
+                        this.TargetTroop = null;
+                        this.TargetArchitecture = null;
+                        return false;
+                    }
+                }
+                //earlier retreat if losing this troop is costly
+                if (this.BelongedFaction != null)
+                {
+                    double retreatScaleRatio = Math.Min(0.5, this.RecoverCost / 50000.0 * 0.4);
+                    if (this.Army.Scales < this.Army.Kind.MaxScale / this.Army.Kind.MinScale * retreatScaleRatio)
+                    {
+                        this.GoBack();
+                        this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         this.WillTroop = null;
                         this.TargetTroop = null;
                         this.TargetArchitecture = null;
@@ -821,7 +848,7 @@
                     this.GoBack();
                     return false;
                 }
-                //retreat if the starting arch is under attack and cannot resist such attack, when enemy city does not seem to fall
+                //retreat if the starting arch is under attack and cannot resist such attack, and enemy city does not seem to fall
                 if (this.BelongedLegion != null)
                 {
                     if (this.StartingArchitecture.TotalHostileForce > this.StartingArchitecture.TotalFriendlyForce * 1.2 && this.BelongedLegion.Kind == LegionKind.Offensive &&
