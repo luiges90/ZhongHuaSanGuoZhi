@@ -1237,28 +1237,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.Plugins.AirViewPlugin.ResetFramePosition(base.viewportSize, this.mainMapLayer.LeftEdge, this.mainMapLayer.TopEdge, this.mainMapLayer.TotalMapSize);
         }
 
-        private int loopedinDay = 0;
-        private GameDate currentDate;
 
         private bool MoveTheTroops(GameTime gameTime)
         {
-            /*if (currentDate != this.Scenario.Date)
-            {
-                loopedinDay = 0;
-                currentDate = this.Scenario.Date;
-            }
-            else
-            {
-                loopedinDay++;
-                if (loopedinDay > 10000)
-                {
-                    base.Scenario.Troops.troopQueue.Clear();
-                    base.Scenario.Troops.CurrentQueue.Clear();
-                    base.Scenario.Troops.CurrentTroop = null;
-                    return false;
-                }
-            }*/
-
             if (!base.Scenario.Threading)
             {
                 if (!base.Scenario.Animating)
@@ -1504,7 +1485,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString);
             }

@@ -308,10 +308,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                             }
                         }
                     }
-                    if (tile.Position.X == 98 && tile.Position.Y == 100)
-                    {
-                        int igewghb = 1;
-                    }
                     decorativeTextures = new List<Texture2D>();
                     switch (direction)
                     {
@@ -446,94 +442,63 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
         {
             if (spriteBatch != null)
             {
-                //if (GlobalVariables.LoadBackGroundMapTexture)
-                if (false)
+
+                if (this.mainMap.MapName != null)
                 {
-                    int x = viewportSize.X;
-                    int y = viewportSize.Y;
-                    ////spriteBatch.Draw(this.BackgroundMap, new Rectangle(0, 0, x, y), new Rectangle((-this.BackgroundMap.Width * this.LeftEdge) / this.TotalTileWidth, (-this.BackgroundMap.Height * this.topEdge) / this.TotalTileHeight, (this.BackgroundMap.Width * x) / this.TotalTileWidth, (this.BackgroundMap.Height * y) / this.TotalTileHeight), Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.9f);
-                    //spriteBatch.Draw(this.BackgroundMap, new Rectangle(0 , 0 , x, y), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.9f);
 
-                    /*
-                    Rectangle rectDes = new Rectangle(0, 0, this.screen.viewportSize.X, this.screen.viewportSize.Y);
-                    Rectangle rect = new Rectangle(0, 0, this.gameScenario.GameProgressCaution.Width , this.gameScenario.GameProgressCaution.Height );
-                    this.gameScenario.GameProgressCaution.Position = StaticMethods.GetBottomRectangle(rectDes, rect);
-                    this.gameScenario.GameProgressCaution.Draw(spriteBatch);
-                    */
-
-                    if (GlobalVariables.ShowGrid)
+                    foreach (MapTile maptile in this.DisplayingMapTiles)
                     {
-                        foreach (Tile tile in this.DisplayingTiles)
+                        Rectangle? sourceRectangle = null;
+
+
+                        List<Texture2D> decorativeTextures = null;
+                        //this.CheckTileTexture(maptile, out decorativeTextures);
+                        this.CheckMapTileTexture(maptile);
+                        spriteBatch.Draw(maptile.TileTexture, maptile.Destination, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.9f);
+                        if (decorativeTextures != null)
                         {
-                            if (this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 0 && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 7)
+                            foreach (Texture2D textured in decorativeTextures)
                             {
-                                spriteBatch.Draw(this.screen.Textures.wanggetupian, tile.Destination, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.81f);
+                                sourceRectangle = null;
+                                spriteBatch.Draw(textured, maptile.Destination, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.8998f);
                             }
                         }
                     }
 
-
                 }
-
                 else
                 {
-                    if (this.mainMap.MapName != null)
+                    foreach (Tile tile in this.DisplayingTiles)
                     {
+                        List<Texture2D> decorativeTextures = null;
+                        this.CheckTileTexture(tile, out decorativeTextures);
+                        Rectangle? sourceRectangle = null;
 
-                        foreach (MapTile maptile in this.DisplayingMapTiles)
+                        spriteBatch.Draw(tile.TileTexture, tile.Destination, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.8998f);
+
+                        /*if (decorativeTextures != null)
                         {
-                            Rectangle? sourceRectangle = null;
-
-
-                            List<Texture2D> decorativeTextures = null;
-                            //this.CheckTileTexture(maptile, out decorativeTextures);
-                            this.CheckMapTileTexture(maptile);
-                            spriteBatch.Draw(maptile.TileTexture, maptile.Destination, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.9f);
-                            if (decorativeTextures != null)
+                            foreach (Texture2D textured in decorativeTextures)
                             {
-                                foreach (Texture2D textured in decorativeTextures)
-                                {
-                                    sourceRectangle = null;
-                                    spriteBatch.Draw(textured, maptile.Destination, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.8998f);
-                                }
+                                sourceRectangle = null;
+                                spriteBatch.Draw(textured, tile.Destination, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.8998f);
                             }
-                        }
-
+                        }*/
                     }
-                    else
-                    {
-                        foreach (Tile tile in this.DisplayingTiles)
-                        {
-                            List<Texture2D> decorativeTextures = null;
-                            this.CheckTileTexture(tile, out decorativeTextures);
-                            Rectangle? sourceRectangle = null;
 
-                            spriteBatch.Draw(tile.TileTexture, tile.Destination, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.8998f);
-
-                            /*if (decorativeTextures != null)
-                            {
-                                foreach (Texture2D textured in decorativeTextures)
-                                {
-                                    sourceRectangle = null;
-                                    spriteBatch.Draw(textured, tile.Destination, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.8998f);
-                                }
-                            }*/
-                        }
-
-                    }
-                    
-                    if (GlobalVariables.ShowGrid)
-                    {
-                        foreach (Tile tile in this.DisplayingTiles)
-                        {
-                            if (this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 0 && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 7)
-                            {
-                                spriteBatch.Draw(this.screen.Textures.wanggetupian, tile.Destination, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.81f);
-                            }
-                        }
-                    }
-                    
                 }
+                
+                if (GlobalVariables.ShowGrid)
+                {
+                    foreach (Tile tile in this.DisplayingTiles)
+                    {
+                        if (this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 0 && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 7)
+                        {
+                            spriteBatch.Draw(this.screen.Textures.wanggetupian, tile.Destination, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.81f);
+                        }
+                    }
+                }
+                    
             }
         }
 
