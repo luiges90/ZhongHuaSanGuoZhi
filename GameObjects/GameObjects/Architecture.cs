@@ -13143,11 +13143,11 @@
             }
         }
 
-        public string PopulationDevelopingRateString
+        public double PopulationDevelopingRateString
         {
             get
             {
-                return Math.Round((double) (this.PopulationDevelopingRate / 0.0001), 1).ToString();
+                return Math.Round((double) (this.PopulationDevelopingRate / 0.0001), 1);
             }
         }
 

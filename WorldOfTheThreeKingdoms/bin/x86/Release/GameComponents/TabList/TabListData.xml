@@ -900,7 +900,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="24" Name="PopulationDevelopingRateString" IsNumber="false" DisplayName="人口增长率(%%)" MinWidth="120"
+        <Column ID="24" Name="PopulationDevelopingRateString" IsNumber="true" DisplayName="人口增长率(%%)" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
