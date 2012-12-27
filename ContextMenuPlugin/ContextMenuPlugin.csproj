@@ -36,11 +36,6 @@
       <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameFreeText.DLL</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="GameGlobal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameGlobal.DLL</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="GameObjects, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameObjects.dll</HintPath>
@@ -64,5 +59,11 @@
     <Compile Include="ContextMenuPlugin\MenuKind.cs" />
     <Compile Include="ContextMenuPlugin\MenuItem.cs" />
     <Compile Include="ContextMenuPlugin\ContextMenuPlugin.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">
+      <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
+      <Name>GameGlobal</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

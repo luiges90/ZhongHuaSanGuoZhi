@@ -177,6 +177,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private CheckBox wujiangYoukenengDuli;
         private TextBox tbBattleSpeed;
         private Label label48;
+        private CheckBox cbEnableCheat;
+        private CheckBox cbEnableLoadInGame;
         private Label getChildrenRateLabel;
 
         public formOptions()
@@ -206,6 +208,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
             this.tabPageEnvironment = new System.Windows.Forms.TabPage();
+            this.cbEnableCheat = new System.Windows.Forms.CheckBox();
+            this.tbBattleSpeed = new System.Windows.Forms.TextBox();
+            this.label48 = new System.Windows.Forms.Label();
             this.wujiangYoukenengDuli = new System.Windows.Forms.CheckBox();
             this.checkLiangdaoXitong = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -351,8 +356,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label48 = new System.Windows.Forms.Label();
-            this.tbBattleSpeed = new System.Windows.Forms.TextBox();
+            this.cbEnableLoadInGame = new System.Windows.Forms.CheckBox();
             this.tcOptions.SuspendLayout();
             this.tabPageEnvironment.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -378,6 +382,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageEnvironment
             // 
+            this.tabPageEnvironment.Controls.Add(this.cbEnableLoadInGame);
+            this.tabPageEnvironment.Controls.Add(this.cbEnableCheat);
             this.tabPageEnvironment.Controls.Add(this.tbBattleSpeed);
             this.tabPageEnvironment.Controls.Add(this.label48);
             this.tabPageEnvironment.Controls.Add(this.wujiangYoukenengDuli);
@@ -414,6 +420,34 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageEnvironment.UseVisualStyleBackColor = true;
             this.tabPageEnvironment.Click += new System.EventHandler(this.tabPageEnvironment_Click);
             // 
+            // cbEnableCheat
+            // 
+            this.cbEnableCheat.AutoSize = true;
+            this.cbEnableCheat.Location = new System.Drawing.Point(260, 82);
+            this.cbEnableCheat.Name = "cbEnableCheat";
+            this.cbEnableCheat.Size = new System.Drawing.Size(96, 16);
+            this.cbEnableCheat.TabIndex = 109;
+            this.cbEnableCheat.Text = "开启作弊功能";
+            this.cbEnableCheat.UseVisualStyleBackColor = true;
+            // 
+            // tbBattleSpeed
+            // 
+            this.tbBattleSpeed.Location = new System.Drawing.Point(316, 153);
+            this.tbBattleSpeed.MaxLength = 2;
+            this.tbBattleSpeed.Name = "tbBattleSpeed";
+            this.tbBattleSpeed.Size = new System.Drawing.Size(27, 22);
+            this.tbBattleSpeed.TabIndex = 108;
+            this.tbBattleSpeed.Text = "1";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(257, 156);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(53, 12);
+            this.label48.TabIndex = 107;
+            this.label48.Text = "战斗速度";
+            // 
             // wujiangYoukenengDuli
             // 
             this.wujiangYoukenengDuli.AutoSize = true;
@@ -443,7 +477,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.groupBox1.Controls.Add(this.rbNormal);
             this.groupBox1.Controls.Add(this.rbEasy);
             this.groupBox1.Controls.Add(this.rbBeginner);
-            this.groupBox1.Location = new System.Drawing.Point(253, 139);
+            this.groupBox1.Location = new System.Drawing.Point(253, 181);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(94, 151);
             this.groupBox1.TabIndex = 104;
@@ -534,7 +568,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(258, 89);
+            this.label45.Location = new System.Drawing.Point(258, 131);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(89, 12);
             this.label45.TabIndex = 102;
@@ -542,7 +576,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbDialogShowTime
             // 
-            this.tbDialogShowTime.Location = new System.Drawing.Point(353, 86);
+            this.tbDialogShowTime.Location = new System.Drawing.Point(353, 128);
             this.tbDialogShowTime.MaxLength = 2;
             this.tbDialogShowTime.Name = "tbDialogShowTime";
             this.tbDialogShowTime.Size = new System.Drawing.Size(27, 22);
@@ -1814,23 +1848,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // label48
+            // cbEnableLoadInGame
             // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(257, 114);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(53, 12);
-            this.label48.TabIndex = 107;
-            this.label48.Text = "战斗速度";
-            // 
-            // tbBattleSpeed
-            // 
-            this.tbBattleSpeed.Location = new System.Drawing.Point(316, 111);
-            this.tbBattleSpeed.MaxLength = 2;
-            this.tbBattleSpeed.Name = "tbBattleSpeed";
-            this.tbBattleSpeed.Size = new System.Drawing.Size(27, 22);
-            this.tbBattleSpeed.TabIndex = 108;
-            this.tbBattleSpeed.Text = "1";
+            this.cbEnableLoadInGame.AutoSize = true;
+            this.cbEnableLoadInGame.Location = new System.Drawing.Point(260, 104);
+            this.cbEnableLoadInGame.Name = "cbEnableLoadInGame";
+            this.cbEnableLoadInGame.Size = new System.Drawing.Size(132, 16);
+            this.cbEnableLoadInGame.TabIndex = 110;
+            this.cbEnableLoadInGame.Text = "容许游戏中读取游戏";
+            this.cbEnableLoadInGame.UseVisualStyleBackColor = true;
             // 
             // formOptions
             // 
@@ -1911,6 +1937,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.checkLiangdaoXitong.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("LiangdaoXitong").Value);
             this.wujiangYoukenengDuli.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("WujiangYoukenengDuli").Value);
             this.tbBattleSpeed.Text = nextSibling.Attributes.GetNamedItem("FastBattleSpeed").Value;
+            this.cbEnableCheat.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableCheat").Value);
+            this.cbEnableLoadInGame.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value);
         }
 
         private void LoadParameterDoc()
@@ -2010,6 +2038,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("LiangdaoXitong").Value = this.checkLiangdaoXitong.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("WujiangYoukenengDuli").Value = this.wujiangYoukenengDuli.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("FastBattleSpeed").Value = this.tbBattleSpeed.Text;
+            nextSibling.Attributes.GetNamedItem("EnableCheat").Value = this.cbEnableCheat.Checked.ToString();
+            nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value = this.cbEnableLoadInGame.Checked.ToString();
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 

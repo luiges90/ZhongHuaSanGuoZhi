@@ -198,8 +198,8 @@
         <MenuItem ID="14"  Name="AllStates" DisplayName="所有州域"></MenuItem>
         <MenuItem ID="15"  Name="AllTreasures" DisplayName="所有宝物*"></MenuItem>
       </MenuItem>
-      <MenuItem ID="5"  Name="Save" DisplayName="存储进度" DisplayIfTrue="LoadAndSaveAvail"></MenuItem>
-      <MenuItem ID="6"  Name="Load" DisplayName="读取进度" DisplayIfTrue="LoadAndSaveAvail"></MenuItem>
+      <MenuItem ID="5"  Name="Save" DisplayName="存储进度" DisplayIfTrue="SaveAvail"></MenuItem>
+      <MenuItem ID="6"  Name="Load" DisplayName="读取进度" DisplayIfTrue="LoadAvail"></MenuItem>
 	  <MenuItem ID="9"  Name="ChangeFaction" DisplayName="转变势力*"></MenuItem>
       <MenuItem ID="7"  Name="System" DisplayName="系统"></MenuItem>
     </MenuKind>

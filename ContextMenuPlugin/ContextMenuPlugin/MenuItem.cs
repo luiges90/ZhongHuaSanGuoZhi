@@ -673,10 +673,12 @@
         {
             get
             {
+                if (!GlobalVariables.EnableCheat && this.DisplayName.Contains("*")) return false;
                 return this.visible;
             }
             set
             {
+                if (!GlobalVariables.EnableCheat && this.DisplayName.Contains("*")) return;
                 this.visible = value;
                 if (value)
                 {

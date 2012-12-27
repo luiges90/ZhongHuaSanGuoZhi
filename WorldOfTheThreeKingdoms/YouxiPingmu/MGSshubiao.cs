@@ -214,10 +214,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.ShowArchitectureSurveyPlugin(this.CurrentArchitecture);
                     }
                 }
-                if (((base.Scenario.CurrentPlayer != null) && base.Scenario.LoadAndSaveAvail()) && (this.PeekUndoneWork().Kind == UndoneWorkKind.None))
-                {
-                    //this.DrawingSelector = !this.Plugins.ContextMenuPlugin.IsShowing && !this.Plugins.RoutewayEditorPlugin.IsShowing;
-                }
             }
         }
 

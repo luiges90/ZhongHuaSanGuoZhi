@@ -169,9 +169,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        public bool LoadAndSaveAvail()
+        public bool LoadAvail()
         {
-            return base.Scenario.LoadAndSaveAvail();
+            return base.Scenario.LoadAvail();
+        }
+
+        public bool SaveAvail()
+        {
+            return base.Scenario.SaveAvail();
         }
 
         public void LoadCommonData()

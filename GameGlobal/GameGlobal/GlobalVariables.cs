@@ -106,6 +106,9 @@
 
         public static bool EnableResposiveThreading = false;
 
+        public static bool EnableCheat = false;
+        public static bool EnableLoadInGame = true;
+
         public bool InitialGlobalVariables()
         {
             Exception exception;
@@ -525,6 +528,24 @@
             {
                 exception = exception24;
                 throw new Exception("AINoTeamTransfer:\n" + exception.ToString());
+            }
+            try
+            {
+                EnableCheat = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableCheat").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("EnableCheat:\n" + exception.ToString());
+            }
+            try
+            {
+                EnableLoadInGame = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("EnableLoadInGame:\n" + exception.ToString());
             }
             return true;
         }

@@ -1864,9 +1864,14 @@
             return true;
         }
 
-        public bool LoadAndSaveAvail()
+        public bool SaveAvail()
         {
             return (this.IsPlayerControlling() && this.EnableLoadAndSave);
+        }
+
+        public bool LoadAvail()
+        {
+            return (this.IsPlayerControlling() && this.EnableLoadAndSave && GlobalVariables.EnableLoadInGame);
         }
 
         public bool isInCaptiveList(int personId)
