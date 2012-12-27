@@ -6014,10 +6014,11 @@
                                         continue;
                                     }
                                 }
-                                hasEvetSentTroop = true;
-
+                                
                                 troop.BelongedFaction = this.BelongedFaction;
                                 if (troop.IsFewScaleNeedRetreat) continue;
+
+                                hasEvetSentTroop = true;
 
                                 Person leader = troop.Candidates[0] as Person;
                                 this.AddPersonToTroop(troop);
