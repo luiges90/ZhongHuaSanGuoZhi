@@ -2976,6 +2976,10 @@
         public void Destroy()
         {
             this.Destroyed = true;
+            foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+            {
+                i.TroopDestroyed(this);
+            }
             base.Scenario.ResetMapTileTroop(this.Position);
             this.FinalizeContactArea();
             this.FinalizeOffenceArea();

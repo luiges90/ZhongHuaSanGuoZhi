@@ -158,6 +158,11 @@
             }
         }
 
+        public void TroopDestroyed(Troop troop)
+        {
+            appliedTroop.Remove(troop);
+        }
+
         public void PurifyInfluence(Troop troop)
         {
             if (!appliedTroop.Contains(troop)) return;
