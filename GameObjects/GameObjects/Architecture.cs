@@ -6015,7 +6015,10 @@
                                     }
                                 }
                                 hasEvetSentTroop = true;
-                                //if (troop.Army.Scales <= 5) continue;
+
+                                troop.BelongedFaction = this.BelongedFaction;
+                                if (troop.IsFewScaleNeedRetreat) continue;
+
                                 Person leader = troop.Candidates[0] as Person;
                                 this.AddPersonToTroop(troop);
                                 troop2 = this.CreateTroop(troop.Candidates, leader, troop.Army, -1, nullable.Value);

@@ -679,6 +679,16 @@
             }
         }
 
+        public bool IsFewScaleNeedRetreat
+        {
+            get
+            {
+                if (this.BelongedFaction == null) return false;
+                double retreatScaleRatio = Math.Min(0.5, this.RecoverCost / 50000.0 * 0.4);
+                return this.Army.Scales < this.Army.Kind.MaxScale / this.Army.Kind.MinScale * retreatScaleRatio;
+            }
+        }
+
         private bool AIResetDestination()
         {
             CreditPack moveCreditByPosition;
@@ -739,7 +749,7 @@
                     return false;
                 }
                 //retreat if morale < 45 or has more injured troop than working troops, with 80 + 2 x calmness chance
-                if (GameObject.Chance(80 + (this.Leader.Calmness * 2)) && ((this.InjuryQuantity > this.Quantity) || (this.Morale < 0x2d)
+                if (GameObject.Chance(80 + (this.Leader.Calmness * 2)) && ((this.InjuryQuantity > this.Quantity) || (this.Morale < 45)
                         || (this.Army.Scales <= 5 && this.Army.KindID != 29 && this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive)))
                 {
                     this.GoBack();
@@ -794,18 +804,14 @@
                     }
                 }
                 //earlier retreat if losing this troop is costly
-                if (this.BelongedFaction != null)
+                if (this.IsFewScaleNeedRetreat)
                 {
-                    double retreatScaleRatio = Math.Min(0.5, this.RecoverCost / 50000.0 * 0.4);
-                    if (this.Army.Scales < this.Army.Kind.MaxScale / this.Army.Kind.MinScale * retreatScaleRatio)
-                    {
-                        this.GoBack();
-                        this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                        this.WillTroop = null;
-                        this.TargetTroop = null;
-                        this.TargetArchitecture = null;
-                        return false;
-                    }
+                    this.GoBack();
+                    this.AttackTargetKind = TroopAttackTargetKind.无反默认;
+                    this.WillTroop = null;
+                    this.TargetTroop = null;
+                    this.TargetArchitecture = null;
+                    return false;
                 }
                 //retreat if the other base become friendly and this legion is meant to be offensive
                 if (this.BelongedLegion != null)
