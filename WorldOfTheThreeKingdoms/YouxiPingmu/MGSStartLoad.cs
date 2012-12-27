@@ -48,6 +48,20 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
 
                 base.Scenario.InitializeScenarioPlayerFactions(base.InitializationFactionIDs);
+
+                if (base.Scenario.PlayerFactions.Count == 0)
+                {
+                    oldDialogShowTime = GlobalVariables.DialogShowTime;
+                    GlobalVariables.DialogShowTime = 0;
+                }
+                else
+                {
+                    if (oldDialogShowTime >= 0)
+                    {
+                        GlobalVariables.DialogShowTime = oldDialogShowTime;
+                    }
+                }
+
                 if (base.Scenario.PlayerFactions.Count > 0)   //开始新游戏
                 {
                     foreach (Faction faction in base.Scenario.PlayerFactions)

@@ -46,6 +46,17 @@
             }
         }
 
+        public override void InitializeParameter2(string parameter)
+        {
+            try
+            {
+                this.type = int.Parse(parameter);
+            }
+            catch
+            {
+            }
+        }
+
     }
 }
 

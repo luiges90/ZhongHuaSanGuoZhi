@@ -2722,18 +2722,6 @@
                 this.OnAfterLoadScenario(this);
             }
             this.detectCurrentPlayerBattleState(this.CurrentPlayer);
-            if (this.PlayerFactions.Count == 0)
-            {
-                oldDialogShowTime = GlobalVariables.DialogShowTime;
-                GlobalVariables.DialogShowTime = 0;
-            }
-            else
-            {
-                if (oldDialogShowTime >= 0)
-                {
-                    GlobalVariables.DialogShowTime = oldDialogShowTime;
-                }
-            }
             return true;
         }
 
