@@ -161,7 +161,7 @@
         public void PurifyInfluence(Troop troop)
         {
             if (!appliedTroop.Contains(troop)) return;
-            appliedTroop.RemoveAll((p) => { return troop == p; });
+            appliedTroop.RemoveAll((p) => { return troop == p || p.Destroyed; });
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try

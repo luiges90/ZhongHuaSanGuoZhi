@@ -3759,123 +3759,128 @@
             catch 
             {
                 //try to free as many memory as possible at this critical state
-                foreach (MilitaryKind kind in this.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values)
-                {
-                    kind.Textures.Dispose();
-                }
-                foreach (Animation a in this.GameCommonData.AllTroopAnimations.Animations.Values)
-                {
-                    a.disposeTexture();
-                }
-                foreach (Architecture a in this.Architectures)
-                {
-                    if (a.CaptionTexture != null)
-                    {
-                        a.CaptionTexture.Dispose();
-                        a.CaptionTexture = null;
-                    }
-                }
-                foreach (ArchitectureKind k in this.GameCommonData.AllArchitectureKinds.ArchitectureKinds.Values)
-                {
-                    if (k.Texture != null)
-                    {
-                        k.Texture.Dispose();
-                        k.Texture = null;
-                    }
-                }
-                foreach (Treasure t in this.Treasures)
-                {
-                    t.disposeTexture();
-                }
-                foreach (TerrainDetail t in this.GameCommonData.AllTerrainDetails.TerrainDetails.Values)
-                {
-                    if (t.Textures != null)
-                    {
-                        foreach (Texture u in t.Textures.BasicTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.BottomEdgeTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.BottomLeftCornerTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.BottomLeftTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.BottomRightCornerTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.BottomRightTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.BottomTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.CentreTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.LeftEdgeTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.LeftTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.RightEdgeTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.RightTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.LeftEdgeTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.TopEdgeTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.TopLeftCornerTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.TopLeftTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.TopRightCornerTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.TopRightTextures)
-                        {
-                            u.Dispose();
-                        }
-                        foreach (Texture u in t.Textures.TopTextures)
-                        {
-                            u.Dispose();
-                        }
-                    }
-                    t.Textures = null;
-                }
-
+                this.DisposeLotsOfMemory();
                 GC.Collect();
                 //return false;
             }
 			ExtensionInterface.call("Save", new Object[] { this });
             return true;
+        }
+
+        public void DisposeLotsOfMemory()
+        {
+            foreach (MilitaryKind kind in this.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values)
+            {
+                kind.Textures.Dispose();
+            }
+            foreach (Animation a in this.GameCommonData.AllTroopAnimations.Animations.Values)
+            {
+                a.disposeTexture();
+            }
+            foreach (Architecture a in this.Architectures)
+            {
+                if (a.CaptionTexture != null)
+                {
+                    a.CaptionTexture.Dispose();
+                    a.CaptionTexture = null;
+                }
+            }
+            foreach (ArchitectureKind k in this.GameCommonData.AllArchitectureKinds.ArchitectureKinds.Values)
+            {
+                if (k.Texture != null)
+                {
+                    k.Texture.Dispose();
+                    k.Texture = null;
+                }
+            }
+            foreach (Treasure t in this.Treasures)
+            {
+                t.disposeTexture();
+            }
+            foreach (TerrainDetail t in this.GameCommonData.AllTerrainDetails.TerrainDetails.Values)
+            {
+                if (t.Textures != null)
+                {
+                    foreach (Texture u in t.Textures.BasicTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.BottomEdgeTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.BottomLeftCornerTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.BottomLeftTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.BottomRightCornerTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.BottomRightTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.BottomTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.CentreTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.LeftEdgeTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.LeftTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.RightEdgeTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.RightTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.LeftEdgeTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.TopEdgeTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.TopLeftCornerTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.TopLeftTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.TopRightCornerTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.TopRightTextures)
+                    {
+                        u.Dispose();
+                    }
+                    foreach (Texture u in t.Textures.TopTextures)
+                    {
+                        u.Dispose();
+                    }
+                }
+                t.Textures = null;
+            }
+
         }
 
 
