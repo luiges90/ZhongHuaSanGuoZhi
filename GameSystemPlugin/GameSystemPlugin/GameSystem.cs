@@ -21,9 +21,12 @@
             this.OptionDialogPlugin.SetStyle("Basic");
             this.OptionDialogPlugin.SetTitle("系统选项");
             this.OptionDialogPlugin.Clear();
-            if (this.screen.Scenario.LoadAndSaveAvail())
+            if (this.screen.Scenario.SaveAvail())
             {
                 this.OptionDialogPlugin.AddOption("存储进度", null, new GameDelegates.VoidFunction(this.screen.SaveGame));
+            }
+            if (this.screen.Scenario.LoadAvail())
+            {
                 this.OptionDialogPlugin.AddOption("读取进度", null, new GameDelegates.VoidFunction(this.screen.LoadGame));
             }
             this.OptionDialogPlugin.AddOption("退出游戏", null, new GameDelegates.VoidFunction(this.screen.TryToExit));
