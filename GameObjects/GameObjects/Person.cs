@@ -2233,6 +2233,10 @@
             {
                 num += 20;
             }
+            if (this.ClosePersons.Contains(this.BelongedFaction.Leader.ID))
+            {
+                num += 30;
+            }
             if (this.Spouse == this.BelongedFaction.Leader.ID || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother >= 0))
             {
                 num += 50;
