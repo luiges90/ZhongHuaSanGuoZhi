@@ -41,12 +41,12 @@
                     ApplyInfluenceKind(a, i);
                 }
             }
-            foreach (Person p in faction.Persons)
+            foreach (Troop t in faction.Troops)
             {
-                if (!i.appliedPerson.Contains(p))
+                if (!i.appliedTroop.Contains(t))
                 {
-                    i.appliedPerson.Add(p);
-                    ApplyInfluenceKind(p, i);
+                    i.appliedTroop.Add(t);
+                    ApplyInfluenceKind(t, i);
                 }
             }
         }
