@@ -695,6 +695,8 @@
             double num4;
             double distance;
 
+            if (this.Destroyed) return false;
+
             if (this.willArchitectureID < 0)
             {
                 this.GoBack();
@@ -718,6 +720,7 @@
                         if (stuckedFor >= 5)
                         {
                             GoBack();
+                            return false;
                         }
                     }
                     else
@@ -1504,9 +1507,7 @@
         {
             if (this.BelongedFaction == null)
             {
-                this.Destroy();
-                base.Scenario.Militaries.Remove(this.Army);
-                base.Scenario.Troops.RemoveTroop(this);
+                this.Destroy(true, true);
                 if ((this.StartingArchitecture != null) && (this.StartingArchitecture.RobberTroop == this))
                 {
                     this.StartingArchitecture.RobberTroop = null;
@@ -1543,21 +1544,7 @@
                         person.MoveToArchitecture(base.Scenario.Architectures[0] as Architecture, from);
                     }
                 }
-                this.Destroy();
-                if (this.BelongedLegion != null)
-                {
-                    this.BelongedLegion.RemoveTroop(this);
-                }
-                if (this.Army.ShelledMilitary == null)
-                {
-                    this.BelongedFaction.RemoveMilitary(this.Army);
-                }
-                else
-                {
-                    this.BelongedFaction.RemoveMilitary(this.Army.ShelledMilitary);
-                    base.Scenario.Militaries.Remove(this.Army.ShelledMilitary);
-                }
-                base.Scenario.Militaries.Remove(this.Army);
+                this.Destroy(true, true);
                 if (flag)
                 {
                     TroopList list = new TroopList();
@@ -1574,11 +1561,6 @@
                     }
                     this.BelongedFaction.Destroy();
                 }
-                else
-                {
-                    this.BelongedFaction.RemoveTroop(this);
-                }
-                base.Scenario.Troops.RemoveTroop(this);
                 if ((this.OrientationTroop != null) && !this.ProhibitAllAction)
                 {
                     this.OrientationTroop.OperationDone = !this.OrientationTroop.CanAttackAfterRout && !this.OrientationTroop.StuntCanAttackAfterRout;
@@ -2973,13 +2955,9 @@
             this.ShowNumber = true;
         }
 
-        public void Destroy()
+        public void Destroy(bool removeReferences, bool removeArmy)
         {
             this.Destroyed = true;
-            foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
-            {
-                i.TroopDestroyed(this);
-            }
             base.Scenario.ResetMapTileTroop(this.Position);
             this.FinalizeContactArea();
             this.FinalizeOffenceArea();
@@ -2991,6 +2969,73 @@
             {
                 this.CurrentCombatMethod.Purify(this);
                 this.CurrentCombatMethod = null;
+            }
+            if (removeReferences)
+            {
+                foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+                {
+                    i.TroopDestroyed(this);
+                }
+                if (this.army.BelongedTroop == this)
+                {
+                    this.army.BelongedTroop = null;
+                }
+                if (this.BelongedLegion != null)
+                {
+                    /*if (this.BelongedLegion.CoreTroop == this)
+                    {
+                        List<Troop> livingTroops = new List<Troop>();
+                        int maxFightingForce = -1;
+                        Troop maxFightingForceTroop = null;
+                        foreach (Troop t in this.BelongedLegion.Troops)
+                        {
+                            if (!t.Destroyed)
+                            {
+                                livingTroops.Add(t);
+                                if (t.FightingForce > maxFightingForce)
+                                {
+                                    maxFightingForce = t.FightingForce;
+                                    maxFightingForceTroop = t;
+                                }
+                            }
+                        }
+                        if (livingTroops.Count <= 0)
+                        {
+                            this.BelongedFaction.Legions.Remove(this.BelongedLegion);
+                            base.Scenario.Legions.Remove(this.BelongedLegion);
+                        }
+                        else
+                        {
+                            this.BelongedLegion.CoreTroop = maxFightingForceTroop;
+                        }
+                    }*/
+                    this.BelongedLegion.RemoveTroop(this);
+                }
+                if (removeArmy)
+                {
+                    if (this.Army.ShelledMilitary == null)
+                    {
+                        if (this.BelongedFaction != null)
+                        {
+                            this.BelongedFaction.RemoveMilitary(this.Army);
+                        }
+                        base.Scenario.Militaries.Remove(this.Army);
+                    }
+                    else
+                    {
+                        if (this.BelongedFaction != null)
+                        {
+                            this.BelongedFaction.RemoveMilitary(this.Army.ShelledMilitary);
+                        }
+                        base.Scenario.Militaries.Remove(this.Army.ShelledMilitary);
+                        base.Scenario.Militaries.Remove(this.Army);
+                    }
+                }
+                if (this.BelongedFaction != null)
+                {
+                    this.BelongedFaction.RemoveTroop(this);
+                }
+                base.Scenario.Troops.RemoveTroop(this);
             }
         }
 
@@ -3098,14 +3143,8 @@
                     a.IncreaseFund(this.zijin);
                 }
                 this.MoveCaptiveIntoArchitecture(a);
-                this.Destroy();
-                if (this.BelongedLegion != null)
-                {
-                    this.BelongedLegion.RemoveTroop(this);
-                }
-                this.BelongedFaction.RemoveTroop(this);
-                base.Scenario.Troops.RemoveTroop(this);
-                
+                this.Destroy(true, false);
+
                 ExtensionInterface.call("EnterArchitecture", new Object[] { this.Scenario, this, a });
             }
         }
@@ -3123,20 +3162,7 @@
             {
                 person.MoveToArchitecture(this.StartingArchitecture);
             }
-            this.Destroy();
-            if (this.Army.ShelledMilitary == null)
-            {
-                this.BelongedFaction.RemoveMilitary(this.Army);
-            }
-            else
-            {
-                this.BelongedFaction.RemoveMilitary(this.Army.ShelledMilitary);
-                base.Scenario.Militaries.Remove(this.Army.ShelledMilitary);
-            }
-            base.Scenario.Militaries.Remove(this.Army);
-            this.BelongedLegion.RemoveTroop(this);
-            this.BelongedFaction.RemoveTroop(this);
-            base.Scenario.Troops.RemoveTroop(this);
+            this.Destroy(true, true);
             this.BelongedFaction = null;
         }
 
@@ -4539,7 +4565,7 @@
                         pack.Credit += 10000;
                         return pack;
                     }
-                    if ((distance <= this.DistanceToWillArchitecture) && this.BelongedLegion.CoreTroop.ViewArea.HasPoint(p))
+                    if ((distance <= this.DistanceToWillArchitecture) && this.BelongedLegion.CoreTroop != null && this.BelongedLegion.CoreTroop.ViewArea.HasPoint(p))
                     {
                         pack.Credit += 1 + ((int) ((this.DistanceToWillArchitecture - distance) * 100.0));
                     }
@@ -7889,7 +7915,7 @@
             Person leader = this.Leader;
             Stunt currentStunt = this.CurrentStunt;
             int stuntDayLeft = this.StuntDayLeft;
-            this.Destroy();
+            this.Destroy(false, false);
             this.Destroyed = false;
             this.realDestination = realDestination;
             this.destination = destination;

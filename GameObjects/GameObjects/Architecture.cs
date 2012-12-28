@@ -5068,7 +5068,7 @@
             {
                 if ((this.RobberTroop != null) && (this.RobberTroop.RecentlyFighting <= 0))
                 {
-                    this.RobberTroop.Destroy();
+                    this.RobberTroop.Destroy(true, true);
                     base.Scenario.Militaries.Remove(this.RobberTroop.Army);
                     base.Scenario.Troops.RemoveTroop(this.RobberTroop);
                     this.RobberTroop = null;
@@ -5088,7 +5088,7 @@
             }
             else if (!(((this.RecentlyAttacked > 0) || (this.RobberTroop.RecentlyFighting > 0)) || this.HasHostileTroopsInView()))
             {
-                this.RobberTroop.Destroy();
+                this.RobberTroop.Destroy(true, true);
                 base.Scenario.Militaries.Remove(this.RobberTroop.Army);
                 base.Scenario.Troops.RemoveTroop(this.RobberTroop);
                 this.RobberTroop = null;
