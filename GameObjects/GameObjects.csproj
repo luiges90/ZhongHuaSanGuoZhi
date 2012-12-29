@@ -930,6 +930,9 @@
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect2130.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect2131.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect2200.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4000.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4005.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4010.cs" />
     <Compile Include="GameObjects\PathCacheKey.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1402.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1403.cs" />
@@ -1040,5 +1043,74 @@
       <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
       <Name>GameGlobal</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4065.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4090.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4095.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4100.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4105.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4110.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4115.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4120.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4015.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4020.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4025.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4030.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4035.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4040.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4045.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4050.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4055.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4060.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4070.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4075.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4080.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4085.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4125.cs" />
   </ItemGroup>
 </Project>
