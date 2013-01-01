@@ -14,6 +14,28 @@
         private TitleKind kind;
         private int level;
 
+        private bool? containsLeaderOnlyCache = null;
+        public bool ContainsLeaderOnly
+        {
+            get
+            {
+                if (containsLeaderOnlyCache != null)
+                {
+                    return containsLeaderOnlyCache.Value;
+                }
+                foreach (Influence i in this.Influences.Influences.Values)
+                {
+                    if (i.Kind.ID == 281)
+                    {
+                        containsLeaderOnlyCache = true;
+                        return true;
+                    }
+                }
+                containsLeaderOnlyCache = false;
+                return false;
+            }
+        }
+
         public MilitaryType MilitaryTypeOnly
         {
             get
