@@ -5993,6 +5993,10 @@
                                     stopSendingTroop = true;
                                     break;
                                 }
+
+                                troop.BelongedFaction = this.BelongedFaction;
+                                if (troop.IsFewScaleNeedRetreat) continue;
+
                                 Point? nullable = this.GetCampaignPosition(troop, orientations, troop.Army.Scales > 0);
                                 if (!nullable.HasValue)
                                 {
@@ -6006,9 +6010,6 @@
                                         continue;
                                     }
                                 }
-                                
-                                troop.BelongedFaction = this.BelongedFaction;
-                                if (troop.IsFewScaleNeedRetreat) continue;
 
                                 hasEvetSentTroop = true;
 
