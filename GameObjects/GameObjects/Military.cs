@@ -1023,6 +1023,28 @@
             }
         }
 
+        public int RecoverCost
+        {
+            get
+            {
+                int result = (int)(this.Kind.CreateCost * (1 + (this.Experience + (this.Leader == this.Leader ? 1000 : this.LeaderExperience)) / 1000.0));
+                if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.RealMilitaryKind))
+                {
+                    result += 50000;
+                }
+                return result;
+            }
+        }
+
+        public bool IsFewScaleNeedRetreat
+        {
+            get
+            {
+                if (this.BelongedFaction == null) return false;
+                double retreatScaleRatio = Math.Min(0.5, this.RecoverCost / 50000.0 * 0.4);
+                return this.Scales < this.Kind.MaxScale / this.Kind.MinScale * retreatScaleRatio;
+            }
+        }
 
     }
 }

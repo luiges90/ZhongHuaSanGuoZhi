@@ -5951,6 +5951,7 @@
                         bool isBesideWater = this.IsBesideWater;
                         foreach (Military military in this.Militaries.GetRandomList())
                         {
+                            if (military.IsFewScaleNeedRetreat) continue;
                             if ((isBesideWater || (military.Kind.Type != MilitaryType.水军)) && (((((this.Endurance < 30) || military.Kind.AirOffence) || (military.Scales >= 2)) && (military.Morale > 0x2d)) && ((this.Endurance < 30) || (military.InjuryQuantity < military.Kind.MinScale))))
                             {
                                 TroopList candidates = this.AISelectPersonIntoTroop(this, military);
@@ -5993,9 +5994,6 @@
                                     stopSendingTroop = true;
                                     break;
                                 }
-
-                                troop.BelongedFaction = this.BelongedFaction;
-                                if (troop.IsFewScaleNeedRetreat) continue;
 
                                 Point? nullable = this.GetCampaignPosition(troop, orientations, troop.Army.Scales > 0);
                                 if (!nullable.HasValue)

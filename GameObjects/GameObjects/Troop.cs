@@ -666,29 +666,6 @@
 			ExtensionInterface.call("TroopAI", new Object[] { this.Scenario, this });
         }
 
-        public int RecoverCost
-        {
-            get
-            {
-                int result = (int) (this.Army.Kind.CreateCost * (1 + (this.Army.Experience + (this.Army.Leader == this.Leader ? 1000 : this.Army.LeaderExperience)) / 1000.0));
-                if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.Army.RealMilitaryKind))
-                {
-                    result += 50000;
-                }
-                return result;
-            }
-        }
-
-        public bool IsFewScaleNeedRetreat
-        {
-            get
-            {
-                if (this.BelongedFaction == null) return false;
-                double retreatScaleRatio = Math.Min(0.5, this.RecoverCost / 50000.0 * 0.4);
-                return this.Army.Scales < this.Army.Kind.MaxScale / this.Army.Kind.MinScale * retreatScaleRatio;
-            }
-        }
-
         private bool AIResetDestination()
         {
             CreditPack moveCreditByPosition;
@@ -807,7 +784,7 @@
                     }
                 }
                 //earlier retreat if losing this troop is costly
-                if (this.IsFewScaleNeedRetreat)
+                if (this.Army.IsFewScaleNeedRetreat)
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
