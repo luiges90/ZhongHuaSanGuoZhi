@@ -6684,7 +6684,7 @@
         {
             char[] separator = new char[] { ' ', '\n', '\r' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            this.Persons.Clear();
+            //this.Persons.Clear();
             foreach (string str in strArray)
             {
                 Person person = persons[int.Parse(str)];
@@ -7899,7 +7899,7 @@
             this.position = position;
             this.StartingArchitecture = startingArchitecture;
             base.ID = iD;
-            this.Persons.Clear();
+            //this.Persons.Clear();
             if (!personList.HasGameObject(leader))
             {
                 if (personList.Count > 1)

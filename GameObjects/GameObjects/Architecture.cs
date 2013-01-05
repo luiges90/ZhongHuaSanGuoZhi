@@ -631,9 +631,11 @@
             military.BelongedArchitecture = this;
         }
 
-        private void AddPersonToTroop(Troop t)
+        private PersonList SelectSubOfficersToTroop(Troop t)
         {
             int personCnt = 1;
+            PersonList result = new PersonList();
+            result.Add(t.Leader);
             if (t.TroopIntelligence < (0x4b - t.Leader.Calmness))
             {
                 foreach (Person person in this.Persons)
@@ -642,7 +644,7 @@
                     if ((!person.Selected && (person.Intelligence >= (0x4b - t.Leader.Calmness))) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
                     {
                         person.Selected = true;
-                        t.Persons.Add(person);
+                        result.Add(person);
                         personCnt++;
                         break;
                     }
@@ -656,7 +658,7 @@
                     if ((!person.Selected && (person.Strength >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Strength - t.TroopStrength) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
                     {
                         person.Selected = true;
-                        t.Persons.Add(person);
+                        result.Add(person);
                         personCnt++;
                         break;
                     }
@@ -670,7 +672,7 @@
                     if ((!person.Selected && (person.Command >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Command - t.TroopCommand) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
                     {
                         person.Selected = true;
-                        t.Persons.Add(person);
+                        result.Add(person);
                         personCnt++;
                         break;
                     }
@@ -694,8 +696,6 @@
                     int chanceIncrementOfStratagem = t.ChanceIncrementOfStratagem;
                     int chanceDecrementOfStratagem = t.ChanceDecrementOfStratagem;
                     int chanceIncrementOfChaosAfterStratagem = t.ChanceIncrementOfChaosAfterStratagem;
-                    t.Persons.Add(person);
-                    person.LocationTroop = t;
                     foreach (Skill s in person.Skills.GetSkillList())
                     {
                         s.Influences.PurifyInfluence(this);
@@ -710,19 +710,16 @@
                     }
                     person.ApplySkills();
                     person.ApplyTitles();
-                    person.LocationTroop = null;
                     if (((((((t.IncrementPerDayOfCombativity > incrementPerDayOfCombativity) || (t.ImmunityOfCaptive != immunityOfCaptive)) || ((t.RoutIncrementOfCombativity > routIncrementOfCombativity) || (t.AttackDecrementOfCombativity > attackDecrementOfCombativity))) || ((t.CombatMethods.Count > count) || (((t.TroopStrength >= 70) && (t.ChanceIncrementOfCriticalStrike > chanceIncrementOfCriticalStrike)) && (t.ChanceIncrementOfCriticalStrike <= 50)))) || (((((t.TroopCommand >= 70) && (t.ChanceDecrementOfCriticalStrike > chanceDecrementOfCriticalStrike)) && (t.ChanceDecrementOfCriticalStrike <= 50)) || (((t.ChanceIncrementOfCriticalStrike >= 10) && (t.ChanceIncrementOfChaosAfterCriticalStrike > chanceIncrementOfChaosAfterCriticalStrike)) && (t.ChanceIncrementOfChaosAfterCriticalStrike <= 100))) || (((t.AvoidSurroundedChance <= 80) && (t.AvoidSurroundedChance > avoidSurroundedChance)) || ((t.ChaosAfterSurroundAttackChance <= 20) && (t.ChaosAfterSurroundAttackChance > chaosAfterSurroundAttackChance))))) || ((((t.TroopIntelligence >= 70) && (t.ChanceIncrementOfStratagem > chanceIncrementOfStratagem)) && (t.ChanceIncrementOfStratagem <= 30)) || (((t.TroopIntelligence >= 70) && (t.ChanceDecrementOfStratagem > chanceDecrementOfStratagem)) && (t.ChanceDecrementOfStratagem <= 30)))) || (((t.TroopIntelligence >= 0x55) && (t.ChanceIncrementOfChaosAfterStratagem > chanceIncrementOfChaosAfterStratagem)) && (t.ChanceIncrementOfChaosAfterStratagem <= 100)))
                     {
                         person.Selected = true;
+                        result.Add(person);
                         personCnt++;
-                    }
-                    else
-                    {
-                        t.Persons.Remove(person);
                     }
                 }
                 if (personCnt >= 5) break;
             }
+            return result;
         }
 
         internal void AddPopulationPack(int days, int population)
@@ -4667,8 +4664,8 @@
                         break;
                     }
                     Person leader = troop2.Candidates[0] as Person;
-                    this.AddPersonToTroop(troop2);
-                    troop = this.CreateTroop(troop2.Candidates, leader, troop2.Army, -1, nullable.Value);
+                    PersonList candidates = this.SelectSubOfficersToTroop(troop2);
+                    troop = this.CreateTroop(candidates, leader, troop2.Army, -1, nullable.Value);
                     troop.WillArchitecture = destination;
                     Legion legion = this.BelongedFaction.GetLegion(destination);
                     if (legion == null)
@@ -5838,23 +5835,6 @@
             {
                 leader.Selected = true;
             }
-            GameObjectList candidate = otherPersons.GetList();
-            candidate.PropertyName = "subofficerWeight";
-            candidate.SmallToBig = false;
-            candidate.IsNumber = true;
-            candidate.ReSort();
-            int count = 0;
-            int maxPersons = candidate.Count / 3;
-            foreach (Person p in candidate)
-            {
-                if (p.Intelligence > leader.Intelligence)
-                {
-                    persons.Add(p);
-                    if (GameObject.Chance(75)) break;
-                }
-                count++;
-                if (count >= maxPersons) break;
-            }
             return persons;
         }
 
@@ -6012,8 +5992,8 @@
                                 hasEvetSentTroop = true;
 
                                 Person leader = troop.Candidates[0] as Person;
-                                this.AddPersonToTroop(troop);
-                                troop2 = this.CreateTroop(troop.Candidates, leader, troop.Army, -1, nullable.Value);
+                                PersonList candidates = this.SelectSubOfficersToTroop(troop);
+                                troop2 = this.CreateTroop(candidates, leader, troop.Army, -1, nullable.Value);
                                 troop2.WillArchitecture = this;
                                 if (this.DefensiveLegion == null)
                                 {
@@ -6089,8 +6069,8 @@
                                     continue;
                                 }
                                 Person leader = troop.Candidates[0] as Person;
-                                i.A.AddPersonToTroop(troop);
-                                troop2 = i.A.CreateTroop(troop.Candidates, leader, troop.Army, -1, nullable.Value);
+                                PersonList candidates = i.A.SelectSubOfficersToTroop(troop);
+                                troop2 = i.A.CreateTroop(candidates, leader, troop.Army, -1, nullable.Value);
                                 troop2.WillArchitecture = this;
                                 if (this.DefensiveLegion == null)
                                 {

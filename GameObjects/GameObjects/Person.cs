@@ -5777,34 +5777,6 @@
             }
         }
 
-        public int subofficerWeight
-        {
-            get
-            {
-                int result = this.Intelligence * 2 - this.Strength - this.Command;
-                if (this.PersonalTitle != null){
-                    if (this.PersonalTitle.Combat)
-                    {
-                        result += (this.PersonalTitle.ContainsLeaderOnly ? -this.PersonalTitle.Level : this.PersonalTitle.Level * 2) * 10;
-                    }
-                    else
-                    {
-                        result -= this.PersonalTitleLevel * 5;
-                    }
-                }
-                if (this.CombatTitle != null){
-                    if (this.CombatTitle.Combat)
-                    {
-                        result += (this.CombatTitle.ContainsLeaderOnly ? -this.CombatTitle.Level : this.CombatTitle.Level * 2) * 10;
-                    }
-                    else
-                    {
-                        result -= this.CombatTitleLevel * 5;
-                    }
-                }
-                return result;
-            }
-        }
     }
 }
 
