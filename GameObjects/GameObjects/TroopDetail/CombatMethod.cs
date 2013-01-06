@@ -28,7 +28,7 @@
                 troop.ShowNumber = true;
                 foreach (Influence influence in this.Influences.Influences.Values)
                 {
-                    influence.ApplyInfluence(troop.Leader);
+                    influence.ApplyInfluence(troop.Leader, Applier.CombatMethod, 0);
                 }
             }
         }
@@ -52,7 +52,7 @@
                 troop.CombatMethodApplied = false;
                 foreach (Influence influence in this.Influences.Influences.Values)
                 {
-                    influence.PurifyInfluence(troop.Leader);
+                    influence.PurifyInfluence(troop.Leader, Applier.CombatMethod, 0);
                 }
             }
         }
@@ -61,7 +61,7 @@
         {
             foreach (Influence influence in this.Influences.Influences.Values)
             {
-                influence.ApplyInfluence(troop.Leader);
+                influence.ApplyInfluence(troop.Leader, Applier.CombatMethod, 0);
             }
             return true;
         }
@@ -70,7 +70,7 @@
         {
             foreach (Influence influence in this.Influences.Influences.Values)
             {
-                influence.PurifyInfluence(troop.Leader);
+                influence.PurifyInfluence(troop.Leader, Applier.CombatMethod, 0);
             }
         }
 

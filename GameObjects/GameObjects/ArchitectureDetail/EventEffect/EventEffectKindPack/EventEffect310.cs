@@ -13,12 +13,13 @@
             if (title.Combat)
             {
                 person.CombatTitle = title;
+                title.Influences.ApplyInfluence(person, GameObjects.Influences.Applier.CombatTitle, 0);
             }
             else
             {
                 person.PersonalTitle = title;
+                title.Influences.ApplyInfluence(person, GameObjects.Influences.Applier.PersonalTitle, 0);
             }
-            title.Influences.ApplyInfluence(person);
         }
 
         public override void InitializeParameter(string parameter)

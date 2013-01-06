@@ -7,7 +7,7 @@
     {
         public override void ApplyEffectKind(Person person, Event e)
         {
-            person.PersonalTitle.Influences.PurifyInfluence(person);
+            person.PersonalTitle.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.PersonalTitle, 0);
             person.PersonalTitle = null;
         }
     }

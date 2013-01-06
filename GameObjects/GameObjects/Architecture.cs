@@ -698,15 +698,15 @@
                     int chanceIncrementOfChaosAfterStratagem = t.ChanceIncrementOfChaosAfterStratagem;
                     foreach (Skill s in person.Skills.GetSkillList())
                     {
-                        s.Influences.PurifyInfluence(this);
+                        s.Influences.PurifyInfluence(this, Applier.Skill, s.ID);
                     }
                     if (person.PersonalTitle != null)
                     {
-                        person.PersonalTitle.Influences.PurifyInfluence(this);
+                        person.PersonalTitle.Influences.PurifyInfluence(this, Applier.PersonalTitle, 0);
                     }
                     if (person.CombatTitle != null)
                     {
-                        person.CombatTitle.Influences.PurifyInfluence(this);
+                        person.CombatTitle.Influences.PurifyInfluence(this, Applier.CombatTitle, 0);
                     }
                     person.ApplySkills();
                     person.ApplyTitles();
@@ -906,7 +906,7 @@
                             {
                                 if (this.FacilityEnabled)
                                 {
-                                    i.Influences.PurifyInfluence(this);
+                                    i.Influences.PurifyInfluence(this, Applier.Facility, i.ID);
                                 }
                                 this.Facilities.Remove(i);
                                 base.Scenario.Facilities.Remove(i);
@@ -992,7 +992,7 @@
                         {
                             if (this.FacilityEnabled)
                             {
-                                f.Influences.PurifyInfluence(this);
+                                f.Influences.PurifyInfluence(this, Applier.Facility, f.ID);
                             }
                             this.Facilities.Remove(f);
                             base.Scenario.Facilities.Remove(f);
@@ -1158,7 +1158,7 @@
                                     Facility f = fl[0] as Facility;
                                     if (this.FacilityEnabled)
                                     {
-                                        f.Influences.PurifyInfluence(this);
+                                        f.Influences.PurifyInfluence(this, Applier.Facility, f.ID);
                                     }
                                     this.Facilities.Remove(f);
                                     base.Scenario.Facilities.Remove(f);
@@ -4377,7 +4377,7 @@
                 {
                     foreach (Influences.Influence i in t.Influences.Influences.Values)
                     {
-                        i.PurifyInfluence(this);
+                        i.PurifyInfluence(this, Applier.Technique, t.ID);
                     }
                 }
             }
@@ -4391,7 +4391,7 @@
                 {
                     foreach (Influences.Influence i in t.Influences.Influences.Values)
                     {
-                        i.ApplyInfluence(this);
+                        i.ApplyInfluence(this, Applier.Technique, t.ID);
                     }
                 }
             }
@@ -4399,7 +4399,7 @@
 
         public void ApplyInfluences()
         {
-            this.Characteristics.ApplyInfluence(this);
+            this.Characteristics.ApplyInfluence(this, Applier.Characteristics, 0);
             if (this.FacilityEnabled)
             {
                 this.ApplyFacilityInfluences(false);
@@ -4412,7 +4412,7 @@
             {
                 if (!skipNoCostFacility || facility.MaintenanceCost > 0)
                 {
-                    facility.Influences.ApplyInfluence(this);
+                    facility.Influences.ApplyInfluence(this, Applier.Facility, facility.ID);
                 }
             }
         }
@@ -4570,7 +4570,7 @@
             base.Scenario.Facilities.AddFacility(facility);
             if (this.FacilityEnabled)
             {
-                facility.Influences.ApplyInfluence(this);
+                facility.Influences.ApplyInfluence(this, Applier.Facility, facility.ID);
             }
             if (this.OnFacilityCompleted != null)
             {
@@ -6104,7 +6104,7 @@
         {
             if (this.FacilityEnabled)
             {
-                facility.Influences.PurifyInfluence(this);
+                facility.Influences.PurifyInfluence(this, Applier.Facility, facility.ID);
             }
             this.Facilities.Remove(facility);
             base.Scenario.Facilities.Remove(facility);
@@ -10447,7 +10447,7 @@
             {
                 if (facility.MaintenanceCost > 0)
                 {
-                    facility.Influences.PurifyInfluence(this);
+                    facility.Influences.PurifyInfluence(this, Applier.Facility, facility.ID);
                 }
             }
         }

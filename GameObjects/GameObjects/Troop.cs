@@ -1297,7 +1297,7 @@
         {
             foreach (Influence influence in this.EventInfluences)
             {
-                influence.ApplyInfluence(this);
+                influence.ApplyInfluence(this, Applier.Event, 0);
             }
         }
 
@@ -1358,7 +1358,7 @@
             {
                 foreach (Influence influence in this.CurrentStunt.Influences.Influences.Values)
                 {
-                    influence.ApplyInfluence(this.Leader);
+                    influence.ApplyInfluence(this.Leader, Applier.Stunt, 0);
                 }
             }
         }
@@ -6351,7 +6351,7 @@
                 {
                     foreach (Influences.Influence i in t.Influences.Influences.Values)
                     {
-                        i.PurifyInfluence(this);
+                        i.PurifyInfluence(this, Applier.Technique, t.ID);
                     }
                 }
             }
@@ -6365,7 +6365,7 @@
                 {
                     foreach (Influences.Influence i in t.Influences.Influences.Values)
                     {
-                        i.ApplyInfluence(this);
+                        i.ApplyInfluence(this, Applier.Technique, t.ID);
                     }
                 }
             }
@@ -6376,7 +6376,7 @@
             this.Army.ApplyFollowedLeader(this);
             foreach (Influence influence in this.Army.Kind.Influences.Influences.Values)
             {
-                influence.ApplyInfluence(this);
+                influence.ApplyInfluence(this, Applier.MilitaryKind, 0);
             }
             this.ApplyFactionInfluences();
             this.ApplyEventEffectInfluences();

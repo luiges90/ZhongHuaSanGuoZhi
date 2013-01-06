@@ -12,7 +12,7 @@
             GameObjects.FactionDetail.Technique technique = f.Scenario.GameCommonData.AllTechniques.GetTechnique(increment);
             f.AvailableTechniques.RemoveTechniuqe(increment);
             f.Scenario.NewInfluence = true;
-            technique.Influences.PurifyInfluence(f);
+            technique.Influences.PurifyInfluence(f, GameObjects.Influences.Applier.Technique, increment);
             f.Scenario.NewInfluence = false;
         }
 

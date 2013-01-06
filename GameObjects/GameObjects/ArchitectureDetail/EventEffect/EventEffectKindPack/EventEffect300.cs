@@ -11,7 +11,7 @@
         {
             GameObjects.PersonDetail.Skill skill = person.Scenario.GameCommonData.AllSkills.GetSkill(increment);
             person.Skills.AddSkill(skill);
-            skill.Influences.ApplyInfluence(person);
+            skill.Influences.ApplyInfluence(person, GameObjects.Influences.Applier.Skill, increment);
         }
 
         public override void InitializeParameter(string parameter)

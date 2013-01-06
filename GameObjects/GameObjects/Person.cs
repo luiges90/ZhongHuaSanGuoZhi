@@ -581,7 +581,7 @@
         {
             foreach (Skill skill in this.Skills.Skills.Values)
             {
-                skill.Influences.ApplyInfluence(this);
+                skill.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID);
             }
         }
 
@@ -589,7 +589,7 @@
         {
             foreach (Skill skill in this.Skills.Skills.Values)
             {
-                skill.Influences.PurifyInfluence(this);
+                skill.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID);
             }
         }
 
@@ -609,11 +609,11 @@
         {
             if (this.PersonalTitle != null)
             {
-                this.PersonalTitle.Influences.ApplyInfluence(this);
+                this.PersonalTitle.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.PersonalTitle, 0);
             }
             if (this.CombatTitle != null)
             {
-                this.CombatTitle.Influences.ApplyInfluence(this);
+                this.CombatTitle.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.CombatTitle, 0);
             }
         }
 
@@ -621,11 +621,11 @@
         {
             if (this.PersonalTitle != null)
             {
-                this.PersonalTitle.Influences.PurifyInfluence(this);
+                this.PersonalTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.PersonalTitle, 0);
             }
             if (this.CombatTitle != null)
             {
-                this.CombatTitle.Influences.PurifyInfluence(this);
+                this.CombatTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.CombatTitle, 0);
             }
         }
 
@@ -633,7 +633,7 @@
         {
             foreach (Treasure treasure in this.Treasures)
             {
-                treasure.Influences.PurifyInfluence(this);
+                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.ID);
             }
         }
 
@@ -641,7 +641,7 @@
         {
             foreach (Treasure treasure in this.Treasures)
             {
-                treasure.Influences.ApplyInfluence(this);
+                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.ID);
             }
         }
 
@@ -831,14 +831,14 @@
                     {
                         if (i.Kind.Type != GameObjects.Influences.InfluenceType.战斗)
                         {
-                            i.ApplyInfluence(this);
+                            i.ApplyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID);
                         }
                         else
                         {
                             Troop a = this.LocationTroop;
                             if (a != null && a.Leader == this)
                             {
-                                i.ApplyInfluence(a);
+                                i.ApplyInfluence(a, GameObjects.Influences.Applier.Technique, t.ID);
                             }
                         }
                     }
@@ -856,14 +856,14 @@
                     {
                         if (i.Kind.Type != GameObjects.Influences.InfluenceType.战斗)
                         {
-                            i.PurifyInfluence(this);
+                            i.PurifyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID);
                         }
                         else
                         {
                             Troop a = this.LocationTroop;
                             if (a != null && a.Leader == this)
                             {
-                                i.PurifyInfluence(a);
+                                i.PurifyInfluence(a, GameObjects.Influences.Applier.Technique, t.ID);
                             }
                         }
                     }
@@ -877,7 +877,7 @@
             {
                 foreach (Influences.Influence i in this.LocationArchitecture.Characteristics.Influences.Values)
                 {
-                    i.ApplyInfluence(this);
+                    i.ApplyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0);
                 }
                 if (this.LocationArchitecture.FacilityEnabled)
                 {
@@ -885,7 +885,7 @@
                     {
                         foreach (Influences.Influence i in f.Influences.Influences.Values)
                         {
-                            i.ApplyInfluence(this);
+                            i.ApplyInfluence(this, GameObjects.Influences.Applier.Facility, f.ID);
                         }
                     }
                 }
@@ -898,7 +898,7 @@
             {
                 foreach (Influences.Influence i in this.LocationArchitecture.Characteristics.Influences.Values)
                 {
-                    i.PurifyInfluence(this);
+                    i.PurifyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0);
                 }
                 if (this.LocationArchitecture.FacilityEnabled)
                 {
@@ -906,7 +906,7 @@
                     {
                         foreach (Influences.Influence i in f.Influences.Influences.Values)
                         {
-                            i.PurifyInfluence(this);
+                            i.PurifyInfluence(this, GameObjects.Influences.Applier.Facility, f.ID);
                         }
                     }
                 }
@@ -1806,7 +1806,7 @@
                 if (((this.Skills.GetSkill(skill.ID) == null) && skill.CanLearn(this)) && (GameObject.Random((skill.Level * 2) + 8) >= ((skill.Level + num) * 2)))
                 {
                     this.Skills.AddSkill(skill);
-                    skill.Influences.ApplyInfluence(this);
+                    skill.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID);
                     skillString = skillString + "•" + skill.Name;
                     num++;
 					ExtensionInterface.call("StudySkill", new Object[] { this.Scenario, this, skill });
@@ -1858,7 +1858,7 @@
                     {
                         if (this.PersonalTitle != null)
                         {
-                            this.PersonalTitle.Influences.PurifyInfluence(this);
+                            this.PersonalTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.PersonalTitle, 0);
                             flag = true;
                         }
                         this.PersonalTitle = this.StudyingTitle;
@@ -1871,7 +1871,7 @@
                         }
                         if (this.CombatTitle != null)
                         {
-                            this.CombatTitle.Influences.PurifyInfluence(this);
+                            this.CombatTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.CombatTitle, 0);
                             flag = true;
                         }
                         this.CombatTitle = this.StudyingTitle;
@@ -2504,7 +2504,7 @@
         public void LoseTreasure(Treasure t)
         {
             this.Treasures.Remove(t);
-            t.Influences.PurifyInfluence(this);
+            t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, t.ID);
             t.BelongedPerson = null;
         }
 
@@ -2513,7 +2513,7 @@
             foreach (Treasure treasure in list)
             {
                 this.Treasures.Remove(treasure);
-                treasure.Influences.PurifyInfluence(this);
+                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.ID);
                 treasure.BelongedPerson = null;
             }
         }
@@ -2816,7 +2816,7 @@
         {
             this.Treasures.Add(t);
             t.BelongedPerson = this;
-            t.Influences.ApplyInfluence(this);
+            t.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, t.ID);
         }
 
         public void ReceiveTreasureList(TreasureList list)
@@ -2825,7 +2825,7 @@
             {
                 this.Treasures.Add(treasure);
                 treasure.BelongedPerson = this;
-                treasure.Influences.ApplyInfluence(this);
+                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.ID);
             }
         }
 

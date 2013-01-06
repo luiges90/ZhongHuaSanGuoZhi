@@ -112,7 +112,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
         {
             decorativeTextures = null;
             TerrainDetail terrainDetailByPositionNoCheck = this.screen.Scenario.GetTerrainDetailByPositionNoCheck(tile.Position);
-            if (terrainDetailByPositionNoCheck.Textures.BasicTextures.Count != 0)
+            if (terrainDetailByPositionNoCheck.Textures != null && terrainDetailByPositionNoCheck.Textures.BasicTextures.Count != 0)
             {
                 int i;
                 List<int> list;

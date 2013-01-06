@@ -14,66 +14,71 @@
         private string parameter;
         private string parameter2;
 
-        internal List<Architecture> appliedArch = new List<Architecture>();
-        internal List<Person> appliedPerson = new List<Person>();
-        internal List<Faction> appliedFaction = new List<Faction>();
-        internal List<Troop> appliedTroop = new List<Troop>();
+        internal HashSet<ApplyingArchitecture> appliedArch = new HashSet<ApplyingArchitecture>();
+        internal HashSet<ApplyingPerson> appliedPerson = new HashSet<ApplyingPerson>();
+        internal HashSet<ApplyingFaction> appliedFaction = new HashSet<ApplyingFaction>();
+        internal HashSet<ApplyingTroop> appliedTroop = new HashSet<ApplyingTroop>();
 
-        public void ApplyInfluence(Architecture architecture)
+        public void ApplyInfluence(Architecture architecture, Applier applier, int applierID)
         {
-            if (appliedArch.Contains(architecture)) return;
-            appliedArch.Add(architecture);
+            ApplyingArchitecture a = new ApplyingArchitecture(architecture, applier, applierID);
+            if (appliedArch.Contains(a)) return;
+            appliedArch.Add(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.ApplyInfluenceKind(architecture, this);
+                this.Kind.ApplyInfluenceKind(architecture, this, applier, applierID);
             }
             catch
             {
             }
         }
 
-        public void ApplyInfluence(Faction faction)
+        public void ApplyInfluence(Faction faction, Applier applier, int applierID)
         {
-            if (appliedFaction.Contains(faction)) return;
-            appliedFaction.Add(faction);
+            ApplyingFaction a = new ApplyingFaction(faction, applier, applierID);
+            if (appliedFaction.Contains(a)) return;
+            appliedFaction.Add(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.ApplyInfluenceKind(faction, this);
+                this.Kind.ApplyInfluenceKind(faction, this, applier, applierID);
             }
             catch
             {
             }
         }
 
-        public void ApplyInfluence(Person person)
+        public void ApplyInfluence(Person person, Applier applier, int applierID)
         {
-            if (appliedPerson.Contains(person) && 
-                (person.LocationTroop == null || appliedTroop.Contains(person.LocationTroop) || this.Type != InfluenceType.战斗)) return;
-            appliedPerson.Add(person);
+            ApplyingPerson a = new ApplyingPerson(person, applier, applierID);
+            if (appliedPerson.Contains(a) && 
+                (person.LocationTroop == null || appliedTroop.Contains(new ApplyingTroop(person.LocationTroop, applier, applierID)) 
+                    || this.Type != InfluenceType.战斗)) return;
+            appliedPerson.Add(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.ApplyInfluenceKind(person, this);
+                this.Kind.ApplyInfluenceKind(person, this, applier, applierID);
             }
             catch
             {
             }
         }
 
-        public void ApplyInfluence(Troop troop)
+        public void ApplyInfluence(Troop troop, Applier applier, int applierID)
         {
-            if (appliedTroop.Contains(troop) && (this.ID < 390 || this.ID > 399)) return;
-            appliedTroop.Add(troop);
+            ApplyingTroop a = new ApplyingTroop(troop, applier, applierID);
+            if (appliedTroop.Contains(a) && (this.ID < 390 || this.ID > 399)) return;
+            appliedTroop.Add(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.ApplyInfluenceKind(troop, this);
+                this.Kind.ApplyInfluenceKind(troop, this, applier, applierID);
             }
             catch
             {
@@ -113,45 +118,48 @@
             return this.Kind.IsVaild(troop);
         }
 
-        public void PurifyInfluence(Architecture architecture)
+        public void PurifyInfluence(Architecture architecture, Applier applier, int applierID)
         {
-            if (!appliedArch.Contains(architecture)) return;
-            appliedArch.RemoveAll((a) => { return architecture == a; });
+            ApplyingArchitecture a = new ApplyingArchitecture(architecture, applier, applierID);
+            if (!appliedArch.Contains(a)) return;
+            appliedArch.RemoveWhere((x) => { return x.Equals(a); });
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.PurifyInfluenceKind(architecture, this);
+                this.Kind.PurifyInfluenceKind(architecture, this, applier, applierID);
             }
             catch
             {
             }
         }
 
-        public void PurifyInfluence(Faction faction)
+        public void PurifyInfluence(Faction faction, Applier applier, int applierID)
         {
-            if (!appliedFaction.Contains(faction)) return;
-            appliedFaction.RemoveAll((f) => { return faction == f; });
+            ApplyingFaction a = new ApplyingFaction(faction, applier, applierID);
+            if (!appliedFaction.Contains(a)) return;
+            appliedFaction.RemoveWhere((x) => { return x.Equals(a); });
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.PurifyInfluenceKind(faction, this);
+                this.Kind.PurifyInfluenceKind(faction, this, applier, applierID);
             }
             catch
             {
             }
         }
 
-        public void PurifyInfluence(Person person)
+        public void PurifyInfluence(Person person, Applier applier, int applierID)
         {
-            if (!appliedPerson.Contains(person)) return;
-            appliedPerson.RemoveAll((p) => { return person == p; });
+            ApplyingPerson a = new ApplyingPerson(person, applier, applierID);
+            if (!appliedPerson.Contains(a)) return;
+            appliedPerson.RemoveWhere((x) => { return x.Equals(a); });
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.PurifyInfluenceKind(person, this);
+                this.Kind.PurifyInfluenceKind(person, this, applier, applierID);
             }
             catch
             {
@@ -160,18 +168,19 @@
 
         public void TroopDestroyed(Troop troop)
         {
-            appliedTroop.Remove(troop);
+            appliedTroop.RemoveWhere((x) => { return x.troop.Equals(troop); });
         }
 
-        public void PurifyInfluence(Troop troop)
+        public void PurifyInfluence(Troop troop, Applier applier, int applierID)
         {
-            if (!appliedTroop.Contains(troop)) return;
-            appliedTroop.RemoveAll((p) => { return troop == p || p.Destroyed; });
+            ApplyingTroop a = new ApplyingTroop(troop, applier, applierID);
+            if (!appliedTroop.Contains(a)) return;
+            appliedTroop.RemoveWhere((x) => { return x.Equals(a) || x.troop.Destroyed; });
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.PurifyInfluenceKind(troop, this);
+                this.Kind.PurifyInfluenceKind(troop, this, applier, applierID);
             }
             catch
             {

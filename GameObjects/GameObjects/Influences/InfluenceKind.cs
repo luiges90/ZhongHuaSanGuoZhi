@@ -14,15 +14,16 @@
         {
         }
 
-        public void ApplyInfluenceKind(Architecture architecture, Influence i)
+        public void ApplyInfluenceKind(Architecture architecture, Influence i, Applier applier, int applierID)
         {
             ApplyInfluenceKind(architecture);
             foreach (Person p in architecture.Persons)
             {
-                if (!i.appliedPerson.Contains(p))
+                ApplyingPerson a = new ApplyingPerson(p, applier, applierID);
+                if (!i.appliedPerson.Contains(a))
                 {
-                    i.appliedPerson.Add(p);
-                    ApplyInfluenceKind(p, i);
+                    i.appliedPerson.Add(a);
+                    ApplyInfluenceKind(p, i, applier, applierID);
                 }
             }
         }
@@ -31,22 +32,24 @@
         {
         }
 
-        public void ApplyInfluenceKind(Faction faction, Influence i)
+        public void ApplyInfluenceKind(Faction faction, Influence i, Applier applier, int applierID)
         {
             ApplyInfluenceKind(faction);
             foreach (Architecture a in faction.Architectures)
             {
-                if (!i.appliedArch.Contains(a)){
-                    i.appliedArch.Add(a);
-                    ApplyInfluenceKind(a, i);
+                ApplyingArchitecture z = new ApplyingArchitecture(a, applier, applierID);
+                if (!i.appliedArch.Contains(z)){
+                    i.appliedArch.Add(z);
+                    ApplyInfluenceKind(a, i, applier, applierID);
                 }
             }
             foreach (Troop t in faction.Troops)
             {
-                if (!i.appliedTroop.Contains(t))
+                ApplyingTroop a = new ApplyingTroop(t, applier, applierID);
+                if (!i.appliedTroop.Contains(a))
                 {
-                    i.appliedTroop.Add(t);
-                    ApplyInfluenceKind(t, i);
+                    i.appliedTroop.Add(a);
+                    ApplyInfluenceKind(t, i, applier, applierID);
                 }
             }
         }
@@ -55,13 +58,14 @@
         {
         }
 
-        public void ApplyInfluenceKind(Person person, Influence i)
+        public void ApplyInfluenceKind(Person person, Influence i, Applier applier, int applierID)
         {
             ApplyInfluenceKind(person);
-            if (person.LocationTroop != null && !i.appliedTroop.Contains(person.LocationTroop))
+            ApplyingTroop z = new ApplyingTroop(person.LocationTroop, applier, applierID);
+            if (person.LocationTroop != null && !i.appliedTroop.Contains(z))
             {
-                i.appliedTroop.Add(person.LocationTroop);
-                ApplyInfluenceKind(person.LocationTroop, i);
+                i.appliedTroop.Add(z);
+                ApplyInfluenceKind(person.LocationTroop, i, applier, applierID);
             }
         }
 
@@ -69,7 +73,7 @@
         {
         }
 
-        public void ApplyInfluenceKind(Troop troop, Influence i)
+        public void ApplyInfluenceKind(Troop troop, Influence i, Applier applier, int applierID)
         {
             ApplyInfluenceKind(troop);
         }
@@ -112,13 +116,13 @@
         {
         }
 
-        public void PurifyInfluenceKind(Architecture architecture, Influence i)
+        public void PurifyInfluenceKind(Architecture architecture, Influence i, Applier applier, int applierID)
         {
             PurifyInfluenceKind(architecture);
             foreach (Person p in architecture.Persons)
             {
-                i.appliedPerson.RemoveAll((p2) => { return p == p2; });
-                PurifyInfluenceKind(p, i);
+                i.appliedPerson.RemoveWhere((p2) => { return p2.Equals(new ApplyingPerson(p, applier, applierID)); });
+                PurifyInfluenceKind(p, i, applier, applierID);
             }
         }
 
@@ -126,17 +130,17 @@
         {
         }
 
-        public void PurifyInfluenceKind(Faction faction, Influence i)
+        public void PurifyInfluenceKind(Faction faction, Influence i, Applier applier, int applierID)
         {
             PurifyInfluenceKind(faction);
             foreach (Architecture a in faction.Architectures)
             {
-                i.appliedArch.RemoveAll((a2) => { return a == a2; });
-                PurifyInfluenceKind(a, i);
+                i.appliedArch.RemoveWhere((a2) => { return a2.Equals(new ApplyingArchitecture(a, applier, applierID)); });
+                PurifyInfluenceKind(a, i, applier, applierID);
             }
             foreach (Troop t in faction.Troops)
             {
-                PurifyInfluenceKind(t, i);
+                PurifyInfluenceKind(t, i, applier, applierID);
             }
         }
 
@@ -144,13 +148,14 @@
         {
         }
 
-        public void PurifyInfluenceKind(Person person, Influence i)
+        public void PurifyInfluenceKind(Person person, Influence i, Applier applier, int applierID)
         {
             PurifyInfluenceKind(person);
-            if (person.LocationTroop != null && i.appliedTroop.Contains(person.LocationTroop))
+            ApplyingTroop t = new ApplyingTroop(person.LocationTroop, applier, applierID);
+            if (person.LocationTroop != null && i.appliedTroop.Contains(t))
             {
-                i.appliedTroop.RemoveAll((a2) => { return person.LocationTroop == a2; });
-                PurifyInfluenceKind(person.LocationTroop, i);
+                i.appliedTroop.RemoveWhere((a2) => { return t.Equals(a2); });
+                PurifyInfluenceKind(person.LocationTroop, i, applier, applierID);
             }
         }
 
@@ -158,7 +163,7 @@
         {
         }
 
-        public void PurifyInfluenceKind(Troop troop, Influence i)
+        public void PurifyInfluenceKind(Troop troop, Influence i, Applier applier, int applierID)
         {
             PurifyInfluenceKind(troop);
         }

@@ -1112,5 +1112,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4125.cs" />
+    <Compile Include="GameObjects\Influences\Applier.cs" />
+    <Compile Include="GameObjects\Influences\ApplyingArchitecture.cs" />
+    <Compile Include="GameObjects\Influences\ApplyingFaction.cs" />
+    <Compile Include="GameObjects\Influences\ApplyingPerson.cs" />
+    <Compile Include="GameObjects\Influences\ApplyingTroop.cs" />
   </ItemGroup>
 </Project>

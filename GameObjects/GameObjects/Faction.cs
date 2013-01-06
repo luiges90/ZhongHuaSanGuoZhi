@@ -688,7 +688,7 @@
         {
             foreach (Technique technique in this.AvailableTechniques.Techniques.Values)
             {
-                technique.Influences.ApplyInfluence(this);
+                technique.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Technique, technique.ID);
             }
         }
 
@@ -2034,7 +2034,7 @@
         {
             foreach (Technique technique in this.AvailableTechniques.Techniques.Values)
             {
-                technique.Influences.PurifyInfluence(this);
+                technique.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Technique, technique.ID);
             }
         }
 
@@ -3292,7 +3292,7 @@
                     {
                         this.AvailableTechniques.AddTechnique(technique);
                         base.Scenario.NewInfluence = true;
-                        technique.Influences.ApplyInfluence(this);
+                        technique.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Technique, technique.ID);
                         base.Scenario.NewInfluence = false;
                         if (this.OnTechniqueFinished != null)
                         {

@@ -305,23 +305,23 @@
                     {
                         if (person.CombatTitle != null)
                         {
-                            person.CombatTitle.Influences.PurifyInfluence(person);
+                            person.CombatTitle.Influences.PurifyInfluence(person, Applier.CombatTitle, 0);
                         }
                         if (person.PersonalTitle != null)
                         {
-                            person.PersonalTitle.Influences.PurifyInfluence(person);
+                            person.PersonalTitle.Influences.PurifyInfluence(person, Applier.PersonalTitle, 0);
                         }
                         foreach (Skill s in person.Skills.GetSkillList())
                         {
-                            s.Influences.PurifyInfluence(person);
+                            s.Influences.PurifyInfluence(person, Applier.Skill, s.ID);
                         }
                         foreach (Stunt s in person.Stunts.GetStuntList())
                         {
-                            s.Influences.PurifyInfluence(person);
+                            s.Influences.PurifyInfluence(person, Applier.Stunt, 0);
                         }
                         foreach (Treasure t in person.Treasures)
                         {
-                            t.Influences.PurifyInfluence(person);
+                            t.Influences.PurifyInfluence(person, Applier.Treasure, t.ID);
                         }
                     }
                 }

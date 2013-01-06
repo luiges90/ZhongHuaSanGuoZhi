@@ -37,7 +37,7 @@
             troop.StuntDayLeft = this.Period;
             foreach (Influence influence in this.Influences.Influences.Values)
             {
-                influence.ApplyInfluence(troop.Leader);
+                influence.ApplyInfluence(troop.Leader, Applier.Stunt, 0);
             }
             troop.RefreshAllData();
         }
@@ -102,7 +102,7 @@
         {
             foreach (Influence influence in this.Influences.Influences.Values)
             {
-                influence.PurifyInfluence(troop.Leader);
+                influence.PurifyInfluence(troop.Leader, Applier.Stunt, 0);
             }
         }
 

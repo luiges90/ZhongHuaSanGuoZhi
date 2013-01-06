@@ -17,7 +17,7 @@
                 if (t != null)
                 {
                     person.LocationTroop.EventInfluences.Add(t);
-                    t.ApplyInfluence(person.LocationTroop);
+                    t.ApplyInfluence(person.LocationTroop, Applier.Event, 0);
                 }
             }
         }
@@ -28,7 +28,7 @@
             if (t != null)
             {
                 troop.EventInfluences.Add(t);
-                t.ApplyInfluence(troop);
+                t.ApplyInfluence(troop, Applier.Event, 0);
             }
         }
 

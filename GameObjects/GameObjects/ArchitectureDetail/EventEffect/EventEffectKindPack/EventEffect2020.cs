@@ -12,7 +12,7 @@
             GameObjects.FactionDetail.Technique technique = f.Scenario.GameCommonData.AllTechniques.GetTechnique(increment);
             f.AvailableTechniques.AddTechnique(technique);
             f.Scenario.NewInfluence = true;
-            technique.Influences.ApplyInfluence(f);
+            technique.Influences.ApplyInfluence(f, GameObjects.Influences.Applier.Technique, increment);
             f.Scenario.NewInfluence = false;
         }
 

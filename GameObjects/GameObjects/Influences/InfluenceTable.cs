@@ -18,23 +18,23 @@
             return true;
         }
 
-        public void ApplyInfluence(Architecture architecture)
+        public void ApplyInfluence(Architecture architecture, Applier applier, int applierID)
         {
             foreach (Influence influence in this.Influences.Values)
             {
-                influence.ApplyInfluence(architecture);
+                influence.ApplyInfluence(architecture, applier, applierID);
             }
         }
 
-        public void ApplyInfluence(Faction faction)
+        public void ApplyInfluence(Faction faction, Applier applier, int applierID)
         {
             foreach (Influence influence in this.Influences.Values)
             {
-                influence.ApplyInfluence(faction);
+                influence.ApplyInfluence(faction, applier, applierID);
             }
         }
 
-        public void ApplyInfluence(Person person)
+        public void ApplyInfluence(Person person, Applier applier, int applierID)
         {
             bool flag = false;
             bool flag2 = false;
@@ -44,7 +44,7 @@
                 {
                     if (!flag || flag2)
                     {
-                        influence.ApplyInfluence(person);
+                        influence.ApplyInfluence(person, applier, applierID);
                     }
                     continue;
                 }
@@ -72,19 +72,19 @@
             this.Influences.Clear();
         }
 
-        public void DirectlyApplyInfluence(Troop troop)
+        public void DirectlyApplyInfluence(Troop troop, Applier applier, int applierID)
         {
             foreach (Influence influence in this.Influences.Values)
             {
-                influence.ApplyInfluence(troop);
+                influence.ApplyInfluence(troop, applier, applierID);
             }
         }
 
-        public void DirectlyPurifyInfluence(Troop troop)
+        public void DirectlyPurifyInfluence(Troop troop, Applier applier, int applierID)
         {
             foreach (Influence influence in this.Influences.Values)
             {
-                influence.PurifyInfluence(troop);
+                influence.PurifyInfluence(troop, applier, applierID);
             }
         }
 
@@ -124,27 +124,27 @@
             }
         }
 
-        public void PurifyInfluence(Architecture architecture)
+        public void PurifyInfluence(Architecture architecture, Applier applier, int applierID)
         {
             foreach (Influence influence in this.Influences.Values)
             {
-                influence.PurifyInfluence(architecture);
+                influence.PurifyInfluence(architecture, applier, applierID);
             }
         }
 
-        public void PurifyInfluence(Faction faction)
+        public void PurifyInfluence(Faction faction, Applier applier, int applierID)
         {
             foreach (Influence influence in this.Influences.Values)
             {
-                influence.PurifyInfluence(faction);
+                influence.PurifyInfluence(faction, applier, applierID);
             }
         }
 
-        public void PurifyInfluence(Person p)
+        public void PurifyInfluence(Person p, Applier applier, int applierID)
         {
             foreach (Influence influence in this.Influences.Values)
             {
-                influence.PurifyInfluence(p);
+                influence.PurifyInfluence(p, applier, applierID);
             }
         }
 

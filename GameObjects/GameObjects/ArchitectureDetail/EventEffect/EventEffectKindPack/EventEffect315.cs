@@ -13,12 +13,14 @@
             if (person.CombatTitle == title)
             {
                 person.CombatTitle = null;
+                title.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.CombatTitle, 0);
             }
             else if (person.PersonalTitle == title)
             {
                 person.PersonalTitle = null;
+                title.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.PersonalTitle, 0);
             }
-            title.Influences.PurifyInfluence(person);
+            
         }
 
         public override void InitializeParameter(string parameter)

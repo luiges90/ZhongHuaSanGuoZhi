@@ -28,7 +28,7 @@
         {
             foreach (Influence influence in this.Influences.Influences.Values)
             {
-                influence.ApplyInfluence(troop);
+                influence.ApplyInfluence(troop, Applier.Stratagem, 0);
             }
         }
 
