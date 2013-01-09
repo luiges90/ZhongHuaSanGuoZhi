@@ -898,7 +898,7 @@
                 else
                 {
                     //remove useless facilities
-                    if (this.BelongedSection.AIDetail.AllowFacilityRemoval)
+                    if (this.BelongedSection != null && this.BelongedSection.AIDetail.AllowFacilityRemoval)
                     {
                         foreach (Facility i in this.Facilities)
                         {
