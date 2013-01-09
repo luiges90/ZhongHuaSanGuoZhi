@@ -249,7 +249,7 @@
 
                 if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive &&  joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
-                    person.LocationArchitecture = joinToPerson.LocationArchitecture;
+                    person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, "ChildJoin", "", "", person.Name, false);
@@ -264,7 +264,7 @@
                 joinToPerson = this.Persons.GetGameObject(person.Mother) as Person;
                 if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive && joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
-                    person.LocationArchitecture = joinToPerson.LocationArchitecture;
+                    person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, "ChildJoin", "", "", person.Name, false);
@@ -276,7 +276,7 @@
                 joinToPerson = this.Persons.GetGameObject(person.Spouse) as Person;
                 if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive && joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
-                    person.LocationArchitecture = joinToPerson.LocationArchitecture;
+                    person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
                     if (person.Sex) //女的
