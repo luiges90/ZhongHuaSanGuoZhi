@@ -1636,7 +1636,7 @@
             if (!this.HasPath)
             {
                 if (this.BelongedFaction != null && !base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture == null &&
-                    this.TargetTroop == null)
+                    this.TargetTroop == null && this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive)
                 {
                     MilitaryKind trueKind = this.Army.KindID == 28 ? this.Army.RealMilitaryKind : this.Army.Kind;
                     List<Point> refPath;
