@@ -1405,7 +1405,7 @@
                             if (i == this) continue;
                             double minDist = double.MaxValue;
                             double distance = base.Scenario.GetDistance(this.Position, i.Position);
-                            if (distance < minDist && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                            if (distance < minDist && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this && i.PersonCount > 0)
                             {
                                 minDist = distance;
                                 src = i;
@@ -3173,7 +3173,7 @@
                 }
             }
 
-            if (target == null && GameObject.Random(10) == 0)
+            /*if (target == null && GameObject.Random(10) == 0)
             {
                 foreach (LinkNode i in this.AIAllLinkNodes.Values)
                 {
@@ -3211,7 +3211,7 @@
                         leastTroop = i.A.ArmyScale;
                     }
                 }
-            }
+            }*/
 
             if (target != null)
             {
