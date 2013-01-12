@@ -1204,7 +1204,7 @@
                 }
             }
             //nafei
-            if (leader.WaitForFeiZi != null)
+            if (leader.WaitForFeiZi != null && leader.Status == PersonStatus.Normal)
             {
                 if (this.meinvkongjian() - this.feiziliebiao.Count <= 0 || !this.BelongedFaction.Leader.isLegalFeiZi(leader.WaitForFeiZi))
                 {
@@ -1227,7 +1227,7 @@
             }
             else
             {
-                if (!leader.IsCaptive && this.meinvkongjian() - this.feiziliebiao.Count > 0 && GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0 && leader.LocationArchitecture != null &&
+                if (!leader.IsCaptive && this.meinvkongjian() - this.feiziliebiao.Count > 0 && GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0 && leader.LocationArchitecture != null && leader.Status == PersonStatus.Normal &&
                     (((!leader.LocationArchitecture.HostileLine || GameObject.Chance(Parameters.AILeaveHostilelineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIHostilelineHougongChance)))
                     && (!leader.LocationArchitecture.FrontLine || GameObject.Chance(Parameters.AILeaveFrontlineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIFrontlineHougongChance))))
                     || GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower)))))
@@ -1258,7 +1258,7 @@
                     }
                     if (toTake != null)
                     {
-                        if (leader.LocationArchitecture != this)
+                        if (leader.LocationArchitecture != this && leader.Status == PersonStatus.Normal)
                         {
                             leader.MoveToArchitecture(this);
                             //leader.LocationArchitecture.RemovePerson(leader);
@@ -1266,7 +1266,7 @@
                         }
                         if (toTake.LocationArchitecture == this && toTake.Status == PersonStatus.Normal)
                         {
-                            if (leader.LocationArchitecture == this)
+                            if (leader.LocationArchitecture == this && leader.Status == PersonStatus.Normal)
                             {
                                 leader.XuanZeMeiNv(toTake);
                                 toTake.WaitForFeiZi = null;
@@ -1289,7 +1289,7 @@
             }
             //chongxing
             if (!leader.IsCaptive && !leader.huaiyun && meifaxianhuaiyundefeiziliebiao().Count > 0 && leader.LocationArchitecture != null && GameObject.Chance((int) ((int)leader.Ambition * Parameters.AIChongxingChanceMultiply + Parameters.AIChongxingChanceAdd)) &&
-                    this.BelongedFaction.Leader.WaitForFeiZi == null &&
+                    this.BelongedFaction.Leader.WaitForFeiZi == null && leader.Status == PersonStatus.Normal &&
                    (((!leader.LocationArchitecture.HostileLine || GameObject.Chance(Parameters.AILeaveHostilelineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIHostilelineHougongChance)))
                     && (!leader.LocationArchitecture.FrontLine || GameObject.Chance(Parameters.AILeaveFrontlineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIFrontlineHougongChance))))
                     || GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower)))))
@@ -1744,7 +1744,7 @@
                         Person personToMove = null;
                         foreach (Person p in this.BelongedFaction.Persons)
                         {
-                            if (!p.IsCaptive && p.LocationArchitecture != null && p.LocationArchitecture.BelongedSection == this.BelongedSection && p.Merit < minMerit && p.BelongedArchitecture.PersonCount + p.BelongedArchitecture.MovingPersons.Count > 1)
+                            if (!p.IsCaptive && p.LocationArchitecture != null && p.Status == PersonStatus.Normal && p.LocationArchitecture.BelongedSection == this.BelongedSection && p.Merit < minMerit && p.BelongedArchitecture.PersonCount + p.BelongedArchitecture.MovingPersons.Count > 1)
                             {
                                 personToMove = p;
                                 minMerit = p.Merit;
@@ -3231,7 +3231,7 @@
                     Person personToMove = null;
                     foreach (Person p in this.BelongedFaction.Persons)
                     {
-                        if (!p.IsCaptive && p.LocationArchitecture != null && p.LocationArchitecture.BelongedSection == this.BelongedSection 
+                        if (!p.IsCaptive && p.LocationArchitecture != null && p.LocationArchitecture.BelongedSection == this.BelongedSection && p.Status == PersonStatus.Normal 
                             && p.Merit < minMerit && p.BelongedArchitecture.PersonCount + p.BelongedArchitecture.MovingPersons.Count > 1)
                         {
                             personToMove = p;
@@ -3289,7 +3289,7 @@
                                     this.BuildTroopForTransfer(i, target.A, target.Kind);
                                 }
                             } 
-                            else if (!armyLeader.IsCaptive && armyLeader.LocationArchitecture != null && armyLeader.LocationArchitecture.BelongedSection == this.BelongedSection)
+                            else if (!armyLeader.IsCaptive && armyLeader.LocationArchitecture != null && armyLeader.Status == PersonStatus.Normal && armyLeader.LocationArchitecture.BelongedSection == this.BelongedSection)
                             {
                                 armyLeader.MoveToArchitecture(this);
                             }

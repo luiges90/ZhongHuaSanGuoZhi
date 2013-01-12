@@ -873,7 +873,7 @@
 
         public void ApplyArchitectureInfluence()
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 foreach (Influences.Influence i in this.LocationArchitecture.Characteristics.Influences.Values)
                 {
@@ -894,7 +894,7 @@
 
         public void PurifyArchitectureInfluence()
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 foreach (Influences.Influence i in this.LocationArchitecture.Characteristics.Influences.Values)
                 {
@@ -1933,7 +1933,7 @@
 
         public bool YoukenengChuangjianXinShili()
         {
-            if (this.LeaderPossibility == false || this.IsCaptive || this.LocationArchitecture == null)
+            if (this.LeaderPossibility == false || this.IsCaptive || this.LocationArchitecture == null || this.Status != PersonStatus.Normal)
             {
                 return false;
             }
@@ -2038,7 +2038,7 @@
 
         public void GoForConvince(Person person)
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.说服;
                 this.ConvincingPerson = person;
@@ -2051,7 +2051,7 @@
 
         public void GoForDestroy(Point position)
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.破坏;
                 this.OutsideDestination = new Point?(position);
@@ -2064,7 +2064,7 @@
 
         public void GoForGossip(Point position)
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.流言;
                 this.OutsideDestination = new Point?(position);
@@ -2077,7 +2077,7 @@
 
         public void GoForInformation(Point position)
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.情报;
                 this.OutsideDestination = new Point?(position);
@@ -2091,7 +2091,7 @@
 
         public void GoForInstigate(Point position)
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.煽动;
                 this.OutsideDestination = new Point?(position);
@@ -2104,7 +2104,7 @@
 
         public void GoForSearch()
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.搜索;
                 this.TargetArchitecture = this.LocationArchitecture;
@@ -2123,7 +2123,7 @@
 
         public void GoForSpy(Point position)
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.间谍;
                 this.OutsideDestination = new Point?(position);
@@ -2136,7 +2136,7 @@
 
         public void GoForStudySkill()
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.技能;
                 this.TargetArchitecture = this.LocationArchitecture;
@@ -2149,7 +2149,7 @@
 
         public void GoForStudyStunt(Stunt desStunt)
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.特技;
                 this.StudyingStunt = desStunt;
@@ -2163,7 +2163,7 @@
 
         public void GoForStudyTitle(Title desTitle)
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 this.OutsideTask = OutsideTaskKind.称号;
                 this.StudyingTitle = desTitle;
@@ -2421,7 +2421,7 @@
 
         private void LeaveFaction()
         {
-            if (GameObject.Chance(20) && ((((this.LocationArchitecture != null) && (this.BelongedFaction != null)) && (this.BelongedFaction.Leader != this)) && !this.IsCaptive))
+            if (GameObject.Chance(20) && ((((this.LocationArchitecture != null) && this.Status == PersonStatus.Normal && (this.BelongedFaction != null)) && (this.BelongedFaction.Leader != this)) && !this.IsCaptive))
             {
                 if ((this.Loyalty < 50) && (GameObject.Random(this.Loyalty * (1 + (int)this.PersonalLoyalty)) <= GameObject.Random(5)))
                 {
@@ -2638,6 +2638,8 @@
 
             if (a == null) return;
 
+            if (this.Status != PersonStatus.Normal) return;
+
             if (this.LocationArchitecture != a || startingPoint != null)
             {
                 Point position = this.Position;
@@ -2696,7 +2698,7 @@
 
         public void NoFactionMove()
         {
-            if (((((this.BelongedFaction == null) && (this.ArrivingDays == 0)) && (this.LocationArchitecture != null)) && !this.IsCaptive) && GameObject.Chance((2 + (int) this.Ambition) + (this.LeaderPossibility ? 10 : 0)) && this.Status != PersonStatus.Princess)
+            if (((((this.BelongedFaction == null) && (this.ArrivingDays == 0)) && (this.LocationArchitecture != null) && this.Status == PersonStatus.NoFaction) && !this.IsCaptive) && GameObject.Chance((2 + (int)this.Ambition) + (this.LeaderPossibility ? 10 : 0)) && this.Status != PersonStatus.Princess)
             {
                 if (GameObject.Chance(50 + (this.LeaderPossibility ? 10 : 0)))
                 {
@@ -2836,7 +2838,7 @@
         private void SetDayInfluence()
         {
             this.RewardFinished = false;
-            if (!this.IsCaptive)
+            if (this.Status == PersonStatus.Normal)
             {
                 if (((this.DayRateIncrementOfInternal > 0f) && ((this.BelongedFaction != null) && (this.LocationArchitecture != null))) && (this.LocationArchitecture.DayRateIncrementOfInternal < this.DayRateIncrementOfInternal))
                 {
@@ -5664,7 +5666,7 @@
 
         public void GoForHouGong(Person nvren)
         {
-            if (this.LocationArchitecture != null)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 int houGongDays = nvren.Glamour / 4 + GameObject.Random(6) + 10;
                 if (!nvren.HatedPersons.Contains(this.ID))
