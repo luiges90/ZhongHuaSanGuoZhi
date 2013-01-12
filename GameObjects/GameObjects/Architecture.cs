@@ -194,6 +194,8 @@
         public float militaryPopulationRateIncrease;
         public float enduranceDecreaseRateDrop;
 
+        public float ExperienceRate;
+
         public float facilityConstructionTimeRateDecrease = 0;
 
         public event BeginRecentlyAttacked OnBeginRecentlyAttacked;

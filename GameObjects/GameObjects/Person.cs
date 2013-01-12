@@ -409,7 +409,9 @@
 
         public void AddBubingExperience(int increment)
         {
-            this.bubingExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate));
+            this.bubingExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate) 
+                * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
             if (this.bubingExperience > maxExperience)
             {
                 this.bubingExperience = maxExperience;
@@ -420,7 +422,9 @@
         {
             if (increment > 0)
             {
-                this.commandExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate));
+                this.commandExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
                 if (this.commandExperience > maxExperience)
                 {
                     this.commandExperience = maxExperience;
@@ -432,7 +436,9 @@
         {
             if (increment > 0)
             {
-                this.glamourExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate));
+                this.glamourExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
                 if (this.glamourExperience > maxExperience)
                 {
                     this.glamourExperience = maxExperience;
@@ -444,7 +450,9 @@
         {
             if (increment > 0)
             {
-                this.intelligenceExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate));
+                this.intelligenceExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
                 if (this.intelligenceExperience > maxExperience)
                 {
                     this.intelligenceExperience = maxExperience;
@@ -454,7 +462,9 @@
 
         public void AddInternalExperience(int increment)
         {
-            this.internalExperience += (increment * Parameters.InternalExperienceRate * (1 + ExperienceRate));
+            this.internalExperience += (increment * Parameters.InternalExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
             if (this.internalExperience > maxExperience)
             {
                 this.internalExperience = maxExperience;
@@ -463,7 +473,9 @@
 
         public void AddNubingExperience(int increment)
         {
-            this.nubingExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate));
+            this.nubingExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
             if (this.nubingExperience > maxExperience)
             {
                 this.nubingExperience = maxExperience;
@@ -474,7 +486,9 @@
         {
             if (increment > 0)
             {
-                this.politicsExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate));
+                this.politicsExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
                 if (this.politicsExperience > maxExperience)
                 {
                     this.politicsExperience = maxExperience;
@@ -484,7 +498,9 @@
 
         public void AddQibingExperience(int increment)
         {
-            this.qibingExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate));
+            this.qibingExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
             if (this.qibingExperience > maxExperience)
             {
                 this.qibingExperience = maxExperience;
@@ -493,7 +509,9 @@
 
         public void AddQixieExperience(int increment)
         {
-            this.qixieExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate));
+            this.qixieExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
             if (this.qixieExperience > maxExperience)
             {
                 this.qixieExperience = maxExperience;
@@ -502,7 +520,9 @@
 
         public void AddShuijunExperience(int increment)
         {
-            this.shuijunExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate));
+            this.shuijunExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
             if (this.shuijunExperience > maxExperience)
             {
                 this.shuijunExperience = maxExperience;
@@ -511,7 +531,9 @@
 
         public void AddStratagemExperience(int increment)
         {
-            this.stratagemExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate));
+            this.stratagemExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
             if (this.stratagemExperience > maxExperience)
             {
                 this.stratagemExperience = maxExperience;
@@ -522,7 +544,9 @@
         {
             if (increment > 0)
             {
-                this.strengthExperience += (int)(increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate));
+                this.strengthExperience += (int)(increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
                 if (this.strengthExperience > maxExperience)
                 {
                     this.strengthExperience = maxExperience;
@@ -532,7 +556,9 @@
 
         public bool AddTacticsExperience(int increment)
         {
-            this.tacticsExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate));
+            this.tacticsExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
+                    * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
             if (this.tacticsExperience > maxExperience)
             {
                 this.tacticsExperience = maxExperience;

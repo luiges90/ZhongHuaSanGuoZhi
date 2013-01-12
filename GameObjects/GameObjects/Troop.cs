@@ -371,6 +371,8 @@
         public bool YesOrNoOfObliqueStratagem;
         public bool YesOrNoOfObliqueView;
 
+        public float ExperienceRate;
+
         public bool ManualControl;
 
         public List<int> AllowedStrategems = new List<int>();

@@ -8,22 +8,14 @@
     {
         private float rate;
 
-        public override void ApplyInfluenceKind(Person person)
+        public override void ApplyInfluenceKind(Architecture architecture)
         {
-            return;
-            foreach (Person i in person.LocationArchitecture.Persons) 
-            {
-                i.ExperienceRate += rate;
-            }
+            architecture.ExperienceRate += rate;
         }
 
-        public override void PurifyInfluenceKind(Person person)
+        public override void PurifyInfluenceKind(Architecture architecture)
         {
-            return;
-            foreach (Person i in person.LocationArchitecture.Persons) 
-            {
-                i.ExperienceRate -= rate;
-            }
+            architecture.ExperienceRate -= rate;
         }
 
         public override void InitializeParameter(string parameter)
