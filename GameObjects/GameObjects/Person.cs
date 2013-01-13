@@ -5167,27 +5167,22 @@
             this.BaseStrength = (int)(this.BaseStrength * 0.9 + muqin.BaseStrength * 0.1);
             this.BaseStrength += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
             if (this.BaseStrength > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BaseStrength = 100;
-            if (this.BaseStrength < 0) this.BaseStrength = 0;
 
             this.BaseCommand = (int)(this.BaseCommand * 0.9 + muqin.BaseCommand * 0.1);
             this.BaseCommand += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
             if (this.BaseCommand > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BaseCommand = 100;
-            if (this.BaseCommand < 0) this.BaseCommand = 0;
 
             this.BaseIntelligence = (int)(this.BaseIntelligence * 0.9 + muqin.BaseIntelligence * 0.1);
             this.BaseIntelligence += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
             if (this.BaseIntelligence > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BaseIntelligence = 100;
-            if (this.BaseIntelligence < 0) this.BaseIntelligence = 0;
 
             this.BasePolitics = (int)(this.BasePolitics * 0.9 + muqin.BasePolitics * 0.1);
             this.BasePolitics += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
             if (this.BasePolitics > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BasePolitics = 100;
-            if (this.BasePolitics < 0) this.BasePolitics = 0;
 
             this.BaseGlamour = (int)(this.BaseGlamour * 0.9 + muqin.BaseGlamour * 0.1);
             this.BaseGlamour += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
             if (this.BaseGlamour > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BaseGlamour = 100;
-            if (this.BaseGlamour < 0) this.BaseGlamour = 0;
         }
 
         private static List<String> readTextList(String fileName)
