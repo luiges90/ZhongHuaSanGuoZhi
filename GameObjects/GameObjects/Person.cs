@@ -2454,7 +2454,7 @@
 					this.LeaveToNoFaction();
 					ExtensionInterface.call("LeaveFaction", new Object[] { this.Scenario, this });
                 }
-                else if (((GlobalVariables.IdealTendencyValid && (this.IdealTendency != null)) && (this.IdealTendency.Offset <= 1)) && (this.BelongedFaction.Leader != null))
+                /*else if (((GlobalVariables.IdealTendencyValid && (this.IdealTendency != null)) && (this.IdealTendency.Offset <= 1)) && (this.BelongedFaction.Leader != null))
                 {
                     int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
                     if (idealOffset > this.IdealTendency.Offset + (double) this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
@@ -2481,7 +2481,7 @@
                             }
                         }
                     }
-                }
+                }*/
                 if (this.BelongedFaction != null)
                 {
                     if (this.HatedPersons.Contains(this.BelongedFaction.LeaderID))
