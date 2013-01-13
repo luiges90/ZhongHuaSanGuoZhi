@@ -317,6 +317,11 @@
             {
                 person.muqinyingxiangnengli(muqin);
             }
+            if (person.Command < 1) person.Command = 1;
+            if (person.Strength < 1) person.Strength = 1;
+            if (person.Intelligence < 1) person.Intelligence = 1;
+            if (person.Politics < 1) person.Politics = 1;
+            if (person.Glamour < 1) person.Glamour = 1;
             this.GameScreen.haizizhangdachengren(person);
         }
 
