@@ -547,6 +547,15 @@
                 exception = exception24;
                 throw new Exception("EnableLoadInGame:\n" + exception.ToString());
             }
+            try
+            {
+                LandArmyCanGoDownWater = bool.Parse(nextSibling.Attributes.GetNamedItem("LandArmyCanGoDownWater").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("LandArmyCanGoDownWater:\n" + exception.ToString());
+            }
             return true;
         }
     }

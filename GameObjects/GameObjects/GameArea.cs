@@ -133,34 +133,42 @@
 
         public GameArea GetContactArea(bool oblique)
         {
+            return GetContactArea(oblique, null, false);
+        }
+
+        public GameArea GetContactArea(bool oblique, GameScenario scen, bool waterOnly)
+        {
             GameArea area = new GameArea();
             Dictionary<Point, object> dictionary = new Dictionary<Point, object>();
             foreach (Point point2 in this.Area)
             {
-                dictionary.Add(point2, null);
+                if (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6)
+                {
+                    dictionary.Add(point2, null);
+                }
             }
             foreach (Point point2 in this.Area)
             {
                 Point key = new Point(point2.X - 1, point2.Y);
-                if (!dictionary.ContainsKey(key))
+                if (!dictionary.ContainsKey(key) && (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6))
                 {
                     dictionary.Add(key, null);
                     area.AddPoint(key);
                 }
                 key = new Point(point2.X + 1, point2.Y);
-                if (!dictionary.ContainsKey(key))
+                if (!dictionary.ContainsKey(key) && (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6))
                 {
                     dictionary.Add(key, null);
                     area.AddPoint(key);
                 }
                 key = new Point(point2.X, point2.Y - 1);
-                if (!dictionary.ContainsKey(key))
+                if (!dictionary.ContainsKey(key) && (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6))
                 {
                     dictionary.Add(key, null);
                     area.AddPoint(key);
                 }
                 key = new Point(point2.X, point2.Y + 1);
-                if (!dictionary.ContainsKey(key))
+                if (!dictionary.ContainsKey(key) && (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6))
                 {
                     dictionary.Add(key, null);
                     area.AddPoint(key);
@@ -168,25 +176,25 @@
                 if (oblique)
                 {
                     key = new Point(point2.X - 1, point2.Y - 1);
-                    if (!dictionary.ContainsKey(key))
+                    if (!dictionary.ContainsKey(key) && (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6))
                     {
                         dictionary.Add(key, null);
                         area.AddPoint(key);
                     }
                     key = new Point(point2.X + 1, point2.Y - 1);
-                    if (!dictionary.ContainsKey(key))
+                    if (!dictionary.ContainsKey(key) && (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6))
                     {
                         dictionary.Add(key, null);
                         area.AddPoint(key);
                     }
                     key = new Point(point2.X - 1, point2.Y + 1);
-                    if (!dictionary.ContainsKey(key))
+                    if (!dictionary.ContainsKey(key) && (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6))
                     {
                         dictionary.Add(key, null);
                         area.AddPoint(key);
                     }
                     key = new Point(point2.X + 1, point2.Y + 1);
-                    if (!dictionary.ContainsKey(key))
+                    if (!dictionary.ContainsKey(key) && (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6))
                     {
                         dictionary.Add(key, null);
                         area.AddPoint(key);

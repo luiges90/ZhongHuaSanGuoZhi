@@ -9031,13 +9031,17 @@
                     consumptionRate = terrainDetailByPositionNoCheck.RoutewayConsumptionRate;
                     int routewayBuildWorkCost = terrainDetailByPositionNoCheck.RoutewayBuildWorkCost;
                     int routewayWorkForce = 100;
-                    if (this.pathFinder.MultipleWaterCost && (terrainDetailByPositionNoCheck.ID == 6))
+                    Architecture landedArch = base.Scenario.GetArchitectureByPosition(position);
+                    if (landedArch != null && landedArch != this.pathFinder.startingArchitecture && landedArch != this.pathFinder.targetArchitecture)
                     {
-                        routewayBuildWorkCost = 1000;
-                    }
-                    if (this.pathFinder.MustUseWater && (terrainDetailByPositionNoCheck.ID != 6))
-                    {
-                        routewayBuildWorkCost = 1000;
+                        if (this.pathFinder.MultipleWaterCost && terrainDetailByPositionNoCheck.ID == 6)
+                        {
+                            routewayBuildWorkCost = 1000;
+                        }
+                        if (this.pathFinder.MustUseWater && (terrainDetailByPositionNoCheck.ID != 6))
+                        {
+                            routewayBuildWorkCost = 1000;
+                        }
                     }
                     return ((routewayBuildWorkCost <= routewayWorkForce) ? routewayBuildWorkCost : 0x3e8);
                 }
@@ -9070,6 +9074,8 @@
                     pathFinder.ConsumptionMax = 0.7f;
                     pathFinder.startingArchitecture = this;
                     pathFinder.targetArchitecture = i;
+                    pathFinder.MultipleWaterCost = !GlobalVariables.LandArmyCanGoDownWater;
+                    pathFinder.MustUseWater = false;
                     Point? p1;
                     Point? p2;
                     base.Scenario.GetClosestPointsBetweenTwoAreas(this.ArchitectureArea.GetContactArea(false), i.ArchitectureArea.GetContactArea(false), out p1, out p2);
@@ -9095,13 +9101,14 @@
                 if (i.AIWaterLinks.GameObjects.Contains(this)) continue;
                 pathFinder.startingArchitecture = this;
                 pathFinder.targetArchitecture = i;
+                pathFinder.MultipleWaterCost = false;
                 pathFinder.MustUseWater = true;
                 if (base.Scenario.GetSimpleDistance(i.Position, this.Position) < maxDistance)
                 {
                     pathFinder.ConsumptionMax = 0.7f;
                     Point? p1;
                     Point? p2;
-                    base.Scenario.GetClosestPointsBetweenTwoAreas(this.ArchitectureArea.GetContactArea(false), i.ArchitectureArea.GetContactArea(false), out p1, out p2);
+                    base.Scenario.GetClosestPointsBetweenTwoAreas(this.ArchitectureArea.GetContactArea(false, base.Scenario, true), i.ArchitectureArea.GetContactArea(false, base.Scenario, true), out p1, out p2);
                     if (p1.HasValue && p2.HasValue)
                     {
                         if (pathFinder.GetPath(p1.Value, p2.Value, true))
