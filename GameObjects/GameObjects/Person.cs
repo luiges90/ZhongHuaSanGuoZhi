@@ -411,7 +411,8 @@
         {
             this.bubingExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate) 
                 * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
             if (this.bubingExperience > maxExperience)
             {
                 this.bubingExperience = maxExperience;
@@ -424,7 +425,8 @@
             {
                 this.commandExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
                 if (this.commandExperience > maxExperience)
                 {
                     this.commandExperience = maxExperience;
@@ -438,7 +440,8 @@
             {
                 this.glamourExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
                 if (this.glamourExperience > maxExperience)
                 {
                     this.glamourExperience = maxExperience;
@@ -452,7 +455,8 @@
             {
                 this.intelligenceExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
                 if (this.intelligenceExperience > maxExperience)
                 {
                     this.intelligenceExperience = maxExperience;
@@ -464,7 +468,8 @@
         {
             this.internalExperience += (increment * Parameters.InternalExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
             if (this.internalExperience > maxExperience)
             {
                 this.internalExperience = maxExperience;
@@ -475,7 +480,8 @@
         {
             this.nubingExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
             if (this.nubingExperience > maxExperience)
             {
                 this.nubingExperience = maxExperience;
@@ -488,7 +494,8 @@
             {
                 this.politicsExperience += (increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
                 if (this.politicsExperience > maxExperience)
                 {
                     this.politicsExperience = maxExperience;
@@ -500,7 +507,8 @@
         {
             this.qibingExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
             if (this.qibingExperience > maxExperience)
             {
                 this.qibingExperience = maxExperience;
@@ -511,7 +519,8 @@
         {
             this.qixieExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
             if (this.qixieExperience > maxExperience)
             {
                 this.qixieExperience = maxExperience;
@@ -522,7 +531,8 @@
         {
             this.shuijunExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
             if (this.shuijunExperience > maxExperience)
             {
                 this.shuijunExperience = maxExperience;
@@ -533,7 +543,8 @@
         {
             this.stratagemExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
             if (this.stratagemExperience > maxExperience)
             {
                 this.stratagemExperience = maxExperience;
@@ -546,7 +557,8 @@
             {
                 this.strengthExperience += (int)(increment * Parameters.AbilityExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
                 if (this.strengthExperience > maxExperience)
                 {
                     this.strengthExperience = maxExperience;
@@ -558,7 +570,8 @@
         {
             this.tacticsExperience += (increment * Parameters.ArmyExperienceRate * (1 + ExperienceRate)
                     * (this.LocationArchitecture == null ? 1 : 1 + this.LocationArchitecture.ExperienceRate)
-                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate));
+                    * (this.LocationTroop == null ? 1 : 1 + this.LocationTroop.ExperienceRate))
+                * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIOfficerExperienceRate);
             if (this.tacticsExperience > maxExperience)
             {
                 this.tacticsExperience = maxExperience;

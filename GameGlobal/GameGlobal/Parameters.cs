@@ -55,6 +55,9 @@
         public static float AITroopDefenceYearIncreaseRate = 0f;
         public static float AITroopOffenceYearIncreaseRate = 0f;
 
+        public static float AIOfficerExperienceRate = 1f;
+        public static float AIArmyExperienceRate = 1f;
+
         private static float BasicAIArchitectureDamageRate = 1f;
         private static float BasicAIFoodRate = 1f;
         private static float BasicAIFundRate = 1f;
@@ -176,6 +179,9 @@
             AIArchitectureDamageRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIArchitectureDamageRate").Value);
             AITrainingSpeedRate = float.Parse(nextSibling.Attributes.GetNamedItem("AITrainingSpeedRate").Value);
             AIRecruitmentSpeedRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedRate").Value);
+            AIOfficerExperienceRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIOfficerExperienceRate").Value);
+            AIArmyExperienceRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIArmyExperienceRate").Value);
+
             AIFundYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIFundYearIncreaseRate").Value);
             AIFoodYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIFoodYearIncreaseRate").Value);
             AITroopOffenceYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AITroopOffenceYearIncreaseRate").Value);

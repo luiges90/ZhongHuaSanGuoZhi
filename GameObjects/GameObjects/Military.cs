@@ -11,7 +11,7 @@
         public Faction BelongedFaction;
         public Troop BelongedTroop;
         private int combativity;
-        private int experience;
+        private float experience;
         private Person followedLeader;
         private int followedLeaderID = -1;
         private int injuryQuantity;
@@ -166,7 +166,14 @@
 
         public void IncreaseExperience(int increment)
         {
-            this.Experience += increment;
+            if (this.ShelledMilitary == null)
+            {
+                this.experience += increment * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIArmyExperienceRate);
+            }
+            else
+            {
+                this.ShelledMilitary.experience += increment * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIArmyExperienceRate);
+            }
         }
 
         public void IncreaseInjuryQuantity(int increment)
@@ -406,7 +413,7 @@
             {
                 if (this.ShelledMilitary == null)
                 {
-                    return this.experience;
+                    return (int) this.experience;
                 }
                 return this.ShelledMilitary.Experience;
             }
