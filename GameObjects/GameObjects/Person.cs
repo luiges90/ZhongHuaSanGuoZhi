@@ -1972,7 +1972,8 @@
 
         public bool YoukenengChuangjianXinShili()
         {
-            if (this.LeaderPossibility == false || this.IsCaptive || this.LocationArchitecture == null || this.Status != PersonStatus.Normal)
+            if (this.LeaderPossibility == false || this.IsCaptive || this.LocationArchitecture == null || 
+                (this.Status != PersonStatus.Normal && this.Status != PersonStatus.NoFaction))
             {
                 return false;
             }
