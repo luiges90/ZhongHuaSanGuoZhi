@@ -2678,7 +2678,7 @@
 
             if (a == null) return;
 
-            if (this.Status != PersonStatus.Normal) return;
+            //if (this.Status != PersonStatus.Normal) return;
 
             if (this.LocationArchitecture != a || startingPoint != null)
             {
