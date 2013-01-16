@@ -326,7 +326,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         public override void faxianhuaiyun(Person person)
         {
 
-            if (((base.Scenario.CurrentPlayer != null) && base.Scenario.IsCurrentPlayer(person.LocationArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
+            if (((base.Scenario.CurrentPlayer != null) && base.Scenario.IsCurrentPlayer(person.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 //person.TextResultString = t.Name;
                 this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(person, person, "faxianhuaiyun");
