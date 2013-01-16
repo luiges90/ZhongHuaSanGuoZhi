@@ -3751,6 +3751,8 @@
                     {
                         current = enumerator.Current;
                         if (current.ID == 29) continue;
+                        if (current.Type == MilitaryType.水军 && this.AIWaterLinks.Count == 0) continue;
+                        if (current.Type != MilitaryType.水军 && this.AILandLinks.Count == 0) continue;
                         if (((water && current.Type == MilitaryType.水军) || (!water && current.Type != MilitaryType.水军))
                             && ((siege && current.Type == MilitaryType.器械) || (!siege && current.Type != MilitaryType.器械))
                             && current.CreateAvail(this))
@@ -3773,6 +3775,8 @@
                     {
                         current = enumerator.Current;
                         if (current.ID == 29) continue;
+                        if (current.Type == MilitaryType.水军 && this.AIWaterLinks.Count == 0) continue;
+                        if (current.Type != MilitaryType.水军 && this.AILandLinks.Count == 0) continue;
                         if (((water && current.Type == MilitaryType.水军) || (!water && current.Type != MilitaryType.水军))
                             && ((siege && current.Type == MilitaryType.器械) || (!siege && current.Type != MilitaryType.器械))
                             && current.CreateAvail(this))
@@ -4612,9 +4616,19 @@
                     case LinkKind.Water:
                         {
                             //if ((military.Kind.Type == MilitaryType.水军) || (this.ValueWater && (!offensive || ((military.Quantity >= 0x1f40) && (GameObject.Random(military.Kind.Merit) <= 0)))))
-                            if (!offensive || (military.KindID != 28 && military.KindID != 29))
+                            if (GlobalVariables.LandArmyCanGoDownWater)
                             {
-                                break;
+                                if (!offensive || (military.KindID != 28 && military.KindID != 29))
+                                {
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if (military.Kind.Type == MilitaryType.水军)
+                                {
+                                    break;
+                                }
                             }
                             continue;
                         }
@@ -11666,7 +11680,7 @@
         public bool TroopershipAvail()
         {
             if ((((base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(0x1c) != null) 
-                && (this.Persons.Count > 0)) && (this.Militaries.Count > 0)) && this.IsBesideWater)
+                && (this.Persons.Count > 0)) && (this.Militaries.Count > 0)) && this.IsBesideWater && !GlobalVariables.LandArmyCanGoDownWater)
             {
                 foreach (Military military in this.Militaries)
                 {
