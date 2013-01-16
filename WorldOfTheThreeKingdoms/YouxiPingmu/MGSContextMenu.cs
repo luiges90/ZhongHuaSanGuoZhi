@@ -340,6 +340,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             this.CurrentGameObjects = this.Plugins.CreateTroopPlugin.CreatingPersons as GameObjectList;
                             this.CurrentPerson = this.Plugins.CreateTroopPlugin.CreatingLeader as Person;
                             this.CurrentNumber = this.Plugins.CreateTroopPlugin.CreatingFood;
+                            this.Currentzijin = this.Plugins.CreateTroopPlugin.Creatingzijin;
                         };
                     }
                     this.Plugins.CreateTroopPlugin.SetCreateFunction(function4);
