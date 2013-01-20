@@ -133,16 +133,25 @@
 
         public GameArea GetContactArea(bool oblique)
         {
-            return GetContactArea(oblique, null, false);
+            return GetContactArea(oblique, null, false, false);
         }
 
-        public GameArea GetContactArea(bool oblique, GameScenario scen, bool waterOnly)
+        public GameArea GetContactArea(bool oblique, GameScenario scen, bool waterOnly, bool landOnly)
         {
             GameArea area = new GameArea();
             Dictionary<Point, object> dictionary = new Dictionary<Point, object>();
             foreach (Point point2 in this.Area)
             {
-                if (!waterOnly || scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6)
+                bool ok = true;
+                if (waterOnly && scen.GetTerrainDetailByPositionNoCheck(point2).ID != 6)
+                {
+                    ok = false;
+                }
+                if (landOnly && scen.GetTerrainDetailByPositionNoCheck(point2).ID == 6)
+                {
+                    ok = false;
+                }
+                if (ok)
                 {
                     dictionary.Add(point2, null);
                 }

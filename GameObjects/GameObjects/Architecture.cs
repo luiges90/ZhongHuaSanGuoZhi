@@ -9092,7 +9092,9 @@
                     pathFinder.MustUseWater = false;
                     Point? p1;
                     Point? p2;
-                    base.Scenario.GetClosestPointsBetweenTwoAreas(this.ArchitectureArea.GetContactArea(false), i.ArchitectureArea.GetContactArea(false), out p1, out p2);
+                    base.Scenario.GetClosestPointsBetweenTwoAreas(
+                        this.ArchitectureArea.GetContactArea(false, base.Scenario, false, true),
+                        i.ArchitectureArea.GetContactArea(false, base.Scenario, false, true), out p1, out p2);
                     if (p1.HasValue && p2.HasValue)
                     {
                         if (pathFinder.GetPath(p1.Value, p2.Value, true))
@@ -9122,7 +9124,9 @@
                     pathFinder.ConsumptionMax = 0.7f;
                     Point? p1;
                     Point? p2;
-                    base.Scenario.GetClosestPointsBetweenTwoAreas(this.ArchitectureArea.GetContactArea(false, base.Scenario, true), i.ArchitectureArea.GetContactArea(false, base.Scenario, true), out p1, out p2);
+                    base.Scenario.GetClosestPointsBetweenTwoAreas(
+                        this.ArchitectureArea.GetContactArea(false, base.Scenario, true, false), 
+                        i.ArchitectureArea.GetContactArea(false, base.Scenario, true, false), out p1, out p2);
                     if (p1.HasValue && p2.HasValue)
                     {
                         if (pathFinder.GetPath(p1.Value, p2.Value, true))
