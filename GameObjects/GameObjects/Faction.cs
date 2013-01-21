@@ -2459,7 +2459,10 @@
 
         public void SeasonEvent()
         {
-            this.shizheshengguan();
+            if (!base.Scenario.scenarioJustLoaded)
+            {
+                this.shizheshengguan();
+            }
         }
 
 

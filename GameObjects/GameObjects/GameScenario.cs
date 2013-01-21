@@ -73,6 +73,8 @@
 
         public event NewFactionAppear OnNewFactionAppear;
 
+        public bool scenarioJustLoaded;
+
         public int DaySince { get; set; }
 
         internal Dictionary<PathCacheKey, List<Point>> pathCache = new Dictionary<PathCacheKey, List<Point>>();
@@ -684,6 +686,7 @@
 			
 			ExtensionInterface.call("PostDayEvent", new Object[] { this });
 
+            this.scenarioJustLoaded = false;
             this.GameScreen.LoadScenarioInInitialization = false;
         }
 
@@ -1894,6 +1897,7 @@
 
         private void LoadGameDataFromDataBase(OleDbConnection DbConnection)  //读剧本和读存档都调用了此函数
         {
+            this.scenarioJustLoaded = true;
             OleDbCommand command = new OleDbCommand("Select * From Map", DbConnection);
             ////////////////////////////////////////////////////////////////////////////////////////////
             DbConnection.Open();
@@ -2690,6 +2694,7 @@
             }
             this.AllPersons.Clear();
             this.AllArchitectures.Clear();
+            
             ExtensionInterface.call("Load", new Object[] { this });
         }  
 
