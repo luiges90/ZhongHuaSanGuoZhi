@@ -8478,10 +8478,14 @@
                             }
                         }
                     }
-                    if (GameObject.Random(recruitablePeople.Count) < 0)
+                    if (this.Fund < this.HirePersonFund)
                     {
                         break;
                     }
+                    /*if (GameObject.Random(recruitablePeople.Count) < 0)
+                    {
+                        break;
+                    }*/
                 }
             }
             foreach (Person person in personList)

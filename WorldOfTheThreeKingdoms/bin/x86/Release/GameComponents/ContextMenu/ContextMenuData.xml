@@ -98,7 +98,6 @@
       <MenuItem ID="5"  Name="Person" DisplayName="人事">
         <MenuItem ID="1"  Name="Transfer" DisplayName="调动" DisplayIfTrue="PersonTransferAvail"></MenuItem>
         <MenuItem ID="2"  Name="Convene" DisplayName="召集" DisplayIfTrue="PersonConveneAvail"></MenuItem>
-        <MenuItem ID="3"  Name="Hire" DisplayName="录用" DisplayIfTrue="PersonHireAvail"></MenuItem>
         <MenuItem ID="4"  Name="Convince" DisplayName="说服" DisplayIfTrue="ConvincePersonAvail"></MenuItem>
         <MenuItem ID="5"  Name="Reward" DisplayName="褒奖" DisplayIfTrue="RewardPersonAvail"></MenuItem>
         <MenuItem ID="6"  Name="RewardAll" DisplayName="褒奖所有" DisplayIfTrue="RewardAllAvail"></MenuItem>
