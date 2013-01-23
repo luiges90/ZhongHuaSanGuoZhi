@@ -908,7 +908,13 @@
             {
                 dayArea.AddPoint(this.Position);
             }
-            if ((((((!this.IsRobber && !this.ViewingWillArchitecture) && ((this.Army.Kind.Type != MilitaryType.水军) || GameObject.Chance(20))) && (((this.Morale > 0x4b) && (this.BelongedLegion.Kind == LegionKind.Offensive)) && (this.WillArchitecture.BelongedFaction != this.BelongedFaction))) && !this.HasHostileTroopInView()) && !this.BelongedLegion.HasTroopViewingWillArchitecture) && (this.WillArchitecture.BelongedFaction != null))
+            // legion did not see will arch, do not see an enemy
+            if (((((
+                (!this.IsRobber && !this.ViewingWillArchitecture) && 
+                ((this.Army.Kind.Type != MilitaryType.水军) || GameObject.Chance(20))) && 
+                (((this.Morale > 0x4b) && (this.BelongedLegion.Kind == LegionKind.Offensive)) && 
+                (this.WillArchitecture.BelongedFaction != this.BelongedFaction))) && !this.HasHostileTroopInView()) 
+                && !this.BelongedLegion.HasTroopViewingWillArchitecture) && (this.WillArchitecture.BelongedFaction != null))
             {
                 foreach (Point point in dayArea.Area)
                 {
@@ -1637,7 +1643,7 @@
             bool path = false;
             if (!this.HasPath)
             {
-                if (this.BelongedFaction != null && !base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture == null &&
+                if (this.BelongedFaction != null && !base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture == null && !this.IsViewingWillArchitecture() &&
                     this.TargetTroop == null && this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive)
                 {
                     MilitaryKind trueKind = this.Army.KindID == 28 ? this.Army.RealMilitaryKind : this.Army.Kind;
@@ -2029,6 +2035,10 @@
                 return false;
             }
             if (this.WillArchitecture.BelongedFaction != this.BelongedFaction && this.WillArchitecture.Endurance > 0)
+            {
+                return false;
+            }
+            if (this.HasHostileTroopInView())
             {
                 return false;
             }
