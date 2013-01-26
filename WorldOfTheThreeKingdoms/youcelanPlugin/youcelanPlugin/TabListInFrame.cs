@@ -563,7 +563,6 @@
 
         private void screen_OnMouseLeftDown(Point position)
         {
-
             if (StaticMethods.PointInRectangle(position, this.ToolDisplayPosition))
             {
                 this.xianshiyoucelan  = !this.xianshiyoucelan ;
@@ -580,7 +579,7 @@
                 }
             }
 
-
+            if (!this.xianshiyoucelan) return;
 
             if (this.xianshiyoucelan && (this.screen.PeekUndoneWork().Kind == UndoneWorkKind.None) && StaticMethods.PointInRectangle(position, this.RealClient))
             {
