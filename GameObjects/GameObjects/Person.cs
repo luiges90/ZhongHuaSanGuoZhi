@@ -5356,8 +5356,15 @@
                 Person leader = father.BelongedFaction == null ? mother.BelongedFaction.Leader : father.BelongedFaction.Leader;
                 if (r.IdealTendency.Offset < Person.GetIdealOffset(r, leader))
                 {
-                    r.Ideal = leader.Ideal + GameObject.Random(r.IdealTendency.Offset * 2 + 1) - r.IdealTendency.Offset;
-                    r.Ideal = (r.Ideal + 150) % 150;
+                    if (leader.IdealTendency.Offset >= 0)
+                    {
+                        r.Ideal = leader.Ideal + GameObject.Random(r.IdealTendency.Offset * 2 + 1) - r.IdealTendency.Offset;
+                        r.Ideal = (r.Ideal + 150) % 150;
+                    }
+                    else
+                    {
+                        r.Ideal = leader.Ideal;
+                    }
                 }
             }
 
