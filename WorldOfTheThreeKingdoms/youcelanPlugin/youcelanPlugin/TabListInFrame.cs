@@ -579,8 +579,6 @@
                 }
             }
 
-            if (!this.xianshiyoucelan) return;
-
             if (this.xianshiyoucelan && (this.screen.PeekUndoneWork().Kind == UndoneWorkKind.None) && StaticMethods.PointInRectangle(position, this.RealClient))
             {
                 if (position.Y < this.listKindToDisplay.ColumnsTop)
@@ -818,6 +816,7 @@
 
         private void screen_OnMouseLeftUp(Point position)
         {
+            if (!this.xianshiyoucelan) return;
             if (this.screen.PeekUndoneWork().Kind == UndoneWorkKind.None)
             {
                 this.MovingHorizontalScrollBar = false;
@@ -828,6 +827,7 @@
 
         private void screen_OnMouseMove(Point position, bool leftDown)
         {
+            if (!this.xianshiyoucelan) return;
             if ((this.screen.PeekUndoneWork().Kind == UndoneWorkKind.None) && (this.oldMousePosition != position))
             {
                 if (leftDown)
