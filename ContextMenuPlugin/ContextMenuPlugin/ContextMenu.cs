@@ -145,11 +145,12 @@
         {
             if (this.menuToDisplay != null)
             {
-                if (this.BianduiLiebiaoXianshi=true && StaticMethods.PointInRectangle(position, this.BianduiLiebiaoWeizhi)) //光标在编队列表里点击时不关闭菜单
+                /*if (this.BianduiLiebiaoXianshi == true && StaticMethods.PointInRectangle(position, this.BianduiLiebiaoWeizhi)) //光标在编队列表里点击时不关闭菜单
                 {
 
-                }
-                else if ((this.HelpPlugin != null) && (this.HelpPlugin.IsButtonShowing && StaticMethods.PointInRectangle(position, this.HelpPlugin.ButtonDisplayPosition)))
+                }*/
+                
+                if ((this.HelpPlugin != null) && (this.HelpPlugin.IsButtonShowing && StaticMethods.PointInRectangle(position, this.HelpPlugin.ButtonDisplayPosition)))
                 {
                     this.Result = ContextMenuResult.None;
                     this.IsShowing = false;
