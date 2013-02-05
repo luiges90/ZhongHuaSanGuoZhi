@@ -3307,6 +3307,10 @@
             {
                 return null;
             }
+            if (!this.isArmyNavigableTo(linkkind, military))
+            {
+                return null;
+            }
             if (this.Persons.Count == 0) return null;
             TroopList list = new TroopList();
             this.Persons.ClearSelected();
@@ -6057,7 +6061,7 @@
                             foreach (Military military in i.A.Militaries.GetRandomList())
                             {
                                 if (military.KindID == 29) continue;
-                                if (((i.Kind == LinkKind.Land && military.Kind.Type != MilitaryType.水军) || i.Kind == LinkKind.Water) && (military.Morale > 90) && (military.InjuryQuantity < military.Kind.MinScale))
+                                if (this.isArmyNavigableTo(i, military) && (military.Morale > 90) && (military.InjuryQuantity < military.Kind.MinScale))
                                 {
                                     TroopList candidates = this.AISelectPersonIntoTroop(this, military);
                                     foreach (Troop t in candidates)
@@ -6106,6 +6110,18 @@
                     }
                 }
             }
+        }
+
+        private bool isArmyNavigableTo(LinkKind kind, Military military)
+        {
+            return GlobalVariables.LandArmyCanGoDownWater ||
+                ((kind == LinkKind.Land && military.Kind.Type != MilitaryType.水军) || (kind == LinkKind.Water && military.Kind.Type == MilitaryType.水军) || kind == LinkKind.Both);
+        }
+
+        private bool isArmyNavigableTo(LinkNode targetNode, Military military)
+        {
+            return GlobalVariables.LandArmyCanGoDownWater ||
+                ((targetNode.Kind == LinkKind.Land && military.Kind.Type != MilitaryType.水军) || (targetNode.Kind == LinkKind.Water && military.Kind.Type == MilitaryType.水军) || targetNode.Kind == LinkKind.Both);
         }
 
         public void DemolishAllRouteways()
@@ -11391,7 +11407,7 @@
         private bool remindedAboutAttack = false;
         public void AttackedReminder()
         {
-            if (!remindedAboutAttack && this.PersonCount > 0 && this.MilitaryCount > 0 && !this.HasOwnFactionTroopsInView())
+            if (!remindedAboutAttack && this.MilitaryCount > 0 && !this.HasOwnFactionTroopsInView())
             {
                 if (this.BelongedFaction != null)
                 {
