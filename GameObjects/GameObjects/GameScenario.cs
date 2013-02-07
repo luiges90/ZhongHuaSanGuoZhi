@@ -2416,6 +2416,13 @@
                 catch
                 {
                 }
+                try
+                {
+                    troop.reputationGained = (int)reader["ReputationGained"];
+                }
+                catch
+                {
+                }
                 troop.minglingweizhi = troop.RealDestination;
                 this.Troops.AddTroopWithEvent(troop);
             }
@@ -3320,6 +3327,7 @@
                     row["StuntDayLeft"] = troop.StuntDayLeft;
                     row["mingling"] = troop.mingling;
                     row["ManualControl"] = troop.ManualControl;
+                    row["ReputationGained"] = troop.reputationGained;
                     row.EndEdit();
                     dataSet.Tables["Troop"].Rows.Add(row);
                 }

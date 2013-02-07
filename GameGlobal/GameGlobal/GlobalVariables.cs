@@ -81,6 +81,7 @@
         public static bool internalSurplusRateForAI = false;
 
         public static int getChildrenRate = 90;
+        public static int getRaisedSoliderRate = 90;
         public static int AIExecutionRate = 500;
 
         public static bool AIExecuteBetterOfficer = false;
@@ -555,6 +556,15 @@
             {
                 exception = exception24;
                 throw new Exception("LandArmyCanGoDownWater:\n" + exception.ToString());
+            }
+            try
+            {
+                getRaisedSoliderRate = int.Parse(nextSibling.Attributes.GetNamedItem("getRaisedSoliderRate").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("getRaisedSoliderRate:\n" + exception.ToString());
             }
             return true;
         }

@@ -1098,6 +1098,7 @@
         {
             if (base.Scenario.IsPlayer(this.BelongedFaction)) return;
             if (this.HasHostileTroopsInView()) return;
+            if (GlobalVariables.getChildrenRate <= 0) return;
             Person leader = this.BelongedFaction.Leader;
             int uncruelty = leader.Uncruelty;
             //build hougong
@@ -13527,7 +13528,7 @@
 
         public bool kenafei()
         {
-
+            if (GlobalVariables.getChildrenRate <= 0) return false;
             
             //if (this.younvxingwujiang() && this.Fund > 50000 && this.meinvkongjian() > this.feiziliebiao.Count && this.Persons.GameObjects.Contains(this.BelongedFaction.Leader))
             if (this.nvxingwujiang().Count>0 && this.Fund > 50000 && this.meinvkongjian() > this.feiziliebiao.Count && this.Persons.GameObjects.Contains(this.BelongedFaction.Leader))

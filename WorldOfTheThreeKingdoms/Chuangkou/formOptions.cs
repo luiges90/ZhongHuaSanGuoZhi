@@ -184,6 +184,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbAIArmyExperienceRate;
         private Label label49;
         private TextBox tbAIOfficerExperienceRate;
+        private TextBox tbGetRaisedSoldierRate;
+        private Label label51;
         private Label getChildrenRateLabel;
 
         public formOptions()
@@ -250,6 +252,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.zainanfashengjilv = new System.Windows.Forms.TextBox();
             this.cbDoAutoSave = new System.Windows.Forms.CheckBox();
             this.tabPagePerson = new System.Windows.Forms.TabPage();
+            this.tbGetRaisedSoldierRate = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
             this.cbLockChildrenLoyalty = new System.Windows.Forms.CheckBox();
             this.label44 = new System.Windows.Forms.Label();
             this.tbMaxExperience = new System.Windows.Forms.TextBox();
@@ -336,6 +340,10 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.label2 = new System.Windows.Forms.Label();
             this.tbInternalRate = new System.Windows.Forms.TextBox();
             this.tabPageAIParameter = new System.Windows.Forms.TabPage();
+            this.label50 = new System.Windows.Forms.Label();
+            this.tbAIArmyExperienceRate = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.tbAIOfficerExperienceRate = new System.Windows.Forms.TextBox();
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull = new System.Windows.Forms.CheckBox();
             this.cbAIAutoTakePlayerCaptives = new System.Windows.Forms.CheckBox();
             this.cbAIAutoTakeNoFactionPerson = new System.Windows.Forms.CheckBox();
@@ -363,10 +371,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label49 = new System.Windows.Forms.Label();
-            this.tbAIOfficerExperienceRate = new System.Windows.Forms.TextBox();
-            this.label50 = new System.Windows.Forms.Label();
-            this.tbAIArmyExperienceRate = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageEnvironment.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -801,6 +805,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.tbGetRaisedSoldierRate);
+            this.tabPagePerson.Controls.Add(this.label51);
             this.tabPagePerson.Controls.Add(this.cbLockChildrenLoyalty);
             this.tabPagePerson.Controls.Add(this.label44);
             this.tabPagePerson.Controls.Add(this.tbMaxExperience);
@@ -833,6 +839,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
             // 
+            // tbGetRaisedSoldierRate
+            // 
+            this.tbGetRaisedSoldierRate.Location = new System.Drawing.Point(324, 367);
+            this.tbGetRaisedSoldierRate.Name = "tbGetRaisedSoldierRate";
+            this.tbGetRaisedSoldierRate.Size = new System.Drawing.Size(71, 22);
+            this.tbGetRaisedSoldierRate.TabIndex = 28;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(19, 370);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(299, 12);
+            this.label51.TabIndex = 27;
+            this.label51.Text = "小兵提拔机率（数字愈大怀孕机率愈高，0为关闭提拔）";
+            // 
             // cbLockChildrenLoyalty
             // 
             this.cbLockChildrenLoyalty.AutoSize = true;
@@ -845,7 +867,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(19, 371);
+            this.label44.Location = new System.Drawing.Point(283, 43);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(53, 12);
             this.label44.TabIndex = 25;
@@ -853,7 +875,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbMaxExperience
             // 
-            this.tbMaxExperience.Location = new System.Drawing.Point(78, 368);
+            this.tbMaxExperience.Location = new System.Drawing.Point(342, 40);
             this.tbMaxExperience.Name = "tbMaxExperience";
             this.tbMaxExperience.Size = new System.Drawing.Size(71, 22);
             this.tbMaxExperience.TabIndex = 24;
@@ -1026,7 +1048,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbGetChildrenRate
             // 
-            this.tbGetChildrenRate.Location = new System.Drawing.Point(216, 338);
+            this.tbGetChildrenRate.Location = new System.Drawing.Point(293, 339);
             this.tbGetChildrenRate.Name = "tbGetChildrenRate";
             this.tbGetChildrenRate.Size = new System.Drawing.Size(71, 22);
             this.tbGetChildrenRate.TabIndex = 16;
@@ -1036,9 +1058,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.getChildrenRateLabel.AutoSize = true;
             this.getChildrenRateLabel.Location = new System.Drawing.Point(19, 342);
             this.getChildrenRateLabel.Name = "getChildrenRateLabel";
-            this.getChildrenRateLabel.Size = new System.Drawing.Size(197, 12);
+            this.getChildrenRateLabel.Size = new System.Drawing.Size(275, 12);
             this.getChildrenRateLabel.TabIndex = 15;
-            this.getChildrenRateLabel.Text = "怀孕机率（数字愈大怀孕机率愈低）";
+            this.getChildrenRateLabel.Text = "怀孕机率（数字愈大怀孕机率愈高，0为关闭后宫）";
             // 
             // tabPageParameter
             // 
@@ -1629,6 +1651,38 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.Text = "电脑";
             this.tabPageAIParameter.UseVisualStyleBackColor = true;
             // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(8, 237);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(113, 12);
+            this.label50.TabIndex = 51;
+            this.label50.Text = "电脑部队经验获得率";
+            // 
+            // tbAIArmyExperienceRate
+            // 
+            this.tbAIArmyExperienceRate.Location = new System.Drawing.Point(132, 234);
+            this.tbAIArmyExperienceRate.Name = "tbAIArmyExperienceRate";
+            this.tbAIArmyExperienceRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIArmyExperienceRate.TabIndex = 52;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(8, 209);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(113, 12);
+            this.label49.TabIndex = 49;
+            this.label49.Text = "电脑武将经验获得率";
+            // 
+            // tbAIOfficerExperienceRate
+            // 
+            this.tbAIOfficerExperienceRate.Location = new System.Drawing.Point(132, 206);
+            this.tbAIOfficerExperienceRate.Name = "tbAIOfficerExperienceRate";
+            this.tbAIOfficerExperienceRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIOfficerExperienceRate.TabIndex = 50;
+            // 
             // cbAIAutoTakePlayerCaptiveOnlyUnfull
             // 
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull.AutoSize = true;
@@ -1883,38 +1937,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(8, 209);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(113, 12);
-            this.label49.TabIndex = 49;
-            this.label49.Text = "电脑武将经验获得率";
-            // 
-            // tbAIOfficerExperienceRate
-            // 
-            this.tbAIOfficerExperienceRate.Location = new System.Drawing.Point(132, 206);
-            this.tbAIOfficerExperienceRate.Name = "tbAIOfficerExperienceRate";
-            this.tbAIOfficerExperienceRate.Size = new System.Drawing.Size(71, 22);
-            this.tbAIOfficerExperienceRate.TabIndex = 50;
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(8, 237);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(113, 12);
-            this.label50.TabIndex = 51;
-            this.label50.Text = "电脑部队经验获得率";
-            // 
-            // tbAIArmyExperienceRate
-            // 
-            this.tbAIArmyExperienceRate.Location = new System.Drawing.Point(132, 234);
-            this.tbAIArmyExperienceRate.Name = "tbAIArmyExperienceRate";
-            this.tbAIArmyExperienceRate.Size = new System.Drawing.Size(71, 22);
-            this.tbAIArmyExperienceRate.TabIndex = 52;
-            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -1997,6 +2019,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbEnableCheat.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableCheat").Value);
             this.cbEnableLoadInGame.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value);
             this.cbLandArmyCanGoDownWater.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("LandArmyCanGoDownWater").Value);
+            this.tbGetRaisedSoldierRate.Text = nextSibling.Attributes.GetNamedItem("getRaisedSoldierRate").Value;
         }
 
         private void LoadParameterDoc()
@@ -2101,6 +2124,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("EnableCheat").Value = this.cbEnableCheat.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value = this.cbEnableLoadInGame.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("LandArmyCanGoDownWater").Value = this.cbLandArmyCanGoDownWater.Checked.ToString();
+            nextSibling.Attributes.GetNamedItem("getRaisedSoldierRate").Value = this.tbGetRaisedSoldierRate.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 
