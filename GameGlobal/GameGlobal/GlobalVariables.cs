@@ -561,15 +561,6 @@
             }
             try
             {
-                getRaisedSoliderRate = int.Parse(nextSibling.Attributes.GetNamedItem("getRaisedSoliderRate").Value);
-            }
-            catch (Exception exception24)
-            {
-                exception = exception24;
-                throw new Exception("getRaisedSoliderRate:\n" + exception.ToString());
-            }
-            try
-            {
                 MaxAbility = int.Parse(nextSibling.Attributes.GetNamedItem("MaxAbility").Value);
             }
             catch (Exception exception24)
