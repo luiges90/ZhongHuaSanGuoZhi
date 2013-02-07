@@ -110,6 +110,8 @@
         public static bool EnableCheat = false;
         public static bool EnableLoadInGame = true;
 
+        public static int MaxAbility = 150;
+
         public bool InitialGlobalVariables()
         {
             Exception exception;
@@ -565,6 +567,15 @@
             {
                 exception = exception24;
                 throw new Exception("getRaisedSoliderRate:\n" + exception.ToString());
+            }
+            try
+            {
+                MaxAbility = int.Parse(nextSibling.Attributes.GetNamedItem("MaxAbility").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("MaxAbility:\n" + exception.ToString());
             }
             return true;
         }
