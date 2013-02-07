@@ -378,7 +378,6 @@
         public List<int> AllowedStrategems = new List<int>();
 
         public int captureChance = 0;
-        public int reputationGained = 0;
 
         public GameObjectList Candidates;
 
@@ -2619,7 +2618,6 @@
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, routeway.BelongedFaction.ID, -10);
                     this.BelongedFaction.IncreaseTechniquePoint(num * 0x3e8);
                     this.BelongedFaction.IncreaseReputation(num * 5);
-                    reputationGained += num * 5;
                     foreach (Person person in this.Persons)
                     {
                         person.AddStrengthExperience(num * 5);
@@ -6033,7 +6031,6 @@
                 }
                 this.IncreasePersonAttackExperience(increment, true);
                 this.IncreasePersonAttackReputation(increment);
-                reputationGained += increment * 2;
                 this.BelongedFaction.IncreaseReputation(increment * 2);
                 this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfCombatTechniquePoint) * 50);
             }
@@ -6273,7 +6270,6 @@
                     {
                         this.Army.ApplyFollowedLeader(this);
                     }
-                    this.reputationGained += 50;
                     this.BelongedFaction.IncreaseReputation(50);
                     this.BelongedFaction.IncreaseTechniquePoint(0x3e8 * this.MultipleOfCombatTechniquePoint);
                     foreach (Person person in this.Persons)
@@ -6319,7 +6315,6 @@
                     {
                         this.Army.ApplyFollowedLeader(this);
                     }
-                    reputationGained += increment * 2;
                     this.BelongedFaction.IncreaseReputation(increment * 2);
                     this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfStratagemTechniquePoint) * this.CurrentStratagem.TechniquePoint);
                 }
