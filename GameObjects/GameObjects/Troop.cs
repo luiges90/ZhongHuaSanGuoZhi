@@ -9424,11 +9424,15 @@
             return path;
         }
 
-        private Person raisedSoldier()
+        /*private Person raisedSoldier()
         {
             if (GlobalVariables.getRaisedSoliderRate <= 0) return null;
-            if (this.reputationGained < 40) return null;
-        }
+            if (GameObject.Chance((int)(0.1 * Math.Pow(this.reputationGained, 1.3) * GlobalVariables.getRaisedSoliderRate / 100.0 *
+                (40.0 / this.BelongedFaction.PersonCount))))
+            {
+                Person p = Person.createChildren(this.Leader, this.Leader, true);
+            }
+        }*/
 
         private void chongshemubiaoweizhi()
         {
