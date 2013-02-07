@@ -2342,13 +2342,13 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = true;
                     break;
                 case Difficulty.veryhard:
-                    this.tbAIFundRate.Text = "5.0";
-                    this.tbAIFoodRate.Text = "5.0";
-                    this.tbAIArchitectureDamageRate.Text = "1.2";
-                    this.tbAITroopOffenceRate.Text = "1.2";
-                    this.tbAITroopDefenceRate.Text = "1.2";
-                    this.tbAIRecruitmentSpeedRate.Text = "2.0";
-                    this.tbAITrainingSpeedRate.Text = "2.0";
+                    this.tbAIFundRate.Text = "1.0";
+                    this.tbAIFoodRate.Text = "1.0";
+                    this.tbAIArchitectureDamageRate.Text = "1.5";
+                    this.tbAITroopOffenceRate.Text = "1.5";
+                    this.tbAITroopDefenceRate.Text = "1.5";
+                    this.tbAIRecruitmentSpeedRate.Text = "2.5";
+                    this.tbAITrainingSpeedRate.Text = "2.5";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = true;
                     this.cbInternalSurplusRateForAI.Checked = false;
