@@ -3315,7 +3315,7 @@
             if (this.Persons.Count == 0) return null;
             TroopList list = new TroopList();
             this.Persons.ClearSelected();
-            if ((military.Scales > 5) && (military.Morale >= 80) && (military.Combativity >= 80) && (military.InjuryQuantity < military.Kind.MinScale))
+            if ((military.Scales > 5) && (military.Morale >= 80) && (military.Combativity >= 80) && (military.InjuryQuantity < military.Kind.MinScale) && !military.IsFewScaleNeedRetreat)
             {
                 PersonList list2;
                 Military military2 = military;
@@ -4607,6 +4607,7 @@
             //Label_0309:
             foreach (Military military in this.Militaries.GetRandomList())
             {
+                if (military.IsFewScaleNeedRetreat) continue;
                 if (military.KindID == 29) continue; //never deal with transports in this function
                 switch (linkkind)
                 {
@@ -6061,6 +6062,7 @@
                             Troop troop2;
                             foreach (Military military in i.A.Militaries.GetRandomList())
                             {
+                                if (military.IsFewScaleNeedRetreat) continue;
                                 if (military.KindID == 29) continue;
                                 if (this.isArmyNavigableTo(i, military) && (military.Morale > 90) && (military.InjuryQuantity < military.Kind.MinScale))
                                 {
