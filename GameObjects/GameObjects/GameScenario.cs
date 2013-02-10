@@ -928,9 +928,9 @@
         public void GetClosestPointsBetweenTwoAreas(GameArea area1, GameArea area2, out Point? out1, out Point? out2)
         {
             //out1 = 0;
-            out1 = new Point(0, 0);
+            out1 = null;
             //out2 = 0;
-            out2 = new Point(0, 0);
+            out2 = null;
             double distance = 0.0;
             double maxValue = double.MaxValue;
             foreach (Point point in area1.Area)

@@ -6051,7 +6051,7 @@
                         bool isBesideWater = this.IsBesideWater;
                         foreach (Military military in this.Militaries.GetRandomList())
                         {
-                            if (military.IsFewScaleNeedRetreat) continue;
+                            if (military.IsFewScaleNeedRetreat && this.Endurance < 30) continue;
                             if ((isBesideWater || (military.Kind.Type != MilitaryType.水军)) && (((((this.Endurance < 30) || military.Kind.AirOffence) || (military.Scales >= 2)) && (military.Morale > 0x2d)) && ((this.Endurance < 30) || (military.InjuryQuantity < military.Kind.MinScale))))
                             {
                                 TroopList candidates = this.AISelectPersonIntoTroop(this, military);
@@ -9135,27 +9135,21 @@
             consumptionRate = 0f;
             if (!base.Scenario.PositionOutOfRange(position))
             {
-                if (base.Scenario.GetArchitectureByPositionNoCheck(position) != null)
-                {
-                    return 0x3e8;
-                }
-                if (pathFinder.MultipleWaterCost && !base.Scenario.IsWaterPositionRoutewayable(position))
-                {
-                    return 0x3e8;
-                }
-
                 int dist = (int) Math.Ceiling(Math.Min(Math.Min(base.Scenario.GetDistance(singleton, this.pathFinder.startingArchitecture.ArchitectureArea),
                     base.Scenario.GetDistance(singleton, this.pathFinder.targetArchitecture.ArchitectureArea)), 20));
-                for (int i = -dist; i <= dist; ++i)
+                if (dist > 4)
                 {
-                    for (int j = Math.Abs(i) - dist; j <= dist - Math.Abs(i); ++j)
+                    for (int i = -dist; i <= dist; ++i)
                     {
-                        Point loc = new Point(position.X + i, position.Y + j);
-                        Architecture landedArch = base.Scenario.GetArchitectureByPosition(loc);
-                        
-                        if (landedArch != null && landedArch != this.pathFinder.startingArchitecture && landedArch != this.pathFinder.targetArchitecture)
+                        for (int j = Math.Abs(i) - dist; j <= dist - Math.Abs(i); ++j)
                         {
-                            return 1000;
+                            Point loc = new Point(position.X + i, position.Y + j);
+                            Architecture landedArch = base.Scenario.GetArchitectureByPosition(loc);
+
+                            if (landedArch != null && landedArch != this.pathFinder.startingArchitecture && landedArch != this.pathFinder.targetArchitecture)
+                            {
+                                return 1000;
+                            }
                         }
                     }
                 }
@@ -9163,22 +9157,23 @@
                 TerrainDetail terrainDetailByPositionNoCheck = base.Scenario.GetTerrainDetailByPositionNoCheck(position);
                 if (terrainDetailByPositionNoCheck != null)
                 {
-                    consumptionRate = terrainDetailByPositionNoCheck.RoutewayConsumptionRate;
-                    int routewayBuildWorkCost = terrainDetailByPositionNoCheck.RoutewayBuildWorkCost;
-                    int routewayWorkForce = 100;
                     Architecture landedArch = base.Scenario.GetArchitectureByPosition(position);
                     if (landedArch != null && landedArch != this.pathFinder.startingArchitecture && landedArch != this.pathFinder.targetArchitecture)
                     {
-                        if (this.pathFinder.MultipleWaterCost && terrainDetailByPositionNoCheck.ID == 6)
+                        return 1000;
+                    } 
+                    else if (landedArch == null)
+                    {
+                        if (this.pathFinder.MultipleWaterCost && !base.Scenario.IsWaterPositionRoutewayable(position))
                         {
-                            routewayBuildWorkCost = 1000;
+                            return 1000;
                         }
                         if (this.pathFinder.MustUseWater && (terrainDetailByPositionNoCheck.ID != 6))
                         {
-                            routewayBuildWorkCost = 1000;
+                            return 1000;
                         }
                     }
-                    return ((routewayBuildWorkCost <= routewayWorkForce) ? routewayBuildWorkCost : 0x3e8);
+                    return 1;
                 }
             }
             return 0x3e8;
@@ -9197,6 +9192,47 @@
             FindWaterLinks(allArch, 50);
         }
 
+        private GameArea GetLandTroopMovableArea()
+        {
+            GameArea a = new GameArea();
+            foreach (Point i in this.ArchitectureArea.Area)
+            {
+                if (base.Scenario.GetTerrainDetailByPositionNoCheck(i).ID != 6)
+                {
+                    a.AddPoint(i);
+                }
+                else
+                {
+                    TerrainKind t1 = base.Scenario.GetTerrainKindByPosition(new Point(i.X - 1, i.Y));
+                    TerrainKind t2 = base.Scenario.GetTerrainKindByPosition(new Point(i.X + 1, i.Y));
+                    TerrainKind t3 = base.Scenario.GetTerrainKindByPosition(new Point(i.X, i.Y - 1));
+                    TerrainKind t4 = base.Scenario.GetTerrainKindByPosition(new Point(i.X, i.Y + 1));
+                    if (t1 != TerrainKind.水域 && t1 != TerrainKind.无)
+                    {
+                        a.AddPoint(i);
+                    }
+                    else if (t2 != TerrainKind.水域 && t2 != TerrainKind.无)
+                    {
+                        a.AddPoint(i);
+                    }
+                    else if (t3 != TerrainKind.水域 && t3 != TerrainKind.无)
+                    {
+                        a.AddPoint(i);
+                    }
+                    else if (t4 != TerrainKind.水域 && t4 != TerrainKind.无)
+                    {
+                        a.AddPoint(i);
+                    } 
+                }
+            }
+            return a;
+        }
+
+        private GameArea GetWaterTroopMovableArea()
+        {
+            return this.ArchitectureArea;
+        }
+
         private RoutewayPathFinder pathFinder = new RoutewayPathFinder();
         private void FindLandLinks(ArchitectureList allArch, int maxDistance)
         {
@@ -9213,9 +9249,7 @@
                     pathFinder.MustUseWater = false;
                     Point? p1;
                     Point? p2;
-                    base.Scenario.GetClosestPointsBetweenTwoAreas(
-                        this.ArchitectureArea.GetContactArea(false, base.Scenario, false, true),
-                        i.ArchitectureArea.GetContactArea(false, base.Scenario, false, true), out p1, out p2);
+                    base.Scenario.GetClosestPointsBetweenTwoAreas(this.GetLandTroopMovableArea(), i.GetLandTroopMovableArea(), out p1, out p2);
                     if (p1.HasValue && p2.HasValue)
                     {
                         if (pathFinder.GetPath(p1.Value, p2.Value, true))
@@ -9245,9 +9279,7 @@
                     pathFinder.ConsumptionMax = 0.7f;
                     Point? p1;
                     Point? p2;
-                    base.Scenario.GetClosestPointsBetweenTwoAreas(
-                        this.ArchitectureArea.GetContactArea(false, base.Scenario, true, false), 
-                        i.ArchitectureArea.GetContactArea(false, base.Scenario, true, false), out p1, out p2);
+                    base.Scenario.GetClosestPointsBetweenTwoAreas(this.GetWaterTroopMovableArea(), i.GetWaterTroopMovableArea(), out p1, out p2);
                     if (p1.HasValue && p2.HasValue)
                     {
                         if (pathFinder.GetPath(p1.Value, p2.Value, true))

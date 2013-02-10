@@ -776,7 +776,8 @@
                 if (this.BelongedLegion != null)
                 {
                     if (this.Food < this.FoodCostPerDay && !this.StartingArchitecture.IsFoodEnough && 
-                        (this.BelongedLegion.Kind == LegionKind.Offensive || (this.Morale <= 40 && this.BelongedLegion.Kind == LegionKind.Defensive && this.StartingArchitecture.Endurance > 30)))
+                        (this.BelongedLegion.Kind == LegionKind.Offensive || 
+                        (this.Morale <= 40 && this.BelongedLegion.Kind == LegionKind.Defensive && this.StartingArchitecture.Endurance > 30)))
                     {
                         this.GoBack();
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
