@@ -1732,143 +1732,31 @@
         {
             /*this.AIFundTransfer();
             this.AIFoodTransfer();*/
-            transferCountDown--;
-            if (transferCountDown > 0) return;
 
-            //transfer when
-            //food or fund is adundant here and here is not frontline nor hostile line, or nearby no-income archs
-            if (this.IsFoodAbundant || this.IsFundAbundant)
+            if (this.PersonCount <= 0) return;
+
+            if (((this.Endurance < 30 && GameObject.Chance(33)) || this.Endurance <= 0) && this.HasHostileTroopsInView())
             {
-                if (!this.HasPerson())
+                int transferFood = this.Food - this.EnoughFood;
+                int transferFund = this.Fund - this.EnoughFund;
+                if (transferFood >= 1000000 || transferFund >= 10000)
                 {
-                    if (!this.HasAnyPerson())
+                    while (transferFood > 0 || transferFund > 0)
                     {
-                        int minMerit = int.MaxValue;
-                        Person personToMove = null;
-                        foreach (Person p in this.BelongedFaction.Persons)
+                        if (transferFund < 0)
                         {
-                            if (!p.IsCaptive && p.LocationArchitecture != null && p.Status == PersonStatus.Normal && p.LocationArchitecture.BelongedSection == this.BelongedSection && p.Merit < minMerit && p.BelongedArchitecture.PersonCount + p.BelongedArchitecture.MovingPersons.Count > 1)
-                            {
-                                personToMove = p;
-                                minMerit = p.Merit;
-                            }
+                            transferFund = 0;
                         }
-                        if (personToMove != null && personToMove.WaitForFeiZi == null)
+                        if (transferFood < 0)
                         {
-
-                            personToMove.MoveToArchitecture(this);
-                            //personToMove.LocationArchitecture.RemovePerson(personToMove);
-                            //base.Scenario.detectDuplication();
-                        }
-                    }
-                }
-                else /*if (GameObject.Chance(20))*/
-                {
-                    //look for arch to transfer to, select the most needy base
-                    LinkNode dest = null;
-                    int min = int.MaxValue;
-                    bool forceTransferIgnoreFrontline = false;
-                    foreach (LinkNode node in this.AIAllLinkNodes.Values)
-                    {
-                        Architecture architecture = node.A;
-                        if (!architecture.HostileLine && !architecture.FrontLine && !architecture.noFactionFrontline && architecture.ExpectedFund > 0 && architecture.ExpectedFood > 0)
-                        {
-                            continue;
+                            transferFood = 0;
                         }
 
-                        //do not transport if the other has 2/3 full of food/fund, or the other side is falling
-                        if (((architecture.Food < architecture.FoodCeiling / 3 * 2) || (architecture.Fund < architecture.FundCeiling / 3 * 2)) && (architecture.Endurance >= 30 || architecture.RecentlyAttacked <= 0))
-                        {
-                            //transfer to same section or other section when permitted
-                            //and do not transport to empty base or even enemy bases, of course!
-                            if (architecture.BelongedSection != null && architecture.BelongedFaction == this.BelongedFaction &&
-                                ((architecture.BelongedSection == this.BelongedSection) || (architecture.BelongedSection.AIDetail.AllowFundTransfer && ((architecture.BelongedSection.OrientationSection == this.BelongedSection) || (architecture.BelongedSection.OrientationSection == null)))))
-                            {
-                                bool ok = true;
-                                foreach (Architecture a in node.Path)
-                                {
-                                    if (a.BelongedFaction != this.BelongedFaction && a.BelongedFaction != null)
-                                    {
-                                        ok = false;
-                                        break;
-                                    }
-                                }
-                                if (ok)
-                                {
-                                    int need = (!architecture.BuyFoodAvail() && !architecture.SellFoodAvail() ? Math.Min(architecture.Food, architecture.Fund * 100) * 2 : architecture.Food + architecture.Fund * 100) + (int)node.Distance * 10000;
+                        // create transport
+                        MilitaryKind mk;
+                        base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
+                        this.CreateMilitary(mk);
 
-                                    if (architecture.orientationFrontLine)
-                                    {
-                                        need /= 2;
-                                    }
-                                    if (architecture.FrontLine)
-                                    {
-                                        need /= 2;
-                                    }
-                                    if (architecture.HostileLine)
-                                    {
-                                        need /= 4;
-                                    }
-                                    if (!architecture.IsFoodEnough || !architecture.IsFundEnough)
-                                    {
-                                        need /= 2;
-                                    }
-                                    if ((architecture.ExpectedFood <= 50000 || architecture.ExpectedFund <= 500) &&
-                                        ((!architecture.IsFundEnough || !architecture.IsFoodEnough) || ((!architecture.IsFundAbundant || !architecture.IsFoodAbundant) && this.IsFoodAbundant && this.IsFundAbundant)))
-                                    {
-                                        forceTransferIgnoreFrontline = true;
-                                        need = 0; //force transfer if the target is incapable of getting any income and do not have enough food and fund
-                                    }
-                                    if (architecture.IsFoodAbundant || architecture.IsFundAbundant)
-                                    {
-                                        need *= 2;
-                                    }
-                                    if (need < min)
-                                    {
-                                        min = need;
-                                        dest = node;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (dest == null || ((this.HostileLine || this.FrontLine || this.noFactionFrontline) && !forceTransferIgnoreFrontline) ||
-                        (this.ExpectedFood <= 50000 && this.ExpectedFund <= 500))
-                    {
-                        //no suitable candidates, forget about it.
-                        //and do not transfer if this is frontline and there is no urgent need (force transfer) to other bases
-                        //and do not transfer if there is no food or fund income (to prevent perpertual transport)
-                        this.TransferFoodArchitecture = null;
-                        return;
-                    }
-
-                    //compute food and fund needed to transfer
-                    int transferFood = Math.Max(Math.Min(!this.HostileLine && !this.FrontLine ? this.Food - (int)(this.EnoughFood * 1.2) : this.Food - this.AbundantFood * 2, dest.A.FoodCeiling / 10 * 9 - dest.A.Food), 0);
-                    int transferFund = Math.Max(Math.Min(!this.HostileLine && !this.FrontLine ? this.Fund - (int)(this.EnoughFund * 1.2) : this.Fund - this.AbundantFund * 2, dest.A.FundCeiling / 10 * 9 - dest.A.Fund), 0);
-                    if (forceTransferIgnoreFrontline)
-                    {
-                        transferFood = Math.Min(Math.Max(transferFood, this.Food - (int)(this.EnoughFood * 1.2)), dest.A.FoodCeiling / 10 * 9 - dest.A.Food);
-                        transferFund = Math.Min(Math.Max(transferFund, this.Fund - (int)(this.EnoughFund * 1.2)), dest.A.FundCeiling / 10 * 9 - dest.A.Fund);
-                    }
-
-                    if (transferFood < 1000000 && transferFund < 10000)
-                    {
-                        //do not attempt to transfer too little resources
-                        this.TransferFoodArchitecture = null;
-                        return;
-                    }
-
-                    //if there is transport team here, lets transport!
-                    if (GlobalVariables.AINoTeamTransfer)
-                    {
-                        //if no transfer, just let the fund and food magically arrives ;)
-                        this.Food -= transferFood;
-                        this.Fund -= transferFund;
-                        dest.A.Food += transferFood;
-                        dest.A.Fund += transferFund;
-                    }
-                    else
-                    {
                         Military transportTeam = null;
                         foreach (Military m in Militaries)
                         {
@@ -1877,46 +1765,255 @@
                                 transportTeam = m;
                             }
                         }
-                        if (transportTeam != null)
+
+                        // choose dest
+                        Architecture dest = null;
+                        foreach (LinkNode n in this.AIAllLinkNodes.Values)
                         {
-                            //reduce amount of food if it is not possible to transport that much of food at all
-                            if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < transferFood)
+                            if (n.A.BelongedFaction == this.BelongedFaction && !n.A.FrontLine)
                             {
-                                transferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
+                                dest = n.A;
+                                break;
                             }
-                            if ((transportTeam.Quantity > 0 && (this.RecentlyAttacked <= 0 || this.Endurance == 0 || transportTeam.Quantity >= transportTeam.Kind.MaxScale)) && transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays >= transferFood)
+                        }
+                        if (dest == null)
+                        {
+                            foreach (LinkNode n in this.AIAllLinkNodes.Values)
                             {
-                                //ensure enough crop for task
-                                if (transferFood >= transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * (dest.Distance / (transportTeam.Kind.Movability / (transportTeam.Kind.PlainAdaptability * 2))))
+                                if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HostileLine)
                                 {
-                                    //build the troop
-                                    this.BuildTransportTroop(dest.A, transportTeam, transferFood, transferFund);
-
-                                    //and don't transfer within 3 days.
-                                    transferCountDown = 3;
+                                    dest = n.A;
+                                    break;
                                 }
-                                this.TransferFoodArchitecture = null;
                             }
                         }
-                        else
+                        if (dest == null)
                         {
-                            //otherwise, get a new one
-                            MilitaryKind mk;
-                            base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
-                            this.CreateMilitary(mk);
-
-                            //let AIWork to recruit this team
-
-                            //and mark that we are going to transfer
-                            this.TransferFoodArchitecture = dest.A;
+                            List<Architecture> candidates = new List<Architecture>();
+                            foreach (LinkNode n in this.AIAllLinkNodes.Values)
+                            {
+                                if (n.A.BelongedFaction == this.BelongedFaction)
+                                {
+                                    candidates.Add(n.A);
+                                }
+                            }
+                            if (candidates.Count > 0){
+                                dest = candidates[GameObject.Random(candidates.Count)];
+                            }
                         }
+                        if (dest == null) break;
+
+                        // do transfer
+                        int actualTransferFood = transferFood;
+                        int actualTransferFund = transferFund;
+                        if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < transferFood)
+                        {
+                            actualTransferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
+                        }
+                        if (transportTeam.Kind.zijinshangxian < transferFund)
+                        {
+                            actualTransferFund = transportTeam.Kind.zijinshangxian;
+                        }
+                        transferFund -= actualTransferFund;
+                        transferFood -= actualTransferFood;
+                        this.BuildTransportTroop(dest, transportTeam, actualTransferFood, actualTransferFund);
                     }
+
                 }
             }
             else
             {
-                //condition failed, forget about transfering
-                this.TransferFoodArchitecture = null;
+
+                transferCountDown--;
+                if (transferCountDown > 0) return;
+
+                //transfer when
+                //food or fund is adundant here and here is not frontline nor hostile line, or nearby no-income archs
+                if (this.IsFoodAbundant || this.IsFundAbundant)
+                {
+                    if (!this.HasPerson())
+                    {
+                        if (!this.HasAnyPerson())
+                        {
+                            int minMerit = int.MaxValue;
+                            Person personToMove = null;
+                            foreach (Person p in this.BelongedFaction.Persons)
+                            {
+                                if (!p.IsCaptive && p.LocationArchitecture != null && p.Status == PersonStatus.Normal && p.LocationArchitecture.BelongedSection == this.BelongedSection && p.Merit < minMerit && p.BelongedArchitecture.PersonCount + p.BelongedArchitecture.MovingPersons.Count > 1)
+                                {
+                                    personToMove = p;
+                                    minMerit = p.Merit;
+                                }
+                            }
+                            if (personToMove != null && personToMove.WaitForFeiZi == null)
+                            {
+
+                                personToMove.MoveToArchitecture(this);
+                                //personToMove.LocationArchitecture.RemovePerson(personToMove);
+                                //base.Scenario.detectDuplication();
+                            }
+                        }
+                    }
+                    else /*if (GameObject.Chance(20))*/
+                    {
+                        //look for arch to transfer to, select the most needy base
+                        LinkNode dest = null;
+                        int min = int.MaxValue;
+                        bool forceTransferIgnoreFrontline = false;
+                        foreach (LinkNode node in this.AIAllLinkNodes.Values)
+                        {
+                            Architecture architecture = node.A;
+                            if (!architecture.HostileLine && !architecture.FrontLine && !architecture.noFactionFrontline && architecture.ExpectedFund > 0 && architecture.ExpectedFood > 0)
+                            {
+                                continue;
+                            }
+
+                            //do not transport if the other has 2/3 full of food/fund, or the other side is falling
+                            if (((architecture.Food < architecture.FoodCeiling / 3 * 2) || (architecture.Fund < architecture.FundCeiling / 3 * 2)) && (architecture.Endurance >= 30 || architecture.RecentlyAttacked <= 0))
+                            {
+                                //transfer to same section or other section when permitted
+                                //and do not transport to empty base or even enemy bases, of course!
+                                if (architecture.BelongedSection != null && architecture.BelongedFaction == this.BelongedFaction &&
+                                    ((architecture.BelongedSection == this.BelongedSection) || (architecture.BelongedSection.AIDetail.AllowFundTransfer && ((architecture.BelongedSection.OrientationSection == this.BelongedSection) || (architecture.BelongedSection.OrientationSection == null)))))
+                                {
+                                    bool ok = true;
+                                    foreach (Architecture a in node.Path)
+                                    {
+                                        if (a.BelongedFaction != this.BelongedFaction && a.BelongedFaction != null)
+                                        {
+                                            ok = false;
+                                            break;
+                                        }
+                                    }
+                                    if (ok)
+                                    {
+                                        int need = (!architecture.BuyFoodAvail() && !architecture.SellFoodAvail() ? Math.Min(architecture.Food, architecture.Fund * 100) * 2 : architecture.Food + architecture.Fund * 100) + (int)node.Distance * 10000;
+
+                                        if (architecture.orientationFrontLine)
+                                        {
+                                            need /= 2;
+                                        }
+                                        if (architecture.FrontLine)
+                                        {
+                                            need /= 2;
+                                        }
+                                        if (architecture.HostileLine)
+                                        {
+                                            need /= 4;
+                                        }
+                                        if (!architecture.IsFoodEnough || !architecture.IsFundEnough)
+                                        {
+                                            need /= 2;
+                                        }
+                                        if ((architecture.ExpectedFood <= 50000 || architecture.ExpectedFund <= 500) &&
+                                            ((!architecture.IsFundEnough || !architecture.IsFoodEnough) || ((!architecture.IsFundAbundant || !architecture.IsFoodAbundant) && this.IsFoodAbundant && this.IsFundAbundant)))
+                                        {
+                                            forceTransferIgnoreFrontline = true;
+                                            need = 0; //force transfer if the target is incapable of getting any income and do not have enough food and fund
+                                        }
+                                        if (architecture.IsFoodAbundant || architecture.IsFundAbundant)
+                                        {
+                                            need *= 2;
+                                        }
+                                        if (need < min)
+                                        {
+                                            min = need;
+                                            dest = node;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (dest == null || ((this.HostileLine || this.FrontLine || this.noFactionFrontline) && !forceTransferIgnoreFrontline) ||
+                            (this.ExpectedFood <= 50000 && this.ExpectedFund <= 500))
+                        {
+                            //no suitable candidates, forget about it.
+                            //and do not transfer if this is frontline and there is no urgent need (force transfer) to other bases
+                            //and do not transfer if there is no food or fund income (to prevent perpertual transport)
+                            this.TransferFoodArchitecture = null;
+                            return;
+                        }
+
+                        //compute food and fund needed to transfer
+                        int transferFood = Math.Max(Math.Min(!this.HostileLine && !this.FrontLine ? this.Food - (int)(this.EnoughFood * 1.2) : this.Food - this.AbundantFood * 2, dest.A.FoodCeiling / 10 * 9 - dest.A.Food), 0);
+                        int transferFund = Math.Max(Math.Min(!this.HostileLine && !this.FrontLine ? this.Fund - (int)(this.EnoughFund * 1.2) : this.Fund - this.AbundantFund * 2, dest.A.FundCeiling / 10 * 9 - dest.A.Fund), 0);
+                        if (forceTransferIgnoreFrontline)
+                        {
+                            transferFood = Math.Min(Math.Max(transferFood, this.Food - (int)(this.EnoughFood * 1.2)), dest.A.FoodCeiling / 10 * 9 - dest.A.Food);
+                            transferFund = Math.Min(Math.Max(transferFund, this.Fund - (int)(this.EnoughFund * 1.2)), dest.A.FundCeiling / 10 * 9 - dest.A.Fund);
+                        }
+
+                        if (transferFood < 1000000 && transferFund < 10000)
+                        {
+                            //do not attempt to transfer too little resources
+                            this.TransferFoodArchitecture = null;
+                            return;
+                        }
+
+                        //if there is transport team here, lets transport!
+                        if (GlobalVariables.AINoTeamTransfer)
+                        {
+                            //if no transfer, just let the fund and food magically arrives ;)
+                            this.Food -= transferFood;
+                            this.Fund -= transferFund;
+                            dest.A.Food += transferFood;
+                            dest.A.Fund += transferFund;
+                        }
+                        else
+                        {
+                            Military transportTeam = null;
+                            foreach (Military m in Militaries)
+                            {
+                                if (m.Kind.ID == 29 && (transportTeam == null || transportTeam.Quantity <= m.Quantity))
+                                {
+                                    transportTeam = m;
+                                }
+                            }
+                            if (transportTeam != null)
+                            {
+                                //reduce amount of fund/food if it is not possible to transport that much of food at all
+                                if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < transferFood)
+                                {
+                                    transferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
+                                }
+                                if (transferFund > transportTeam.Kind.zijinshangxian)
+                                {
+                                    transferFund = transportTeam.Kind.zijinshangxian;
+                                }
+                                if ((transportTeam.Quantity > 0 && (this.RecentlyAttacked <= 0 || this.Endurance == 0 || transportTeam.Quantity >= transportTeam.Kind.MaxScale)) && transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays >= transferFood)
+                                {
+                                    //ensure enough crop for task
+                                    if (transferFood >= transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * (dest.Distance / (transportTeam.Kind.Movability / (transportTeam.Kind.PlainAdaptability * 2))))
+                                    {
+                                        //build the troop
+                                        this.BuildTransportTroop(dest.A, transportTeam, transferFood, transferFund);
+
+                                        //and don't transfer within 3 days.
+                                        transferCountDown = 3;
+                                    }
+                                    this.TransferFoodArchitecture = null;
+                                }
+                            }
+                            else
+                            {
+                                //otherwise, get a new one
+                                MilitaryKind mk;
+                                base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
+                                this.CreateMilitary(mk);
+
+                                //let AIWork to recruit this team
+
+                                //and mark that we are going to transfer
+                                this.TransferFoodArchitecture = dest.A;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    //condition failed, forget about transfering
+                    this.TransferFoodArchitecture = null;
+                }
             }
         }
 
@@ -3095,6 +3192,7 @@
                     min = p.Merit;
                 }
             }
+            if (leader.Count <= 0) return null;
             troop = Troop.CreateSimulateTroop(leader, military, this.Position);
             Point? nullable = this.GetRandomStartingPosition(troop);
             if (!nullable.HasValue)
