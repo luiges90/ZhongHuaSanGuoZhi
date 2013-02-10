@@ -210,6 +210,57 @@
             }
         }
 
+        public int GetTechniqueUsefulness(Technique tech)
+        {
+            int result = 0;
+            foreach (Influences.Influence i in tech.Influences.GetInfluenceList())
+            {
+                switch (i.ID)
+                {
+                    case 1030:
+                    case 2400:
+                    case 2420:
+                    case 2430:
+                        if (!GlobalVariables.LiangdaoXitong) break;
+                        result = Math.Max(100, result);
+                        break;
+                    case 2240:
+                    case 2250:
+                        if (int.Parse(i.Parameter2) == 3)
+                        {
+                            bool hasWater = false;
+                            foreach (Architecture a in this.Architectures)
+                            {
+                                if (a.IsBesideWater)
+                                {
+                                    hasWater = true;
+                                    break;
+                                }
+                            }
+                            if (!hasWater) break;
+                        }
+                        else if (int.Parse(i.Parameter2) == 4)
+                        {
+                            bool hasSiege = false;
+                            foreach (MilitaryKind mk in this.AvailableMilitaryKinds.MilitaryKinds.Values)
+                            {
+                                if (mk.Type == MilitaryType.器械)
+                                {
+                                    hasSiege = true;
+                                }
+                            }
+                            if (!hasSiege) break;
+                        }
+                        result = Math.Max(100, result);
+                        break;
+                    default:
+                        result = Math.Max(100, result);
+                        break;
+                }
+            }
+            return result;
+        }
+
         public void AddArchitecture(Architecture architecture)
         {
             this.Architectures.Add(architecture);
@@ -612,6 +663,7 @@
                             {
                                 continue;
                             }
+                            if (this.GetTechniqueUsefulness(technique) <= 0) continue;
                             if (preferredTechniqueComplition < 0.5f)
                             {
                                 if (this.PreferredTechniqueKinds.IndexOf(technique.Kind) >= 0)
@@ -1555,7 +1607,7 @@
             List<Technique> list = new List<Technique>();
             foreach (Technique technique in base.Scenario.GameCommonData.AllTechniques.Techniques.Values)
             {
-                if (this.IsTechniqueUpgradable(technique))
+                if (this.IsTechniqueUpgradable(technique) && this.GetTechniqueUsefulness(technique) > 0)
                 {
                     list.Add(technique);
                 }
