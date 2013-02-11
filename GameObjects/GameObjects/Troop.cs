@@ -788,7 +788,8 @@
                     }
                 }
                 //earlier retreat if losing this troop is costly
-                if (this.Army.IsFewScaleNeedRetreat)
+                if (this.Army.IsFewScaleNeedRetreat && (this.BelongedLegion == null || this.BelongedLegion.Kind == LegionKind.Offensive ||
+                        (this.BelongedLegion.Kind == LegionKind.Defensive && this.StartingArchitecture.Endurance > 30)))
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;

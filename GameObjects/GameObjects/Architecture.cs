@@ -6006,7 +6006,7 @@
                         bool isBesideWater = this.IsBesideWater;
                         foreach (Military military in this.Militaries.GetRandomList())
                         {
-                            if (military.IsFewScaleNeedRetreat && this.Endurance < 30) continue;
+                            if (military.IsFewScaleNeedRetreat && this.Endurance >= 30) continue;
                             if ((isBesideWater || (military.Kind.Type != MilitaryType.水军)) && (((((this.Endurance < 30) || military.Kind.AirOffence) || (military.Scales >= 2)) && (military.Morale > 0x2d)) && ((this.Endurance < 30) || (military.InjuryQuantity < military.Kind.MinScale))))
                             {
                                 TroopList candidates = this.AISelectPersonIntoTroop(this, military);
