@@ -119,7 +119,7 @@
             MilitaryKindList toVisit = new MilitaryKindList();
             foreach (MilitaryKind i in prev.successor.GetMilitaryKindList())
             {
-                if (!i.findSuccessor_visited && i.CreateAvail(recruiter) && allMilitaryKinds.GetList().GameObjects.Contains(i))
+                if (!i.findSuccessor_visited && recruiter.GetNewMilitaryKindList().GameObjects.Contains(i) && allMilitaryKinds.GetList().GameObjects.Contains(i))
                 {
                     toVisit.Add(i);
                 }
