@@ -1792,7 +1792,7 @@
                             List<Architecture> candidates = new List<Architecture>();
                             foreach (LinkNode n in this.AIAllLinkNodes.Values)
                             {
-                                if (n.A.BelongedFaction == this.BelongedFaction)
+                                if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HasHostileTroopsInView())
                                 {
                                     candidates.Add(n.A);
                                 }
@@ -5991,51 +5991,6 @@
             {
                 orientations.Add(troop.Position);
             }
-            /*if (this.Endurance == 0 && (!this.HasCampaignableMilitary() || !this.HasPerson() || this.GetAllAvailableArea(false).Count == 0) 
-                && ((this.HasHostileTroopsInView() && !this.HasOwnFactionTroopsInView())))
-            {
-                //on blink of collapse, destroy everything.
-                if (GameObject.Random(this.BelongedFaction.Leader.Uncruelty - 8) == 0)
-                {
-                    while (this.Militaries.Count > 0)
-                    {
-                        this.DisbandMilitary(this.Militaries[0] as Military);
-                    }
-                }
-                if (GameObject.Random(this.BelongedFaction.Leader.Uncruelty - 10) == 0)
-                {
-                    if (this.BelongedFaction.Capital != this && this.BelongedFaction.Capital != null)
-                    {
-                        while (this.Persons.Count > 0)
-                        {
-                            if ((this.Persons[0] as Person).LocationArchitecture == null)
-                            {
-                                (this.Persons[0] as Person).FixLocationArchitecture();
-                            }
-                            if ((this.Persons[0] as Person).LocationArchitecture != null)
-                            {
-                                (this.Persons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital);
-                            }
-                            else
-                            {
-                                //this should not happen...
-                                this.Persons.Remove(this.Persons[0]);
-                            }
-                        }
-                    }
-                }
-                if (GameObject.Random(this.BelongedFaction.Leader.Uncruelty - 4) == 0)
-                {
-                    for (int i = 0; i < this.Facilities.Count; ++i)
-                    {
-                        if (!(this.Facilities[i] as Facility).Kind.bukechaichu)
-                        {
-                            this.DemolishFacility(this.Facilities[i] as Facility);
-                            i--;
-                        }
-                    }
-                }
-            }*/
 
             if ((this.HasPerson() && this.HasCampaignableMilitary()) && (this.GetAllAvailableArea(false).Count != 0))
             {
