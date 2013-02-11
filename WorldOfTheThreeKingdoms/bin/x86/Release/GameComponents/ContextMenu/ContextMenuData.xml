@@ -99,6 +99,8 @@
         <MenuItem ID="1"  Name="Transfer" DisplayName="调动" DisplayIfTrue="PersonTransferAvail"></MenuItem>
         <MenuItem ID="2"  Name="Convene" DisplayName="召集" DisplayIfTrue="PersonConveneAvail"></MenuItem>
         <MenuItem ID="4"  Name="Convince" DisplayName="说服" DisplayIfTrue="ConvincePersonAvail"></MenuItem>
+		<MenuItem ID="3"  Name="Hiring" DisplayName="自动录用" OppositeName="停止录用" OppositeIfTrue="AutoHiring" DisplayIfTrue="AutoHiringAvail"></MenuItem>
+        <MenuItem ID="9"  Name="AutoReward" DisplayName="自动褒奖" OppositeName="停止褒奖" OppositeIfTrue="AutoRewarding" DisplayIfTrue="AutoRewardingAvail"></MenuItem>
         <MenuItem ID="5"  Name="Reward" DisplayName="褒奖" DisplayIfTrue="RewardPersonAvail"></MenuItem>
         <MenuItem ID="6"  Name="RewardAll" DisplayName="褒奖所有" DisplayIfTrue="RewardAllAvail"></MenuItem>
         <MenuItem ID="7"  Name="Redeem" DisplayName="赎回" DisplayIfTrue="RedeemAvail"></MenuItem>
@@ -148,8 +150,6 @@
           <MenuItem ID="2"  Name="Regroup" DisplayName="重编" DisplayIfTrue="RegroupSectionAvail"></MenuItem>
           <MenuItem ID="3"  Name="Disband" DisplayName="解散" DisplayIfTrue="DisbandSectionAvail"></MenuItem>
         </MenuItem>
-        <MenuItem ID="2"  Name="Hiring" DisplayName="委任录用" OppositeName="手动录用" OppositeIfTrue="AutoHiring" DisplayIfTrue="AutoHiringAvail"></MenuItem>
-        <MenuItem ID="3"  Name="Rewarding" DisplayName="委任褒奖" OppositeName="手动褒奖" OppositeIfTrue="AutoRewarding" DisplayIfTrue="AutoRewardingAvail"></MenuItem>
         <MenuItem ID="4"  Name="Working" DisplayName="委任工作" OppositeName="手动工作" OppositeIfTrue="AutoWorking" DisplayIfTrue="AutoWorkingAvail"></MenuItem>
         <MenuItem ID="5"  Name="Searching" DisplayName="委任搜索" OppositeName="手动搜索" OppositeIfTrue="AutoSearching" DisplayIfTrue="AutoSearchingAvail"></MenuItem>
       </MenuItem>
