@@ -1291,11 +1291,19 @@
                 }
             }
             //chongxing
-            if (!leader.IsCaptive && !leader.huaiyun && meifaxianhuaiyundefeiziliebiao().Count > 0 && leader.LocationArchitecture != null && GameObject.Chance((int) ((int)leader.Ambition * Parameters.AIChongxingChanceMultiply + Parameters.AIChongxingChanceAdd)) &&
-                    this.BelongedFaction.Leader.WaitForFeiZi == null && leader.Status == PersonStatus.Normal &&
+            if (!leader.IsCaptive && !leader.huaiyun && meifaxianhuaiyundefeiziliebiao().Count > 0 && leader.LocationArchitecture != null &&
+                this.BelongedFaction.Leader.WaitForFeiZi == null && leader.Status == PersonStatus.Normal &&
+
+                GameObject.Chance((int) ((int)leader.Ambition * Parameters.AIChongxingChanceMultiply + Parameters.AIChongxingChanceAdd)) 
+                ||
+                GameObject.Chance((int)Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower)))
+                
+                &&
+                    
                    (((!leader.LocationArchitecture.HostileLine || GameObject.Chance(Parameters.AILeaveHostilelineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIHostilelineHougongChance)))
                     && (!leader.LocationArchitecture.FrontLine || GameObject.Chance(Parameters.AILeaveFrontlineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIFrontlineHougongChance))))
-                    || GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower)))))
+                    )
+                )
             {
                 if (leader.LocationArchitecture != this)
                 {
