@@ -10,6 +10,7 @@
     using System;
     using System.Drawing;
     using System.Xml;
+    using System.IO;
 
     public class tupianwenziPlugin : GameObject, Itupianwenzi, IBasePlugin, IPluginXML, IPluginGraphics
     {
@@ -132,7 +133,9 @@
                 }
                 catch
                 {
-                    string suijitupianwenjianming = "B" + GameObject.Random(39).ToString() + ".jpg";
+                    string[] files = Directory.GetFiles(@"GameComponents\tupianwenzi\Data\meinvtupian\", "B*.jpg");
+
+                    string suijitupianwenjianming = files[GameObject.Random(files.Length)];
                     shijiantupian = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\tupianwenzi\Data\meinvtupian\" + suijitupianwenjianming );
 
                     
@@ -151,14 +154,15 @@
             }
             else 
             {
-                if (tupian == "")
-                {
-                    shijiantupian = null;
-                }
-                else
+                try
                 {
                     shijiantupian = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\tupianwenzi\Data\tupian\" + tupian);
                 }
+                catch
+                {
+                    shijiantupian = null;
+                }
+
                 shijiantupianjuxing = new Microsoft.Xna.Framework.Rectangle(0, 0, 512, 384);
 
             }
