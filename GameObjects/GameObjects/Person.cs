@@ -955,7 +955,7 @@
         public void ConfiscatedTreasure(Treasure t)
         {
             this.LoseTreasure(t);
-            if (this.Loyalty <= 100)
+            //if (this.Loyalty <= 100)
             {
                 if (this.OnBeConfiscatedTreasure != null)
                 {
@@ -2566,13 +2566,8 @@
 
         private void LoyaltyChange()
         {
-			//义兄弟和配偶不降忠诚
-            if ((this.BelongedFaction != null)
-                && (this.Spouse == this.BelongedFaction.LeaderID || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother > 0)))
-            {
-                return;
-            }		
-            if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) && (this.Loyalty <= 100))
+            if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) 
+			    /*&& (this.Loyalty <= 100) */ )
             {
                 int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
                 //亲爱武将性格差调整
@@ -2592,11 +2587,11 @@
                     {
                         decrement *= 2;
                     }
-                    if (decrement > 0)
+                    if (decrement > 0 && !(this.Spouse == this.BelongedFaction.LeaderID || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother > 0)))
                     {
                         this.DecreaseLoyalty(decrement);
                     }
-                    else if (decrement < 0)
+                    else if (decrement < 0 && (this.Loyalty < 100))
                     {
                         this.IncreaseLoyalty(Math.Abs(decrement));
                     }

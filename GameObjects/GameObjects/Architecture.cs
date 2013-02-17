@@ -5458,7 +5458,7 @@
         {
             foreach (Person person in this.Persons)
             {
-                if ((person.Loyalty <= 100) && (person != this.BelongedFaction.Leader))
+                if (/*(person.Loyalty <= 100) && */ (person != this.BelongedFaction.Leader))
                 {
                     person.DecreaseLoyalty(StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
                 }
