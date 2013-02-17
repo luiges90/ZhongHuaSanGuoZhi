@@ -1745,7 +1745,7 @@
 
             if (this.PersonCount <= 0) return;
 
-            if (((this.Endurance < 30 && GameObject.Chance(33)) || this.Endurance <= 0) && this.HasHostileTroopsInView())
+            if (this.Endurance < 30 && this.HasHostileTroopsInView())
             {
                 int transferFood = this.Food - this.EnoughFood;
                 int transferFund = this.Fund - this.EnoughFund;
