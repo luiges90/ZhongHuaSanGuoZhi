@@ -2268,8 +2268,8 @@
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
-                    if (i.Relation >= 300 && base.Scenario.IsPlayer(opposite)){
-                        i.Relation = 0;
+                    if (i.Relation >= -300 && base.Scenario.IsPlayer(opposite)){
+                        i.Relation -= 15;
                     }
                 }
             }
@@ -2281,11 +2281,11 @@
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
-                    if (i.Relation < 300) continue;
+                    /* if (i.Relation < 300) continue;  HasFriendlyDiplomaticRelation已经判断过了 */
                     if (!this.adjacentTo(opposite)) continue;    
                     if (GameObject.Chance((int)((double)this.ArmyScale / opposite.ArmyScale * ((int) this.Leader.Ambition + 1) * 20)))
                     {
-                        i.Relation = 0;
+                        i.Relation -= (int)Random(15);
                         relationBroken = true;
                         break;
                     }
