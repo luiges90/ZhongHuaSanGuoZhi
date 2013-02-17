@@ -140,6 +140,7 @@
             this.connectionStringBuilder.Provider = "Microsoft.Jet.OLEDB.4.0";
             this.CommonDataFileName = Application.StartupPath + "/GameData/Common/CommonData.mdb";
             this.connectionStringBuilder.DataSource = this.CommonDataFileName;
+            new GlobalVariables().InitialGlobalVariables();
             this.Scenario.GameCommonData.LoadFromDatabase(this.connectionStringBuilder.ConnectionString);
             this.pnlMap.DisplayNone = this.menuTerrainNone.Checked;
             this.pnlMap.DisplayPlain = this.menuTerrainPlain.Checked;

@@ -325,8 +325,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void faxianhuaiyun(Person person)
         {
-
-            if (((base.Scenario.CurrentPlayer != null) && base.Scenario.IsCurrentPlayer(person.BelongedFaction)) || GlobalVariables.SkyEye)
+            if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null && 
+                    base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 //person.TextResultString = t.Name;
                 this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(person, person, "faxianhuaiyun");
@@ -339,7 +339,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void xiaohaichusheng(Person person)
         {
-            if ((base.Scenario.CurrentPlayer != null && base.Scenario.IsCurrentPlayer(person.BelongedFaction)) || GlobalVariables.SkyEye)
+            if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
+                    base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 //person.TextResultString = ((person.meichushengdehaiziliebiao()[0]) as Person).Name ;
                 this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(person, person, "xiaohaichusheng");
@@ -351,7 +352,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         }
         public override void haizizhangdachengren(Person person)
         {
-            if (((base.Scenario.CurrentPlayer == null) && base.Scenario.IsCurrentPlayer(person.BelongedFaction)) || GlobalVariables.SkyEye)
+            if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
+                    base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 //person.TextResultString = t.Name;
                 this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(person, person, "haizizhangdachengren");

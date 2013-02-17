@@ -1294,9 +1294,11 @@
             if (!leader.IsCaptive && !leader.huaiyun && meifaxianhuaiyundefeiziliebiao().Count > 0 && leader.LocationArchitecture != null &&
                 this.BelongedFaction.Leader.WaitForFeiZi == null && leader.Status == PersonStatus.Normal &&
 
+                (
                 GameObject.Chance((int) ((int)leader.Ambition * Parameters.AIChongxingChanceMultiply + Parameters.AIChongxingChanceAdd)) 
                 ||
                 GameObject.Chance((int)Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower)))
+                )
                 
                 &&
                     
