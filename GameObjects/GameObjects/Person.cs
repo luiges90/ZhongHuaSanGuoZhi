@@ -2572,9 +2572,7 @@
             {
                 return;
             }		
-            if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) 
-				/* 取消上限100的判定 && (this.Loyalty <= 100) */
-				)
+            if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) && (this.Loyalty <= 100))
             {
                 int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
                 //亲爱武将性格差调整
