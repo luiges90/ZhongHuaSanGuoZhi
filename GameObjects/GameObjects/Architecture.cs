@@ -11381,7 +11381,7 @@
             p.RewardFinished = true;
             this.DecreaseFund(this.RewardPersonFund);
             int idealOffset = Person.GetIdealOffset(p, this.BelongedFaction.Leader);
-            p.IncreaseLoyalty((15 - (idealOffset / 5)) +(int) p.PersonalLoyalty);
+            p.IncreaseLoyalty((15 - (idealOffset / 5)) + 4 - (int) p.PersonalLoyalty);
 			ExtensionInterface.call("RewardPerson", new Object[] { this.Scenario, this, p });
             return true;
         }
