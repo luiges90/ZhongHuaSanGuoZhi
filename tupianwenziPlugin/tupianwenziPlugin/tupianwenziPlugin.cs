@@ -133,10 +133,18 @@
                 }
                 catch
                 {
-                    string[] files = Directory.GetFiles(@"GameComponents\tupianwenzi\Data\meinvtupian\", "B*.jpg");
+                    try
+                    {
+                        string[] files = Directory.GetFiles(@"GameComponents\tupianwenzi\Data\meinvtupian\", "B*.jpg");
 
-                    string suijitupianwenjianming = files[GameObject.Random(files.Length)];
-                    shijiantupian = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\tupianwenzi\Data\meinvtupian\" + suijitupianwenjianming );
+                        string suijitupianwenjianming = files[GameObject.Random(files.Length)];
+                        shijiantupian = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\tupianwenzi\Data\meinvtupian\" + suijitupianwenjianming);
+                    }
+                    catch
+                    {
+                        // this should not happen, hmm...
+                        shijiantupian = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\tupianwenzi\Data\meinvtupian\B0.jpg");
+                    }
 
                     
                 }

@@ -721,7 +721,7 @@
                 //retreat if target has too much food/fund that further transfer will fill up there, for transport troop
                 if ((this.WillArchitecture.Food + this.Food > this.WillArchitecture.FoodCeiling ||
                     this.WillArchitecture.Fund + this.zijin > this.WillArchitecture.FundCeiling) &&
-                    this.Army.KindID == 29)
+                    this.Army.KindID == 29 && !this.StartingArchitecture.HasHostileTroopsInView())
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
@@ -855,7 +855,7 @@
                     }
                 }
                 //retreat if we were outnumbered, in an offensive
-                if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive && this.HasHostileTroopInView())
+                if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive && this.HasHostileTroopInView() && this.Army.KindID != 29)
                 {
                     int friendlyFightingForce = 0;
                     int hostileFightingForce = 0;

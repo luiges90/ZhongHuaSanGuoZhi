@@ -5386,13 +5386,13 @@
                 }
             }
 
-            Architecture bornArch = father.LocationArchitecture == null ? mother.LocationArchitecture : father.LocationArchitecture;
+            Architecture bornArch = father.BelongedArchitecture == null ? mother.BelongedArchitecture : father.BelongedArchitecture;
 
             try //best-effort approach for getting PersonBornRegion
             {
                 r.BornRegion = (PersonBornRegion)Enum.Parse(typeof(PersonBornRegion), bornArch.LocationState.Name); //mother has no locationarch...
             }
-            catch (ArgumentException)
+            catch (Exception)
             {
                 r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
             }
