@@ -63,7 +63,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                             {
                                 troop.DecrementNumberList.Draw(this.screen, spriteBatch, this.mainMapLayer.screen.Scenario.GameCommonData.NumberGenerator, new GetDisplayRectangle(this.mainMapLayer.GetDestination), this.mainMapLayer.TileWidth, gameTime);
                             }
-                            if (troop.PreAction != TroopPreAction.无)
+                            if ((troop.PreAction != TroopPreAction.无) && (troop.TileAnimation.FrameCount != 0))
                             {
                                 spriteBatch.Draw(troop.TileAnimation.Texture, this.mainMapLayer.Tiles[troop.Position.X, troop.Position.Y].Destination, new Rectangle?(troop.GetCurrentPreTroopActionRectangle(troop.TileAnimation.Texture.Width / troop.TileAnimation.FrameCount)), Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.6998f);
                             }
