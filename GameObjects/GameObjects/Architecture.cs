@@ -1328,7 +1328,6 @@
                     {
                         leader.MoveToArchitecture(this);
                     }
-                    //leader.LocationArchitecture.RemovePerson(leader);
                 }
                 else
                 {
@@ -1445,7 +1444,8 @@
                                 while (num2 < num)
                                 {
                                     Person p = list[num2] as Person;
-                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null)
+                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null && 
+                                        (p != this.BelongedFaction.Leader || p.LocationArchitecture.feiziliebiao.Count == 0))
                                     {
                                         p.MoveToArchitecture(this);
                                     }
@@ -1540,7 +1540,8 @@
                                         while (num2 < num)
                                         {
                                             Person p = list[num2] as Person;
-                                            if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null)
+                                            if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
+                                                (p != this.BelongedFaction.Leader || p.LocationArchitecture.feiziliebiao.Count == 0))
                                             {
                                                 p.MoveToArchitecture(this);
                                             }
