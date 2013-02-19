@@ -1524,11 +1524,25 @@
 
         }
 
+        private void InitializeArchitectureMapTile()
+        {
+            foreach (Architecture architecture in this.Architectures)
+            {
+                foreach (Point point in architecture.ArchitectureArea.Area)
+                {
+                    this.MapTileData[point.X, point.Y].TileArchitecture = architecture;
+                }
+            }
+            foreach (Architecture architecture in this.Architectures)
+            {
+                this.SetMapTileArchitecture(architecture);
+            }
+        }
+
         private void InitializeArchitectureData()
         {
             foreach (Architecture architecture in this.Architectures)
             {
-                this.SetMapTileArchitecture(architecture);
                 if (architecture.PlanArchitectureID >= 0)
                 {
                     architecture.PlanArchitecture = this.Architectures.GetGameObject(architecture.PlanArchitectureID) as Architecture;
@@ -2724,6 +2738,7 @@
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
             this.ApplyFireTable();
+            this.InitializeArchitectureMapTile();
             this.InitializeFactionData();
             this.Preparing = true;
             this.Factions.BuildQueue(true);
@@ -2768,6 +2783,7 @@
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
             this.ApplyFireTable();
+            this.InitializeArchitectureMapTile();
             this.InitializeFactionData();
             this.Preparing = true;
             this.Factions.ApplyInfluences();
@@ -3934,10 +3950,6 @@
 
         public void SetMapTileArchitecture(Architecture architecture)
         {
-            foreach (Point point in architecture.ArchitectureArea.Area)
-            {
-                this.MapTileData[point.X, point.Y].TileArchitecture = architecture;
-            }
             if (!architecture.AutoRefillFoodInLongViewArea)
             {
                 architecture.AddBaseSupplyingArchitecture();
