@@ -955,7 +955,7 @@
         public void ConfiscatedTreasure(Treasure t)
         {
             this.LoseTreasure(t);
-            if (this.Loyalty <= 100)
+            //if (this.Loyalty <= 100)
             {
                 if (this.OnBeConfiscatedTreasure != null)
                 {
@@ -1130,6 +1130,8 @@
                         && (GameObject.Random((this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 2)) - ((int)this.ConvincingPerson.PersonalLoyalty * (int)((PersonLoyalty)0x19))) > this.ConvincingPerson.Loyalty);
                         
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
+                        // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
+                        ConvinceSuccess |= (this.ConvincingPerson.closePersons.Contains(this.BelongedFaction.LeaderID)) || (this.ConvincingPerson.closePersons.Contains(this.ID));						
                     }
                     else
                     {
@@ -1152,7 +1154,9 @@
                     }
 
                     ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
-
+                    //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
+                    ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.LeaderID) || (this.ConvincingPerson.Brother == this.BelongedFaction.LeaderID);
+					
                     if (ConvinceSuccess)
                     {
                         GameObjects.Faction belongedFaction = null;
@@ -2231,10 +2235,12 @@
 
         public int IncreaseLoyalty(int increment)
         {
+			/* 取消忠诚的上限 100
             if (increment > (100 - this.Loyalty))
             {
                 increment = 100 - this.Loyalty;
             }
+			*/
             if (increment > 0)
             {
                 this.loyalty += increment;
@@ -2560,9 +2566,16 @@
 
         private void LoyaltyChange()
         {
-            if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) && (this.Loyalty <= 100))
+            if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) 
+			    /*&& (this.Loyalty <= 100) */ )
             {
                 int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
+                //亲爱武将性格差调整
+                if (this.closePersons.Contains(this.BelongedFaction.LeaderID) && (idealOffset > 5))
+                {
+                    idealOffset = 5;
+                }
+				
                 if (idealOffset > 0)
                 {
                     int decrement = ((int) (this.Ambition - ((PersonAmbition) ((int) this.PersonalLoyalty)))) + (idealOffset / 10);
@@ -2574,11 +2587,11 @@
                     {
                         decrement *= 2;
                     }
-                    if (decrement > 0)
+                    if (decrement > 0 && !(this.Spouse == this.BelongedFaction.LeaderID || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother > 0)))
                     {
                         this.DecreaseLoyalty(decrement);
                     }
-                    else if (decrement < 0)
+                    else if (decrement < 0 && (this.Loyalty < 100))
                     {
                         this.IncreaseLoyalty(Math.Abs(decrement));
                     }
@@ -5152,6 +5165,12 @@
         public bool RecruitableBy(Faction f, int idealLeniency)
         {
             int idealOffset = Person.GetIdealOffset(this, f.Leader);
+            //义兄弟或者配偶直接登用。(当前判断是和所在势力的君主)
+            if ((this.Spouse == f.LeaderID) || (this.Brother == f.LeaderID))
+            {
+                return true;
+            }
+            
             if ((GlobalVariables.IdealTendencyValid && idealOffset > this.IdealTendency.Offset + (double)f.Reputation / f.MaxPossibleReputation * 75 + idealLeniency) ||
                 this.HatedPersons.Contains(f.LeaderID))
             {
