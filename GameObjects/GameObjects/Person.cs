@@ -5165,6 +5165,13 @@
         public bool RecruitableBy(Faction f, int idealLeniency)
         {
             int idealOffset = Person.GetIdealOffset(this, f.Leader);
+            //义兄弟或者配偶直接登用。
+            if (this.ConvincingPerson!= null) {
+                if ((this.ConvincingPerson.Spouse == f.ID) || (this.ConvincingPerson.Brother == f.ID))
+                {
+                    return true;
+                }
+            }
             if ((GlobalVariables.IdealTendencyValid && idealOffset > this.IdealTendency.Offset + (double)f.Reputation / f.MaxPossibleReputation * 75 + idealLeniency) ||
                 this.HatedPersons.Contains(f.LeaderID))
             {
