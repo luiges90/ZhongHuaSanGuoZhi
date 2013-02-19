@@ -1445,7 +1445,7 @@
                                 {
                                     Person p = list[num2] as Person;
                                     if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null && 
-                                        (p != this.BelongedFaction.Leader || p.LocationArchitecture.feiziliebiao.Count == 0))
+                                        (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                     {
                                         p.MoveToArchitecture(this);
                                     }
@@ -1541,7 +1541,7 @@
                                         {
                                             Person p = list[num2] as Person;
                                             if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
-                                                (p != this.BelongedFaction.Leader || p.LocationArchitecture.feiziliebiao.Count == 0))
+                                                (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                             {
                                                 p.MoveToArchitecture(this);
                                             }
