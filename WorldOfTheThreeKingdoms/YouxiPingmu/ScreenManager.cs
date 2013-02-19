@@ -222,6 +222,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        private void FrameFunction_Architecture_AfterGetAllDiplomaticRelation()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.AllDiplomaticRelationList.GetSelectedList();
+            if (selectedList != null)
+            {
+                foreach (DiplomaticRelationDisplay display in selectedList)
+                {
+                    if (this.CurrentArchitecture.Fund > 10000)
+                    {
+                        this.CurrentArchitecture.Fund -= 10000;
+                        display.Relation += 10;
+                    }
+                }
+
+            }
+        }
+
         private void FrameFunction_Architecture_AfterGetGossipPerson()
         {
             this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
@@ -760,6 +777,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case FrameFunction.GetFriendlyDiplomaticRelation:
                     this.FrameFunction_Architecture_AfterGetFriendlyDiplomaticRelation();
+                    break;
+
+                case FrameFunction.GetAllDiplomaticRelation:
+                    this.FrameFunction_Architecture_AfterGetAllDiplomaticRelation();
                     break;
 
                 case FrameFunction.GetAttackDefaultKind:
