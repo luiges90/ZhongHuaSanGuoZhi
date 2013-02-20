@@ -217,6 +217,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 foreach (DiplomaticRelationDisplay display in selectedList)
                 {
+                    this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "ResetDiplomaticRelation", "duanjiao.jpg", "duanjiao.wav", display.FactionName, true);
                     display.Relation = 0;
                 }
             }
@@ -231,6 +232,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     if (this.CurrentArchitecture.Fund > 10000)
                     {
+                        this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "qinshan.jpg", "qinshan.wav", display.FactionName, true);
                         this.CurrentArchitecture.Fund -= 10000;
                         display.Relation += 10;
                     }
@@ -244,15 +246,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             GameObjectList selectedList = this.CurrentArchitecture.DenounceDiplomaticRelationList.GetSelectedList();
             if (selectedList != null)
             {
+               
                 foreach (DiplomaticRelationDisplay display in selectedList)
                 {
                     if (this.CurrentArchitecture.Fund > 10000)
                     {
+                        this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "DenounceDiplomaticRelation", "shengtao.jpg", "shengtao.wav", display.FactionName, true);
                         this.CurrentArchitecture.Fund -= 10000;
                         display.Relation -= 20;
                         //待处理所有势力和被声讨方的关系
                         foreach (DiplomaticRelation f in this.CurrentArchitecture.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionName(display.FactionName))
-                        {
+                        {                            
                             if (f.Relation < 100)
                             {
                                 f.Relation -= 10;
