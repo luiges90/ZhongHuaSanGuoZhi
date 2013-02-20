@@ -86,6 +86,7 @@
         Monarch_SelectPrince,
         Monarch_Diplomatic_ResetDiplomaticRelation,
         Monarch_Diplomatic_EnhanceDiplomaticRelation,
+        Monarch_Diplomatic_DenounceDiplomaticRelation,
         Monarch_Techniques,
         Monarch_KillRelease_ReleaseSelfPerson,
         Monarch_KillRelease_ReleaseCaptive,
