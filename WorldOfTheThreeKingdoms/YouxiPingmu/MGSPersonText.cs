@@ -337,7 +337,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        public override void xiaohaichusheng(Person person)
+        public override void xiaohaichusheng(Person father, Person person)
         {
             if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
                     base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
@@ -350,7 +350,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
 
         }
-        public override void haizizhangdachengren(Person person)
+        public override void haizizhangdachengren(Person father, Person person)
         {
             if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
                     base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)

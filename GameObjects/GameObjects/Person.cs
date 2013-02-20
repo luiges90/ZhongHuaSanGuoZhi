@@ -1054,8 +1054,8 @@
 
                         haizifuqin.TextResultString = haizi.Name;
 
-                        base.Scenario.GameScreen.xiaohaichusheng(haizifuqin);
-                        base.Scenario.haizichusheng(haizi, this, origChildren.Count > 0);
+                        base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
+                        base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
 
                         haizifuqin.suoshurenwu = -1;
                     }

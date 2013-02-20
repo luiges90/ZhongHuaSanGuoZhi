@@ -300,7 +300,7 @@
             this.PreparedAvailablePersons.Clear();
         }
 
-        public void haizichusheng(Person person, Person muqin, bool doAffect)
+        public void haizichusheng(Person person, Person father, Person muqin, bool doAffect)
         {
             person.Available = true;
             foreach (Treasure treasure in person.Treasures)
@@ -324,7 +324,7 @@
             if (person.Intelligence < 1) person.Intelligence = 1;
             if (person.Politics < 1) person.Politics = 1;
             if (person.Glamour < 1) person.Glamour = 1;
-            this.GameScreen.haizizhangdachengren(person);
+            this.GameScreen.haizizhangdachengren(person, person);
         }
 
 
