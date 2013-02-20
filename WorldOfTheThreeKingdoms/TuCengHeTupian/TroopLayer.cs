@@ -53,6 +53,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                             troop.SetNotShowing();
                             continue;
                         }
+                        if (troop.TileAnimation.FrameCount == 0)
+                        {
+                            troop.TileAnimation.FrameCount = 1;
+                        }
+
                         if ((troop.Action == TroopAction.Stop) && troop.ShowNumber)
                         {
                             if (!troop.IncrementNumberList.IsEmpty)
