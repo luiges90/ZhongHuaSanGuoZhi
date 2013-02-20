@@ -126,7 +126,11 @@
 			<MenuItem ID="4"  Name="BecomeEmperorLegally" DisplayName="禅位" DisplayIfTrue="BecomeEmperorLegallyAvail"></MenuItem>
 		</MenuItem>
         <MenuItem ID="2"  Name="ChangeCapital" DisplayName="迁都" DisplayIfTrue="ChangeCapitalAvail"></MenuItem>
-        <MenuItem ID="3"  Name="ResetDiplomaticRelation" DisplayName="断交" DisplayIfTrue="ResetDiplomaticRelationAvail"></MenuItem>
+		<MenuItem ID="3"  Name="Diplomatic" DisplayName="外交">
+			<MenuItem ID="1"  Name="EnhanceDiplomaticRelation" DisplayName="亲善" DisplayIfTrue="EnhanceDiplomaticRelationAvail"></MenuItem>
+			<MenuItem ID="2"  Name="ResetDiplomaticRelation" DisplayName="断交" DisplayIfTrue="ResetDiplomaticRelationAvail"></MenuItem>
+			<MenuItem ID="3"  Name="DenounceDiplomaticRelation" DisplayName="声讨" DisplayIfTrue="DenounceDiplomaticRelationAvail"></MenuItem>
+		</MenuItem>
         <MenuItem ID="4"  Name="Techniques" DisplayName="技巧"></MenuItem>
 		<MenuItem ID="5"  Name="KillRelease" DisplayName="处置">
 			<MenuItem ID="1"  Name="ReleaseSelfPerson" DisplayName="流放下属" DisplayIfTrue="KillPersonAvail"></MenuItem>
