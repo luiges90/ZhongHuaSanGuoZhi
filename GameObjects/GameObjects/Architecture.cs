@@ -156,6 +156,8 @@
         public MilitaryList RecruitmentMilitaryList = new MilitaryList();
         public CaptiveList RedeemCaptiveList = new CaptiveList();
         public GameObjectList ResetDiplomaticRelationList = new GameObjectList();
+        public GameObjectList EnhanceDiplomaticRelationList = new GameObjectList();
+        public GameObjectList DenounceDiplomaticRelationList = new GameObjectList();
         public PersonList RewardPersonList = new PersonList();
         public Troop RobberTroop;
         public int RobberTroopID;
@@ -5459,7 +5461,7 @@
         {
             foreach (Person person in this.Persons)
             {
-                if ((person.Loyalty <= 100) && (person != this.BelongedFaction.Leader))
+                if (/*(person.Loyalty <= 100) && */ (person != this.BelongedFaction.Leader))
                 {
                     person.DecreaseLoyalty(StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
                 }
@@ -7681,6 +7683,35 @@
                 }
             }
             return this.ResetDiplomaticRelationList;
+        }
+
+        public GameObjectList GetEnhanceDiplomaticRelationList()
+        {
+            this.EnhanceDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    this.EnhanceDiplomaticRelationList.Add(display);
+                }
+            }
+            return this.EnhanceDiplomaticRelationList;
+        }
+
+        public GameObjectList GetDenounceDiplomaticRelationList()
+        {
+            this.DenounceDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    if (display.Relation < 300)
+                    {
+                        this.DenounceDiplomaticRelationList.Add(display);
+                    }
+                }
+            }
+            return this.DenounceDiplomaticRelationList;
         }
 
         public PersonList GetRewardPersons()
@@ -10603,7 +10634,7 @@
 
         private void RecruitmentMilitary(Military military)
         {
-            if ((((this.MilitaryPopulation != 0) && (this.Population != 0) && (!GlobalVariables.PopulationRecruitmentLimit || (this.ArmyQuantity <= this.Population))) && ((this.Fund >= (Parameters.RecruitmentFundCost * this.AreaCount * (this.CanRecruitMilitary(military.Kind) ? 1 : 10))) && (this.Domination >= Parameters.RecruitmentDomination))) && (((this.Morale >= Parameters.RecruitmentMorale) && ((military.RecruitmentPerson != null) && (military.RecruitmentPerson.BelongedFaction != null))) && (military.Quantity < military.Kind.MaxScale)))
+            if ((((this.MilitaryPopulation != 0) && (this.Population != 0) && (!GlobalVariables.PopulationRecruitmentLimit || (this.ArmyQuantity <= this.Population))) && ((this.Fund >= (Parameters.RecruitmentFundCost * this.AreaCount * (this.CanRecruitMilitary(military.Kind) ? 1 : 10))) && (this.Domination >= Parameters.RecruitmentDomination))) && (((this.Morale >= Parameters.RecruitmentMorale) && ((military.RecruitmentPerson != null) && (military.RecruitmentPerson.BelongedFaction != null))) && (military.Quantity < military.Kind.MaxScale)) && (military.BelongedFaction != null))
             {
                 int randomValue = StaticMethods.GetRandomValue((int)((military.RecruitmentPerson.RecruitmentAbility * military.Kind.MinScale) * Parameters.RecruitmentRate), 0x7d0);
                 int populationDecrement;
@@ -10908,6 +10939,33 @@
             return (this.HasFriendlyDiplomaticRelation && (this.BelongedFaction.TroopCount == 0));
         }
 
+        public bool EnhanceDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+            return ((this.Fund > 10000));
+        }
+
+        public bool DenounceDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+
+            foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+            {
+                if ((display.Relation < 300) && (this.Fund > 10000))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void ResetFaction(Faction faction)
         {
 			Faction oldFaction = this.BelongedFaction;
@@ -11209,7 +11267,7 @@
             p.RewardFinished = true;
             this.DecreaseFund(this.RewardPersonFund);
             int idealOffset = Person.GetIdealOffset(p, this.BelongedFaction.Leader);
-            p.IncreaseLoyalty((15 - (idealOffset / 5)) +(int) p.PersonalLoyalty);
+            p.IncreaseLoyalty((15 - (idealOffset / 5)) + 4 - (int) p.PersonalLoyalty);
 			ExtensionInterface.call("RewardPerson", new Object[] { this.Scenario, this, p });
             return true;
         }
