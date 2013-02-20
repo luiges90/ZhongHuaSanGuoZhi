@@ -222,9 +222,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetAllDiplomaticRelation()
+        private void FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelation()
         {
-            GameObjectList selectedList = this.CurrentArchitecture.AllDiplomaticRelationList.GetSelectedList();
+            GameObjectList selectedList = this.CurrentArchitecture.EnhanceDiplomaticRelationList.GetSelectedList();
             if (selectedList != null)
             {
                 foreach (DiplomaticRelationDisplay display in selectedList)
@@ -779,8 +779,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.FrameFunction_Architecture_AfterGetFriendlyDiplomaticRelation();
                     break;
 
-                case FrameFunction.GetAllDiplomaticRelation:
-                    this.FrameFunction_Architecture_AfterGetAllDiplomaticRelation();
+                case FrameFunction.GetEnhanceDiplomaticRelation:
+                    this.FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelation();
                     break;
 
                 case FrameFunction.GetAttackDefaultKind:

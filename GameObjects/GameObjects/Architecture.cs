@@ -156,7 +156,7 @@
         public MilitaryList RecruitmentMilitaryList = new MilitaryList();
         public CaptiveList RedeemCaptiveList = new CaptiveList();
         public GameObjectList ResetDiplomaticRelationList = new GameObjectList();
-        public GameObjectList AllDiplomaticRelationList = new GameObjectList();
+        public GameObjectList EnhanceDiplomaticRelationList = new GameObjectList();
         public PersonList RewardPersonList = new PersonList();
         public Troop RobberTroop;
         public int RobberTroopID;
@@ -7684,17 +7684,17 @@
             return this.ResetDiplomaticRelationList;
         }
 
-        public GameObjectList GetAllDiplomaticRelationList()
+        public GameObjectList GetEnhanceDiplomaticRelationList()
         {
-            this.AllDiplomaticRelationList.Clear();
+            this.EnhanceDiplomaticRelationList.Clear();
             if (this.BelongedFaction != null)
             {
                 foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
                 {
-                    this.AllDiplomaticRelationList.Add(display);
+                    this.EnhanceDiplomaticRelationList.Add(display);
                 }
             }
-            return this.AllDiplomaticRelationList;
+            return this.EnhanceDiplomaticRelationList;
         }
 
         public PersonList GetRewardPersons()
@@ -10920,6 +10920,15 @@
                 return false;
             }
             return (this.HasFriendlyDiplomaticRelation && (this.BelongedFaction.TroopCount == 0));
+        }
+
+        public bool EnhanceDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+            return ((this.Fund > 10000));
         }
 
         public void ResetFaction(Faction faction)
