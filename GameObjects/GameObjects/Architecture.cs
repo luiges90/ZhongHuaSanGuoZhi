@@ -156,6 +156,8 @@
         public MilitaryList RecruitmentMilitaryList = new MilitaryList();
         public CaptiveList RedeemCaptiveList = new CaptiveList();
         public GameObjectList ResetDiplomaticRelationList = new GameObjectList();
+        public GameObjectList EnhanceDiplomaticRelationList = new GameObjectList();
+        public GameObjectList DenounceDiplomaticRelationList = new GameObjectList();
         public PersonList RewardPersonList = new PersonList();
         public Troop RobberTroop;
         public int RobberTroopID;
@@ -7683,6 +7685,35 @@
             return this.ResetDiplomaticRelationList;
         }
 
+        public GameObjectList GetEnhanceDiplomaticRelationList()
+        {
+            this.EnhanceDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    this.EnhanceDiplomaticRelationList.Add(display);
+                }
+            }
+            return this.EnhanceDiplomaticRelationList;
+        }
+
+        public GameObjectList GetDenounceDiplomaticRelationList()
+        {
+            this.DenounceDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    if (display.Relation < 300)
+                    {
+                        this.DenounceDiplomaticRelationList.Add(display);
+                    }
+                }
+            }
+            return this.DenounceDiplomaticRelationList;
+        }
+
         public PersonList GetRewardPersons()
         {
             this.RewardPersonList.Clear();
@@ -10907,6 +10938,34 @@
             }
             return (this.HasFriendlyDiplomaticRelation && (this.BelongedFaction.TroopCount == 0));
         }
+
+        public bool EnhanceDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+            return ((this.Fund > 10000));
+        }
+
+        public bool DenounceDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+
+            foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+            {
+                if ((display.Relation < 300) && (this.Fund > 10000))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
 
         public void ResetFaction(Faction faction)
         {

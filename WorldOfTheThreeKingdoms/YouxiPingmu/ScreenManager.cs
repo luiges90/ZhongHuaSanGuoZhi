@@ -217,8 +217,54 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 foreach (DiplomaticRelationDisplay display in selectedList)
                 {
+                    this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "ResetDiplomaticRelation", "duanjiao.jpg", "duanjiao.wav", display.FactionName, true);
                     display.Relation = 0;
                 }
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelation()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.EnhanceDiplomaticRelationList.GetSelectedList();
+            if (selectedList != null)
+            {
+                foreach (DiplomaticRelationDisplay display in selectedList)
+                {
+                    if (this.CurrentArchitecture.Fund > 10000)
+                    {
+                        this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "qinshan.jpg", "qinshan.wav", display.FactionName, true);
+                        this.CurrentArchitecture.Fund -= 10000;
+                        display.Relation += 10;
+                    }
+                }
+
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterGetDenounceDiplomaticRelation()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.DenounceDiplomaticRelationList.GetSelectedList();
+            if (selectedList != null)
+            {
+
+                foreach (DiplomaticRelationDisplay display in selectedList)
+                {
+                    if (this.CurrentArchitecture.Fund > 10000)
+                    {
+                        this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "DenounceDiplomaticRelation", "shengtao.jpg", "shengtao.wav", display.FactionName, true);
+                        this.CurrentArchitecture.Fund -= 10000;
+                        display.Relation -= 20;
+                        //待处理所有势力和被声讨方的关系
+                        foreach (DiplomaticRelation f in this.CurrentArchitecture.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionName(display.FactionName))
+                        {
+                            if (f.Relation < 100)
+                            {
+                                f.Relation -= 10;
+                            }
+                        }
+                    }
+                }
+
             }
         }
 
@@ -758,8 +804,16 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.FrameFunction_Architecture_AfterGetNewCapital();
                     break;
 
+                case FrameFunction.GetEnhanceDiplomaticRelation:
+                    this.FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelation();
+                    break;
+
                 case FrameFunction.GetFriendlyDiplomaticRelation:
                     this.FrameFunction_Architecture_AfterGetFriendlyDiplomaticRelation();
+                    break;
+
+                case FrameFunction.GetDenounceDiplomaticRelation:
+                    this.FrameFunction_Architecture_AfterGetDenounceDiplomaticRelation();
                     break;
 
                 case FrameFunction.GetAttackDefaultKind:

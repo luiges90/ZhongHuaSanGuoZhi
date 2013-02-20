@@ -1,8 +1,8 @@
-# ¤¤µØ¤T°ê§Ó #
+ï»¿# ä¸­è¯ä¸‰åœ‹å¿— #
 
-ª`·N¡G·½½X»Ý¥HVS2008 + XNA3.0¤~¯à¶}±Ò
+æ³¨æ„ï¼šæºç¢¼éœ€ä»¥VS2008 + XNA3.0æ‰èƒ½é–‹å•Ÿ
 
-ª`·N¡G¸ê·½ÀÉ¤¤¦bWorldOfTheThreeKingdoms/bin/x86/Release¤¤¡A¤£§t¤w½sÄ¶ÀÉ®×¡AResources¤Uªº¸ê·½ÀÉ¡BPersonPortrait¤UªºÀÉ®×¤Îtupianwenzi/tupian/meinvtupian¤UªºÀÉ®×¡C¥t¥~¤U¦CÀÉ®×¦WºÙ»Ý§ï¦W¤~¯à¥¿½T¹B¦æ¡G
+æ³¨æ„ï¼šè³‡æºæª”ä¸­åœ¨WorldOfTheThreeKingdoms/bin/x86/Releaseä¸­ï¼Œä¸å«å·²ç·¨è­¯æª”æ¡ˆï¼ŒResourcesä¸‹çš„è³‡æºæª”ã€PersonPortraitä¸‹çš„æª”æ¡ˆåŠtupianwenzi/tupian/meinvtupianä¸‹çš„æª”æ¡ˆã€‚å¦å¤–ä¸‹åˆ—æª”æ¡ˆåç¨±éœ€æ”¹åæ‰èƒ½æ­£ç¢ºé‹è¡Œï¼š
 
 - GameData/Common/CommonDataPublic.mdb => GameData/Common/CommonData.mdb
 - GameData/GameParametersPublic.xml => GameData/GameParameters.xml

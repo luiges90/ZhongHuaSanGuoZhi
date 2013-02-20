@@ -34,6 +34,8 @@
         GetLevelUpMilitaries,
         GetNewCapital,
         GetFriendlyDiplomaticRelation,
+        GetEnhanceDiplomaticRelation,
+        GetDenounceDiplomaticRelation,
         GetAttackDefaultKind,
         GetAttackTargetKind,
         GetCastDefaultKind,
