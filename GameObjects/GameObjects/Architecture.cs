@@ -10603,7 +10603,7 @@
 
         private void RecruitmentMilitary(Military military)
         {
-            if ((((this.MilitaryPopulation != 0) && (this.Population != 0) && (!GlobalVariables.PopulationRecruitmentLimit || (this.ArmyQuantity <= this.Population))) && ((this.Fund >= (Parameters.RecruitmentFundCost * this.AreaCount * (this.CanRecruitMilitary(military.Kind) ? 1 : 10))) && (this.Domination >= Parameters.RecruitmentDomination))) && (((this.Morale >= Parameters.RecruitmentMorale) && ((military.RecruitmentPerson != null) && (military.RecruitmentPerson.BelongedFaction != null))) && (military.Quantity < military.Kind.MaxScale)))
+            if ((((this.MilitaryPopulation != 0) && (this.Population != 0) && (!GlobalVariables.PopulationRecruitmentLimit || (this.ArmyQuantity <= this.Population))) && ((this.Fund >= (Parameters.RecruitmentFundCost * this.AreaCount * (this.CanRecruitMilitary(military.Kind) ? 1 : 10))) && (this.Domination >= Parameters.RecruitmentDomination))) && (((this.Morale >= Parameters.RecruitmentMorale) && ((military.RecruitmentPerson != null) && (military.RecruitmentPerson.BelongedFaction != null))) && (military.Quantity < military.Kind.MaxScale)) && (military.BelongedFaction != null) )
             {
                 int randomValue = StaticMethods.GetRandomValue((int)((military.RecruitmentPerson.RecruitmentAbility * military.Kind.MinScale) * Parameters.RecruitmentRate), 0x7d0);
                 int populationDecrement;
