@@ -55,7 +55,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                         }
                         if (troop.TileAnimation.FrameCount == 0)
                         {
-                            troop.TileAnimation.FrameCount == 1;
+                            troop.TileAnimation.FrameCount = 1;
                         }
 
                         if ((troop.Action == TroopAction.Stop) && troop.ShowNumber)
