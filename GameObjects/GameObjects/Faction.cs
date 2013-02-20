@@ -2268,8 +2268,8 @@
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
-                    if (i.Relation >= 300 && base.Scenario.IsPlayer(opposite)){
-                        i.Relation = 0;
+                    if (i.Relation >= -300 && base.Scenario.IsPlayer(opposite)){
+                        i.Relation -= 15; //focus到玩家的时候，每月降低15点友好度
                     }
                 }
             }
@@ -2281,11 +2281,11 @@
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
-                    if (i.Relation < 300) continue;
+                    // if (i.Relation < 300) continue; 这个在前面的HasFriendlyDiplomaticRelation中已经判断过了
                     if (!this.adjacentTo(opposite)) continue;    
                     if (GameObject.Chance((int)((double)this.ArmyScale / opposite.ArmyScale * ((int) this.Leader.Ambition + 1) * 20)))
                     {
-                        i.Relation = 0;
+                        i.Relation -= (7 + (int)Random(15)); //每月随机减少
                         relationBroken = true;
                         break;
                     }

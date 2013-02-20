@@ -238,16 +238,19 @@
                         int num = 0;
                         foreach (Point point in baseViewArea.Area)
                         {
-                            if (troop.BelongedFaction.IsPositionKnown(point))
+                            if (troop.BelongedFaction != null)
                             {
-                                Troop troopByPositionNoCheck = base.Scenario.GetTroopByPositionNoCheck(point);
-                                if (troopByPositionNoCheck != null)
+                                if (troop.BelongedFaction.IsPositionKnown(point))
                                 {
-                                    foreach (PersonRelation relation in this.TargetPersons)
+                                    Troop troopByPositionNoCheck = base.Scenario.GetTroopByPositionNoCheck(point);
+                                    if (troopByPositionNoCheck != null)
                                     {
-                                        if (((relation.Relation == PersonRelationKind.友好) == troop.IsFriendly(troopByPositionNoCheck.BelongedFaction)) && troopByPositionNoCheck.Persons.HasGameObject(relation.SpeakingPerson))
+                                        foreach (PersonRelation relation in this.TargetPersons)
                                         {
-                                            num++;
+                                            if (((relation.Relation == PersonRelationKind.友好) == troop.IsFriendly(troopByPositionNoCheck.BelongedFaction)) && troopByPositionNoCheck.Persons.HasGameObject(relation.SpeakingPerson))
+                                            {
+                                                num++;
+                                            }
                                         }
                                     }
                                 }
