@@ -5461,7 +5461,7 @@
         {
             foreach (Person person in this.Persons)
             {
-                if ((person.Loyalty <= 100) && (person != this.BelongedFaction.Leader))
+                if (/*(person.Loyalty <= 100) && */ (person != this.BelongedFaction.Leader))
                 {
                     person.DecreaseLoyalty(StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
                 }
@@ -11268,7 +11268,7 @@
             p.RewardFinished = true;
             this.DecreaseFund(this.RewardPersonFund);
             int idealOffset = Person.GetIdealOffset(p, this.BelongedFaction.Leader);
-            p.IncreaseLoyalty((15 - (idealOffset / 5)) +(int) p.PersonalLoyalty);
+            p.IncreaseLoyalty((15 - (idealOffset / 5)) + 4 - (int) p.PersonalLoyalty);
 			ExtensionInterface.call("RewardPerson", new Object[] { this.Scenario, this, p });
             return true;
         }
