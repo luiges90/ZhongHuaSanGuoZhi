@@ -1154,8 +1154,8 @@
                     }
 
                     ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
-                    //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
-                    ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.LeaderID) || (this.ConvincingPerson.Brother == this.BelongedFaction.LeaderID);
+                    //这样配偶和义兄可以无视一切条件强登被登用武将 by major
+                    ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.ID) || (this.ConvincingPerson.Brother == this.ID);
 					
                     if (ConvinceSuccess)
                     {
@@ -5165,12 +5165,13 @@
         public bool RecruitableBy(Faction f, int idealLeniency)
         {
             int idealOffset = Person.GetIdealOffset(this, f.Leader);
-            //义兄弟或者配偶直接登用。(当前判断是和所在势力的君主)
-            if ((this.Spouse == f.LeaderID) || (this.Brother == f.LeaderID))
-            {
-                return true;
+            //义兄弟或者配偶直接登用。
+            if (this.ConvincingPerson!= null) {
+                if ((this.ConvincingPerson.Spouse == f.ID) || (this.ConvincingPerson.Brother == f.ID))
+                {
+                    return true;
+                }
             }
-            
             if ((GlobalVariables.IdealTendencyValid && idealOffset > this.IdealTendency.Offset + (double)f.Reputation / f.MaxPossibleReputation * 75 + idealLeniency) ||
                 this.HatedPersons.Contains(f.LeaderID))
             {
