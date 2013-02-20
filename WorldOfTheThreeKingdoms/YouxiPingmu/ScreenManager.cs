@@ -251,6 +251,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.CurrentArchitecture.Fund -= 10000;
                         display.Relation -= 20;
                         //待处理所有势力和被声讨方的关系
+                        foreach (DiplomaticRelation f in this.CurrentArchitecture.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionName(display.FactionName))
+                        {
+                            if (f.Relation < 100)
+                            {
+                                f.Relation -= 10;
+                            }
+                        }
                     }
                 }
 
