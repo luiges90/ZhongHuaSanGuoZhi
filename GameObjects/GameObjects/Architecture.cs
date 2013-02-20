@@ -1468,12 +1468,28 @@
                             Architecture dest = null;
                             foreach (Architecture i in otherArchitectureList)
                             {
-                                double minDist = double.MaxValue;
-                                double distance = base.Scenario.GetDistance(this.Position, i.Position);
-                                if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                if (i.FrontLine)
                                 {
-                                    minDist = distance;
-                                    dest = i;
+                                    double minDist = double.MaxValue;
+                                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
+                                    if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                    {
+                                        minDist = distance;
+                                        dest = i;
+                                    }
+                                }
+                            }
+                            if (dest == null)
+                            {
+                                foreach (Architecture i in otherArchitectureList)
+                                {
+                                    double minDist = double.MaxValue;
+                                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
+                                    if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                    {
+                                        minDist = distance;
+                                        dest = i;
+                                    }
                                 }
                             }
                             int num = this.FrontLine ? this.PersonCount - this.MilitaryCount : this.PersonCount - 3;
@@ -1494,7 +1510,8 @@
                                 while (num2 < num)
                                 {
                                     Person p = list[num2] as Person;
-                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null)
+                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
+                                        (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                     {
                                         p.MoveToArchitecture(dest);
                                     }
@@ -1504,6 +1521,10 @@
                         }
                     }
                     else
+                    {
+                        idleDays = 0;
+                    }
+                    /*else
                     {
                         idleDays = 0;
                         if (this.FrontLine || this.noFactionFrontline)
@@ -1556,7 +1577,7 @@
                                 this.PersonCount + this.MovingPersonCount < this.MilitaryCount &&
                                 this.PersonCount + this.MovingPersonCount < this.Fund / 3000);
                         }
-                    }
+                    }*/
                 }
 
             }
