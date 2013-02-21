@@ -2180,7 +2180,7 @@
             {
                 this.OutsideTask = OutsideTaskKind.技能;
                 this.TargetArchitecture = this.LocationArchitecture;
-                this.ArrivingDays = Parameters.LearnSkillDays;
+                this.ArrivingDays = Math.Max(1, Parameters.LearnSkillDays);
                 this.TaskDays = this.ArrivingDays;
                 this.Status = PersonStatus.Moving;
 				ExtensionInterface.call("GoForStudySkill", new Object[] { this.Scenario, this });
@@ -2194,7 +2194,7 @@
                 this.OutsideTask = OutsideTaskKind.特技;
                 this.StudyingStunt = desStunt;
                 this.TargetArchitecture = this.LocationArchitecture;
-                this.ArrivingDays = Parameters.LearnStuntDays;
+                this.ArrivingDays = Math.Max(1, Parameters.LearnStuntDays);
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForStudyStunt", new Object[] { this.Scenario, this });
@@ -2208,7 +2208,7 @@
                 this.OutsideTask = OutsideTaskKind.称号;
                 this.StudyingTitle = desTitle;
                 this.TargetArchitecture = this.LocationArchitecture;
-                this.ArrivingDays = this.LocationArchitecture.DayLearnTitleDay;
+                this.ArrivingDays = Math.Max(1, this.LocationArchitecture.DayLearnTitleDay);
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForStudyTitle", new Object[] { this.Scenario, this });
