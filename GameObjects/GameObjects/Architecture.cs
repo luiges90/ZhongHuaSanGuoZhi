@@ -442,6 +442,22 @@
             }
         }
 
+        public PersonList DiplomaticWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
         public MilitaryList ZhengzaiBuchongDeBiandui()
         {
             MilitaryList zhengzaiBuchongDeBiandui = new MilitaryList();
@@ -10945,7 +10961,7 @@
             {
                 return false;
             }
-            return ((this.Fund > 10000));
+            return ((this.Fund > 10000) && (this.Persons.Count > 0));
         }
 
         public bool DenounceDiplomaticRelationAvail()

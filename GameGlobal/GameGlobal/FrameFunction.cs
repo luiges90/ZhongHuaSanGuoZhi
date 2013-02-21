@@ -35,6 +35,7 @@
         GetNewCapital,
         GetFriendlyDiplomaticRelation,
         GetEnhanceDiplomaticRelation,
+        GetEnhanceDiplomaticRelationPerson,
         GetDenounceDiplomaticRelation,
         GetAttackDefaultKind,
         GetAttackTargetKind,

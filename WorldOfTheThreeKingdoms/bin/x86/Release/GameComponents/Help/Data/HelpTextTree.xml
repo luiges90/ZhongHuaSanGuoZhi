@@ -728,7 +728,7 @@
     <Leaf Text="与友好势力加强外交关系" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
-    <Leaf Text="只能在城池有足够的资金情况下执行。" Color="4294967295"></Leaf>
+    <Leaf Text="只能在城池有足够的资金并且有外交人员可派遣的情况下执行。" Color="4294967295"></Leaf>
   </Branch>  
   <Branch Name="Monarch_Diplomatic_DenounceDiplomaticRelation">
     <Leaf Text="君主" Color="4294967295"></Leaf>

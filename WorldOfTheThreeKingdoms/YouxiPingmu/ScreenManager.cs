@@ -34,6 +34,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         public GameObjectList CurrentPersons;
         public Routeway CurrentRouteway;
         public Troop CurrentTroop;
+        public DiplomaticRelationDisplay CurrentDiplomaticRelationDisplay;
         private GameScenario gameScenario;
         private FrameFunction lastFrameFunction;
         private MainGameScreen mainGameScreen;
@@ -45,7 +46,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void FrameFunction_Architecture_AfterGetAwardTreasure()
         {
-            this.CurrentGameObject = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as GameObject;
+            this.CurrentGameObject = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as GameObject;            
             if (this.CurrentGameObject != null)
             {
                 Treasure currentGameObject = this.CurrentGameObject as Treasure;
@@ -226,27 +227,37 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private void FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelation()
         {
             GameObjectList selectedList = this.CurrentArchitecture.EnhanceDiplomaticRelationList.GetSelectedList();
-            if (selectedList != null)
-            {
-                foreach (DiplomaticRelationDisplay display in selectedList)
-                {
-                    if (this.CurrentArchitecture.Fund > 10000)
-                    {
-                        this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "qinshan.jpg", "qinshan.wav", display.FactionName, true);
-                        this.CurrentArchitecture.Fund -= 10000;
-                        display.Relation += 10;
-                    }
-                }
 
+            if (selectedList != null && (selectedList.Count == 1))
+            {
+                this.CurrentDiplomaticRelationDisplay = selectedList[0] as DiplomaticRelationDisplay;
+                //this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetEnhanceDiplomaticRelationPerson, false, true, true, true, this.CurrentArchitecture.Persons, this.CurrentArchitecture.DiplomaticWorkingPersons, "派遣人员", "民心");
+                this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetEnhanceDiplomaticRelationPerson, true, true, true, true, this.CurrentArchitecture.Persons, null, "外交人员", "Ability");
             }
         }
+
+        private void FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelationPerson()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.DiplomaticWorkingPersons.GetSelectedList();
+
+            if (selectedList != null)
+            {
+                foreach (Person display in selectedList)
+                {
+                    this.CurrentArchitecture.Fund -= 10000;
+                    //后续这儿的数值该更多考虑派遣人员的魅力值以及君主之间的向性差。
+                    this.CurrentDiplomaticRelationDisplay.Relation += (5 + (int)(5 * display.Glamour / 100)); 
+                    this.mainGameScreen.xianshishijiantupian(display, this.CurrentArchitecture.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "qinshan.jpg", "qinshan.wav", this.CurrentDiplomaticRelationDisplay.FactionName, true);
+                }
+            }
+        }
+
 
         private void FrameFunction_Architecture_AfterGetDenounceDiplomaticRelation()
         {
             GameObjectList selectedList = this.CurrentArchitecture.DenounceDiplomaticRelationList.GetSelectedList();
             if (selectedList != null)
             {
-
                 foreach (DiplomaticRelationDisplay display in selectedList)
                 {
                     if (this.CurrentArchitecture.Fund > 10000)
@@ -262,9 +273,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                                 f.Relation -= 10;
                             }
                         }
+
                     }
                 }
-
             }
         }
 
@@ -806,6 +817,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case FrameFunction.GetEnhanceDiplomaticRelation:
                     this.FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelation();
+                    break;
+
+                case FrameFunction.GetEnhanceDiplomaticRelationPerson:
+                    this.FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelationPerson();
                     break;
 
                 case FrameFunction.GetFriendlyDiplomaticRelation:
