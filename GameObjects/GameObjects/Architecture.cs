@@ -9346,6 +9346,7 @@
         public void MonthEvent()
         {
             this.DevelopMonth();
+            this.CheckIsFrontLine();
         }
 
         public bool MoraleAvail()
