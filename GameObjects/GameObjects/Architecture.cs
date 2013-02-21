@@ -13851,6 +13851,19 @@
 
         }
 
+
+        public Architecture GetCapitalByLeaderID(int leaderid)
+        {
+            foreach (Faction i in base.Scenario.Factions)
+            {
+                if (i.LeaderID == leaderid)
+                {
+                    return i.Capital;
+                }
+            }
+            return null;
+        }
+
         public delegate void BeginRecentlyAttacked(Architecture architecture);
 
         public delegate void FacilityCompleted(Architecture architecture, Facility facility);
