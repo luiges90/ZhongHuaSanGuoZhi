@@ -1230,10 +1230,12 @@
             }
             else
             {
-                if (!leader.IsCaptive && this.meinvkongjian() - this.feiziliebiao.Count > 0 && GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0 && leader.LocationArchitecture != null && leader.Status == PersonStatus.Normal &&
-                    (((!leader.LocationArchitecture.HostileLine || GameObject.Chance(Parameters.AILeaveHostilelineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIHostilelineHougongChance)))
-                    && (!leader.LocationArchitecture.FrontLine || GameObject.Chance(Parameters.AILeaveFrontlineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIFrontlineHougongChance))))
-                    || GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower)))))
+                if (leader.LocationArchitecture == this && !leader.IsCaptive && this.meinvkongjian() - this.feiziliebiao.Count > 0 && leader.Status == PersonStatus.Normal &&
+                    (
+                    GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0
+                    ||
+                    GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower))))
+                    )
                 {
                     PersonList candidate = new PersonList();
                     foreach (Person p in this.BelongedFaction.Persons)
