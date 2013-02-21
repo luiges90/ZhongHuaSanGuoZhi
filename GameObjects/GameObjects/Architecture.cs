@@ -1253,23 +1253,20 @@
                     Person toTake = null;
                     foreach (Person p in candidate)
                     {
-                        if ((!p.RecruitableBy(this.BelongedFaction, 0) && GameObject.Random((int)unAmbition) == 0) || GameObject.Chance((int) (Parameters.AINafeiSkipChanceAdd + (int)leader.Ambition * Parameters.AINafeiSkipChanceMultiply)))
+                        if (p.Status == PersonStatus.Normal)
                         {
-                            toTake = p;
-                            break;
+                            if ((!p.RecruitableBy(this.BelongedFaction, 0) && GameObject.Random((int)unAmbition) == 0) || GameObject.Chance((int)(Parameters.AINafeiSkipChanceAdd + (int)leader.Ambition * Parameters.AINafeiSkipChanceMultiply)))
+                            {
+                                toTake = p;
+                                break;
+                            }
                         }
                     }
                     if (toTake != null)
                     {
-                        if (leader.LocationArchitecture != this && leader.Status == PersonStatus.Normal)
+                        if (leader.LocationArchitecture.meinvkongjian() > this.meinvkongjian())
                         {
-                            leader.MoveToArchitecture(this);
-                            //leader.LocationArchitecture.RemovePerson(leader);
-                            leader.WaitForFeiZi = toTake;
-                        }
-                        if (toTake.LocationArchitecture == this && toTake.Status == PersonStatus.Normal)
-                        {
-                            if (leader.LocationArchitecture == this && leader.Status == PersonStatus.Normal)
+                            if (toTake.LocationArchitecture == leader.LocationArchitecture)
                             {
                                 leader.XuanZeMeiNv(toTake);
                                 toTake.WaitForFeiZi = null;
@@ -1277,15 +1274,37 @@
                             }
                             else
                             {
+                                toTake.MoveToArchitecture(leader.LocationArchitecture);
                                 toTake.WaitForFeiZi = leader;
+                                leader.WaitForFeiZi = toTake;
                             }
                         }
                         else
                         {
-                            toTake.MoveToArchitecture(this);
-                            //toTake.LocationArchitecture.RemovePerson(toTake);
-                            toTake.WaitForFeiZi = leader;
-                            leader.WaitForFeiZi = toTake;
+                            if (leader.LocationArchitecture != this)
+                            {
+                                leader.MoveToArchitecture(this);
+                                leader.WaitForFeiZi = toTake;
+                            }
+                            if (toTake.LocationArchitecture == this)
+                            {
+                                if (leader.LocationArchitecture == this)
+                                {
+                                    leader.XuanZeMeiNv(toTake);
+                                    toTake.WaitForFeiZi = null;
+                                    leader.WaitForFeiZi = null;
+                                }
+                                else
+                                {
+                                    toTake.WaitForFeiZi = leader;
+                                }
+                            }
+                            else
+                            {
+                                toTake.MoveToArchitecture(this);
+                                toTake.WaitForFeiZi = leader;
+                                leader.WaitForFeiZi = toTake;
+                            }
                         }
                     }
                 }
