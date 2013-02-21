@@ -690,6 +690,7 @@
             this.GameScreen.LoadScenarioInInitialization = false;
         }
 
+        private int hostileTroopInViewCountdown = 0;
         private void detectCurrentPlayerBattleState(Faction faction)
         {
             
@@ -709,11 +710,12 @@
                 {
                     fightingArchitectureCount++;
 
-                    if (architecture.RecentlyAttacked <= 0)
+                    if (hostileTroopInViewCountdown <= 0)
                     {
                         architecture.JustAttacked = true;
                         architecture.BelongedFaction.StopToControl = true;
-                        architecture.RecentlyAttacked = 10;
+                        hostileTroopInViewCountdown = 10;
+                        //architecture.RecentlyAttacked = 10;
 
                         this.GameScreen.ArchitectureBeginRecentlyAttacked(architecture);  //提示玩家建筑视野范围内出现敌军。
 
@@ -766,6 +768,8 @@
             {
                 this.GameScreen.SwichMusic(this.Date.Season);
             }
+
+            hostileTroopInViewCountdown--;
 
         }
 
