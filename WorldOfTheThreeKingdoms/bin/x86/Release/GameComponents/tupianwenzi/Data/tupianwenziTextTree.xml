@@ -401,6 +401,30 @@
 
 
   </Branch>
+<Branch Name="EnhaneceDiplomaticRelation">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="派人向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="献上了不少金银珠宝，表达了友好之意。" Color="4294967295"></Leaf>
+
+
+  </Branch>    
+  <Branch Name="ResetDiplomaticRelation">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="擅自解除了和" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="之间的同盟关系，必是有所图谋。" Color="4294967295"></Leaf>
+
+
+  </Branch>    
+  <Branch Name="DenounceDiplomaticRelation">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="发起檄文，声讨了不得人心的" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="军。 天下群雄纷纷响应，局势大变！" Color="4294967295"></Leaf>
+
+
+  </Branch>    
   <Branch Name="ReleaseSelfPerson">
     <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
     <Leaf Property="" Text="玩忽职守，懈怠渎职，" Color="4294967295"></Leaf>
