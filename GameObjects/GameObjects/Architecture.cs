@@ -1248,10 +1248,12 @@
             }
             else
             {
-                if (!leader.IsCaptive && this.meinvkongjian() - this.feiziliebiao.Count > 0 && GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0 && leader.LocationArchitecture != null && leader.Status == PersonStatus.Normal &&
-                    (((!leader.LocationArchitecture.HostileLine || GameObject.Chance(Parameters.AILeaveHostilelineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIHostilelineHougongChance)))
-                    && (!leader.LocationArchitecture.FrontLine || GameObject.Chance(Parameters.AILeaveFrontlineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIFrontlineHougongChance))))
-                    || GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower)))))
+                if (leader.LocationArchitecture == this && !leader.IsCaptive && this.meinvkongjian() - this.feiziliebiao.Count > 0 && leader.Status == PersonStatus.Normal &&
+                    (
+                    GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0
+                    ||
+                    GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower))))
+                    )
                 {
                     PersonList candidate = new PersonList();
                     foreach (Person p in this.BelongedFaction.Persons)
@@ -1271,23 +1273,20 @@
                     Person toTake = null;
                     foreach (Person p in candidate)
                     {
-                        if ((!p.RecruitableBy(this.BelongedFaction, 0) && GameObject.Random((int)unAmbition) == 0) || GameObject.Chance((int) (Parameters.AINafeiSkipChanceAdd + (int)leader.Ambition * Parameters.AINafeiSkipChanceMultiply)))
+                        if (p.Status == PersonStatus.Normal)
                         {
-                            toTake = p;
-                            break;
+                            if ((!p.RecruitableBy(this.BelongedFaction, 0) && GameObject.Random((int)unAmbition) == 0) || GameObject.Chance((int)(Parameters.AINafeiSkipChanceAdd + (int)leader.Ambition * Parameters.AINafeiSkipChanceMultiply)))
+                            {
+                                toTake = p;
+                                break;
+                            }
                         }
                     }
                     if (toTake != null)
                     {
-                        if (leader.LocationArchitecture != this && leader.Status == PersonStatus.Normal)
+                        if (leader.LocationArchitecture.meinvkongjian() > this.meinvkongjian())
                         {
-                            leader.MoveToArchitecture(this);
-                            //leader.LocationArchitecture.RemovePerson(leader);
-                            leader.WaitForFeiZi = toTake;
-                        }
-                        if (toTake.LocationArchitecture == this && toTake.Status == PersonStatus.Normal)
-                        {
-                            if (leader.LocationArchitecture == this && leader.Status == PersonStatus.Normal)
+                            if (toTake.LocationArchitecture == leader.LocationArchitecture)
                             {
                                 leader.XuanZeMeiNv(toTake);
                                 toTake.WaitForFeiZi = null;
@@ -1295,15 +1294,37 @@
                             }
                             else
                             {
+                                toTake.MoveToArchitecture(leader.LocationArchitecture);
                                 toTake.WaitForFeiZi = leader;
+                                leader.WaitForFeiZi = toTake;
                             }
                         }
                         else
                         {
-                            toTake.MoveToArchitecture(this);
-                            //toTake.LocationArchitecture.RemovePerson(toTake);
-                            toTake.WaitForFeiZi = leader;
-                            leader.WaitForFeiZi = toTake;
+                            if (leader.LocationArchitecture != this)
+                            {
+                                leader.MoveToArchitecture(this);
+                                leader.WaitForFeiZi = toTake;
+                            }
+                            if (toTake.LocationArchitecture == this)
+                            {
+                                if (leader.LocationArchitecture == this)
+                                {
+                                    leader.XuanZeMeiNv(toTake);
+                                    toTake.WaitForFeiZi = null;
+                                    leader.WaitForFeiZi = null;
+                                }
+                                else
+                                {
+                                    toTake.WaitForFeiZi = leader;
+                                }
+                            }
+                            else
+                            {
+                                toTake.MoveToArchitecture(this);
+                                toTake.WaitForFeiZi = leader;
+                                leader.WaitForFeiZi = toTake;
+                            }
                         }
                     }
                 }
@@ -1486,12 +1507,28 @@
                             Architecture dest = null;
                             foreach (Architecture i in otherArchitectureList)
                             {
-                                double minDist = double.MaxValue;
-                                double distance = base.Scenario.GetDistance(this.Position, i.Position);
-                                if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                if (i.FrontLine)
                                 {
-                                    minDist = distance;
-                                    dest = i;
+                                    double minDist = double.MaxValue;
+                                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
+                                    if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                    {
+                                        minDist = distance;
+                                        dest = i;
+                                    }
+                                }
+                            }
+                            if (dest == null)
+                            {
+                                foreach (Architecture i in otherArchitectureList)
+                                {
+                                    double minDist = double.MaxValue;
+                                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
+                                    if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                    {
+                                        minDist = distance;
+                                        dest = i;
+                                    }
                                 }
                             }
                             int num = this.FrontLine ? this.PersonCount - this.MilitaryCount : this.PersonCount - 3;
@@ -1512,7 +1549,8 @@
                                 while (num2 < num)
                                 {
                                     Person p = list[num2] as Person;
-                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null)
+                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
+                                        (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                     {
                                         p.MoveToArchitecture(dest);
                                     }
@@ -1522,6 +1560,10 @@
                         }
                     }
                     else
+                    {
+                        idleDays = 0;
+                    }
+                    /*else
                     {
                         idleDays = 0;
                         if (this.FrontLine || this.noFactionFrontline)
@@ -1574,7 +1616,7 @@
                                 this.PersonCount + this.MovingPersonCount < this.MilitaryCount &&
                                 this.PersonCount + this.MovingPersonCount < this.Fund / 3000);
                         }
-                    }
+                    }*/
                 }
 
             }
@@ -9353,6 +9395,7 @@
         public void MonthEvent()
         {
             this.DevelopMonth();
+            this.CheckIsFrontLine();
         }
 
         public bool MoraleAvail()

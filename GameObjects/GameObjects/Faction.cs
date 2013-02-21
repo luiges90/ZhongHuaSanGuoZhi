@@ -2263,6 +2263,9 @@
         private void ResetFriendlyDiplomaticRelations()
         {
             if (base.Scenario.IsPlayer(this)) return;
+
+            bool relationBroken = false;
+
             if (GlobalVariables.PinPointAtPlayer)
             {
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
@@ -2270,6 +2273,7 @@
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
                     if (i.Relation >= -300 && base.Scenario.IsPlayer(opposite)){
                         i.Relation -= 15; //focus到玩家的时候，每月降低15点友好度
+                        relationBroken = true;
                     }
                 }
             }
@@ -2277,7 +2281,6 @@
             {
                 int minTroop = int.MaxValue;
                 DiplomaticRelation minTroopFactionRelation = null;
-                bool relationBroken = false;
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
@@ -2302,45 +2305,6 @@
                 {
                     minTroopFactionRelation.Relation = 0;
                 }
-                /*int num = 0;
-                int num2 = 0;
-                foreach (Architecture architecture in this.Architectures)
-                {
-                    if (architecture.IsFull() && (architecture.ArmyScale > architecture.LargeArmyScale))
-                    {
-                        num++;
-                        num2++;
-                    }
-                    else if (architecture.IsGood() && (architecture.ArmyScale > architecture.NormalArmyScale))
-                    {
-                        num2++;
-                    }
-                }
-                if ((num > ((this.ArchitectureCount / 5) + 1)) || (num2 > ((this.ArchitectureCount / 2) + 1)))
-                {
-                    double num3 = 0.0;
-                    DiplomaticRelation relation = null;
-                    foreach (DiplomaticRelation relation2 in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
-                    {
-                        if (relation2.Relation >= 300)
-                        {
-                            Faction diplomaticFaction = relation2.GetDiplomaticFaction(base.ID);
-                            if (diplomaticFaction != null)
-                            {
-                                int distanceFromFaction = this.Capital.GetDistanceFromFaction(diplomaticFaction);
-                                if (num3 < distanceFromFaction)
-                                {
-                                    num3 = distanceFromFaction;
-                                    relation = relation2;
-                                }
-                            }
-                        }
-                    }
-                    if (relation != null)
-                    {
-                        relation.Relation = 0;
-                    }
-                }*/
             }
         }
 
