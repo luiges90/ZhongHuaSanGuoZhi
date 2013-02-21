@@ -3040,7 +3040,14 @@
             }
             set
             {
-                this.arrivingDays = value;
+                if (value <= 0)
+                {
+                    this.arrivingDays = 1;
+                }
+                else
+                {
+                    this.arrivingDays = value;
+                }
             }
         }
 
@@ -4835,7 +4842,14 @@
             }
             set
             {
-                this.taskDays = value;
+                if (value <= 0)
+                {
+                    this.taskDays = 1;
+                }
+                else
+                {
+                    this.taskDays = value;
+                }
             }
         }
 
