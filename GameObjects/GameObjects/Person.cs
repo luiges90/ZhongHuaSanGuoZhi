@@ -1429,6 +1429,8 @@
         public void DoEnhanceDiplomatic()
         {
             this.OutsideTask = OutsideTaskKind.无;
+            this.TargetArchitecture = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
+            this.OutsideDestination = null;
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
                 
@@ -2768,6 +2770,7 @@
             if (this.LocationArchitecture != targetArchitecture)
             {
                 this.OutsideTask = OutsideTaskKind.亲善;
+                this.outsideDestination = targetArchitecture.Position;
                 Point position = this.BelongedArchitecture.Position;
                 this.TargetArchitecture = targetArchitecture;
 
