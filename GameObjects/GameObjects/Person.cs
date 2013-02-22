@@ -1432,7 +1432,7 @@
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
                 
-                this.Scenario.DiplomaticRelations.AddDiplomaticRelation(this.Scenario, this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, (5 + (int)(5 * this.Glamour / 100)));
+                base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, (5 + (int)(5 * this.Glamour / 100)));
                 this.TargetArchitecture.Fund += 10000;
                 this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "qinshan.jpg", "qinshan.wav", this.TargetArchitecture.BelongedFaction.Name, true);
                 this.TargetArchitecture = this.LocationArchitecture;
