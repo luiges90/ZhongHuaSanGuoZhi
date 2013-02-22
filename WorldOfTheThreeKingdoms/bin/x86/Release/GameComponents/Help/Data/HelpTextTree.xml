@@ -708,18 +708,29 @@
     <Leaf Text="耐久强度" Color="4278232306"></Leaf>
     <Leaf Text="比普通建筑高五成。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Monarch_Diplomatic_ResetDiplomaticRelation">
+  <Branch Name="Diplomatic_AllyDiplomaticRelation">
     <Leaf Text="君主" Color="4294967295"></Leaf>
-    <Leaf Text="断交" Color="4278232306"></Leaf>
+    <Leaf Text="结盟" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
-    <Leaf Text="与友好势力断交，外交关系归零。" Color="4294967295"></Leaf>
+    <Leaf Text="结成盟友，只能在双方的关系值在[290,300]的范围内执行" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
-    <Leaf Text="只能在己方势力没有任何部队的情况下执行。" Color="4294967295"></Leaf>
+    <Leaf Text="" Color="4294967295"></Leaf>
+  </Branch>  
+  <Branch Name="Diplomatic_ResetDiplomaticRelation">
+    <Leaf Text="君主" Color="4294967295"></Leaf>
+    <Leaf Text="解盟" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="单方面撕毁盟约，双方外交关系归零。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="只能在己方势力没有任何部队在野的情况下执行。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Monarch_Diplomatic_EnhanceDiplomaticRelation">
+  <Branch Name="Diplomatic_EnhanceDiplomaticRelation">
     <Leaf Text="君主" Color="4294967295"></Leaf>
     <Leaf Text="亲善" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -728,9 +739,9 @@
     <Leaf Text="与友好势力加强外交关系" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
-    <Leaf Text="只能在城池有足够的资金并且有外交人员可派遣的情况下执行。" Color="4294967295"></Leaf>
+    <Leaf Text="只能在城池有足够的资金并且有外交人员的情况下执行。" Color="4294967295"></Leaf>
   </Branch>  
-  <Branch Name="Monarch_Diplomatic_DenounceDiplomaticRelation">
+  <Branch Name="Diplomatic_DenounceDiplomaticRelation">
     <Leaf Text="君主" Color="4294967295"></Leaf>
     <Leaf Text="声讨" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
