@@ -157,6 +157,7 @@
         public CaptiveList RedeemCaptiveList = new CaptiveList();
         public GameObjectList ResetDiplomaticRelationList = new GameObjectList();
         public GameObjectList EnhanceDiplomaticRelationList = new GameObjectList();
+        public GameObjectList AllyDiplomaticRelationList = new GameObjectList();
         public GameObjectList DenounceDiplomaticRelationList = new GameObjectList();
         public PersonList RewardPersonList = new PersonList();
         public Troop RobberTroop;
@@ -7756,6 +7757,22 @@
             return this.EnhanceDiplomaticRelationList;
         }
 
+        public GameObjectList GetAllyDiplomaticRelationList()
+        {
+            this.AllyDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    if (display.Relation < 300 && display.Relation >= 290)
+                    {
+                        this.AllyDiplomaticRelationList.Add(display);
+                    }
+                }
+            }
+            return this.AllyDiplomaticRelationList;
+        }
+
         public GameObjectList GetDenounceDiplomaticRelationList()
         {
             this.DenounceDiplomaticRelationList.Clear();
@@ -10996,6 +11013,24 @@
                 return false;
             }
             return (this.HasFriendlyDiplomaticRelation && (this.BelongedFaction.TroopCount == 0));
+        }
+
+        public bool AllyDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+
+            foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+            {
+                if ((display.Relation <= 300) && (display.Relation >= 290))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool EnhanceDiplomaticRelationAvail()

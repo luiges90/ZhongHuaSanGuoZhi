@@ -268,7 +268,8 @@
         public const string Search = "搜索";
         public const string ChangeCapital = "迁都";
         public const string EnhaneceDiplomaticRelation = "亲善";
-        public const string ResetDiplomaticRelation = "断交";
+        public const string AllyDiplomaticRelation = "解盟";
+        public const string ResetDiplomaticRelation = "解盟";
         public const string DenounceDiplomaticRelation = "声讨";
         public const string InformationKind = "情报种类";
         public const string AttackDefault = "攻击默认";

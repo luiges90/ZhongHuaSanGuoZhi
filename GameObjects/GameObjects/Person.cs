@@ -1433,10 +1433,15 @@
             this.OutsideDestination = null;
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
-                
-                base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, (5 + (int)(5 * this.Glamour / 100)));
+                int g = (5 + (int)(5 * this.Glamour / 100));
+                int cd = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID);
+                if (((cd + g) > 290) && cd < 300)
+                {
+                    g = 290 - cd;
+                }
+                base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, g);
                 this.TargetArchitecture.Fund += 10000;
-                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "qinshan.jpg", "qinshan.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
                 this.TargetArchitecture = this.LocationArchitecture;
             }
         }
@@ -1488,9 +1493,11 @@
                 case OutsideTaskKind.后宮:
                     this.DoHouGong();
                     break;
+
                 case OutsideTaskKind.亲善:
                     this.DoEnhanceDiplomatic();
                     break;
+
             }
         }
 

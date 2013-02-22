@@ -34,6 +34,7 @@
         GetLevelUpMilitaries,
         GetNewCapital,
         GetFriendlyDiplomaticRelation,
+        GetAllyDiplomaticRelation,
         GetEnhanceDiplomaticRelation,
         GetEnhanceDiplomaticRelationPerson,
         GetDenounceDiplomaticRelation,
