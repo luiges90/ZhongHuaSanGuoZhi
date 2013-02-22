@@ -2217,13 +2217,16 @@
 
         public bool adjacentTo(Faction f)
         {
-            foreach (Architecture i in this.Architectures)
+            if (f != null)
             {
-                foreach (Architecture j in f.Architectures)
+                foreach (Architecture i in this.Architectures)
                 {
-                    if (i.AILandLinks.GameObjects.Contains(j) || i.AIWaterLinks.GameObjects.Contains(j))
+                    foreach (Architecture j in f.Architectures)
                     {
-                        return true;
+                        if (i.AILandLinks.GameObjects.Contains(j) || i.AIWaterLinks.GameObjects.Contains(j))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
