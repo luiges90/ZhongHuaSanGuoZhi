@@ -1426,6 +1426,19 @@
             }
         }
 
+        public void DoEnhanceDiplomatic()
+        {
+            this.OutsideTask = OutsideTaskKind.无;
+            if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
+            {
+                
+                this.Scenario.DiplomaticRelations.AddDiplomaticRelation(this.Scenario, this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, (5 + (int)(5 * this.Glamour / 100)));
+                this.TargetArchitecture.Fund += 10000;
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "qinshan.jpg", "qinshan.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                this.TargetArchitecture = this.LocationArchitecture;
+            }
+        }
+
         private void DoOutsideTask()
         {
             switch (this.OutsideTask)
@@ -1472,6 +1485,9 @@
 
                 case OutsideTaskKind.后宮:
                     this.DoHouGong();
+                    break;
+                case OutsideTaskKind.亲善:
+                    this.DoEnhanceDiplomatic();
                     break;
             }
         }
@@ -2740,11 +2756,46 @@
             }
         }
 
+        public void GoToDiplomatic(DiplomaticRelationDisplay a)
+        {
+            if (a == null) return;
+
+            Architecture targetArchitecture = this.BelongedArchitecture.GetCapitalByLeaderID(a.LinkedFaction1.LeaderID);
+            if (targetArchitecture == null) return;
+
+            //if (this.Status != PersonStatus.Normal) return;
+
+            if (this.LocationArchitecture != targetArchitecture)
+            {
+                this.OutsideTask = OutsideTaskKind.亲善;
+                Point position = this.BelongedArchitecture.Position;
+                this.TargetArchitecture = targetArchitecture;
+
+                this.TaskDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(position, targetArchitecture.Position) / 10.0));
+                if (this.taskDays == 0)
+                {
+                    this.taskDays = 1;
+                }
+                this.arrivingDays = this.TaskDays * 2;
+
+                this.LocationArchitecture = this.BelongedArchitecture;
+                this.workKind = ArchitectureWorkKind.无;
+                if (this.BelongedFaction != null)
+                {
+                    this.Status = PersonStatus.Moving;
+                }
+                else
+                {
+                    this.Status = PersonStatus.NoFactionMoving;
+                }
+
+            }
+        }
+
         public void MoveToArchitecture(Architecture a)
         {
             this.MoveToArchitecture(a, null);
         }
-
 
         public void NoFactionMove()
         {

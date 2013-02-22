@@ -242,20 +242,16 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
             if (selectedList != null)
             {
-                foreach (Person display in selectedList)
+                foreach (Person diplomaticperson in selectedList)
                 {
                     if (this.CurrentArchitecture.Fund >= 10000)
                     {
                         this.CurrentArchitecture.Fund -= 10000;
-                        this.CurrentArchitecture.GetCapitalByLeaderID(this.CurrentDiplomaticRelationDisplay.LinkedFaction1.LeaderID).Fund +=10000;
-                        //后续这儿的数值该更多考虑派遣人员的魅力值以及君主之间的向性差。
-                        this.CurrentDiplomaticRelationDisplay.Relation += (5 + (int)(5 * display.Glamour / 100));
-                        this.mainGameScreen.xianshishijiantupian(display, this.CurrentArchitecture.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "qinshan.jpg", "qinshan.wav", this.CurrentDiplomaticRelationDisplay.FactionName, true);
+                        diplomaticperson.GoToDiplomatic(this.CurrentDiplomaticRelationDisplay);
                     }
                 }
             }
         }
-
 
         private void FrameFunction_Architecture_AfterGetDenounceDiplomaticRelation()
         {
