@@ -1390,7 +1390,7 @@
                     list.ReSort();
                 }
                 Architecture capital = this.BelongedFaction.Capital;
-                ArchitectureList otherArchitectureList = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Architectures : this.GetOtherArchitectureList();
+                ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
                 if (capital == this)
                 {
                     if (otherArchitectureList.Count > 1)
@@ -1429,7 +1429,7 @@
                 if (this.HasHostileTroopsInView())
                 {
                     idleDays = 0;
-                    ArchitectureList otherArchitectureList = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Architectures : this.GetOtherArchitectureList();
+                    ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
                     do
                     {
                         Architecture src = null;
@@ -1485,7 +1485,7 @@
                         idleDays++;
                         if (idleDays > 3 && this.PersonCount > 3)
                         {
-                            ArchitectureList otherArchitectureList = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Architectures : this.BelongedFaction.Architectures;
+                            ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
                             Architecture dest = null;
                             foreach (Architecture i in otherArchitectureList)
                             {
@@ -7545,16 +7545,35 @@
         public ArchitectureList GetOtherArchitectureList()
         {
             this.OtherArchitectureList.Clear();
-            if (this.BelongedFaction != null)
+
+            if (base.Scenario.IsPlayer(this.BelongedFaction))
             {
-                foreach (Architecture architecture in this.BelongedFaction.Architectures)
+                if (this.BelongedSection != null)
                 {
-                    if (architecture != this)
+                    foreach (Architecture architecture in this.BelongedSection.Architectures)
                     {
-                        this.OtherArchitectureList.Add(architecture);
+                        if (architecture != this)
+                        {
+                            this.OtherArchitectureList.Add(architecture);
+                        }
                     }
                 }
             }
+            else
+            {
+                if (this.BelongedFaction != null)
+                {
+                    foreach (Architecture architecture in this.BelongedFaction.Architectures)
+                    {
+                        if (architecture != this)
+                        {
+                            this.OtherArchitectureList.Add(architecture);
+                        }
+                    }
+                }
+            }
+
+
             return this.OtherArchitectureList;
         }
 
