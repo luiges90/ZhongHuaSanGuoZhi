@@ -32,7 +32,7 @@
         public override double AIFacilityValue(Architecture a)
         {
             if (!a.Kind.HasPopulation) return -1;
-            return (0.8 - Math.Pow((double) a.Population / a.PopulationCeiling, 0.5)) * (0.001 / a.PopulationDevelopingRate) * (this.rate * 10000.0);
+            return (1 - Math.Pow((double) a.Population / a.PopulationCeiling, 0.5)) * (0.001 / a.PopulationDevelopingRate) * (this.rate * 10000.0);
         }
     }
 }
