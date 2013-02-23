@@ -2768,15 +2768,19 @@
         public void GoToDiplomatic(DiplomaticRelationDisplay a)
         {
             if (a == null) return;
+            
+            Faction targetFaction = this.BelongedFaction.GetFactionByName(a.FactionName);
+            //Architecture targetArchitecture = targetFaction.Leader.BelongedArchitecture;
+            Architecture targetArchitecture = targetFaction.Capital;
 
-            Architecture targetArchitecture = this.BelongedArchitecture.GetCapitalByLeaderID(a.LinkedFaction1.LeaderID);
-            if (targetArchitecture == null) return;
-
-            //if (this.Status != PersonStatus.Normal) return;
+            if (targetArchitecture == null)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", "啊，出错了!", true);
+                return;
+            }
 
             if (this.LocationArchitecture != targetArchitecture)
             {
-                this.OutsideTask = OutsideTaskKind.亲善;
                 this.outsideDestination = targetArchitecture.Position;
                 Point position = this.BelongedArchitecture.Position;
                 this.TargetArchitecture = targetArchitecture;
@@ -2786,10 +2790,17 @@
                 {
                     this.taskDays = 1;
                 }
+                if (this.taskDays > 5)
+                {
+                    this.taskDays = 5;
+                }
+
                 this.arrivingDays = this.TaskDays * 2;
 
                 this.LocationArchitecture = this.BelongedArchitecture;
                 this.workKind = ArchitectureWorkKind.无;
+                this.OutsideTask = OutsideTaskKind.亲善;
+                this.Scenario.GameScreen.renwukaishitishi(this, this.TargetArchitecture);
                 if (this.BelongedFaction != null)
                 {
                     this.Status = PersonStatus.Moving;

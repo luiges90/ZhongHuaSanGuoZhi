@@ -1668,6 +1668,15 @@
             return list;
         }
 
+        public Faction GetFactionByName(string FactionName)
+        {
+            foreach (Faction i in base.Scenario.Factions)
+            {
+                if (i.Name == FactionName) return i;
+            }
+            return null;
+        }
+
         public void HandleForcedChangeCapital()
         {
             this.Reputation /= 2;

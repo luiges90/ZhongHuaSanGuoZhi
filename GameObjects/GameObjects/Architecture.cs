@@ -7735,7 +7735,7 @@
             {
                 foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
                 {
-                    if (display.Relation >= 300)
+                    if (display.Relation >= 300 && (display.LinkedFaction1 != null) && (display.LinkedFaction2 != null))
                     {
                         this.ResetDiplomaticRelationList.Add(display);
                     }
@@ -7749,9 +7749,12 @@
             this.EnhanceDiplomaticRelationList.Clear();
             if (this.BelongedFaction != null)
             {
-                foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                foreach (DiplomaticRelationDisplay display in this.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
                 {
-                    this.EnhanceDiplomaticRelationList.Add(display);
+                    if ((display.LinkedFaction1 != null) && (display.LinkedFaction2 != null))
+                    {
+                        this.EnhanceDiplomaticRelationList.Add(display);
+                    }
                 }
             }
             return this.EnhanceDiplomaticRelationList;
@@ -7764,7 +7767,7 @@
             {
                 foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
                 {
-                    if (display.Relation < 300 && display.Relation >= 290)
+                    if ( (display.Relation < 300 && display.Relation >= 290) && ((display.LinkedFaction1 != null) && (display.LinkedFaction2 != null)))
                     {
                         this.AllyDiplomaticRelationList.Add(display);
                     }
@@ -7780,7 +7783,7 @@
             {
                 foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
                 {
-                    if (display.Relation < 300)
+                    if (display.Relation < 300 && (display.LinkedFaction1 != null) && (display.LinkedFaction2 != null))
                     {
                         this.DenounceDiplomaticRelationList.Add(display);
                     }
@@ -13884,19 +13887,6 @@
             return bianduiShu;
 
 
-        }
-
-
-        public Architecture GetCapitalByLeaderID(int leaderid)
-        {
-            foreach (Faction i in base.Scenario.Factions)
-            {
-                if (i.LeaderID == leaderid)
-                {
-                    return i.Capital;
-                }
-            }
-            return null;
         }
 
         public delegate void BeginRecentlyAttacked(Architecture architecture);
