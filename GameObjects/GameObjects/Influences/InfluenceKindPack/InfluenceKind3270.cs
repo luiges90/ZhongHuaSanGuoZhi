@@ -44,7 +44,7 @@
 
         public override double AIFacilityValue(Architecture a)
         {
-            return (a.FrontLine ? 1 : -1) * (a.FrontLine ? 2 : 1) * (a.HostileLine ? 2 : 1) * (a.CriticalHostile ? 2 : 1) * (this.rate * 10);
+            return (a.FrontLine ? 1 : 0.001) * (a.FrontLine ? 2 : 1) * (a.HostileLine ? 2 : 1) * (a.CriticalHostile ? 2 : 1) * (this.rate * 10);
         }
     }
 }

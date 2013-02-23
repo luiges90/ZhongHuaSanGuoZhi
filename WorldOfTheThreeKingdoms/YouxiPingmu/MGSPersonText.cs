@@ -348,11 +348,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void xiaohaichusheng(Person father, Person person)
         {
-            if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
-                    base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
+            if (((base.Scenario.CurrentPlayer != null) && father.BelongedArchitecture != null &&
+                    base.Scenario.IsCurrentPlayer(father.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
-                //person.TextResultString = ((person.meichushengdehaiziliebiao()[0]) as Person).Name ;
-                this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(person, person, "xiaohaichusheng");
+                person.TextResultString = person.Name;
+                this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(father, father, "xiaohaichusheng");
                 this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.PersonTextDialogPlugin.IsShowing = true;
 
