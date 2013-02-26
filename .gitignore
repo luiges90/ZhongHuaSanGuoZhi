@@ -83,7 +83,7 @@ Desktop.ini
 *.url
 *.lnk
 publicExclude.txt
-MakePublic.bat
+*.bat
 
 [Oo]bj
 
