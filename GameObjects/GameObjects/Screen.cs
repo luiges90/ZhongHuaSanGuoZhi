@@ -99,7 +99,7 @@
         {
         }
 
-        public virtual void haizizhangdachengren(Person person)
+        public virtual void haizizhangdachengren(Person father, Person person)
         {
         }
 
@@ -797,7 +797,7 @@
         {
         }
 
-        public virtual void xiaohaichusheng(Person person)
+        public virtual void xiaohaichusheng(Person father, Person person)
         {
         }
 
@@ -814,6 +814,11 @@
         public virtual void renwudaodatishi(Person person, Architecture architecture)
         {
             
+        }
+
+        public virtual void renwukaishitishi(Person person, Architecture architecture)
+        {
+
         }
 
         public virtual void SwichMusic(GameSeason season)

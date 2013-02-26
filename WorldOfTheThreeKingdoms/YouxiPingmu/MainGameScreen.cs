@@ -411,7 +411,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (this.Plugins.ToolBarPlugin != null)
             {
-                this.Plugins.ToolBarPlugin.Draw(base.spriteBatch);
+                try
+                {
+                    this.Plugins.ToolBarPlugin.Draw(base.spriteBatch);
+                }
+                catch (ArgumentNullException)
+                {
+                }
             }
         }
 

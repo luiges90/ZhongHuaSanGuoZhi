@@ -687,7 +687,7 @@
         public void AwardedTreasure(Treasure t)
         {
             this.ReceiveTreasure(t);
-            if (this.Loyalty <= 100)
+            if (this.Loyalty <= 120)
             {
                 if (this.OnBeAwardedTreasure != null)
                 {
@@ -955,7 +955,7 @@
         public void ConfiscatedTreasure(Treasure t)
         {
             this.LoseTreasure(t);
-            if (this.Loyalty <= 100)
+            //if (this.Loyalty <= 100)
             {
                 if (this.OnBeConfiscatedTreasure != null)
                 {
@@ -1054,8 +1054,8 @@
 
                         haizifuqin.TextResultString = haizi.Name;
 
-                        base.Scenario.GameScreen.xiaohaichusheng(haizifuqin);
-                        base.Scenario.haizichusheng(haizi, this, origChildren.Count > 0);
+                        base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
+                        base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
 
                         haizifuqin.suoshurenwu = -1;
                     }
@@ -1130,6 +1130,8 @@
                         && (GameObject.Random((this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 2)) - ((int)this.ConvincingPerson.PersonalLoyalty * (int)((PersonLoyalty)0x19))) > this.ConvincingPerson.Loyalty);
                         
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
+                        // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
+                        ConvinceSuccess |= (this.ConvincingPerson.closePersons.Contains(this.BelongedFaction.LeaderID)) || (this.ConvincingPerson.closePersons.Contains(this.ID));						
                     }
                     else
                     {
@@ -1152,7 +1154,8 @@
                     }
 
                     ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
-
+                    //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
+                    ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.LeaderID) || (this.ConvincingPerson.Brother == this.BelongedFaction.LeaderID);
                     if (ConvinceSuccess)
                     {
                         GameObjects.Faction belongedFaction = null;
@@ -1423,6 +1426,26 @@
             }
         }
 
+        public void DoEnhanceDiplomatic()
+        {
+            this.OutsideTask = OutsideTaskKind.无;
+            this.TargetArchitecture = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
+            this.OutsideDestination = null;
+            if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
+            {
+                int g = (5 + (int)(5 * this.Glamour / 100));
+                int cd = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID);
+                if (((cd + g) > 290) && cd < 300)
+                {
+                    g = 290 - cd;
+                }
+                base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, g);
+                this.TargetArchitecture.Fund += 10000;
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                this.TargetArchitecture = this.LocationArchitecture;
+            }
+        }
+
         private void DoOutsideTask()
         {
             switch (this.OutsideTask)
@@ -1470,6 +1493,11 @@
                 case OutsideTaskKind.后宮:
                     this.DoHouGong();
                     break;
+
+                case OutsideTaskKind.亲善:
+                    this.DoEnhanceDiplomatic();
+                    break;
+
             }
         }
 
@@ -2180,7 +2208,7 @@
             {
                 this.OutsideTask = OutsideTaskKind.技能;
                 this.TargetArchitecture = this.LocationArchitecture;
-                this.ArrivingDays = Parameters.LearnSkillDays;
+                this.ArrivingDays = Math.Max(1, Parameters.LearnSkillDays);
                 this.TaskDays = this.ArrivingDays;
                 this.Status = PersonStatus.Moving;
 				ExtensionInterface.call("GoForStudySkill", new Object[] { this.Scenario, this });
@@ -2194,7 +2222,7 @@
                 this.OutsideTask = OutsideTaskKind.特技;
                 this.StudyingStunt = desStunt;
                 this.TargetArchitecture = this.LocationArchitecture;
-                this.ArrivingDays = Parameters.LearnStuntDays;
+                this.ArrivingDays = Math.Max(1, Parameters.LearnStuntDays);
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForStudyStunt", new Object[] { this.Scenario, this });
@@ -2208,7 +2236,7 @@
                 this.OutsideTask = OutsideTaskKind.称号;
                 this.StudyingTitle = desTitle;
                 this.TargetArchitecture = this.LocationArchitecture;
-                this.ArrivingDays = this.LocationArchitecture.DayLearnTitleDay;
+                this.ArrivingDays = Math.Max(1, this.LocationArchitecture.DayLearnTitleDay);
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForStudyTitle", new Object[] { this.Scenario, this });
@@ -2231,10 +2259,10 @@
 
         public int IncreaseLoyalty(int increment)
         {
-            if (increment > (100 - this.Loyalty))
+            /*if (increment > (100 - this.Loyalty))
             {
                 increment = 100 - this.Loyalty;
-            }
+            }*/
             if (increment > 0)
             {
                 this.loyalty += increment;
@@ -2560,9 +2588,16 @@
 
         private void LoyaltyChange()
         {
-            if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) && (this.Loyalty <= 100))
+            if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) 
+                /*&& (this.Loyalty <= 100)*/ )
             {
                 int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
+                //亲爱武将性格差调整
+                if (this.closePersons.Contains(this.BelongedFaction.LeaderID) && (idealOffset > 5))
+                {
+                    idealOffset = 5;
+                }
+
                 if (idealOffset > 0)
                 {
                     int decrement = ((int) (this.Ambition - ((PersonAmbition) ((int) this.PersonalLoyalty)))) + (idealOffset / 10);
@@ -2574,11 +2609,11 @@
                     {
                         decrement *= 2;
                     }
-                    if (decrement > 0)
+                    if (decrement > 0 && !(this.Spouse == this.BelongedFaction.LeaderID || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother > 0)))
                     {
                         this.DecreaseLoyalty(decrement);
                     }
-                    else if (decrement < 0)
+                    else if (decrement < 0 && (this.Loyalty < 100))
                     {
                         this.IncreaseLoyalty(Math.Abs(decrement));
                     }
@@ -2730,11 +2765,58 @@
             }
         }
 
+        public void GoToDiplomatic(DiplomaticRelationDisplay a)
+        {
+            if (a == null) return;
+            
+            Faction targetFaction = this.BelongedFaction.GetFactionByName(a.FactionName);
+            //Architecture targetArchitecture = targetFaction.Leader.BelongedArchitecture;
+            Architecture targetArchitecture = targetFaction.Capital;
+
+            if (targetArchitecture == null)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", "啊，出错了!", true);
+                return;
+            }
+
+            if (this.LocationArchitecture != targetArchitecture)
+            {
+                this.outsideDestination = targetArchitecture.Position;
+                Point position = this.BelongedArchitecture.Position;
+                this.TargetArchitecture = targetArchitecture;
+
+                this.TaskDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(position, targetArchitecture.Position) / 10.0));
+                if (this.taskDays == 0)
+                {
+                    this.taskDays = 1;
+                }
+                if (this.taskDays > 5)
+                {
+                    this.taskDays = 5;
+                }
+
+                this.arrivingDays = this.TaskDays * 2;
+
+                this.LocationArchitecture = this.BelongedArchitecture;
+                this.workKind = ArchitectureWorkKind.无;
+                this.OutsideTask = OutsideTaskKind.亲善;
+                this.Scenario.GameScreen.renwukaishitishi(this, this.TargetArchitecture);
+                if (this.BelongedFaction != null)
+                {
+                    this.Status = PersonStatus.Moving;
+                }
+                else
+                {
+                    this.Status = PersonStatus.NoFactionMoving;
+                }
+
+            }
+        }
+
         public void MoveToArchitecture(Architecture a)
         {
             this.MoveToArchitecture(a, null);
         }
-
 
         public void NoFactionMove()
         {
@@ -5152,6 +5234,12 @@
         public bool RecruitableBy(Faction f, int idealLeniency)
         {
             int idealOffset = Person.GetIdealOffset(this, f.Leader);
+            //义兄弟或者配偶直接登用。(当前判断是和所在势力的君主)
+            if ((this.Spouse == f.LeaderID) || (this.Brother == f.LeaderID))
+            {
+                return true;
+            }
+            
             if ((GlobalVariables.IdealTendencyValid && idealOffset > this.IdealTendency.Offset + (double)f.Reputation / f.MaxPossibleReputation * 75 + idealLeniency) ||
                 this.HatedPersons.Contains(f.LeaderID))
             {

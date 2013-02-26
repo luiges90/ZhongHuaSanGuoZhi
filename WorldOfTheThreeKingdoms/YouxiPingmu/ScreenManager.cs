@@ -34,6 +34,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         public GameObjectList CurrentPersons;
         public Routeway CurrentRouteway;
         public Troop CurrentTroop;
+        public DiplomaticRelationDisplay CurrentDiplomaticRelationDisplay;
         private GameScenario gameScenario;
         private FrameFunction lastFrameFunction;
         private MainGameScreen mainGameScreen;
@@ -45,7 +46,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void FrameFunction_Architecture_AfterGetAwardTreasure()
         {
-            this.CurrentGameObject = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as GameObject;
+            this.CurrentGameObject = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as GameObject;            
             if (this.CurrentGameObject != null)
             {
                 Treasure currentGameObject = this.CurrentGameObject as Treasure;
@@ -217,7 +218,74 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 foreach (DiplomaticRelationDisplay display in selectedList)
                 {
+                    this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "ResetDiplomaticRelation", "ResetDiplomaticRelation.jpg", "ResetDiplomaticRelation.wav", display.FactionName, true);
                     display.Relation = 0;
+                }
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelation()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.EnhanceDiplomaticRelationList.GetSelectedList();
+
+            if (selectedList != null && (selectedList.Count == 1))
+            {
+                this.CurrentDiplomaticRelationDisplay = selectedList[0] as DiplomaticRelationDisplay;
+                this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetEnhanceDiplomaticRelationPerson, true, true, true, true, this.CurrentArchitecture.Persons, null, "外交人员", "Ability");
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterGetAllyDiplomaticRelation()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.AllyDiplomaticRelationList.GetSelectedList();
+
+            if (selectedList != null && (selectedList.Count == 1))
+            {
+                this.CurrentDiplomaticRelationDisplay = selectedList[0] as DiplomaticRelationDisplay;
+                this.CurrentDiplomaticRelationDisplay.Relation = 301;
+                this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.BelongedFaction.Leader, this.CurrentArchitecture.BelongedFaction.Leader.Name, "AllyDiplomaticRelation", "AllyDiplomaticRelation.jpg", "AllyDiplomaticRelation.wav", this.CurrentDiplomaticRelationDisplay.FactionName, true);
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelationPerson()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.DiplomaticWorkingPersons.GetSelectedList();
+
+            if (selectedList != null)
+            {
+                foreach (Person diplomaticperson in selectedList)
+                {
+                    if (this.CurrentArchitecture.Fund >= 10000)
+                    {
+                        this.CurrentArchitecture.Fund -= 10000;
+                        diplomaticperson.GoToDiplomatic(this.CurrentDiplomaticRelationDisplay);
+                    }
+                }
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterGetDenounceDiplomaticRelation()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.DenounceDiplomaticRelationList.GetSelectedList();
+            if (selectedList != null)
+            {
+                foreach (DiplomaticRelationDisplay display in selectedList)
+                {
+                    if (this.CurrentArchitecture.Fund > 10000)
+                    {
+                        this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "DenounceDiplomaticRelation", "DenounceDiplomaticRelation.jpg", "DenounceDiplomaticRelation.wav", display.FactionName, true);
+                        this.CurrentArchitecture.Fund -= 10000;
+                        display.Relation -= 20;
+                        //待处理所有势力和被声讨方的关系
+                        foreach (DiplomaticRelation f in this.CurrentArchitecture.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionName(display.FactionName))
+                        {
+                            if (f.Relation < 100)
+                            {
+                                f.Relation -= 10;
+                            }
+                        }
+
+                    }
                 }
             }
         }
@@ -758,8 +826,24 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.FrameFunction_Architecture_AfterGetNewCapital();
                     break;
 
+                case FrameFunction.GetEnhanceDiplomaticRelation:
+                    this.FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelation();
+                    break;
+
+                case FrameFunction.GetEnhanceDiplomaticRelationPerson:
+                    this.FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelationPerson();
+                    break;
+
                 case FrameFunction.GetFriendlyDiplomaticRelation:
                     this.FrameFunction_Architecture_AfterGetFriendlyDiplomaticRelation();
+                    break;
+
+                case FrameFunction.GetAllyDiplomaticRelation:
+                    this.FrameFunction_Architecture_AfterGetAllyDiplomaticRelation();
+                    break;
+
+                case FrameFunction.GetDenounceDiplomaticRelation:
+                    this.FrameFunction_Architecture_AfterGetDenounceDiplomaticRelation();
                     break;
 
                 case FrameFunction.GetAttackDefaultKind:

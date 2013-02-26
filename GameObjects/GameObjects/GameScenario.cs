@@ -300,7 +300,7 @@
             this.PreparedAvailablePersons.Clear();
         }
 
-        public void haizichusheng(Person person, Person muqin, bool doAffect)
+        public void haizichusheng(Person person, Person father, Person muqin, bool doAffect)
         {
             person.Available = true;
             foreach (Treasure treasure in person.Treasures)
@@ -324,7 +324,7 @@
             if (person.Intelligence < 1) person.Intelligence = 1;
             if (person.Politics < 1) person.Politics = 1;
             if (person.Glamour < 1) person.Glamour = 1;
-            this.GameScreen.haizizhangdachengren(person);
+            this.GameScreen.haizizhangdachengren(person, person);
         }
 
 
@@ -690,6 +690,7 @@
             this.GameScreen.LoadScenarioInInitialization = false;
         }
 
+        private int hostileTroopInViewCountdown = 0;
         private void detectCurrentPlayerBattleState(Faction faction)
         {
             
@@ -709,11 +710,12 @@
                 {
                     fightingArchitectureCount++;
 
-                    if (architecture.RecentlyAttacked <= 0)
+                    if (hostileTroopInViewCountdown <= 0)
                     {
                         architecture.JustAttacked = true;
                         architecture.BelongedFaction.StopToControl = true;
-                        architecture.RecentlyAttacked = 10;
+                        hostileTroopInViewCountdown = 10;
+                        //architecture.RecentlyAttacked = 10;
 
                         this.GameScreen.ArchitectureBeginRecentlyAttacked(architecture);  //提示玩家建筑视野范围内出现敌军。
 
@@ -766,6 +768,8 @@
             {
                 this.GameScreen.SwichMusic(this.Date.Season);
             }
+
+            hostileTroopInViewCountdown--;
 
         }
 

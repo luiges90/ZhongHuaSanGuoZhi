@@ -156,6 +156,9 @@
         public MilitaryList RecruitmentMilitaryList = new MilitaryList();
         public CaptiveList RedeemCaptiveList = new CaptiveList();
         public GameObjectList ResetDiplomaticRelationList = new GameObjectList();
+        public GameObjectList EnhanceDiplomaticRelationList = new GameObjectList();
+        public GameObjectList AllyDiplomaticRelationList = new GameObjectList();
+        public GameObjectList DenounceDiplomaticRelationList = new GameObjectList();
         public PersonList RewardPersonList = new PersonList();
         public Troop RobberTroop;
         public int RobberTroopID;
@@ -432,6 +435,22 @@
                 foreach (Person i in base.Scenario.Persons)
                 {
                     if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.训练 && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public PersonList DiplomaticWorkingPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.LocationTroop == null)
                     {
                         result.Add(i);
                     }
@@ -1230,10 +1249,12 @@
             }
             else
             {
-                if (!leader.IsCaptive && this.meinvkongjian() - this.feiziliebiao.Count > 0 && GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0 && leader.LocationArchitecture != null && leader.Status == PersonStatus.Normal &&
-                    (((!leader.LocationArchitecture.HostileLine || GameObject.Chance(Parameters.AILeaveHostilelineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIHostilelineHougongChance)))
-                    && (!leader.LocationArchitecture.FrontLine || GameObject.Chance(Parameters.AILeaveFrontlineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIFrontlineHougongChance))))
-                    || GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower)))))
+                if (leader.LocationArchitecture == this && !leader.IsCaptive && this.meinvkongjian() - this.feiziliebiao.Count > 0 && leader.Status == PersonStatus.Normal &&
+                    (
+                    GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0
+                    ||
+                    GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower))))
+                    )
                 {
                     PersonList candidate = new PersonList();
                     foreach (Person p in this.BelongedFaction.Persons)
@@ -1253,23 +1274,20 @@
                     Person toTake = null;
                     foreach (Person p in candidate)
                     {
-                        if ((!p.RecruitableBy(this.BelongedFaction, 0) && GameObject.Random((int)unAmbition) == 0) || GameObject.Chance((int) (Parameters.AINafeiSkipChanceAdd + (int)leader.Ambition * Parameters.AINafeiSkipChanceMultiply)))
+                        if (p.Status == PersonStatus.Normal)
                         {
-                            toTake = p;
-                            break;
+                            if ((!p.RecruitableBy(this.BelongedFaction, 0) && GameObject.Random((int)unAmbition) == 0) || GameObject.Chance((int)(Parameters.AINafeiSkipChanceAdd + (int)leader.Ambition * Parameters.AINafeiSkipChanceMultiply)))
+                            {
+                                toTake = p;
+                                break;
+                            }
                         }
                     }
                     if (toTake != null)
                     {
-                        if (leader.LocationArchitecture != this && leader.Status == PersonStatus.Normal)
+                        if (leader.LocationArchitecture.meinvkongjian() > this.meinvkongjian())
                         {
-                            leader.MoveToArchitecture(this);
-                            //leader.LocationArchitecture.RemovePerson(leader);
-                            leader.WaitForFeiZi = toTake;
-                        }
-                        if (toTake.LocationArchitecture == this && toTake.Status == PersonStatus.Normal)
-                        {
-                            if (leader.LocationArchitecture == this && leader.Status == PersonStatus.Normal)
+                            if (toTake.LocationArchitecture == leader.LocationArchitecture)
                             {
                                 leader.XuanZeMeiNv(toTake);
                                 toTake.WaitForFeiZi = null;
@@ -1277,15 +1295,37 @@
                             }
                             else
                             {
+                                toTake.MoveToArchitecture(leader.LocationArchitecture);
                                 toTake.WaitForFeiZi = leader;
+                                leader.WaitForFeiZi = toTake;
                             }
                         }
                         else
                         {
-                            toTake.MoveToArchitecture(this);
-                            //toTake.LocationArchitecture.RemovePerson(toTake);
-                            toTake.WaitForFeiZi = leader;
-                            leader.WaitForFeiZi = toTake;
+                            if (leader.LocationArchitecture != this)
+                            {
+                                leader.MoveToArchitecture(this);
+                                leader.WaitForFeiZi = toTake;
+                            }
+                            if (toTake.LocationArchitecture == this)
+                            {
+                                if (leader.LocationArchitecture == this)
+                                {
+                                    leader.XuanZeMeiNv(toTake);
+                                    toTake.WaitForFeiZi = null;
+                                    leader.WaitForFeiZi = null;
+                                }
+                                else
+                                {
+                                    toTake.WaitForFeiZi = leader;
+                                }
+                            }
+                            else
+                            {
+                                toTake.MoveToArchitecture(this);
+                                toTake.WaitForFeiZi = leader;
+                                leader.WaitForFeiZi = toTake;
+                            }
                         }
                     }
                 }
@@ -1369,7 +1409,7 @@
                     list.ReSort();
                 }
                 Architecture capital = this.BelongedFaction.Capital;
-                ArchitectureList otherArchitectureList = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Architectures : this.GetOtherArchitectureList();
+                ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
                 if (capital == this)
                 {
                     if (otherArchitectureList.Count > 1)
@@ -1408,7 +1448,7 @@
                 if (this.HasHostileTroopsInView())
                 {
                     idleDays = 0;
-                    ArchitectureList otherArchitectureList = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Architectures : this.GetOtherArchitectureList();
+                    ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
                     do
                     {
                         Architecture src = null;
@@ -1464,16 +1504,32 @@
                         idleDays++;
                         if (idleDays > 3 && this.PersonCount > 3)
                         {
-                            ArchitectureList otherArchitectureList = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Architectures : this.BelongedFaction.Architectures;
+                            ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
                             Architecture dest = null;
                             foreach (Architecture i in otherArchitectureList)
                             {
-                                double minDist = double.MaxValue;
-                                double distance = base.Scenario.GetDistance(this.Position, i.Position);
-                                if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                if (i.FrontLine)
                                 {
-                                    minDist = distance;
-                                    dest = i;
+                                    double minDist = double.MaxValue;
+                                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
+                                    if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                    {
+                                        minDist = distance;
+                                        dest = i;
+                                    }
+                                }
+                            }
+                            if (dest == null)
+                            {
+                                foreach (Architecture i in otherArchitectureList)
+                                {
+                                    double minDist = double.MaxValue;
+                                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
+                                    if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                    {
+                                        minDist = distance;
+                                        dest = i;
+                                    }
                                 }
                             }
                             int num = this.FrontLine ? this.PersonCount - this.MilitaryCount : this.PersonCount - 3;
@@ -1494,7 +1550,8 @@
                                 while (num2 < num)
                                 {
                                     Person p = list[num2] as Person;
-                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null)
+                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
+                                        (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                     {
                                         p.MoveToArchitecture(dest);
                                     }
@@ -1504,6 +1561,10 @@
                         }
                     }
                     else
+                    {
+                        idleDays = 0;
+                    }
+                    /*else
                     {
                         idleDays = 0;
                         if (this.FrontLine || this.noFactionFrontline)
@@ -1556,7 +1617,7 @@
                                 this.PersonCount + this.MovingPersonCount < this.MilitaryCount &&
                                 this.PersonCount + this.MovingPersonCount < this.Fund / 3000);
                         }
-                    }
+                    }*/
                 }
 
             }
@@ -5459,7 +5520,7 @@
         {
             foreach (Person person in this.Persons)
             {
-                if ((person.Loyalty <= 100) && (person != this.BelongedFaction.Leader))
+                if (/*(person.Loyalty <= 100) && */ (person != this.BelongedFaction.Leader))
                 {
                     person.DecreaseLoyalty(StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
                 }
@@ -7503,16 +7564,35 @@
         public ArchitectureList GetOtherArchitectureList()
         {
             this.OtherArchitectureList.Clear();
-            if (this.BelongedFaction != null)
+
+            if (base.Scenario.IsPlayer(this.BelongedFaction))
             {
-                foreach (Architecture architecture in this.BelongedFaction.Architectures)
+                if (this.BelongedSection != null)
                 {
-                    if (architecture != this)
+                    foreach (Architecture architecture in this.BelongedSection.Architectures)
                     {
-                        this.OtherArchitectureList.Add(architecture);
+                        if (architecture != this)
+                        {
+                            this.OtherArchitectureList.Add(architecture);
+                        }
                     }
                 }
             }
+            else
+            {
+                if (this.BelongedFaction != null)
+                {
+                    foreach (Architecture architecture in this.BelongedFaction.Architectures)
+                    {
+                        if (architecture != this)
+                        {
+                            this.OtherArchitectureList.Add(architecture);
+                        }
+                    }
+                }
+            }
+
+
             return this.OtherArchitectureList;
         }
 
@@ -7674,13 +7754,61 @@
             {
                 foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
                 {
-                    if (display.Relation >= 300)
+                    if (display.Relation >= 300 && (display.LinkedFaction1 != null) && (display.LinkedFaction2 != null))
                     {
                         this.ResetDiplomaticRelationList.Add(display);
                     }
                 }
             }
             return this.ResetDiplomaticRelationList;
+        }
+
+        public GameObjectList GetEnhanceDiplomaticRelationList()
+        {
+            this.EnhanceDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in this.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    if ((display.LinkedFaction1 != null) && (display.LinkedFaction2 != null))
+                    {
+                        this.EnhanceDiplomaticRelationList.Add(display);
+                    }
+                }
+            }
+            return this.EnhanceDiplomaticRelationList;
+        }
+
+        public GameObjectList GetAllyDiplomaticRelationList()
+        {
+            this.AllyDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    if ( (display.Relation < 300 && display.Relation >= 290) && ((display.LinkedFaction1 != null) && (display.LinkedFaction2 != null)))
+                    {
+                        this.AllyDiplomaticRelationList.Add(display);
+                    }
+                }
+            }
+            return this.AllyDiplomaticRelationList;
+        }
+
+        public GameObjectList GetDenounceDiplomaticRelationList()
+        {
+            this.DenounceDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    if (display.Relation < 300 && (display.LinkedFaction1 != null) && (display.LinkedFaction2 != null))
+                    {
+                        this.DenounceDiplomaticRelationList.Add(display);
+                    }
+                }
+            }
+            return this.DenounceDiplomaticRelationList;
         }
 
         public PersonList GetRewardPersons()
@@ -9306,6 +9434,7 @@
         public void MonthEvent()
         {
             this.DevelopMonth();
+            this.CheckIsFrontLine();
         }
 
         public bool MoraleAvail()
@@ -10908,6 +11037,52 @@
             return (this.HasFriendlyDiplomaticRelation && (this.BelongedFaction.TroopCount == 0));
         }
 
+        public bool AllyDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+
+            foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+            {
+                if ((display.Relation <= 300) && (display.Relation >= 290))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool EnhanceDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+            return ((this.Fund > 10000) && (this.Persons.Count > 0));
+        }
+
+        public bool DenounceDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+
+            foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+            {
+                if ((display.Relation < 300) && (this.Fund > 10000))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
         public void ResetFaction(Faction faction)
         {
 			Faction oldFaction = this.BelongedFaction;
@@ -11209,7 +11384,7 @@
             p.RewardFinished = true;
             this.DecreaseFund(this.RewardPersonFund);
             int idealOffset = Person.GetIdealOffset(p, this.BelongedFaction.Leader);
-            p.IncreaseLoyalty((15 - (idealOffset / 5)) +(int) p.PersonalLoyalty);
+            p.IncreaseLoyalty((15 - (idealOffset / 5)) + 4 - (int) p.PersonalLoyalty);
 			ExtensionInterface.call("RewardPerson", new Object[] { this.Scenario, this, p });
             return true;
         }

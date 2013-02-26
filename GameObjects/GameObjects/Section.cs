@@ -272,14 +272,7 @@
                 {
                     num += architecture.MilitaryCount;
                 }
-                foreach (Troop troop in this.BelongedFaction.Troops)
-                {
-                    if (!(troop.Destroyed || !this.HasArchitecture(troop.StartingArchitecture)))
-                    {
-                        num++;
-                    }
-                }
-                return num;
+                return num + this.TroopCount;
             }
         }
 
@@ -320,6 +313,13 @@
                 {
                     num += architecture.GetAllPersons().Count;
                 }
+                foreach (Troop troop in this.BelongedFaction.Troops)
+                {
+                    if (troop.StartingArchitecture.BelongedSection == this)
+                    {
+                        num += troop.PersonCount;
+                    }
+                }
                 return num;
             }
         }
@@ -344,7 +344,7 @@
                 int num = 0;
                 foreach (Troop troop in this.BelongedFaction.Troops)
                 {
-                    if (!(troop.Destroyed || !this.HasArchitecture(troop.StartingArchitecture)))
+                    if (!troop.Destroyed && troop.StartingArchitecture.BelongedSection == this)
                     {
                         num++;
                     }

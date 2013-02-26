@@ -1668,6 +1668,15 @@
             return list;
         }
 
+        public Faction GetFactionByName(string FactionName)
+        {
+            foreach (Faction i in base.Scenario.Factions)
+            {
+                if (i.Name == FactionName) return i;
+            }
+            return null;
+        }
+
         public void HandleForcedChangeCapital()
         {
             this.Reputation /= 2;
@@ -2217,13 +2226,16 @@
 
         public bool adjacentTo(Faction f)
         {
-            foreach (Architecture i in this.Architectures)
+            if (f != null)
             {
-                foreach (Architecture j in f.Architectures)
+                foreach (Architecture i in this.Architectures)
                 {
-                    if (i.AILandLinks.GameObjects.Contains(j) || i.AIWaterLinks.GameObjects.Contains(j))
+                    foreach (Architecture j in f.Architectures)
                     {
-                        return true;
+                        if (i.AILandLinks.GameObjects.Contains(j) || i.AIWaterLinks.GameObjects.Contains(j))
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -2263,6 +2275,9 @@
         private void ResetFriendlyDiplomaticRelations()
         {
             if (base.Scenario.IsPlayer(this)) return;
+
+            bool relationBroken = false;
+
             if (GlobalVariables.PinPointAtPlayer)
             {
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
@@ -2270,25 +2285,39 @@
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
                     if (i.Relation >= -300 && base.Scenario.IsPlayer(opposite)){
                         i.Relation -= 15; //focus到玩家的时候，每月降低15点友好度
+                        relationBroken = true;
                     }
                 }
             }
-            if ((this.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && this.HasFriendlyDiplomaticRelation)
+            if ((this.Leader.StrategyTendency != PersonStrategyTendency.维持现状))
             {
                 int minTroop = int.MaxValue;
                 DiplomaticRelation minTroopFactionRelation = null;
-                bool relationBroken = false;
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
-                    // if (i.Relation < 300) continue; 这个在前面的HasFriendlyDiplomaticRelation中已经判断过了
-                    if (!this.adjacentTo(opposite)) continue;    
-                    if (GameObject.Chance((int)((double)this.ArmyScale / opposite.ArmyScale * ((int) this.Leader.Ambition + 1) * 20)))
+                    //if (i.Relation < 300) continue; 
+                    if (!this.adjacentTo(opposite)) continue;    //不接壤的AI不主动改变关系值
+                    if (GameObject.Chance((int)((double)this.ArmyScale / opposite.ArmyScale * ((int)this.Leader.Ambition + 1) * 20))
+                        && i.Relation < 300)
                     {
-                        i.Relation -= (7 + (int)Random(15)); //每月随机减少
+                        i.Relation -= (7 + (int)Random(15)); //根据总兵力情况每月随机减少
                         relationBroken = true;
                         break;
                     }
+                    //增加关系300以上，随机一个降低数值后主动解盟的情况
+                    if (GameObject.Chance((int)(Person.GetIdealOffset(this.Leader, opposite.Leader)/3)) && i.Relation >= 300)
+                    {
+                        i.Relation -= (7 + (int)Random(15));
+                        relationBroken = true;
+                        if (i.Relation < 300)
+                        {
+                            //显示联盟破裂画面
+                            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, "BreakDiplomaticRelation", "BreakDiplomaticRelation.jpg", "BreakDiplomaticRelation.wav", opposite.Leader.Name, true);
+                        }
+                        break;
+                    }
+
                     if (!this.hasNonFriendlyFrontline)
                     {
                         if (opposite.ArmyScale < minTroop)
@@ -2301,46 +2330,9 @@
                 if (minTroopFactionRelation != null && !relationBroken)
                 {
                     minTroopFactionRelation.Relation = 0;
+                    //AI宣布主动解盟
+                    this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, "ResetDiplomaticRelation", "ResetDiplomaticRelation.jpg", "ResetDiplomaticRelation.wav", minTroopFactionRelation.Name, true);
                 }
-                /*int num = 0;
-                int num2 = 0;
-                foreach (Architecture architecture in this.Architectures)
-                {
-                    if (architecture.IsFull() && (architecture.ArmyScale > architecture.LargeArmyScale))
-                    {
-                        num++;
-                        num2++;
-                    }
-                    else if (architecture.IsGood() && (architecture.ArmyScale > architecture.NormalArmyScale))
-                    {
-                        num2++;
-                    }
-                }
-                if ((num > ((this.ArchitectureCount / 5) + 1)) || (num2 > ((this.ArchitectureCount / 2) + 1)))
-                {
-                    double num3 = 0.0;
-                    DiplomaticRelation relation = null;
-                    foreach (DiplomaticRelation relation2 in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
-                    {
-                        if (relation2.Relation >= 300)
-                        {
-                            Faction diplomaticFaction = relation2.GetDiplomaticFaction(base.ID);
-                            if (diplomaticFaction != null)
-                            {
-                                int distanceFromFaction = this.Capital.GetDistanceFromFaction(diplomaticFaction);
-                                if (num3 < distanceFromFaction)
-                                {
-                                    num3 = distanceFromFaction;
-                                    relation = relation2;
-                                }
-                            }
-                        }
-                    }
-                    if (relation != null)
-                    {
-                        relation.Relation = 0;
-                    }
-                }*/
             }
         }
 
