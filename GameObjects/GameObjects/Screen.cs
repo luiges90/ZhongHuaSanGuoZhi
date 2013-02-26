@@ -816,6 +816,11 @@
             
         }
 
+        public virtual void renwukaishitishi(Person person, Architecture architecture)
+        {
+
+        }
+
         public virtual void SwichMusic(GameSeason season)
         {
             

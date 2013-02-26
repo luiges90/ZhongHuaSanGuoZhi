@@ -521,7 +521,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
 
                 case ContextMenuResult.Monarch_ResetDiplomaticRelation:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetFriendlyDiplomaticRelation, false, true, true, true, this.CurrentArchitecture.GetResetDiplomaticRelationList(), null, "断交", "");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetFriendlyDiplomaticRelation, false, true, true, true, this.CurrentArchitecture.GetResetDiplomaticRelationList(), null, "解盟", "");
                     break;
 
                 case ContextMenuResult.Monarch_Techniques:

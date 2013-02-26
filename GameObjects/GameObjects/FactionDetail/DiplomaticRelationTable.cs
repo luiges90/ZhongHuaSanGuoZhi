@@ -80,6 +80,19 @@
             return list;
         }
 
+        public GameObjectList GetDiplomaticRelationListByFactionName(string factionName)
+        {
+            GameObjectList list = new GameObjectList();
+            foreach (DiplomaticRelation relation in this.DiplomaticRelations.Values)
+            {
+                if ((relation.RelationFaction1String == factionName) || (relation.RelationFaction2String == factionName))
+                {
+                    list.Add(relation);
+                }
+            }
+            return list;
+        }
+
         private int GetHashCode(int id1, int id2)
         {
             return (id1.ToString() + " " + id2.ToString()).GetHashCode();

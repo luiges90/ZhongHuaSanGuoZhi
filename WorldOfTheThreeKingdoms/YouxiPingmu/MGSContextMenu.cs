@@ -545,8 +545,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.Monarch_SelectPrince :
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.SelectPrince, false, true, true, false, this.CurrentArchitecture.BelongedFaction.Leader.ChildrenCanBeSelectedAsPrince(), null, "立储", "");
                     break;
-                case ContextMenuResult.Monarch_ResetDiplomaticRelation:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetFriendlyDiplomaticRelation, false, true, true, true, this.CurrentArchitecture.GetResetDiplomaticRelationList(), null, "断交", "");
+                case ContextMenuResult.Diplomatic_EnhanceDiplomaticRelation:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetEnhanceDiplomaticRelation, false, true, true, false, this.CurrentArchitecture.GetEnhanceDiplomaticRelationList(), null, "亲善", "");
+                    break;
+                case ContextMenuResult.Diplomatic_AllyDiplomaticRelation:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetAllyDiplomaticRelation, false, true, true, false, this.CurrentArchitecture.GetAllyDiplomaticRelationList(), null, "结盟", "");
+                    break;
+                case ContextMenuResult.Diplomatic_ResetDiplomaticRelation:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetFriendlyDiplomaticRelation, false, true, true, false, this.CurrentArchitecture.GetResetDiplomaticRelationList(), null, "解盟", "");
+                    break;
+                case ContextMenuResult.Diplomatic_DenounceDiplomaticRelation:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetDenounceDiplomaticRelation, false, true, true, false, this.CurrentArchitecture.GetDenounceDiplomaticRelationList(), null, "声讨", "");
                     break;
 
                 case ContextMenuResult.Monarch_Techniques:
