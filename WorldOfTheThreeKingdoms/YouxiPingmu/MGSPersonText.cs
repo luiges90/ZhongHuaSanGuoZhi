@@ -37,6 +37,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void renwukaishitishi(Person person, Architecture architecture)
+        {
+            if (base.Scenario.IsCurrentPlayer(person.BelongedFaction))
+            {
+                person.TextResultString = architecture.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(person, "PersonTravel", architecture.Position);
+            }
+        }
+
         public override void ArchitectureBeginRecentlyAttacked(Architecture architecture)
         {
             if (base.Scenario.IsCurrentPlayer(architecture.BelongedFaction) && architecture.BelongedFaction != null)

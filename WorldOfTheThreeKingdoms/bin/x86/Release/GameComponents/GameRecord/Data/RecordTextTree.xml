@@ -423,6 +423,15 @@
     <Leaf Text="。" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="PersonTravel">
+    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="等人携带金银珠宝" Color="4294967295"></Leaf>
+    <Leaf Text="开始出发去" Color="4294967295"></Leaf>
+
+    <Leaf Property="TextResultString" Color="4292673536"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>  
   <Branch Name="Zili">
     <Leaf Property="TextResultString" Color="4286644223"></Leaf>
     <Leaf Text="自封为" Color="4294967295"></Leaf>

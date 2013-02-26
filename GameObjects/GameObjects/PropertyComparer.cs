@@ -27,6 +27,10 @@
                 return 0;
             }
 
+            if (x.Equals(y))
+            {
+                return 0;
+            }
             int result = 0;
 
             if (this.isNumber)
