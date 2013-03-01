@@ -5044,6 +5044,11 @@
 
         private void CheckRobberTroop()
         {
+            if (this.RobberTroop != null && this.RobberTroop.BelongedFaction != null)
+            {
+                this.RobberTroop = null;
+                this.RobberTroopID = -1;
+            }
             if (this.BelongedFaction != null)
             {
                 if ((this.RobberTroop != null) && (this.RobberTroop.RecentlyFighting <= 0))
