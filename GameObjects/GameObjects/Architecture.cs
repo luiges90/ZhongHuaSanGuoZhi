@@ -3302,7 +3302,7 @@
                         list2 = new PersonList();
                         list2.Add(person);
                         person.Selected = true;
-                        Point? nullable = this.GetRandomStartingPosition(military2.Kind);
+                        Point? nullable = this.GetRandomStartingPosition(military2);
                         if (!nullable.HasValue)
                         {
                             break;
