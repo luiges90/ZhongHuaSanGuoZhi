@@ -59,7 +59,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(architecture.BelongedFaction.Leader, architecture, "ArchitectureFacilityCompleted");
                         this.Plugins.PersonTextDialogPlugin.IsShowing = true;
                          */
-                        string sheshitupian = "sheshi/sheshi" + facility.KindID.ToString() + ".jpg";
+                        string sheshitupian = "../sheshi/sheshi" + facility.KindID.ToString() + ".jpg";
                         this.xianshishijiantupian(architecture.BelongedFaction.Leader,architecture.Name  , "ArchitectureFacilityCompleted", sheshitupian, "sheshiwancheng.wav",facility.Kind.Name,false); 
                     }
                 }
