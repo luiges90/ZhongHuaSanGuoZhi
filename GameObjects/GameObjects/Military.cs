@@ -1043,14 +1043,22 @@
             }
         }
 
+        public double RetreatScale
+        {
+            get
+            {
+                double retreatScaleRatio = Math.Min(0.5, this.RecoverCost / 50000.0 * 0.4);
+                return this.Kind.MaxScale / this.Kind.MinScale * retreatScaleRatio;
+            }
+        }
+
         public bool IsFewScaleNeedRetreat
         {
             get
             {
                 if (this.BelongedFaction == null) return false;
                 if (this.KindID == 29) return false;
-                double retreatScaleRatio = Math.Min(0.5, this.RecoverCost / 50000.0 * 0.4);
-                return this.Scales < this.Kind.MaxScale / this.Kind.MinScale * retreatScaleRatio;
+                return this.Scales < this.RetreatScale;
             }
         }
 

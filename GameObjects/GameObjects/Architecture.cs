@@ -4536,7 +4536,7 @@
             //Label_0309:
             foreach (Military military in this.Militaries.GetRandomList())
             {
-                if (military.IsFewScaleNeedRetreat) continue;
+                if (military.Scales < military.RetreatScale * 1.5) continue;
                 if (military.KindID == 29) continue; //never deal with transports in this function
                 switch (linkkind)
                 {
