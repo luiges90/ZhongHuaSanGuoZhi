@@ -37,10 +37,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
 
             this.scrollSpeedScale = this.scrollSpeedScaleSpeedy;
-            if (!base.Scenario.LoadAndSaveAvail())
+            /*if (!base.Scenario.LoadAndSaveAvail())
             {
                 GlobalVariables.FastBattleSpeed = this.mouseState.LeftButton == ButtonState.Pressed ? 3 : 1;
-            }
+            }*/
         }
 
         public override void EarlyMouseLeftUp()
