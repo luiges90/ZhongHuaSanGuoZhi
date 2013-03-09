@@ -268,7 +268,6 @@
                 {
                     throw new Exception("Person finished moving must not remain moving");
                 }*/
-
                 if (value == PersonStatus.Moving && this.LocationTroop != null)
                 {
                     this.LocationTroop = null;

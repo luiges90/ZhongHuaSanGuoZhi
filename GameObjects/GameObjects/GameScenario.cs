@@ -2712,10 +2712,44 @@
             }
             this.AllPersons.Clear();
             this.AllArchitectures.Clear();
+
+            this.alterTransportShipAdaptibility();
             
             ExtensionInterface.call("Load", new Object[] { this });
-        }  
+        }
 
+        private void alterTransportShipAdaptibility()
+        {
+            MilitaryKind militaryKind = this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(28);
+            if (GlobalVariables.LandArmyCanGoDownWater)
+            {
+                militaryKind.OneAdaptabilityKind = 0;
+                /*militaryKind.PlainAdaptability = 5;
+                militaryKind.GrasslandAdaptability = 5;
+                militaryKind.ForrestAdaptability = 6;
+                militaryKind.MarshAdaptability = 100;
+                militaryKind.MountainAdaptability = 10;
+                militaryKind.WaterAdaptability = 5;
+                militaryKind.RidgeAdaptability = 100;
+                militaryKind.WastelandAdaptability = 6;
+                militaryKind.DesertAdaptability = 10;
+                militaryKind.CliffAdaptability = 7;*/
+            }
+            else
+            {
+                militaryKind.OneAdaptabilityKind = 6;
+                militaryKind.PlainAdaptability = 100;
+                militaryKind.GrasslandAdaptability = 100;
+                militaryKind.ForrestAdaptability = 100;
+                militaryKind.MarshAdaptability = 100;
+                militaryKind.MountainAdaptability = 100;
+                //militaryKind.WaterAdaptability = 5;
+                militaryKind.RidgeAdaptability = 100;
+                militaryKind.WastelandAdaptability = 100;
+                militaryKind.DesertAdaptability = 100;
+                militaryKind.CliffAdaptability = 100;
+            }
+        }
 
         public bool LoadGameScenarioFromDatabase(string connectionString)  //读取剧本
         {

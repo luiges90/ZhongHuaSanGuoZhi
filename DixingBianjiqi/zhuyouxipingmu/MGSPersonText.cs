@@ -59,7 +59,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(architecture.BelongedFaction.Leader, architecture, "ArchitectureFacilityCompleted");
                         this.Plugins.PersonTextDialogPlugin.IsShowing = true;
                          */
-                        string sheshitupian= "sheshi" + facility.KindID.ToString() + ".jpg";
+                        string sheshitupian = "../sheshi/sheshi" + facility.KindID.ToString() + ".jpg";
                         this.xianshishijiantupian(architecture.BelongedFaction.Leader,architecture.Name  , "ArchitectureFacilityCompleted", sheshitupian, "sheshiwancheng.wav",facility.Kind.Name,false); 
                     }
                 }
@@ -318,21 +318,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
             }
         }
-        public override void xiaohaichusheng(Person person)
+        public override void xiaohaichusheng(Person father, Person person)
         {
-            if ((base.Scenario.CurrentPlayer != null) || GlobalVariables.SkyEye)
+            if (((base.Scenario.CurrentPlayer != null) && father.BelongedArchitecture != null &&
+                    base.Scenario.IsCurrentPlayer(father.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
-                //person.TextResultString = ((person.meichushengdehaiziliebiao()[0]) as Person).Name ;
-                this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(person, person, "xiaohaichusheng");
+                person.TextResultString = person.Name;
+                this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(father, father, "xiaohaichusheng");
                 this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.PersonTextDialogPlugin.IsShowing = true;
 
             }
 
         }
-        public override void haizizhangdachengren(Person person)
+        public override void haizizhangdachengren(Person father, Person person)
         {
-            if (((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(person.BelongedFaction)) || GlobalVariables.SkyEye)
+            if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
+                    base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 //person.TextResultString = t.Name;
                 this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(person, person, "haizizhangdachengren");

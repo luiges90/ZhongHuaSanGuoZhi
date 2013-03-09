@@ -2998,81 +2998,15 @@
             return sourceArea[GameObject.Random(sourceArea.Count)];
         }
 
-        private Point? GetRandomStartingPosition(MilitaryKind mk)
+        private Point? GetRandomStartingPosition(Military m)
         {
             GameArea allAvailableArea = this.GetAllAvailableArea(false);
-            GameArea sourceArea = new GameArea();
-            foreach (Point point in allAvailableArea.Area)
-            {
-                switch (base.Scenario.GetTerrainKindByPosition(point))
-                {
-                    case TerrainKind.山地:
-                        if (mk.MountainAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                    case TerrainKind.水域:
-                        if (mk.WaterAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                    case TerrainKind.平原:
-                        if (mk.PlainAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                    case TerrainKind.沙漠:
-                        if (mk.DesertAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                    case TerrainKind.峻岭:
-                        if (mk.CliffAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                    case TerrainKind.草原:
-                        if (mk.GrasslandAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                    case TerrainKind.荒地:
-                        if (mk.WastelandAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                    case TerrainKind.森林:
-                        if (mk.ForrestAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                    case TerrainKind.栈道:
-                        if (mk.RidgeAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                    case TerrainKind.湿地:
-                        if (mk.MarshAdaptability <= mk.Movability)
-                        {
-                            sourceArea.Area.Add(point);
-                        }
-                        break;
-                }
-            }
-            if (sourceArea.Count == 0)
+            m.ModifyAreaByTerrainAdaptablity(allAvailableArea);
+            if (allAvailableArea.Count == 0)
             {
                 return null;
             }
-            return sourceArea[GameObject.Random(sourceArea.Count)];
+            return allAvailableArea[GameObject.Random(allAvailableArea.Count)];
         }
 
         private Troop BuildTransportTroop(Architecture destination, Military military, int food, int fund)
@@ -3319,7 +3253,7 @@
                     list2 = new PersonList();
                     list2.Add(military2.FollowedLeader);
                     military2.FollowedLeader.Selected = true;
-                    Point? nullable = this.GetRandomStartingPosition(military2.Kind);
+                    Point? nullable = this.GetRandomStartingPosition(military2);
                     if (!nullable.HasValue)
                     {
                         return null;
@@ -3341,7 +3275,7 @@
                     list2 = new PersonList();
                     list2.Add(military2.Leader);
                     military2.Leader.Selected = true;
-                    Point? nullable = this.GetRandomStartingPosition(military2.Kind);
+                    Point? nullable = this.GetRandomStartingPosition(military2);
                     if (!nullable.HasValue)
                     {
                         return null;
@@ -3368,7 +3302,7 @@
                         list2 = new PersonList();
                         list2.Add(person);
                         person.Selected = true;
-                        Point? nullable = this.GetRandomStartingPosition(military2.Kind);
+                        Point? nullable = this.GetRandomStartingPosition(military2);
                         if (!nullable.HasValue)
                         {
                             break;
@@ -4602,7 +4536,7 @@
             //Label_0309:
             foreach (Military military in this.Militaries.GetRandomList())
             {
-                if (military.IsFewScaleNeedRetreat) continue;
+                if (military.Scales < military.RetreatScale * 1.5) continue;
                 if (military.KindID == 29) continue; //never deal with transports in this function
                 switch (linkkind)
                 {
@@ -5044,6 +4978,11 @@
 
         private void CheckRobberTroop()
         {
+            if (this.RobberTroop != null && this.RobberTroop.BelongedFaction != null)
+            {
+                this.RobberTroop = null;
+                this.RobberTroopID = -1;
+            }
             if (this.BelongedFaction != null)
             {
                 if ((this.RobberTroop != null) && (this.RobberTroop.RecentlyFighting <= 0))

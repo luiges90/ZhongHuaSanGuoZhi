@@ -3823,9 +3823,9 @@
 
         public int GetCostByPosition(Point position, bool oblique, int DirectionCost)
         {
-            if ((this.EnableOneAdaptablility && (this.Army.Kind.OneAdaptabilityKind > 0)) && (this.Army.Kind.OneAdaptabilityKind ==(int)  base.Scenario.GetTerrainKindByPosition(position)))
+            if ((this.Army.Kind.OneAdaptabilityKind > 0) && (this.Army.Kind.OneAdaptabilityKind != (int) base.Scenario.GetTerrainKindByPosition(position)))
             {
-                return ((DirectionCost > 1) ? DirectionCost : 1);
+                return 1000;
             }
             int mapCost = this.GetMapCost(position);
             mapCost = (DirectionCost > mapCost) ? DirectionCost : mapCost;
