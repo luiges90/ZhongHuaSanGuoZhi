@@ -520,7 +520,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Architecture, FrameFunction.GetNewCapital, false, true, true, false, this.CurrentArchitecture.GetChangeCapitalArchitectureList(), null, "迁都", "");
                     break;
 
-                case ContextMenuResult.Diplomatic_ResetDiplomaticRelation:
+                case ContextMenuResult.Monarch_Diplomatic_ResetDiplomaticRelation:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetFriendlyDiplomaticRelation, false, true, true, true, this.CurrentArchitecture.GetResetDiplomaticRelationList(), null, "解盟", "");
                     break;
 
