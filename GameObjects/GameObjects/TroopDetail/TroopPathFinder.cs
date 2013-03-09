@@ -216,6 +216,7 @@
 
         private int firstTierPathFinder_OnGetPenalizedCost(Point position)
         {
+            if (this.troop.Scenario.PositionOutOfRange(position)) return 0;
             return this.troop.Scenario.PenalizedMapData[position.X, position.Y];
         }
 

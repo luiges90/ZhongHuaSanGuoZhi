@@ -3345,7 +3345,7 @@
                         {
                             this.OnTechniqueFinished(this, technique);
                         }
-						ExtensionInterface.call("TechniqueUpgradeComplete", new Object[] { this.Scenario, this });
+						ExtensionInterface.call("TechniqueUpgradeComplete", new Object[] { this.Scenario, this, technique });
                         base.Scenario.YearTable.addFactionTechniqueCompletedEntry(base.Scenario.Date, this, technique);
                     }
                     this.UpgradingTechnique = -1;
