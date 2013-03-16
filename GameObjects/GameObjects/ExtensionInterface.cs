@@ -52,7 +52,9 @@ public class ExtensionInterface
                 foreach (KeyValuePair<String, String> file in extensionFiles)
                 {
                     var csc = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
-                    var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll", "GameObjects.dll", "GameGlobal.dll" });
+                    var parameters = new CompilerParameters(new[] { "mscorlib.dll", "System.Core.dll", 
+                        "C:/Program Files/Microsoft XNA/XNA Game Studio/v3.0/References/Windows/x86/Microsoft.Xna.Framework.dll", 
+                        "GameObjects.dll", "GameGlobal.dll" });
                     parameters.GenerateExecutable = false;
                     CompilerResults results = csc.CompileAssemblyFromSource(parameters, file.Value);
                     if (results.Errors.Count <= 0)

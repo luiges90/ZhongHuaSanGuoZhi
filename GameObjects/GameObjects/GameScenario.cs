@@ -3825,7 +3825,7 @@
                 //try to free as many memory as possible at this critical state
                 this.DisposeLotsOfMemory();
                 GC.Collect();
-                //return false;
+                throw;
             }
 			ExtensionInterface.call("Save", new Object[] { this });
             return true;
