@@ -1341,7 +1341,10 @@
                         information.DaysLeft = (int) Math.Max(5, this.CurrentInformationKind.Days * (this.InformationAbility / 300.0 + 0.5));
 						
                         base.Scenario.Informations.AddInformation(information);
-                        this.BelongedFaction.AddInformation(information);
+                        if (this.BelongedFaction != null)
+                        {
+                            this.BelongedFaction.AddInformation(information);
+                        }
                         information.Apply();
 
                         this.CurrentInformationKind = null;
