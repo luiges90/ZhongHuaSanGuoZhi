@@ -138,7 +138,7 @@
                         string[] files = Directory.GetFiles(@"GameComponents\tupianwenzi\Data\meinvtupian\", "B*.jpg");
 
                         string suijitupianwenjianming = files[GameObject.Random(files.Length)];
-                        shijiantupian = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\tupianwenzi\Data\meinvtupian\" + suijitupianwenjianming);
+                        shijiantupian = Texture2D.FromFile(this.graphicsDevice, suijitupianwenjianming);
                     }
                     catch
                     {

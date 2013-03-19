@@ -147,7 +147,7 @@
         {
             get
             {
-                return this.level * 20;
+                return this.level * this.level * 10;
             }
         }
 

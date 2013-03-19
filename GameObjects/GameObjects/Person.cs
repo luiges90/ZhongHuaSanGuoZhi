@@ -3468,66 +3468,6 @@
             return false;
         }
 
-        public int InfantryForce
-        {
-            get
-            {
-                return ((this.Strength + this.Command) + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) *
-                    (100 + (this.MilitaryTypePersonalTitle(MilitaryType.步兵) ? this.PersonalTitle.Merit : 0) +
-                    (this.MilitaryTypeCombatTitle(MilitaryType.步兵) ? this.CombatTitle.Merit : 0) +
-                    this.MilitaryTypeSkillMerit(MilitaryType.步兵) +
-                    this.TreasureMerit + this.MilitaryTypeStuntMerit(MilitaryType.步兵) + this.Braveness * 5 + this.Calmness * 5);
-            }
-        }
-
-        public int CalvaryForce
-        {
-            get
-            {
-                return ((this.Strength + this.Command) + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) *
-                    (100 + (this.MilitaryTypePersonalTitle(MilitaryType.骑兵) ? this.PersonalTitle.Merit : 0) +
-                    (this.MilitaryTypeCombatTitle(MilitaryType.骑兵) ? this.CombatTitle.Merit : 0) +
-                    this.MilitaryTypeSkillMerit(MilitaryType.骑兵) +
-                    this.TreasureMerit + this.MilitaryTypeStuntMerit(MilitaryType.骑兵) + this.Braveness * 5 + this.Calmness * 5);
-            }
-        }
-
-        public int BowmanForce
-        {
-            get
-            {
-                return ((this.Strength + this.Command) + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) *
-                    (100 + (this.MilitaryTypePersonalTitle(MilitaryType.弩兵) ? this.PersonalTitle.Merit : 0) +
-                    (this.MilitaryTypeCombatTitle(MilitaryType.弩兵) ? this.CombatTitle.Merit : 0) +
-                    this.MilitaryTypeSkillMerit(MilitaryType.弩兵) +
-                    this.TreasureMerit + this.MilitaryTypeStuntMerit(MilitaryType.弩兵) + this.Braveness * 5 + this.Calmness * 5);
-            }
-        }
-
-        public int SiegeForce
-        {
-            get
-            {
-                return ((this.Strength + this.Command) + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) *
-                    (100 + (this.MilitaryTypePersonalTitle(MilitaryType.器械) ? this.PersonalTitle.Merit : 0) +
-                    (this.MilitaryTypeCombatTitle(MilitaryType.器械) ? this.CombatTitle.Merit : 0) +
-                    this.MilitaryTypeSkillMerit(MilitaryType.器械) +
-                    this.TreasureMerit + this.MilitaryTypeStuntMerit(MilitaryType.器械) + this.Braveness * 5 + this.Calmness * 5);
-            }
-        }
-
-        public int NavalForce
-        {
-            get
-            {
-                return ((this.Strength + this.Command) + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) *
-                    (100 + (this.MilitaryTypePersonalTitle(MilitaryType.水军) ? this.PersonalTitle.Merit : 0) +
-                    (this.MilitaryTypeCombatTitle(MilitaryType.水军) ? this.CombatTitle.Merit : 0) +
-                    this.MilitaryTypeSkillMerit(MilitaryType.水军) +
-                    this.TreasureMerit + this.MilitaryTypeStuntMerit(MilitaryType.水军) + this.Braveness * 5 + this.Calmness * 5);
-            }
-        }
-
         public int CombatSkillMerit
         {
             get
@@ -3753,10 +3693,7 @@
         {
             get
             {
-                return (((this.Strength + this.Command) + Math.Max((int) (90 * this.Character.IntelligenceRate), this.Intelligence)) * 
-                    (((((((100 + (((this.PersonalTitle != null) && this.PersonalTitle.Combat) ? this.PersonalTitle.Merit : 0)) + 
-                    ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0)) + this.CombatSkillMerit) 
-                    + this.TreasureMerit) + (this.StuntCount * 30)) + (this.Braveness * 5)) + (this.Calmness * 5)));
+                return (this.Strength + this.Command + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) * (100 + (this.PersonalTitle != null && this.PersonalTitle.Combat ? this.PersonalTitle.Merit : 0) + (this.CombatTitle != null && this.CombatTitle.Combat ? this.CombatTitle.Merit : 0) + this.TreasureMerit + this.StuntCount * 30);
             }
         }
 
@@ -4166,7 +4103,7 @@
         {
             get
             {
-                return (((((this.Strength + this.Command) + this.Intelligence) + this.Politics) + this.Glamour) * ((((((100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0)) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0)) + this.AllSkillMerit) + this.TreasureMerit) + (this.Braveness * 5)) + (this.Calmness * 5)));
+                return (this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) * (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) + this.AllSkillMerit + this.TreasureMerit);
             }
         }
 
