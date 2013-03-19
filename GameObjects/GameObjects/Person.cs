@@ -1341,10 +1341,8 @@
                         information.DaysLeft = (int) Math.Max(5, this.CurrentInformationKind.Days * (this.InformationAbility / 300.0 + 0.5));
 						
                         base.Scenario.Informations.AddInformation(information);
-                        if (this.BelongedFaction != null)
-                        {
-                            this.BelongedFaction.AddInformation(information);
-                        }
+                        this.BelongedFaction.AddInformation(information);
+
                         information.Apply();
 
                         this.CurrentInformationKind = null;
@@ -2895,7 +2893,15 @@
                 this.TaskDays--;
                 if ((this.TaskDays == 0) && (this.OutsideTask != OutsideTaskKind.无))
                 {
-                    this.DoOutsideTask();
+                    if (this.BelongedFaction != null)
+                    {
+                        this.DoOutsideTask();
+                    }
+                    else
+                    {
+                        this.Status = PersonStatus.NoFaction;
+                        this.TargetArchitecture = null;
+                    }
                 }
             }
             if (this.ArrivingDays > 0)
