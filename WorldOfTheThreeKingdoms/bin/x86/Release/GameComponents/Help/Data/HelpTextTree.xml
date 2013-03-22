@@ -708,7 +708,7 @@
     <Leaf Text="耐久强度" Color="4278232306"></Leaf>
     <Leaf Text="比普通建筑高五成。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Diplomatic_AllyDiplomaticRelation">
+  <Branch Name="Monarch_Diplomatic_AllyDiplomaticRelation">
     <Leaf Text="君主" Color="4294967295"></Leaf>
     <Leaf Text="结盟" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -719,7 +719,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="" Color="4294967295"></Leaf>
   </Branch>  
-  <Branch Name="Diplomatic_ResetDiplomaticRelation">
+  <Branch Name="Monarch_Diplomatic_ResetDiplomaticRelation">
     <Leaf Text="君主" Color="4294967295"></Leaf>
     <Leaf Text="解盟" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -730,7 +730,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="只能在己方势力没有任何部队在野的情况下执行。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Diplomatic_EnhanceDiplomaticRelation">
+  <Branch Name="Monarch_Diplomatic_EnhanceDiplomaticRelation">
     <Leaf Text="君主" Color="4294967295"></Leaf>
     <Leaf Text="亲善" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -741,7 +741,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="只能在城池有足够的资金并且有外交人员的情况下执行。" Color="4294967295"></Leaf>
   </Branch>  
-  <Branch Name="Diplomatic_DenounceDiplomaticRelation">
+  <Branch Name="Monarch_Diplomatic_DenounceDiplomaticRelation">
     <Leaf Text="君主" Color="4294967295"></Leaf>
     <Leaf Text="声讨" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
