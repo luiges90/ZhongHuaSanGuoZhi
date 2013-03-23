@@ -2368,6 +2368,11 @@
                 {
                     sending.StartingArchitecture.AddPopulationPack((int) (sending.Scenario.GetDistance(receiving.Position, sending.StartingArchitecture.ArchitectureArea) / 2.0), receiving.GetPopulation());
                 }
+                Architecture oldLandedArch = sending.Scenario.GetArchitectureByPosition(receiving.Position);
+                if (sending.Army.Kind.ArchitectureCounterDamageRate <= 0 && oldLandedArch != null && !sending.BelongedFaction.IsFriendly(oldLandedArch.BelongedFaction))
+                {
+                    sending.TargetArchitecture = oldLandedArch;
+                }
                 receiving.BeRouted();
                 if (sending.Combativity < sending.Army.CombativityCeiling)
                 {
@@ -11497,8 +11502,29 @@
                 }
                 else if (this.targetTroop.Destroyed)
                 {
-                    this.targetTroopID = -1;
-                    this.targetTroop = null;
+                    bool found = false;
+                    foreach (Point p in this.ViewArea.Area)
+                    {
+                        Architecture a = this.Scenario.GetArchitectureByPosition(p);
+                        Troop t = this.Scenario.GetTroopByPosition(p);
+                        if (t != null && !this.BelongedFaction.IsFriendly(t.BelongedFaction) && !this.CounterAttackAvail(t))
+                        {
+                            this.TargetTroop = t;
+                            found = true;
+                            break;
+                        }
+                        else if (a != null && this.Army.Kind.ArchitectureCounterDamageRate <= 0 && !this.BelongedFaction.IsFriendly(a.BelongedFaction))
+                        {
+                            this.TargetArchitecture = a;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        this.targetTroopID = -1;
+                        this.targetTroop = null;
+                    }
                 }
                 return this.targetTroop;
             }
