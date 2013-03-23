@@ -151,6 +151,27 @@
             }
         }
 
+        private int? fightingMerit = null;
+        public int FightingMerit
+        {
+            get
+            {
+                if (fightingMerit == null)
+                {
+                    int combatInfluences = 0;
+                    foreach (Influence i in this.Influences.Influences.Values)
+                    {
+                        if (i.Kind.Combat)
+                        {
+                            combatInfluences++;
+                        }
+                    }
+                    fightingMerit = (int) (this.Merit * ((double)combatInfluences / this.Influences.Count));
+                }
+                return fightingMerit.Value;
+            }
+        }
+
         public string Prerequisite
         {
             get

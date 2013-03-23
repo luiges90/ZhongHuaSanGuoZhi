@@ -11,4 +11,3 @@ copy GameComponents\PersonPortrait\PlayerImage\9999.jpg ..\public\GameComponents
 copy GameComponents\PersonPortrait\PlayerImage\9999s.jpg ..\public\GameComponents\PersonPortrait\PlayerImage\9999s.jpg
 copy GameComponents\PersonPortrait\PlayerImage\ReadMe.txt ..\public\GameComponents\PersonPortrait\PlayerImage\ReadMe.txt
 md ..\public\GameData\Save
-md ..\public\Resources\Extensions

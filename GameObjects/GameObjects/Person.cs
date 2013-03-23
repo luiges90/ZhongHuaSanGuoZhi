@@ -3684,7 +3684,7 @@
         {
             get
             {
-                return (this.Strength + this.Command + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) * (100 + (this.PersonalTitle != null && this.PersonalTitle.Combat ? this.PersonalTitle.Merit : 0) + (this.CombatTitle != null && this.CombatTitle.Combat ? this.CombatTitle.Merit : 0) + this.TreasureMerit + this.StuntCount * 30);
+                return (this.Strength + this.Command + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) * (100 + (this.PersonalTitle != null ? this.PersonalTitle.FightingMerit : 0) + (this.CombatTitle != null? this.CombatTitle.FightingMerit : 0) + this.TreasureMerit + this.StuntCount * 30);
             }
         }
 
