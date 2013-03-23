@@ -2311,6 +2311,7 @@
                 {
                     receiving.IncreaseRoutExperience(false);
                     receiving.AddRoutedCount();
+                    receiving.ReleaseCaptiveBeforeBeRouted();
                 }
                 if (receiving.StartingArchitecture != null)
                 {
