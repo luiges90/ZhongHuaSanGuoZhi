@@ -1428,12 +1428,30 @@
 
         public void DoEnhanceDiplomatic()
         {
+            /*
+            亲善
+            势力间友好度上升=(c*20+max(执行武将政治-执行武将和目标势力君主的相性差/2,0)+100)/10
+            系数c取决于执行武将和目标势力君主的关系，两者是义兄弟、配偶或者是目标君主的亲爱武将取2，是目标君主的厌恶武将取-1，否则取1
+            如果难度为上级，则效果*0.8；如果难度为超级，则效果为*0.7 (这个部分可调整)
+            执行武将名声+50，政治经验+5
+            */ 
             this.OutsideTask = OutsideTaskKind.无;
             this.TargetArchitecture = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
             this.OutsideDestination = null;
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
-                int g = (5 + (int)(5 * this.Glamour / 100));
+                //int g = (5 + (int)(5 * this.Glamour / 100));
+                int c = 1;
+                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.LeaderID || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother > 0))
+                    || this.TargetArchitecture.BelongedFaction.Leader.closePersons.Contains(this.ID))
+                {
+                    c = 2;
+                }
+                if (this.TargetArchitecture.BelongedFaction.Leader.hatedPersons.Contains(this.ID))
+                {
+                    c = -1;
+                }
+                int g = (((c * 20 + Math.Max((this.politics - GetIdealOffset(this, this.TargetArchitecture.BelongedFaction.Leader) / 2) , 0 )) +100) / 10);
                 int cd = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID);
                 if (((cd + g) > 290) && cd < 300)
                 {
@@ -1443,6 +1461,8 @@
                 this.TargetArchitecture.Fund += 10000;
                 this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
                 this.TargetArchitecture = this.LocationArchitecture;
+                this.AddPoliticsExperience(5);
+                this.IncreaseReputation(50);
             }
         }
 
