@@ -714,7 +714,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
-    <Leaf Text="结成盟友，只能在双方的关系值在[290,300]的范围内执行" Color="4294967295"></Leaf>
+    <Leaf Text="结成盟友，只能在双方的关系值在[280,300]的范围内执行" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="" Color="4294967295"></Leaf>
