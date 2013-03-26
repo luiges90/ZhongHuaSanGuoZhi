@@ -5870,6 +5870,7 @@
                                         break;
                                     }
                                 }
+                                if (personAlreadyOut) continue;
                                 bool militaryOut = true;
                                 foreach (Military m in this.Militaries){
                                     if (troop.Army == m)
@@ -5878,7 +5879,6 @@
                                         break;
                                     }
                                 }
-                                if (personAlreadyOut) continue;
                                 if (militaryOut) continue;
                                 if (((troop.FightingForce < 10000) && (troop.FightingForce < (((this.TotalHostileForce * 5) - this.TotalFriendlyForce) / 25))) && (troop.Army.Scales < 10))
                                 {
