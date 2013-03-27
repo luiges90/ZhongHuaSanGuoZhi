@@ -32,13 +32,7 @@
         public override double AIFacilityValue(Architecture a)
         {
             if (!a.Kind.HasAgriculture) return -1;
-            //if (a.Agriculture / (double) a.AgricultureCeiling > 0.95) return -1;
-            int abilityTotal = 0;
-            foreach (Person p in a.Persons)
-            {
-                abilityTotal += p.AgricultureAbility;
-            }
-            return (2000.0 / abilityTotal) * this.increment;
+            return (a.AgricultureCeiling - a.Agriculture) * this.increment + 1;
         }
     }
 }

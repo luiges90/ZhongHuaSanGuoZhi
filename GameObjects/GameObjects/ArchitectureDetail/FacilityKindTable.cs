@@ -8,6 +8,22 @@
     {
         public Dictionary<int, FacilityKind> FacilityKinds = new Dictionary<int, FacilityKind>();
 
+        private int maxFacilitySpace = -1;
+        public int GetMaxFacilitySpace()
+        {
+            if (maxFacilitySpace < 0)
+            {
+                foreach (FacilityKind fk in this.GetFacilityKindList())
+                {
+                    if (fk.PositionOccupied > maxFacilitySpace)
+                    {
+                        maxFacilitySpace = fk.PositionOccupied;
+                    }
+                }
+            }
+            return maxFacilitySpace;
+        }
+
         public bool AddFacilityKind(FacilityKind facilityKind)
         {
             if (this.FacilityKinds.ContainsKey(facilityKind.ID))

@@ -32,13 +32,7 @@
         public override double AIFacilityValue(Architecture a)
         {
             if (!a.Kind.HasTechnology) return -1;
-            //if (a.Technology / (double) a.TechnologyCeiling > 0.95) return -1;
-            int abilityTotal = 0;
-            foreach (Person p in a.Persons)
-            {
-                abilityTotal += p.TechnologyAbility;
-            }
-            return (2000.0 / abilityTotal) * this.increment;
+            return (a.TechnologyCeiling - a.Technology) * this.increment + 1;
         }
     }
 }

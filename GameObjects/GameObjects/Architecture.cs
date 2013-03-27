@@ -877,6 +877,7 @@
                             FacilityKind facilityKind = kind;
                             this.BelongedFaction.DepositTechniquePointForFacility(facilityKind.PointCost);
                             this.BeginToBuildAFacility(facilityKind);
+                            return;
                         }
                         else if ((kind.FundCost - (this.Fund - this.EnoughFund)) / this.ExpectedFund + 1 <= kind.Days / 15)
                         {
@@ -885,6 +886,7 @@
                             {
                                 this.BelongedFaction.SaveTechniquePointForFacility(this.PlanFacilityKind.PointCost / this.PlanFacilityKind.Days);
                             }
+                            return;
                         }
                     }
                 }
@@ -943,6 +945,7 @@
                     foreach (FacilityKind kind in base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKindList())
                     {
                         if (kind.bukechaichu) continue;
+                        if (kind.PositionOccupied > 0 && this.FacilityPositionCount == 0) continue;
                         if (!(!kind.PopulationRelated || this.Kind.HasPopulation))
                         {
                             continue;
@@ -974,7 +977,7 @@
                             {
                                 if (this.FacilityPositionLeft < kind.PositionOccupied)
                                 {
-                                    if (this.BelongedSection.AIDetail.AllowFacilityRemoval)
+                                    if (this.BelongedSection.AIDetail.AllowFacilityRemoval && this.FacilityPositionLeft < base.Scenario.GameCommonData.AllFacilityKinds.GetMaxFacilitySpace())
                                     {
                                         int fpl = this.FacilityPositionLeft;
                                         toDestroy.Clear();
@@ -4496,6 +4499,8 @@
             {
                 this.CreateNewFacilitySpyMessage(facilityKind);
             }
+            this.PlanFacilityKind = null;
+            this.PlanFacilityKindID = -1;
 			ExtensionInterface.call("StartBuildFacility", new Object[] { this.Scenario, this, facilityKind });
         }
 

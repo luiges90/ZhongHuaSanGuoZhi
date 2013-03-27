@@ -32,13 +32,7 @@
         public override double AIFacilityValue(Architecture a)
         {
             if (!a.Kind.HasDomination) return -1;
-            //if (a.Domination / (double) a.DominationCeiling > 0.95) return -1;
-            int abilityTotal = 0;
-            foreach (Person p in a.Persons)
-            {
-                abilityTotal += p.DominationAbility;
-            }
-            return (2000.0 / abilityTotal) * this.increment;
+            return (a.DominationCeiling - a.Domination) * this.increment + 1;
         }
     }
 }
