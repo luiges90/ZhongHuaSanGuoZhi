@@ -37,7 +37,7 @@
             {
                 try
                 {
-                    long longResult = ((long)(int)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((long)(int)StaticMethods.GetPropertyValue(y, this.propertyName));
+                    long longResult = ((long)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((long)StaticMethods.GetPropertyValue(y, this.propertyName));
                     if (longResult > 0)
                     {
                         result = 1;
