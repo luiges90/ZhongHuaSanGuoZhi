@@ -686,7 +686,7 @@
         public void AwardedTreasure(Treasure t)
         {
             this.ReceiveTreasure(t);
-            if (this.Loyalty <= 149)
+            if (this.Loyalty <= 110)
             {
                 if (this.OnBeAwardedTreasure != null)
                 {
@@ -954,7 +954,7 @@
         public void ConfiscatedTreasure(Treasure t)
         {
             this.LoseTreasure(t);
-            if (this.Loyalty <= 149)
+            if (this.Loyalty <= 110)
             {
                 if (this.OnBeConfiscatedTreasure != null)
                 {
@@ -2343,9 +2343,9 @@
         public int IncreaseLoyalty(int increment)
         {
             //150为剧本阈值，加忠诚不超过，超过的不降忠诚
-            if (increment > (149 - this.Loyalty))
+            if (increment > (110 - this.Loyalty))
             {
-                increment = 149 - this.Loyalty;
+                increment = 110 - this.Loyalty;
             }
             if (increment > 0)
             {
@@ -2673,7 +2673,7 @@
         private void LoyaltyChange()
         {
             if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) 
-                && (this.Loyalty <= 150) )
+                && (this.Loyalty <= 110) )
             {
                 int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
                 //亲爱武将性格差调整
