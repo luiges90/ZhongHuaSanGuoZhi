@@ -4569,7 +4569,10 @@
                         }
                 }
                 if ((((military.Scales > 5) && (military.Morale >= 80)) && (military.Combativity >= 80)) && (military.InjuryQuantity < military.Kind.MinScale)
-                    && (!offensive || (military.KindID != 29))) //do not use transport teams to attack
+                    && (!offensive || 
+                    /* (military.KindID != 29)*/
+                    (military.Merit > 0)
+                    )) //do not use transport teams to attack
                 {
                     TroopList candidates = this.AISelectPersonIntoTroop(this, military);
                     foreach (Troop t in candidates)
