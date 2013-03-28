@@ -96,6 +96,7 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/meinvtup
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GameParameters.xml
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GlobalVariables.xml
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/CommonData.mdb
+WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/CommonData_*.mdb
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Save
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/generatedScen.mdb
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/private_*

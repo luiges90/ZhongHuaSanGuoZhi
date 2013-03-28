@@ -1484,7 +1484,7 @@
                             if (src != null)
                             {
                                 num2 = 0;
-                                while (num2 < num)
+                                while (num2 < num && this.PersonCount < this.MilitaryCount * 3)
                                 {
                                     Person p = list[num2] as Person;
                                     if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null && 
@@ -1497,7 +1497,7 @@
                             }
                         } else break;
                         otherArchitectureList.Remove(src);
-                    } while (otherArchitectureList.Count > 0 &&
+                    } while (otherArchitectureList.Count > 0 && this.PersonCount < this.MilitaryCount * 3 &&
                         this.PersonCount + this.MovingPersonCount < Math.Max(this.Fund / 1500, 6));
                 }
                 else
