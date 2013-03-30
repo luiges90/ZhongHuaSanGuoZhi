@@ -217,6 +217,14 @@
                     ik.ID = num;
                     ik.Type = (InfluenceType)((short)reader["Type"]);
                     ik.Name = reader["Name"].ToString();
+                    try
+                    {
+                        ik.Combat = (bool)reader["Combat"];
+                    }
+                    catch
+                    {
+                        ik.Combat = true;
+                    }
                     this.AllInfluenceKinds.AddInfluenceKind(ik);
                 }
             }

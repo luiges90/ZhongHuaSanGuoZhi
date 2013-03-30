@@ -52,6 +52,7 @@
         private CheckedListBox clb08;
         private CheckedListBox clb09;
         private CheckedListBox clb10;
+        private CheckedListBox clb11;
         private IContainer components = null;
         private GroupBox gbClosePersons;
         private GroupBox gbHatedPersons;
@@ -443,6 +444,7 @@
             this.label41 = new Label();
             this.label40 = new Label();
             this.label39 = new Label();
+            this.clb11 = new CheckedListBox();
             this.clb10 = new CheckedListBox();
             this.clb09 = new CheckedListBox();
             this.clb06 = new CheckedListBox();
@@ -728,6 +730,7 @@
             this.gbSkills.Controls.Add(this.label41);
             this.gbSkills.Controls.Add(this.label40);
             this.gbSkills.Controls.Add(this.label39);
+            this.gbSkills.Controls.Add(this.clb11);
             this.gbSkills.Controls.Add(this.clb10);
             this.gbSkills.Controls.Add(this.clb09);
             this.gbSkills.Controls.Add(this.clb06);
@@ -753,7 +756,7 @@
             this.clb08.Location = new Point(0x44, 0xec);
             this.clb08.MultiColumn = true;
             this.clb08.Name = "clb08";
-            this.clb08.Size = new Size(0x1fd, 20);
+            this.clb08.Size = new Size(0x1fd, 36);
             this.clb08.TabIndex = 0x1d;
             this.label50.AutoSize = true;
             this.label50.Location = new Point(0x18, 0xd6);
@@ -768,7 +771,7 @@
             this.clb07.Location = new Point(0x44, 210);
             this.clb07.MultiColumn = true;
             this.clb07.Name = "clb07";
-            this.clb07.Size = new Size(0x1fd, 20);
+            this.clb07.Size = new Size(0x1fd, 36);
             this.clb07.TabIndex = 0x1b;
             this.label49.AutoSize = true;
             this.label49.Location = new Point(0x18, 0x88);
@@ -783,7 +786,7 @@
             this.clb04.Location = new Point(0x44, 0x84);
             this.clb04.MultiColumn = true;
             this.clb04.Name = "clb04";
-            this.clb04.Size = new Size(0x1fd, 20);
+            this.clb04.Size = new Size(0x1fd, 36);
             this.clb04.TabIndex = 0x19;
             this.label48.AutoSize = true;
             this.label48.Location = new Point(0x18, 0xa2);
@@ -798,7 +801,7 @@
             this.clb05.Location = new Point(0x44, 0x9e);
             this.clb05.MultiColumn = true;
             this.clb05.Name = "clb05";
-            this.clb05.Size = new Size(0x1fd, 20);
+            this.clb05.Size = new Size(0x1fd, 36);
             this.clb05.TabIndex = 0x17;
             this.label47.AutoSize = true;
             this.label47.Location = new Point(0x18, 0x38);
@@ -813,53 +816,63 @@
             this.clb01.Location = new Point(0x44, 0x34);
             this.clb01.MultiColumn = true;
             this.clb01.Name = "clb01";
-            this.clb01.Size = new Size(0x1fd, 20);
+            this.clb01.Size = new Size(0x1fd, 36);
             this.clb01.TabIndex = 0x15;
             this.label44.AutoSize = true;
             this.label44.Location = new Point(0x18, 0x123);
             this.label44.Name = "label44";
             this.label44.Size = new Size(0x1d, 12);
-            this.label44.TabIndex = 0x11;
+            this.label44.TabIndex = 18;
             this.label44.Text = "策略";
             this.label43.AutoSize = true;
             this.label43.Location = new Point(0x18, 0x10a);
             this.label43.Name = "label43";
             this.label43.Size = new Size(0x1d, 12);
-            this.label43.TabIndex = 0x10;
+            this.label43.TabIndex = 17;
             this.label43.Text = "计略";
             this.label42.AutoSize = true;
             this.label42.Location = new Point(0x18, 0xbc);
             this.label42.Name = "label42";
             this.label42.Size = new Size(0x1d, 12);
-            this.label42.TabIndex = 15;
+            this.label42.TabIndex = 16;
             this.label42.Text = "水军";
             this.label41.AutoSize = true;
             this.label41.Location = new Point(0x18, 110);
             this.label41.Name = "label41";
             this.label41.Size = new Size(0x1d, 12);
-            this.label41.TabIndex = 14;
+            this.label41.TabIndex = 15;
             this.label41.Text = "步兵";
             this.label40.AutoSize = true;
             this.label40.Location = new Point(0x18, 0x54);
             this.label40.Name = "label40";
             this.label40.Size = new Size(0x1d, 12);
-            this.label40.TabIndex = 13;
+            this.label40.TabIndex = 14;
             this.label40.Text = "行军";
             this.label39.AutoSize = true;
             this.label39.Location = new Point(0x18, 30);
             this.label39.Name = "label39";
             this.label39.Size = new Size(0x23, 12);
-            this.label39.TabIndex = 12;
+            this.label39.TabIndex = 13;
             this.label39.Text = "内政1";
+            this.clb11.CheckOnClick = true;
+            this.clb11.ColumnWidth = 70;
+            this.clb11.FormattingEnabled = true;
+            this.clb11.Items.AddRange(new object[] { "医治" });
+            this.clb11.Location = new Point(0x44, 0x13A);
+            this.clb11.MultiColumn = true;
+            this.clb11.Name = "clb11";
+            this.clb11.Size = new Size(0x1fd, 36);
+            this.clb11.TabIndex = 12;
             this.clb10.CheckOnClick = true;
             this.clb10.ColumnWidth = 70;
             this.clb10.FormattingEnabled = true;
-            this.clb10.Items.AddRange(new object[] { "情报", "奸细", "破坏", "煽动", "流言", "搜索", "说服" });
+            this.clb10.Items.AddRange(new object[] { "情报", "间谍", "破坏", "煽动", "流言", "搜索", "说服" });
             this.clb10.Location = new Point(0x44, 0x120);
             this.clb10.MultiColumn = true;
             this.clb10.Name = "clb10";
-            this.clb10.Size = new Size(0x1fd, 20);
+            this.clb10.Size = new Size(0x1fd, 36);
             this.clb10.TabIndex = 11;
+
             this.clb09.CheckOnClick = true;
             this.clb09.ColumnWidth = 70;
             this.clb09.FormattingEnabled = true;
@@ -867,7 +880,7 @@
             this.clb09.Location = new Point(0x44, 0x106);
             this.clb09.MultiColumn = true;
             this.clb09.Name = "clb09";
-            this.clb09.Size = new Size(0x1fd, 20);
+            this.clb09.Size = new Size(0x1fd, 36);
             this.clb09.TabIndex = 10;
             this.clb06.CheckOnClick = true;
             this.clb06.ColumnWidth = 70;
@@ -876,7 +889,7 @@
             this.clb06.Location = new Point(0x44, 0xb8);
             this.clb06.MultiColumn = true;
             this.clb06.Name = "clb06";
-            this.clb06.Size = new Size(0x1fd, 20);
+            this.clb06.Size = new Size(0x1fd, 36);
             this.clb06.TabIndex = 9;
             this.clb03.CheckOnClick = true;
             this.clb03.ColumnWidth = 70;
@@ -885,7 +898,7 @@
             this.clb03.Location = new Point(0x44, 0x6a);
             this.clb03.MultiColumn = true;
             this.clb03.Name = "clb03";
-            this.clb03.Size = new Size(0x1fd, 20);
+            this.clb03.Size = new Size(0x1fd, 36);
             this.clb03.TabIndex = 8;
             this.clb02.CheckOnClick = true;
             this.clb02.ColumnWidth = 70;
@@ -894,7 +907,7 @@
             this.clb02.Location = new Point(0x44, 80);
             this.clb02.MultiColumn = true;
             this.clb02.Name = "clb02";
-            this.clb02.Size = new Size(0x1fd, 20);
+            this.clb02.Size = new Size(0x1fd, 36);
             this.clb02.TabIndex = 7;
             this.clb00.CheckOnClick = true;
             this.clb00.ColumnWidth = 70;
@@ -903,7 +916,7 @@
             this.clb00.Location = new Point(0x44, 0x1a);
             this.clb00.MultiColumn = true;
             this.clb00.Name = "clb00";
-            this.clb00.Size = new Size(0x1fd, 20);
+            this.clb00.Size = new Size(0x1fd, 36);
             this.clb00.TabIndex = 6;
             this.tpBasic.Controls.Add(this.label57);
             this.tpBasic.Controls.Add(this.rtbBiographyHistory);
@@ -2311,6 +2324,10 @@
                     case 0x6a:
                         this.clb10.SetItemChecked(6, true);
                         break;
+
+                    case 110:
+                        this.clb11.SetItemChecked(0, true);
+                        break;
                 }
             }
         }
@@ -2383,11 +2400,11 @@
                         this.cbDeadReason.SelectedIndex = (int)this.person.DeadReason;
                     } 
                     catch (ArgumentOutOfRangeException) { }
-                    this.tbStrength.Text = this.person.Strength.ToString();
-                    this.tbCommand.Text = this.person.Command.ToString();
-                    this.tbIntelligence.Text = this.person.Intelligence.ToString();
-                    this.tbPolitics.Text = this.person.Politics.ToString();
-                    this.tbGlamour.Text = this.person.Glamour.ToString();
+                    this.tbStrength.Text = this.person.BaseStrength.ToString();
+                    this.tbCommand.Text = this.person.BaseCommand.ToString();
+                    this.tbIntelligence.Text = this.person.BaseIntelligence.ToString();
+                    this.tbPolitics.Text = this.person.BasePolitics.ToString();
+                    this.tbGlamour.Text = this.person.BaseGlamour.ToString();
                     this.tbStrengthExperience.Text = this.person.StrengthExperience.ToString();
                     this.tbCommandExperience.Text = this.person.CommandExperience.ToString();
                     this.tbIntelligenceExperience.Text = this.person.IntelligenceExperience.ToString();
@@ -2656,6 +2673,10 @@
             foreach (int num in this.clb10.CheckedIndices)
             {
                 p.Skills.AddSkill(p.Scenario.GameCommonData.AllSkills.GetSkill(num + 100));
+            }
+            foreach (int num in this.clb11.CheckedIndices)
+            {
+                p.Skills.AddSkill(p.Scenario.GameCommonData.AllSkills.GetSkill(num + 110));
             }
         }
 

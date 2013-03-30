@@ -877,6 +877,7 @@
                             FacilityKind facilityKind = kind;
                             this.BelongedFaction.DepositTechniquePointForFacility(facilityKind.PointCost);
                             this.BeginToBuildAFacility(facilityKind);
+                            return;
                         }
                         else if ((kind.FundCost - (this.Fund - this.EnoughFund)) / this.ExpectedFund + 1 <= kind.Days / 15)
                         {
@@ -885,6 +886,7 @@
                             {
                                 this.BelongedFaction.SaveTechniquePointForFacility(this.PlanFacilityKind.PointCost / this.PlanFacilityKind.Days);
                             }
+                            return;
                         }
                     }
                 }
@@ -943,6 +945,7 @@
                     foreach (FacilityKind kind in base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKindList())
                     {
                         if (kind.bukechaichu) continue;
+                        if (kind.PositionOccupied > 0 && this.FacilityPositionCount == 0) continue;
                         if (!(!kind.PopulationRelated || this.Kind.HasPopulation))
                         {
                             continue;
@@ -974,7 +977,7 @@
                             {
                                 if (this.FacilityPositionLeft < kind.PositionOccupied)
                                 {
-                                    if (this.BelongedSection.AIDetail.AllowFacilityRemoval)
+                                    if (this.BelongedSection.AIDetail.AllowFacilityRemoval && this.FacilityPositionLeft < base.Scenario.GameCommonData.AllFacilityKinds.GetMaxFacilitySpace())
                                     {
                                         int fpl = this.FacilityPositionLeft;
                                         toDestroy.Clear();
@@ -1481,7 +1484,7 @@
                             if (src != null)
                             {
                                 num2 = 0;
-                                while (num2 < num)
+                                while (num2 < num && this.PersonCount < this.MilitaryCount * 3)
                                 {
                                     Person p = list[num2] as Person;
                                     if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null && 
@@ -1494,7 +1497,7 @@
                             }
                         } else break;
                         otherArchitectureList.Remove(src);
-                    } while (otherArchitectureList.Count > 0 &&
+                    } while (otherArchitectureList.Count > 0 && this.PersonCount < this.MilitaryCount * 3 &&
                         this.PersonCount + this.MovingPersonCount < Math.Max(this.Fund / 1500, 6));
                 }
                 else
@@ -4496,6 +4499,8 @@
             {
                 this.CreateNewFacilitySpyMessage(facilityKind);
             }
+            this.PlanFacilityKind = null;
+            this.PlanFacilityKindID = -1;
 			ExtensionInterface.call("StartBuildFacility", new Object[] { this.Scenario, this, facilityKind });
         }
 
@@ -5502,6 +5507,7 @@
             this.CheckRobberTroop();
             this.PopulationEscapeEvent();
             this.FoodReduce();
+            this.RestEvent();
             this.zainanshijian();
             this.captiveEscape();
             this.checkEvent();
@@ -5509,6 +5515,38 @@
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
             this.remindedAboutAttack = false;
+        }
+
+        private void RestEvent()
+        {
+            foreach (Military m in this.Militaries)
+            {
+                if (m.Tiredness > 0)
+                {
+                    m.Tiredness--;
+                }
+            }
+            foreach (Person p in this.Persons)
+            {
+                if (p.Tiredness > 0)
+                {
+                    p.Tiredness--;
+                }
+            }
+            foreach (Person p in this.MovingPersons)
+            {
+                if (p.Tiredness > 0 && (p.OutsideTask == OutsideTaskKind.后宮))
+                {
+                    p.Tiredness--;
+                }
+            }
+            foreach (Person p in this.feiziliebiao)
+            {
+                if (p.Tiredness > 0)
+                {
+                    p.Tiredness--;
+                }
+            }
         }
 
         private void captiveEscape()
@@ -5873,6 +5911,7 @@
                                         break;
                                     }
                                 }
+                                if (personAlreadyOut) continue;
                                 bool militaryOut = true;
                                 foreach (Military m in this.Militaries){
                                     if (troop.Army == m)
@@ -5881,7 +5920,6 @@
                                         break;
                                     }
                                 }
-                                if (personAlreadyOut) continue;
                                 if (militaryOut) continue;
                                 if (((troop.FightingForce < 10000) && (troop.FightingForce < (((this.TotalHostileForce * 5) - this.TotalFriendlyForce) / 25))) && (troop.Army.Scales < 10))
                                 {

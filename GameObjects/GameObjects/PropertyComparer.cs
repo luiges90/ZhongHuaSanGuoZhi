@@ -20,6 +20,7 @@
 
         private static Regex dateMatcher = new Regex("^(\\d+)年(1?\\d)月([123]?\\d)日$", RegexOptions.Compiled);
         private static Regex slashMatcher = new Regex("^(\\d+)/(\\d+)$", RegexOptions.Compiled);
+        private static Regex slashStringMatcher = new Regex("^(\\d+)/(.*)$", RegexOptions.Compiled);
         public int Compare(GameObject x, GameObject y)
         {
             if ((x == null) || (y == null))
@@ -37,7 +38,7 @@
             {
                 try
                 {
-                    long longResult = ((long)(int)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((long)(int)StaticMethods.GetPropertyValue(y, this.propertyName));
+                    int longResult = ((int)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((int)StaticMethods.GetPropertyValue(y, this.propertyName));
                     if (longResult > 0)
                     {
                         result = 1;
@@ -55,12 +56,31 @@
                 {
                     try
                     {
-                        if (Math.Abs((double)StaticMethods.GetPropertyValue(x, this.propertyName) - (double)StaticMethods.GetPropertyValue(y, this.propertyName)) < 0.00001) return 0;
-                        result = (((double)StaticMethods.GetPropertyValue(x, this.propertyName)) > ((double)StaticMethods.GetPropertyValue(y, this.propertyName))) ? 1 : -1;
+                        long longResult = ((long)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((long)StaticMethods.GetPropertyValue(y, this.propertyName));
+                        if (longResult > 0)
+                        {
+                            result = 1;
+                        }
+                        else if (longResult < 0)
+                        {
+                            result = -1;
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
                     }
                     catch (InvalidCastException)
                     {
-                        result = -1;
+                        try
+                        {
+                            if (Math.Abs((double)StaticMethods.GetPropertyValue(x, this.propertyName) - (double)StaticMethods.GetPropertyValue(y, this.propertyName)) < 0.00001) return 0;
+                            result = (((double)StaticMethods.GetPropertyValue(x, this.propertyName)) > ((double)StaticMethods.GetPropertyValue(y, this.propertyName))) ? 1 : -1;
+                        }
+                        catch (InvalidCastException)
+                        {
+                            result = -1;
+                        }
                     }
                 }
             }
@@ -81,35 +101,46 @@
                 }
                 else
                 {
-                    xMatch = dateMatcher.Match(xStr);
-                    yMatch = dateMatcher.Match(yStr);
+                    xMatch = slashStringMatcher.Match(xStr);
+                    yMatch = slashStringMatcher.Match(yStr);
                     if (xMatch.Success && yMatch.Success)
                     {
-                        int xYear = int.Parse(xMatch.Groups[1].ToString());
-                        int xMonth = int.Parse(xMatch.Groups[2].ToString());
-                        int xDay = int.Parse(xMatch.Groups[3].ToString());
-                        int yYear = int.Parse(yMatch.Groups[1].ToString());
-                        int yMonth = int.Parse(yMatch.Groups[2].ToString());
-                        int yDay = int.Parse(yMatch.Groups[3].ToString());
-                        if (xYear == yYear)
+                        int xv = int.Parse(xMatch.Groups[1].ToString());
+                        int yv = int.Parse(yMatch.Groups[1].ToString());
+                        result = xv - yv;
+                    }
+                    else
+                    {
+                        xMatch = dateMatcher.Match(xStr);
+                        yMatch = dateMatcher.Match(yStr);
+                        if (xMatch.Success && yMatch.Success)
                         {
-                            if (xMonth == yMonth)
+                            int xYear = int.Parse(xMatch.Groups[1].ToString());
+                            int xMonth = int.Parse(xMatch.Groups[2].ToString());
+                            int xDay = int.Parse(xMatch.Groups[3].ToString());
+                            int yYear = int.Parse(yMatch.Groups[1].ToString());
+                            int yMonth = int.Parse(yMatch.Groups[2].ToString());
+                            int yDay = int.Parse(yMatch.Groups[3].ToString());
+                            if (xYear == yYear)
                             {
-                                result = xDay - yDay;
+                                if (xMonth == yMonth)
+                                {
+                                    result = xDay - yDay;
+                                }
+                                else
+                                {
+                                    result = xMonth - yMonth;
+                                }
                             }
                             else
                             {
-                                result = xMonth - yMonth;
+                                result = xYear - yYear;
                             }
                         }
                         else
                         {
-                            result = xYear - yYear;
+                            result = xStr.CompareTo(yStr);
                         }
-                    }
-                    else
-                    {
-                        result = xStr.CompareTo(yStr);
                     }
                 }
             }

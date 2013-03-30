@@ -1475,12 +1475,18 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
             string path = "GameData/Save/" + this.SaveFileName;
             string tempFilePath = "GameData/Save/" + this.SaveFileName + ".bak";
+            bool saveMap;
             if (File.Exists(path))
             {
                 using (FileStream fs = File.Create(tempFilePath)) { }
                 File.Copy(path, tempFilePath, true);
+                saveMap = false;
             }
-            File.Copy("GameData/Common/SaveTemplate.mdb", path, true);
+            else
+            {
+                File.Copy("GameData/Common/SaveTemplate.mdb", path, true);
+                saveMap = true;
+            }
             OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder
             {
                 DataSource = path,
@@ -1489,11 +1495,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             base.Scenario.ScenarioMap.JumpPosition = this.mainMapLayer.GetCurrentScreenCenter(base.viewportSize);
             try
             {
-                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString);
+                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveMap);
             }
             catch (Exception)
             {
-                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString);
+                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveMap);
             }
             File.Delete(tempFilePath);
             GC.Collect();

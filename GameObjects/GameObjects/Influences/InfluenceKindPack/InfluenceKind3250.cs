@@ -32,13 +32,7 @@
         public override double AIFacilityValue(Architecture a)
         {
             if (!a.Kind.HasEndurance) return -1;
-            //if (a.Endurance / (double) a.EnduranceCeiling > 0.95) return -1;
-            int abilityTotal = 0;
-            foreach (Person p in a.Persons)
-            {
-                abilityTotal += p.EnduranceAbility;
-            }
-            return (2000.0 / abilityTotal) * this.increment;
+            return (a.EnduranceCeiling - a.Endurance) * this.increment + 1;
         }
     }
 }

@@ -9,6 +9,19 @@
     {
         public bool TroopLeaderValid;
         private InfluenceType type;
+        private bool combat;
+
+        public bool Combat
+        {
+            get
+            {
+                return combat;
+            }
+            set
+            {
+                combat = value;
+            }
+        }
 
         public virtual void ApplyInfluenceKind(Architecture a)
         {

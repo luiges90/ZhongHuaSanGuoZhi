@@ -32,13 +32,7 @@
         public override double AIFacilityValue(Architecture a)
         {
             if (!a.Kind.HasCommerce) return -1;
-            //if (a.Commerce / (double) a.CommerceCeiling > 0.95) return -1;
-            int abilityTotal = 0;
-            foreach (Person p in a.Persons)
-            {
-                abilityTotal += p.CommerceAbility;
-            }
-            return (2000.0 / abilityTotal) * this.increment;
+            return (a.CommerceCeiling - a.Commerce) * this.increment + 1;
         }
     }
 }
