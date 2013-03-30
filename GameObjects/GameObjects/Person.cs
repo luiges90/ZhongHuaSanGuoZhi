@@ -1130,7 +1130,8 @@
                         
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
                         // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
-                        ConvinceSuccess |= (this.ConvincingPerson.closePersons.Contains(this.BelongedFaction.LeaderID)) || (this.ConvincingPerson.closePersons.Contains(this.ID));						
+                        ConvinceSuccess |= (this.ConvincingPerson.closePersons.Contains(this.BelongedFaction.LeaderID)) || (this.ConvincingPerson.closePersons.Contains(this.ID));
+                        ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.LeaderID) || (this.ConvincingPerson.Brother == this.BelongedFaction.LeaderID) || (this.ConvincingPerson.Brother == this.ID);
                     }
                     else
                     {
@@ -1150,11 +1151,13 @@
 
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(this.ConvincingPerson.BelongedFaction) && 
                             GlobalVariables.AIAutoTakePlayerCaptives && (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || this.ConvincingPerson.Loyalty < 100);
+                        //兄弟相互说服
+                        ConvinceSuccess |= ((this.ConvincingPerson.Brother == this.Brother) && (this.ConvincingPerson.Brother != this.ConvincingPerson.BelongedFaction.LeaderID));
                     }
-
                     ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
                     //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
                     ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.LeaderID) || (this.ConvincingPerson.Brother == this.BelongedFaction.LeaderID);
+
                     if (ConvinceSuccess)
                     {
                         GameObjects.Faction belongedFaction = null;
@@ -2342,7 +2345,7 @@
 
         public int IncreaseLoyalty(int increment)
         {
-            //150为剧本阈值，加忠诚不超过，超过的不降忠诚
+            //110为剧本阈值，加忠诚不超过，超过的不降忠诚
             if (increment > (110 - this.Loyalty))
             {
                 increment = 110 - this.Loyalty;
