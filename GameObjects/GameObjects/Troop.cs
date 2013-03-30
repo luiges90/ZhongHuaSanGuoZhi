@@ -2982,6 +2982,10 @@
                 if (this.army.BelongedTroop == this)
                 {
                     this.army.BelongedTroop = null;
+                    if (this.Army.Morale > this.Army.MoraleCeiling)
+                    {
+                        this.Army.Morale = this.Army.MoraleCeiling;
+                    }
                 }
                 if (this.BelongedLegion != null)
                 {
@@ -10896,7 +10900,7 @@
         {
             get
             {
-                return Math.Max(0.2, Math.Min(1, (210 - this.Army.Tiredness / 180.0)));
+                return Math.Max(0.2, Math.Min(1, ((210 - this.Army.Tiredness) / 180.0)));
             }
         }
 

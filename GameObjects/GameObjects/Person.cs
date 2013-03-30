@@ -424,7 +424,7 @@
         {
             get
             {
-                return Math.Max(0.2, Math.Min(1, (210 - this.Tiredness / 180.0)));
+                return Math.Max(0.2, Math.Min(1, ((210 - this.Tiredness) / 180.0)));
             }
         }
 

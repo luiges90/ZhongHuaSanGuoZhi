@@ -5537,6 +5537,13 @@
                     p.Tiredness--;
                 }
             }
+            foreach (Captive c in this.Captives)
+            {
+                if (c.CaptivePerson.Tiredness > 0)
+                {
+                    c.CaptivePerson.Tiredness--;
+                }
+            }
             foreach (Person p in this.feiziliebiao)
             {
                 if (p.Tiredness > 0)
