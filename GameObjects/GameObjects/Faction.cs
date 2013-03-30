@@ -3398,7 +3398,7 @@
                 int num = 0;
                 foreach (Architecture architecture in this.Architectures)
                 {
-                    num += architecture.AreaCount;
+                    num += architecture.JianzhuGuimo;
                 }
                 return num;
             }
@@ -3948,6 +3948,32 @@
                     stopToControl = base.Scenario.Date.DaysLeft == 0;
                 }
                 return stopToControl;
+            }
+        }
+
+        public int TotalPersonMerit
+        {
+            get
+            {
+                int result = 0;
+                foreach (Person p in this.Persons)
+                {
+                    result += p.Merit;
+                }
+                return result;
+            }
+        }
+
+        public int TotalPersonFightingForce
+        {
+            get
+            {
+                int result = 0;
+                foreach (Person p in this.Persons)
+                {
+                    result += p.FightingForce;
+                }
+                return result;
             }
         }
 
