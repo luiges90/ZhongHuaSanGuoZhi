@@ -2171,6 +2171,13 @@
                     }
                 }
                 military.ShelledMilitaryID = (short)reader["ShelledMilitary"];
+                try
+                {
+                    military.Tiredness = (int)reader["Tiredness"];
+                }
+                catch
+                {
+                }
                 this.Militaries.AddMilitary(military);
             }
             this.InitializeMilitaryData();

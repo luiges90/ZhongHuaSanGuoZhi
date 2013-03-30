@@ -5504,6 +5504,7 @@
             this.CheckRobberTroop();
             this.PopulationEscapeEvent();
             this.FoodReduce();
+            this.RestEvent();
             this.zainanshijian();
             this.captiveEscape();
             this.checkEvent();
@@ -5511,6 +5512,17 @@
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
             this.remindedAboutAttack = false;
+        }
+
+        private void RestEvent()
+        {
+            foreach (Military m in this.Militaries)
+            {
+                if (m.Tiredness > 0)
+                {
+                    m.Tiredness--;
+                }
+            }
         }
 
         private void captiveEscape()

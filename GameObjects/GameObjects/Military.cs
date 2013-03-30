@@ -29,6 +29,19 @@
         public Military ShellingMilitary;
         private Person trainingPerson;
         private int trainingPersonID = -1;
+        private int tiredness;
+
+        public int Tiredness
+        {
+            get
+            {
+                return tiredness;
+            }
+            set
+            {
+                tiredness = value;
+            }
+        }
 
         public int Merit
         {
@@ -826,7 +839,7 @@
         {
             get
             {
-                return 100;
+                return this.BelongedTroop != null ? 120 : 100;
             }
         }
 

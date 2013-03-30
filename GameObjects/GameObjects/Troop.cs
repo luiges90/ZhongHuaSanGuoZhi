@@ -2718,6 +2718,7 @@
         private int stuckedFor = 0;
         public void DayEvent()
         {
+            this.Army.Tiredness++;
             if (this.BelongedFaction != null)
             {
                 this.ViewingWillArchitecture = this.IsViewingWillArchitecture();
@@ -9728,7 +9729,7 @@
         {
             get
             {
-                return this.antiCriticalStrikeChance;
+                return (int) (this.antiCriticalStrikeChance - (100 - this.TirednessFactor * 100));
             }
         }
 
@@ -9736,7 +9737,7 @@
         {
             get
             {
-                return this.antiStratagemChanceIncrement;
+                return (int) (this.antiStratagemChanceIncrement - (100 - this.TirednessFactor * 100));
             }
         }
 
@@ -9858,7 +9859,7 @@
         {
             get
             {
-                return this.avoidSurroundedChance;
+                return (int) (this.avoidSurroundedChance - (100 - this.TirednessFactor * 100));
             }
         }
 
@@ -9950,7 +9951,7 @@
         {
             get
             {
-                return this.chaosAfterCriticalStrikeChance;
+                return (int) (this.chaosAfterCriticalStrikeChance - (100 - this.TirednessFactor * 100));
             }
         }
 
@@ -9958,7 +9959,7 @@
         {
             get
             {
-                return this.chaosAfterStratagemSuccessChance;
+                return (int) (this.chaosAfterStratagemSuccessChance - (100 - this.TirednessFactor * 100));
             }
         }
 
@@ -9966,7 +9967,7 @@
         {
             get
             {
-                return this.chaosAfterSurroundAttackChance;
+                return (int) (this.chaosAfterSurroundAttackChance - (100 - this.TirednessFactor * 100));
             }
         }
 
@@ -10106,7 +10107,7 @@
         {
             get
             {
-                return this.criticalStrikeChance;
+                return (int) (this.criticalStrikeChance - (100 - this.TirednessFactor * 100));
             }
         }
 
@@ -10294,7 +10295,7 @@
         {
             get
             {
-                int num = 10 - this.Army.Scales;
+                int num = (int) (10 * (1 / this.TirednessFactor) - this.Army.Scales);
                 if (num < 3)
                 {
                     num = 3;
@@ -10307,7 +10308,7 @@
         {
             get
             {
-                return this.defence;
+                return (int) (this.defence * this.TirednessFactor);
             }
         }
 
@@ -10878,11 +10879,27 @@
             }
         }
 
+        public int Tiredness
+        {
+            get
+            {
+                return this.Army.Tiredness;
+            }
+        }
+
+        public double TirednessFactor
+        {
+            get
+            {
+                return Math.Max(0.2, Math.Min(1, (210 - this.Army.Tiredness / 180.0)));
+            }
+        }
+
         public int Offence
         {
             get
             {
-                return this.offence;
+                return (int) (this.offence * this.TirednessFactor);
             }
         }
 
@@ -11388,7 +11405,7 @@
         {
             get
             {
-                return this.stratagemChanceIncrement;
+                return (int) (this.stratagemChanceIncrement - (100 - this.TirednessFactor * 100));
             }
         }
 

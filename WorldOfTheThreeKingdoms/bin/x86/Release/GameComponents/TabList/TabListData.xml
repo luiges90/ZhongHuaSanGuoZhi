@@ -1260,6 +1260,20 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="15" Name="TotalPersonMerit" IsNumber="true" DisplayName="总武将能力" MinWidth="100"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="16" Name="TotalPersonFightingForce" IsNumber="true" DisplayName="总武将战斗力" MinWidth="120"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="20" Name="RoutewayWorkForce" IsNumber="true" DisplayName="粮道疏通能力" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
@@ -1312,11 +1326,13 @@
 
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 8 4 5 6 7 9">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 30 2 3 8 4 5 6 7 9">
         </Tab>
-        <Tab ID="2"  Name="Detail" DisplayName="细节" Columns="1 30 10 14 11 12 13 20">
+        <Tab ID="2"  Name="Detail" DisplayName="细节" Columns="1 30 10 14 12 13 20">
         </Tab>
-        <Tab ID="3"  Name="chaoting" DisplayName="官爵" Columns="1 30 32 31 33 34 35">
+		<Tab ID="3"  Name="Person" DisplayName="人物" Columns="1 30 11 15 16">
+        </Tab>
+        <Tab ID="4"  Name="chaoting" DisplayName="官爵" Columns="1 30 32 31 33 34 35">
         </Tab>
       </Tabs>
     </ListKind>
@@ -1791,9 +1807,16 @@
         FontColor="4294967295"
         Align="Middle">
         </Column>
+		<Column ID="140" Name="Tiredness" IsNumber="true" DisplayName="疲累度" MinWidth="80"
+        FontName="宋体"
+        FontSize="11"
+        FontStyle="Regular"
+        FontColor="4294967295"
+        Align="Right">
+        </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="0 1 2 9 3 10 11 12 14">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="0 1 2 9 3 10 11 12 14 140">
         </Tab>
         <Tab ID="2"  Name="Ability" DisplayName="能力" Columns="0 4 5 6 7 8 120 121 130">
         </Tab>
@@ -2610,9 +2633,16 @@
                FontColor="4294967295"
                Align="Middle">
         </Column>
+		<Column ID="40" Name="Tiredness" IsNumber="true" DisplayName="疲累度" MinWidth="80"
+               FontName="宋体"
+               FontSize="11"
+               FontStyle="Regular"
+               FontColor="4294967295"
+               Align="Right">
+        </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 5 10 11 12 14">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 5 10 11 12 14 40">
         </Tab>
         <Tab ID="2"  Name="Leader" DisplayName="将领" Columns="1 2 3 20 21 22">
         </Tab>
