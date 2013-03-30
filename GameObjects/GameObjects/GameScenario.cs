@@ -2685,7 +2685,7 @@
             {
                 DbConnection.Close();
             }
-            try
+            /*try
             {
                 DbConnection.Open();
                 reader = new OleDbCommand("Select * From AAPaths", DbConnection).ExecuteReader();
@@ -2709,7 +2709,7 @@
             finally
             {
                 DbConnection.Close();
-            }
+            }*/
             this.AllPersons.Clear();
             this.AllArchitectures.Clear();
 
@@ -3123,30 +3123,38 @@
             }
         }
 
-        public bool SaveGameScenarioToDatabase(string connectionString)
+        public bool SaveGameScenarioToDatabase(string connectionString, bool saveMap)
         {
-            try
+            //try
+            //{
+            using (OleDbConnection selectConnection = new OleDbConnection(connectionString))
             {
-                OleDbConnection selectConnection = new OleDbConnection(connectionString);
+                selectConnection.Open();
                 DataSet dataSet = new DataSet();
                 DataRow row = null;
-                OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from Map", selectConnection);
-                OleDbCommandBuilder builder = new OleDbCommandBuilder(adapter);
-                adapter.Fill(dataSet, "Map");
-                row = dataSet.Tables["Map"].NewRow();
-                row.BeginEdit();
-                row["TileWidth"] = this.ScenarioMap.TileWidth;
-                row["DimensionX"] = this.ScenarioMap.MapDimensions.X;
-                row["DimensionY"] = this.ScenarioMap.MapDimensions.Y;
-                row["MapData"] = this.ScenarioMap.SaveToString();
-                row["FileName"] = this.ScenarioMap.MapName;
-                row["kuaishu"] = this.ScenarioMap.NumberOfTiles;
-                row["meikuaidexiaokuaishu"] = this.ScenarioMap.NumberOfSquaresInEachTile;
-                row["useSimpleArchImages"] = this.ScenarioMap.UseSimpleArchImages;
-                row.EndEdit();
-                dataSet.Tables["Map"].Rows.Add(row);
-                adapter.Update(dataSet, "Map");
-                dataSet.Clear();
+                OleDbDataAdapter adapter;
+                OleDbCommandBuilder builder;
+                if (saveMap)
+                {
+                    adapter = new OleDbDataAdapter("Select * from Map", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    adapter.Fill(dataSet, "Map");
+                    row = dataSet.Tables["Map"].NewRow();
+                    row.BeginEdit();
+                    row["TileWidth"] = this.ScenarioMap.TileWidth;
+                    row["DimensionX"] = this.ScenarioMap.MapDimensions.X;
+                    row["DimensionY"] = this.ScenarioMap.MapDimensions.Y;
+                    row["MapData"] = this.ScenarioMap.SaveToString();
+                    row["FileName"] = this.ScenarioMap.MapName;
+                    row["kuaishu"] = this.ScenarioMap.NumberOfTiles;
+                    row["meikuaidexiaokuaishu"] = this.ScenarioMap.NumberOfSquaresInEachTile;
+                    row["useSimpleArchImages"] = this.ScenarioMap.UseSimpleArchImages;
+                    row.EndEdit();
+                    dataSet.Tables["Map"].Rows.Add(row);
+                    adapter.Update(dataSet, "Map");
+                    dataSet.Clear();
+                }
+                new OleDbCommand("Delete from DiplomaticRelation", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from DiplomaticRelation", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "DiplomaticRelation");
@@ -3163,6 +3171,7 @@
                 }
                 adapter.Update(dataSet, "DiplomaticRelation");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Faction", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Faction", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Faction");
@@ -3204,6 +3213,7 @@
                 }
                 adapter.Update(dataSet, "Faction");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Sections", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Sections", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Sections");
@@ -3225,6 +3235,7 @@
                 }
                 adapter.Update(dataSet, "Sections");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Architecture", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Architecture", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Architecture");
@@ -3301,6 +3312,7 @@
                 }
                 adapter.Update(dataSet, "Architecture");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Legion", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Legion", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Legion");
@@ -3322,6 +3334,7 @@
                 }
                 adapter.Update(dataSet, "Legion");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Troop", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Troop", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Troop");
@@ -3379,33 +3392,37 @@
                 }
                 adapter.Update(dataSet, "Troop");
                 dataSet.Clear();
-                adapter = new OleDbDataAdapter("Select * from TroopEvent", selectConnection);
-                builder = new OleDbCommandBuilder(adapter);
-                adapter.Fill(dataSet, "TroopEvent");
-                dataSet.Tables["TroopEvent"].Rows.Clear();
-                foreach (TroopEvent event2 in this.TroopEvents)
+                if (saveMap)
                 {
-                    row = dataSet.Tables["TroopEvent"].NewRow();
-                    row.BeginEdit();
-                    row["ID"] = event2.ID;
-                    row["Name"] = event2.Name;
-                    row["Happened"] = event2.Happened;
-                    row["Repeatable"] = event2.Repeatable;
-                    row["AfterEventHappened"] = (event2.AfterHappenedEvent != null) ? event2.AfterHappenedEvent.ID : -1;
-                    row["LaunchPerson"] = (event2.LaunchPerson != null) ? event2.LaunchPerson.ID : -1;
-                    row["Conditions"] = event2.Conditions.SaveToString();
-                    row["Chance"] = event2.HappenChance;
-                    row["CheckAreaKind"] = event2.CheckArea;
-                    row["TargetPersons"] = event2.SaveTargetPersonToString();
-                    row["Dialogs"] = event2.SaveDialogToString();
-                    row["EffectSelf"] = event2.SaveSelfEffectToString();
-                    row["EffectPersons"] = event2.SaveEffectPersonToString();
-                    row["EffectAreas"] = event2.SaveEffectAreaToString();
-                    row.EndEdit();
-                    dataSet.Tables["TroopEvent"].Rows.Add(row);
+                    adapter = new OleDbDataAdapter("Select * from TroopEvent", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    adapter.Fill(dataSet, "TroopEvent");
+                    dataSet.Tables["TroopEvent"].Rows.Clear();
+                    foreach (TroopEvent event2 in this.TroopEvents)
+                    {
+                        row = dataSet.Tables["TroopEvent"].NewRow();
+                        row.BeginEdit();
+                        row["ID"] = event2.ID;
+                        row["Name"] = event2.Name;
+                        row["Happened"] = event2.Happened;
+                        row["Repeatable"] = event2.Repeatable;
+                        row["AfterEventHappened"] = (event2.AfterHappenedEvent != null) ? event2.AfterHappenedEvent.ID : -1;
+                        row["LaunchPerson"] = (event2.LaunchPerson != null) ? event2.LaunchPerson.ID : -1;
+                        row["Conditions"] = event2.Conditions.SaveToString();
+                        row["Chance"] = event2.HappenChance;
+                        row["CheckAreaKind"] = event2.CheckArea;
+                        row["TargetPersons"] = event2.SaveTargetPersonToString();
+                        row["Dialogs"] = event2.SaveDialogToString();
+                        row["EffectSelf"] = event2.SaveSelfEffectToString();
+                        row["EffectPersons"] = event2.SaveEffectPersonToString();
+                        row["EffectAreas"] = event2.SaveEffectAreaToString();
+                        row.EndEdit();
+                        dataSet.Tables["TroopEvent"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "TroopEvent");
+                    dataSet.Clear();
                 }
-                adapter.Update(dataSet, "TroopEvent");
-                dataSet.Clear();
+                new OleDbCommand("Delete from Routeway", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Routeway", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Routeway");
@@ -3432,6 +3449,7 @@
                 }
                 adapter.Update(dataSet, "Routeway");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Information", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Information", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Information");
@@ -3452,6 +3470,7 @@
                 }
                 adapter.Update(dataSet, "Information");
                 dataSet.Clear();
+                new OleDbCommand("Delete from SpyMessage", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from SpyMessage", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "SpyMessage");
@@ -3475,6 +3494,7 @@
                 }
                 adapter.Update(dataSet, "SpyMessage");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Military", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Military", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Military");
@@ -3497,11 +3517,13 @@
                     row["TrainingPersonID"] = -1;
                     row["RecruitmentPersonID"] = military.RecruitmentPerson == null ? -1 : military.RecruitmentPerson.ID;
                     row["ShelledMilitary"] = (military.ShelledMilitary != null) ? military.ShelledMilitary.ID : -1;
+                    row["Tiredness"] = military.Tiredness;
                     row.EndEdit();
                     dataSet.Tables["Military"].Rows.Add(row);
                 }
                 adapter.Update(dataSet, "Military");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Facility", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Facility", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Facility");
@@ -3518,6 +3540,7 @@
                 }
                 adapter.Update(dataSet, "Facility");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Captive", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Captive", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Captive");
@@ -3537,6 +3560,7 @@
                 }
                 adapter.Update(dataSet, "Captive");
                 dataSet.Clear();
+                new OleDbCommand("Delete from Person", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Person", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Person");
@@ -3644,40 +3668,44 @@
                 }
                 adapter.Update(dataSet, "Person");
                 dataSet.Clear();
-                adapter = new OleDbDataAdapter("Select * from Region", selectConnection);
-                builder = new OleDbCommandBuilder(adapter);
-                adapter.Fill(dataSet, "Region");
-                dataSet.Tables["Region"].Rows.Clear();
-                foreach (Region region in this.Regions)
+                if (saveMap)
                 {
-                    row = dataSet.Tables["Region"].NewRow();
-                    row.BeginEdit();
-                    row["ID"] = region.ID;
-                    row["Name"] = region.Name;
-                    row["States"] = region.States.SaveToString();
-                    row["RegionCore"] = (region.RegionCore != null) ? region.RegionCore.ID : -1;
-                    row.EndEdit();
-                    dataSet.Tables["Region"].Rows.Add(row);
+                    adapter = new OleDbDataAdapter("Select * from Region", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    adapter.Fill(dataSet, "Region");
+                    dataSet.Tables["Region"].Rows.Clear();
+                    foreach (Region region in this.Regions)
+                    {
+                        row = dataSet.Tables["Region"].NewRow();
+                        row.BeginEdit();
+                        row["ID"] = region.ID;
+                        row["Name"] = region.Name;
+                        row["States"] = region.States.SaveToString();
+                        row["RegionCore"] = (region.RegionCore != null) ? region.RegionCore.ID : -1;
+                        row.EndEdit();
+                        dataSet.Tables["Region"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "Region");
+                    dataSet.Clear();
+                    adapter = new OleDbDataAdapter("Select * from State", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    adapter.Fill(dataSet, "State");
+                    dataSet.Tables["State"].Rows.Clear();
+                    foreach (State state in this.States)
+                    {
+                        row = dataSet.Tables["State"].NewRow();
+                        row.BeginEdit();
+                        row["ID"] = state.ID;
+                        row["Name"] = state.Name;
+                        row["ContactStates"] = state.ContactStates.SaveToString();
+                        row["StateAdmin"] = (state.StateAdmin != null) ? state.StateAdmin.ID : -1;
+                        row.EndEdit();
+                        dataSet.Tables["State"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "State");
+                    dataSet.Clear();
                 }
-                adapter.Update(dataSet, "Region");
-                dataSet.Clear();
-                adapter = new OleDbDataAdapter("Select * from State", selectConnection);
-                builder = new OleDbCommandBuilder(adapter);
-                adapter.Fill(dataSet, "State");
-                dataSet.Tables["State"].Rows.Clear();
-                foreach (State state in this.States)
-                {
-                    row = dataSet.Tables["State"].NewRow();
-                    row.BeginEdit();
-                    row["ID"] = state.ID;
-                    row["Name"] = state.Name;
-                    row["ContactStates"] = state.ContactStates.SaveToString();
-                    row["StateAdmin"] = (state.StateAdmin != null) ? state.StateAdmin.ID : -1;
-                    row.EndEdit();
-                    dataSet.Tables["State"].Rows.Add(row);
-                }
-                adapter.Update(dataSet, "State");
-                dataSet.Clear();
+                new OleDbCommand("Delete from Treasure", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Treasure", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Treasure");
@@ -3701,7 +3729,7 @@
                 }
                 adapter.Update(dataSet, "Treasure");
                 dataSet.Clear();
-
+                new OleDbCommand("Delete from YearTable", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from YearTable", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "YearTable");
@@ -3730,35 +3758,38 @@
 
                 //try
                 //{
-                adapter = new OleDbDataAdapter("Select * from Event", selectConnection);
-                builder = new OleDbCommandBuilder(adapter);
-                adapter.Fill(dataSet, "Event");
-                dataSet.Tables["Event"].Rows.Clear();
-                foreach (Event e in this.AllEvents)
+                if (saveMap)
                 {
-                    row = dataSet.Tables["Event"].NewRow();
-                    row.BeginEdit();
-                    row["ID"] = e.ID;
-                    row["Name"] = e.Name;
-                    row["Repeatable"] = e.repeatable;
-                    row["AfterEventHappened"] = e.AfterEventHappened;
-                    row["Chance"] = e.happenChance;
-                    row["PersonId"] = e.SavePersonIdToString();
-                    row["PersonCond"] = e.SavePersonCondToString();
-                    row["ArchitectureID"] = e.architecture.SaveToString();
-                    row["ArchitectureCond"] = e.SaveArchitecureCondToString();
-                    row["FactionID"] = e.faction.SaveToString();
-                    row["FactionCond"] = e.SaveFactionCondToString();
-                    row["Dialog"] = e.SaveDialogToString();
-                    row["Effect"] = e.SaveEventEffectToString();
-                    row["ArchitectureEffect"] = e.SaveArchitectureEffectToString();
-                    row["FactionEffect"] = e.SaveFactionEffectToString();
-                    row.EndEdit();
-                    dataSet.Tables["Event"].Rows.Add(row);
+                    adapter = new OleDbDataAdapter("Select * from Event", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    adapter.Fill(dataSet, "Event");
+                    dataSet.Tables["Event"].Rows.Clear();
+                    foreach (Event e in this.AllEvents)
+                    {
+                        row = dataSet.Tables["Event"].NewRow();
+                        row.BeginEdit();
+                        row["ID"] = e.ID;
+                        row["Name"] = e.Name;
+                        row["Repeatable"] = e.repeatable;
+                        row["AfterEventHappened"] = e.AfterEventHappened;
+                        row["Chance"] = e.happenChance;
+                        row["PersonId"] = e.SavePersonIdToString();
+                        row["PersonCond"] = e.SavePersonCondToString();
+                        row["ArchitectureID"] = e.architecture.SaveToString();
+                        row["ArchitectureCond"] = e.SaveArchitecureCondToString();
+                        row["FactionID"] = e.faction.SaveToString();
+                        row["FactionCond"] = e.SaveFactionCondToString();
+                        row["Dialog"] = e.SaveDialogToString();
+                        row["Effect"] = e.SaveEventEffectToString();
+                        row["ArchitectureEffect"] = e.SaveArchitectureEffectToString();
+                        row["FactionEffect"] = e.SaveFactionEffectToString();
+                        row.EndEdit();
+                        dataSet.Tables["Event"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "Event");
+                    dataSet.Clear();
                 }
-                adapter.Update(dataSet, "Event");
-                dataSet.Clear();
-
+                /*new OleDbCommand("Delete from AAPaths", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from AAPaths", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "AAPaths");
@@ -3775,13 +3806,13 @@
                     dataSet.Tables["AAPaths"].Rows.Add(row);
                 }
                 adapter.Update(dataSet, "AAPaths");
-                dataSet.Clear();
+                dataSet.Clear();*/
 
                 //}
                 //catch
                 //{
                 //}
-
+                new OleDbCommand("Delete from GameData", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from GameData", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "GameData");
@@ -3797,6 +3828,7 @@
                 dataSet.Tables["GameData"].Rows.Add(row);
                 adapter.Update(dataSet, "GameData");
                 dataSet.Clear();
+                new OleDbCommand("Delete from GameSurvey", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from GameSurvey", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "GameSurvey");
@@ -3819,14 +3851,16 @@
                 {
                     this.OnAfterSaveScenario(this);
                 }
+                //}
+                selectConnection.Close();
             }
-            catch 
+            /*catch 
             {
                 //try to free as many memory as possible at this critical state
                 this.DisposeLotsOfMemory();
                 GC.Collect();
                 throw;
-            }
+            }*/
 			ExtensionInterface.call("Save", new Object[] { this });
             return true;
         }
