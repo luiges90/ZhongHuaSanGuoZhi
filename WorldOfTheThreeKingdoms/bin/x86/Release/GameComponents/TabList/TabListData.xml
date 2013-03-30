@@ -1786,7 +1786,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="120" Name="RationDaysString" IsNumber="true" DisplayName="口粮天数" MinWidth="70"
+        <Column ID="120" Name="RationDaysString" IsNumber="false" DisplayName="口粮天数" MinWidth="70"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
