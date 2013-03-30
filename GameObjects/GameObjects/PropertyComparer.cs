@@ -37,7 +37,7 @@
             {
                 try
                 {
-                    long longResult = ((long)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((long)StaticMethods.GetPropertyValue(y, this.propertyName));
+                    int longResult = ((int)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((int)StaticMethods.GetPropertyValue(y, this.propertyName));
                     if (longResult > 0)
                     {
                         result = 1;
@@ -55,12 +55,31 @@
                 {
                     try
                     {
-                        if (Math.Abs((double)StaticMethods.GetPropertyValue(x, this.propertyName) - (double)StaticMethods.GetPropertyValue(y, this.propertyName)) < 0.00001) return 0;
-                        result = (((double)StaticMethods.GetPropertyValue(x, this.propertyName)) > ((double)StaticMethods.GetPropertyValue(y, this.propertyName))) ? 1 : -1;
+                        long longResult = ((long)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((long)StaticMethods.GetPropertyValue(y, this.propertyName));
+                        if (longResult > 0)
+                        {
+                            result = 1;
+                        }
+                        else if (longResult < 0)
+                        {
+                            result = -1;
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
                     }
                     catch (InvalidCastException)
                     {
-                        result = -1;
+                        try
+                        {
+                            if (Math.Abs((double)StaticMethods.GetPropertyValue(x, this.propertyName) - (double)StaticMethods.GetPropertyValue(y, this.propertyName)) < 0.00001) return 0;
+                            result = (((double)StaticMethods.GetPropertyValue(x, this.propertyName)) > ((double)StaticMethods.GetPropertyValue(y, this.propertyName))) ? 1 : -1;
+                        }
+                        catch (InvalidCastException)
+                        {
+                            result = -1;
+                        }
                     }
                 }
             }
