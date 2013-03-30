@@ -2719,6 +2719,10 @@
         public void DayEvent()
         {
             this.Army.Tiredness++;
+            foreach (Person p in this.Persons)
+            {
+                p.Tiredness++;
+            }
             if (this.BelongedFaction != null)
             {
                 this.ViewingWillArchitecture = this.IsViewingWillArchitecture();

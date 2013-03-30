@@ -203,6 +203,20 @@
 
         public Architecture LocationArchitecture = null;
 
+        private int tiredness;
+
+        public int Tiredness
+        {
+            get
+            {
+                return tiredness;
+            }
+            set
+            {
+                tiredness = value;
+            }
+        }
+
         public int YearJoin{ get; set; }
         public int TroopDamageDealt{ get; set; }
         public int TroopBeDamageDealt{ get; set; }
@@ -405,6 +419,14 @@
         public event TreasureFound OnTreasureFound;
 
         public event CapturedByArchitecture OnCapturedByArchitecture;
+
+        public double TirednessFactor
+        {
+            get
+            {
+                return Math.Max(0.2, Math.Min(1, (210 - this.Tiredness / 180.0)));
+            }
+        }
 
         public void AddBubingExperience(int increment)
         {
@@ -4157,7 +4179,7 @@
         {
             get
             {
-                return Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility);
+                return (int) (Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility) * this.TirednessFactor);
             }
         }
 
@@ -4189,7 +4211,7 @@
         {
             get
             {
-                return Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility);
+                return (int) (Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility) * this.TirednessFactor);
             }
         }
 
@@ -4197,7 +4219,7 @@
         {
             get
             {
-                return Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility);
+                return (int) (Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.TirednessFactor);
             }
         }
 
@@ -4221,7 +4243,7 @@
         {
             get
             {
-                return Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility);
+                return (int) (Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility) * this.TirednessFactor);
             }
         }
 
@@ -4237,7 +4259,7 @@
         {
             get
             {
-                return Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility);
+                return (int) (Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor);
             }
         }
 

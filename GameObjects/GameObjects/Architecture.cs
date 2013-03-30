@@ -5523,6 +5523,13 @@
                     m.Tiredness--;
                 }
             }
+            foreach (Person p in this.Persons)
+            {
+                if (p.Tiredness > 0)
+                {
+                    p.Tiredness--;
+                }
+            }
         }
 
         private void captiveEscape()

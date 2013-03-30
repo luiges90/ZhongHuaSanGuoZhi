@@ -2111,6 +2111,13 @@
                 {
                     // all zeroes.
                 }
+                try
+                {
+                    person.Tiredness = (int)reader["Tiredness"];
+                }
+                catch
+                {
+                }
 
                 this.Persons.AddPersonWithEvent(person);  //所有武将，并加载武将事件
                 this.AllPersons.Add(person.ID, person);   //武将字典
@@ -3670,6 +3677,7 @@
                     row["StratagemFailCount"] = person.StratagemFailCount;
                     row["StratagemBeSuccessCount"] = person.StratagemBeSuccessCount;
                     row["StratagemBeFailCount"] = person.StratagemBeFailCount;
+                    row["Tiredness"] = person.Tiredness;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
