@@ -7447,7 +7447,8 @@
             this.LevelUpMilitaryList.Clear();
             foreach (Military military in this.Militaries)
             {
-                if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience))
+                if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience) 
+                    && (!(military.Kind.Unique && this.BelongedFaction.HasMilitaryKind(military.KindID))))
                 {
                     this.LevelUpMilitaryList.AddMilitary(military);
                 }
@@ -8975,7 +8976,7 @@
         public void LevelUpMilitary(Military m)
         {
             MilitaryKind militaryKind = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(m.Kind.LevelUpKindID);
-            if (militaryKind != null)
+            if ((militaryKind != null) && (!(militaryKind.Unique && m.BelongedFaction.HasMilitaryKind(militaryKind.ID))))
             {
                 int num = (m.Quantity * militaryKind.MinScale) / m.Kind.MinScale;
                 int num2 = ((m.Experience - m.Kind.LevelUpExperience) * militaryKind.MinScale) / m.Kind.MinScale;
