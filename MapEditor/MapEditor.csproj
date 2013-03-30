@@ -36,11 +36,6 @@
       <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameGlobal.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="GameObjects, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameObjects.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework.Game, Version=3.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=MSIL" />
     <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -178,5 +173,11 @@
     <EmbeddedResource Include="MapEditor.Forms.SectionForms.frmSelectSectionList.resources" />
     <EmbeddedResource Include="MapEditor.Forms.HintForm.resources" />
     <EmbeddedResource Include="MapEditor.Forms.frmFactionList.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameObjects\GameObjects.csproj">
+      <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
+      <Name>GameObjects</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
