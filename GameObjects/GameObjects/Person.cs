@@ -2442,6 +2442,9 @@
                     }
                 }
             }
+
+            executingFaction.Reputation = (int) (executingFaction.Reputation * (1 - 0.05 * this.PersonalLoyalty));
+            executor.Reputation = (int)(executor.Reputation * (1 - 0.05 * this.PersonalLoyalty));
 			
 			ExtensionInterface.call("Executed", new Object[] { this.Scenario, this, executingFaction });
 
