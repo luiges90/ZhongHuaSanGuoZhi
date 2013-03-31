@@ -158,6 +158,7 @@
         public GameObjectList ResetDiplomaticRelationList = new GameObjectList();
         public GameObjectList EnhanceDiplomaticRelationList = new GameObjectList();
         public GameObjectList AllyDiplomaticRelationList = new GameObjectList();
+        public GameObjectList TruceDiplomaticRelationList = new GameObjectList();
         public GameObjectList DenounceDiplomaticRelationList = new GameObjectList();
         public PersonList RewardPersonList = new PersonList();
         public Troop RobberTroop;
@@ -4524,7 +4525,10 @@
                         }
                 }
                 if ((((military.Scales > 5) && (military.Morale >= 80)) && (military.Combativity >= 80)) && (military.InjuryQuantity < military.Kind.MinScale)
-                    && (!offensive || (military.KindID != 29))) //do not use transport teams to attack
+                    && (!offensive || 
+                    /* (military.KindID != 29)*/
+                    (military.Merit > 0)
+                    )) //do not use transport teams to attack
                 {
                     TroopList candidates = this.AISelectPersonIntoTroop(this, military);
                     foreach (Troop t in candidates)
@@ -7439,7 +7443,8 @@
             this.LevelUpMilitaryList.Clear();
             foreach (Military military in this.Militaries)
             {
-                if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience))
+                if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience) 
+                    && (!(military.Kind.Unique && this.BelongedFaction.HasMilitaryKind(military.KindID))))
                 {
                     this.LevelUpMilitaryList.AddMilitary(military);
                 }
@@ -7720,13 +7725,29 @@
             {
                 foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
                 {
-                    if ( (display.Relation < 300 && display.Relation >= 290) && ((display.LinkedFaction1 != null) && (display.LinkedFaction2 != null)))
+                    if ( (display.Relation < 300 && display.Relation >= 280) && ((display.LinkedFaction1 != null) && (display.LinkedFaction2 != null)))
                     {
                         this.AllyDiplomaticRelationList.Add(display);
                     }
                 }
             }
             return this.AllyDiplomaticRelationList;
+        }
+
+        public GameObjectList GetTruceDiplomaticRelationList()
+        {
+            this.TruceDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in this.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    if (((display.LinkedFaction1 != null) && (display.LinkedFaction2 != null)) && display.Truce < 1)
+                    {
+                        this.TruceDiplomaticRelationList.Add(display);
+                    }
+                }
+            }
+            return this.TruceDiplomaticRelationList;
         }
 
         public GameObjectList GetDenounceDiplomaticRelationList()
@@ -8967,7 +8988,7 @@
         public void LevelUpMilitary(Military m)
         {
             MilitaryKind militaryKind = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(m.Kind.LevelUpKindID);
-            if (militaryKind != null)
+            if ((militaryKind != null) && (!(militaryKind.Unique && m.BelongedFaction.HasMilitaryKind(militaryKind.ID))))
             {
                 int num = (m.Quantity * militaryKind.MinScale) / m.Kind.MinScale;
                 int num2 = ((m.Experience - m.Kind.LevelUpExperience) * militaryKind.MinScale) / m.Kind.MinScale;
@@ -10980,7 +11001,7 @@
 
             foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
             {
-                if ((display.Relation <= 300) && (display.Relation >= 290))
+                if ((display.Relation <= 300) && (display.Relation >= 280) && (this.Fund > 20000) && (this.Persons.Count > 0))
                 {
                     return true;
                 }
@@ -10996,6 +11017,15 @@
                 return false;
             }
             return ((this.Fund > 10000) && (this.Persons.Count > 0));
+        }
+
+        public bool TruceDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+            return ((this.Fund > 50000) && (this.Persons.Count > 0));
         }
 
         public bool DenounceDiplomaticRelationAvail()

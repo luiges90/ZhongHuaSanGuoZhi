@@ -49,6 +49,17 @@
                 this.LinkedDiplomaticRelation.Relation = value;
             }
         }
+        public int Truce
+        {
+            get
+            {
+                return this.LinkedDiplomaticRelation.Truce;
+            }
+            set
+            {
+                this.LinkedDiplomaticRelation.Truce = value;
+            }
+        }
     }
 }
 

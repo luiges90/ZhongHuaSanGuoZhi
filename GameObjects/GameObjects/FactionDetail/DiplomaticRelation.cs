@@ -10,6 +10,7 @@
         private int relationFaction1ID;
         private Faction relationFaction2;
         private int relationFaction2ID;
+        private int truce;
 
         public DiplomaticRelation()
         {
@@ -63,6 +64,18 @@
             set
             {
                 this.relation = value;
+            }
+        }
+
+        public int Truce
+        {
+            get
+            {
+                return this.truce;
+            }
+            set
+            {
+                this.truce = value;
             }
         }
 

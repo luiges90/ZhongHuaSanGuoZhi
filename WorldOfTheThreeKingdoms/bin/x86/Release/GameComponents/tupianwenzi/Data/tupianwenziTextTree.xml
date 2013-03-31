@@ -416,6 +416,27 @@
     <Leaf Property="" Text="结成盟友，共取天下！" Color="4294967295"></Leaf>
   </Branch>      
   
+  <Branch Name="AllyDiplomaticRelationFailed">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="派人试图联合" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="结成盟友，但是很不幸失败了！" Color="4294967295"></Leaf>
+  </Branch>  
+  
+  <Branch Name="TruceDiplomaticRelation">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="派人向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="献上重金，成功的平息了两国之间的战争！" Color="4294967295"></Leaf>
+  </Branch>      
+  
+  <Branch Name="TruceDiplomaticRelationFailed">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="派人试图向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="发起停战，但是很不幸失败了！" Color="4294967295"></Leaf>
+  </Branch>    
+  
   <Branch Name="ResetDiplomaticRelation">
     <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
     <Leaf Property="" Text="擅自解除了和" Color="4294967295"></Leaf>
