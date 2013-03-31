@@ -32,10 +32,13 @@
                 int num3 = source.GetStratagemSuccessChanceCredit(troop, source.InevitableRaoluanOnLowerIntelligence || source.InevitableStratagemOnLowerIntelligence, (troop.NeverBeIntoChaos || troop.OutburstNeverBeIntoChaos) || troop.InvincibleRaoluan, troop.InvincibleStratagemFromLowerIntelligence);
                 if (num3 > 0)
                 {
-                    num3 = ((num3 + ((troop.Army.Scales - 5) * 5)) * troop.FightingForce) / pureFightingForce;
-                    if (troop.Status == TroopStatus.混乱)
+                    if (pureFightingForce == 0)
                     {
-                        num3 /= GameObject.Square(source.ViewingHostileTroopCount) + 2;
+                        num3 = 1000000;
+                    }
+                    else
+                    {
+                        num3 = (((num3 + ((100 - troop.Morale) / 2)) + ((troop.Army.Scales - 5) * 5)) * troop.PureFightingForce) / pureFightingForce;
                     }
                     num += num3;
                 }
