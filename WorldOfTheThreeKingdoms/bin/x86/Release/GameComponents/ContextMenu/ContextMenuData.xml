@@ -131,6 +131,7 @@
 			<MenuItem ID="2"  Name="AllyDiplomaticRelation" DisplayName="结盟" DisplayIfTrue="AllyDiplomaticRelationAvail"></MenuItem>
 			<MenuItem ID="3"  Name="ResetDiplomaticRelation" DisplayName="断交" DisplayIfTrue="ResetDiplomaticRelationAvail"></MenuItem>
 			<MenuItem ID="4"  Name="DenounceDiplomaticRelation" DisplayName="声讨" DisplayIfTrue="DenounceDiplomaticRelationAvail"></MenuItem>
+			<MenuItem ID="5"  Name="TruceDiplomaticRelation" DisplayName="停战" DisplayIfTrue="TruceDiplomaticRelationAvail"></MenuItem>
 		</MenuItem>
         <MenuItem ID="4"  Name="Techniques" DisplayName="技巧"></MenuItem>
 		<MenuItem ID="5"  Name="KillRelease" DisplayName="处置">

@@ -752,6 +752,17 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="只能在城池有足够的资金情况下执行。" Color="4294967295"></Leaf>
   </Branch>    
+  <Branch Name="Monarch_Diplomatic_TruceDiplomaticRelation">
+    <Leaf Text="君主" Color="4294967295"></Leaf>
+    <Leaf Text="停战" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="献上50000重金，和对象势力签署为期30天的停战协议" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="只能在城池有足够的资金并且有外交人员的情况下执行。" Color="4294967295"></Leaf>
+  </Branch>    
   <Branch Name="Monarch_Techniques">
     <Leaf Text="君主" Color="4294967295"></Leaf>
     <Leaf Text="技巧" Color="4278232306"></Leaf>

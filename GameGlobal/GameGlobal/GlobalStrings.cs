@@ -270,6 +270,7 @@
         public const string EnhaneceDiplomaticRelation = "亲善";
         public const string AllyDiplomaticRelation = "结盟";
         public const string ResetDiplomaticRelation = "解盟";
+        public const string TruceDiplomaticRelation = "停战";
         public const string DenounceDiplomaticRelation = "声讨";
         public const string InformationKind = "情报种类";
         public const string AttackDefault = "攻击默认";

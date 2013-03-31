@@ -39,6 +39,8 @@
         GetEnhanceDiplomaticRelationPerson,
         GetAllyDiplomaticRelationPerson,
         GetDenounceDiplomaticRelation,
+        GetTruceDiplomaticRelation,
+        GetTruceDiplomaticRelationPerson,
         GetAttackDefaultKind,
         GetAttackTargetKind,
         GetCastDefaultKind,

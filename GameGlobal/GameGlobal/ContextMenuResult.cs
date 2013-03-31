@@ -82,6 +82,7 @@
         Monarch_Diplomatic_AllyDiplomaticRelation,
         Monarch_Diplomatic_ResetDiplomaticRelation,
         Monarch_Diplomatic_DenounceDiplomaticRelation,
+        Monarch_Diplomatic_TruceDiplomaticRelation,
         Monarch_officePosition_jingongzijin,
         Monarch_officePosition_jingongliangcao,
         Monarch_officePosition_SelfBecomeEmperor,

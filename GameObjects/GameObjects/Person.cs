@@ -1549,6 +1549,75 @@
             }
         }
 
+        public void DoTruceDiplomatic()
+        {
+            /*
+            停战协定
+            a、判定值=（金钱/400+执行武将政治-执行武将和目标势力君主的相性差/5+c）*t
+                系数c取决于执行武将和目标势力君主的关系，两者是义兄弟、配偶或者是目标君主的亲爱武将取20，是目标君主的厌恶武将取-15，否则取10
+                t为难度系数，初级上级超级分别为1.0、0.8、0.7
+            b、判定
+                如果判定值>(80+停战期间/2-势力间友好度/4)，成功
+                否则执行武将有论客特技或者判定值>(70+停战期间/2-势力间友好度/4)，则失败
+                否则失败被捕（注：游戏中的实际效果和失败相同）
+            c、结果
+                1、成功
+                    执行武将功绩+500，政治经验+5
+                    势力技术点:+30
+                2、失败
+                    势力间友好度-10
+                    执行武将功绩+50，政治经验+1
+                3、失败被捕（注：实际效果和失败相同）
+            */
+            this.OutsideTask = OutsideTaskKind.无;
+            this.TargetArchitecture = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
+            this.OutsideDestination = null;
+            if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
+            {
+                int c = 2;
+                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.LeaderID || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother > 0))
+                    || this.TargetArchitecture.BelongedFaction.Leader.closePersons.Contains(this.ID))
+                {
+                    c = 4;
+                }
+                if (this.TargetArchitecture.BelongedFaction.Leader.hatedPersons.Contains(this.ID))
+                {
+                    c = -3;
+                }
+                int g = (c * 5 + 50000 / 400 + this.politics - GetIdealOffset(this, this.TargetArchitecture.BelongedFaction.Leader) / 5);
+                int cd = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID);
+                if (g > (80 - cd / 4))
+                {
+                    int di = 10;
+                    if (cd + di > 290)
+                    {
+                        di = 290 - cd;
+                    }
+                    if (di < 0)
+                    {
+                        di = 0;
+                    }
+                    base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, di);
+                    this.TargetArchitecture.Fund += 50000;
+                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "TruceDiplomaticRelation", "TruceDiplomaticRelation.jpg", "TruceDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                    //设置停战
+                    this.Scenario.SetDiplomaticRelationTruce(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, 30);
+                    this.TargetArchitecture = this.LocationArchitecture;
+                    this.AddPoliticsExperience(5);
+                    this.IncreaseReputation(500);
+                }
+                else
+                {
+                    base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, -10);
+                    this.BelongedArchitecture.Fund += 30000;
+                    this.TargetArchitecture.Fund += 20000;
+                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "TruceDiplomaticRelationFailed", "chuzhan.jpg", "BreakDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                    this.TargetArchitecture = this.LocationArchitecture;
+                    this.AddPoliticsExperience(1);
+                    this.IncreaseReputation(50);
+                }
+            }
+        }
 
         private void DoOutsideTask()
         {
@@ -1604,6 +1673,10 @@
 
                 case OutsideTaskKind.结盟:
                     this.DoAllyDiplomatic();
+                    break;
+
+                case OutsideTaskKind.停战:
+                    this.DoTruceDiplomatic();
                     break;
 
             }
@@ -2912,6 +2985,53 @@
                 this.LocationArchitecture = this.BelongedArchitecture;
                 this.workKind = ArchitectureWorkKind.无;
                 this.OutsideTask = OutsideTaskKind.亲善;
+                this.Scenario.GameScreen.renwukaishitishi(this, this.TargetArchitecture);
+                if (this.BelongedFaction != null)
+                {
+                    this.Status = PersonStatus.Moving;
+                }
+                else
+                {
+                    this.Status = PersonStatus.NoFactionMoving;
+                }
+
+            }
+        }
+
+        public void GoToTruceDiplomatic(DiplomaticRelationDisplay a)
+        {
+            if (a == null) return;
+
+            Faction targetFaction = this.BelongedFaction.GetFactionByName(a.FactionName);
+            Architecture targetArchitecture = targetFaction.Capital;
+
+            if (targetArchitecture == null)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "TruceDiplomaticRelation", "TruceDiplomaticRelation.jpg", "TruceDiplomaticRelation.wav", "啊，出错了!", true);
+                return;
+            }
+
+            if (this.LocationArchitecture != targetArchitecture)
+            {
+                this.outsideDestination = targetArchitecture.Position;
+                Point position = this.BelongedArchitecture.Position;
+                this.TargetArchitecture = targetArchitecture;
+
+                this.TaskDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(position, targetArchitecture.Position) / 10.0));
+                if (this.taskDays == 0)
+                {
+                    this.taskDays = 1;
+                }
+                if (this.taskDays > 5)
+                {
+                    this.taskDays = 5;
+                }
+
+                this.arrivingDays = this.TaskDays * 2;
+
+                this.LocationArchitecture = this.BelongedArchitecture;
+                this.workKind = ArchitectureWorkKind.无;
+                this.OutsideTask = OutsideTaskKind.停战;
                 this.Scenario.GameScreen.renwukaishitishi(this, this.TargetArchitecture);
                 if (this.BelongedFaction != null)
                 {

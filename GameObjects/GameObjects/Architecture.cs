@@ -158,6 +158,7 @@
         public GameObjectList ResetDiplomaticRelationList = new GameObjectList();
         public GameObjectList EnhanceDiplomaticRelationList = new GameObjectList();
         public GameObjectList AllyDiplomaticRelationList = new GameObjectList();
+        public GameObjectList TruceDiplomaticRelationList = new GameObjectList();
         public GameObjectList DenounceDiplomaticRelationList = new GameObjectList();
         public PersonList RewardPersonList = new PersonList();
         public Troop RobberTroop;
@@ -7729,6 +7730,22 @@
             return this.AllyDiplomaticRelationList;
         }
 
+        public GameObjectList GetTruceDiplomaticRelationList()
+        {
+            this.TruceDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in this.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    if (((display.LinkedFaction1 != null) && (display.LinkedFaction2 != null)) && display.Truce < 1)
+                    {
+                        this.TruceDiplomaticRelationList.Add(display);
+                    }
+                }
+            }
+            return this.TruceDiplomaticRelationList;
+        }
+
         public GameObjectList GetDenounceDiplomaticRelationList()
         {
             this.DenounceDiplomaticRelationList.Clear();
@@ -10996,6 +11013,15 @@
                 return false;
             }
             return ((this.Fund > 10000) && (this.Persons.Count > 0));
+        }
+
+        public bool TruceDiplomaticRelationAvail()
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+            return ((this.Fund > 50000) && (this.Persons.Count > 0));
         }
 
         public bool DenounceDiplomaticRelationAvail()

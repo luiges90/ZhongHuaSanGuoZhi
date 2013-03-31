@@ -2818,9 +2818,16 @@
                 FontColor="4278255360"
                 Align="Right">
         </Column>
+        <Column ID="3" Name="Truce" IsNumber="true" DisplayName="停战" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Bold"
+                FontColor="4278255360"
+                Align="Right">
+        </Column>		
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3">
         </Tab>
       </Tabs>
     </ListKind>
