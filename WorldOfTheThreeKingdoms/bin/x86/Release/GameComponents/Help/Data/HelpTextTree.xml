@@ -971,7 +971,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="每个势力至少拥有一个军区。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Hiring">
+  <Branch Name="Person_Hiring">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="录用" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -982,7 +982,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="若选择委任方式，则将采用与电脑相同的方法进行录用。在野人物数量越高则越有可能发动录用。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Rewarding">
+  <Branch Name="Person_AutoReward">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="褒奖" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
