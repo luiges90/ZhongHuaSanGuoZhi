@@ -1392,6 +1392,23 @@
             }
         }
 
+        public int EnoughPeople
+        {
+            get
+            {
+                int fundSupport = this.Fund / 1500;
+                int develop = Math.Max((this.AgricultureCeiling - this.Agriculture) / 30,
+                    Math.Max((this.CommerceCeiling - this.Commerce) / 30,
+                    Math.Max((this.Technology - this.TechnologyCeiling) / 30,
+                    Math.Max((this.Endurance - this.EnduranceCeiling) / 30,
+                    Math.Max((this.Morale - this.MoraleCeiling) / 30,
+                    (this.Domination - this.DominationCeiling) / 30)))));
+                int recruit = this.Population / 30000;
+                int frontLine = (this.FrontLine || this.noFactionFrontline) ? this.MilitaryCount * 2 : 0;
+                return Math.Min(Math.Max(develop, Math.Max(recruit, frontLine)), fundSupport);
+            }
+        }
+
         private int idleDays = 0;
         private void AIPersonTransfer()
         {
@@ -1506,61 +1523,50 @@
                     if (this.IdlingPersonCount > this.PersonCount / 2)
                     {
                         idleDays++;
-                        if (idleDays > 3 && this.PersonCount > 3)
+                        if (idleDays > 3)
                         {
-                            ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
-                            Architecture dest = null;
-                            foreach (Architecture i in otherArchitectureList)
-                            {
-                                if (i.FrontLine)
-                                {
-                                    double minDist = double.MaxValue;
-                                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
-                                    if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
-                                    {
-                                        minDist = distance;
-                                        dest = i;
-                                    }
-                                }
-                            }
-                            if (dest == null)
-                            {
+                            while (this.PersonCount + this.MovingPersonCount > this.EnoughPeople + 3) {
+                                bool everMoved = false;
+                                ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
+                                Architecture dest = null;
                                 foreach (Architecture i in otherArchitectureList)
                                 {
                                     double minDist = double.MaxValue;
                                     double distance = base.Scenario.GetDistance(this.Position, i.Position);
-                                    if (distance < minDist && i.idleDays == 0 && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this)
+                                    if (distance < minDist && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this
+                                        && i.PersonCount + i.MovingPersonCount < i.EnoughPeople)
                                     {
                                         minDist = distance;
                                         dest = i;
                                     }
                                 }
-                            }
-                            int num = this.FrontLine ? this.PersonCount - this.MilitaryCount + 3 : this.PersonCount - 3;
-                            GameObjectList list = this.Persons.GetList();
-                            if (this.FrontLine)
-                            {
-                                if (list.Count > 1)
+                                if (dest != null)
                                 {
-                                    list.IsNumber = true;
-                                    list.SmallToBig = true;
-                                    list.PropertyName = "FightingForce";
-                                    list.ReSort();
-                                }
-                            }
-                            if (dest != null)
-                            {
-                                num2 = 0;
-                                while (num2 < num && num2 < this.PersonCount)
-                                {
-                                    Person p = list[num2] as Person;
-                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
-                                        (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
+                                    int num = Math.Min(this.PersonCount - this.EnoughPeople, dest.EnoughPeople - dest.PersonCount - dest.MovingPersonCount);
+                                    GameObjectList list = this.Persons.GetList();
+                                    if (this.FrontLine)
                                     {
-                                        p.MoveToArchitecture(dest);
+                                        if (list.Count > 1)
+                                        {
+                                            list.IsNumber = true;
+                                            list.SmallToBig = true;
+                                            list.PropertyName = "FightingForce";
+                                            list.ReSort();
+                                        }
                                     }
-                                    num2++;
+                                    for (int i = 0, moved = 0; moved < num && i < list.Count; ++i)
+                                    {
+                                        Person p = list[i] as Person;
+                                        if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
+                                            (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
+                                        {
+                                            p.MoveToArchitecture(dest);
+                                            moved++;
+                                            everMoved = true;
+                                        }
+                                    }
                                 }
+                                if (!everMoved) break;
                             }
                         }
                     }
@@ -1674,8 +1680,6 @@
                 transferCountDown--;
                 if (transferCountDown > 0) return;
 
-                //transfer when
-                //food or fund is adundant here and here is not frontline nor hostile line, or nearby no-income archs
                 if (this.IsFoodAbundant || this.IsFundAbundant)
                 {
                     if (!this.HasPerson())
@@ -1736,6 +1740,10 @@
                                     {
                                         int need = (!architecture.BuyFoodAvail() && !architecture.SellFoodAvail() ? Math.Min(architecture.Food, architecture.Fund * 100) * 2 : architecture.Food + architecture.Fund * 100) + (int)node.Distance * 10000;
 
+                                        if (architecture.IsFoodAbundant || architecture.IsFundAbundant)
+                                        {
+                                            continue;
+                                        }
                                         if (architecture.orientationFrontLine)
                                         {
                                             need /= 2;
@@ -1758,10 +1766,6 @@
                                             forceTransferIgnoreFrontline = true;
                                             need = 0; //force transfer if the target is incapable of getting any income and do not have enough food and fund
                                         }
-                                        if (architecture.IsFoodAbundant || architecture.IsFundAbundant)
-                                        {
-                                            need *= 2;
-                                        }
                                         if (need < min)
                                         {
                                             min = need;
@@ -1771,7 +1775,7 @@
                                 }
                             }
                         }
-                        if (dest == null || ((this.HostileLine || this.FrontLine || this.noFactionFrontline) && !forceTransferIgnoreFrontline) ||
+                        if (dest == null || 
                             (this.ExpectedFood <= 50000 && this.ExpectedFund <= 500))
                         {
                             //no suitable candidates, forget about it.
