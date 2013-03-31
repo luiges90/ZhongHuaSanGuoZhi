@@ -2789,6 +2789,14 @@
 			ExtensionInterface.call("SelfAdvancement", new Object[] { this.Scenario, this });
         }
 
+        public int CityCount
+        {
+            get
+            {
+                return chengchigeshu();
+            }
+        }
+
         public int chengchigeshu()
         {
             int geshu = 0;
