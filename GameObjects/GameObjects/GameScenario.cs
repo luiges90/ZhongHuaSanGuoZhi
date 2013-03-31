@@ -3221,6 +3221,7 @@
                     row["Faction1ID"] = relation.RelationFaction1ID;
                     row["Faction2ID"] = relation.RelationFaction2ID;
                     row["Relation"] = relation.Relation;
+                    row["Truce"] = relation.Truce;
                     row.EndEdit();
                     dataSet.Tables["DiplomaticRelation"].Rows.Add(row);
                 }
