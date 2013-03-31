@@ -393,6 +393,18 @@
             }
         }
 
+        public void SetDiplomaticRelationTruce(int faction1, int faction2, int value)
+        {
+            if (faction1 != faction2)
+            {
+                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(faction1, faction2);
+                if (diplomaticRelation != null)
+                {
+                    diplomaticRelation.Truce = value;
+                }
+            }
+        }
+
         private void CheckGameEnd()
         {
             FactionList noArchFaction = new FactionList();
@@ -626,6 +638,15 @@
             this.FireDayEvent();
             this.NoFoodPositionDayEvent();
             this.NewFaction();
+
+            //this.GameProgressCaution.Text = "运行外交";
+            foreach (DiplomaticRelationDisplay display in this.DiplomaticRelations.GetAllDiplomaticRelationDisplayList())
+            {
+                if (display.Truce > 0)
+                {
+                    display.Truce --;
+                }
+            }
             //this.GameProgressCaution.Text = "运行势力";
             foreach (Faction faction in this.Factions.GetRandomList())
             {
@@ -985,6 +1006,19 @@
                 if (diplomaticRelation != null)
                 {
                     return diplomaticRelation.Relation;
+                }
+            }
+            return 0;
+        }
+
+        public int GetDiplomaticRelationTruce(int faction1, int faction2)
+        {
+            if (faction1 != faction2)
+            {
+                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(faction1, faction2);
+                if (diplomaticRelation != null)
+                {
+                    return diplomaticRelation.Truce;
                 }
             }
             return 0;
@@ -2592,6 +2626,13 @@
                 dr.RelationFaction1ID = (short)reader["Faction1ID"];
                 dr.RelationFaction2ID = (short)reader["Faction2ID"];
                 dr.Relation = (int)reader["Relation"];
+                try
+                {
+                    dr.Truce = (int)reader["Truce"];
+                }
+                catch
+                {
+                }
                 this.DiplomaticRelations.AddDiplomaticRelation(dr);
             }
             DbConnection.Close();
@@ -3180,6 +3221,7 @@
                     row["Faction1ID"] = relation.RelationFaction1ID;
                     row["Faction2ID"] = relation.RelationFaction2ID;
                     row["Relation"] = relation.Relation;
+                    row["Truce"] = relation.Truce;
                     row.EndEdit();
                     dataSet.Tables["DiplomaticRelation"].Rows.Add(row);
                 }

@@ -235,6 +235,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        private void FrameFunction_Architecture_AfterGetTruceDiplomaticRelation()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.TruceDiplomaticRelationList.GetSelectedList();
+
+            if (selectedList != null && (selectedList.Count == 1))
+            {
+                this.CurrentDiplomaticRelationDisplay = selectedList[0] as DiplomaticRelationDisplay;
+                this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetTruceDiplomaticRelationPerson, true, true, true, true, this.CurrentArchitecture.Persons, null, "外交人员", "Ability");
+            }
+        }
+
         private void FrameFunction_Architecture_AfterGetAllyDiplomaticRelation()
         {
             GameObjectList selectedList = this.CurrentArchitecture.AllyDiplomaticRelationList.GetSelectedList();
@@ -242,8 +253,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if (selectedList != null && (selectedList.Count == 1))
             {
                 this.CurrentDiplomaticRelationDisplay = selectedList[0] as DiplomaticRelationDisplay;
-                this.CurrentDiplomaticRelationDisplay.Relation = 301;
-                this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.BelongedFaction.Leader, this.CurrentArchitecture.BelongedFaction.Leader.Name, "AllyDiplomaticRelation", "AllyDiplomaticRelation.jpg", "AllyDiplomaticRelation.wav", this.CurrentDiplomaticRelationDisplay.FactionName, true);
+                //this.CurrentDiplomaticRelationDisplay.Relation = 301;
+                //this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.BelongedFaction.Leader, this.CurrentArchitecture.BelongedFaction.Leader.Name, "AllyDiplomaticRelation", "AllyDiplomaticRelation.jpg", "AllyDiplomaticRelation.wav", this.CurrentDiplomaticRelationDisplay.FactionName, true);
+                this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetAllyDiplomaticRelationPerson, true, true, true, true, this.CurrentArchitecture.Persons, null, "外交人员", "Ability");
             }
         }
 
@@ -259,6 +271,40 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     {
                         this.CurrentArchitecture.Fund -= 10000;
                         diplomaticperson.GoToDiplomatic(this.CurrentDiplomaticRelationDisplay);
+                    }
+                }
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterGetTruceDiplomaticRelationPerson()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.DiplomaticWorkingPersons.GetSelectedList();
+
+            if (selectedList != null)
+            {
+                foreach (Person diplomaticperson in selectedList)
+                {
+                    if (this.CurrentArchitecture.Fund >= 50000)
+                    {
+                        this.CurrentArchitecture.Fund -= 50000;
+                        diplomaticperson.GoToTruceDiplomatic(this.CurrentDiplomaticRelationDisplay);
+                    }
+                }
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterGetAllyDiplomaticRelationPerson()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.DiplomaticWorkingPersons.GetSelectedList();
+
+            if (selectedList != null)
+            {
+                foreach (Person diplomaticperson in selectedList)
+                {
+                    if (this.CurrentArchitecture.Fund >= 20000)
+                    {
+                        this.CurrentArchitecture.Fund -= 20000;
+                        diplomaticperson.GoToAllyDiplomatic(this.CurrentDiplomaticRelationDisplay);
                     }
                 }
             }
@@ -834,12 +880,24 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.FrameFunction_Architecture_AfterGetEnhanceDiplomaticRelationPerson();
                     break;
 
+                case FrameFunction.GetAllyDiplomaticRelationPerson:
+                    this.FrameFunction_Architecture_AfterGetAllyDiplomaticRelationPerson();
+                    break;
+
                 case FrameFunction.GetFriendlyDiplomaticRelation:
                     this.FrameFunction_Architecture_AfterGetFriendlyDiplomaticRelation();
                     break;
 
                 case FrameFunction.GetAllyDiplomaticRelation:
                     this.FrameFunction_Architecture_AfterGetAllyDiplomaticRelation();
+                    break;
+
+                case FrameFunction.GetTruceDiplomaticRelation:
+                    this.FrameFunction_Architecture_AfterGetTruceDiplomaticRelation();
+                    break;
+
+                case FrameFunction.GetTruceDiplomaticRelationPerson:
+                    this.FrameFunction_Architecture_AfterGetTruceDiplomaticRelationPerson();
                     break;
 
                 case FrameFunction.GetDenounceDiplomaticRelation:

@@ -50,6 +50,16 @@
             return relation;
         }
 
+        public GameObjectList GetAllDiplomaticRelationDisplayList()
+        {
+            GameObjectList list = new GameObjectList();
+            foreach (DiplomaticRelation relation in this.DiplomaticRelations.Values)
+            {
+                list.Add(new DiplomaticRelationDisplay(relation, relation.RelationFaction1String));
+            }
+            return list;
+        }
+
         public GameObjectList GetDiplomaticRelationDisplayListByFactionID(int factionID)
         {
             GameObjectList list = new GameObjectList();

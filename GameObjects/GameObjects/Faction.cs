@@ -1802,7 +1802,7 @@
             {
                 return false;
             }
-            return ((faction == this) || (base.Scenario.GetDiplomaticRelation(base.ID, faction.ID) >= 300));
+            return ((faction == this) || (base.Scenario.GetDiplomaticRelation(base.ID, faction.ID) >= 300) || (base.Scenario.GetDiplomaticRelationTruce(base.ID, faction.ID) > 0));
         }
 
         public bool IsHostile(Faction faction)
