@@ -9,21 +9,6 @@
         private int increment;
         private int threshold;
 
-        public override void ApplyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                if (person.LocationArchitecture.captiveLoyaltyExtraFall < this.increment)
-                {
-                    person.LocationArchitecture.captiveLoyaltyExtraFall = this.increment;
-                }
-                if (person.LocationArchitecture.captiveLoyaltyFallThreshold < this.threshold)
-                {
-                    person.LocationArchitecture.captiveLoyaltyFallThreshold = this.threshold;
-                }
-            }
-        }
-
         public override void ApplyInfluenceKind(Architecture a)
         {
             if (a.captiveLoyaltyExtraFall < this.increment)
@@ -33,15 +18,6 @@
             if (a.captiveLoyaltyFallThreshold < this.threshold)
             {
                 a.captiveLoyaltyFallThreshold = this.threshold;
-            }
-        }
-
-        public override void PurifyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                person.LocationArchitecture.captiveLoyaltyExtraFall = 0;
-                person.LocationArchitecture.captiveLoyaltyFallThreshold = 0;
             }
         }
 
