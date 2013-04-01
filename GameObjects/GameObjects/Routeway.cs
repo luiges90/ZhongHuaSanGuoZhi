@@ -88,7 +88,7 @@
 
         public bool BuildAvail()
         {
-            return ((this.StartArchitecture != null) && !this.IsActive);
+            return ((this.StartArchitecture != null) && !this.IsActive && GlobalVariables.LiangdaoXitong);
         }
 
         public void Clear()
@@ -175,6 +175,11 @@
 
         public void DayEvent()
         {
+            if (!GlobalVariables.LiangdaoXitong)
+            {
+                this.Close();
+                return;
+            }
             LinkedListNode<RoutePoint> lastActiveNode = this.LastActiveNode;
             if (lastActiveNode != null)
             {
