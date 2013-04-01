@@ -44,6 +44,7 @@
         private Label label8;
         private MaskedTextBox mtbUpgradingDaysLeft;
         private DataGridViewTextBoxColumn relationDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn truceDataGridViewTextBoxColumn;
         private ToolTip TechniqueToolTip;
         private int ToolTipingIndex = -1;
 
@@ -262,6 +263,7 @@
             this.dgvDiplomaticRelation = new DataGridView();
             this.factionNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             this.relationDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            this.truceDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             this.diplomaticRelationDisplayBindingSource = new BindingSource(this.components);
             this.label2 = new Label();
             this.btnResetDiplomaticRelations = new Button();
@@ -318,7 +320,7 @@
             this.dgvDiplomaticRelation.AllowUserToOrderColumns = true;
             this.dgvDiplomaticRelation.AutoGenerateColumns = false;
             this.dgvDiplomaticRelation.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDiplomaticRelation.Columns.AddRange(new DataGridViewColumn[] { this.factionNameDataGridViewTextBoxColumn, this.relationDataGridViewTextBoxColumn });
+            this.dgvDiplomaticRelation.Columns.AddRange(new DataGridViewColumn[] { this.factionNameDataGridViewTextBoxColumn, this.relationDataGridViewTextBoxColumn, this.truceDataGridViewTextBoxColumn });
             this.dgvDiplomaticRelation.DataSource = this.diplomaticRelationDisplayBindingSource;
             this.dgvDiplomaticRelation.Location = new Point(0xf6, 30);
             this.dgvDiplomaticRelation.Name = "dgvDiplomaticRelation";
@@ -338,7 +340,15 @@
             this.relationDataGridViewTextBoxColumn.DefaultCellStyle = style2;
             this.relationDataGridViewTextBoxColumn.HeaderText = "关系";
             this.relationDataGridViewTextBoxColumn.Name = "relationDataGridViewTextBoxColumn";
-            this.relationDataGridViewTextBoxColumn.Width = 80;
+            this.relationDataGridViewTextBoxColumn.Width = 60;
+            //
+            this.truceDataGridViewTextBoxColumn.DataPropertyName = "Truce";
+            style2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            this.truceDataGridViewTextBoxColumn.DefaultCellStyle = style2;
+            this.truceDataGridViewTextBoxColumn.HeaderText = "停战";
+            this.truceDataGridViewTextBoxColumn.Name = "truceDataGridViewTextBoxColumn";
+            this.truceDataGridViewTextBoxColumn.Width = 60;
+            //
             this.diplomaticRelationDisplayBindingSource.DataSource = typeof(DiplomaticRelationDisplay);
             this.label2.AutoSize = true;
             this.label2.Location = new Point(0xf4, 9);
