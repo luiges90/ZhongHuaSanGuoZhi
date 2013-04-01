@@ -2293,6 +2293,8 @@
             {
                 int minTroop = int.MaxValue;
                 DiplomaticRelation minTroopFactionRelation = null;
+                Faction minTroopFactionopposite = null;
+
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
@@ -2324,6 +2326,7 @@
                         {
                             minTroop = opposite.ArmyScale;
                             minTroopFactionRelation = i;
+                            minTroopFactionopposite = i.GetDiplomaticFaction(this.ID);
                         }
                     }
                 }
@@ -2331,7 +2334,7 @@
                 {
                     minTroopFactionRelation.Relation = 0;
                     //AI宣布主动解盟
-                    this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, "ResetDiplomaticRelation", "ResetDiplomaticRelation.jpg", "ResetDiplomaticRelation.wav", minTroopFactionRelation.Name, true);
+                    this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, "ResetDiplomaticRelation", "ResetDiplomaticRelation.jpg", "ResetDiplomaticRelation.wav", minTroopFactionopposite.LeaderName, true);
                 }
             }
         }
