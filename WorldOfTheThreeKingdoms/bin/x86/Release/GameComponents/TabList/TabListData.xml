@@ -491,7 +491,7 @@
                     Align="Right">
         </Column>
 		
-		<Column ID="126" Name="NumberOfChildren" IsNumber="true" DisplayName="子女数目" MinWidth="60"
+		<Column ID="126" Name="NumberOfChildren" IsNumber="true" DisplayName="子女数量" MinWidth="60"
                     FontName="宋体"
                     FontSize="12"
                     FontStyle="Regular"
@@ -1281,6 +1281,13 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="17" Name="CityCount" IsNumber="true" DisplayName="城池数量" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="20" Name="RoutewayWorkForce" IsNumber="true" DisplayName="粮道疏通能力" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
@@ -1335,7 +1342,7 @@
       <Tabs Margin="5">
         <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 30 2 3 8 4 5 6 7 9">
         </Tab>
-        <Tab ID="2"  Name="Detail" DisplayName="细节" Columns="1 30 10 14 12 13 20">
+        <Tab ID="2"  Name="Detail" DisplayName="细节" Columns="1 30 10 14 17 12 13 20">
         </Tab>
 		<Tab ID="3"  Name="Person" DisplayName="人物" Columns="1 30 11 15 16">
         </Tab>
