@@ -5515,7 +5515,6 @@
                 {
                     if (!GameObject.Chance(noEscapeChance) || GameObject.Chance(p.CaptivePerson.captiveEscapeChance)){
                         p.CaptiveEscape();
-                        break;
                     }
                 }
             }
