@@ -3210,6 +3210,13 @@
                     dataSet.Clear();
                 }
                 new OleDbCommand("Delete from DiplomaticRelation", selectConnection).ExecuteNonQuery();
+                try
+                {
+                    new OleDbCommand("ALTER TABLE DiplomaticRelation ADD COLUMN Truce INT", selectConnection).ExecuteNonQuery();
+                }
+                catch (OleDbException)
+                {
+                }
                 adapter = new OleDbDataAdapter("Select * from DiplomaticRelation", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "DiplomaticRelation");
