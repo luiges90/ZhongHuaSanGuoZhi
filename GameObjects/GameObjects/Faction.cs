@@ -2272,6 +2272,43 @@
             }
         }
 
+        public void CheckEncircleDiplomaticByFactionName(string EncircleFactionName)
+        {
+            FactionList encircleList = new FactionList();
+            int fc = 0;
+            foreach (Faction f in base.Scenario.Factions)
+            {
+                if ((f.Name != EncircleFactionName) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && ! f.IsAlien)
+                {
+                    fc++;
+                    if (((base.Scenario.DiplomaticRelations.GetDiplomaticRelation(this.GetFactionByName(EncircleFactionName).ID, f.ID).Relation +
+                        Person.GetIdealOffset(this.GetFactionByName(EncircleFactionName).Leader, f.Leader) * 1.5) < 0
+                        && GameObject.Chance(60))
+                        )
+                    {
+                        encircleList.Add(f);
+                    }
+                }
+            }
+            if ((encircleList.Count * 2 > fc) && fc > 3)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, "EncircleDiplomaticRelation", "EncircleDiplomaticRelation.jpg", "EncircleDiplomaticRelation.wav", EncircleFactionName, true);
+                foreach (Faction i in encircleList)
+                {
+                    foreach (Faction j in encircleList)
+                    {
+                        if (i != j)
+                        {
+                            if (this.Scenario.DiplomaticRelations.GetDiplomaticRelation(i.ID, j.ID).Truce < 90)
+                            {
+                                this.Scenario.DiplomaticRelations.GetDiplomaticRelation(i.ID, j.ID).Truce = 90;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void ResetFriendlyDiplomaticRelations()
         {
             if (base.Scenario.IsPlayer(this)) return;
