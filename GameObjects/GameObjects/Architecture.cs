@@ -1404,8 +1404,9 @@
                     Math.Max((this.Morale - this.MoraleCeiling) / 30,
                     (this.Domination - this.DominationCeiling) / 30)))));
                 int recruit = this.Population / 30000;
-                int frontLine = (this.FrontLine || this.noFactionFrontline) ? this.MilitaryCount * 2 : 0;
-                return Math.Min(Math.Max(develop, Math.Max(recruit, frontLine)), fundSupport);
+                int frontLine = (this.FrontLine || this.noFactionFrontline) ? this.MilitaryCount : 0;
+                int hasHostileTroop = (this.HasHostileTroopsInView()) ? this.MilitaryCount * 2 : 0;
+                return Math.Min(Math.Max(develop, Math.Max(recruit, Math.Max(frontLine, hasHostileTroop))), fundSupport);
             }
         }
 
