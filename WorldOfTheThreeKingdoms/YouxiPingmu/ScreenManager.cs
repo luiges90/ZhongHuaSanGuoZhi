@@ -313,24 +313,33 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private void FrameFunction_Architecture_AfterGetDenounceDiplomaticRelation()
         {
             GameObjectList selectedList = this.CurrentArchitecture.DenounceDiplomaticRelationList.GetSelectedList();
+
             if (selectedList != null)
             {
                 foreach (DiplomaticRelationDisplay display in selectedList)
                 {
-                    if (this.CurrentArchitecture.Fund > 10000)
+                    if (this.CurrentArchitecture.Fund > 60000)
                     {
                         this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.Scenario.NeutralPerson, this.CurrentArchitecture.BelongedFaction.Leader.Name, "DenounceDiplomaticRelation", "DenounceDiplomaticRelation.jpg", "DenounceDiplomaticRelation.wav", display.FactionName, true);
-                        this.CurrentArchitecture.Fund -= 10000;
-                        display.Relation -= 20;
-                        //待处理所有势力和被声讨方的关系
+                        this.CurrentArchitecture.Fund -= 60000;
+                        if (display.Relation > -300)
+                        {
+                            display.Relation -= 100;
+                        }
+                        else
+                        {
+                            display.Relation -= 50;
+                        }
+                        //处理所有势力和被声讨方的关系
                         foreach (DiplomaticRelation f in this.CurrentArchitecture.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionName(display.FactionName))
                         {
-                            if (f.Relation < 100)
+                            if (f.Relation < 160)
                             {
-                                f.Relation -= 10;
+                                f.Relation -= 20;
                             }
                         }
-
+                        //加入包围圈判定
+                        this.CurrentArchitecture.BelongedFaction.CheckEncircleDiplomaticByFactionName(display.FactionName);
                     }
                 }
             }

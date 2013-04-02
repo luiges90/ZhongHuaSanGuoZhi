@@ -458,9 +458,15 @@
     <Leaf Property="" Text="发起檄文，声讨了不得人心的" Color="4294967295"></Leaf>
     <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
     <Leaf Property="" Text="军。 天下群雄纷纷响应，局势大变！" Color="4294967295"></Leaf>
-
-
   </Branch>  
+  
+  <Branch Name="EncircleDiplomaticRelation">
+  <Leaf Property="TextResultString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="的檄文获得了诸侯纷纷响应，共同结成了讨伐" Color="4294967295"></Leaf>
+	<Leaf Property="TextDestinationString" Text="" Color="4278255360"></Leaf>
+	<Leaf Property="" Text="的包围圈！" Color="4294967295"></Leaf>
+  </Branch>
+  
   <Branch Name="ReleaseSelfPerson">
     <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
     <Leaf Property="" Text="玩忽职守，懈怠渎职，" Color="4294967295"></Leaf>

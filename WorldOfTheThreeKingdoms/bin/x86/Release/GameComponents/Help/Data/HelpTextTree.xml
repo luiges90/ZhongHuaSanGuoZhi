@@ -747,7 +747,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
-    <Leaf Text="对某不得人心势力发布声讨檄文，每10000金发布一次，全势力都会根据自身情况响应。" Color="4294967295"></Leaf>
+    <Leaf Text="对某不得人心势力发布声讨檄文，每60000金发布一次，全势力都会根据自身情况响应。 [有可能会引发共讨联盟，对被声讨势力发起包围圈]" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="只能在城池有足够的资金情况下执行。" Color="4294967295"></Leaf>
