@@ -11036,7 +11036,7 @@
 
             foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
             {
-                if ((display.Relation < 300) && (this.Fund > 10000))
+                if ((display.Relation < 300) && (this.Fund > 60000))
                 {
                     return true;
                 }
