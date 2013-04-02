@@ -709,7 +709,7 @@
                     }
                 }
                 //retreat if the target no longer belong to us and this is a transportation troop.
-                if (this.WillArchitecture.BelongedFaction != this.BelongedFaction && this.Army.KindID == 29)
+                if (this.WillArchitecture.BelongedFaction != this.BelongedFaction && this.Army.Merit == 0)
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
@@ -721,7 +721,7 @@
                 //retreat if target has too much food/fund that further transfer will fill up there, for transport troop
                 if ((this.WillArchitecture.Food + this.Food > this.WillArchitecture.FoodCeiling ||
                     this.WillArchitecture.Fund + this.zijin > this.WillArchitecture.FundCeiling) &&
-                    this.Army.KindID == 29 && !this.StartingArchitecture.HasHostileTroopsInView())
+                    this.Army.Merit == 0 && !this.StartingArchitecture.HasHostileTroopsInView())
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
@@ -2045,6 +2045,12 @@
             {
                 return false;
             }
+            //停战退兵
+            if (this.BelongedFaction.IsFriendly(this.WillArchitecture.BelongedFaction))
+            {
+                return false;
+            }
+
             if (base.Scenario.GetArchitectureByPositionNoCheck(this.Position) == this.WillArchitecture)
             {
                 return true;
