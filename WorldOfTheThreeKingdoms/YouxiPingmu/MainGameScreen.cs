@@ -1873,7 +1873,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void gengxinyoucelan()
         {
-            if (base.Scenario.CurrentPlayer != null)
+            if ((base.Scenario.CurrentPlayer != null) && (base.Scenario.CurrentPlayer.FirstSection != null))
             {
                 this.Showyoucelan(UndoneWorkKind.None,FrameKind.Architecture, FrameFunction.Jump, false, true, false, false, base.Scenario.CurrentPlayer.FirstSection.Architectures, null, "", "");
             }
