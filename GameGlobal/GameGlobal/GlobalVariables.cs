@@ -111,6 +111,8 @@
         public static bool EnableLoadInGame = true;
 
         public static int MaxAbility = 150;
+        public static int TirednessIncrease = 1;
+        public static int TirednessDecrease = 1;
 
         public bool InitialGlobalVariables()
         {
@@ -567,6 +569,24 @@
             {
                 exception = exception24;
                 throw new Exception("MaxAbility:\n" + exception.ToString());
+            }
+            try
+            {
+                TirednessIncrease = int.Parse(nextSibling.Attributes.GetNamedItem("TirednessIncrease").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("TirednessIncrease:\n" + exception.ToString());
+            }
+            try
+            {
+                TirednessDecrease = int.Parse(nextSibling.Attributes.GetNamedItem("TirednessDecrease").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("TirednessDecrease:\n" + exception.ToString());
             }
             return true;
         }
