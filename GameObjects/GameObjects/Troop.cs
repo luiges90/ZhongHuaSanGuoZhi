@@ -6410,10 +6410,13 @@
 
         public void InitializeInfluences()
         {
-            this.Army.ApplyFollowedLeader(this);
-            foreach (Influence influence in this.Army.Kind.Influences.Influences.Values)
+            if (this.Army != null)
             {
-                influence.ApplyInfluence(this, Applier.MilitaryKind, 0);
+                this.Army.ApplyFollowedLeader(this);
+                foreach (Influence influence in this.Army.Kind.Influences.Influences.Values)
+                {
+                    influence.ApplyInfluence(this, Applier.MilitaryKind, 0);
+                }
             }
             this.ApplyFactionInfluences();
             this.ApplyEventEffectInfluences();
