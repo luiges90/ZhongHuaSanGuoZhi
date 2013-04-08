@@ -8976,7 +8976,8 @@
         {
             foreach (Military military in this.Militaries)
             {
-                if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience))
+                if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience)
+                     && (!(base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(military.Kind.LevelUpKindID).Unique && military.BelongedFaction.HasMilitaryKind(military.Kind.LevelUpKindID))))
                 {
                     return true;
                 }
