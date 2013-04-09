@@ -422,13 +422,17 @@
 
         public void AddTroopMilitary(Troop troop)
         {
-            if (troop.Army.ShelledMilitary == null)
+            //兼容以前的旧存档？
+            if (troop.Army != null)
             {
-                this.AddMilitary(troop.Army);
-            }
-            else
-            {
-                this.AddMilitary(troop.Army.ShelledMilitary);
+                if (troop.Army.ShelledMilitary == null)
+                {
+                    this.AddMilitary(troop.Army);
+                }
+                else
+                {
+                    this.AddMilitary(troop.Army.ShelledMilitary);
+                }
             }
         }
 

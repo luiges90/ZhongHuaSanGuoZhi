@@ -21,7 +21,8 @@
 
         public override bool IsVaild(Person person)
         {
-            return ((person.LocationTroop != null) && ((int) person.LocationTroop.Army.Kind.Type == this.militaryTypeID));
+            //兼容旧存档？
+            return ((person.LocationTroop != null) && (person.LocationTroop.Army != null) && ((int)person.LocationTroop.Army.Kind.Type == this.militaryTypeID));
         }
     }
 }

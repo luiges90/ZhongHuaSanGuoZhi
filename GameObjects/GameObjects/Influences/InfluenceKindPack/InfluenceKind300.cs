@@ -21,7 +21,7 @@
 
         public override bool IsVaild(Person person)
         {
-            return ((person.LocationTroop != null) && (person.LocationTroop.Army.KindID == this.militaryKindID));
+            return ((person.LocationTroop != null) && (person.LocationTroop.Army != null) && (person.LocationTroop.Army.KindID == this.militaryKindID));
         }
     }
 }
