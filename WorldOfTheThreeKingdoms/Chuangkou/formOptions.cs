@@ -186,6 +186,10 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbAIOfficerExperienceRate;
         private Label label51;
         private TextBox tbMaxAbility;
+        private Label label52;
+        private TextBox tbTirednessIncrease;
+        private Label label53;
+        private TextBox tbTirednessDecrease;
         private Label getChildrenRateLabel;
 
         public formOptions()
@@ -252,6 +256,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.zainanfashengjilv = new System.Windows.Forms.TextBox();
             this.cbDoAutoSave = new System.Windows.Forms.CheckBox();
             this.tabPagePerson = new System.Windows.Forms.TabPage();
+            this.label53 = new System.Windows.Forms.Label();
+            this.tbTirednessDecrease = new System.Windows.Forms.TextBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.tbTirednessIncrease = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.tbMaxAbility = new System.Windows.Forms.TextBox();
             this.cbLockChildrenLoyalty = new System.Windows.Forms.CheckBox();
             this.label44 = new System.Windows.Forms.Label();
             this.tbMaxExperience = new System.Windows.Forms.TextBox();
@@ -369,8 +379,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label51 = new System.Windows.Forms.Label();
-            this.tbMaxAbility = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageEnvironment.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -433,7 +441,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageEnvironment.TabIndex = 0;
             this.tabPageEnvironment.Text = "环境";
             this.tabPageEnvironment.UseVisualStyleBackColor = true;
-            this.tabPageEnvironment.Click += new System.EventHandler(this.tabPageEnvironment_Click);
             // 
             // cbLandArmyCanGoDownWater
             // 
@@ -502,7 +509,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.checkLiangdaoXitong.TabIndex = 105;
             this.checkLiangdaoXitong.Text = "粮道系统";
             this.checkLiangdaoXitong.UseVisualStyleBackColor = true;
-            this.checkLiangdaoXitong.CheckedChanged += new System.EventHandler(this.checkLiangdaoXitong_CheckedChanged);
             // 
             // groupBox1
             // 
@@ -805,6 +811,10 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.label53);
+            this.tabPagePerson.Controls.Add(this.tbTirednessDecrease);
+            this.tabPagePerson.Controls.Add(this.label52);
+            this.tabPagePerson.Controls.Add(this.tbTirednessIncrease);
             this.tabPagePerson.Controls.Add(this.label51);
             this.tabPagePerson.Controls.Add(this.tbMaxAbility);
             this.tabPagePerson.Controls.Add(this.cbLockChildrenLoyalty);
@@ -838,6 +848,54 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.TabIndex = 1;
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(271, 127);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(65, 12);
+            this.label53.TabIndex = 32;
+            this.label53.Text = "疲累度下降";
+            // 
+            // tbTirednessDecrease
+            // 
+            this.tbTirednessDecrease.Location = new System.Drawing.Point(342, 124);
+            this.tbTirednessDecrease.Name = "tbTirednessDecrease";
+            this.tbTirednessDecrease.Size = new System.Drawing.Size(71, 22);
+            this.tbTirednessDecrease.TabIndex = 31;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(271, 99);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(65, 12);
+            this.label52.TabIndex = 30;
+            this.label52.Text = "疲累度增长";
+            // 
+            // tbTirednessIncrease
+            // 
+            this.tbTirednessIncrease.Location = new System.Drawing.Point(342, 96);
+            this.tbTirednessIncrease.Name = "tbTirednessIncrease";
+            this.tbTirednessIncrease.Size = new System.Drawing.Size(71, 22);
+            this.tbTirednessIncrease.TabIndex = 29;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(283, 71);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(53, 12);
+            this.label51.TabIndex = 28;
+            this.label51.Text = "最大能力";
+            // 
+            // tbMaxAbility
+            // 
+            this.tbMaxAbility.Location = new System.Drawing.Point(342, 68);
+            this.tbMaxAbility.Name = "tbMaxAbility";
+            this.tbMaxAbility.Size = new System.Drawing.Size(71, 22);
+            this.tbMaxAbility.TabIndex = 27;
             // 
             // cbLockChildrenLoyalty
             // 
@@ -1921,22 +1979,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(283, 71);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(53, 12);
-            this.label51.TabIndex = 28;
-            this.label51.Text = "最大能力";
-            // 
-            // tbMaxAbility
-            // 
-            this.tbMaxAbility.Location = new System.Drawing.Point(342, 68);
-            this.tbMaxAbility.Name = "tbMaxAbility";
-            this.tbMaxAbility.Size = new System.Drawing.Size(71, 22);
-            this.tbMaxAbility.TabIndex = 27;
-            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -2019,8 +2061,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbEnableCheat.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableCheat").Value);
             this.cbEnableLoadInGame.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value);
             this.cbLandArmyCanGoDownWater.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("LandArmyCanGoDownWater").Value);
-            //this.tbGetRaisedSoldierRate.Text = nextSibling.Attributes.GetNamedItem("getRaisedSoldierRate").Value;
             this.tbMaxAbility.Text = nextSibling.Attributes.GetNamedItem("MaxAbility").Value;
+            this.tbTirednessIncrease.Text = nextSibling.Attributes.GetNamedItem("TirednessIncrease").Value;
+            this.tbTirednessDecrease.Text = nextSibling.Attributes.GetNamedItem("TirednessDecrease").Value;
         }
 
         private void LoadParameterDoc()
@@ -2125,8 +2168,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("EnableCheat").Value = this.cbEnableCheat.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value = this.cbEnableLoadInGame.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("LandArmyCanGoDownWater").Value = this.cbLandArmyCanGoDownWater.Checked.ToString();
-            //nextSibling.Attributes.GetNamedItem("getRaisedSoldierRate").Value = this.tbGetRaisedSoldierRate.Text;
             nextSibling.Attributes.GetNamedItem("MaxAbility").Value = this.tbMaxAbility.Text;
+            nextSibling.Attributes.GetNamedItem("TirednessIncrease").Value = this.tbTirednessIncrease.Text;
+            nextSibling.Attributes.GetNamedItem("TirednessDecrease").Value = this.tbTirednessDecrease.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 
@@ -2370,15 +2414,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             }
         }
 
-        private void tabPageEnvironment_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkLiangdaoXitong_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
     }
 

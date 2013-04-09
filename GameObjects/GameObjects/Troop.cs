@@ -2724,10 +2724,10 @@
         private int stuckedFor = 0;
         public void DayEvent()
         {
-            this.Army.Tiredness++;
+            this.Army.Tiredness += GlobalVariables.TirednessIncrease;
             foreach (Person p in this.Persons)
             {
-                p.Tiredness++;
+                p.Tiredness += GlobalVariables.TirednessIncrease;
             }
             if (this.BelongedFaction != null)
             {
