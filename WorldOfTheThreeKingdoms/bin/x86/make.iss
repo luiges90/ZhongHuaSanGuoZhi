@@ -22,7 +22,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\WorldOfTheThreeKingdoms
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-OutputBaseFilename=setup
+OutputBaseFilename=WorldOfTheThreeKingdoms
 Compression=lzma
 SolidCompression=yes
 
@@ -54,7 +54,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Run]
 Filename: "{tmp}\dotnetfx35setup.exe"; Check: FrameworkIsNotInstalled
-Filename: "{tmp}\xnafx30_redist.msi"; Check: XNAIsNotInstalled
+Filename: "msiexec.exe"; Parameters: "/i ""{tmp}\xnafx30_redist.msi"""; Check: XNAIsNotInstalled;
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [code]
