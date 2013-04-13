@@ -2453,6 +2453,11 @@
             return ((this.Status != TroopStatus.混乱) && this.Controllable);
         }
 
+        public bool CounterAttackAvailFromAnyPosition(Troop troop)
+        {
+            return ((((!troop.Destroyed && troop.CounterOffence) && (this.BeCountered && (troop.Offence > 0))) && (!this.BaseNoCounterAttack && !this.NoCounterAttack)));
+        }
+
         public bool CounterAttackAvail(Troop troop)
         {
             return ((((!troop.Destroyed && troop.CounterOffence) && (this.BeCountered && (troop.Offence > 0))) && (!this.BaseNoCounterAttack && !this.NoCounterAttack)) && troop.OffenceArea.HasPoint(this.Position));
@@ -11543,7 +11548,7 @@
                     {
                         Architecture a = this.Scenario.GetArchitectureByPosition(p);
                         Troop t = this.Scenario.GetTroopByPosition(p);
-                        if (t != null && !this.BelongedFaction.IsFriendly(t.BelongedFaction) && !this.CounterAttackAvail(t))
+                        if (t != null && !this.BelongedFaction.IsFriendly(t.BelongedFaction) && !this.CounterAttackAvailFromAnyPosition(t))
                         {
                             this.TargetTroop = t;
                             found = true;
