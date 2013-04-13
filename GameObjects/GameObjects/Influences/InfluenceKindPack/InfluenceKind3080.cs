@@ -27,7 +27,7 @@
                     counterStrikeMilitaryCount++;
                 }
             }
-            return (double)counterStrikeMilitaryCount / a.MilitaryCount * 2 * (a.FrontLine ? 2 : 1) * (a.HostileLine ? 2 : 1) * (a.CriticalHostile ? 2 : 1);
+            return (double)counterStrikeMilitaryCount / a.EffectiveMilitaryCount * 2 * (a.FrontLine ? 2 : 1) * (a.HostileLine ? 2 : 1) * (a.CriticalHostile ? 2 : 1);
         }
     }
 }
