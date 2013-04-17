@@ -5478,6 +5478,7 @@
                 if (p.Tiredness > 0)
                 {
                     p.Tiredness -= GlobalVariables.TirednessDecrease;
+                    if (p.Tiredness < 0) p.Tiredness = 0;
                 }
             }
             foreach (Person p in this.MovingPersons)
@@ -5485,6 +5486,7 @@
                 if (p.Tiredness > 0 && (p.OutsideTask == OutsideTaskKind.后宮))
                 {
                     p.Tiredness -= GlobalVariables.TirednessDecrease;
+                    if (p.Tiredness < 0) p.Tiredness = 0;
                 }
             }
             foreach (Captive c in this.Captives)
@@ -5492,6 +5494,7 @@
                 if (c.CaptivePerson.Tiredness > 0)
                 {
                     c.CaptivePerson.Tiredness -= GlobalVariables.TirednessDecrease;
+                    if (c.CaptivePerson.Tiredness < 0) c.CaptivePerson.Tiredness = 0;
                 }
             }
             foreach (Person p in this.feiziliebiao)
@@ -5499,6 +5502,7 @@
                 if (p.Tiredness > 0)
                 {
                     p.Tiredness -= GlobalVariables.TirednessDecrease;
+                    if (p.Tiredness < 0) p.Tiredness = 0;
                 }
             }
         }
