@@ -22,7 +22,7 @@
         public override bool IsVaild(Person person)
         {
             //兼容旧存档？
-            return ((person.LocationTroop != null) && (person.LocationTroop.Army != null) && ((int)person.LocationTroop.Army.Kind.Type == this.militaryTypeID));
+            return ((person.LocationTroop != null) && (person.LocationTroop.Army != null) && (person.LocationTroop.Army.Kind != null) && ((int)person.LocationTroop.Army.Kind.Type == this.militaryTypeID));
         }
     }
 }

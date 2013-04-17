@@ -2710,9 +2710,7 @@
                         }
                     }
                 }*/
-                if (this.BelongedFaction != null)
-                {
-                    if (this.HatedPersons.Contains(this.BelongedFaction.LeaderID))
+                if ((this.BelongedFaction != null) && (this.BelongedFaction.Leader != null) && this.HatedPersons.Contains(this.BelongedFaction.LeaderID) && (GameObject.Random(this.Loyalty * (1 + (int)this.PersonalLoyalty)) <= GameObject.Random(5)))
                     {
                         this.LeaveToNoFaction();
                         ArchitectureList allArch = base.Scenario.Architectures;
@@ -2721,7 +2719,6 @@
                         //this.LocationArchitecture.RemoveNoFactionPerson(this);
                         //base.Scenario.detectDuplication();
                     }
-                }
             }
         }
 
@@ -2774,7 +2771,8 @@
 
         private void LoyaltyChange()
         {
-            if ((((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange)) && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && (GameObject.Random(30) <= 0))) 
+            if (((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange))
+                && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && GameObject.Chance(100 - this.personalLoyalty * 25) ) 
                 && (this.Loyalty <= 110) )
             {
                 int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
