@@ -1549,6 +1549,7 @@
             this.InitializeSectionData();
             this.InitializeRoutewayData();
             this.InitializeArchitectureData();
+            this.InitializeMilitariesData();
             this.InitializeTroopData();
             this.InitializeCaptiveData();
             this.InitializePersonData();
@@ -1761,7 +1762,7 @@
             TroopList toRemove = new TroopList();
             foreach (Troop troop in this.Troops)
             {
-                if (troop.Leader == null)
+                if (troop.Leader == null || troop.Army == null || troop.Army.Kind == null)
                 {
                     toRemove.Add(troop);
                 }
@@ -1789,6 +1790,26 @@
                 {
                     event2.AfterHappenedEvent = this.TroopEvents.GetGameObject(event2.AfterEventHappened) as TroopEvent;
                 }
+            }
+        }
+
+        private void InitializeMilitariesData()
+        {
+            MilitaryList toRemove = new MilitaryList();
+            foreach (Military military in this.Militaries)
+            {
+                if (military.Kind == null)
+                {
+                    toRemove.Add(military);
+                }
+            }
+            foreach (Military military in toRemove)
+            {
+                if (military.BelongedArchitecture != null)
+                {
+                    military.BelongedArchitecture.RemoveMilitary(military);
+                }
+                this.Militaries.Remove(military);
             }
         }
 
@@ -2219,7 +2240,10 @@
                 catch
                 {
                 }
-                this.Militaries.AddMilitary(military);
+                if (military.Kind != null)
+                {
+                    this.Militaries.AddMilitary(military);
+                }
             }
             this.InitializeMilitaryData();
             DbConnection.Close();
@@ -2483,7 +2507,10 @@
                 {
                 }
                 troop.minglingweizhi = troop.RealDestination;
-                this.Troops.AddTroopWithEvent(troop);
+                if (troop.Army != null)
+                {
+                    this.Troops.AddTroopWithEvent(troop);
+                }
             }
             DbConnection.Close();
             DbConnection.Open();
