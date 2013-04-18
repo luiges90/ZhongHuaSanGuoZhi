@@ -39,6 +39,11 @@ namespace WorldOfTheThreeKingdoms.GameProcesses
                 mainGame.Run();
             }
         }
+        
+        public void SaveGameWhenCrash(String _savePath)
+        {
+            mainGame.SaveGameWhenCrash(_savePath);
+        }
     }
 
  
