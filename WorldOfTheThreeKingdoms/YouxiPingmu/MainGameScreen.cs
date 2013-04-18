@@ -1607,7 +1607,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             thread = null;
         }
 
-        private void SaveGameWhenCrash(String _savePath)
+        public void SaveGameWhenCrash(String _savePath)
         {
             this.SaveFileName = _savePath;
             Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
