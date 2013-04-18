@@ -2997,6 +2997,8 @@
 
         private void NewFaction()
         {
+            if (GlobalVariables.WujiangYoukenengDuli == false) return;
+
             PersonList list = new PersonList();
             foreach (Person person in this.AvailablePersons)
             {
