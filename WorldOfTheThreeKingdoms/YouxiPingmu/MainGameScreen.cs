@@ -1607,9 +1607,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             thread = null;
         }
 
-        private void SaveGameWhenCrash()
+        private void SaveGameWhenCrash(String _savePath)
         {
-            this.SaveFileName = "CrashSave.mdb";
+            this.SaveFileName = _savePath;
             Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
             thread.Start();
             thread.Join();
