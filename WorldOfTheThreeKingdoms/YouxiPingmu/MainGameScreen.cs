@@ -3043,7 +3043,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.isKeyScrolling = true;
                     }
                 }
-                else if ((this.keyState.IsKeyDown(Keys.Down) && ((this.mainMapLayer.TopEdge + this.mainMapLayer.TotalTileHeight) != this.viewportSize.Y))
+                else if ((this.keyState.IsKeyDown(Keys.Down) && ((this.mainMapLayer.TopEdge + this.mainMapLayer.TotalTileHeight) != this.viewportSize.Y)))
                 {
                     this.viewMove = ViewMove.Bottom;
                     this.isKeyScrolling = true;
