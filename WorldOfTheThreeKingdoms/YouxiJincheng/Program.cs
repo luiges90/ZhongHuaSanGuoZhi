@@ -25,14 +25,17 @@ namespace WorldOfTheThreeKingdoms
                 mutex.ReleaseMutex();
                 new MainProcessManager().Processing();
             }*/
+            
+            MainProcessManager mpm = new MainProcessManager();
             try
             {
-                new MainProcessManager().Processing();
+                mpm.Processing();
             }
             catch (Exception e)
             {
                 DateTime dt = System.DateTime.Now;
-                String logPath = "CrashLog_" + dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "h" + dt.Minute + ".log";
+                String dateSuffix = "_" + dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "h" + dt.Minute;
+                String logPath = "CrashLog" + dateSuffix + ".log";
                 StreamWriter sw = new StreamWriter(new FileStream(logPath, FileMode.Create));
 
                 sw.WriteLine("==================== Message ====================");
@@ -41,6 +44,9 @@ namespace WorldOfTheThreeKingdoms
                 sw.WriteLine(e.StackTrace);
 
                 sw.Close();
+                
+                String savePath = "CrashSave" + dateSuffix + ".mdb";
+                mpm.SaveGameWhenCrash()
                 
                 MessageBox.Show("中华三国志遇到严重错误，请提交游戏目录下的'" + logPath + "'。", "游戏错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
