@@ -46,7 +46,14 @@ namespace WorldOfTheThreeKingdoms
                 sw.Close();
                 
                 String savePath = "CrashSave" + dateSuffix + ".mdb";
-                mpm.SaveGameWhenCrash()
+                try
+                {
+                    mpm.SaveGameWhenCrash(savePath);
+                }
+                catch (Exception e)
+                {
+                    // 保存失败，这里要做什么好？
+                }
                 
                 MessageBox.Show("中华三国志遇到严重错误，请提交游戏目录下的'" + logPath + "'。", "游戏错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
