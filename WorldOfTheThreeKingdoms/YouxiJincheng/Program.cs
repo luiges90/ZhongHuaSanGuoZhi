@@ -50,7 +50,7 @@ namespace WorldOfTheThreeKingdoms
                 {
                     mpm.SaveGameWhenCrash(savePath);
                 }
-                catch (Exception e)
+                catch (Exception eSave)
                 {
                     // 保存失败，这里要做什么好？
                 }
