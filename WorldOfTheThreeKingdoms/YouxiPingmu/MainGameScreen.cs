@@ -1607,7 +1607,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             thread = null;
         }
 
-
+        private void SaveGameWhenCrash()
+        {
+            this.SaveFileName = "CrashSave.mdb";
+            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
+            thread.Start();
+            thread.Join();
+            thread = null;
+        }
 
         private void Scenario_OnNewFactionAppear(Faction faction)
         {
