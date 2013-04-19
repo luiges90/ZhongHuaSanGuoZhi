@@ -2337,6 +2337,7 @@
                 architecture.Commerce = (int)reader["Commerce"];
                 architecture.Technology = (int)reader["Technology"];
                 architecture.Domination = (int)reader["Domination"];
+                if (architecture.Domination > 100) architecture.Domination = 100;
                 architecture.Morale = (int)reader["Morale"];
                 architecture.Endurance = (int)reader["Endurance"];
                 architecture.AutoHiring = (bool)reader["AutoHiring"];
