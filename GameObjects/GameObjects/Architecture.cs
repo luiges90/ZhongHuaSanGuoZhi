@@ -2581,7 +2581,7 @@
             if (this.HasHostileTroopsInView()) return;
             foreach (Person person in this.Persons.GetList())
             {
-                if (person.WorkKind == ArchitectureWorkKind.无)
+                if (person.WorkKind == ArchitectureWorkKind.无 && person.Loyalty >= 100 && person.Tiredness <= 0)
                 {
                     person.GoForSearch();
                 }
@@ -8774,7 +8774,7 @@
                         {
                             if ((person.WaitForFeiZi == null) && (person.WorkKind == ArchitectureWorkKind.无) && ((((((this.HostileLine && GameObject.Chance(10)) && GameObject.Chance(this.Morale / 10)) || !this.HostileLine) && ((GameObject.Random(base.Scenario.Date.Day) < GameObject.Random(30)) && (!this.HasFollowedLeaderMilitary(person) || GameObject.Chance(10)))) && (GameObject.Random(person.NonFightingNumber) > GameObject.Random(person.FightingNumber))) && (!this.FrontLine || (GameObject.Random(person.FightingNumber) < 100))))
                             {
-                                if (person.Loyalty >= 100)
+                                if (person.Loyalty >= 100 && person.Tiredness <= 0)
                                 {
                                     person.GoForSearch();
                                 }
