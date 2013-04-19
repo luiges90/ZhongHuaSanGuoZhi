@@ -229,13 +229,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
 
         private void lbSaveFiles_DrawItem(object sender, DrawItemEventArgs e)
         {
-            e.DrawBackground();
-            e.DrawFocusRectangle();
-            StringFormat strFmt = new System.Drawing.StringFormat();
-            strFmt.Alignment = StringAlignment.Near ; //文本垂直居中
-            strFmt.LineAlignment = StringAlignment.Center ; //文本水平居中
-            e.Graphics.DrawString(lbSaveFiles.Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor), e.Bounds, strFmt);
-
+            // 临时修复，e.Index返回-1的具体原因不明
+            if (e.Index != -1)
+            {
+                e.DrawBackground();
+                e.DrawFocusRectangle();
+                StringFormat strFmt = new System.Drawing.StringFormat();
+                strFmt.Alignment = StringAlignment.Near ; //文本垂直居中
+                strFmt.LineAlignment = StringAlignment.Center ; //文本水平居中
+                e.Graphics.DrawString(lbSaveFiles.Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor), e.Bounds, strFmt);
+            }
         }
     }
 

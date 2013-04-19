@@ -2195,7 +2195,6 @@
             }
             else
             {
-                if (GlobalVariables.WujiangYoukenengDuli == false) return false;
                 if (this == this.BelongedFaction.Leader) return false;
                 if (this.Father >= 0 && this.Father == this.BelongedFaction.Leader.ID) return false;  //隐含父亲活着，下同。
                 if (this.Mother >= 0 && this.Mother == this.BelongedFaction.Leader.ID) return false;

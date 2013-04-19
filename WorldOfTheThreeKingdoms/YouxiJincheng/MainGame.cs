@@ -143,6 +143,11 @@ namespace WorldOfTheThreeKingdoms
                 }
             }
         }
+        
+        public void SaveGameWhenCrash(String _savePath)
+        {
+            this.mainGameScreen.SaveGameWhenCrash(_savePath);
+        }
 
         public List<int> InitializationFactionIDs
         {
