@@ -105,5 +105,6 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/privateMaps/*
 WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/sheshi
 WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/tupian
 ~*
+*.log
 
 *.xlsx
