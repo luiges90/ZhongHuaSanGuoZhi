@@ -296,4 +296,12 @@
 
 
   </Branch>
+  
+  <Branch Name="TransportReturn">
+    <Leaf Text="我的运输队已到达" Color="4294967295"></Leaf>
+	<Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+	<Leaf Text="。请问我要返回" Color="4294967295"></Leaf>
+	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
+	<Leaf Text="吗？" Color="4294967295"></Leaf>
+  </Branch>
 </Root>

@@ -48,6 +48,7 @@
                 troop.OnPersonControversy += new Troop.PersonControversy(this.troop_OnPersonControversy);
                 troop.OnOutburst += new Troop.Outburst(this.troop_OnOutburst);
                 troop.OnApplyStunt += new Troop.ApplyStunt(this.troop_OnApplyStunt);
+                troop.OnTransportArrived += new Troop.TransportArrived(this.troop_OnTransportArrived);
             }
         }
 
@@ -429,6 +430,11 @@
         private void troop_OnWaylay(Troop sending, Troop receiving)
         {
             sending.Scenario.GameScreen.TroopWaylay(sending, receiving);
+        }
+
+        private void troop_OnTransportArrived(Troop troop)
+        {
+            troop.Scenario.GameScreen.AskWhenTransportArrived(troop);
         }
 
         public bool HasAnimatingTroop

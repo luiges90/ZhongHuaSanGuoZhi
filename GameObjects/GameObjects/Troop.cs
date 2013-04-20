@@ -463,6 +463,8 @@
 
         public event TroopLost OnTroopLost;
 
+        public event TransportArrived OnTransportArrived;
+
         public event Waylay OnWaylay;
 
         public Troop()
@@ -3123,6 +3125,33 @@
             }
         }
 
+        public void TransportEnter()
+        {
+            this.Enter(this.TargetArchitecture, false);
+        }
+
+        public void TransportReturn()
+        {
+            if (this.StartingArchitecture.BelongedFaction == this.BelongedFaction)
+            {
+                GameObjectList persons = this.Persons.GetList();
+                Architecture returnTo = this.StartingArchitecture;
+                Architecture goTo = this.WillArchitecture;
+                Military army = this.Army;
+                this.Enter(this.WillArchitecture, false);
+                foreach (Person p in persons)
+                {
+                    p.MoveToArchitecture(returnTo);
+                }
+                goTo.RemoveMilitary(army);
+                returnTo.AddMilitary(army);
+            }
+            else
+            {
+                this.TransportEnter();
+            }
+        }
+
         public void Enter()
         {
             if (this.EnterList.Count > 0)
@@ -3134,7 +3163,23 @@
 
         public void Enter(Architecture a)
         {
-            if (a.BelongedFaction == this.BelongedFaction)
+            if (this.IsTransport && this.StartingArchitecture.BelongedSection.AIDetail.AutoRun)
+            {
+                this.TransportReturn();
+            }
+            else
+            {
+                this.Enter(a, this.IsTransport && this.StartingArchitecture.BelongedFaction == this.BelongedFaction && this.StartingArchitecture != this.TargetArchitecture);
+            }
+        }
+
+        public void Enter(Architecture a, bool doAsk)
+        {
+            if (doAsk && this.OnTransportArrived != null)
+            {
+                this.OnTransportArrived(this);
+            } 
+            else if (a.BelongedFaction == this.BelongedFaction)
             {
                 PersonList list = new PersonList();
                 foreach (Person person in this.Persons)
@@ -12092,6 +12137,8 @@
         public delegate void TroopLost(Troop troop, Troop troopLost);
 
         public delegate void Waylay(Troop sending, Troop receiving);
+
+        public delegate void TransportArrived(Troop troop);
     }
 }
 

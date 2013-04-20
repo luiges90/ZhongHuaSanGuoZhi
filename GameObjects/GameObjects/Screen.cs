@@ -825,6 +825,10 @@
         {
             
         }
+
+        public virtual void AskWhenTransportArrived(Troop transport)
+        {
+        }
     }
 }
 
