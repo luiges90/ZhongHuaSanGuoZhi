@@ -27,35 +27,43 @@ namespace WorldOfTheThreeKingdoms
             }*/
             
             MainProcessManager mpm = new MainProcessManager();
-            try
+            if (System.Diagnostics.Debugger.IsAttached)
             {
                 mpm.Processing();
             }
-            catch (Exception e)
+            else
             {
-                DateTime dt = System.DateTime.Now;
-                String dateSuffix = "_" + dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "h" + dt.Minute;
-                String logPath = "CrashLog" + dateSuffix + ".log";
-                StreamWriter sw = new StreamWriter(new FileStream(logPath, FileMode.Create));
-
-                sw.WriteLine("==================== Message ====================");
-                sw.WriteLine(e.Message);
-                sw.WriteLine("=================== StackTrace ==================");
-                sw.WriteLine(e.StackTrace);
-
-                sw.Close();
-                
-                String savePath = "CrashSave" + dateSuffix + ".mdb";
                 try
                 {
-                    mpm.SaveGameWhenCrash(savePath);
+                    mpm.Processing();
                 }
-                catch (Exception eSave)
+                catch (Exception e)
                 {
-                    // 保存失败，这里要做什么好？
+
+                    DateTime dt = System.DateTime.Now;
+                    String dateSuffix = "_" + dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "h" + dt.Minute;
+                    String logPath = "CrashLog" + dateSuffix + ".log";
+                    StreamWriter sw = new StreamWriter(new FileStream(logPath, FileMode.Create));
+
+                    sw.WriteLine("==================== Message ====================");
+                    sw.WriteLine(e.Message);
+                    sw.WriteLine("=================== StackTrace ==================");
+                    sw.WriteLine(e.StackTrace);
+
+                    sw.Close();
+
+                    String savePath = "CrashSave" + dateSuffix + ".mdb";
+                    try
+                    {
+                        mpm.SaveGameWhenCrash(savePath);
+                    }
+                    catch (Exception eSave)
+                    {
+                        // 保存失败，这里要做什么好？
+                    }
+
+                    MessageBox.Show("中华三国志遇到严重错误，请提交游戏目录下的'" + logPath + "'。", "游戏错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
-                MessageBox.Show("中华三国志遇到严重错误，请提交游戏目录下的'" + logPath + "'。", "游戏错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
