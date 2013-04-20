@@ -1872,7 +1872,7 @@
                 this.AIAutoHire();
             }
             this.StopAllWork();
-            if (this.Fund < this.Persons.Count * 150) return;
+            if (this.Fund < (int) Parameters.RewardPersonCost * this.PersonCount * 1.5 + 100) return;
 
             PersonList zhenzaiPersons = new PersonList();
             PersonList agriculturePersons = new PersonList();
@@ -1885,7 +1885,8 @@
             PersonList recruitmentPersons = new PersonList();
             MilitaryList weighingMilitaries = new MilitaryList();
 
-            if ((forPlayer || ((this.PlanArchitecture == null) || GameObject.Chance(10))) && this.HasPerson())
+            //if ((forPlayer || ((this.PlanArchitecture == null) || GameObject.Chance(10))) && this.HasPerson())
+            if (this.HasPerson())
             {
                 int num;
                 this.ReSortAllWeighingList(zhenzaiPersons, agriculturePersons, commercePersons, technologyPersons, dominationPersons,
@@ -8732,7 +8733,8 @@
 
         private void InsideTacticsAI()
         {
-            if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && this.HasPerson())
+            //if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && this.HasPerson())
+            if (this.HasPerson())
             {
                 if (this.Fund >= this.RewardPersonFund)
                 {

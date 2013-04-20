@@ -2771,7 +2771,8 @@
         private void LoyaltyChange()
         {
             if (((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange))
-                && ((((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange) && GameObject.Chance(100 - this.personalLoyalty * 25) ) 
+                && (((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange)
+                && GameObject.Chance(100 - this.personalLoyalty * 25)  
                 && (this.Loyalty <= 110) )
             {
                 int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
@@ -2783,7 +2784,9 @@
 
                 if (idealOffset > 0)
                 {
-                    int decrement = ((int) (this.Ambition - ((PersonAmbition) ((int) this.PersonalLoyalty)))) + (idealOffset / 10);
+
+                    int decrement = (int) (this.Ambition - ((PersonAmbition) ((int)this.PersonalLoyalty)) + idealOffset / 10);
+
                     if (!(!GlobalVariables.IdealTendencyValid || this.IsHirable(this.BelongedFaction)))
                     {
                         decrement += 2;
@@ -2794,11 +2797,11 @@
                     }
                     if (decrement > 0 && !(this.Spouse == this.BelongedFaction.LeaderID || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother > 0)))
                     {
-                        this.DecreaseLoyalty(decrement);
+                        this.DecreaseLoyalty( (int) Math.Sqrt(decrement));
                     }
                     else if (decrement < 0 && (this.Loyalty < 100))
                     {
-                        this.IncreaseLoyalty(Math.Abs(decrement));
+                        this.IncreaseLoyalty((int) Math.Sqrt(Math.Abs(decrement)));
                     }
                 }
             }
