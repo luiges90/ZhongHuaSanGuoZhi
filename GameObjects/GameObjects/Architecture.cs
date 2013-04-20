@@ -1872,7 +1872,7 @@
                 this.AIAutoHire();
             }
             this.StopAllWork();
-            if (this.Fund < 100) return;
+            if (this.Fund < this.Persons.Count * 150) return;
 
             PersonList zhenzaiPersons = new PersonList();
             PersonList agriculturePersons = new PersonList();
@@ -1924,15 +1924,27 @@
                         {
                             foreach (Person person in dominationPersons)
                             {
-                                person.WorkKind = ArchitectureWorkKind.统治;
+                                if (person.WorkKind == ArchitectureWorkKind.无)
+                                {
+                                    person.WorkKind = ArchitectureWorkKind.统治;
+                                    break;
+                                }
                             }
                             foreach (Person person in endurancePersons)
                             {
-                                person.WorkKind = ArchitectureWorkKind.耐久;
+                                if (person.WorkKind == ArchitectureWorkKind.无)
+                                {
+                                    person.WorkKind = ArchitectureWorkKind.耐久;
+                                    break;
+                                }
                             }
                             foreach (Person person in moralePersons)
                             {
-                                person.WorkKind = ArchitectureWorkKind.民心;
+                                if (person.WorkKind == ArchitectureWorkKind.无)
+                                {
+                                    person.WorkKind = ArchitectureWorkKind.民心;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -2256,7 +2268,8 @@
                             int unfullNavalArmyCount = 0;
                             foreach (Military military in this.Militaries)
                             {
-                                if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && military.Kind.ID != 29)
+                                //if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && military.Kind.ID != 29)
+                                if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && military.Kind.Merit > 0)
                                 {
                                     unfullArmyCount++;
                                     if (military.Kind.Type == MilitaryType.水军)
@@ -2570,7 +2583,9 @@
 
         private void AIAutoReward()
         {
-            if ((this.BelongedFaction != null) && (this.Fund >= this.RewardPersonFund))
+            if ((this.BelongedFaction != null) 
+                //&& (this.Fund >= this.RewardPersonFund)
+                )
             {
                 this.RewardPersonsUnderLoyalty(100);
             }
