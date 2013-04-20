@@ -55,11 +55,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
 
         public void freeTilesMemory()
         {
-            foreach (MapTile maptile in this.MapTiles)
+            if (this.MapTiles != null)
             {
-                if (!this.DisplayingMapTiles.Contains(maptile) && maptile.TileTexture != null)
+                foreach (MapTile maptile in this.MapTiles)
                 {
-                    maptile.TileTexture = null;
+                    if (!this.DisplayingMapTiles.Contains(maptile) && maptile.TileTexture != null)
+                    {
+                        maptile.TileTexture = null;
+                    }
                 }
             }
             GC.Collect();

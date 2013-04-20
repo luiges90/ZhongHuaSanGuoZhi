@@ -503,6 +503,14 @@
             }
         }
 
+        public bool IsTransport
+        {
+            get
+            {
+                return this.Army.IsTransport;
+            }
+        }
+
         private void AddAreaInfluences(Point p)
         {
             if (this.OffenceRateIncrementInViewArea > 0f)
@@ -732,7 +740,7 @@
                 }
                 //retreat if morale < 45 or has more injured troop than working troops, with 80 + 2 x calmness chance
                 if (GameObject.Chance(80 + (this.Leader.Calmness * 2)) && ((this.InjuryQuantity > this.Quantity) || (this.Morale < 45)
-                        || (this.Army.Scales <= 5 && this.Army.KindID != 29 && this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive)))
+                        || (this.Army.Scales <= 5 && !this.IsTransport && this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive)))
                 {
                     this.GoBack();
                     if (GameObject.Chance(50))
@@ -855,7 +863,7 @@
                     }
                 }
                 //retreat if we were outnumbered, in an offensive
-                if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive && this.HasHostileTroopInView() && this.Army.KindID != 29)
+                if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive && this.HasHostileTroopInView() && !this.IsTransport)
                 {
                     int friendlyFightingForce = 0;
                     int hostileFightingForce = 0;
@@ -5390,7 +5398,7 @@
 
         private Texture2D GetTroopTexture()
         {
-            if (this.Army.Kind.ID == 29 && base.Scenario.GetTerrainKindByPosition(this.Position) == TerrainKind.水域)
+            if (this.IsTransport && base.Scenario.GetTerrainKindByPosition(this.Position) == TerrainKind.水域)
             {
                 switch (this.Action)
                 {
@@ -7380,7 +7388,7 @@
         private void RefillFoodByStartArchitecture()
         {
             //if (GlobalVariables.LiangdaoXitong == true) return;
-            if ((this.BelongedFaction != null) && !this.Destroyed && this.Army.KindID != 29)
+            if ((this.BelongedFaction != null) && !this.Destroyed && !this.IsTransport)
             {
                 int increment = this.FoodMax - this.Food;
                 if (increment > 0)
@@ -7410,7 +7418,7 @@
 
         private void RefillFoodByArchitecture()
         {
-            if ((this.BelongedFaction != null) && !this.Destroyed && this.Army.KindID  !=29)
+            if ((this.BelongedFaction != null) && !this.Destroyed && !this.IsTransport)
             {
                 int increment = this.FoodMax - this.Food;
                 if (increment > 0)
@@ -7447,7 +7455,7 @@
         private void RefillFoodByRouteway()
         {
             //if (GlobalVariables.LiangdaoXitong == false) return;
-            if (this.Army.KindID != 29)
+            if (!this.IsTransport)
             {
                 int num = this.FoodMax - this.Food;
                 if (num > 0)
