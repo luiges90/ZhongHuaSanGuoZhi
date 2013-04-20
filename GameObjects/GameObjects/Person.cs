@@ -2939,7 +2939,7 @@
             if (this.TargetArchitecture != null)
             {
                 this.LocationArchitecture = this.TargetArchitecture;
-                this.workKind = ArchitectureWorkKind.无;
+                this.WorkKind = ArchitectureWorkKind.无;
                 if (this.BelongedFaction != null)
                 {
                     this.Status = PersonStatus.Moving;
@@ -2985,7 +2985,7 @@
                 this.arrivingDays = this.TaskDays * 2;
 
                 this.LocationArchitecture = this.BelongedArchitecture;
-                this.workKind = ArchitectureWorkKind.无;
+                this.WorkKind = ArchitectureWorkKind.无;
                 this.OutsideTask = OutsideTaskKind.亲善;
                 this.Scenario.GameScreen.renwukaishitishi(this, this.TargetArchitecture);
                 if (this.BelongedFaction != null)
@@ -3032,7 +3032,7 @@
                 this.arrivingDays = this.TaskDays * 2;
 
                 this.LocationArchitecture = this.BelongedArchitecture;
-                this.workKind = ArchitectureWorkKind.无;
+                this.WorkKind = ArchitectureWorkKind.无;
                 this.OutsideTask = OutsideTaskKind.停战;
                 this.Scenario.GameScreen.renwukaishitishi(this, this.TargetArchitecture);
                 if (this.BelongedFaction != null)
@@ -3080,7 +3080,7 @@
                 this.arrivingDays = this.TaskDays * 2;
 
                 this.LocationArchitecture = this.BelongedArchitecture;
-                this.workKind = ArchitectureWorkKind.无;
+                this.WorkKind = ArchitectureWorkKind.无;
                 this.OutsideTask = OutsideTaskKind.结盟;
                 this.Scenario.GameScreen.renwukaishitishi(this, this.TargetArchitecture);
                 if (this.BelongedFaction != null)
@@ -5241,7 +5241,7 @@
         {
             get
             {
-                return this.GetWorkAbility(this.workKind);
+                return this.GetWorkAbility(this.WorkKind);
             }
         }
 
@@ -5265,9 +5265,9 @@
         {
             get
             {
-                if (this.workKind != ArchitectureWorkKind.无)
+                if (this.WorkKind != ArchitectureWorkKind.无)
                 {
-                    return this.workKind.ToString();
+                    return this.WorkKind.ToString();
                 }
                 return "----";
             }
@@ -5969,7 +5969,7 @@
             nvren.LocationArchitecture.DecreaseFund(50000);
 
             nvren.Status = PersonStatus.Princess;
-            nvren.workKind = ArchitectureWorkKind.无;
+            nvren.WorkKind = ArchitectureWorkKind.无;
 
             nvren.LocationTroop = null;
             nvren.TargetArchitecture = null;
