@@ -100,6 +100,14 @@
             return true;
         }
 
+        public bool IsTransport
+        {
+            get
+            {
+                return this.ID == 29;
+            }
+        }
+
         public MilitaryKind findSuccessorCreatable(MilitaryKindList allMilitaryKinds, Architecture recruiter)
         {
             foreach (MilitaryKind i in allMilitaryKinds)

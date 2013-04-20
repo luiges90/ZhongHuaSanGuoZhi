@@ -104,7 +104,7 @@
         private void AfterSelectMilitary()
         {
             this.CreatingTroop.SetArmy(this.CreatingMilitary);
-            if (this.CreatingTroop.Army.KindID != 29)
+            if (!this.CreatingTroop.IsTransport)
             {
                 if (this.CreatingArchitecture.Food >= this.CreatingTroop.FoodMax)
                 {
@@ -342,7 +342,7 @@
                     }
                     */
 
-                    if (this.CreatingTroop.Army.KindID != 29)
+                    if (!this.CreatingTroop.IsTransport)
                     {
                         if (this.CreatingArchitecture.Food >= this.CreatingTroop.FoodMax)
                         {
@@ -401,7 +401,7 @@
                 this.LeaderButtonEnabled = (this.CreatingPersons != null) && (this.CreatingPersons.Count > 1);
                 this.CreateButtonEnabled = ((this.CreatingTroop.PersonCount > 0) && (this.CreatingTroop.Leader != null)) && (this.CreatingTroop.Army != null);
                 this.RationButtonEnabled = this.CreateButtonEnabled;
-                this.zijinButtonEnabled = this.CreateButtonEnabled&&this.CreatingTroop.Army.KindID == 29;
+                this.zijinButtonEnabled = this.CreateButtonEnabled && this.CreatingTroop.IsTransport;
                 this.TroopNameText.Text = this.CreatingTroop.DisplayName;
                 foreach (LabelText text in this.LabelTexts)
                 {
