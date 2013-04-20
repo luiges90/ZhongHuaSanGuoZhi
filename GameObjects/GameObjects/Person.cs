@@ -288,6 +288,10 @@
                 }
                 if (value != PersonStatus.Normal)
                 {
+                    if (this.RecruitmentMilitary != null)
+                    {
+                        this.RecruitmentMilitary.StopRecruitment();
+                    }
                     this.WorkKind = ArchitectureWorkKind.无;
                 }
                 if (value != PersonStatus.Normal && status == PersonStatus.Normal)

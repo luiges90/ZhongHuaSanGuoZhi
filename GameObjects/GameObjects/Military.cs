@@ -361,6 +361,7 @@
         {
             if (this.RecruitmentPerson != null)
             {
+                this.RecruitmentPerson.RecruitmentMilitary = null;
                 this.RecruitmentPerson.WorkKind = ArchitectureWorkKind.无;
             }
         }
