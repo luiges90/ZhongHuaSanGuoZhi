@@ -224,6 +224,14 @@
                         if (!GlobalVariables.LiangdaoXitong) break;
                         result = Math.Max(100, result);
                         break;
+                    case 2000:
+                    case 2010:
+                    case 2020:
+                    case 2030:
+                    case 2200:
+                    case 2210:
+                    case 2220:
+                    case 2230:
                     case 2240:
                     case 2250:
                         if (int.Parse(i.Parameter2) == 3)
@@ -245,6 +253,42 @@
                             foreach (MilitaryKind mk in this.AvailableMilitaryKinds.MilitaryKinds.Values)
                             {
                                 if (mk.Type == MilitaryType.器械)
+                                {
+                                    hasSiege = true;
+                                }
+                            }
+                            if (!hasSiege) break;
+                        }
+                        else if (int.Parse(i.Parameter2) == 0)
+                        {
+                            bool hasSiege = false;
+                            foreach (MilitaryKind mk in this.AvailableMilitaryKinds.MilitaryKinds.Values)
+                            {
+                                if (mk.Type == MilitaryType.步兵)
+                                {
+                                    hasSiege = true;
+                                }
+                            }
+                            if (!hasSiege) break;
+                        }
+                        else if (int.Parse(i.Parameter2) == 1)
+                        {
+                            bool hasSiege = false;
+                            foreach (MilitaryKind mk in this.AvailableMilitaryKinds.MilitaryKinds.Values)
+                            {
+                                if (mk.Type == MilitaryType.弩兵)
+                                {
+                                    hasSiege = true;
+                                }
+                            }
+                            if (!hasSiege) break;
+                        }
+                        else if (int.Parse(i.Parameter2) == 2)
+                        {
+                            bool hasSiege = false;
+                            foreach (MilitaryKind mk in this.AvailableMilitaryKinds.MilitaryKinds.Values)
+                            {
+                                if (mk.Type == MilitaryType.骑兵)
                                 {
                                     hasSiege = true;
                                 }
