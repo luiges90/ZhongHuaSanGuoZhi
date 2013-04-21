@@ -234,7 +234,7 @@
                     case 2230:
                     case 2240:
                     case 2250:
-                        if (int.Parse(i.Parameter2) == 3)
+                        if (int.Parse(i.Parameter) == 3)
                         {
                             bool hasWater = false;
                             foreach (Architecture a in this.Architectures)
@@ -247,7 +247,7 @@
                             }
                             if (!hasWater) break;
                         }
-                        else if (int.Parse(i.Parameter2) == 4)
+                        else if (int.Parse(i.Parameter) == 4)
                         {
                             bool hasSiege = false;
                             foreach (MilitaryKind mk in this.AvailableMilitaryKinds.MilitaryKinds.Values)
@@ -259,7 +259,7 @@
                             }
                             if (!hasSiege) break;
                         }
-                        else if (int.Parse(i.Parameter2) == 0)
+                        else if (int.Parse(i.Parameter) == 0)
                         {
                             bool hasSiege = false;
                             foreach (MilitaryKind mk in this.AvailableMilitaryKinds.MilitaryKinds.Values)
@@ -271,7 +271,7 @@
                             }
                             if (!hasSiege) break;
                         }
-                        else if (int.Parse(i.Parameter2) == 1)
+                        else if (int.Parse(i.Parameter) == 1)
                         {
                             bool hasSiege = false;
                             foreach (MilitaryKind mk in this.AvailableMilitaryKinds.MilitaryKinds.Values)
@@ -283,7 +283,7 @@
                             }
                             if (!hasSiege) break;
                         }
-                        else if (int.Parse(i.Parameter2) == 2)
+                        else if (int.Parse(i.Parameter) == 2)
                         {
                             bool hasSiege = false;
                             foreach (MilitaryKind mk in this.AvailableMilitaryKinds.MilitaryKinds.Values)
