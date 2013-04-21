@@ -372,7 +372,7 @@
         public bool YesOrNoOfObliqueView;
 
         public int stealTreasureRate;
-        public float attackInjuryRate;
+        public float attackInjuryRate = 1;
         public int chanceTirednessStopIncrease;
 
         public float ExperienceRate;
