@@ -1112,10 +1112,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4125.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5000.cs" />
     <Compile Include="GameObjects\Influences\Applier.cs" />
     <Compile Include="GameObjects\Influences\ApplyingArchitecture.cs" />
     <Compile Include="GameObjects\Influences\ApplyingFaction.cs" />
     <Compile Include="GameObjects\Influences\ApplyingPerson.cs" />
     <Compile Include="GameObjects\Influences\ApplyingTroop.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3110.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3115.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1700.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1705.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5005.cs" />
   </ItemGroup>
 </Project>
