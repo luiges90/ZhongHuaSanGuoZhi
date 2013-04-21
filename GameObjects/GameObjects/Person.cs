@@ -3464,6 +3464,8 @@
         {
             get
             {
+                if (this.Age >= 15) return 1;
+                if (this.Age < 0) return 0.1f;
                 return -0.002f * this.Age * this.Age + 0.09f * this.Age + 0.1f;
             }
         }
