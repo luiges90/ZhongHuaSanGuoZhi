@@ -1112,7 +1112,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4125.cs" />
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5000.cs" />
     <Compile Include="GameObjects\Influences\Applier.cs" />
     <Compile Include="GameObjects\Influences\ApplyingArchitecture.cs" />
     <Compile Include="GameObjects\Influences\ApplyingFaction.cs" />
@@ -1130,6 +1129,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1705.cs" />
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5005.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6310.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6320.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6330.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6340.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6360.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6350.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6370.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6500.cs" />
   </ItemGroup>
 </Project>

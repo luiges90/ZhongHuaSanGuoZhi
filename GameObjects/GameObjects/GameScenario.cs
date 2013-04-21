@@ -315,6 +315,15 @@
             {
                 person.Loyalty = 120;
             }
+            if (GameObject.Chance(father.childrenLoyaltyRate))
+            {
+                person.Loyalty = father.childrenLoyalty;
+            }
+            else if (GameObject.Chance(muqin.childrenLoyaltyRate))
+            {
+                person.Loyalty = muqin.childrenLoyalty;
+            }
+
             if (doAffect)
             {
                 person.muqinyingxiangnengli(muqin);

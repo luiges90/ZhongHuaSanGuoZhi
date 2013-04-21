@@ -371,6 +371,10 @@
         public bool YesOrNoOfObliqueStratagem;
         public bool YesOrNoOfObliqueView;
 
+        public int stealTreasureRate;
+        public float attackInjuryRate;
+        public int chanceTirednessStopIncrease;
+
         public float ExperienceRate;
 
         public bool ManualControl;
@@ -2363,6 +2367,16 @@
                     sending.IncreaseRoutExperience(true);
                     sending.AddRoutCount();
                 }
+                if (GameObject.Chance(sending.stealTreasureRate) && sending.BelongedFaction != null)
+                {
+                    foreach (Person p in receiving.Persons.GetRandomList())
+                    {
+                        Treasure t = (Treasure) p.Treasures[GameObject.Random(p.Treasures.Count)];
+                        p.LoseTreasure(t);
+                        sending.BelongedFaction.Leader.ReceiveTreasure(t);
+                        break;
+                    }
+                }
                 if (belongedFaction != null)
                 {
                     receiving.IncreaseRoutExperience(false);
@@ -2731,11 +2745,18 @@
         private int stuckedFor = 0;
         public void DayEvent()
         {
-            this.Army.Tiredness += GlobalVariables.TirednessIncrease;
-            foreach (Person p in this.Persons)
+            if (!GameObject.Chance(this.chanceTirednessStopIncrease))
             {
-                p.Tiredness += GlobalVariables.TirednessIncrease;
+                this.Army.Tiredness += GlobalVariables.TirednessIncrease;
+                foreach (Person p in this.Persons)
+                {
+                    if (!GameObject.Chance(p.chanceTirednessStopIncrease))
+                    {
+                        p.Tiredness += GlobalVariables.TirednessIncrease;
+                    }
+                }
             }
+            
             if (this.BelongedFaction != null)
             {
                 this.ViewingWillArchitecture = this.IsViewingWillArchitecture();
@@ -7334,6 +7355,10 @@
             if (receivedDamage.Critical && (receivedDamage.SourceTroop.RateOfInjuryOnCriticalStrike < 1f))
             {
                 receivedDamage.Injury = (int) (receivedDamage.Injury * receivedDamage.SourceTroop.RateOfInjuryOnCriticalStrike);
+            } 
+            else if (receivedDamage.SourceTroop.attackInjuryRate < 1f)
+            {
+                receivedDamage.Injury = (int)(receivedDamage.Injury * receivedDamage.SourceTroop.attackInjuryRate);
             }
             if (receivedDamage.Injury > receivedDamage.DestinationTroop.Quantity)
             {

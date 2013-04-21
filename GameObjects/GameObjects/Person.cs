@@ -90,6 +90,7 @@
         public int InfluenceIncrementOfIntelligence;
         public int InfluenceIncrementOfPolitics;
         public int InfluenceIncrementOfStrength;
+        public int InfluenceIncrementOfReputation;
         public float InfluenceRateOfBadForm;
         public float InfluenceRateOfCommand = 1f;
         public float InfluenceRateOfGlamour = 1f;
@@ -197,6 +198,16 @@
 
         public int captiveEscapeChance;
         public int pregnantChance;
+        public int childrenAbilityIncrease;
+        public int childrenSkillChanceIncrease;
+        public int childrenStuntChanceIncrease;
+        public int childrenTitleChanceIncrease;
+        public int childrenReputationIncrease;
+        public int childrenLoyalty;
+        public int childrenLoyaltyRate;
+        public int multipleChildrenRate;
+        public int maxChildren = 1;
+        public int chanceTirednessStopIncrease;
 
         public PersonList preferredTroopPersons = new PersonList();
         public string preferredTroopPersonsString;
@@ -1063,24 +1074,30 @@
 
                     if (haizifuqin != null)
                     {
-                        PersonList origChildren = haizifuqin.meichushengdehaiziliebiao();
-                        if (origChildren.Count > 0)
+                        int count = 0;
+                        do
                         {
-                            haizi = origChildren[0] as Person;
-                            haizi.father = this.Sex ? haizifuqin.ID : this.ID;
-                            haizi.mother = this.Sex ? this.ID : haizifuqin.ID;
-                        }
-                        else
-                        {
-                            haizi = Person.createChildren(this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person, this);
-                        }
+                            PersonList origChildren = haizifuqin.meichushengdehaiziliebiao();
+                            if (origChildren.Count > 0)
+                            {
+                                haizi = origChildren[0] as Person;
+                                haizi.father = this.Sex ? haizifuqin.ID : this.ID;
+                                haizi.mother = this.Sex ? this.ID : haizifuqin.ID;
+                            }
+                            else
+                            {
+                                haizi = Person.createChildren(this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person, this);
+                            }
 
-                        base.Scenario.YearTable.addChildrenBornEntry(base.Scenario.Date, haizifuqin, this, haizi);
+                            base.Scenario.YearTable.addChildrenBornEntry(base.Scenario.Date, haizifuqin, this, haizi);
 
-                        haizifuqin.TextResultString = haizi.Name;
+                            haizifuqin.TextResultString = haizi.Name;
 
-                        base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
-                        base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
+                            base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
+                            base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
+
+                            count++;
+                        } while ((GameObject.Chance(haizifuqin.multipleChildrenRate) || GameObject.Chance(this.multipleChildrenRate)) && count < Math.Max(haizifuqin.maxChildren, this.maxChildren));
 
                         haizifuqin.suoshurenwu = -1;
                     }
@@ -4855,7 +4872,7 @@
         {
             get
             {
-                return this.reputation;
+                return this.reputation + this.InfluenceIncrementOfReputation;
             }
             set
             {
@@ -5498,23 +5515,32 @@
         {
             this.BaseStrength = (int)(this.BaseStrength * 0.9 + muqin.BaseStrength * 0.1);
             this.BaseStrength += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
-            if (this.BaseStrength > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BaseStrength = 100;
 
             this.BaseCommand = (int)(this.BaseCommand * 0.9 + muqin.BaseCommand * 0.1);
             this.BaseCommand += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
-            if (this.BaseCommand > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BaseCommand = 100;
 
             this.BaseIntelligence = (int)(this.BaseIntelligence * 0.9 + muqin.BaseIntelligence * 0.1);
             this.BaseIntelligence += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
-            if (this.BaseIntelligence > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BaseIntelligence = 100;
 
             this.BasePolitics = (int)(this.BasePolitics * 0.9 + muqin.BasePolitics * 0.1);
             this.BasePolitics += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
-            if (this.BasePolitics > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BasePolitics = 100;
 
             this.BaseGlamour = (int)(this.BaseGlamour * 0.9 + muqin.BaseGlamour * 0.1);
             this.BaseGlamour += GameObject.Random(3) * (GameObject.Random(2) == 0 ? 1 : -1);
-            if (this.BaseGlamour > 100 && !GlobalVariables.createChildrenIgnoreLimit) this.BaseGlamour = 100;
+
+            if (!GlobalVariables.createChildrenIgnoreLimit)
+            {
+                if (this.BaseStrength > 100) this.BaseStrength = 100;
+                if (this.BaseStrength < 0) this.BaseStrength = 0;
+                if (this.BaseCommand > 100) this.BaseCommand = 100;
+                if (this.BaseCommand < 0) this.BaseCommand = 0;
+                if (this.BaseIntelligence > 100) this.BaseIntelligence = 100;
+                if (this.BaseIntelligence < 0) this.BaseIntelligence = 0;
+                if (this.BasePolitics > 100) this.BasePolitics = 100;
+                if (this.BasePolitics < 0) this.BasePolitics = 0;
+                if (this.BaseGlamour > 100) this.BaseGlamour = 100;
+                if (this.BaseGlamour < 0) this.BaseGlamour = 0;
+            }
         }
 
         private static List<String> readTextList(String fileName)
@@ -5589,11 +5615,11 @@
             r.CalledName = "";
 
             int var = 5; //variance / maximum divert from parent ability
-            r.BaseCommand = GameObject.Random(Math.Abs(father.BaseCommand - mother.BaseCommand) + 2 * var + 1) + Math.Min(father.BaseCommand, mother.BaseCommand) - var;
-            r.BaseStrength = GameObject.Random(Math.Abs(father.BaseStrength - mother.BaseStrength) + 2 * var + 1) + Math.Min(father.BaseStrength, mother.BaseStrength) - var;
-            r.BaseIntelligence = GameObject.Random(Math.Abs(father.BaseIntelligence - mother.BaseIntelligence) + 2 * var + 1) + Math.Min(father.BaseIntelligence, mother.BaseIntelligence) - var;
-            r.BasePolitics = GameObject.Random(Math.Abs(father.BasePolitics - mother.BasePolitics) + 2 * var + 1) + Math.Min(father.BasePolitics, mother.BasePolitics) - var;
-            r.BaseGlamour = GameObject.Random(Math.Abs(father.BaseGlamour - mother.BaseGlamour) + 2 * var + 1) + Math.Min(father.BaseGlamour, mother.BaseGlamour) - var;
+            r.BaseCommand = GameObject.Random(Math.Abs(father.BaseCommand - mother.BaseCommand) + 2 * var + 1) + Math.Min(father.BaseCommand, mother.BaseCommand) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseStrength = GameObject.Random(Math.Abs(father.BaseStrength - mother.BaseStrength) + 2 * var + 1) + Math.Min(father.BaseStrength, mother.BaseStrength) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseIntelligence = GameObject.Random(Math.Abs(father.BaseIntelligence - mother.BaseIntelligence) + 2 * var + 1) + Math.Min(father.BaseIntelligence, mother.BaseIntelligence) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BasePolitics = GameObject.Random(Math.Abs(father.BasePolitics - mother.BasePolitics) + 2 * var + 1) + Math.Min(father.BasePolitics, mother.BasePolitics) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseGlamour = GameObject.Random(Math.Abs(father.BaseGlamour - mother.BaseGlamour) + 2 * var + 1) + Math.Min(father.BaseGlamour, mother.BaseGlamour) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
             if (!GlobalVariables.createChildrenIgnoreLimit)
             {
                 if (r.BaseStrength > 100) r.BaseStrength = 100;
@@ -5644,7 +5670,7 @@
             r.Ideal = GameObject.Chance(50) ? father.Ideal + GameObject.Random(10) - 5 : mother.Ideal + GameObject.Random(10) - 5;
             r.Ideal = (r.Ideal + 150) % 150;
 
-            r.Reputation = (int)((father.Reputation + mother.Reputation) * (GameObject.Random(100) / 100.0 * 0.1 + 0.05));
+            r.Reputation = (int)((father.Reputation + mother.Reputation) * (GameObject.Random(100) / 100.0 * 0.1 + 0.05)) + father.childrenReputationIncrease + mother.childrenReputationIncrease;
 
             r.PersonalLoyalty = (GameObject.Chance(50) ? father.PersonalLoyalty : mother.PersonalLoyalty) + GameObject.Random(3) - 1;
             if (r.PersonalLoyalty < 0) r.PersonalLoyalty = 0;
@@ -5701,21 +5727,23 @@
 
             foreach (Skill i in father.Skills.GetSkillList())
             {
-                if (GameObject.Chance(50))
+                if (GameObject.Chance(50 + father.childrenSkillChanceIncrease))
                 {
                     r.Skills.AddSkill(i);
                 }
             }
             foreach (Skill i in mother.Skills.GetSkillList())
             {
-                if (GameObject.Chance(50))
+                if (GameObject.Chance(50 + mother.childrenSkillChanceIncrease))
                 {
                     r.Skills.AddSkill(i);
                 }
             }
             foreach (Skill i in father.Scenario.GameCommonData.AllSkills.GetSkillList())
             {
-                if (GameObject.Random(father.Scenario.GameCommonData.AllSkills.GetSkillList().Count / 2) == 0)
+                if ((GameObject.Random(father.Scenario.GameCommonData.AllSkills.GetSkillList().Count / 2) == 0 && GameObject.Random(i.Level * i.Level / 2 + i.Level) == 0)
+                    ||
+                    GameObject.Chance(father.childrenSkillChanceIncrease + mother.childrenSkillChanceIncrease))
                 {
                     r.Skills.AddSkill(i);
                 }
@@ -5723,7 +5751,7 @@
 
             foreach (Stunt i in father.Stunts.GetStuntList())
             {
-                if (GameObject.Chance(50))
+                if (GameObject.Chance(50 + father.childrenStuntChanceIncrease))
                 {
                     bool ok = true;
                     foreach (Condition j in i.LearnConditions.Conditions.Values)
@@ -5745,7 +5773,7 @@
             }
             foreach (Stunt i in mother.Stunts.GetStuntList())
             {
-                if (GameObject.Chance(50))
+                if (GameObject.Chance(50 + mother.childrenStuntChanceIncrease))
                 {
                     bool ok = true;
                     foreach (Condition j in i.LearnConditions.Conditions.Values)
@@ -5767,7 +5795,8 @@
             }
             foreach (Stunt i in father.Scenario.GameCommonData.AllStunts.GetStuntList())
             {
-                if (GameObject.Random(father.Scenario.GameCommonData.AllStunts.GetStuntList().Count * 2) == 0)
+                if (GameObject.Random(father.Scenario.GameCommonData.AllStunts.GetStuntList().Count * 2) == 0 || 
+                    GameObject.Chance(father.childrenStuntChanceIncrease + mother.childrenStuntChanceIncrease))
                 {
                     bool ok = true;
                     foreach (Condition j in i.LearnConditions.Conditions.Values)
@@ -5795,10 +5824,11 @@
             else
             {
                 GameObjectList titles = father.Scenario.GameCommonData.AllTitles.GetTitleList().GetRandomList();
-                int levelTendency = ((father.PersonalTitle == null ? 0 : father.PersonalTitle.Level) + (mother.PersonalTitle == null ? 0 : mother.PersonalTitle.Level)) / 2;
+                int levelTendency = ((father.PersonalTitle == null ? 0 : father.PersonalTitle.Level) + (mother.PersonalTitle == null ? 0 : mother.PersonalTitle.Level)) / 2
+                    + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
                 foreach (Title t in titles)
                 {
-                    if (t.Kind == TitleKind.个人 && (GameObject.Random(t.Level * t.Level + father.Scenario.GameCommonData.AllTitles.GetTitleList().Count / 8) == 0 ||
+                    if (t.Kind == TitleKind.个人 && (GameObject.Random(t.Level * t.Level + titles.Count / 8) == 0 ||
                         (t.Level == levelTendency && GameObject.Chance(50)) || (t.Level - 1 == levelTendency && GameObject.Chance(25)) || (t.Level + 1 == levelTendency && GameObject.Chance(25))))
                     {
                         if (t.Combat)
@@ -5828,10 +5858,11 @@
             else
             {
                 GameObjectList titles = father.Scenario.GameCommonData.AllTitles.GetTitleList().GetRandomList();
-                int levelTendency = ((father.CombatTitle == null ? 0 : father.CombatTitle.Level) + (mother.CombatTitle == null ? 0 : mother.CombatTitle.Level)) / 2;
+                int levelTendency = ((father.CombatTitle == null ? 0 : father.CombatTitle.Level) + (mother.CombatTitle == null ? 0 : mother.CombatTitle.Level)) / 2
+                    + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
                 foreach (Title t in titles)
                 {
-                    if (t.Kind == TitleKind.战斗 && (GameObject.Random(t.Level * t.Level + 1) == 0 ||
+                    if (t.Kind == TitleKind.战斗 && (GameObject.Random(t.Level * t.Level + titles.Count / 8) == 0 ||
                         (t.Level == levelTendency && GameObject.Chance(50)) || (t.Level - 1 == levelTendency && GameObject.Chance(25)) || (t.Level + 1 == levelTendency && GameObject.Chance(25))))
                     {
                         if (t.Combat)
