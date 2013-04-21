@@ -1635,10 +1635,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 if ((Math.Abs((int)(this.mouseState.X - this.previousMouseState.X)) <= 2) && (Math.Abs((int)(this.mouseState.Y - this.previousMouseState.Y)) <= 2)
                     || this.isKeyScrolling)
                 {
-                    if (!this.isKeyScrolling && (gameTime.TotalGameTime.TotalMilliseconds - this.lastTime) < 200.0)
-                    {
-                        return;
-                    }
+                    // 没有200毫秒的延迟，鼠标滚动屏幕效果也不错
+                    //
+                    //if (!this.isKeyScrolling && (gameTime.TotalGameTime.TotalMilliseconds - this.lastTime) < 200.0)
+                    //{
+                    //    return;
+                    //}
+
                     int num = (int)((gameTime.ElapsedGameTime.Milliseconds * GlobalVariables.MapScrollSpeed) * this.scrollSpeedScale);
                     switch (this.viewMove)
                     {
@@ -2665,7 +2668,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             //this.Plugins.youcelanPlugin.Update(gameTime);
                             //this.Plugins.youcelanPlugin.IsShowing = false;
 
-
+                            this.UpdateViewMove();
                             this.HandleLaterMouseEvent(gameTime);
                             this.ScrollTheMainMap(gameTime);
                             this.HandleKey(gameTime);
@@ -2923,6 +2926,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private void UpdateViewMove()          //更新视野移动方向
         {
             this.ResetMouse();
+            
             if (((base.Game.IsActive && base.EnableScroll) && (!this.DrawingSelector && (base.viewportSize != Point.Zero))) && ((((this.mouseState.X >= 0) && (this.mouseState.Y >= 0)) && (this.mouseState.X <= this.viewportSize.X)) && (this.mouseState.Y <= this.viewportSize.Y)))
             {
                 if (this.mouseState.X < 50)
@@ -2986,7 +2990,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     base.MouseArrowTexture = this.Textures.MouseArrowTextures[4];
                     this.viewMove = ViewMove.Bottom;
                 }
-                
+
                 if (this.keyState.IsKeyDown(Keys.Left))
                 {
                     if (this.keyState.IsKeyDown(Keys.Up))
