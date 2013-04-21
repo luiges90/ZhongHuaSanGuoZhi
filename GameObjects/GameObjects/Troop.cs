@@ -2208,13 +2208,9 @@
                             this.AddCaptive(captive);
                         }
                         person.LocationTroop = this;
-                        foreach (Person p in this.Persons)
-                        {
-                            if (GameObject.Chance(50) || p == this.Leader)
-                            {
-                                p.CaptiveCount++;
-                            }
-                        }
+
+                        this.Leader.CaptiveCount++;
+
 						ExtensionInterface.call("CapturedByTroop", new Object[] { this.Scenario, this, person });
                     }
                     if (this.OnGetNewCaptive != null)
@@ -2248,13 +2244,9 @@
                         }
                         person.LocationArchitecture = null;
                         person.LocationTroop = this;
-                        foreach (Person p in this.Persons)
-                        {
-                            if (GameObject.Chance(50) || p == this.Leader)
-                            {
-                                p.CaptiveCount++;
-                            }
-                        }
+
+                        this.Leader.CaptiveCount++;
+
 						ExtensionInterface.call("CapturedByTroopOccupy", new Object[] { this.Scenario, this, person });
                     }
                     if (this.OnGetNewCaptive != null)
@@ -4234,22 +4226,10 @@
                     {
                         this.OnStratagemSuccess(this, troop, this.CurrentStratagem, true);
                     }
-                    Person maxIntelPerson = this.Persons.GetMaxIntelligencePerson();
-                    foreach (Person p in this.Persons)
-                    {
-                        if (p == maxIntelPerson || GameObject.Chance(50))
-                        {
-                            p.StratagemSuccessCount++;
-                        }
-                    }
-                    maxIntelPerson = troop.Persons.GetMaxIntelligencePerson();
-                    foreach (Person p in troop.Persons)
-                    {
-                        if (p == maxIntelPerson || GameObject.Chance(50))
-                        {
-                            p.StratagemBeSuccessCount++;
-                        }
-                    }
+
+                    this.Persons.GetMaxIntelligencePerson().StratagemSuccessCount++;
+                    troop.Persons.GetMaxIntelligencePerson().StratagemBeSuccessCount++;
+
                 }
                 else
                 {
@@ -4262,22 +4242,10 @@
                     {
                         this.OnResistStratagem(this, troop, this.CurrentStratagem, true);
                     }
-                    Person maxIntelPerson = this.Persons.GetMaxIntelligencePerson();
-                    foreach (Person p in this.Persons)
-                    {
-                        if (p == maxIntelPerson || GameObject.Chance(50))
-                        {
-                            p.StratagemFailCount++;
-                        }
-                    }
-                    maxIntelPerson = troop.Persons.GetMaxIntelligencePerson();
-                    foreach (Person p in troop.Persons)
-                    {
-                        if (p == maxIntelPerson || GameObject.Chance(50))
-                        {
-                            p.StratagemBeFailCount++;
-                        }
-                    }
+                    
+                    this.Persons.GetMaxIntelligencePerson().StratagemFailCount++;
+                    troop.Persons.GetMaxIntelligencePerson().StratagemBeFailCount++;
+
                 }
             }
             else if (flag)
@@ -4286,26 +4254,12 @@
                 {
                     this.OnStratagemSuccess(this, troop, this.CurrentStratagem, false);
                 }
-                Person maxIntelPerson = this.Persons.GetMaxIntelligencePerson();
-                foreach (Person p in this.Persons)
-                {
-                    if (p == maxIntelPerson || GameObject.Chance(50))
-                    {
-                        p.StratagemSuccessCount++;
-                    }
-                }
+                this.Persons.GetMaxIntelligencePerson().StratagemSuccessCount++;
             }
             else if ((troop != null) && (this.OnResistStratagem != null))
             {
                 this.OnResistStratagem(this, troop, this.CurrentStratagem, false);
-                Person maxIntelPerson = this.Persons.GetMaxIntelligencePerson();
-                foreach (Person p in this.Persons)
-                {
-                    if (p == maxIntelPerson || GameObject.Chance(50))
-                    {
-                        p.StratagemFailCount++;
-                    }
-                }
+                this.Persons.GetMaxIntelligencePerson().StratagemFailCount++;
             }
             int increment = (2 + (flag ? 1 : 0)) + (this.WaitForDeepChaos ? 2 : 0);
             this.IncreaseStratagemExperience(increment, true);
@@ -5684,13 +5638,7 @@
                 num = damage.DestinationArchitecture.DecreaseEndurance(damage.Damage);
                 damage.DestinationArchitecture.DecrementNumberList.AddNumber(num, CombatNumberKind.人数, damage.Position);
 
-                foreach (Person p in damage.SourceTroop.Persons)
-                {
-                    if (p == damage.SourceTroop.Leader || GameObject.Chance(50))
-                    {
-                        p.ArchitectureDamageDealt += num;
-                    }
-                }
+                damage.SourceTroop.Leader.ArchitectureDamageDealt += num;
 
                 if (damage.DestinationArchitecture.Endurance == 0)
                 {
@@ -5740,13 +5688,7 @@
                 damage.SourceTroop.DecreaseQuantity(damage.CounterDamage);
                 damage.SourceTroop.IncreaseInjuryQuantity(damage.CounterInjury);
 
-                foreach (Person p in damage.SourceTroop.Persons)
-                {
-                    if (p == this.Leader || GameObject.Chance(50))
-                    {
-                        p.TroopBeDamageDealt += damage.CounterDamage;
-                    }
-                }
+                damage.SourceTroop.Leader.TroopBeDamageDealt += damage.Damage;
 
                 CheckTroopRout(damage.SourceTroop);
             }
@@ -5767,20 +5709,8 @@
             damage.SourceTroop.IncreaseAttackExperience(num * 2);
             damage.DestinationTroop.IncreaseBeAttackedExperience(num * 2);
 
-            foreach (Person p in damage.SourceTroop.Persons)
-            {
-                if (p == this.Leader || GameObject.Chance(50))
-                {
-                    p.TroopDamageDealt += damage.Damage;
-                }
-            }
-            foreach (Person p in damage.DestinationTroop.Persons)
-            {
-                if (p == this.Leader || GameObject.Chance(50))
-                {
-                    p.TroopBeDamageDealt += damage.Damage;
-                }
-            }
+            damage.SourceTroop.Leader.TroopDamageDealt += damage.Damage;
+            damage.DestinationTroop.Leader.TroopBeDamageDealt += damage.Damage;
 
             if (damage.AntiAttack)
             {
