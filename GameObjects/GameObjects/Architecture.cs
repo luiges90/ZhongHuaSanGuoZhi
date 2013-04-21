@@ -1872,7 +1872,7 @@
                 this.AIAutoHire();
             }
             this.StopAllWork();
-            if (this.Fund < 100) return;
+            if (this.Fund < (int) Parameters.RewardPersonCost * this.PersonCount * 1.5 + 100) return;
 
             PersonList zhenzaiPersons = new PersonList();
             PersonList agriculturePersons = new PersonList();
@@ -1885,7 +1885,8 @@
             PersonList recruitmentPersons = new PersonList();
             MilitaryList weighingMilitaries = new MilitaryList();
 
-            if ((forPlayer || ((this.PlanArchitecture == null) || GameObject.Chance(10))) && this.HasPerson())
+            //if ((forPlayer || ((this.PlanArchitecture == null) || GameObject.Chance(10))) && this.HasPerson())
+            if (this.HasPerson())
             {
                 int num;
                 this.ReSortAllWeighingList(zhenzaiPersons, agriculturePersons, commercePersons, technologyPersons, dominationPersons,
@@ -1924,15 +1925,27 @@
                         {
                             foreach (Person person in dominationPersons)
                             {
-                                person.WorkKind = ArchitectureWorkKind.统治;
+                                if (person.WorkKind == ArchitectureWorkKind.无)
+                                {
+                                    person.WorkKind = ArchitectureWorkKind.统治;
+                                    break;
+                                }
                             }
                             foreach (Person person in endurancePersons)
                             {
-                                person.WorkKind = ArchitectureWorkKind.耐久;
+                                if (person.WorkKind == ArchitectureWorkKind.无)
+                                {
+                                    person.WorkKind = ArchitectureWorkKind.耐久;
+                                    break;
+                                }
                             }
                             foreach (Person person in moralePersons)
                             {
-                                person.WorkKind = ArchitectureWorkKind.民心;
+                                if (person.WorkKind == ArchitectureWorkKind.无)
+                                {
+                                    person.WorkKind = ArchitectureWorkKind.民心;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -2570,7 +2583,9 @@
 
         private void AIAutoReward()
         {
-            if ((this.BelongedFaction != null) && (this.Fund >= this.RewardPersonFund))
+            if ((this.BelongedFaction != null) 
+                //&& (this.Fund >= this.RewardPersonFund)
+                )
             {
                 this.RewardPersonsUnderLoyalty(100);
             }
@@ -8711,7 +8726,8 @@
 
         private void InsideTacticsAI()
         {
-            if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && this.HasPerson())
+            //if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && this.HasPerson())
+            if (this.HasPerson())
             {
                 if (this.Fund >= this.RewardPersonFund)
                 {
