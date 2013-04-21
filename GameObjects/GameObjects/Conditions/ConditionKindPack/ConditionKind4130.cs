@@ -4,13 +4,13 @@
     using GameObjects.Conditions;
     using System;
 
-    internal class ConditionKind5005 : ConditionKind
+    internal class ConditionKind4130 : ConditionKind
     {
         private int val;
 
         public override bool CheckConditionKind(Person p)
         {
-            return p.Tiredness < val;
+            return p.Tiredness >= val;
         }
 
         public override void InitializeParameter(string parameter)
