@@ -928,15 +928,16 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         }
 
-        public override void AskWhenTransportArrived(Troop transport)
+        public override void AskWhenTransportArrived(Troop transport, Architecture destination)
         {
             if ((base.Scenario.CurrentPlayer == null) || (base.Scenario.IsCurrentPlayer(transport.BelongedFaction) &&
                 transport.BelongedFaction == transport.StartingArchitecture.BelongedFaction && !transport.StartingArchitecture.BelongedSection.AIDetail.AutoRun))
             {
+                transport.transportReturningTo = destination;
                 this.Plugins.PersonTextDialogPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(transport.TransportReturn), new GameDelegates.VoidFunction(transport.TransportEnter));
                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
 
-                transport.TextDestinationString = transport.TargetArchitecture.Name;
+                transport.TextDestinationString = destination.Name;
                 transport.TextResultString = transport.StartingArchitecture.Name;
                 this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(transport.Leader, transport, "TransportReturn");
                 this.Plugins.PersonTextDialogPlugin.IsShowing = true;

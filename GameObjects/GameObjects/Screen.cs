@@ -826,7 +826,7 @@
             
         }
 
-        public virtual void AskWhenTransportArrived(Troop transport)
+        public virtual void AskWhenTransportArrived(Troop transport, Architecture destination)
         {
         }
     }

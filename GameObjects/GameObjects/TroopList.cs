@@ -432,9 +432,9 @@
             sending.Scenario.GameScreen.TroopWaylay(sending, receiving);
         }
 
-        private void troop_OnTransportArrived(Troop troop)
+        private void troop_OnTransportArrived(Troop troop, Architecture destination)
         {
-            troop.Scenario.GameScreen.AskWhenTransportArrived(troop);
+            troop.Scenario.GameScreen.AskWhenTransportArrived(troop, destination);
         }
 
         public bool HasAnimatingTroop

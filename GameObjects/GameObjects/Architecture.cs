@@ -197,6 +197,7 @@
         public Dictionary<int, float> disasterDamageRateDecrease = new Dictionary<int, float>();
         public float militaryPopulationRateIncrease;
         public float enduranceDecreaseRateDrop;
+        public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
 
         public float ExperienceRate;
 
@@ -5939,6 +5940,10 @@
                 foreach (LinkNode i in this.AIAllLinkNodes.Values)
                 {
                     if (i.Level > 1) break;
+                    if (i.A.actuallyUnreachableArch.Contains(this))
+                    {
+                        continue;
+                    }
                     if (this.BelongedFaction == i.A.BelongedFaction && i.A.HasPerson() 
                         && i.A.BelongedSection.AIDetail.AutoRun)
                     {
@@ -9593,6 +9598,10 @@
                             continue;
                         }
                         if (GameObject.Chance(Parameters.AIObeyStrategyTendencyChance) && this.BelongedFaction.Leader.StrategyTendency == PersonStrategyTendency.维持现状)
+                        {
+                            continue;
+                        }
+                        if (this.actuallyUnreachableArch.Contains(i.A))
                         {
                             continue;
                         }

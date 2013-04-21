@@ -1667,6 +1667,11 @@
                     List<Point> refPath;
                     try
                     {
+                        if (this.StartingArchitecture.ID == 4)
+                        {
+                            int zzz = 0;
+                            zzz++;
+                        }
                         refPath = base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, trueKind)];
                     }
                     catch (KeyNotFoundException)
@@ -1698,6 +1703,12 @@
                                 }
                             }
                         }
+                    }
+                    else if (refPath.Count == 0 && this.Army.Kind.Type != MilitaryType.水军)
+                    {
+                        this.StartingArchitecture.actuallyUnreachableArch.Add(this.WillArchitecture);
+                        this.GoBack();
+                        return false;
                     }
                 }
                 
@@ -3138,9 +3149,11 @@
             }
         }
 
+        public Architecture transportReturningTo;
+
         public void TransportEnter()
         {
-            this.Enter(this.TargetArchitecture, false);
+            this.Enter(transportReturningTo, false);
         }
 
         public void TransportReturn()
@@ -3149,9 +3162,9 @@
             {
                 GameObjectList persons = this.Persons.GetList();
                 Architecture returnTo = this.StartingArchitecture;
-                Architecture goTo = this.WillArchitecture;
+                Architecture goTo = transportReturningTo;
                 Military army = this.Army;
-                this.Enter(this.WillArchitecture, false);
+                this.Enter(goTo, false);
                 foreach (Person p in persons)
                 {
                     p.MoveToArchitecture(returnTo);
@@ -3178,11 +3191,12 @@
         {
             if (this.IsTransport && this.StartingArchitecture.BelongedSection.AIDetail.AutoRun)
             {
+                transportReturningTo = a;
                 this.TransportReturn();
             }
             else
             {
-                this.Enter(a, this.IsTransport && this.StartingArchitecture.BelongedFaction == this.BelongedFaction && this.StartingArchitecture != this.TargetArchitecture);
+                this.Enter(a, this.IsTransport && this.StartingArchitecture.BelongedFaction == this.BelongedFaction && this.StartingArchitecture != a);
             }
         }
 
@@ -3190,7 +3204,7 @@
         {
             if (doAsk && this.OnTransportArrived != null)
             {
-                this.OnTransportArrived(this);
+                this.OnTransportArrived(this, a);
             } 
             else if (a.BelongedFaction == this.BelongedFaction)
             {
@@ -12093,7 +12107,7 @@
 
         public delegate void Waylay(Troop sending, Troop receiving);
 
-        public delegate void TransportArrived(Troop troop);
+        public delegate void TransportArrived(Troop troop, Architecture destination);
     }
 }
 
