@@ -2337,6 +2337,7 @@
                 architecture.Commerce = (int)reader["Commerce"];
                 architecture.Technology = (int)reader["Technology"];
                 architecture.Domination = (int)reader["Domination"];
+                if (architecture.Domination > 100) architecture.Domination = 100;
                 architecture.Morale = (int)reader["Morale"];
                 architecture.Endurance = (int)reader["Endurance"];
                 architecture.AutoHiring = (bool)reader["AutoHiring"];
@@ -2345,6 +2346,12 @@
                 architecture.AutoSearching = (bool)reader["AutoSearching"];
                 architecture.HireFinished = (bool)reader["HireFinished"];
                 architecture.FacilityEnabled = (bool)reader["FacilityEnabled"];
+                
+                // 下面这些LaodFromString似乎有些问题
+                // architecture返回的PersonList是一个在属性的get里面临时创建的列表
+                // 并不是architecture的成员变量，等于这些语句什么都没做
+                // 我还不清楚这些PersonList的具体作用，所以暂时没有修改
+                // -- YPZhou
                 architecture.AgricultureWorkingPersons.LoadFromString(architecture.Persons, reader["AgricultureWorkingPersons"].ToString());
                 architecture.CommerceWorkingPersons.LoadFromString(architecture.Persons, reader["CommerceWorkingPersons"].ToString());
                 architecture.TechnologyWorkingPersons.LoadFromString(architecture.Persons, reader["TechnologyWorkingPersons"].ToString());
