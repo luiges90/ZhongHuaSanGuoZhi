@@ -3460,6 +3460,14 @@
             }
         }
 
+        private float AbilityAgeFactor
+        {
+            get
+            {
+                return -0.002f * this.Age * this.Age + 0.09f * this.Age + 0.1f;
+            }
+        }
+
         private int BaseAgricultureAbility
         {
             get
@@ -3472,7 +3480,7 @@
         {
             get
             {
-                return this.command;
+                return (int) (this.command * this.AbilityAgeFactor);
             }
             set
             {
@@ -3508,7 +3516,7 @@
         {
             get
             {
-                return this.glamour;
+                return (int) (this.glamour * this.AbilityAgeFactor);
             }
             set
             {
@@ -3532,7 +3540,7 @@
         {
             get
             {
-                return this.intelligence;
+                return (int) (this.intelligence * this.AbilityAgeFactor);
             }
             set
             {
@@ -3552,7 +3560,7 @@
         {
             get
             {
-                return this.politics;
+                return (int) (this.politics * this.AbilityAgeFactor);
             }
             set
             {
@@ -3572,7 +3580,7 @@
         {
             get
             {
-                return this.strength;
+                return (int) (this.strength * this.AbilityAgeFactor);
             }
             set
             {
