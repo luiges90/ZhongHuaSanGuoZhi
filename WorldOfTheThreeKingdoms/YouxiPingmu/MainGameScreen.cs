@@ -1496,11 +1496,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             base.Scenario.ScenarioMap.JumpPosition = this.mainMapLayer.GetCurrentScreenCenter(base.viewportSize);
             try
             {
-                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveMap);
+                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, base.Scenario.AllNewGame || saveMap);
             }
             catch (Exception)
             {
-                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveMap);
+                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, base.Scenario.AllNewGame || saveMap);
             }
             File.Delete(tempFilePath);
             GC.Collect();
