@@ -1129,6 +1129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1705.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6080.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6505.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6310.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6320.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6330.cs" />
@@ -1137,5 +1139,7 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6350.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6370.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6500.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6510.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6515.cs" />
   </ItemGroup>
 </Project>
