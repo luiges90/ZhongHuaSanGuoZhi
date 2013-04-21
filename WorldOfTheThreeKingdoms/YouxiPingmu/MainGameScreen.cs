@@ -70,7 +70,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private TroopLayer troopLayer;
         private int UpdateCount;
         private ViewMove viewMove;
-        private bool isKeyScrolling = false;
         internal FreeText qizidezi;
 
         public MainGameScreen(MainGame game)
@@ -1632,10 +1631,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (base.EnableScroll && (this.viewMove != ViewMove.Stop))
             {
-                if ((Math.Abs((int)(this.mouseState.X - this.previousMouseState.X)) <= 2) && (Math.Abs((int)(this.mouseState.Y - this.previousMouseState.Y)) <= 2)
-                    || this.isKeyScrolling)
+                if ((Math.Abs((int)(this.mouseState.X - this.previousMouseState.X)) <= 2) && (Math.Abs((int)(this.mouseState.Y - this.previousMouseState.Y)) <= 2))
                 {
-                    if (!this.isKeyScrolling && (gameTime.TotalGameTime.TotalMilliseconds - this.lastTime) < 200.0)
+                    if ((gameTime.TotalGameTime.TotalMilliseconds - this.lastTime) < 200.0)
                     {
                         return;
                     }
@@ -2985,72 +2983,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     base.MouseArrowTexture = this.Textures.MouseArrowTextures[4];
                     this.viewMove = ViewMove.Bottom;
-                }
-                
-                if (this.keyState.IsKeyDown(Keys.Left))
-                {
-                    if (this.keyState.IsKeyDown(Keys.Up))
-                    {
-                        if ((this.mainMapLayer.LeftEdge != 0) || (this.mainMapLayer.TopEdge != 0))
-                        {
-                            this.viewMove = ViewMove.TopLeft;
-                            this.isKeyScrolling = true;
-                        }
-                    }
-                    else if (this.keyState.IsKeyDown(Keys.Down))
-                    {
-                        if ((this.mainMapLayer.LeftEdge != 0) || ((this.mainMapLayer.TopEdge + this.mainMapLayer.TotalTileHeight) != this.viewportSize.Y))
-                        {
-                            this.viewMove = ViewMove.BottomLeft;
-                            this.isKeyScrolling = true;
-                        }
-                    }
-                    else if (this.mainMapLayer.LeftEdge != 0)
-                    {
-                        this.viewMove = ViewMove.Left;
-                        this.isKeyScrolling = true;
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.Right))
-                {
-                    if (this.keyState.IsKeyDown(Keys.Up))
-                    {
-                        if (((this.mainMapLayer.LeftEdge + this.mainMapLayer.TotalTileWidth) != this.viewportSize.X) || (this.mainMapLayer.TopEdge != 0))
-                        {
-                            this.viewMove = ViewMove.TopRight;
-                            this.isKeyScrolling = true;
-                        }
-                    }
-                    else if (this.keyState.IsKeyDown(Keys.Down))
-                    {
-                        if (((this.mainMapLayer.LeftEdge + this.mainMapLayer.TotalTileWidth) != this.viewportSize.X) || ((this.mainMapLayer.TopEdge + this.mainMapLayer.TotalTileHeight) != this.viewportSize.Y))
-                        {
-                            this.viewMove = ViewMove.BottomRight;
-                            this.isKeyScrolling = true;
-                        }
-                    }
-                    else if ((this.mainMapLayer.LeftEdge + this.mainMapLayer.TotalTileWidth) != this.viewportSize.X)
-                    {
-                        this.viewMove = ViewMove.Right;
-                        this.isKeyScrolling = true;
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.Up))
-                {
-                    if (this.mainMapLayer.TopEdge != 0)
-                    {
-                        this.viewMove = ViewMove.Top;
-                        this.isKeyScrolling = true;
-                    }
-                }
-                else if ((this.keyState.IsKeyDown(Keys.Down) && ((this.mainMapLayer.TopEdge + this.mainMapLayer.TotalTileHeight) != this.viewportSize.Y)))
-                {
-                    this.viewMove = ViewMove.Bottom;
-                    this.isKeyScrolling = true;
-                }
-                else
-                {
-                    this.isKeyScrolling = false;
                 }
             }
         }
