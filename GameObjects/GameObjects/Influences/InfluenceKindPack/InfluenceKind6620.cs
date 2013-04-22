@@ -8,27 +8,11 @@
     {
         private float increment;
 
-        public override void ApplyInfluenceKind(Faction f)
-        {
-            if (this.increment > f.techniqueTimeRateDecrease)
-            {
-                f.techniqueTimeRateDecrease = this.increment;
-            }
-        }
-
-        public override void PurifyInfluenceKind(Faction f)
-        {
-            f.techniqueTimeRateDecrease = 0;
-        }
-
         public override void ApplyInfluenceKind(Person p)
         {
             if (p.BelongedFaction != null)
             {
-                if (this.increment > p.BelongedFaction.techniqueTimeRateDecrease)
-                {
-                    p.BelongedFaction.techniqueTimeRateDecrease = this.increment;
-                }
+                p.BelongedFaction.techniqueTimeRateDecrease.Add(this.increment);
             }
         }
 
@@ -36,26 +20,7 @@
         {
             if (p.BelongedFaction != null)
             {
-                p.BelongedFaction.techniqueTimeRateDecrease = 0;
-            }
-        }
-
-        public override void ApplyInfluenceKind(Architecture a)
-        {
-            if (a.BelongedFaction != null)
-            {
-                if (this.increment > a.BelongedFaction.techniqueTimeRateDecrease)
-                {
-                    a.BelongedFaction.techniqueTimeRateDecrease = this.increment;
-                }
-            }
-        }
-
-        public override void PurifyInfluenceKind(Architecture a)
-        {
-            if (a.BelongedFaction != null)
-            {
-                a.BelongedFaction.techniqueTimeRateDecrease = 0;
+                p.BelongedFaction.techniqueTimeRateDecrease.Remove(this.increment);
             }
         }
 

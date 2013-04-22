@@ -188,8 +188,7 @@
         public bool noFactionFrontline;
         public int captureChance;
         public int noEscapeChance;
-        public int captiveLoyaltyFallThreshold;
-        public int captiveLoyaltyExtraFall;
+        public List<KeyValuePair<int, int>> captiveLoyaltyFall = new List<KeyValuePair<int,int>>();
         public bool noFundToSustainFacility;
         public int facilityEnduranceIncrease;
         public Dictionary<int, int> disasterChanceDecrease = new Dictionary<int, int>();

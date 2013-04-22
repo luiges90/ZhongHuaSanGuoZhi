@@ -11,20 +11,12 @@
 
         public override void ApplyInfluenceKind(Architecture a)
         {
-            if (a.captiveLoyaltyExtraFall < this.increment)
-            {
-                a.captiveLoyaltyExtraFall = this.increment;
-            }
-            if (a.captiveLoyaltyFallThreshold < this.threshold)
-            {
-                a.captiveLoyaltyFallThreshold = this.threshold;
-            }
+            a.captiveLoyaltyFall.Add(new System.Collections.Generic.KeyValuePair<int, int>(this.threshold, this.increment));
         }
 
         public override void PurifyInfluenceKind(Architecture a)
         {
-            a.captiveLoyaltyExtraFall = 0;
-            a.captiveLoyaltyFallThreshold = 0;
+            a.captiveLoyaltyFall.Remove(new System.Collections.Generic.KeyValuePair<int, int>(this.threshold, this.increment));
         }
 
         public override void InitializeParameter2(string parameter)

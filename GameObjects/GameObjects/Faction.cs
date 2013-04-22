@@ -13,6 +13,7 @@
     using System.Runtime.CompilerServices;
     using System.Runtime.InteropServices;
     using System.Threading;
+    using System.Linq;
 
     public class Faction : GameObject
     {
@@ -136,10 +137,10 @@
         private int upgradingDaysLeft;
         private int upgradingTechnique = -1;
 
-        public float techniqueReputationRateDecrease = 0f;
-        public float techniquePointCostRateDecrease = 0f;
-        public float techniqueTimeRateDecrease = 0f;
-        public float techniqueFundCostRateDecrease = 0f;
+        public List<float> techniqueReputationRateDecrease = new List<float>();
+        public List<float> techniquePointCostRateDecrease = new List<float>();
+        public List<float> techniqueTimeRateDecrease = new List<float>();
+        public List<float> techniqueFundCostRateDecrease = new List<float>();
 
         public event AfterCatchLeader OnAfterCatchLeader;
 
@@ -1979,22 +1980,26 @@
 
         public int getTechniqueActualPointCost(Technique technique)
         {
-            return (int) Math.Round(technique.PointCost * (1 - this.techniquePointCostRateDecrease));
+            if (this.techniquePointCostRateDecrease.Count == 0) return technique.PointCost;
+            return (int) Math.Round(technique.PointCost * (1 - this.techniquePointCostRateDecrease.Min()));
         }
 
         public int getTechniqueActualReputation(Technique technique)
         {
-            return (int) Math.Round(technique.Reputation * (1 - this.techniqueReputationRateDecrease));
+            if (this.techniqueReputationRateDecrease.Count == 0) return technique.Reputation;
+            return (int)Math.Round(technique.Reputation * (1 - this.techniqueReputationRateDecrease.Min()));
         }
 
         public int getTechniqueActualFundCost(Technique technique)
         {
-            return (int) Math.Round(technique.FundCost * (1 - this.techniqueFundCostRateDecrease));
+            if (this.techniqueFundCostRateDecrease.Count == 0) return technique.FundCost;
+            return (int)Math.Round(technique.FundCost * (1 - this.techniqueFundCostRateDecrease.Min()));
         }
 
         public int getTechniqueActualTime(Technique technique)
         {
-            return (int) Math.Round(technique.Days * (1 - techniqueTimeRateDecrease));
+            if (this.techniqueTimeRateDecrease.Count == 0) return technique.Days;
+            return (int)Math.Round(technique.Days * (1 - techniqueTimeRateDecrease.Min()));
         }
 
         public bool MatchTechnique(Technique technique, Architecture architecture)
