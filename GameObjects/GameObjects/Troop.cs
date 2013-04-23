@@ -3158,7 +3158,7 @@
 
         public void TransportReturn()
         {
-            if (this.StartingArchitecture.BelongedFaction == this.BelongedFaction)
+            if (this.StartingArchitecture.BelongedFaction == this.BelongedFaction && this.StartingArchitecture != transportReturningTo)
             {
                 GameObjectList persons = this.Persons.GetList();
                 Architecture returnTo = this.StartingArchitecture;
