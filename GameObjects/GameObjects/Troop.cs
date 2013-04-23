@@ -11566,7 +11566,7 @@
                 else if (this.targetTroop.Destroyed)
                 {
                     bool found = false;
-                    foreach (Point p in this.ViewArea.Area)
+                    foreach (Point p in this.OffenceArea.Area)
                     {
                         Architecture a = this.Scenario.GetArchitectureByPosition(p);
                         Troop t = this.Scenario.GetTroopByPosition(p);
