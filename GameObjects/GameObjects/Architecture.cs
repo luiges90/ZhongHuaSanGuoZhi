@@ -11563,7 +11563,6 @@
             foreach (Person person in this.Persons)
             {
                 person.WorkKind = ArchitectureWorkKind.无;
-                person.RecruitmentMilitary = null;
             }
         }
 
@@ -11574,7 +11573,6 @@
                 if ((person.WorkKind != ArchitectureWorkKind.无) && (person.WorkKind != ArchitectureWorkKind.训练))
                 {
                      person.WorkKind = ArchitectureWorkKind.无;
-                     person.RecruitmentMilitary = null;
                 }
             }
         }

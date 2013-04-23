@@ -4872,6 +4872,10 @@
             }
             set
             {
+                if (value != null && value.RecruitmentPerson != null)
+                {
+                    value.RecruitmentPerson.WorkKind = ArchitectureWorkKind.无;
+                }
                 this.recruitmentMilitary = value;
             }
         }
