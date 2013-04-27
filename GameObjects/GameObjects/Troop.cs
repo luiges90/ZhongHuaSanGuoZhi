@@ -2104,7 +2104,7 @@
                 return false;
             }
             //停战退兵
-            if (this.BelongedFaction.IsFriendly(this.WillArchitecture.BelongedFaction))
+            if (this.BelongedFaction.IsFriendly(this.WillArchitecture.BelongedFaction) && this.BelongedFaction != this.WillArchitecture.BelongedFaction)
             {
                 return false;
             }
