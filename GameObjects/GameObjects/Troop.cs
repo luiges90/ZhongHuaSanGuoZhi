@@ -3522,7 +3522,10 @@
             foreach (Point point in area.Area)
             {
                 Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
-                if ((troopByPosition != null) && (this.CurrentStratagem.IsValid(troopByPosition) && (this.CurrentStratagem.Friendly || !this.IsFriendly(troopByPosition.BelongedFaction))))
+                if ((troopByPosition != null) && (this.CurrentStratagem.IsValid(troopByPosition) && 
+                    ((this.CurrentStratagem.Friendly && this.IsFriendly(troopByPosition.BelongedFaction)) ||
+                     (!this.CurrentStratagem.Friendly && !this.IsFriendly(troopByPosition.BelongedFaction))
+                    )))
                 {
                     list.Add(troopByPosition);
                 }
