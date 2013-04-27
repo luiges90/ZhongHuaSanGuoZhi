@@ -824,6 +824,10 @@
         {
             get
             {
+                if (this.morale > this.MoraleCeiling)
+                {
+                    this.morale = this.MoraleCeiling;
+                }
                 if (this.ShelledMilitary == null)
                 {
                     return this.morale;
@@ -847,7 +851,7 @@
         {
             get
             {
-                return this.BelongedTroop != null ? 120 : 100;
+                return this.BelongedTroop != null && this.BelongedArchitecture == null ? 120 : 100;
             }
         }
 
