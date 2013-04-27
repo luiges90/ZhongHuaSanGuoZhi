@@ -1147,5 +1147,18 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6575.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6580.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6585.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6700.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6705.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6710.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6715.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6720.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6725.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6730.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6735.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6740.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6745.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6750.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6755.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6760.cs" />
   </ItemGroup>
 </Project>
