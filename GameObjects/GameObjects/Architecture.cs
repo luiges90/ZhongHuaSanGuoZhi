@@ -928,7 +928,7 @@
                         {
                             if (i.Kind.AIValue(this) < 0 && !i.Kind.bukechaichu)
                             {
-                                if (this.FacilityEnabled)
+                                if (this.FacilityEnabled || i.MaintenanceCost <= 0)
                                 {
                                     i.Influences.PurifyInfluence(this, Applier.Facility, i.ID);
                                 }
@@ -1015,7 +1015,7 @@
                         //if no space and the facility is good enough than others, remove others
                         foreach (Facility f in realToDestroy)
                         {
-                            if (this.FacilityEnabled)
+                            if (this.FacilityEnabled || f.MaintenanceCost <= 0)
                             {
                                 f.Influences.PurifyInfluence(this, Applier.Facility, f.ID);
                             }
@@ -1182,7 +1182,7 @@
                                 while (this.FacilityPositionLeft < hougong.PositionOccupied && fl.Count > 0)
                                 {
                                     Facility f = fl[0] as Facility;
-                                    if (this.FacilityEnabled)
+                                    if (this.FacilityEnabled || f.MaintenanceCost <= 0)
                                     {
                                         f.Influences.PurifyInfluence(this, Applier.Facility, f.ID);
                                     }
@@ -4300,10 +4300,7 @@
         public void ApplyInfluences()
         {
             this.Characteristics.ApplyInfluence(this, Applier.Characteristics, 0);
-            if (this.FacilityEnabled)
-            {
-                this.ApplyFacilityInfluences(false);
-            }
+            this.ApplyFacilityInfluences(false);
         }
 
         public void ApplyFacilityInfluences(bool skipNoCostFacility)
@@ -4312,7 +4309,10 @@
             {
                 if (!skipNoCostFacility || facility.MaintenanceCost > 0)
                 {
-                    facility.Influences.ApplyInfluence(this, Applier.Facility, facility.ID);
+                    if (this.FacilityEnabled || facility.MaintenanceCost <= 0)
+                    {
+                        facility.Influences.ApplyInfluence(this, Applier.Facility, facility.ID);
+                    }
                 }
             }
         }
@@ -6037,7 +6037,7 @@
 
         public void DemolishFacility(Facility facility)
         {
-            if (this.FacilityEnabled)
+            if (this.FacilityEnabled || facility.MaintenanceCost <= 0)
             {
                 facility.Influences.PurifyInfluence(this, Applier.Facility, facility.ID);
             }
@@ -6532,19 +6532,13 @@
             int facilityMaintenanceCost = noFundToSustainFacility ? 0 : this.FacilityMaintenanceCost;
             if (this.Fund >= facilityMaintenanceCost)
             {
-                if (!this.FacilityEnabled)
-                {
-                    this.ApplyFacilityInfluences(true);
-                }
+                this.ApplyFacilityInfluences(true);
                 this.FacilityEnabled = true;
                 this.DecreaseFund(facilityMaintenanceCost);
             }
             else
             {
-                if (this.FacilityEnabled)
-                {
-                    this.PurifyFacilityInfluences();
-                }
+                this.PurifyFacilityInfluences();
                 this.FacilityEnabled = false;
             }
         }

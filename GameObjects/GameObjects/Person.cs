@@ -954,16 +954,6 @@
                 {
                     i.ApplyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0);
                 }
-                if (this.LocationArchitecture.FacilityEnabled)
-                {
-                    foreach (Facility f in this.LocationArchitecture.Facilities.GameObjects)
-                    {
-                        foreach (Influences.Influence i in f.Influences.Influences.Values)
-                        {
-                            i.ApplyInfluence(this, GameObjects.Influences.Applier.Facility, f.ID);
-                        }
-                    }
-                }
             }
         }
 
@@ -974,16 +964,6 @@
                 foreach (Influences.Influence i in this.LocationArchitecture.Characteristics.Influences.Values)
                 {
                     i.PurifyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0);
-                }
-                if (this.LocationArchitecture.FacilityEnabled)
-                {
-                    foreach (Facility f in this.LocationArchitecture.Facilities.GameObjects)
-                    {
-                        foreach (Influences.Influence i in f.Influences.Influences.Values)
-                        {
-                            i.PurifyInfluence(this, GameObjects.Influences.Applier.Facility, f.ID);
-                        }
-                    }
                 }
             }
         }
