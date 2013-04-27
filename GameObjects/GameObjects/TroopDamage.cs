@@ -31,6 +31,12 @@
         public TroopList SurroudingList = new TroopList();
         public bool Surround;
         public bool Waylay;
+
+        public int InjuredDamage;
+        public int StealTroop;
+        public int StealInjured;
+        public int TirednessIncrease;
+        public int StealFood;
     }
 }
 

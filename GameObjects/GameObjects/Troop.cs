@@ -374,6 +374,39 @@
         public int stealTreasureRate;
         public float attackInjuryRate = 1;
         public int chanceTirednessStopIncrease;
+        public float reduceInjuredOnAttack = 0;
+        public float reduceInjuredOnCritical = 0;
+        public float StealTroop = 0;
+        public float StealInjured = 0;
+        public int TirednessIncreaseOnAttack = 0;
+        public int TirednessIncreaseOnCritical = 0;
+        public int StealFood = 0;
+        public int CommandDecrease = 0;
+        public int CommandIncrease = 0;
+        public int StrengthDecrease = 0;
+        public int StrengthIncrease = 0;
+        public int IntelligenceDecrease = 0;
+        public int IntelligenceIncrease = 0;
+        public int PoliticsDecrease = 0;
+        public int PoliticsIncrease = 0;
+        public int GlamourDecrease = 0;
+        public int GlamourIncrease = 0;
+        public int ReputationDecrease = 0;
+        public int ReputationIncrease = 0;
+        public int LostSkillCount = 0;
+        public int CommandDecreaseProb = 0;
+        public int CommandIncreaseProb = 0;
+        public int StrengthDecreaseProb = 0;
+        public int StrengthIncreaseProb = 0;
+        public int IntelligenceDecreaseProb = 0;
+        public int IntelligenceIncreaseProb = 0;
+        public int PoliticsDecreaseProb = 0;
+        public int PoliticsIncreaseProb = 0;
+        public int GlamourDecreaseProb = 0;
+        public int GlamourIncreaseProb = 0;
+        public int ReputationDecreaseProb = 0;
+        public int ReputationIncreaseProb = 0;
+        public int LostSkillProb = 0;
 
         public float ExperienceRate;
 
@@ -2407,6 +2440,73 @@
                 {
                     sending.TargetArchitecture = oldLandedArch;
                 }
+
+                foreach (Person p in receiving.Persons)
+                {
+                    if (GameObject.Chance(sending.CommandDecreaseProb))
+                    {
+                        p.BaseCommand -= sending.CommandDecrease;
+                    }
+                    if (GameObject.Chance(sending.StrengthDecreaseProb))
+                    {
+                        p.BaseStrength -= sending.StrengthDecrease;
+                    }
+                    if (GameObject.Chance(sending.IntelligenceDecreaseProb))
+                    {
+                        p.BaseIntelligence -= sending.IntelligenceDecrease;
+                    }
+                    if (GameObject.Chance(sending.PoliticsDecreaseProb))
+                    {
+                        p.BasePolitics -= sending.PoliticsDecrease;
+                    }
+                    if (GameObject.Chance(sending.GlamourDecreaseProb))
+                    {
+                        p.BaseGlamour -= sending.GlamourDecrease;
+                    }
+                    if (GameObject.Chance(sending.ReputationDecreaseProb))
+                    {
+                        p.Reputation -= sending.ReputationDecrease;
+                    }
+                    if (GameObject.Chance(sending.LostSkillProb))
+                    {
+                        for (int si = 0; si < sending.LostSkillCount; ++si)
+                        {
+                            if (p.Skills.Skills.Count > 0)
+                            {
+                                p.Skills.Skills.Remove(GameObject.Random(p.Skills.Skills.Count));
+                            }
+                        }
+                    }
+                }
+
+                foreach (Person p in receiving.Persons)
+                {
+                    if (GameObject.Chance(sending.CommandIncreaseProb))
+                    {
+                        p.BaseCommand += sending.CommandIncrease;
+                    }
+                    if (GameObject.Chance(sending.StrengthIncreaseProb))
+                    {
+                        p.BaseStrength += sending.StrengthIncrease;
+                    }
+                    if (GameObject.Chance(sending.IntelligenceIncreaseProb))
+                    {
+                        p.BaseIntelligence += sending.IntelligenceIncrease;
+                    }
+                    if (GameObject.Chance(sending.PoliticsIncreaseProb))
+                    {
+                        p.BasePolitics += sending.PoliticsIncrease;
+                    }
+                    if (GameObject.Chance(sending.GlamourIncreaseProb))
+                    {
+                        p.BaseGlamour += sending.GlamourIncrease;
+                    }
+                    if (GameObject.Chance(sending.ReputationIncreaseProb))
+                    {
+                        p.Reputation += sending.ReputationIncrease;
+                    }
+                }
+
                 receiving.BeRouted();
                 if (sending.Combativity < sending.Army.CombativityCeiling)
                 {
@@ -2759,12 +2859,12 @@
             if (!GameObject.Chance(this.chanceTirednessStopIncrease))
             {
                 this.Army.Tiredness += GlobalVariables.TirednessIncrease;
-                foreach (Person p in this.Persons)
+            }
+            foreach (Person p in this.Persons)
+            {
+                if (!GameObject.Chance(p.chanceTirednessStopIncrease) && !GameObject.Chance(this.chanceTirednessStopIncrease))
                 {
-                    if (!GameObject.Chance(p.chanceTirednessStopIncrease))
-                    {
-                        p.Tiredness += GlobalVariables.TirednessIncrease;
-                    }
+                    p.Tiredness += GlobalVariables.TirednessIncrease;
                 }
             }
             
@@ -2980,6 +3080,7 @@
 
         public void DecreaseQuantity(int decrement)
         {
+            if (decrement == 0) return;
             int quantity = 0;
             if (this.Army.Quantity > decrement)
             {
@@ -5806,6 +5907,18 @@
                     {
                         damage.DestinationTroop.ChangeMorale(damage.DestinationMoraleChange);
                     }
+                    damage.DestinationTroop.DecreaseInjuryQuantity(damage.InjuredDamage);
+                    damage.SourceTroop.IncreaseQuantity(damage.StealTroop);
+                    damage.DestinationTroop.DecreaseQuantity(damage.StealTroop);
+                    damage.SourceTroop.InjuryQuantity += damage.StealInjured;
+                    damage.DestinationTroop.DecreaseInjuryQuantity(damage.StealInjured);
+                    damage.DestinationTroop.Army.Tiredness += damage.TirednessIncrease;
+                    damage.DestinationTroop.Food -= damage.StealFood;
+                    damage.SourceTroop.IncreaseFood(damage.StealFood);
+                    foreach (Person p in damage.DestinationTroop.Persons)
+                    {
+                        p.Tiredness += damage.TirednessIncrease;
+                    }
                     if (!damage.SourceTroop.Destroyed)
                     {
                         CheckTroopRout(damage.SourceTroop, damage.DestinationTroop);
@@ -6288,6 +6401,7 @@
 
         public void IncreaseQuantity(int increment)
         {
+            if (increment == 0) return;
             int num = 0;
             if ((this.Army.Quantity + increment) > this.Army.Kind.MaxScale)
             {
@@ -8466,6 +8580,11 @@
                 }
                 damage.FireDamage = num5;
             }
+            damage.InjuredDamage = (int) (this.reduceInjuredOnAttack * damage.DestinationTroop.Army.Kind.MinScale);
+            damage.StealTroop = Math.Min(damage.DestinationTroop.Quantity, (int) (damage.Damage * this.StealTroop));
+            damage.StealInjured = Math.Min(damage.DestinationTroop.InjuryQuantity, (int) (damage.Damage * this.StealInjured));
+            damage.TirednessIncrease = this.TirednessIncreaseOnAttack;
+            damage.StealFood = Math.Min(damage.DestinationTroop.Food, this.StealFood);
             if (damage.Critical)
             {
                 this.PreAction = TroopPreAction.暴击;
@@ -8505,6 +8624,8 @@
                         }
                     }
                 }
+                damage.InjuredDamage += (int)(this.reduceInjuredOnCritical * damage.DestinationTroop.Army.Kind.MinScale);
+                damage.TirednessIncrease += this.TirednessIncreaseOnCritical;
             }
             if (damage.Waylay)
             {
