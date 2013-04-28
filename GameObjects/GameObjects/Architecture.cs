@@ -2303,7 +2303,7 @@
                                             siegeCount++;
                                         }
                                     }
-                                    if (siegeCount < this.Militaries.Count / 3)
+                                    if (siegeCount < this.Militaries.Count / (this.IsBesideWater ? 6 : 3))
                                     {
                                         this.AIRecruitment(false, true);
                                     }
@@ -3041,13 +3041,16 @@
                 }
                 if (i.A.BelongedFaction != this.BelongedFaction) continue;
 
-                if (!i.A.HostileLine && !i.A.FrontLine && !i.A.noFactionFrontline) continue;
+                if (this.BelongedSection.AIDetail.AllowOffensiveCampaign)
+                {
+                    if (!i.A.HostileLine && !i.A.FrontLine && !i.A.noFactionFrontline) continue;
 
-                if (!this.BelongedSection.AIDetail.AllowMilitaryTransfer && i.A.BelongedSection != this.BelongedSection) continue;
-
-                if (this.BelongedSection.AIDetail.OrientationKind == SectionOrientationKind.军区 &&
-                    this.BelongedSection.AIDetail.AllowMilitaryTransfer &&
-                    i.A.BelongedSection != this.BelongedSection && i.A.BelongedSection != this.BelongedSection.OrientationSection) continue;
+                    if (!this.BelongedSection.AIDetail.AllowMilitaryTransfer && i.A.BelongedSection != this.BelongedSection) continue;
+                }
+                else
+                {
+                    if (i.A.BelongedSection != this.BelongedSection.OrientationSection) continue;
+                }
 
                 if (!i.A.IsFoodEnough) continue;
 
@@ -3070,46 +3073,6 @@
                 }
             }
 
-            /*if (target == null && GameObject.Random(10) == 0)
-            {
-                foreach (LinkNode i in this.AIAllLinkNodes.Values)
-                {
-                    if (i.Level > 1)
-                    {
-                        break;
-                    }
-                    if (i.A.BelongedFaction != this.BelongedFaction) continue;
-
-                    if (!this.BelongedSection.AIDetail.AllowMilitaryTransfer && i.A.BelongedSection != this.BelongedSection) continue;
-
-                    if (this.BelongedSection.AIDetail.OrientationKind == SectionOrientationKind.军区 &&
-                        this.BelongedSection.AIDetail.AllowMilitaryTransfer &&
-                        i.A.BelongedSection != this.BelongedSection && i.A.BelongedSection != this.BelongedSection.OrientationSection) continue;
-
-                    if (this.ArmyScale < i.A.ArmyScale / 1.5) continue;
-
-                    if (!i.A.IsFoodEnough) continue;
-
-                    int weight = i.A.ArmyScale;
-
-                    if (i.A.orientationFrontLine)
-                    {
-                        weight = (int)(weight * 0.5);
-                    }
-
-                    if (i.A.HostileLine)
-                    {
-                        weight = (int)(weight * 0.75);
-                    }
-
-                    if (weight < leastTroop)
-                    {
-                        target = i;
-                        leastTroop = i.A.ArmyScale;
-                    }
-                }
-            }*/
-
             if (target != null)
             {
                 MilitaryList leaderlessArmies = new MilitaryList();
@@ -3126,7 +3089,7 @@
                 {
                     int minMerit = int.MaxValue;
                     Person personToMove = null;
-                    foreach (Person p in this.BelongedFaction.Persons)
+                    foreach (Person p in base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Persons : this.BelongedFaction.Persons)
                     {
                         if (!p.IsCaptive && p.LocationArchitecture != null && p.LocationArchitecture.BelongedSection == this.BelongedSection && p.Status == PersonStatus.Normal 
                             && p.Merit < minMerit && p.BelongedArchitecture.PersonCount + p.BelongedArchitecture.MovingPersons.Count > 1)
@@ -5423,7 +5386,7 @@
         {
             foreach (Person person in this.Persons)
             {
-                if (/*(person.Loyalty <= 100) && */ (person != this.BelongedFaction.Leader))
+                if (person.Loyalty <= 110 && (person != this.BelongedFaction.Leader))
                 {
                     person.DecreaseLoyalty(StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
                 }
@@ -5934,7 +5897,7 @@
             }
             
             //not enough defensive troop, call for reinforcements!!
-            if (this.TotalFriendlyForce < this.TotalHostileForce)
+            if (this.TotalFriendlyForce < this.TotalHostileForce * (Math.Max(1, (200 - this.Endurance) * 0.005 + 1)))
             {
                 foreach (LinkNode i in this.AIAllLinkNodes.Values)
                 {

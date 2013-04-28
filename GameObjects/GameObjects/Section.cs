@@ -304,6 +304,32 @@
             }
         }
 
+        public PersonList Persons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Architecture architecture in this.Architectures)
+                {
+                    foreach (Person p in architecture.Persons)
+                    {
+                        result.Add(p);
+                    }
+                }
+                foreach (Troop troop in this.BelongedFaction.Troops)
+                {
+                    if (troop.StartingArchitecture.BelongedSection == this)
+                    {
+                        foreach (Person p in troop.Persons)
+                        {
+                            result.Add(p);
+                        }
+                    }
+                }
+                return result;
+            }
+        }
+
         public int PersonCount
         {
             get
