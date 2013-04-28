@@ -3259,7 +3259,7 @@
 
         public void TransportReturn()
         {
-            if (this.StartingArchitecture.BelongedFaction == this.BelongedFaction && this.StartingArchitecture != transportReturningTo)
+            if (this.StartingArchitecture != null && this.StartingArchitecture.BelongedFaction == this.BelongedFaction && this.StartingArchitecture != transportReturningTo)
             {
                 GameObjectList persons = this.Persons.GetList();
                 Architecture returnTo = this.StartingArchitecture;
@@ -3314,6 +3314,11 @@
                 {
                     person.LocationTroop = null;
                     person.LocationArchitecture = a;
+                    if (base.Scenario.IsPlayer(this.BelongedFaction) && this.StartingArchitecture != null && this.StartingArchitecture.BelongedFaction == this.BelongedFaction &&
+                        this.StartingArchitecture.BelongedSection != a.BelongedSection && this.StartingArchitecture != transportReturningTo)
+                    {
+                        person.MoveToArchitecture(this.StartingArchitecture);
+                    }
                 }
                 this.Persons.ApplyInfluences();
                 if (this.Army.ShelledMilitary == null)
