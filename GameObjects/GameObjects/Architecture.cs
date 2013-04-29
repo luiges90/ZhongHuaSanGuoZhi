@@ -1437,7 +1437,8 @@
                     }
                     capital = otherArchitectureList[0] as Architecture;
                 }
-                Architecture dest = capital;
+                ArchitectureList otherArch = this.GetOtherArchitectureList();
+                Architecture dest = otherArch[GameObject.Random(otherArch.Count)];
                 double minDist = double.MaxValue;
                 foreach (Architecture i in otherArchitectureList)
                 {
