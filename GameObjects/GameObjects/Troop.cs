@@ -9010,38 +9010,26 @@
         {
             if (((this.RecentlyFighting > 0) && (this.Leader != null)) && (this.Status != TroopStatus.混乱))
             {
-                if (this.Leader.Braveness > this.Leader.Calmness)
+                bool doBrave = GameObject.Square(this.Leader.Braveness) >= GameObject.Random(1000);
+                bool doCalm = GameObject.Square(this.Leader.Calmness) >= GameObject.Random(1000);
+                if (doBrave && doCalm)
                 {
-                    if (GameObject.Square((this.Leader.Braveness - this.Leader.Calmness) + 5) >= GameObject.Random(0x3e8))
+                    if (this.Leader.Braveness > this.Leader.Calmness)
                     {
                         this.BeAngry();
                     }
-                }
-                else if (this.Leader.Calmness > this.Leader.Braveness)
-                {
-                    if (GameObject.Square((this.Leader.Calmness - this.Leader.Braveness) + 5) >= GameObject.Random(0x3e8))
+                    else
                     {
                         this.BeQuiet();
                     }
                 }
-                else
+                else if (doBrave)
                 {
-                    int braveness = 5;
-                    if (this.Leader.Braveness > braveness)
-                    {
-                        braveness = this.Leader.Braveness;
-                    }
-                    if (GameObject.Square(braveness) >= GameObject.Random(0x3e8))
-                    {
-                        if (GameObject.Chance(50))
-                        {
-                            this.BeAngry();
-                        }
-                        else
-                        {
-                            this.BeQuiet();
-                        }
-                    }
+                    this.BeAngry();
+                }
+                else if (doCalm)
+                {
+                    this.BeQuiet();
                 }
             }
         }
