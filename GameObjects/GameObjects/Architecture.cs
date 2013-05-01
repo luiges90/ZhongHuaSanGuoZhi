@@ -1630,7 +1630,7 @@
                         {
                             foreach (LinkNode n in this.AIAllLinkNodes.Values)
                             {
-                                if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HostileLine)
+                                if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HostileLine && n.A.Fund < n.A.FundCeiling * 0.8 && n.A.Food < n.A.FoodCeiling * 0.8)
                                 {
                                     dest = n.A;
                                     break;
