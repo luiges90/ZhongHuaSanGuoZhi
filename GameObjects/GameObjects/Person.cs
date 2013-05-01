@@ -208,6 +208,8 @@
         public int multipleChildrenRate;
         public int maxChildren = 1;
         public int chanceTirednessStopIncrease;
+        public int bravenessIncrease;
+        public int calmnessIncrease;
 
         public PersonList preferredTroopPersons = new PersonList();
         public string preferredTroopPersonsString;
@@ -3608,7 +3610,7 @@
         {
             get
             {
-                return this.braveness;
+                return this.braveness + this.bravenessIncrease;
             }
             set
             {
@@ -3675,7 +3677,7 @@
         {
             get
             {
-                return this.calmness;
+                return this.calmness + this.calmnessIncrease;
             }
             set
             {

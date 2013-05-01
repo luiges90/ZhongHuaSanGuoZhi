@@ -1438,7 +1438,7 @@
                     capital = otherArchitectureList[0] as Architecture;
                 }
                 ArchitectureList otherArch = this.GetOtherArchitectureList();
-                Architecture dest = otherArch[GameObject.Random(otherArch.Count)];
+                Architecture dest = (Architecture) otherArch[GameObject.Random(otherArch.Count)];
                 double minDist = double.MaxValue;
                 foreach (Architecture i in otherArchitectureList)
                 {
@@ -5898,7 +5898,8 @@
             }
             
             //not enough defensive troop, call for reinforcements!!
-            if (this.TotalFriendlyForce < this.TotalHostileForce * (Math.Max(1, (200 - this.Endurance) * 0.005 + 1)))
+            float rate = (float) Math.Max(1, (200 - this.Endurance) * 0.005 + 1);
+            if (this.TotalFriendlyForce < this.TotalHostileForce * rate)
             {
                 foreach (LinkNode i in this.AIAllLinkNodes.Values)
                 {
@@ -5973,7 +5974,7 @@
                             //no troop could be added, give up.
                             if (!troopAdded) break;
                         }
-                        if (this.TotalFriendlyForce > this.TotalHostileForce) break;
+                        if (this.TotalFriendlyForce > this.TotalHostileForce * rate) break;
                     }
                 }
             }
