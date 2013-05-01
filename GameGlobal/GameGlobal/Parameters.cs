@@ -133,6 +133,8 @@
         public static float AIOffendIgnoreReserveChanceTroopRatioAdd = -0.8f;
         public static float AIOffendIgnoreReserveChanceTroopRatioMultiply = 100.0f;
 
+        public static int MaxAITroopTime = 20;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();

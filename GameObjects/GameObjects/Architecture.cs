@@ -5792,6 +5792,8 @@
 
         private void DefensiveCampaign()
         {
+            DateTime beforeStart = DateTime.UtcNow;
+
             List<Point> orientations = new List<Point>();
             TroopList hostileTroopsInView = this.GetHostileTroopsInView();
             foreach (Troop troop in hostileTroopsInView)
@@ -5808,6 +5810,10 @@
                     int militaryCount = this.MilitaryCount;
                     while ((troopSent < militaryCount) && (this.TotalFriendlyForce < (this.TotalHostileForce * 5)) && this.EffectiveMilitaryCount > 0 && this.PersonCount > 0)
                     {
+                        if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                        {
+                            return;
+                        }
                         Troop troop2;
                         TroopList list4 = new TroopList();
                         bool isBesideWater = this.IsBesideWater;
@@ -5820,7 +5826,15 @@
                                 foreach (Troop t in candidates)
                                 {
                                     list4.Add(t);
+                                    if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                                    {
+                                        break;
+                                    }
                                 }
+                            }
+                            if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                            {
+                                break;
                             }
                         }
                         if (list4.Count > 0)
@@ -5903,6 +5917,10 @@
             {
                 foreach (LinkNode i in this.AIAllLinkNodes.Values)
                 {
+                    if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                    {
+                        return;
+                    }
                     if (i.Level > 1) break;
                     if (i.A.actuallyUnreachableArch.Contains(this))
                     {
@@ -5935,7 +5953,15 @@
                                     foreach (Troop t in candidates)
                                     {
                                         supportList.Add(t);
+                                        if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                                        {
+                                            break;
+                                        }
                                     }
+                                }
+                                if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                                {
+                                    break;
                                 }
                             }
                             if (supportList.Count <= 0)
@@ -9512,6 +9538,8 @@
         private bool ignoreReserve = false;
         private void OffensiveCampaign()
         {
+            DateTime beforeStart = DateTime.UtcNow;
+
             Person leader = this.BelongedFaction.Leader;
             if (this.BelongedSection != null && !this.BelongedSection.AIDetail.AllowOffensiveCampaign)
             {
@@ -9714,6 +9742,10 @@
                                     if (!(this.HasOffensiveMilitary() && this.HasPerson()))
                                     {
                                         break;
+                                    }
+                                    if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                                    {
+                                        return;
                                     }
                                 }
                                 if (armyScaleHere <= reserve)
