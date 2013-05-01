@@ -11,14 +11,12 @@
 
         public override void ApplyInfluenceKind(Troop t)
         {
-            t.IntelligenceDecreaseProb += prob;
-            t.IntelligenceDecrease += increment;
+            t.IntelligenceDecrease.Add(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
         }
 
         public override void PurifyInfluenceKind(Troop t)
         {
-            t.IntelligenceDecreaseProb -= prob;
-            t.IntelligenceDecrease -= increment;
+            t.IntelligenceDecrease.Remove(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
         }
 
         public override void InitializeParameter(string parameter)

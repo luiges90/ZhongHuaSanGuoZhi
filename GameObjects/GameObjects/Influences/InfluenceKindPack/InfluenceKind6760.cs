@@ -11,14 +11,12 @@
 
         public override void ApplyInfluenceKind(Troop t)
         {
-            t.LostSkillProb += prob;
-            t.LostSkillCount += increment;
+            t.LoseSkill.Add(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
         }
 
         public override void PurifyInfluenceKind(Troop t)
         {
-            t.LostSkillProb -= prob;
-            t.LostSkillCount -= increment;
+            t.LoseSkill.Remove(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
         }
 
         public override void InitializeParameter(string parameter)

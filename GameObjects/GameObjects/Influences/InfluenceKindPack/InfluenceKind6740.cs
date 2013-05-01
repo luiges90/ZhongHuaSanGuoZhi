@@ -11,14 +11,12 @@
 
         public override void ApplyInfluenceKind(Troop t)
         {
-            t.GlamourDecreaseProb += prob;
-            t.GlamourDecrease += increment;
+            t.GlamourDecrease.Add(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
         }
 
         public override void PurifyInfluenceKind(Troop t)
         {
-            t.GlamourDecreaseProb -= prob;
-            t.GlamourDecrease -= increment;
+            t.GlamourDecrease.Remove(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
         }
 
         public override void InitializeParameter(string parameter)

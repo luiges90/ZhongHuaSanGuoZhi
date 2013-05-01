@@ -381,32 +381,29 @@
         public int TirednessIncreaseOnAttack = 0;
         public int TirednessIncreaseOnCritical = 0;
         public int StealFood = 0;
-        public int CommandDecrease = 0;
-        public int CommandIncrease = 0;
-        public int StrengthDecrease = 0;
-        public int StrengthIncrease = 0;
-        public int IntelligenceDecrease = 0;
-        public int IntelligenceIncrease = 0;
-        public int PoliticsDecrease = 0;
-        public int PoliticsIncrease = 0;
-        public int GlamourDecrease = 0;
-        public int GlamourIncrease = 0;
-        public int ReputationDecrease = 0;
-        public int ReputationIncrease = 0;
-        public int LostSkillCount = 0;
-        public int CommandDecreaseProb = 0;
-        public int CommandIncreaseProb = 0;
-        public int StrengthDecreaseProb = 0;
-        public int StrengthIncreaseProb = 0;
-        public int IntelligenceDecreaseProb = 0;
-        public int IntelligenceIncreaseProb = 0;
-        public int PoliticsDecreaseProb = 0;
-        public int PoliticsIncreaseProb = 0;
-        public int GlamourDecreaseProb = 0;
-        public int GlamourIncreaseProb = 0;
-        public int ReputationDecreaseProb = 0;
-        public int ReputationIncreaseProb = 0;
-        public int LostSkillProb = 0;
+        public List<KeyValuePair<int, int>> CommandDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> CommandIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> StrengthDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> StrengthIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> IntelligenceDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> IntelligenceIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> PoliticsDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> PoliticsIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> GlamourDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> GlamourIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> ReputationDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> ReputationIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> LoseSkill = new List<KeyValuePair<int, int>>();
+
+        public int stratagemTirednessIncrease;
+        public int stratagemStealTroop;
+        public int stratagemStealInjury;
+        public int stratagemMoraleDecrease;
+        public int stratagemCombativityDecrease;
+        public int stratagemTroopDecrease;
+        public int stratagemInjuryDecrease;
+        public int stratagemLoyaltyDecrease;
+        public int stratagemStealFood;
 
         public float ExperienceRate;
 
@@ -2443,67 +2440,106 @@
 
                 foreach (Person p in receiving.Persons)
                 {
-                    if (GameObject.Chance(sending.CommandDecreaseProb))
+                    foreach (KeyValuePair<int, int> i in sending.CommandDecrease)
                     {
-                        p.BaseCommand -= sending.CommandDecrease;
-                    }
-                    if (GameObject.Chance(sending.StrengthDecreaseProb))
-                    {
-                        p.BaseStrength -= sending.StrengthDecrease;
-                    }
-                    if (GameObject.Chance(sending.IntelligenceDecreaseProb))
-                    {
-                        p.BaseIntelligence -= sending.IntelligenceDecrease;
-                    }
-                    if (GameObject.Chance(sending.PoliticsDecreaseProb))
-                    {
-                        p.BasePolitics -= sending.PoliticsDecrease;
-                    }
-                    if (GameObject.Chance(sending.GlamourDecreaseProb))
-                    {
-                        p.BaseGlamour -= sending.GlamourDecrease;
-                    }
-                    if (GameObject.Chance(sending.ReputationDecreaseProb))
-                    {
-                        p.Reputation -= sending.ReputationDecrease;
-                    }
-                    if (GameObject.Chance(sending.LostSkillProb))
-                    {
-                        for (int si = 0; si < sending.LostSkillCount; ++si)
+                        if (GameObject.Chance(i.Key))
                         {
-                            if (p.Skills.Skills.Count > 0)
+                            p.Command -= i.Value;
+                        }
+                    }
+                    foreach (KeyValuePair<int, int> i in sending.StrengthDecrease)
+                    {
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Strength -= i.Value;
+                        }
+                    }
+                    foreach (KeyValuePair<int, int> i in sending.IntelligenceDecrease)
+                    {
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Intelligence -= i.Value;
+                        }
+                    }
+                    foreach (KeyValuePair<int, int> i in sending.PoliticsDecrease)
+                    {
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Politics -= i.Value;
+                        }
+                    }
+                    foreach (KeyValuePair<int, int> i in sending.GlamourDecrease)
+                    {
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Glamour -= i.Value;
+                        }
+                    }
+                    foreach (KeyValuePair<int, int> i in sending.ReputationDecrease)
+                    {
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Reputation -= i.Value;
+                        }
+                    }
+                    foreach (KeyValuePair<int, int> i in sending.LoseSkill)
+                    {
+                        if (GameObject.Chance(i.Key))
+                        {
+                            for (int si = 0; si < i.Value; ++si)
                             {
-                                p.Skills.Skills.Remove(GameObject.Random(p.Skills.Skills.Count));
+                                if (p.Skills.Skills.Count > 0)
+                                {
+                                    p.Skills.Skills.Remove(GameObject.Random(p.Skills.Skills.Count));
+                                }
                             }
                         }
                     }
                 }
 
-                foreach (Person p in receiving.Persons)
+                foreach (Person p in sending.Persons)
                 {
-                    if (GameObject.Chance(sending.CommandIncreaseProb))
+                    foreach (KeyValuePair<int, int> i in sending.CommandIncrease)
                     {
-                        p.BaseCommand += sending.CommandIncrease;
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Command += i.Value;
+                        }
                     }
-                    if (GameObject.Chance(sending.StrengthIncreaseProb))
+                    foreach (KeyValuePair<int, int> i in sending.StrengthIncrease)
                     {
-                        p.BaseStrength += sending.StrengthIncrease;
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Strength += i.Value;
+                        }
                     }
-                    if (GameObject.Chance(sending.IntelligenceIncreaseProb))
+                    foreach (KeyValuePair<int, int> i in sending.IntelligenceIncrease)
                     {
-                        p.BaseIntelligence += sending.IntelligenceIncrease;
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Intelligence += i.Value;
+                        }
                     }
-                    if (GameObject.Chance(sending.PoliticsIncreaseProb))
+                    foreach (KeyValuePair<int, int> i in sending.PoliticsIncrease)
                     {
-                        p.BasePolitics += sending.PoliticsIncrease;
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Politics += i.Value;
+                        }
                     }
-                    if (GameObject.Chance(sending.GlamourIncreaseProb))
+                    foreach (KeyValuePair<int, int> i in sending.GlamourIncrease)
                     {
-                        p.BaseGlamour += sending.GlamourIncrease;
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Glamour += i.Value;
+                        }
                     }
-                    if (GameObject.Chance(sending.ReputationIncreaseProb))
+                    foreach (KeyValuePair<int, int> i in sending.ReputationIncrease)
                     {
-                        p.Reputation += sending.ReputationIncrease;
+                        if (GameObject.Chance(i.Key))
+                        {
+                            p.Reputation += i.Value;
+                        }
                     }
                 }
 
@@ -4418,6 +4454,52 @@
                     if (this.BelongedFaction.RateOfCombativityRecoveryAfterStratagemSuccess > 0f)
                     {
                         this.IncreaseCombativity(StaticMethods.GetRandomValue((int) ((this.Leader.Calmness * 100) * this.BelongedFaction.RateOfCombativityRecoveryAfterStratagemSuccess), 100));
+                    }
+                    troop.army.Tiredness += this.stratagemTirednessIncrease;
+                    if (this.stratagemStealTroop > 0)
+                    {
+                        int c = Math.Min(troop.Quantity, this.stratagemStealTroop);
+                        troop.DecreaseQuantity(c);
+                        this.IncreaseQuantity(c);
+                    }
+                    if (this.stratagemStealInjury > 0)
+                    {
+                        int c = Math.Min(troop.InjuryQuantity, this.stratagemStealInjury);
+                        troop.DecreaseInjuryQuantity(c);
+                        this.IncreaseInjuryQuantity(c);
+                    }
+                    if (this.stratagemMoraleDecrease > 0)
+                    {
+                        troop.DecreaseMorale(this.stratagemMoraleDecrease);
+                    }
+                    if (this.stratagemCombativityDecrease > 0)
+                    {
+                        troop.DecreaseCombativity(this.stratagemCombativityDecrease);
+                    }
+                    if (this.stratagemTroopDecrease > 0)
+                    {
+                        troop.DecreaseQuantity(this.stratagemTroopDecrease);
+                    }
+                    if (this.stratagemInjuryDecrease > 0)
+                    {
+                        troop.DecreaseQuantity(this.stratagemInjuryDecrease);
+                    }
+                    if (this.stratagemLoyaltyDecrease > 0)
+                    {
+                        foreach (Person p in troop.Persons)
+                        {
+                            p.Loyalty -= this.stratagemLoyaltyDecrease;
+                            if (p.Loyalty < 0)
+                            {
+                                p.Loyalty = 0;
+                            }
+                        }
+                    }
+                    if (this.stratagemStealFood > 0)
+                    {
+                        int c = Math.Min(troop.Food, this.stratagemStealFood);
+                        troop.Food -= c;
+                        this.IncreaseFood(c);
                     }
                     return flag;
                 }
