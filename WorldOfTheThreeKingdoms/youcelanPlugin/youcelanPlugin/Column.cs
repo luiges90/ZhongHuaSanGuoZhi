@@ -175,7 +175,7 @@
             }
             else
             {
-                for (num = 0; num < this.tabList.gameObjectList.Count; num++)
+                for (num = 0; num < this.tabList.gameObjectList.Count && num < this.ColumnTextList.Count; num++)
                 {
                     this.ColumnTextList[num].Text = StaticMethods.GetPropertyValue(this.tabList.gameObjectList[num], this.Name).ToString();
                 }
