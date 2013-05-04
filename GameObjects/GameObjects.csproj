@@ -1129,6 +1129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1705.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4130.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4135.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6080.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6505.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6310.cs" />
