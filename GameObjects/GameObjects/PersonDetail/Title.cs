@@ -147,7 +147,7 @@
         {
             get
             {
-                return this.level * this.level * 10;
+                return (int) (Math.Pow(this.level, 1.5) * 15);
             }
         }
 
