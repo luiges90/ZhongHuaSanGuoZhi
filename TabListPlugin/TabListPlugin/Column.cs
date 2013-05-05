@@ -84,11 +84,6 @@
             }
         }
 
-        public object GetPropertyValue(object ClassInstance)
-        {
-            return StaticMethods.GetPropertyValue(ClassInstance, this.Name);
-        }
-
         public void MoveHorizontal(int offset)
         {
             this.Text.DisplayOffset = new Point(this.Text.DisplayOffset.X + offset, this.Text.DisplayOffset.Y);
@@ -130,7 +125,17 @@
                 {
                     for (num2 = 0; num2 < this.tabList.gameObjectList.Count; num2++)
                     {
-                        this.ColumnTextList.AddText(StaticMethods.GetPropertyValue(this.tabList.gameObjectList[num2], this.Name).ToString());
+                        object obj = StaticMethods.GetPropertyValue(this.tabList.gameObjectList[num2], this.Name);
+                        String s;
+                        if (obj is bool)
+                        {
+                            s = ((bool)obj) ? "○" : "×";
+                        }
+                        else
+                        {
+                            s = obj.ToString();
+                        }
+                        this.ColumnTextList.AddText(s);
                     }
                     this.ColumnTextList.ResetAllTextTextures();
                 }
@@ -169,7 +174,17 @@
             {
                 for (num = 0; num < this.tabList.gameObjectList.Count; num++)
                 {
-                    this.ColumnTextList[num].Text = StaticMethods.GetPropertyValue(this.tabList.gameObjectList[num], this.Name).ToString();
+                    object obj = StaticMethods.GetPropertyValue(this.tabList.gameObjectList[num], this.Name);
+                    String s;
+                    if (obj is bool)
+                    {
+                        s = ((bool)obj) ? "○" : "×";
+                    }
+                    else
+                    {
+                        s = obj.ToString();
+                    }
+                    this.ColumnTextList[num].Text = s;
                 }
                 this.ColumnTextList.ResetAllTextTextures();
                 this.ColumnTextList.ResetAllAlignedPositions();

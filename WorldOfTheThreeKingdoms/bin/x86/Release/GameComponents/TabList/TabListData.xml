@@ -1909,7 +1909,35 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="100" Name="MultipleOfAgricultureReputation" IsNumber="true" DisplayName="农业聲望乘數" MinWidth="100"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="101" Name="MultipleOfAgricultureTechniquePoint" IsNumber="true" DisplayName="农业技巧點乘數" MinWidth="120"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="11" Name="NormalCommerceAbility" IsNumber="true" DisplayName="商业能力" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="102" Name="MultipleOfCommerceReputation" IsNumber="true" DisplayName="商业聲望乘數" MinWidth="100"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="103" Name="MultipleOfCommerceTechniquePoint" IsNumber="true" DisplayName="商业技巧點乘數" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -1923,7 +1951,35 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="104" Name="MultipleOfTechnologyReputation" IsNumber="true" DisplayName="技术聲望乘數" MinWidth="100"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="105" Name="MultipleOfTechnologyTechniquePoint" IsNumber="true" DisplayName="技术技巧點乘數" MinWidth="120"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="13" Name="NormalDominationAbility" IsNumber="true" DisplayName="统治能力" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="106" Name="MultipleOfDominationReputation" IsNumber="true" DisplayName="统治聲望乘數" MinWidth="100"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="107" Name="MultipleOfDominationTechniquePoint" IsNumber="true" DisplayName="统治技巧點乘數" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -1937,7 +1993,35 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="108" Name="MultipleOfMoraleReputation" IsNumber="true" DisplayName="民心聲望乘數" MinWidth="100"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="109" Name="MultipleOfMoraleTechniquePoint" IsNumber="true" DisplayName="民心技巧點乘數" MinWidth="120"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="15" Name="NormalEnduranceAbility" IsNumber="true" DisplayName="耐久能力" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="110" Name="MultipleOfEnduranceReputation" IsNumber="true" DisplayName="耐久聲望乘數" MinWidth="100"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="111" Name="MultipleOfEnduranceTechniquePoint" IsNumber="true" DisplayName="耐久技巧點乘數" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -1965,7 +2049,28 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="112" Name="RadiusIncrementOfInformation" IsNumber="true" DisplayName="情报範圍增量" MinWidth="100"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="31" Name="SpyAbility" IsNumber="true" DisplayName="间谍能力" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="113" Name="SpyDays" IsNumber="true" DisplayName="间谍天數" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="114" Name="InevitableSuccessOfSpy" IsNumber="False" DisplayName="间谍必成功" MinWidth="80"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -1979,7 +2084,21 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="115" Name="InevitableSuccessOfDestroy" IsNumber="False" DisplayName="破坏必成功" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="33" Name="InstigateAbility" IsNumber="true" DisplayName="煽动能力" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="116" Name="InevitableSuccessOfInstigate" IsNumber="False" DisplayName="煽动必成功" MinWidth="80"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -1993,7 +2112,21 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="117" Name="InevitableSuccessOfGossip" IsNumber="False" DisplayName="流言必成功" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="35" Name="SearchAbility" IsNumber="true" DisplayName="搜索能力" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="118" Name="InevitableSuccessOfSearch" IsNumber="False" DisplayName="搜索必有斬獲" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2014,37 +2147,58 @@
               FontColor="4294967295"
               Align="Right">
         </Column>
+		<Column ID="300" Name="ImmunityOfCaptive" IsNumber="False" DisplayName="不會被俘" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="301" Name="MultipleOfTacticsReputation" IsNumber="true" DisplayName="策略聲望乘數" MinWidth="100"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="302" Name="MultipleOfTacticsTechniquePoint" IsNumber="true" DisplayName="策略技巧點乘數" MinWidth="120"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="农业" DisplayName="农业" Columns="1 10 2" SortColumnID="10" SmallToBig="false">
+        <Tab ID="1"  Name="农业" DisplayName="农业" Columns="1 10 2 100 101" SortColumnID="10" SmallToBig="false">
         </Tab>
-        <Tab ID="2"  Name="商业" DisplayName="商业" Columns="1 11 2" SortColumnID="11" SmallToBig="false">
+        <Tab ID="2"  Name="商业" DisplayName="商业" Columns="1 11 2 102 103" SortColumnID="11" SmallToBig="false">
         </Tab>
-        <Tab ID="3"  Name="技术" DisplayName="技术" Columns="1 12 2" SortColumnID="12" SmallToBig="false">
+        <Tab ID="3"  Name="技术" DisplayName="技术" Columns="1 12 2 104 105" SortColumnID="12" SmallToBig="false">
         </Tab>
-        <Tab ID="4"  Name="统治" DisplayName="统治" Columns="1 13 2" SortColumnID="13" SmallToBig="false">
+        <Tab ID="4"  Name="统治" DisplayName="统治" Columns="1 13 2 106 107" SortColumnID="13" SmallToBig="false">
         </Tab>
-        <Tab ID="5"  Name="民心" DisplayName="民心" Columns="1 14 2" SortColumnID="14" SmallToBig="false">
+        <Tab ID="5"  Name="民心" DisplayName="民心" Columns="1 14 2 108 109" SortColumnID="14" SmallToBig="false">
         </Tab>
-        <Tab ID="6"  Name="耐久" DisplayName="耐久" Columns="1 15 2" SortColumnID="15" SmallToBig="false">
+        <Tab ID="6"  Name="耐久" DisplayName="耐久" Columns="1 15 2 110 111" SortColumnID="15" SmallToBig="false">
         </Tab>
         <Tab ID="7"  Name="训练" DisplayName="训练" Columns="1 20 2" SortColumnID="20" SmallToBig="false">
         </Tab>
         <Tab ID="8"  Name="补充" DisplayName="补充" Columns="1 21 2" SortColumnID="21" SmallToBig="false">
         </Tab>
-        <Tab ID="9"  Name="说服" DisplayName="说服" Columns="1 40 2" SortColumnID="40" SmallToBig="false">
+        <Tab ID="9"  Name="说服" DisplayName="说服" Columns="1 40 2 300 301 302" SortColumnID="40" SmallToBig="false">
         </Tab>
-        <Tab ID="10"  Name="情报" DisplayName="情报" Columns="1 30 2" SortColumnID="30" SmallToBig="false">
+        <Tab ID="10"  Name="情报" DisplayName="情报" Columns="1 30 2 112 301 302" SortColumnID="30" SmallToBig="false">
         </Tab>
-        <Tab ID="11"  Name="间谍" DisplayName="间谍" Columns="1 31 2" SortColumnID="31" SmallToBig="false">
+        <Tab ID="11"  Name="间谍" DisplayName="间谍" Columns="1 31 2 113 114 300 301 302" SortColumnID="31" SmallToBig="false">
         </Tab>
-        <Tab ID="12"  Name="破坏" DisplayName="破坏" Columns="1 32 2" SortColumnID="32" SmallToBig="false">
+        <Tab ID="12"  Name="破坏" DisplayName="破坏" Columns="1 32 2 115 300 301 302" SortColumnID="32" SmallToBig="false">
         </Tab>
-        <Tab ID="13"  Name="煽动" DisplayName="煽动" Columns="1 33 2" SortColumnID="33" SmallToBig="false">
+        <Tab ID="13"  Name="煽动" DisplayName="煽动" Columns="1 33 2 116 300 301 302" SortColumnID="33" SmallToBig="false">
         </Tab>
-        <Tab ID="14"  Name="流言" DisplayName="流言" Columns="1 34 2" SortColumnID="34" SmallToBig="false">
+        <Tab ID="14"  Name="流言" DisplayName="流言" Columns="1 34 2 117 300 301 302" SortColumnID="34" SmallToBig="false">
         </Tab>
-        <Tab ID="15"  Name="搜索" DisplayName="搜索" Columns="1 35 2" SortColumnID="35" SmallToBig="false">
+        <Tab ID="15"  Name="搜索" DisplayName="搜索" Columns="1 35 2 118 301 302" SortColumnID="35" SmallToBig="false">
         </Tab>
         <Tab ID="16"  Name="赈灾" DisplayName="赈灾" Columns="1 41 2" SortColumnID="41" SmallToBig="false">
         </Tab>

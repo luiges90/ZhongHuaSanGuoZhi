@@ -137,6 +137,25 @@
                     return "----";
                 }
             }
+            else
+            {
+                FieldInfo field = ClassInstance.GetType().GetField(PropertyName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+                if (field != null){
+                    try
+                    {
+                        object obj2 = field.GetValue(ClassInstance);
+                        if (obj2 != null)
+                        {
+                            return obj2;
+                        }
+                        return "----";
+                    }
+                    catch
+                    {
+                        return "----";
+                    }
+                }
+            }
             return "----";
         }
 
