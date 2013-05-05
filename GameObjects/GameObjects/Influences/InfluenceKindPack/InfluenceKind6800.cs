@@ -10,7 +10,10 @@
 
         public override void ApplyInfluenceKind(Person person)
         {
-            person.bravenessIncrease += this.increment;
+            if (this.increment > person.bravenessIncrease)
+            {
+                person.bravenessIncrease += this.increment;
+            }
         }
 
         public override void PurifyInfluenceKind(Person person)
