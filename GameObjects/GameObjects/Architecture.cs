@@ -12477,8 +12477,22 @@
                 int num = 0;
                 foreach (Facility facility in this.Facilities)
                 {
-                    num += facility.MaintenanceCost + facility.Kind.rongna * facility.MaintenanceCost;
+                    num += facility.MaintenanceCost;
                 }
+
+                if (this.feiziliebiao.Count > 0)
+                {
+                    int maxHouGongMaintainence = 0;
+                    foreach (Facility f in this.Facilities)
+                    {
+                        if (f.Kind.rongna > 0 && f.Kind.MaintenanceCost > maxHouGongMaintainence)
+                        {
+                            maxHouGongMaintainence = f.Kind.MaintenanceCost;
+                        }
+                    }
+                    num += this.feiziliebiao.Count * maxHouGongMaintainence;
+                }
+
                 return num;
             }
         }
