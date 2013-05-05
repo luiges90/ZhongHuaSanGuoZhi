@@ -12479,6 +12479,7 @@
                 {
                     num += facility.MaintenanceCost;
                 }
+                num += this.feiziliebiao.Count * 100;
                 return num;
             }
         }

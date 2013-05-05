@@ -2412,10 +2412,12 @@
                 {
                     foreach (Person p in receiving.Persons.GetRandomList())
                     {
-                        Treasure t = (Treasure) p.Treasures[GameObject.Random(p.Treasures.Count)];
-                        p.LoseTreasure(t);
-                        sending.BelongedFaction.Leader.ReceiveTreasure(t);
-                        break;
+                        if (p.TreasureCount > 0){
+                            Treasure t = (Treasure) p.Treasures[GameObject.Random(p.Treasures.Count)];
+                            p.LoseTreasure(t);
+                            sending.BelongedFaction.Leader.ReceiveTreasure(t);
+                            break;
+                        }
                     }
                 }
                 if (belongedFaction != null)
@@ -11769,7 +11771,7 @@
                     {
                         Architecture a = this.Scenario.GetArchitectureByPosition(p);
                         Troop t = this.Scenario.GetTroopByPosition(p);
-                        if (t != null && !this.BelongedFaction.IsFriendly(t.BelongedFaction) && !this.CounterAttackAvailFromAnyPosition(t))
+                        if (t != null && this.BelongedFaction != null && !this.BelongedFaction.IsFriendly(t.BelongedFaction) && !this.CounterAttackAvailFromAnyPosition(t))
                         {
                             this.TargetTroop = t;
                             found = true;
