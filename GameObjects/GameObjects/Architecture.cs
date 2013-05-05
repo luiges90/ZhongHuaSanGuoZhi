@@ -12477,9 +12477,8 @@
                 int num = 0;
                 foreach (Facility facility in this.Facilities)
                 {
-                    num += facility.MaintenanceCost;
+                    num += facility.MaintenanceCost + facility.Kind.rongna * facility.MaintenanceCost;
                 }
-                num += this.feiziliebiao.Count * 100;
                 return num;
             }
         }
