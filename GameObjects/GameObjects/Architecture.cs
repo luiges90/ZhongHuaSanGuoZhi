@@ -1291,7 +1291,7 @@
                     {
                         if (leader.LocationArchitecture.meinvkongjian() > this.meinvkongjian())
                         {
-                            if (toTake.LocationArchitecture == leader.LocationArchitecture)
+                            if (toTake.LocationArchitecture == leader.LocationArchitecture && toTake.LocationArchitecture.Fund >= 50000)
                             {
                                 leader.XuanZeMeiNv(toTake);
                                 toTake.WaitForFeiZi = null;
@@ -1313,7 +1313,7 @@
                             }
                             if (toTake.LocationArchitecture == this)
                             {
-                                if (leader.LocationArchitecture == this)
+                                if (leader.LocationArchitecture == this && this.Fund >= 50000)
                                 {
                                     leader.XuanZeMeiNv(toTake);
                                     toTake.WaitForFeiZi = null;
