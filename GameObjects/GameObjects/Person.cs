@@ -4120,6 +4120,16 @@
             }
         }
 
+        public bool HasSkill(int id)
+        {
+            return this.Skills.GetSkill(id) != null;
+        }
+
+        public bool HasStunt(int id)
+        {
+            return this.Stunts.GetStunt(id) != null;
+        }
+
         public bool HasLearnableSkill
         {
             get

@@ -725,11 +725,354 @@
                 Align="Right">
         </Column>
 		<Column ID="170" Name="Tiredness" IsNumber="true" DisplayName="疲累度" MinWidth="80"
-        FontName="宋体"
-        FontSize="11"
-        FontStyle="Regular"
-        FontColor="4294967295"
-        Align="Right">
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Right">
+        </Column>
+		<Column ID="220" Name="HasSkill" IsNumber="false" DisplayName="驰骋" MinWidth="40" ItemID="20"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="221" Name="HasSkill" IsNumber="false" DisplayName="穿林" MinWidth="40" ItemID="21"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="222" Name="HasSkill" IsNumber="false" DisplayName="翻山" MinWidth="40" ItemID="22"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="223" Name="HasSkill" IsNumber="false" DisplayName="操舵" MinWidth="40" ItemID="23"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="224" Name="HasSkill" IsNumber="false" DisplayName="强行" MinWidth="40" ItemID="24"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="225" Name="HasSkill" IsNumber="false" DisplayName="推进" MinWidth="40" ItemID="25"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="226" Name="HasSkill" IsNumber="false" DisplayName="负载" MinWidth="40" ItemID="26"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="230" Name="HasSkill" IsNumber="false" DisplayName="大盾" MinWidth="40" ItemID="30"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="231" Name="HasSkill" IsNumber="false" DisplayName="枪阵" MinWidth="40" ItemID="31"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="232" Name="HasSkill" IsNumber="false" DisplayName="旋风" MinWidth="40" ItemID="32"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="233" Name="HasSkill" IsNumber="false" DisplayName="坚阵" MinWidth="40" ItemID="33"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="234" Name="HasSkill" IsNumber="false" DisplayName="步攻" MinWidth="40" ItemID="34"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="235" Name="HasSkill" IsNumber="false" DisplayName="步守" MinWidth="40" ItemID="35"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="236" Name="HasSkill" IsNumber="false" DisplayName="破甲" MinWidth="40" ItemID="36"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="240" Name="HasSkill" IsNumber="false" DisplayName="火矢" MinWidth="40" ItemID="40"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="241" Name="HasSkill" IsNumber="false" DisplayName="贯穿" MinWidth="40" ItemID="41"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="242" Name="HasSkill" IsNumber="false" DisplayName="散射" MinWidth="40" ItemID="42"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="243" Name="HasSkill" IsNumber="false" DisplayName="致命" MinWidth="40" ItemID="44"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="244" Name="HasSkill" IsNumber="false" DisplayName="弩攻" MinWidth="40" ItemID="44"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="245" Name="HasSkill" IsNumber="false" DisplayName="弩守" MinWidth="40" ItemID="45"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="246" Name="HasSkill" IsNumber="false" DisplayName="燎原" MinWidth="40" ItemID="46"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="250" Name="HasSkill" IsNumber="false" DisplayName="进击" MinWidth="40" ItemID="50"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="251" Name="HasSkill" IsNumber="false" DisplayName="冲击" MinWidth="40" ItemID="51"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="252" Name="HasSkill" IsNumber="false" DisplayName="突击" MinWidth="40" ItemID="52"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="253" Name="HasSkill" IsNumber="false" DisplayName="纵横" MinWidth="40" ItemID="53"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="254" Name="HasSkill" IsNumber="false" DisplayName="骑攻" MinWidth="40" ItemID="54"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="255" Name="HasSkill" IsNumber="false" DisplayName="骑守" MinWidth="40" ItemID="55"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="256" Name="HasSkill" IsNumber="false" DisplayName="雷霆" MinWidth="40" ItemID="56"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="260" Name="HasSkill" IsNumber="false" DisplayName="涉水" MinWidth="40" ItemID="60"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="261" Name="HasSkill" IsNumber="false" DisplayName="穿梭" MinWidth="40" ItemID="61"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="262" Name="HasSkill" IsNumber="false" DisplayName="箭雨" MinWidth="40" ItemID="62"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="263" Name="HasSkill" IsNumber="false" DisplayName="猛撞" MinWidth="40" ItemID="63"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="264" Name="HasSkill" IsNumber="false" DisplayName="水攻" MinWidth="40" ItemID="64"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="265" Name="HasSkill" IsNumber="false" DisplayName="水守" MinWidth="40" ItemID="65"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="266" Name="HasSkill" IsNumber="false" DisplayName="水战" MinWidth="40" ItemID="66"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="270" Name="HasSkill" IsNumber="false" DisplayName="冲车" MinWidth="40" ItemID="70"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="271" Name="HasSkill" IsNumber="false" DisplayName="井栏" MinWidth="40" ItemID="71"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="272" Name="HasSkill" IsNumber="false" DisplayName="投石" MinWidth="40" ItemID="72"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="273" Name="HasSkill" IsNumber="false" DisplayName="粉碎" MinWidth="40" ItemID="73"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="274" Name="HasSkill" IsNumber="false" DisplayName="箭岚" MinWidth="40" ItemID="74"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="275" Name="HasSkill" IsNumber="false" DisplayName="巨石" MinWidth="40" ItemID="75"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="276" Name="HasSkill" IsNumber="false" DisplayName="坚固" MinWidth="40" ItemID="76"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="280" Name="HasSkill" IsNumber="false" DisplayName="练步" MinWidth="40" ItemID="80"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="281" Name="HasSkill" IsNumber="false" DisplayName="练弩" MinWidth="40" ItemID="81"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="282" Name="HasSkill" IsNumber="false" DisplayName="练骑" MinWidth="40" ItemID="82"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="283" Name="HasSkill" IsNumber="false" DisplayName="练水" MinWidth="40" ItemID="83"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="284" Name="HasSkill" IsNumber="false" DisplayName="练器" MinWidth="40" ItemID="84"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="285" Name="HasSkill" IsNumber="false" DisplayName="保护" MinWidth="40" ItemID="85"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
+		<Column ID="286" Name="HasSkill" IsNumber="false" DisplayName="爱卒" MinWidth="40" ItemID="86"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
         </Column>
 		
       </Columns>
@@ -760,8 +1103,16 @@
         </Tab>
 		<Tab ID="13"  Name="CombatTimes" DisplayName="战斗次数" Columns="1 83 84 154 155 156 157 158 159 160 161 162">
         </Tab>
-          <Tab ID="14"  Name="PersonRelations" DisplayName="人物关系" Columns="1 121 122 123 125 126 132 133">
-          </Tab>
+        <Tab ID="14"  Name="PersonRelations" DisplayName="人物关系" Columns="1 121 122 123 125 126 132 133">
+        </Tab>
+		<Tab ID="15"  Name="MoveTroopSkills" DisplayName="行軍步兵" Columns="1 220 221 222 223 224 225 226 230 231 232 233 234 235 236">
+        </Tab>
+		<Tab ID="16"  Name="GroundArmySkills" DisplayName="弩兵騎兵" Columns="1 240 241 242 243 244 245 246 250 251 252 253 254 255 256">
+        </Tab>
+		<Tab ID="17"  Name="SpecialArmySkills" DisplayName="水戰兵器" Columns="1 260 261 262 263 264 265 266 270 271 272 273 274 275 276">
+        </Tab>
+		<Tab ID="18"  Name="TrainingSkills" DisplayName="練兵" Columns="1 280 281 282 283 284 285 286">
+        </Tab>
         
       </Tabs>
     </ListKind>

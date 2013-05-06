@@ -200,6 +200,10 @@
                 item.IsNumber = bool.Parse(node2.Attributes.GetNamedItem("IsNumber").Value);
                 item.DisplayName = node2.Attributes.GetNamedItem("DisplayName").Value;
                 item.MinWidth = int.Parse(node2.Attributes.GetNamedItem("MinWidth").Value);
+                if (node2.Attributes.GetNamedItem("ItemID") != null)
+                {
+                    item.ItemID = int.Parse(node2.Attributes.GetNamedItem("ItemID").Value);
+                }
                 item.SmallToBig = !item.IsNumber;
                 StaticMethods.LoadFontAndColorFromXMLNode(node2, out font, out color);
                 item.ColumnTextList = new FreeTextList(this.tabList.graphicsDevice, font);
