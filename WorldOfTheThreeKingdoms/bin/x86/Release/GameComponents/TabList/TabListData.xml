@@ -1074,6 +1074,13 @@
 				FontColor="4294967295"
 				Align="Middle">
         </Column>
+		<Column ID="300" Name="InternalNoFundNeeded" IsNumber="false" DisplayName="內政不需資金" MinWidth="80"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
 		
       </Columns>
       <Tabs Margin="5">
@@ -1083,7 +1090,7 @@
         </Tab>
         <Tab ID="3"  Name="Personal" DisplayName="个人" Columns="1 20 21 22 23 24 25 26 120 124 150">
         </Tab>
-        <Tab ID="4"  Name="Internal" DisplayName="内政" Columns="1 30 31 32 33 34 35 36">
+        <Tab ID="4"  Name="Internal" DisplayName="内政" Columns="1 30 31 32 33 34 35 36 300">
         </Tab>
         <Tab ID="5"  Name="Military" DisplayName="军事" Columns="1 7 30 40 41 137 138">
         </Tab>
@@ -2519,19 +2526,26 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="303" Name="InternalNoFundNeeded" IsNumber="false" DisplayName="內政不需資金" MinWidth="80"
+				FontName="宋体"
+				FontSize="11"
+				FontStyle="Regular"
+				FontColor="4294967295"
+				Align="Middle">
+        </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="农业" DisplayName="农业" Columns="1 10 2 100 101" SortColumnID="10" SmallToBig="false">
+        <Tab ID="1"  Name="农业" DisplayName="农业" Columns="1 10 2 100 101 303" SortColumnID="10" SmallToBig="false">
         </Tab>
-        <Tab ID="2"  Name="商业" DisplayName="商业" Columns="1 11 2 102 103" SortColumnID="11" SmallToBig="false">
+        <Tab ID="2"  Name="商业" DisplayName="商业" Columns="1 11 2 102 103 303" SortColumnID="11" SmallToBig="false">
         </Tab>
-        <Tab ID="3"  Name="技术" DisplayName="技术" Columns="1 12 2 104 105" SortColumnID="12" SmallToBig="false">
+        <Tab ID="3"  Name="技术" DisplayName="技术" Columns="1 12 2 104 105 303" SortColumnID="12" SmallToBig="false">
         </Tab>
-        <Tab ID="4"  Name="统治" DisplayName="统治" Columns="1 13 2 106 107" SortColumnID="13" SmallToBig="false">
+        <Tab ID="4"  Name="统治" DisplayName="统治" Columns="1 13 2 106 107 303" SortColumnID="13" SmallToBig="false">
         </Tab>
-        <Tab ID="5"  Name="民心" DisplayName="民心" Columns="1 14 2 108 109" SortColumnID="14" SmallToBig="false">
+        <Tab ID="5"  Name="民心" DisplayName="民心" Columns="1 14 2 108 109 303" SortColumnID="14" SmallToBig="false">
         </Tab>
-        <Tab ID="6"  Name="耐久" DisplayName="耐久" Columns="1 15 2 110 111" SortColumnID="15" SmallToBig="false">
+        <Tab ID="6"  Name="耐久" DisplayName="耐久" Columns="1 15 2 110 111 303" SortColumnID="15" SmallToBig="false">
         </Tab>
         <Tab ID="7"  Name="训练" DisplayName="训练" Columns="1 20 2" SortColumnID="20" SmallToBig="false">
         </Tab>
