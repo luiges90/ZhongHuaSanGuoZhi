@@ -10,15 +10,15 @@
 
         public override void ApplyInfluenceKind(Person person)
         {
-            if (this.increment > person.calmnessIncrease)
+            /*if (this.increment > person.calmnessIncrease)
             {
                 person.calmnessIncrease += this.increment;
-            }
+            }*/
         }
 
         public override void PurifyInfluenceKind(Person person)
         {
-            person.calmnessIncrease -= this.increment;
+            //person.calmnessIncrease -= this.increment;
         }
 
         public override void InitializeParameter(string parameter)
