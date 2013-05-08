@@ -3712,8 +3712,8 @@
                     row["StratagemExperience"] = person.StratagemExperience;
                     row["RoutCount"] = person.RoutCount;
                     row["RoutedCount"] = person.RoutedCount;
-                    row["Braveness"] = person.Braveness;
-                    row["Calmness"] = person.Calmness;
+                    row["Braveness"] = person.BaseBraveness;
+                    row["Calmness"] = person.BaseCalmness;
                     row["Loyalty"] = person.Loyalty;
                     row["BornRegion"] = (int)person.BornRegion;
                     row["AvailableLocation"] = person.AvailableLocation;

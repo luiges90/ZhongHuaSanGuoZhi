@@ -3606,6 +3606,14 @@
             }
         }
 
+        public int BaseBraveness
+        {
+            get
+            {
+                return this.braveness;
+            }
+        }
+
         public int Braveness
         {
             get
@@ -3670,6 +3678,14 @@
             set
             {
                 this.calledName = value;
+            }
+        }
+
+        public int BaseCalmness 
+        {
+            get
+            {
+                return this.calmness;
             }
         }
 

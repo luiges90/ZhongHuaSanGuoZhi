@@ -3094,8 +3094,8 @@
                     this.tbIntelligenceExperience.Text = this.person.IntelligenceExperience.ToString();
                     this.tbPoliticsExperience.Text = this.person.PoliticsExperience.ToString();
                     this.tbGlamourExperience.Text = this.person.GlamourExperience.ToString();
-                    this.tbBraveness.Text = this.person.Braveness.ToString();
-                    this.tbCalmness.Text = this.person.Calmness.ToString();
+                    this.tbBraveness.Text = this.person.BaseBraveness.ToString();
+                    this.tbCalmness.Text = this.person.BaseCalmness.ToString();
                     this.tbLoyalty.Text = this.person.Loyalty.ToString();
                     try 
                     {
