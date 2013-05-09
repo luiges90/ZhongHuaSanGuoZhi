@@ -1081,14 +1081,14 @@
 				FontColor="4294967295"
 				Align="Middle">
         </Column>
-		<Column ID="291" Name="HasSkill" IsNumber="false" DisplayName="擾亂" MinWidth="40" ItemID="91"
+		<Column ID="291" Name="HasSkill" IsNumber="false" DisplayName="扰乱" MinWidth="40" ItemID="91"
 				FontName="宋体"
 				FontSize="11"
 				FontStyle="Regular"
 				FontColor="4294967295"
 				Align="Middle">
         </Column>
-		<Column ID="292" Name="HasSkill" IsNumber="false" DisplayName="偵查" MinWidth="40" ItemID="92"
+		<Column ID="292" Name="HasSkill" IsNumber="false" DisplayName="侦查" MinWidth="40" ItemID="92"
 				FontName="宋体"
 				FontSize="11"
 				FontStyle="Regular"
@@ -1123,7 +1123,7 @@
 				FontColor="4294967295"
 				Align="Middle">
         </Column>
-		<Column ID="400" Name="InternalNoFundNeeded" IsNumber="false" DisplayName="內政不需資金" MinWidth="80"
+		<Column ID="400" Name="InternalNoFundNeeded" IsNumber="false" DisplayName="内政不需资金" MinWidth="80"
 				FontName="宋体"
 				FontSize="11"
 				FontStyle="Regular"
@@ -1161,13 +1161,13 @@
         </Tab>
         <Tab ID="14"  Name="PersonRelations" DisplayName="人物关系" Columns="1 121 122 123 125 126 132 133">
         </Tab>
-		<Tab ID="15"  Name="MoveTroopSkills" DisplayName="行軍步兵" Columns="1 220 221 222 223 224 225 226 230 231 232 233 234 235 236">
+		<Tab ID="15"  Name="MoveTroopSkills" DisplayName="行军步兵" Columns="1 220 221 222 223 224 225 226 230 231 232 233 234 235 236">
         </Tab>
-		<Tab ID="16"  Name="GroundArmySkills" DisplayName="弩兵騎兵" Columns="1 240 241 242 243 244 245 246 250 251 252 253 254 255 256">
+		<Tab ID="16"  Name="GroundArmySkills" DisplayName="弩兵骑兵" Columns="1 240 241 242 243 244 245 246 250 251 252 253 254 255 256">
         </Tab>
-		<Tab ID="17"  Name="SpecialArmySkills" DisplayName="水戰兵器" Columns="1 260 261 262 263 264 265 266 270 271 272 273 274 275 276">
+		<Tab ID="17"  Name="SpecialArmySkills" DisplayName="水战兵器" Columns="1 260 261 262 263 264 265 266 270 271 272 273 274 275 276">
         </Tab>
-		<Tab ID="18"  Name="TrainingSkills" DisplayName="練兵計略" Columns="1 280 281 282 283 284 285 286 290 291 292 293 294 295 296">
+		<Tab ID="18"  Name="TrainingSkills" DisplayName="练兵计略" Columns="1 280 281 282 283 284 285 286 290 291 292 293 294 295 296">
         </Tab>
         
       </Tabs>
@@ -2316,14 +2316,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="100" Name="MultipleOfAgricultureReputation" IsNumber="true" DisplayName="农业聲望乘數" MinWidth="100"
+		<Column ID="100" Name="MultipleOfAgricultureReputation" IsNumber="true" DisplayName="农业声望乘数" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="101" Name="MultipleOfAgricultureTechniquePoint" IsNumber="true" DisplayName="农业技巧點乘數" MinWidth="120"
+		<Column ID="101" Name="MultipleOfAgricultureTechniquePoint" IsNumber="true" DisplayName="农业技巧点乘数" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2337,14 +2337,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="102" Name="MultipleOfCommerceReputation" IsNumber="true" DisplayName="商业聲望乘數" MinWidth="100"
+		<Column ID="102" Name="MultipleOfCommerceReputation" IsNumber="true" DisplayName="商业声望乘数" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="103" Name="MultipleOfCommerceTechniquePoint" IsNumber="true" DisplayName="商业技巧點乘數" MinWidth="120"
+		<Column ID="103" Name="MultipleOfCommerceTechniquePoint" IsNumber="true" DisplayName="商业技巧点乘数" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2358,14 +2358,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="104" Name="MultipleOfTechnologyReputation" IsNumber="true" DisplayName="技术聲望乘數" MinWidth="100"
+		<Column ID="104" Name="MultipleOfTechnologyReputation" IsNumber="true" DisplayName="技术声望乘数" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="105" Name="MultipleOfTechnologyTechniquePoint" IsNumber="true" DisplayName="技术技巧點乘數" MinWidth="120"
+		<Column ID="105" Name="MultipleOfTechnologyTechniquePoint" IsNumber="true" DisplayName="技术技巧点乘数" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2379,14 +2379,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="106" Name="MultipleOfDominationReputation" IsNumber="true" DisplayName="统治聲望乘數" MinWidth="100"
+		<Column ID="106" Name="MultipleOfDominationReputation" IsNumber="true" DisplayName="统治声望乘数" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="107" Name="MultipleOfDominationTechniquePoint" IsNumber="true" DisplayName="统治技巧點乘數" MinWidth="120"
+		<Column ID="107" Name="MultipleOfDominationTechniquePoint" IsNumber="true" DisplayName="统治技巧点乘数" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2400,14 +2400,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="108" Name="MultipleOfMoraleReputation" IsNumber="true" DisplayName="民心聲望乘數" MinWidth="100"
+		<Column ID="108" Name="MultipleOfMoraleReputation" IsNumber="true" DisplayName="民心声望乘数" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="109" Name="MultipleOfMoraleTechniquePoint" IsNumber="true" DisplayName="民心技巧點乘數" MinWidth="120"
+		<Column ID="109" Name="MultipleOfMoraleTechniquePoint" IsNumber="true" DisplayName="民心技巧点乘数" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2421,14 +2421,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="110" Name="MultipleOfEnduranceReputation" IsNumber="true" DisplayName="耐久聲望乘數" MinWidth="100"
+		<Column ID="110" Name="MultipleOfEnduranceReputation" IsNumber="true" DisplayName="耐久声望乘数" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="111" Name="MultipleOfEnduranceTechniquePoint" IsNumber="true" DisplayName="耐久技巧點乘數" MinWidth="120"
+		<Column ID="111" Name="MultipleOfEnduranceTechniquePoint" IsNumber="true" DisplayName="耐久技巧点乘数" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2456,7 +2456,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="112" Name="RadiusIncrementOfInformation" IsNumber="true" DisplayName="情报範圍增量" MinWidth="100"
+		<Column ID="112" Name="RadiusIncrementOfInformation" IsNumber="true" DisplayName="情报范围增量" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2470,7 +2470,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="113" Name="SpyDays" IsNumber="true" DisplayName="间谍天數" MinWidth="80"
+		<Column ID="113" Name="SpyDays" IsNumber="true" DisplayName="间谍天数" MinWidth="80"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2533,7 +2533,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="118" Name="InevitableSuccessOfSearch" IsNumber="False" DisplayName="搜索必有斬獲" MinWidth="100"
+		<Column ID="118" Name="InevitableSuccessOfSearch" IsNumber="False" DisplayName="搜索必有斩获" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -2554,28 +2554,28 @@
               FontColor="4294967295"
               Align="Right">
         </Column>
-		<Column ID="300" Name="ImmunityOfCaptive" IsNumber="False" DisplayName="不會被俘" MinWidth="80"
+		<Column ID="300" Name="ImmunityOfCaptive" IsNumber="False" DisplayName="不会被俘" MinWidth="80"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="301" Name="MultipleOfTacticsReputation" IsNumber="true" DisplayName="策略聲望乘數" MinWidth="100"
+		<Column ID="301" Name="MultipleOfTacticsReputation" IsNumber="true" DisplayName="策略声望乘数" MinWidth="100"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="302" Name="MultipleOfTacticsTechniquePoint" IsNumber="true" DisplayName="策略技巧點乘數" MinWidth="120"
+		<Column ID="302" Name="MultipleOfTacticsTechniquePoint" IsNumber="true" DisplayName="策略技巧点乘数" MinWidth="120"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="303" Name="InternalNoFundNeeded" IsNumber="false" DisplayName="內政不需資金" MinWidth="80"
+		<Column ID="303" Name="InternalNoFundNeeded" IsNumber="false" DisplayName="内政不需资金" MinWidth="80"
 				FontName="宋体"
 				FontSize="11"
 				FontStyle="Regular"
