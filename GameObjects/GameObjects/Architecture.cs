@@ -5484,11 +5484,9 @@
         {
             foreach (Captive p in this.Captives.GetRandomList())
             {
-                if (GameObject.Random((this.Domination * 10 + this.Morale) * 20) + 200 <= GameObject.Random(p.CaptivePerson.CaptiveAbility))
+                if ((GameObject.Random((this.Domination * 10 + this.Morale) * 20) + 200) * (1 + noEscapeChance / 100.0) <= GameObject.Random(p.CaptivePerson.CaptiveAbility) * (1 + p.CaptivePerson.captiveEscapeChance / 100.0))
                 {
-                    if (!GameObject.Chance(noEscapeChance) || GameObject.Chance(p.CaptivePerson.captiveEscapeChance)){
-                        p.CaptiveEscape();
-                    }
+                    p.CaptiveEscape();
                 }
             }
         }
