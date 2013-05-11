@@ -202,7 +202,7 @@
             }
             if (this.BelongedFaction !=null && this.CaptiveFaction != null)
             {
-                base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.CaptiveFaction.ID, this.ReleaseRelation / 80);
+                base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.CaptiveFaction.ID, this.ReleaseRelation / 400);
             }
             this.DoReturn();
             this.DoRelease();
