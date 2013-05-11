@@ -1930,7 +1930,8 @@
         }
         public bool CheckCapturedByArchitecture(Architecture a)
         {
-            if (!this.ImmunityOfCaptive && (GameObject.Random(a.Domination * 10 + a.Morale) + 200) * (1 + a.captureChance / 100.0) >= GameObject.Random(this.CaptiveAbility) * 60)
+            if (!(this.ImmunityOfCaptive || GameObject.Random((a.Domination * 10 + a.Morale)) + 200 <= GameObject.Random(this.CaptiveAbility) * 60) ||
+                (!this.ImmunityOfCaptive && GameObject.Chance(a.captureChance)))
             {
                 this.ArrivingDays = 0;
                 this.TargetArchitecture = null;

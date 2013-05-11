@@ -2234,7 +2234,11 @@
                 PersonList personlist = new PersonList();
                 foreach (Person person in troop.Persons)
                 {
-                    if (!person.ImmunityOfCaptive && GameObject.Random(this.CaptiveAblility) * (1 + this.captureChance / 100.0) >= GameObject.Random(person.CaptiveAbility + 200))
+                    if (!(person.ImmunityOfCaptive || (GameObject.Chance(person.ChanceOfNoCapture) || (GameObject.Random(this.CaptiveAblility) <= GameObject.Random(person.CaptiveAbility + 200)))))
+                    {
+                        personlist.Add(person);
+                    }
+                    else if (!person.ImmunityOfCaptive && GameObject.Chance(this.captureChance))
                     {
                         personlist.Add(person);
                     }
