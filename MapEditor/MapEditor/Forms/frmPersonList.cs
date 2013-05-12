@@ -303,7 +303,7 @@
             this.AvailableLocation.DataPropertyName = "AvailableLocation";
             this.AvailableLocation.HeaderText = "出场地点";
             this.AvailableLocation.Name = "AvailableLocation";
-            this.Reputation.DataPropertyName = "Reputation";
+            this.Reputation.DataPropertyName = "BaseReputation";
             style8.Alignment = DataGridViewContentAlignment.MiddleRight;
             this.Reputation.DefaultCellStyle = style8;
             this.Reputation.HeaderText = "名声";
@@ -339,13 +339,13 @@
             this.glamourDataGridViewTextBoxColumn.HeaderText = "魅力";
             this.glamourDataGridViewTextBoxColumn.Name = "glamourDataGridViewTextBoxColumn";
             this.glamourDataGridViewTextBoxColumn.Width = 60;
-            this.bravenessDataGridViewTextBoxColumn.DataPropertyName = "Braveness";
+            this.bravenessDataGridViewTextBoxColumn.DataPropertyName = "BaseBraveness";
             style14.Alignment = DataGridViewContentAlignment.MiddleRight;
             this.bravenessDataGridViewTextBoxColumn.DefaultCellStyle = style14;
             this.bravenessDataGridViewTextBoxColumn.HeaderText = "勇猛度";
             this.bravenessDataGridViewTextBoxColumn.Name = "bravenessDataGridViewTextBoxColumn";
             this.bravenessDataGridViewTextBoxColumn.Width = 70;
-            this.calmnessDataGridViewTextBoxColumn.DataPropertyName = "Calmness";
+            this.calmnessDataGridViewTextBoxColumn.DataPropertyName = "BaseCalmness";
             style15.Alignment = DataGridViewContentAlignment.MiddleRight;
             this.calmnessDataGridViewTextBoxColumn.DefaultCellStyle = style15;
             this.calmnessDataGridViewTextBoxColumn.HeaderText = "冷静度";
