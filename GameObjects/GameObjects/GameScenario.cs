@@ -3696,7 +3696,7 @@
                     row["Intelligence"] = person.BaseIntelligence;
                     row["Politics"] = person.BasePolitics;
                     row["Glamour"] = person.BaseGlamour;
-                    row["Reputation"] = person.Reputation;
+                    row["Reputation"] = person.BaseReputation;
                     row["StrengthExperience"] = person.StrengthExperience;
                     row["CommandExperience"] = person.CommandExperience;
                     row["IntelligenceExperience"] = person.IntelligenceExperience;

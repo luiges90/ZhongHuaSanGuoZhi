@@ -4896,6 +4896,14 @@
             }
         }
 
+        public int BaseReputation
+        {
+            get
+            {
+                return this.reputation;
+            }
+        }
+
         public int Reputation
         {
             get
