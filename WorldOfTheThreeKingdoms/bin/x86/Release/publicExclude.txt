@@ -2,10 +2,9 @@ Resources\Extensions\
 GameComponents\PersonPortrait\PlayerImage\
 GameData\GameParameters
 GameData\GlobalVariables
+GameData\Common\archive\
 GameData\Common\CommonData.mdb
 GameData\Common\CommonDataPublic.mdb
-GameData\Common\CommonData_*.mdb
-GameData\Common\CommonData - ½Æ»s.mdb
 GameData\Scenario\archive\
 GameData\Scenario\generatedScen.mdb
 GameData\Save\
@@ -13,6 +12,8 @@ Resources\CreateChildrenTextFile\
 .lnk
 .pdb
 .xlsx
+.jsgme
+MODS
 MakePublic.bat
 publicExclude.txt
 Resources\Troop\31

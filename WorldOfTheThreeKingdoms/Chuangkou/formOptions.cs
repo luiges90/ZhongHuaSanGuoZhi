@@ -190,6 +190,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbTirednessIncrease;
         private Label label53;
         private TextBox tbTirednessDecrease;
+        private Label label54;
+        private TextBox tbMaxAITroopTime;
         private Label getChildrenRateLabel;
 
         public formOptions()
@@ -379,6 +381,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label54 = new System.Windows.Forms.Label();
+            this.tbMaxAITroopTime = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageEnvironment.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1656,6 +1660,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageAIParameter
             // 
+            this.tabPageAIParameter.Controls.Add(this.label54);
+            this.tabPageAIParameter.Controls.Add(this.tbMaxAITroopTime);
             this.tabPageAIParameter.Controls.Add(this.label50);
             this.tabPageAIParameter.Controls.Add(this.tbAIArmyExperienceRate);
             this.tabPageAIParameter.Controls.Add(this.label49);
@@ -1979,6 +1985,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(235, 126);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(101, 12);
+            this.label54.TabIndex = 53;
+            this.label54.Text = "电脑最大出兵时间";
+            // 
+            // tbMaxAITroopTime
+            // 
+            this.tbMaxAITroopTime.Location = new System.Drawing.Point(341, 123);
+            this.tbMaxAITroopTime.Name = "tbMaxAITroopTime";
+            this.tbMaxAITroopTime.Size = new System.Drawing.Size(71, 22);
+            this.tbMaxAITroopTime.TabIndex = 54;
+            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -2114,6 +2136,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbAIRecruitmentSpeedRate.Text = nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedRate").Value;
             this.tbAIOfficerExperienceRate.Text = nextSibling.Attributes.GetNamedItem("AIOfficerExperienceRate").Value;
             this.tbAIArmyExperienceRate.Text = nextSibling.Attributes.GetNamedItem("AIArmyExperienceRate").Value;
+            this.tbMaxAITroopTime.Text = nextSibling.Attributes.GetNamedItem("MaxAITroopTime").Value;
             doNotSetDifficultyToCustom = false;
         }
 
@@ -2220,6 +2243,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedRate").Value = this.tbAIRecruitmentSpeedRate.Text;
             nextSibling.Attributes.GetNamedItem("AIOfficerExperienceRate").Value = this.tbAIOfficerExperienceRate.Text;
             nextSibling.Attributes.GetNamedItem("AIArmyExperienceRate").Value = this.tbAIArmyExperienceRate.Text;
+            nextSibling.Attributes.GetNamedItem("MaxAITroopTime").Value = this.tbMaxAITroopTime.Text;
             this.parameterDoc.Save("GameData/GameParameters.xml");
         }
 
