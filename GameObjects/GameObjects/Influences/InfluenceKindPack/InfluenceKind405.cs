@@ -13,6 +13,11 @@
             troop.ChanceDecrementOfCriticalStrike += this.decrement;
         }
 
+        public override void ApplyInfluenceKind(Architecture a)
+        {
+            a.ChanceDecrementOfCriticalStrike += this.decrement;
+        }
+
         public override void InitializeParameter(string parameter)
         {
             try
@@ -28,6 +33,11 @@
         public override void PurifyInfluenceKind(Troop troop)
         {
             troop.ChanceDecrementOfCriticalStrike -= this.decrement;
+        }
+
+        public override void PurifyInfluenceKind(Architecture a)
+        {
+            a.ChanceDecrementOfCriticalStrike -= this.decrement;
         }
     }
 }

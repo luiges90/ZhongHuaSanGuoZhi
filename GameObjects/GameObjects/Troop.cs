@@ -8507,7 +8507,7 @@
             ArchitectureDamage damage = new ArchitectureDamage();
             damage.SourceTroop = this;
             damage.DestinationArchitecture = architecture;
-            damage.Critical = GameObject.Chance(this.CriticalStrikeChance - (architecture.AreaCount * 3));
+            damage.Critical = GameObject.Chance(this.CriticalStrikeChance - (architecture.ChanceDecrementOfCriticalStrike));
             damage.Position = this.OrientationPosition;
             if (architecture.Domination > 0)
             {

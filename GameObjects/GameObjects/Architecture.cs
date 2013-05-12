@@ -46,6 +46,7 @@
         public GameObjectList BuildableFacilityKindList = new GameObjectList();
         private int buildingDaysLeft;
         private int buildingFacility = -1;
+        public int ChanceDecrementOfCriticalStrike = 0;
         public MilitaryList CampaignMilitaryList = new MilitaryList();
         public ArchitectureList ChangeCapitalArchitectureList = new ArchitectureList();
         public InfluenceTable Characteristics = new InfluenceTable();
