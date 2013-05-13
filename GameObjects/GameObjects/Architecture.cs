@@ -3301,7 +3301,7 @@
                                     if (legion.HasTroopWillArchitectureIsWillArchitecture && (legion.GetLegionTroopFightingForce() < (legion.GetLegionHostileTroopFightingForceInView() * 2)))
                                     {
                                         routeway = this.GetRouteway(node, true);
-                                        if ((((routeway != null) && (routeway.LastPoint.ConsumptionRate <= 0.3f)) && (!routeway.ByPassHostileArchitecture && (this.Fund >= (routeway.LastPoint.BuildFundCost * 2)))) && this.IsSelfFoodEnough(node, routeway))
+                                        if ((((routeway != null) && (routeway.LastPoint.ConsumptionRate <= 0.3f)) && (routeway.ByPassHostileArchitecture == null && (this.Fund >= (routeway.LastPoint.BuildFundCost * 2)))) && this.IsSelfFoodEnough(node, routeway))
                                         {
                                             routeway.Building = true;
                                             this.BuildOffensiveTroop(legion.WillArchitecture, node.Kind, true);
@@ -3563,7 +3563,7 @@
                         if (node2 != null)
                         {
                             routeway = node.A.GetRouteway(node2, true);
-                            if ((((routeway != null) && !routeway.ByPassHostileArchitecture) && ((routeway.LastPoint.BuildFundCost * 2) <= node.A.Fund)) && (this.IsFoodAbundant || this.IsNodeFoodEnough(node, routeway)))
+                            if ((((routeway != null) && routeway.ByPassHostileArchitecture == null) && ((routeway.LastPoint.BuildFundCost * 2) <= node.A.Fund)) && (this.IsFoodAbundant || this.IsNodeFoodEnough(node, routeway)))
                             {
                                 list.Add(node);
                             }
@@ -9623,7 +9623,6 @@
                                 if (i.A.BelongedFaction != null &&
                                     (base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, i.A.BelongedFaction.ID) >= leader.Uncruelty * Parameters.AIOffendMaxDiplomaticRelationMultiply)
                                     && GameObject.Random(leader.Uncruelty * leader.Uncruelty * 10) > 0)
-                                /*&& this.BelongedFaction.ArchitectureCount < i.A.BelongedFaction.ArchitectureCount + leader.Uncruelty - 2*/
                                 {
                                     continue;
                                 }
@@ -9634,23 +9633,36 @@
                         {
                             continue;
                         }
-                        if (rw.ByPassHostileArchitecture)
+                        Architecture bypass = rw.ByPassHostileArchitecture;
+                        LinkNode candidate = i;
+                        if (bypass != null)
                         {
-                            continue;
+                            foreach (LinkNode j in this.AIAllLinkNodes.Values)
+                            {
+                                if (j.Level > maxLevel)
+                                {
+                                    break;
+                                }
+                                if (j.A == bypass)
+                                {
+                                    candidate = j;
+                                }
+                            }
+                            if (candidate == null) continue;
                         }
                         if (!IsSelfFoodEnoughForOffensive(i, rw))
                         {
                             continue;
                         }
-                        int weight = 1000 + (i.Kind == LinkKind.Land ? this.LandArmyScale : this.WaterArmyScale) - i.A.ArmyScale;
-                        weight += weight / 10 * (i.A.connectedToFactionArchitectureCount(this.BelongedFaction) - i.A.connectedNotToFactionArchitectureCount(this.BelongedFaction));
+                        int weight = 1000 + (candidate.Kind == LinkKind.Land ? this.LandArmyScale : this.WaterArmyScale) - candidate.A.ArmyScale;
+                        weight += weight / 10 * (candidate.A.connectedToFactionArchitectureCount(this.BelongedFaction) - candidate.A.connectedNotToFactionArchitectureCount(this.BelongedFaction));
                         if (i.A.IsImportant)
                         {
                             weight = weight * 3 / 2;
                         }
                         if (i.A.PopulationCeiling > 0 && this.PopulationCeiling > 0)
                         {
-                            weight = (int)(weight * ((double)(i.A.Population - this.Population) / this.PopulationCeiling / 2 + 0.5));
+                            weight = (int)(weight * ((double)(candidate.A.Population - this.Population) / this.PopulationCeiling / 2 + 0.5));
                         }
                         else
                         {
@@ -9662,7 +9674,7 @@
                         if (weight > maxWeight)
                         {
                             maxWeight = weight;
-                            maxNode = i;
+                            maxNode = candidate;
                         }
                     }
                     wayToTarget = maxNode;
@@ -9701,11 +9713,12 @@
                     if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
                     {
                         Routeway routeway = this.GetRouteway(wayToTarget, true);
+                        Architecture bypass = routeway.ByPassHostileArchitecture;
                         if (routeway == null)
                         {
                             this.PlanArchitecture = null;
                         }
-                        else if (routeway.ByPassHostileArchitecture)
+                        else if (bypass != null)
                         {
                             this.PlanArchitecture = null;
                         }
@@ -9759,7 +9772,7 @@
                     else if (this.InformationAvail())
                     {
                         Routeway routeway = this.GetRouteway(wayToTarget, true);
-                        if (((routeway != null) && !routeway.ByPassHostileArchitecture) && ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
+                        if ((routeway != null) && ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
                         {
                             double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
                             if (((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway))
@@ -9785,478 +9798,6 @@
                 }
             }
         }
-
-        private void OLD_OffensiveCampaign()
-        {
-            //No offensive campaign if
-            //1. the section is not allowed to do so
-            //2. no officer is in the city
-            //3. information hasn't been cooled down and no target specified
-            if (this.BelongedSection != null && !this.BelongedSection.AIDetail.AllowOffensiveCampaign)
-            {
-                this.PlanArchitecture = null;
-            }
-            else if (!this.HasPerson())
-            {
-                this.PlanArchitecture = null;
-            }
-            else if ((this.PlanArchitecture != null) || (this.InformationCoolDown <= 0))
-            {
-                //do not give a target, and cancel any offensive, if
-                //1. there is no military good enough for an offensive
-                //2. there is only 1 offensive army which scale < 30
-                //3. There is nowhere for military to appear near the city
-                //Otherwise, go into next step if:
-                //5% chance, or population < 10000, or domination reaches its ceiling, or endurance reaches 20% of its ceiling, 
-                //   or target is already specified and not cancelled
-                int num = this.OffensiveMilitaryCount();
-                if (num <= 0)
-                {
-                    this.PlanArchitecture = null;
-                }
-                else if (!((num != 1) || this.HasEnoughForceOffensiveMilitary()))
-                {
-                    this.PlanArchitecture = null;
-                }
-                else if (this.GetAllAvailableArea(false).Count == 0)
-                {
-                    this.PlanArchitecture = null;
-                }
-                else if ((((this.PlanArchitecture != null) || (this.Population < (10000 * this.AreaCount))) || ((this.Domination >= this.DominationCeiling) || (this.Endurance >= (this.EnduranceCeiling * 0.2f)))) || GameObject.Chance(5))
-                {
-                    //cancel any offensive if
-                    //1. population >= 1000 (ignored if arch type has no population), and
-                    //2. this arch is not good, and "good" means internal values reached 60% of their ceilings (80% of domination), and
-                    //3. armyscale too little or army quantity less than half of the population (ignored if arch type has no population), and
-                    //4. armyscale is not many or domination < 80% or endurance < 20%
-                    if ((((!this.Kind.HasPopulation || (this.Population >= (1000 * this.AreaCount))) && !this.IsGood()) && ((!this.Kind.HasPopulation || (this.ArmyScale <= this.FewArmyScale)) || (this.ArmyQuantity <= (this.Population / 2)))) && (((this.ArmyScale < this.NormalArmyScale) || (this.Domination < (this.DominationCeiling * 0.8))) || (this.Endurance < (0.2f * this.EnduranceCeiling))))
-                    {
-                        this.PlanArchitecture = null;
-                    }
-                    else
-                    {
-                        LinkNode node = null;
-                        int num2 = 0;
-                        //if there is no target, pick one.
-                        if (this.PlanArchitecture != null)
-                        {
-                            this.AIAllLinkNodes.TryGetValue(this.PlanArchitecture.ID, out node);
-                        }
-                        else
-                        {
-                            int num4;
-                            double distance;
-                            List<LinkNode> list = new List<LinkNode>();
-                            List<LinkNode> list2 = new List<LinkNode>();
-                            List<LinkNode> list3 = new List<LinkNode>();
-                            //int level = 1;
-                            bool flag = this.LandArmyScale < this.VeryFewArmyScale;
-                            bool flag2 = this.WaterArmyScale < this.VeryFewArmyScale;
-                            //consider which target to attack
-                            foreach (LinkNode node2 in this.AIAllLinkNodes.Values)
-                            {
-                                //stop the consideration entirely if a node has level > 2 i.e. the shortest distance from this arch to node2 arch > 2
-                                Legion legion;
-                                /*if (node2.Level > 2)
-                                {
-                                    break;
-                                }
-                                //stop the consideration entirely if a node has level > 1 unless there is another factioned base which satisfies the following code conditions
-                                if (node2.Level > level)
-                                {
-                                    if (list3.Count > 0)
-                                    {
-                                        break;
-                                    }
-                                    level = node2.Level;
-                                }*/
-                                if (node2.Level > 1)
-                                {
-                                    break;
-                                    /*bool ok = true;
-                                    for (int i = 1; i < node2.Path.Count - 1; ++i)
-                                    {
-                                        if (node2.Path[i].kind.HasPopulation)
-                                        {
-                                            ok = false;
-                                            break;
-                                        }
-                                    }
-                                    if (!ok) continue;*/
-                                }
-                                //don't attack any base that is friendly, or don't have enough troop on land/water to attack the base
-                                if ((this.IsFriendly(node2.A.BelongedFaction) || (node2.Kind == LinkKind.None)) || (((node2.Kind == LinkKind.Land) && flag) || ((node2.Kind == LinkKind.Water) && flag2)))
-                                {
-                                    continue;
-                                }
-                                //don't attack any base that violates leader's stretagy tendency (possible culprit)
-                                //111113 - added condition by troop scale that violates leader's tendency
-                                switch (this.BelongedFaction.Leader.StrategyTendency)
-                                {
-                                    case PersonStrategyTendency.统一地区:
-                                        {
-                                            if (node2.A.LocationState.LinkedRegion == this.LocationState.LinkedRegion || this.ArmyScale > 1.5 * node2.A.ArmyScale || GameObject.Chance(5))
-                                            {
-                                                break;
-                                            }
-                                            continue;
-                                        }
-                                    case PersonStrategyTendency.统一州:
-                                        {
-                                            if (node2.A.LocationState == this.LocationState || this.ArmyScale > 1.75 * node2.A.ArmyScale || GameObject.Chance(5))
-                                            {
-                                                break;
-                                            }
-                                            continue;
-                                        }
-                                    case PersonStrategyTendency.维持现状:
-                                        {
-                                            if (node2.A.BelongedFaction == null || this.ArmyScale > 2.0 * node2.A.ArmyScale || GameObject.Chance(5))
-                                            {
-                                                break;
-                                            }
-                                            continue;
-                                        }
-                                }
-                                //consider empty base if there is no legion (group a troops launching an attack) or the legion has less than 6 troops, and
-                                //10% of chance or base is important or its population > 10000
-                                if (node2.A.BelongedFaction == null)
-                                {
-                                    legion = this.BelongedFaction.GetLegion(node2.A);
-                                    if (((legion == null) || (legion.Troops.Count < 6)) && ((GameObject.Chance(10) || node2.A.IsImportant) || (node2.A.Kind.HasPopulation && (node2.A.Population > (0x2710 * node2.A.AreaCount)))))
-                                    {
-                                        list.Add(node2);
-                                    }
-                                }
-                                else
-                                {
-                                    list3.Add(node2);
-                                    if (this.BelongedSection != null)
-                                    {
-                                        switch (this.BelongedSection.AIDetail.OrientationKind)
-                                        {
-                                            //otherwise, if no section command ordered, if
-                                            //1. population >= 1000, and
-                                            //2. not having many army, and 
-                                            //3. having little army or army quantity < 0.8 * population, and
-                                            //4. base is not completely developed or has not more than enough troop
-                                            //add in base which (diplomatic relation + more arch than us) < 0, and more negative, greater chance
-                                            //otherwise, if no legion is going on or that legion has troops count < 30, add into list
-                                            case SectionOrientationKind.无:
-                                                if (!this.BelongedSection.AIDetail.ValueOffensiveCampaign || ((((!this.Kind.HasPopulation || (this.Population >= (1000 * this.AreaCount))) && (this.ArmyScale < this.LargeArmyScale)) && ((!this.Kind.HasPopulation || (this.ArmyScale < this.FewArmyScale)) || (this.ArmyQuantity <= (this.Population * 0.8f)))) && (!this.IsFull() || (this.ArmyScale < this.NormalArmyScale))))
-                                                {
-                                                    //goto Label_05AB;
-                                                    if (this.BelongedSection.AIDetail.ValueOffensiveCampaign || GameObject.Chance(20))
-                                                    {
-                                                        num4 = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, node2.A.BelongedFaction.ID) + (node2.A.BelongedFaction.ArchitectureTotalSize - this.BelongedFaction.ArchitectureTotalSize) * 30
-                                                            - (this.ArmyScale - node2.A.ArmyScale) * 2;
-                                                        if ((num4 < 0) && GameObject.Chance(Math.Abs((int)(num4 / 10))))
-                                                        {
-                                                            list2.Add(node2);
-                                                        }
-                                                    }
-                                                    break;
-                                                }
-                                                legion = this.BelongedFaction.GetLegion(node2.A);
-                                                if ((legion == null) || (legion.Troops.Count < 30))
-                                                {
-                                                    list2.Add(node2);
-                                                }
-                                                //
-                                                continue;
-
-                                            case SectionOrientationKind.军区:
-                                                continue;
-
-                                            case SectionOrientationKind.势力:
-                                                if (this.BelongedSection.OrientationFaction == node2.A.BelongedFaction)
-                                                {
-                                                    list2.Add(node2);
-                                                }
-                                                continue;
-
-                                            case SectionOrientationKind.州域:
-                                                if (this.BelongedSection.OrientationState == node2.A.LocationState)
-                                                {
-                                                    list2.Add(node2);
-                                                }
-                                                continue;
-
-                                            case SectionOrientationKind.建筑:
-                                                if (this.BelongedSection.OrientationArchitecture == node2.A)
-                                                {
-                                                    list2.Add(node2);
-                                                }
-                                                continue;
-                                        }// end switch
-                                    }
-                                    else continue;
-                                }// end else
-                                //continue;
-                                /*
-                            Label_05AB:
-                                if (this.BelongedSection.AIDetail.ValueOffensiveCampaign || GameObject.Chance(20))
-                                {
-                                    num4 = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, node2.A.BelongedFaction.ID) + (node2.A.BelongedFaction.ArchitectureTotalSize - this.BelongedFaction.ArchitectureTotalSize);
-                                    if ((num4 < 0) && GameObject.Chance(Math.Abs((int) (num4 / 10))))
-                                    {
-                                        list2.Add(node2);
-                                    }
-                                }
-                                 */
-                                //Label_0650:;
-                            }
-                            double maxValue = double.MaxValue;
-                            LinkNode node3 = null;
-                            //after first consideration, decide last target by determining base distances, and choose the minimum one
-                            //this list is for empty bases
-                            if (list.Count > 0)
-                            {
-                                foreach (LinkNode node2 in list)
-                                {
-                                    //1/(2*number of bases in consideration) chance to throw that node away
-                                    /*if (GameObject.Random(list.Count * 2) == 0)
-                                    {
-                                        continue;
-                                    }*/
-                                    distance = node2.Distance;
-                                    if (node2.A.LocationState.LinkedRegion.ID != this.LocationState.LinkedRegion.ID)
-                                    {
-                                        if (this.BelongedFaction.Leader.StrategyTendency != PersonStrategyTendency.统一全国)
-                                        {
-                                            continue;
-                                        }
-                                        distance *= 2.0;
-                                    }
-                                    else if (node2.A.LocationState.ID != this.LocationState.ID)
-                                    {
-                                        if (this.BelongedFaction.Leader.StrategyTendency == PersonStrategyTendency.统一地区)
-                                        {
-                                            distance *= 2.0;
-                                        }
-                                        else if (this.BelongedFaction.Leader.StrategyTendency != PersonStrategyTendency.统一全国)
-                                        {
-                                            continue;
-                                        }
-                                    }
-                                    if (node2.A.IsImportant)
-                                    {
-                                        distance /= 2.0;
-                                    }
-                                    //add variation to AI attack (and less prone to cases where the selected base is prevented from attacking
-                                    //because of conditions below
-                                    distance *= 1 + (GameObject.Random(100) / 100.0 * 0.4 + 0.8);
-                                    if (distance < maxValue)
-                                    {
-                                        maxValue = distance;
-                                        node3 = node2;
-                                    }
-                                }
-                            }
-                            double num7 = double.MaxValue;
-                            LinkNode node4 = null;
-                            //this list is for occupied bases
-                            if (list2.Count > 0)
-                            {
-                                foreach (LinkNode node2 in list2)
-                                {
-                                    //1/(2*number of bases in consideration) chance to throw that node away
-                                    //if there has hostile arch on path, throw that node away
-                                    if (/*(GameObject.Random(list2.Count * 2) != 0) && */!this.HasHostileArchitectureOnPath(node2))
-                                    {
-                                        distance = node2.Distance;
-                                        num4 = 0;
-                                        if (node2.A.BelongedFaction != null)
-                                        {
-                                            num4 = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, node2.A.BelongedFaction.ID) + (node2.A.BelongedFaction.ArchitectureTotalSize - this.BelongedFaction.ArchitectureTotalSize);
-                                        }
-                                        if (num4 < 0)
-                                        {
-                                            distance /= (double)((((float)Math.Abs(num4)) / 200f) + 1f);
-                                        }
-                                        if (node2.A.IsImportant)
-                                        {
-                                            distance /= 2.0;
-                                        }
-                                        //make AI more aggressive against player
-                                        /*if (base.Scenario.IsPlayer(node2.A.BelongedFaction))
-                                        {
-                                            distance /= 2.0;
-                                        }*/
-                                        distance *= 1 + (GameObject.Random(100) / 100.0 * 0.4 + 0.8);
-                                        if (distance < num7)
-                                        {
-                                            num7 = distance;
-                                            node4 = node2;
-                                        }
-                                    }
-                                }
-                            }
-                            //finally, choose the best target from both lists
-                            if (maxValue <= num7)
-                            {
-                                node = node3;
-                            }
-                            else
-                            {
-                                node = node4;
-                            }
-                        }
-                        //if a target is found, consider starting an offensive
-                        if (node != null)
-                        {
-                            Architecture closer = null;
-                            //if there is closer arch and they belonged to same section, move over to that arch
-                            if (this.HasCloserOffensiveArchitecture(node, out closer))
-                            {
-                                if ((((closer != null) && this.AIAllLinkNodes.ContainsKey(closer.ID)) && (closer.BelongedSection == this.BelongedSection))/* && this.BelongedSection.AIDetail.ValueOffensiveCampaign*/)
-                                {
-                                    this.BuildOffensiveTroop(closer, this.AIAllLinkNodes[closer.ID].Kind, true);
-                                }
-                                this.PlanArchitecture = null;
-                            }
-                            else
-                            {
-                                //if
-                                //1. the target is not known nor there is any spy in it, or
-                                //2. rand(target domination)^2 < rand(target domination) (prob should be n(n+1)/2n^3, 1.8y to attack on average...), or
-                                //3. has enough troop to mount the offensive 
-                                //  "enough" == number of troop is great, or has more troop if base is important, has 1.5 times more troop is base is unimportant
-                                //then go on with the offensive
-                                bool flag3 = this.BelongedFaction.IsArchitectureKnown(node.A);
-                                if (!(((!flag3 && !node.A.HasFactionSpy(this.BelongedFaction)) || (GameObject.Random(GameObject.Square(node.A.Domination)) < GameObject.Random(node.A.DominationCeiling))) || this.IsSelfOffensiveArmyEnough(node)))
-                                {
-                                    this.PlanArchitecture = null;
-                                }
-                                else
-                                {
-                                    int num8;
-                                    if (node.A.BelongedFaction != null)
-                                    {
-                                        num2 = 30;
-                                    }
-                                    else
-                                    {
-                                        num8 = 0;
-                                        foreach (LinkNode node2 in node.A.AIAllLinkNodes.Values)
-                                        {
-                                            if (node2.Level > 2)
-                                            {
-                                                break;
-                                            }
-                                            if (!this.IsFriendly(node2.A.BelongedFaction) && (node2.A.BelongedFaction != null))
-                                            {
-                                                num8++;
-                                            }
-                                        }
-                                        num2 = 2 + num8;
-                                        if (num2 > 6)
-                                        {
-                                            num2 = 6;
-                                        }
-                                    }
-                                    if (this.TargetingTroopCount(node.A) >= num2)
-                                    {
-                                        this.PlanArchitecture = null;
-                                    }
-                                    else
-                                    {
-                                        Routeway routeway;
-                                        float foodRateBySeason;
-                                        //if nothing is known about the target and no planned attacks, and
-                                        //there are enough food and fund, then get info for that target
-                                        if (!flag3 && (this.PlanArchitecture == null))
-                                        {
-                                            if ((this.PlanArchitecture == null) && this.InformationAvail())
-                                            {
-                                                routeway = this.GetRouteway(node, true);
-                                                if (((routeway != null) && !routeway.ByPassHostileArchitecture) && ((routeway.LastPoint.BuildFundCost * (4 + ((node.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
-                                                {
-                                                    foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
-                                                    if (((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(node, routeway))
-                                                    {
-                                                        this.PlanArchitecture = node.A;
-                                                        Person firstHalfPerson = this.GetFirstHalfPerson("InformationAbility");
-                                                        if (firstHalfPerson != null)
-                                                        {
-                                                            firstHalfPerson.CurrentInformationKind = this.GetFirstHalfInformationKind();
-                                                            if (firstHalfPerson.CurrentInformationKind != null)
-                                                            {
-                                                                firstHalfPerson.GoForInformation(base.Scenario.GetClosestPoint(node.A.ArchitectureArea, this.Position));
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            this.PlanArchitecture = null;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            //if routeway to the target does not exist or bypasses hostile archs, forget about the target
-                                            //else, if food is not enough, put into plan
-                                            //else, wait for enough length of routeway has been built, if no more waiting, really start offensive
-                                            routeway = this.GetRouteway(node, true);
-                                            if (routeway == null)
-                                            {
-                                                this.PlanArchitecture = null;
-                                            }
-                                            else if (routeway.ByPassHostileArchitecture)
-                                            {
-                                                this.PlanArchitecture = null;
-                                            }
-                                            else if ((routeway.LastPoint.BuildFundCost * (4 + ((node.A.AreaCount >= 4) ? 2 : 0))) > this.Fund)
-                                            {
-                                                routeway.Building = false;
-                                                this.PlanArchitecture = node.A;
-                                            }
-                                            else
-                                            {
-                                                foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
-                                                if (!(((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(node, routeway)))
-                                                {
-                                                    routeway.Building = false;
-                                                    this.PlanArchitecture = node.A;
-                                                }
-                                                else if ((routeway.LastPoint.ConsumptionRate >= 0.1f) && (((int)(routeway.Length * (routeway.LastPoint.ConsumptionRate + 0.2f))) > routeway.LastActivePointIndex))
-                                                {
-                                                    routeway.Building = true;
-                                                    this.PlanArchitecture = node.A;
-                                                }
-                                                else
-                                                {
-                                                    if (!routeway.IsActive)
-                                                    {
-                                                        routeway.Building = true;
-                                                    }
-                                                    num8 = 0;
-                                                    while (num8 < num2)
-                                                    {
-                                                        if (this.BuildOffensiveTroop(node.A, node.Kind, true) == null)
-                                                        {
-                                                            break;
-                                                        }
-                                                        num8++;
-                                                        if (!(this.HasOffensiveMilitary() && this.HasPerson()))
-                                                        {
-                                                            break;
-                                                        }
-                                                    }
-                                                    this.PlanArchitecture = null;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
 
         public int OffensiveMilitaryCount()
         {
