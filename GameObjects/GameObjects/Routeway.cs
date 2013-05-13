@@ -717,7 +717,7 @@
             }
         }
 
-        public bool ByPassHostileArchitecture
+        public Architecture ByPassHostileArchitecture
         {
             get
             {
@@ -729,12 +729,12 @@
                         {
                             if (((architecture != this.DestinationArchitecture) && (architecture.BelongedFaction != null)) && !(this.BelongedFaction.IsFriendly(architecture.BelongedFaction) || (base.Scenario.GetDistance(this.StartArchitecture.ArchitectureArea, architecture.ArchitectureArea) >= base.Scenario.GetDistance(this.StartArchitecture.ArchitectureArea, this.DestinationArchitecture.ArchitectureArea))))
                             {
-                                return true;
+                                return architecture;
                             }
                         }
                     }
                 }
-                return false;
+                return null;
             }
         }
 
