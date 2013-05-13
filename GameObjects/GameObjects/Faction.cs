@@ -857,7 +857,7 @@
                     architecturelist.IsNumber = true;
                     architecturelist.ReSort();
                     int count = 0;
-                    int num2 = 4 + (this.ArchitectureCount / 8);
+                    int num2 = 2 + (this.ArchitectureCount / 8);
                     if (architecturelist.Count < ((num2 * 3) / 2))
                     {
                         count = architecturelist.Count;
