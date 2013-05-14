@@ -11854,23 +11854,15 @@
                     {
                         if (legion == this.DefensiveLegion)
                         {
-                            num += legion.FoodCostPerDay * 40;
+                            num += legion.FoodCostPerDay * 60;
                         }
                     }
                     else if (((legion.Kind == LegionKind.Offensive) && (legion.PreferredRouteway != null)) && (legion.PreferredRouteway.StartArchitecture == this))
                     {
-                        num += legion.FoodCostPerDay * 40;
+                        num += legion.FoodCostPerDay * 60;
                     }
                 }
-                int num2 = (((int) (Math.Sqrt((double) this.Population) * 200.0)) + (this.FoodCostPerDayOfAllMilitaries * 40)) + num;
-                if (!this.HostileLine)
-                {
-                    num2 /= 2;
-                }
-                if (!this.FrontLine)
-                {
-                    num2 /= 2;
-                }
+                int num2 = this.FoodCostPerDayOfAllMilitaries * 60 + num;
                 return num2;
             }
         }
