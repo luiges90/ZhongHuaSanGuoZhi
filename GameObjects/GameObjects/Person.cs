@@ -2578,7 +2578,10 @@
         public void PlayerKillLeader()
         {
             this.execute(this.Scenario.CurrentPlayer);
-            this.BelongedCaptive.Clear();
+            if (this.BelongedCaptive != null)
+            {
+                this.BelongedCaptive.Clear();
+            }
         }
 
         public void execute(Faction executingFaction)
