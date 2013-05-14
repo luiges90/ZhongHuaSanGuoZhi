@@ -76,25 +76,6 @@
                 {
                     str += "•可以容纳" + this.rongna + "名美女";
                 }
-                /*if (this.ID==64)
-                {
-                    return "•可以容纳1名美女";
-                }
-                else if (this.ID==65)
-                {
-                    return "•可以容纳2名美女";
-
-                }
-                else if (this.ID == 66)
-                {
-                    return "•可以容纳4名美女";
-
-                }
-                else if (this.ID == 67)
-                {
-                    return "•可以容纳9名美女";
-
-                }*/
                 foreach (Influence influence in this.Influences.Influences.Values)
                 {
                     str = str + "•" + influence.Description;
@@ -253,6 +234,29 @@
             get
             {
                 return (this.UniqueInFaction ? "○" : "×");
+            }
+        }
+
+
+        public int NetFundIncrease
+        {
+            get
+            {
+                int fundIncrease = 0;
+                foreach (Influence i in this.Influences.Influences.Values)
+                {
+                    if (i.Kind.ID == 3000)
+                    {
+                        try
+                        {
+                            fundIncrease += int.Parse(i.Parameter);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+                return fundIncrease - this.MaintenanceCost * 30;
             }
         }
     }

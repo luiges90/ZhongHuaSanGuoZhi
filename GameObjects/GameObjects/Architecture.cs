@@ -939,6 +939,29 @@
                             }
                         }
                     }
+                    //remove facilities if not enough fund to support
+                    if (this.FacilityMaintenanceCost * 30 + 1000 > this.ExpectedFund)
+                    {
+                        GameObjectList f = this.Facilities.GetList();
+                        f.PropertyName = "AIValue";
+                        f.SmallToBig = true;
+                        f.IsNumber = true;
+                        f.ReSort();
+                        foreach (Facility i in f)
+                        {
+                            if (!i.Kind.bukechaichu && i.Kind.NetFundIncrease <= 0)
+                            {
+                                if (this.FacilityEnabled || i.MaintenanceCost <= 0)
+                                {
+                                    i.Influences.PurifyInfluence(this, Applier.Facility, i.ID);
+                                }
+                                this.Facilities.Remove(i);
+                                base.Scenario.Facilities.Remove(i);
+                            }
+                            if (this.FacilityMaintenanceCost * 30 + 1000 <= this.ExpectedFund) break;
+                        }
+                    }
+
                     //choose facilities
                     double maxValue = double.MinValue;
                     FacilityKind toBuild = null;
@@ -968,6 +991,10 @@
                             }
                         }
                         if (kind.TechnologyNeeded > this.Technology)
+                        {
+                            continue;
+                        }
+                        if ((kind.MaintenanceCost + this.FacilityMaintenanceCost) * 30 + 1000 > this.ExpectedFund && kind.NetFundIncrease <= 0)
                         {
                             continue;
                         }
@@ -1866,6 +1893,14 @@
             }
         }
 
+        public bool IsNetLosingPopulation
+        {
+            get
+            {
+                return this.RecentlyAttacked <= 0 && this.PopulationDevelopingRate < 0;
+            }
+        }
+
         private void AIWork(bool forPlayer)
         {
 
@@ -1874,7 +1909,8 @@
                 this.AIAutoHire();
             }
             this.StopAllWork();
-            if (this.Fund < (int) Parameters.RewardPersonCost * this.PersonCount * 1.5 + 100) return;
+
+            if (this.HasBuildingRouteway) return;
 
             PersonList zhenzaiPersons = new PersonList();
             PersonList agriculturePersons = new PersonList();
@@ -1894,108 +1930,117 @@
                 this.ReSortAllWeighingList(zhenzaiPersons, agriculturePersons, commercePersons, technologyPersons, dominationPersons,
                                         moralePersons, endurancePersons, recruitmentPersons, trainingPersons, weighingMilitaries);
                 bool isFundAbundant = this.IsFundAbundant;
-                if (this.Fund < ((100 * this.AreaCount) + ((30 - base.Scenario.Date.Day) * this.FacilityMaintenanceCost)))
+
+                float num3;
+                bool recentlyAttacked = this.RecentlyAttacked > 0;
+                WorkRateList rates = new WorkRateList();
+
+                if (this.Fund < Parameters.InternalFundCost)
                 {
-                    MilitaryList trainingMilitaryList = this.GetTrainingMilitaryList();
-                    if (trainingMilitaryList.Count > 0)
+                    rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.训练));
+                }
+
+                if (rates.Count <= 0)
+                {
+                    if (this.Endurance < 30 && !this.HasHostileTroopsInArchitecture())
                     {
-                        trainingMilitaryList.IsNumber = true;
-                        trainingMilitaryList.PropertyName = "Weighing";
-                        trainingMilitaryList.ReSort();
-                        GameObjectList maxObjects = trainingPersons.GetMaxObjects(trainingMilitaryList.Count);
-                        for (num = 0; num < maxObjects.Count; num++)
+                        rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.耐久));
+                    }
+                }
+
+                if (rates.Count <= 0)
+                {
+                    if (this.IsNetLosingPopulation)
+                    {
+                        if (this.Domination < this.DominationCeiling)
                         {
-                            (maxObjects[num] as Person).WorkKind = ArchitectureWorkKind.训练;
+                            rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.统治));
                         }
-                    }
-                    int num2 = 0;
-                    if ((GameObject.Chance(50) && this.Kind.HasDomination) && (this.Domination < (this.DominationCeiling * 0.8)))
-                    {
-                        num2++;
-                    }
-                    if ((GameObject.Chance(50) && this.Kind.HasEndurance) && (this.Endurance < (this.EnduranceCeiling * 0.2f)))
-                    {
-                        num2++;
-                    }
-                    if ((GameObject.Chance(50) && this.Kind.HasMorale) && (this.Morale < Parameters.RecruitmentMorale))
-                    {
-                        num2++;
-                    }
-                    if (num2 > 0)
-                    {
-                        for (num = 0; num < (this.Persons.Count - trainingMilitaryList.Count); num += num2)
+                        if (this.Morale < this.MoraleCeiling)
                         {
-                            foreach (Person person in dominationPersons)
-                            {
-                                if (person.WorkKind == ArchitectureWorkKind.无)
-                                {
-                                    person.WorkKind = ArchitectureWorkKind.统治;
-                                    break;
-                                }
-                            }
-                            foreach (Person person in endurancePersons)
-                            {
-                                if (person.WorkKind == ArchitectureWorkKind.无)
-                                {
-                                    person.WorkKind = ArchitectureWorkKind.耐久;
-                                    break;
-                                }
-                            }
-                            foreach (Person person in moralePersons)
-                            {
-                                if (person.WorkKind == ArchitectureWorkKind.无)
-                                {
-                                    person.WorkKind = ArchitectureWorkKind.民心;
-                                    break;
-                                }
-                            }
+                            rates.AddWorkRate(new WorkRate(1, ArchitectureWorkKind.民心));
+                        }
+                        if (this.kezhenzai() && this.IsFoodEnough && this.IsFundEnough)
+                        {
+                            rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.赈灾));
                         }
                     }
                 }
-                else if ((GameObject.Chance(20) || !this.HasBuildingRouteway) || this.IsFundEnough)
+
+                if (rates.Count <= 0)
                 {
-                    float num3;
-                    bool flag2 = this.RecentlyAttacked > 0;
-                    WorkRateList list3 = new WorkRateList();
-                    if ((flag2 || (this.BelongedFaction.PlanTechniqueArchitecture != this)) || GameObject.Chance(20))
+                    if (this.kezhenzai() && this.IsFoodEnough && this.IsFundEnough)
                     {
-                        if (!flag2 || !GameObject.Chance(80))
+                        rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.赈灾));
+                    }
+
+                    if (!this.IsFundEnough && this.Commerce < this.CommerceCeiling)
+                    {
+                        rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.商业));
+                    }
+                    
+                    if (!this.IsFoodEnough && this.Agriculture < this.AgricultureCeiling)
+                    {
+                        rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.农业));
+                    }
+
+                    if (!this.IsFundEnough || !this.IsFoodEnough)
+                    {
+                        if (this.Domination < this.DominationCeiling)
+                        {
+                            rates.AddWorkRate(new WorkRate(1, ArchitectureWorkKind.统治));
+                        }
+
+                        if (this.Morale < this.MoraleCeiling)
+                        {
+                            rates.AddWorkRate(new WorkRate(2, ArchitectureWorkKind.民心));
+                        }
+                    }
+                }
+
+                MilitaryList trainingMilitary = this.GetTrainingMilitaryList();
+                MilitaryList recruitmentMilitaryList = null;
+                if (rates.Count <= 0)
+                {
+                    if ((recentlyAttacked || (this.BelongedFaction.PlanTechniqueArchitecture != this)) || GameObject.Chance(20))
+                    {
+                        if (!recentlyAttacked || !GameObject.Chance(80))
                         {
                             if (this.kezhenzai() && this.IsFundEnough && this.IsFoodEnough)
                             {
-                                list3.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.赈灾));
+                                rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.赈灾));
                             }
                             if (this.Kind.HasAgriculture && (this.Agriculture < this.AgricultureCeiling))
                             {
                                 if (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueAgriculture)
                                 {
-                                    list3.AddWorkRate(new WorkRate((((float)this.Agriculture) / 4f) / ((float)this.AgricultureCeiling), ArchitectureWorkKind.农业));
+                                    rates.AddWorkRate(new WorkRate((((float)this.Agriculture) / 4f) / ((float)this.AgricultureCeiling), ArchitectureWorkKind.农业));
                                 }
                                 else
                                 {
-                                    list3.AddWorkRate(new WorkRate(((float)this.Agriculture) / ((float)this.AgricultureCeiling), ArchitectureWorkKind.农业));
+                                    rates.AddWorkRate(new WorkRate(((float)this.Agriculture) / ((float)this.AgricultureCeiling), ArchitectureWorkKind.农业));
                                 }
                             }
                             if (this.Kind.HasCommerce && (this.Commerce < this.CommerceCeiling))
                             {
                                 if (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueCommerce)
                                 {
-                                    list3.AddWorkRate(new WorkRate((((float)this.Commerce) / 4f) / ((float)this.CommerceCeiling), ArchitectureWorkKind.商业));
+                                    rates.AddWorkRate(new WorkRate((((float)this.Commerce) / 4f) / ((float)this.CommerceCeiling), ArchitectureWorkKind.商业));
                                 }
                                 else
                                 {
-                                    list3.AddWorkRate(new WorkRate(((float)this.Commerce) / ((float)this.CommerceCeiling), ArchitectureWorkKind.商业));
+                                    rates.AddWorkRate(new WorkRate(((float)this.Commerce) / ((float)this.CommerceCeiling), ArchitectureWorkKind.商业));
                                 }
                             }
                             if (this.Kind.HasTechnology && (this.Technology < this.TechnologyCeiling))
                             {
                                 if (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueTechnology || (GameObject.Chance(50) && (this.IsStateAdmin || this.IsRegionCore)))
                                 {
-                                    list3.AddWorkRate(new WorkRate((((float)this.Technology) / 4f) / ((float)this.TechnologyCeiling), ArchitectureWorkKind.技术));
+                                    rates.AddWorkRate(new WorkRate((((float)this.Technology) / 4f) / ((float)this.TechnologyCeiling), ArchitectureWorkKind.技术));
                                 }
                                 else
                                 {
-                                    list3.AddWorkRate(new WorkRate(((float)this.Technology) / ((float)this.TechnologyCeiling), ArchitectureWorkKind.技术));
+                                    rates.AddWorkRate(new WorkRate(((float)this.Technology) / ((float)this.TechnologyCeiling), ArchitectureWorkKind.技术));
                                 }
                             }
                         }
@@ -2003,394 +2048,361 @@
                         {
                             if (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueDomination)
                             {
-                                list3.AddWorkRate(new WorkRate(((((float)this.Domination) / 5f) / 4f) / ((float)this.DominationCeiling), ArchitectureWorkKind.统治));
+                                rates.AddWorkRate(new WorkRate(((((float)this.Domination) / 5f) / 4f) / ((float)this.DominationCeiling), ArchitectureWorkKind.统治));
                             }
                             else
                             {
-                                list3.AddWorkRate(new WorkRate((((float)this.Domination) / 5f) / ((float)this.DominationCeiling), ArchitectureWorkKind.统治));
+                                rates.AddWorkRate(new WorkRate((((float)this.Domination) / 5f) / ((float)this.DominationCeiling), ArchitectureWorkKind.统治));
                             }
                         }
                         if (this.Kind.HasMorale && (this.Morale < this.MoraleCeiling))
                         {
                             if (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueMorale)
                             {
-                                list3.AddWorkRate(new WorkRate((((float)this.Morale) / 4f) / ((float)this.MoraleCeiling), ArchitectureWorkKind.民心));
+                                rates.AddWorkRate(new WorkRate((((float)this.Morale) / 4f) / ((float)this.MoraleCeiling), ArchitectureWorkKind.民心));
                             }
                             else
                             {
-                                list3.AddWorkRate(new WorkRate(((float)this.Morale) / ((float)this.MoraleCeiling), ArchitectureWorkKind.民心));
+                                rates.AddWorkRate(new WorkRate(((float)this.Morale) / ((float)this.MoraleCeiling), ArchitectureWorkKind.民心));
                             }
                         }
-                        if (this.Kind.HasEndurance && (this.Endurance < this.EnduranceCeiling))
+                        if (this.Kind.HasEndurance && (this.Endurance < this.EnduranceCeiling) && !this.HasHostileTroopsInArchitecture())
                         {
                             if (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueEndurance)
                             {
-                                list3.AddWorkRate(new WorkRate((((float)this.Endurance) / 4f) / ((float)this.EnduranceCeiling), ArchitectureWorkKind.耐久));
+                                rates.AddWorkRate(new WorkRate((((float)this.Endurance) / 4f) / ((float)this.EnduranceCeiling), ArchitectureWorkKind.耐久));
                             }
                             else
                             {
-                                list3.AddWorkRate(new WorkRate(((float)this.Endurance) / ((float)this.EnduranceCeiling), ArchitectureWorkKind.耐久));
+                                rates.AddWorkRate(new WorkRate(((float)this.Endurance) / ((float)this.EnduranceCeiling), ArchitectureWorkKind.耐久));
                             }
                         }
                     }
-                    MilitaryList list4 = this.GetTrainingMilitaryList();
-                    if (list4.Count > 0)
+
+                    if (trainingMilitary.Count > 0)
                     {
-                        if (flag2)
+                        if (recentlyAttacked || !this.IsFundEnough)
                         {
-                            list3.AddWorkRate(new WorkRate(0f, ArchitectureWorkKind.训练));
+                            rates.AddWorkRate(new WorkRate(0f, ArchitectureWorkKind.训练));
                         }
                         else
                         {
                             num3 = 0f;
-                            foreach (Military military in list4)
+                            foreach (Military military in trainingMilitary)
                             {
                                 num3 += ((float)military.TrainingWeighing) / ((float)military.MaxTrainingWeighing);
                             }
-                            num3 /= (float)list4.Count;
+                            num3 /= (float)trainingMilitary.Count;
                             if (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueTraining)
                             {
-                                list3.AddWorkRate(new WorkRate(num3 / 4f, ArchitectureWorkKind.训练));
+                                rates.AddWorkRate(new WorkRate(num3 / 4f, ArchitectureWorkKind.训练));
                             }
                             else
                             {
-                                list3.AddWorkRate(new WorkRate(num3, ArchitectureWorkKind.训练));
+                                rates.AddWorkRate(new WorkRate(num3, ArchitectureWorkKind.训练));
                             }
                         }
                     }
-                    MilitaryList recruitmentMilitaryList = null;
-                    if (((flag2 || (this.BelongedFaction.PlanTechniqueArchitecture != this)) && this.Kind.HasPopulation) && ((flag2 || (GameObject.Random(GameObject.Square(((int)this.BelongedFaction.Leader.StrategyTendency) + 1)) == 0)) && this.RecruitmentAvail()))
+
+                    if (!this.IsNetLosingPopulation && this.IsFundEnough)
                     {
-                        bool lotsOfPopulation = GameObject.Chance((int) ((((((float)this.Population) / ((float)this.PopulationCeiling)) * 100f) - 50f) * 2.5));
-                        recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
-                        if (this.ArmyScale < this.FewArmyScale)
+                        if (((recentlyAttacked || (this.BelongedFaction.PlanTechniqueArchitecture != this)) && this.Kind.HasPopulation) && ((recentlyAttacked || (GameObject.Random(GameObject.Square(((int)this.BelongedFaction.Leader.StrategyTendency) + 1)) == 0)) && this.RecruitmentAvail()))
                         {
-                            list3.AddWorkRate(new WorkRate(0f, ArchitectureWorkKind.补充));
-                        }
-                        else if ((((this.IsFoodEnough &&
-                            (((this.IsImportant || (this.AreaCount > 2)) && (this.Population > this.Kind.PopulationBoundary))
-                                || (((this.AreaCount <= 2) && !this.IsImportant) && (this.Population > (this.RecruitmentPopulationBoundary / 2)))
-                                || (this.ValueWater && this.HasShuijunMilitaryKind() && this.Population > 10000))
-                            )
-                            && (/*((this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment && GameObject.Chance(60)) || GameObject.Chance(15)) &&*/
-                            (GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length) >= (int)this.BelongedFaction.Leader.StrategyTendency)))
-                            || lotsOfPopulation)
-                            )
-                        {
-                            bool nearFrontline = this.FrontLine || this.HostileLine || this.noFactionFrontline;
-                            if (!nearFrontline)
+                            bool lotsOfPopulation = GameObject.Chance((int)((((((float)this.Population) / ((float)this.PopulationCeiling)) * 100f) - 50f) * 2.5));
+                            recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
+                            if (this.ArmyScale < this.FewArmyScale)
                             {
-                                foreach (LinkNode a in this.AIAllLinkNodes.Values)
-                                {
-                                    if (a.Level <= 1 && (a.A.FrontLine || a.A.HostileLine || a.A.noFactionFrontline) && !a.A.Kind.HasPopulation)
-                                    {
-                                        nearFrontline = true;
-                                        break;
-                                    }
-                                }
+                                rates.AddWorkRate(new WorkRate(0f, ArchitectureWorkKind.补充));
                             }
-                            if ((this.ExpectedMilitaryPopulation - this.MilitaryPopulation <= this.PopulationDevelopingRate * this.PopulationCeiling * Parameters.AIRecruitPopulationCapMultiply *
-                                    (nearFrontline ? 1.0 : Parameters.AIRecruitPopulationCapBackendMultiply) * (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment ? 1.5 : 1) *
-                                    (((Enum.GetNames(typeof(PersonStrategyTendency)).Length - (int)this.BelongedFaction.Leader.StrategyTendency)) * Parameters.AIRecruitPopulationCapStrategyTendencyMulitply + Parameters.AIRecruitPopulationCapStrategyTendencyAdd)
-                                    * (this.HostileLine ? Parameters.AIRecruitPopulationCapHostilelineMultiply : 1))
+                            else if ((((this.IsFoodEnough &&
+                                (((this.IsImportant || (this.AreaCount > 2)) && (this.Population > this.Kind.PopulationBoundary))
+                                    || (((this.AreaCount <= 2) && !this.IsImportant) && (this.Population > (this.RecruitmentPopulationBoundary / 2)))
+                                    || (this.ValueWater && this.HasShuijunMilitaryKind() && this.Population > 10000))
+                                )
+                                && (/*((this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment && GameObject.Chance(60)) || GameObject.Chance(15)) &&*/
+                                (GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length) >= (int)this.BelongedFaction.Leader.StrategyTendency)))
                                 || lotsOfPopulation)
+                                )
                             {
-                                num3 = 0f;
-                                foreach (Military military in recruitmentMilitaryList)
+                                bool nearFrontline = this.FrontLine || this.HostileLine || this.noFactionFrontline;
+                                if (!nearFrontline)
                                 {
-                                    num3 += ((float)military.RecruitmentWeighing) / ((float)military.MaxRecruitmentWeighing);
-                                }
-                                num3 /= (float)recruitmentMilitaryList.Count;
-                                if (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment)
-                                {
-                                    list3.AddWorkRate(new WorkRate(num3 / 4f, ArchitectureWorkKind.补充));
-                                }
-                                else
-                                {
-                                    list3.AddWorkRate(new WorkRate(num3, ArchitectureWorkKind.补充));
-                                }
-                            }
-                        }
-                    }
-                    if (list3.Count > 0)
-                    {
-                        for (num = 0; num < this.Persons.Count; num += list3.Count)
-                        {
-                            foreach (WorkRate rate in list3.RateList)
-                            {
-                                switch (rate.workKind)
-                                {
-                                    case ArchitectureWorkKind.农业:
-                                        foreach (Person person in agriculturePersons)
-                                        {
-                                            if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.AgricultureAbility >= (120 + (this.AreaCount * 5)))))
-                                            {
-                                                person.WorkKind = ArchitectureWorkKind.农业;
-                                                break;
-                                            }
-                                        }
-                                        break;
-
-                                    case ArchitectureWorkKind.商业:
-                                        foreach (Person person in commercePersons)
-                                        {
-                                            if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.CommerceAbility >= (120 + (this.AreaCount * 5)))))
-                                            {
-                                                person.WorkKind = ArchitectureWorkKind.商业;
-                                                break;
-                                            }
-                                        }
-                                        break;
-
-                                    case ArchitectureWorkKind.技术:
-                                        foreach (Person person in technologyPersons)
-                                        {
-                                            if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.TechnologyAbility >= (120 + (this.AreaCount * 5)))))
-                                            {
-                                                person.WorkKind = ArchitectureWorkKind.技术;
-                                                break;
-                                            }
-                                        }
-                                        break;
-
-                                    case ArchitectureWorkKind.统治:
-                                        foreach (Person person in dominationPersons)
-                                        {
-                                            if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.DominationAbility >= (120 + (this.AreaCount * 5)))))
-                                            {
-                                                person.WorkKind = ArchitectureWorkKind.统治;
-                                                break;
-                                            }
-                                        }
-                                        break;
-
-                                    case ArchitectureWorkKind.民心:
-                                        foreach (Person person in moralePersons)
-                                        {
-                                            if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.MoraleAbility >= (120 + (this.AreaCount * 5)))))
-                                            {
-                                                person.WorkKind = ArchitectureWorkKind.民心;
-                                                break;
-                                            }
-                                        }
-                                        break;
-
-                                    case ArchitectureWorkKind.耐久:
-                                        foreach (Person person in endurancePersons)
-                                        {
-                                            if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.EnduranceAbility >= (120 + (this.AreaCount * 5)))))
-                                            {
-                                                person.WorkKind = ArchitectureWorkKind.耐久;
-                                                break;
-                                            }
-                                        }
-                                        break;
-
-                                    case ArchitectureWorkKind.赈灾:
-                                        foreach (Person person in zhenzaiPersons)
-                                        {
-                                            if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.zhenzaiAbility >= (120 + (this.AreaCount * 5)))))
-                                            {
-                                                person.WorkKind = ArchitectureWorkKind.赈灾;
-                                                break;
-                                            }
-                                        }
-                                        break;
-
-                                    case ArchitectureWorkKind.训练:
-                                        foreach (Person person in trainingPersons)
-                                        {
-                                            if (person.WorkKind == ArchitectureWorkKind.无)
-                                            {
-                                                list4.PropertyName = "Merit";
-                                                list4.IsNumber = true;
-                                                list4.SmallToBig = false;
-                                                list4.ReSort();
-                                                foreach (Military military in list4)
-                                                {
-                                                    if (military.RecruitmentPerson == null)
-                                                    {
-                                                        person.WorkKind = ArchitectureWorkKind.训练;
-                                                        break;
-                                                    }
-                                                }
-                                                break;
-                                            }
-                                        }
-                                        break;
-
-                                    case ArchitectureWorkKind.补充:
-                                        foreach (Person person in recruitmentPersons)
-                                        {
-                                            if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.RecruitmentAbility >= 120)))
-                                            {
-                                                if (recruitmentMilitaryList != null)
-                                                {
-                                                    //recruit transports first
-                                                    bool recruited = false;
-                                                    foreach (Military military in recruitmentMilitaryList)
-                                                    {
-                                                        if (military.IsTransport)
-                                                        {
-                                                            person.RecruitMilitary(military);
-                                                            recruited = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                    if (!recruited)
-                                                    {
-                                                        //if no transports, recruit other kind
-                                                        recruitmentMilitaryList.PropertyName = "Merit";
-                                                        recruitmentMilitaryList.IsNumber = true;
-                                                        recruitmentMilitaryList.SmallToBig = false;
-                                                        recruitmentMilitaryList.ReSort();
-                                                        foreach (Military military in recruitmentMilitaryList)
-                                                        {
-                                                            if (military.RecruitmentPerson == null)
-                                                            {
-                                                                person.RecruitMilitary(military);
-                                                                break;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            }
-                                        }
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                    if (!forPlayer)
-                    {
-                        if ((this.Kind.HasPopulation && (flag2 || (this.BelongedFaction.PlanTechniqueArchitecture != this))) &&
-                            (flag2 || (this.Population > ((this.RecruitmentPopulationBoundary * (1 + (int)this.BelongedFaction.Leader.StrategyTendency * 0.5f)) + GameObject.Random(this.RecruitmentPopulationBoundary)))))
-                        {
-                            int unfullArmyCount = 0;
-                            int unfullNavalArmyCount = 0;
-                            foreach (Military military in this.Militaries)
-                            {
-                                if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && !military.IsTransport)
-                                {
-                                    unfullArmyCount++;
-                                    if (military.Kind.Type == MilitaryType.水军)
+                                    foreach (LinkNode a in this.AIAllLinkNodes.Values)
                                     {
-                                        unfullNavalArmyCount++;
+                                        if (a.Level <= 1 && (a.A.FrontLine || a.A.HostileLine || a.A.noFactionFrontline) && !a.A.Kind.HasPopulation)
+                                        {
+                                            nearFrontline = true;
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                            int unfullArmyCountThreshold;
-                            if (this.IsFoodAbundant && this.IsFundAbundant)
-                            {
-                                unfullArmyCountThreshold = Math.Min((this.MilitaryPopulation) / Parameters.AINewMilitaryPopulationThresholdDivide + 1, (this.PersonCount + this.MovingPersonCount) / Parameters.AINewMilitaryPersonThresholdDivide + 1);
-                            }
-                            else
-                            {
-                                unfullArmyCountThreshold = 1;
-                            }
-                            if (unfullArmyCount < unfullArmyCountThreshold)
-                            {
-                                if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && (this.EffectiveMilitaryCount == 0 || GameObject.Chance((int)(100 - this.ShuijunMilitaryCount / (double)this.EffectiveMilitaryCount * 100))))
+                                if ((this.ExpectedMilitaryPopulation - this.MilitaryPopulation <= this.PopulationDevelopingRate * this.PopulationCeiling * Parameters.AIRecruitPopulationCapMultiply *
+                                        (nearFrontline ? 1.0 : Parameters.AIRecruitPopulationCapBackendMultiply) * (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment ? 1.5 : 1) *
+                                        (((Enum.GetNames(typeof(PersonStrategyTendency)).Length - (int)this.BelongedFaction.Leader.StrategyTendency)) * Parameters.AIRecruitPopulationCapStrategyTendencyMulitply + Parameters.AIRecruitPopulationCapStrategyTendencyAdd)
+                                        * (this.HostileLine ? Parameters.AIRecruitPopulationCapHostilelineMultiply : 1))
+                                    || lotsOfPopulation)
                                 {
-                                    this.AIRecruitment(true, false);
-                                }
-                                else
-                                {
-                                    int siegeCount = 0;
-                                    foreach (Military m in this.Militaries)
+                                    num3 = 0f;
+                                    foreach (Military military in recruitmentMilitaryList)
                                     {
-                                        if (m.Kind.Type == MilitaryType.器械)
-                                        {
-                                            siegeCount++;
-                                        }
+                                        num3 += ((float)military.RecruitmentWeighing) / ((float)military.MaxRecruitmentWeighing);
                                     }
-                                    if (siegeCount < this.Militaries.Count / (this.IsBesideWater ? 6 : 3))
+                                    num3 /= (float)recruitmentMilitaryList.Count;
+                                    if (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment)
                                     {
-                                        this.AIRecruitment(false, true);
+                                        rates.AddWorkRate(new WorkRate(num3 / 4f, ArchitectureWorkKind.补充));
                                     }
                                     else
                                     {
-                                        this.AIRecruitment(false, false);
+                                        rates.AddWorkRate(new WorkRate(num3, ArchitectureWorkKind.补充));
                                     }
                                 }
                             }
-                            else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.EffectiveMilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
-                            {
-                                this.AIRecruitment(true, false);
-                            }
-                        }
-                        if (this.TransferFoodArchitecture != null)
-                        {
-                            //find the military team
-                            Military transportTeam = null;
-                            foreach (Military m in Militaries)
-                            {
-                                if (m.IsTransport && (transportTeam == null || transportTeam.Quantity <= m.Quantity) && m.Quantity <= m.Kind.MaxScale)
-                                {
-                                    transportTeam = m;
-                                }
-                            }
-                            if (transportTeam != null)
-                            {
-
-                                //select an idle person to do the recruit
-                                Person recruitTransportPerson = null;
-                                foreach (Person p in this.Persons)
-                                {
-                                    if (p.WorkKind == ArchitectureWorkKind.无)
-                                    {
-                                        recruitTransportPerson = p;
-                                    }
-                                }
-                                //if no idling person, select the lowest work ability
-                                if (recruitTransportPerson == null)
-                                {
-                                    int min = int.MaxValue;
-                                    foreach (Person p in this.Persons)
-                                    {
-                                        if (p.WorkAbility < min)
-                                        {
-                                            recruitTransportPerson = p;
-                                            min = p.WorkAbility;
-                                        }
-                                    }
-                                }
-
-                                if ((((this.Population != 0) && (!GlobalVariables.PopulationRecruitmentLimit || (this.ArmyQuantity <= this.Population))) && ((this.Fund >= (Parameters.RecruitmentFundCost * this.AreaCount)) && (this.Domination >= Parameters.RecruitmentDomination))) && (((this.Morale >= Parameters.RecruitmentMorale) && ((transportTeam.RecruitmentPerson != null) && (transportTeam.RecruitmentPerson.BelongedFaction != null))) && (transportTeam.Quantity < transportTeam.Kind.MaxScale)))
-                                {
-                                    recruitTransportPerson.RecruitMilitary(transportTeam);
-                                }
-                            }
-                        }
-                        //disband unused transports except one
-                        MilitaryList ml = new MilitaryList();
-                        foreach (Military m in Militaries)
-                        {
-                            if (m.IsTransport)
-                            {
-                                ml.Add(m);
-                            }
-                        }
-                        if (ml.Count > 1)
-                        {
-                            Military minTroop = null;
-                            int min = int.MaxValue;
-                            foreach (Military m in ml)
-                            {
-                                if (m.Quantity < min)
-                                {
-                                    min = m.Quantity;
-                                    minTroop = m;
-                                }
-                            }
-                            this.DisbandMilitary(minTroop);
                         }
                     }
+                }
+
+                if (rates.Count > 0)
+                {
+                    for (num = 0; num < this.Persons.Count; num += rates.Count)
+                    {
+                        foreach (WorkRate rate in rates.RateList)
+                        {
+                            switch (rate.workKind)
+                            {
+                                case ArchitectureWorkKind.农业:
+                                    foreach (Person person in agriculturePersons)
+                                    {
+                                        if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.AgricultureAbility >= (120 + (this.AreaCount * 5)))))
+                                        {
+                                            person.WorkKind = ArchitectureWorkKind.农业;
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+                                case ArchitectureWorkKind.商业:
+                                    foreach (Person person in commercePersons)
+                                    {
+                                        if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.CommerceAbility >= (120 + (this.AreaCount * 5)))))
+                                        {
+                                            person.WorkKind = ArchitectureWorkKind.商业;
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+                                case ArchitectureWorkKind.技术:
+                                    foreach (Person person in technologyPersons)
+                                    {
+                                        if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.TechnologyAbility >= (120 + (this.AreaCount * 5)))))
+                                        {
+                                            person.WorkKind = ArchitectureWorkKind.技术;
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+                                case ArchitectureWorkKind.统治:
+                                    foreach (Person person in dominationPersons)
+                                    {
+                                        if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.DominationAbility >= (120 + (this.AreaCount * 5)))))
+                                        {
+                                            person.WorkKind = ArchitectureWorkKind.统治;
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+                                case ArchitectureWorkKind.民心:
+                                    foreach (Person person in moralePersons)
+                                    {
+                                        if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.MoraleAbility >= (120 + (this.AreaCount * 5)))))
+                                        {
+                                            person.WorkKind = ArchitectureWorkKind.民心;
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+                                case ArchitectureWorkKind.耐久:
+                                    foreach (Person person in endurancePersons)
+                                    {
+                                        if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.EnduranceAbility >= (120 + (this.AreaCount * 5)))))
+                                        {
+                                            person.WorkKind = ArchitectureWorkKind.耐久;
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+                                case ArchitectureWorkKind.赈灾:
+                                    foreach (Person person in zhenzaiPersons)
+                                    {
+                                        if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.zhenzaiAbility >= (120 + (this.AreaCount * 5)))))
+                                        {
+                                            person.WorkKind = ArchitectureWorkKind.赈灾;
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+                                case ArchitectureWorkKind.训练:
+                                    foreach (Person person in trainingPersons)
+                                    {
+                                        if (person.WorkKind == ArchitectureWorkKind.无)
+                                        {
+                                            trainingMilitary.PropertyName = "Merit";
+                                            trainingMilitary.IsNumber = true;
+                                            trainingMilitary.SmallToBig = false;
+                                            trainingMilitary.ReSort();
+                                            foreach (Military military in trainingMilitary)
+                                            {
+                                                if (military.RecruitmentPerson == null)
+                                                {
+                                                    person.WorkKind = ArchitectureWorkKind.训练;
+                                                    break;
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                    break;
+
+                                case ArchitectureWorkKind.补充:
+                                    foreach (Person person in recruitmentPersons)
+                                    {
+                                        if ((person.WorkKind == ArchitectureWorkKind.无) && (isFundAbundant || (person.RecruitmentAbility >= 120)))
+                                        {
+                                            if (recruitmentMilitaryList != null)
+                                            {
+                                                //recruit transports first
+                                                bool recruited = false;
+                                                foreach (Military military in recruitmentMilitaryList)
+                                                {
+                                                    if (military.IsTransport)
+                                                    {
+                                                        person.RecruitMilitary(military);
+                                                        recruited = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (!recruited)
+                                                {
+                                                    //if no transports, recruit other kind
+                                                    recruitmentMilitaryList.PropertyName = "Merit";
+                                                    recruitmentMilitaryList.IsNumber = true;
+                                                    recruitmentMilitaryList.SmallToBig = false;
+                                                    recruitmentMilitaryList.ReSort();
+                                                    foreach (Military military in recruitmentMilitaryList)
+                                                    {
+                                                        if (military.RecruitmentPerson == null)
+                                                        {
+                                                            person.RecruitMilitary(military);
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                }
+                if (!forPlayer)
+                {
+                    this.AIRecruitMilitary();
                 }
             }
         }
 
+        private void AIRecruitMilitary()
+        {
+            bool flag2 = this.RecentlyAttacked > 0;
+            if ((this.Kind.HasPopulation && (flag2 || (this.BelongedFaction.PlanTechniqueArchitecture != this))) &&
+                (flag2 || (this.Population > ((this.RecruitmentPopulationBoundary * (1 + (int)this.BelongedFaction.Leader.StrategyTendency * 0.5f)) + GameObject.Random(this.RecruitmentPopulationBoundary)))))
+            {
+                int unfullArmyCount = 0;
+                int unfullNavalArmyCount = 0;
+                foreach (Military military in this.Militaries)
+                {
+                    if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && !military.IsTransport)
+                    {
+                        unfullArmyCount++;
+                        if (military.Kind.Type == MilitaryType.水军)
+                        {
+                            unfullNavalArmyCount++;
+                        }
+                    }
+                }
+                int unfullArmyCountThreshold;
+                if (this.IsFoodAbundant && this.IsFundAbundant)
+                {
+                    unfullArmyCountThreshold = Math.Min((this.MilitaryPopulation) / Parameters.AINewMilitaryPopulationThresholdDivide + 1, (this.PersonCount + this.MovingPersonCount) / Parameters.AINewMilitaryPersonThresholdDivide + 1);
+                }
+                else
+                {
+                    unfullArmyCountThreshold = 1;
+                }
+                if (unfullArmyCount < unfullArmyCountThreshold)
+                {
+                    if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && (this.EffectiveMilitaryCount == 0 || GameObject.Chance((int)(100 - this.ShuijunMilitaryCount / (double)this.EffectiveMilitaryCount * 100))))
+                    {
+                        this.AIRecruitment(true, false);
+                    }
+                    else
+                    {
+                        int siegeCount = 0;
+                        foreach (Military m in this.Militaries)
+                        {
+                            if (m.Kind.Type == MilitaryType.器械)
+                            {
+                                siegeCount++;
+                            }
+                        }
+                        if (siegeCount < this.Militaries.Count / (this.IsBesideWater ? 6 : 3))
+                        {
+                            this.AIRecruitment(false, true);
+                        }
+                        else
+                        {
+                            this.AIRecruitment(false, false);
+                        }
+                    }
+                }
+                else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.EffectiveMilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
+                {
+                    this.AIRecruitment(true, false);
+                }
+            }
+
+            //disband unused transports except one
+            MilitaryList ml = new MilitaryList();
+            foreach (Military m in Militaries)
+            {
+                if (m.IsTransport)
+                {
+                    ml.Add(m);
+                }
+            }
+            if (ml.Count > 1)
+            {
+                Military minTroop = null;
+                int min = int.MaxValue;
+                foreach (Military m in ml)
+                {
+                    if (m.Quantity < min)
+                    {
+                        min = m.Quantity;
+                        minTroop = m;
+                    }
+                }
+                this.DisbandMilitary(minTroop);
+            }
+        }
 
         private void OutsideTacticsAI()
         {
@@ -2585,9 +2597,7 @@
 
         private void AIAutoReward()
         {
-            if ((this.BelongedFaction != null) 
-                //&& (this.Fund >= this.RewardPersonFund)
-                )
+            if ((this.BelongedFaction != null) && (this.Fund >= this.RewardPersonFund))
             {
                 this.RewardPersonsUnderLoyalty(100);
             }
@@ -2598,7 +2608,7 @@
             if (this.HasHostileTroopsInView()) return;
             foreach (Person person in this.Persons.GetList())
             {
-                if (person.WorkKind == ArchitectureWorkKind.无 && person.Loyalty >= 100 && person.Tiredness <= 0)
+                if (person.WorkKind == ArchitectureWorkKind.无 && (this.Fund < Parameters.InternalFundCost || (person.Loyalty >= 100 && person.Tiredness <= 0)))
                 {
                     person.GoForSearch();
                 }
@@ -8770,14 +8780,15 @@
                     }
                     foreach (Person person in this.Persons.GetList())
                     {
-                        if (this.idleDays > 4)
+                        if (this.Fund < Parameters.InternalFundCost || 
+                                (person.WaitForFeiZi == null && person.WorkKind == ArchitectureWorkKind.无 &&
+                                !person.HasFollowingArmy && !person.HasEffectiveLeadingArmy && 
+                                (!this.FrontLine || GameObject.Random(person.FightingNumber) < 100)
+                            ))
                         {
-                            if ((person.WaitForFeiZi == null) && (person.WorkKind == ArchitectureWorkKind.无) && ((((((this.HostileLine && GameObject.Chance(10)) && GameObject.Chance(this.Morale / 10)) || !this.HostileLine) && ((GameObject.Random(base.Scenario.Date.Day) < GameObject.Random(30)) && (!this.HasFollowedLeaderMilitary(person) || GameObject.Chance(10)))) && (GameObject.Random(person.NonFightingNumber) > GameObject.Random(person.FightingNumber))) && (!this.FrontLine || (GameObject.Random(person.FightingNumber) < 100))))
+                            if ((person.Loyalty >= 100 || !this.IsFundEnough) && person.Tiredness <= 0)
                             {
-                                if (person.Loyalty >= 100 && person.Tiredness <= 0)
-                                {
-                                    person.GoForSearch();
-                                }
+                                person.GoForSearch();
                             }
                         }
                     }
@@ -11396,11 +11407,14 @@
         {
             get
             {
-                return ((((((((this.AreaCount + this.PersonCount) + this.EffectiveMilitaryCount) + 
-                    ((this.TransferFoodArchitecture != null) ? 10 : 0)) + (this.IsCapital ? (4 * this.AreaCount) : 0)) + (this.IsImportant ? 6 : 0)) * 0x3e8) + 
-                    (this.FacilityMaintenanceCost * 60)) + (this.RoutewayActiveCost * 60) +
-                    ((this.BelongedFaction.BecomeEmperorLegallyAvail() || this.BelongedFaction.SelfBecomeEmperorAvail()) && this.BelongedFaction.Capital == this ? 100000 : 0) +
-                    (this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0) + (this.PlanFacilityKind != null ? this.PlanFacilityKind.FundCost : 0));
+                int num = this.FacilityMaintenanceCost * 60;
+                num += this.RoutewayActiveCost * 60;
+                num += this.PersonCount * Parameters.InternalFundCost * 2;
+                num += (this.BelongedFaction.BecomeEmperorLegallyAvail() || this.BelongedFaction.SelfBecomeEmperorAvail()) && this.BelongedFaction.Capital == this ? 100000 : 0;
+                num += this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0;
+                num += (int)(Math.Sqrt(this.Population) * 8.0);
+                num += this.BelongedFaction.FundToAdvance;
+                return num;
             }
         }
 
@@ -11865,11 +11879,9 @@
         {
             get
             {
-                return ((((((((this.AreaCount + this.PersonCount) + this.EffectiveMilitaryCount) + 
-                    ((this.TransferFoodArchitecture != null) ? 5 : 0)) + (this.IsCapital ? (2 * this.AreaCount) : 0)) + (this.IsImportant ? 3 : 0)) * 500) +
-                    (this.FacilityMaintenanceCost * 30)) + (this.RoutewayActiveCost * 30) + 
-                    ((this.BelongedFaction.BecomeEmperorLegallyAvail() || this.BelongedFaction.SelfBecomeEmperorAvail()) && this.BelongedFaction.Capital == this ? 100000 : 0) + 
-                    (this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0) + (this.PlanFacilityKind != null ? this.PlanFacilityKind.FundCost : 0));
+                int num = this.FacilityMaintenanceCost * 30;
+                num += this.RoutewayActiveCost * 30;
+                return num;
             }
         }
 
