@@ -31,7 +31,7 @@
 
         public override double AIFacilityValue(Architecture a)
         {
-            return (1 - Math.Pow((double)a.Fund / a.FundCeiling, 0.5) + (a.IsFundEnough ? 0 : 0.5) + (a.IsFundAbundant ? 0 : 0.5)) * this.increment / 200.0;
+            return (1 - Math.Pow((double)a.Fund / a.FundCeiling, 0.5) + (a.IsFundEnough ? 0 : 1000) + (a.IsFundAbundant ? 0 : 1)) * this.increment / 200.0;
         }
     }
 }
