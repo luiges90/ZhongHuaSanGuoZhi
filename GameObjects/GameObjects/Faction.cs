@@ -1290,16 +1290,25 @@
             }
         }
 
+        public int FundToAdvance
+        {
+            get
+            {
+                int cashToGive = 0;
+                foreach (guanjuezhongleilei g in this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhongleiliebiao())
+                {
+                    if (g.xuyaochengchi <= this.ArchitectureCount)
+                    {
+                        cashToGive = g.xuyaogongxiandu - this.chaotinggongxiandu;
+                    }
+                }
+                return cashToGive;
+            }
+        }
+
         private void AIjingong()
         {
-            int cashToGive = 0;
-            foreach (guanjuezhongleilei g in this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhongleiliebiao())
-            {
-                if (g.xuyaochengchi <= this.ArchitectureCount)
-                {
-                    cashToGive = g.xuyaogongxiandu - this.chaotinggongxiandu;
-                }
-            }
+            int cashToGive = this.FundToAdvance;
 
             if (cashToGive > 0)
             {

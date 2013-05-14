@@ -6193,6 +6193,22 @@
             }
         }
 
+        public bool HasEffectiveLeadingArmy
+        {
+            get
+            {
+                if (this.LocationArchitecture == null) return false;
+                foreach (Military i in this.LocationArchitecture.Militaries)
+                {
+                    if ((i.Leader == this && i.Experience > 10) || i.FollowedLeader == this)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
         public bool HasLeadingArmy
         {
             get
