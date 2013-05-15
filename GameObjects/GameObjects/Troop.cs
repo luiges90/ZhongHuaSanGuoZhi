@@ -9834,14 +9834,7 @@
             {
                 if (this.ArrivedAtWillArchitecture())
                 {
-                    if (this.WillArchitecture.BelongedFaction == this.BelongedFaction)
-                    {
-                        this.Enter(this.WillArchitecture);
-                    }
-                    else
-                    {
-                        this.GoIntoArchitecture();
-                    }
+                    this.GoIntoArchitecture();
                 } 
                 else if (this.AIResetDestination())
                 {
