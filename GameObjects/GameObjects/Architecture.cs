@@ -1910,7 +1910,7 @@
             }
             this.StopAllWork();
 
-            if (this.HasBuildingRouteway) return;
+            //if (this.HasBuildingRouteway) return;
 
             PersonList zhenzaiPersons = new PersonList();
             PersonList agriculturePersons = new PersonList();
