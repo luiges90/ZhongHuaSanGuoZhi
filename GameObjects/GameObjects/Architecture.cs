@@ -1982,19 +1982,6 @@
                     {
                         rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.农业));
                     }
-
-                    if (!this.IsFundEnough || !this.IsFoodEnough)
-                    {
-                        if (this.Domination < this.DominationCeiling)
-                        {
-                            rates.AddWorkRate(new WorkRate(1, ArchitectureWorkKind.统治));
-                        }
-
-                        if (this.Morale < this.MoraleCeiling)
-                        {
-                            rates.AddWorkRate(new WorkRate(2, ArchitectureWorkKind.民心));
-                        }
-                    }
                 }
 
                 MilitaryList trainingMilitary = this.GetTrainingMilitaryList();
