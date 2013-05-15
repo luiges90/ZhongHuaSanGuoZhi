@@ -994,7 +994,7 @@
                         {
                             continue;
                         }
-                        if ((kind.MaintenanceCost + this.FacilityMaintenanceCost) * 30 + 1000 > this.ExpectedFund && kind.NetFundIncrease <= 0)
+                        if ((kind.MaintenanceCost + this.FacilityMaintenanceCost) * 30 + 2000 > this.ExpectedFund && kind.NetFundIncrease <= 0)
                         {
                             continue;
                         }
@@ -1002,7 +1002,7 @@
                         if (value > 0)
                         {
                             int fundMonthToWait = (kind.FundCost - (this.Fund - this.EnoughFund)) / this.ExpectedFund + 1;
-                            if (value > maxValue && GameObject.Chance((int) (100 - fundMonthToWait * Parameters.AIFacilityFundMonthWaitParam)))
+                            if (value > maxValue && GameObject.Chance((int) (100 - fundMonthToWait * Parameters.AIFacilityFundMonthWaitParam)) && this.Fund - kind.FundCost > this.EnoughFund)
                             {
                                 if (this.FacilityPositionLeft < kind.PositionOccupied)
                                 {
@@ -4589,7 +4589,7 @@
                             }
                         }
                         if (routeway.LastPoint == null) return false;
-                        return (((this.Food * (1f - routeway.LastPoint.ConsumptionRate)) * base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length))) >= (crop * ((routeway.Length + 6) - (this.LandArmyScale / 8))));
+                        return (((this.Food * (1f - routeway.LastPoint.ConsumptionRate)) * base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length))) >= (crop * (routeway.Length + 6)));
                     }
 
                 case LinkKind.Water:
@@ -4606,7 +4606,7 @@
                             }
                         }
                         if (routeway.LastPoint == null) return false;
-                        return (((this.Food * (1f - routeway.LastPoint.ConsumptionRate)) * base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length))) >= (crop * ((routeway.Length + 6) - (this.WaterArmyScale / 8))));
+                        return (((this.Food * (1f - routeway.LastPoint.ConsumptionRate)) * base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length))) >= (crop * (routeway.Length + 6)));
                     }
 
                 case LinkKind.Both:
