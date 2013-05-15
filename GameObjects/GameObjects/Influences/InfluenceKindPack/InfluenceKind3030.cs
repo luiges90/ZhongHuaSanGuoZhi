@@ -31,7 +31,7 @@
 
         public override double AIFacilityValue(Architecture a)
         {
-            return (1 - Math.Pow((double)a.Food / a.FoodCeiling, 0.5) + (a.IsFoodEnough ? 0 : 1000) + (a.IsFoodAbundant ? 0 : 1))
+            return (1 - Math.Pow((double)a.Food / a.FoodCeiling, 0.5) + (a.IsFoodEnough ? 0 : 0.5) + (a.IsFoodAbundant ? 0 : 0.5) + (a.IsFoodIncomeEnough ? 0 : 1000))
                 * (a.ExpectedFood * this.rate / 20000.0);
         }
     }

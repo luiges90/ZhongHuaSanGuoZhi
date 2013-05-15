@@ -940,7 +940,7 @@
                         }
                     }
                     //remove facilities if not enough fund to support
-                    if (this.FacilityMaintenanceCost * 30 + 1000 > this.ExpectedFund)
+                    if (this.FacilityMaintenanceCost * 30 + 1000 > this.ExpectedFund && this.BelongedSection.AIDetail.AllowFacilityRemoval)
                     {
                         GameObjectList f = this.Facilities.GetList();
                         f.PropertyName = "AIValue";
@@ -1974,12 +1974,12 @@
                         rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.赈灾));
                     }
 
-                    if (!this.IsFundEnough && this.Commerce < this.CommerceCeiling)
+                    if (!this.IsFundIncomeEnough && this.Commerce < this.CommerceCeiling)
                     {
                         rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.商业));
                     }
                     
-                    if (!this.IsFoodEnough && this.Agriculture < this.AgricultureCeiling)
+                    if (!this.IsFoodIncomeEnough && this.Agriculture < this.AgricultureCeiling)
                     {
                         rates.AddWorkRate(new WorkRate(0, ArchitectureWorkKind.农业));
                     }
@@ -11854,15 +11854,15 @@
                     {
                         if (legion == this.DefensiveLegion)
                         {
-                            num += legion.FoodCostPerDay * 60;
+                            num += legion.FoodCostPerDay * 30;
                         }
                     }
                     else if (((legion.Kind == LegionKind.Offensive) && (legion.PreferredRouteway != null)) && (legion.PreferredRouteway.StartArchitecture == this))
                     {
-                        num += legion.FoodCostPerDay * 60;
+                        num += legion.FoodCostPerDay * 30;
                     }
                 }
-                int num2 = this.FoodCostPerDayOfAllMilitaries * 60 + num;
+                int num2 = this.FoodCostPerDayOfAllMilitaries * 30 + num;
                 return num2;
             }
         }
@@ -11873,7 +11873,24 @@
             {
                 int num = this.FacilityMaintenanceCost * 30;
                 num += this.RoutewayActiveCost * 30;
+                num += this.PersonCount * Parameters.RewardPersonCost;
                 return num;
+            }
+        }
+
+        public bool IsFoodIncomeEnough
+        {
+            get
+            {
+                return this.ExpectedFood / base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.Season) - this.EnoughFood / 8 >= 0;
+            }
+        }
+
+        public bool IsFundIncomeEnough
+        {
+            get
+            {
+                return this.ExpectedFund - this.EnoughFund >= 0;
             }
         }
 
