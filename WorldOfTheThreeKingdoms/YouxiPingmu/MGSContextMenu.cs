@@ -606,21 +606,21 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
 
 
-                case ContextMenuResult.Auto_Section_New:
+                case ContextMenuResult.Section_New:
                     this.Plugins.MarshalSectionDialogPlugin.SetFaction(this.CurrentArchitecture.BelongedFaction);
                     this.Plugins.MarshalSectionDialogPlugin.SetSection(null);
                     this.Plugins.MarshalSectionDialogPlugin.SetMapPosition(ShowPosition.Center);
                     this.Plugins.MarshalSectionDialogPlugin.IsShowing = true;
                     break;
 
-                case ContextMenuResult.Auto_Section_Regroup:
+                case ContextMenuResult.Section_Regroup:
                     this.Plugins.MarshalSectionDialogPlugin.SetFaction(this.CurrentArchitecture.BelongedFaction);
                     this.Plugins.MarshalSectionDialogPlugin.SetSection(this.CurrentArchitecture.BelongedSection);
                     this.Plugins.MarshalSectionDialogPlugin.SetMapPosition(ShowPosition.Center);
                     this.Plugins.MarshalSectionDialogPlugin.IsShowing = true;
                     break;
 
-                case ContextMenuResult.Auto_Section_Disband:
+                case ContextMenuResult.Section_Disband:
                     this.Plugins.TabListPlugin.SetSelectedItemMaxCount(this.CurrentArchitecture.BelongedFaction.SectionCount - 1);
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Section, FrameFunction.GetSectionToDemolish, false, true, true, true, this.CurrentArchitecture.BelongedFaction.Sections, null, "", "");
                     break;
@@ -641,7 +641,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     break;
 
-                case ContextMenuResult.Auto_Working:
+                case ContextMenuResult.Internal_AutoWorking:
                     this.CurrentArchitecture.AutoWorking = !this.CurrentArchitecture.AutoWorking;
                     if (this.CurrentArchitecture.AutoWorking)
                     {
@@ -649,7 +649,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     break;
 
-                case ContextMenuResult.Auto_Searching:
+                case ContextMenuResult.Tactics_AutoSearching:
                     this.CurrentArchitecture.AutoSearching = !this.CurrentArchitecture.AutoSearching;
                     if (this.CurrentArchitecture.AutoSearching)
                     {

@@ -71,6 +71,7 @@
           <MenuItem ID="1"  Name="BuyFood" DisplayName="买粮" DisplayIfTrue="BuyFoodAvail"></MenuItem>
           <MenuItem ID="2"  Name="SellFood" DisplayName="卖粮" DisplayIfTrue="SellFoodAvail"></MenuItem>
         </MenuItem>
+		<MenuItem ID="10"  Name="AutoWorking" DisplayName="委任工作" OppositeName="手动工作" OppositeIfTrue="AutoWorking" DisplayIfTrue="AutoWorkingAvail"></MenuItem>
       </MenuItem>
       <MenuItem ID="2"  Name="Military" DisplayName="军事">
         <MenuItem ID="1"  Name="Campaign" DisplayName="出征" DisplayIfTrue="CampaignAvail"></MenuItem>
@@ -117,6 +118,7 @@
         <MenuItem ID="4"  Name="Instigate" DisplayName="煽动" DisplayIfTrue="InstigateAvail"></MenuItem>
         <MenuItem ID="5"  Name="Gossip" DisplayName="流言" DisplayIfTrue="GossipAvail"></MenuItem>
         <MenuItem ID="6"  Name="Search" DisplayName="搜索" DisplayIfTrue="SearchAvail"></MenuItem>
+		<MenuItem ID="7"  Name="AutoSearching" DisplayName="委任搜索" OppositeName="手动搜索" OppositeIfTrue="AutoSearching" DisplayIfTrue="AutoSearchingAvail"></MenuItem>
       </MenuItem>
       <MenuItem ID="7"  Name="Monarch" DisplayName="君主">
 		<MenuItem ID="1"  Name="officePosition" DisplayName="爵位">
@@ -150,16 +152,11 @@
           <MenuItem ID="2"  Name="Award" DisplayName="授予" DisplayIfTrue="HasTreasureToAward"></MenuItem>
         </MenuItem>
       </MenuItem>
-      <MenuItem ID="8"  Name="Auto" DisplayName="委任">
-        <MenuItem ID="1"  Name="Section" DisplayName="军区">
+      <MenuItem ID="8"  Name="Section" DisplayName="军区">
           <MenuItem ID="1"  Name="New" DisplayName="新建" DisplayIfTrue="NewSectionAvail"></MenuItem>
           <MenuItem ID="2"  Name="Regroup" DisplayName="重编" DisplayIfTrue="RegroupSectionAvail"></MenuItem>
           <MenuItem ID="3"  Name="Disband" DisplayName="解散" DisplayIfTrue="DisbandSectionAvail"></MenuItem>
-        </MenuItem>
-        <MenuItem ID="4"  Name="Working" DisplayName="委任工作" OppositeName="手动工作" OppositeIfTrue="AutoWorking" DisplayIfTrue="AutoWorkingAvail"></MenuItem>
-        <MenuItem ID="5"  Name="Searching" DisplayName="委任搜索" OppositeName="手动搜索" OppositeIfTrue="AutoSearching" DisplayIfTrue="AutoSearchingAvail"></MenuItem>
       </MenuItem>
-      <MenuItem ID="9"  Name="AllEnter" DisplayName="全部入城" DisplayIfTrue="AllEnterAvail"></MenuItem>
     </MenuKind>
     <MenuKind ID="3" Name="MapRightClick" DisplayName="地图右键菜单" IsLeft="false"  Width="130" Height="25">
       <MenuItem ID="1"  Name="DateGo" DisplayName="进行">
