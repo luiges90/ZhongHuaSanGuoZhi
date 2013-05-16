@@ -1316,7 +1316,7 @@
                 Dictionary<Architecture, int> archGiveFund = new Dictionary<Architecture, int>();
                 foreach (Architecture a in this.Architectures.GetRandomList())
                 {
-                    int canGiveFund = a.Fund - a.AbundantFund;
+                    int canGiveFund = a.Fund - a.EnoughFund;
                     if (canGiveFund >= 1000)
                     {
                         if (canGiveFund + givenValue >= cashToGive)
