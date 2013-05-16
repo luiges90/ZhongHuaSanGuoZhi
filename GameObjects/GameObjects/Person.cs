@@ -3473,7 +3473,7 @@
         {
             get
             {
-                return (int) (this.command * this.AbilityAgeFactor);
+                return this.Command;
             }
             set
             {
@@ -3509,7 +3509,7 @@
         {
             get
             {
-                return (int) (this.glamour * this.AbilityAgeFactor);
+                return this.Glamour;
             }
             set
             {
@@ -3533,7 +3533,7 @@
         {
             get
             {
-                return (int) (this.intelligence * this.AbilityAgeFactor);
+                return this.Intelligence;
             }
             set
             {
@@ -3553,7 +3553,7 @@
         {
             get
             {
-                return (int) (this.politics * this.AbilityAgeFactor);
+                return this.Politics;
             }
             set
             {
@@ -3573,7 +3573,7 @@
         {
             get
             {
-                return (int) (this.strength * this.AbilityAgeFactor);
+                return this.Strength;
             }
             set
             {
@@ -4492,7 +4492,7 @@
         {
             get
             {
-                return (int) (Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility) * this.TirednessFactor);
+                return (int) (Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor);
             }
         }
 
@@ -4524,7 +4524,7 @@
         {
             get
             {
-                return (int) (Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility) * this.TirednessFactor);
+                return (int)(Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor);
             }
         }
 
@@ -4532,7 +4532,7 @@
         {
             get
             {
-                return (int) (Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.TirednessFactor);
+                return (int)(Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor);
             }
         }
 
@@ -4556,7 +4556,7 @@
         {
             get
             {
-                return (int) (Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility) * this.TirednessFactor);
+                return (int)(Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor);
             }
         }
 
@@ -4572,7 +4572,7 @@
         {
             get
             {
-                return (int) (Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor);
+                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor);
             }
         }
 
