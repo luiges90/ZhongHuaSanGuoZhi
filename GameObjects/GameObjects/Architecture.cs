@@ -5442,6 +5442,7 @@
                 if (m.Tiredness > 0)
                 {
                     m.Tiredness -= GlobalVariables.TirednessDecrease;
+                    if (m.Tiredness < 0) m.Tiredness = 0;
                 }
             }
             foreach (Person p in this.Persons)
@@ -11400,7 +11401,7 @@
                 num += (this.BelongedFaction.BecomeEmperorLegallyAvail() || this.BelongedFaction.SelfBecomeEmperorAvail()) && this.BelongedFaction.Capital == this ? 100000 : 0;
                 num += this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0;
                 num += (int)(Math.Sqrt(this.Population) * 8.0);
-                num += this.BelongedFaction.FundToAdvance;
+                num += this.BelongedFaction.Capital == this ? this.BelongedFaction.FundToAdvance : 0;
                 return num;
             }
         }
