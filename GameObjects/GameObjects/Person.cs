@@ -3473,7 +3473,7 @@
         {
             get
             {
-                return this.Command;
+                return this.command;
             }
             set
             {
@@ -3509,7 +3509,7 @@
         {
             get
             {
-                return this.Glamour;
+                return this.glamour;
             }
             set
             {
@@ -3533,7 +3533,7 @@
         {
             get
             {
-                return this.Intelligence;
+                return this.intelligence;
             }
             set
             {
@@ -3553,7 +3553,7 @@
         {
             get
             {
-                return this.Politics;
+                return this.politics;
             }
             set
             {
@@ -3573,7 +3573,7 @@
         {
             get
             {
-                return this.Strength;
+                return this.strength;
             }
             set
             {
