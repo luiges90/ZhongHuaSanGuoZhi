@@ -883,12 +883,18 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
 
                 case ContextMenuResult.TroopEnter:
-                    this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.Trooprucheng ));
 
+                    if (!this.CurrentTroop.CanEnter())
+                    {
+                        this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.Trooprucheng));
+                    }
+                    else
+                    {
+                        this.CurrentTroop.Enter();
+                        this.CurrentTroop = null;
+                        this.Plugins.AirViewPlugin.ReloadTroopView();
+                    }
 
-                    //this.CurrentTroop.Enter();
-                    //this.CurrentTroop = null;
-                    //this.Plugins.AirViewPlugin.ReloadTroopView();
                     break;
 
                 case ContextMenuResult.TroopOccupy:
