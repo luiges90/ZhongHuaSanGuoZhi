@@ -952,7 +952,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
 	<Leaf Text="君主需要在妃子所在的后宫城池，才能宠幸该妃子" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Section_New">
+  <Branch Name="Section_New">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="新建军区" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -963,7 +963,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="军区的名称将由其中人口最多的建筑决定。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Section_Regroup">
+  <Branch Name="Section_Regroup">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="重编军区" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -971,7 +971,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="重编已有军区，更改其所属范围或者委任方式。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Section_Disband">
+  <Branch Name="Section_Disband">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="解散军区" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -1004,7 +1004,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="若选择委任方式，则只要剩余资金足够进行褒奖即进行褒奖。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Working">
+  <Branch Name="Internal_AutoWorking">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="工作" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -1015,7 +1015,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="若选择委任方式，则将采用与电脑相同的方法进行工作分配。只包括六项内政工作以及训练、补充工作。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Searching">
+  <Branch Name="Tactics_AutoSearching">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="搜索" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
