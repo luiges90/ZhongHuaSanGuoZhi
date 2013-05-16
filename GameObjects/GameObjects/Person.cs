@@ -3473,7 +3473,7 @@
         {
             get
             {
-                return (int) (this.command * this.AbilityAgeFactor);
+                return this.command;
             }
             set
             {
@@ -3509,7 +3509,7 @@
         {
             get
             {
-                return (int) (this.glamour * this.AbilityAgeFactor);
+                return this.glamour;
             }
             set
             {
@@ -3533,7 +3533,7 @@
         {
             get
             {
-                return (int) (this.intelligence * this.AbilityAgeFactor);
+                return this.intelligence;
             }
             set
             {
@@ -3553,7 +3553,7 @@
         {
             get
             {
-                return (int) (this.politics * this.AbilityAgeFactor);
+                return this.politics;
             }
             set
             {
@@ -3573,7 +3573,7 @@
         {
             get
             {
-                return (int) (this.strength * this.AbilityAgeFactor);
+                return this.strength;
             }
             set
             {
