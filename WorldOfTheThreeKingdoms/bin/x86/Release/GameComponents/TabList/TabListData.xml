@@ -2618,7 +2618,7 @@
         </Tab>
         <Tab ID="10"  Name="情报" DisplayName="情报" Columns="1 30 2 112 301 302" SortColumnID="30" SmallToBig="false">
         </Tab>
-        <Tab ID="11"  Name="间谍" DisplayName="间谍" Columns="1 31 2 113 114 300 301 302" SortColumnID="31" SmallToBig="false">
+        <Tab ID="11"  Name="间谍" DisplayName="间谍" Columns="1 31 2 113 114 301 302" SortColumnID="31" SmallToBig="false">
         </Tab>
         <Tab ID="12"  Name="破坏" DisplayName="破坏" Columns="1 32 2 115 300 301 302" SortColumnID="32" SmallToBig="false">
         </Tab>

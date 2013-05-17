@@ -690,6 +690,23 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="在关隘执行本策略并不会受到农业值的限制，但会消耗双倍的资金。" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="Tactics_JailBreak">
+    <Leaf Text="策略" Color="4294967295"></Leaf>
+    <Leaf Text="劫牢" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="在敌方建筑劫牢，以救出在该建筑被俘虏的武将" Color="4294967295"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="资金消耗" Color="4294967295"></Leaf>
+    <Leaf Text="200" Color="4278255360"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="目标建筑的统治值、民心值越低，则越容易成功。" Color="4294967295"></Leaf>
+  </Branch>
   <Branch Name="Monarch_ChangeCapital">
     <Leaf Text="君主" Color="4294967295"></Leaf>
     <Leaf Text="迁都" Color="4278232306"></Leaf>
