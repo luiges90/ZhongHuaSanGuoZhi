@@ -11,6 +11,7 @@
             base.Add(person);
             if (person.Scenario.GameScreen != null)
             {
+                person.OnJailBreakSuccess += new Person.JailBreakSuccess(person_OnJailBreakSuccess);
                 person.OnConvinceSuccess += new Person.ConvinceSuccess(this.person_OnConvinceSuccess);
                 person.OnConvinceFailed += new Person.ConvinceFailed(this.person_OnConvinceFailed);
                 person.OnInformationObtained += new Person.InformationObtained(this.person_OnInformationObtained);
@@ -292,6 +293,11 @@
         private void person_OnCapturedByArchitecture(Person person, Architecture architecture)
         {
             person.Scenario.GameScreen.PersonCapturedByArchitecture(person, architecture);
+        }
+
+        void person_OnJailBreakSuccess(Person source, Captive destination)
+        {
+            source.Scenario.GameScreen.PersonJailBreak(source, destination);
         }
     }
 }

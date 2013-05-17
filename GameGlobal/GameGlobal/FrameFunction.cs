@@ -52,6 +52,7 @@
         GetInstigatePerson,
         GetGossipPerson,
         GetSearchPerson,
+        GetJailBreakPerson,
         GetFacilityToBuild,
         GetFacilityToDemolish,
         Transport,

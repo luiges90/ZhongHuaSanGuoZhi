@@ -220,6 +220,13 @@
             this.DoRelease();
         }
 
+        public void CaptiveEscapeNoHint()
+        {
+            this.CaptivePerson.FleeCount++;
+            this.DoReturn();
+            this.DoRelease();
+        }
+
         public void CaptiveDirectEscape()
         {
             this.DoReturn();

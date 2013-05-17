@@ -450,6 +450,10 @@
         {
         }
 
+        public virtual void PersonJailBreak(Person person, Captive captive)
+        {
+        }
+
         public void PlayImportantSound(string soundFileLocation)
         {
             if (GlobalVariables.PlayBattleSound && File.Exists(soundFileLocation))

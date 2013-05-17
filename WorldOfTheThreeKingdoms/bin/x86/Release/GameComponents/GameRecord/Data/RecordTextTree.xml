@@ -457,5 +457,15 @@
 	<Leaf Text="的策略被发现，而且被敌方俘获了。" Color="4294967295"></Leaf>
 	<Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="PersonJailBreak">
+	<Leaf Text="在" Color="4294967295"></Leaf>
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+	<Leaf Text="的協助下，" Color="4294967295"></Leaf>
+	<Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+	<Leaf Text="從" Color="4294967295"></Leaf>
+	<Leaf Property="TextResultString" Color="4278223103"></Leaf>
+	<Leaf Text="逃獄了。" Color="4294967295"></Leaf>
+	<Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
   
 </Root>

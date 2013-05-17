@@ -13,6 +13,7 @@
         InstigatePosition,
         GossipPosition,
         SearchPosition,
+        JailBreakPosition,
         TroopDestination,
         SelectorTroopsDestination,
         TroopTarget,

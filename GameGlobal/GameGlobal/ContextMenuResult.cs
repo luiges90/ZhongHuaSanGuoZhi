@@ -77,6 +77,7 @@
         Tactics_Gossip,
         Tactics_Search,
         Tactics_ClearField,
+        Tactics_JailBreak,
         Diplomacy,
         Monarch_Diplomatic_EnhanceDiplomaticRelation,
         Monarch_Diplomatic_AllyDiplomaticRelation,

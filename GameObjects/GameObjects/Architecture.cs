@@ -141,6 +141,7 @@
         public float RateOfFacilityEnduranceDown = 1f;
         public float RateOfFoodReduceRate = 1f;
         public float RateOfGossipArchitecture = 1f;
+        public float RateOfJailBreakArchitecture = 1f;
         public float RateOfHirePerson = 1f;
         public float RateOfInstigateArchitecture = 1f;
         public float RateOfInternal = 1f;
@@ -7378,6 +7379,22 @@
             return area;
         }
 
+        public GameArea GetJailBreakArchitectureArea()
+        {
+            GameArea area = new GameArea();
+            foreach (Architecture architecture in base.Scenario.Architectures)
+            {
+                if ((((architecture.BelongedFaction != null) && !this.IsFriendly(architecture.BelongedFaction)) && architecture.HasCaptive()))
+                {
+                    foreach (Point point in architecture.ArchitectureArea.Area)
+                    {
+                        area.AddPoint(point);
+                    }
+                }
+            }
+            return area;
+        }
+
         public TroopList GetHostileTroopsInView()
         {
             GameArea viewArea = this.ViewArea;
@@ -7941,6 +7958,11 @@
         public bool GossipAvail()
         {
             return ((this.HasPerson() && (this.Fund >= this.GossipArchitectureFund)) && (this.GetGossipArchitectureArea().Count > 0));
+        }
+
+        public bool JailBreakAvail()
+        {
+            return ((this.HasPerson() && (this.Fund >= this.JailBreakArchitectureFund)) && (this.GetJailBreakArchitectureArea().Count > 0));
         }
 
         private void characteristicsDoWork()
@@ -12261,11 +12283,27 @@
             }
         }
 
+        public int JailBreakArchitectureFund
+        {
+            get
+            {
+                return (int)(Parameters.JailBreakArchitectureCost * this.RateOfJailBreakArchitecture);
+            }
+        }
+
         public int GossipPersonMaxCount
         {
             get
             {
                 return (this.Fund / this.GossipArchitectureFund);
+            }
+        }
+
+        public int JailBreakPersonMaxCount
+        {
+            get
+            {
+                return (this.Fund / this.JailBreakArchitectureFund);
             }
         }
 

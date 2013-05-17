@@ -355,6 +355,16 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        private void FrameFunction_Architecture_AfterGetJailBreakPerson()
+        {
+            this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
+            if (this.CurrentGameObjects != null)
+            {
+                this.CurrentPersons = this.CurrentGameObjects.GetList();
+                this.mainGameScreen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.JailBreakPosition));
+            }
+        }
+
         private void FrameFunction_Architecture_AfterGetInformationKind()
         {
             this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetInformationPerson, false, true, true, false, this.CurrentArchitecture.Persons, null, "情报", "情报");
@@ -951,6 +961,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case FrameFunction.GetGossipPerson:
                     this.FrameFunction_Architecture_AfterGetGossipPerson();
+                    break;
+
+                case FrameFunction.GetJailBreakPerson:
+                    this.FrameFunction_Architecture_AfterGetJailBreakPerson();
                     break;
 
                 case FrameFunction.GetSearchPerson:

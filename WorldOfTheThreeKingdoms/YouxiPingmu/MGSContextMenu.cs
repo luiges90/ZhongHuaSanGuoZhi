@@ -514,6 +514,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetSearchPerson, false, true, true, true, this.CurrentArchitecture.Persons, null, "搜索", "搜索");
                     break;
 
+                case ContextMenuResult.Tactics_JailBreak:
+                    this.Plugins.TabListPlugin.SetSelectedItemMaxCount(this.CurrentArchitecture.JailBreakArchitectureFund);
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetJailBreakPerson, false, true, true, true, this.CurrentArchitecture.Persons, null, "劫狱", "劫狱");
+                    break;
+
                 case ContextMenuResult.Tactics_ClearField:
                     this.Plugins.ConfirmationDialogPlugin.SetSimpleTextDialog(this.Plugins.SimpleTextDialogPlugin);
                     this.Plugins.ConfirmationDialogPlugin.ClearFunctions();

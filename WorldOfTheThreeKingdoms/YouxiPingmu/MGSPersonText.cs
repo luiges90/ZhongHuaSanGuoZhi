@@ -910,6 +910,16 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void PersonJailBreak(Person person, Captive captive)
+        {
+            if (base.Scenario.IsCurrentPlayer(person.BelongedFaction) || base.Scenario.IsCurrentPlayer(captive.BelongedFaction))
+            {
+                person.TextDestinationString = captive.LocationArchitecture.Name;
+                person.TextResultString = captive.CaptivePerson.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(person, "PersonJailBreak", person.Position);
+            }
+        }
+
         public override void SelfCaptiveRelease(Captive captive)
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(captive.BelongedFaction)) || base.Scenario.IsCurrentPlayer(captive.CaptiveFaction)) || GlobalVariables.SkyEye)

@@ -1174,5 +1174,6 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6930.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6935.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6945.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3157.cs" />
   </ItemGroup>
 </Project>

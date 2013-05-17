@@ -29,6 +29,7 @@
         public static float FundRate = 1f;
         public static int FundToFoodMultiple = 50;
         public static int GossipArchitectureCost = 200;
+        public static int JailBreakArchitectureCost = 200;
         public static int HireNoFactionPersonCost = 100;
         public static int InstigateArchitectureCost = 200;
         public static int InternalFundCost = 5;
@@ -170,6 +171,7 @@
             DestroyArchitectureCost = int.Parse(nextSibling.Attributes.GetNamedItem("DestroyArchitectureCost").Value);
             InstigateArchitectureCost = int.Parse(nextSibling.Attributes.GetNamedItem("InstigateArchitectureCost").Value);
             GossipArchitectureCost = int.Parse(nextSibling.Attributes.GetNamedItem("GossipArchitectureCost").Value);
+            JailBreakArchitectureCost = int.Parse(nextSibling.Attributes.GetNamedItem("JailBreakArchitectureCost").Value);
             ClearFieldFundCostUnit = int.Parse(nextSibling.Attributes.GetNamedItem("ClearFieldFundCostUnit").Value);
             ClearFieldAgricultureCostUnit = int.Parse(nextSibling.Attributes.GetNamedItem("ClearFieldAgricultureCostUnit").Value);
             SurroundArchitectureDominationUnit = int.Parse(nextSibling.Attributes.GetNamedItem("SurroundArchitectureDominationUnit").Value);

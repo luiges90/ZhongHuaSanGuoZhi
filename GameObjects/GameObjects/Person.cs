@@ -395,6 +395,8 @@
 
         public event ConvinceSuccess OnConvinceSuccess;
 
+        public event JailBreakSuccess OnJailBreakSuccess;
+
         public event Death OnDeath;
 
         public event DeathChangeFaction OnDeathChangeFaction;
@@ -1146,12 +1148,12 @@
                                 this.IncreaseReputation(20);
                                 this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
                                 this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
-                                c.CaptiveEscape();
+                                c.CaptiveEscapeNoHint();
                                 ExtensionInterface.call("DoJailBreakSuccess", new Object[] { this.Scenario, this, c });
-                                /*if (this.OnJailBreakSuccess != null)
+                                if (this.OnJailBreakSuccess != null)
                                 {
-                                    this.OnJailBreakSuccess(this, c, belongedFaction);
-                                }*/
+                                    this.OnJailBreakSuccess(this, c);
+                                }
                             }
                         }
                     }
@@ -2377,6 +2379,19 @@
                 this.GoToDestinationAndReturn(position);
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForInformation", new Object[] { this.Scenario, this, position});
+            }
+        }
+
+        public void GoForJailBreak(Point position)
+        {
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
+            {
+                this.OutsideTask = OutsideTaskKind.劫狱;
+                this.OutsideDestination = new Point?(position);
+                this.LocationArchitecture.DecreaseFund(this.LocationArchitecture.InstigateArchitectureFund);
+                this.GoToDestinationAndReturn(position);
+                this.TaskDays = (this.ArrivingDays + 1) / 2;
+                ExtensionInterface.call("GoForJailBreak", new Object[] { this.Scenario, this, position });
             }
         }
 
@@ -5513,6 +5528,8 @@
         public delegate void ConvinceFailed(Person source, Person destination);
 
         public delegate void ConvinceSuccess(Person source, Person destination, Faction oldFaction);
+
+        public delegate void JailBreakSuccess(Person source, Captive destination);
 
         public delegate void Death(Person person, Architecture location);
 

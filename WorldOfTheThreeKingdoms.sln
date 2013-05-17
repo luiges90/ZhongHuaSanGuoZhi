@@ -34,8 +34,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenBlindPlugin", "Screen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateRunnerPlugin", "DateRunnerPlugin\DateRunnerPlugin.csproj", "{4D8E8C5B-8AD6-4A43-90AF-1A91DFA000A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DixingBianjiqi", "DixingBianjiqi\DixingBianjiqi.csproj", "{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "youcelanPlugin", "WorldOfTheThreeKingdoms\youcelanPlugin\youcelanPlugin.csproj", "{7ED92236-247F-410E-BE40-B280E635E6CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tupianwenziPlugin", "tupianwenziPlugin\tupianwenziPlugin.csproj", "{94DD00EF-7247-49A1-95B7-8A157F764DCB}"
@@ -204,16 +202,6 @@ Global
 		{4D8E8C5B-8AD6-4A43-90AF-1A91DFA000A3}.Release|Mixed Platforms.Build.0 = Release|x86
 		{4D8E8C5B-8AD6-4A43-90AF-1A91DFA000A3}.Release|x86.ActiveCfg = Release|x86
 		{4D8E8C5B-8AD6-4A43-90AF-1A91DFA000A3}.Release|x86.Build.0 = Release|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Debug|x86.ActiveCfg = Debug|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Debug|x86.Build.0 = Debug|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Release|Any CPU.ActiveCfg = Release|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Release|Mixed Platforms.Build.0 = Release|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Release|x86.ActiveCfg = Release|x86
-		{DA7AA105-CBDF-4ABD-B9A5-D1F8ABF5DE41}.Release|x86.Build.0 = Release|x86
 		{7ED92236-247F-410E-BE40-B280E635E6CF}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{7ED92236-247F-410E-BE40-B280E635E6CF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{7ED92236-247F-410E-BE40-B280E635E6CF}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -278,12 +266,6 @@ Global
 		{A663FC0C-C17A-4F9A-8A1E-D51231EE0B04}.Release|Any CPU.ActiveCfg = Release|x86
 		{A663FC0C-C17A-4F9A-8A1E-D51231EE0B04}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{A663FC0C-C17A-4F9A-8A1E-D51231EE0B04}.Release|x86.ActiveCfg = Release|x86
-		{6A44195D-97BE-4C56-9E51-D0B75D975C89}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{6A44195D-97BE-4C56-9E51-D0B75D975C89}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{6A44195D-97BE-4C56-9E51-D0B75D975C89}.Debug|x86.ActiveCfg = Debug|x86
-		{6A44195D-97BE-4C56-9E51-D0B75D975C89}.Release|Any CPU.ActiveCfg = Release|x86
-		{6A44195D-97BE-4C56-9E51-D0B75D975C89}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{6A44195D-97BE-4C56-9E51-D0B75D975C89}.Release|x86.ActiveCfg = Release|x86
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Debug|x86.ActiveCfg = Debug|x86
