@@ -1143,7 +1143,7 @@
                     {
                         if (c.CaptiveFaction == this.BelongedFaction)
                         {
-                            if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale)) <=
+                            if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale) * 2) <=
                                 GameObject.Random(this.JailBreakAbility + c.CaptivePerson.CaptiveAbility))
                             {
                                 if (!GameObject.Chance(architectureByPosition.noEscapeChance) || GameObject.Chance(c.CaptivePerson.captiveEscapeChance))
@@ -1154,12 +1154,12 @@
                                     this.IncreaseReputation(20);
                                     this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
                                     this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
-                                    c.CaptiveEscapeNoHint();
                                     ExtensionInterface.call("DoJailBreakSuccess", new Object[] { this.Scenario, this, c });
                                     if (this.OnJailBreakSuccess != null)
                                     {
                                         this.OnJailBreakSuccess(this, c);
                                     }
+                                    c.CaptiveEscapeNoHint();
                                 }
                             }
                         }
