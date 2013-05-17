@@ -158,7 +158,7 @@
           <MenuItem ID="2"  Name="Regroup" DisplayName="重编" DisplayIfTrue="RegroupSectionAvail"></MenuItem>
           <MenuItem ID="3"  Name="Disband" DisplayName="解散" DisplayIfTrue="DisbandSectionAvail"></MenuItem>
       </MenuItem>
-	  <MenuItem ID="9"  Name="AllEnter" DisplayName="全部入城"></MenuItem>
+	  <MenuItem ID="9"  Name="AllEnter" DisplayName="全部入城" DisplayIfTrue="AllEnterAvail"></MenuItem>
     </MenuKind>
     <MenuKind ID="3" Name="MapRightClick" DisplayName="地图右键菜单" IsLeft="false"  Width="130" Height="25">
       <MenuItem ID="1"  Name="DateGo" DisplayName="进行">
