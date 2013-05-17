@@ -1139,10 +1139,12 @@
                 if ((architectureByPosition != null) && (architectureByPosition.BelongedFaction != null))
                 {
                     bool success = false;
+                    bool attempted = false;
                     foreach (Captive c in architectureByPosition.Captives)
                     {
                         if (c.CaptiveFaction == this.BelongedFaction)
                         {
+                            attempted = true;
                             if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale) * 2) <=
                                 GameObject.Random(this.JailBreakAbility + c.CaptivePerson.CaptiveAbility))
                             {
@@ -1171,7 +1173,7 @@
                             this.OnJailBreakFailed(this, architectureByPosition);
                         }
                     }
-                    if (architectureByPosition.BelongedFaction != this.BelongedFaction)
+                    if (attempted && architectureByPosition.BelongedFaction != this.BelongedFaction)
                     {
                         CheckCapturedByArchitecture(architectureByPosition);
                     }
