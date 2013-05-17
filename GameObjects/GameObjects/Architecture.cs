@@ -2476,15 +2476,18 @@
                         if (list3.Count > 0)
                         {
                             architecture2 = list3[GameObject.Random(list3.Count / 2)] as Architecture;
-                            if ((!this.IsFriendly(architecture2.BelongedFaction) || GameObject.Chance(10)) && ((architecture2.Fund < architecture2.EnoughFund) || ((architecture2.Fund < architecture2.AbundantFund) && GameObject.Chance(20))))
+                            if (GameObject.Chance(100 - architecture2.noEscapeChance * 2))
                             {
-                                diplomaticRelation = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, architecture2.BelongedFaction.ID);
-                                if (((diplomaticRelation >= 0) && (GameObject.Random(diplomaticRelation + 200) <= GameObject.Random(50))) || ((diplomaticRelation < 0) && (GameObject.Random(Math.Abs(diplomaticRelation) + 100) >= GameObject.Random(100))))
+                                if ((!this.IsFriendly(architecture2.BelongedFaction) || GameObject.Chance(10)) && ((architecture2.Fund < architecture2.EnoughFund) || ((architecture2.Fund < architecture2.AbundantFund) && GameObject.Chance(20))))
                                 {
-                                    firstHalfPerson = this.GetFirstHalfPerson("GossipAbility");
-                                    if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)) && ((GameObject.Random(architecture2.GetGossipablePersonCount() + 4) >= 4) && (GameObject.Random(firstHalfPerson.GossipAbility) >= 200)))
+                                    diplomaticRelation = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, architecture2.BelongedFaction.ID);
+                                    if (((diplomaticRelation >= 0) && (GameObject.Random(diplomaticRelation + 200) <= GameObject.Random(50))) || ((diplomaticRelation < 0) && (GameObject.Random(Math.Abs(diplomaticRelation) + 100) >= GameObject.Random(100))))
                                     {
-                                        firstHalfPerson.GoForGossip(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
+                                        firstHalfPerson = this.GetFirstHalfPerson("GossipAbility");
+                                        if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)) && ((GameObject.Random(architecture2.GetGossipablePersonCount() + 4) >= 4) && (GameObject.Random(firstHalfPerson.GossipAbility) >= 200)))
+                                        {
+                                            firstHalfPerson.GoForGossip(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
+                                        }
                                     }
                                 }
                             }
@@ -2512,18 +2515,21 @@
                             architecture2 = list4[GameObject.Random(list4.Count)] as Architecture;
                             if (architecture2.BelongedFaction == this.BelongedFaction)
                             {
-                                Captive extremeLoyaltyCaptive = architecture2.GetLowestLoyaltyCaptiveRecruitable();
-                                if ((((extremeLoyaltyCaptive != null) && (extremeLoyaltyCaptive.CaptivePerson != null)) && 
-                                    ((extremeLoyaltyCaptive.Loyalty < 100 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction))))) 
-                                    && (extremeLoyaltyCaptive.CaptiveFaction == null || extremeLoyaltyCaptive.CaptivePerson != extremeLoyaltyCaptive.CaptiveFaction.Leader))
+                                if (GameObject.Chance(100 - architecture2.noEscapeChance * 2))
                                 {
-                                    PersonList firstHalfPersonList = this.GetFirstHalfPersonList("ConvinceAbility");
-                                    foreach (Person i in firstHalfPersonList)
+                                    Captive extremeLoyaltyCaptive = architecture2.GetLowestLoyaltyCaptiveRecruitable();
+                                    if ((((extremeLoyaltyCaptive != null) && (extremeLoyaltyCaptive.CaptivePerson != null)) &&
+                                        ((extremeLoyaltyCaptive.Loyalty < 100 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction)))))
+                                        && (extremeLoyaltyCaptive.CaptiveFaction == null || extremeLoyaltyCaptive.CaptivePerson != extremeLoyaltyCaptive.CaptiveFaction.Leader))
                                     {
-                                        if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) || ((((i != null) && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33))) && (GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber))) && (GameObject.Random(i.FightingNumber) < 100)) && ((GameObject.Random(i.ConvinceAbility) >= 200) && (GameObject.Random(i.ConvinceAbility) > GameObject.Random(extremeLoyaltyCaptive.Loyalty * 5))))
+                                        PersonList firstHalfPersonList = this.GetFirstHalfPersonList("ConvinceAbility");
+                                        foreach (Person i in firstHalfPersonList)
                                         {
-                                            i.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
-                                            i.GoForConvince(extremeLoyaltyCaptive.CaptivePerson);
+                                            if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) || ((((i != null) && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33))) && (GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber))) && (GameObject.Random(i.FightingNumber) < 100)) && ((GameObject.Random(i.ConvinceAbility) >= 200) && (GameObject.Random(i.ConvinceAbility) > GameObject.Random(extremeLoyaltyCaptive.Loyalty * 5))))
+                                            {
+                                                i.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
+                                                i.GoForConvince(extremeLoyaltyCaptive.CaptivePerson);
+                                            }
                                         }
                                     }
                                 }

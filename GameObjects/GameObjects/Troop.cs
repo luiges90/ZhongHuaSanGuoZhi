@@ -1910,44 +1910,47 @@
 
         private void CallInstigate()
         {
-            if (this.WillArchitecture.Endurance >= (this.WillArchitecture.EnduranceCeiling * 0.2))
+            if (GameObject.Chance(100 - this.WillArchitecture.noEscapeChance * 2))
             {
-                Person current;
-                PersonList list = new PersonList();
-                foreach (LinkNode node in this.WillArchitecture.AIAllLinkNodes.Values)
+                if (this.WillArchitecture.Endurance >= (this.WillArchitecture.EnduranceCeiling * 0.2))
                 {
-                    if (node.A.BelongedSection != null)  //港口的军区有可能丢失，这样避免跳出
+                    Person current;
+                    PersonList list = new PersonList();
+                    foreach (LinkNode node in this.WillArchitecture.AIAllLinkNodes.Values)
                     {
-                        if ((((node.A.BelongedFaction == this.BelongedFaction) && (node.A.Fund >= node.A.InstigateArchitectureFund)) && node.A.BelongedSection.AIDetail.AllowOffensiveTactics) && (node.A.RecentlyAttacked <= 0))
+                        if (node.A.BelongedSection != null)  //港口的军区有可能丢失，这样避免跳出
                         {
-                            //using (IEnumerator enumerator2 = node.A.Persons.GetEnumerator())
-                            IEnumerator enumerator2 = node.A.Persons.GetEnumerator();
+                            if ((((node.A.BelongedFaction == this.BelongedFaction) && (node.A.Fund >= node.A.InstigateArchitectureFund)) && node.A.BelongedSection.AIDetail.AllowOffensiveTactics) && (node.A.RecentlyAttacked <= 0))
                             {
-                                while (enumerator2.MoveNext())
+                                //using (IEnumerator enumerator2 = node.A.Persons.GetEnumerator())
+                                IEnumerator enumerator2 = node.A.Persons.GetEnumerator();
                                 {
-                                    current = (Person)enumerator2.Current;
-                                    list.Add(current);
+                                    while (enumerator2.MoveNext())
+                                    {
+                                        current = (Person)enumerator2.Current;
+                                        list.Add(current);
+                                    }
                                 }
-                            }
-                            if (list.Count >= 10)
-                            {
-                                break;
+                                if (list.Count >= 10)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
-                }
-                if (list.Count > 0)
-                {
-                    if (list.Count > 1)
+                    if (list.Count > 0)
                     {
-                        list.PropertyName = "InstigateAbility";
-                        list.IsNumber = true;
-                        list.ReSort();
-                    }
-                    current = list[GameObject.Random(list.Count / 2)] as Person;
-                    if (GameObject.Chance(GameObject.Random(current.InstigateAbility - 150)) && (GameObject.Random(current.NonFightingNumber) > GameObject.Random(current.FightingNumber)))
-                    {
-                        current.GoForInstigate(this.WillArchitecture.Position);
+                        if (list.Count > 1)
+                        {
+                            list.PropertyName = "InstigateAbility";
+                            list.IsNumber = true;
+                            list.ReSort();
+                        }
+                        current = list[GameObject.Random(list.Count / 2)] as Person;
+                        if (GameObject.Chance(GameObject.Random(current.InstigateAbility - 150)) && (GameObject.Random(current.NonFightingNumber) > GameObject.Random(current.FightingNumber)))
+                        {
+                            current.GoForInstigate(this.WillArchitecture.Position);
+                        }
                     }
                 }
             }

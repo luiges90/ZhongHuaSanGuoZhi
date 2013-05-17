@@ -1909,7 +1909,6 @@
 							this.OnSpyFailed(this, architectureByPosition);
 						}
                     }
-                    CheckCapturedByArchitecture(architectureByPosition);
                 }
                 else if (this.OnSpyFailed != null)
                 {
