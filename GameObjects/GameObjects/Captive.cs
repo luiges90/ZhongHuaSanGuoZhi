@@ -390,7 +390,8 @@
         {
             get
             {
-                return this.CaptivePerson.Merit + (120 - this.Loyalty) * 100 + 
+                if (!this.CaptivePerson.WillLoseLoyaltyWhenHeldCaptive) return this.CaptivePerson.Merit / 2;
+                return this.CaptivePerson.Merit + (110 - this.Loyalty) * 500 + 
                     (this.LocationArchitecture.noEscapeChance - this.CaptivePerson.captiveEscapeChance) * 300;
             }
         }

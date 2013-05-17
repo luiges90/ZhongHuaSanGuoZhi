@@ -1139,7 +1139,7 @@
                     foreach (Captive c in architectureByPosition.Captives)
                     {
                         if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale)) <=
-                            GameObject.Random(this.CaptiveAbility + c.CaptivePerson.CaptiveAbility))
+                            GameObject.Random(this.JailBreakAbility + c.CaptivePerson.CaptiveAbility))
                         {
                             if (!GameObject.Chance(architectureByPosition.noEscapeChance) || GameObject.Chance(c.CaptivePerson.captiveEscapeChance))
                             {
@@ -2828,6 +2828,27 @@
             }
         }
 
+        public bool WillLoseLoyalty
+        {
+            get
+            {
+                if (this.Loyalty > 110) return false;
+                if (this.PersonalLoyalty >= 4) return false;
+                return true;
+            }
+        }
+
+        public bool WillLoseLoyaltyWhenHeldCaptive
+        {
+            get
+            {
+                if (this.BelongedCaptive.LocationArchitecture.captiveLoyaltyFall.Count > 0) return true;
+                if (this.Loyalty > 110) return false;
+                if (this.PersonalLoyalty >= 4) return false;
+                return true;
+            }
+        }
+
         private void LoyaltyChange()
         {
             if (((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange))
@@ -4178,6 +4199,14 @@
             get
             {
                 return (int)(((this.Politics * 2) + (this.Glamour * 2)) * (1f + this.RateIncrementOfGossip));
+            }
+        }
+
+        public int JailBreakAbility
+        {
+            get
+            {
+                return this.CaptiveAbility;
             }
         }
 

@@ -2555,6 +2555,37 @@
                             }
                         }
                     }
+                    if ((this.HasPerson() && (GameObject.Random(this.Fund) >= this.JailBreakArchitectureFund)) && GameObject.Chance(50))
+                    {
+                        List<Architecture> a = new List<Architecture>();
+                        foreach (Architecture architecture in base.Scenario.Architectures)
+                        {
+                            if (architecture.HasFactionCaptive(this.BelongedFaction))
+                            {
+                                a.Add(architecture);
+                            }
+                        }
+                        Architecture target = a[GameObject.Random(a.Count)] as Architecture;
+                        if (GameObject.Chance(100 - target.noEscapeChance * 2))
+                        {
+                            int totalCaptiveValue = 0;
+                            foreach (Captive c in target.Captives)
+                            {
+                                if (c.BelongedFaction == this.BelongedFaction)
+                                {
+                                    totalCaptiveValue += c.AIWantsTheCaptive;
+                                }
+                            }
+                            if (GameObject.Random(totalCaptiveValue) > GameObject.Random(100000))
+                            {
+                                firstHalfPerson = this.GetFirstHalfPerson("JailBreakAbility");
+                                if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)))
+                                {
+                                    firstHalfPerson.GoForGossip(base.Scenario.GetClosestPoint(target.ArchitectureArea, this.Position));
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
