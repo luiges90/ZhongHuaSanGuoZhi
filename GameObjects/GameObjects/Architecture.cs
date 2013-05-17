@@ -7384,7 +7384,7 @@
             GameArea area = new GameArea();
             foreach (Architecture architecture in base.Scenario.Architectures)
             {
-                if ((((architecture.BelongedFaction != null) && !this.IsFriendly(architecture.BelongedFaction)) && architecture.HasCaptive()))
+                if (architecture.BelongedFaction != null && !this.IsFriendly(architecture.BelongedFaction) && architecture.HasFactionCaptive(this.BelongedFaction))
                 {
                     foreach (Point point in architecture.ArchitectureArea.Area)
                     {
@@ -8001,6 +8001,18 @@
         public bool HasCaptive()
         {
             return (this.CaptiveCount > 0);
+        }
+
+        public bool HasFactionCaptive(Faction f)
+        {
+            foreach (Captive c in this.Captives)
+            {
+                if (c.BelongedFaction == f)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool HasCloserOffensiveArchitecture(LinkNode node, out Architecture closer)
