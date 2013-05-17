@@ -1126,6 +1126,43 @@
             return decrement;
         }
 
+        public void DoJailBreak()
+        {
+            this.OutsideTask = OutsideTaskKind.无;
+            if (this.BelongedFaction != null)
+            {
+                Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
+                if ((architectureByPosition != null) && (architectureByPosition.BelongedFaction != null))
+                {
+                    foreach (Captive c in architectureByPosition.Captives)
+                    {
+                        if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale)) <=
+                            GameObject.Random(this.CaptiveAbility + c.CaptivePerson.CaptiveAbility))
+                        {
+                            if (!GameObject.Chance(architectureByPosition.noEscapeChance) || GameObject.Chance(c.CaptivePerson.captiveEscapeChance))
+                            {
+                                this.AddStrengthExperience(10);
+                                this.AddIntelligenceExperience(10);
+                                this.IncreaseReputation(20);
+                                this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
+                                this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
+                                c.CaptiveEscape();
+                                ExtensionInterface.call("DoJailBreakSuccess", new Object[] { this.Scenario, this, c });
+                                /*if (this.OnJailBreakSuccess != null)
+                                {
+                                    this.OnJailBreakSuccess(this, c, belongedFaction);
+                                }*/
+                            }
+                        }
+                    }
+                    if (architectureByPosition.BelongedFaction != this.BelongedFaction)
+                    {
+                        CheckCapturedByArchitecture(architectureByPosition);
+                    }
+                }
+            }
+        }
+
         public void DoConvince()
         {
             this.OutsideTask = OutsideTaskKind.无;
@@ -1683,6 +1720,9 @@
                     this.DoTruceDiplomatic();
                     break;
 
+                case OutsideTaskKind.劫狱:
+                    this.DoJailBreak();
+                    break;
             }
         }
 

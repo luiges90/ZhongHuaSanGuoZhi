@@ -379,6 +379,15 @@
             }
         }
 
+        public int AIWantsTheCaptive
+        {
+            get
+            {
+                return this.CaptivePerson.Merit + (120 - this.Loyalty) * 100 + 
+                    (this.LocationArchitecture.noEscapeChance - this.CaptivePerson.captiveEscapeChance) * 300;
+            }
+        }
+
         public delegate void PlayerRelease(Faction from, Faction to, Captive captive);
 
         public delegate void Release(bool success, Faction from, Faction to, Person person);
