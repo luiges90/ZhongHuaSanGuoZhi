@@ -2388,7 +2388,7 @@
             {
                 this.OutsideTask = OutsideTaskKind.劫狱;
                 this.OutsideDestination = new Point?(position);
-                this.LocationArchitecture.DecreaseFund(this.LocationArchitecture.InstigateArchitectureFund);
+                this.LocationArchitecture.DecreaseFund(this.LocationArchitecture.JailBreakArchitectureFund);
                 this.GoToDestinationAndReturn(position);
                 this.TaskDays = (this.ArrivingDays + 1) / 2;
                 ExtensionInterface.call("GoForJailBreak", new Object[] { this.Scenario, this, position });

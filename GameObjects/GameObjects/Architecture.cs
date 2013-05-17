@@ -2555,34 +2555,34 @@
                             }
                         }
                     }
-                    if ((this.HasPerson() && (GameObject.Random(this.Fund) >= this.JailBreakArchitectureFund)) && GameObject.Chance(50))
+                }
+                if ((this.HasPerson() && (GameObject.Random(this.Fund) >= this.JailBreakArchitectureFund)) && GameObject.Chance(50) && this.JailBreakAvail())
+                {
+                    List<Architecture> a = new List<Architecture>();
+                    foreach (Architecture architecture in base.Scenario.Architectures)
                     {
-                        List<Architecture> a = new List<Architecture>();
-                        foreach (Architecture architecture in base.Scenario.Architectures)
+                        if (architecture.HasFactionCaptive(this.BelongedFaction))
                         {
-                            if (architecture.HasFactionCaptive(this.BelongedFaction))
+                            a.Add(architecture);
+                        }
+                    }
+                    Architecture target = a[GameObject.Random(a.Count)] as Architecture;
+                    if (GameObject.Chance(100 - target.noEscapeChance * 2))
+                    {
+                        int totalCaptiveValue = 0;
+                        foreach (Captive c in target.Captives)
+                        {
+                            if (c.CaptiveFaction == this.BelongedFaction)
                             {
-                                a.Add(architecture);
+                                totalCaptiveValue += c.AIWantsTheCaptive;
                             }
                         }
-                        Architecture target = a[GameObject.Random(a.Count)] as Architecture;
-                        if (GameObject.Chance(100 - target.noEscapeChance * 2))
+                        if (GameObject.Random(totalCaptiveValue) > GameObject.Random(100000))
                         {
-                            int totalCaptiveValue = 0;
-                            foreach (Captive c in target.Captives)
+                            firstHalfPerson = this.GetFirstHalfPerson("JailBreakAbility");
+                            if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)))
                             {
-                                if (c.BelongedFaction == this.BelongedFaction)
-                                {
-                                    totalCaptiveValue += c.AIWantsTheCaptive;
-                                }
-                            }
-                            if (GameObject.Random(totalCaptiveValue) > GameObject.Random(100000))
-                            {
-                                firstHalfPerson = this.GetFirstHalfPerson("JailBreakAbility");
-                                if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)))
-                                {
-                                    firstHalfPerson.GoForGossip(base.Scenario.GetClosestPoint(target.ArchitectureArea, this.Position));
-                                }
+                                firstHalfPerson.GoForJailBreak(base.Scenario.GetClosestPoint(target.ArchitectureArea, this.Position));
                             }
                         }
                     }
@@ -8038,7 +8038,7 @@
         {
             foreach (Captive c in this.Captives)
             {
-                if (c.BelongedFaction == f)
+                if (c.CaptiveFaction == f)
                 {
                     return true;
                 }
