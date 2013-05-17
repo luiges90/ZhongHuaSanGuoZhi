@@ -445,6 +445,13 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="117" Name="JailBreakAbility" IsNumber="true" DisplayName="劫狱能力" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="120" Name="TreasureCount" IsNumber="true" DisplayName="宝物数量" MinWidth="80"
                 FontName="宋体"
                 FontSize="12"
@@ -1143,7 +1150,7 @@
         </Tab>
         <Tab ID="5"  Name="Military" DisplayName="军事" Columns="1 7 30 40 41 137 138">
         </Tab>
-        <Tab ID="6"  Name="Tactics" DisplayName="策略" Columns="1 70 71 110 111 112 113 114 115 116">
+        <Tab ID="6"  Name="Tactics" DisplayName="策略" Columns="1 70 71 110 111 112 113 114 115 116 117">
         </Tab>
         <Tab ID="7"  Name="Skill" DisplayName="技能" Columns="1 50 136" ListKind="Skill" ListMethod="GetSkillList">
         </Tab>
@@ -2540,6 +2547,13 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="36" Name="JailBreakAbility" IsNumber="true" DisplayName="劫狱能力" MinWidth="80"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="40" Name="ConvinceAbility" IsNumber="true" DisplayName="说服能力" MinWidth="80"
                 FontName="宋体"
                 FontSize="12"
@@ -2614,7 +2628,9 @@
         </Tab>
         <Tab ID="15"  Name="搜索" DisplayName="搜索" Columns="1 35 2 118 301 302" SortColumnID="35" SmallToBig="false">
         </Tab>
-        <Tab ID="16"  Name="赈灾" DisplayName="赈灾" Columns="1 41 2" SortColumnID="41" SmallToBig="false">
+		<Tab ID="16"  Name="劫狱" DisplayName="劫狱" Columns="1 36 2 300 301 302" SortColumnID="36" SmallToBig="false">
+        </Tab>
+        <Tab ID="17"  Name="赈灾" DisplayName="赈灾" Columns="1 41 2" SortColumnID="41" SmallToBig="false">
         </Tab>
       </Tabs>
     </ListKind>
