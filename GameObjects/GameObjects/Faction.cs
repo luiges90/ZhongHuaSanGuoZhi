@@ -1990,25 +1990,25 @@
         public int getTechniqueActualPointCost(Technique technique)
         {
             if (this.techniquePointCostRateDecrease.Count == 0) return technique.PointCost;
-            return (int) Math.Round(technique.PointCost * (1 - this.techniquePointCostRateDecrease.Min()));
+            return (int) Math.Round(technique.PointCost * (1 - this.techniquePointCostRateDecrease.Max()));
         }
 
         public int getTechniqueActualReputation(Technique technique)
         {
             if (this.techniqueReputationRateDecrease.Count == 0) return technique.Reputation;
-            return (int)Math.Round(technique.Reputation * (1 - this.techniqueReputationRateDecrease.Min()));
+            return (int)Math.Round(technique.Reputation * (1 - this.techniqueReputationRateDecrease.Max()));
         }
 
         public int getTechniqueActualFundCost(Technique technique)
         {
             if (this.techniqueFundCostRateDecrease.Count == 0) return technique.FundCost;
-            return (int)Math.Round(technique.FundCost * (1 - this.techniqueFundCostRateDecrease.Min()));
+            return (int)Math.Round(technique.FundCost * (1 - this.techniqueFundCostRateDecrease.Max()));
         }
 
         public int getTechniqueActualTime(Technique technique)
         {
             if (this.techniqueTimeRateDecrease.Count == 0) return technique.Days;
-            return (int)Math.Round(technique.Days * (1 - techniqueTimeRateDecrease.Min()));
+            return (int)Math.Round(technique.Days * (1 - techniqueTimeRateDecrease.Max()));
         }
 
         public bool MatchTechnique(Technique technique, Architecture architecture)
