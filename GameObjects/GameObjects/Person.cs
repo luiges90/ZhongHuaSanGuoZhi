@@ -397,6 +397,8 @@
 
         public event JailBreakSuccess OnJailBreakSuccess;
 
+        public event JailBreakFailed OnJailBreakFailed;
+
         public event Death OnDeath;
 
         public event DeathChangeFaction OnDeathChangeFaction;
@@ -1136,25 +1138,37 @@
                 Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
                 if ((architectureByPosition != null) && (architectureByPosition.BelongedFaction != null))
                 {
+                    bool success = false;
                     foreach (Captive c in architectureByPosition.Captives)
                     {
-                        if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale)) <=
-                            GameObject.Random(this.JailBreakAbility + c.CaptivePerson.CaptiveAbility))
+                        if (c.CaptiveFaction == this.BelongedFaction)
                         {
-                            if (!GameObject.Chance(architectureByPosition.noEscapeChance) || GameObject.Chance(c.CaptivePerson.captiveEscapeChance))
+                            if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale)) <=
+                                GameObject.Random(this.JailBreakAbility + c.CaptivePerson.CaptiveAbility))
                             {
-                                this.AddStrengthExperience(10);
-                                this.AddIntelligenceExperience(10);
-                                this.IncreaseReputation(20);
-                                this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
-                                this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
-                                c.CaptiveEscapeNoHint();
-                                ExtensionInterface.call("DoJailBreakSuccess", new Object[] { this.Scenario, this, c });
-                                if (this.OnJailBreakSuccess != null)
+                                if (!GameObject.Chance(architectureByPosition.noEscapeChance) || GameObject.Chance(c.CaptivePerson.captiveEscapeChance))
                                 {
-                                    this.OnJailBreakSuccess(this, c);
+                                    success = true;
+                                    this.AddStrengthExperience(10);
+                                    this.AddIntelligenceExperience(10);
+                                    this.IncreaseReputation(20);
+                                    this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
+                                    this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
+                                    c.CaptiveEscapeNoHint();
+                                    ExtensionInterface.call("DoJailBreakSuccess", new Object[] { this.Scenario, this, c });
+                                    if (this.OnJailBreakSuccess != null)
+                                    {
+                                        this.OnJailBreakSuccess(this, c);
+                                    }
                                 }
                             }
+                        }
+                    }
+                    if (!success)
+                    {
+                        if (this.OnJailBreakFailed != null)
+                        {
+                            this.OnJailBreakFailed(this, architectureByPosition);
                         }
                     }
                     if (architectureByPosition.BelongedFaction != this.BelongedFaction)
@@ -5557,6 +5571,8 @@
         public delegate void ConvinceFailed(Person source, Person destination);
 
         public delegate void ConvinceSuccess(Person source, Person destination, Faction oldFaction);
+
+        public delegate void JailBreakFailed(Person source, Architecture destination);
 
         public delegate void JailBreakSuccess(Person source, Captive destination);
 

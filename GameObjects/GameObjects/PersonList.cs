@@ -12,6 +12,7 @@
             if (person.Scenario.GameScreen != null)
             {
                 person.OnJailBreakSuccess += new Person.JailBreakSuccess(person_OnJailBreakSuccess);
+                person.OnJailBreakFailed += new Person.JailBreakFailed(person_OnJailBreakFailed);
                 person.OnConvinceSuccess += new Person.ConvinceSuccess(this.person_OnConvinceSuccess);
                 person.OnConvinceFailed += new Person.ConvinceFailed(this.person_OnConvinceFailed);
                 person.OnInformationObtained += new Person.InformationObtained(this.person_OnInformationObtained);
@@ -298,6 +299,11 @@
         void person_OnJailBreakSuccess(Person source, Captive destination)
         {
             source.Scenario.GameScreen.PersonJailBreak(source, destination);
+        }
+
+        void person_OnJailBreakFailed(Person source, Architecture destination)
+        {
+            source.Scenario.GameScreen.PersonJailBreakFailed(source, destination);
         }
     }
 }

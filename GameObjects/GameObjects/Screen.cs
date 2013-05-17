@@ -454,6 +454,10 @@
         {
         }
 
+        public virtual void PersonJailBreakFailed(Person person, Architecture target)
+        {
+        }
+
         public void PlayImportantSound(string soundFileLocation)
         {
             if (GlobalVariables.PlayBattleSound && File.Exists(soundFileLocation))
