@@ -494,6 +494,8 @@
 
         private void CreateNewFaction(Person leader)
         {
+            if (leader.Status != PersonStatus.Normal && leader.Status != PersonStatus.NoFaction) return;
+
             Faction newFaction = new Faction();
             newFaction.Scenario = this;
             newFaction.ID = this.Factions.GetFreeGameObjectID();
@@ -576,7 +578,7 @@
             }
             foreach (Person p in this.AvailablePersons)
             {
-                if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.Status != PersonStatus.Princess)
+                if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.Status != PersonStatus.Princess && p != leader)
                 {
                     if (p.Father == leader.ID || p.Mother == leader.ID || p.ID == leader.Father || p.ID == leader.Mother ||
                         (p.Father != -1 && p.Father == leader.Father) || (p.Mother != -1 && p.Mother == leader.Mother) ||
@@ -585,21 +587,6 @@
                     {
                         if (p.BelongedFaction == null || (GameObject.Chance(100 - ((int)p.PersonalLoyalty) * 25) && GameObject.Chance(220 - p.Loyalty * 2)))
                         {
-                            /*if (p.BelongedFaction != null)
-                            {
-                                if (p.LocationArchitecture != null)
-                                {
-                                    p.BelongedFaction.RemovePerson(p);
-                                    p.LocationArchitecture.RemovePerson(p);
-                                }
-                            }
-                            else
-                            {
-                                if (p.LocationArchitecture != null)
-                                {
-                                    p.LocationArchitecture.RemoveNoFactionPerson(p);
-                                }
-                            }*/
                             if (p.BelongedFaction != null)
                             {
                                 p.ChangeFaction(newFaction);
@@ -620,7 +607,6 @@
                                 }
                             }
                             p.MoveToArchitecture(newFactionCapital);
-                            //faction.AddPerson(p);
                         }
                     }
                 }
