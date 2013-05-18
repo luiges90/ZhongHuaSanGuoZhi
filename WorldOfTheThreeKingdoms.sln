@@ -9,6 +9,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameGlobal", "GameGlobal\GameGlobal.csproj", "{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterface", "WorldOfTheThreeKingdoms\PluginInterface\PluginInterface.csproj", "{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E13A763D-DC5B-447F-AF3F-392343B8875B} = {E13A763D-DC5B-447F-AF3F-392343B8875B}
+		{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831} = {56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenuPlugin", "ContextMenuPlugin\ContextMenuPlugin.csproj", "{A20F04A4-5271-4DBA-8B78-916A67D75720}"
 EndProject
@@ -19,6 +23,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateTroopPlugin", "CreateTroopPlugin\CreateTroopPlugin.csproj", "{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarshalSectionDialogPlugin", "MarshalSectionDialogPlugin\MarshalSectionDialogPlugin.csproj", "{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21} = {2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}
+		{E13A763D-DC5B-447F-AF3F-392343B8875B} = {E13A763D-DC5B-447F-AF3F-392343B8875B}
+		{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA} = {BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}
+		{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831} = {56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldOfTheThreeKingdoms", "WorldOfTheThreeKingdoms\WorldOfTheThreeKingdoms.csproj", "{2E2F316D-58E4-4D37-A6D5-2918AF7CBEBB}"
 EndProject
@@ -39,6 +49,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tupianwenziPlugin", "tupianwenziPlugin\tupianwenziPlugin.csproj", "{94DD00EF-7247-49A1-95B7-8A157F764DCB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFreeText", "GameFreeText\GameFreeText.csproj", "{E13A763D-DC5B-447F-AF3F-392343B8875B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA} = {BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}
+		{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831} = {56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginServices", "WorldOfTheThreeKingdoms\PluginServices\PluginServices.csproj", "{ADC4D535-C7CA-415A-8F0B-81AF3525EBD5}"
 EndProject

@@ -13,7 +13,6 @@ using WorldOfTheThreeKingdoms.GameForms;
 
 
 namespace WorldOfTheThreeKingdoms.GameProcesses
-
 {
     internal class MainProcessManager
     {
@@ -45,7 +44,4 @@ namespace WorldOfTheThreeKingdoms.GameProcesses
             mainGame.SaveGameWhenCrash(_savePath);
         }
     }
-
- 
-
 }

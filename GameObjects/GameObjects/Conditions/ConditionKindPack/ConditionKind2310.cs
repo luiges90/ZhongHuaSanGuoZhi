@@ -10,17 +10,12 @@
 
         public override bool CheckConditionKind(Architecture a)
         {
-            return a.meinvkongjian() >= val;
+            return a.Meinvkongjian >= val;
         }
 
         public override bool CheckConditionKind(Faction faction)
         {
-            int result = 0;
-            foreach (Architecture a in faction.Architectures)
-            {
-                result += a.meinvkongjian();
-            }
-            return result >= val;
+            return faction.meinvkongjian() >= val;
         }
 
         public override void InitializeParameter(string parameter)

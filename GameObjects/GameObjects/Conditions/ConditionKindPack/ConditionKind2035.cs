@@ -22,9 +22,11 @@
                 if (p.Politics < val)
                 {
                     i++;
+                    if (i >= cnt)
+                        return true;
                 }
             }
-            return i >= cnt;
+            return false;
         }
 
         public override void InitializeParameter(string parameter)

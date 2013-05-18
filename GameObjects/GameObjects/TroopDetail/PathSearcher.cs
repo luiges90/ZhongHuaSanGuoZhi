@@ -15,7 +15,7 @@
             return false;
         }
 
-        internal delegate PathResult CheckPosition(Point position, List<Point> middlePath);
+        internal delegate PathResult CheckPosition(Point position, List<Point> middlePath, MilitaryKind kind);
     }
 }
 

@@ -809,6 +809,7 @@
                                 maxFightingAbility = this.CreatingTroop.FightingForce;
                                 selectedLeader = p;
                             }
+
                         }
                     }
                     this.CreatingLeader = selectedLeader;

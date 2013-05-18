@@ -731,6 +731,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+
 		<Column ID="170" Name="Tiredness" IsNumber="true" DisplayName="疲累度" MinWidth="80"
 				FontName="宋体"
 				FontSize="11"

@@ -40,14 +40,14 @@
             this.conflictionPathSearcher.OnCheckPosition += new PathSearcher.CheckPosition(this.conflictionPathSearcher_OnCheckPosition);
         }
 
-        private bool BuildFirstTierPath(Point start, Point end)
+        private bool BuildFirstTierPath(Point start, Point end, MilitaryKind kind)
         {
             this.troop.ClearFirstTierPath();
             if (end == this.troop.Destination)
             {
                 this.troop.ClearSecondTierPath();
             }
-            if (this.firstTierPathFinder.GetPath(start, end))
+            if (this.firstTierPathFinder.GetPath(start, end, kind))
             {
                 this.troop.FirstTierPath = new List<Point>();
                 this.firstTierPathFinder.SetPath(this.troop.FirstTierPath);
@@ -59,9 +59,9 @@
             return true;
         }
 
-        private List<Point> BuildFirstTierSimulatePath(Point start, Point end)
+        private List<Point> BuildFirstTierSimulatePath(Point start, Point end, MilitaryKind kind)
         {
-            if (this.firstTierPathFinder.GetPath(start, end))
+            if (this.firstTierPathFinder.GetPath(start, end, kind))
             {
                 List<Point> path = new List<Point>();
                 this.firstTierPathFinder.SetPath(path);
@@ -70,9 +70,9 @@
             return null;
         }
 
-        private bool BuildModifyFirstTierPath(Point start, Point end, List<Point> middlePath)
+        private bool BuildModifyFirstTierPath(Point start, Point end, List<Point> middlePath, MilitaryKind kind)
         {
-            if (this.firstTierPathFinder.GetPath(start, end))
+            if (this.firstTierPathFinder.GetPath(start, end, kind))
             {
                 this.firstTierPathFinder.SetPath(middlePath);
                 return true;
@@ -81,7 +81,7 @@
             return false;
         }
 
-        private PathResult conflictionPathSearcher_OnCheckPosition(Point position, List<Point> middlePath)
+        private PathResult conflictionPathSearcher_OnCheckPosition(Point position, List<Point> middlePath, MilitaryKind kind)
         {
             TroopList list = new TroopList();
             TroopList list2 = new TroopList();
@@ -141,7 +141,7 @@
                     {
                     }
                 }*/
-                flag = this.ModifyFirstTierPath(this.troop.Position, this.troop.FirstTierDestination, middlePath);
+                flag = this.ModifyFirstTierPath(this.troop.Position, this.troop.FirstTierDestination, middlePath, kind);
                 foreach (Troop troop in list)
                 {
                     switch (this.troop.HostileAction)
@@ -178,21 +178,21 @@
             return PathResult.Aborted;
         }
 
-        public void FindFirstTierPath(Point start, Point end, List<Point> list)
+        public void FindFirstTierPath(Point start, Point end, List<Point> list, MilitaryKind kind)
         {
             this.Start = start;
             this.End = end;
             this.troop.MovabilityLeft = this.troop.Movability;
-            if (this.troop.GetPossibleMoveByPosition(end) >= 0xdac)
+            if (this.troop.GetPossibleMoveByPosition(end, kind) >= 0xdac)
             {
-                if (this.movableAreaSearcher.Search(end, start, GameObjectConsts.FindMovableDestinationMaxCheckCount))
+                if (this.movableAreaSearcher.Search(end, start, GameObjectConsts.FindMovableDestinationMaxCheckCount, kind))
                 {
                     if (this.CurrentDestination == this.End)
                     {
                         this.troop.MovabilityLeft = -1;
                         return;
                     }
-                    if (this.firstTierPathFinder.GetPath(this.Start, this.CurrentDestination))
+                    if (this.firstTierPathFinder.GetPath(this.Start, this.CurrentDestination, kind))
                     {
                         this.firstTierPathFinder.SetPath(list);
                     }
@@ -201,7 +201,7 @@
             }
             else
             {
-                if (this.firstTierPathFinder.GetPath(this.Start, this.End))
+                if (this.firstTierPathFinder.GetPath(this.Start, this.End, kind))
                 {
                     this.firstTierPathFinder.SetPath(list);
                 }
@@ -209,12 +209,12 @@
             }
         }
 
-        private int firstTierPathFinder_OnGetCost(Point position, bool oblique, int DirectionCost)
+        private int firstTierPathFinder_OnGetCost(Point position, bool oblique, int DirectionCost, MilitaryKind kind)
         {
-            return this.troop.GetCostByPosition(position, oblique, DirectionCost);
+            return this.troop.GetCostByPosition(position, oblique, DirectionCost, kind);
         }
 
-        private int firstTierPathFinder_OnGetPenalizedCost(Point position)
+        private int firstTierPathFinder_OnGetPenalizedCost(Point position, MilitaryKind kind)
         {
             if (this.troop.Scenario.PositionOutOfRange(position)) return 0;
             return this.troop.Scenario.PenalizedMapData[position.X, position.Y];
@@ -225,55 +225,55 @@
             return this.firstTierPathFinder.GetDayArea(this.troop, Days);
         }
 
-        public bool GetFirstTierPath(Point start, Point end)
+        public bool GetFirstTierPath(Point start, Point end, MilitaryKind kind)
         {
             this.Start = start;
             this.End = end;
-            if (this.troop.GetPossibleMoveByPosition(end) >= 0xdac)
+            if (this.troop.GetPossibleMoveByPosition(end, kind) >= 0xdac)
             {
-                if (this.movableAreaSearcher.Search(end, start, GameObjectConsts.FindMovableDestinationMaxCheckCount))
+                if (this.movableAreaSearcher.Search(end, start, GameObjectConsts.FindMovableDestinationMaxCheckCount, kind))
                 {
                     if (this.CurrentDestination == this.End)
                     {
                         this.troop.FirstTierPath = new List<Point>();
                         return true;
                     }
-                    return this.BuildFirstTierPath(start, this.CurrentDestination);
+                    return this.BuildFirstTierPath(start, this.CurrentDestination, kind);
                 }
                 return false;
             }
-            return this.BuildFirstTierPath(start, end);
+            return this.BuildFirstTierPath(start, end, kind);
         }
 
-        public List<Point> GetFirstTierSimulatePath(Point start, Point end)
+        public List<Point> GetFirstTierSimulatePath(Point start, Point end, MilitaryKind kind)
         {
             this.Start = start;
             this.End = end;
-            if (this.troop.GetPossibleMoveByPosition(end) >= 0xdac)
+            if (this.troop.GetPossibleMoveByPosition(end, kind) >= 0xdac)
             {
-                if (this.movableAreaSearcher.Search(end, start, GameObjectConsts.FindMovableDestinationMaxCheckCount))
+                if (this.movableAreaSearcher.Search(end, start, GameObjectConsts.FindMovableDestinationMaxCheckCount, kind))
                 {
-                    return this.BuildFirstTierSimulatePath(start, this.CurrentDestination);
+                    return this.BuildFirstTierSimulatePath(start, this.CurrentDestination, kind);
                 }
                 return null;
             }
-            return this.BuildFirstTierSimulatePath(start, end);
+            return this.BuildFirstTierSimulatePath(start, end, kind);
         }
 
-        public bool GetPath(Point start, Point end)
+        public bool GetPath(Point start, Point end, MilitaryKind kind)
         {
-            if (Troop.LaunchThirdPathFinder(start, end))
+            if (Troop.LaunchThirdPathFinder(start, end, kind))
             {
-                return this.GetThirdTierPath(start, end);
+                return this.GetThirdTierPath(start, end, kind);
             }
-            if (Troop.LaunchSecondPathFinder(start, end))
+            if (Troop.LaunchSecondPathFinder(start, end, kind))
             {
-                return this.GetSecondTierPath(start, end);
+                return this.GetSecondTierPath(start, end, kind);
             }
-            return this.GetFirstTierPath(start, end);
+            return this.GetFirstTierPath(start, end, kind);
         }
 
-        public bool GetSecondTierPath(Point start, Point end)
+        public bool GetSecondTierPath(Point start, Point end, MilitaryKind kind)
         {
             this.troop.ClearSecondTierPath();
             if (end == this.troop.Destination)
@@ -285,7 +285,7 @@
             this.troop.SecondTierPath = this.troop.BelongedFaction.GetSecondTierKnownPath(point, point2);
             if (this.troop.SecondTierPath == null)
             {
-                if (this.secondTierPathFinder.GetPath(point, point2))
+                if (this.secondTierPathFinder.GetPath(point, point2, kind))
                 {
                     this.troop.SecondTierPath = new List<Point>();
                     this.secondTierPathFinder.SetPath(this.troop.SecondTierPath);
@@ -298,10 +298,10 @@
             return false;
         }
 
-        public List<Point> GetSimplePath(Point start, Point end)
+        public List<Point> GetSimplePath(Point start, Point end, MilitaryKind kind)
         {
             List<Point> path = new List<Point>();
-            if (this.simplePathFinder.GetPath(start, end))
+            if (this.simplePathFinder.GetPath(start, end, kind))
             {
                 path = new List<Point>();
                 this.simplePathFinder.SetPath(path);
@@ -310,7 +310,7 @@
             return path;
         }
 
-        public bool GetThirdTierPath(Point start, Point end)
+        public bool GetThirdTierPath(Point start, Point end, MilitaryKind kind)
         {
             this.troop.ClearThirdTierPath();
             Point point = new Point(start.X / GameObjectConsts.ThirdTierSquareSize, start.Y / GameObjectConsts.ThirdTierSquareSize);
@@ -318,7 +318,7 @@
             this.troop.ThirdTierPath = this.troop.BelongedFaction.GetThirdTierKnownPath(point, point2);
             if (this.troop.ThirdTierPath == null)
             {
-                if (this.thirdTierPathFinder.GetPath(point, point2))
+                if (this.thirdTierPathFinder.GetPath(point, point2, kind))
                 {
                     this.troop.ThirdTierPath = new List<Point>();
                     this.thirdTierPathFinder.SetPath(this.troop.ThirdTierPath);
@@ -330,15 +330,15 @@
             return false;
         }
 
-        private bool ModifyFirstTierPath(Point start, Point end, List<Point> middlePath)
+        private bool ModifyFirstTierPath(Point start, Point end, List<Point> middlePath, MilitaryKind kind)
         {
             this.Start = start;
             this.End = end;
-            if (this.troop.GetPossibleMoveByPosition(end) >= 0xdac)
+            if (this.troop.GetPossibleMoveByPosition(end, kind) >= 0xdac)
             {
-                return (this.movableAreaSearcher.Search(end, start, GameObjectConsts.FindMovableDestinationMaxCheckCount) && this.BuildModifyFirstTierPath(start, this.CurrentDestination, middlePath));
+                return (this.movableAreaSearcher.Search(end, start, GameObjectConsts.FindMovableDestinationMaxCheckCount, kind) && this.BuildModifyFirstTierPath(start, this.CurrentDestination, middlePath, kind));
             }
-            return this.BuildModifyFirstTierPath(start, end, middlePath);
+            return this.BuildModifyFirstTierPath(start, end, middlePath, kind);
         }
 
         public bool ModifyPathByConfliction(Troop troop, int StartingIndex)
@@ -346,9 +346,9 @@
             return this.conflictionPathSearcher.Search(troop, StartingIndex, troop.ViewRadius);
         }
 
-        private bool movableAreaSearcher_OnCompare(Point position)
+        private bool movableAreaSearcher_OnCompare(Point position, MilitaryKind kind)
         {
-            if (this.troop.GetPossibleMoveByPosition(position) >= 0xdac)
+            if (this.troop.GetPossibleMoveByPosition(position, kind) >= 0xdac)
             {
                 return false;
             }
@@ -360,29 +360,29 @@
             return true;
         }
 
-        private int movableAreaSearcher_OnGetCost(Point position, bool oblique)
+        private int movableAreaSearcher_OnGetCost(Point position, bool oblique, MilitaryKind kind)
         {
-            return this.troop.GetCostByPosition(position, false, -1);
+            return this.troop.GetCostByPosition(position, false, -1, kind);
         }
 
-        private int secondTierPathFinder_OnGetCost(Point position, bool oblique, int DirectionCost)
+        private int secondTierPathFinder_OnGetCost(Point position, bool oblique, int DirectionCost, MilitaryKind kind)
         {
             return this.troop.GetCostBySecondTierPosition(position);
         }
 
-        private int simplePathFinder_OnGetCost(Point position, bool Oblique, int DirectionCost)
+        private int simplePathFinder_OnGetCost(Point position, bool Oblique, int DirectionCost, MilitaryKind kind)
         {
             return 1;
         }
 
-        private int thirdTierPathFinder_OnGetCost(Point position, bool oblique, int DirectionCost)
+        private int thirdTierPathFinder_OnGetCost(Point position, bool oblique, int DirectionCost, MilitaryKind kind)
         {
             return this.troop.GetCostByThirdTierPosition(position);
         }
 
-        private int troopAreaSearcher_OnGetCost(Point position, bool oblique)
+        private int troopAreaSearcher_OnGetCost(Point position, bool oblique, MilitaryKind kind)
         {
-            return this.troop.GetCostByPosition(position, oblique, -1);
+            return this.troop.GetCostByPosition(position, oblique, -1, kind);
         }
     }
 }

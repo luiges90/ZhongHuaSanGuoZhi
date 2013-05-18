@@ -8,204 +8,68 @@
 
     public class TierPathFinder
     {
-        private int BottomSquareCost;
+        //private int BottomSquareCost;
+        //private int LeftSquareCost;
+        //private Dictionary<Point, GameSquare> openDictionary = new Dictionary<Point, GameSquare>();
+        //private int RightSquareCost;
+        //private int TopSquareCost;
+        //private Point endPoint;
+        private Dictionary<Point, GameSquare> openDictionary = new Dictionary<Point, GameSquare>();
+        private SortedList<int, GameSquare> openList = new SortedList<int, GameSquare>();
         private Dictionary<Point, GameSquare> closeDictionary = new Dictionary<Point, GameSquare>();
         private List<GameSquare> closeList = new List<GameSquare>();
-        private int LeftSquareCost;
-        private Dictionary<Point, GameSquare> openDictionary = new Dictionary<Point, GameSquare>();
-        private List<GameSquare> openList = new List<GameSquare>();
-        private int RightSquareCost;
-        private int TopSquareCost;
-
+        
         public event GetCost OnGetCost;
 
         public event GetPenalizedCost OnGetPenalizedCost;
 
+        private int distance(Point a, Point b)
+        {
+            return (Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y)) * 30; // 25 = 5 * 5 (5 for the map cost and 5 for Movability multiplier) (a little overestimate is better, use 30)            
+        }
+
         private GameSquare AddToCloseList()
         {
-            GameSquare item = this.RemoveFromOpenList();
-            if ((item != null) && !this.IsInCloseList(item.Position))
-            {
-                this.closeList.Add(item);
-                this.closeDictionary.Add(item.Position, item);
-            }
-            return item;
+            GameSquare square = this.RemoveFromOpenList();
+            closeList.Add(square);
+            closeDictionary.Add(square.Position, square);
+            return square;
         }
 
         private void AddToCloseList(GameSquare square)
         {
-            if (!this.closeDictionary.ContainsKey(square.Position))
-            {
-                this.closeList.Add(square);
-                this.closeDictionary.Add(square.Position, square);
-            }
+            closeList.Add(square);
+            closeDictionary.Add(square.Position, square);
         }
 
-        private void AddToOpenList(GameSquare square)
+        private void AddToOpenList(GameSquare square, bool useAStar)
         {
-            if (!this.IsInOpenList(square.Position))
-            {
-                this.openList.Add(square);
-                int x = this.openList.Count - 1;
-                square.Index = x;
-                for (int i = (x - 1) / 2; this.openList[x].F < this.openList[i].F; i = (x - 1) / 2)
-                {
-                    this.SwapSquare(x, i, this.openList);
-                    if (i == 0)
-                    {
-                        break;
-                    }
-                    x = i;
-                }
-                this.openDictionary.Add(square.Position, square);
-            }
+            int key = 0;
+            if (useAStar) // A* search
+                key = square.F * 40000 + (square.Position.X * 200 + square.Position.Y); // to break tie because Dictionary doesn't allow duplicate keys (only need square.F)
+            else          // least cost first search
+                key = square.G * 40000 + (square.Position.X * 200 + square.Position.Y);
+            openList.Add(key, square);
+            openDictionary.Add(square.Position, square);
         }
 
-        private void CheckAdjacentSquares(GameSquare currentSquare, Point end)
+        private void CheckAdjacentSquares(GameSquare currentSquare, Point end, bool useAStar, MilitaryKind kind)
         {
-            int num = end.X - currentSquare.Position.X;
-            int num2 = end.Y - currentSquare.Position.Y;
-            int num3 = (num > 0) ? 1 : -1;
-            int num4 = (num2 > 0) ? 1 : -1;
-            if (num2 == 0)
-            {
-                num4 = 0;
-            }
-            else if (Math.Abs((decimal) (num / num2)) > 2M)
-            {
-                num4 = 0;
-            }
-            if (num == 0)
-            {
-                num3 = 0;
-            }
-            else if (Math.Abs((decimal) (num2 / num)) > 2M)
-            {
-                num3 = 0;
-            }
-            switch (num3)
-            {
-                case -1:
-                    switch (num4)
-                    {
-                        case -1:
-                            this.LeftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1);
-                            this.TopSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1);
-                            this.RightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1);
-                            this.BottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.LeftSquareCost) ? this.TopSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.LeftSquareCost) ? this.BottomSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.RightSquareCost) ? this.TopSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.RightSquareCost) ? this.BottomSquareCost : this.RightSquareCost);
-                            break;
-
-                        case 0:
-                            this.LeftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1);
-                            this.TopSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1);
-                            this.BottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1);
-                            this.RightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.LeftSquareCost) ? this.TopSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.LeftSquareCost) ? this.BottomSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.RightSquareCost) ? this.TopSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.RightSquareCost) ? this.BottomSquareCost : this.RightSquareCost);
-                            break;
-
-                        case 1:
-                            this.LeftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1);
-                            this.BottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1);
-                            this.RightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1);
-                            this.TopSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.LeftSquareCost) ? this.BottomSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.LeftSquareCost) ? this.TopSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.RightSquareCost) ? this.BottomSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.RightSquareCost) ? this.TopSquareCost : this.RightSquareCost);
-                            break;
-                    }
-                    break;
-
-                case 0:
-                    switch (num4)
-                    {
-                        case -1:
-                            this.TopSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1);
-                            this.LeftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1);
-                            this.RightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1);
-                            this.BottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.RightSquareCost) ? this.TopSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.LeftSquareCost) ? this.TopSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.LeftSquareCost) ? this.BottomSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.RightSquareCost) ? this.BottomSquareCost : this.RightSquareCost);
-                            break;
-
-                        case 0:
-                            this.LeftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1);
-                            this.RightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1);
-                            this.TopSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1);
-                            this.BottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.LeftSquareCost) ? this.TopSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.RightSquareCost) ? this.TopSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.RightSquareCost) ? this.BottomSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.LeftSquareCost) ? this.BottomSquareCost : this.LeftSquareCost);
-                            break;
-
-                        case 1:
-                            this.BottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1);
-                            this.LeftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1);
-                            this.RightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1);
-                            this.TopSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.LeftSquareCost) ? this.BottomSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.RightSquareCost) ? this.BottomSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.RightSquareCost) ? this.TopSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.LeftSquareCost) ? this.TopSquareCost : this.LeftSquareCost);
-                            break;
-                    }
-                    break;
-
-                case 1:
-                    switch (num4)
-                    {
-                        case -1:
-                            this.RightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1);
-                            this.TopSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1);
-                            this.LeftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1);
-                            this.BottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.RightSquareCost) ? this.TopSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.LeftSquareCost) ? this.TopSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.RightSquareCost) ? this.BottomSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.LeftSquareCost) ? this.BottomSquareCost : this.LeftSquareCost);
-                            break;
-
-                        case 0:
-                            this.RightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1);
-                            this.TopSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1);
-                            this.BottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1);
-                            this.LeftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.RightSquareCost) ? this.TopSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.RightSquareCost) ? this.BottomSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.LeftSquareCost) ? this.TopSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.LeftSquareCost) ? this.BottomSquareCost : this.LeftSquareCost);
-                            break;
-
-                        case 1:
-                            this.RightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1);
-                            this.BottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1);
-                            this.LeftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1);
-                            this.TopSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.RightSquareCost) ? this.BottomSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (this.BottomSquareCost > this.LeftSquareCost) ? this.BottomSquareCost : this.LeftSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.RightSquareCost) ? this.TopSquareCost : this.RightSquareCost);
-                            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (this.TopSquareCost > this.LeftSquareCost) ? this.TopSquareCost : this.LeftSquareCost);
-                            break;
-                    }
-                    break;
-            }
+            int leftSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y), end, -1, useAStar, kind);
+            int topSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y - 1), end, -1, useAStar, kind);
+            int rightSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y), end, -1, useAStar, kind);
+            int bottomSquareCost = this.MakeSquare(currentSquare, false, new Point(currentSquare.Position.X, currentSquare.Position.Y + 1), end, -1, useAStar, kind);
+            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y - 1), end, (topSquareCost > leftSquareCost) ? topSquareCost : leftSquareCost, useAStar, kind);
+            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X - 1, currentSquare.Position.Y + 1), end, (bottomSquareCost > leftSquareCost) ? bottomSquareCost : leftSquareCost, useAStar, kind);
+            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y - 1), end, (topSquareCost > rightSquareCost) ? topSquareCost : rightSquareCost, useAStar, kind);
+            this.MakeSquare(currentSquare, true, new Point(currentSquare.Position.X + 1, currentSquare.Position.Y + 1), end, (bottomSquareCost > rightSquareCost) ? bottomSquareCost : rightSquareCost, useAStar, kind);
         }
 
-        private int GetCostByPosition(Point position, bool oblique, int DirectionCost)
+        private int GetCostByPosition(Point position, bool oblique, int DirectionCost, MilitaryKind kind)
         {
             if (this.OnGetCost != null)
             {
-                return this.OnGetCost(position, oblique, DirectionCost);
+                return this.OnGetCost(position, oblique, DirectionCost, kind);
             }
             return 0xdac;
         }
@@ -213,64 +77,53 @@
         public GameArea GetDayArea(Troop troop, int Days)
         {
             GameArea area = new GameArea();
-            this.openDictionary.Clear();
-            this.closeDictionary.Clear();
-            this.openList.Clear();
-            this.closeList.Clear();
+            openDictionary.Clear();
+            openList.Clear();
+            closeDictionary.Clear();
+            closeList.Clear();
             GameSquare square = new GameSquare();
             square.Position = troop.Position;
             this.AddToCloseList(square);
             int num = troop.Movability * Days;
             int movabilityLeft = troop.MovabilityLeft;
-            int num3 = troop.RealMovability * Days;
+            //int num3 = troop.RealMovability * Days;
             troop.MovabilityLeft = num;
-            int num4 = 0;
+            MilitaryKind kind = troop.Army.Kind;
             do
             {
-                try
+                CheckAdjacentSquares(square, troop.Position, false, kind);
+                if (this.openList.Count == 0)
                 {
-                    this.CheckAdjacentSquares(square, troop.Position);
-                    if (this.openList.Count == 0)
+                    break;
+                }
+                square = this.AddToCloseList();
+                if (square == null)
+                {
+                    break;
+                }
+                if (num >= square.G)
+                {
+                    if (!troop.Scenario.PositionIsTroop(square.Position))
                     {
-                        break;
-                    }
-                    square = this.AddToCloseList();
-                    if (square == null)
-                    {
-                        break;
-                    }
-                    if (num >= square.G)
-                    {
-                        if (!troop.Scenario.PositionIsTroop(square.Position))
-                        {
-                            area.AddPoint(square.Position);
-                        }
-                        num4 = 0;
-                    }
-                    else
-                    {
-                        num4++;
+                        area.AddPoint(square.Position);
                     }
                 }
-                catch (OutOfMemoryException)
+                else
                 {
-                    openList.Clear();
-                    closeList.Clear();
-                    return area;
+                    break;
                 }
-            }
-            while (num4 < (num3 * 2));
+            } while (true);
             troop.MovabilityLeft = movabilityLeft;
             return area;
         }
 
-        public bool GetPath(Point start, Point end)
+        public bool GetPath(Point start, Point end, MilitaryKind kind)
         {
             bool flag = false;
-            this.openDictionary.Clear();
-            this.closeDictionary.Clear();
-            this.openList.Clear();
-            this.closeList.Clear();
+            openDictionary.Clear();
+            openList.Clear();
+            closeDictionary.Clear();
+            closeList.Clear();
             GameSquare square = new GameSquare();
             square.Position = start;
             this.AddToCloseList(square);
@@ -280,70 +133,57 @@
             }
             do
             {
-                try
+                CheckAdjacentSquares(square, end, true, kind);
+                if (this.openList.Count == 0)
                 {
-                    this.CheckAdjacentSquares(square, end);
-                    if (this.openList.Count == 0)
-                    {
-                        break;
-                    }
-                    square = this.AddToCloseList();
-                    if (square == null)
-                    {
-                        break;
-                    }
-                    flag = square.Position == end;
+                    break;
                 }
-                catch (OutOfMemoryException)
+                square = this.AddToCloseList();
+                if (square == null)
                 {
-                    openList.Clear();
-                    closeList.Clear();
-                    return false;
+                    break;
                 }
+                flag = square.Position == end;
             }
             while (!flag && (square.RealG < 0xdac));
             return flag;
         }
 
-        private int GetPenalizedCostByPosition(Point position)
+        private int GetPenalizedCostByPosition(Point position, MilitaryKind kind)
         {
             if (this.OnGetPenalizedCost != null)
             {
-                return this.OnGetPenalizedCost(position);
+                return this.OnGetPenalizedCost(position, kind);
             }
             return 0;
         }
 
         private GameSquare GetSquareFromOpenList(Point position)
         {
-            if (this.openDictionary.ContainsKey(position))
+            if (IsInOpenList(position))
             {
-                return this.openDictionary[position];
+                return openDictionary[position];
             }
             return null;
         }
 
         private bool IsInCloseList(Point position)
         {
-            return this.closeDictionary.ContainsKey(position);
+            return closeDictionary.ContainsKey(position);
         }
 
         private bool IsInOpenList(Point position)
         {
-            return this.openDictionary.ContainsKey(position);
+            return openDictionary.ContainsKey(position);
         }
 
-        private int MakeSquare(GameSquare currentSquare, bool oblique, Point position, Point end, int DirectionCost)
+        private int MakeSquare(GameSquare currentSquare, bool oblique, Point position, Point end, int DirectionCost, bool useAStar, MilitaryKind kind)
         {
-            int num = this.GetCostByPosition(position, oblique, DirectionCost);
-            if (!this.IsInCloseList(position))
+            int num = this.GetCostByPosition(position, oblique, DirectionCost, kind);
+            if (!this.IsInCloseList(position) && (num < 0xdac))
             {
-                int num2;
-                if (num >= 0xdac)
-                {
-                    return num;
-                }
                 GameSquare square = new GameSquare();
+                int num2;
                 if (oblique)
                 {
                     num2 = currentSquare.RealG + (7 * num);
@@ -357,16 +197,26 @@
                 {
                     square.Parent = currentSquare;
                     square.Position = position;
-                    square.PenalizedCost = this.GetPenalizedCostByPosition(position);
-                    square.H = (Math.Abs((int) (end.X - position.X)) + Math.Abs((int) (end.Y - position.Y))) * 5;
+                    square.PenalizedCost = this.GetPenalizedCostByPosition(position, kind);
+                    if (useAStar)
+                        square.H = distance(position, end);
                     square.RealG = num2;
-                    this.AddToOpenList(square);
+                    this.AddToOpenList(square, useAStar);
                 }
                 else if (num2 < squareFromOpenList.RealG)
                 {
-                    squareFromOpenList.Parent = currentSquare;
-                    squareFromOpenList.RealG = num2;
-                    this.UpResortOpenList(squareFromOpenList, squareFromOpenList.Index);
+                    openDictionary.Remove(position);
+                    if (useAStar)
+                        openList.Remove(squareFromOpenList.F * 40000 + (squareFromOpenList.Position.X * 200 + squareFromOpenList.Position.Y));
+                    else
+                        openList.Remove(squareFromOpenList.G * 40000 + (squareFromOpenList.Position.X * 200 + squareFromOpenList.Position.Y));
+                    square.Parent = currentSquare;
+                    square.Position = position;
+                    square.PenalizedCost = this.GetPenalizedCostByPosition(position, kind);
+                    if (useAStar)
+                        square.H = distance(position, end);
+                    square.RealG = num2;
+                    this.AddToOpenList(square, useAStar);
                 }
             }
             return num;
@@ -374,41 +224,14 @@
 
         private GameSquare RemoveFromOpenList()
         {
-            if (this.openList.Count <= 0)
+            if (openDictionary.Count <= 0)
             {
                 return null;
             }
-            this.SwapSquare(0, this.openList.Count - 1, this.openList);
-            GameSquare square = this.openList[this.openList.Count - 1];
-            square.Index = -1;
-            this.openList.RemoveAt(this.openList.Count - 1);
-            this.openDictionary.Remove(square.Position);
-            int x = 0;
-            int y = x;
-            while (true)
-            {
-                if (((x * 2) + 2) < this.openList.Count)
-                {
-                    if (this.openList[x].F > this.openList[(x * 2) + 1].F)
-                    {
-                        y = (x * 2) + 1;
-                    }
-                    if (this.openList[y].F > this.openList[y + 1].F)
-                    {
-                        y++;
-                    }
-                }
-                else if ((((x * 2) + 1) < this.openList.Count) && (this.openList[x].F > this.openList[(x * 2) + 1].F))
-                {
-                    y = (x * 2) + 1;
-                }
-                if (y == x)
-                {
-                    return square;
-                }
-                this.SwapSquare(x, y, this.openList);
-                x = y;
-            }
+            GameSquare square = openList.Values[0];
+            openList.RemoveAt(0);
+            openDictionary.Remove(square.Position);
+            return square;
         }
 
         public void SetPath(List<Point> path)
@@ -428,41 +251,9 @@
             }
         }
 
-        private void SwapSquare(int x, int y, List<GameSquare> list)
-        {
-            GameSquare square = list[x];
-            list[x] = list[y];
-            list[y] = square;
-            list[x].Index = x;
-            list[y].Index = y;
-        }
+        public delegate int GetCost(Point position, bool Oblique, int DirectionCost, MilitaryKind kind);
 
-        private void UpResortOpenList(GameSquare square, int index)
-        {
-            if (index != 0)
-            {
-                int x = index;
-                int y = (x - 1) / 2;
-                while (true)
-                {
-                    if (this.openList[x].F >= this.openList[y].F)
-                    {
-                        return;
-                    }
-                    this.SwapSquare(x, y, this.openList);
-                    if (y == 0)
-                    {
-                        return;
-                    }
-                    x = y;
-                    y = (x - 1) / 2;
-                }
-            }
-        }
-
-        public delegate int GetCost(Point position, bool Oblique, int DirectionCost);
-
-        public delegate int GetPenalizedCost(Point position);
+        public delegate int GetPenalizedCost(Point position, MilitaryKind kind);
     }
 }
 

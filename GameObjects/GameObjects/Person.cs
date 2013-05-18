@@ -130,6 +130,7 @@
         private float nubingExperience;
         private int oldFactionID = -1;
         public ArchitectureWorkKind OldWorkKind = ArchitectureWorkKind.无;
+        public ArchitectureWorkKind firstPreferred = ArchitectureWorkKind.无;
         private Point? outsideDestination;
         private OutsideTaskKind outsideTask;
         private int personalLoyalty;
@@ -243,6 +244,14 @@
         public int StratagemFailCount { get; set; }
         public int StratagemBeSuccessCount { get; set; }
         public int StratagemBeFailCount { get; set; }
+
+        private int agricultureAbility = 0; // 缓存这几个变量
+        private int commerceAbility = 0;
+        private int technologyAbility = 0;
+        private int moraleAbility = 0;
+        private int dominationAbility = 0;
+        private int enduranceAbility = 0;
+        private int trainingAbility = 0;
 
         public int ServedYears
         {
@@ -879,8 +888,6 @@
 
         private void CheckDeath()
         {
-
-
             if ((GlobalVariables.PersonNaturalDeath && ((this.LocationArchitecture != null) && !this.IsCaptive)) && (this.alive && ((((((this.DeadReason == PersonDeadReason.自然死亡) && (this.YearDead <= base.Scenario.Date.Year)) && (GameObject.Random(base.Scenario.Date.LeftDays * ((1 + this.YearDead) - base.Scenario.Date.Year)) == 0)) || (((this.DeadReason == PersonDeadReason.被杀死) && (this.Age >= 80)) && (GameObject.Random(90) == 0))) || ((((this.DeadReason == PersonDeadReason.郁郁而终) && (this.YearDead <= base.Scenario.Date.Year)) && (((this.Age >= 80) || (this.BelongedFaction == null)) || ((this.BelongedFaction.Leader != this) || (this.BelongedFaction.ArchitectureTotalSize < 8)))) && (GameObject.Random(90) == 0))) || ((((this.DeadReason == PersonDeadReason.操劳过度) && (this.YearDead <= base.Scenario.Date.Year)) && ((this.Age >= 80) || ((((((((this.InternalExperience + this.TacticsExperience) + this.StratagemExperience) + this.BubingExperience) + this.NubingExperience) + this.QibingExperience) + this.QibingExperience) + this.ShuijunExperience) > 0x7530))) && (GameObject.Random(90) == 0)))))
             {
                 this.ToDeath();
@@ -1024,6 +1031,13 @@
                 this.huaiyunshijian();
                 this.doNotMovePeriodReduction();
             }
+            agricultureAbility = 0;
+            commerceAbility = 0;
+            technologyAbility = 0;
+            moraleAbility = 0;
+            dominationAbility = 0;
+            enduranceAbility = 0;
+            trainingAbility = 0;
         }
 
         private void huaiyunshijian()
@@ -2433,6 +2447,8 @@
                 this.ArrivingDays = 10;
                 this.TaskDays = this.ArrivingDays;
                 this.Status = PersonStatus.Moving;
+                this.LocationArchitecture.Persons.Remove(this);
+                this.LocationArchitecture.MovingPersons.Add(this);
 				ExtensionInterface.call("GoForSearch", new Object[] { this.Scenario, this });
             }
         }
@@ -2463,8 +2479,10 @@
                 this.OutsideTask = OutsideTaskKind.技能;
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = Math.Max(1, Parameters.LearnSkillDays);
-                this.TaskDays = this.ArrivingDays;
                 this.Status = PersonStatus.Moving;
+                this.TaskDays = this.ArrivingDays;
+                this.LocationArchitecture.Persons.Remove(this);
+                this.LocationArchitecture.MovingPersons.Add(this);
 				ExtensionInterface.call("GoForStudySkill", new Object[] { this.Scenario, this });
             }
         }
@@ -2479,6 +2497,8 @@
                 this.ArrivingDays = Math.Max(1, Parameters.LearnStuntDays);
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
+                this.LocationArchitecture.Persons.Remove(this);
+                this.LocationArchitecture.MovingPersons.Add(this);
 				ExtensionInterface.call("GoForStudyStunt", new Object[] { this.Scenario, this });
             }
         }
@@ -2493,6 +2513,8 @@
                 this.ArrivingDays = Math.Max(1, this.LocationArchitecture.DayLearnTitleDay);
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
+                this.LocationArchitecture.Persons.Remove(this);
+                this.LocationArchitecture.MovingPersons.Add(this);
 				ExtensionInterface.call("GoForStudyTitle", new Object[] { this.Scenario, this });
             }
         }
@@ -2502,6 +2524,8 @@
             this.TargetArchitecture = this.LocationArchitecture;
             this.ArrivingDays = base.Scenario.GetReturnDays(destination, this.TargetArchitecture.ArchitectureArea);
             this.Status = PersonStatus.Moving;
+            this.LocationArchitecture.Persons.Remove(this);
+            this.LocationArchitecture.MovingPersons.Add(this);
         }
 
         private void HandleSpyMessage(SpyMessage sm)
@@ -2659,7 +2683,7 @@
             Person executor = executingFaction.Leader;
             executor.ExecuteCount++;
 
-            if (this.BelongedCaptive != null && this.BelongedCaptive.CaptiveFaction != null && this.BelongedCaptive.CaptiveFaction != executingFaction)
+            if (this.BelongedCaptive != null && this.BelongedCaptive.CaptiveFaction != null && this.BelongedCaptive.CaptiveFaction != executingFaction) // 斩有势力的俘虏
             {
                 base.Scenario.ChangeDiplomaticRelation(this.BelongedCaptive.CaptiveFaction.ID, executingFaction.ID, -10);
                 if (this.BelongedFaction.Leader.hasStrainTo(this))
@@ -2676,6 +2700,11 @@
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedCaptive.CaptiveFaction.ID, executingFaction.ID, -1000);
                     base.Scenario.SetDiplomaticRelationIfHigher(this.BelongedCaptive.CaptiveFaction.ID, executingFaction.ID, -1000);
                 }
+            }
+
+            if (this.BelongedFaction == executingFaction) // 斩下属
+            {
+                this.LocationArchitecture.Persons.Remove(this);
             }
 
             foreach (Person p in base.Scenario.Persons)
@@ -2750,7 +2779,7 @@
 
         private void LeaveFaction()
         {
-            if (GameObject.Chance(20) && ((((this.LocationArchitecture != null) && this.Status == PersonStatus.Normal && (this.BelongedFaction != null)) && (this.BelongedFaction.Leader != this)) && !this.IsCaptive))
+            if (GameObject.Chance(20) && this.LocationArchitecture != null && this.Status == PersonStatus.Normal && this.BelongedFaction != null && this.BelongedFaction.Leader != this && !this.IsCaptive)
             {
                 if ((this.Loyalty < 50) && (GameObject.Random(this.Loyalty * (1 + (int)this.PersonalLoyalty)) <= GameObject.Random(5)))
                 {
@@ -2791,15 +2820,11 @@
                         ArchitectureList allArch = base.Scenario.Architectures;
                         this.MoveToArchitecture(allArch[GameObject.Random(allArch.Count)] as Architecture);
 						ExtensionInterface.call("LeaveFaction", new Object[] { this.Scenario, this });
-                        //this.LocationArchitecture.RemoveNoFactionPerson(this);
-                        //base.Scenario.detectDuplication();
                     }
             }
         }
 
-
-
-        public void LeaveToNoFaction()
+        public void LeaveToNoFaction() // 下野
         {
             Architecture locationArchitecture = this.LocationArchitecture;
 
@@ -2810,20 +2835,21 @@
                 this.TaskDays = 0;
                 this.OutsideTask = OutsideTaskKind.无;
             }
-
             this.Status = PersonStatus.NoFaction;
-
+            locationArchitecture.Persons.Remove(this);
+            locationArchitecture.NoFactionPersons.Add(this);
             if (this.OnLeave != null)
             {
                 this.OnLeave(this, locationArchitecture);
             }
         }
 
-
-        public  void BeLeaveToNoFaction()
+        public void BeLeaveToNoFaction() // 流放
         {
             Architecture locationArchitecture = this.LocationArchitecture;
             this.Status = PersonStatus.NoFaction;
+            locationArchitecture.Persons.Remove(this);
+            locationArchitecture.NoFactionPersons.Add(this);
             this.ProhibitedFactionID = locationArchitecture.BelongedFaction.ID;
         }
 
@@ -2937,6 +2963,56 @@
                 this.BelongedFaction.IncreaseReputation(this.MonthIncrementOfFactionReputation);
             }
         }
+
+        public void resetPreferredWorkkind(bool[] need)
+        {
+            this.firstPreferred = ArchitectureWorkKind.无;
+            int firstAbility = 0;
+            int agricultureAbility = (need[0] ? this.AgricultureAbility : -2);
+            int commerceAbility = (need[1] ? this.CommerceAbility : -2);
+            int technologyAbility = (need[2] ? this.TechnologyAbility : -2);
+            int dominationAbility = (need[3] ? this.DominationAbility : -2);
+            int moraleAbility = (need[4] ? this.MoraleAbility : -2);
+            int enduranceAbility = (need[5] ? this.EnduranceAbility : -2);
+            int trainingAbility = (need[6] ? this.TrainingAbility : -2);
+
+            if (agricultureAbility > firstAbility)
+            {
+                this.firstPreferred = ArchitectureWorkKind.农业;
+                firstAbility = agricultureAbility;
+            }
+            if (commerceAbility > firstAbility)
+            {
+                this.firstPreferred = ArchitectureWorkKind.商业;
+                firstAbility = commerceAbility;
+            }
+            if (technologyAbility > firstAbility)
+            {
+                this.firstPreferred = ArchitectureWorkKind.技术;
+                firstAbility = technologyAbility;
+            }
+            if (dominationAbility > firstAbility)
+            {
+                this.firstPreferred = ArchitectureWorkKind.统治;
+                firstAbility = dominationAbility;
+            }
+            if (moraleAbility > firstAbility)
+            {
+                this.firstPreferred = ArchitectureWorkKind.民心;
+                firstAbility = moraleAbility;
+            }
+            if (enduranceAbility > firstAbility)
+            {
+                this.firstPreferred = ArchitectureWorkKind.耐久;
+                firstAbility = enduranceAbility;
+            }
+            if (trainingAbility > firstAbility)
+            {
+                this.firstPreferred = ArchitectureWorkKind.训练;
+                firstAbility = trainingAbility;
+            }
+        }
+
         /*
         public void MoveToArchitecture(Architecture a)
         {
@@ -3010,7 +3086,7 @@
                 if (startingPoint.HasValue)
                 {
                     this.ArrivingDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(startingPoint.Value, a.ArchitectureArea) / 10.0));
-                } 
+                }
                 else if (this.LocationArchitecture != null)
                 {
                     this.ArrivingDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(this.LocationArchitecture.ArchitectureArea, a.ArchitectureArea) / 10.0));
@@ -3025,7 +3101,7 @@
                 }
                 else
                 {
-                    this.ArrivingDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(position, base.Scenario.GetClosestPoint(a.ArchitectureArea, position)) / 10.0));
+                    this.ArrivingDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(position, a.ArchitectureArea.Centre) / 10.0));
                 }
                 if (this.ArrivingDays == 0)
                 {
@@ -3039,17 +3115,29 @@
             }
             if (this.TargetArchitecture != null)
             {
-                this.LocationArchitecture = this.TargetArchitecture;
-                this.WorkKind = ArchitectureWorkKind.无;
+                this.workKind = ArchitectureWorkKind.无;
                 if (this.BelongedFaction != null)
                 {
+                    if (this.TargetArchitecture != this.LocationArchitecture)
+                    {
+                        this.TargetArchitecture.MovingPersons.Add(this);
+                        if (this.Status == PersonStatus.Normal)
+                            this.LocationArchitecture.Persons.Remove(this);
+                        else if (this.Status == PersonStatus.Moving)
+                            this.LocationArchitecture.MovingPersons.Remove(this);
+                    }
                     this.Status = PersonStatus.Moving;
                 }
                 else
                 {
                     this.Status = PersonStatus.NoFactionMoving;
+                    if (this.TargetArchitecture != this.LocationArchitecture)
+                    {
+                        this.TargetArchitecture.NoFactionMovingPersons.Add(this);
+                        this.LocationArchitecture.NoFactionPersons.Remove(this);
+                    }
                 }
-
+                this.LocationArchitecture = this.TargetArchitecture;
             }
         }
 
@@ -3092,12 +3180,15 @@
                 if (this.BelongedFaction != null)
                 {
                     this.Status = PersonStatus.Moving;
+                    this.LocationArchitecture.Persons.Remove(this);
+                    this.LocationArchitecture.MovingPersons.Add(this);
                 }
                 else
                 {
                     this.Status = PersonStatus.NoFactionMoving;
+                    this.LocationArchitecture.NoFactionPersons.Remove(this);
+                    this.LocationArchitecture.NoFactionMovingPersons.Add(this);
                 }
-
             }
         }
 
@@ -3203,7 +3294,7 @@
 
         public void NoFactionMove()
         {
-            if (((((this.BelongedFaction == null) && (this.ArrivingDays == 0)) && (this.LocationArchitecture != null) && this.Status == PersonStatus.NoFaction) && !this.IsCaptive) && GameObject.Chance((2 + (int)this.Ambition) + (this.LeaderPossibility ? 10 : 0)) && this.Status != PersonStatus.Princess)
+            if (this.BelongedFaction == null && this.ArrivingDays == 0 && this.LocationArchitecture != null && this.Status == PersonStatus.NoFaction && !this.IsCaptive && GameObject.Chance((2 + (int)this.Ambition) + (this.LeaderPossibility ? 10 : 0)) && this.Status != PersonStatus.Princess)
             {
                 if (GameObject.Chance(50 + (this.LeaderPossibility ? 10 : 0)))
                 {
@@ -3269,8 +3360,6 @@
 
         private void ProgressArrivingDays()
         {
-
-
             if (this.TaskDays > 0)
             {
                 this.TaskDays--;
@@ -3292,13 +3381,13 @@
                 this.ArrivingDays--;
                 if ((this.ArrivingDays == 0) && (this.TargetArchitecture != null))
                 {
-
                     if (this.BelongedFaction != null)
                     {
                         if (this.TargetArchitecture.BelongedFaction == this.BelongedFaction)
                         {
                             this.Status = PersonStatus.Normal;
-
+                            this.TargetArchitecture.MovingPersons.Remove(this);
+                            this.TargetArchitecture.Persons.Add(this);
                             if (this.Scenario.IsCurrentPlayer(this.BelongedFaction) && this.TargetArchitecture.TodayPersonArriveNote == false
                                 && this.TargetArchitecture.BelongedSection!=null  && this.TargetArchitecture.BelongedSection.AIDetail.ID == 0)
                             {
@@ -3320,6 +3409,8 @@
                     else
                     {
                         this.Status = PersonStatus.NoFaction;
+                        this.TargetArchitecture.NoFactionMovingPersons.Remove(this);
+                        this.TargetArchitecture.NoFactionPersons.Add(this);
                         this.TargetArchitecture = null;
                     }
 					ExtensionInterface.call("ArrivedAtArchitecture", new Object[] { this.Scenario, this, this.TargetArchitecture });
@@ -3448,7 +3539,9 @@
         {
             get
             {
-                return (int) ((this.BaseAgricultureAbility + this.IncrementOfAgricultureAbility) * (1f + this.RateIncrementOfAgricultureAbility));
+                if (agricultureAbility > 0) return agricultureAbility;
+                agricultureAbility = (int)((this.BaseAgricultureAbility + this.IncrementOfAgricultureAbility) * (1f + this.RateIncrementOfAgricultureAbility));
+                return agricultureAbility;
             }
         }
 
@@ -3971,7 +4064,9 @@
         {
             get
             {
-                return (int) ((this.BaseCommerceAbility + this.IncrementOfCommerceAbility) * (1f + this.RateIncrementOfCommerceAbility));
+                if (commerceAbility > 0) return commerceAbility;
+                commerceAbility = (int) ((this.BaseCommerceAbility + this.IncrementOfCommerceAbility) * (1f + this.RateIncrementOfCommerceAbility));
+                return commerceAbility;
             }
         }
 
@@ -4047,7 +4142,9 @@
         {
             get
             {
-                return (int) ((this.BaseDominationAbility + this.IncrementOfDominationAbility) * (1f + this.RateIncrementOfDominationAbility));
+                if (dominationAbility > 0) return dominationAbility;
+                dominationAbility = (int) ((this.BaseDominationAbility + this.IncrementOfDominationAbility) * (1f + this.RateIncrementOfDominationAbility));
+                return dominationAbility;
             }
         }
 
@@ -4063,7 +4160,9 @@
         {
             get
             {
-                return (int) ((this.BaseEnduranceAbility + this.IncrementOfEnduranceAbility) * (1f + this.RateIncrementOfEnduranceAbility));
+                if (enduranceAbility > 0) return enduranceAbility;
+                enduranceAbility = (int) ((this.BaseEnduranceAbility + this.IncrementOfEnduranceAbility) * (1f + this.RateIncrementOfEnduranceAbility));
+                return enduranceAbility;
             }
         }
 
@@ -4539,7 +4638,9 @@
         {
             get
             {
-                return (int)((this.BaseMoraleAbility + this.IncrementOfMoraleAbility) * (1f + this.RateIncrementOfMoraleAbility));
+                if (moraleAbility > 0) return moraleAbility;
+                moraleAbility = (int)((this.BaseMoraleAbility + this.IncrementOfMoraleAbility) * (1f + this.RateIncrementOfMoraleAbility));
+                return moraleAbility;
             }
         }
 
@@ -4970,8 +5071,10 @@
 
         public void RecruitMilitary(Military m)
         {
+            m.StopRecruitment();
             this.WorkKind = ArchitectureWorkKind.补充;
             this.RecruitmentMilitary = m;
+            m.RecruitmentPerson = this;
         }
 
         public Military RecruitmentMilitary
@@ -5310,7 +5413,9 @@
         {
             get
             {
-                return (int)((this.BaseTechnologyAbility + this.IncrementOfTechnologyAbility) * (1f + this.RateIncrementOfTechnologyAbility));
+                if (technologyAbility > 0) return technologyAbility;
+                technologyAbility = (int)((this.BaseTechnologyAbility + this.IncrementOfTechnologyAbility) * (1f + this.RateIncrementOfTechnologyAbility));
+                return technologyAbility;
             }
         }
 
@@ -5326,7 +5431,9 @@
         {
             get
             {
-                return (int)((this.BaseTrainingAbility + this.IncrementOfTrainingAbility) * (1f + this.RateIncrementOfTrainingAbility));
+                if (trainingAbility > 0) return trainingAbility;
+                trainingAbility = (int)((this.BaseTrainingAbility + this.IncrementOfTrainingAbility) * (1f + this.RateIncrementOfTrainingAbility));
+                return trainingAbility;
             }
         }
 
@@ -5411,9 +5518,10 @@
             }
             set
             {
-                if (value != ArchitectureWorkKind.补充)
+                if (this.workKind == ArchitectureWorkKind.补充 && value != ArchitectureWorkKind.补充)
                 {
-                    this.RecruitmentMilitary = null;
+                    this.recruitmentMilitary.RecruitmentPerson = null;
+                    this.recruitmentMilitary = null;
                 }
                 this.workKind = value;
             }
@@ -6145,7 +6253,9 @@
             nvren.LocationArchitecture.DecreaseFund(50000);
 
             nvren.Status = PersonStatus.Princess;
-            nvren.WorkKind = ArchitectureWorkKind.无;
+            nvren.LocationArchitecture.Persons.Remove(nvren);
+            nvren.LocationArchitecture.Feiziliebiao.Add(nvren);
+            nvren.workKind = ArchitectureWorkKind.无;
 
             nvren.LocationTroop = null;
             nvren.TargetArchitecture = null;
@@ -6158,6 +6268,7 @@
                     if (person.ID == nvren.Spouse)
                     {
                         p = person;
+                        break;
                     }
                 }
 
@@ -6227,6 +6338,8 @@
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = houGongDays;
                 this.Status = PersonStatus.Moving;
+                this.LocationArchitecture.Persons.Remove(this);
+                this.LocationArchitecture.MovingPersons.Add(this);
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForHouGong", new Object[] { this.Scenario, this, nvren });
             }

@@ -1,6 +1,7 @@
 ﻿namespace GameObjects
 {
     using GameObjects.MapDetail;
+    using GameObjects.ArchitectureDetail;
     using Microsoft.Xna.Framework;
     using System;
     using System.Collections.Generic;
@@ -28,7 +29,7 @@
                     if (faction != null)
                     {
                         Architecture architectureByPosition = Scenario.GetArchitectureByPosition(point);
-                        if (!(((architectureByPosition == null) || (architectureByPosition.Endurance <= 0)) || faction.IsFriendly(architectureByPosition.BelongedFaction)))
+                        if (!(architectureByPosition == null || architectureByPosition.Endurance <= 0 || faction.IsFriendly(architectureByPosition.BelongedFaction)))
                         {
                             BlackAngles.Add(point);
                             return;
@@ -99,36 +100,79 @@
             GameArea area = new GameArea();
             List<float> list = new List<float>();
             area.Centre = Centre;
-            for (int i = -Radius; i <= Radius; i++)
+            if (Oblique)
             {
-                for (int j = -Radius; j <= Radius; j++)
+                for (int i = Centre.X - Radius; i <= Centre.X + Radius; i++)
                 {
-                    if (Oblique)
+                    for (int j = Centre.Y - Radius; j <= Centre.Y + Radius; j++)
                     {
-                        area.AddPoint(new Point(Centre.X + i, Centre.Y + j));
+                        area.AddPoint(new Point(i, j));
                     }
-                    else if ((Math.Abs(i) + Math.Abs(j)) <= Radius)
+                }
+            }
+            else
+            {
+                for (int i = -Radius; i <= Radius; i++)
+                {
+                    if (i <= 0)
                     {
-                        area.AddPoint(new Point(Centre.X + i, Centre.Y + j));
+                        for (int j = -Radius - i; j <= i + Radius; j++)
+                        {
+                            area.AddPoint(new Point(Centre.X + i, Centre.Y + j));
+                        }
+                    }
+                    else
+                    {
+                        for (int j = i - Radius; j <= Radius - i; j++)
+                        {
+                            area.AddPoint(new Point(Centre.X + i, Centre.Y + j));
+                        }
                     }
                 }
             }
             return area;
         }
 
-        public static GameArea GetAreaFromArea(GameArea area, int Radius, bool Oblique, GameScenario Scenario, Faction faction)
+        public static GameArea GetAreaFromArea(GameArea area, int radius, bool oblique, GameScenario Scenario, Faction faction)
         {
-            Dictionary<Point, object> closedList = new Dictionary<Point, object>();
+            int longRadius;
+            if (area.Count <= 1)
+                longRadius = radius;
+            else if (area.Count <= 5)
+                longRadius = radius + 1;
+            else
+                longRadius = radius + 2;
+            GameArea candidateArea = GetArea(area.Centre, longRadius, oblique);
+            if (longRadius >= (radius + 1))
+            {
+                candidateArea.Area.Remove(new Point(area.Centre.X - longRadius, area.Centre.Y - longRadius));
+                candidateArea.Area.Remove(new Point(area.Centre.X - longRadius, area.Centre.Y + longRadius));
+                candidateArea.Area.Remove(new Point(area.Centre.X + longRadius, area.Centre.Y - longRadius));
+                candidateArea.Area.Remove(new Point(area.Centre.X + longRadius, area.Centre.Y + longRadius));
+            }
+            if (longRadius >= (radius + 2))
+            {
+                candidateArea.Area.Remove(new Point(area.Centre.X - longRadius + 1, area.Centre.Y - longRadius));
+                candidateArea.Area.Remove(new Point(area.Centre.X - longRadius, area.Centre.Y - longRadius + 1));
+                candidateArea.Area.Remove(new Point(area.Centre.X - longRadius + 1, area.Centre.Y + longRadius));
+                candidateArea.Area.Remove(new Point(area.Centre.X - longRadius, area.Centre.Y + longRadius - 1));
+                candidateArea.Area.Remove(new Point(area.Centre.X + longRadius - 1, area.Centre.Y - longRadius));
+                candidateArea.Area.Remove(new Point(area.Centre.X + longRadius, area.Centre.Y - longRadius + 1));
+                candidateArea.Area.Remove(new Point(area.Centre.X + longRadius - 1, area.Centre.Y + longRadius));
+                candidateArea.Area.Remove(new Point(area.Centre.X + longRadius, area.Centre.Y + longRadius - 1));
+            }
+            return candidateArea;
+            /*Dictionary<Point, object> closedList = new Dictionary<Point, object>();
             GameArea area2 = new GameArea();
             foreach (Point point in area.Area)
             {
-                area2.CombineArea(GetViewArea(point, Radius, Oblique, Scenario, faction), closedList);
+                area2.CombineArea(GetViewArea(point, radius, oblique, Scenario, faction), closedList);
             }
             foreach (Point point in closedList.Keys)
             {
                 area2.Area.Add(point);
             }
-            return area2;
+            return area2;*/
         }
 
         public GameArea GetContactArea(bool oblique)
@@ -230,61 +274,61 @@
             GameArea area = new GameArea();
             List<Point> blackAngles = new List<Point>();
             area.Centre = Centre;
-            if (Radius >= 0)
+            if (Radius < 0)
+                return area;
+            if (Radius == 0)
             {
-                if (Radius == 0)
+                area.AddPoint(Centre);
+                return area;
+            }
+            for (int i = 0; i <= Radius; i++)
+            {
+                int num2;
+                if (i == 0)
                 {
-                    area.AddPoint(Centre);
-                    return area;
-                }
-                for (int i = 0; i <= Radius; i++)
-                {
-                    int num2;
-                    if (i == 0)
+                    num2 = 0;
+                    while (num2 <= Radius)
                     {
-                        num2 = 0;
-                        while (num2 <= Radius)
+                        if (num2 != 0)
                         {
-                            if (num2 != 0)
-                            {
-                                CheckPoint(area, blackAngles, new Point(Centre.X, Centre.Y + num2), Scenario, faction);
-                                CheckPoint(area, blackAngles, new Point(Centre.X, Centre.Y - num2), Scenario, faction);
-                            }
-                            else
-                            {
-                                area.AddPoint(Centre);
-                            }
-                            num2++;
+                            CheckPoint(area, blackAngles, new Point(Centre.X, Centre.Y + num2), Scenario, faction);
+                            CheckPoint(area, blackAngles, new Point(Centre.X, Centre.Y - num2), Scenario, faction);
                         }
+                        else
+                        {
+                            area.AddPoint(Centre);
+                        }
+                        num2++;
                     }
-                    else
+                }
+                else
+                {
+                    int num3 = i;
+                    if (Oblique)
                     {
-                        int num3 = i;
-                        if (Oblique)
+                        num3 = 0;
+                    }
+                    num2 = 0;
+                    while (num2 <= (Radius - num3))
+                    {
+                        CheckPoint(area, blackAngles, new Point(Centre.X + i, Centre.Y + num2), Scenario, faction);
+                        if (num2 != 0)
                         {
-                            num3 = 0;
+                            CheckPoint(area, blackAngles, new Point(Centre.X + i, Centre.Y - num2), Scenario, faction);
                         }
-                        num2 = 0;
-                        while (num2 <= (Radius - num3))
+                        num2++;
+                    }
+                    for (num2 = 0; num2 <= (Radius - num3); num2++)
+                    {
+                        CheckPoint(area, blackAngles, new Point(Centre.X - i, Centre.Y + num2), Scenario, faction);
+                        if (num2 != 0)
                         {
-                            CheckPoint(area, blackAngles, new Point(Centre.X + i, Centre.Y + num2), Scenario, faction);
-                            if (num2 != 0)
-                            {
-                                CheckPoint(area, blackAngles, new Point(Centre.X + i, Centre.Y - num2), Scenario, faction);
-                            }
-                            num2++;
-                        }
-                        for (num2 = 0; num2 <= (Radius - num3); num2++)
-                        {
-                            CheckPoint(area, blackAngles, new Point(Centre.X - i, Centre.Y + num2), Scenario, faction);
-                            if (num2 != 0)
-                            {
-                                CheckPoint(area, blackAngles, new Point(Centre.X - i, Centre.Y - num2), Scenario, faction);
-                            }
+                            CheckPoint(area, blackAngles, new Point(Centre.X - i, Centre.Y - num2), Scenario, faction);
                         }
                     }
                 }
             }
+            
             return area;
         }
 
