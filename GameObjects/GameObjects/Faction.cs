@@ -40,6 +40,7 @@
         public int AntiCriticalStrikeChanceIncrementWhileCombatMethodOfShuijun;
         private int[,] architectureAdjustCost;
         public ArchitectureList Architectures = new ArchitectureList();
+        private int armyScale = 0;
         public bool AutoRefuse;
         public TechniqueTable AvailableTechniques = new TechniqueTable();
         public MilitaryKindTable BaseMilitaryKinds = new MilitaryKindTable();
@@ -166,13 +167,25 @@
             get
             {
                 PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                //foreach (Person i in base.Scenario.Persons)
+                //{
+                //    if ((i.Status == GameObjects.PersonDetail.PersonStatus.Normal || i.Status == GameObjects.PersonDetail.PersonStatus.Moving)
+                //        && i.BelongedFaction == this)
+                //    {
+                //        result.Add(i);
+                //    }
+                //}
+                foreach (Architecture a in Architectures)
                 {
-                    if ((i.Status == GameObjects.PersonDetail.PersonStatus.Normal || i.Status == GameObjects.PersonDetail.PersonStatus.Moving) 
-                        && i.BelongedFaction == this)
-                    {
-                        result.Add(i);
-                    }
+                    foreach (Person p in a.Persons)
+                        result.Add(p);
+                    foreach (Person p in a.MovingPersons)
+                        result.Add(p);
+                }
+                foreach (Troop t in Troops)
+                {
+                    foreach (Person p in t.Persons)
+                        result.Add(p);
                 }
                 return result;
             }
@@ -839,7 +852,7 @@
                     }
                     if (architecture.AIAllLinkNodes.Count == 0)
                     {
-                        architecture.GenerateAllAILinkNodes(3);
+                        architecture.GenerateAllAILinkNodes(2);
                     }
                     foreach (LinkNode node in architecture.AIAllLinkNodes.Values)
                     {
@@ -1210,6 +1223,8 @@
                 this.AIchaotingshijian();
                 this.AIBecomeEmperor();
             }
+            this.armyScale = this.ArmyScale; // 小写的是每天的缓存，因为被InternalSurplusRate叫很多次，不想每次都全部重新计算，大写的才是真正的值
+            this.InternalSurplusRateCache = -1;
         }
 
 
@@ -1531,7 +1546,7 @@
             return null;
         }
 
-        public int GetMapCost(Troop troop, Point position)
+        public int GetMapCost(Troop troop, Point position, MilitaryKind kind)
         {
             if (base.Scenario.PositionOutOfRange(position))
             {
@@ -1547,11 +1562,11 @@
                 terrainAdaptability = troop.GetTerrainAdaptability((TerrainKind) this.mapData[position.X, position.Y]);
             }
             int waterPunishment = 0;
-            if (this.mapData[position.X, position.Y] == 6 && troop.Army.Kind.Type != MilitaryType.水军 && base.Scenario.GetArchitectureByPositionNoCheck(position) == null)
+            if (this.mapData[position.X, position.Y] == 6 && kind.Type != MilitaryType.水军 && base.Scenario.GetArchitectureByPositionNoCheck(position) == null)
             {
                 waterPunishment = 3;
             }
-            return ((terrainAdaptability + base.Scenario.GetWaterPositionMapCost(troop.Army.Kind.Type, position)) + base.Scenario.GetPositionMapCost(this, position) + waterPunishment);
+            return ((terrainAdaptability + base.Scenario.GetWaterPositionMapCost(kind.Type, position)) + base.Scenario.GetPositionMapCost(this, position) + waterPunishment);
         }
 
         public FactionList GetOtherFactions()
@@ -2298,7 +2313,7 @@
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
                     //if (i.Relation < 300) continue; 
                     if (!this.adjacentTo(opposite)) continue;    //不接壤的AI不主动改变关系值
-                    if (GameObject.Chance((int)((double)this.ArmyScale / opposite.ArmyScale * ((int)this.Leader.Ambition + 1) * 20))
+                    if (GameObject.Chance((int)((double)this.armyScale / opposite.ArmyScale * ((int)this.Leader.Ambition + 1) * 20))
                         && i.Relation < 300)
                     {
                         i.Relation -= (7 + (int)Random(15)); //根据总兵力情况每月随机减少
@@ -2338,7 +2353,8 @@
 
         public bool RoutewayPathAvail(Point start, Point end, bool hasEnd)
         {
-            return this.RoutewayPathBuilder.GetPath(start, end, hasEnd);
+            bool result = this.RoutewayPathBuilder.GetPath(start, end, hasEnd);
+            return result;
         }
 
         private int RoutewayPathBuilder_OnGetCost(Point position, out float consumptionRate)
@@ -3623,7 +3639,7 @@
             int r = 0;
             foreach (Architecture a in this.Architectures)
             {
-                r += a.feiziliebiao.Count;
+                r += a.Feiziliebiao.Count;
             }
             return r;
         }
@@ -3633,7 +3649,7 @@
             int r = 0;
             foreach (Architecture a in this.Architectures)
             {
-                r += a.meinvkongjian();
+                r += a.Meinvkongjian;
             }
             return r;
         }
@@ -3646,23 +3662,24 @@
             }
         }
 
+        private float InternalSurplusRateCache = -1;
         public float InternalSurplusRate
         {
             get
             {
-                float num = 1f - (0.001f * (((this.Population / 0x2710) + (this.ArmyScale / 5)) + this.PersonCount));
+                if (InternalSurplusRateCache >= 0)
+                    return InternalSurplusRateCache;
+                if ((!base.Scenario.IsPlayer(this) && !GlobalVariables.internalSurplusRateForAI) || (base.Scenario.IsPlayer(this) && !GlobalVariables.internalSurplusRateForPlayer))
+                {
+                    InternalSurplusRateCache = 1;
+                    return 1;
+                }
+                float num = 1f - (0.001f * (((this.Population / 0x2710) + (this.armyScale / 5)) + this.PersonCount));
                 if (num < 0.2f)
                 {
                     num = 0.2f;
                 }
-                if (!base.Scenario.IsPlayer(this) && !GlobalVariables.internalSurplusRateForAI)
-                {
-                    num = 1f;
-                }
-                if (base.Scenario.IsPlayer(this) && !GlobalVariables.internalSurplusRateForPlayer)
-                {
-                    num = 1f;
-                }
+                InternalSurplusRateCache = num;
                 return num;
             }
         }
@@ -3771,9 +3788,20 @@
 
         public int PersonCount
         {
+            // 切记不要用this.Persons.Count，因为这样会把全势力人物一个一个加入PersonList，非常慢
             get
             {
-                return this.Persons.Count;
+                int result = 0;
+                foreach (Architecture a in Architectures)
+                {
+                    result += a.Persons.Count;
+                    result += a.MovingPersons.Count;
+                }
+                foreach (Troop t in Troops)
+                {
+                    result += t.PersonCount;
+                }
+                return result;
             }
         }
 

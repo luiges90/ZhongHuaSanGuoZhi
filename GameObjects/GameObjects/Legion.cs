@@ -1,5 +1,6 @@
 ﻿namespace GameObjects
 {
+    using GameGlobal;
     using GameObjects.FactionDetail;
     using System;
     using System.Collections.Generic;
@@ -117,6 +118,7 @@
 
         private void CallRouteway()
         {
+            if (!GlobalVariables.LiangdaoXitong) return;
             if (this.WillArchitecture != null)
             {
                 int foodCostPerDay;

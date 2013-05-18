@@ -6,6 +6,11 @@
 
     public class PersonList : GameObjectList
     {
+        public void Add(Person person)
+        {
+            base.Add(person);
+        }
+
         public void AddPersonWithEvent(Person person)
         {
             base.Add(person);
@@ -295,4 +300,3 @@
         }
     }
 }
-

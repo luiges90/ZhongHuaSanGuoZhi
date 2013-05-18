@@ -10,7 +10,7 @@
         {
             foreach (Architecture a in person.Scenario.Architectures)
             {
-                if (a.feiziliebiao.GameObjects.Contains(this))
+                if (a.Feiziliebiao.GameObjects.Contains(this))
                 {
                     return true;
                 }

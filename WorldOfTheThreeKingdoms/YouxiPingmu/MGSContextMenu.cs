@@ -145,7 +145,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 //case ContextMenuResult.Architecture_xiangxixinxi:
                 //    break;
                 case ContextMenuResult.Architecture_Princesses:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.feiziliebiao, null, "", "");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.Feiziliebiao, null, "", "");
                     break;
                 case ContextMenuResult.Faction_Detail:
                     if (this.CurrentArchitecture.BelongedFaction != null)
@@ -430,7 +430,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
 
                 case ContextMenuResult.Person_Hire:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.PersonManualHire, false, true, true, false , this.CurrentArchitecture.NoFactionPersons, null, "录用", "");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.PersonManualHire, false, true, true, false, this.CurrentArchitecture.NoFactionPersons, null, "录用", "");
 
                     //this.CurrentArchitecture.shoudongluyong();
                     break;
@@ -988,7 +988,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                         this.bianduiLiebiaoBiaoji = "ArchitectureLeftClick";
                         this.ShowBianduiLiebiao(UndoneWorkKind.None, FrameKind.Military, FrameFunction.Browse, false, true, false, true,
-                            this.CurrentArchitecture.Militaries, this.CurrentArchitecture.ZhengzaiBuchongDeBiandui(), "", "", this.CurrentArchitecture.MilitaryPopulation);
+                        this.CurrentArchitecture.Militaries, this.CurrentArchitecture.ZhengzaiBuchongDeBiandui(), "", "", this.CurrentArchitecture.MilitaryPopulation);
                         this.ShowArchitectureSurveyPlugin(this.CurrentArchitecture);
                     }
                     break;

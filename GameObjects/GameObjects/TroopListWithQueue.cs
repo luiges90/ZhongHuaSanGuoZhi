@@ -89,7 +89,7 @@
                 thread.Start();
                 thread.Join();*/
                 
-                if (this.CurrentTroop.StepFinished || (this.CurrentTroop.MovabilityLeft <= 0))
+                if (this.CurrentTroop.StepNotFinished || (this.CurrentTroop.MovabilityLeft <= 0))
                 {
                     if (!this.CurrentTroop.OperationDone)
                     {
@@ -141,7 +141,7 @@
                         {
                             item.OperationDone = true;
                         }
-                        if ((!item.StepFinished || item.chongshemubiaoweizhibiaoji) && item.MovabilityLeft >= 0)
+                        if ((!item.StepNotFinished || item.chongshemubiaoweizhibiaoji) && item.MovabilityLeft >= 0)
                         {
                             this.CurrentTroop = item;
                             break;

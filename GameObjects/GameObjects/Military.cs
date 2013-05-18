@@ -23,12 +23,9 @@
         private int morale;
         private int quantity;
         private Person recruitmentPerson;
-        private int recruitmentPersonID = -1;
         public Military ShelledMilitary;
         public int ShelledMilitaryID;
         public Military ShellingMilitary;
-        private Person trainingPerson;
-        private int trainingPersonID = -1;
 
         public int Merit
         {
@@ -349,6 +346,11 @@
             if (this.RecruitmentPerson != null)
             {
                 this.RecruitmentPerson.WorkKind = ArchitectureWorkKind.无;
+            }
+            if (this.RecruitmentPerson != null) // 需要重复检查一遍，因为上面可能将this.RecruitmentPerson变null了
+            {
+                this.RecruitmentPerson.RecruitmentMilitary = null;
+                this.RecruitmentPerson = null;
             }
         }
 
@@ -903,14 +905,11 @@
         {
             get
             {
-                foreach (Person p in base.Scenario.Persons)
-                {
-                    if (p.RecruitmentMilitary == this)
-                    {
-                        return p;
-                    }
-                }
-                return null;
+                return recruitmentPerson;
+            }
+            set
+            {
+                recruitmentPerson = value;
             }
         }
 
@@ -954,13 +953,6 @@
         {
             get
             {
-                /*
-                if ((this.BelongedArchitecture != null) && (this.TrainingPerson != null))
-                {
-                    return this.TrainingPerson.Name;
-                }
-                return "----";
-                */
                 if (this.Morale >= this.MoraleCeiling && this.Combativity >= this.CombativityCeiling)
                 {
                     return "√";

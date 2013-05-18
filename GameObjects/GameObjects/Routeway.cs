@@ -175,6 +175,7 @@
 
         public void DayEvent()
         {
+            if (!GlobalVariables.LiangdaoXitong) return;
             LinkedListNode<RoutePoint> lastActiveNode = this.LastActiveNode;
             if (lastActiveNode != null)
             {

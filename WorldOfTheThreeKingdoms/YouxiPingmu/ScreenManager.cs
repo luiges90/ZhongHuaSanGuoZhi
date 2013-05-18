@@ -44,7 +44,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.mainGameScreen = mainGameScreen;
         }
 
-        private void FrameFunction_Architecture_AfterGetAwardTreasure()
+        private void FrameFunction_Architecture_AfterGetAwardTreasure() // 赏赐宝物
         {
             this.CurrentGameObject = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as GameObject;            
             if (this.CurrentGameObject != null)
@@ -57,7 +57,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetAwardTreasurePerson()
+        private void FrameFunction_Architecture_AfterGetAwardTreasurePerson() // 赏赐宝物
         {
             this.CurrentPerson = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
             if (this.CurrentPerson != null)
@@ -71,7 +71,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_Afterxuanzemeinv()
+        private void FrameFunction_Architecture_Afterxuanzemeinv() // 纳妃
         {
             this.CurrentPerson = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
             if (this.CurrentPerson != null)
@@ -83,11 +83,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.mainGameScreen.PersonBeiDuoqi(tookSpouse, this.CurrentArchitecture.BelongedFaction);
                 }
             }
-
-
         }
 
-        private void FrameFunction_Architecture_chongxingmeinv()
+        private void FrameFunction_Architecture_chongxingmeinv() // 宠幸
         {
             this.CurrentPerson = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
             if (this.CurrentPerson != null)
@@ -96,11 +94,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.gameScenario.CurrentFaction.Leader.GoForHouGong(this.CurrentPerson);
                 this.mainGameScreen.xianshishijiantupian(this.CurrentPerson, this.gameScenario.CurrentFaction.Leader.Name, "chongxing", this.CurrentPerson.ID.ToString() + ".jpg", "hougong.mp3", true);
                 //this.mainGameScreen.DateGo(1);
-
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetBeDisbandedMilitaries()
+        private void FrameFunction_Architecture_AfterGetBeDisbandedMilitaries() // 解散编队
         {
             this.CurrentGameObjects = this.CurrentArchitecture.Militaries.GetSelectedList();
             if (this.CurrentGameObjects != null)
@@ -112,7 +109,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetBeMergedMilitaries()
+        private void FrameFunction_Architecture_AfterGetBeMergedMilitaries() // 合并
         {
             this.CurrentGameObjects = this.CurrentArchitecture.BeMergedMilitaryList.GetSelectedList();
             if (this.CurrentGameObjects != null)
@@ -142,7 +139,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetConfiscateTreasure()
+        private void FrameFunction_Architecture_AfterGetConfiscateTreasure() // 没收
         {
             this.CurrentGameObject = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as GameObject;
             if (this.CurrentGameObject != null)
@@ -156,7 +153,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetConvinceDestinationPerson()
+        private void FrameFunction_Architecture_AfterGetConvinceDestinationPerson() // 说服
         {
             this.CurrentGameObjects = this.CurrentArchitecture.ConvinceDestinationPersonList.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
@@ -169,7 +166,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetConvinceSourcePerson()
+        private void FrameFunction_Architecture_AfterGetConvinceSourcePerson() // 说服
         {
             this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
             if (this.CurrentGameObjects != null)
@@ -179,7 +176,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetDestroyPerson()
+        private void FrameFunction_Architecture_AfterGetDestroyPerson() // 破坏
         {
             this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
             if (this.CurrentGameObjects != null)
@@ -189,7 +186,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetFacilityToBuild()
+        private void FrameFunction_Architecture_AfterGetFacilityToBuild() // 建设设施
         {
             this.CurrentGameObjects = this.CurrentArchitecture.BuildableFacilityKindList.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
@@ -199,7 +196,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetFacilityToDemolish()
+        private void FrameFunction_Architecture_AfterGetFacilityToDemolish() // 拆除设施
         {
             this.CurrentGameObjects = this.CurrentArchitecture.Facilities.GetSelectedList();
             if (this.CurrentGameObjects != null)
@@ -300,12 +297,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetInformationKind()
+        private void FrameFunction_Architecture_AfterGetInformationKind() // 情报
         {
             this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetInformationPerson, false, true, true, false, this.CurrentArchitecture.Persons, null, "情报", "情报");
         }
 
-        private void FrameFunction_Architecture_AfterGetInformationPerson()
+        private void FrameFunction_Architecture_AfterGetInformationPerson() // 情报
         {
             this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
@@ -388,22 +385,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         internal void FrameFunction_Architecture_AfterGetOneArchitectureBySelecting(Architecture architecture)
         {
-
-
             if (architecture != null && this.CurrentPersons.Count>0)
             {
                 foreach (Person person in this.CurrentPersons)
                 {
-                    person.MoveToArchitecture(architecture);
-                    
+                    person.MoveToArchitecture(architecture);                    
                 }
                 this.mainGameScreen.PlayNormalSound("GameSound/Tactics/Outside.wav");
-
-            }
-            
+            }            
         }
 
-        private void FrameFunction_Architecture_AfterGetRecruitmentMilitary()
+        private void FrameFunction_Architecture_AfterGetRecruitmentMilitary() // 补充
         {
             GameObjectList selectedList = this.CurrentArchitecture.RecruitmentMilitaryList.GetSelectedList();
             if ((selectedList != null) && (selectedList.Count == 1))
@@ -413,7 +405,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetRecruitmentPerson()
+        private void FrameFunction_Architecture_AfterGetRecruitmentPerson() // 补充
         {
             if (this.CurrentArchitecture != null)
             {
@@ -421,13 +413,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
                 {
                     this.CurrentPerson = this.CurrentGameObjects[0] as Person;
-                    this.CurrentPerson.WorkKind = ArchitectureWorkKind.补充;
-                    this.CurrentPerson.RecruitmentMilitary = this.CurrentMilitary;
+                    this.CurrentPerson.RecruitMilitary(this.CurrentMilitary);
                 }
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetRedeemCaptive()
+        private void FrameFunction_Architecture_AfterGetRedeemCaptive() // 赎回俘虏
         {
             this.CurrentGameObjects = this.CurrentArchitecture.RedeemCaptiveList.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
@@ -437,7 +428,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetReleaseCaptive()
+        private void FrameFunction_Architecture_AfterGetReleaseCaptive() // 释放俘虏
         {
             this.CurrentGameObjects = this.CurrentArchitecture.BelongedFaction.Captives.GetSelectedList();
             if (this.CurrentGameObjects != null)
@@ -449,7 +440,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetRewardPerson()
+        private void FrameFunction_Architecture_AfterGetRewardPerson() // 奖赏
         {
             this.CurrentGameObjects = this.CurrentArchitecture.RewardPersonList.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count > 0))
@@ -458,7 +449,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetSearchPerson()
+        private void FrameFunction_Architecture_AfterGetSearchPerson() // 搜索
         {
             this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
             if (this.CurrentGameObjects != null)
@@ -552,7 +543,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetStudySkillPerson()
+        private void FrameFunction_Architecture_AfterGetStudySkillPerson() // 修习技能
         {
             this.CurrentGameObjects = this.CurrentArchitecture.PersonStudySkillList.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count > 0))
@@ -566,7 +557,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetStudyStunt()
+        private void FrameFunction_Architecture_AfterGetStudyStunt() // 修习特技
         {
             this.CurrentGameObjects = this.CurrentPerson.StudyStuntList.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
@@ -577,7 +568,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetStudyStuntPerson()
+        private void FrameFunction_Architecture_AfterGetStudyStuntPerson() // 修习特技
         {
             this.CurrentGameObjects = this.CurrentArchitecture.PersonStudyStuntList.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
@@ -591,7 +582,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetStudyTitle()
+        private void FrameFunction_Architecture_AfterGetStudyTitle() // 修习称号
         {
             this.CurrentGameObjects = this.CurrentPerson.StudyTitleList.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
@@ -602,7 +593,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_AfterGetStudyTitlePerson()
+        private void FrameFunction_Architecture_AfterGetStudyTitlePerson() // 修习称号
         {
             this.CurrentGameObjects = this.CurrentArchitecture.PersonStudyTitleList.GetSelectedList();
             if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
@@ -626,7 +617,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_PersonConvene()
+        private void FrameFunction_Architecture_PersonConvene() // 召唤
         {
             if (this.CurrentArchitecture != null)
             {
@@ -636,7 +627,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     foreach (Person person in this.CurrentGameObjects)
                     {
                         person.MoveToArchitecture(this.CurrentArchitecture);
-                        //person.LocationArchitecture.RemovePerson(person);
                     }
                 }
             }
@@ -656,9 +646,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 }
             }
-
-
-
         }
 
         private void FrameFunction_Architecture_WorkingList()

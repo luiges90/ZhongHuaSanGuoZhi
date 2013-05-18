@@ -302,7 +302,7 @@
         private TroopStatus status;
         private int statusTileAnimationIndex;
         private int statusTileStayIndex;
-        private bool stepFinished = true;
+        private bool stepNotFinished = true;
         private int stoppedTroopAnimationIndex;
         private int stoppedTroopStayIndex;
         private bool StratagemApplyed;
@@ -374,7 +374,7 @@
         public float ExperienceRate;
 
         public bool ManualControl;
-
+        private PersonList persons = new PersonList();
         public List<int> AllowedStrategems = new List<int>();
 
         public int captureChance = 0;
@@ -473,17 +473,21 @@
 
         public PersonList Persons
         {
+            //get
+            //{
+            //    PersonList result = new PersonList();
+            //    foreach (Person i in base.Scenario.Persons)
+            //    {
+            //        if (i.Status == PersonStatus.Normal && i.LocationTroop == this)
+            //        {
+            //            result.Add(i);
+            //        }
+            //    }
+            //    return result;
+            //}
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
-                {
-                    if (i.Status == PersonStatus.Normal && i.LocationTroop == this)
-                    {
-                        result.Add(i);
-                    }
-                }
-                return result;
+                return persons;
             }
         }
 
@@ -559,7 +563,6 @@
             {
                 captive.CaptivePerson.LoseTreasure(treasure);
                 this.BelongedFaction.Leader.ReceiveTreasure(treasure);
-                //this.Leader.ReceiveTreasure(treasure);
             }
         }
 
@@ -681,16 +684,17 @@
                 this.GoBack();
                 return false;
             }
-
+            List<Troop> hostileTroopList = new List<Troop>();
+            List<Troop> friendlyTroopList = new List<Troop>();
             if (!this.IsRobber)
             {
                 //ensure troops won't get stuck forever
                 if (stuckPosition == new Point(-1, -1) || (this.HasHostileArchitectureInView() && this.TargetArchitecture != null) || 
                     this.HasHostileTroopInView()
                     || (this.WillArchitecture.BelongedFaction != this.BelongedFaction && this.WillArchitecture.LongViewArea.Area.Contains(this.position)))
-                { 
+                {
                     stuckPosition = this.Position;
-                } 
+                }
                 else 
                 {
                     if (this.Position == stuckPosition)
@@ -855,22 +859,30 @@
                     }
                 }
                 //retreat if we were outnumbered, in an offensive
-                if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive && this.HasHostileTroopInView() && this.Army.KindID != 29)
+                int friendlyFightingForce = 0;
+                int hostileFightingForce = 0;
+                foreach (Point i in this.ViewArea.Area)
                 {
-                    int friendlyFightingForce = 0;
-                    int hostileFightingForce = 0;
+                    Troop t = base.Scenario.GetTroopByPosition(i);
+                    if (t != null)
+                    {
+                        if (!this.BelongedFaction.IsFriendly(t.BelongedFaction))
+                        {
+                            hostileFightingForce += t.FightingForce;
+                            hostileTroopList.Add(t);
+                        }
+                        else if (t.BelongedFaction == this.BelongedFaction)
+                        {
+                            friendlyTroopList.Add(t); // 只包括当前视野内的同一势力部队，不包括同一军团但不在视野内的部队
+                        }
+                    }
+                }
+                if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive && this.Army.KindID != 29)
+                {
                     foreach (Troop i in this.BelongedLegion.Troops)
                     {
                         friendlyFightingForce += i.FightingForce;
-                    }
-                    foreach (Point i in this.viewArea.Area)
-                    {
-                        Troop t = base.Scenario.GetTroopByPosition(i);
-                        if (t != null && !this.BelongedFaction.IsFriendly(t.BelongedFaction))
-                        {
-                            hostileFightingForce += t.FightingForce;
-                        }
-                    }
+                    }                    
                     float hostileToFriendlyRatio = (float)hostileFightingForce / friendlyFightingForce;
                     if (GameObject.Chance((int)((hostileToFriendlyRatio - 1) * 10)) &&
                         (GameObject.Chance((int)((this.Leader.Calmness - this.Leader.Braveness + 10) * 4 * hostileToFriendlyRatio)) &&
@@ -885,16 +897,25 @@
                         return false;
                     }
                 }
+                if (this.Army.KindID == 29 || (!this.ViewingWillArchitecture && !this.HasHostileTroopInView()))
+                {
+                    Point newRealDestination = base.Scenario.GetClosestPoint(this.WillArchitecture.ArchitectureArea, this.Position);
+                    int oldDistance = base.Scenario.GetSimpleDistance(this.position, this.RealDestination);
+                    int newDistance = base.Scenario.GetSimpleDistance(this.position, newRealDestination);
+                    if (oldDistance - newDistance >= 1 || oldDistance == 0)
+                        this.RealDestination = newRealDestination;
+                    return true; // 运输队或者没看到敌人就不需要计算后面的一大堆东西了
+                }
                 this.CallTacticsHelp();
                 this.CallRoutewayHelp();
             }
             List<CreditPack> list = new List<CreditPack>();
             int credit = 0;
             bool flag = false;
-            bool flag2 = false;
+            bool hasTargetTroopFlag = false;
             bool hasUnAttackableTroop = false;
-            CreditPack pack = null;
-            GameArea dayArea = this.GetDayArea(1);
+            GameArea dayArea = this.ViewArea;
+            /*GameArea dayArea = this.GetDayArea(1);
             if (dayArea.Count <= 10)
             {
                 if (this.ViewArea.Count > 10)
@@ -910,14 +931,12 @@
             else
             {
                 dayArea.AddPoint(this.Position);
-            }
+            }*/
+            
             // legion did not see will arch, do not see an enemy
-            if (((((
-                (!this.IsRobber && !this.ViewingWillArchitecture) && 
-                ((this.Army.Kind.Type != MilitaryType.水军) || GameObject.Chance(20))) && 
-                (((this.Morale > 0x4b) && (this.BelongedLegion.Kind == LegionKind.Offensive)) && 
-                (this.WillArchitecture.BelongedFaction != this.BelongedFaction))) && !this.HasHostileTroopInView()) 
-                && !this.BelongedLegion.HasTroopViewingWillArchitecture) && (this.WillArchitecture.BelongedFaction != null))
+            /*if (!this.IsRobber && !this.ViewingWillArchitecture && this.Army.Kind.Type != MilitaryType.水军 && this.Morale > 0x4b && this.BelongedLegion.Kind == LegionKind.Offensive && 
+                this.WillArchitecture.BelongedFaction != this.BelongedFaction && !this.HasHostileTroopInView() && !this.BelongedLegion.HasTroopViewingWillArchitecture && 
+                this.WillArchitecture.BelongedFaction != null)
             {
                 foreach (Point point in dayArea.Area)
                 {
@@ -928,30 +947,28 @@
                         if (moveCreditByPosition.Credit > credit)
                         {
                             credit = moveCreditByPosition.Credit;
-                            pack = moveCreditByPosition;
                         }
                     }
                 }
-            }
+            }*/
             this.OffenceOnlyBeforeMoveFlag = false;
             foreach (Point point in dayArea.Area)
             {
-                if ((this.BelongedLegion == null) || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0))
+                if (this.BelongedLegion == null || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0))
                 {
                     moveCreditByPosition = this.GetCreditByPosition(point);
-                    list.Add(moveCreditByPosition);
-                    if (!flag2)
+                    if (!hasTargetTroopFlag)
                     {
-                        flag2 = moveCreditByPosition.TargetTroop != null;
+                        hasTargetTroopFlag = moveCreditByPosition.TargetTroop != null;
                     }
                     if (!hasUnAttackableTroop)
                     {
                         hasUnAttackableTroop = moveCreditByPosition.HasUnAttackableTroop;
                     }
-                    if (moveCreditByPosition.Credit > credit)
+                    if (moveCreditByPosition.Credit >= credit)
                     {
+                        list.Add(moveCreditByPosition);
                         credit = moveCreditByPosition.Credit;
-                        pack = moveCreditByPosition;
                     }
                 }
             }
@@ -960,9 +977,8 @@
             base.Scenario.GetClosestPointsBetweenTwoAreas(dayArea, this.WillArchitecture.ArchitectureArea, out nullable, out nullable2);
             if ((this.CurrentStunt != null) || (GameObject.Random(this.Stunts.Count + 3) < 3))
             {
-                if (flag2 && ((credit < 500) || (GameObject.Chance(this.Combativity) && GameObject.Chance(80))))
-                {
-                //Label_0712:
+                if (hasTargetTroopFlag && ((credit < 500) || (GameObject.Chance(this.Combativity) && GameObject.Chance(80))))
+                { //Label_0712:
                     foreach (CombatMethod method in this.CombatMethods.CombatMethods.Values)
                     {
                         if (!this.HasCombatMethod(method.ID))
@@ -975,16 +991,15 @@
                             this.RefreshAllData();
                             foreach (Point point in dayArea.Area)
                             {
-                                if (((!nullable.HasValue || flag2) || (nullable.Value == point)) && ((this.BelongedLegion == null) || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0)))
+                                if (((!nullable.HasValue || hasTargetTroopFlag) || (nullable.Value == point)) && ((this.BelongedLegion == null) || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0)))
                                 {
                                     moveCreditByPosition = this.GetCreditByPosition(point);
                                     moveCreditByPosition.CurrentCombatMethod = method;
                                     moveCreditByPosition.Credit -= method.Combativity;
-                                    list.Add(moveCreditByPosition);
-                                    if (moveCreditByPosition.Credit > credit)
+                                    if (moveCreditByPosition.Credit >= credit)
                                     {
+                                        list.Add(moveCreditByPosition);
                                         credit = moveCreditByPosition.Credit;
-                                        pack = moveCreditByPosition;
                                     }
                                 }
                             }
@@ -993,7 +1008,7 @@
                         }
                     }
                 }
-                if ((((this.Morale <= 90) || flag2) || ((hasUnAttackableTroop || GameObject.Chance(10)) || this.HasHostileArchitectureInView())) && ((credit < 500) || (GameObject.Chance(this.Combativity) && GameObject.Chance(30))))
+                if ((((this.Morale <= 90) || hasTargetTroopFlag) || ((hasUnAttackableTroop || GameObject.Chance(10)) || this.HasHostileArchitectureInView())) && ((credit < 500) || (GameObject.Chance(this.Combativity) && GameObject.Chance(30))))
                 {
                     foreach (Stratagem stratagem in this.Stratagems.Stratagems.Values)
                     {
@@ -1003,28 +1018,40 @@
                             {
                                 moveCreditByPosition = this.GetSelfStratagemCredit(stratagem);
                                 moveCreditByPosition.Credit -= stratagem.Combativity;
-                                list.Add(moveCreditByPosition);
-                                if (moveCreditByPosition.Credit > credit)
+                                if (moveCreditByPosition.Credit >= credit)
                                 {
+                                    list.Add(moveCreditByPosition);
                                     credit = moveCreditByPosition.Credit;
-                                    pack = moveCreditByPosition;
                                     flag = true;
                                 }
                             }
                             else
                             {
                                 this.SetCurrentStratagem(stratagem);
-                                foreach (Point point in dayArea.Area)
+                                if (stratagem.Friendly)
                                 {
-                                    if (((!nullable.HasValue || flag2) || (nullable.Value == point)) && (((this.BelongedLegion == null) || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0)) && (!this.OffenceOnlyBeforeMove || !(point != this.Position))))
+                                    foreach (Troop troop in friendlyTroopList)
                                     {
-                                        moveCreditByPosition = this.GetStratagemCreditByPosition(stratagem, point);
+                                        moveCreditByPosition = this.GetStratagemCreditByPosition(stratagem, troop);
                                         moveCreditByPosition.Credit -= stratagem.Combativity;
-                                        list.Add(moveCreditByPosition);
-                                        if (moveCreditByPosition.Credit > credit)
+                                        if (moveCreditByPosition.Credit >= credit)
                                         {
+                                            list.Add(moveCreditByPosition);
                                             credit = moveCreditByPosition.Credit;
-                                            pack = moveCreditByPosition;
+                                            flag = true;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    foreach (Troop troop in hostileTroopList)
+                                    {
+                                        moveCreditByPosition = this.GetStratagemCreditByPosition(stratagem, troop);
+                                        moveCreditByPosition.Credit -= stratagem.Combativity;
+                                        if (moveCreditByPosition.Credit >= credit)
+                                        {
+                                            list.Add(moveCreditByPosition);
+                                            credit = moveCreditByPosition.Credit;
                                             flag = true;
                                         }
                                     }
@@ -1044,12 +1071,11 @@
                     {
                         moveCreditByPosition = this.GetCreditByPosition(point);
                         list.Add(moveCreditByPosition);
-                        flag2 = moveCreditByPosition.TargetTroop != null;
+                        hasTargetTroopFlag = moveCreditByPosition.TargetTroop != null;
                         hasUnAttackableTroop = moveCreditByPosition.HasUnAttackableTroop;
                         if (moveCreditByPosition.Credit > credit)
                         {
                             credit = moveCreditByPosition.Credit;
-                            pack = moveCreditByPosition;
                         }
                     }
                 }
@@ -1062,43 +1088,21 @@
                 return false;
             }
             List<CreditPack> list2 = new List<CreditPack>();
-            bool flag4 = false;
             foreach (CreditPack pack2 in list)
             {
                 if (pack2.Credit == credit)
                 {
                     list2.Add(pack2);
                 }
-                if ((!flag4 && (pack2.TargetTroop != null)) && pack2.TargetTroop.AirOffence)
-                {
-                    flag4 = true;
-                }
             }
             CreditPack pack3 = null;
             List<CreditPack> list3 = new List<CreditPack>();
             if (this.Army.Kind.AirOffence || flag)
             {
-                double minValue = double.MinValue;
+                double maxValue = double.MinValue;
                 foreach (CreditPack pack2 in list2)
                 {
-                    if (pack2.Distance > minValue)
-                    {
-                        minValue = pack2.Distance;
-                        list3.Clear();
-                        list3.Add(pack2);
-                    }
-                    else if (pack2.Distance == minValue)
-                    {
-                        list3.Add(pack2);
-                    }
-                }
-            }
-            else
-            {
-                double maxValue = double.MaxValue;
-                foreach (CreditPack pack2 in list2)
-                {
-                    if (pack2.Distance < maxValue)
+                    if (pack2.Distance > maxValue)
                     {
                         maxValue = pack2.Distance;
                         list3.Clear();
@@ -1110,7 +1114,24 @@
                     }
                 }
             }
-            if (flag4 || GameObject.Chance(20))
+            else
+            {
+                double minValue = double.MaxValue;
+                foreach (CreditPack pack2 in list2)
+                {
+                    if (pack2.Distance < minValue)
+                    {
+                        minValue = pack2.Distance;
+                        list3.Clear();
+                        list3.Add(pack2);
+                    }
+                    else if (pack2.Distance == minValue)
+                    {
+                        list3.Add(pack2);
+                    }
+                }
+            }
+            if (this.BelongedLegion == null || this.BelongedLegion.Kind == LegionKind.Offensive) // 当军团为进攻时在价值一样时选择最远的点
             {
                 num4 = double.MinValue;
                 foreach (CreditPack pack2 in list3)
@@ -1123,7 +1144,7 @@
                     }
                 }
             }
-            else
+            else // 当军团为防守时在价值一样时选择最近的点
             {
                 num4 = double.MaxValue;
                 foreach (CreditPack pack2 in list3)
@@ -1193,7 +1214,11 @@
             }
             if (this.TargetTroop == null && this.TargetArchitecture == null)
             {
-                this.RealDestination = base.Scenario.GetClosestPoint(this.WillArchitecture.ArchitectureArea, this.Position);
+                Point newRealDestination = base.Scenario.GetClosestPoint(this.WillArchitecture.ArchitectureArea, this.Position);
+                int oldDistance = base.Scenario.GetSimpleDistance(this.position, this.RealDestination);
+                int newDistance = base.Scenario.GetSimpleDistance(this.position, newRealDestination);
+                if (oldDistance - newDistance >= 1 || oldDistance == 0)
+                    this.RealDestination = newRealDestination;
             }
             else
             {
@@ -1496,9 +1521,10 @@
             if (this.BelongedFaction == null)
             {
                 this.Destroy(true, true);
-                if ((this.StartingArchitecture != null) && (this.StartingArchitecture.RobberTroop == this))
+                if (this.StartingArchitecture != null && this.StartingArchitecture.RobberTroop == this)
                 {
                     this.StartingArchitecture.RobberTroop = null;
+                    this.StartingArchitecture.RobberTroopID = -1;
                 }
                 if (this.OrientationTroop != null)
                 {
@@ -1512,27 +1538,27 @@
                 {
                     //flag = true;
                 }
-                foreach (Person person in this.Persons)
+                Faction f = this.BelongedFaction;
+                this.Destroy(true, true);
+                foreach (Person person in this.persons)
                 {
                     Point from = person.LocationTroop.Position;
                     person.LocationTroop = null;
-                    if ((this.StartingArchitecture == null) || (this.BelongedFaction != this.StartingArchitecture.BelongedFaction))
+                    if ((this.StartingArchitecture == null) || (f != this.StartingArchitecture.BelongedFaction))
                     {
-                        if (this.BelongedFaction.Capital != null)
+                        if (f.Capital != null)
                         {
-                            this.StartingArchitecture = this.BelongedFaction.Capital;
+                            this.StartingArchitecture = f.Capital;
                         }
                     }
                     if (this.StartingArchitecture != null)
                     {
+                        person.LocationArchitecture = this.StartingArchitecture;
+                        person.LocationArchitecture.MovingPersons.Add(person);
                         person.MoveToArchitecture(this.StartingArchitecture, from);
                     }
-                    else if (base.Scenario.Architectures.Count > 0)
-                    {
-                        person.MoveToArchitecture(base.Scenario.Architectures[0] as Architecture, from);
-                    }
                 }
-                this.Destroy(true, true);
+                this.persons.Clear();
                 if (flag)
                 {
                     TroopList list = new TroopList();
@@ -1579,7 +1605,7 @@
             return result;
         }
 
-        private bool ConstructTruePath(List<Point> reference)
+        private bool ConstructTruePath(List<Point> reference, MilitaryKind kind)
         {
             int minDistance = int.MaxValue;
             Point closestPoint = reference[0];
@@ -1589,7 +1615,7 @@
             int i = 0;
             foreach (Point p in reference)
             {
-                int distance = base.Scenario.GetSimpleDistance(p, this.Position);
+                int distance = base.Scenario.GetSimpleDistance(this.Position, p);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
@@ -1605,12 +1631,15 @@
 
             // create path from here to reference path
             List<Point> section;
-            if (minDistance > 0){
-                this.pathFinder.GetFirstTierPath(this.Position, closestPoint);
+            if (minDistance > 0)
+            {
+                this.pathFinder.GetFirstTierPath(this.Position, closestPoint, kind);
                 if (this.FirstTierPath == null) return false;
                 section = new List<Point>(this.FirstTierPath);
                 section.AddRange(onReference);
-            } else {
+            }
+            else
+            {
                 section = new List<Point>();
                 section.Add(this.Position);
                 section.AddRange(onReference);
@@ -1619,7 +1648,7 @@
             // create path from end of reference path to destination
             if (section[section.Count - 1] != this.Destination)
             {
-                this.pathFinder.GetFirstTierPath(section[section.Count - 1], this.Destination);
+                this.pathFinder.GetFirstTierPath(section[section.Count - 1], this.Destination, kind);
                 if (this.FirstTierPath == null) return false;
                 section.RemoveAt(section.Count - 1);
                 this.FirstTierPath.InsertRange(0, section);
@@ -1641,7 +1670,7 @@
         }
 
         private int cannotFindRouteRounds = 0;
-        private bool BuildThreeTierPath()
+        private bool BuildThreeTierPath(MilitaryKind kind)
         {
             bool path = false;
             if (!this.HasPath)
@@ -1650,33 +1679,50 @@
                     this.TargetTroop == null && this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Offensive)
                 {
                     MilitaryKind trueKind = this.Army.KindID == 28 ? this.Army.RealMilitaryKind : this.Army.Kind;
-                    List<Point> refPath;
-                    try
-                    {
+                    List<Point> refPath = null;
+                    if (base.Scenario.pathCache.ContainsKey(new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, trueKind)))
                         refPath = base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, trueKind)];
-                    }
-                    catch (KeyNotFoundException)
-                    {
-                        refPath = null;
-                    }
                     if (refPath != null && refPath.Count > 0)
                     {
-                        path = ConstructTruePath(refPath);
+                        path = ConstructTruePath(refPath, kind);
                     }
-                    else if (refPath == null)
+                    else if (refPath == null && this.StartingArchitecture != this.WillArchitecture)
                     {
                         Point? p1;
                         Point? p2;
-                        base.Scenario.GetClosestPointsBetweenTwoAreas(this.StartingArchitecture.ArchitectureArea, this.WillArchitecture.ArchitectureArea, out p1, out p2);
+                        // 出发建筑的点应该包括建筑邻近的点
+                        GameArea startingArea = new GameArea();                        
+                        foreach (Point p in this.StartingArchitecture.ContactArea.Area)
+                            startingArea.AddPoint(p);
+                        foreach (Point p in this.StartingArchitecture.ArchitectureArea.Area)
+                            startingArea.AddPoint(p);
+                        startingArea.Centre = this.StartingArchitecture.ArchitectureArea.Centre;
+
+                        GameArea willArea = new GameArea();
+                        foreach (Point p in this.WillArchitecture.ArchitectureArea.Area)
+                            willArea.AddPoint(p);
+                        willArea.Centre = this.WillArchitecture.ArchitectureArea.Centre;
+
+                        base.Scenario.GetClosestPointsBetweenTwoAreas(startingArea, willArea, out p1, out p2);
                         if (p1.HasValue && p2.HasValue)
                         {
-                            bool ftPath = this.pathFinder.GetFirstTierPath(p1.Value, p2.Value);
+                            bool ftPath = this.pathFinder.GetFirstTierPath(p1.Value, p2.Value, kind);
                             if (ftPath)
                             {
                                 if (this.FirstTierPath != null && this.FirstTierPath.Count > 0)
                                 {
+                                    // 去除多余的点
+                                    int i = 0;
+                                    while (startingArea.HasPoint(this.FirstTierPath[i]))
+                                        i++;
+                                    this.FirstTierPath.RemoveRange(0, i);
+                                    i = this.FirstTierPath.Count - 1;
+                                    while (willArea.HasPoint(this.FirstTierPath[i]))
+                                        i--;
+                                    this.FirstTierPath.RemoveRange(i + 1, this.FirstTierPath.Count - i - 1);
+
                                     base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)] = this.FirstTierPath;
-                                    path = ConstructTruePath(this.FirstTierPath);
+                                    path = ConstructTruePath(this.FirstTierPath, kind);
                                 }
                                 else
                                 {
@@ -1687,8 +1733,8 @@
                     }
                 }
                 
-                if (!path){
-
+                if (!path)
+                {
                     this.EnableOneAdaptablility = true;
                     bool flag2 = false;
                     if ((this.BelongedFaction != null) && !GameObject.Chance(0x21))
@@ -1702,7 +1748,7 @@
                             }
                         }
                     }
-                    path = this.pathFinder.GetPath(this.Position, this.Destination);
+                    path = this.pathFinder.GetPath(this.Position, this.Destination, kind);
                     if ((this.BelongedFaction != null) && flag2)
                     {
                         foreach (Troop troop in this.BelongedFaction.Troops)
@@ -1718,22 +1764,22 @@
                     {
                         if (!path)
                         {
-                            path = this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier());
+                            path = this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier(kind), kind);
                         }
                         else
                         {
-                            this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier());
+                            this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier(kind), kind);
                         }
                     }
                     if ((this.SecondTierPath != null) && (this.FirstTierPath == null))
                     {
                         if (!path)
                         {
-                            path = this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                            path = this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier(kind), kind);
                         }
                         else
                         {
-                            this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                            this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier(kind), kind);
                         }
                     }
                 }
@@ -2186,6 +2232,7 @@
                 {
                     foreach (Person person in personlist)
                     {
+                        person.LocationTroop.persons.Remove(person);
                         Captive captive = Captive.Create(base.Scenario, person, this.BelongedFaction);
                         if (captive != null)
                         {
@@ -2216,7 +2263,7 @@
                 PersonList personlist = new PersonList();
                 foreach (Person person in a.Persons)
                 {
-                    if (!(person.ImmunityOfCaptive || (GameObject.Random(this.CaptiveAblility) <= GameObject.Random(person.CaptiveAbility + 200))))
+                    if (!(person.ImmunityOfCaptive || GameObject.Random(this.CaptiveAblility) <= GameObject.Random(person.CaptiveAbility + 200)))
                     {
                         personlist.Add(person);
                     }
@@ -2230,6 +2277,7 @@
                         {
                             this.AddCaptive(captive);
                         }
+                        person.LocationArchitecture.Persons.Remove(person);
                         person.LocationArchitecture = null;
                         person.LocationTroop = this;
                         foreach (Person p in this.Persons)
@@ -2269,27 +2317,27 @@
             return false;
         }
 
-        private bool CheckReLaunchPathFinder()
+        private bool CheckReLaunchPathFinder(MilitaryKind kind)
         {
             bool secondTierPath = false;
             if (((((this.SecondTierPath != null) && (this.ThirdTierPath != null)) && (this.SecondTierPath.Count > 0)) && ((this.Movability == this.MovabilityLeft) && (this.SecondTierPath[this.SecondTierPath.Count - 1] != GetSecondTierCoordinate(this.Destination)))) && ReLaunchSecondPathFinder(this.Position, this.GetCentrePointInThirdTierPosition(this.ThirdTierPath[this.thirdTierPathDestinationIndex])))
             {
                 if (!secondTierPath)
                 {
-                    secondTierPath = this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier());
+                    secondTierPath = this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier(kind), kind);
                 }
                 else
                 {
-                    this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier());
+                    this.pathFinder.GetSecondTierPath(this.Position, this.GetSecondTierDestinationFromThirdTier(kind), kind);
                 }
             }
             if (((((this.FirstTierPath != null) && (this.SecondTierPath != null)) && (this.FirstTierPath.Count > 0)) && ((this.Movability == this.MovabilityLeft) && (this.FirstTierPath[this.FirstTierPath.Count - 1] != this.Destination))) && ReLaunchFirstPathFinder(this.Position, this.GetCentrePointInSecondTierPosition(this.SecondTierPath[this.secondTierPathDestinationIndex])))
             {
                 if (!secondTierPath)
                 {
-                    return this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                    return this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier(kind), kind);
                 }
-                this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier());
+                this.pathFinder.GetFirstTierPath(this.Position, this.GetFirstTierDestinationFromSecondTier(kind), kind);
             }
             return secondTierPath;
         }
@@ -2459,11 +2507,16 @@
             troop.realDestination = position;
             troop.StartingArchitecture = from;
             troop.ID = troop.Scenario.Troops.GetFreeGameObjectID();
-            foreach (Person person in persons.GetList())
+            foreach (Person p in persons.GetList())
             {
-                person.LocationArchitecture = null;
-                person.LocationTroop = troop;
-                person.WorkKind = ArchitectureWorkKind.无;
+                troop.persons.Add(p);
+                p.LocationTroop = troop;
+                if (p.LocationArchitecture != null)
+                {
+                    p.LocationArchitecture.Persons.Remove(p);
+                    p.LocationArchitecture = null;
+                    p.WorkKind = ArchitectureWorkKind.无;
+                }
             }
             troop.SetLeader(leader);
             if (from.BelongedFaction != null)
@@ -2523,11 +2576,6 @@
             {
                 troop.OnTroopCreate(troop);
             }
-            foreach (Person p in troop.Persons)
-            {
-                p.LocationTroop = troop;
-                p.LocationArchitecture = null;
-            }
             //troop.Persons.ApplyInfluences();
             troop.RefreshAllData();
 			ExtensionInterface.call("CreateTroop", new Object[] { troop.Scenario, troop });
@@ -2577,6 +2625,7 @@
                 foreach (Person person in persons)
                 {
                     person.LocationTroop = troop;
+                    troop.persons.Add(person);
                 }
                 troop.SetLeader(Leader);
             }
@@ -2857,7 +2906,7 @@
         public bool DaysToReachPosition(Point position, int days)
         {
             this.MovabilityLeft = this.Movability;
-            List<Point> firstTierSimulatePath = this.pathFinder.GetFirstTierSimulatePath(this.Position, position);
+            List<Point> firstTierSimulatePath = this.pathFinder.GetFirstTierSimulatePath(this.Position, position, this.Army.Kind);
             Point currentPosition = this.Position;
             List<Point> list2 = new List<Point>();
             if (firstTierSimulatePath != null)
@@ -2882,7 +2931,7 @@
                     }
                     else if (point2 != position)
                     {
-                        int num = this.NextPositionCost(currentPosition, point2);
+                        int num = this.NextPositionCost(currentPosition, point2, this.Army.Kind);
                         this.MovabilityLeft -= num;
                         if (this.MovabilityLeft <= 0)
                         {
@@ -3102,13 +3151,6 @@
         {
             if (a.BelongedFaction == this.BelongedFaction)
             {
-                PersonList list = new PersonList();
-                foreach (Person person in this.Persons)
-                {
-                    person.LocationTroop = null;
-                    person.LocationArchitecture = a;
-                }
-                this.Persons.ApplyInfluences();
                 if (this.Army.ShelledMilitary == null)
                 {
                     if (this.Army.Quantity > this.Army.Kind.MaxScale)
@@ -3136,7 +3178,14 @@
                 }
                 this.MoveCaptiveIntoArchitecture(a);
                 this.Destroy(true, false);
-
+                foreach (Person p in this.persons)
+                {
+                    p.LocationTroop = null;
+                    p.LocationArchitecture = a;
+                    p.LocationArchitecture.Persons.Add(p);
+                }
+                this.persons.ApplyInfluences();
+                this.persons.Clear();
                 ExtensionInterface.call("EnterArchitecture", new Object[] { this.Scenario, this, a });
             }
         }
@@ -3821,13 +3870,14 @@
             return list;
         }
 
-        public int GetCostByPosition(Point position, bool oblique, int DirectionCost)
+        public int GetCostByPosition(Point position, bool oblique, int DirectionCost, MilitaryKind kind)
         {
-            if ((this.Army.Kind.OneAdaptabilityKind > 0) && (this.Army.Kind.OneAdaptabilityKind != (int) base.Scenario.GetTerrainKindByPosition(position)))
+            //if ((this.Army.Kind.OneAdaptabilityKind > 0) && (this.Army.Kind.OneAdaptabilityKind != (int) base.Scenario.GetTerrainKindByPosition(position)))
+            if ((kind.OneAdaptabilityKind > 0) && (kind.OneAdaptabilityKind != (int)base.Scenario.GetTerrainKindByPosition(position)))
             {
                 return 1000;
             }
-            int mapCost = this.GetMapCost(position);
+            int mapCost = this.GetMapCost(position, kind);
             mapCost = (DirectionCost > mapCost) ? DirectionCost : mapCost;
             if (oblique)
             {
@@ -3888,7 +3938,7 @@
             Troop troop = null;
             Architecture architecture = null;
             Point zero = Point.Zero;
-            if ((!this.OffenceOnlyBeforeMove || (position == this.Position)) || this.OffenceOnlyBeforeMoveFlag)
+            if (!this.OffenceOnlyBeforeMove || position == this.Position || this.OffenceOnlyBeforeMoveFlag)
             {
                 foreach (Point point2 in this.GetOffenceArea(position).Area)
                 {
@@ -4283,9 +4333,9 @@
             return rectangle;
         }
 
-        public Point GetFirstTierDestinationFromSecondTier()
+        public Point GetFirstTierDestinationFromSecondTier(MilitaryKind kind)
         {
-            if (!LaunchSecondPathFinder(this.Position, this.Destination))
+            if (!LaunchSecondPathFinder(this.Position, this.Destination, kind))
             {
                 return this.Destination;
             }
@@ -4295,7 +4345,7 @@
         private int GetFoodCredit(Point position)
         {
             bool flag;
-            if (this.BelongedFaction == null)
+            if (this.BelongedFaction == null || !GlobalVariables.LiangdaoXitong)
             {
                 return 0;
             }
@@ -4364,11 +4414,11 @@
                 {
                     if (this.CurrentPath == null)
                     {
-                        num = (num + base.Scenario.GetSimpleDistance(this.Position, position)) + ((int) ((this.DistanceToWillArchitecture - base.Scenario.GetDistance(position, this.WillArchitecture.ArchitectureArea)) * 1.0));
+                        num += base.Scenario.GetSimpleDistance(this.Position, position) + (int)(this.DistanceToWillArchitecture - base.Scenario.GetDistance(position, this.WillArchitecture.ArchitectureArea));
                     }
                     else
                     {
-                        num += (this.GetPositionIndexInCurrentPath(position) * 0x13) + ((int) (this.DistanceToWillArchitecture - base.Scenario.GetDistance(position, this.WillArchitecture.ArchitectureArea)));
+                        num += (this.GetPositionIndexInCurrentPath(position) * 0x13) + (int)(this.DistanceToWillArchitecture - base.Scenario.GetDistance(position, this.WillArchitecture.ArchitectureArea));
                     }
                 }
                 goto Label_0505;
@@ -4503,11 +4553,11 @@
             return 0;
         }
 
-        private int GetMapCost(Point position)
+        private int GetMapCost(Point position, MilitaryKind kind)
         {
             if (this.BelongedFaction != null)
             {
-                return this.BelongedFaction.GetMapCost(this, position);
+                return this.BelongedFaction.GetMapCost(this, position, kind);
             }
             if (base.Scenario.PositionOutOfRange(position))
             {
@@ -4622,14 +4672,14 @@
             return area;
         }
 
-        private bool GetPath()
+        private bool GetPath(MilitaryKind kind)
         {
-            bool flag = this.BuildThreeTierPath();
+            bool flag = this.BuildThreeTierPath(kind);
             if (!this.HasPath)
             {
                 return flag;
             }
-            return this.CheckReLaunchPathFinder();
+            return this.CheckReLaunchPathFinder(kind);
         }
 
         public int GetPopulation()
@@ -4657,7 +4707,7 @@
             return -1;
         }
 
-        public int GetPossibleMoveByPosition(Point position)
+        public int GetPossibleMoveByPosition(Point position, MilitaryKind kind)
         {
             if (((this.BelongedFaction == null) && this.ViewArea.HasPoint(position)) || ((this.BelongedFaction != null) && this.BelongedFaction.IsPositionKnown(position)))
             {
@@ -4667,7 +4717,7 @@
                     return 0xdac;
                 }
             }
-            int mapCost = this.GetMapCost(position);
+            int mapCost = this.GetMapCost(position, kind);
             if (this.Movability >= (mapCost * 5))
             {
                 return mapCost;
@@ -4835,9 +4885,9 @@
             return this.SecondTierPath[this.secondTierPathDestinationIndex];
         }
 
-        public Point GetSecondTierDestinationFromThirdTier()
+        public Point GetSecondTierDestinationFromThirdTier(MilitaryKind kind)
         {
-            if (!LaunchThirdPathFinder(this.Position, this.Destination))
+            if (!LaunchThirdPathFinder(this.Position, this.Destination, kind))
             {
                 return this.Destination;
             }
@@ -4917,101 +4967,24 @@
             return GameArea.GetViewArea(position, this.StratagemRadius, this.ObliqueStratagem, base.Scenario, null);
         }
 
-        private CreditPack GetStratagemCreditByPosition(Stratagem stratagem, Point position)
+        private CreditPack GetStratagemCreditByPosition(Stratagem stratagem, Troop troop)
         {
-            int num = -2147483648;
-            Troop troop = null;
-            foreach (Point point in this.GetStratagemArea(position).Area)
+            int credit = stratagem.GetCredit(this, troop);
+            if (credit <= 0)
+                return new CreditPack();
+            if (!stratagem.Friendly && this.WillArchitecture != null && this.WillArchitecture.BelongedFaction != this.BelongedFaction && this.WillArchitecture.BelongedFaction != troop.BelongedFaction)
             {
-                if ((this.BelongedFaction == null) || this.BelongedFaction.IsPositionKnown(point))
-                {
-                    int num2 = base.Scenario.GetSimpleDistance(position, point) * 5;
-                    Troop troopByPositionNoCheck = base.Scenario.GetTroopByPositionNoCheck(point);
-                    if ((troopByPositionNoCheck != null) && (stratagem.Friendly == this.IsFriendly(troopByPositionNoCheck.BelongedFaction)))
-                    {
-                        if (!(stratagem.Friendly || (troopByPositionNoCheck.Status != TroopStatus.埋伏)))
-                        {
-                            continue;
-                        }
-                        int credit = stratagem.GetCredit(this, troopByPositionNoCheck);
-                        if (!stratagem.Friendly && (((this.WillArchitecture != null) && (this.WillArchitecture.BelongedFaction != this.BelongedFaction)) && (this.WillArchitecture.BelongedFaction != troopByPositionNoCheck.BelongedFaction)))
-                        {
-                            credit /= 2;
-                        }
-                        if (((troopByPositionNoCheck != this) && (this.Army.Scales > 4)) && (troopByPositionNoCheck.Army.Scales <= 4))
-                        {
-                            credit /= 2;
-                        }
-                        if (credit > 0)
-                        {
-                            credit += num2;
-                            if (credit > num)
-                            {
-                                num = credit;
-                                troop = troopByPositionNoCheck;
-                            }
-                        }
-                    }
-                }
+                credit /= 2;
             }
-            if (stratagem.Friendly && (position != this.Position))
+            if (troop != this && this.Army.Scales > 4 && troop.Army.Scales <= 4)
             {
-                int num4 = stratagem.GetCredit(this, this);
-                if (num4 > 0)
-                {
-                    num4 += base.Scenario.GetSimpleDistance(this.Position, position) * 5;
-                    if (num4 > num)
-                    {
-                        num = num4;
-                        troop = this;
-                    }
-                }
+                credit /= 2;
             }
             CreditPack pack = new CreditPack();
-            pack.Position = position;
-            if (troop != null)
-            {
-                pack.Distance = base.Scenario.GetDistance(position, troop.Position);
-            }
-            if (((num > 0) && base.Scenario.PositionIsOnFire(position)) && (((this.BelongedFaction == null) && this.ViewArea.HasPoint(position)) || ((this.BelongedFaction != null) && this.BelongedFaction.IsPositionKnown(position))))
-            {
-                num -= 300;
-            }
-            if (num > 0)
-            {
-                num += this.GetFoodCredit(position);
-                num += this.GetLegionCredit(position);
-                num += this.GetHostileRoutewayCredit(position);
-                num += this.GetTerrainCredit(position);
-                int positionHostileOffencingDiscredit = 0;
-                Architecture architectureByPositionNoCheck = base.Scenario.GetArchitectureByPositionNoCheck(position);
-                if ((architectureByPositionNoCheck != null) && (architectureByPositionNoCheck.Endurance > 0))
-                {
-                    if (!stratagem.Friendly)
-                    {
-                        num *= 4;
-                    }
-                }
-                else
-                {
-                    positionHostileOffencingDiscredit = base.Scenario.GetPositionHostileOffencingDiscredit(this, position);
-                }
-                if (position != this.Position)
-                {
-                    float terranRateByPosition = this.GetTerranRateByPosition(position);
-                    num = (int) ((num * Math.Pow((double) terranRateByPosition, 2.0)) - (((double) positionHostileOffencingDiscredit) / Math.Pow((double) terranRateByPosition, 2.0)));
-                }
-                else
-                {
-                    num -= positionHostileOffencingDiscredit;
-                }
-                pack.Credit = num;
-                pack.CurrentStratagem = stratagem;
-            }
-            else
-            {
-                pack.Credit = 0;
-            }
+            pack.Position = troop.position;            
+            pack.Distance = base.Scenario.GetDistance(this.position, troop.Position);            
+            pack.Credit = credit;
+            pack.CurrentStratagem = stratagem;
             pack.TargetTroop = troop;
             return pack;
         }
@@ -5455,7 +5428,7 @@
                     {
                         this.WillArchitecture = this.BelongedFaction.Capital;
                     }
-                    int credit = 0;
+                    /*int credit = 0;
                     CreditPack pack = null;
                     GameArea dayArea = this.GetDayArea(1);
                     if ((((this.Morale < 0x4b) && !this.ViewingWillArchitecture) && !this.HasHostileTroopInView()) && !this.HasHostileArchitectureInView())
@@ -5472,48 +5445,7 @@
                                 pack = selfStratagemCredit;
                             }
                         }
-                    }
-                    bool flag = false;
-                    foreach (Stratagem stratagem in this.Stratagems.Stratagems.Values)
-                    {
-                        if (this.HasStratagem(stratagem.ID))
-                        {
-                            if (stratagem.Self)
-                            {
-                                selfStratagemCredit = this.GetSelfStratagemCredit(stratagem);
-                                if (selfStratagemCredit.Credit > credit)
-                                {
-                                    credit = selfStratagemCredit.Credit;
-                                    pack = selfStratagemCredit;
-                                    flag = true;
-                                }
-                            }
-                            else
-                            {
-                                this.SetCurrentStratagem(stratagem);
-                                selfStratagemCredit = this.GetStratagemCreditByPosition(stratagem, this.Position);
-                                if (selfStratagemCredit.Credit > credit)
-                                {
-                                    credit = selfStratagemCredit.Credit;
-                                    pack = selfStratagemCredit;
-                                    flag = true;
-                                }
-                                this.SetCurrentStratagem(null);
-                            }
-                        }
-                    }
-                    if (flag && (pack.CurrentStratagem != null))
-                    {
-                        this.SetCurrentStratagem(pack.CurrentStratagem);
-                        if (pack.CurrentStratagem.Self)
-                        {
-                            this.SelfCastPosition = pack.SelfCastPosition;
-                        }
-                    }
-                    else if (credit > 0)
-                    {
-                        this.TempDestination = new Point?(pack.Position);
-                    }
+                    }*/
                 }
             }
         }
@@ -6504,7 +6436,7 @@
 
         public bool IsAccessable(Point p)
         {
-            return this.simplepathFinder.GetPath(this.Position, p);
+            return this.simplepathFinder.GetPath(this.Position, p, this.Army.Kind);
         }
 
         public bool IsBaseViewingArchitecture(Architecture a)
@@ -6593,12 +6525,12 @@
             return false;
         }
 
-        public static bool LaunchSecondPathFinder(Point start, Point end)
+        public static bool LaunchSecondPathFinder(Point start, Point end, MilitaryKind kind)
         {
             return (GetDistance(start, end) > (GameObjectConsts.LaunchTierFinderDistance * GameObjectConsts.SecondTierSquareSize));
         }
 
-        public static bool LaunchThirdPathFinder(Point start, Point end)
+        public static bool LaunchThirdPathFinder(Point start, Point end, MilitaryKind kind)
         {
             return (GetDistance(start, end) > (GameObjectConsts.LaunchTierFinderDistance * GameObjectConsts.ThirdTierSquareSize));
         }
@@ -6705,6 +6637,7 @@
                 Person person = persons[int.Parse(str)];
                 if (person != null)
                 {
+                    this.persons.Add(person);
                     person.LocationTroop = this;
                     person.LocationArchitecture = null;
                     person.Status = PersonStatus.Normal;
@@ -6747,8 +6680,6 @@
 
         public void Move()
         {
-
-
             bool flag = false;
 
             if (this.Position != this.Destination)
@@ -6878,7 +6809,7 @@
             this.RefreshDataOfAreaInfluence();
         }
 
-        private int NextPositionCost(Point currentPosition, Point nextPosition)
+        private int NextPositionCost(Point currentPosition, Point nextPosition, MilitaryKind kind)
         {
             int num = 0;
             int num2 = 0;
@@ -6889,17 +6820,17 @@
                     switch ((nextPosition.Y - currentPosition.Y))
                     {
                         case -1:
-                            num = this.GetCostByPosition(new Point(currentPosition.X - 1, currentPosition.Y), false, -1);
-                            num2 = this.GetCostByPosition(new Point(currentPosition.X, currentPosition.Y - 1), false, -1);
-                            return (this.GetCostByPosition(nextPosition, true, (num > num2) ? num : num2) * 7);
+                            num = this.GetCostByPosition(new Point(currentPosition.X - 1, currentPosition.Y), false, -1, kind);
+                            num2 = this.GetCostByPosition(new Point(currentPosition.X, currentPosition.Y - 1), false, -1, kind);
+                            return (this.GetCostByPosition(nextPosition, true, (num > num2) ? num : num2, kind) * 7);
 
                         case 0:
-                            return (this.GetCostByPosition(nextPosition, false, -1) * 5);
+                            return (this.GetCostByPosition(nextPosition, false, -1, kind) * 5);
 
                         case 1:
-                            num = this.GetCostByPosition(new Point(currentPosition.X - 1, currentPosition.Y), false, -1);
-                            num2 = this.GetCostByPosition(new Point(currentPosition.X, currentPosition.Y + 1), false, -1);
-                            return (this.GetCostByPosition(nextPosition, true, (num > num2) ? num : num2) * 7);
+                            num = this.GetCostByPosition(new Point(currentPosition.X - 1, currentPosition.Y), false, -1, kind);
+                            num2 = this.GetCostByPosition(new Point(currentPosition.X, currentPosition.Y + 1), false, -1, kind);
+                            return (this.GetCostByPosition(nextPosition, true, (num > num2) ? num : num2, kind) * 7);
                     }
                     return num3;
 
@@ -6907,13 +6838,13 @@
                     switch ((nextPosition.Y - currentPosition.Y))
                     {
                         case -1:
-                            return (this.GetCostByPosition(nextPosition, false, -1) * 5);
+                            return (this.GetCostByPosition(nextPosition, false, -1, kind) * 5);
 
                         case 0:
                             return 0xdac;
 
                         case 1:
-                            return (this.GetCostByPosition(nextPosition, false, -1) * 5);
+                            return (this.GetCostByPosition(nextPosition, false, -1, kind) * 5);
                     }
                     return num3;
 
@@ -6921,17 +6852,17 @@
                     switch ((nextPosition.Y - currentPosition.Y))
                     {
                         case -1:
-                            num = this.GetCostByPosition(new Point(currentPosition.X + 1, currentPosition.Y), false, -1);
-                            num2 = this.GetCostByPosition(new Point(currentPosition.X, currentPosition.Y - 1), false, -1);
-                            return (this.GetCostByPosition(nextPosition, true, (num > num2) ? num : num2) * 7);
+                            num = this.GetCostByPosition(new Point(currentPosition.X + 1, currentPosition.Y), false, -1, kind);
+                            num2 = this.GetCostByPosition(new Point(currentPosition.X, currentPosition.Y - 1), false, -1, kind);
+                            return (this.GetCostByPosition(nextPosition, true, (num > num2) ? num : num2, kind) * 7);
 
                         case 0:
-                            return (this.GetCostByPosition(nextPosition, false, -1) * 5);
+                            return (this.GetCostByPosition(nextPosition, false, -1, kind) * 5);
 
                         case 1:
-                            num = this.GetCostByPosition(new Point(currentPosition.X + 1, currentPosition.Y), false, -1);
-                            num2 = this.GetCostByPosition(new Point(currentPosition.X, currentPosition.Y + 1), false, -1);
-                            return (this.GetCostByPosition(nextPosition, true, (num > num2) ? num : num2) * 7);
+                            num = this.GetCostByPosition(new Point(currentPosition.X + 1, currentPosition.Y), false, -1, kind);
+                            num2 = this.GetCostByPosition(new Point(currentPosition.X, currentPosition.Y + 1), false, -1, kind);
+                            return (this.GetCostByPosition(nextPosition, true, (num > num2) ? num : num2, kind) * 7);
                     }
                     return num3;
             }
@@ -7204,11 +7135,11 @@
             this.ContactFriendlyTroopCount = this.GetContactFriendlyTroops().Count;
             this.SetFriendlyTroopsInView();
             this.SetHostileTroopsInView();
-            if (this.DistanceToWillArchitecture < 23.0)
+            /*if (this.DistanceToWillArchitecture < -1)
             {
                 this.CurrentPath = new List<Point>();
                 this.EnableOneAdaptablility = true;
-                this.pathFinder.FindFirstTierPath(this.Position, base.Scenario.GetClosestPoint(this.WillArchitecture.ArchitectureArea, this.Position), this.CurrentPath);
+                this.pathFinder.FindFirstTierPath(this.Position, base.Scenario.GetClosestPoint(this.WillArchitecture.ArchitectureArea, this.Position), this.CurrentPath, this.Army.Kind);
                 this.EnableOneAdaptablility = false;
                 if (this.CurrentPath.Count <= 1)
                 {
@@ -7218,7 +7149,9 @@
             else
             {
                 this.CurrentPath = null;
-            }
+            }*/
+            // 上面那段没有任何作用，部队每移动一格前都会重新寻路，这里找一遍纯属浪费时间
+            this.CurrentPath = null;
         }
 
         private void PurifyAreaInfluences(Point p)
@@ -7914,7 +7847,7 @@
             this.position = position;
             this.StartingArchitecture = startingArchitecture;
             base.ID = iD;
-            //this.Persons.Clear();
+            this.Persons.Clear();
             if (!personList.HasGameObject(leader))
             {
                 if (personList.Count > 1)
@@ -7927,6 +7860,7 @@
             }
             foreach (Person person2 in personList)
             {
+                this.persons.Add(person2);
                 person2.LocationTroop = this;
             }
             if ((currentStunt != null) && (stuntDayLeft > 0))
@@ -7954,10 +7888,12 @@
                 PersonList personlist = new PersonList();
                 foreach (Captive captive in this.Captives.GetList())
                 {
-                    if (((captive.CaptivePerson != null) && (captive.CaptiveFaction != null)) && (captive.CaptiveFaction.Capital != null))
+                    if (captive.CaptivePerson != null && captive.CaptiveFaction != null && captive.CaptiveFaction.Capital != null)
                     {
                         personlist.Add(captive.CaptivePerson);
                         captive.CaptivePerson.Status = PersonStatus.Normal;
+                        captive.CaptivePerson.LocationArchitecture = captive.CaptiveFaction.Capital;
+                        captive.CaptivePerson.LocationArchitecture.Persons.Add(captive.CaptivePerson);
                         captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
                         captive.CaptivePerson.BelongedCaptive = null;
                     }
@@ -8911,9 +8847,9 @@
             }
         }
 
-        private int simplepathFinder_OnGetCost(Point position, bool Oblique, int DirectionCost)
+        private int simplepathFinder_OnGetCost(Point position, bool Oblique, int DirectionCost, MilitaryKind kind)
         {
-            int mapCost = this.GetMapCost(position);
+            int mapCost = this.GetMapCost(position, kind);
             mapCost = (DirectionCost > mapCost) ? DirectionCost : mapCost;
             if (Oblique)
             {
@@ -9318,9 +9254,10 @@
         public bool TryToStepForward()
         {
             bool path = false;
-            if (this.StepFinished)
+            MilitaryKind kind = this.Army.Kind;
+            if (this.StepNotFinished)
             {
-                path = this.GetPath();
+                path = this.GetPath(kind);
                 if (this.Destroyed)
                 {
                     this.chongshemubiaoshujuqingling();
@@ -9340,9 +9277,7 @@
                     if (!troopByPosition.IsFriendly(this.BelongedFaction))  //被敌军挡住
                     {
                         //this.MovabilityLeft = -1;
-
-                            this.chongshemubiaoweizhi();
-                        
+                        this.chongshemubiaoweizhi();
                         return path;
                     }
                     int firstTierPathIndex = this.firstTierPathIndex;
@@ -9351,23 +9286,20 @@
                     {
                         Point currentPosition = this.FirstTierPath[firstTierPathIndex];
                         Point nextPosition = this.FirstTierPath[firstTierPathIndex + 1];
-                        int num3 = this.NextPositionCost(currentPosition, nextPosition);
+                        int num3 = this.NextPositionCost(currentPosition, nextPosition, kind);
                         if (num3 <= movabilityLeft)
                         {
                             Troop troop2 = base.Scenario.GetTroopByPosition(nextPosition);
                             if (troop2 == null)          //穿越友军
                             {
-                                this.StepFinished = false;
+                                this.StepNotFinished = false;
                                 return path;
                             }
 
                             if (!troop2.IsFriendly(this.BelongedFaction))     //被敌军挡住
                             {
                                 //this.MovabilityLeft = -1;
-                                
-                                
-                                    this.chongshemubiaoweizhi();
-                                
+                                this.chongshemubiaoweizhi();
                                 return path;
                             }
                             movabilityLeft -= num3;
@@ -9394,7 +9326,7 @@
 
             if (this.FirstTierPath != null)
             {
-                int num4 = this.NextPositionCost(this.Position, this.NextPosition);
+                int num4 = this.NextPositionCost(this.Position, this.NextPosition, kind);
                 if (this.MovabilityLeft >= num4)
                 {
                     this.MovabilityLeft -= num4;
@@ -10329,6 +10261,7 @@
             }
             set
             {
+                if (this.destination == value) return;
                 this.destination = value;
                 this.ClearFirstTierPath();
                 this.ClearSecondTierPath();
@@ -11059,11 +10992,11 @@
                     }
                     if (base.Scenario.GetTroopByPosition(this.position) == this)
                     {
-                        this.StepFinished = true;
+                        this.StepNotFinished = true;
                     }
                     else
                     {
-                        this.StepFinished = false;
+                        this.StepNotFinished = false;
                     }
                     if (this.FirstTierPath != null)
                     {
@@ -11350,15 +11283,15 @@
             }
         }
 
-        public bool StepFinished
+        public bool StepNotFinished
         {
             get
             {
-                return this.stepFinished;
+                return this.stepNotFinished;
             }
             set
             {
-                this.stepFinished = value;
+                this.stepNotFinished = value;
             }
         }
 
@@ -11438,6 +11371,7 @@
             }
             set
             {
+                if (this.targetArchitecture == null && value == null) return;
                 this.targetArchitecture = value;
                 this.HasPath = false;
                 if (value != null)
@@ -11504,6 +11438,7 @@
             }
             set
             {
+                if (this.targetTroop == null && value == null) return;
                 this.targetTroop = value;
                 this.HasPath = false;
                 if (value != null)

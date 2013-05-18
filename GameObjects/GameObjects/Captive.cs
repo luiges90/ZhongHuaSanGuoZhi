@@ -252,19 +252,24 @@
 
         public void TransformToNoFaction()  //变成在野人物
         {
-            if ((this.CaptivePerson != null))
+            if (this.CaptivePerson != null)
             {
                 this.CaptivePerson.Loyalty = 0;
                 this.CaptivePerson.Status = GameObjects.PersonDetail.PersonStatus.NoFaction;
-                if (this.LocationTroop != null)
+                if (this.LocationTroop == null)
                 {
+                    this.CaptivePerson.LocationArchitecture.NoFactionPersons.Add(this.CaptivePerson);
+                }
+                else
+                {
+                    this.CaptivePerson.LocationArchitecture = base.Scenario.Architectures[GameObject.Random(base.Scenario.Architectures.Count)] as Architecture;
                     if ((this.CaptivePerson.BelongedFaction != null) && this.BelongedFaction.Capital != null)
                     {
-                        this.CaptivePerson.MoveToArchitecture(this.BelongedFaction.Capital);
+                        this.CaptivePerson.MoveToArchitecture(this.BelongedFaction.Capital, this.CaptivePerson.LocationTroop.Position);
                     }
                     else if (base.Scenario.Architectures.Count > 0)
                     {
-                        this.CaptivePerson.MoveToArchitecture(base.Scenario.Architectures[GameObject.Random(base.Scenario.Architectures.Count)] as Architecture);
+                        this.CaptivePerson.MoveToArchitecture(base.Scenario.Architectures[GameObject.Random(base.Scenario.Architectures.Count)] as Architecture, this.CaptivePerson.LocationTroop.Position);
                     }
                 }
                 this.CaptivePerson.BelongedCaptive = null;

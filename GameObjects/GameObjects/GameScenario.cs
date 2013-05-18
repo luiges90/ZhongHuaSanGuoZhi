@@ -66,6 +66,28 @@
         public YearTable YearTable = new YearTable();
         public Dictionary<Event, Architecture> EventsToApply = new Dictionary<Event, Architecture>();
         public EventList AllEvents = new EventList();
+        
+        // 缓存地图上有几支部队在埋伏
+        private int numberOfAmbushTroop = -1;
+        public int NumberOfAmbushTroop
+        {
+            get
+            {
+                if (numberOfAmbushTroop >= 0)
+                    return numberOfAmbushTroop;
+                else
+                {
+                    int number = 0;
+                    foreach (Troop t in Troops)
+                    {
+                        if (t.Status == TroopStatus.埋伏)
+                            number++;
+                    }
+                    numberOfAmbushTroop = number;
+                    return numberOfAmbushTroop;
+                }
+            }
+        }
 
         public event AfterLoadScenario OnAfterLoadScenario;
 
@@ -295,6 +317,7 @@
                 }
 
                 person.LocationArchitecture = this.Architectures.GetGameObject(person.AvailableLocation) as Architecture;
+                person.LocationArchitecture.NoFactionPersons.Add(person);
                 person.Status = PersonStatus.NoFaction;
             }
             this.PreparedAvailablePersons.Clear();
@@ -520,7 +543,8 @@
             }
             else
             {
-                if (!allUnusedColors.Contains(newFaction.ColorIndex)){
+                if (!allUnusedColors.Contains(newFaction.ColorIndex))
+                {
                     newFaction.ColorIndex = allUnusedColors[GameObject.Random(allUnusedColors.Count)];
                 }
             }
@@ -547,7 +571,7 @@
             newFaction.AddArchitectureKnownData(newFactionCapital);
             newFaction.FirstSection.AddArchitecture(newFactionCapital);
 
-            if (oldFaction != null && !GameObject.Chance((int) oldFaction.Leader.PersonalLoyalty * 10))
+            if (oldFaction != null && !GameObject.Chance((int)oldFaction.Leader.PersonalLoyalty * 10))
             {
                 oldFaction.Leader.HatedPersons.Add(leader.ID);
             }
@@ -562,21 +586,6 @@
                     {
                         if (p.BelongedFaction == null || (GameObject.Chance(100 - ((int)p.PersonalLoyalty) * 25) && GameObject.Chance(220 - p.Loyalty * 2)))
                         {
-                            /*if (p.BelongedFaction != null)
-                            {
-                                if (p.LocationArchitecture != null)
-                                {
-                                    p.BelongedFaction.RemovePerson(p);
-                                    p.LocationArchitecture.RemovePerson(p);
-                                }
-                            }
-                            else
-                            {
-                                if (p.LocationArchitecture != null)
-                                {
-                                    p.LocationArchitecture.RemoveNoFactionPerson(p);
-                                }
-                            }*/
                             if (p.BelongedFaction != null)
                             {
                                 p.ChangeFaction(newFaction);
@@ -585,11 +594,14 @@
                                 (p.Brother != -1 && p.Brother == leader.Brother))
                             {
                                 p.Loyalty = 150;
-                            } else if ((p.Father == leader.ID || p.Mother == leader.ID || p.ID == leader.Father || p.ID == leader.Mother ||
+                            }
+                            else if ((p.Father == leader.ID || p.Mother == leader.ID || p.ID == leader.Father || p.ID == leader.Mother ||
                                 (p.Father != -1 && p.Father == leader.Father) || (p.Mother != -1 && p.Mother == leader.Mother)))
                             {
                                 p.Loyalty = 120;
-                            } else {
+                            }
+                            else
+                            {
                                 p.Loyalty = (int)p.PersonalLoyalty * 5 + 80;
                                 if (p.Ideal == leader.Ideal)
                                 {
@@ -688,6 +700,7 @@
 
             this.scenarioJustLoaded = false;
             this.GameScreen.LoadScenarioInInitialization = false;
+            numberOfAmbushTroop = -1; // 缓存有几支部队在埋伏，绝大多数时候地图上根本没有埋伏部队，这时候不需要叫浪费时间的函数detectAmbushTroop
         }
 
         private int hostileTroopInViewCountdown = 0;
@@ -716,7 +729,6 @@
                         architecture.BelongedFaction.StopToControl = true;
                         hostileTroopInViewCountdown = 10;
                         //architecture.RecentlyAttacked = 10;
-
                         this.GameScreen.ArchitectureBeginRecentlyAttacked(architecture);  //提示玩家建筑视野范围内出现敌军。
 
                     }
@@ -729,7 +741,7 @@
             }
             else
             {
-                fangshou=true;
+                fangshou = true;
             }
             //attack
             bool jingong = false;
@@ -914,16 +926,21 @@
 
         public Point GetClosestPoint(GameArea area, Point fromPosition)
         {
-            double distance = 0.0;
-            double maxValue = double.MaxValue;
+            int simpleDistance = 0, minSimpleDistance = int.MaxValue;
+            double distance = 0, minDistance = double.MaxValue;
             Point point = new Point();
             foreach (Point point2 in area.Area)
             {
-                distance = this.GetDistance(fromPosition, point2);
-                if (distance < maxValue)
+                simpleDistance = this.GetSimpleDistance(fromPosition, point2);
+                if (simpleDistance <= minSimpleDistance)
                 {
-                    maxValue = distance;
-                    point = point2;
+                    distance = this.GetDistance(fromPosition, point2);
+                    if (distance < minDistance)
+                    {
+                        minSimpleDistance = simpleDistance;
+                        minDistance = distance;
+                        point = point2;
+                    }
                 }
             }
             return point;
@@ -931,22 +948,25 @@
 
         public void GetClosestPointsBetweenTwoAreas(GameArea area1, GameArea area2, out Point? out1, out Point? out2)
         {
-            //out1 = 0;
             out1 = null;
-            //out2 = 0;
             out2 = null;
-            double distance = 0.0;
-            double maxValue = double.MaxValue;
+            int simpleDistance = 0, minSimpleDistance = int.MaxValue;
+            double distance = 0, minDistance = double.MaxValue;
             foreach (Point point in area1.Area)
             {
                 foreach (Point point2 in area2.Area)
                 {
-                    distance = this.GetDistance(point, point2);
-                    if (distance < maxValue)
+                    simpleDistance = this.GetSimpleDistance(point, point2);
+                    if (simpleDistance <= minSimpleDistance)
                     {
-                        maxValue = distance;
-                        out1 = new Point?(point);
-                        out2 = new Point?(point2);
+                        distance = this.GetDistance(point, point2);
+                        if (distance < minDistance)
+                        {
+                            minSimpleDistance = simpleDistance;
+                            minDistance = distance;
+                            out1 = new Point?(point);
+                            out2 = new Point?(point2);
+                        }
                     }
                 }
             }
@@ -992,7 +1012,7 @@
 
         public double GetDistance(GameArea fromArea, GameArea toArea)
         {
-            double distance = 0.0;
+            /*double distance = 0.0;
             double maxValue = double.MaxValue;
             foreach (Point point in fromArea.Area)
             {
@@ -1002,21 +1022,38 @@
                     maxValue = distance;
                 }
             }
-            return maxValue;
+            return maxValue;*/
+            // 上面这段浪费太多时间O(n^2)，下面仅需要O(1)，一个非常近似的值已经足够
+            double distance = GetDistance(fromArea.Centre, toArea.Centre);
+            if (fromArea.Count > 5)
+                distance -= 2;
+            else if (fromArea.Count > 1)
+                distance -= 1;
+            if (toArea.Count > 5)
+                distance -= 2;
+            else if (toArea.Count > 1)
+                distance -= 1;
+            if (distance < 0)
+                distance = 0;
+            return distance;
         }
 
         public double GetDistance(Point fromPosition, GameArea toArea)
         {
-            return this.GetDistance(fromPosition, this.GetClosestPoint(toArea, fromPosition));
+            // O(1) instead of O(n)
+            double distance = GetDistance(fromPosition, toArea.Centre);
+            if (toArea.Count > 5)
+                distance -= 2;
+            else if (toArea.Count > 1)
+                distance -= 1;
+            if (distance < 0)
+                distance = 0;
+            return distance;                
         }
 
         public double GetDistance(Point fromPosition, Point toPosition)
         {
-            if (fromPosition == toPosition)
-            {
-                return 0.0;
-            }
-            return Math.Sqrt(Math.Pow((double) Math.Abs((int) (toPosition.X - fromPosition.X)), 2.0) + Math.Pow((double) Math.Abs((int) (toPosition.Y - fromPosition.Y)), 2.0));
+            return Math.Sqrt(Math.Pow(toPosition.X - fromPosition.X, 2) + Math.Pow(toPosition.Y - fromPosition.Y, 2));
         }
 
         public Point? GetFarthestPosition(GameArea area, List<Point> orientations)
@@ -1286,7 +1323,7 @@
 
         public int GetSimpleDistance(Point from, Point to)
         {
-            return (Math.Abs((int) (from.X - to.X)) + Math.Abs((int) (from.Y - to.Y)));
+            return Math.Abs(from.X - to.X) + Math.Abs(from.Y - to.Y);
         }
 
         public int GetSingleWayDays(Point destination, GameArea fromArea)
@@ -1524,8 +1561,6 @@
             this.GameProgressCaution.Text = "——";
             this.GameProgressCaution.Align=TextAlign.Middle;
             */
-
-
         }
 
         private void InitializeArchitectureMapTile()
@@ -1602,7 +1637,7 @@
                 {
                     architecture.CheckIsFrontLine();
                 }
-                architecture.GenerateAllAILinkNodes(3);
+                architecture.GenerateAllAILinkNodes(2);
             }
 
             /*foreach (Architecture a in this.Architectures)
@@ -2045,20 +2080,10 @@
                 person.PersonalTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["PersonalTitle"]);
                 person.CombatTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["CombatTitle"]);
                 person.StudyingTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["StudyingTitle"]);
-                try
-                {
-                    person.huaiyun = (bool)reader["huaiyun"];
-                    person.faxianhuaiyun = (bool)reader["faxianhuaiyun"];
-                    person.huaiyuntianshu = (short)reader["huaiyuntianshu"];
-                }
-                catch
-                {
-                    person.huaiyun = false;
-                    person.faxianhuaiyun = false;
-                    person.huaiyuntianshu = -1;
-
-                }
-
+                person.huaiyun = (bool)reader["huaiyun"];
+                person.faxianhuaiyun = (bool)reader["faxianhuaiyun"];
+                person.huaiyuntianshu = short.Parse(reader["huaiyuntianshu"].ToString());
+                
                 try
                 {
                     person.suoshurenwu = (short)reader["suoshurenwu"];
@@ -2077,19 +2102,9 @@
                 catch
                 {
                 }
-
-                try
-                {
-                    person.waitForFeiziId = (int)reader["WaitForFeizi"];
-                    person.WaitForFeiZiPeriod = (int)reader["WaitForFeiziPeriod"];
-                    person.preferredTroopPersonsString = reader["PreferredTroopPersons"].ToString();
-                }
-                catch 
-                {
-                    person.waitForFeiziId = -1;
-                    person.WaitForFeiZiPeriod = 0;
-                    person.preferredTroopPersonsString = "";
-                }
+                person.waitForFeiziId = int.Parse(reader["WaitForFeizi"].ToString());
+                person.WaitForFeiZiPeriod = (int)reader["WaitForFeiziPeriod"];
+                person.preferredTroopPersonsString = reader["PreferredTroopPersons"].ToString();
 
                 try
                 {
@@ -2167,7 +2182,8 @@
                 {
                     if (p.ID == recruiter)
                     {
-                        p.RecruitmentMilitary = military;
+                        //p.RecruitmentMilitary = military;
+                        p.RecruitMilitary(military);
                     }
                 }
                 military.ShelledMilitaryID = (short)reader["ShelledMilitary"];
@@ -2253,7 +2269,8 @@
                     architecture.LocationState.LinkedRegion.RegionCore = architecture;
                 }
                 architecture.Characteristics.LoadFromString(this.GameCommonData.AllInfluences, reader["Characteristics"].ToString());
-                StaticMethods.LoadFromString(architecture.ArchitectureArea.Area, reader["Area"].ToString());
+                //StaticMethods.LoadFromString(architecture.ArchitectureArea.Area, reader["Area"].ToString());
+                architecture.LoadFromString(architecture.ArchitectureArea, reader["Area"].ToString());
                 architecture.LoadPersonsFromString(this.AllPersons, reader["Persons"].ToString());
                 architecture.LoadMovingPersonsFromString(this.AllPersons, reader["MovingPersons"].ToString());
                 architecture.LoadNoFactionPersonsFromString(this.AllPersons, reader["NoFactionPersons"].ToString());
@@ -2693,12 +2710,13 @@
                 {
                     int aid1 = (short)reader["Architecture1"];
                     int aid2 = (short)reader["Architecture2"];
+                    if (aid1 == aid2) continue;
                     int kid = (short)reader["MilitaryKind"];
                     Architecture a1 = this.Architectures.GetGameObject(aid1) as Architecture;
                     Architecture a2 = this.Architectures.GetGameObject(aid2) as Architecture;
                     MilitaryKind mk = this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(kid);
                     List<Point> path = new List<Point>();
-                    StaticMethods.LoadFromString(path, (string) reader["Path"]);
+                    StaticMethods.LoadFromString(path, (string)reader["Path"]);
                     this.pathCache[new PathCacheKey(a1, a2, mk)] = path;
                 }
             }
@@ -3268,7 +3286,7 @@
                     row["EnduranceWorkingPersons"] = architecture.EnduranceWorkingPersons.SaveToString();
                     row["zhenzaiWorkingPersons"] = architecture.zhenzaiWorkingPersons.SaveToString();
                     row["TrainingWorkingPersons"] = architecture.TrainingWorkingPersons.SaveToString();
-                    row["feiziliebiao"] = architecture.feiziliebiao.SaveToString();
+                    row["feiziliebiao"] = architecture.Feiziliebiao.SaveToString();
 
                     row["Militaries"] = architecture.Militaries.SaveToString();
                     row["Facilities"] = architecture.Facilities.SaveToString();
