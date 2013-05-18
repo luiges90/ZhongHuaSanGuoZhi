@@ -2008,7 +2008,7 @@
 
                 // 分配完工作后选择人物补充军队
                 if (this.BelongedSection.AIDetail.ValueRecruitment || (!forPlayer && GameObject.Chance(50)))
-                {                    
+                {
                     MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
                     bool needRecruit = false;
                     if ((recentlyAttacked || this.BelongedFaction.PlanTechniqueArchitecture != this) && this.Kind.HasPopulation && ((recentlyAttacked || GameObject.Random((int)this.BelongedFaction.Leader.StrategyTendency + 1) == 0) && this.RecruitmentAvail()))
@@ -2028,11 +2028,11 @@
                             || lotsOfPopulation)
                             )
                         {
-                            bool lotsOfPopulation = GameObject.Chance((int)((((((float)this.Population) / ((float)this.PopulationCeiling)) * 100f) - 50f) * 2.5));
+                            lotsOfPopulation = GameObject.Chance((int)((((((float)this.Population) / ((float)this.PopulationCeiling)) * 100f) - 50f) * 2.5));
                             recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
                             if (this.ArmyScale < this.FewArmyScale)
                             {
-                                rates.AddWorkRate(new WorkRate(0f, ArchitectureWorkKind.补充));
+                                needRecruit = true;
                             }
                             else if ((((this.IsFoodEnough &&
                                 (((this.IsImportant || (this.AreaCount > 2)) && (this.Population > this.Kind.PopulationBoundary))
@@ -2070,152 +2070,109 @@
                             recruitmentPerson.RecruitMilitary(recruitmentMilitaryList[0] as Military);
                         }
                     }
-                
 
-                // 最后再选择人物赈灾
-                if (this.kezhenzai() && this.IsFundEnough && this.IsFoodEnough)
-                {
-                    foreach (Person p in this.persons)
+
+                    // 最后再选择人物赈灾
+                    if (this.kezhenzai() && this.IsFundEnough && this.IsFoodEnough)
                     {
-                        if (p.zhenzaiAbility > 200)
+                        foreach (Person p in this.persons)
                         {
-                            p.WorkKind = ArchitectureWorkKind.赈灾;
+                            if (p.zhenzaiAbility > 200)
+                            {
+                                p.WorkKind = ArchitectureWorkKind.赈灾;
+                            }
                         }
                     }
-                }
 
-                // 新建部队
-                if (!forPlayer)
-                {
-                    if ((this.Kind.HasPopulation && (recentlyAttacked || (this.BelongedFaction.PlanTechniqueArchitecture != this))) &&
-                        (recentlyAttacked || (this.Population > ((this.RecruitmentPopulationBoundary * (1 + (int)this.BelongedFaction.Leader.StrategyTendency * 0.5f)) + GameObject.Random(this.RecruitmentPopulationBoundary)))))
+                    // 新建部队
+                    int unfullArmyCount = 0;
+                    int unfullNavalArmyCount = 0;
+                    foreach (Military military in this.Militaries)
                     {
-                        int unfullArmyCount = 0;
-                        int unfullNavalArmyCount = 0;
-                        foreach (Military military in this.Militaries)
+                        if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && military.Kind.ID != 29)
                         {
-                            if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && military.Kind.ID != 29)
+                            unfullArmyCount++;
+                            if (military.Kind.Type == MilitaryType.水军)
                             {
-                                unfullArmyCount++;
-                                if (military.Kind.Type == MilitaryType.水军)
-                                {
-                                    unfullNavalArmyCount++;
-                                }
+                                unfullNavalArmyCount++;
                             }
                         }
-                        int unfullArmyCountThreshold;
-                        if (this.IsFoodAbundant && this.IsFundAbundant)
+                    }
+                    int unfullArmyCountThreshold;
+                    if (this.IsFoodAbundant && this.IsFundAbundant)
+                    {
+                        unfullArmyCountThreshold = Math.Min((this.MilitaryPopulation) / Parameters.AINewMilitaryPopulationThresholdDivide + 1, (this.PersonCount + this.MovingPersonCount) / Parameters.AINewMilitaryPersonThresholdDivide + 1);
+                    }
+                    else
+                    {
+                        unfullArmyCountThreshold = 1;
+                    }
+                    if (!forPlayer)
+                    {
+                        if ((this.Kind.HasPopulation && (recentlyAttacked || (this.BelongedFaction.PlanTechniqueArchitecture != this))) &&
+                            (recentlyAttacked || (this.Population > ((this.RecruitmentPopulationBoundary * (1 + (int)this.BelongedFaction.Leader.StrategyTendency * 0.5f)) + GameObject.Random(this.RecruitmentPopulationBoundary)))))
                         {
-                            unfullArmyCountThreshold = Math.Min((this.MilitaryPopulation) / Parameters.AINewMilitaryPopulationThresholdDivide + 1, (this.PersonCount + this.MovingPersonCount) / Parameters.AINewMilitaryPersonThresholdDivide + 1);
-                        }
-                        else
-                        {
-                            unfullArmyCountThreshold = 1;
-                        }
-                        if (unfullArmyCount < unfullArmyCountThreshold)
-                        {
-                            if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && (this.MilitaryCount == 0 || GameObject.Chance((int)(100 - this.ShuijunMilitaryCount / (double)this.MilitaryCount * 100))))
+                            if (unfullArmyCount < unfullArmyCountThreshold)
                             {
-                                this.AIRecruitment(true, false);
-                            }
-                            else
-                            {
-                                int siegeCount = 0;
-                                foreach (Military m in this.Militaries)
+                                if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && (this.MilitaryCount == 0 || GameObject.Chance((int)(100 - this.ShuijunMilitaryCount / (double)this.MilitaryCount * 100))))
                                 {
-                                    if (m.Kind.Type == MilitaryType.器械)
-                                    {
-                                        siegeCount++;
-                                    }
-                                }
-                                if (siegeCount < this.Militaries.Count / 3)
-                                {
-                                    this.AIRecruitment(false, true);
+                                    this.AIRecruitment(true, false);
                                 }
                                 else
                                 {
-                                    this.AIRecruitment(false, false);
-                                }
-                            }
-                        }
-                        else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.MilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
-                        {
-                            this.AIRecruitment(true, false);
-                        }
-                    }
-                    // 下面这段是补充运输队的，毫无意义。100人的运输队和50人的运输队价值一样。
-                    /*if (this.TransferFoodArchitecture != null)
-                    {
-                        //find the military team
-                        Military transportTeam = null;
-                        foreach (Military m in Militaries)
-                        {
-                            if (m.Kind.ID == 29 && (transportTeam == null || transportTeam.Quantity <= m.Quantity) && m.Quantity <= m.Kind.MaxScale)
-                            {
-                                transportTeam = m;
-                            }
-                        }
-                        if (transportTeam != null)
-                        {
-
-                            //select an idle person to do the recruit
-                            Person recruitTransportPerson = null;
-                            foreach (Person p in this.Persons)
-                            {
-                                if (p.WorkKind == ArchitectureWorkKind.无)
-                                {
-                                    recruitTransportPerson = p;
-                                }
-                            }
-                            //if no idling person, select the lowest work ability
-                            if (recruitTransportPerson == null)
-                            {
-                                int min = int.MaxValue;
-                                foreach (Person p in this.Persons)
-                                {
-                                    if (p.WorkAbility < min)
+                                    int siegeCount = 0;
+                                    foreach (Military m in this.Militaries)
                                     {
-                                        recruitTransportPerson = p;
-                                        min = p.WorkAbility;
+                                        if (m.Kind.Type == MilitaryType.器械)
+                                        {
+                                            siegeCount++;
+                                        }
+                                    }
+                                    if (siegeCount < this.Militaries.Count / 3)
+                                    {
+                                        this.AIRecruitment(false, true);
+                                    }
+                                    else
+                                    {
+                                        this.AIRecruitment(false, false);
                                     }
                                 }
                             }
-
-                            if ((((this.Population != 0) && (!GlobalVariables.PopulationRecruitmentLimit || (this.ArmyQuantity <= this.Population))) && ((this.Fund >= (Parameters.RecruitmentFundCost * this.AreaCount)) && (this.Domination >= Parameters.RecruitmentDomination))) && (((this.Morale >= Parameters.RecruitmentMorale) && ((transportTeam.RecruitmentPerson != null) && (transportTeam.RecruitmentPerson.BelongedFaction != null))) && (transportTeam.Quantity < transportTeam.Kind.MaxScale)))
+                            else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.MilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
                             {
-                                recruitTransportPerson.RecruitMilitary(transportTeam);
+                                this.AIRecruitment(true, false);
                             }
                         }
-                    }*/
-                }
-                else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.EffectiveMilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
-                {
-                    this.AIRecruitment(true, false);
-                }
-            }
-
-            //disband unused transports except one
-            MilitaryList ml = new MilitaryList();
-            foreach (Military m in Militaries)
-            {
-                if (m.IsTransport)
-                {
-                    ml.Add(m);
-                }
-            }
-            if (ml.Count > 1)
-            {
-                Military minTroop = null;
-                int min = int.MaxValue;
-                foreach (Military m in ml)
-                {
-                    if (m.Quantity < min)
+                    }
+                    else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.EffectiveMilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
                     {
-                        min = m.Quantity;
-                        minTroop = m;
+                        this.AIRecruitment(true, false);
                     }
                 }
-                this.DisbandMilitary(minTroop);
+
+                //disband unused transports except one
+                MilitaryList ml = new MilitaryList();
+                foreach (Military m in Militaries)
+                {
+                    if (m.IsTransport)
+                    {
+                        ml.Add(m);
+                    }
+                }
+                if (ml.Count > 1)
+                {
+                    Military minTroop = null;
+                    int min = int.MaxValue;
+                    foreach (Military m in ml)
+                    {
+                        if (m.Quantity < min)
+                        {
+                            min = m.Quantity;
+                            minTroop = m;
+                        }
+                    }
+                    this.DisbandMilitary(minTroop);
+                }
             }
         }
 
@@ -9236,7 +9193,7 @@
                             {
                                 continue;
                             }
-                            if (rw.ByPassHostileArchitecture)
+                            if (rw.ByPassHostileArchitecture != null)
                             {
                                 continue;
                             }
@@ -9310,7 +9267,7 @@
                             {
                                 this.PlanArchitecture = null;
                             }
-                            else if (routeway.ByPassHostileArchitecture) // 经过敌人建筑
+                            else if (routeway.ByPassHostileArchitecture != null) // 经过敌人建筑
                             {
                                 this.PlanArchitecture = null;
                             }
@@ -9376,10 +9333,6 @@
                                         break;
                                     }
                                 }
-                                if (armyScaleHere <= reserve)
-                                {
-                                    routeway.Building = true;
-                                }
                             }
                         } 
                     } 
@@ -9388,7 +9341,7 @@
                         if (GlobalVariables.LiangdaoXitong) // 有粮道系统时
                         {
                             Routeway routeway = this.GetRouteway(wayToTarget, true);
-                            if (((routeway != null) && !routeway.ByPassHostileArchitecture) && ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
+                            if (((routeway != null) && routeway.ByPassHostileArchitecture == null) && ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
                             {
                                 double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
                                 if (((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway))
