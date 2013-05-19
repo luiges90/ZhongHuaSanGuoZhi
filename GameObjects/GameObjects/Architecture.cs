@@ -9719,12 +9719,12 @@
                                     candidate = j;
                                 }
                             }
-                            if (candidate == null) continue;
                         }
                         if (!IsSelfFoodEnoughForOffensive(i, rw))
                         {
                             continue;
                         }
+                        if (candidate == null) continue;
                         int weight = 1000 + (candidate.Kind == LinkKind.Land ? this.LandArmyScale : this.WaterArmyScale) - candidate.A.ArmyScale;
                         weight += weight / 10 * (candidate.A.connectedToFactionArchitectureCount(this.BelongedFaction) - candidate.A.connectedNotToFactionArchitectureCount(this.BelongedFaction));
                         if (i.A.IsImportant)
@@ -9784,57 +9784,61 @@
                     if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
                     {
                         Routeway routeway = this.GetRouteway(wayToTarget, true);
-                        Architecture bypass = routeway.ByPassHostileArchitecture;
+
                         if (routeway == null)
                         {
                             this.PlanArchitecture = null;
                         }
-                        else if (bypass != null)
-                        {
-                            this.PlanArchitecture = null;
-                        }
-                        else if ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) > this.Fund)
-                        {
-                            routeway.Building = false;
-                            this.PlanArchitecture = wayToTarget.A;
-                        }
                         else
                         {
-                            double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
-                            if (!(((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway)))
+                            Architecture bypass = routeway.ByPassHostileArchitecture;
+                            if (bypass != null)
+                            {
+                                this.PlanArchitecture = null;
+                            }
+                            else if ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) > this.Fund)
                             {
                                 routeway.Building = false;
                                 this.PlanArchitecture = wayToTarget.A;
                             }
-                            else if (GlobalVariables.LiangdaoXitong && (routeway.LastPoint.ConsumptionRate >= 0.1f) && (((int)(routeway.Length * (routeway.LastPoint.ConsumptionRate + 0.2f))) > routeway.LastActivePointIndex))
-                            {
-                                routeway.Building = true;
-                                this.PlanArchitecture = wayToTarget.A;
-                            }
                             else
                             {
-                                if (!routeway.IsActive)
+                                double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
+                                if (!(((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway)))
+                                {
+                                    routeway.Building = false;
+                                    this.PlanArchitecture = wayToTarget.A;
+                                }
+                                else if (GlobalVariables.LiangdaoXitong && (routeway.LastPoint.ConsumptionRate >= 0.1f) && (((int)(routeway.Length * (routeway.LastPoint.ConsumptionRate + 0.2f))) > routeway.LastActivePointIndex))
                                 {
                                     routeway.Building = true;
+                                    this.PlanArchitecture = wayToTarget.A;
                                 }
-                                while (this.ArmyScale > reserve || ignoreReserve)
+                                else
                                 {
-                                    if (this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true) == null)
+                                    if (!routeway.IsActive)
                                     {
-                                        break;
+                                        routeway.Building = true;
                                     }
-                                    if (!(this.HasOffensiveMilitary() && this.HasPerson()))
+                                    while (this.ArmyScale > reserve || ignoreReserve)
                                     {
-                                        break;
+                                        if (this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true) == null)
+                                        {
+                                            break;
+                                        }
+                                        if (!(this.HasOffensiveMilitary() && this.HasPerson()))
+                                        {
+                                            break;
+                                        }
+                                        if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                                        {
+                                            return;
+                                        }
                                     }
-                                    if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                                    if (armyScaleHere <= reserve)
                                     {
-                                        return;
+                                        this.PlanArchitecture = null;
                                     }
-                                }
-                                if (armyScaleHere <= reserve)
-                                {
-                                    this.PlanArchitecture = null;
                                 }
                             }
                         }
