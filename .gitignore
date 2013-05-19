@@ -107,5 +107,6 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/tupian
 *.ldb
 *.jsgme
 MODS
+JSGME.ini
 
 *.xlsx
