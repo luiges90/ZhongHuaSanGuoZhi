@@ -984,13 +984,15 @@
                         {
                             continue;
                         }
+                        bool conditionSatisfied = true;
                         foreach (Conditions.Condition i in kind.GetConditionList())
                         {
                             if (!i.CheckCondition(this))
                             {
-                                continue;
+                                conditionSatisfied = false;
                             }
                         }
+                        if (!conditionSatisfied) continue;
                         if (kind.TechnologyNeeded > this.Technology)
                         {
                             continue;
@@ -1265,7 +1267,8 @@
                 {
                     leader.WaitForFeiZi.WaitForFeiZi = null;
                     leader.WaitForFeiZi = null;
-                } else if (this.fund >= 50000)
+                }
+                else if (this.fund >= 50000)
                 {
                     if (leader.LocationArchitecture == this && leader.Status == PersonStatus.Normal && this.nvxingwujiang().GameObjects.Contains(leader.WaitForFeiZi))
                     {
@@ -1279,6 +1282,11 @@
                         leader.WaitForFeiZi = null;
                     }
                 }
+                else
+                {
+                    leader.WaitForFeiZi.WaitForFeiZi = null;
+                    leader.WaitForFeiZi = null;
+                }
             }
             else
             {
@@ -1287,7 +1295,8 @@
                     GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0
                     ||
                     GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower))))
-                    )
+                    && this.Fund > 75000
+                    ) 
                 {
                     PersonList candidate = new PersonList();
                     foreach (Person p in this.BelongedFaction.Persons)
