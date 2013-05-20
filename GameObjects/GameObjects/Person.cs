@@ -2896,7 +2896,7 @@
             if (((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange))
                 && (((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange)
                 && GameObject.Chance(100 - this.personalLoyalty * 25)  
-                && (this.Loyalty <= 110) )
+                && (this.Loyalty <= 110) && GameObject.Chance(50))
             {
                 int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
                 //亲爱武将性格差调整
@@ -6438,6 +6438,14 @@
                     }
                 }
                 return false;
+            }
+        }
+
+        public string InternalNoFundNeededString
+        {
+            get
+            {
+                return this.InternalNoFundNeeded ? "○" : "×";
             }
         }
 

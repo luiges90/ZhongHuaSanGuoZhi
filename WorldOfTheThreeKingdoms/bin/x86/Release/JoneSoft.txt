@@ -1,11 +1,11 @@
-Generic Mod Enabler v1.7.0 (4 July 2007)
+Generic Mod Enabler v2.6.0 (8 August 2010)
 Written by Jaesen Jones
-Copyright (c) 2003-2007 JoneSoft
+Copyright (c) 2003-2010 JoneSoft
 
 Web: http://www.users.on.net/~jscones/software/
 Email: jonesoft@internode.on.net
 
-"Do you have a game that can be "modded"? As you know, the number of "must have" mods for any game can run into the tens, if not hundreds. The Generic Mod Enabler takes most of the hassle out of installing and uninstalling mods from your game. It has been tested with European Air War, Panzer Elite, Silent Hunter III, Total War and various other games but should work with just about any moddable game." 
+"Do you have a game that can be "modded"? As you know, the number of "must have" mods for any game can run into the tens, if not hundreds. The Generic Mod Enabler takes most of the hassle out of installing and uninstalling mods from your game. It has been tested with European Air War, Panzer Elite, Silent Hunter III/IV, Total War and various other games but should work with just about any moddable game." 
 
 LICENSE AGREEMENT
 You should carefully read the following terms and conditions before using this software.  Your use of this software indicates your acceptance of this license agreement. 
@@ -26,13 +26,74 @@ LICENSE
 - You may not decompile, disassemble or reverse-engineer this software. 
 
 COPYRIGHT
-Generic Mod Enabler is Copyright 2003-2007, JoneSoft. You must treat the Software like any other copyrighted material.
+Generic Mod Enabler is Copyright 2003-2010, JoneSoft. You must treat the Software like any other copyrighted material.
 
 DISCLAIMER OF WARRANTY
 THIS SOFTWARE AND THE ACCOMPANYING FILES ARE SUPPLIED "AS IS" AND WITHOUT WARRANTIES AS TO PERFORMANCE OF MERCHANTABILITY OR ANY OTHER WARRANTIES WHETHER EXPRESSED OR IMPLIED. NO WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE IS OFFERED. 
 
 RELEASE NOTES
-1.7.0
+2.6.0
+- Fixed: now correctly disables mods that have [ as the first character in the mod name
+- Added: new enhanced game file compare feature
+- Changed: snapshot/compare feature now based on MD5 sums, not date stamps
+
+2.5.0 (19 June 2010)
+- Added: drag & drop from other processes (ie Windows Explorer, Desktop) now enabled under Microsoft Vista/Windows 7
+- Added: now detects changes to MODS folder contents and refreshes screen automatically
+- Changed: display font now defaults to user's desktop (icon) font
+- Changed: improved handling of -remove directive
+- Changed: improved handling of mod-added folders
+- Changed: numerous (minor) interface modifications
+- Changed: further optimised for use with Microsoft Vista/Windows 7
+
+2.4.0 (7 May 2010)
+- Added ability to copy the list of activated mods to the clipboard
+- Added /s switch for saving mod profiles
+- Added new (online) Help file
+- Now optimised for use with Microsoft Vista and Windows 7
+- Minor modifications to the behaviour of the "Tasks..." menu
+
+2.3.1 (1 November 2009)
+- Now writes JSGME path to JSGME.ini for use by third party apps that interact with JSGME
+- Added /l command line parameter for loading mod profiles
+
+2.3.0 (3 October 2009)
+- Now correctly handles mods that have = as part of the mod folder name
+- Added ability to load and save mod profiles
+- Added search facility
+- Now defaults to "Start in" folder
+- Confirmation dialog no longer appears when disabling all mods using the /da command line switch
+- Modified layout of "Tasks" menu
+- Removed sounds, apart from those connected to warnings or errors
+
+2.2.0 (6 September 2008)
+- Now allows users to change the default MODS folder name when first run
+- Now accepts command line parameters (refer to Help file for more detail)
+- Added ability to import a mod folder from another location
+- Now displays the total number of mods found and number of activated mods in status bar
+- Removed "Delete" button - delete available mods by selecting and pressing the Delete key or Delete context menu option
+
+2.1.0 (10 May 2008)
+- Activated mods that can't be immediately disabled because they have files overwritten by subsequently activated mods now display in a different ("greyed out") colour
+- Minor code enhancements
+
+2.0.1 (30 October 2007)
+- Fixed some case sensitivity problems
+
+2.0.0 (23 October 2007)
+- Now records a snapshot of mod files at the time of enabling and disables based on that snapshot
+- Now warns when a mod adds new folders that were added by previously enabled mods
+- Now supports importing of mods through drag and drop from Windows Explorer, Desktop etc (not supported under Microsoft Vista)
+- Added ability to rename mods by selecting and pressing F2
+- Added ability to create new mod folder names by pressing F7
+- Now plays a sound when enabling or disabling has completed
+- !BACKUP folder now has hidden attribute
+- Now deletes mods to the Recycle Bin
+- Snapshot and comparison files now saved to MODS folder
+- Improved system message handling
+- Many code enhancements
+
+1.7.0 (4 July 2007)
 - Updated interface
 - Now clicking on a mod will display a brief description of the mod, where one exists (see Help file for more information)
 
@@ -123,6 +184,6 @@ RELEASE NOTES
 ACKNOWLEDGEMENTS
 Thanks and credit to:
 - Ian "Beery" Cooper who suggested the warning enhancement and who indirectly motivated me to release this tool to the community!
-- Reece and John "NZ_Wanderer" for raising problems and then testing fixes!
+- Alain, Reece and John "NZ_Wanderer" for raising problems and then testing fixes!
 - The language translators - names can be found in each .lng file.
-- The many Subsim forum members that have provided continued feedback and suggestions.
+- The many users that have provided continued feedback and suggestions.

@@ -889,16 +889,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case ContextMenuResult.TroopEnter:
 
-                    if (!this.CurrentTroop.CanEnter())
-                    {
-                        this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.Trooprucheng));
-                    }
-                    else
-                    {
-                        this.CurrentTroop.Enter();
-                        this.CurrentTroop = null;
-                        this.Plugins.AirViewPlugin.ReloadTroopView();
-                    }
+                    this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.Trooprucheng));
 
                     break;
 

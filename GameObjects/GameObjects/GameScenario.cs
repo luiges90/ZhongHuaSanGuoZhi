@@ -517,6 +517,8 @@
 
         private void CreateNewFaction(Person leader)
         {
+            if (leader.Status != PersonStatus.Normal && leader.Status != PersonStatus.NoFaction) return;
+
             Faction newFaction = new Faction();
             newFaction.Scenario = this;
             newFaction.ID = this.Factions.GetFreeGameObjectID();
@@ -545,6 +547,7 @@
                 newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(0) as MilitaryKind);
                 newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(1) as MilitaryKind);
                 newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(2) as MilitaryKind);
+                newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(25) as MilitaryKind);
                 newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(29) as MilitaryKind);
                 newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(30) as MilitaryKind);
                 newFaction.ColorIndex = -1;
@@ -599,7 +602,7 @@
             }
             foreach (Person p in this.AvailablePersons)
             {
-                if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.Status != PersonStatus.Princess)
+                if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.Status != PersonStatus.Princess && p != leader)
                 {
                     if (p.Father == leader.ID || p.Mother == leader.ID || p.ID == leader.Father || p.ID == leader.Mother ||
                         (p.Father != -1 && p.Father == leader.Father) || (p.Mother != -1 && p.Mother == leader.Mother) ||
@@ -631,7 +634,6 @@
                                 }
                             }
                             p.MoveToArchitecture(newFactionCapital);
-                            //faction.AddPerson(p);
                         }
                     }
                 }

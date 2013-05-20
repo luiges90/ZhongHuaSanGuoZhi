@@ -1004,7 +1004,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     {
                         return;
                     }
+
                     architecture2 = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+
+                    if (this.CurrentTroop.CanEnter())
+                    {
+                        this.CurrentTroop.Enter(architecture2);
+                        this.CurrentTroop = null;
+                        this.Plugins.AirViewPlugin.ReloadTroopView();
+                        return;
+                    }
+                    
                     this.CurrentTroop.RealDestination = this.selectingLayer.SelectedPoint;
                     this.CurrentTroop.TargetTroop = null;
                     this.CurrentTroop.TargetArchitecture = null;

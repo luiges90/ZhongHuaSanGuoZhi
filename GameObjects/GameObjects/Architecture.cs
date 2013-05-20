@@ -9202,8 +9202,9 @@
                                 continue;
                             }
                         }
-                        int weight = 1000 + (i.Kind == LinkKind.Land ? this.LandArmyScale : this.WaterArmyScale) - i.A.ArmyScale;
-                        weight += weight / 10 * (i.A.connectedToFactionArchitectureCount(this.BelongedFaction) - i.A.connectedNotToFactionArchitectureCount(this.BelongedFaction));
+                        if (candidate == null) continue;
+                        int weight = 1000 + (candidate.Kind == LinkKind.Land ? this.LandArmyScale : this.WaterArmyScale) - candidate.A.ArmyScale;
+                        weight += weight / 10 * (candidate.A.connectedToFactionArchitectureCount(this.BelongedFaction) - candidate.A.connectedNotToFactionArchitectureCount(this.BelongedFaction));
                         if (i.A.IsImportant)
                         {
                             weight = weight * 3 / 2;
@@ -9267,48 +9268,52 @@
                             {
                                 this.PlanArchitecture = null;
                             }
-                            else if (routeway.ByPassHostileArchitecture != null) // 经过敌人建筑
-                            {
-                                this.PlanArchitecture = null;
-                            }
-                            else if ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) > this.Fund) // 资金不足以建粮道
-                            {
-                                routeway.Building = false;
-                                this.PlanArchitecture = wayToTarget.A;
-                            }
                             else
                             {
-                                double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
-                                if (!(((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway))) // 军粮不足
+                                Architecture bypass = routeway.ByPassHostileArchitecture;
+                                if (bypass != null)  // 经过敌人建筑
+                                {
+                                    this.PlanArchitecture = null;
+                                }
+                                else if ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) > this.Fund)// 资金不足以建粮道
                                 {
                                     routeway.Building = false;
                                     this.PlanArchitecture = wayToTarget.A;
                                 }
-                                else if (GlobalVariables.LiangdaoXitong && (routeway.LastPoint.ConsumptionRate >= 0.1f) && (((int)(routeway.Length * (routeway.LastPoint.ConsumptionRate + 0.2f))) > routeway.LastActivePointIndex)) // 粮道不够长，继续修建
-                                {
-                                    routeway.Building = true;
-                                    this.PlanArchitecture = wayToTarget.A;
-                                }
                                 else
                                 {
-                                    if (!routeway.IsActive)
+                                    double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
+                                    if (!(((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway))) // 军粮不足
+                                    {
+                                        routeway.Building = false;
+                                        this.PlanArchitecture = wayToTarget.A;
+                                    }
+                                    else if (GlobalVariables.LiangdaoXitong && (routeway.LastPoint.ConsumptionRate >= 0.1f) && (((int)(routeway.Length * (routeway.LastPoint.ConsumptionRate + 0.2f))) > routeway.LastActivePointIndex)) // 粮道不够长，继续修建
                                     {
                                         routeway.Building = true;
+                                        this.PlanArchitecture = wayToTarget.A;
                                     }
-                                    while (this.ArmyScale > reserve || ignoreReserve)
+                                    else
                                     {
-                                        if (this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true) == null)
+                                        if (!routeway.IsActive)
                                         {
-                                            break;
+                                            routeway.Building = true;
                                         }
-                                        if (!(this.HasOffensiveMilitary() && this.HasPerson()))
+                                        while (this.ArmyScale > reserve || ignoreReserve)
                                         {
-                                            break;
+                                            if (this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true) == null)
+                                            {
+                                                break;
+                                            }
+                                            if (!(this.HasOffensiveMilitary() && this.HasPerson()))
+                                            {
+                                                break;
+                                            }
                                         }
-                                    }
-                                    if (armyScaleHere <= reserve)
-                                    {
-                                        this.PlanArchitecture = null;
+                                        if (armyScaleHere <= reserve)
+                                        {
+                                            this.PlanArchitecture = null;
+                                        }
                                     }
                                 }
                             }
@@ -9324,13 +9329,24 @@
                             {
                                 while (this.ArmyScale > reserve || ignoreReserve)
                                 {
-                                    if (this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true) == null)
+                                    if (!routeway.IsActive)
                                     {
-                                        break;
+                                        routeway.Building = true;
                                     }
-                                    if (!(this.HasOffensiveMilitary() && this.HasPerson()))
+                                    while (this.ArmyScale > reserve || ignoreReserve)
                                     {
-                                        break;
+                                        if (this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true) == null)
+                                        {
+                                            break;
+                                        }
+                                        if (!(this.HasOffensiveMilitary() && this.HasPerson()))
+                                        {
+                                            break;
+                                        }
+                                        if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
+                                        {
+                                            return;
+                                        }
                                     }
                                 }
                             }
@@ -9358,7 +9374,7 @@
                                     }
                                     else
                                     {
-                                        return;
+                                        this.PlanArchitecture = null;
                                     }
                                 }
                             }
