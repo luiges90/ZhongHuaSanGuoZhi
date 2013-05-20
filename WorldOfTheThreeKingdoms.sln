@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFreeText", "GameFreeTex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginServices", "WorldOfTheThreeKingdoms\PluginServices\PluginServices.csproj", "{ADC4D535-C7CA-415A-8F0B-81AF3525EBD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabListPlugin", "TabListPlugin\TabListPlugin.csproj", "{1ED7E0C3-417B-40F0-9950-63886C62E66C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -242,6 +244,16 @@ Global
 		{ADC4D535-C7CA-415A-8F0B-81AF3525EBD5}.Release|Mixed Platforms.Build.0 = Release|x86
 		{ADC4D535-C7CA-415A-8F0B-81AF3525EBD5}.Release|x86.ActiveCfg = Release|x86
 		{ADC4D535-C7CA-415A-8F0B-81AF3525EBD5}.Release|x86.Build.0 = Release|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Debug|x86.ActiveCfg = Debug|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Debug|x86.Build.0 = Debug|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Release|Any CPU.ActiveCfg = Release|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Release|Mixed Platforms.Build.0 = Release|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Release|x86.ActiveCfg = Release|x86
+		{1ED7E0C3-417B-40F0-9950-63886C62E66C}.Release|x86.Build.0 = Release|x86
 		{C93EC368-BCF8-43A7-B30A-96166A276B1A}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{C93EC368-BCF8-43A7-B30A-96166A276B1A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{C93EC368-BCF8-43A7-B30A-96166A276B1A}.Debug|x86.ActiveCfg = Debug|x86
