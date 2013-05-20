@@ -6224,14 +6224,6 @@
             }
         }
 
-        public string InternalNoFundNeededString
-        {
-            get
-            {
-                return this.InternalNoFundNeeded ? "○" : "×";
-            }
-        }
-
     }
 }
 
