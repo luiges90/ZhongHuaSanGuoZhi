@@ -1007,7 +1007,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                     architecture2 = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
 
-                    if (this.CurrentTroop.CanEnter())
+                    if (this.CurrentTroop.CanEnter() && this.CurrentTroop.EnterList.GameObjects.Contains(architecture2))
                     {
                         this.CurrentTroop.Enter(architecture2);
                         this.CurrentTroop = null;
