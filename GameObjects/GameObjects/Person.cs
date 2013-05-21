@@ -4531,7 +4531,20 @@
         {
             get
             {
-                return (this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) * (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) + this.AllSkillMerit + this.TreasureMerit);
+                return (this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) * 
+                    (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) 
+                    + this.AllSkillMerit + this.TreasureMerit);
+            }
+        }
+
+        public int UntiredMerit
+        {
+            get
+            {
+                return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + 
+                    this.UntiredPolitics + this.UntiredGlamour) * 
+                    (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) 
+                    + this.AllSkillMerit + this.TreasureMerit);
             }
         }
 
@@ -4595,6 +4608,14 @@
             }
         }
 
+        public int UntiredCommand
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
+            }
+        }
+
         public int NormalCommerceAbility
         {
             get
@@ -4627,11 +4648,27 @@
             }
         }
 
+        public int UntiredGlamour
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
+            }
+        }
+
         public int NormalIntelligence
         {
             get
             {
                 return (int)(Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor);
+            }
+        }
+
+        public int UntiredIntelligence
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
             }
         }
 
@@ -4659,6 +4696,14 @@
             }
         }
 
+        public int UntiredPolitics
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
+            }
+        }
+
         public int NormalRecruitmentAbility
         {
             get
@@ -4672,6 +4717,14 @@
             get
             {
                 return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor);
+            }
+        }
+
+        public int UntiredStrength
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
             }
         }
 

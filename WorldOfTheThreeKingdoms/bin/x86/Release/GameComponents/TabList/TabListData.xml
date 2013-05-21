@@ -482,7 +482,7 @@
                     Align="Right">
         </Column>
 
-        <Column ID="124" Name="Merit" IsNumber="true" DisplayName="身价" MinWidth="80"
+        <Column ID="124" Name="UntiredMerit" IsNumber="true" DisplayName="身价" MinWidth="80"
 			FontName="宋体"
 			FontSize="12"
 			FontStyle="Regular"
