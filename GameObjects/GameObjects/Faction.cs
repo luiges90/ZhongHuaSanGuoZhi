@@ -216,7 +216,7 @@
             int result = 0;
             foreach (Influences.Influence i in tech.Influences.GetInfluenceList())
             {
-                switch (i.ID)
+                switch (i.Kind.ID)
                 {
                     case 1030:
                     case 2400:
