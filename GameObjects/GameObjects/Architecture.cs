@@ -9925,6 +9925,25 @@
             }
         }
 
+        public void callReturnedOfficerToWork()
+        {
+            if (this.AutoWorking || this.BelongedSection.AIDetail.AutoRun)
+            {
+                if (this.BelongedSection.AIDetail.AutoRun)
+                {
+                    this.AIWork(false);
+                }
+                else
+                {
+                    this.PlayerAIWork();
+                }
+            }
+            if (this.AutoSearching)
+            {
+                this.PlayerAISearch();
+            }
+        }
+
         private void PopulationEscapeEvent()
         {
             if ((((!this.DayAvoidPopulationEscape && this.Kind.HasPopulation) && ((this.Domination < this.DominationCeiling) && (this.RecentlyAttacked > 0))) && ((this.Population > (0x3e8 * this.AreaCount)) && (this.Morale < this.MoraleCeiling))) && (GameObject.Random(((int) Math.Pow((double) (this.Domination + this.Morale), 2.0)) + 0x3e8) < GameObject.Random(0x3e8)))
