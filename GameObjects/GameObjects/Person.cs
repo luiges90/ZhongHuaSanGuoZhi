@@ -5918,7 +5918,12 @@
                 r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
             }
 
-            r.Character = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.Character : mother.Character) : father.Scenario.GameCommonData.AllCharacterKinds[GameObject.Random(father.Scenario.GameCommonData.AllCharacterKinds.Count)];
+            int characterId = 0;
+            do
+            {
+                characterId = GameObject.Random(father.Scenario.GameCommonData.AllCharacterKinds.Count);
+            } while (characterId == 0);
+            r.Character = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.Character : mother.Character) : father.Scenario.GameCommonData.AllCharacterKinds[characterId];
 
             foreach (Skill i in father.Skills.GetSkillList())
             {
