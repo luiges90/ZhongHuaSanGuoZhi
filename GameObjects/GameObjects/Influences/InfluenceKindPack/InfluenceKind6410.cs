@@ -8,25 +8,9 @@
     {
         private int increment;
 
-        public override void ApplyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                person.LocationArchitecture.facilityEnduranceIncrease += this.increment;
-            }
-        }
-
         public override void ApplyInfluenceKind(Architecture a)
         {
             a.facilityEnduranceIncrease += this.increment;
-        }
-
-        public override void PurifyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                person.LocationArchitecture.facilityEnduranceIncrease -= this.increment;
-            }
         }
 
         public override void PurifyInfluenceKind(Architecture a)
