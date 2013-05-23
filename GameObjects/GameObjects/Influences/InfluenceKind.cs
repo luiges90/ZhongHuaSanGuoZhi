@@ -56,6 +56,9 @@
             if (this.Type == InfluenceType.势力)
             {
                 ApplyInfluenceKind(faction);
+            }
+            if (this.Type == InfluenceType.建筑 || this.Type == InfluenceType.建筑战斗)
+            {
                 foreach (Architecture a in faction.Architectures)
                 {
                     ApplyingArchitecture z = new ApplyingArchitecture(a, applier, applierID);
@@ -65,6 +68,9 @@
                         ApplyInfluenceKind(a, i, applier, applierID);
                     }
                 }
+            }
+            if (this.Type == InfluenceType.战斗 || this.Type == InfluenceType.建筑战斗)
+            {
                 foreach (Troop t in faction.Troops)
                 {
                     ApplyingTroop a = new ApplyingTroop(t, applier, applierID);
