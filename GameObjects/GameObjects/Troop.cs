@@ -221,11 +221,11 @@
         private bool moved;
         private int moveFrameIndex = 0;
         private int moveStayCount = 0;
-        public int MultipleOfArmyExperience = 1;
-        public int MultipleOfCombatTechniquePoint = 1;
-        public int MultipleOfDefenceOnArchitecture = 1;
-        public int MultipleOfLeaderExperience = 1;
-        public int MultipleOfStratagemTechniquePoint = 1;
+        public float MultipleOfArmyExperience = 1;
+        public float MultipleOfCombatTechniquePoint = 1;
+        public float MultipleOfDefenceOnArchitecture = 1;
+        public float MultipleOfLeaderExperience = 1;
+        public float MultipleOfStratagemTechniquePoint = 1;
         public bool NeverBeIntoChaos;
         public bool NeverBeIntoChaosWhileWaylay;
         public bool NoAccidentalInjury;
@@ -6274,7 +6274,7 @@
 
         private void IncreaseArmyExperience(int increment)
         {
-            this.Army.IncreaseExperience(increment * this.MultipleOfArmyExperience);
+            this.Army.IncreaseExperience((int) (increment * this.MultipleOfArmyExperience));
         }
 
         private void IncreaseAttackExperience(int increment)
@@ -6282,14 +6282,14 @@
             this.IncreaseArmyExperience(increment);
             if (this.BelongedFaction != null)
             {
-                if (this.Army.IncreaseLeaderExperience(increment * this.MultipleOfLeaderExperience))
+                if (this.Army.IncreaseLeaderExperience((int) (increment * this.MultipleOfLeaderExperience)))
                 {
                     this.Army.ApplyFollowedLeader(this);
                 }
                 this.IncreasePersonAttackExperience(increment, true);
                 this.IncreasePersonAttackReputation(increment);
                 this.BelongedFaction.IncreaseReputation(increment * 2);
-                this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfCombatTechniquePoint) * 50);
+                this.BelongedFaction.IncreaseTechniquePoint((int) ((increment * this.MultipleOfCombatTechniquePoint) * 50));
             }
             this.RefreshOffence();
             this.RefreshDefence();
@@ -6319,7 +6319,7 @@
         public void IncreaseExperience(int increment)
         {
             Military army = this.Army;
-            army.Experience += increment * this.MultipleOfArmyExperience;
+            army.Experience += (int) (increment * this.MultipleOfArmyExperience);
         }
 
         public int IncreaseFood(int increment)
@@ -6524,12 +6524,12 @@
                 this.Army.IncreaseExperience(20);
                 if (this.BelongedFaction != null)
                 {
-                    if (this.Army.IncreaseLeaderExperience(30 * this.MultipleOfLeaderExperience))
+                    if (this.Army.IncreaseLeaderExperience((int) (30 * this.MultipleOfLeaderExperience)))
                     {
                         this.Army.ApplyFollowedLeader(this);
                     }
                     this.BelongedFaction.IncreaseReputation(50);
-                    this.BelongedFaction.IncreaseTechniquePoint(0x3e8 * this.MultipleOfCombatTechniquePoint);
+                    this.BelongedFaction.IncreaseTechniquePoint((int) (0x3e8 * this.MultipleOfCombatTechniquePoint));
                     foreach (Person person in this.Persons)
                     {
                         if (person == this.Leader)
@@ -6569,12 +6569,12 @@
                 this.IncreasePersonStratagemExperience(increment);
                 if (cast)
                 {
-                    if (this.Army.IncreaseLeaderExperience(increment * this.MultipleOfLeaderExperience))
+                    if (this.Army.IncreaseLeaderExperience((int) (increment * this.MultipleOfLeaderExperience)))
                     {
                         this.Army.ApplyFollowedLeader(this);
                     }
                     this.BelongedFaction.IncreaseReputation(increment * 2);
-                    this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfStratagemTechniquePoint) * this.CurrentStratagem.TechniquePoint);
+                    this.BelongedFaction.IncreaseTechniquePoint((int) (increment * this.MultipleOfStratagemTechniquePoint) * this.CurrentStratagem.TechniquePoint);
                 }
             }
             this.RefreshOffence();
@@ -7869,7 +7869,7 @@
                 Architecture architectureByPositionNoCheck = base.Scenario.GetArchitectureByPositionNoCheck(this.Position);
                 if ((architectureByPositionNoCheck != null) && (architectureByPositionNoCheck.Endurance > 0))
                 {
-                    this.defence *= this.MultipleOfDefenceOnArchitecture;
+                    this.defence = (int) (this.defence * this.MultipleOfDefenceOnArchitecture);
                 }
             }
             if (!((this.Status != TroopStatus.混乱) || this.DefenceNoChangeOnChaos))

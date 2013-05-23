@@ -8,19 +8,19 @@
     {
         private float increment;
 
-        public override void ApplyInfluenceKind(Person p)
+        public override void ApplyInfluenceKind(Architecture a)
         {
-            if (p.BelongedFaction != null)
+            if (a.BelongedFaction != null)
             {
-                p.BelongedFaction.techniqueReputationRateDecrease.Add(this.increment);
+                a.BelongedFaction.techniqueReputationRateDecrease.Add(this.increment);
             }
         }
 
-        public override void PurifyInfluenceKind(Person p)
+        public override void PurifyInfluenceKind(Architecture a)
         {
-            if (p.BelongedFaction != null)
+            if (a.BelongedFaction != null)
             {
-                p.BelongedFaction.techniqueReputationRateDecrease.Remove(this.increment);
+                a.BelongedFaction.techniqueReputationRateDecrease.Remove(this.increment);
             }
         }
 

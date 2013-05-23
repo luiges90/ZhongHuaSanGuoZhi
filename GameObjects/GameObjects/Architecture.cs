@@ -107,8 +107,8 @@
         public MilitaryList Militaries = new MilitaryList();
         private int morale;
         public int MoraleOfRecruitment = 50;
-        public int MultipleOfRecovery = 1;
-        public int MultipleOfTraining = 1;
+        public float MultipleOfRecovery = 1;
+        public float MultipleOfTraining = 1;
         public MilitaryKindList NewMilitaryKindList = new MilitaryKindList();
         public bool NoCounterStrikeInArchitecture;
         public bool orientationFrontLine;

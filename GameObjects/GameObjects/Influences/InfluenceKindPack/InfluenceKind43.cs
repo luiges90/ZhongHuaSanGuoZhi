@@ -6,7 +6,7 @@
 
     internal class InfluenceKind43 : InfluenceKind
     {
-        private int multiple = 1;
+        private float multiple = 1;
 
         public override void ApplyInfluenceKind(Person person)
         {
@@ -28,7 +28,7 @@
         {
             try
             {
-                this.multiple = int.Parse(parameter);
+                this.multiple = float.Parse(parameter);
             }
             catch
             {
