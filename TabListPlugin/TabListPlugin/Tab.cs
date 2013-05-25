@@ -2,6 +2,7 @@
 {
     using GameFreeText;
     using GameObjects;
+    using GameGlobal;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using System;
@@ -33,21 +34,55 @@
             this.Columns = new List<Column>();
         }
 
+        private int LeastDetailLevelCache = -1;
+        public int LeastDetailLevel
+        {
+            get
+            {
+                int r = 99;
+                if (LeastDetailLevelCache < 0){
+                    foreach (Column c in this.Columns)
+                    {
+                        if (c.DetailLevel < r && c.CountToDisplay)
+                        {
+                            r = c.DetailLevel;
+                        }
+                    }
+                    LeastDetailLevelCache = r;
+                }
+                return LeastDetailLevelCache;
+            }
+        }
+
+        public bool Visible
+        {
+            get
+            {
+                return this.LeastDetailLevel <= GlobalVariables.TabListDetailLevel;
+            }
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (this.selected)
+            if (this.Visible)
             {
-                spriteBatch.Draw(this.tabList.tabbuttonselectedTexture, this.Position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.35f);
-                this.Text.Draw(spriteBatch, Color.White, 0.3499f);
-                foreach (Column column in this.Columns)
+                if (this.selected)
                 {
-                    column.Draw(spriteBatch);
+                    spriteBatch.Draw(this.tabList.tabbuttonselectedTexture, this.Position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.35f);
+                    this.Text.Draw(spriteBatch, Color.White, 0.3499f);
+                    foreach (Column column in this.Columns)
+                    {
+                        if (column.Visible)
+                        {
+                            column.Draw(spriteBatch);
+                        }
+                    }
                 }
-            }
-            else
-            {
-                spriteBatch.Draw(this.tabList.tabbuttonTexture, this.Position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.35f);
-                this.Text.Draw(spriteBatch, 0.3499f);
+                else
+                {
+                    spriteBatch.Draw(this.tabList.tabbuttonTexture, this.Position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.35f);
+                    this.Text.Draw(spriteBatch, 0.3499f);
+                }
             }
         }
 

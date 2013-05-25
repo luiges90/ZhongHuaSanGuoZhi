@@ -193,6 +193,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label label54;
         private TextBox tbMaxAITroopTime;
         private CheckBox cbEnableAgeAbilityFactor;
+        private TextBox tbTabListDetailLevel;
+        private Label label55;
         private Label getChildrenRateLabel;
 
         public formOptions()
@@ -259,6 +261,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.zainanfashengjilv = new System.Windows.Forms.TextBox();
             this.cbDoAutoSave = new System.Windows.Forms.CheckBox();
             this.tabPagePerson = new System.Windows.Forms.TabPage();
+            this.cbEnableAgeAbilityFactor = new System.Windows.Forms.CheckBox();
             this.label53 = new System.Windows.Forms.Label();
             this.tbTirednessDecrease = new System.Windows.Forms.TextBox();
             this.label52 = new System.Windows.Forms.Label();
@@ -384,7 +387,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.cbEnableAgeAbilityFactor = new System.Windows.Forms.CheckBox();
+            this.tbTabListDetailLevel = new System.Windows.Forms.TextBox();
+            this.label55 = new System.Windows.Forms.Label();
             this.tcOptions.SuspendLayout();
             this.tabPageEnvironment.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -410,6 +414,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageEnvironment
             // 
+            this.tabPageEnvironment.Controls.Add(this.tbTabListDetailLevel);
+            this.tabPageEnvironment.Controls.Add(this.label55);
             this.tabPageEnvironment.Controls.Add(this.cbLandArmyCanGoDownWater);
             this.tabPageEnvironment.Controls.Add(this.cbEnableLoadInGame);
             this.tabPageEnvironment.Controls.Add(this.cbEnableCheat);
@@ -855,6 +861,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.TabIndex = 1;
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
+            // 
+            // cbEnableAgeAbilityFactor
+            // 
+            this.cbEnableAgeAbilityFactor.AutoSize = true;
+            this.cbEnableAgeAbilityFactor.Location = new System.Drawing.Point(19, 123);
+            this.cbEnableAgeAbilityFactor.Name = "cbEnableAgeAbilityFactor";
+            this.cbEnableAgeAbilityFactor.Size = new System.Drawing.Size(96, 16);
+            this.cbEnableAgeAbilityFactor.TabIndex = 33;
+            this.cbEnableAgeAbilityFactor.Text = "年龄影响能力";
+            this.cbEnableAgeAbilityFactor.UseVisualStyleBackColor = true;
             // 
             // label53
             // 
@@ -2004,15 +2020,23 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // cbEnableAgeAbilityFactor
+            // tbTabListDetailLevel
             // 
-            this.cbEnableAgeAbilityFactor.AutoSize = true;
-            this.cbEnableAgeAbilityFactor.Location = new System.Drawing.Point(19, 123);
-            this.cbEnableAgeAbilityFactor.Name = "cbEnableAgeAbilityFactor";
-            this.cbEnableAgeAbilityFactor.Size = new System.Drawing.Size(96, 16);
-            this.cbEnableAgeAbilityFactor.TabIndex = 33;
-            this.cbEnableAgeAbilityFactor.Text = "年龄影响能力";
-            this.cbEnableAgeAbilityFactor.UseVisualStyleBackColor = true;
+            this.tbTabListDetailLevel.Location = new System.Drawing.Point(373, 375);
+            this.tbTabListDetailLevel.MaxLength = 2;
+            this.tbTabListDetailLevel.Name = "tbTabListDetailLevel";
+            this.tbTabListDetailLevel.Size = new System.Drawing.Size(27, 22);
+            this.tbTabListDetailLevel.TabIndex = 113;
+            this.tbTabListDetailLevel.Text = "1";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(278, 378);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(89, 12);
+            this.label55.TabIndex = 112;
+            this.label55.Text = "资料显示详细度";
             // 
             // formOptions
             // 
@@ -2100,6 +2124,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbTirednessIncrease.Text = nextSibling.Attributes.GetNamedItem("TirednessIncrease").Value;
             this.tbTirednessDecrease.Text = nextSibling.Attributes.GetNamedItem("TirednessDecrease").Value;
             this.cbEnableAgeAbilityFactor.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableAgeAbilityFactor").Value);
+            this.tbTabListDetailLevel.Text = nextSibling.Attributes.GetNamedItem("TabListDetailLevel").Value;
         }
 
         private void LoadParameterDoc()
@@ -2209,6 +2234,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("TirednessIncrease").Value = this.tbTirednessIncrease.Text;
             nextSibling.Attributes.GetNamedItem("TirednessDecrease").Value = this.tbTirednessDecrease.Text;
             nextSibling.Attributes.GetNamedItem("EnableAgeAbilityFactor").Value = this.cbEnableAgeAbilityFactor.Checked.ToString();
+            nextSibling.Attributes.GetNamedItem("TabListDetailLevel").Value = this.tbTabListDetailLevel.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 
