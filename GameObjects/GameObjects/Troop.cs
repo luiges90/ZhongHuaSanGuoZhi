@@ -3379,6 +3379,7 @@
                     a.AddMilitary(this.Army.ShelledMilitary);
                     base.Scenario.Militaries.Remove(this.Army);
                 }
+                a.callReturnedOfficerToWork();
                 if (this.Food > 0)
                 {
                     a.IncreaseFood(this.Food);
