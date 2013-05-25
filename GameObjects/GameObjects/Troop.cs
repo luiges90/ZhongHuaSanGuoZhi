@@ -888,7 +888,7 @@
                 {
                     if (this.StartingArchitecture.TotalHostileForce > this.StartingArchitecture.TotalFriendlyForce * 1.2 && this.BelongedLegion.Kind == LegionKind.Offensive &&
                         !this.StartingArchitecture.GetFriendlyTroopsInView().GameObjects.Contains(this) &&
-                        (this.WillArchitecture.Endurance >= 30 || this.StartingArchitecture.Endurance <= 30))
+                        (this.WillArchitecture.Endurance >= 30 || this.StartingArchitecture.Endurance <= 30) && !this.IsTransport)
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         this.WillTroop = null;
