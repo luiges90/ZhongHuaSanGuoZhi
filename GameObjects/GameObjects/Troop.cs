@@ -2091,7 +2091,7 @@
             {
                 return false;
             }
-            if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Defensive && this.WillArchitecture.HasHostileTroopsInView())
+            if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Defensive && this.WillArchitecture.HasHostileTroopsInView() && !this.IsTransport)
             {
                 return false;
             }
@@ -2099,7 +2099,7 @@
             {
                 return false;
             }
-            if (this.HasHostileTroopInView())
+            if (this.HasHostileTroopInView() && !this.IsTransport)
             {
                 return false;
             }
