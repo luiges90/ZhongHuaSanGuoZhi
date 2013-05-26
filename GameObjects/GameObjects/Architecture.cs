@@ -12155,7 +12155,7 @@
         {
             get
             {
-                return (this.FacilityMaintenanceCost + "/日");
+                return (this.FacilityMaintenanceCost * 30 + "/月");
             }
         }
 
@@ -13002,7 +13002,7 @@
         {
             get
             {
-                return (this.RoutewayActiveCost.ToString() + "/日");
+                return (this.RoutewayActiveCost * 30 + "/月");
             }
         }
 
