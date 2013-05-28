@@ -98,6 +98,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 this.chushihuajianzhubiaotiheqizi();
 
+                base.Scenario.runScenarioStart(base.Scenario.CurrentPlayer.Capital);
+
             }
             else  //从开始菜单读取游戏
             {
