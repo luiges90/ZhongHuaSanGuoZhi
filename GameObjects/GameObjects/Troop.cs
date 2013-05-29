@@ -8515,7 +8515,8 @@
             damage.Position = this.OrientationPosition;
             if (architecture.Domination > 0)
             {
-                int num = (int) (((((this.Offence * 10) * Parameters.ArchitectureDamageRate) * this.ArchitectureDamageRate) * this.StuntArchitectureDamageRate) / ((float) architecture.Domination));
+                //int num = (int) (((((this.Offence * 10) * Parameters.ArchitectureDamageRate) * this.ArchitectureDamageRate) * this.StuntArchitectureDamageRate) / ((float) architecture.Domination));
+                int num4 = (int)(Math.Pow(this.Offence * this.ArchitectureCounterDamageRate * this.StuntArchitectureDamageRate / (float)architecture.Domination, 0.62) * 1.16 * 10 * Parameters.ArchitectureDamageRate);
                 if (!base.Scenario.IsPlayer(this.BelongedFaction))
                 {
                     num = (int) (num * Parameters.AIArchitectureDamageRate);
@@ -8636,7 +8637,8 @@
                     damage.Chaos = GameObject.Chance(this.ChaosAfterSurroundAttackChance + num3);
                 }
             }
-            int num4 = (int) (((damage.SourceOffence * 500) * Parameters.TroopDamageRate) / ((float) defence));
+            //int num4 = (int) (((damage.SourceOffence * 500) * Parameters.TroopDamageRate) / ((float) defence));
+            int num4 = (int)(Math.Pow(damage.SourceOffence / (float)defence, 0.62) * 1.16 * 500 * Parameters.TroopDamageRate);
             switch (troop.Army.Kind.Type)
             {
                 case MilitaryType.步兵:

@@ -166,7 +166,7 @@
         public bool IsStart()
         {
             Condition cstart = base.Scenario.GameCommonData.AllConditions.GetCondition(-1);
-            return this.architectureCond.Contains(cstart) || this.factionCond.Contains(cstart)
+            return this.architectureCond.Contains(cstart) || this.factionCond.Contains(cstart);
         }
 
         public bool IsEnd()
