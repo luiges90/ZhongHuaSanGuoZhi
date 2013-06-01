@@ -434,7 +434,7 @@
             if (this.Factions.Count == 1)
             {
                 ExtensionInterface.call("GameEnd", new Object[]{this});
-                if (!this.runScenarioEnd(this.CurrentPlayer.Capital))
+                if (this.CurrentPlayer != null && !this.runScenarioEnd(this.CurrentPlayer.Capital))
                 {
                     this.GameScreen.GameEndWithUnite(this.Factions[0] as Faction);
                 }
@@ -4325,7 +4325,7 @@
             bool ran = false;
             foreach (Event e in this.AllEvents.GetRandomList())
             {
-                if (e.IsStart() || e.checkConditions(triggerArch))
+                if (e.IsStart(this) || e.checkConditions(triggerArch))
                 {
                     if (!this.EventsToApply.ContainsKey(e))
                     {
@@ -4343,7 +4343,7 @@
             bool ran = false;
             foreach (Event e in this.AllEvents.GetRandomList())
             {
-                if (e.IsEnd() || e.checkConditions(triggerArch))
+                if (e.IsEnd(this) || e.checkConditions(triggerArch))
                 {
                     if (!this.EventsToApply.ContainsKey(e))
                     {
