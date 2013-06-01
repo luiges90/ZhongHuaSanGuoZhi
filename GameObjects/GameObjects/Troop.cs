@@ -8516,7 +8516,7 @@
             if (architecture.Domination > 0)
             {
                 //int num = (int) (((((this.Offence * 10) * Parameters.ArchitectureDamageRate) * this.ArchitectureDamageRate) * this.StuntArchitectureDamageRate) / ((float) architecture.Domination));
-                int num4 = (int)(Math.Pow(this.Offence * this.ArchitectureCounterDamageRate * this.StuntArchitectureDamageRate / (float)architecture.Domination, 0.62) * 1.16 * 10 * Parameters.ArchitectureDamageRate);
+                int num = (int)(Math.Pow(this.Offence * this.ArchitectureCounterDamageRate * this.StuntArchitectureDamageRate / (float)architecture.Domination, 0.62) * 1.16 * 10 * Parameters.ArchitectureDamageRate);
                 if (!base.Scenario.IsPlayer(this.BelongedFaction))
                 {
                     num = (int) (num * Parameters.AIArchitectureDamageRate);

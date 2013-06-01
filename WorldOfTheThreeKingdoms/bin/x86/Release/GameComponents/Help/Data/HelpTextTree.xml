@@ -1295,6 +1295,181 @@
     <Leaf Text="攻击所有本回合接触到的部队" Color="4278255360"></Leaf>
     <Leaf Text="，每个目标限定攻击一次。" Color="4294967295"></Leaf>
   </Branch>
+   <Branch Name="TroopCombatMethod_24">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="狙击" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击几率" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="破防" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击时敌军伤兵概率为0" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对骑兵伤害增加60%" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="有50%的几率使敌军受到火焰伤害" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_25">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="陷阵" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="破防" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击对建筑造成伤害加成50%" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_26">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="虎击" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="攻击本回合所有可攻击的部队" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击几率" Color="4278255360"></Leaf>
+    <Leaf Text="增加20%。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击时敌军伤兵概率为0" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击使敌方士气减少5" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_27">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="突围" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对攻击目标周围相邻的所有部队造成伤害" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加60%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="防御力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="有50%几率使敌军遭受火焰伤害" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击使敌方士气减少5" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_28">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="狂风" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="攻击攻击范围内所有部队" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="降低20%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="防御力" Color="4278255360"></Leaf>
+    <Leaf Text="增加15%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="击破部队后战意增加10" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="不会误伤友军部队" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_29">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="冲阵" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="攻击所有邻接部队" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加20%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击几率" Color="4278255360"></Leaf>
+    <Leaf Text="增加15%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击致敌混乱几率" Color="4278255360"></Leaf>
+    <Leaf Text="增加20%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击使敌方士气减少3" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="不会受到反击" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="不会误伤友军部队" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_30">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="落雁" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对攻击目标周围2格范围内敌军造成伤害" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="降低65%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="会误伤友军部队" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_31">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="拒马" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对骑兵伤害增加100%" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="无视对方超过400的防御" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_32">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="盾击" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="用盾冲击敌人" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="增加50%的几率暴击致乱" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="不会被反击" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_33">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="毒矢" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="使用毒矢攻击" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="致命" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_34">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="贯射" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对本队与攻击目标之间及相邻部队造成伤害" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="降低10%。" Color="4294967295"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_35">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="摧锋" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对步兵伤害增加100%" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击使敌士气减少5" Color="4278255360"></Leaf>
+  </Branch>
   <Branch Name="TroopStratagem_0">
     <Leaf Text="计略" Color="4294967295"></Leaf>
     <Leaf Text="攻心" Color="4278232306"></Leaf>
