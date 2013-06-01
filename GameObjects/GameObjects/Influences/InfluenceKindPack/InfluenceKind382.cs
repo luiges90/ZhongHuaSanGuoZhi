@@ -10,7 +10,7 @@
 
         public override void ApplyInfluenceKind(Troop troop)
         {
-            troop.BaseChanceOfOnFire = this.chance;
+            troop.ChanceOfOnFire = troop.BaseChanceOfOnFire + this.chance;
         }
 
         public override void InitializeParameter(string parameter)
