@@ -114,6 +114,9 @@
         public static int TirednessIncrease = 1;
         public static int TirednessDecrease = 1;
 
+        public static bool EnableAgeAbilityFactor = true;
+        public static int TabListDetailLevel = 3;
+
         public bool InitialGlobalVariables()
         {
             Exception exception;
@@ -587,6 +590,24 @@
             {
                 exception = exception24;
                 throw new Exception("TirednessDecrease:\n" + exception.ToString());
+            }
+            try
+            {
+                EnableAgeAbilityFactor = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableAgeAbilityFactor").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("EnableAgeAbilityFactor:\n" + exception.ToString());
+            }
+            try
+            {
+                TabListDetailLevel = int.Parse(nextSibling.Attributes.GetNamedItem("TabListDetailLevel").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("TabListDetailLevel:\n" + exception.ToString());
             }
             return true;
         }

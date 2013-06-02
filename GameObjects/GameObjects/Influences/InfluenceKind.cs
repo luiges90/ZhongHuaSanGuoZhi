@@ -29,14 +29,20 @@
 
         public void ApplyInfluenceKind(Architecture architecture, Influence i, Applier applier, int applierID)
         {
-            ApplyInfluenceKind(architecture);
-            foreach (Person p in architecture.Persons)
+            if (this.Type == InfluenceType.建筑 || this.Type == InfluenceType.建筑战斗)
             {
-                ApplyingPerson a = new ApplyingPerson(p, applier, applierID);
-                if (!i.appliedPerson.Contains(a))
+                ApplyInfluenceKind(architecture);
+            } 
+            else if (this.Type == InfluenceType.个人)
+            {
+                foreach (Person p in architecture.Persons)
                 {
-                    i.appliedPerson.Add(a);
-                    ApplyInfluenceKind(p, i, applier, applierID);
+                    ApplyingPerson a = new ApplyingPerson(p, applier, applierID);
+                    if (!i.appliedPerson.Contains(a))
+                    {
+                        i.appliedPerson.Add(a);
+                        ApplyInfluenceKind(p, i, applier, applierID);
+                    }
                 }
             }
         }
@@ -47,22 +53,32 @@
 
         public void ApplyInfluenceKind(Faction faction, Influence i, Applier applier, int applierID)
         {
-            ApplyInfluenceKind(faction);
-            foreach (Architecture a in faction.Architectures)
+            if (this.Type == InfluenceType.势力)
             {
-                ApplyingArchitecture z = new ApplyingArchitecture(a, applier, applierID);
-                if (!i.appliedArch.Contains(z)){
-                    i.appliedArch.Add(z);
-                    ApplyInfluenceKind(a, i, applier, applierID);
+                ApplyInfluenceKind(faction);
+            }
+            if (this.Type == InfluenceType.建筑 || this.Type == InfluenceType.建筑战斗)
+            {
+                foreach (Architecture a in faction.Architectures)
+                {
+                    ApplyingArchitecture z = new ApplyingArchitecture(a, applier, applierID);
+                    if (!i.appliedArch.Contains(z))
+                    {
+                        i.appliedArch.Add(z);
+                        ApplyInfluenceKind(a, i, applier, applierID);
+                    }
                 }
             }
-            foreach (Troop t in faction.Troops)
+            if (this.Type == InfluenceType.战斗 || this.Type == InfluenceType.建筑战斗)
             {
-                ApplyingTroop a = new ApplyingTroop(t, applier, applierID);
-                if (!i.appliedTroop.Contains(a))
+                foreach (Troop t in faction.Troops)
                 {
-                    i.appliedTroop.Add(a);
-                    ApplyInfluenceKind(t, i, applier, applierID);
+                    ApplyingTroop a = new ApplyingTroop(t, applier, applierID);
+                    if (!i.appliedTroop.Contains(a))
+                    {
+                        i.appliedTroop.Add(a);
+                        ApplyInfluenceKind(t, i, applier, applierID);
+                    }
                 }
             }
         }
@@ -73,12 +89,27 @@
 
         public void ApplyInfluenceKind(Person person, Influence i, Applier applier, int applierID)
         {
-            ApplyInfluenceKind(person);
-            ApplyingTroop z = new ApplyingTroop(person.LocationTroop, applier, applierID);
-            if (person.LocationTroop != null && !i.appliedTroop.Contains(z))
+            if (this.Type == InfluenceType.个人)
             {
-                i.appliedTroop.Add(z);
-                ApplyInfluenceKind(person.LocationTroop, i, applier, applierID);
+                ApplyInfluenceKind(person);
+            }
+            if (this.Type == InfluenceType.战斗 || this.Type == InfluenceType.建筑战斗)
+            {
+                ApplyingTroop z = new ApplyingTroop(person.LocationTroop, applier, applierID);
+                if (person.LocationTroop != null && !i.appliedTroop.Contains(z))
+                {
+                    i.appliedTroop.Add(z);
+                    ApplyInfluenceKind(person.LocationTroop, i, applier, applierID);
+                }
+            }
+            if (this.Type == InfluenceType.建筑 || this.Type == InfluenceType.建筑战斗)
+            {
+                ApplyingArchitecture z = new ApplyingArchitecture(person.LocationArchitecture, applier, applierID);
+                if (person.LocationArchitecture != null && !i.appliedArch.Contains(z))
+                {
+                    i.appliedArch.Add(z);
+                    ApplyInfluenceKind(person.LocationArchitecture, i, applier, applierID);
+                }
             }
         }
 
@@ -88,7 +119,10 @@
 
         public void ApplyInfluenceKind(Troop troop, Influence i, Applier applier, int applierID)
         {
-            ApplyInfluenceKind(troop);
+            if (this.Type == InfluenceType.战斗 || this.Type == InfluenceType.建筑战斗)
+            {
+                ApplyInfluenceKind(troop);
+            }
         }
 
         public virtual void DoWork(Architecture architecture)
@@ -131,11 +165,17 @@
 
         public void PurifyInfluenceKind(Architecture architecture, Influence i, Applier applier, int applierID)
         {
-            PurifyInfluenceKind(architecture);
-            foreach (Person p in architecture.Persons)
+            if (this.Type == InfluenceType.建筑 || this.Type == InfluenceType.建筑战斗)
             {
-                i.appliedPerson.RemoveWhere((p2) => { return p2.Equals(new ApplyingPerson(p, applier, applierID)); });
-                PurifyInfluenceKind(p, i, applier, applierID);
+                PurifyInfluenceKind(architecture);
+            }
+            else if (this.Type == InfluenceType.个人)
+            {
+                foreach (Person p in architecture.Persons)
+                {
+                    i.appliedPerson.RemoveWhere((p2) => { return p2.Equals(new ApplyingPerson(p, applier, applierID)); });
+                    PurifyInfluenceKind(p, i, applier, applierID);
+                }
             }
         }
 
@@ -145,15 +185,18 @@
 
         public void PurifyInfluenceKind(Faction faction, Influence i, Applier applier, int applierID)
         {
-            PurifyInfluenceKind(faction);
-            foreach (Architecture a in faction.Architectures)
+            if (this.Type == InfluenceType.势力)
             {
-                i.appliedArch.RemoveWhere((a2) => { return a2.Equals(new ApplyingArchitecture(a, applier, applierID)); });
-                PurifyInfluenceKind(a, i, applier, applierID);
-            }
-            foreach (Troop t in faction.Troops)
-            {
-                PurifyInfluenceKind(t, i, applier, applierID);
+                PurifyInfluenceKind(faction);
+                foreach (Architecture a in faction.Architectures)
+                {
+                    i.appliedArch.RemoveWhere((a2) => { return a2.Equals(new ApplyingArchitecture(a, applier, applierID)); });
+                    PurifyInfluenceKind(a, i, applier, applierID);
+                }
+                foreach (Troop t in faction.Troops)
+                {
+                    PurifyInfluenceKind(t, i, applier, applierID);
+                }
             }
         }
 
@@ -163,12 +206,27 @@
 
         public void PurifyInfluenceKind(Person person, Influence i, Applier applier, int applierID)
         {
-            PurifyInfluenceKind(person);
-            ApplyingTroop t = new ApplyingTroop(person.LocationTroop, applier, applierID);
-            if (person.LocationTroop != null && i.appliedTroop.Contains(t))
+            if (this.Type == InfluenceType.个人)
             {
-                i.appliedTroop.RemoveWhere((a2) => { return t.Equals(a2); });
-                PurifyInfluenceKind(person.LocationTroop, i, applier, applierID);
+                PurifyInfluenceKind(person);
+            }
+            if (this.Type == InfluenceType.战斗 || this.Type == InfluenceType.建筑战斗)
+            {
+                ApplyingTroop t = new ApplyingTroop(person.LocationTroop, applier, applierID);
+                if (person.LocationTroop != null && i.appliedTroop.Contains(t))
+                {
+                    i.appliedTroop.RemoveWhere((a2) => { return t.Equals(a2); });
+                    PurifyInfluenceKind(person.LocationTroop, i, applier, applierID);
+                }
+            }
+            if (this.Type == InfluenceType.建筑 || this.Type == InfluenceType.建筑战斗)
+            {
+                ApplyingArchitecture t = new ApplyingArchitecture(person.LocationArchitecture, applier, applierID);
+                if (person.LocationTroop != null && i.appliedArch.Contains(t))
+                {
+                    i.appliedArch.RemoveWhere((a2) => { return t.Equals(a2); });
+                    PurifyInfluenceKind(person.LocationArchitecture, i, applier, applierID);
+                }
             }
         }
 
@@ -178,7 +236,10 @@
 
         public void PurifyInfluenceKind(Troop troop, Influence i, Applier applier, int applierID)
         {
-            PurifyInfluenceKind(troop);
+            if (this.Type == InfluenceType.战斗 || this.Type == InfluenceType.建筑战斗)
+            {
+                PurifyInfluenceKind(troop);
+            }
         }
 
         public virtual double AIFacilityValue(Architecture a)

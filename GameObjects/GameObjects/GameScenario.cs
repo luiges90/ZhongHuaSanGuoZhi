@@ -457,7 +457,10 @@
             if (this.Factions.Count == 1)
             {
                 ExtensionInterface.call("GameEnd", new Object[]{this});
-                this.GameScreen.GameEndWithUnite(this.Factions[0] as Faction);
+                if (this.CurrentPlayer != null && !this.runScenarioEnd(this.CurrentPlayer.Capital))
+                {
+                    this.GameScreen.GameEndWithUnite(this.Factions[0] as Faction);
+                }
             }
         }
 
@@ -4348,6 +4351,42 @@
                 }
             }
             return result;
+        }
+
+        public bool runScenarioStart(Architecture triggerArch)
+        {
+            bool ran = false;
+            foreach (Event e in this.AllEvents.GetRandomList())
+            {
+                if (e.IsStart(this) || e.checkConditions(triggerArch))
+                {
+                    if (!this.EventsToApply.ContainsKey(e))
+                    {
+                        this.EventsToApply.Add(e, triggerArch);
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }
+                }
+            }
+            return ran;
+        }
+
+        public bool runScenarioEnd(Architecture triggerArch)
+        {
+            bool ran = false;
+            foreach (Event e in this.AllEvents.GetRandomList())
+            {
+                if (e.IsEnd(this) || e.checkConditions(triggerArch))
+                {
+                    if (!this.EventsToApply.ContainsKey(e))
+                    {
+                        this.EventsToApply.Add(e, triggerArch);
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }
+                }
+            }
+            return ran;
         }
     }
 }

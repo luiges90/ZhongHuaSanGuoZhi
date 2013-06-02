@@ -3638,7 +3638,7 @@
         {
             get
             {
-                if (!GlobalVariables.PersonNaturalDeath) return 1;
+                if (!GlobalVariables.EnableAgeAbilityFactor) return 1;
                 if (this.Age >= 15) return 1;
                 if (this.Age < 0) return 0.1f;
                 return -0.002f * this.Age * this.Age + 0.09f * this.Age + 0.1f;
@@ -4630,7 +4630,20 @@
         {
             get
             {
-                return (this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) * (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) + this.AllSkillMerit + this.TreasureMerit);
+                return (this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) * 
+                    (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) 
+                    + this.AllSkillMerit + this.TreasureMerit);
+            }
+        }
+
+        public int UntiredMerit
+        {
+            get
+            {
+                return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + 
+                    this.UntiredPolitics + this.UntiredGlamour) * 
+                    (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) 
+                    + this.AllSkillMerit + this.TreasureMerit);
             }
         }
 
@@ -4696,6 +4709,14 @@
             }
         }
 
+        public int UntiredCommand
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
+            }
+        }
+
         public int NormalCommerceAbility
         {
             get
@@ -4728,11 +4749,27 @@
             }
         }
 
+        public int UntiredGlamour
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
+            }
+        }
+
         public int NormalIntelligence
         {
             get
             {
                 return (int)(Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor);
+            }
+        }
+
+        public int UntiredIntelligence
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
             }
         }
 
@@ -4760,6 +4797,14 @@
             }
         }
 
+        public int UntiredPolitics
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
+            }
+        }
+
         public int NormalRecruitmentAbility
         {
             get
@@ -4773,6 +4818,14 @@
             get
             {
                 return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor);
+            }
+        }
+
+        public int UntiredStrength
+        {
+            get
+            {
+                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.AbilityAgeFactor);
             }
         }
 
@@ -5973,7 +6026,12 @@
                 r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
             }
 
-            r.Character = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.Character : mother.Character) : father.Scenario.GameCommonData.AllCharacterKinds[GameObject.Random(father.Scenario.GameCommonData.AllCharacterKinds.Count)];
+            int characterId = 0;
+            do
+            {
+                characterId = GameObject.Random(father.Scenario.GameCommonData.AllCharacterKinds.Count);
+            } while (characterId == 0);
+            r.Character = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.Character : mother.Character) : father.Scenario.GameCommonData.AllCharacterKinds[characterId];
 
             foreach (Skill i in father.Skills.GetSkillList())
             {
@@ -6438,14 +6496,6 @@
                     }
                 }
                 return false;
-            }
-        }
-
-        public string InternalNoFundNeededString
-        {
-            get
-            {
-                return this.InternalNoFundNeeded ? "○" : "×";
             }
         }
 

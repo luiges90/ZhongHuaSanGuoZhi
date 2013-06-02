@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.IO;
+using System.Reflection;
 
 using		GameGlobal;
 using		GameObjects;
@@ -48,7 +50,8 @@ namespace WorldOfTheThreeKingdoms
             this.graphics.PreferredBackBufferWidth = this.previousWindowWidth;
             this.graphics.PreferredBackBufferHeight = this.previousWindowHeight;
             base.Window.AllowUserResizing = true;
-            base.Window.Title = "中华三国志威力加强版(已命名修改版 v.17)";
+            DateTime buildDate = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
+            base.Window.Title = "中华三国志威力加强版(已命名修改版 v.18-dev build-" + buildDate.Year + "-" + buildDate.Month + "-" + buildDate.Day + ")";
 
             System.Windows.Forms.Control control = System.Windows.Forms.Control.FromHandle(base.Window.Handle);
             GameForm = (System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(this.Window.Handle);

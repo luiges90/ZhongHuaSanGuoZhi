@@ -221,11 +221,11 @@
         private bool moved;
         private int moveFrameIndex = 0;
         private int moveStayCount = 0;
-        public int MultipleOfArmyExperience = 1;
-        public int MultipleOfCombatTechniquePoint = 1;
-        public int MultipleOfDefenceOnArchitecture = 1;
-        public int MultipleOfLeaderExperience = 1;
-        public int MultipleOfStratagemTechniquePoint = 1;
+        public float MultipleOfArmyExperience = 1;
+        public float MultipleOfCombatTechniquePoint = 1;
+        public float MultipleOfDefenceOnArchitecture = 1;
+        public float MultipleOfLeaderExperience = 1;
+        public float MultipleOfStratagemTechniquePoint = 1;
         public bool NeverBeIntoChaos;
         public bool NeverBeIntoChaosWhileWaylay;
         public bool NoAccidentalInjury;
@@ -892,7 +892,7 @@
                 {
                     if (this.StartingArchitecture.TotalHostileForce > this.StartingArchitecture.TotalFriendlyForce * 1.2 && this.BelongedLegion.Kind == LegionKind.Offensive &&
                         !this.StartingArchitecture.GetFriendlyTroopsInView().GameObjects.Contains(this) &&
-                        (this.WillArchitecture.Endurance >= 30 || this.StartingArchitecture.Endurance <= 30))
+                        (this.WillArchitecture.Endurance >= 30 || this.StartingArchitecture.Endurance <= 30) && !this.IsTransport)
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         this.WillTroop = null;
@@ -2132,7 +2132,7 @@
             {
                 return false;
             }
-            if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Defensive && this.WillArchitecture.HasHostileTroopsInView())
+            if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Defensive && this.WillArchitecture.HasHostileTroopsInView() && !this.IsTransport)
             {
                 return false;
             }
@@ -2140,7 +2140,7 @@
             {
                 return false;
             }
-            if (this.HasHostileTroopInView())
+            if (this.HasHostileTroopInView() && !this.IsTransport)
             {
                 return false;
             }
@@ -3423,6 +3423,7 @@
                     a.AddMilitary(this.Army.ShelledMilitary);
                     base.Scenario.Militaries.Remove(this.Army);
                 }
+                a.callReturnedOfficerToWork();
                 if (this.Food > 0)
                 {
                     a.IncreaseFood(this.Food);
@@ -3945,7 +3946,7 @@
             int num = 0;
             if (troop.Defence == 0)
             {
-                num = 0x7fffffff;
+                return 0x7fffffff;
             }
             int num2 = this.CriticalStrikeChance - troop.AntiCriticalStrikeChance;
             if (num2 > 0)
@@ -4178,7 +4179,7 @@
             int num = 0;
             if (this.Defence == 0)
             {
-                num = 0x7fffffff;
+                return 0x7fffffff;
             }
             num = ((troop.Offence * 100) / this.Defence) / 5;
             if (position != this.Position)
@@ -6206,7 +6207,7 @@
 
         private void IncreaseArmyExperience(int increment)
         {
-            this.Army.IncreaseExperience(increment * this.MultipleOfArmyExperience);
+            this.Army.IncreaseExperience((int) (increment * this.MultipleOfArmyExperience));
         }
 
         private void IncreaseAttackExperience(int increment)
@@ -6214,14 +6215,14 @@
             this.IncreaseArmyExperience(increment);
             if (this.BelongedFaction != null)
             {
-                if (this.Army.IncreaseLeaderExperience(increment * this.MultipleOfLeaderExperience))
+                if (this.Army.IncreaseLeaderExperience((int) (increment * this.MultipleOfLeaderExperience)))
                 {
                     this.Army.ApplyFollowedLeader(this);
                 }
                 this.IncreasePersonAttackExperience(increment, true);
                 this.IncreasePersonAttackReputation(increment);
                 this.BelongedFaction.IncreaseReputation(increment * 2);
-                this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfCombatTechniquePoint) * 50);
+                this.BelongedFaction.IncreaseTechniquePoint((int) ((increment * this.MultipleOfCombatTechniquePoint) * 50));
             }
             this.RefreshOffence();
             this.RefreshDefence();
@@ -6251,7 +6252,7 @@
         public void IncreaseExperience(int increment)
         {
             Military army = this.Army;
-            army.Experience += increment * this.MultipleOfArmyExperience;
+            army.Experience += (int) (increment * this.MultipleOfArmyExperience);
         }
 
         public int IncreaseFood(int increment)
@@ -6456,12 +6457,12 @@
                 this.Army.IncreaseExperience(20);
                 if (this.BelongedFaction != null)
                 {
-                    if (this.Army.IncreaseLeaderExperience(30 * this.MultipleOfLeaderExperience))
+                    if (this.Army.IncreaseLeaderExperience((int) (30 * this.MultipleOfLeaderExperience)))
                     {
                         this.Army.ApplyFollowedLeader(this);
                     }
                     this.BelongedFaction.IncreaseReputation(50);
-                    this.BelongedFaction.IncreaseTechniquePoint(0x3e8 * this.MultipleOfCombatTechniquePoint);
+                    this.BelongedFaction.IncreaseTechniquePoint((int) (0x3e8 * this.MultipleOfCombatTechniquePoint));
                     foreach (Person person in this.Persons)
                     {
                         if (person == this.Leader)
@@ -6501,12 +6502,12 @@
                 this.IncreasePersonStratagemExperience(increment);
                 if (cast)
                 {
-                    if (this.Army.IncreaseLeaderExperience(increment * this.MultipleOfLeaderExperience))
+                    if (this.Army.IncreaseLeaderExperience((int) (increment * this.MultipleOfLeaderExperience)))
                     {
                         this.Army.ApplyFollowedLeader(this);
                     }
                     this.BelongedFaction.IncreaseReputation(increment * 2);
-                    this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfStratagemTechniquePoint) * this.CurrentStratagem.TechniquePoint);
+                    this.BelongedFaction.IncreaseTechniquePoint((int) (increment * this.MultipleOfStratagemTechniquePoint) * this.CurrentStratagem.TechniquePoint);
                 }
             }
             this.RefreshOffence();
@@ -7802,7 +7803,7 @@
                 Architecture architectureByPositionNoCheck = base.Scenario.GetArchitectureByPositionNoCheck(this.Position);
                 if ((architectureByPositionNoCheck != null) && (architectureByPositionNoCheck.Endurance > 0))
                 {
-                    this.defence *= this.MultipleOfDefenceOnArchitecture;
+                    this.defence = (int) (this.defence * this.MultipleOfDefenceOnArchitecture);
                 }
             }
             if (!((this.Status != TroopStatus.混乱) || this.DefenceNoChangeOnChaos))
@@ -8451,7 +8452,8 @@
             damage.Position = this.OrientationPosition;
             if (architecture.Domination > 0)
             {
-                int num = (int) (((((this.Offence * 10) * Parameters.ArchitectureDamageRate) * this.ArchitectureDamageRate) * this.StuntArchitectureDamageRate) / ((float) architecture.Domination));
+                //int num = (int) (((((this.Offence * 10) * Parameters.ArchitectureDamageRate) * this.ArchitectureDamageRate) * this.StuntArchitectureDamageRate) / ((float) architecture.Domination));
+                int num = (int)(Math.Pow(this.Offence * this.ArchitectureCounterDamageRate * this.StuntArchitectureDamageRate / (float)architecture.Domination, 0.62) * 1.16 * 10 * Parameters.ArchitectureDamageRate);
                 if (!base.Scenario.IsPlayer(this.BelongedFaction))
                 {
                     num = (int) (num * Parameters.AIArchitectureDamageRate);
@@ -8572,7 +8574,8 @@
                     damage.Chaos = GameObject.Chance(this.ChaosAfterSurroundAttackChance + num3);
                 }
             }
-            int num4 = (int) (((damage.SourceOffence * 500) * Parameters.TroopDamageRate) / ((float) defence));
+            //int num4 = (int) (((damage.SourceOffence * 500) * Parameters.TroopDamageRate) / ((float) defence));
+            int num4 = (int)(Math.Pow(damage.SourceOffence / (float)defence, 0.62) * 1.16 * 500 * Parameters.TroopDamageRate);
             switch (troop.Army.Kind.Type)
             {
                 case MilitaryType.步兵:
@@ -9034,8 +9037,8 @@
         {
             if (((this.RecentlyFighting > 0) && (this.Leader != null)) && (this.Status != TroopStatus.混乱))
             {
-                bool doBrave = GameObject.Square(this.Leader.Braveness) >= GameObject.Random(1000);
-                bool doCalm = GameObject.Square(this.Leader.Calmness) >= GameObject.Random(1000);
+                bool doBrave = this.Leader.Braveness >= 3 && GameObject.Square(this.Leader.Braveness) >= GameObject.Random(1000);
+                bool doCalm = this.Leader.Calmness >= 3 && GameObject.Square(this.Leader.Calmness) >= GameObject.Random(1000);
                 if (doBrave && doCalm)
                 {
                     if (this.Leader.Braveness > this.Leader.Calmness)

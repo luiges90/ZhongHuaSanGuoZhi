@@ -40,6 +40,12 @@
             {
             }
         }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            if (this.threshold > 110 && a.FrontLine) return 100;
+            return this.increment * this.threshold * 2 / (double)a.BelongedFaction.PersonCount * (a.FrontLine ? 1 : 0.2);
+        }
     }
 }
 

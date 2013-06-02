@@ -163,6 +163,18 @@
             return true;
         }
 
+        public bool IsStart(GameScenario scenario)
+        {
+            Condition cstart = scenario.GameCommonData.AllConditions.GetCondition(-1);
+            return this.architectureCond.Contains(cstart) || this.factionCond.Contains(cstart);
+        }
+
+        public bool IsEnd(GameScenario scenario)
+        {
+            Condition cend = scenario.GameCommonData.AllConditions.GetCondition(-2);
+            return this.architectureCond.Contains(cend) || this.factionCond.Contains(cend);
+        }
+
         public void LoadPersonIdFromString(PersonList persons, string data)
         {
             char[] separator = new char[] { ' ', '\n', '\r' };

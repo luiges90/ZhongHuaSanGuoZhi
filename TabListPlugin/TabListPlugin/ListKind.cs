@@ -200,6 +200,11 @@
                 item.IsNumber = bool.Parse(node2.Attributes.GetNamedItem("IsNumber").Value);
                 item.DisplayName = node2.Attributes.GetNamedItem("DisplayName").Value;
                 item.MinWidth = int.Parse(node2.Attributes.GetNamedItem("MinWidth").Value);
+                item.DetailLevel = int.Parse(node2.Attributes.GetNamedItem("DetailLevel").Value);
+                if (node2.Attributes.GetNamedItem("CountToDisplay") != null)
+                {
+                    item.CountToDisplay = bool.Parse(node2.Attributes.GetNamedItem("CountToDisplay").Value);
+                }
                 if (node2.Attributes.GetNamedItem("ItemID") != null)
                 {
                     item.ItemID = int.Parse(node2.Attributes.GetNamedItem("ItemID").Value);
@@ -288,6 +293,7 @@
             Tab tab = null;
             foreach (Tab tab2 in this.Tabs)
             {
+                if (!tab2.Visible) continue;
                 if (position.Right > (this.tabList.RealClient.Right - this.tabMargin))
                 {
                     position.X = this.tabList.RealClient.X + this.tabMargin;

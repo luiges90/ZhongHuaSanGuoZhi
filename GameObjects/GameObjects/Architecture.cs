@@ -108,8 +108,8 @@
         public MilitaryList Militaries = new MilitaryList();
         private int morale;
         public int MoraleOfRecruitment = 50;
-        public int MultipleOfRecovery = 1;
-        public int MultipleOfTraining = 1;
+        public float MultipleOfRecovery = 1;
+        public float MultipleOfTraining = 1;
         public MilitaryKindList NewMilitaryKindList = new MilitaryKindList();
         public bool NoCounterStrikeInArchitecture;
         public bool orientationFrontLine;
@@ -936,13 +936,15 @@
                         {
                             continue;
                         }
+                        bool conditionSatisfied = true;
                         foreach (Conditions.Condition i in kind.GetConditionList())
                         {
                             if (!i.CheckCondition(this))
                             {
-                                continue;
+                                conditionSatisfied = false;
                             }
                         }
+                        if (!conditionSatisfied) continue;
                         if (kind.TechnologyNeeded > this.Technology)
                         {
                             continue;
@@ -1160,6 +1162,11 @@
                         leader.WaitForFeiZi = null;
                     }
                 }
+                else
+                {
+                    leader.WaitForFeiZi.WaitForFeiZi = null;
+                    leader.WaitForFeiZi = null;
+                }
             }
             else
             {
@@ -1168,7 +1175,8 @@
                     GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0
                     ||
                     GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower))))
-                    )
+                    && this.Fund > 75000
+                    ) 
                 {
                     PersonList candidate = new PersonList();
                     foreach (Person p in this.BelongedFaction.Persons)
@@ -9519,6 +9527,25 @@
             }
         }
 
+        public void callReturnedOfficerToWork()
+        {
+            if (this.AutoWorking || this.BelongedSection.AIDetail.AutoRun)
+            {
+                if (this.BelongedSection.AIDetail.AutoRun)
+                {
+                    this.AIWork(false);
+                }
+                else
+                {
+                    this.PlayerAIWork();
+                }
+            }
+            if (this.AutoSearching)
+            {
+                this.PlayerAISearch();
+            }
+        }
+
         private void PopulationEscapeEvent()
         {
             if ((((!this.DayAvoidPopulationEscape && this.Kind.HasPopulation) && ((this.Domination < this.DominationCeiling) && (this.RecentlyAttacked > 0))) && ((this.Population > (0x3e8 * this.AreaCount)) && (this.Morale < this.MoraleCeiling))) && (GameObject.Random(((int) Math.Pow((double) (this.Domination + this.Morale), 2.0)) + 0x3e8) < GameObject.Random(0x3e8)))
@@ -11660,7 +11687,7 @@
         {
             get
             {
-                return (this.FacilityMaintenanceCost + "/日");
+                return (this.FacilityMaintenanceCost * 30 + "/月");
             }
         }
 
@@ -12508,7 +12535,7 @@
         {
             get
             {
-                return (this.RoutewayActiveCost.ToString() + "/日");
+                return (this.RoutewayActiveCost * 30 + "/月");
             }
         }
 

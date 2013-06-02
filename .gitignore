@@ -99,6 +99,7 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/archive
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Save
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/generatedScen.mdb
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/archive
+WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/L*
 [Rr]esources
 WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/sheshi
 WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/tupian
@@ -110,3 +111,4 @@ MODS
 JSGME.ini
 
 *.xlsx
+L*.mdb

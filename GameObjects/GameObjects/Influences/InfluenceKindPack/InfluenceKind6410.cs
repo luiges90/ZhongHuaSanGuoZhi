@@ -8,25 +8,9 @@
     {
         private int increment;
 
-        public override void ApplyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                person.LocationArchitecture.facilityEnduranceIncrease += this.increment;
-            }
-        }
-
         public override void ApplyInfluenceKind(Architecture a)
         {
             a.facilityEnduranceIncrease += this.increment;
-        }
-
-        public override void PurifyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                person.LocationArchitecture.facilityEnduranceIncrease -= this.increment;
-            }
         }
 
         public override void PurifyInfluenceKind(Architecture a)
@@ -43,6 +27,12 @@
             catch
             {
             }
+        }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            if (a.FacilityCount <= 0) return -1;
+            return (a.FrontLine ? (1 - this.increment) * 2 : 0.01) * (a.FrontLine ? 2 : 1) * (a.HostileLine ? 2 : 1) * (a.CriticalHostile ? 2 : 1);
         }
     }
 }

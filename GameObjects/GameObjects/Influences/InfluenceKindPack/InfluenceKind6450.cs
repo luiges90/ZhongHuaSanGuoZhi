@@ -9,24 +9,6 @@
         private int increment;
         private int disasterId;
 
-        public override void ApplyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                foreach (LinkNode i in person.LocationArchitecture.AIAllLinkNodes.Values)
-                {
-                    if (i.A.disasterChanceIncrease.ContainsKey(disasterId))
-                    {
-                        i.A.disasterChanceIncrease[disasterId] += this.increment;
-                    }
-                    else
-                    {
-                        i.A.disasterChanceIncrease[disasterId] = this.increment;
-                    }
-                }
-            }
-        }
-
         public override void ApplyInfluenceKind(Architecture a)
         {
             foreach (LinkNode i in a.AIAllLinkNodes.Values)
@@ -38,17 +20,6 @@
                 else
                 {
                     i.A.disasterChanceIncrease[disasterId] = this.increment;
-                }
-            }
-        }
-
-        public override void PurifyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                foreach (LinkNode i in person.LocationArchitecture.AIAllLinkNodes.Values)
-                {
-                    i.A.disasterChanceIncrease[disasterId] -= this.increment;
                 }
             }
         }
@@ -81,6 +52,11 @@
             catch
             {
             }
+        }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            return this.increment * 1000;
         }
     }
 }

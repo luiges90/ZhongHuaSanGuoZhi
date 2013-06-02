@@ -8,7 +8,7 @@
     {
         private float increment;
 
-        public override void ApplyInfluenceKind(Person p)
+        public override void ApplyInfluenceKind(Architecture p)
         {
             if (p.BelongedFaction != null)
             {
@@ -16,7 +16,7 @@
             }
         }
 
-        public override void PurifyInfluenceKind(Person p)
+        public override void PurifyInfluenceKind(Architecture p)
         {
             if (p.BelongedFaction != null)
             {
@@ -33,6 +33,11 @@
             catch
             {
             }
+        }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            return this.increment;
         }
     }
 }

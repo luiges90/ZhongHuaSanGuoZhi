@@ -28,6 +28,11 @@
             {
             }
         }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            return this.increment * (a.HostileLine ? 2 : 1);
+        }
     }
 }
 

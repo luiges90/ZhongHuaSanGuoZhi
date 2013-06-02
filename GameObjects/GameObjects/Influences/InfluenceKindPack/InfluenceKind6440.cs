@@ -8,30 +8,11 @@
     {
         private float rate;
 
-        public override void ApplyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                if (rate > person.LocationArchitecture.facilityConstructionTimeRateDecrease)
-                {
-                    person.LocationArchitecture.facilityConstructionTimeRateDecrease = rate;
-                }
-            }
-        }
-
         public override void ApplyInfluenceKind(Architecture a)
         {
             if (rate > a.facilityConstructionTimeRateDecrease)
             {
                 a.facilityConstructionTimeRateDecrease = rate;
-            }
-        }
-
-        public override void PurifyInfluenceKind(Person person)
-        {
-            if (person.LocationArchitecture != null)
-            {
-                person.LocationArchitecture.facilityConstructionTimeRateDecrease = 0;
             }
         }
 
@@ -49,6 +30,11 @@
             catch
             {
             }
+        }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            return (a.FacilityPositionLeft > 0 ? 1 : 0.01) * (a.HostileLine ? 2 : 1);
         }
 
     }

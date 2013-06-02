@@ -20,6 +20,8 @@
         public float Scale = 1f;
         public bool SmallToBig;
         public int ItemID;
+        public int DetailLevel;
+        public bool CountToDisplay = true;
         private TabListInFrame tabList;
         internal FreeText Text;
 
@@ -137,6 +139,7 @@
 
         public void ReCalculate(int top, ref int previousRight)
         {
+            if (!this.Visible) return;
             this.Text.DisplayOffset = Point.Zero;
             int width = this.Text.Width;
             if (width < this.MinWidth)
@@ -172,6 +175,7 @@
 
         public void ResetAllTextures()
         {
+            if (!this.Visible) return;
             int num;
             if (this.Editable)
             {
@@ -232,6 +236,14 @@
             get
             {
                 return new Rectangle(this.DisplayPosition.Right + 1, this.DisplayPosition.Y, this.tabList.columnspliterWidth, this.tabList.columnspliterHeight);
+            }
+        }
+
+        public bool Visible
+        {
+            get
+            {
+                return this.DetailLevel <= GlobalVariables.TabListDetailLevel;
             }
         }
     }

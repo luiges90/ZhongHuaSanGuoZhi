@@ -6,7 +6,7 @@
 
     internal class InfluenceKind607 : InfluenceKind
     {
-        private int multiple;
+        private float multiple;
 
 
         public override void ApplyInfluenceKind(Troop troop)
@@ -21,7 +21,7 @@
         {
             try
             {
-                this.multiple = int.Parse(parameter);
+                this.multiple = float.Parse(parameter);
             }
             catch
             {

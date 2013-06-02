@@ -360,8 +360,8 @@
             {
                 if (this.CaptivePerson != null)
                 {
-                    
-                    return 10*(int) (((float) ((this.CaptivePerson.Merit * ((this.CaptiveFaction.Leader == this.CaptivePerson) ? 2 : 1)) / 50)) / ((this.CaptiveFaction != null) ? (this.CaptiveFaction.InternalSurplusRate / 2f) : 1f));
+
+                    return 10 * (int)(((float)((this.CaptivePerson.UntiredMerit * ((this.CaptiveFaction.Leader == this.CaptivePerson) ? 2 : 1)) / 50)) / ((this.CaptiveFaction != null) ? (this.CaptiveFaction.InternalSurplusRate / 2f) : 1f));
                 }
                 return 0;
             }
