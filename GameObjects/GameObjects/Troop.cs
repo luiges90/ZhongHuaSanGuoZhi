@@ -3895,7 +3895,7 @@
             int num = 0;
             if (troop.Defence == 0)
             {
-                num = 0x7fffffff;
+                return 0x7fffffff;
             }
             int num2 = this.CriticalStrikeChance - troop.AntiCriticalStrikeChance;
             if (num2 > 0)
@@ -4128,7 +4128,7 @@
             int num = 0;
             if (this.Defence == 0)
             {
-                num = 0x7fffffff;
+                return 0x7fffffff;
             }
             num = ((troop.Offence * 100) / this.Defence) / 5;
             if (position != this.Position)
@@ -9100,8 +9100,8 @@
         {
             if (((this.RecentlyFighting > 0) && (this.Leader != null)) && (this.Status != TroopStatus.混乱))
             {
-                bool doBrave = GameObject.Square(this.Leader.Braveness) >= GameObject.Random(1000);
-                bool doCalm = GameObject.Square(this.Leader.Calmness) >= GameObject.Random(1000);
+                bool doBrave = this.Leader.Braveness >= 3 && GameObject.Square(this.Leader.Braveness) >= GameObject.Random(1000);
+                bool doCalm = this.Leader.Calmness >= 3 && GameObject.Square(this.Leader.Calmness) >= GameObject.Random(1000);
                 if (doBrave && doCalm)
                 {
                     if (this.Leader.Braveness > this.Leader.Calmness)
