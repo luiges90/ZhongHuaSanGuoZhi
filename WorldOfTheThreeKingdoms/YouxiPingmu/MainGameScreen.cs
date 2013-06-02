@@ -2057,7 +2057,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void ApplyEvent(Event e, Architecture a)
         {
-            if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsArchitectureKnown(a)) || GlobalVariables.SkyEye) && (e.matchedDialog.Count > 0))
+            if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsArchitectureKnown(a)) || GlobalVariables.SkyEye) && (e.matchedDialog != null && e.matchedDialog.Count > 0))
             {
                 this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
                 foreach (PersonDialog dialog in e.matchedDialog)
