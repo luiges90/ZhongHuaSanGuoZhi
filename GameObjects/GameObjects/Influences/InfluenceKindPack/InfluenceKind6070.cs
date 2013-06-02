@@ -28,6 +28,11 @@
             {
             }
         }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            return this.rate * a.PersonCount * 3;
+        }
     }
 }
 

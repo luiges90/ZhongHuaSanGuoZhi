@@ -34,6 +34,11 @@
             {
             }
         }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            return this.increment;
+        }
     }
 }
 

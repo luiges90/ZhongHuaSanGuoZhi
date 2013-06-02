@@ -32,6 +32,11 @@
             }
         }
 
+        public override double AIFacilityValue(Architecture a)
+        {
+            return (a.FacilityPositionLeft > 0 ? 1 : 0.01) * (a.HostileLine ? 2 : 1);
+        }
+
     }
 }
 

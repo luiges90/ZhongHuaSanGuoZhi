@@ -28,6 +28,11 @@
             {
             }
         }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            return this.increment * 10 / (double)a.BelongedFaction.PersonCount * (a.FrontLine ? 1 : 0.2);
+        }
     }
 }
 

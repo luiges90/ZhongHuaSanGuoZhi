@@ -53,6 +53,11 @@
             {
             }
         }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            return this.increment * 1000;
+        }
     }
 }
 

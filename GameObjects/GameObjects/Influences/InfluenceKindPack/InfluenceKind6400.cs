@@ -17,6 +17,11 @@
             a.noFundToSustainFacility = false;
         }
 
+        public override double AIFacilityValue(Architecture a)
+        {
+            return a.FacilityMaintenanceCost / 5 - 1;
+        }
+
     }
 }
 
