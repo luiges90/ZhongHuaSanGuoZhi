@@ -12136,15 +12136,7 @@
 
                 if (this.feiziliebiao.Count > 0)
                 {
-                    int maxHouGongMaintainence = 0;
-                    foreach (Facility f in this.Facilities)
-                    {
-                        if (f.Kind.rongna > 0 && f.Kind.MaintenanceCost > maxHouGongMaintainence)
-                        {
-                            maxHouGongMaintainence = f.Kind.MaintenanceCost;
-                        }
-                    }
-                    num += this.feiziliebiao.Count * maxHouGongMaintainence;
+                    num += this.feiziliebiao.Count * Parameters.PrincessMaintainenceCost;
                 }
 
                 return num;
