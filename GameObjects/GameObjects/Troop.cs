@@ -676,9 +676,12 @@
 
         public void AddRoutedCount()
         {
-            foreach (Person person in this.Persons)
+            if (!this.IsTransport)
             {
-                person.RoutedCount++;
+                foreach (Person person in this.Persons)
+                {
+                    person.RoutedCount++;
+                }
             }
         }
 
