@@ -3050,7 +3050,7 @@
     </ListKind>
     <ListKind ID="10" Name="Influence" DisplayName="影响列表" ShowPortrait ="false">
       <Columns>
-        <Column ID="1" Name="Name" CountToDisplay="False" IsNumber="false" DisplayName="名称" MinWidth="350" DetailLevel="3"
+        <Column ID="1" Name="Name" CountToDisplay="True" IsNumber="false" DisplayName="名称" MinWidth="350" DetailLevel="3"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
@@ -3934,7 +3934,7 @@
     </ListKind>
     <ListKind ID="27" Name="Condition" DisplayName="条件列表" ShowPortrait ="false">
       <Columns>
-        <Column ID="1" Name="Name" CountToDisplay="False" IsNumber="false" DisplayName="名称" MinWidth="350" DetailLevel="5"
+        <Column ID="1" Name="Name" CountToDisplay="True" IsNumber="false" DisplayName="名称" MinWidth="350" DetailLevel="5"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
