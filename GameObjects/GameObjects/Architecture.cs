@@ -2166,38 +2166,40 @@
                 bool lotsOfPopulation = GameObject.Chance((int)((((float)this.Population / (float)this.PopulationCeiling) * 100f - 50f) * 2.5));
                 if ((recentlyAttacked || this.BelongedFaction.PlanTechniqueArchitecture != this) && this.Kind.HasPopulation && ((recentlyAttacked || GameObject.Random((int)this.BelongedFaction.Leader.StrategyTendency + 1) == 0) && this.RecruitmentAvail()))
                 {
-                    if (this.ArmyScale < this.FewArmyScale)
+                    if (this.ArmyScale < this.FewArmyScale || lotsOfPopulation)
                     {
                         needRecruit = true;
                     }
-                    else if ((((this.IsFoodEnough &&
-                        (((this.IsImportant || (this.AreaCount > 2)) && (this.Population > this.Kind.PopulationBoundary))
-                            || (((this.AreaCount <= 2) && !this.IsImportant) && (this.Population > (this.RecruitmentPopulationBoundary / 2)))
-                            || (this.ValueWater && this.HasShuijunMilitaryKind() && this.Population > 10000))
-                        )
-                        && (/*((this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment && GameObject.Chance(60)) || GameObject.Chance(15)) &&*/
-                        (GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length) >= (int)this.BelongedFaction.Leader.StrategyTendency)))
-                        || lotsOfPopulation)
-                        )
+                    else if (!this.IsFoodEnough)
                     {
-                        lotsOfPopulation = GameObject.Chance((int)((((((float)this.Population) / ((float)this.PopulationCeiling)) * 100f) - 50f) * 2.5));
-                        recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
-                        if (this.ArmyScale < this.FewArmyScale)
+                        needRecruit = false;
+                    }
+                    else if (GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length) < (int)this.BelongedFaction.Leader.StrategyTendency)
+                    {
+                        needRecruit = false;
+                    }
+                    else
+                    {
+                        bool nearFrontline = this.FrontLine || this.HostileLine || this.noFactionFrontline;
+                        if (!nearFrontline)
                         {
-                            needRecruit = true;
+                            foreach (LinkNode a in this.AIAllLinkNodes.Values)
+                            {
+                                if (a.Level <= 1 && (a.A.FrontLine || a.A.HostileLine || a.A.noFactionFrontline) && !a.A.Kind.HasPopulation)
+                                {
+                                    nearFrontline = true;
+                                    break;
+                                }
+                            }
                         }
-                        else if ((((this.IsFoodEnough &&
-                            (((this.IsImportant || (this.AreaCount > 2)) && (this.Population > this.Kind.PopulationBoundary))
-                                || (((this.AreaCount <= 2) && !this.IsImportant) && (this.Population > (this.RecruitmentPopulationBoundary / 2)))
-                                || (this.ValueWater && this.HasShuijunMilitaryKind() && this.Population > 10000))
-                            )
-                            && (/*((this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment && GameObject.Chance(60)) || GameObject.Chance(15)) &&*/
-                            (GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length) >= (int)this.BelongedFaction.Leader.StrategyTendency)))
-                            || lotsOfPopulation)
-                            )
-                        {
-                            needRecruit = true;
-                        }
+
+                        needRecruit = this.ExpectedMilitaryPopulation - this.MilitaryPopulation <= 
+                            this.PopulationDevelopingRate * this.PopulationCeiling * Parameters.AIRecruitPopulationCapMultiply *
+                            (nearFrontline ? 1.0 : Parameters.AIRecruitPopulationCapBackendMultiply) * 
+                            (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment ? 1.5 : 1) *
+                            (((Enum.GetNames(typeof(PersonStrategyTendency)).Length - (int)this.BelongedFaction.Leader.StrategyTendency)) 
+                            * Parameters.AIRecruitPopulationCapStrategyTendencyMulitply + Parameters.AIRecruitPopulationCapStrategyTendencyAdd)
+                            * (this.HostileLine ? Parameters.AIRecruitPopulationCapHostilelineMultiply : 1);
                     }
                 }
                 needRecruit = needRecruit && (GameObject.Chance(this.Persons.Count * 25) || (!need[0] && !need[1] && !need[2])); // 太少武将在城内时就不要补充了，先搞好内政更重要
