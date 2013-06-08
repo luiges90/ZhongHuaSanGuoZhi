@@ -135,7 +135,7 @@
 
         public static GameArea GetAreaFromArea(GameArea area, int radius, bool oblique, GameScenario Scenario, Faction faction)
         {
-            int longRadius;
+            /*int longRadius;
             if (area.Count <= 1)
                 longRadius = radius;
             else if (area.Count <= 5)
@@ -161,8 +161,8 @@
                 candidateArea.Area.Remove(new Point(area.Centre.X + longRadius - 1, area.Centre.Y + longRadius));
                 candidateArea.Area.Remove(new Point(area.Centre.X + longRadius, area.Centre.Y + longRadius - 1));
             }
-            return candidateArea;
-            /*Dictionary<Point, object> closedList = new Dictionary<Point, object>();
+            return candidateArea;*/
+            Dictionary<Point, object> closedList = new Dictionary<Point, object>();
             GameArea area2 = new GameArea();
             foreach (Point point in area.Area)
             {
@@ -172,7 +172,7 @@
             {
                 area2.Area.Add(point);
             }
-            return area2;*/
+            return area2;
         }
 
         public GameArea GetContactArea(bool oblique)
