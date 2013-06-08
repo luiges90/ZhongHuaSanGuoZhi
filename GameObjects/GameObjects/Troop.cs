@@ -1778,7 +1778,7 @@
                             }
                         }
                     }
-                    else if (refPath.Count == 0 && this.Army.Kind.Type != MilitaryType.水军)
+                    else if (refPath == null || (refPath.Count == 0 && this.Army.Kind.Type != MilitaryType.水军))
                     {
                         this.StartingArchitecture.actuallyUnreachableArch.Add(this.WillArchitecture);
                         this.GoBack();

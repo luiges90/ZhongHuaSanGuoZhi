@@ -47,7 +47,7 @@
 
         private void AddToOpenList(RoutewaySquare square)
         {
-            int key = square.F * 40000 + (square.Position.X * 200 + square.Position.Y); // to break tie because Dictionary doesn't allow duplicate keys (only need square.F)
+            int key = square.F * 160000 + (square.Position.X * 400 + square.Position.Y); // to break tie because Dictionary doesn't allow duplicate keys (only need square.F)
             openList.Add(key, square);
             openDictionary.Add(square.Position, square);
         }
@@ -160,7 +160,7 @@
                 else if (num2 < squareFromOpenList.RealG)
                 {
                     openDictionary.Remove(position);
-                    openList.Remove(squareFromOpenList.F * 40000 + (squareFromOpenList.Position.X * 200 + squareFromOpenList.Position.Y));
+                    openList.Remove(squareFromOpenList.F * 160000 + (squareFromOpenList.Position.X * 400 + squareFromOpenList.Position.Y));
                     square.Parent = currentSquare;
                     square.Position = position;
                     square.PenalizedCost = this.GetPenalizedCostByPosition(position);

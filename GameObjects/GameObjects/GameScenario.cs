@@ -2172,8 +2172,18 @@
                 catch
                 {
                 }
-                person.waitForFeiziId = int.Parse(reader["WaitForFeizi"].ToString());
-                person.WaitForFeiZiPeriod = (int)reader["WaitForFeiziPeriod"];
+
+                try
+                {
+                    person.waitForFeiziId = int.Parse(reader["WaitForFeizi"].ToString());
+                    person.WaitForFeiZiPeriod = (int)reader["WaitForFeiziPeriod"];
+                }
+                catch (FormatException ex)
+                {
+                    person.waitForFeiziId = -1;
+                    person.WaitForFeiZiPeriod = 0;
+                }
+                
                 person.preferredTroopPersonsString = reader["PreferredTroopPersons"].ToString();
 
                 try
@@ -2356,7 +2366,6 @@
                     architecture.LocationState.LinkedRegion.RegionCore = architecture;
                 }
                 architecture.Characteristics.LoadFromString(this.GameCommonData.AllInfluences, reader["Characteristics"].ToString());
-                //StaticMethods.LoadFromString(architecture.ArchitectureArea.Area, reader["Area"].ToString());
                 architecture.LoadFromString(architecture.ArchitectureArea, reader["Area"].ToString());
                 architecture.LoadPersonsFromString(this.AllPersons, reader["Persons"].ToString());
                 architecture.LoadMovingPersonsFromString(this.AllPersons, reader["MovingPersons"].ToString());
