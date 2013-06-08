@@ -2394,7 +2394,7 @@
                 architecture.EnduranceWorkingPersons.LoadFromString(architecture.Persons, reader["EnduranceWorkingPersons"].ToString());
                 try
                 {  //读存档,赈灾工作的人
-                    architecture.zhenzaiWorkingPersons.LoadFromString(architecture.Persons, reader["zhenzaiWorkingPersons"].ToString());
+                    architecture.ZhenzaiWorkingPersons.LoadFromString(architecture.Persons, reader["zhenzaiWorkingPersons"].ToString());
                 }
                 catch
                 {  //读剧本，剧本里没有这一项，所以会出错
@@ -3414,7 +3414,7 @@
                     row["DominationWorkingPersons"] = architecture.DominationWorkingPersons.SaveToString();
                     row["MoraleWorkingPersons"] = architecture.MoraleWorkingPersons.SaveToString();
                     row["EnduranceWorkingPersons"] = architecture.EnduranceWorkingPersons.SaveToString();
-                    row["zhenzaiWorkingPersons"] = architecture.zhenzaiWorkingPersons.SaveToString();
+                    row["zhenzaiWorkingPersons"] = architecture.ZhenzaiWorkingPersons.SaveToString();
                     row["TrainingWorkingPersons"] = architecture.TrainingWorkingPersons.SaveToString();
                     row["feiziliebiao"] = architecture.Feiziliebiao.SaveToString();
 

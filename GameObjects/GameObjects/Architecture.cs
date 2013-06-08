@@ -318,7 +318,7 @@
             }
         }
 
-        public PersonList zhenzaiWorkingPersons
+        public PersonList ZhenzaiWorkingPersons
         {
             get
             {
@@ -5547,7 +5547,7 @@
 
         public void tingzhizhenzai()
         {
-            foreach (Person person in this.zhenzaiWorkingPersons)
+            foreach (Person person in this.ZhenzaiWorkingPersons)
             {
                 person.WorkKind = ArchitectureWorkKind.无;
             }
@@ -5558,8 +5558,8 @@
 
             if (this.youzainan)
             {
-                this.DecreaseFood(this.zhenzaiWorkingPersons.Count * 3000);
-                this.DecreaseFund(this.zhenzaiWorkingPersons.Count * 200);
+                this.DecreaseFood(this.ZhenzaiWorkingPersons.Count * 3000);
+                this.DecreaseFund(this.ZhenzaiWorkingPersons.Count * 200);
                 this.zhixingzainanshanghai();
 
                 this.zainan.shengyutianshu--;
@@ -5619,7 +5619,7 @@
         {
             int tianshu;
             int zhenzainenglizonghe = 0;
-            foreach (Person person in this.zhenzaiWorkingPersons)
+            foreach (Person person in this.ZhenzaiWorkingPersons)
             {
                 zhenzainenglizonghe += person.zhenzaiAbility;
             }
@@ -5632,7 +5632,7 @@
         {
             float xishu;
             int zhenzainenglizonghe = 0;
-            foreach (Person person in this.zhenzaiWorkingPersons)
+            foreach (Person person in this.ZhenzaiWorkingPersons)
             {
                 zhenzainenglizonghe += person.zhenzaiAbility;
             }
@@ -7265,7 +7265,7 @@
             switch (workKind)
             {
                 case ArchitectureWorkKind.赈灾:
-                    agricultureWorkingPersons = this.zhenzaiWorkingPersons;
+                    agricultureWorkingPersons = this.ZhenzaiWorkingPersons;
                     break;
                 case ArchitectureWorkKind.训练:
                     agricultureWorkingPersons = this.TrainingWorkingPersons;

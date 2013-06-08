@@ -238,7 +238,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case ContextMenuResult.Internal_zhenzai:
                     this.screenManager.CurrentArchitectureWorkKind = ArchitectureWorkKind.赈灾;
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.Architecture_WorkingList, true, true, true, true, this.CurrentArchitecture.Persons, this.CurrentArchitecture.zhenzaiWorkingPersons, "赈灾", "赈灾");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.Architecture_WorkingList, true, true, true, true, this.CurrentArchitecture.Persons, this.CurrentArchitecture.ZhenzaiWorkingPersons, "赈灾", "赈灾");
 
                     break;
 
