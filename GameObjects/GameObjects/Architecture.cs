@@ -10742,6 +10742,8 @@
         {
             Faction oldFaction = this.BelongedFaction;
             this.ResetAuto();
+            this.PlanFacilityKind = null;
+            this.PlanFacilityKindID = -1;
             if ((faction != null) && base.Scenario.IsPlayer(faction))
             {
                 this.AutoHiring = true;
