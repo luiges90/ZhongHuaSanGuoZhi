@@ -20,12 +20,12 @@
 
     public class Architecture : GameObject
     {
-        private int militaryPopulation=0;
-        internal bool TodayPersonArriveNote=false;
+        private int militaryPopulation = 0;
+        internal bool TodayPersonArriveNote = false;
         private int agriculture;
-        public int CaptionID=0;
+        public int CaptionID = 0;
         //private bool shoudongluyongshibai=false;
-        public  bool HasManualHire = false;
+        public bool HasManualHire = false;
 
         public Dictionary<int, LinkNode> AIAllLinkNodes = new Dictionary<int, LinkNode>();
         public ArchitectureList AILandLinks = new ArchitectureList();
@@ -99,7 +99,7 @@
         public int IncrementOfFoodCeiling = 0;
         private int informationCoolDown;
         private bool isStrategicCenter;
-        internal  bool JustAttacked = false;
+        internal bool JustAttacked = false;
         private ArchitectureKind kind;
         public MilitaryList LevelUpMilitaryList = new MilitaryList();
         public State LocationState;
@@ -191,7 +191,7 @@
         public bool noFactionFrontline;
         public int captureChance;
         public int noEscapeChance;
-        public List<KeyValuePair<int, int>> captiveLoyaltyFall = new List<KeyValuePair<int,int>>();
+        public List<KeyValuePair<int, int>> captiveLoyaltyFall = new List<KeyValuePair<int, int>>();
         public bool noFundToSustainFacility;
         public int facilityEnduranceIncrease;
         public Dictionary<int, int> disasterChanceDecrease = new Dictionary<int, int>();
@@ -204,11 +204,6 @@
         public float ExperienceRate;
 
         public float facilityConstructionTimeRateDecrease = 0;
-        private PersonList persons = new PersonList(); // 不包括在野人物，不包括movingPersons
-        private PersonList movingPersons = new PersonList();
-        private PersonList noFactionPersons = new PersonList(); // 不包括noFactionMovingPersons
-        private PersonList noFactionMovingPersons = new PersonList();
-        private PersonList feiziliebiao = new PersonList();
 
         public event BeginRecentlyAttacked OnBeginRecentlyAttacked;
 
@@ -248,7 +243,15 @@
         {
             get
             {
-                return persons;
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
             }
         }
 
@@ -256,7 +259,15 @@
         {
             get
             {
-                return movingPersons;
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Moving && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
             }
         }
 
@@ -264,7 +275,15 @@
         {
             get
             {
-                return noFactionPersons;
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
             }
         }
 
@@ -272,15 +291,31 @@
         {
             get
             {
-                return noFactionMovingPersons;
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
             }
         }
 
-        public PersonList Feiziliebiao
+        public PersonList feiziliebiao
         {
             get
             {
-                return feiziliebiao;
+                PersonList result = new PersonList();
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Princess && i.LocationArchitecture == this)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
             }
         }
 
@@ -289,9 +324,9 @@
             get
             {
                 PersonList result = new PersonList();
-                foreach (Person i in persons)
+                foreach (Person i in base.Scenario.Persons)
                 {
-                    if (i.WorkKind == ArchitectureWorkKind.赈灾)
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.赈灾 && i.LocationTroop == null)
                     {
                         result.Add(i);
                     }
@@ -305,9 +340,9 @@
             get
             {
                 PersonList result = new PersonList();
-                foreach (Person i in persons)
+                foreach (Person i in base.Scenario.Persons)
                 {
-                    if (i.WorkKind == ArchitectureWorkKind.农业)
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.农业 && i.LocationTroop == null)
                     {
                         result.Add(i);
                     }
@@ -321,9 +356,9 @@
             get
             {
                 PersonList result = new PersonList();
-                foreach (Person i in persons)
+                foreach (Person i in base.Scenario.Persons)
                 {
-                    if (i.WorkKind == ArchitectureWorkKind.商业)
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.商业 && i.LocationTroop == null)
                     {
                         result.Add(i);
                     }
@@ -337,9 +372,9 @@
             get
             {
                 PersonList result = new PersonList();
-                foreach (Person i in persons)
+                foreach (Person i in base.Scenario.Persons)
                 {
-                    if (i.WorkKind == ArchitectureWorkKind.技术)
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.技术 && i.LocationTroop == null)
                     {
                         result.Add(i);
                     }
@@ -353,9 +388,9 @@
             get
             {
                 PersonList result = new PersonList();
-                foreach (Person i in persons)
+                foreach (Person i in base.Scenario.Persons)
                 {
-                    if (i.WorkKind == ArchitectureWorkKind.统治)
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.统治 && i.LocationTroop == null)
                     {
                         result.Add(i);
                     }
@@ -369,9 +404,9 @@
             get
             {
                 PersonList result = new PersonList();
-                foreach (Person i in persons)
+                foreach (Person i in base.Scenario.Persons)
                 {
-                    if (i.WorkKind == ArchitectureWorkKind.民心)
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.民心 && i.LocationTroop == null)
                     {
                         result.Add(i);
                     }
@@ -385,9 +420,9 @@
             get
             {
                 PersonList result = new PersonList();
-                foreach (Person i in persons)
+                foreach (Person i in base.Scenario.Persons)
                 {
-                    if (i.WorkKind == ArchitectureWorkKind.耐久)
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.耐久 && i.LocationTroop == null)
                     {
                         result.Add(i);
                     }
@@ -401,9 +436,9 @@
             get
             {
                 PersonList result = new PersonList();
-                foreach (Person i in persons)
+                foreach (Person i in base.Scenario.Persons)
                 {
-                    if (i.WorkKind == ArchitectureWorkKind.训练)
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.训练 && i.LocationTroop == null)
                     {
                         result.Add(i);
                     }
@@ -417,13 +452,13 @@
             get
             {
                 PersonList result = new PersonList();
-                //foreach (Person i in persons)
-                //{
-                //    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.LocationTroop == null)
-                //    {
-                //        result.Add(i);
-                //    }
-                //}
+                foreach (Person i in base.Scenario.Persons)
+                {
+                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.LocationTroop == null)
+                    {
+                        result.Add(i);
+                    }
+                }
                 return result;
             }
         }
@@ -431,7 +466,7 @@
         public MilitaryList ZhengzaiBuchongDeBiandui()
         {
             MilitaryList zhengzaiBuchongDeBiandui = new MilitaryList();
-            foreach (Military military in this.Militaries )
+            foreach (Military military in this.Militaries)
             {
                 if (military.RecruitmentPerson != null)
                 {
@@ -536,12 +571,12 @@
                     }
                 }
 
-                if (this.FacilityPositionCount>0 && this.FacilityPositionLeft <= 0)
+                if (this.FacilityPositionCount > 0 && this.FacilityPositionLeft <= 0)
                 {
                     return "已建满";
                 }
 
-                return this.FacilityPositionString ;
+                return this.FacilityPositionString;
             }
         }
 
@@ -628,7 +663,7 @@
             result.Add(t.Leader);
             if (t.TroopIntelligence < (0x4b - t.Leader.Calmness))
             {
-                foreach (Person person in persons)
+                foreach (Person person in this.Persons)
                 {
                     if (person.WaitForFeiZi != null) continue;
                     if ((!person.Selected && (person.Intelligence >= (0x4b - t.Leader.Calmness))) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
@@ -642,7 +677,7 @@
             }
             if (t.TroopStrength < 0x4b)
             {
-                foreach (Person person in persons)
+                foreach (Person person in this.Persons)
                 {
                     if (person.WaitForFeiZi != null) continue;
                     if ((!person.Selected && (person.Strength >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Strength - t.TroopStrength) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
@@ -656,7 +691,7 @@
             }
             if (t.TroopCommand < 0x4b)
             {
-                foreach (Person person in persons)
+                foreach (Person person in this.Persons)
                 {
                     if (person.WaitForFeiZi != null) continue;
                     if ((!person.Selected && (person.Command >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Command - t.TroopCommand) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
@@ -668,7 +703,7 @@
                     }
                 }
             }
-            foreach (Person person in persons)
+            foreach (Person person in this.Persons)
             {
                 if (person.WaitForFeiZi != null) continue;
                 if ((!person.Selected && !t.Persons.HasGameObject(person)) && ((person.FightingForce < t.Leader.FightingForce) && !person.HasLeaderValidCombatTitle))
@@ -745,7 +780,7 @@
             this.AIWork(false);
             this.InsideTacticsAI();
             this.AITransfer();
-			ExtensionInterface.call("AIArchitecture", new Object[] { this.Scenario, this });
+            ExtensionInterface.call("AIArchitecture", new Object[] { this.Scenario, this });
         }
 
         private void AIExecute()
@@ -761,13 +796,13 @@
             //int leaderExecutionRate = uncruelty * uncruelty * uncruelty * 4;
             foreach (Captive i in this.Captives)
             {
-                if ((!i.CaptivePerson.RecruitableBy(this.BelongedFaction, (int) ((uncruelty - 2) * Parameters.AIExecutePersonIdealToleranceMultiply)) || this.BelongedFaction.Leader.HatedPersons.Contains(i.CaptivePersonID)) &&
+                if ((!i.CaptivePerson.RecruitableBy(this.BelongedFaction, (int)((uncruelty - 2) * Parameters.AIExecutePersonIdealToleranceMultiply)) || this.BelongedFaction.Leader.HatedPersons.Contains(i.CaptivePersonID)) &&
                     GameObject.Random((int)(uncruelty * uncruelty * (GlobalVariables.AIExecuteBetterOfficer ? 100000.0 / i.CaptivePerson.Merit : i.CaptivePerson.Merit / 100000.0)
                         * (100.0 / GlobalVariables.AIExecutionRate))) == 0)  //处斩几率修改系数就可以，可设为小数
                 {
                     if (!this.BelongedFaction.Leader.hasStrainTo(i.CaptivePerson))
                     {
-                        
+
                         this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.NeutralPerson, this.BelongedFaction.Leader.Name, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", i.CaptivePerson.Name, true);
 
                         i.CaptivePerson.execute(this.BelongedFaction);
@@ -1143,7 +1178,7 @@
             //nafei
             if (leader.WaitForFeiZi != null && leader.Status == PersonStatus.Normal)
             {
-                if (this.Meinvkongjian - this.Feiziliebiao.Count <= 0 || !this.BelongedFaction.Leader.isLegalFeiZi(leader.WaitForFeiZi))
+                if (this.meinvkongjian() - this.feiziliebiao.Count <= 0 || !this.BelongedFaction.Leader.isLegalFeiZi(leader.WaitForFeiZi))
                 {
                     leader.WaitForFeiZi.WaitForFeiZi = null;
                     leader.WaitForFeiZi = null;
@@ -1170,20 +1205,20 @@
             }
             else
             {
-                if (leader.LocationArchitecture == this && !leader.IsCaptive && this.Meinvkongjian - this.Feiziliebiao.Count > 0 && leader.Status == PersonStatus.Normal &&
+                if (leader.LocationArchitecture == this && !leader.IsCaptive && this.meinvkongjian() - this.feiziliebiao.Count > 0 && leader.Status == PersonStatus.Normal &&
                     (
                     GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0
                     ||
-                    GameObject.Chance((int) Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower))))
+                    GameObject.Chance((int)Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower))))
                     && this.Fund > 75000
-                    ) 
+                    )
                 {
                     PersonList candidate = new PersonList();
                     foreach (Person p in this.BelongedFaction.Persons)
                     {
                         Person spousePerson = p.Spouse == -1 ? null : base.Scenario.Persons.GetGameObject(p.Spouse) as Person;
                         if (p.Merit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.HatedPersons.Contains(this.BelongedFaction.Leader.ID) &&
-                            (spousePerson == null || spousePerson.ID == leader.ID || !spousePerson.Alive || (leader.PersonalLoyalty < (int) PersonLoyalty.很高 && spousePerson.Merit < p.Merit * ((int)leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd))) &&
+                            (spousePerson == null || spousePerson.ID == leader.ID || !spousePerson.Alive || (leader.PersonalLoyalty < (int)PersonLoyalty.很高 && spousePerson.Merit < p.Merit * ((int)leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd))) &&
                             (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply)))
                         {
                             candidate.Add(p);
@@ -1207,7 +1242,7 @@
                     }
                     if (toTake != null)
                     {
-                        if (leader.LocationArchitecture.Meinvkongjian > this.Meinvkongjian)
+                        if (leader.LocationArchitecture.meinvkongjian() > this.meinvkongjian())
                         {
                             if (toTake.LocationArchitecture == leader.LocationArchitecture && toTake.LocationArchitecture.Fund >= 50000)
                             {
@@ -1257,13 +1292,13 @@
                 this.BelongedFaction.Leader.WaitForFeiZi == null && leader.Status == PersonStatus.Normal &&
 
                 (
-                GameObject.Chance((int) ((int)leader.Ambition * Parameters.AIChongxingChanceMultiply + Parameters.AIChongxingChanceAdd)) 
+                GameObject.Chance((int)((int)leader.Ambition * Parameters.AIChongxingChanceMultiply + Parameters.AIChongxingChanceAdd))
                 ||
                 GameObject.Chance((int)Math.Round(Parameters.AIHougongArchitectureCountProbMultiply * Math.Pow(this.BelongedFaction.ArchitectureCount, Parameters.AIHougongArchitectureCountProbPower)))
                 )
-                
+
                 &&
-                    
+
                    (((!leader.LocationArchitecture.HostileLine || GameObject.Chance(Parameters.AILeaveHostilelineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIHostilelineHougongChance)))
                     && (!leader.LocationArchitecture.FrontLine || GameObject.Chance(Parameters.AILeaveFrontlineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIFrontlineHougongChance))))
                     )
@@ -1420,7 +1455,7 @@
                                 while (num2 < num && this.PersonCount < this.EffectiveMilitaryCount * 3 + 3)
                                 {
                                     Person p = list[num2] as Person;
-                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null && 
+                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
                                         (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                     {
                                         p.MoveToArchitecture(this);
@@ -1428,7 +1463,8 @@
                                     num2++;
                                 }
                             }
-                        } else break;
+                        }
+                        else break;
                         otherArchitectureList.Remove(src);
                     } while (otherArchitectureList.Count > 0 && this.PersonCount < this.EffectiveMilitaryCount * 3 + 3 &&
                         this.PersonCount + this.MovingPersonCount < Math.Max(this.Fund / 1500, 6));
@@ -1440,7 +1476,8 @@
                         idleDays++;
                         if (idleDays > 3)
                         {
-                            while (this.PersonCount + this.MovingPersonCount > this.EnoughPeople + 3) {
+                            while (this.PersonCount + this.MovingPersonCount > this.EnoughPeople + 3)
+                            {
                                 bool everMoved = false;
                                 ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
                                 Architecture dest = null;
@@ -1490,6 +1527,7 @@
                         idleDays = 0;
                     }
                 }
+
             }
         }
 
@@ -1561,7 +1599,8 @@
                                     candidates.Add(n.A);
                                 }
                             }
-                            if (candidates.Count > 0){
+                            if (candidates.Count > 0)
+                            {
                                 dest = candidates[GameObject.Random(candidates.Count)];
                             }
                         }
@@ -1686,7 +1725,7 @@
                                 }
                             }
                         }
-                        if (dest == null || 
+                        if (dest == null ||
                             (this.ExpectedFood <= 50000 && this.ExpectedFund <= 500))
                         {
                             //no suitable candidates, forget about it.
@@ -2417,7 +2456,7 @@
         private void AIAutoSearch()
         {
             if (this.HasHostileTroopsInView()) return;
-            foreach (Person person in persons)
+            foreach (Person person in this.Persons.GetList())
             {
                 if (person.WorkKind == ArchitectureWorkKind.无 && (this.Fund < Parameters.InternalFundCost || (person.Loyalty >= 100 && person.Tiredness <= 0)))
                 {
