@@ -1760,27 +1760,30 @@
                                 {
                                     // 去除多余的点
                                     int i = 0;
-                                    bool skip = false;
                                     while (startingArea.HasPoint(this.FirstTierPath[i]))
                                     {
                                         i++;
                                         if (i >= this.FirstTierPath.Count)
                                         {
-                                            skip = true;
+                                            i = this.FirstTierPath.Count - 1;
                                             break;
                                         }
                                     }
-                                    if (!skip)
+                                    this.FirstTierPath.RemoveRange(0, i);
+                                    i = this.FirstTierPath.Count - 1;
+                                    while (willArea.HasPoint(this.FirstTierPath[i]))
                                     {
-                                        this.FirstTierPath.RemoveRange(0, i);
-                                        i = this.FirstTierPath.Count - 1;
-                                        while (willArea.HasPoint(this.FirstTierPath[i]))
-                                            i--;
-                                        this.FirstTierPath.RemoveRange(i + 1, this.FirstTierPath.Count - i - 1);
-
-                                        base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)] = this.FirstTierPath;
-                                        path = ConstructTruePath(this.FirstTierPath, kind);
+                                        i--;
+                                        if (i < 0)
+                                        {
+                                            i = 0;
+                                            break;
+                                        }
                                     }
+                                    this.FirstTierPath.RemoveRange(i + 1, this.FirstTierPath.Count - i - 1);
+
+                                    base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)] = this.FirstTierPath;
+                                    path = ConstructTruePath(this.FirstTierPath, kind);
                                 }
                                 else
                                 {
