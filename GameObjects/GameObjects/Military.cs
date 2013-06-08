@@ -1053,7 +1053,7 @@
             {
                 if (this.BelongedFaction == null) return 0;
                 int result = (int)(this.Kind.CreateCost * (1 + (this.Experience + (this.Leader == this.Leader ? 1000 : this.LeaderExperience)) / 1000.0));
-                if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.RealMilitaryKind))
+                if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.RealMilitaryKind) || this.RealMilitaryKind.Unique)
                 {
                     result += 50000;
                 }

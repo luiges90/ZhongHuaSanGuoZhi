@@ -5835,7 +5835,10 @@
                 {
                     if (!person.Selected)
                     {
-                        result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
+                        if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && !military.Kind.Unique) || 
+                            person.FightingForce > 60000 || this.Endurance < 30){
+                            result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
+                        }
                     }
                 }
             }
