@@ -5835,8 +5835,9 @@
                 {
                     if (!person.Selected)
                     {
-                        if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && !military.Kind.Unique) || 
-                            person.FightingForce > 60000 || this.Endurance < 30){
+                        if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && !military.Kind.Unique) ||
+                            person.FightingForce >= Parameters.AIUniqueTroopFightingForceThreshold || this.Endurance < 30)
+                        {
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
                         }
                     }

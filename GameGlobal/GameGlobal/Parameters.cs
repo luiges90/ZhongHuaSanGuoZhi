@@ -137,6 +137,8 @@
         public static int MaxAITroopTime = 20;
         public static int PrincessMaintainenceCost = 50;
 
+        public static int AIUniqueTroopFightingForceThreshold = 60000;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();
@@ -263,6 +265,8 @@
             AIOffendIgnoreReserveChanceTroopRatioMultiply = float.Parse(nextSibling.Attributes.GetNamedItem("AIOffendIgnoreReserveChanceTroopRatioMultiply").Value);
             MaxAITroopTime = int.Parse(nextSibling.Attributes.GetNamedItem("MaxAITroopTime").Value);
             PrincessMaintainenceCost = int.Parse(nextSibling.Attributes.GetNamedItem("PrincessMaintainenceCost").Value);
+
+            AIUniqueTroopFightingForceThreshold = int.Parse(nextSibling.Attributes.GetNamedItem("AIUniqueTroopFightingForceThreshold").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;
