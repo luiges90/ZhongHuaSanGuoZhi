@@ -3115,29 +3115,17 @@
             }
             if (this.TargetArchitecture != null)
             {
-                this.workKind = ArchitectureWorkKind.无;
+                this.LocationArchitecture = this.TargetArchitecture;
+                this.WorkKind = ArchitectureWorkKind.无;
                 if (this.BelongedFaction != null)
                 {
-                    if (this.TargetArchitecture != this.LocationArchitecture)
-                    {
-                        this.TargetArchitecture.MovingPersons.Add(this);
-                        if (this.Status == PersonStatus.Normal)
-                            this.LocationArchitecture.Persons.Remove(this);
-                        else if (this.Status == PersonStatus.Moving)
-                            this.LocationArchitecture.MovingPersons.Remove(this);
-                    }
                     this.Status = PersonStatus.Moving;
                 }
                 else
                 {
                     this.Status = PersonStatus.NoFactionMoving;
-                    if (this.TargetArchitecture != this.LocationArchitecture)
-                    {
-                        this.TargetArchitecture.NoFactionMovingPersons.Add(this);
-                        this.LocationArchitecture.NoFactionPersons.Remove(this);
-                    }
                 }
-                this.LocationArchitecture = this.TargetArchitecture;
+
             }
         }
 
@@ -5124,6 +5112,10 @@
 
         public void RecruitMilitary(Military m)
         {
+            if (this.recruitmentMilitary != null)
+            {
+                this.recruitmentMilitary.StopRecruitment();
+            }
             m.StopRecruitment();
             this.WorkKind = ArchitectureWorkKind.补充;
             this.RecruitmentMilitary = m;

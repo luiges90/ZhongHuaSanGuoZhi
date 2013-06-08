@@ -2151,13 +2151,27 @@
                 }
 
                 // 分配完工作后选择人物补充军队
-                if (this.BelongedSection.AIDetail.ValueRecruitment || (!forPlayer && GameObject.Chance(50)))
+                MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
+                bool needRecruit = false;
+                if ((recentlyAttacked || this.BelongedFaction.PlanTechniqueArchitecture != this) && this.Kind.HasPopulation && ((recentlyAttacked || GameObject.Random((int)this.BelongedFaction.Leader.StrategyTendency + 1) == 0) && this.RecruitmentAvail()))
                 {
-                    MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
-                    bool needRecruit = false;
-                    if ((recentlyAttacked || this.BelongedFaction.PlanTechniqueArchitecture != this) && this.Kind.HasPopulation && ((recentlyAttacked || GameObject.Random((int)this.BelongedFaction.Leader.StrategyTendency + 1) == 0) && this.RecruitmentAvail()))
+                    bool lotsOfPopulation = GameObject.Chance((int)((((float)this.Population / (float)this.PopulationCeiling) * 100f - 50f) * 2.5));
+                    if (this.ArmyScale < this.FewArmyScale)
                     {
-                        bool lotsOfPopulation = GameObject.Chance((int)((((float)this.Population / (float)this.PopulationCeiling) * 100f - 50f) * 2.5));
+                        needRecruit = true;
+                    }
+                    else if ((((this.IsFoodEnough &&
+                        (((this.IsImportant || (this.AreaCount > 2)) && (this.Population > this.Kind.PopulationBoundary))
+                            || (((this.AreaCount <= 2) && !this.IsImportant) && (this.Population > (this.RecruitmentPopulationBoundary / 2)))
+                            || (this.ValueWater && this.HasShuijunMilitaryKind() && this.Population > 10000))
+                        )
+                        && (/*((this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment && GameObject.Chance(60)) || GameObject.Chance(15)) &&*/
+                        (GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length) >= (int)this.BelongedFaction.Leader.StrategyTendency)))
+                        || lotsOfPopulation)
+                        )
+                    {
+                        lotsOfPopulation = GameObject.Chance((int)((((((float)this.Population) / ((float)this.PopulationCeiling)) * 100f) - 50f) * 2.5));
+                        recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
                         if (this.ArmyScale < this.FewArmyScale)
                         {
                             needRecruit = true;
@@ -2172,47 +2186,30 @@
                             || lotsOfPopulation)
                             )
                         {
-                            lotsOfPopulation = GameObject.Chance((int)((((((float)this.Population) / ((float)this.PopulationCeiling)) * 100f) - 50f) * 2.5));
-                            recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
-                            if (this.ArmyScale < this.FewArmyScale)
-                            {
-                                needRecruit = true;
-                            }
-                            else if ((((this.IsFoodEnough &&
-                                (((this.IsImportant || (this.AreaCount > 2)) && (this.Population > this.Kind.PopulationBoundary))
-                                    || (((this.AreaCount <= 2) && !this.IsImportant) && (this.Population > (this.RecruitmentPopulationBoundary / 2)))
-                                    || (this.ValueWater && this.HasShuijunMilitaryKind() && this.Population > 10000))
-                                )
-                                && (/*((this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment && GameObject.Chance(60)) || GameObject.Chance(15)) &&*/
-                                (GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length) >= (int)this.BelongedFaction.Leader.StrategyTendency)))
-                                || lotsOfPopulation)
-                                )
-                            {
-                                needRecruit = true;
-                            }
+                            needRecruit = true;
                         }
                     }
-                    needRecruit = needRecruit && (GameObject.Chance(this.Persons.Count * 25) || (!need[0] && !need[1] && !need[2])); // 太少武将在城内时就不要补充了，先搞好内政更重要
-                    if (needRecruit)
+                }
+                needRecruit = needRecruit && (GameObject.Chance(this.Persons.Count * 25) || (!need[0] && !need[1] && !need[2])); // 太少武将在城内时就不要补充了，先搞好内政更重要
+                if (needRecruit)
+                {
+                    int maxRecruitmentAbility = 0;
+                    Person recruitmentPerson = null;
+                    foreach (Person p in this.Persons)
                     {
-                        int maxRecruitmentAbility = 0;
-                        Person recruitmentPerson = null;
-                        foreach (Person p in this.Persons)
+                        if (p.RecruitmentAbility > maxRecruitmentAbility)
                         {
-                            if (p.RecruitmentAbility > maxRecruitmentAbility)
-                            {
-                                maxRecruitmentAbility = p.RecruitmentAbility;
-                                recruitmentPerson = p;
-                            }
+                            maxRecruitmentAbility = p.RecruitmentAbility;
+                            recruitmentPerson = p;
                         }
-                        if (maxRecruitmentAbility > 0)
-                        {
-                            recruitmentMilitaryList.PropertyName = "Merit";
-                            recruitmentMilitaryList.IsNumber = true;
-                            recruitmentMilitaryList.SmallToBig = false;
-                            recruitmentMilitaryList.ReSort();
-                            recruitmentPerson.RecruitMilitary(recruitmentMilitaryList[0] as Military);
-                        }
+                    }
+                    if (maxRecruitmentAbility > 0)
+                    {
+                        recruitmentMilitaryList.PropertyName = "Merit";
+                        recruitmentMilitaryList.IsNumber = true;
+                        recruitmentMilitaryList.SmallToBig = false;
+                        recruitmentMilitaryList.ReSort();
+                        recruitmentPerson.RecruitMilitary(recruitmentMilitaryList[0] as Military);
                     }
 
 
@@ -2231,28 +2228,28 @@
                     // 新建部队
                     int unfullArmyCount = 0;
                     int unfullNavalArmyCount = 0;
-                    foreach (Military military in this.Militaries)
-                    {
-                        if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && military.Kind.ID != 29)
-                        {
-                            unfullArmyCount++;
-                            if (military.Kind.Type == MilitaryType.水军)
-                            {
-                                unfullNavalArmyCount++;
-                            }
-                        }
-                    }
-                    int unfullArmyCountThreshold;
-                    if (this.IsFoodAbundant && this.IsFundAbundant)
-                    {
-                        unfullArmyCountThreshold = Math.Min((this.MilitaryPopulation) / Parameters.AINewMilitaryPopulationThresholdDivide + 1, (this.PersonCount + this.MovingPersonCount) / Parameters.AINewMilitaryPersonThresholdDivide + 1);
-                    }
-                    else
-                    {
-                        unfullArmyCountThreshold = 1;
-                    }
                     if (!forPlayer)
                     {
+                        foreach (Military military in this.Militaries)
+                        {
+                            if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && military.Kind.ID != 29)
+                            {
+                                unfullArmyCount++;
+                                if (military.Kind.Type == MilitaryType.水军)
+                                {
+                                    unfullNavalArmyCount++;
+                                }
+                            }
+                        }
+                        int unfullArmyCountThreshold;
+                        if (this.IsFoodAbundant && this.IsFundAbundant)
+                        {
+                            unfullArmyCountThreshold = Math.Min((this.MilitaryPopulation) / Parameters.AINewMilitaryPopulationThresholdDivide + 1, (this.PersonCount + this.MovingPersonCount) / Parameters.AINewMilitaryPersonThresholdDivide + 1);
+                        }
+                        else
+                        {
+                            unfullArmyCountThreshold = 1;
+                        }
                         if ((this.Kind.HasPopulation && (recentlyAttacked || (this.BelongedFaction.PlanTechniqueArchitecture != this))) &&
                             (recentlyAttacked || (this.Population > ((this.RecruitmentPopulationBoundary * (1 + (int)this.BelongedFaction.Leader.StrategyTendency * 0.5f)) + GameObject.Random(this.RecruitmentPopulationBoundary)))))
                         {
@@ -2287,10 +2284,6 @@
                                 this.AIRecruitment(true, false);
                             }
                         }
-                    }
-                    else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.EffectiveMilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
-                    {
-                        this.AIRecruitment(true, false);
                     }
                 }
 
