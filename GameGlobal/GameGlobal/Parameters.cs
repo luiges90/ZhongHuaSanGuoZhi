@@ -135,6 +135,7 @@
         public static float AIOffendIgnoreReserveChanceTroopRatioMultiply = 100.0f;
 
         public static int MaxAITroopTime = 20;
+        public static int PrincessMaintainenceCost = 50;
 
         public void InitializeGameParameters()
         {
@@ -261,6 +262,7 @@
             AIOffendIgnoreReserveChanceTroopRatioAdd = float.Parse(nextSibling.Attributes.GetNamedItem("AIOffendIgnoreReserveChanceTroopRatioAdd").Value);
             AIOffendIgnoreReserveChanceTroopRatioMultiply = float.Parse(nextSibling.Attributes.GetNamedItem("AIOffendIgnoreReserveChanceTroopRatioMultiply").Value);
             MaxAITroopTime = int.Parse(nextSibling.Attributes.GetNamedItem("MaxAITroopTime").Value);
+            PrincessMaintainenceCost = int.Parse(nextSibling.Attributes.GetNamedItem("PrincessMaintainenceCost").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;

@@ -522,7 +522,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
 
             int guimo = jianzhu.JianzhuGuimo;
 
-            if (jianzhu.Kind.ID == 1)
+            if (jianzhu.Kind.ID != 2 && jianzhu.Kind.ID != 3)
             {
                 if (jianzhu.Scenario.ScenarioMap.UseSimpleArchImages)
                 {
@@ -534,15 +534,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                 }
                 else
                 {
-                    if (guimo == 1)
+                    if (jianzhu.Kind.ID != 1 && guimo == 1)
                     {
-                        jianzhujuxing.X = (position.X - 1) * this.TileWidth + this.LeftEdge;
-                        jianzhujuxing.Y = (position.Y - 1) * this.TileHeight + this.TopEdge;
+                        jianzhujuxing.X = position.X * this.TileWidth + this.LeftEdge;
+                        jianzhujuxing.Y = position.Y * this.TileHeight + this.TopEdge;
 
-                        jianzhujuxing.Width = this.TileWidth * 3;
-                        jianzhujuxing.Height = this.TileHeight * 3;
-                    }
-                    if (guimo == 5)
+                        jianzhujuxing.Width = this.TileWidth;
+                        jianzhujuxing.Height = this.TileHeight;
+                    } 
+                    else if (guimo == 5 || (jianzhu.Kind.ID == 1 && guimo == 1))
                     {
                         jianzhujuxing.X = (position.X - 1) * this.TileWidth + this.LeftEdge;
                         jianzhujuxing.Y = (position.Y - 1) * this.TileHeight + this.TopEdge;
@@ -557,7 +557,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
 
                         jianzhujuxing.Width = this.TileWidth * 5;
                         jianzhujuxing.Height = this.TileHeight * 5;
-
                     }
                 }
             }

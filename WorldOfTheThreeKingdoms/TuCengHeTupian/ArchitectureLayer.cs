@@ -54,7 +54,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                     {
                         if (this.mainMapLayer.TileInScreen(point))
                         {
-                            if ((point == architecture.zhongxindian || architecture.Scenario.ScenarioMap.UseSimpleArchImages) && (architecture.Kind.ID == 1 || architecture.Kind.ID == 2 ))
+                            if ((point == architecture.zhongxindian || architecture.Scenario.ScenarioMap.UseSimpleArchImages))
                             {
                                 spriteBatch.Draw(this.huoqujianzhutupian(architecture), this.mainMapLayer.huoqujianzhujuxing(point, architecture), null, zainanyanse, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
 
@@ -126,38 +126,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                                 
                                 }
                             } //end      if (point == architecture.ArchitectureArea.TopLeft && point.Y>0)
-                            
-                            
-                            
 
-                            if (architecture.Kind.ID == 2)  //绘制关隘
-                            {
-                                //spriteBatch.Draw(architecture.Texture, this.mainMapLayer.GetDestination(point), sourceRectangle, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
-                                /*
-                                if (architecture.ArchitectureArea.Area[0].X == architecture.ArchitectureArea.Area[1].X) //忽略了关只有一块的特例，可能产生BUG
-                                {
-
-                                    spriteBatch.Draw(gameScenario.GameCommonData.AllArchitectureKinds.GetArchitectureKind(5).Texture, this.mainMapLayer.GetDestination(point), null, zainanyanse, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
-
-                                }
-                                else
-                                {
-                                    spriteBatch.Draw(architecture.Texture, this.mainMapLayer.GetDestination(point), null, zainanyanse, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
-
-                                }
-                                */
-                            }
-
-                            else if (architecture.Kind.ID != 1 && architecture.Kind.ID != 2) 
-                            {
-                                if (architecture.Texture == null)
-                                {
-                                    architecture.Kind.Texture = Texture2D.FromFile(this.screen.GraphicsDevice, "Resources/Architecture/" + architecture.Kind.ID.ToString() + ".png");
-                                }
-                                spriteBatch.Draw(architecture.Texture, this.mainMapLayer.GetDestination(point), null, zainanyanse, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
-
-                            }
-                            
                             if ((GlobalVariables.SkyEye || this.gameScenario.NoCurrentPlayer) || this.gameScenario.CurrentPlayer.IsArchitectureKnown(architecture))
                             {
                                 if (!architecture.IncrementNumberList.IsEmpty)

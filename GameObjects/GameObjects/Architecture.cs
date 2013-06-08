@@ -11675,11 +11675,18 @@
         {
             get
             {
-                return facilityMaintenanceCost;
-            }
-            set
-            {
-                facilityMaintenanceCost = value;
+                int num = 0;
+                foreach (Facility facility in this.Facilities)
+                {
+                    num += facility.MaintenanceCost;
+                }
+
+                if (this.feiziliebiao.Count > 0)
+                {
+                    num += this.feiziliebiao.Count * Parameters.PrincessMaintainenceCost;
+                }
+
+                return num;
             }
         }
 
