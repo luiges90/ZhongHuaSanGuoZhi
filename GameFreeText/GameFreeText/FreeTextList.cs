@@ -64,6 +64,7 @@
 
         public Microsoft.Xna.Framework.Rectangle DisplayPosition(int index)
         {
+            if (index >= this.TextList.Count || index < 0) return new Microsoft.Xna.Framework.Rectangle(0, 0, 0, 0);
             return new Microsoft.Xna.Framework.Rectangle(this.TextList[index].Position.X + this.displayOffset.X, this.TextList[index].Position.Y + this.displayOffset.Y, this.TextList[index].Position.Width, this.TextList[index].Position.Height);
         }
 
