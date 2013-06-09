@@ -200,6 +200,8 @@
         public float enduranceDecreaseRateDrop;
         public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
 
+        private int attemptedMovePerson;
+
         public float ExperienceRate;
 
         public float facilityConstructionTimeRateDecrease = 0;
@@ -1545,6 +1547,7 @@
                                         (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                     {
                                         p.MoveToArchitecture(this);
+                                        attemptedMovePerson = 2;
                                     }
                                     num2++;
                                 }
@@ -1557,11 +1560,12 @@
                 }
                 else
                 {
-                    if (this.IdlingPersonCount > this.PersonCount / 2)
+                    if (this.IdlingPersonCount >= this.PersonCount / 2)
                     {
                         idleDays++;
-                        if (idleDays > 3)
+                        if (idleDays >= 3)
                         {
+                            attemptedMovePerson = 3;
                             while (this.PersonCount + this.MovingPersonCount > this.EnoughPeople + 3)
                             {
                                 bool everMoved = false;
@@ -8868,17 +8872,21 @@
                             //Label_0220:;
                         }
                     }
-                    foreach (Person person in this.Persons.GetList())
+                    attemptedMovePerson--;
+                    if (attemptedMovePerson <= 0)
                     {
-                        if (this.Fund < Parameters.InternalFundCost ||
-                                (person.WaitForFeiZi == null && person.WorkKind == ArchitectureWorkKind.无 &&
-                                !person.HasFollowingArmy && !person.HasEffectiveLeadingArmy &&
-                                (!this.FrontLine || GameObject.Random(person.FightingNumber) < 100)
-                            ))
+                        foreach (Person person in this.Persons.GetList())
                         {
-                            if ((person.Loyalty >= 100 || !this.IsFundEnough) && person.Tiredness <= 0)
+                            if (this.Fund < Parameters.InternalFundCost ||
+                                    (person.WaitForFeiZi == null && person.WorkKind == ArchitectureWorkKind.无 &&
+                                    !person.HasFollowingArmy && !person.HasEffectiveLeadingArmy &&
+                                    (!this.FrontLine || GameObject.Random(person.FightingNumber) < 100)
+                                ))
                             {
-                                person.GoForSearch();
+                                if ((person.Loyalty >= 100 || !this.IsFundEnough) && person.Tiredness <= 0)
+                                {
+                                    person.GoForSearch();
+                                }
                             }
                         }
                     }
