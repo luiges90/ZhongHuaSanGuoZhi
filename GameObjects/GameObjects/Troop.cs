@@ -4530,35 +4530,35 @@
                         this.IncreaseCombativity(StaticMethods.GetRandomValue((int) ((this.Leader.Calmness * 100) * this.BelongedFaction.RateOfCombativityRecoveryAfterStratagemSuccess), 100));
                     }
                     troop.army.Tiredness += this.stratagemTirednessIncrease;
-                    if (this.stratagemStealTroop > 0)
+                    if (this.stratagemStealTroop > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         int c = Math.Min(troop.Quantity, this.stratagemStealTroop);
                         troop.DecreaseQuantity(c);
                         this.IncreaseQuantity(c);
                     }
-                    if (this.stratagemStealInjury > 0)
+                    if (this.stratagemStealInjury > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         int c = Math.Min(troop.InjuryQuantity, this.stratagemStealInjury);
                         troop.DecreaseInjuryQuantity(c);
                         this.IncreaseInjuryQuantity(c);
                     }
-                    if (this.stratagemMoraleDecrease > 0)
+                    if (this.stratagemMoraleDecrease > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         troop.DecreaseMorale(this.stratagemMoraleDecrease);
                     }
-                    if (this.stratagemCombativityDecrease > 0)
+                    if (this.stratagemCombativityDecrease > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         troop.DecreaseCombativity(this.stratagemCombativityDecrease);
                     }
-                    if (this.stratagemTroopDecrease > 0)
+                    if (this.stratagemTroopDecrease > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         troop.DecreaseQuantity(this.stratagemTroopDecrease);
                     }
-                    if (this.stratagemInjuryDecrease > 0)
+                    if (this.stratagemInjuryDecrease > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         troop.DecreaseQuantity(this.stratagemInjuryDecrease);
                     }
-                    if (this.stratagemLoyaltyDecrease > 0)
+                    if (this.stratagemLoyaltyDecrease > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         foreach (Person p in troop.Persons)
                         {
@@ -4569,7 +4569,7 @@
                             }
                         }
                     }
-                    if (this.stratagemStealFood > 0)
+                    if (this.stratagemStealFood > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         int c = Math.Min(troop.Food, this.stratagemStealFood);
                         troop.Food -= c;
