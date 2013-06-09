@@ -2101,12 +2101,16 @@
                 bool needOnlyOneMorale = this.Morale >= this.MoraleCeiling - 2;             // 因为补充导致的民心下降1或2点时，只需要选择1个武将进行民心就足够了
                 bool needOnlyOneTrain = false;
 
-                if (!IsFundIncomeEnough || !IsFoodIncomeEnough || this.PopulationDevelopingRate <= 0 || this.Endurance < 30)
+                if ((!IsFundIncomeEnough && need[0])
+                    || (!IsFoodIncomeEnough && need[1])
+                    || (this.PopulationDevelopingRate <= 0 && (need[3] || need[4]))
+                    || this.Endurance < 30)
                 {
-                    need[0] = !IsFoodIncomeEnough;
-                    need[1] = !IsFundIncomeEnough;
+                    need[0] &= !IsFoodIncomeEnough;
+                    need[1] &= !IsFundIncomeEnough;
                     need[2] = false;
-                    need[3] = need[4] = this.PopulationDevelopingRate <= 0;
+                    need[3] &= this.PopulationDevelopingRate <= 0;
+                    need[4] &= this.PopulationDevelopingRate <= 0;
                     need[5] = this.Endurance < 30;
                 }
 
@@ -2178,6 +2182,10 @@
                     {
                         needRecruit = false;
                     }
+                    else if (!GameObject.Chance(this.Domination * 4 - 300) || this.Morale < 100)
+                    {
+                        needRecruit = false;
+                    } 
                     else
                     {
                         bool nearFrontline = this.FrontLine || this.HostileLine || this.noFactionFrontline;
