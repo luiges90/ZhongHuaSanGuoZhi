@@ -6,14 +6,14 @@
                FontName="楷体"
                FontSize="16"
                FontStyle="Regular"
-               FontColor="4278190080"
+               FontColor="4294967295"
                Align="Middle">
   </DateClient>
   <FactionClient X="52" Y ="120" Width="150" Height="20"
                 FontName="隶书"
                 FontSize="20"
                 FontStyle="Regular"
-                FontColor="4278190080"
+                FontColor="4294967295"
                 Align="Middle">
   </FactionClient>
   <SeasonClient X="52" Y="20" Width="51" Height="51"></SeasonClient>

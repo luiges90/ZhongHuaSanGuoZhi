@@ -1884,7 +1884,7 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255424"
+                FontColor="4278222848"
                 Align="Right">
         </Column>
         <Column ID="24" Name="ChaosAfterCriticalStrikeChance" IsNumber="true" DisplayName="暴击致乱" MinWidth="70" DetailLevel="3"
@@ -1905,7 +1905,7 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255424"
+                FontColor="4278222848"
                 Align="Right">
         </Column>
         <Column ID="27" Name="ChaosAfterStratagemSuccessChance" IsNumber="true" DisplayName="计略致乱几率" MinWidth="120" DetailLevel="3"
@@ -1919,7 +1919,7 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255424"
+                FontColor="4278222848"
                 Align="Right">
         </Column>
         <Column ID="29" Name="ChaosAfterSurroundAttackChance" IsNumber="true" DisplayName="围攻致乱" MinWidth="70" DetailLevel="3"

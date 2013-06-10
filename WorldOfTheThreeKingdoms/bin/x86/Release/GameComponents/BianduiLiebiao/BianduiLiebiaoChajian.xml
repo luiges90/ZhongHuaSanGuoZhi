@@ -30,7 +30,7 @@
               Align="Middle">
   </ColumnText>
   <SoundFile Select="Select.wav"></SoundFile>
-  <TopLeftPosition X="35" Y="325" ></TopLeftPosition>
+  <TopLeftPosition X="35" Y="200" ></TopLeftPosition>
   <TopLeft FileName="TopLeft.png"></TopLeft>
   <TopRight FileName="TopRight.png"></TopRight>
   <BottomLeft FileName="BottomLeft.png"></BottomLeft>

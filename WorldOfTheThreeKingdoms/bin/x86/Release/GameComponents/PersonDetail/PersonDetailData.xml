@@ -77,7 +77,7 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255424"
+                FontColor="4278222848"
                 Align="Middle">
     </Text>
     <Label X="324" Y="93" Width="40" Height="30" Label ="势力"
@@ -247,7 +247,7 @@
                 FontName="华文楷体"
                 FontSize="16"
                 FontStyle="Regular"
-                FontColor="4286643968"
+                FontColor="4278222848"
                 Align="Middle">
     </Text>
     <Label X="163" Y="345" Width="100" Height="30" Label ="战斗称号"

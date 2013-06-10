@@ -74,7 +74,7 @@
             node = nextSibling.ChildNodes.Item(5);
             for (int i = 0; i < node.ChildNodes.Count; i += 2)
             {
-                PersonDetailPlugin.LabelText item = new PersonDetailPlugin.LabelText();
+                LabelText item = new LabelText();
                 node3 = node.ChildNodes.Item(i);
                 rectangle = StaticMethods.LoadRectangleFromXMLNode(node3);
                 StaticMethods.LoadFontAndColorFromXMLNode(node3, out font, out color);

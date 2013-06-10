@@ -8,7 +8,9 @@
     <AssemblyName>TroopDetailPlugin</AssemblyName>
     <OutputType>Library</OutputType>
     <RootNamespace>TroopDetailPlugin</RootNamespace>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -71,6 +73,9 @@
       <Project>{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}</Project>
       <Name>PluginInterface</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
