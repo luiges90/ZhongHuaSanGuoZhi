@@ -4535,6 +4535,7 @@
                         int c = Math.Min(troop.Quantity, this.stratagemStealTroop);
                         troop.DecreaseQuantity(c);
                         this.IncreaseQuantity(c);
+                        Troop.CheckTroopRout(this, troop);
                     }
                     if (this.stratagemStealInjury > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
@@ -4553,10 +4554,11 @@
                     if (this.stratagemTroopDecrease > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         troop.DecreaseQuantity(this.stratagemTroopDecrease);
+                        Troop.CheckTroopRout(this, troop);
                     }
                     if (this.stratagemInjuryDecrease > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
-                        troop.DecreaseQuantity(this.stratagemInjuryDecrease);
+                        troop.DecreaseInjuryQuantity(this.stratagemInjuryDecrease);
                     }
                     if (this.stratagemLoyaltyDecrease > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
