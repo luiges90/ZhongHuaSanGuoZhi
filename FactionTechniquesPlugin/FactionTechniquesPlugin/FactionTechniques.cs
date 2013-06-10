@@ -116,9 +116,9 @@
                     if (this.current != item)
                     {
                         this.CommentsText.Clear();
-                        this.CommentsText.AddText(item.LinkedTechnique.Name, Microsoft.Xna.Framework.Graphics.Color.Yellow);
+                        this.CommentsText.AddText(item.LinkedTechnique.Name, Microsoft.Xna.Framework.Graphics.Color.Orange);
                         this.CommentsText.AddNewLine();
-                        this.CommentsText.AddText(item.LinkedTechnique.Description, Microsoft.Xna.Framework.Graphics.Color.White);
+                        this.CommentsText.AddText(item.LinkedTechnique.Description, Microsoft.Xna.Framework.Graphics.Color.DarkGray);
                         this.CommentsText.AddNewLine();
                         if (this.Control)
                         {
@@ -137,26 +137,26 @@
                             {
                                 this.CommentsText.AddText("可升级", Microsoft.Xna.Framework.Graphics.Color.Lime);
                                 this.CommentsText.AddNewLine();
-                                this.CommentsText.AddText("升级时间", Microsoft.Xna.Framework.Graphics.Color.White);
+                                this.CommentsText.AddText("升级时间", Microsoft.Xna.Framework.Graphics.Color.DarkGray);
                                 this.CommentsText.AddText(this.ShowingFaction == null ? item.LinkedTechnique.Days.ToString() : this.ShowingFaction.getTechniqueActualTime(item.LinkedTechnique).ToString(), Microsoft.Xna.Framework.Graphics.Color.Lime);
-                                this.CommentsText.AddText("天", Microsoft.Xna.Framework.Graphics.Color.White);
+                                this.CommentsText.AddText("天", Microsoft.Xna.Framework.Graphics.Color.DarkGray);
                                 this.CommentsText.AddNewLine();
                                 this.CommentsText.AddText("势力声望：" + (this.ShowingFaction == null ? item.LinkedTechnique.Reputation.ToString() : this.ShowingFaction.getTechniqueActualReputation(item.LinkedTechnique).ToString()) + 
                                     "，技巧点数：" + (this.ShowingFaction == null ? item.LinkedTechnique.PointCost.ToString() : this.ShowingFaction.getTechniqueActualPointCost(item.LinkedTechnique).ToString()) + 
-                                    "，资金：" + (this.ShowingFaction == null ? item.LinkedTechnique.FundCost.ToString() : this.ShowingFaction.getTechniqueActualFundCost(item.LinkedTechnique).ToString()), 
-                                    Microsoft.Xna.Framework.Graphics.Color.White);
+                                    "，资金：" + (this.ShowingFaction == null ? item.LinkedTechnique.FundCost.ToString() : this.ShowingFaction.getTechniqueActualFundCost(item.LinkedTechnique).ToString()),
+                                    Microsoft.Xna.Framework.Graphics.Color.DarkGray);
                                 if (item.LinkedTechnique.PreID >= 0)
                                 {
-                                    this.CommentsText.AddText("，前提条件：" + this.ShowingFaction.Scenario.GameCommonData.AllTechniques.GetTechnique(item.LinkedTechnique.PreID).Name, Microsoft.Xna.Framework.Graphics.Color.White);
+                                    this.CommentsText.AddText("，前提条件：" + this.ShowingFaction.Scenario.GameCommonData.AllTechniques.GetTechnique(item.LinkedTechnique.PreID).Name, Microsoft.Xna.Framework.Graphics.Color.DarkGray);
                                 }
                                 this.CommentsText.AddNewLine();
                                 this.CommentsText.AddText("请单击鼠标左键开始升级", Microsoft.Xna.Framework.Graphics.Color.SkyBlue);
                             }
                             else
                             {
-                                this.CommentsText.AddText("升级时间", Microsoft.Xna.Framework.Graphics.Color.White);
+                                this.CommentsText.AddText("升级时间", Microsoft.Xna.Framework.Graphics.Color.DarkGray);
                                 this.CommentsText.AddText(this.ShowingFaction == null ? item.LinkedTechnique.Days.ToString() : this.ShowingFaction.getTechniqueActualTime(item.LinkedTechnique).ToString(), Microsoft.Xna.Framework.Graphics.Color.Lime);
-                                this.CommentsText.AddText("天", Microsoft.Xna.Framework.Graphics.Color.White);
+                                this.CommentsText.AddText("天", Microsoft.Xna.Framework.Graphics.Color.DarkGray);
                                 this.CommentsText.AddNewLine();
                                 this.CommentsText.AddNewLine();
                                 this.CommentsText.AddText("未达到升级条件：", Microsoft.Xna.Framework.Graphics.Color.LightPink);

@@ -1,394 +1,380 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <Background FileName="Background.png" Width="740" Height="560"></Background>
-  <TroopNameText X="20" Y="50" Width="80" Height="30"
-            FontName="宋体"
-            FontSize="12"
+  <Background FileName="Background.png" Width="806" Height="467"></Background>
+  <TroopNameText X="139" Y="44" Width="80" Height="30"
+            FontName="隶书"
+            FontSize="20"
             FontStyle="Bold"
-            FontColor="4294967295"
+            FontColor="4286578688"
             Align="Middle">
   </TroopNameText>
-  <PortraitTexturePosition X="20" Y="83" Width="80" Height="100" ></PortraitTexturePosition>
+  <PortraitTexturePosition X="49" Y="54" Width="82" Height="97" ></PortraitTexturePosition>
   <Labels>
-    <Label X="151" Y="90" Width="80" Height="25" Label ="战斗称号"
+    <Label X="63" Y="176" Width="80" Height="25" Label ="战斗称号"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="151" Y="115" Width="80" Height="25" PropertyName="CombatTitleString"
-                FontName="宋体"
-                FontSize="11"
+    <Text X="63" Y="176" Width="80" Height="25" PropertyName="CombatTitleString"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Bold"
                 FontColor="4294901862"
                 Align="Middle">
     </Text>
-    <Label X="251" Y="90" Width="80" Height="25" Label ="所属势力"
+    <Label X="63" Y="216" Width="80" Height="25" Label ="所属势力"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="251" Y="115" Width="80" Height="25" PropertyName="FactionString"
-                FontName="宋体"
-                FontSize="11"
+    <Text X="63" Y="216" Width="80" Height="25" PropertyName="FactionString"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Bold"
-                FontColor="4294967295"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="351" Y="90" Width="80" Height="25" Label ="口粮天数"
+    <Label X="415" Y="96" Width="80" Height="25" Label ="口粮天数"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="351" Y="115" Width="80" Height="25" PropertyName="RationDaysString"
+    <Text X="415" Y="96" Width="80" Height="25" PropertyName="RationDaysString"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="451" Y="90" Width="80" Height="25" Label ="粮草总量"
+    <Label X="503" Y="96" Width="80" Height="25" Label ="粮草总量"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="451" Y="115" Width="80" Height="25" PropertyName="Food"
+    <Text X="503" Y="96" Width="80" Height="25" PropertyName="Food"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="551" Y="90" Width="80" Height="25" Label ="行动速率"
+    <Label X="327" Y="96" Width="80" Height="25" Label ="行动速率"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="551" Y="115" Width="80" Height="25" PropertyName="Speed"
+    <Text X="327" Y="96" Width="80" Height="25" PropertyName="Speed"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="151" Y="145" Width="80" Height="25" Label ="士兵数量"
+    <Label X="151" Y="96" Width="80" Height="25" Label ="士兵数量"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="151" Y="165" Width="80" Height="25" PropertyName="Quantity"
+    <Text X="151" Y="96" Width="80" Height="25" PropertyName="Quantity"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="251" Y="145" Width="80" Height="25" Label ="部队士气"
+    <Label X="239" Y="136" Width="80" Height="25" Label ="部队士气"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="251" Y="165" Width="80" Height="25" PropertyName="Morale"
+    <Text X="239" Y="136" Width="80" Height="25" PropertyName="Morale"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="351" Y="145" Width="80" Height="25" Label ="部队战意"
+    <Label X="327" Y="136" Width="80" Height="25" Label ="部队战意"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="351" Y="165" Width="80" Height="25" PropertyName="Combativity"
+    <Text X="327" Y="136" Width="80" Height="25" PropertyName="Combativity"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="451" Y="145" Width="80" Height="25" Label ="部队伤兵"
+    <Label X="151" Y="136" Width="80" Height="25" Label ="部队伤兵"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="451" Y="165" Width="80" Height="25" PropertyName="InjuryQuantity"
+    <Text X="151" Y="136" Width="80" Height="25" PropertyName="InjuryQuantity"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="551" Y="145" Width="80" Height="25" Label ="当前乘数"
+    <Label X="239" Y="96" Width="80" Height="25" Label ="当前乘数"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="551" Y="165" Width="80" Height="25" PropertyName="CurrentRate"
+    <Text X="239" Y="96" Width="80" Height="25" PropertyName="CurrentRate"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Bold"
-                FontColor="4278255424"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="151" Y="195" Width="80" Height="25" Label ="部队武勇"
+    <Label X="415" Y="136" Width="80" Height="25" Label ="部队武勇"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="151" Y="215" Width="80" Height="25" PropertyName="TroopStrength"
+    <Text X="415" Y="136" Width="80" Height="25" PropertyName="TroopStrength"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="251" Y="195" Width="80" Height="25" Label ="部队统率"
+    <Label X="503" Y="136" Width="80" Height="25" Label ="部队统率"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="251" Y="215" Width="80" Height="25" PropertyName="TroopCommand"
+    <Text X="503" Y="136" Width="80" Height="25" PropertyName="TroopCommand"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="351" Y="195" Width="80" Height="25" Label ="部队智谋"
+    <Label X="591" Y="136" Width="80" Height="25" Label ="部队智谋"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="351" Y="215" Width="80" Height="25" PropertyName="TroopIntelligence"
+    <Text X="591" Y="136" Width="80" Height="25" PropertyName="TroopIntelligence"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="451" Y="195" Width="80" Height="25" Label ="攻击力"
+    <Label X="151" Y="176" Width="80" Height="25" Label ="攻击力"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="451" Y="215" Width="80" Height="25" PropertyName="Offence"
-                FontName="宋体"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4278255615"
-                Align="Middle">
-    </Text>
-    <Label X="551" Y="195" Width="80" Height="25" Label ="防御力"
-                FontName="宋体"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Middle">
-    </Label>
-    <Text X="551" Y="215" Width="80" Height="25" PropertyName="Defence"
-                FontName="宋体"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4278255615"
-                Align="Middle">
-    </Text>
-    <Label X="151" Y="245" Width="80" Height="25" Label ="暴击几率"
-                FontName="宋体"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Middle">
-    </Label>
-    <Text X="151" Y="265" Width="80" Height="25" PropertyName="CriticalStrikeChance"
-                FontName="宋体"
+    <Text X="151" Y="176" Width="80" Height="25" PropertyName="Offence"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294901760"
                 Align="Middle">
     </Text>
-    <Label X="251" Y="245" Width="80" Height="25" Label ="抗暴几率"
+    <Label X="151" Y="216" Width="80" Height="25" Label ="防御力"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="251" Y="265" Width="80" Height="25" PropertyName="AntiCriticalStrikeChance"
-                FontName="宋体"
+    <Text X="151" Y="216" Width="80" Height="25" PropertyName="Defence"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255424"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="351" Y="245" Width="80" Height="25" Label ="暴击致乱"
+    <Label X="239" Y="176" Width="80" Height="25" Label ="暴击几率"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="351" Y="265" Width="80" Height="25" PropertyName="ChaosAfterCriticalStrikeChance"
-                FontName="宋体"
+    <Text X="239" Y="176" Width="80" Height="25" PropertyName="CriticalStrikeChance"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4293943072"
+                FontColor="4286578752"
                 Align="Middle">
     </Text>
-    <Label X="451" Y="245" Width="80" Height="25" Label ="抗围几率"
+    <Label X="327" Y="176" Width="80" Height="25" Label ="抗暴几率"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="451" Y="265" Width="80" Height="25" PropertyName="AvoidSurroundedChance"
-                FontName="宋体"
+    <Text X="327" Y="176" Width="80" Height="25" PropertyName="AntiCriticalStrikeChance"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255424"
+                FontColor="4286578816"
                 Align="Middle">
     </Text>
-    <Label X="551" Y="245" Width="80" Height="25" Label ="包围致乱"
+    <Label X="415" Y="176" Width="80" Height="25" Label ="暴击致乱"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="551" Y="265" Width="80" Height="25" PropertyName="ChaosAfterSurroundAttackChance"
-                FontName="宋体"
+    <Text X="415" Y="176" Width="80" Height="25" PropertyName="ChaosAfterCriticalStrikeChance"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4293943072"
+                FontColor="4286578943"
                 Align="Middle">
     </Text>
-    <Label X="151" Y="295" Width="80" Height="25" Label ="计略成功"
+    <Label X="503" Y="176" Width="80" Height="25" Label ="抗围几率"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="151" Y="315" Width="80" Height="25" PropertyName="StratagemChanceIncrement"
-                FontName="宋体"
+    <Text X="503" Y="176" Width="80" Height="25" PropertyName="AvoidSurroundedChance"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4294901760"
+                FontColor="4286578816"
                 Align="Middle">
     </Text>
-    <Label X="251" Y="295" Width="80" Height="25" Label ="计略抵抗"
+    <Label X="591" Y="176" Width="80" Height="25" Label ="包围致乱"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="251" Y="315" Width="80" Height="25" PropertyName="AntiStratagemChanceIncrement"
-                FontName="宋体"
+    <Text X="591" Y="176" Width="80" Height="25" PropertyName="ChaosAfterSurroundAttackChance"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255424"
+                FontColor="4286578943"
                 Align="Middle">
     </Text>
-    <Label X="351" Y="295" Width="80" Height="25" Label ="计略致乱"
+    <Label X="415" Y="216" Width="80" Height="25" Label ="计略成功"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="351" Y="315" Width="80" Height="25" PropertyName="ChaosAfterStratagemSuccessChance"
-                FontName="宋体"
+    <Text X="415" Y="216" Width="80" Height="25" PropertyName="StratagemChanceIncrement"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4293943072"
+                FontColor="4286578752"
                 Align="Middle">
     </Text>
-    <Label X="451" Y="295" Width="80" Height="25" Label ="携带资金"
+    <Label X="503" Y="216" Width="80" Height="25" Label ="计略抵抗"
+                FontName="宋体"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="503" Y="216" Width="80" Height="25" PropertyName="AntiStratagemChanceIncrement"
+                FontName="隶书"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4286578816"
+                Align="Middle">
+    </Text>
+    <Label X="591" Y="216" Width="80" Height="25" Label ="计略致乱"
+                FontName="宋体"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="591" Y="216" Width="80" Height="25" PropertyName="ChaosAfterStratagemSuccessChance"
+                FontName="隶书"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4286578943"
+                Align="Middle">
+    </Text>
+    <Label X="591" Y="96" Width="80" Height="25" Label ="携带资金"
             FontName="宋体"
-            FontSize="11"
+            FontSize="1"
             FontStyle="Regular"
             FontColor="4294967295"
             Align="Middle">
     </Label>
-    <Text X="451" Y="315" Width="80" Height="25" PropertyName="zijin"
+    <Text X="591" Y="96" Width="80" Height="25" PropertyName="zijin"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
-                Align="Middle">
-    </Text>
-	<Label X="551" Y="295" Width="80" Height="25" Label ="疲累度"
-            FontName="宋体"
-            FontSize="11"
-            FontStyle="Regular"
-            FontColor="4294967295"
-            Align="Middle">
-    </Label>
-    <Text X="551" Y="315" Width="80" Height="25" PropertyName="Tiredness"
-                FontName="宋体"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
   </Labels>
-  <OtherPerson X="20" Y="200" Width="80" Height="150" RowMargin="0"
+  <OtherPerson X="683" Y="96" Width="80" Height="150" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
-            FontColor="4294967295">
+            FontColor="4278190080">
   </OtherPerson>
-  <CombatMethod X="20" Y="360" Width="190" Height="200" RowMargin="0"
+  <CombatMethod X="43" Y="247" Width="190" Height="200" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
-            FontColor="4294967295">
+            FontColor="4278190080">
   </CombatMethod>
-  <Stunt X="215" Y="360" Width="190" Height="200" RowMargin="0"
+  <Stunt X="233" Y="247" Width="190" Height="200" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
-            FontColor="4294967295">
+            FontColor="4278190080">
   </Stunt>
-  <Influence X="410" Y="360" Width="340" Height="200" RowMargin="0"
+  <Influence X="423" Y="247" Width="340" Height="200" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
-            FontColor="4294967295">
+            FontColor="4278190080">
   </Influence>
-  <MilitaryButton FileName="Military.png" Selected="MilitarySelected.png" Disabled="MilitaryDisabled.png" X="20" Y="18" Width="80" Height="30"></MilitaryButton>
-  <PersonButton FileName="Person.png" Selected="PersonSelected.png" Disabled="PersonDisabled.png" X="110" Y="18" Width="80" Height="30"></PersonButton>
-  <LeaderButton FileName="Leader.png" Selected="LeaderSelected.png" Disabled="LeaderDisabled.png" X="200" Y="18" Width="80" Height="30"></LeaderButton>
-  <RationButton FileName="Ration.png" Selected="RationSelected.png" Disabled="RationDisabled.png" X="290" Y="18" Width="80" Height="30"></RationButton>
-  <CreateButton FileName="Create.png" Selected="CreateSelected.png" Disabled="CreateDisabled.png" X="571" Y="18" Width="90" Height="30"></CreateButton>
-  <zijinButton FileName="zijin.png" Selected="zijinSelected.png" Disabled="zijinDisabled.png" X="380" Y="18" Width="80" Height="30"></zijinButton>
+  <MilitaryButton FileName="Military.png" Selected="MilitarySelected.png" Disabled="MilitaryDisabled.png" X="41" Y="11" Width="80" Height="30"></MilitaryButton>
+  <PersonButton FileName="Person.png" Selected="PersonSelected.png" Disabled="PersonDisabled.png" X="139" Y="11" Width="80" Height="30"></PersonButton>
+  <LeaderButton FileName="Leader.png" Selected="LeaderSelected.png" Disabled="LeaderDisabled.png" X="237" Y="11" Width="80" Height="30"></LeaderButton>
+  <RationButton FileName="Ration.png" Selected="RationSelected.png" Disabled="RationDisabled.png" X="486" Y="11" Width="80" Height="30"></RationButton>
+  <CreateButton FileName="Create.png" Selected="CreateSelected.png" Disabled="CreateDisabled.png" X="682" Y="11" Width="90" Height="60"></CreateButton>
+  <zijinButton FileName="zijin.png" Selected="zijinSelected.png" Disabled="zijinDisabled.png" X="584" Y="11" Width="80" Height="30"></zijinButton>
 </Root>

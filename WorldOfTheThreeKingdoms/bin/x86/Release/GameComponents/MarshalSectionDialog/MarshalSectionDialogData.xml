@@ -3,171 +3,171 @@
   <Background FileName="Background.png" Width="410" Height="285"></Background>
   <Labels>
     <Label X="17" Y="60" Width="80" Height="25" Label ="军区名称"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="17" Y="85" Width="80" Height="25" PropertyName="Name"
-                FontName="宋体"
-                FontSize="12"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Bold"
                 FontColor="4278255424"
                 Align="Middle">
     </Text>
     <Label X="117" Y="60" Width="80" Height="25" Label ="所属势力"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="117" Y="85" Width="80" Height="25" PropertyName="FactionString"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Bold"
-                FontColor="4294967040"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
     <Label X="217" Y="60" Width="80" Height="25" Label ="委任模式"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="217" Y="85" Width="80" Height="25" PropertyName="AIDetailString"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="11"
                 FontStyle="Bold"
                 FontColor="4294901888"
                 Align="Middle">
     </Text>
     <Label X="317" Y="60" Width="80" Height="25" Label ="委任目标"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="317" Y="85" Width="80" Height="25" PropertyName="OrientationString"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="11"
                 FontStyle="Bold"
-                FontColor="4294901888"
+                FontColor="4294934528"
                 Align="Middle">
     </Text>
     <Label X="17" Y="115" Width="80" Height="25" Label ="人口总数"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="17" Y="140" Width="80" Height="25" PropertyName="Population"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4286578688"
                 Align="Middle">
     </Text>
     <Label X="117" Y="115" Width="80" Height="25" Label ="军队总数"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="117" Y="140" Width="80" Height="25" PropertyName="Army"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4286578688"
                 Align="Middle">
     </Text>
     <Label X="217" Y="115" Width="80" Height="25" Label ="资金总数"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="217" Y="140" Width="80" Height="25" PropertyName="Fund"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4286578688"
                 Align="Middle">
     </Text>
     <Label X="317" Y="115" Width="80" Height="25" Label ="军粮总数"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="317" Y="140" Width="80" Height="25" PropertyName="Food"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4286578688"
                 Align="Middle">
     </Text>
     <Label X="17" Y="170" Width="80" Height="25" Label ="建筑数量"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="17" Y="195" Width="80" Height="25" PropertyName="ArchitectureCount"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4286578688"
                 Align="Middle">
     </Text>
     <Label X="117" Y="170" Width="80" Height="25" Label ="人物数量"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="117" Y="195" Width="80" Height="25" PropertyName="PersonCount"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4286578688"
                 Align="Middle">
     </Text>
     <Label X="217" Y="170" Width="80" Height="25" Label ="编队数量"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="217" Y="195" Width="80" Height="25" PropertyName="MilitaryCount"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4286578688"
                 Align="Middle">
     </Text>
     <Label X="317" Y="170" Width="80" Height="25" Label ="部队数量"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="1"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="317" Y="195" Width="80" Height="25" PropertyName="TroopCount"
-                FontName="宋体"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4286578688"
                 Align="Middle">
     </Text>
   </Labels>

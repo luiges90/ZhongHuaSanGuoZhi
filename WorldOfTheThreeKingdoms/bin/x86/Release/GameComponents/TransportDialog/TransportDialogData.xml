@@ -1,79 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <Background FileName="Background.png" Width="400" Height="250"></Background>
-  <TitleText X="160" Y="10" Width="80" Height="30"
-            FontName="宋体"
-            FontSize="14"
+  <Background FileName="Background.png" Width="482" Height="300"></Background>
+  <TitleText X="204" Y="51" Width="80" Height="30"
+            FontName="隶书"
+            FontSize="20"
             FontStyle="Bold"
-            FontColor="4294967295"
+            FontColor="4278190080"
             Align="Middle">
   </TitleText>
   <Labels>
-    <Label X="60" Y="50" Width="80" Height="25" Label ="进贡起点"
-                FontName="宋体"
-                FontSize="11"
+    <Label X="68" Y="110" Width="80" Height="25" Label ="进贡起点"
+                FontName="方正北魏楷书繁体"
+                FontSize="1"
                 FontStyle="Regular"
-                FontColor="4294967295"
+                FontColor="4278190080"
                 Align="Middle">
     </Label>
-    <Text X="60" Y="75" Width="80" Height="25" PropertyName="Name"
-                FontName="宋体"
-                FontSize="11"
+    <Text X="68" Y="110" Width="80" Height="25" PropertyName="Name"
+                FontName="方正北魏楷书繁体"
+                FontSize="20"
                 FontStyle="Bold"
-                FontColor="4294967295"
+                FontColor="4286611456"
                 Align="Middle">
     </Text>
-    <Label X="160" Y="50" Width="80" Height="25" Label ="资金"
+    <Label X="204" Y="110" Width="80" Height="25" Label ="资金"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
-                FontColor="4294967295"
+                FontColor="4278190080"
                 Align="Middle">
     </Label>
-    <Text X="160" Y="75" Width="80" Height="25" PropertyName="Fund"
-                FontName="宋体"
+    <Text X="204" Y="110" Width="80" Height="25" PropertyName="Fund"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
-    <Label X="260" Y="50" Width="80" Height="25" Label ="粮草"
+    <Label X="340" Y="110" Width="80" Height="25" Label ="粮草"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="1"
                 FontStyle="Regular"
-                FontColor="4294967295"
+                FontColor="4278190080"
                 Align="Middle">
     </Label>
-    <Text X="260" Y="75" Width="80" Height="25" PropertyName="Food"
-                FontName="宋体"
+    <Text X="340" Y="110" Width="80" Height="25" PropertyName="Food"
+                FontName="隶书"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255615"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
   </Labels>
-  <DestinationButton FileName="Destination.png" Selected="DestinationSelected.png" X="20" Y="118" Width="100" Height="30"></DestinationButton>
-  <DestinationText X="130" Y="118" Width="80" Height="25"
-            FontName="宋体"
-            FontSize="12"
+  <DestinationButton FileName="Destination.png" Selected="DestinationSelected.png" X="68" Y="148" Width="100" Height="30"></DestinationButton>
+  <DestinationText X="204" Y="150" Width="80" Height="25"
+            FontName="方正北魏楷书繁体"
+            FontSize="20"
             FontStyle="Bold"
-            FontColor="4294967040"
+            FontColor="4282384384"
             Align="Middle">
   </DestinationText>
-  <InputNumberButton FileName="InputNumber.png" Selected="InputNumberSelected.png" X="20" Y="158" Width="100" Height="30"></InputNumberButton>
-  <InputNumberText X="130" Y="158" Width="80" Height="25"
-              FontName="宋体"
+  <InputNumberButton FileName="InputNumber.png" Selected="InputNumberSelected.png" X="68" Y="182" Width="100" Height="30"></InputNumberButton>
+  <InputNumberText X="204" Y="184" Width="80" Height="25"
+              FontName="隶书"
               FontSize="12"
               FontStyle="Bold"
-              FontColor="4294967040"
+              FontColor="4286611456"
               Align="Middle">
   </InputNumberText>
-  <DestinationCommentText X="230" Y="118" Width="150" Height="25"
+  <DestinationCommentText X="304" Y="150" Width="150" Height="25"
             FontName="宋体"
-            FontSize="11"
+            FontSize="12"
             FontStyle="Regular"
             FontColor="4294967040"
             Align="Middle">
   </DestinationCommentText>
-  <StartButton FileName="Start.png" Selected="StartSelected.png" Disabled="StartDisabled.png" X="293" Y="199" Width="80" Height="30"></StartButton>
+  <StartButton FileName="Start.png" Selected="StartSelected.png" Disabled="StartDisabled.png" X="326" Y="175" Width="80" Height="60"></StartButton>
 </Root>

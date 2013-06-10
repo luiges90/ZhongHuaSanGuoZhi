@@ -3,74 +3,74 @@
   <Background FileName="Background.png" Width="800" Height="380"></Background>
   <Labels>
     <Label X="50" Y="34" Width="60" Height="25" Label ="势力"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Regular"
-                FontColor="4294967295"
+                FontColor="4278190080"
                 Align="Middle">
     </Label>
     <Text X="110" Y="34" Width="80" Height="25" PropertyName="FactionName"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Bold"
-                FontColor="4278255424"
+                FontColor="4278190080"
                 Align="Middle">
     </Text>
     <Label X="230" Y="34" Width="80" Height="25" Label ="技巧点数"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Regular"
-                FontColor="4294967295"
+                FontColor="4278190080"
                 Align="Middle">
     </Label>
     <Text X="310" Y="34" Width="80" Height="23" PropertyName="FactionTotalTechniquePoint"
-                FontName="宋体"
-                FontSize="12"
+                FontName="隶书"
+                FontSize="14"
                 FontStyle="Bold"
-                FontColor="4278255615"
+                FontColor="4278222848"
                 Align="Right">
     </Text>
     <Label X="430" Y="34" Width="80" Height="25" Label ="势力声望"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Regular"
-                FontColor="4294967295"
+                FontColor="4278190080"
                 Align="Middle">
     </Label>
     <Text X="510" Y="34" Width="80" Height="23" PropertyName="FactionReputation"
-                FontName="宋体"
-                FontSize="12"
+                FontName="隶书"
+                FontSize="14"
                 FontStyle="Bold"
                 FontColor="4278255615"
                 Align="Right">
     </Text>
     <Label X="50" Y="74" Width="60" Height="25" Label ="建筑"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Regular"
-                FontColor="4294967295"
+                FontColor="4278190080"
                 Align="Middle">
     </Label>
     <Text X="110" Y="74" Width="80" Height="25" PropertyName="ArchitectureName"
-                FontName="宋体"
-                FontSize="11"
+                FontName="方正北魏楷书繁体"
+                FontSize="20"
                 FontStyle="Bold"
-                FontColor="4278255424"
+                FontColor="4286611456"
                 Align="Middle">
     </Text>
     <Label X="230" Y="74" Width="80" Height="25" Label ="资金"
-                FontName="宋体"
-                FontSize="11"
+                FontName="隶书"
+                FontSize="20"
                 FontStyle="Regular"
-                FontColor="4294967295"
+                FontColor="4278190080"
                 Align="Middle">
     </Label>
     <Text X="310" Y="74" Width="80" Height="23" PropertyName="ArchitectureFund"
-                FontName="宋体"
-                FontSize="12"
+                FontName="隶书"
+                FontSize="14"
                 FontStyle="Bold"
-                FontColor="4278255615"
-                Align="Right">
+                FontColor="4294934528"
+                Align="Middle">
     </Text>
   </Labels>
   <ButtonText StartX="40" StartY="129"
@@ -85,6 +85,6 @@
             FontName="宋体"
             FontSize="11"
             FontStyle="Regular"
-            FontColor="4294967295">
+            FontColor="4278190080">
   </Comments>
 </Root>
