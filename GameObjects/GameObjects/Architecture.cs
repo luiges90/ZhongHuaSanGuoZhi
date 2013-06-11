@@ -2105,8 +2105,8 @@
                 bool needOnlyOneMorale = this.Morale >= this.MoraleCeiling - 2;             // 因为补充导致的民心下降1或2点时，只需要选择1个武将进行民心就足够了
                 bool needOnlyOneTrain = false;
 
-                if ((!IsFundIncomeEnough && need[0])
-                    || (!IsFoodIncomeEnough && need[1])
+                if ((!IsFundIncomeEnough && need[1])
+                    || (!IsFoodIncomeEnough && need[0])
                     || (this.PopulationDevelopingRate <= 0 && (need[3] || need[4]))
                     || this.Endurance < 30)
                 {
