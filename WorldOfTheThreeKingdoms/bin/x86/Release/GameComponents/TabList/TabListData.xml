@@ -1561,7 +1561,7 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4278255360"
+                FontColor="4278222848"
                 Align="Right">
         </Column>
         <Column ID="3" Name="TotalTechniquePoint" IsNumber="true" DisplayName="技巧点数" MinWidth="80" DetailLevel="4"
@@ -3153,7 +3153,7 @@
                 FontName="楷体"
                 FontSize="11"
                 FontStyle="Regular"
-                FontColor="4278255360"
+                FontColor="4278222848"
                 Align="Middle">
         </Column>
         <Column ID="21" Name="LeaderName" IsNumber="false" DisplayName="当前将领" MinWidth="80" DetailLevel="2"
@@ -3337,7 +3337,7 @@
                 FontName="楷体"
                 FontSize="11"
                 FontStyle="Bold"
-                FontColor="4278255360"
+                FontColor="4278222848"
                 Align="Middle">
         </Column>
         <Column ID="5" Name="ObliqueString" IsNumber="false" DisplayName="斜向" MinWidth="80" DetailLevel="2"
@@ -3373,14 +3373,14 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Bold"
-                FontColor="4278255360"
+                FontColor="4278222848"
                 Align="Right">
         </Column>
         <Column ID="3" Name="Truce" IsNumber="true" DisplayName="停战" MinWidth="80" DetailLevel="5"
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Bold"
-                FontColor="4278255360"
+                FontColor="4278222848"
                 Align="Right">
         </Column>		
       </Columns>
@@ -3402,7 +3402,7 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Bold"
-                FontColor="4278255360"
+                FontColor="4278222848"
                 Align="Right">
         </Column>
         <Column ID="3" Name="TechnologyNeeded" IsNumber="true" DisplayName="新建技术" MinWidth="80" DetailLevel="3"
