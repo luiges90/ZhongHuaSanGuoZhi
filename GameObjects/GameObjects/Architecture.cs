@@ -2440,7 +2440,7 @@
                         list2.Add(architecture);
                     }
                 }
-                if (this.BelongedSection != null && (list.Count > 0) && this.BelongedSection.AIDetail.AllowInvestigateTactics)
+                /*if (this.BelongedSection != null && (list.Count > 0) && this.BelongedSection.AIDetail.AllowInvestigateTactics)
                 {
                     if (list.Count > 1)
                     {
@@ -2484,7 +2484,7 @@
                             }
                         }
                     }
-                }
+                }*/
                 if ((this.BelongedSection != null) && ((list2.Count > 0) && (this.PlanArchitecture == null)) && this.BelongedSection.AIDetail.AllowPersonTactics)
                 {
                     if (list2.Count > 1)
@@ -2583,34 +2583,37 @@
                             }
                         }
                     }
-                }
-                if ((this.HasPerson() && (GameObject.Random(this.Fund) >= this.JailBreakArchitectureFund)) && GameObject.Chance(50) && this.JailBreakAvail())
-                {
-                    List<Architecture> a = new List<Architecture>();
-                    foreach (Architecture architecture in base.Scenario.Architectures)
+                    if ((this.HasPerson() && (GameObject.Random(this.Fund) >= this.JailBreakArchitectureFund)) && GameObject.Chance(50) && this.JailBreakAvail())
                     {
-                        if (architecture.HasFactionCaptive(this.BelongedFaction))
+                        List<Architecture> a = new List<Architecture>();
+                        foreach (Architecture architecture in base.Scenario.Architectures)
                         {
-                            a.Add(architecture);
-                        }
-                    }
-                    Architecture target = a[GameObject.Random(a.Count)] as Architecture;
-                    if (GameObject.Chance(100 - target.noEscapeChance * 2))
-                    {
-                        int totalCaptiveValue = 0;
-                        foreach (Captive c in target.Captives)
-                        {
-                            if (c.CaptiveFaction == this.BelongedFaction)
+                            if (architecture.HasFactionCaptive(this.BelongedFaction) && list2.GameObjects.Contains(architecture))
                             {
-                                totalCaptiveValue += c.AIWantsTheCaptive;
+                                a.Add(architecture);
                             }
                         }
-                        if (GameObject.Random(totalCaptiveValue) > GameObject.Random(100000))
+                        if (a.Count > 0)
                         {
-                            firstHalfPerson = this.GetFirstHalfPerson("JailBreakAbility");
-                            if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)))
+                            Architecture target = a[GameObject.Random(a.Count)] as Architecture;
+                            if (GameObject.Chance(100 - target.noEscapeChance * 2))
                             {
-                                firstHalfPerson.GoForJailBreak(base.Scenario.GetClosestPoint(target.ArchitectureArea, this.Position));
+                                int totalCaptiveValue = 0;
+                                foreach (Captive c in target.Captives)
+                                {
+                                    if (c.CaptiveFaction == this.BelongedFaction)
+                                    {
+                                        totalCaptiveValue += c.AIWantsTheCaptive;
+                                    }
+                                }
+                                if (GameObject.Random(totalCaptiveValue) > GameObject.Random(100000))
+                                {
+                                    firstHalfPerson = this.GetFirstHalfPerson("JailBreakAbility");
+                                    if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)))
+                                    {
+                                        firstHalfPerson.GoForJailBreak(base.Scenario.GetClosestPoint(target.ArchitectureArea, this.Position));
+                                    }
+                                }
                             }
                         }
                     }
