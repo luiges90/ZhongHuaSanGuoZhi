@@ -13,7 +13,7 @@
 
     public class ArchitectureDetailPlugin : GameObject, IArchitectureDetail, IBasePlugin, IPluginXML, IPluginGraphics
     {
-        private ArchitectureDetail.ArchitectureDetail architectureDetail = new ArchitectureDetail.ArchitectureDetail();
+        private ArchitectureDetail architectureDetail = new ArchitectureDetail();
         private string author = "clip_on";
         private const string DataPath = @"GameComponents\ArchitectureDetail\Data\";
         private string description = "建筑细节显示";

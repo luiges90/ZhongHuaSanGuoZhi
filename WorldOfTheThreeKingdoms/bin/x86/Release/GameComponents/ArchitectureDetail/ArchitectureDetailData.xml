@@ -467,13 +467,13 @@
   </Labels>
   <Characteristic X="79" Y="349" Width="360" Height="200" RowMargin="0"
             FontName="宋体"
-            FontSize="12"
+            FontSize="10"
             FontStyle="Regular"
             FontColor="4278190080">
   </Characteristic>
   <Facility X="442" Y="349" Width="360" Height="200" RowMargin="0"
             FontName="宋体"
-            FontSize="12"
+            FontSize="10"
             FontStyle="Regular"
             FontColor="4278190080">
   </Facility>
