@@ -44,6 +44,15 @@
                         ApplyInfluenceKind(p, i, applier, applierID);
                     }
                 }
+                foreach (Person p in architecture.MovingPersons)
+                {
+                    ApplyingPerson a = new ApplyingPerson(p, applier, applierID);
+                    if (!i.appliedPerson.Contains(a))
+                    {
+                        i.appliedPerson.Add(a);
+                        ApplyInfluenceKind(p, i, applier, applierID);
+                    }
+                }
             }
         }
 
