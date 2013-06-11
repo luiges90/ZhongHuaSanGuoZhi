@@ -1727,13 +1727,16 @@
                 {
                     MilitaryKind trueKind = this.Army.KindID == 28 ? this.Army.RealMilitaryKind : this.Army.Kind;
                     List<Point> refPath = null;
-                    if (base.Scenario.pathCache.ContainsKey(new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, trueKind)))
+                    bool aapUsable = this.StartingArchitecture.GetAllContactArea().Area.Contains(this.Position);
+                    if (aapUsable && base.Scenario.pathCache.ContainsKey(new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, trueKind)))
+                    {
                         refPath = base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, trueKind)];
-                    if (refPath != null && refPath.Count > 0)
+                    }
+                    if (refPath != null && refPath.Count > 0 && aapUsable)
                     {
                         path = ConstructTruePath(refPath, kind);
                     }
-                    else if (refPath == null && this.StartingArchitecture != this.WillArchitecture)
+                    else if (refPath == null && (this.StartingArchitecture != this.WillArchitecture || !aapUsable))
                     {
                         Point? p1;
                         Point? p2;
@@ -1782,12 +1785,18 @@
                                     }
                                     this.FirstTierPath.RemoveRange(i + 1, this.FirstTierPath.Count - i - 1);
 
-                                    base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)] = this.FirstTierPath;
+                                    if (aapUsable)
+                                    {
+                                        base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)] = this.FirstTierPath;
+                                    }
                                     path = ConstructTruePath(this.FirstTierPath, kind);
                                 }
                                 else
                                 {
-                                    base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)] = new List<Point>();
+                                    if (aapUsable)
+                                    {
+                                        base.Scenario.pathCache[new PathCacheKey(this.StartingArchitecture, this.WillArchitecture, this.Army.Kind)] = new List<Point>();
+                                    }
                                 }
                             }
                         }
@@ -6959,7 +6968,11 @@
         public void Move()
         {
             bool flag = false;
-
+            if (this.ID == 16)
+            {
+                int z = 0;
+                z++;
+            }
             if (this.Position != this.Destination)
             {
                 flag = this.TryToStepForward();

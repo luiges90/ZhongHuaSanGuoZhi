@@ -60,8 +60,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FactionTechniquesPlugin", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TroopDetailPlugin", "TroopDetailPlugin\TroopDetailPlugin.csproj", "{210F6932-E683-4EB2-B277-400BCE3A1AB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchitectureDetail", "ArchitectureDetail\ArchitectureDetail.csproj", "{3768FD5D-95AB-426C-8A1C-FD548A1349B1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -312,16 +310,6 @@ Global
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Release|Any CPU.ActiveCfg = Release|x86
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Release|x86.ActiveCfg = Release|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Debug|x86.ActiveCfg = Debug|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Debug|x86.Build.0 = Debug|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Release|Any CPU.ActiveCfg = Release|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Release|Mixed Platforms.Build.0 = Release|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Release|x86.ActiveCfg = Release|x86
-		{3768FD5D-95AB-426C-8A1C-FD548A1349B1}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
