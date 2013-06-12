@@ -2449,42 +2449,42 @@
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Command -= i.Value;
+                            p.BaseCommand -= i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.StrengthDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Strength -= i.Value;
+                            p.BaseStrength -= i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.IntelligenceDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Intelligence -= i.Value;
+                            p.BaseIntelligence -= i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.PoliticsDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Politics -= i.Value;
+                            p.BasePolitics -= i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.GlamourDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Glamour -= i.Value;
+                            p.BaseGlamour -= i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.ReputationDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Reputation -= i.Value;
+                            p.BaseReputation -= i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.LoseSkill)
@@ -2508,42 +2508,42 @@
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Command += i.Value;
+                            p.BaseCommand += i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.StrengthIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Strength += i.Value;
+                            p.BaseStrength += i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.IntelligenceIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Intelligence += i.Value;
+                            p.BaseIntelligence += i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.PoliticsIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Politics += i.Value;
+                            p.BasePolitics += i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.GlamourIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Glamour += i.Value;
+                            p.BaseGlamour += i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in sending.ReputationIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.Reputation += i.Value;
+                            p.BaseReputation += i.Value;
                         }
                     }
                 }
@@ -3035,6 +3035,7 @@
                     this.RefreshAllData();
                 }
             }
+
             this.ResetDayInfluence();
         }
 
