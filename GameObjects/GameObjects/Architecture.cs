@@ -1376,12 +1376,15 @@
                             }
                         }
                     }
-                    else if (
+                    else if (leader.LocationArchitecture != null && 
                         ((!leader.LocationArchitecture.HostileLine || GameObject.Chance(Parameters.AILeaveHostilelineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIHostilelineHougongChance)))
                         && (!leader.LocationArchitecture.FrontLine || GameObject.Chance(Parameters.AILeaveFrontlineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIFrontlineHougongChance))))
                         )
                     {
-                        leader.MoveToArchitecture(this);
+                        if (leader.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count <= 0)
+                        {
+                            leader.MoveToArchitecture(this);
+                        }
                     }
                 }
             }
