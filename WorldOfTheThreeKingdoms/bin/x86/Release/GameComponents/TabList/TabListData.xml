@@ -1568,7 +1568,7 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4294967040"
+                FontColor="4294934528"
                 Align="Right">
         </Column>
         <Column ID="4" Name="Population" IsNumber="true" DisplayName="人口总数" MinWidth="80" DetailLevel="3"
@@ -2045,7 +2045,7 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4294967040"
+                FontColor="4294934528"
                 Align="Right">
         </Column>
         <Column ID="80" Name="AfraidOfFireString" IsNumber="false" DisplayName="怕火" MinWidth="50" DetailLevel="4"
@@ -2950,7 +2950,7 @@
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"
-                FontColor="4294967040"
+                FontColor="4294934528"
                 Align="Right">
         </Column>
         <Column ID="80" Name="PlainRate" IsNumber="false" DisplayName="平原乘数" MinWidth="80" DetailLevel="4"
