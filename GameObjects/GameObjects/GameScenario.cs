@@ -494,7 +494,8 @@
 
         private void CreateNewFaction(Person leader)
         {
-            if (leader.Status != PersonStatus.Normal && leader.Status != PersonStatus.NoFaction) return;
+            if (leader.Status != PersonStatus.NoFaction) return;
+            if (leader.LocationArchitecture.BelongedFaction != null) return;
 
             Faction newFaction = new Faction();
             newFaction.Scenario = this;
