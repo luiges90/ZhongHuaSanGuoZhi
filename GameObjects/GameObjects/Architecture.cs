@@ -1293,7 +1293,7 @@
             }
             else
             {
-                if (leader.LocationArchitecture == this && !leader.IsCaptive && this.Meinvkongjian - this.Feiziliebiao.Count > 0 && leader.Status == PersonStatus.Normal &&
+                if (!leader.IsCaptive && this.Meinvkongjian - this.Feiziliebiao.Count > 0 && leader.Status == PersonStatus.Normal &&
                     (
                     GameObject.Random(uncruelty - Parameters.AINafeiUncreultyProbAdd) == 0
                     ||
@@ -1301,60 +1301,40 @@
                     && this.Fund > 75000
                     )
                 {
-                    PersonList candidate = new PersonList();
-                    foreach (Person p in this.BelongedFaction.Persons)
+                    if (leader.LocationArchitecture == this)
                     {
-                        Person spousePerson = p.Spouse == -1 ? null : base.Scenario.Persons.GetGameObject(p.Spouse) as Person;
-                        if (p.Merit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.HatedPersons.Contains(this.BelongedFaction.Leader.ID) &&
-                            (spousePerson == null || spousePerson.ID == leader.ID || !spousePerson.Alive || (leader.PersonalLoyalty < (int)PersonLoyalty.很高 && spousePerson.Merit < p.Merit * ((int)leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd))) &&
-                            (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply)))
+                        PersonList candidate = new PersonList();
+                        foreach (Person p in this.BelongedFaction.Persons)
                         {
-                            candidate.Add(p);
-                        }
-                    }
-                    candidate.PropertyName = "Merit";
-                    candidate.IsNumber = true;
-                    candidate.SmallToBig = false;
-                    candidate.ReSort();
-                    Person toTake = null;
-                    foreach (Person p in candidate)
-                    {
-                        if (p.Status == PersonStatus.Normal)
-                        {
-                            if ((!p.RecruitableBy(this.BelongedFaction, 0) && GameObject.Random((int)unAmbition) == 0) || GameObject.Chance((int)(Parameters.AINafeiSkipChanceAdd + (int)leader.Ambition * Parameters.AINafeiSkipChanceMultiply)))
+                            Person spousePerson = p.Spouse == -1 ? null : base.Scenario.Persons.GetGameObject(p.Spouse) as Person;
+                            if (p.Merit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.HatedPersons.Contains(this.BelongedFaction.Leader.ID) &&
+                                (spousePerson == null || spousePerson.ID == leader.ID || !spousePerson.Alive || (leader.PersonalLoyalty < (int)PersonLoyalty.很高 && spousePerson.Merit < p.Merit * ((int)leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd))) &&
+                                (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply)))
                             {
-                                toTake = p;
-                                break;
+                                candidate.Add(p);
                             }
                         }
-                    }
-                    if (toTake != null)
-                    {
-                        if (leader.LocationArchitecture.Meinvkongjian > this.Meinvkongjian)
+                        candidate.PropertyName = "Merit";
+                        candidate.IsNumber = true;
+                        candidate.SmallToBig = false;
+                        candidate.ReSort();
+                        Person toTake = null;
+                        foreach (Person p in candidate)
                         {
-                            if (toTake.LocationArchitecture == leader.LocationArchitecture && toTake.LocationArchitecture.Fund >= 50000)
+                            if (p.Status == PersonStatus.Normal)
                             {
-                                leader.XuanZeMeiNv(toTake);
-                                toTake.WaitForFeiZi = null;
-                                leader.WaitForFeiZi = null;
-                            }
-                            else
-                            {
-                                toTake.MoveToArchitecture(leader.LocationArchitecture);
-                                toTake.WaitForFeiZi = leader;
-                                leader.WaitForFeiZi = toTake;
+                                if ((!p.RecruitableBy(this.BelongedFaction, 0) && GameObject.Random((int)unAmbition) == 0) || GameObject.Chance((int)(Parameters.AINafeiSkipChanceAdd + (int)leader.Ambition * Parameters.AINafeiSkipChanceMultiply)))
+                                {
+                                    toTake = p;
+                                    break;
+                                }
                             }
                         }
-                        else
+                        if (toTake != null)
                         {
-                            if (leader.LocationArchitecture != this)
+                            if (leader.LocationArchitecture.Meinvkongjian > this.Meinvkongjian)
                             {
-                                leader.MoveToArchitecture(this);
-                                leader.WaitForFeiZi = toTake;
-                            }
-                            if (toTake.LocationArchitecture == this)
-                            {
-                                if (leader.LocationArchitecture == this && this.Fund >= 50000)
+                                if (toTake.LocationArchitecture == leader.LocationArchitecture && toTake.LocationArchitecture.Fund >= 50000)
                                 {
                                     leader.XuanZeMeiNv(toTake);
                                     toTake.WaitForFeiZi = null;
@@ -1362,16 +1342,46 @@
                                 }
                                 else
                                 {
+                                    toTake.MoveToArchitecture(leader.LocationArchitecture);
                                     toTake.WaitForFeiZi = leader;
+                                    leader.WaitForFeiZi = toTake;
                                 }
                             }
                             else
                             {
-                                toTake.MoveToArchitecture(this);
-                                toTake.WaitForFeiZi = leader;
-                                leader.WaitForFeiZi = toTake;
+                                if (leader.LocationArchitecture != this)
+                                {
+                                    leader.MoveToArchitecture(this);
+                                    leader.WaitForFeiZi = toTake;
+                                }
+                                if (toTake.LocationArchitecture == this)
+                                {
+                                    if (leader.LocationArchitecture == this && this.Fund >= 50000)
+                                    {
+                                        leader.XuanZeMeiNv(toTake);
+                                        toTake.WaitForFeiZi = null;
+                                        leader.WaitForFeiZi = null;
+                                    }
+                                    else
+                                    {
+                                        toTake.WaitForFeiZi = leader;
+                                    }
+                                }
+                                else
+                                {
+                                    toTake.MoveToArchitecture(this);
+                                    toTake.WaitForFeiZi = leader;
+                                    leader.WaitForFeiZi = toTake;
+                                }
                             }
                         }
+                    }
+                    else if (
+                        ((!leader.LocationArchitecture.HostileLine || GameObject.Chance(Parameters.AILeaveHostilelineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIHostilelineHougongChance)))
+                        && (!leader.LocationArchitecture.FrontLine || GameObject.Chance(Parameters.AILeaveFrontlineForHougongChance) || (leader.LocationArchitecture == this && GameObject.Chance(Parameters.AIFrontlineHougongChance))))
+                        )
+                    {
+                        leader.MoveToArchitecture(this);
                     }
                 }
             }
