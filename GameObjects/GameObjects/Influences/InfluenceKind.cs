@@ -104,20 +104,26 @@
             }
             if (this.Type == InfluenceType.战斗 || this.Type == InfluenceType.建筑战斗)
             {
-                ApplyingTroop z = new ApplyingTroop(person.LocationTroop, applier, applierID);
-                if (person.LocationTroop != null && !i.appliedTroop.Contains(z))
+                if (person.LocationTroop != null)
                 {
-                    i.appliedTroop.Add(z);
-                    ApplyInfluenceKind(person.LocationTroop, i, applier, applierID);
+                    ApplyingTroop z = new ApplyingTroop(person.LocationTroop, applier, applierID);
+                    if (!i.appliedTroop.Contains(z))
+                    {
+                        i.appliedTroop.Add(z);
+                        ApplyInfluenceKind(person.LocationTroop, i, applier, applierID);
+                    }
                 }
             }
             if (this.Type == InfluenceType.建筑 || this.Type == InfluenceType.建筑战斗)
             {
-                ApplyingArchitecture z = new ApplyingArchitecture(person.LocationArchitecture, applier, applierID);
-                if (person.LocationArchitecture != null && !i.appliedArch.Contains(z))
+                if (person.LocationArchitecture != null)
                 {
-                    i.appliedArch.Add(z);
-                    ApplyInfluenceKind(person.LocationArchitecture, i, applier, applierID);
+                    ApplyingArchitecture z = new ApplyingArchitecture(person.LocationArchitecture, applier, applierID);
+                    if (!i.appliedArch.Contains(z))
+                    {
+                        i.appliedArch.Add(z);
+                        ApplyInfluenceKind(person.LocationArchitecture, i, applier, applierID);
+                    }
                 }
             }
         }
