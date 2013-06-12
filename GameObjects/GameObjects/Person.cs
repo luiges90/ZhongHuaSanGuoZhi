@@ -5152,6 +5152,10 @@
             {
                 return this.reputation;
             }
+            set
+            {
+                this.reputation = value;
+            }
         }
 
         public int Reputation
