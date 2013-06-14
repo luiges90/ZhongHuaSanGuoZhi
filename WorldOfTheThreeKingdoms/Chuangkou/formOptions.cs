@@ -195,6 +195,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private CheckBox cbEnableAgeAbilityFactor;
         private TextBox tbTabListDetailLevel;
         private Label label55;
+        private Label label58;
+        private TextBox tbLearnTitleSuccessRate;
+        private Label label57;
+        private TextBox tbLearnStuntSuccessRate;
+        private Label label56;
+        private TextBox tbLearnSkillSuccessRate;
         private Label getChildrenRateLabel;
 
         public formOptions()
@@ -224,6 +230,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
             this.tabPageEnvironment = new System.Windows.Forms.TabPage();
+            this.tbTabListDetailLevel = new System.Windows.Forms.TextBox();
+            this.label55 = new System.Windows.Forms.Label();
             this.cbLandArmyCanGoDownWater = new System.Windows.Forms.CheckBox();
             this.cbEnableLoadInGame = new System.Windows.Forms.CheckBox();
             this.cbEnableCheat = new System.Windows.Forms.CheckBox();
@@ -387,8 +395,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.tbTabListDetailLevel = new System.Windows.Forms.TextBox();
-            this.label55 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.tbLearnSkillSuccessRate = new System.Windows.Forms.TextBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.tbLearnStuntSuccessRate = new System.Windows.Forms.TextBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.tbLearnTitleSuccessRate = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageEnvironment.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -453,6 +465,24 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageEnvironment.TabIndex = 0;
             this.tabPageEnvironment.Text = "环境";
             this.tabPageEnvironment.UseVisualStyleBackColor = true;
+            // 
+            // tbTabListDetailLevel
+            // 
+            this.tbTabListDetailLevel.Location = new System.Drawing.Point(373, 375);
+            this.tbTabListDetailLevel.MaxLength = 2;
+            this.tbTabListDetailLevel.Name = "tbTabListDetailLevel";
+            this.tbTabListDetailLevel.Size = new System.Drawing.Size(27, 22);
+            this.tbTabListDetailLevel.TabIndex = 113;
+            this.tbTabListDetailLevel.Text = "1";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(278, 378);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(89, 12);
+            this.label55.TabIndex = 112;
+            this.label55.Text = "资料显示详细度";
             // 
             // cbLandArmyCanGoDownWater
             // 
@@ -823,6 +853,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.label58);
+            this.tabPagePerson.Controls.Add(this.tbLearnTitleSuccessRate);
+            this.tabPagePerson.Controls.Add(this.label57);
+            this.tabPagePerson.Controls.Add(this.tbLearnStuntSuccessRate);
+            this.tabPagePerson.Controls.Add(this.label56);
+            this.tabPagePerson.Controls.Add(this.tbLearnSkillSuccessRate);
             this.tabPagePerson.Controls.Add(this.cbEnableAgeAbilityFactor);
             this.tabPagePerson.Controls.Add(this.label53);
             this.tabPagePerson.Controls.Add(this.tbTirednessDecrease);
@@ -980,7 +1016,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(19, 256);
+            this.label37.Location = new System.Drawing.Point(21, 256);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(77, 12);
             this.label37.TabIndex = 19;
@@ -988,7 +1024,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLearnTitleDays
             // 
-            this.tbLearnTitleDays.Location = new System.Drawing.Point(111, 253);
+            this.tbLearnTitleDays.Location = new System.Drawing.Point(104, 253);
             this.tbLearnTitleDays.Name = "tbLearnTitleDays";
             this.tbLearnTitleDays.Size = new System.Drawing.Size(71, 22);
             this.tbLearnTitleDays.TabIndex = 18;
@@ -996,7 +1032,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(19, 230);
+            this.label38.Location = new System.Drawing.Point(21, 228);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(77, 12);
             this.label38.TabIndex = 17;
@@ -1004,7 +1040,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLearnStuntDays
             // 
-            this.tbLearnStuntDays.Location = new System.Drawing.Point(111, 225);
+            this.tbLearnStuntDays.Location = new System.Drawing.Point(104, 225);
             this.tbLearnStuntDays.Name = "tbLearnStuntDays";
             this.tbLearnStuntDays.Size = new System.Drawing.Size(71, 22);
             this.tbLearnStuntDays.TabIndex = 16;
@@ -1012,7 +1048,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(19, 200);
+            this.label39.Location = new System.Drawing.Point(21, 200);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(77, 12);
             this.label39.TabIndex = 15;
@@ -1020,7 +1056,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLearnSkillDays
             // 
-            this.tbLearnSkillDays.Location = new System.Drawing.Point(111, 197);
+            this.tbLearnSkillDays.Location = new System.Drawing.Point(104, 197);
             this.tbLearnSkillDays.Name = "tbLearnSkillDays";
             this.tbLearnSkillDays.Size = new System.Drawing.Size(71, 22);
             this.tbLearnSkillDays.TabIndex = 14;
@@ -2020,23 +2056,53 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // tbTabListDetailLevel
+            // label56
             // 
-            this.tbTabListDetailLevel.Location = new System.Drawing.Point(373, 375);
-            this.tbTabListDetailLevel.MaxLength = 2;
-            this.tbTabListDetailLevel.Name = "tbTabListDetailLevel";
-            this.tbTabListDetailLevel.Size = new System.Drawing.Size(27, 22);
-            this.tbTabListDetailLevel.TabIndex = 113;
-            this.tbTabListDetailLevel.Text = "1";
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(190, 200);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(65, 12);
+            this.label56.TabIndex = 35;
+            this.label56.Text = "成功率参数";
             // 
-            // label55
+            // tbLearnSkillSuccessRate
             // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(278, 378);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(89, 12);
-            this.label55.TabIndex = 112;
-            this.label55.Text = "资料显示详细度";
+            this.tbLearnSkillSuccessRate.Location = new System.Drawing.Point(261, 197);
+            this.tbLearnSkillSuccessRate.Name = "tbLearnSkillSuccessRate";
+            this.tbLearnSkillSuccessRate.Size = new System.Drawing.Size(71, 22);
+            this.tbLearnSkillSuccessRate.TabIndex = 34;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(190, 228);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(65, 12);
+            this.label57.TabIndex = 37;
+            this.label57.Text = "成功率参数";
+            // 
+            // tbLearnStuntSuccessRate
+            // 
+            this.tbLearnStuntSuccessRate.Location = new System.Drawing.Point(261, 225);
+            this.tbLearnStuntSuccessRate.Name = "tbLearnStuntSuccessRate";
+            this.tbLearnStuntSuccessRate.Size = new System.Drawing.Size(71, 22);
+            this.tbLearnStuntSuccessRate.TabIndex = 36;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(190, 256);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(65, 12);
+            this.label58.TabIndex = 39;
+            this.label58.Text = "成功率参数";
+            // 
+            // tbLearnTitleSuccessRate
+            // 
+            this.tbLearnTitleSuccessRate.Location = new System.Drawing.Point(261, 253);
+            this.tbLearnTitleSuccessRate.Name = "tbLearnTitleSuccessRate";
+            this.tbLearnTitleSuccessRate.Size = new System.Drawing.Size(71, 22);
+            this.tbLearnTitleSuccessRate.TabIndex = 38;
             // 
             // formOptions
             // 
@@ -2176,6 +2242,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbAIOfficerExperienceRate.Text = nextSibling.Attributes.GetNamedItem("AIOfficerExperienceRate").Value;
             this.tbAIArmyExperienceRate.Text = nextSibling.Attributes.GetNamedItem("AIArmyExperienceRate").Value;
             this.tbMaxAITroopTime.Text = nextSibling.Attributes.GetNamedItem("MaxAITroopTime").Value;
+            this.tbLearnSkillSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value;
+            this.tbLearnStuntSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value;
+            this.tbLearnTitleSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnTitleSuccessRate").Value;
             doNotSetDifficultyToCustom = false;
         }
 
@@ -2285,6 +2354,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("AIOfficerExperienceRate").Value = this.tbAIOfficerExperienceRate.Text;
             nextSibling.Attributes.GetNamedItem("AIArmyExperienceRate").Value = this.tbAIArmyExperienceRate.Text;
             nextSibling.Attributes.GetNamedItem("MaxAITroopTime").Value = this.tbMaxAITroopTime.Text;
+            nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value = this.tbLearnSkillSuccessRate.Text;
+            nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value = this.tbLearnStuntSuccessRate.Text;
+            nextSibling.Attributes.GetNamedItem("LearnTitleSuccessRate").Value = this.tbLearnTitleSuccessRate.Text;
             this.parameterDoc.Save("GameData/GameParameters.xml");
         }
 

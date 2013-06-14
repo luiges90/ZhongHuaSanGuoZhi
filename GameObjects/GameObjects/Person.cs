@@ -2126,7 +2126,7 @@
             string skillString = "";
             foreach (Skill skill in base.Scenario.GameCommonData.AllSkills.Skills.Values)
             {
-                if (((this.Skills.GetSkill(skill.ID) == null) && skill.CanLearn(this)) && (GameObject.Random((skill.Level * 2) + 8) >= ((skill.Level + num) * 2)))
+                if (((this.Skills.GetSkill(skill.ID) == null) && skill.CanLearn(this)) && (GameObject.Random((skill.Level * 2) + 8) >= ((skill.Level + num) * 2 - Parameters.LearnSkillSuccessRate)))
                 {
                     this.Skills.AddSkill(skill);
                     skill.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID);
@@ -2148,7 +2148,7 @@
             this.OutsideTask = OutsideTaskKind.无;
             if (this.StudyingStunt != null)
             {
-                if (GameObject.Chance(0x4b))
+                if (GameObject.Chance(Parameters.LearnStuntSuccessRate))
                 {
                     this.Stunts.AddStunt(this.StudyingStunt);
 					ExtensionInterface.call("StudyStuntSuccess", new Object[] { this.Scenario, this, this.StudyingStunt });
@@ -2175,7 +2175,7 @@
             if (this.StudyingTitle != null)
             {
                 bool flag = false;
-                if (GameObject.Random((this.StudyingTitle.Level * 2) + 8) >= (this.StudyingTitle.Level * 2))
+                if (GameObject.Random((this.StudyingTitle.Level * 2) + 8) >= (this.StudyingTitle.Level * 2 - Parameters.LearnTitleSuccessRate))
                 {
                     if (this.StudyingTitle.Kind == TitleKind.个人)
                     {

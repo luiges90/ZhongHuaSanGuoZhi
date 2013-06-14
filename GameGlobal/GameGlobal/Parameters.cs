@@ -138,6 +138,9 @@
         public static int PrincessMaintainenceCost = 50;
 
         public static int AIUniqueTroopFightingForceThreshold = 60000;
+        public static int LearnSkillSuccessRate = 0;
+        public static int LearnStuntSuccessRate = 75;
+        public static int LearnTitleSuccessRate = 0;
 
         public void InitializeGameParameters()
         {
@@ -267,6 +270,9 @@
             PrincessMaintainenceCost = int.Parse(nextSibling.Attributes.GetNamedItem("PrincessMaintainenceCost").Value);
 
             AIUniqueTroopFightingForceThreshold = int.Parse(nextSibling.Attributes.GetNamedItem("AIUniqueTroopFightingForceThreshold").Value);
+            LearnSkillSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value);
+            LearnStuntSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value);
+            LearnTitleSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("LearnTitleSuccessRate").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;
