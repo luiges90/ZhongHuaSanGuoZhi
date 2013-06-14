@@ -913,7 +913,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.CurrentTroop.mingling = "——";
                     break;
 
-                case ContextMenuResult.TroopAction_CutRouteway:
+                case ContextMenuResult.TroopCutRouteway:
                     this.CurrentTroop.Leader.TextDestinationString = this.CurrentTroop.CutRoutewayDaysNeeded.ToString();
                     this.Plugins.PersonTextDialogPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(this.CurrentTroop.CutRouteway), null);
                     this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
@@ -938,7 +938,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.CastTargetKind, FrameFunction.GetCastTargetKind, false, true, true, false, base.Scenario.GameCommonData.AllCastTargetKinds, base.Scenario.GameCommonData.AllCastTargetKinds.GetSelectedList(this.CurrentTroop.CastTargetKind), "施展目标", "");
                     break;
 
-                case ContextMenuResult.TroopConfig_SetAuto:
+                case ContextMenuResult.TroopSetAuto:
                     this.CurrentTroop.Auto = !this.CurrentTroop.Auto;
                     if (!this.CurrentTroop.Auto)
                     {
@@ -957,6 +957,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.CurrentTroop.BelongedLegion.ResetCoreTroop();
                         this.CurrentTroop.AI();
                     }
+                    break;
+
+                case ContextMenuResult.TroopIdle:
+                    this.CurrentTroop.Operated = true;
+                    this.CurrentTroop.mingling = "待命";
                     break;
 
                 case ContextMenuResult.TroopDetail:

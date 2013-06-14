@@ -269,13 +269,10 @@
         <MenuItem ID="12"  Name="12" DisplayName="隐忍" ChangeDisplayName="GetStuntDisplayName" DisplayIfTrue="HasStunt" IsParamIDItem="true" Param="12"></MenuItem>
         <MenuItem ID="13"  Name="13" DisplayName="攻城" ChangeDisplayName="GetStuntDisplayName" DisplayIfTrue="HasStunt" IsParamIDItem="true" Param="13"></MenuItem>
       </MenuItem>
-      <MenuItem ID="7"  Name="TroopAction" DisplayName="行动" DisplayIfTrue="ControlAvail">
-        <MenuItem ID="1"  Name="CutRouteway" DisplayName="截断粮道" DisplayIfTrue="CutRoutewayAvail"></MenuItem>
-      </MenuItem>
+      <MenuItem ID="7"  Name="TroopCutRouteway" DisplayName="截断粮道" DisplayIfTrue="CutRoutewayAvail"></MenuItem>
       <MenuItem ID="8"  Name="TroopEnter" DisplayName="入城" DisplayIfTrue="Canrucheng"></MenuItem>
-      <MenuItem ID="9"  Name="TroopConfig" DisplayName="设定" DisplayIfTrue="ControlAvail">
-        <MenuItem ID="1"  Name="SetAuto" DisplayName="委任" OppositeName="指挥" OppositeIfTrue="Auto" DisplayIfTrue="AutoAvail"></MenuItem>
-      </MenuItem>
+	  <MenuItem ID="10"  Name="TroopIdle" DisplayName="待命" DisplayIfTrue="ControlAvail"></MenuItem>
+      <MenuItem ID="9"  Name="TroopSetAuto" DisplayName="委任" OppositeName="指挥" OppositeIfTrue="Auto" DisplayIfTrue="ControlAvail"></MenuItem>
     </MenuKind>
     <MenuKind ID="5" Name="TroopRightClick" DisplayName="部队右键菜单" IsLeft="false"  Width="120" Height="25" DisplayAll="False">
       <MenuItem ID="1"  Name="TroopDetail" DisplayName="部队信息" DisplayIfTrue="IsCurrentPlayer"></MenuItem>

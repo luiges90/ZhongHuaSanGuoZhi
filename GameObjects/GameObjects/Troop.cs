@@ -3334,6 +3334,7 @@
 
         internal void DoCombatAction()
         {
+            if (this.mingling == "待命") return;
             switch (this.Will)
             {
                 case TroopWill.行军:
@@ -6977,11 +6978,6 @@
         public void Move()
         {
             bool flag = false;
-            if (this.ID == 16)
-            {
-                int z = 0;
-                z++;
-            }
             if (this.Position != this.Destination)
             {
                 flag = this.TryToStepForward();
