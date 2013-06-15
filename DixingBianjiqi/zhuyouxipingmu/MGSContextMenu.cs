@@ -222,7 +222,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case ContextMenuResult.Internal_zhenzai:
                     this.screenManager.CurrentArchitectureWorkKind = ArchitectureWorkKind.赈灾;
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.Architecture_WorkingList, true, true, true, true, this.CurrentArchitecture.Persons, this.CurrentArchitecture.zhenzaiWorkingPersons, "赈灾", "赈灾");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.Architecture_WorkingList, true, true, true, true, this.CurrentArchitecture.Persons, this.CurrentArchitecture.ZhenzaiWorkingPersons, "赈灾", "赈灾");
 
                     break;
 
@@ -849,15 +849,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.CurrentTroop.mingling = "——";
                     break;
 
-                case ContextMenuResult.TroopAction_CutRouteway:
-                    this.CurrentTroop.Leader.TextDestinationString = this.CurrentTroop.CutRoutewayDaysNeeded.ToString();
-                    this.Plugins.PersonTextDialogPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(this.CurrentTroop.CutRouteway), null);
-                    this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(this.CurrentTroop.Leader, this.CurrentTroop.Leader, "CutRouteway");
-                    this.Plugins.PersonTextDialogPlugin.IsShowing = true;
-                    this.CurrentTroop.mingling = "——";
-                    break;
-
                 case ContextMenuResult.TroopConfig_AttackDefaultKind:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.AttackDefaultKind, FrameFunction.GetAttackDefaultKind, false, true, true, false, base.Scenario.GameCommonData.AllAttackDefaultKinds, base.Scenario.GameCommonData.AllAttackDefaultKinds.GetSelectedList(this.CurrentTroop.AttackDefaultKind), "攻击默认", "");
                     break;
@@ -872,27 +863,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case ContextMenuResult.TroopConfig_CastTargetKind:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.CastTargetKind, FrameFunction.GetCastTargetKind, false, true, true, false, base.Scenario.GameCommonData.AllCastTargetKinds, base.Scenario.GameCommonData.AllCastTargetKinds.GetSelectedList(this.CurrentTroop.CastTargetKind), "施展目标", "");
-                    break;
-
-                case ContextMenuResult.TroopConfig_SetAuto:
-                    this.CurrentTroop.Auto = !this.CurrentTroop.Auto;
-                    if (!this.CurrentTroop.Auto)
-                    {
-                        this.CurrentTroop.CurrentCombatMethod = null;
-                        this.CurrentTroop.CurrentStratagem = null;
-                        this.CurrentTroop.TargetTroop = null;
-                        this.CurrentTroop.TargetArchitecture = null;
-                        this.CurrentTroop.AttackDefaultKind = TroopAttackDefaultKind.防最弱;
-                        this.CurrentTroop.AttackTargetKind = TroopAttackTargetKind.遇敌;
-                        this.CurrentTroop.CastDefaultKind = TroopCastDefaultKind.智最弱;
-                        this.CurrentTroop.CastTargetKind = TroopCastTargetKind.可能;
-                        break;
-                    }
-                    if (this.CurrentTroop.BelongedLegion != null)
-                    {
-                        this.CurrentTroop.BelongedLegion.ResetCoreTroop();
-                        this.CurrentTroop.AI();
-                    }
                     break;
 
                 case ContextMenuResult.TroopDetail:

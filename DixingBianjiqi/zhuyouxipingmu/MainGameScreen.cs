@@ -1419,7 +1419,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 Provider = "Microsoft.Jet.OLEDB.4.0"
             };
             base.Scenario.ScenarioMap.JumpPosition = this.mainMapLayer.GetCurrentScreenCenter(base.viewportSize);
-            if (!base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, true))
+            if (!base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, true, false))
             {
                 File.Delete(path);
             }
