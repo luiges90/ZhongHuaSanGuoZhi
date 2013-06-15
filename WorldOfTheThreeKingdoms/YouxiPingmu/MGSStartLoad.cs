@@ -194,17 +194,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.Plugins.OptionDialogPlugin.SetStyle("SaveAndLoad");
             this.Plugins.OptionDialogPlugin.SetTitle("读取进度");
             this.Plugins.OptionDialogPlugin.Clear();
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save01.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition01));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save02.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition02));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save03.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition03));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save04.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition04));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save05.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition05));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save06.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition06));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save07.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition07));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save08.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition08));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save09.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition09));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save10.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition10));
-            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("AutoSave.mdb"), null, new GameDelegates.VoidFunction(this.LoadGameFromAutoPosition));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save01.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition01));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save02.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition02));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save03.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition03));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save04.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition04));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save05.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition05));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save06.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition06));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save07.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition07));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save08.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition08));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save09.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition09));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("Save10.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromPosition10));
+            this.Plugins.OptionDialogPlugin.AddOption(this.GetSaveFileDisplayText("AutoSave.zhs"), null, new GameDelegates.VoidFunction(this.LoadGameFromAutoPosition));
 
             this.Plugins.OptionDialogPlugin.EndAddOptions();
             this.Plugins.OptionDialogPlugin.ShowOptionDialog(ShowPosition.Center);
@@ -223,16 +223,20 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.GameRecordPlugin.Clear();
                 this.Plugins.GameRecordPlugin.RemoveDisableRects();
                 this.Plugins.AirViewPlugin.RemoveDisableRects();
+
+                string realPath = this.LoadFileName.Substring(0, this.LoadFileName.Length - 4) + ".mdb";
+                FileEncryptor.DecryptFile("GameData/Save/" + this.LoadFileName, "GameData/Save/" + realPath, GlobalVariables.cryptKey);
+
                 OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder
                 {
-                    DataSource = "GameData/Save/" + this.LoadFileName,
+                    DataSource = "GameData/Save/" + realPath,
                     Provider = "Microsoft.Jet.OLEDB.4.0"
                 };
                 base.Scenario.LoadSaveFileFromDatabase(builder.ConnectionString);
+
+                File.Delete("GameData/Save/" + realPath);
                 
                 //this.mainMapLayer.jiazaibeijingtupian();
-
-
 
                 this.chushihuajianzhubiaotiheqizi();
                 this.gengxinyoucelan();
@@ -245,7 +249,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromAutoPosition()
         {
-            this.LoadFileName = "AutoSave.mdb";
+            this.LoadFileName = "AutoSave.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -254,7 +258,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition01()
         {
-            this.LoadFileName = "Save01.mdb";
+            this.LoadFileName = "Save01.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -263,7 +267,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition02()
         {
-            this.LoadFileName = "Save02.mdb";
+            this.LoadFileName = "Save02.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -272,7 +276,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition03()
         {
-            this.LoadFileName = "Save03.mdb";
+            this.LoadFileName = "Save03.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -281,7 +285,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition04()
         {
-            this.LoadFileName = "Save04.mdb";
+            this.LoadFileName = "Save04.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -290,7 +294,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition05()
         {
-            this.LoadFileName = "Save05.mdb";
+            this.LoadFileName = "Save05.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -299,7 +303,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition06()
         {
-            this.LoadFileName = "Save06.mdb";
+            this.LoadFileName = "Save06.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -308,7 +312,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition07()
         {
-            this.LoadFileName = "Save07.mdb";
+            this.LoadFileName = "Save07.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -317,7 +321,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition08()
         {
-            this.LoadFileName = "Save08.mdb";
+            this.LoadFileName = "Save08.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -326,7 +330,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition09()
         {
-            this.LoadFileName = "Save09.mdb";
+            this.LoadFileName = "Save09.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();
@@ -335,7 +339,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void LoadGameFromPosition10()
         {
-            this.LoadFileName = "Save10.mdb";
+            this.LoadFileName = "Save10.zhs";
             Thread thread = new Thread(new ThreadStart(this.LoadGameFromDisk));
             thread.Start();
             thread.Join();

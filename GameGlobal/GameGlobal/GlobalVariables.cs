@@ -118,6 +118,8 @@
         public static int TabListDetailLevel = 3;
         public static bool EnableExtensions = true;
 
+        public const string cryptKey = "A3g0c3%2";
+
         public bool InitialGlobalVariables()
         {
             Exception exception;

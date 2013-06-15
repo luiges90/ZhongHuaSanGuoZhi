@@ -52,7 +52,7 @@ namespace WorldOfTheThreeKingdoms
 
                     sw.Close();
 
-                    String savePath = "CrashSave" + dateSuffix + ".mdb";
+                    String savePath = "CrashSave" + dateSuffix + ".zhs";
                     try
                     {
                         mpm.SaveGameWhenCrash(savePath);

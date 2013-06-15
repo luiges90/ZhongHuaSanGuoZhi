@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Drawing" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="GameGlobal\FileEncryptor.cs" />
     <Compile Include="GameGlobal\ZhandouZhuangtai.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="GameGlobal\GlobalVariables.cs" />
