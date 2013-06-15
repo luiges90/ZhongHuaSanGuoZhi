@@ -2127,8 +2127,7 @@
             }
 
             ExtensionInterface.loadCompiledTypes();
-            ExtensionInterface.call("Load", new Object[] { this });
-
+            
             this.scenarioJustLoaded = true;
             OleDbCommand command = new OleDbCommand("Select * From Map", DbConnection);
             ////////////////////////////////////////////////////////////////////////////////////////////
@@ -2954,6 +2953,8 @@
             this.AllArchitectures.Clear();
 
             this.alterTransportShipAdaptibility();
+
+            ExtensionInterface.call("Load", new Object[] { this });
         }
 
         private void alterTransportShipAdaptibility()

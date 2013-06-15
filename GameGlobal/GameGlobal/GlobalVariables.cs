@@ -116,6 +116,7 @@
 
         public static bool EnableAgeAbilityFactor = true;
         public static int TabListDetailLevel = 3;
+        public static bool EnableExtensions = true;
 
         public bool InitialGlobalVariables()
         {
@@ -608,6 +609,15 @@
             {
                 exception = exception24;
                 throw new Exception("TabListDetailLevel:\n" + exception.ToString());
+            }
+            try
+            {
+                EnableExtensions = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableExtensions").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("EnableExtensions:\n" + exception.ToString());
             }
             return true;
         }

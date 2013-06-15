@@ -5,6 +5,7 @@ using System.IO;
 using Microsoft.CSharp;
 using System.CodeDom.Compiler;
 using GameObjects;
+using GameGlobal;
 
 public class ExtensionInterface
 {
@@ -52,6 +53,11 @@ public class ExtensionInterface
 
     public static void loadCompiledTypes()
     {
+        if (!GlobalVariables.EnableExtensions)
+        {
+            // extensions not enabled
+            return;
+        }
         if (compiledTypes == null)
         {
             compiledTypes = new List<Type>();
@@ -102,6 +108,11 @@ public class ExtensionInterface
 
     public static void call(String methodName, Object[] param)
     {
+        if (!GlobalVariables.EnableExtensions)
+        {
+            // extensions not enabled
+            return;
+        }
         foreach (Type t in compiledTypes)
         {
             try
