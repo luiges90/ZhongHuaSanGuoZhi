@@ -12,6 +12,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using System;
+    using System.Reflection;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.OleDb;
@@ -2019,8 +2020,115 @@
             return false;
         }
 
-        private void LoadGameDataFromDataBase(OleDbConnection DbConnection)  //读剧本和读存档都调用了此函数
+        public void LoadCommonData()
         {
+            string path = "GameData/Common/CommonData.mdb";
+            if (!System.IO.File.Exists(path))
+            {
+                throw new Exception(path + " .File Does Not Exist.");
+            }
+            OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder
+            {
+                DataSource = path,
+                Provider = "Microsoft.Jet.OLEDB.4.0"
+            };
+            this.GameCommonData.LoadFromDatabase(builder.ConnectionString);
+        }
+
+        private void LoadSettingsFromDatabase(string connectionString)
+        {
+            OleDbConnection connection = new OleDbConnection(connectionString);
+
+            connection.Open();
+            OleDbDataReader reader = new OleDbCommand("Select * From GameParameters", connection).ExecuteReader();
+            while (reader.Read())
+            {
+                String name = (String)reader["Name"];
+                String rawValue = (String)reader["Value"];
+
+                foreach (FieldInfo i in typeof(Parameters).GetFields(BindingFlags.Public | BindingFlags.Static))
+                {
+                    if (i.IsLiteral) continue;
+                    if (i.Name == name)
+                    {
+                        int outInt;
+                        float outDouble;
+                        bool outBool;
+                        if (int.TryParse(rawValue, out outInt))
+                        {
+                            i.SetValue(null, outInt);
+                        }
+                        else if (float.TryParse(rawValue, out outDouble))
+                        {
+                            i.SetValue(null, outDouble);
+                        }
+                        else if (bool.TryParse(rawValue, out outBool))
+                        {
+                            i.SetValue(null, outBool);
+                        }
+                        break;
+                    }
+                }
+            }
+            connection.Close();
+
+            connection.Open();
+            reader = new OleDbCommand("Select * From GlobalVariables", connection).ExecuteReader();
+            while (reader.Read())
+            {
+                String name = (String)reader["Name"];
+                String rawValue = (String)reader["Value"];
+
+                foreach (FieldInfo i in typeof(GlobalVariables).GetFields(BindingFlags.Public | BindingFlags.Static))
+                {
+                    if (i.IsLiteral) continue;
+                    if (i.Name == name)
+                    {
+                        int outInt;
+                        float outDouble;
+                        bool outBool;
+                        if (int.TryParse(rawValue, out outInt))
+                        {
+                            i.SetValue(null, outInt);
+                        }
+                        else if (float.TryParse(rawValue, out outDouble))
+                        {
+                            i.SetValue(null, outDouble);
+                        }
+                        else if (bool.TryParse(rawValue, out outBool))
+                        {
+                            i.SetValue(null, outBool);
+                        }
+                        break;
+                    }
+                }
+            }
+            connection.Close();
+        }
+
+
+        private void LoadGameDataFromDataBase(OleDbConnection DbConnection, string connectionString)  //读剧本和读存档都调用了此函数
+        {
+            try
+            {
+                this.GameCommonData.LoadFromDatabase(connectionString);
+            }
+            catch (Exception)
+            {
+                this.LoadCommonData();
+            }
+            try
+            {
+                this.LoadSettingsFromDatabase(connectionString);
+            }
+            catch (Exception)
+            {
+                //ignore
+            }
+
+            ExtensionInterface.loadCompiledTypes();
+            ExtensionInterface.call("Load", new Object[] { this });
+
             this.scenarioJustLoaded = true;
             OleDbCommand command = new OleDbCommand("Select * From Map", DbConnection);
             ////////////////////////////////////////////////////////////////////////////////////////////
@@ -2179,13 +2287,20 @@
                     person.waitForFeiziId = int.Parse(reader["WaitForFeizi"].ToString());
                     person.WaitForFeiZiPeriod = (int)reader["WaitForFeiziPeriod"];
                 }
-                catch (FormatException ex)
+                catch (Exception ex)
                 {
                     person.waitForFeiziId = -1;
                     person.WaitForFeiZiPeriod = 0;
                 }
-                
-                person.preferredTroopPersonsString = reader["PreferredTroopPersons"].ToString();
+
+                try
+                {
+                    person.preferredTroopPersonsString = reader["PreferredTroopPersons"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    person.preferredTroopPersonsString = "";
+                }
 
                 try
                 {
@@ -2839,8 +2954,6 @@
             this.AllArchitectures.Clear();
 
             this.alterTransportShipAdaptibility();
-            
-            ExtensionInterface.call("Load", new Object[] { this });
         }
 
         private void alterTransportShipAdaptibility()
@@ -2879,9 +2992,8 @@
         public bool LoadGameScenarioFromDatabase(string connectionString)  //读取剧本
         {
             this.Clear();
-            ExtensionInterface.loadCompiledTypes();
             OleDbConnection dbConnection = new OleDbConnection(connectionString);
-            this.LoadGameDataFromDataBase(dbConnection);
+            this.LoadGameDataFromDataBase(dbConnection, connectionString);
             OleDbCommand command = new OleDbCommand("Select * From GameData", dbConnection);
             dbConnection.Open();
             OleDbDataReader reader = command.ExecuteReader();
@@ -2898,6 +3010,7 @@
             this.FireTable.LoadFromString(reader["FireTable"].ToString());
             this.NoFoodDictionary.LoadFromString(reader["NoFoodTable"].ToString());
             dbConnection.Close();
+
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
             this.ApplyFireTable();
@@ -2922,9 +3035,9 @@
         public bool LoadSaveFileFromDatabase(string connectionString) //读取存档
         {
             this.Clear();
-            ExtensionInterface.loadCompiledTypes();
+
             OleDbConnection dbConnection = new OleDbConnection(connectionString);
-            this.LoadGameDataFromDataBase(dbConnection);
+            this.LoadGameDataFromDataBase(dbConnection, connectionString);
             OleDbCommand command = new OleDbCommand("Select * From GameData", dbConnection);
             dbConnection.Open();
             OleDbDataReader reader = command.ExecuteReader();
@@ -2944,6 +3057,7 @@
             {
             }
             dbConnection.Close();
+
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
             this.ApplyFireTable();
@@ -3252,7 +3366,7 @@
             }
         }
 
-        public bool SaveGameScenarioToDatabase(string connectionString, bool saveMap)
+        public bool SaveGameScenarioToDatabase(string connectionString, bool saveMap, bool saveCommonData)
         {
             //try
             //{
@@ -3285,13 +3399,6 @@
                     dataSet.Clear();
                 }
                 new OleDbCommand("Delete from DiplomaticRelation", selectConnection).ExecuteNonQuery();
-                try
-                {
-                    new OleDbCommand("ALTER TABLE DiplomaticRelation ADD COLUMN Truce INT", selectConnection).ExecuteNonQuery();
-                }
-                catch (OleDbException)
-                {
-                }
                 adapter = new OleDbDataAdapter("Select * from DiplomaticRelation", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "DiplomaticRelation");
@@ -3995,6 +4102,10 @@
                     this.OnAfterSaveScenario(this);
                 }
                 //}
+                if (saveCommonData)
+                {
+                    GameCommonData.SaveAllToDatabase(connectionString);
+                }
                 selectConnection.Close();
             }
             /*catch 

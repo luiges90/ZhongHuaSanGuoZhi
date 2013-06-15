@@ -184,21 +184,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             return base.Scenario.SaveAvail();
         }
 
-        public void LoadCommonData()
-        {
-            string path = "GameData/Common/CommonData.mdb";
-            if (!File.Exists(path))
-            {
-                throw new Exception(path + " .File Does Not Exist.");
-            }
-            OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder
-            {
-                DataSource = path,
-                Provider = "Microsoft.Jet.OLEDB.4.0"
-            };
-            base.Scenario.GameCommonData.LoadFromDatabase(builder.ConnectionString);
-        }
-
         protected override void LoadContent()
         {
 

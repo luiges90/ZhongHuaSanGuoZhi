@@ -105,7 +105,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.thisGame = game;
             this.screenManager = new ScreenManager(this);
             base.Scenario = new GameScenario(this);
-            this.LoadCommonData();
+            //this.LoadCommonData();
             base.Game.Window.ClientSizeChanged += new EventHandler(this.Window_ClientSizeChanged);
             base.Game.Activated += new EventHandler(this.Game_Activated);
             base.Game.Deactivated += new EventHandler(this.Game_Deactivated);
@@ -1504,13 +1504,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 Provider = "Microsoft.Jet.OLEDB.4.0"
             };
             base.Scenario.ScenarioMap.JumpPosition = this.mainMapLayer.GetCurrentScreenCenter(base.viewportSize);
+            bool saveCommonData = base.Scenario.AllNewGame || saveMap;
             try
             {
-                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, base.Scenario.AllNewGame || saveMap);
+                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveCommonData, saveCommonData);
             }
             catch (Exception)
             {
-                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, base.Scenario.AllNewGame || saveMap);
+                base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveCommonData, saveCommonData);
             }
             File.Delete(tempFilePath);
             GC.Collect();

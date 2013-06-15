@@ -16,7 +16,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Xml;
-
+    using System.Reflection;
     using System.Data;
     using System.Data.OleDb;
 
@@ -872,6 +872,893 @@
             }
             adapter.Update(dataSet, "TextMessage");
             dataSet.Clear();
+        }
+
+        public void SaveAllToDatabase(string connectionString)
+        {
+            using (OleDbConnection selectConnection = new OleDbConnection(connectionString))
+            {
+                selectConnection.Open();
+                DataSet dataSet = new DataSet();
+                DataRow row = null;
+                OleDbDataAdapter adapter;
+                OleDbCommandBuilder builder;
+
+                adapter = new OleDbDataAdapter("Select * from ArchitectureKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "ArchitectureKind");
+                dataSet.Tables["ArchitectureKind"].Rows.Clear();
+                foreach (ArchitectureKind i in this.AllArchitectureKinds.ArchitectureKinds.Values)
+                {
+                    row = dataSet.Tables["ArchitectureKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["AgricultureBase"] = i.AgricultureBase;
+                    row["AgricultureUnit"] = i.AgricultureUnit;
+                    row["CommerceBase"] = i.CommerceBase;
+                    row["CommerceUnit"] = i.CommerceUnit;
+                    row["TechnologyBase"] = i.TechnologyBase;
+                    row["TechnologyUnit"] = i.TechnologyUnit;
+                    row["DominationBase"] = i.DominationBase;
+                    row["DominationUnit"] = i.DominationUnit;
+                    row["MoraleBase"] = i.MoraleBase;
+                    row["MoraleUnit"] = i.MoraleUnit;
+                    row["EnduranceBase"] = i.EnduranceBase;
+                    row["EnduranceUnit"] = i.EnduranceUnit;
+                    row["PopulationBase"] = i.PopulationBase;
+                    row["PopulationUnit"] = i.PopulationUnit;
+                    row["PopulationBoundary"] = i.PopulationBoundary;
+                    row["ViewDistance"] = i.ViewDistance;
+                    row["VDIncrementDivisor"] = i.ViewDistanceIncrementDivisor;
+                    row["HasObliqueView"] = i.HasObliqueView;
+                    row["HasLongView"] = i.HasLongView;
+                    row["HasPopulation"] = i.HasPopulation;
+                    row["HasAgriculture"] = i.HasAgriculture;
+                    row["HasCommerce"] = i.HasCommerce;
+                    row["HasTechnology"] = i.HasTechnology;
+                    row["HasDomination"] = i.HasDomination;
+                    row["HasMorale"] = i.HasMorale;
+                    row["HasEndurance"] = i.HasEndurance;
+                    row["HasHarbor"] = i.HasHarbor;
+                    row["FacilityPositionUnit"] = i.FacilityPositionUnit;
+                    row["FundMaxUnit"] = i.FundMaxUnit;
+                    row["FoodMaxUnit"] = i.FoodMaxUnit;
+                    row["CountToMerit"] = i.CountToMerit;
+                    row.EndEdit();
+                    dataSet.Tables["ArchitectureKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "ArchitectureKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from AttackDefaultKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "AttackDefaultKind");
+                dataSet.Tables["AttackDefaultKind"].Rows.Clear();
+                foreach (AttackDefaultKind i in this.AllAttackDefaultKinds)
+                {
+                    row = dataSet.Tables["AttackDefaultKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row.EndEdit();
+                    dataSet.Tables["AttackDefaultKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "AttackDefaultKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from AttackTargetKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "AttackTargetKind");
+                dataSet.Tables["AttackTargetKind"].Rows.Clear();
+                foreach (AttackTargetKind i in this.AllAttackTargetKinds)
+                {
+                    row = dataSet.Tables["AttackTargetKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row.EndEdit();
+                    dataSet.Tables["AttackTargetKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "AttackTargetKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from Biography", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "Biography");
+                dataSet.Tables["Biography"].Rows.Clear();
+                foreach (Biography i in this.AllBiographies.Biographys.Values)
+                {
+                    row = dataSet.Tables["Biography"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Brief"] = i.Brief;
+                    row["Romance"] = i.Romance;
+                    row["History"] = i.History;
+                    row["FactionColor"] = i.FactionColor;
+                    row["MilitaryKinds"] = i.MilitaryKinds.SaveToString();
+                    row.EndEdit();
+                    dataSet.Tables["Biography"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Biography");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from CastDefaultKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "CastDefaultKind");
+                dataSet.Tables["CastDefaultKind"].Rows.Clear();
+                foreach (CastDefaultKind i in this.AllCastDefaultKinds)
+                {
+                    row = dataSet.Tables["CastDefaultKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row.EndEdit();
+                    dataSet.Tables["CastDefaultKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "CastDefaultKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from CastTargetKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "CastTargetKind");
+                dataSet.Tables["CastTargetKind"].Rows.Clear();
+                foreach (CastTargetKind i in this.AllCastTargetKinds)
+                {
+                    row = dataSet.Tables["CastTargetKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row.EndEdit();
+                    dataSet.Tables["CastTargetKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "CastTargetKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from CharacterKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "CharacterKind");
+                dataSet.Tables["CharacterKind"].Rows.Clear();
+                foreach (CharacterKind i in this.AllCharacterKinds)
+                {
+                    row = dataSet.Tables["CharacterKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["IntelligenceRate"] = i.IntelligenceRate;
+                    row["ChallengeChance"] = i.ChallengeChance;
+                    row["ControversyChance"] = i.ControversyChance;
+                    row.EndEdit();
+                    dataSet.Tables["CharacterKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "CharacterKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from Color", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "Color");
+                dataSet.Tables["Color"].Rows.Clear();
+                int j = 1;
+                foreach (Color i in this.AllColors)
+                {
+                    row = dataSet.Tables["Color"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = j;
+                    row["Code"] = i.PackedValue;
+                    j++;
+                    row.EndEdit();
+                    dataSet.Tables["Color"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Color");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from CombatMethod", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "CombatMethod");
+                dataSet.Tables["CombatMethod"].Rows.Clear();
+                foreach (CombatMethod i in this.AllCombatMethods.CombatMethods.Values)
+                {
+                    row = dataSet.Tables["CombatMethod"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Description"] = i.Description;
+                    row["Combativity"] = i.Combativity;
+                    row["Influences"] = i.Influences.SaveToString();
+                    row["AttackDefault"] = i.AttackDefault.ID;
+                    row["AttackTarget"] = i.AttackTarget.ID;
+                    row["ArchitectureTarget"] = i.ArchitectureTarget;
+                    row["CastConditions"] = i.CastConditions.SaveToString();
+                    row["ViewingHostile"] = i.ViewingHostile;
+                    row["AnimationKind"] = i.AnimationKind;
+                    row.EndEdit();
+                    dataSet.Tables["CombatMethod"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "CombatMethod");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from Condition", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "Condition");
+                dataSet.Tables["Condition"].Rows.Clear();
+                foreach (Condition i in this.AllConditions.Conditions.Values)
+                {
+                    if (i.Kind == null) continue;
+                    row = dataSet.Tables["Condition"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Kind"] = i.Kind.ID;
+                    row["Name"] = i.Name;
+                    row["Parameter"] = i.Parameter;
+                    row["Parameter2"] = i.Parameter2;
+                    row.EndEdit();
+                    dataSet.Tables["Condition"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Condition");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from ConditionKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "ConditionKind");
+                dataSet.Tables["ConditionKind"].Rows.Clear();
+                foreach (ConditionKind i in this.AllConditionKinds.ConditionKinds.Values)
+                {
+                    row = dataSet.Tables["ConditionKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row.EndEdit();
+                    dataSet.Tables["ConditionKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "ConditionKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from DisasterKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "DisasterKind");
+                dataSet.Tables["DisasterKind"].Rows.Clear();
+                foreach (zainanzhongleilei i in this.suoyouzainanzhonglei.zainanzhongleizidian.Values)
+                {
+                    row = dataSet.Tables["DisasterKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["名称"] = i.Name;
+                    row["时间下限"] = i.shijianxiaxian;
+                    row["时间上限"] = i.shijianshangxian;
+                    row["人口伤害"] = i.renkoushanghai;
+                    row["统治伤害"] = i.tongzhishanghai;
+                    row["耐久伤害"] = i.naijiushanghai;
+                    row["农业伤害"] = i.nongyeshanghai;
+                    row["商业伤害"] = i.shangyeshanghai;
+                    row["技术伤害"] = i.jishushanghai;
+                    row["民心伤害"] = i.minxinshanghai;
+                    row.EndEdit();
+                    dataSet.Tables["DisasterKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "DisasterKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from EventEffect", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "EventEffect");
+                dataSet.Tables["EventEffect"].Rows.Clear();
+                foreach (GameObjects.ArchitectureDetail.EventEffect.EventEffect i in this.AllEventEffects.EventEffects.Values)
+                {
+                    if (i.Kind == null) continue;
+                    row = dataSet.Tables["EventEffect"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Parameter"] = i.Parameter;
+                    row["Parameter2"] = i.Parameter2;
+                    row["Kind"] = i.Kind.ID;
+                    row.EndEdit();
+                    dataSet.Tables["EventEffect"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "EventEffect");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from EventEffectKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "EventEffectKind");
+                dataSet.Tables["EventEffectKind"].Rows.Clear();
+                foreach (GameObjects.ArchitectureDetail.EventEffect.EventEffectKind i in this.AllEventEffectKinds.EventEffectKinds.Values)
+                {
+                    row = dataSet.Tables["EventEffectKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row.EndEdit();
+                    dataSet.Tables["EventEffectKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "EventEffectKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from FacilityKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "FacilityKind");
+                dataSet.Tables["FacilityKind"].Rows.Clear();
+                foreach (FacilityKind i in this.AllFacilityKinds.FacilityKinds.Values)
+                {
+                    row = dataSet.Tables["FacilityKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Description"] = i.Description;
+                    row["PositionOccupied"] = i.PositionOccupied;
+                    row["TechnologyNeeded"] = i.TechnologyNeeded;
+                    row["FundCost"] = i.FundCost;
+                    row["MaintenanceCost"] = i.MaintenanceCost;
+                    row["PointCost"] = i.PointCost;
+                    row["Days"] = i.Days;
+                    row["Endurance"] = i.Endurance;
+                    row["UniqueInArchitecture"] = i.UniqueInArchitecture;
+                    row["UniqueInFaction"] = i.UniqueInFaction;
+                    row["PopulationRelated"] = i.PopulationRelated;
+                    row["Influences"] = i.Influences.SaveToString();
+                    row["Conditions"] = i.Conditions.SaveToString();
+                    row["rongna"] = i.rongna;
+                    row["bukechaichu"] = i.bukechaichu;
+                    row.EndEdit();
+                    dataSet.Tables["FacilityKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "FacilityKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from guanjuezhonglei", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "guanjuezhonglei");
+                dataSet.Tables["guanjuezhonglei"].Rows.Clear();
+                foreach (guanjuezhongleilei i in this.suoyouguanjuezhonglei.guanjuedezhongleizidian.Values)
+                {
+                    row = dataSet.Tables["guanjuezhonglei"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["名称"] = i.Name;
+                    row["声望上限"] = i.shengwangshangxian;
+                    row["需要贡献度"] = i.xuyaogongxiandu;
+                    row["需要城池"] = i.xuyaochengchi;
+                    row.EndEdit();
+                    dataSet.Tables["guanjuezhonglei"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "guanjuezhonglei");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from IdealTendencyKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "IdealTendencyKind");
+                dataSet.Tables["IdealTendencyKind"].Rows.Clear();
+                foreach (IdealTendencyKind i in this.AllIdealTendencyKinds)
+                {
+                    row = dataSet.Tables["IdealTendencyKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Offset"] = i.Offset;
+                    row.EndEdit();
+                    dataSet.Tables["IdealTendencyKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "IdealTendencyKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from Influence", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "Influence");
+                dataSet.Tables["Influence"].Rows.Clear();
+                foreach (Influence i in this.AllInfluences.Influences.Values)
+                {
+                    if (i.Kind == null) continue;
+                    row = dataSet.Tables["Influence"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Kind"] = i.Kind.ID;
+                    row["Description"] = i.Description;
+                    row["Parameter"] = i.Parameter;
+                    row["Parameter2"] = i.Parameter2;
+                    row.EndEdit();
+                    dataSet.Tables["Influence"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Influence");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from InfluenceKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "InfluenceKind");
+                dataSet.Tables["InfluenceKind"].Rows.Clear();
+                foreach (InfluenceKind i in this.AllInfluenceKinds.InfluenceKinds.Values)
+                {
+                    row = dataSet.Tables["InfluenceKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Type"] = i.Type;
+                    row["Combat"] = i.Combat;
+                    row.EndEdit();
+                    dataSet.Tables["InfluenceKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "InfluenceKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from InformationKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "InformationKind");
+                dataSet.Tables["InformationKind"].Rows.Clear();
+                foreach (InformationKind i in this.AllInformationKinds)
+                {
+                    row = dataSet.Tables["InformationKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Days"] = i.Days;
+                    row["CoolDown"] = i.CoolDown;
+                    row["iLevel"] = (int)i.Level;
+                    row["Radius"] = i.Radius;
+                    row["Oblique"] = i.Oblique;
+                    row["CostFund"] = i.CostFund;
+                    row.EndEdit();
+                    dataSet.Tables["InformationKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "InformationKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from MilitaryKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                builder.QuotePrefix = "[";
+                builder.QuoteSuffix = "]";
+                adapter.Fill(dataSet, "MilitaryKind");
+                dataSet.Tables["MilitaryKind"].Rows.Clear();
+                foreach (MilitaryKind i in this.AllMilitaryKinds.MilitaryKinds.Values)
+                {
+                    row = dataSet.Tables["MilitaryKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Type"] = (int) i.Type;
+                    row["Name"] = i.Name;
+                    row["Description"] = i.Description;
+                    row["Merit"] = i.Merit;
+                    row["Successor"] = i.successor.SaveToString();
+                    row["Speed"] = i.Speed;
+                    row["TitleInfluence"] = i.TitleInfluence;
+                    row["CreateCost"] = i.CreateCost;
+                    row["CreateTechnology"] = i.CreateTechnology;
+                    row["IsShell"] = i.IsShell;
+                    row["CreateBesideWater"] = i.CreateBesideWater;
+                    row["Offence"] = i.Offence;
+                    row["Defence"] = i.Defence;
+                    row["OffenceRadius"] = i.OffenceRadius;
+                    row["CounterOffence"] = i.CounterOffence;
+                    row["BeCountered"] = i.BeCountered;
+                    row["ObliqueOffence"] = i.ObliqueOffence;
+                    row["ArrowOffence"] = i.ArrowOffence;
+                    row["AirOffence"] = i.AirOffence;
+                    row["ContactOffence"] = i.ContactOffence;
+                    row["OffenceOnlyBeforeMove"] = i.OffenceOnlyBeforeMove;
+                    row["ArchitectureDamageRate"] = i.ArchitectureDamageRate;
+                    row["architectureCounterDamageRate"] = i.ArchitectureCounterDamageRate;
+                    row["StratagemRadius"] = i.StratagemRadius;
+                    row["ObliqueStratagem"] = i.ObliqueStratagem;
+                    row["ViewRadius"] = i.ViewRadius;
+                    row["ObliqueView"] = i.ObliqueView;
+                    row["InjuryRate"] = i.InjuryChance;
+                    row["Movability"] = i.Movability;
+                    row["OneAdaptabilityKind"] = i.OneAdaptabilityKind;
+                    row["PlainAdaptability"] = i.PlainAdaptability;
+                    row["GrasslandAdaptability"] = i.GrasslandAdaptability;
+                    row["ForrestAdaptability"] = i.ForrestAdaptability;
+                    row["MarshAdaptability"] = i.MarshAdaptability;
+                    row["MountainAdaptability"] = i.MountainAdaptability;
+                    row["WaterAdaptability"] = i.WaterAdaptability;
+                    row["RidgeAdaptability"] = i.RidgeAdaptability;
+                    row["WastelandAdaptability"] = i.WastelandAdaptability;
+                    row["DesertAdaptability"] = i.DesertAdaptability;
+                    row["CliffAdaptability"] = i.CliffAdaptability;
+                    row["PlainRate"] = i.PlainRate;
+                    row["GrasslandRate"] = i.GrasslandRate;
+                    row["ForrestRate"] = i.ForrestRate;
+                    row["MarshRate"] = i.MarshRate;
+                    row["MountainRate"] = i.MountainRate;
+                    row["WaterRate"] = i.WaterRate;
+                    row["RidgeRate"] = i.RidgeRate;
+                    row["WastelandRate"] = i.WastelandRate;
+                    row["DesertRate"] = i.DesertRate;
+                    row["CliffRate"] = i.CliffRate;
+                    row["AfraidOfFire"] = i.AfraidOfFire;
+                    row["Unique"] = i.Unique;
+                    row["FoodPerSoldier"] = i.FoodPerSoldier;
+                    row["MinScale"] = i.MinScale;
+                    row["RationDays"] = i.RationDays;
+                    row["PointsPerSoldier"] = i.PointsPerSoldier;
+                    row["OffencePerScale"] = i.OffencePerScale;
+                    row["DefencePerScale"] = i.DefencePerScale;
+                    row["MaxScale"] = i.MaxScale;
+                    row["CanLevelUp"] = i.CanLevelUp;
+                    row["LevelUpKindID"] = i.LevelUpKindID;
+                    row["LevelUpExperience"] = i.LevelUpExperience;
+                    row["OffencePer100Experience"] = i.OffencePer100Experience;
+                    row["DefencePer100Experience"] = i.DefencePer100Experience;
+                    row["AttackDefaultKind"] = (int) i.AttackDefaultKind;
+                    row["AttackTargetKind"] = (int) i.AttackTargetKind;
+                    row["CastDefaultKind"] = (int) i.CastDefaultKind;
+                    row["CastTargetKind"] = (int) i.CastTargetKind;
+                    row["Influences"] = i.Influences.SaveToString();
+                    row["zijinshangxian"] = i.zijinshangxian;
+                    row.EndEdit();
+                    dataSet.Tables["MilitaryKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "MilitaryKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from SectionAIDetail", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "SectionAIDetail");
+                dataSet.Tables["SectionAIDetail"].Rows.Clear();
+                foreach (SectionAIDetail i in this.AllSectionAIDetails.SectionAIDetails.Values)
+                {
+                    row = dataSet.Tables["SectionAIDetail"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Description"] = i.Description;
+                    row["OrientationKind"] = i.OrientationKind;
+                    row["AutoRun"] = i.AutoRun;
+                    row["ValueAgriculture"] = i.ValueAgriculture;
+                    row["ValueCommerce"] = i.ValueCommerce;
+                    row["ValueTechnology"] = i.ValueTechnology;
+                    row["ValueDomination"] = i.ValueDomination;
+                    row["ValueMorale"] = i.ValueMorale;
+                    row["ValueEndurance"] = i.ValueEndurance;
+                    row["ValueTraining"] = i.ValueTraining;
+                    row["ValueRecruitment"] = i.ValueRecruitment;
+                    row["ValueNewMilitary"] = i.ValueNewMilitary;
+                    row["ValueOffensiveCampaign"] = i.ValueOffensiveCampaign;
+                    row["AllowInvestigateTactics"] = i.AllowInvestigateTactics;
+                    row["AllowOffensiveTactics"] = i.AllowOffensiveTactics;
+                    row["AllowPersonTactics"] = i.AllowPersonTactics;
+                    row["AllowOffensiveCampaign"] = i.AllowOffensiveCampaign;
+                    row["AllowFundTransfer"] = i.AllowFundTransfer;
+                    row["AllowFoodTransfer"] = i.AllowFoodTransfer;
+                    row["AllowMilitaryTransfer"] = i.AllowMilitaryTransfer;
+                    row["AllowFacilityRemoval"] = i.AllowFacilityRemoval;
+                    row.EndEdit();
+                    dataSet.Tables["SectionAIDetail"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "SectionAIDetail");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from Skill", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                builder.QuotePrefix = "[";
+                builder.QuoteSuffix = "]";
+                adapter.Fill(dataSet, "Skill");
+                dataSet.Tables["Skill"].Rows.Clear();
+                foreach (Skill i in this.AllSkills.Skills.Values)
+                {
+                    row = dataSet.Tables["Skill"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Description"] = i.Description;
+                    row["DisplayRow"] = i.DisplayRow;
+                    row["DisplayCol"] = i.DisplayCol;
+                    row["Kind"] = i.Kind;
+                    row["Level"] = i.Level;
+                    row["Combat"] = i.Combat;
+                    row["Prerequisite"] = i.Prerequisite;
+                    row["Influences"] = i.Influences.SaveToString();
+                    row["Conditions"] = i.Conditions.SaveToString();
+                    row.EndEdit();
+                    dataSet.Tables["Skill"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Skill");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from Stratagem", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "Stratagem");
+                dataSet.Tables["Stratagem"].Rows.Clear();
+                foreach (Stratagem i in this.AllStratagems.Stratagems.Values)
+                {
+                    row = dataSet.Tables["Stratagem"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Description"] = i.Description;
+                    row["Combativity"] = i.Combativity;
+                    row["Chance"] = i.Chance;
+                    row["TechniquePoint"] = i.TechniquePoint;
+                    row["Friendly"] = i.Friendly;
+                    row["Self"] = i.Self;
+                    row["AnimationKind"] = i.AnimationKind;
+                    row["Influences"] = i.Influences.SaveToString();
+                    row["CastDefault"] = i.CastDefault == null ? 0 : i.CastDefault.ID;
+                    row["CastTarget"] = i.CastTarget == null ? 1 : i.CastTarget.ID;
+                    row["ArchitectureTarget"] = i.ArchitectureTarget;
+                    row["RequireInfluneceToUse"] = i.RequireInfluenceToUse;
+                    row.EndEdit();
+                    dataSet.Tables["Stratagem"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Stratagem");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from Stunt", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "Stunt");
+                dataSet.Tables["Stunt"].Rows.Clear();
+                foreach (Stunt i in this.AllStunts.Stunts.Values)
+                {
+                    row = dataSet.Tables["Stunt"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Combativity"] = i.Combativity;
+                    row["Period"] = i.Period;
+                    row["Animation"] = i.Animation;
+                    row["Influences"] = i.Influences.SaveToString();
+                    row["CastConditions"] = i.CastConditions.SaveToString();
+                    row["LearnConditions"] = i.LearnConditions.SaveToString();
+                    row["AIConditions"] = i.AIConditions.SaveToString();
+                    row.EndEdit();
+                    dataSet.Tables["Stunt"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Stunt");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from Technique", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "Technique");
+                dataSet.Tables["Technique"].Rows.Clear();
+                foreach (Technique i in this.AllTechniques.Techniques.Values)
+                {
+                    row = dataSet.Tables["Technique"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["DisplayRow"] = i.DisplayRow;
+                    row["DisplayCol"] = i.DisplayCol;
+                    row["Kind"] = i.Kind;
+                    row["Description"] = i.Description;
+                    row["PreID"] = i.PreID;
+                    row["PostID"] = i.PostID;
+                    row["Reputation"] = i.Reputation;
+                    row["FundCost"] = i.FundCost;
+                    row["PointCost"] = i.PointCost;
+                    row["Days"] = i.Days;
+                    row["Influences"] = i.Influences.SaveToString();
+                    row.EndEdit();
+                    dataSet.Tables["Technique"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Technique");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from TerrainDetail", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "TerrainDetail");
+                dataSet.Tables["TerrainDetail"].Rows.Clear();
+                foreach (TerrainDetail i in this.AllTerrainDetails.TerrainDetails.Values)
+                {
+                    row = dataSet.Tables["TerrainDetail"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["GraphicLayer"] = i.GraphicLayer;
+                    row["ViewThrough"] = i.ViewThrough;
+                    row["RoutewayBuildFundCost"] = i.RoutewayBuildWorkCost;
+                    row["RoutewayActiveFundCost"] = i.RoutewayActiveFundCost;
+                    row["RoutewayBuildWorkCost"] = i.RoutewayBuildWorkCost;
+                    row["RoutewayConsumptionRate"] = i.RoutewayConsumptionRate;
+                    row["FoodDeposit"] = i.FoodDeposit;
+                    row["FoodRegainDays"] = i.FoodRegainDays;
+                    row["FoodSpringRate"] = i.FoodSpringRate;
+                    row["FoodSummerRate"] = i.FoodSummerRate;
+                    row["FoodAutumnRate"] = i.FoodAutumnRate;
+                    row["FoodWinterRate"] = i.FoodWinterRate;
+                    row["FireDamageRate"] = i.FireDamageRate;
+                    row.EndEdit();
+                    dataSet.Tables["TerrainDetail"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "TerrainDetail");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from TextMessage", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "TextMessage");
+                dataSet.Tables["TextMessage"].Rows.Clear();
+                foreach (TextMessage message in this.AllTextMessages.TextMessages.Values)
+                {
+                    DataRow current = dataSet.Tables["TextMessage"].NewRow();
+                    current.BeginEdit();
+                    current["ID"] = message.ID;
+                    current["CriticalStrike"] = StaticMethods.SaveToString(message.CriticalStrike);
+                    current["ReceiveCriticalStrike"] = StaticMethods.SaveToString(message.ReceiveCriticalStrike);
+                    current["OutburstAngry"] = StaticMethods.SaveToString(message.OutburstAngry);
+                    current["OutburstQuiet"] = StaticMethods.SaveToString(message.OutburstQuiet);
+                    current["RecoverFromChaos"] = StaticMethods.SaveToString(message.RecoverFromChaos);
+                    current["ResistHarmfulStratagem"] = StaticMethods.SaveToString(message.ResistHarmfulStratagem);
+                    current["ResistHelpfulStratagem"] = StaticMethods.SaveToString(message.ResistHelpfulStratagem);
+                    current["Rout"] = StaticMethods.SaveToString(message.Rout);
+                    current["AntiAttack"] = StaticMethods.SaveToString(message.AntiAttack);
+                    current["BreakWall"] = StaticMethods.SaveToString(message.BreakWall);
+                    current["CastDeepChaos"] = StaticMethods.SaveToString(message.CastDeepChaos);
+                    current["Chaos"] = StaticMethods.SaveToString(message.Chaos);
+                    current["CriticalStrikeOnArchitecture"] = StaticMethods.SaveToString(message.CriticalStrikeOnArchitecture);
+                    current["DeepChaos"] = StaticMethods.SaveToString(message.DeepChaos);
+                    current["DualInitiativeWin"] = StaticMethods.SaveToString(message.DualInitiativeWin);
+                    current["DualPassiveWin"] = StaticMethods.SaveToString(message.DualPassiveWin);
+                    current["HelpedByStratagem"] = StaticMethods.SaveToString(message.HelpedByStratagem);
+                    current["Surround"] = StaticMethods.SaveToString(message.Surround);
+                    current["TrappedByStratagem"] = StaticMethods.SaveToString(message.TrappedByStratagem);
+                    current.EndEdit();
+                    dataSet.Tables["TextMessage"].Rows.Add(current);
+                }
+                adapter.Update(dataSet, "TextMessage");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from TileAnimation", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "TileAnimation");
+                dataSet.Tables["TileAnimation"].Rows.Clear();
+                foreach (Animation i in this.AllTileAnimations.Animations.Values)
+                {
+                    row = dataSet.Tables["TileAnimation"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["FrameCount"] = i.FrameCount;
+                    row["StayCount"] = i.StayCount;
+                    row["Back"] = i.Back;
+                    row.EndEdit();
+                    dataSet.Tables["TileAnimation"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "TileAnimation");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from Title", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                builder.QuotePrefix = "[";
+                builder.QuoteSuffix = "]";
+                adapter.Fill(dataSet, "Title");
+                dataSet.Tables["Title"].Rows.Clear();
+                foreach (Title i in this.AllTitles.Titles.Values)
+                {
+                    row = dataSet.Tables["Title"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Kind"] = (int)i.Kind;
+                    row["Level"] = i.Level;
+                    row["Combat"] = i.Combat;
+                    row["Name"] = i.Name;
+                    row["Description"] = i.Description;
+                    row["Prerequisite"] = i.Prerequisite;
+                    row["Influences"] = i.Influences.SaveToString();
+                    row["Conditions"] = i.Conditions.SaveToString();
+                    row.EndEdit();
+                    dataSet.Tables["Title"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Title");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from TroopAnimation", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "TroopAnimation");
+                dataSet.Tables["TroopAnimation"].Rows.Clear();
+                foreach (Animation i in this.AllTroopAnimations.Animations.Values)
+                {
+                    row = dataSet.Tables["TroopAnimation"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["FrameCount"] = i.FrameCount;
+                    row["StayCount"] = i.StayCount;
+                    row.EndEdit();
+                    dataSet.Tables["TroopAnimation"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "TroopAnimation");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from TroopEventEffect", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "TroopEventEffect");
+                dataSet.Tables["TroopEventEffect"].Rows.Clear();
+                foreach (GameObjects.TroopDetail.EventEffect.EventEffect i in this.AllTroopEventEffects.EventEffects.Values)
+                {
+                    row = dataSet.Tables["TroopEventEffect"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row["Parameter"] = i.Parameter;
+                    row["Kind"] = i.Kind.ID;
+                    row.EndEdit();
+                    dataSet.Tables["TroopEventEffect"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "TroopEventEffect");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from TroopEventEffectKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "TroopEventEffectKind");
+                dataSet.Tables["TroopEventEffectKind"].Rows.Clear();
+                foreach (GameObjects.TroopDetail.EventEffect.EventEffectKind i in this.AllTroopEventEffectKinds.EventEffectKinds.Values)
+                {
+                    row = dataSet.Tables["TroopEventEffectKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Name"] = i.Name;
+                    row.EndEdit();
+                    dataSet.Tables["TroopEventEffectKind"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "TroopEventEffectKind");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from GameParameters", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                builder.QuotePrefix = "[";
+                builder.QuoteSuffix = "]";
+                adapter.Fill(dataSet, "GameParameters");
+                dataSet.Tables["GameParameters"].Rows.Clear();
+                foreach (FieldInfo i in typeof(Parameters).GetFields(BindingFlags.Public | BindingFlags.Static))
+                {
+                    if (i.IsLiteral) continue;
+
+                    row = dataSet.Tables["GameParameters"].NewRow();
+                    row.BeginEdit();
+                    row["Name"] = i.Name;
+                    try
+                    {
+                        row["Value"] = (int)i.GetValue(null);
+                    }
+                    catch (InvalidCastException)
+                    {
+                        try
+                        {
+                            row["Value"] = (double)i.GetValue(null);
+                        }
+                        catch (InvalidCastException)
+                        {
+                            row["Value"] = i.GetValue(null).ToString();
+                        }
+                    }
+                    row.EndEdit();
+                    dataSet.Tables["GameParameters"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "GameParameters");
+                dataSet.Clear();
+
+                adapter = new OleDbDataAdapter("Select * from GlobalVariables", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                builder.QuotePrefix = "[";
+                builder.QuoteSuffix = "]";
+                adapter.Fill(dataSet, "GlobalVariables");
+                dataSet.Tables["GlobalVariables"].Rows.Clear();
+                foreach (FieldInfo i in typeof(GlobalVariables).GetFields(BindingFlags.Public | BindingFlags.Static))
+                {
+                    if (i.IsLiteral) continue;
+
+                    row = dataSet.Tables["GlobalVariables"].NewRow();
+                    row.BeginEdit();
+                    row["Name"] = i.Name;
+                    try
+                    {
+                        row["Value"] = (int)i.GetValue(null);
+                    }
+                    catch (InvalidCastException)
+                    {
+                        try
+                        {
+                            row["Value"] = (double)i.GetValue(null);
+                        }
+                        catch (InvalidCastException)
+                        {
+                            row["Value"] = i.GetValue(null).ToString();
+                        }
+                    }
+                    row.EndEdit();
+                    dataSet.Tables["GlobalVariables"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "GlobalVariables");
+                dataSet.Clear();
+
+                selectConnection.Close();
+            }
         }
     }
 }
