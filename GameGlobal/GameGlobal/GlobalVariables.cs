@@ -117,6 +117,7 @@
         public static bool EnableAgeAbilityFactor = true;
         public static int TabListDetailLevel = 3;
         public static bool EnableExtensions = true;
+        public static bool EncryptSave = false;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -620,6 +621,15 @@
             {
                 exception = exception24;
                 throw new Exception("EnableExtensions:\n" + exception.ToString());
+            }
+            try
+            {
+                EncryptSave = bool.Parse(nextSibling.Attributes.GetNamedItem("EncryptSave").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("EncryptSave:\n" + exception.ToString());
             }
             return true;
         }

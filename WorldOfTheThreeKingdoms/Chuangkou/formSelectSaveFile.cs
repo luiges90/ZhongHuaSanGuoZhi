@@ -193,17 +193,20 @@ namespace WorldOfTheThreeKingdoms.GameForms
         {
             this.SaveFilePaths.Clear();
             this.lbSaveFiles.Items.Clear();
-            this.ReadSaveFile("Save01.zhs");
-            this.ReadSaveFile("Save02.zhs");
-            this.ReadSaveFile("Save03.zhs");
-            this.ReadSaveFile("Save04.zhs");
-            this.ReadSaveFile("Save05.zhs");
-            this.ReadSaveFile("Save06.zhs");
-            this.ReadSaveFile("Save07.zhs");
-            this.ReadSaveFile("Save08.zhs");
-            this.ReadSaveFile("Save09.zhs");
-            this.ReadSaveFile("Save10.zhs");
-            this.ReadSaveFile("AutoSave.zhs");
+
+            string extension = GameGlobal.GlobalVariables.EncryptSave ? ".zhs" : ".mdb";
+
+            this.ReadSaveFile("Save01" + extension);
+            this.ReadSaveFile("Save02" + extension);
+            this.ReadSaveFile("Save03" + extension);
+            this.ReadSaveFile("Save04" + extension);
+            this.ReadSaveFile("Save05" + extension);
+            this.ReadSaveFile("Save06" + extension);
+            this.ReadSaveFile("Save07" + extension);
+            this.ReadSaveFile("Save08" + extension);
+            this.ReadSaveFile("Save09" + extension);
+            this.ReadSaveFile("Save10" + extension);
+            this.ReadSaveFile("AutoSave" + extension);
         }
 
         private void 删除存档ToolStripMenuItem_Click(object sender, EventArgs e)
