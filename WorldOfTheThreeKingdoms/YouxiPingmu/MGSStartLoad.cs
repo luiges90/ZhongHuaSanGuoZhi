@@ -186,12 +186,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         protected override void LoadContent()
         {
-
-
             base.LoadContent();
-            this.Textures.LoadTextures(base.spriteBatch.GraphicsDevice, base.Scenario);
-
-            base.DefaultMouseArrowTexture = this.Textures.MouseArrowTextures[0];
         }
 
         public override void LoadGame()   //从游戏里读取存档
@@ -359,6 +354,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void Scenario_OnAfterLoadScenario(GameScenario scenario)
         {
+            this.Textures.LoadTextures(base.spriteBatch.GraphicsDevice, base.Scenario);
+            base.DefaultMouseArrowTexture = this.Textures.MouseArrowTextures[0];
+
             if (this.mainMapLayer.mainMap != null)
             {
                 this.mainMapLayer.PrepareMap();

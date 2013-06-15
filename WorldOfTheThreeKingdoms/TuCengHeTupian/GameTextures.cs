@@ -67,6 +67,7 @@ namespace WorldOfTheThreeKingdoms.Resources
                     foreach (TerrainDetail detail in scenario.GameCommonData.AllTerrainDetails.TerrainDetails.Values)
                     {
                         str = "Resources/Terrain/" + detail.ID.ToString() + "/";
+                        detail.Textures.BasicTextures.Clear();
                         if (Directory.Exists(str))
                         {
                             foreach (string str2 in Directory.GetFiles(str))
@@ -144,7 +145,6 @@ namespace WorldOfTheThreeKingdoms.Resources
                     foreach (ArchitectureKind kind in scenario.GameCommonData.AllArchitectureKinds.ArchitectureKinds.Values )
                     { 
                         kind.Texture = Texture2D.FromFile(device, "Resources/Architecture/" + kind.ID.ToString() + ".png");
-                        
                     }
                 }
                 catch (Exception exception3)
@@ -299,6 +299,8 @@ namespace WorldOfTheThreeKingdoms.Resources
                 }
                 //this.jianzhubiaotibeijing = Texture2D.FromFile(device, "Resources/Architecture/jianzhubiaotibeijing.png");
 
+                mediumCityImg.Clear();
+                largeCityImg.Clear();
                 string[] filePaths = Directory.GetFiles("Resources/Architecture/", "*.png");
                 foreach (String s in filePaths)
                 {

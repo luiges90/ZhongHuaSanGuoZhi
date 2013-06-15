@@ -884,6 +884,7 @@
                 OleDbDataAdapter adapter;
                 OleDbCommandBuilder builder;
 
+                new OleDbCommand("Delete from ArchitectureKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from ArchitectureKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "ArchitectureKind");
@@ -931,6 +932,7 @@
                 adapter.Update(dataSet, "ArchitectureKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from AttackDefaultKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from AttackDefaultKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "AttackDefaultKind");
@@ -947,6 +949,7 @@
                 adapter.Update(dataSet, "AttackDefaultKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from AttackTargetKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from AttackTargetKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "AttackTargetKind");
@@ -963,6 +966,7 @@
                 adapter.Update(dataSet, "AttackTargetKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from Biography", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Biography", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Biography");
@@ -983,6 +987,7 @@
                 adapter.Update(dataSet, "Biography");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from CastDefaultKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from CastDefaultKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "CastDefaultKind");
@@ -999,6 +1004,7 @@
                 adapter.Update(dataSet, "CastDefaultKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from CastTargetKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from CastTargetKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "CastTargetKind");
@@ -1015,6 +1021,7 @@
                 adapter.Update(dataSet, "CastTargetKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from CharacterKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from CharacterKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "CharacterKind");
@@ -1034,6 +1041,7 @@
                 adapter.Update(dataSet, "CharacterKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from Color", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Color", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Color");
@@ -1052,6 +1060,7 @@
                 adapter.Update(dataSet, "Color");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from CombatMethod", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from CombatMethod", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "CombatMethod");
@@ -1077,6 +1086,7 @@
                 adapter.Update(dataSet, "CombatMethod");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from Condition", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Condition", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Condition");
@@ -1097,6 +1107,7 @@
                 adapter.Update(dataSet, "Condition");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from ConditionKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from ConditionKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "ConditionKind");
@@ -1113,6 +1124,7 @@
                 adapter.Update(dataSet, "ConditionKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from DisasterKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from DisasterKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "DisasterKind");
@@ -1138,6 +1150,7 @@
                 adapter.Update(dataSet, "DisasterKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from EventEffect", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from EventEffect", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "EventEffect");
@@ -1158,6 +1171,7 @@
                 adapter.Update(dataSet, "EventEffect");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from EventEffectKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from EventEffectKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "EventEffectKind");
@@ -1174,6 +1188,7 @@
                 adapter.Update(dataSet, "EventEffectKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from FacilityKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from FacilityKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "FacilityKind");
@@ -1205,6 +1220,7 @@
                 adapter.Update(dataSet, "FacilityKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from guanjuezhonglei", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from guanjuezhonglei", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "guanjuezhonglei");
@@ -1224,6 +1240,7 @@
                 adapter.Update(dataSet, "guanjuezhonglei");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from IdealTendencyKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from IdealTendencyKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "IdealTendencyKind");
@@ -1241,6 +1258,7 @@
                 adapter.Update(dataSet, "IdealTendencyKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from Influence", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Influence", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Influence");
@@ -1262,6 +1280,7 @@
                 adapter.Update(dataSet, "Influence");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from InfluenceKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from InfluenceKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "InfluenceKind");
@@ -1280,6 +1299,7 @@
                 adapter.Update(dataSet, "InfluenceKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from InformationKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from InformationKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "InformationKind");
@@ -1301,6 +1321,7 @@
                 adapter.Update(dataSet, "InformationKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from MilitaryKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from MilitaryKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 builder.QuotePrefix = "[";
@@ -1388,6 +1409,7 @@
                 adapter.Update(dataSet, "MilitaryKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from SectionAIDetail", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from SectionAIDetail", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "SectionAIDetail");
@@ -1425,6 +1447,7 @@
                 adapter.Update(dataSet, "SectionAIDetail");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from Skill", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Skill", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 builder.QuotePrefix = "[";
@@ -1452,6 +1475,7 @@
                 adapter.Update(dataSet, "Skill");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from Stratagem", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Stratagem", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Stratagem");
@@ -1480,6 +1504,7 @@
                 adapter.Update(dataSet, "Stratagem");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from Stunt", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Stunt", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Stunt");
@@ -1503,6 +1528,7 @@
                 adapter.Update(dataSet, "Stunt");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from Technique", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Technique", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Technique");
@@ -1530,6 +1556,7 @@
                 adapter.Update(dataSet, "Technique");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from TerrainDetail", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from TerrainDetail", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TerrainDetail");
@@ -1559,6 +1586,7 @@
                 adapter.Update(dataSet, "TerrainDetail");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from TextMessage", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from TextMessage", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TextMessage");
@@ -1593,6 +1621,7 @@
                 adapter.Update(dataSet, "TextMessage");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from TileAnimation", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from TileAnimation", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TileAnimation");
@@ -1612,6 +1641,7 @@
                 adapter.Update(dataSet, "TileAnimation");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from Title", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Title", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 builder.QuotePrefix = "[";
@@ -1637,6 +1667,7 @@
                 adapter.Update(dataSet, "Title");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from TroopAnimation", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from TroopAnimation", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TroopAnimation");
@@ -1655,6 +1686,7 @@
                 adapter.Update(dataSet, "TroopAnimation");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from TroopEventEffect", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from TroopEventEffect", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TroopEventEffect");
@@ -1673,6 +1705,7 @@
                 adapter.Update(dataSet, "TroopEventEffect");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from TroopEventEffectKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from TroopEventEffectKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TroopEventEffectKind");
@@ -1689,6 +1722,7 @@
                 adapter.Update(dataSet, "TroopEventEffectKind");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from GameParameters", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from GameParameters", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 builder.QuotePrefix = "[";
@@ -1723,6 +1757,7 @@
                 adapter.Update(dataSet, "GameParameters");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from GlobalVariables", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from GlobalVariables", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
                 builder.QuotePrefix = "[";

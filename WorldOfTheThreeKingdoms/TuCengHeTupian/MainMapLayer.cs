@@ -670,10 +670,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                         {
                             this.Tiles[i, j].TileTexture = terrainDetailByPositionNoCheck.Textures.BasicTextures[((i * 7) + (j * 11)) % terrainDetailByPositionNoCheck.Textures.BasicTextures.Count];
                         }
-                        else
-                        {
-                            this.Tiles[i, j].TileTexture = this.screen.Textures.TerrainTextures[this.mainMap.MapData[i, j]];
-                        }
                     }
                 }
             }
@@ -703,28 +699,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                 }
             }
         }
-
-        public void chongsheditukuaitupian(int i, int j)
-        {
-            this.Tiles[i, j] = new Tile();
-            this.Tiles[i, j].Position = new Point(i, j);
-            TerrainDetail terrainDetailByPositionNoCheck = this.screen.Scenario.GetTerrainDetailByPositionNoCheck(this.Tiles[i, j].Position);
-            if (terrainDetailByPositionNoCheck != null)
-            {
-                if (terrainDetailByPositionNoCheck.Textures.BasicTextures.Count > 0)
-                {
-                    this.Tiles[i, j].TileTexture = terrainDetailByPositionNoCheck.Textures.BasicTextures[((i * 7) + (j * 11)) % terrainDetailByPositionNoCheck.Textures.BasicTextures.Count];
-                }
-                else
-                {
-                    this.Tiles[i, j].TileTexture = this.screen.Textures.TerrainTextures[this.mainMap.MapData[i, j]];
-                }
-            }
-
-            this.ReCalculateTileDestination(device);
-
-        }
-
 
         public void ReCalculateTileDestination(GraphicsDevice device)
         {
