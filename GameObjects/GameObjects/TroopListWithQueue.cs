@@ -110,6 +110,11 @@
                     Troop item = this.CurrentQueue.Dequeue();
                     if (!item.Destroyed)
                     {
+                        if (item.mingling == "待命")
+                        {
+                            item.OperationDone = true;
+                            break;
+                        }
                         if (!(item.HasToDoCombatAction || !item.ToDoCombatAction()))
                         {
                             item.HasToDoCombatAction = true;

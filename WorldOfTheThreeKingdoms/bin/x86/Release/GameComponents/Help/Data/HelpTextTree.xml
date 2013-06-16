@@ -1774,7 +1774,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="该位置的粮草蕴藏量与地形和季节有关，被征收后将有一段时间无法再次被征收。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="TroopAction_CutRouteway">
+  <Branch Name="TroopCutRouteway">
     <Leaf Text="行动" Color="4294967295"></Leaf>
     <Leaf Text="切断粮道" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -1835,8 +1835,8 @@
     <Leaf Text="计略默认" Color="4278232306"></Leaf>
     <Leaf Text="的设置进行施展。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="TroopConfig_SetAuto">
-    <Leaf Text="设定" Color="4294967295"></Leaf>
+  <Branch Name="TroopSetAuto">
+    <Leaf Text="部队" Color="4294967295"></Leaf>
     <Leaf Text="委任" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -1844,10 +1844,15 @@
     <Leaf Text="只有" Color="4294967295"></Leaf>
     <Leaf Text="手动控制" Color="4278255360"></Leaf>
     <Leaf Text="军区的所属部队可以设置为委任。委任后部队将自动行动。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopIdle">
+    <Leaf Text="部队" Color="4294967295"></Leaf>
+    <Leaf Text="待命" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
-    <Leaf Text="实际操作中，请先为部队指定一个" Color="4294967295"></Leaf>
-    <Leaf Text="目标建筑" Color="4278255360"></Leaf>
-    <Leaf Text="然后再将其委任。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="部队" Color="4294967295"></Leaf>
+    <Leaf Text="什么也不做，不会主动攻击。" Color="4278255360"></Leaf>
   </Branch>
   <Branch Name="RoutewayEdit">
     <Leaf Text="粮道" Color="4294967295"></Leaf>

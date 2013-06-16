@@ -2978,7 +2978,7 @@
                     p.Tiredness += GlobalVariables.TirednessIncrease;
                 }
             }
-            
+
             if (this.BelongedFaction != null)
             {
                 this.ViewingWillArchitecture = this.IsViewingWillArchitecture();
@@ -3334,7 +3334,6 @@
 
         internal void DoCombatAction()
         {
-            if (this.mingling == "待命") return;
             switch (this.Will)
             {
                 case TroopWill.行军:
