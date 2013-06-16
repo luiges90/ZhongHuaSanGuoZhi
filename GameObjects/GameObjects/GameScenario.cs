@@ -68,6 +68,7 @@
         public Dictionary<Event, Architecture> EventsToApply = new Dictionary<Event, Architecture>();
         public EventList AllEvents = new EventList();
         public bool AllNewGame;
+        public bool UsingOwnCommonData;
         
         // 缓存地图上有几支部队在埋伏
         private int numberOfAmbushTroop = -1;
@@ -1063,29 +1064,14 @@
 
         public double GetDistance(GameArea fromArea, GameArea toArea)
         {
-            /*double distance = 0.0;
-            double maxValue = double.MaxValue;
-            foreach (Point point in fromArea.Area)
-            {
-                distance = this.GetDistance(this.GetClosestPoint(toArea, point), point);
-                if (distance < maxValue)
-                {
-                    maxValue = distance;
-                }
-            }
-            return maxValue;*/
             // 上面这段浪费太多时间O(n^2)，下面仅需要O(1)，一个非常近似的值已经足够
             double distance = GetDistance(fromArea.Centre, toArea.Centre);
-            if (fromArea.Count > 5)
-                distance -= 2;
-            else if (fromArea.Count > 1)
-                distance -= 1;
-            if (toArea.Count > 5)
-                distance -= 2;
-            else if (toArea.Count > 1)
-                distance -= 1;
-            if (distance < 0)
-                distance = 0;
+
+            if (distance < 0) return 0;
+
+            distance -= (1 + Math.Sqrt(2 * fromArea.Count + 1)) / 2;
+            distance -= (1 + Math.Sqrt(2 * toArea.Count + 1)) / 2;
+
             return distance;
         }
 
@@ -1093,12 +1079,9 @@
         {
             // O(1) instead of O(n)
             double distance = GetDistance(fromPosition, toArea.Centre);
-            if (toArea.Count > 5)
-                distance -= 2;
-            else if (toArea.Count > 1)
-                distance -= 1;
-            if (distance < 0)
-                distance = 0;
+
+            distance -= (1 + Math.Sqrt(2 * toArea.Count + 1)) / 2;
+
             return distance;                
         }
 
@@ -2112,10 +2095,12 @@
             try
             {
                 this.GameCommonData.LoadFromDatabase(connectionString);
+                UsingOwnCommonData = true;
             }
             catch (Exception)
             {
                 this.LoadCommonData();
+                UsingOwnCommonData = false;
             }
             try
             {
@@ -4106,6 +4091,10 @@
                 if (saveCommonData)
                 {
                     GameCommonData.SaveAllToDatabase(connectionString);
+                }
+                else if (!UsingOwnCommonData)
+                {
+                    GameCommonData.DeleteCommonDataTables(connectionString);
                 }
                 selectConnection.Close();
             }

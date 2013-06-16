@@ -874,6 +874,52 @@
             dataSet.Clear();
         }
 
+        public void DeleteCommonDataTables(string connectionString)
+        {
+            using (OleDbConnection selectConnection = new OleDbConnection(connectionString))
+            {
+                selectConnection.Open();
+
+                new OleDbCommand("drop table ArchitectureKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table AttackDefaultKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table AttackTargetKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table Biography", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table CastDefaultKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table CastTargetKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table CharacterKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table Color", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table CombatMethod", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table Condition", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table ConditionKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table DisasterKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table EventEffect", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table EventEffectKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table FacilityKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table guanjuezhonglei", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table IdealTendencyKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table Influence", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table InfluenceKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table InformationKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table MilitaryKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table SectionAIDetail", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table Skill", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table Stratagem", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table Stunt", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table Technique", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table TerrainDetail", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table TextMessage", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table TileAnimation", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table Title", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table TroopAnimation", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table TroopEventEffect", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table TroopEventEffectKind", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table GlobalVariables", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table GameParameters", selectConnection).ExecuteNonQuery();
+
+                selectConnection.Close();
+            }
+        }
+
         public void SaveAllToDatabase(string connectionString)
         {
             using (OleDbConnection selectConnection = new OleDbConnection(connectionString))

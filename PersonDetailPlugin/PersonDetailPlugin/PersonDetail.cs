@@ -74,14 +74,6 @@
         internal void Initialize(Screen screen)
         {
             this.screen = screen;
-            foreach (Skill skill in screen.Scenario.GameCommonData.AllSkills.Skills.Values)
-            {
-                Rectangle position = new Rectangle(this.SkillDisplayOffset.X + (skill.DisplayCol * this.SkillBlockSize.X), this.SkillDisplayOffset.Y + (skill.DisplayRow * this.SkillBlockSize.Y), this.SkillBlockSize.X, this.SkillBlockSize.Y);
-                this.AllSkillTexts.AddText(skill.Name, position);
-                this.LinkedSkills.Add(skill);
-            }
-            this.AllSkillTexts.ResetAllTextTextures();
-            this.AllSkillTexts.ResetAllAlignedPositions();
         }
 
         private void screen_OnMouseLeftDown(Point position)
@@ -311,6 +303,15 @@
 
         internal void SetPerson(Person person)
         {
+            foreach (Skill skill in screen.Scenario.GameCommonData.AllSkills.Skills.Values)
+            {
+                Rectangle position = new Rectangle(this.SkillDisplayOffset.X + (skill.DisplayCol * this.SkillBlockSize.X), this.SkillDisplayOffset.Y + (skill.DisplayRow * this.SkillBlockSize.Y), this.SkillBlockSize.X, this.SkillBlockSize.Y);
+                this.AllSkillTexts.AddText(skill.Name, position);
+                this.LinkedSkills.Add(skill);
+            }
+            this.AllSkillTexts.ResetAllTextTextures();
+            this.AllSkillTexts.ResetAllAlignedPositions();
+
             this.ShowingPerson = person;
             this.SurNameText.Text = person.SurName;
             this.GivenNameText.Text = person.GivenName;

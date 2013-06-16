@@ -9130,6 +9130,7 @@
         {
             GameArea singleton = new GameArea();
             singleton.AddPoint(position);
+            singleton.Centre = position;
 
             consumptionRate = 0f;
             if (!base.Scenario.PositionOutOfRange(position))
