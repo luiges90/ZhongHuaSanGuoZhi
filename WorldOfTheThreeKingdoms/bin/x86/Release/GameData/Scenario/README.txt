@@ -1,0 +1,3 @@
+如劇本有自己的CommonData，可把CommonData中所有資料表複製並貼上在劇本檔中，在劇本檔再行修改。
+
+如劇本需要特別設置，可在劇本檔中建立GlobalVariables及GameParameters表。所有參數可以在GameData/GlobalVariables.xml及GameData/Parameters.xml中找到。如要設置某參數，在Name一欄填入該參數名稱，及在Value一欄填入該參數值。詳見251_lg_one_vs_all.mdb。
