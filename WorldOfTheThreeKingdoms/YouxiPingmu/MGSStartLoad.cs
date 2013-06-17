@@ -226,7 +226,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 string realPath = this.LoadFileName.Substring(0, this.LoadFileName.Length - 4) + ".mdb";
 
-                if (GlobalVariables.EncryptSave)
+                if (this.LoadFileName.EndsWith(".zhs"))
                 {
                     FileEncryptor.DecryptFile("GameData/Save/" + this.LoadFileName, "GameData/Save/" + realPath, GlobalVariables.cryptKey);
                 }
