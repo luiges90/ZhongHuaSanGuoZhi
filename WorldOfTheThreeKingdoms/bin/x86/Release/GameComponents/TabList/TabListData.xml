@@ -550,14 +550,14 @@
                 Align="Right">
         </Column>
 		
-		<Column ID="137" Name="HaveFollowingArmy" IsNumber="false" DisplayName="有军队追随" MinWidth="100" DetailLevel="3"
+		<Column ID="137" Name="HasFollowingArmy" IsNumber="false" DisplayName="有军队追随" MinWidth="100" DetailLevel="3"
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4278190080"
                 Align="Right">
         </Column>
-		<Column ID="138" Name="HaveLeadingArmy" IsNumber="false" DisplayName="有军队带领" MinWidth="100" DetailLevel="2"
+		<Column ID="138" Name="HasLeadingArmy" IsNumber="false" DisplayName="有军队带领" MinWidth="100" DetailLevel="2"
                 FontName="楷体"
                 FontSize="12"
                 FontStyle="Regular"

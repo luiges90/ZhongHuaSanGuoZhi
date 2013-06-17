@@ -6419,22 +6419,6 @@
             }
         }
 
-        public String HaveFollowingArmy
-        {
-            get
-            {
-                if (this.LocationArchitecture == null) return "×";
-                foreach (Military i in this.LocationArchitecture.Militaries)
-                {
-                    if (i.FollowedLeader == this)
-                    {
-                        return "○";
-                    }
-                }
-                return "×";
-            }
-        }
-
         public bool HasFollowingArmy
         {
             get
@@ -6442,28 +6426,12 @@
                 if (this.LocationArchitecture == null) return false;
                 foreach (Military i in this.LocationArchitecture.Militaries)
                 {
-                    if (i.FollowedLeader == this)
+                    if (i.FollowedLeader == this && !i.IsTransport)
                     {
                         return true;
                     }
                 }
                 return false;
-            }
-        }
-
-        public String HaveLeadingArmy
-        {
-            get
-            {
-                if (this.LocationArchitecture == null) return "×";
-                foreach (Military i in this.LocationArchitecture.Militaries)
-                {
-                    if (i.Leader == this || i.FollowedLeader == this)
-                    {
-                        return "○";
-                    }
-                }
-                return "×";
             }
         }
 
@@ -6474,7 +6442,7 @@
                 if (this.LocationArchitecture == null) return false;
                 foreach (Military i in this.LocationArchitecture.Militaries)
                 {
-                    if ((i.Leader == this && i.Experience > 10) || i.FollowedLeader == this)
+                    if ((i.Leader == this && i.Experience > 10 && !i.IsTransport) || i.FollowedLeader == this)
                     {
                         return true;
                     }
@@ -6490,7 +6458,7 @@
                 if (this.LocationArchitecture == null) return false;
                 foreach (Military i in this.LocationArchitecture.Militaries)
                 {
-                    if (i.Leader == this || i.FollowedLeader == this)
+                    if ((i.Leader == this || i.FollowedLeader == this) && !i.IsTransport)
                     {
                         return true;
                     }
