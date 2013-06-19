@@ -62,38 +62,8 @@
             }
         }
 
-        public bool checkConditions(Architecture a)
+        public bool matchEventPersons(Architecture a)
         {
-            if (this.happened && !this.repeatable) return false;
-            if (GameObject.Random(this.happenChance) != 0)
-            {
-                return false;
-            }
-
-            if (this.AfterEventHappened >= 0)
-            {
-                if (!(base.Scenario.AllEvents.GetGameObject(this.AfterEventHappened) as Event).happened)
-                {
-                    return false;
-                }
-            }
-
-            foreach (Condition i in this.architectureCond)
-            {
-                if (!i.CheckCondition(a, this))
-                {
-                    return false;
-                }
-            }
-
-            foreach (Condition i in this.factionCond)
-            {
-                if (!i.CheckCondition(a.BelongedFaction, this))
-                {
-                    return false;
-                }
-            }
-
             Dictionary<int, List<Person>> candidates = new Dictionary<int, List<Person>>();
             foreach (int i in this.personCond.Keys)
             {
@@ -117,6 +87,34 @@
                         if (this.person[i.Key].Contains(null) || this.person[i.Key].Contains(p))
                         {
                             candidates[i.Key].Add(p);
+                        }
+                    }
+                }
+            }
+            foreach (KeyValuePair<int, List<Person>> i in this.person)
+            {
+                foreach (Person p in i.Value)
+                {
+                    if (p.ID >= 7000 && p.ID < 8000)
+                    {
+                        bool ok = true;
+                        if (this.personCond.ContainsKey(i.Key))
+                        {
+                            foreach (Condition c in this.personCond[i.Key])
+                            {
+                                if (!c.CheckCondition(p, this))
+                                {
+                                    ok = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (ok)
+                        {
+                            if (this.person[i.Key].Contains(null) || this.person[i.Key].Contains(p))
+                            {
+                                candidates[i.Key].Add(p);
+                            }
                         }
                     }
                 }
@@ -161,6 +159,41 @@
             }
 
             return true;
+        }
+
+        public bool checkConditions(Architecture a)
+        {
+            if (this.happened && !this.repeatable) return false;
+            if (GameObject.Random(this.happenChance) != 0)
+            {
+                return false;
+            }
+
+            if (this.AfterEventHappened >= 0)
+            {
+                if (!(base.Scenario.AllEvents.GetGameObject(this.AfterEventHappened) as Event).happened)
+                {
+                    return false;
+                }
+            }
+
+            foreach (Condition i in this.architectureCond)
+            {
+                if (!i.CheckCondition(a, this))
+                {
+                    return false;
+                }
+            }
+
+            foreach (Condition i in this.factionCond)
+            {
+                if (!i.CheckCondition(a.BelongedFaction, this))
+                {
+                    return false;
+                }
+            }
+
+            return this.matchEventPersons(a);
         }
 
         public bool IsStart(GameScenario scenario)

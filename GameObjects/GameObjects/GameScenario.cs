@@ -4469,7 +4469,7 @@
             bool ran = false;
             foreach (Event e in this.AllEvents.GetRandomList())
             {
-                if (e.IsStart(this) || e.checkConditions(triggerArch))
+                if ((e.IsStart(this) && e.matchEventPersons(triggerArch)) || e.checkConditions(triggerArch))
                 {
                     if (!this.EventsToApply.ContainsKey(e))
                     {
@@ -4487,7 +4487,7 @@
             bool ran = false;
             foreach (Event e in this.AllEvents.GetRandomList())
             {
-                if (e.IsEnd(this) || e.checkConditions(triggerArch))
+                if ((e.IsEnd(this) && e.matchEventPersons(triggerArch)) || e.checkConditions(triggerArch))
                 {
                     if (!this.EventsToApply.ContainsKey(e))
                     {
