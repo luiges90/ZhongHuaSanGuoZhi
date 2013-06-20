@@ -8652,8 +8652,6 @@
                 damage.FireDamage = num5;
             }
             damage.InjuredDamage = (int) (this.reduceInjuredOnAttack * damage.DestinationTroop.Army.Kind.MinScale);
-            damage.StealTroop = Math.Min(damage.DestinationTroop.Quantity, (int) (damage.Damage * this.StealTroop));
-            damage.StealInjured = Math.Min(damage.DestinationTroop.InjuryQuantity, (int) (damage.Damage * this.StealInjured));
             damage.TirednessIncrease = this.TirednessIncreaseOnAttack;
             damage.StealFood = Math.Min(damage.DestinationTroop.Food, this.StealFood);
             if (damage.Critical)
@@ -8746,6 +8744,8 @@
                 num4 /= 2;
             }
             damage.Damage = num4;
+            damage.StealTroop = Math.Min(damage.DestinationTroop.Quantity, (int)(damage.Damage * this.StealTroop));
+            damage.StealInjured = Math.Min(damage.DestinationTroop.InjuryQuantity, (int)(damage.Damage * this.StealInjured));
 			ExtensionInterface.call("TroopSendTroopDamage", new Object[] { this.Scenario, this, damage, troop, counter });
             return damage;
         }
