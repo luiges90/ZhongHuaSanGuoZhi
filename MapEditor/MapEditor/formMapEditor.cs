@@ -1330,7 +1330,7 @@
                     File.Copy(Application.StartupPath + "/GameData/Common/SaveTemplate.mdb", this.OpenedFileName);
                     this.pnlMap.SaveMapData();
                     this.connectionStringBuilder.DataSource = this.OpenedFileName;
-                    this.Scenario.SaveGameScenarioToDatabase(this.connectionStringBuilder.ConnectionString, true, false);
+                    this.Scenario.SaveGameScenarioToDatabase(this.connectionStringBuilder.ConnectionString, true, this.Scenario.UsingOwnCommonData);
                     form.Close();
                     File.Delete(this.OpenedFileName + ".bak");
                 }
