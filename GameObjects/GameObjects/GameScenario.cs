@@ -337,7 +337,7 @@
             person.LocationArchitecture = muqin.BelongedArchitecture;
             person.ChangeFaction(muqin.BelongedFaction);
 
-            if (GlobalVariables.lockChildrenLoyalty)
+            if (GlobalVariables.lockChildrenLoyalty && father != null && father.BelongedFaction == person.LocationArchitecture.BelongedFaction)
             {
                 person.Loyalty = 120;
             }
