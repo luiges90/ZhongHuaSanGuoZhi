@@ -5975,9 +5975,9 @@
                     }
                     damage.DestinationTroop.DecreaseInjuryQuantity(damage.InjuredDamage);
                     damage.SourceTroop.IncreaseQuantity(damage.StealTroop);
-                    damage.DestinationTroop.DecreaseQuantity(damage.StealTroop);
+                    //damage.DestinationTroop.DecreaseQuantity(damage.StealTroop);
                     damage.SourceTroop.InjuryQuantity += damage.StealInjured;
-                    damage.DestinationTroop.DecreaseInjuryQuantity(damage.StealInjured);
+                    //damage.DestinationTroop.DecreaseInjuryQuantity(damage.StealInjured);
                     damage.DestinationTroop.Army.Tiredness += damage.TirednessIncrease;
                     damage.DestinationTroop.Food -= damage.StealFood;
                     damage.SourceTroop.IncreaseFood(damage.StealFood);
