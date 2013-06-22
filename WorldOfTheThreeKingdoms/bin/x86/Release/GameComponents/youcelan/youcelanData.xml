@@ -69,37 +69,9 @@
 	</ListKind>
     <ListKind ID="2" Name="Military" DisplayName="编队列表" ShowPortrait ="true">
       <Columns>
-        <Column ID="1" Name="Name" IsNumber="false" DisplayName="名称" MinWidth="50"
-                FontName="隶书"
-                FontSize="9"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Left">
-        </Column>
         <Column ID="2" Name="KindString" IsNumber="false" DisplayName="兵种" MinWidth="65"
                 FontName="隶书"
                 FontSize="20"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Middle">
-        </Column>
-        <Column ID="3" Name="LocationString" IsNumber="false" DisplayName="所在" MinWidth="80"
-                FontName="隶书"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Middle">
-        </Column>
-        <Column ID="4" Name="TrainingString" IsNumber="false" DisplayName="训练中" MinWidth="70"
-                FontName="隶书"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Middle">
-        </Column>
-        <Column ID="5" Name="RecruitmentString" IsNumber="false" DisplayName="补充中" MinWidth="70"
-                FontName="隶书"
-                FontSize="11"
                 FontStyle="Regular"
                 FontColor="4278190080"
                 Align="Middle">
@@ -110,83 +82,6 @@
                 FontStyle="Regular"
                 FontColor="4278190080"
                 Align="Right">
-        </Column>
-        <Column ID="11" Name="Morale" IsNumber="true" DisplayName="士气" MinWidth="10"
-                FontName="隶书"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Right">
-        </Column>
-        <Column ID="12" Name="Combativity" IsNumber="true" DisplayName="战意" MinWidth="10"
-                FontName="隶书"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Right">
-        </Column>
-        <Column ID="13" Name="Experience" IsNumber="true" DisplayName="经验" MinWidth="60"
-                FontName="隶书"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Right">
-        </Column>
-        <Column ID="14" Name="InjuryQuantity" IsNumber="true" DisplayName="伤兵数量" MinWidth="80"
-                FontName="隶书"
-                FontSize="20"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Right">
-        </Column>
-        <Column ID="20" Name="FollowedLeaderName" IsNumber="false" DisplayName="追随将领" MinWidth="80"
-                FontName="隶书"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4278255360"
-                Align="Middle">
-        </Column>
-        <Column ID="21" Name="LeaderName" IsNumber="false" DisplayName="当前将领" MinWidth="80"
-                FontName="隶书"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Middle">
-        </Column>
-        <Column ID="22" Name="LeaderExperience" IsNumber="true" DisplayName="当前将领信任度" MinWidth="120"
-                FontName="隶书"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Right">
-        </Column>
-        <Column ID="30" Name="Offence" IsNumber="true" DisplayName="攻击力" MinWidth="80"
-                FontName="隶书"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Right">
-        </Column>
-        <Column ID="31" Name="Defence" IsNumber="true" DisplayName="防御力" MinWidth="80"
-                FontName="隶书"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Right">
-        </Column>
-        <Column ID="32" Name="Scales" IsNumber="true" DisplayName="单位数" MinWidth="80"
-                FontName="隶书"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4278190080"
-                Align="Right">
-        </Column>
-        <Column ID="33" Name="RealKind" IsNumber="false" DisplayName="实际兵种" MinWidth="80"
-               FontName="隶书"
-               FontSize="11"
-               FontStyle="Regular"
-               FontColor="4278190080"
-               Align="Middle">
         </Column>
         <Column ID="34" Name="YijingXunlianHao" IsNumber="false" DisplayName="训" MinWidth="20"
        FontName="隶书"
