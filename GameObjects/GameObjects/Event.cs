@@ -65,7 +65,7 @@
         public bool matchEventPersons(Architecture a)
         {
             Dictionary<int, List<Person>> candidates = new Dictionary<int, List<Person>>();
-            foreach (int i in this.personCond.Keys)
+            foreach (int i in this.person.Keys)
             {
                 candidates[i] = new List<Person>();
             }
@@ -95,7 +95,7 @@
             {
                 foreach (Person p in i.Value)
                 {
-                    if (p.ID >= 7000 && p.ID < 8000)
+                    if (p != null && p.ID >= 7000 && p.ID < 8000)
                     {
                         bool ok = true;
                         if (this.personCond.ContainsKey(i.Key))
