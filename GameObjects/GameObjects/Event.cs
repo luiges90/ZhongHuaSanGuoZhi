@@ -198,13 +198,13 @@
 
         public bool IsStart(GameScenario scenario)
         {
-            Condition cstart = scenario.GameCommonData.AllConditions.GetCondition(-1);
+            Condition cstart = scenario.GameCommonData.AllConditions.GetCondition(9998);
             return this.architectureCond.Contains(cstart) || this.factionCond.Contains(cstart);
         }
 
         public bool IsEnd(GameScenario scenario)
         {
-            Condition cend = scenario.GameCommonData.AllConditions.GetCondition(-2);
+            Condition cend = scenario.GameCommonData.AllConditions.GetCondition(9999);
             return this.architectureCond.Contains(cend) || this.factionCond.Contains(cend);
         }
 
