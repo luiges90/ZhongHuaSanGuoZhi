@@ -34,11 +34,14 @@
             }
             int result = 0;
 
+            Object objX = StaticMethods.GetPropertyValue(x, this.propertyName);
+            Object objY = StaticMethods.GetPropertyValue(y, this.propertyName);
+
             if (this.isNumber)
             {
                 try
                 {
-                    int longResult = ((int)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((int)StaticMethods.GetPropertyValue(y, this.propertyName));
+                    int longResult = (int)objX - (int)objY;
                     if (longResult > 0)
                     {
                         result = 1;
@@ -56,7 +59,7 @@
                 {
                     try
                     {
-                        long longResult = ((long)StaticMethods.GetPropertyValue(x, this.propertyName)) - ((long)StaticMethods.GetPropertyValue(y, this.propertyName));
+                        long longResult = (long)objX - (long)objY;
                         if (longResult > 0)
                         {
                             result = 1;
@@ -74,8 +77,8 @@
                     {
                         try
                         {
-                            if (Math.Abs((double)StaticMethods.GetPropertyValue(x, this.propertyName) - (double)StaticMethods.GetPropertyValue(y, this.propertyName)) < 0.00001) return 0;
-                            result = (((double)StaticMethods.GetPropertyValue(x, this.propertyName)) > ((double)StaticMethods.GetPropertyValue(y, this.propertyName))) ? 1 : -1;
+                            if (Math.Abs((double)objX - (double)objY) < 0.00001) return 0;
+                            result = (((double)objX) > ((double)objY)) ? 1 : -1;
                         }
                         catch (InvalidCastException)
                         {
@@ -86,8 +89,8 @@
             }
             else
             {
-                String xStr = StaticMethods.GetPropertyValue(x, this.propertyName).ToString();
-                String yStr = StaticMethods.GetPropertyValue(y, this.propertyName).ToString();
+                String xStr = objX.ToString();
+                String yStr = objY.ToString();
                 Match xMatch = slashMatcher.Match(xStr);
                 Match yMatch = slashMatcher.Match(yStr);
 
