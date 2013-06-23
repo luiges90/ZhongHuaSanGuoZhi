@@ -105,7 +105,7 @@
     <Leaf Property="" Text="糟糕，无法到达预定目标。" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="NormalAttack">
-    <Leaf Property="" Text="攻击敌军！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="攻击敌军！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CriticalStrike" Time="1500">
     <Leaf Property="" Text="兄弟们，对敌军致命一击！！！" Color="4294901760"></Leaf>
@@ -159,9 +159,9 @@
     <Leaf Property="" Text="被发现了，可惜……" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="Surround" Time="1500">
-    <Leaf Property="" Text="围攻" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="围攻" Color="4286595072"></Leaf>
     <Leaf Property="TextResultString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="！！！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="！！！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Rout" Time="1500">
     <Leaf Property="" Text="击破了敌军的部队！" Color="4294967295"></Leaf>
@@ -211,50 +211,50 @@
     <Leaf Property="" Text="。" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="CombatMethod" Time="2000">
-    <Leaf Property="" Text="用战法攻击，敌人完蛋了！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="用战法攻击，敌人完蛋了！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod0" Time="2000">
-    <Leaf Property="" Text="放手进攻，敌人伤害不了我们！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="放手进攻，敌人伤害不了我们！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod1" Time="2000">
-    <Leaf Property="" Text="让敌人颤抖吧，结成枪阵！！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="让敌人颤抖吧，结成枪阵！！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod3" Time="2000">
-    <Leaf Property="" Text="拿出所有的力气，刺穿" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="拿出所有的力气，刺穿" Color="4286595072"></Leaf>
     <Leaf Property="TextResultString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="士兵的甲胄！！！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="士兵的甲胄！！！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod2" Time="2000">
     <Leaf Property="" Text="横扫六合！！！！" Color="4294733290"></Leaf>
   </Branch>
   <Branch Name="CombatMethod10" Time="2000">
-    <Leaf Property="" Text="让" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="让" Color="4286595072"></Leaf>
     <Leaf Property="TextDestinationString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="尝尝火矢的厉害！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="尝尝火矢的厉害！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod11" Time="2000">
-    <Leaf Property="" Text="用我们锋利的箭头，贯穿敌人的部队！！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="用我们锋利的箭头，贯穿敌人的部队！！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod12" Time="2000">
-    <Leaf Property="" Text="散射，消灭敌军的集群部队！！！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="散射，消灭敌军的集群部队！！！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod13" Time="2000">
     <Leaf Property="" Text="火烧八荒！！！！" Color="4294733290"></Leaf>
   </Branch>
   <Branch Name="CombatMethod20" Time="2000">
-    <Leaf Property="" Text="前进，攻击" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="前进，攻击" Color="4286595072"></Leaf>
     <Leaf Property="TextResultString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod21" Time="2000">
-    <Leaf Property="" Text="向" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="向" Color="4286595072"></Leaf>
     <Leaf Property="TextResultString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="猛冲，打乱他们的阵型！！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="猛冲，打乱他们的阵型！！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod22" Time="2000">
-    <Leaf Property="" Text="突击，让" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="突击，让" Color="4286595072"></Leaf>
     <Leaf Property="TextResultString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="在我军的威名下崩溃！！！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="在我军的威名下崩溃！！！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CombatMethod23" Time="2000">
     <Leaf Property="" Text="见一个，灭一个！！！！" Color="4294733290"></Leaf>
@@ -265,54 +265,54 @@
     <Leaf Property="" Text="。" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="StratagemFriendly" Time="2000">
-    <Leaf Property="" Text="略施小计！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="略施小计！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="StratagemHostile" Time="2000">
-    <Leaf Property="" Text="吃我一计！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="吃我一计！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem0" Time="2000">
-    <Leaf Property="" Text="继续为" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="继续为" Color="4286595072"></Leaf>
     <Leaf Property="TextDestinationString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="卖命是不智之举，何不早降？" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="卖命是不智之举，何不早降？" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem1" Time="2000">
-    <Leaf Property="" Text="打乱" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="打乱" Color="4286595072"></Leaf>
     <Leaf Property="TextResultString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="的阵型，让其陷入混乱。" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="的阵型，让其陷入混乱。" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem2" Time="2000">
-    <Leaf Property="" Text="派出斥候，获取前方的情报。" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="派出斥候，获取前方的情报。" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem3" Time="2000">
-    <Leaf Property="" Text="隐藏起来，准备伏击敌军……" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="隐藏起来，准备伏击敌军……" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem4" Time="2000">
-    <Leaf Property="" Text="让那熊熊烈火将" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="让那熊熊烈火将" Color="4286595072"></Leaf>
     <Leaf Property="TextResultString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="吞没吧！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="吞没吧！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem5" Time="2000">
     <Leaf Property="TextDestinationString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="阁下，我来助你稳定部队的秩序。" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="阁下，我来助你稳定部队的秩序。" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem6" Time="2000">
-    <Leaf Property="" Text="扑灭周围的火焰！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="扑灭周围的火焰！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem7" Time="2000">
-    <Leaf Property="" Text="弟兄们，振作起来吧，胜利一定属于我军！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="弟兄们，振作起来吧，胜利一定属于我军！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem8" Time="2000">
-    <Leaf Property="" Text="点燃火焰，阻断敌军的行动。" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="点燃火焰，阻断敌军的行动。" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="Stratagem9" Time="2000">
-    <Leaf Property="" Text="无须忧心，看我妙手回春！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="无须忧心，看我妙手回春！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="ApplyStuntBasic" Time="2000">
-    <Leaf Property="" Text="看我使用特技！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="看我使用特技！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="ApplyStunt" Time="2000">
-    <Leaf Property="" Text="就是现在！让敌人见识我军的" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="就是现在！让敌人见识我军的" Color="4286595072"></Leaf>
     <Leaf Property="TextDestinationString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="！" Color="4293882921"></Leaf>
+    <Leaf Property="" Text="！" Color="4286595072"></Leaf>
   </Branch>
 </Root>

@@ -1122,7 +1122,7 @@
         </Tab>
         <Tab ID="4"  Name="Internal" DisplayName="内政" Columns="1 30 31 32 33 34 35 36 400">
         </Tab>
-        <Tab ID="5"  Name="Military" DisplayName="军事" Columns="1 7 42 30 40 41 137 138">
+        <Tab ID="5"  Name="Military" DisplayName="军事" Columns="1 7 30 40 41 137 138 42">
         </Tab>
         <Tab ID="6"  Name="Tactics" DisplayName="策略" Columns="1 70 71 110 111 112 113 114 115 116 117">
         </Tab>

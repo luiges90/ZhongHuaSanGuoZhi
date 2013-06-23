@@ -7,18 +7,18 @@
              FontName="宋体"
              FontSize="12"
              FontStyle="Bold"
-             FontColor="4284196020">
+             FontColor="4278190080">
   </FirstText>
   <SecondText Left ="【" Right="】"
               FontName="宋体"
               FontSize="12"
               FontStyle="Bold"
-              FontColor="4284196020">
+              FontColor="4278190080">
   </SecondText>
   <ThirdText Left ="(" Right=")"
              FontName="宋体"
              FontSize="12"
              FontStyle="Bold"
-             FontColor="4284196020">
+             FontColor="4278190080">
   </ThirdText>
 </Root>
