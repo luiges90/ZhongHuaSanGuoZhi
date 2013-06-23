@@ -293,6 +293,24 @@
                 this.current = null;
                 this.InfluenceText.Clear();
                 this.ConditionText.Clear();
+                if (this.ShowingPerson.PersonBiography != null)
+                {
+                    this.BiographyText.AddText("列传", Color.Orange);
+                    this.BiographyText.AddNewLine();
+                    this.BiographyText.AddText(this.ShowingPerson.PersonBiography.Brief);
+                    this.BiographyText.AddNewLine();
+                    this.BiographyText.AddText("演义", Color.Green);
+                    this.BiographyText.AddText("：" + this.ShowingPerson.PersonBiography.Romance);
+                    this.BiographyText.AddNewLine();
+                    this.BiographyText.AddText("历史", Color.Red);
+                    this.BiographyText.AddText("：" + this.ShowingPerson.PersonBiography.History);
+                    this.BiographyText.AddNewLine();
+                    this.BiographyText.ResortTexts();
+                }
+            }
+            else
+            {
+                this.BiographyText.Clear();
             }
         }
 
