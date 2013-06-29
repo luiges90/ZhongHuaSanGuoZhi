@@ -47,6 +47,9 @@ Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\Redist\dotnetfx35setup.exe"; DestDir: "{tmp}"; Check: FrameworkIsNotInstalled
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\Redist\xnafx30_redist.msi"; DestDir: "{tmp}"; Check: XNAIsNotInstalled
 Source: "C:\Windows\Fonts\FZBWKSFW.TTF"; DestDir: "{fonts}"; Flags: onlyifdoesntexist uninsneveruninstall; FontInstall: "FZBeiWeiKaiShu-Z15T"
+Source: "C:\Windows\Fonts\HWKAITI.TTF"; DestDir: "{fonts}"; FontInstall: "STKaiti"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "C:\Windows\Fonts\LISU.TTF"; DestDir: "{fonts}"; FontInstall: "LiSu"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "C:\Windows\Fonts\simkai.ttf"; DestDir: "{fonts}"; FontInstall: "KaiTi"; Flags: onlyifdoesntexist uninsneveruninstall
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
