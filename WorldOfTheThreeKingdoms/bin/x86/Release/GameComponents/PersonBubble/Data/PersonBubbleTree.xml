@@ -123,16 +123,16 @@
     <Leaf Property="" Text="大意了！" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="HarmfulStratagemSuccess" Time="1500">
-    <Leaf Property="" Text="可恶，中计！" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="可恶，中计！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="NoHarmStratagemSuccess" Time="1500">
     <Leaf Property="" Text="感激不尽！" Color="4278255424"></Leaf>
   </Branch>
   <Branch Name="Chaos" Time="1500">
-    <Leaf Property="" Text="不好，士兵都不听指挥了！" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="不好，士兵都不听指挥了！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="DeepChaos" Time="1500">
-    <Leaf Property="" Text="混乱到底要持续到什么时候？" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="混乱到底要持续到什么时候？" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="CastDeepChaos" Time="2000">
     <Leaf Property="" Text="别以为我会轻易放过你，混乱吧！！！" Color="4294901760"></Leaf>
@@ -144,7 +144,7 @@
     <Leaf Property="" Text="别费力了，这种幼稚的伎俩对我无效。" Color="4278255424"></Leaf>
   </Branch>
   <Branch Name="ResistNoHarmStratagem" Time="2000">
-    <Leaf Property="" Text="可惜，没什么效果啊……" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="可惜，没什么效果啊……" Color="4278255424"></Leaf>
   </Branch>
   <Branch Name="Ambush" Time="1500">
     <Leaf Property="" Text="伏击敌军！" Color="4294967295"></Leaf>
@@ -173,31 +173,31 @@
     <Leaf Property="" Text="好，攻破了城防！" Color="4278255424"></Leaf>
   </Branch>
   <Branch Name="GetSpreadBurnt" Time="1500">
-    <Leaf Property="" Text="糟糕，大火蔓延过来了！" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="糟糕，大火蔓延过来了！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="AntiAttack" Time="1500">
-    <Leaf Property="" Text="尽管来攻，能耐我何？！" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="尽管来攻，能耐我何？！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="AntiArrowAttack" Time="1500">
-    <Leaf Property="" Text="别天真了，箭矢不可能伤害到我！" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="别天真了，箭矢不可能伤害到我！" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="LevyFieldFood" Time="1500">
-    <Leaf Property="" Text="先放下别的事，就近征收粮草。" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="先放下别的事，就近征收粮草。" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="StartCutRouteway" Time="1500">
     <Leaf Property="TextDestinationString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="天之后，一粒米也别想从此通过。" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="天之后，一粒米也别想从此通过。" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="EndCutRoutewaySuccess" Time="2000">
-    <Leaf Property="" Text="成功的切断了敌方粮道，敌人应该已经军心涣散了吧。" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="成功的切断了敌方粮道，敌人应该已经军心涣散了吧。" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="EndCutRoutewayFail" Time="2000">
-    <Leaf Property="" Text="敌军粮道似已改换新路径，还需另寻他法……" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="敌军粮道似已改换新路径，还需另寻他法……" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="TroopGetNewCaptive" Time="2000">
-    <Leaf Property="" Text="俘获了" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="俘获了" Color="4286595072"></Leaf>
     <Leaf Property="TextDestinationString" Text="" Color="4294901888"></Leaf>
-    <Leaf Property="" Text="等人。" Color="4294930733"></Leaf>
+    <Leaf Property="" Text="等人。" Color="4286595072"></Leaf>
   </Branch>
   <Branch Name="TroopOutburstAngry" Time="2000">
     <Leaf Property="" Text="可怜的敌人们，来承受我的满腔怒火吧！……" Color="4294901760"></Leaf>
