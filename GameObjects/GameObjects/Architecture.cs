@@ -1578,7 +1578,10 @@
                         idleDays++;
                         if (idleDays >= 3)
                         {
-                            attemptedMovePerson = 3;
+                            if (idleDays == 3)
+                            {
+                                attemptedMovePerson = 2;
+                            }
                             while (this.PersonCount + this.MovingPersonCount > this.EnoughPeople + 3)
                             {
                                 bool everMoved = false;
@@ -5608,7 +5611,7 @@
             }
             else
             {
-                if (GameObject.Random(GlobalVariables.zainanfashengjilv) == 0 && this.Kind.ID == 1)
+                if (GameObject.Random(GlobalVariables.zainanfashengjilv) == 0 && this.Kind.CountToMerit)
                 {
                     int kindID;
                     kindID = GameObject.Random(base.Scenario.GameCommonData.suoyouzainanzhonglei.Count);

@@ -46,9 +46,9 @@
         {
             int key = 0;
             if (useAStar) // A* search
-                key = square.F * 40000 + (square.Position.X * 200 + square.Position.Y); // to break tie because Dictionary doesn't allow duplicate keys (only need square.F)
+                key = square.F * 160000 + (square.Position.X * 400 + square.Position.Y); // to break tie because Dictionary doesn't allow duplicate keys (only need square.F)
             else          // least cost first search
-                key = square.G * 40000 + (square.Position.X * 200 + square.Position.Y);
+                key = square.G * 160000 + (square.Position.X * 400 + square.Position.Y);
             openList.Add(key, square);
             openDictionary.Add(square.Position, square);
         }
@@ -207,9 +207,9 @@
                 {
                     openDictionary.Remove(position);
                     if (useAStar)
-                        openList.Remove(squareFromOpenList.F * 40000 + (squareFromOpenList.Position.X * 200 + squareFromOpenList.Position.Y));
+                        openList.Remove(squareFromOpenList.F * 160000 + (squareFromOpenList.Position.X * 400 + squareFromOpenList.Position.Y));
                     else
-                        openList.Remove(squareFromOpenList.G * 40000 + (squareFromOpenList.Position.X * 200 + squareFromOpenList.Position.Y));
+                        openList.Remove(squareFromOpenList.G * 160000 + (squareFromOpenList.Position.X * 400 + squareFromOpenList.Position.Y));
                     square.Parent = currentSquare;
                     square.Position = position;
                     square.PenalizedCost = this.GetPenalizedCostByPosition(position, kind);
