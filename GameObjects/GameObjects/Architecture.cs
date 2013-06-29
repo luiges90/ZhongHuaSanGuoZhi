@@ -2091,9 +2091,9 @@
             get
             {
                 if (this.BelongedFaction == null) return true;
-                foreach (LinkNode i in AIWaterLinks)
+                foreach (Architecture i in AIWaterLinks)
                 {
-                    if (i.A.BelongedFaction == null || !this.BelongedFaction.IsFriendly(i.A.BelongedFaction))
+                    if (i.BelongedFaction == null || !this.BelongedFaction.IsFriendly(i.BelongedFaction))
                     {
                         return true;
                     }
