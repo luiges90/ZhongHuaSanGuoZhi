@@ -2086,6 +2086,22 @@
             }
         }
 
+        private bool AdjacentToHostileByWater
+        {
+            get
+            {
+                if (this.BelongedFaction == null) return true;
+                foreach (LinkNode i in AIWaterLinks)
+                {
+                    if (i.A.BelongedFaction == null || !this.BelongedFaction.IsFriendly(i.A.BelongedFaction))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
         private void AIWork(bool forPlayer)
         {
             if (!forPlayer)
@@ -2294,7 +2310,8 @@
                     {
                         if (unfullArmyCount < unfullArmyCountThreshold)
                         {
-                            if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && (this.MilitaryCount == 0 || GameObject.Chance((int)(100 - this.ShuijunMilitaryCount / (double)this.MilitaryCount * 100))))
+                            if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && 
+                                (this.AdjacentToHostileByWater || GameObject.Chance(10)) && unfullNavalArmyCount < this.MilitaryCount + 1)
                             {
                                 this.AIRecruitment(true, false);
                             }
@@ -2308,7 +2325,7 @@
                                         siegeCount++;
                                     }
                                 }
-                                if (siegeCount < this.Militaries.Count / 3)
+                                if (siegeCount < this.Militaries.Count / 5)
                                 {
                                     this.AIRecruitment(false, true);
                                 }
