@@ -90,7 +90,7 @@
             this.CharacteristicText.AddNewLine();
             foreach (Influence influence in this.ShowingArchitecture.Characteristics.Influences.Values)
             {
-                this.CharacteristicText.AddText(influence.Description, Color.Teal);
+                this.CharacteristicText.AddText(influence.Description, Color.LightGreen);
                 this.CharacteristicText.AddNewLine();
             }
             this.CharacteristicText.ResortTexts();
@@ -104,20 +104,20 @@
                     this.FacilityText.AddText("建造中：");
                     this.FacilityText.AddText(facilityKind.Name, Color.Red);
                     this.FacilityText.AddText("，剩余时间：");
-                    this.FacilityText.AddText(this.ShowingArchitecture.BuildingDaysLeft.ToString(), Color.Teal);
+                    this.FacilityText.AddText(this.ShowingArchitecture.BuildingDaysLeft.ToString(), Color.LightGreen);
                     this.FacilityText.AddText("天");
                     this.FacilityText.AddNewLine();
                 }
             }
-            this.FacilityText.AddText("已有设施" + this.ShowingArchitecture.Facilities.Count + "个", Color.Green);
+            this.FacilityText.AddText("已有设施" + this.ShowingArchitecture.Facilities.Count + "个", Color.Lime);
             this.FacilityText.AddNewLine();
             foreach (Facility facility in this.ShowingArchitecture.Facilities)
             {
                 this.FacilityText.AddText(facility.Name, Color.Red);
                 this.FacilityText.AddText("，占用空间：");
-                this.FacilityText.AddText(facility.PositionOccupied.ToString(), Color.Teal);
+                this.FacilityText.AddText(facility.PositionOccupied.ToString(), Color.LightGreen);
                 this.FacilityText.AddText("，维持费用：");
-                this.FacilityText.AddText(facility.MaintenanceCost.ToString(), Color.Teal);
+                this.FacilityText.AddText(facility.MaintenanceCost.ToString(), Color.LightGreen);
                 this.FacilityText.AddNewLine();
             }
             this.FacilityText.ResortTexts();

@@ -129,16 +129,16 @@
             {
                 text.Text.Text = StaticMethods.GetPropertyValue(treasure, text.PropertyName).ToString();
             }
-            this.DescriptionText.AddText("简介", Color.Orange);
+            this.DescriptionText.AddText("简介", Color.Yellow);
             this.DescriptionText.AddNewLine();
-            this.DescriptionText.AddText(this.ShowingTreasure.Description, Color.Gray);
+            this.DescriptionText.AddText(this.ShowingTreasure.Description, Color.White);
             this.DescriptionText.AddNewLine();
             this.DescriptionText.ResortTexts();
-            this.InfluenceText.AddText("效果", Color.Orange);
+            this.InfluenceText.AddText("效果", Color.Yellow);
             this.InfluenceText.AddNewLine();
             foreach (Influence influence in this.ShowingTreasure.Influences.Influences.Values)
             {
-                this.InfluenceText.AddText(influence.Description, Color.Teal);
+                this.InfluenceText.AddText(influence.Description, Color.LightGreen);
                 this.InfluenceText.AddNewLine();
             }
             this.InfluenceText.ResortTexts();

@@ -101,8 +101,8 @@
                     this.InfluenceText.Clear();
                     if (this.ShowingPerson.PersonalTitle.InfluenceCount > 0)
                     {
-                        this.InfluenceText.AddText("个人称号", Color.Orange);
-                        this.InfluenceText.AddText(this.ShowingPerson.PersonalTitleString, Color.Green);
+                        this.InfluenceText.AddText("个人称号", Color.Yellow);
+                        this.InfluenceText.AddText(this.ShowingPerson.PersonalTitleString, Color.Lime);
                         this.InfluenceText.AddNewLine();
                         foreach (Influence influence in this.ShowingPerson.PersonalTitle.Influences.Influences.Values)
                         {
@@ -111,13 +111,13 @@
                         }
                         this.InfluenceText.ResortTexts();
                         this.ConditionText.Clear();
-                        this.ConditionText.AddText("修习条件", Color.DarkMagenta);
+                        this.ConditionText.AddText("修习条件", Color.LightPink);
                         this.ConditionText.AddNewLine();
                         foreach (Condition condition in this.ShowingPerson.PersonalTitle.Conditions.Conditions.Values)
                         {
                             if (condition.CheckCondition(this.ShowingPerson))
                             {
-                                this.ConditionText.AddText(condition.Name, Color.Green);
+                                this.ConditionText.AddText(condition.Name, Color.Lime);
                             }
                             else
                             {
@@ -138,7 +138,7 @@
                     this.InfluenceText.Clear();
                     if (this.ShowingPerson.CombatTitle.InfluenceCount > 0)
                     {
-                        this.InfluenceText.AddText("战斗称号", Color.Orange);
+                        this.InfluenceText.AddText("战斗称号", Color.Yellow);
                         this.InfluenceText.AddText(this.ShowingPerson.CombatTitleString, Color.Red);
                         this.InfluenceText.AddNewLine();
                         foreach (Influence influence in this.ShowingPerson.CombatTitle.Influences.Influences.Values)
@@ -148,13 +148,13 @@
                         }
                         this.InfluenceText.ResortTexts();
                         this.ConditionText.Clear();
-                        this.ConditionText.AddText("修习条件", Color.DarkMagenta);
+                        this.ConditionText.AddText("修习条件", Color.LightPink);
                         this.ConditionText.AddNewLine();
                         foreach (Condition condition in this.ShowingPerson.CombatTitle.Conditions.Conditions.Values)
                         {
                             if (condition.CheckCondition(this.ShowingPerson))
                             {
-                                this.ConditionText.AddText(condition.Name, Color.Green);
+                                this.ConditionText.AddText(condition.Name, Color.Lime);
                             }
                             else
                             {
@@ -179,8 +179,8 @@
                             this.InfluenceText.Clear();
                             if (this.LinkedSkills[i].InfluenceCount > 0)
                             {
-                                this.InfluenceText.AddText("技能", Color.Orange);
-                                this.InfluenceText.AddText(this.LinkedSkills[i].Name, Color.Green);
+                                this.InfluenceText.AddText("技能", Color.Yellow);
+                                this.InfluenceText.AddText(this.LinkedSkills[i].Name, Color.Lime);
                                 this.InfluenceText.AddNewLine();
                                 foreach (Influence influence in this.LinkedSkills[i].Influences.Influences.Values)
                                 {
@@ -189,13 +189,13 @@
                                 }
                                 this.InfluenceText.ResortTexts();
                                 this.ConditionText.Clear();
-                                this.ConditionText.AddText("修习条件", Color.DarkMagenta);
+                                this.ConditionText.AddText("修习条件", Color.LightPink);
                                 this.ConditionText.AddNewLine();
                                 foreach (Condition condition in this.LinkedSkills[i].Conditions.Conditions.Values)
                                 {
                                     if (condition.CheckCondition(this.ShowingPerson))
                                     {
-                                        this.ConditionText.AddText(condition.Name, Color.Green);
+                                        this.ConditionText.AddText(condition.Name, Color.Lime);
                                     }
                                     else
                                     {
@@ -226,11 +226,11 @@
                             if (this.current != stunt)
                             {
                                 this.InfluenceText.Clear();
-                                this.InfluenceText.AddText("战斗特技", Color.Orange);
+                                this.InfluenceText.AddText("战斗特技", Color.Yellow);
                                 this.InfluenceText.AddText(stunt.Name, Color.Red);
                                 this.InfluenceText.AddNewLine();
-                                this.InfluenceText.AddText("持续天数", Color.Blue);
-                                this.InfluenceText.AddText(stunt.Period.ToString(), Color.Green);
+                                this.InfluenceText.AddText("持续天数", Color.LightSteelBlue);
+                                this.InfluenceText.AddText(stunt.Period.ToString(), Color.Lime);
                                 this.InfluenceText.AddText("天", Color.LightSteelBlue);
                                 this.InfluenceText.AddNewLine();
                                 foreach (Influence influence in stunt.Influences.Influences.Values)
@@ -240,7 +240,7 @@
                                 }
                                 this.InfluenceText.ResortTexts();
                                 this.ConditionText.Clear();
-                                this.ConditionText.AddText("使用条件", Color.Blue);
+                                this.ConditionText.AddText("使用条件", Color.LightSkyBlue);
                                 this.ConditionText.AddNewLine();
                                 if ((this.ShowingPerson.LocationTroop != null) && (this.ShowingPerson == this.ShowingPerson.LocationTroop.Leader))
                                 {
@@ -248,7 +248,7 @@
                                     {
                                         if (condition.CheckCondition(this.ShowingPerson.LocationTroop))
                                         {
-                                            this.ConditionText.AddText(condition.Name, Color.Green);
+                                            this.ConditionText.AddText(condition.Name, Color.Lime);
                                         }
                                         else
                                         {
@@ -266,13 +266,13 @@
                                     }
                                 }
                                 this.ConditionText.AddNewLine();
-                                this.ConditionText.AddText("修习条件", Color.DarkMagenta);
+                                this.ConditionText.AddText("修习条件", Color.LightPink);
                                 this.ConditionText.AddNewLine();
                                 foreach (Condition condition in stunt.LearnConditions.Conditions.Values)
                                 {
                                     if (condition.CheckCondition(this.ShowingPerson))
                                     {
-                                        this.ConditionText.AddText(condition.Name, Color.Green);
+                                        this.ConditionText.AddText(condition.Name, Color.Lime);
                                     }
                                     else
                                     {
@@ -359,25 +359,25 @@
             this.LearnableSkillTexts.ResetAllTextTextures();
             this.LearnableSkillTexts.ResetAllAlignedPositions();
             this.StuntText.Clear();
-            this.StuntText.AddText("战斗特技", Color.Orange);
+            this.StuntText.AddText("战斗特技", Color.Yellow);
             this.StuntText.AddNewLine();
-            this.StuntText.AddText(person.Stunts.Count.ToString() + "种", Color.Green);
+            this.StuntText.AddText(person.Stunts.Count.ToString() + "种", Color.Lime);
             this.StuntText.AddNewLine();
             foreach (Stunt stunt in person.Stunts.Stunts.Values)
             {
                 this.StuntText.AddText(stunt.Name, Color.Red);
-                this.StuntText.AddText(" 战意消耗" + stunt.Combativity.ToString(), Color.Teal);
+                this.StuntText.AddText(" 战意消耗" + stunt.Combativity.ToString(), Color.LightGreen);
                 this.StuntText.AddNewLine();
             }
             this.StuntText.ResortTexts();
             this.BiographyText.Clear();
             if (person.PersonBiography != null)
             {
-                this.BiographyText.AddText("列传", Color.Orange);
+                this.BiographyText.AddText("列传", Color.Yellow);
                 this.BiographyText.AddNewLine();
                 this.BiographyText.AddText(person.PersonBiography.Brief);
                 this.BiographyText.AddNewLine();
-                this.BiographyText.AddText("演义", Color.Green);
+                this.BiographyText.AddText("演义", Color.Lime);
                 this.BiographyText.AddText("：" + person.PersonBiography.Romance);
                 this.BiographyText.AddNewLine();
                 this.BiographyText.AddText("历史", Color.Red);
