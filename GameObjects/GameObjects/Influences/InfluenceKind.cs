@@ -90,6 +90,18 @@
                     }
                 }
             }
+            if (this.Type == InfluenceType.个人)
+            {
+                foreach (Person p in faction.Persons)
+                {
+                    ApplyingPerson a = new ApplyingPerson(p, applier, applierID);
+                    if (!i.appliedPerson.Contains(a))
+                    {
+                        i.appliedPerson.Add(a);
+                        ApplyInfluenceKind(p, i, applier, applierID);
+                    }
+                }
+            }
         }
 
         public virtual void ApplyInfluenceKind(Person p)
