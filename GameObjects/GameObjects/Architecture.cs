@@ -5703,7 +5703,7 @@
             float rate = 1;
             if (disasterDamageRateDecrease.ContainsKey(this.zainan.ID))
             {
-                rate = 1 - disasterDamageRateDecrease[this.zainan.ID];
+                rate = (float) (rate - disasterDamageRateDecrease[this.zainan.ID] / 100.0);
                 if (rate < 0) rate = 0;
             }
             this.DecreasePopulation((int)(this.zainan.zainanzhonglei.renkoushanghai * jianzaixishu() * rate));
