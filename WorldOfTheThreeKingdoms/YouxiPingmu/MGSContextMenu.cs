@@ -859,6 +859,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case ContextMenuResult.TroopStratagem_3:  //埋伏
                     this.SetTroopStratagem(3);
+                    this.CurrentTroop.Operated = true;
                     break;
 
                 case ContextMenuResult.TroopStratagem_4:  //火攻
