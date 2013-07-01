@@ -61,10 +61,12 @@
     <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">
       <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
       <Name>GameGlobal</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\GameObjects\GameObjects.csproj">
       <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
       <Name>GameObjects</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
 </Project>

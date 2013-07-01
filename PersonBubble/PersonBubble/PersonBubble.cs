@@ -122,10 +122,10 @@
             return -1;
         }
 
-        private int IndexOfPosition(List<PersonBubble.PositionCount> positionCounts, Point point)
+        private int IndexOfPosition(List<PositionCount> positionCounts, Point point)
         {
             int num = -1;
-            foreach (PersonBubble.PositionCount count in positionCounts)
+            foreach (PositionCount count in positionCounts)
             {
                 num++;
                 if (count.Position == point)
@@ -175,7 +175,7 @@
                 int num;
                 DateTime now = DateTime.Now;
                 List<int> list = new List<int>();
-                List<PersonBubble.PositionCount> positionCounts = new List<PersonBubble.PositionCount>();
+                List<PositionCount> positionCounts = new List<PositionCount>();
                 for (num = 0; num < this.Bubbles.Count; num++)
                 {
                     if (this.Bubbles[num].DrawingStarted)
@@ -191,14 +191,14 @@
                             int num2 = this.IndexOfPosition(positionCounts, position);
                             if (num2 < 0)
                             {
-                                positionCounts.Add(new PersonBubble.PositionCount(position, 1));
+                                positionCounts.Add(new PositionCount(position, 1));
                                 this.Bubbles[num].Position = this.screen.GetPointByPosition(position);
                             }
                             else
                             {
                                 this.Bubbles[num].Position = this.screen.GetPointByPosition(position);
                                 this.Bubbles[num].Position = new Point(this.Bubbles[num].Position.X, this.Bubbles[num].Position.Y + (positionCounts[num2].Count * this.BackgroundSize.Y));
-                                PersonBubble.PositionCount local1 = positionCounts[num2];
+                                PositionCount local1 = positionCounts[num2];
                                 local1.Count++;
                             }
                             if (((this.Bubbles[num].Position.X - this.PopoutOffset.X) + this.BackgroundSize.X) > this.screen.viewportSize.X)

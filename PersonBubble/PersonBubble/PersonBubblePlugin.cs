@@ -17,7 +17,7 @@
         private string description = "人物气泡";
         private GraphicsDevice graphicsDevice;
         private const string Path = @"GameComponents\PersonBubble\";
-        private PersonBubble.PersonBubble personBubble = new PersonBubble.PersonBubble();
+        private PersonBubble personBubble = new PersonBubble();
         private string pluginName = "PersonBubblePlugin";
         private string version = "1.0.0";
         private const string XMLFilename = "PersonBubbleData.xml";

@@ -33,7 +33,7 @@
         internal Rectangle MaxPosition;
         internal Texture2D MaxTexture;
         internal int Num;
-        internal List<NumberInputerPlugin.Number> Numbers = new List<NumberInputerPlugin.Number>();
+        internal List<Number> Numbers = new List<Number>();
         internal FreeText RangeText;
         private Screen screen;
         internal Rectangle SelectionDisplayPosition;
@@ -60,7 +60,7 @@
             sourceRectangle = null;
             spriteBatch.Draw(this.FrameTexture, this.FrameDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, (this.DepthOffset + 0.2f) + -1E-05f);
             this.FrameText.Draw(spriteBatch, (this.DepthOffset + 0.2f) + -0.0001f);
-            foreach (NumberInputerPlugin.Number number in this.Numbers)
+            foreach (Number number in this.Numbers)
             {
                 sourceRectangle = null;
                 spriteBatch.Draw(number.Texture, number.GetDisplayPosition(this.DisplayOffset), sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, (this.DepthOffset + 0.2f) + -0.001f);
@@ -147,7 +147,7 @@
                 }
                 else
                 {
-                    foreach (NumberInputerPlugin.Number number in this.Numbers)
+                    foreach (Number number in this.Numbers)
                     {
                         if (StaticMethods.PointInRectangle(position, number.GetDisplayPosition(this.DisplayOffset)))
                         {
@@ -164,7 +164,7 @@
             if (this.screen.PeekUndoneWork().Kind == UndoneWorkKind.Inputer)
             {
                 this.ShowSelection = false;
-                foreach (NumberInputerPlugin.Number number in this.Numbers)
+                foreach (Number number in this.Numbers)
                 {
                     if (StaticMethods.PointInRectangle(position, number.GetDisplayPosition(this.DisplayOffset)))
                     {

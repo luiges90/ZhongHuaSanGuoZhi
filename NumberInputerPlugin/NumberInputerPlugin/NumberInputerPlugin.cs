@@ -65,7 +65,7 @@
             node = nextSibling.ChildNodes.Item(3);
             foreach (XmlNode node3 in node.ChildNodes)
             {
-                NumberInputerPlugin.Number item = new NumberInputerPlugin.Number {
+                Number item = new Number {
                     Position = StaticMethods.LoadRectangleFromXMLNode(node3),
                     Num = int.Parse(node3.Attributes.GetNamedItem("Num").Value),
                     Texture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\NumberInputer\Data\" + node3.Attributes.GetNamedItem("FileName").Value)
