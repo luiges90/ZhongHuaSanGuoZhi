@@ -215,7 +215,10 @@
                 this.OnEscape(this);
             }
             this.CaptivePerson.FleeCount++;
-            this.Scenario.GameScreen.xianshishijiantupian(this.CaptivePerson , this.BelongedFaction.Name, "CaptiveEscape", "", "", false);
+            if (this.BelongedFaction != null)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this.CaptivePerson, this.BelongedFaction.Name, "CaptiveEscape", "", "", false);
+            }
             this.DoReturn();
             this.DoRelease();
         }
