@@ -690,6 +690,23 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="在关隘执行本策略并不会受到农业值的限制，但会消耗双倍的资金。" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="Tactics_JailBreak">
+    <Leaf Text="策略" Color="4294967295"></Leaf>
+    <Leaf Text="劫牢" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="在敌方建筑劫牢，以救出在该建筑被俘虏的武将" Color="4294967295"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="资金消耗" Color="4294967295"></Leaf>
+    <Leaf Text="200" Color="4278255360"></Leaf>
+    <Leaf Text="。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="目标建筑的统治值、民心值越低，则越容易成功。" Color="4294967295"></Leaf>
+  </Branch>
   <Branch Name="Monarch_ChangeCapital">
     <Leaf Text="君主" Color="4294967295"></Leaf>
     <Leaf Text="迁都" Color="4278232306"></Leaf>
@@ -952,7 +969,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
 	<Leaf Text="君主需要在妃子所在的后宫城池，才能宠幸该妃子" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Section_New">
+  <Branch Name="Section_New">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="新建军区" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -963,7 +980,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="军区的名称将由其中人口最多的建筑决定。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Section_Regroup">
+  <Branch Name="Section_Regroup">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="重编军区" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -971,7 +988,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="重编已有军区，更改其所属范围或者委任方式。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Section_Disband">
+  <Branch Name="Section_Disband">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="解散军区" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -1004,7 +1021,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="若选择委任方式，则只要剩余资金足够进行褒奖即进行褒奖。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Working">
+  <Branch Name="Internal_AutoWorking">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="工作" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -1015,7 +1032,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="若选择委任方式，则将采用与电脑相同的方法进行工作分配。只包括六项内政工作以及训练、补充工作。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="Auto_Searching">
+  <Branch Name="Tactics_AutoSearching">
     <Leaf Text="委任" Color="4294967295"></Leaf>
     <Leaf Text="搜索" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -1277,6 +1294,181 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="攻击所有本回合接触到的部队" Color="4278255360"></Leaf>
     <Leaf Text="，每个目标限定攻击一次。" Color="4294967295"></Leaf>
+  </Branch>
+   <Branch Name="TroopCombatMethod_24">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="狙击" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击几率" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="破防" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击时敌军伤兵概率为0" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对骑兵伤害增加60%" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="有50%的几率使敌军受到火焰伤害" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_25">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="陷阵" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="破防" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击对建筑造成伤害加成50%" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_26">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="虎击" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="攻击本回合所有可攻击的部队" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击几率" Color="4278255360"></Leaf>
+    <Leaf Text="增加20%。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击时敌军伤兵概率为0" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击使敌方士气减少5" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_27">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="突围" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对攻击目标周围相邻的所有部队造成伤害" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加60%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="防御力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="有50%几率使敌军遭受火焰伤害" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击使敌方士气减少5" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_28">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="狂风" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="攻击攻击范围内所有部队" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="降低20%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="防御力" Color="4278255360"></Leaf>
+    <Leaf Text="增加15%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="击破部队后战意增加10" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="不会误伤友军部队" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_29">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="冲阵" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="攻击所有邻接部队" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加20%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击几率" Color="4278255360"></Leaf>
+    <Leaf Text="增加15%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击致敌混乱几率" Color="4278255360"></Leaf>
+    <Leaf Text="增加20%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击使敌方士气减少3" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="不会受到反击" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="不会误伤友军部队" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_30">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="落雁" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对攻击目标周围2格范围内敌军造成伤害" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="降低65%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="会误伤友军部队" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_31">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="拒马" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对骑兵伤害增加100%" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="无视对方超过400的防御" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_32">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="盾击" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="用盾冲击敌人" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="增加50%的几率暴击致乱" Color="4278255360"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="不会被反击" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_33">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="毒矢" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="使用毒矢攻击" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="致命" Color="4278255360"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_34">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="贯射" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对本队与攻击目标之间及相邻部队造成伤害" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="降低10%。" Color="4294967295"></Leaf>
+  </Branch>
+ <Branch Name="TroopCombatMethod_35">
+    <Leaf Text="战法" Color="4294967295"></Leaf>
+    <Leaf Text="摧锋" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+<Leaf Text="对步兵伤害增加100%" Color="4278255360"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="攻击力" Color="4278255360"></Leaf>
+    <Leaf Text="增加30%。" Color="4294967295"></Leaf>
+<Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="暴击使敌士气减少5" Color="4278255360"></Leaf>
   </Branch>
   <Branch Name="TroopStratagem_0">
     <Leaf Text="计略" Color="4294967295"></Leaf>
@@ -1582,7 +1774,7 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="该位置的粮草蕴藏量与地形和季节有关，被征收后将有一段时间无法再次被征收。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="TroopAction_CutRouteway">
+  <Branch Name="TroopCutRouteway">
     <Leaf Text="行动" Color="4294967295"></Leaf>
     <Leaf Text="切断粮道" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -1643,8 +1835,8 @@
     <Leaf Text="计略默认" Color="4278232306"></Leaf>
     <Leaf Text="的设置进行施展。" Color="4294967295"></Leaf>
   </Branch>
-  <Branch Name="TroopConfig_SetAuto">
-    <Leaf Text="设定" Color="4294967295"></Leaf>
+  <Branch Name="TroopSetAuto">
+    <Leaf Text="部队" Color="4294967295"></Leaf>
     <Leaf Text="委任" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
@@ -1652,10 +1844,15 @@
     <Leaf Text="只有" Color="4294967295"></Leaf>
     <Leaf Text="手动控制" Color="4278255360"></Leaf>
     <Leaf Text="军区的所属部队可以设置为委任。委任后部队将自动行动。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopIdle">
+    <Leaf Text="部队" Color="4294967295"></Leaf>
+    <Leaf Text="待命" Color="4278232306"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
-    <Leaf Text="实际操作中，请先为部队指定一个" Color="4294967295"></Leaf>
-    <Leaf Text="目标建筑" Color="4278255360"></Leaf>
-    <Leaf Text="然后再将其委任。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="部队" Color="4294967295"></Leaf>
+    <Leaf Text="什么也不做，不会主动攻击。" Color="4278255360"></Leaf>
   </Branch>
   <Branch Name="RoutewayEdit">
     <Leaf Text="粮道" Color="4294967295"></Leaf>
