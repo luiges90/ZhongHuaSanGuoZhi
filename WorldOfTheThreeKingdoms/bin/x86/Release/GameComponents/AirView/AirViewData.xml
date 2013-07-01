@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
   <Background Align="Right" Width ="70"></Background>
-  <ToolTexture FileName="Tool.png" Selected="ToolSelected.png" X="8" Y="6" Width="56" Height="42"></ToolTexture>
+  <ToolTexture FileName="Tool.png" Selected="ToolSelected.png" X="8" Y="6" Width="56" Height="32"></ToolTexture>
   <Map Transparent="0.9" Position="BottomRight" MaxWidth ="400" MaxHeight="400" TileLength="1" TileLengthMax="8"></Map>
   <Frame FileName="Frame.png"></Frame>
   <Architecture FileName="Architecture.png"></Architecture>

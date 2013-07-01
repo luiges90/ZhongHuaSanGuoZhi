@@ -1,61 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <Background FileName="Background.png" Width="650" Height="300"></Background>
-  <Picture X="57" Y="47" Width="216" Height="212"></Picture>
+  <Background FileName="Background.png" Width="600" Height="290"></Background>
+  <Picture X="25" Y="25" Width="240" Height="240"></Picture>
   <Labels>
-    <Label X="352" Y="33" Width="80" Height="25" Label ="名称"
+    <Label X="289" Y="28" Width="80" Height="25" Label ="名称"
                 FontName="宋体"
-                FontSize="1"
+                FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="352" Y="33" Width="80" Height="25" PropertyName="Name"
-                FontName="华文楷体"
-                FontSize="14"
-                FontStyle="Regular"
-                FontColor="4278190080"
+    <Text X="289" Y="48" Width="80" Height="25" PropertyName="Name"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Bold"
+                FontColor="4294967040"
                 Align="Middle">
     </Text>
-    <Label X="487" Y="58" Width="80" Height="25" Label ="价值"
+    <Label X="389" Y="28" Width="80" Height="25" Label ="价值"
                 FontName="宋体"
-                FontSize="1"
+                FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="487" Y="58" Width="80" Height="25" PropertyName="Worth"
+    <Text X="389" Y="48" Width="80" Height="25" PropertyName="Worth"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Bold"
                 FontColor="4294909695"
                 Align="Middle">
     </Text>
-    <Label X="352" Y="58" Width="80" Height="25" Label ="所属"
+    <Label X="489" Y="28" Width="80" Height="25" Label ="所属"
                 FontName="宋体"
-                FontSize="1"
+                FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="352" Y="58" Width="80" Height="25" PropertyName="BelongedPersonString"
-                FontName="华文楷体"
-                FontSize="14"
-                FontStyle="Regular"
+    <Text X="489" Y="48" Width="80" Height="25" PropertyName="BelongedPersonString"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Bold"
                 FontColor="4294901862"
                 Align="Middle">
     </Text>
   </Labels>
-  <Description X="321" Y="92" Width="280" Height="80" RowMargin="0"
+  <Description X="300" Y="88" Width="280" Height="80" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
-            FontColor="4278190080">
+            FontColor="4294967295">
   </Description>
-  <Influence X="321" Y="172" Width="280" Height="120" RowMargin="0"
+  <Influence X="300" Y="166" Width="280" Height="120" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
-            FontColor="4278190080">
+            FontColor="4294967295">
   </Influence>
 </Root>

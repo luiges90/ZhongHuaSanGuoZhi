@@ -19,11 +19,11 @@
             FontName="Courier New"
             FontSize="10"
             FontStyle="Bold"
-            FontColor="4278206592" >
+            FontColor="4278190335" >
   </DaysToGo>
   <DaysLeft FontName="Courier New"
             FontSize="10"
             FontStyle="Bold"
-            FontColor="4278206592" >
+            FontColor="4278190335" >
   </DaysLeft>
 </Root>

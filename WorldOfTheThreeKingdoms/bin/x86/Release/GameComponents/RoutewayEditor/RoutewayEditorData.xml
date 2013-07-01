@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <Background FileName="Background.png" Width="100" Height="170"></Background>
+  <Background FileName="Background.png" Width="100" Height="160"></Background>
   <CommentBackground FileName="CommentBackground.png" Width="120"></CommentBackground>
   <Comment RowMargin="0"
           FontName="宋体"
@@ -8,11 +8,11 @@
           FontStyle="Regular"
           FontColor="4294967295">
   </Comment>
-  <TitleText X="0" Y="0" Width="100" Height="30" Text="编辑粮道"
-         FontName="华文楷体"
-         FontSize="16"
+  <TitleText X="0" Y="0" Width="100" Height="27" Text="编辑粮道"
+         FontName="宋体"
+         FontSize="11"
          FontStyle="Regular"
-         FontColor="4278190080"
+         FontColor="4294238869"
          Align="Middle">
   </TitleText>
   <ExtendButton X="0" Y="35" Width="100" Height="25" FileName="ExtendButton.png" Selected="ExtendButtonSelected.png" Down="ExtendButtonDown.png" Disabled="ExtendButtonDisabled.png"></ExtendButton>

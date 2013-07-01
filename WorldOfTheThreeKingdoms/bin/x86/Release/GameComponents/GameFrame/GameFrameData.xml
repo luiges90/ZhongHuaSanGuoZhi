@@ -8,10 +8,10 @@
   <OKButton Width="95" Height="32" FileName="OKButton.png" Selected="OKButtonSelected.png" Pressed="OKButtonPressed.png" Disabled="OKButtonDisabled.png"></OKButton>
   <CancelButton Width="95" Height="32" FileName="CancelButton.png" Selected="CancelButtonSelected.png" Pressed="CancelButtonPressed.png" Disabled="CancelButtonDisabled.png"></CancelButton>
   <Title FileName="Title.png" Width="900" Height="68"
-         FontName="隶书"
-         FontSize="20"
+         FontName="宋体"
+         FontSize="15"
          FontStyle="Bold"
-         FontColor="4278190080"
+         FontColor="4294238869"
          Align="Middle">
   </Title>
   <SoundFile OK="OK.wav" Cancel="Cancel.wav"></SoundFile>
