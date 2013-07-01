@@ -3,25 +3,25 @@
   <ContextMenuRightClick FileName="ContextMenuRightClick.png"
                          SelectedFileName="ContextMenuRightClickSelected.png"
                          FontName="宋体"
-                         FontSize="10"
+                         FontSize="11"
                          FontStyle="Bold"
-                         FontColor="4288070589"/>
+                         FontColor="4278190080"/>
   <ContextMenuLeftClick FileName="ContextMenuLeftClick.png" 
                         SelectedFileName="ContextMenuLeftClickSelected.png"
                         FontName="宋体"
-                        FontSize="10"
+                        FontSize="11"
                         FontStyle="Regular"
-                        FontColor="4288070589"/>
+                        FontColor="4278190080"/>
   <ContextMenuLeftClick FileName="ContextMenuLeftDisabled.png" 
                         SelectedFileName="ContextMenuLeftDisabled.png"
                         FontName="宋体"
-                        FontSize="10"
+                        FontSize="11"
                         FontStyle="Regular"
                         FontColor="4286611584"/>
   <ContextMenuLeftClick FileName="ContextMenuRightDisabled.png" 
                         SelectedFileName="ContextMenuRightDisabled.png"
                         FontName="宋体"
-                        FontSize="10"
+                        FontSize="11"
                         FontStyle="Bold"
                         FontColor="4286611584"/>
   <HasChildTexture FileName="HasChild.png"></HasChildTexture>
@@ -71,6 +71,7 @@
           <MenuItem ID="1"  Name="BuyFood" DisplayName="买粮" DisplayIfTrue="BuyFoodAvail"></MenuItem>
           <MenuItem ID="2"  Name="SellFood" DisplayName="卖粮" DisplayIfTrue="SellFoodAvail"></MenuItem>
         </MenuItem>
+		<MenuItem ID="10"  Name="AutoWorking" DisplayName="委任工作" OppositeName="手动工作" OppositeIfTrue="AutoWorking" DisplayIfTrue="AutoWorkingAvail"></MenuItem>
       </MenuItem>
       <MenuItem ID="2"  Name="Military" DisplayName="军事">
         <MenuItem ID="1"  Name="Campaign" DisplayName="出征" DisplayIfTrue="CampaignAvail"></MenuItem>
@@ -116,7 +117,9 @@
         <MenuItem ID="3"  Name="Destroy" DisplayName="破坏" DisplayIfTrue="DestroyAvail"></MenuItem>
         <MenuItem ID="4"  Name="Instigate" DisplayName="煽动" DisplayIfTrue="InstigateAvail"></MenuItem>
         <MenuItem ID="5"  Name="Gossip" DisplayName="流言" DisplayIfTrue="GossipAvail"></MenuItem>
-        <MenuItem ID="6"  Name="Search" DisplayName="搜索" DisplayIfTrue="SearchAvail"></MenuItem>
+		<MenuItem ID="6"  Name="JailBreak" DisplayName="劫牢" DisplayIfTrue="JailBreakAvail"></MenuItem>
+        <MenuItem ID="7"  Name="Search" DisplayName="搜索" DisplayIfTrue="SearchAvail"></MenuItem>
+		<MenuItem ID="8"  Name="AutoSearching" DisplayName="委任搜索" OppositeName="手动搜索" OppositeIfTrue="AutoSearching" DisplayIfTrue="AutoSearchingAvail"></MenuItem>
       </MenuItem>
       <MenuItem ID="7"  Name="Monarch" DisplayName="君主">
 		<MenuItem ID="1"  Name="officePosition" DisplayName="爵位">
@@ -150,16 +153,12 @@
           <MenuItem ID="2"  Name="Award" DisplayName="授予" DisplayIfTrue="HasTreasureToAward"></MenuItem>
         </MenuItem>
       </MenuItem>
-      <MenuItem ID="8"  Name="Auto" DisplayName="委任">
-        <MenuItem ID="1"  Name="Section" DisplayName="军区">
+      <MenuItem ID="8"  Name="Section" DisplayName="军区">
           <MenuItem ID="1"  Name="New" DisplayName="新建" DisplayIfTrue="NewSectionAvail"></MenuItem>
           <MenuItem ID="2"  Name="Regroup" DisplayName="重编" DisplayIfTrue="RegroupSectionAvail"></MenuItem>
           <MenuItem ID="3"  Name="Disband" DisplayName="解散" DisplayIfTrue="DisbandSectionAvail"></MenuItem>
-        </MenuItem>
-        <MenuItem ID="4"  Name="Working" DisplayName="委任工作" OppositeName="手动工作" OppositeIfTrue="AutoWorking" DisplayIfTrue="AutoWorkingAvail"></MenuItem>
-        <MenuItem ID="5"  Name="Searching" DisplayName="委任搜索" OppositeName="手动搜索" OppositeIfTrue="AutoSearching" DisplayIfTrue="AutoSearchingAvail"></MenuItem>
       </MenuItem>
-      <MenuItem ID="9"  Name="AllEnter" DisplayName="全部入城" DisplayIfTrue="AllEnterAvail"></MenuItem>
+	  <MenuItem ID="9"  Name="AllEnter" DisplayName="全部入城" DisplayIfTrue="AllEnterAvail"></MenuItem>
     </MenuKind>
     <MenuKind ID="3" Name="MapRightClick" DisplayName="地图右键菜单" IsLeft="false"  Width="130" Height="25">
       <MenuItem ID="1"  Name="DateGo" DisplayName="进行">
@@ -226,6 +225,20 @@
         <MenuItem ID="21"  Name="21" DisplayName="冲击" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="21"></MenuItem>
         <MenuItem ID="22"  Name="22" DisplayName="突击" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="22"></MenuItem>
         <MenuItem ID="23"  Name="23" DisplayName="雷霆" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="23"></MenuItem>
+		<MenuItem ID="24"  Name="24" DisplayName="狙击" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="24"></MenuItem>
+		<MenuItem ID="25"  Name="25" DisplayName="陷阵" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="25"></MenuItem>
+		<MenuItem ID="26"  Name="26" DisplayName="虎击" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="26"></MenuItem>
+		<MenuItem ID="27"  Name="27" DisplayName="突围" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="27"></MenuItem>
+		<MenuItem ID="28"  Name="28" DisplayName="狂风" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="28"></MenuItem>
+		<MenuItem ID="29"  Name="29" DisplayName="冲阵" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="29"></MenuItem>
+		<MenuItem ID="30"  Name="30" DisplayName="落雁" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="30"></MenuItem>
+		<MenuItem ID="31"  Name="31" DisplayName="拒马" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="31"></MenuItem>
+		<MenuItem ID="32"  Name="32" DisplayName="盾击" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="32"></MenuItem>
+		<MenuItem ID="33"  Name="33" DisplayName="毒矢" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="33"></MenuItem>
+		<MenuItem ID="34"  Name="34" DisplayName="贯射" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="34"></MenuItem>
+		<MenuItem ID="35"  Name="35" DisplayName="摧锋" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="35"></MenuItem>   
+		<MenuItem ID="36"  Name="36" DisplayName="雁行" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="36"></MenuItem> 
+		<MenuItem ID="37"  Name="37" DisplayName="撒星" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="37"></MenuItem>  
       </MenuItem>
       <MenuItem ID="5"  Name="TroopStratagem" DisplayName="计略" DisplayIfTrue="ControlAvail" DisplayAll="False">
         <MenuItem ID="0"  Name="Cancel" DisplayName="取消计略" DisplayIfTrue="CancelStratagemAvail"></MenuItem>
@@ -256,13 +269,10 @@
         <MenuItem ID="12"  Name="12" DisplayName="隐忍" ChangeDisplayName="GetStuntDisplayName" DisplayIfTrue="HasStunt" IsParamIDItem="true" Param="12"></MenuItem>
         <MenuItem ID="13"  Name="13" DisplayName="攻城" ChangeDisplayName="GetStuntDisplayName" DisplayIfTrue="HasStunt" IsParamIDItem="true" Param="13"></MenuItem>
       </MenuItem>
-      <MenuItem ID="7"  Name="TroopAction" DisplayName="行动" DisplayIfTrue="ControlAvail">
-        <MenuItem ID="1"  Name="CutRouteway" DisplayName="截断粮道" DisplayIfTrue="CutRoutewayAvail"></MenuItem>
-      </MenuItem>
+      <MenuItem ID="7"  Name="TroopCutRouteway" DisplayName="截断粮道" DisplayIfTrue="CutRoutewayAvail"></MenuItem>
       <MenuItem ID="8"  Name="TroopEnter" DisplayName="入城" DisplayIfTrue="Canrucheng"></MenuItem>
-      <MenuItem ID="9"  Name="TroopConfig" DisplayName="设定" DisplayIfTrue="ControlAvail">
-        <MenuItem ID="1"  Name="SetAuto" DisplayName="委任" OppositeName="指挥" OppositeIfTrue="Auto" DisplayIfTrue="AutoAvail"></MenuItem>
-      </MenuItem>
+	  <MenuItem ID="10"  Name="TroopIdle" DisplayName="待命" DisplayIfTrue="ControlAvail"></MenuItem>
+      <MenuItem ID="9"  Name="TroopSetAuto" DisplayName="委任" OppositeName="指挥" OppositeIfTrue="Auto" DisplayIfTrue="ControlAvail"></MenuItem>
     </MenuKind>
     <MenuKind ID="5" Name="TroopRightClick" DisplayName="部队右键菜单" IsLeft="false"  Width="120" Height="25" DisplayAll="False">
       <MenuItem ID="1"  Name="TroopDetail" DisplayName="部队信息" DisplayIfTrue="IsCurrentPlayer"></MenuItem>
