@@ -1854,14 +1854,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     this.CurrentTroop.CastTargetKind = (TroopCastTargetKind)this.CurrentTroop.CurrentStratagem.CastTarget.ID;
                 }
-                if ((this.CurrentTroop.CastTargetKind == TroopCastTargetKind.特定默认) || (this.CurrentTroop.CastTargetKind == TroopCastTargetKind.特定))
-                {
-                    if (this.CurrentTroop.CurrentStratagem.CastDefault != null)
-                    {
-                        this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.TroopTarget));
-                    }
-                }
-                else
+
+                if (id == 2 || id == 3 || id == 6 || id == 8)
                 {
                     if (id == 6) //如果是灭火
                     {
@@ -1869,6 +1863,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.CurrentTroop.mingling = "——";
                     }
 
+                }
+                else if ((this.CurrentTroop.CastTargetKind == TroopCastTargetKind.特定默认) || (this.CurrentTroop.CastTargetKind == TroopCastTargetKind.特定))
+                {
+                    this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.TroopTarget));
                 }
             }
         }

@@ -3106,14 +3106,12 @@
                 }
             }
 
-            if (base.Scenario.IsPlayer(this.BelongedFaction)){
             if (base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetTroop == null && this.TargetArchitecture == null && this.Position.Equals(this.Destination)
                 && this.Status == TroopStatus.一般 && this.WillArchitecture == this.StartingArchitecture && !this.HasHostileTroopInView())
             {
                 this.minglingweizhi = this.Destination = base.Scenario.GetClosestPoint(this.StartingArchitecture.ArchitectureArea, this.Position);
                 this.mingling = "入城";
                 this.TargetArchitecture = this.StartingArchitecture;
-            }
             }
 
             this.ResetDayInfluence();
