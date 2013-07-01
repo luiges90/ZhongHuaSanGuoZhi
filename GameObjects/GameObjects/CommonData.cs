@@ -65,6 +65,7 @@
             Animation animation;
             OleDbConnection connection = new OleDbConnection(connectionString);
             connection.Open();
+            this.AllTerrainDetails.Clear();
             OleDbDataReader reader = new OleDbCommand("Select * From TerrainDetail", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -88,6 +89,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllIdealTendencyKinds.Clear();
             reader = new OleDbCommand("Select * From Color", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -108,6 +110,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllCharacterKinds.Clear();
             reader = new OleDbCommand("Select * From CharacterKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -121,6 +124,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllArchitectureKinds.Clear();
             reader = new OleDbCommand("Select * From ArchitectureKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -169,6 +173,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllSectionAIDetails.Clear();
             reader = new OleDbCommand("Select * From SectionAIDetail", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -207,6 +212,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllInfluenceKinds.Clear();
             reader = new OleDbCommand("Select * From InfluenceKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -230,6 +236,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllInfluences.Clear();
             reader = new OleDbCommand("Select * From Influence", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -244,6 +251,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllConditionKinds.Clear();
             reader = new OleDbCommand("Select * From ConditionKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -258,6 +266,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllConditions.Clear();
             reader = new OleDbCommand("Select * From Condition", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -275,6 +284,7 @@
 
 
             connection.Open();
+            this.AllTroopEventEffectKinds.Clear();
             reader = new OleDbCommand("Select * From TroopEventEffectKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -289,6 +299,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllTroopEventEffects.Clear();
             reader = new OleDbCommand("Select * From TroopEventEffect", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -304,6 +315,7 @@
             //////////////////////////////////////////////////////////
 
             connection.Open();
+            this.AllEventEffectKinds.Clear();
             reader = new OleDbCommand("Select * From EventEffectKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -318,6 +330,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllEventEffects.Clear();
             reader = new OleDbCommand("Select * From EventEffect", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -334,6 +347,7 @@
             //////
 
             connection.Open();
+            this.AllFacilityKinds.Clear();
             reader = new OleDbCommand("Select * From FacilityKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -360,6 +374,7 @@
 
             ///////////////////////////////////////////////////////////////////////
             connection.Open();
+            this.suoyouzainanzhonglei.Clear();
             reader = new OleDbCommand("Select * From DisasterKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -387,6 +402,7 @@
 
             ///////////////////////////////////////////////////////////////////////
             connection.Open();
+            this.suoyouguanjuezhonglei.Clear();
             reader = new OleDbCommand("Select * From guanjuezhonglei", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -409,6 +425,7 @@
 
 
             connection.Open();
+            this.AllTechniques.Clear();
             reader = new OleDbCommand("Select * From Technique", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -430,6 +447,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllSkills.Clear();
             reader = new OleDbCommand("Select * From Skill", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -447,6 +465,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllTitles.Clear();
             reader = new OleDbCommand("Select * From Title", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -462,6 +481,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllMilitaryKinds.Clear();
             reader = new OleDbCommand("Select * From MilitaryKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -550,6 +570,7 @@
             connection.Close();
 
             connection.Open();
+            this.AllInformationKinds.Clear();
             reader = new OleDbCommand("Select * From InformationKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -565,6 +586,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllAttackDefaultKinds.Clear();
             reader = new OleDbCommand("Select * From AttackDefaultKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -575,6 +597,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllAttackTargetKinds.Clear();
             reader = new OleDbCommand("Select * From AttackTargetKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -585,6 +608,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllCombatMethods.Clear();
             reader = new OleDbCommand("Select * From CombatMethod", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -604,6 +628,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllStunts.Clear();
             reader = new OleDbCommand("Select * From Stunt", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -621,6 +646,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllCastDefaultKinds.Clear();
             reader = new OleDbCommand("Select * From CastDefaultKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -631,6 +657,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllCastTargetKinds.Clear();
             reader = new OleDbCommand("Select * From CastTargetKind", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -641,6 +668,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllStratagems.Clear();
             reader = new OleDbCommand("Select * From Stratagem", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -663,6 +691,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllTroopAnimations.Clear();
             reader = new OleDbCommand("Select * From TroopAnimation", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -675,6 +704,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllTileAnimations.Clear();
             reader = new OleDbCommand("Select * From TileAnimation", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -688,6 +718,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllBiographies.Clear();
             reader = new OleDbCommand("Select * From Biography", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -702,6 +733,7 @@
             }
             connection.Close();
             connection.Open();
+            this.AllTextMessages.Clear();
             reader = new OleDbCommand("Select * From TextMessage", connection).ExecuteReader();
             while (reader.Read())
             {
