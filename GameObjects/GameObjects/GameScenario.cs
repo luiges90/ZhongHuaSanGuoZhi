@@ -2005,7 +2005,7 @@
 
         public void LoadCommonData()
         {
-            string path = "GameData/Common/CommonData.mdb";
+            string path = System.Windows.Forms.Application.StartupPath + "/GameData/Common/CommonData.mdb";
             if (!System.IO.File.Exists(path))
             {
                 throw new Exception(path + " .File Does Not Exist.");
