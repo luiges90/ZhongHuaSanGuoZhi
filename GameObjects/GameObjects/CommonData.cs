@@ -959,6 +959,7 @@
 
         public void SaveAllToDatabase(string connectionString)
         {
+            List<int> storedIds = new List<int>();
             using (OleDbConnection selectConnection = new OleDbConnection(connectionString))
             {
                 selectConnection.Open();
@@ -972,8 +973,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "ArchitectureKind");
                 dataSet.Tables["ArchitectureKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (ArchitectureKind i in this.AllArchitectureKinds.ArchitectureKinds.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["ArchitectureKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1020,8 +1024,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "AttackDefaultKind");
                 dataSet.Tables["AttackDefaultKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (AttackDefaultKind i in this.AllAttackDefaultKinds)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["AttackDefaultKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1037,8 +1044,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "AttackTargetKind");
                 dataSet.Tables["AttackTargetKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (AttackTargetKind i in this.AllAttackTargetKinds)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["AttackTargetKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1054,8 +1064,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Biography");
                 dataSet.Tables["Biography"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Biography i in this.AllBiographies.Biographys.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["Biography"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1075,8 +1088,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "CastDefaultKind");
                 dataSet.Tables["CastDefaultKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (CastDefaultKind i in this.AllCastDefaultKinds)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["CastDefaultKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1092,8 +1108,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "CastTargetKind");
                 dataSet.Tables["CastTargetKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (CastTargetKind i in this.AllCastTargetKinds)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["CastTargetKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1109,8 +1128,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "CharacterKind");
                 dataSet.Tables["CharacterKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (CharacterKind i in this.AllCharacterKinds)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["CharacterKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1148,8 +1170,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "CombatMethod");
                 dataSet.Tables["CombatMethod"].Rows.Clear();
+                storedIds.Clear();
                 foreach (CombatMethod i in this.AllCombatMethods.CombatMethods.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["CombatMethod"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1174,8 +1199,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Condition");
                 dataSet.Tables["Condition"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Condition i in this.AllConditions.Conditions.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     if (i.Kind == null) continue;
                     row = dataSet.Tables["Condition"].NewRow();
                     row.BeginEdit();
@@ -1195,8 +1223,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "ConditionKind");
                 dataSet.Tables["ConditionKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (ConditionKind i in this.AllConditionKinds.ConditionKinds.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["ConditionKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1212,8 +1243,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "DisasterKind");
                 dataSet.Tables["DisasterKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (zainanzhongleilei i in this.suoyouzainanzhonglei.zainanzhongleizidian.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["DisasterKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1238,8 +1272,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "EventEffect");
                 dataSet.Tables["EventEffect"].Rows.Clear();
+                storedIds.Clear();
                 foreach (GameObjects.ArchitectureDetail.EventEffect.EventEffect i in this.AllEventEffects.EventEffects.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     if (i.Kind == null) continue;
                     row = dataSet.Tables["EventEffect"].NewRow();
                     row.BeginEdit();
@@ -1259,8 +1296,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "EventEffectKind");
                 dataSet.Tables["EventEffectKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (GameObjects.ArchitectureDetail.EventEffect.EventEffectKind i in this.AllEventEffectKinds.EventEffectKinds.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["EventEffectKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1276,8 +1316,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "FacilityKind");
                 dataSet.Tables["FacilityKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (FacilityKind i in this.AllFacilityKinds.FacilityKinds.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["FacilityKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1308,8 +1351,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "guanjuezhonglei");
                 dataSet.Tables["guanjuezhonglei"].Rows.Clear();
+                storedIds.Clear();
                 foreach (guanjuezhongleilei i in this.suoyouguanjuezhonglei.guanjuedezhongleizidian.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["guanjuezhonglei"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1328,8 +1374,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "IdealTendencyKind");
                 dataSet.Tables["IdealTendencyKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (IdealTendencyKind i in this.AllIdealTendencyKinds)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["IdealTendencyKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1346,8 +1395,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Influence");
                 dataSet.Tables["Influence"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Influence i in this.AllInfluences.Influences.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     if (i.Kind == null) continue;
                     row = dataSet.Tables["Influence"].NewRow();
                     row.BeginEdit();
@@ -1368,8 +1420,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "InfluenceKind");
                 dataSet.Tables["InfluenceKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (InfluenceKind i in this.AllInfluenceKinds.InfluenceKinds.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["InfluenceKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1387,8 +1442,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "InformationKind");
                 dataSet.Tables["InformationKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (InformationKind i in this.AllInformationKinds)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["InformationKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1411,8 +1469,11 @@
                 builder.QuoteSuffix = "]";
                 adapter.Fill(dataSet, "MilitaryKind");
                 dataSet.Tables["MilitaryKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (MilitaryKind i in this.AllMilitaryKinds.MilitaryKinds.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["MilitaryKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1497,8 +1558,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "SectionAIDetail");
                 dataSet.Tables["SectionAIDetail"].Rows.Clear();
+                storedIds.Clear();
                 foreach (SectionAIDetail i in this.AllSectionAIDetails.SectionAIDetails.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["SectionAIDetail"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1537,8 +1601,11 @@
                 builder.QuoteSuffix = "]";
                 adapter.Fill(dataSet, "Skill");
                 dataSet.Tables["Skill"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Skill i in this.AllSkills.Skills.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["Skill"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1563,8 +1630,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Stratagem");
                 dataSet.Tables["Stratagem"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Stratagem i in this.AllStratagems.Stratagems.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["Stratagem"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1592,8 +1662,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Stunt");
                 dataSet.Tables["Stunt"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Stunt i in this.AllStunts.Stunts.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["Stunt"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1616,8 +1689,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Technique");
                 dataSet.Tables["Technique"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Technique i in this.AllTechniques.Techniques.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["Technique"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1644,8 +1720,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TerrainDetail");
                 dataSet.Tables["TerrainDetail"].Rows.Clear();
+                storedIds.Clear();
                 foreach (TerrainDetail i in this.AllTerrainDetails.TerrainDetails.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["TerrainDetail"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1674,8 +1753,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TextMessage");
                 dataSet.Tables["TextMessage"].Rows.Clear();
+                storedIds.Clear();
                 foreach (TextMessage message in this.AllTextMessages.TextMessages.Values)
                 {
+                    if (storedIds.Contains(message.ID)) continue;
+                    storedIds.Add(message.ID);
                     DataRow current = dataSet.Tables["TextMessage"].NewRow();
                     current.BeginEdit();
                     current["ID"] = message.ID;
@@ -1709,8 +1791,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TileAnimation");
                 dataSet.Tables["TileAnimation"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Animation i in this.AllTileAnimations.Animations.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["TileAnimation"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1731,8 +1816,11 @@
                 builder.QuoteSuffix = "]";
                 adapter.Fill(dataSet, "Title");
                 dataSet.Tables["Title"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Title i in this.AllTitles.Titles.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["Title"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1755,8 +1843,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TroopAnimation");
                 dataSet.Tables["TroopAnimation"].Rows.Clear();
+                storedIds.Clear();
                 foreach (Animation i in this.AllTroopAnimations.Animations.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["TroopAnimation"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1774,8 +1865,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TroopEventEffect");
                 dataSet.Tables["TroopEventEffect"].Rows.Clear();
+                storedIds.Clear();
                 foreach (GameObjects.TroopDetail.EventEffect.EventEffect i in this.AllTroopEventEffects.EventEffects.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["TroopEventEffect"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
@@ -1793,8 +1887,11 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "TroopEventEffectKind");
                 dataSet.Tables["TroopEventEffectKind"].Rows.Clear();
+                storedIds.Clear();
                 foreach (GameObjects.TroopDetail.EventEffect.EventEffectKind i in this.AllTroopEventEffectKinds.EventEffectKinds.Values)
                 {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
                     row = dataSet.Tables["TroopEventEffectKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
