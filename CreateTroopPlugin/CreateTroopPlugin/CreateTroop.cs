@@ -1000,6 +1000,10 @@
                     this.CombatMethodText.Clear();
                     this.StuntText.Clear();
                     this.InfluenceText.Clear();
+                    foreach (Person p in this.CreatingTroop.Persons)
+                    {
+                        p.LocationTroop = null;
+                    }
                     this.CreatingTroop.Persons.PurifyInfluences();
                     this.CreatingTroop = null;
                     this.CreatingPersons = null;
