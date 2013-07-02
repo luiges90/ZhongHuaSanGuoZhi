@@ -494,6 +494,7 @@
             this.DiplomaticRelations.Clear();
             this.GeneratorOfTileAnimation.Clear();
             this.YearTable.Clear();
+            this.GameCommonData.Clear();
             this.CurrentFaction = null;
             this.CurrentPlayer = null;
         }
