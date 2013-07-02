@@ -4611,6 +4611,10 @@
             set
             {
                 this.loyalty = value;
+                if (this.loyalty < 0)
+                {
+                    this.loyalty = 0;
+                }
             }
         }
 
