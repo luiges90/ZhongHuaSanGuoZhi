@@ -6175,7 +6175,7 @@
                     {
                         if (t.Combat)
                         {
-                            if (GameObject.Chance((r.BaseCommand + r.Strength + r.BaseIntelligence) / 3))
+                            if (GameObject.Chance((r.BaseCommand + r.BaseStrength + r.BaseIntelligence) / 3))
                             {
                                 r.CombatTitle = t;
                                 break;
