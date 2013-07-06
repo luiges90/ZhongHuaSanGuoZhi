@@ -224,7 +224,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     DataSource = "GameData/Save/" + this.LoadFileName,
                     Provider = "Microsoft.Jet.OLEDB.4.0"
                 };
-                base.Scenario.LoadSaveFileFromDatabase(builder.ConnectionString);
+                base.Scenario.LoadSaveFileFromDatabase(builder.ConnectionString, this.LoadFileName);
                 
                 //this.mainMapLayer.jiazaibeijingtupian();
 

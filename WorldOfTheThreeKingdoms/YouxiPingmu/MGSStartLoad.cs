@@ -236,7 +236,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     DataSource = "GameData/Save/" + realPath,
                     Provider = "Microsoft.Jet.OLEDB.4.0"
                 };
-                base.Scenario.LoadSaveFileFromDatabase(builder.ConnectionString);
+                base.Scenario.LoadSaveFileFromDatabase(builder.ConnectionString, this.LoadFileName);
 
                 if (GlobalVariables.EncryptSave)
                 {

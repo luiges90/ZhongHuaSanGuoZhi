@@ -67,7 +67,7 @@
         public YearTable YearTable = new YearTable();
         public Dictionary<Event, Architecture> EventsToApply = new Dictionary<Event, Architecture>();
         public EventList AllEvents = new EventList();
-        public bool AllNewGame;
+        public String LoadedFileName;
         public bool UsingOwnCommonData;
         
         // 缓存地图上有几支部队在埋伏
@@ -3015,11 +3015,11 @@
                 this.OnAfterLoadScenario(this);
             }
             this.detectCurrentPlayerBattleState(this.CurrentPlayer);
-            this.AllNewGame = true;
+            this.LoadedFileName = "";
             return true;
         }
 
-        public bool LoadSaveFileFromDatabase(string connectionString) //读取存档
+        public bool LoadSaveFileFromDatabase(string connectionString, String LoadedFileName) //读取存档
         {
             this.Clear();
 
@@ -3073,7 +3073,7 @@
                     GlobalVariables.DialogShowTime = oldDialogShowTime;
                 }
             }
-            this.AllNewGame = false;
+            this.LoadedFileName = LoadedFileName;
             return true;
         }
         private int oldDialogShowTime = -1;

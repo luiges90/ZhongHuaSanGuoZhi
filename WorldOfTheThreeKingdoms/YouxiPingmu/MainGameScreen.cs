@@ -1489,7 +1489,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.Plugins.OptionDialogPlugin.ShowOptionDialog(ShowPosition.Center);
         }
 
-        public void SaveGameToDisk()
+        public void SaveGameToDisk(String LoadedFileName)
         {
             base.Scenario.EnableLoadAndSave = false;
             this.mainMapLayer.freeTilesMemory();
@@ -1503,7 +1503,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             string tempFilePath = zhsPath + ".bak";
 
             bool saveMap;
-            if (File.Exists(zhsPath) && !base.Scenario.AllNewGame)
+            if (File.Exists(zhsPath) && base.Scenario.LoadedFileName.Equals(LoadedFileName))
             {
                 if (GlobalVariables.EncryptSave)
                 {
@@ -1525,9 +1525,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 Provider = "Microsoft.Jet.OLEDB.4.0"
             };
             base.Scenario.ScenarioMap.JumpPosition = this.mainMapLayer.GetCurrentScreenCenter(base.viewportSize);
-            bool saveCommonData = base.Scenario.AllNewGame || saveMap;
 
-            base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveCommonData, saveCommonData);
+            base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveMap, saveMap);
 
             File.Delete(tempFilePath);
 
@@ -1546,109 +1545,72 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private void SaveGameAutoPosition()
         {
             this.SaveFileName = "AutoSave" + this.SaveFileExtension;
-
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
         private void SaveGameToPosition01()
         {
             this.SaveFileName = "Save01" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void SaveGameToPosition02()
         {
             this.SaveFileName = "Save02" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void SaveGameToPosition03()
         {
             this.SaveFileName = "Save03" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void SaveGameToPosition04()
         {
             this.SaveFileName = "Save04" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void SaveGameToPosition05()
         {
             this.SaveFileName = "Save05" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void SaveGameToPosition06()
         {
             this.SaveFileName = "Save06" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void SaveGameToPosition07()
         {
             this.SaveFileName = "Save07" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void SaveGameToPosition08()
         {
             this.SaveFileName = "Save08" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void SaveGameToPosition09()
         {
             this.SaveFileName = "Save09" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void SaveGameToPosition10()
         {
             this.SaveFileName = "Save10" + this.SaveFileExtension;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         public void SaveGameWhenCrash(String _savePath)
         {
             this.SaveFileName = _savePath;
-            Thread thread = new Thread(new ThreadStart(this.SaveGameToDisk));
-            thread.Start();
-            thread.Join();
-            thread = null;
+            this.SaveGameToDisk(this.SaveFileName);
         }
 
         private void Scenario_OnNewFactionAppear(Faction faction)
