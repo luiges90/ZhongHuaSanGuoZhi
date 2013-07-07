@@ -4167,7 +4167,8 @@
         public int GetCostByPosition(Point position, bool oblique, int DirectionCost, MilitaryKind kind)
         {
             //if ((this.Army.Kind.OneAdaptabilityKind > 0) && (this.Army.Kind.OneAdaptabilityKind != (int) base.Scenario.GetTerrainKindByPosition(position)))
-            if ((kind.OneAdaptabilityKind > 0) && (kind.OneAdaptabilityKind != (int)base.Scenario.GetTerrainKindByPosition(position)))
+            if ((kind.OneAdaptabilityKind > 0) && (kind.OneAdaptabilityKind != (int)base.Scenario.GetTerrainKindByPosition(position))
+                && base.Scenario.GetArchitectureByPosition(position) == null)
             {
                 return 1000;
             }
