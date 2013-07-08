@@ -147,7 +147,7 @@
                 pd.Text = i.dialog;
                 for (int j = 0; j < matchedPersons.Count; ++j)
                 {
-                    pd.Text = pd.Text.Replace("%" + j, matchedPersons[i.id].Name);
+                    pd.Text = pd.Text.Replace("%" + j, matchedPersons[j].Name);
                 }
                 matchedDialog.Add(pd);
             }

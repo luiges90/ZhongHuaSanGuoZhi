@@ -397,6 +397,7 @@
             foreach (KeyValuePair<Event, Architecture> i in this.EventsToApply)
             {
                 i.Key.DoApplyEvent(i.Value);
+                i.Key.happened = true;
             }
             this.EventsToApply.Clear();
         }
