@@ -782,7 +782,7 @@
             {
                 if (this.ShowVerticalScrollBar)
                 {
-                    this.listKindToDisplay.MoveVertical((this.oldScrollValue - scrollValue) / 6);
+                    this.listKindToDisplay.MoveVertical((this.oldScrollValue - scrollValue));
                 }
                 else if (this.ShowHorizontalScrollBar)
                 {
