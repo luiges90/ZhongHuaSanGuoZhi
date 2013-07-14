@@ -2448,8 +2448,6 @@
                 this.ArrivingDays = 10;
                 this.TaskDays = this.ArrivingDays;
                 this.Status = PersonStatus.Moving;
-                this.LocationArchitecture.Persons.Remove(this);
-                this.LocationArchitecture.MovingPersons.Add(this);
 				ExtensionInterface.call("GoForSearch", new Object[] { this.Scenario, this });
             }
         }
@@ -2482,8 +2480,6 @@
                 this.ArrivingDays = Math.Max(1, Parameters.LearnSkillDays);
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
-                this.LocationArchitecture.Persons.Remove(this);
-                this.LocationArchitecture.MovingPersons.Add(this);
 				ExtensionInterface.call("GoForStudySkill", new Object[] { this.Scenario, this });
             }
         }
@@ -2498,8 +2494,6 @@
                 this.ArrivingDays = Math.Max(1, Parameters.LearnStuntDays);
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
-                this.LocationArchitecture.Persons.Remove(this);
-                this.LocationArchitecture.MovingPersons.Add(this);
 				ExtensionInterface.call("GoForStudyStunt", new Object[] { this.Scenario, this });
             }
         }
@@ -2514,8 +2508,6 @@
                 this.ArrivingDays = Math.Max(1, this.LocationArchitecture.DayLearnTitleDay);
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
-                this.LocationArchitecture.Persons.Remove(this);
-                this.LocationArchitecture.MovingPersons.Add(this);
 				ExtensionInterface.call("GoForStudyTitle", new Object[] { this.Scenario, this });
             }
         }
@@ -2525,8 +2517,6 @@
             this.TargetArchitecture = this.LocationArchitecture;
             this.ArrivingDays = base.Scenario.GetReturnDays(destination, this.TargetArchitecture.ArchitectureArea);
             this.Status = PersonStatus.Moving;
-            this.LocationArchitecture.Persons.Remove(this);
-            this.LocationArchitecture.MovingPersons.Add(this);
         }
 
         private void HandleSpyMessage(SpyMessage sm)
@@ -3375,8 +3365,6 @@
                         if (this.TargetArchitecture.BelongedFaction == this.BelongedFaction)
                         {
                             this.Status = PersonStatus.Normal;
-                            this.TargetArchitecture.MovingPersons.Remove(this);
-                            this.TargetArchitecture.Persons.Add(this);
                             if (this.Scenario.IsCurrentPlayer(this.BelongedFaction) && this.TargetArchitecture.TodayPersonArriveNote == false
                                 && this.TargetArchitecture.BelongedSection!=null  && this.TargetArchitecture.BelongedSection.AIDetail.ID == 0)
                             {
@@ -3398,8 +3386,6 @@
                     else
                     {
                         this.Status = PersonStatus.NoFaction;
-                        this.TargetArchitecture.NoFactionMovingPersons.Remove(this);
-                        this.TargetArchitecture.NoFactionPersons.Add(this);
                         this.TargetArchitecture = null;
                     }
 					ExtensionInterface.call("ArrivedAtArchitecture", new Object[] { this.Scenario, this, this.TargetArchitecture });

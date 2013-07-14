@@ -248,12 +248,10 @@
                 {
                     base.Scenario.CreatePersonStatusCache();
                 }
-                if (this.ID == 22)
-                {
-                    int a = 0;
-                    a++;
-                }
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Normal];
+
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Normal];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -265,8 +263,10 @@
                 {
                     base.Scenario.CreatePersonStatusCache();
                 }
-                
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Moving];
+
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Moving];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -279,7 +279,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.NoFaction];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.NoFaction];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -292,7 +294,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.NoFactionMoving];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.NoFactionMoving];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -305,7 +309,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Princess];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Princess];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -318,7 +324,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Zhenzai];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Zhenzai];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -331,7 +339,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Agriculture];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Agriculture];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -343,8 +353,10 @@
                 {
                     base.Scenario.CreatePersonStatusCache();
                 }
-                
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Commerce];
+
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Commerce];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -357,7 +369,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Technology];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Technology];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -370,7 +384,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Domination];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Domination];
+                pl.SetImmutable();
+                return pl;
             }
         }
 
@@ -383,7 +399,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Morale];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Morale];
+                pl.SetImmutable();
+                return pl;
                 
             }
         }
@@ -397,7 +415,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Endurance];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Endurance];
+                pl.SetImmutable();
+                return pl;
               
             }
         }
@@ -411,7 +431,9 @@
                     base.Scenario.CreatePersonStatusCache();
                 }
 
-                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Training];
+                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Training];
+                pl.SetImmutable();
+                return pl;
             }
         }
 

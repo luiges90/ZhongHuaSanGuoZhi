@@ -16,13 +16,24 @@
         public string PropertyName;
         public bool SmallToBig;
 
+        private bool immutable = false;
+
+        public void SetImmutable()
+        {
+            immutable = true;
+        }
+
         public void Add(GameObject t)
         {
+            if (immutable) 
+                throw new Exception("Trying to add things to an immutable list");
             this.gameObjects.Add(t);
         }
 
         public void Clear()
         {
+            if (immutable)
+                throw new Exception("Trying to clear an immutable list");
             this.gameObjects.Clear();
         }
 
@@ -287,6 +298,8 @@
 
         public void Remove(GameObject gameObject)
         {
+            if (immutable)
+                throw new Exception("Trying to remove things to an immutable list");
             this.gameObjects.RemoveAll(delegate(GameObject o)
                 {
                     return o == gameObject;
@@ -297,6 +310,8 @@
 
         public void RemoveAt(int index)
         {
+            if (immutable)
+                throw new Exception("Trying to remove things to an immutable list");
             this.gameObjects.RemoveAt(index);
         }
 

@@ -1601,7 +1601,6 @@
                     if (this.StartingArchitecture != null)
                     {
                         person.LocationArchitecture = this.StartingArchitecture;
-                        person.LocationArchitecture.MovingPersons.Add(person);
                         person.MoveToArchitecture(this.StartingArchitecture, from);
                     }
                 }
@@ -2719,7 +2718,6 @@
                 p.LocationTroop = troop;
                 if (p.LocationArchitecture != null)
                 {
-                    p.LocationArchitecture.Persons.Remove(p);
                     p.LocationArchitecture = null;
                     p.WorkKind = ArchitectureWorkKind.无;
                 }
@@ -3473,7 +3471,6 @@
                 {
                     p.LocationTroop = null;
                     p.LocationArchitecture = a;
-                    p.LocationArchitecture.Persons.Add(p);
                 }
                 this.persons.ApplyInfluences();
                 this.persons.Clear();
