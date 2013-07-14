@@ -5,7 +5,7 @@ copy GameData\GameParametersPublic.xml ..\public\GameData\GameParameters.xml
 copy GameData\GlobalVariablesPublic.xml ..\public\GameData\GlobalVariables.xml
 copy GameData\Common\CommonDataPublic.mdb ..\public\GameData\Common\CommonData.mdb
 xcopy Resources\CreateChildrenTextFile\Public ..\public\Resources\CreateChildrenTextFile
-md ..\public\GameComponents\PersonPortrait\PlayerImage
+md ..\public\GameComponents\PersonPortrait\Images\Player
 copy GameComponents\PersonPortrait\PlayerImage\9999.jpg ..\public\GameComponents\PersonPortrait\PlayerImage\9999.jpg
 copy GameComponents\PersonPortrait\PlayerImage\9999s.jpg ..\public\GameComponents\PersonPortrait\PlayerImage\9999s.jpg
 copy GameComponents\PersonPortrait\PlayerImage\ReadMe.txt ..\public\GameComponents\PersonPortrait\PlayerImage\ReadMe.txt

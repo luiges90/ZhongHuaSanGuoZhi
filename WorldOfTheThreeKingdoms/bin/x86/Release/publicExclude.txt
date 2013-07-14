@@ -1,5 +1,5 @@
 Resources\Extensions\
-GameComponents\PersonPortrait\PlayerImage\
+GameComponents\PersonPortrait\Images\Player
 GameData\GameParameters
 GameData\GlobalVariables
 GameData\Common\archive\

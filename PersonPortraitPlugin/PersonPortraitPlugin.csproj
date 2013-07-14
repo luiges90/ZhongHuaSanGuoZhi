@@ -39,7 +39,6 @@
     <Reference Include="System" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Global.cs" />
-    <Compile Include="PersonPortraitPlugin\PersonPortraitData.cs" />
     <Compile Include="PersonPortraitPlugin\PersonPortraitPlugin.cs" />
     <Compile Include="PersonPortraitPlugin\PortraitItem.cs" />
     <Compile Include="PersonPortraitPlugin\PlayerImage.cs" />

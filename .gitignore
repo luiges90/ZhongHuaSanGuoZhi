@@ -111,11 +111,5 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/yinxiao
 MODS
 JSGME.ini
 
-*.png
-*.gif
-*.jpg
-*.wma
-*.wav
-
 *.xlsx
 L*.mdb
