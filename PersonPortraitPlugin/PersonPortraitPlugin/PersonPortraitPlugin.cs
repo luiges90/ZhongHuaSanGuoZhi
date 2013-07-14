@@ -39,10 +39,8 @@
 
         public void Initialize()
         {
-            this.personPortrait.PortraitRM = new ResourceManager("PersonPortraitPlugin.PersonPortraitData", Assembly.GetExecutingAssembly());
-            this.personPortrait.SmallPortraitRM = new ResourceManager("PersonPortraitPlugin.PersonSmallPortraitData", Assembly.GetExecutingAssembly());
             this.personPortrait.TempImageFileName = @"GameComponents\PersonPortrait\~tmp.image";
-            this.personPortrait.LoadPlayerImages(@"GameComponents\PersonPortrait\PlayerImage");
+            this.personPortrait.LoadPlayerImages(@"GameComponents\PersonPortrait");
         }
 
         public void SetGraphicsDevice(GraphicsDevice device)

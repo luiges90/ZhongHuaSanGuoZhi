@@ -40,13 +40,10 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="PersonPortraitPlugin\PersonPortraitData.cs" />
-    <Compile Include="PersonPortraitPlugin\PersonSmallPortraitData.cs" />
     <Compile Include="PersonPortraitPlugin\PersonPortraitPlugin.cs" />
     <Compile Include="PersonPortraitPlugin\PortraitItem.cs" />
     <Compile Include="PersonPortraitPlugin\PlayerImage.cs" />
     <Compile Include="PersonPortraitPlugin\PersonPortrait.cs" />
-    <EmbeddedResource Include="PersonPortraitPlugin.PersonSmallPortraitData.resources" />
-    <EmbeddedResource Include="PersonPortraitPlugin.PersonPortraitData.resources" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameObjects\GameObjects.csproj">
