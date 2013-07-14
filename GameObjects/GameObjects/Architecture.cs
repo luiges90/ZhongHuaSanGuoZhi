@@ -244,15 +244,16 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+                if (this.ID == 22)
+                {
+                    int a = 0;
+                    a++;
+                }
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Normal];
             }
         }
 
@@ -260,15 +261,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Moving && i.LocationArchitecture == this)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+                
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Moving];
             }
         }
 
@@ -276,15 +274,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture == this)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.NoFaction];
             }
         }
 
@@ -292,15 +287,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture == this)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.NoFactionMoving];
             }
         }
 
@@ -308,15 +300,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Princess && i.LocationArchitecture == this)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Princess];
             }
         }
 
@@ -324,15 +313,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.赈灾 && i.LocationTroop == null)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Zhenzai];
             }
         }
 
@@ -340,15 +326,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.农业 && i.LocationTroop == null)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Agriculture];
             }
         }
 
@@ -356,15 +339,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.商业 && i.LocationTroop == null)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+                
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Commerce];
             }
         }
 
@@ -372,15 +352,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.技术 && i.LocationTroop == null)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Technology];
             }
         }
 
@@ -388,15 +365,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.统治 && i.LocationTroop == null)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Domination];
             }
         }
 
@@ -404,15 +378,13 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.民心 && i.LocationTroop == null)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Morale];
+                
             }
         }
 
@@ -420,15 +392,13 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.耐久 && i.LocationTroop == null)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Endurance];
+              
             }
         }
 
@@ -436,15 +406,12 @@
         {
             get
             {
-                PersonList result = new PersonList();
-                foreach (Person i in base.Scenario.Persons)
+                if (base.Scenario.GetPersonStatusCache() == null)
                 {
-                    if (i.Status == PersonStatus.Normal && i.LocationArchitecture == this && i.WorkKind == ArchitectureWorkKind.训练 && i.LocationTroop == null)
-                    {
-                        result.Add(i);
-                    }
+                    base.Scenario.CreatePersonStatusCache();
                 }
-                return result;
+
+                return base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Training];
             }
         }
 
@@ -2137,7 +2104,12 @@
                 bool needOnlyOneMorale = this.Morale >= this.MoraleCeiling - 2;             // 因为补充导致的民心下降1或2点时，只需要选择1个武将进行民心就足够了
                 bool needOnlyOneTrain = false;
 
-                if ((!IsFundIncomeEnough && need[1])
+                if (this.RecentlyAttacked > 0)
+                {
+                    need[0] = need[1] = need[2] = false;
+                    need[5] = true;
+                } 
+                else if ((!IsFundIncomeEnough && need[1])
                     || (!IsFoodIncomeEnough && need[0])
                     || (this.PopulationDevelopingRate <= 0 && (need[3] || need[4]))
                     || this.Endurance < 30)
@@ -2149,6 +2121,8 @@
                     need[4] &= this.PopulationDevelopingRate <= 0;
                     need[5] = this.Endurance < 30;
                 }
+
+                
 
                 if (trainingMilitaryList.Count == 1)
                 {

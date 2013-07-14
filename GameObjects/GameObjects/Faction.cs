@@ -2502,7 +2502,6 @@
 
         public bool Run()
         {
-            Thread thread;
             if (!this.preUserControlFinished)
             {
                 this.Develop();

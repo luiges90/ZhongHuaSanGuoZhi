@@ -332,6 +332,7 @@
                     this.ApplyArchitectureInfluence();
                     this.ApplyFactionInfluence();
                 }
+                base.Scenario.ClearPersonStatusCache();
                 status = value;
             }
         }
@@ -5576,6 +5577,7 @@
                     this.recruitmentMilitary.RecruitmentPerson = null;
                     this.recruitmentMilitary = null;
                 }
+                base.Scenario.ClearPersonStatusCache();
                 this.workKind = value;
             }
         }

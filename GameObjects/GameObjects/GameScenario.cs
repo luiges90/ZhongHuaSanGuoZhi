@@ -110,6 +110,163 @@
             this.GeneratorOfTileAnimation = new TileAnimationGenerator(this);
         }
 
+        public enum PersonStatusCacheKey
+        {
+            Normal, Moving, NoFaction, NoFactionMoving, Princess, Zhenzai, Agriculture, Commerce, Technology, Domination, Morale, Endurance, Training 
+        }
+
+        private Dictionary<Architecture, Dictionary<PersonStatusCacheKey, PersonList>> PersonStatusCache;
+
+        public Dictionary<Architecture, Dictionary<PersonStatusCacheKey, PersonList>> GetPersonStatusCache()
+        {
+            return PersonStatusCache;
+        }
+
+        public void CreatePersonStatusCache()
+        {
+            PersonStatusCache = new Dictionary<Architecture, Dictionary<PersonStatusCacheKey, PersonList>>();
+
+            foreach (Architecture a in this.Architectures)
+            {
+                PersonStatusCache.Add(a, new Dictionary<PersonStatusCacheKey, PersonList>());
+                foreach (PersonStatusCacheKey k in Enum.GetValues(typeof(PersonStatusCacheKey)))
+                {
+                    PersonStatusCache[a].Add(k, new PersonList());
+                }
+            }
+
+            foreach (Person i in this.Persons)
+            {
+                if (i.Status == PersonStatus.Normal && i.LocationArchitecture != null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Normal];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Normal] = list;
+                }
+                if (i.Status == PersonStatus.Moving && i.LocationArchitecture != null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Moving];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Moving] = list;
+                }
+                if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture != null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.NoFaction];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.NoFaction] = list;
+                }
+                if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture != null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.NoFactionMoving];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.NoFactionMoving] = list;
+                }
+                if (i.Status == PersonStatus.Princess && i.LocationArchitecture != null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Princess];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Princess] = list;
+                }
+
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.赈灾 && i.LocationTroop == null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Zhenzai];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Zhenzai] = list;
+                }
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.农业 && i.LocationTroop == null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Agriculture];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Agriculture] = list;
+                }
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.商业 && i.LocationTroop == null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Commerce];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Commerce] = list;
+                }
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.技术 && i.LocationTroop == null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Technology];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Technology] = list;
+                }
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.统治 && i.LocationTroop == null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Domination];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Domination] = list;
+                }
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.民心 && i.LocationTroop == null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Morale];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Morale] = list;
+                }
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.耐久 && i.LocationTroop == null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Endurance];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Endurance] = list;
+                }
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.训练 && i.LocationTroop == null)
+                {
+                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Training];
+                    if (!list.GameObjects.Contains(i))
+                    {
+                        list.Add(i);
+                    }
+                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Training] = list;
+                }
+            }
+        }
+
+        public void ClearPersonStatusCache()
+        {
+            if (this.PersonStatusCache != null)
+            {
+                this.PersonStatusCache.Clear();
+            }
+            this.PersonStatusCache = null;
+        }
+
         public CaptiveList Captives
         {
             get
@@ -2488,34 +2645,7 @@
                 architecture.AutoSearching = (bool)reader["AutoSearching"];
                 architecture.HireFinished = (bool)reader["HireFinished"];
                 architecture.FacilityEnabled = (bool)reader["FacilityEnabled"];
-                architecture.AgricultureWorkingPersons.LoadFromString(architecture.Persons, reader["AgricultureWorkingPersons"].ToString());
-                architecture.CommerceWorkingPersons.LoadFromString(architecture.Persons, reader["CommerceWorkingPersons"].ToString());
-                architecture.TechnologyWorkingPersons.LoadFromString(architecture.Persons, reader["TechnologyWorkingPersons"].ToString());
-                architecture.DominationWorkingPersons.LoadFromString(architecture.Persons, reader["DominationWorkingPersons"].ToString());
-                architecture.MoraleWorkingPersons.LoadFromString(architecture.Persons, reader["MoraleWorkingPersons"].ToString());
-                architecture.EnduranceWorkingPersons.LoadFromString(architecture.Persons, reader["EnduranceWorkingPersons"].ToString());
-                try
-                {  //读存档,赈灾工作的人
-                    architecture.ZhenzaiWorkingPersons.LoadFromString(architecture.Persons, reader["zhenzaiWorkingPersons"].ToString());
-                }
-                catch
-                {  //读剧本，剧本里没有这一项，所以会出错
-                }
-                try
-                {  //读存档,训练工作的人
-                    architecture.TrainingWorkingPersons.LoadFromString(architecture.Persons, reader["TrainingWorkingPersons"].ToString());
-                }
-                catch
-                {  //读剧本，剧本里没有这一项，所以会出错
-                }
 
-                try
-                {  //读存档
-                    architecture.LoadfeiziPersonsFromString(this.AllPersons, reader["feiziliebiao"].ToString());
-                }
-                catch
-                {  //读剧本，剧本里没有这一项，所以会出错
-                }
                 try
                 {
                     architecture.MilitaryPopulation = (int)reader["MilitaryPopulation"];
