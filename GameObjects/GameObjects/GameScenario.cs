@@ -438,7 +438,6 @@
                 }
 
                 person.LocationArchitecture = this.Architectures.GetGameObject(person.AvailableLocation) as Architecture;
-                person.LocationArchitecture.NoFactionPersons.Add(person);
                 person.Status = PersonStatus.NoFaction;
             }
             this.PreparedAvailablePersons.Clear();
