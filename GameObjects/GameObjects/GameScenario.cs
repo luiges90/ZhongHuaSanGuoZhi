@@ -221,10 +221,6 @@
 
         public void ClearPersonStatusCache()
         {
-            if (this.PersonStatusCache != null)
-            {
-                this.PersonStatusCache.Clear();
-            }
             this.PersonStatusCache = null;
         }
 
