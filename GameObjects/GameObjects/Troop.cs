@@ -3239,6 +3239,13 @@
             }
             if (removeReferences)
             {
+                foreach (TileData td in base.Scenario.MapTileData)
+                {
+                    td.RemoveContactingTroop(this);
+                    td.RemoveOffencingTroop(this);
+                    td.RemoveStratagemingTroop(this);
+                    td.RemoveViewingTroop(this);
+                }
                 foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
                 {
                     i.TroopDestroyed(this);
@@ -3253,33 +3260,6 @@
                 }
                 if (this.BelongedLegion != null)
                 {
-                    /*if (this.BelongedLegion.CoreTroop == this)
-                    {
-                        List<Troop> livingTroops = new List<Troop>();
-                        int maxFightingForce = -1;
-                        Troop maxFightingForceTroop = null;
-                        foreach (Troop t in this.BelongedLegion.Troops)
-                        {
-                            if (!t.Destroyed)
-                            {
-                                livingTroops.Add(t);
-                                if (t.FightingForce > maxFightingForce)
-                                {
-                                    maxFightingForce = t.FightingForce;
-                                    maxFightingForceTroop = t;
-                                }
-                            }
-                        }
-                        if (livingTroops.Count <= 0)
-                        {
-                            this.BelongedFaction.Legions.Remove(this.BelongedLegion);
-                            base.Scenario.Legions.Remove(this.BelongedLegion);
-                        }
-                        else
-                        {
-                            this.BelongedLegion.CoreTroop = maxFightingForceTroop;
-                        }
-                    }*/
                     this.BelongedLegion.RemoveTroop(this);
                 }
                 if (removeArmy)
@@ -8190,7 +8170,6 @@
                         personlist.Add(captive.CaptivePerson);
                         captive.CaptivePerson.Status = PersonStatus.Normal;
                         captive.CaptivePerson.LocationArchitecture = captive.CaptiveFaction.Capital;
-                        captive.CaptivePerson.LocationArchitecture.Persons.Add(captive.CaptivePerson);
                         captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
                         captive.CaptivePerson.BelongedCaptive = null;
                     }

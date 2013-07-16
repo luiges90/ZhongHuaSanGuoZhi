@@ -249,7 +249,7 @@
 
         public void MoveHorizontal(int offset)
         {
-            this.HorizontalScrollBar.X -= (int)((double)offset / (this.tabList.RowRectangles[0].Width) * (this.tabList.VisibleLowerClient.Width - this.VerticalScrollBar.Width)); 
+            this.HorizontalScrollBar.X += (int)((double)offset / (this.tabList.RowRectangles[0].Width) * (this.tabList.VisibleLowerClient.Width - this.VerticalScrollBar.Width)); 
             if (this.HorizontalScrollBar.Left < this.tabList.VisibleLowerClient.Left)
             {
                 this.HorizontalScrollBar.X = this.tabList.VisibleLowerClient.Left;

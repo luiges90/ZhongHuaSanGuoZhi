@@ -244,14 +244,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Normal];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetPersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -259,14 +254,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Moving];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetMovingPersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -274,14 +264,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.NoFaction];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetNoFactionPersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -289,14 +274,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.NoFactionMoving];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetNoFactionMovingPersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -304,14 +284,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Princess];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetPrincessPersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -319,14 +294,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Zhenzai];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetZhenzaiPersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -334,14 +304,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Agriculture];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetAgriculturePersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -349,14 +314,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Commerce];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetCommercePersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -364,14 +324,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Technology];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetTechnologyPersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -379,14 +334,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Domination];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetDomintaionPersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -394,14 +344,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Morale];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetMoralePersonList(this);
+                p.SetImmutable();
+                return p;
                 
             }
         }
@@ -410,14 +355,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Endurance];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetEndurancePersonList(this);
+                p.SetImmutable();
+                return p;
               
             }
         }
@@ -426,14 +366,9 @@
         {
             get
             {
-                if (base.Scenario.GetPersonStatusCache() == null)
-                {
-                    base.Scenario.CreatePersonStatusCache();
-                }
-
-                PersonList pl = base.Scenario.GetPersonStatusCache()[this][GameScenario.PersonStatusCacheKey.Training];
-                pl.SetImmutable();
-                return pl;
+                PersonList p = base.Scenario.GetTrainingPersonList(this);
+                p.SetImmutable();
+                return p;
             }
         }
 
@@ -10918,10 +10853,11 @@
             PersonList technologyPersons, PersonList dominationPersons, PersonList moralePersons, PersonList endurancePersons,
             PersonList recruitmentPersons, PersonList trainingPersons, MilitaryList weighingMilitaries)
         {
+            PersonList pl = this.Persons;
             zhenzaiPersons.Clear();
             if (this.kezhenzai())
             {
-                foreach (Person person in this.Persons)
+                foreach (Person person in pl)
                 {
                     zhenzaiPersons.Add(person);
                 }
@@ -10932,7 +10868,7 @@
             agriculturePersons.Clear();
             if (this.Kind.HasAgriculture)
             {
-                foreach (Person person in this.Persons)
+                foreach (Person person in pl)
                 {
                     agriculturePersons.Add(person);
                 }
@@ -10943,7 +10879,7 @@
             commercePersons.Clear();
             if (this.Kind.HasCommerce)
             {
-                foreach (Person person in this.Persons)
+                foreach (Person person in pl)
                 {
                     commercePersons.Add(person);
                 }
@@ -10954,7 +10890,7 @@
             technologyPersons.Clear();
             if (this.Kind.HasTechnology)
             {
-                foreach (Person person in this.Persons)
+                foreach (Person person in pl)
                 {
                     technologyPersons.Add(person);
                 }
@@ -10965,7 +10901,7 @@
             dominationPersons.Clear();
             if (this.Kind.HasDomination)
             {
-                foreach (Person person in this.Persons)
+                foreach (Person person in pl)
                 {
                     dominationPersons.Add(person);
                 }
@@ -10976,7 +10912,7 @@
             moralePersons.Clear();
             if (this.Kind.HasMorale)
             {
-                foreach (Person person in this.Persons)
+                foreach (Person person in pl)
                 {
                     moralePersons.Add(person);
                 }
@@ -10987,7 +10923,7 @@
             endurancePersons.Clear();
             if (this.Kind.HasEndurance)
             {
-                foreach (Person person in this.Persons)
+                foreach (Person person in pl)
                 {
                     endurancePersons.Add(person);
                 }
@@ -10996,7 +10932,7 @@
                 endurancePersons.ReSort();
             }
             trainingPersons.Clear();
-            foreach (Person person in this.Persons)
+            foreach (Person person in pl)
             {
                 trainingPersons.Add(person);
             }

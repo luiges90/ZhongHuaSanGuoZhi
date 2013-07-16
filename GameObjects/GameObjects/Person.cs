@@ -2827,8 +2827,6 @@
                 this.OutsideTask = OutsideTaskKind.无;
             }
             this.Status = PersonStatus.NoFaction;
-            locationArchitecture.Persons.Remove(this);
-            locationArchitecture.NoFactionPersons.Add(this);
             if (this.OnLeave != null)
             {
                 this.OnLeave(this, locationArchitecture);
@@ -6299,8 +6297,6 @@
             nvren.LocationArchitecture.DecreaseFund(50000);
 
             nvren.Status = PersonStatus.Princess;
-            nvren.LocationArchitecture.Persons.Remove(nvren);
-            nvren.LocationArchitecture.Feiziliebiao.Add(nvren);
             nvren.workKind = ArchitectureWorkKind.无;
 
             nvren.LocationTroop = null;

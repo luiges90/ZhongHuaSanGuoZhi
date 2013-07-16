@@ -110,118 +110,275 @@
             this.GeneratorOfTileAnimation = new TileAnimationGenerator(this);
         }
 
-        public enum PersonStatusCacheKey
+        private Dictionary<Architecture, PersonList>
+             NormalPLCache, MovingPLCache, NoFactionPLCache, NoFactionMovingPLCache, PrincessPLCache,
+             ZhenzaiPLCache, AgriculturePLCache, CommercePLCache, TechnologyPLCache,
+             DominationPLCache, MoralePLCache, EndurancePLCache, TrainingPLCache;
+
+        private PersonList emptyPersonList = new PersonList();
+
+        public PersonList GetPersonList(Architecture a)
         {
-            Normal, Moving, NoFaction, NoFactionMoving, Princess, Zhenzai, Agriculture, Commerce, Technology, Domination, Morale, Endurance, Training 
-        }
-
-        private Dictionary<Architecture, Dictionary<PersonStatusCacheKey, PersonList>> PersonStatusCache;
-
-        public Dictionary<Architecture, Dictionary<PersonStatusCacheKey, PersonList>> GetPersonStatusCache()
-        {
-            return this.PersonStatusCache;
-        }
-
-        public void CreatePersonStatusCache()
-        {
-            PersonStatusCache = new Dictionary<Architecture, Dictionary<PersonStatusCacheKey, PersonList>>();
-
-            foreach (Architecture a in this.Architectures)
+            if (NormalPLCache == null)
             {
-                PersonStatusCache.Add(a, new Dictionary<PersonStatusCacheKey, PersonList>());
-                foreach (PersonStatusCacheKey k in Enum.GetValues(typeof(PersonStatusCacheKey)))
-                {
-                    PersonStatusCache[a].Add(k, new PersonList());
-                }
+                CreatePersonStatusCache();
             }
+            if (!this.NormalPLCache.ContainsKey(a)) return emptyPersonList;
+            return NormalPLCache[a];
+        }
 
-            foreach (Person i in this.Persons)
+        public PersonList GetMovingPersonList(Architecture a)
+        {
+            if (MovingPLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.MovingPLCache.ContainsKey(a)) return emptyPersonList;
+            return MovingPLCache[a];
+        }
+
+        public PersonList GetNoFactionPersonList(Architecture a)
+        {
+            if (NoFactionPLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.NoFactionPLCache.ContainsKey(a)) return emptyPersonList;
+            return NoFactionPLCache[a];
+        }
+
+        public PersonList GetNoFactionMovingPersonList(Architecture a)
+        {
+            if (NoFactionMovingPLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.NoFactionMovingPLCache.ContainsKey(a)) return emptyPersonList;
+            return NoFactionMovingPLCache[a];
+        }
+
+        public PersonList GetPrincessPersonList(Architecture a)
+        {
+            if (PrincessPLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.PrincessPLCache.ContainsKey(a)) return emptyPersonList;
+            return PrincessPLCache[a];
+        }
+
+        public PersonList GetZhenzaiPersonList(Architecture a)
+        {
+            if (ZhenzaiPLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.ZhenzaiPLCache.ContainsKey(a)) return emptyPersonList;
+            return ZhenzaiPLCache[a];
+        }
+
+        public PersonList GetAgriculturePersonList(Architecture a)
+        {
+            if (AgriculturePLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.AgriculturePLCache.ContainsKey(a)) return emptyPersonList;
+            return AgriculturePLCache[a];
+        }
+
+        public PersonList GetCommercePersonList(Architecture a)
+        {
+            if (CommercePLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.CommercePLCache.ContainsKey(a)) return emptyPersonList;
+            return CommercePLCache[a];
+        }
+
+        public PersonList GetTechnologyPersonList(Architecture a)
+        {
+            if (TechnologyPLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.TechnologyPLCache.ContainsKey(a)) return emptyPersonList;
+            return TechnologyPLCache[a];
+        }
+
+        public PersonList GetDomintaionPersonList(Architecture a)
+        {
+            if (DominationPLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.DominationPLCache.ContainsKey(a)) return emptyPersonList;
+            return DominationPLCache[a];
+        }
+
+        public PersonList GetMoralePersonList(Architecture a)
+        {
+            if (MoralePLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.MoralePLCache.ContainsKey(a)) return emptyPersonList;
+            return MoralePLCache[a];
+        }
+
+        public PersonList GetEndurancePersonList(Architecture a)
+        {
+            if (EndurancePLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.EndurancePLCache.ContainsKey(a)) return emptyPersonList;
+            return EndurancePLCache[a];
+        }
+
+        public PersonList GetTrainingPersonList(Architecture a)
+        {
+            if (TrainingPLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.TrainingPLCache.ContainsKey(a)) return emptyPersonList;
+            return TrainingPLCache[a];
+        }
+
+
+        private void CreatePersonStatusCache()
+        {
+            NormalPLCache = new Dictionary<Architecture, PersonList>();
+            MovingPLCache = new Dictionary<Architecture, PersonList>();
+            NoFactionPLCache = new Dictionary<Architecture, PersonList>();
+            NoFactionMovingPLCache = new Dictionary<Architecture, PersonList>();
+            PrincessPLCache = new Dictionary<Architecture, PersonList>();
+            ZhenzaiPLCache = new Dictionary<Architecture, PersonList>();
+            AgriculturePLCache = new Dictionary<Architecture, PersonList>();
+            CommercePLCache = new Dictionary<Architecture, PersonList>();
+            TechnologyPLCache = new Dictionary<Architecture, PersonList>();
+            DominationPLCache = new Dictionary<Architecture, PersonList>();
+            MoralePLCache = new Dictionary<Architecture, PersonList>();
+            EndurancePLCache = new Dictionary<Architecture, PersonList>();
+            TrainingPLCache = new Dictionary<Architecture, PersonList>();
+
+            foreach (Person i in this.AvailablePersons)
             {
                 if (i.Status == PersonStatus.Normal && i.LocationArchitecture != null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Normal];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Normal] = list;
+                    if (!this.NormalPLCache.ContainsKey(i.LocationArchitecture)) 
+                    {
+                        this.NormalPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    NormalPLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.Moving && i.LocationArchitecture != null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Moving];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Moving] = list;
+                    if (!this.MovingPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.MovingPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    MovingPLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture != null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.NoFaction];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.NoFaction] = list;
+                    if (!this.NoFactionPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.NoFactionPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    NoFactionPLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture != null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.NoFactionMoving];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.NoFactionMoving] = list;
+                    if (!this.NoFactionMovingPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.NoFactionMovingPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    NoFactionMovingPLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.Princess && i.LocationArchitecture != null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Princess];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Princess] = list;
+                    if (!this.PrincessPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.PrincessPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    PrincessPLCache[i.LocationArchitecture].Add(i);
                 }
 
                 if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.赈灾 && i.LocationTroop == null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Zhenzai];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Zhenzai] = list;
+                    if (!this.ZhenzaiPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.ZhenzaiPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    ZhenzaiPLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.农业 && i.LocationTroop == null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Agriculture];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Agriculture] = list;
+                    if (!this.AgriculturePLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.AgriculturePLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    AgriculturePLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.商业 && i.LocationTroop == null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Commerce];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Commerce] = list;
+                    if (!this.CommercePLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.CommercePLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    CommercePLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.技术 && i.LocationTroop == null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Technology];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Technology] = list;
+                    if (!this.TechnologyPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.TechnologyPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    TechnologyPLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.统治 && i.LocationTroop == null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Domination];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Domination] = list;
+                    if (!this.DominationPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.DominationPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    DominationPLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.民心 && i.LocationTroop == null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Morale];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Morale] = list;
+                    if (!this.MoralePLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.MoralePLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    MoralePLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.耐久 && i.LocationTroop == null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Endurance];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Endurance] = list;
+                    if (!this.EndurancePLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.EndurancePLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    EndurancePLCache[i.LocationArchitecture].Add(i);
                 }
                 if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.训练 && i.LocationTroop == null)
                 {
-                    PersonList list = PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Training];
-                    list.Add(i);
-                    PersonStatusCache[i.LocationArchitecture][PersonStatusCacheKey.Training] = list;
+                    if (!this.TrainingPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.TrainingPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    TrainingPLCache[i.LocationArchitecture].Add(i);
                 }
             }
         }
 
         public void ClearPersonStatusCache()
         {
-            this.PersonStatusCache = null;
+            NormalPLCache = MovingPLCache = NoFactionPLCache = NoFactionMovingPLCache = PrincessPLCache =
+            ZhenzaiPLCache = AgriculturePLCache = CommercePLCache = TechnologyPLCache =
+            DominationPLCache = MoralePLCache = EndurancePLCache = TrainingPLCache = null;
         }
 
         public CaptiveList Captives
