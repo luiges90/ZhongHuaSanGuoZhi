@@ -6384,8 +6384,6 @@
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = houGongDays;
                 this.Status = PersonStatus.Moving;
-                this.LocationArchitecture.Persons.Remove(this);
-                this.LocationArchitecture.MovingPersons.Add(this);
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForHouGong", new Object[] { this.Scenario, this, nvren });
             }
