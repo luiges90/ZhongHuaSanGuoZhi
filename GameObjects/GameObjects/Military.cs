@@ -1080,6 +1080,39 @@
             }
         }
 
+        public bool FollowedLeaderAvailable
+        {
+            get
+            {
+                return this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.FollowedLeader);
+            }
+        }
+
+        public bool LeaderAvailable
+        {
+            get
+            {
+                return this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.Leader);
+            }
+        }
+
+        public bool AllPersonsAvailable
+        {
+            get
+            {
+                if (this.BelongedArchitecture == null) return false;
+                if (this.Leader == null) return false;
+                foreach (Person p in this.Leader.preferredTroopPersons)
+                {
+                    if (!this.BelongedArchitecture.Persons.GameObjects.Contains(p))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+
     }
 }
 
