@@ -260,13 +260,14 @@
             }
             if (this.SelectedTab != null)
             {
-                this.SelectedTab.MoveHorizontal(offset);
+                offset = (offset * this.tabList.VisibleLowerClient.Width) / this.HorizontalScrollBar.Width;
+                this.SelectedTab.MoveHorizontal(-offset);
             }
         }
 
         public void MoveVertical(int offset)
         {
-            this.VerticalScrollBar.Y += (int) ((double) offset / (this.tabList.rowHeight * this.tabList.gameObjectList.Count) * (this.tabList.VisibleLowerClient.Height - this.VerticalScrollBar.Height));
+            this.VerticalScrollBar.Y += offset;
             if (this.VerticalScrollBar.Top < (this.tabList.VisibleLowerClient.Top + this.tabList.columnheaderHeight))
             {
                 this.VerticalScrollBar.Y = this.tabList.VisibleLowerClient.Top + this.tabList.columnheaderHeight;
@@ -277,6 +278,7 @@
             }
             if (this.SelectedTab != null)
             {
+                offset = (offset * (this.tabList.VisibleLowerClient.Height - this.tabList.columnheaderHeight)) / this.VerticalScrollBar.Height;
                 this.SelectedTab.MoveVertical(-offset);
             }
         }
