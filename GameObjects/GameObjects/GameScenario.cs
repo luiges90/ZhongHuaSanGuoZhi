@@ -2743,6 +2743,7 @@
                 architecture.LoadMovingPersonsFromString(this.AllPersons, reader["MovingPersons"].ToString());
                 architecture.LoadNoFactionPersonsFromString(this.AllPersons, reader["NoFactionPersons"].ToString());
                 architecture.LoadNoFactionMovingPersonsFromString(this.AllPersons, reader["NoFactionMovingPersons"].ToString());
+                architecture.LoadfeiziPersonsFromString(this.AllPersons, reader["feiziliebiao"].ToString());
                 architecture.Population = (int)reader["Population"];
                 architecture.Fund = (int)reader["Fund"];
                 architecture.Food = (int)reader["Food"];
