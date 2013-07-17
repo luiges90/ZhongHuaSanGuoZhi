@@ -701,10 +701,10 @@
             this.AIFacility();
             this.DiplomaticRelationAI();
             this.AICampaign();
+            this.AITransfer();
             this.OutsideTacticsAI();
             this.AIWork(false);
             this.InsideTacticsAI();
-            this.AITransfer();
             ExtensionInterface.call("AIArchitecture", new Object[] { this.Scenario, this });
         }
 
