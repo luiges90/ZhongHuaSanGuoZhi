@@ -6863,7 +6863,7 @@
 
         public void LoadCaptivesFromString(CaptiveList captives, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Captives.Clear();
             foreach (string str in strArray)
@@ -6903,7 +6903,7 @@
 
         public void LoadPersonsFromString(Dictionary<int, Person> persons, string dataString, int leaderID)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             //this.Persons.Clear();
             foreach (string str in strArray)

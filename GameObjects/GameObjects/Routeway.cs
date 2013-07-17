@@ -494,7 +494,7 @@
 
         public void LoadRoutePointsFromString(string points)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = points.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.RoutePoints.Clear();
             for (int i = 0; i < strArray.Length; i += 2)

@@ -42,7 +42,7 @@
 
         public void LoadQueueFromString(string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.factionQueue.Clear();
             foreach (string str in strArray)

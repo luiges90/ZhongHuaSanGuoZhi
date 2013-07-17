@@ -210,7 +210,7 @@
 
         public void LoadPersonIdFromString(PersonList persons, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.person = new Dictionary<int, List<Person>>();
@@ -248,7 +248,7 @@
 
         public void LoadPersonCondFromString(ConditionTable allConds, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.personCond = new Dictionary<int, List<Condition>>();
@@ -280,7 +280,7 @@
 
         public void LoadArchitectureFromString(ArchitectureList archs, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.architecture = new ArchitectureList();
@@ -292,7 +292,7 @@
 
         public void LoadArchitctureCondFromString(ConditionTable c, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.architectureCond = new List<Condition>();
@@ -315,7 +315,7 @@
 
         public void LoadFactionFromString(FactionList factions, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.faction = new FactionList();
@@ -327,7 +327,7 @@
 
         public void LoadFactionCondFromString(ConditionTable c, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.factionCond = new List<Condition>();
@@ -350,7 +350,7 @@
 
         public void LoadDialogFromString(string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.dialog = new List<PersonIdDialog>();
@@ -375,7 +375,7 @@
 
         public void LoadEffectFromString(EventEffectTable allEffect, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.effect = new Dictionary<int, List<EventEffect>>();
@@ -407,7 +407,7 @@
 
         public void LoadArchitectureEffectFromString(EventEffectTable allEffect, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.architectureEffect = new List<EventEffect>();
@@ -430,7 +430,7 @@
 
         public void LoadFactionEffectFromString(EventEffectTable allEffect, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
             this.factionEffect = new List<EventEffect>();

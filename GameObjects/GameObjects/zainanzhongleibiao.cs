@@ -42,7 +42,7 @@
 
         public void LoadFromString(zainanzhongleibiao suoyouzainanzhonglei, string zainanzhongleiIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = zainanzhongleiIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             zainanzhongleilei kind = null;
             for (int i = 0; i < strArray.Length; i++)

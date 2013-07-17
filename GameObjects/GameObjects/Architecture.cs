@@ -9245,7 +9245,7 @@
 
         public void LoadFromString(GameArea gameArea, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             gameArea.Area.Clear();
             int minX = 10000, minY = 10000, maxX = -10000, maxY = -10000, x, y;
@@ -9268,7 +9268,7 @@
 
         public void LoadAILandLinksFromString(ArchitectureList architectures, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.AILandLinks.Clear();
             foreach (string str in strArray)
@@ -9283,7 +9283,7 @@
 
         public void LoadAIWaterLinksFromString(ArchitectureList architectures, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.AIWaterLinks.Clear();
             foreach (string str in strArray)
@@ -9298,7 +9298,7 @@
 
         public void LoadCaptivesFromString(CaptiveList captives, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             foreach (string str in strArray)
             {
@@ -9314,7 +9314,7 @@
 
         public void LoadFacilitiesFromString(FacilityList facilities, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Facilities.Clear();
             foreach (string str in strArray)
@@ -9329,7 +9329,7 @@
 
         internal void LoadFundPacksFromString(string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.FundPacks.Clear();
             for (int i = 0; i < strArray.Length; i += 2)
@@ -9340,7 +9340,7 @@
 
         public void LoadMilitariesFromString(MilitaryList militaries, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Militaries.Clear();
             foreach (string str in strArray)
@@ -9355,7 +9355,7 @@
 
         public void LoadMovingPersonsFromString(Dictionary<int, Person> persons, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             foreach (string str in strArray)
             {
@@ -9372,7 +9372,7 @@
 
         public void LoadNoFactionMovingPersonsFromString(Dictionary<int, Person> persons, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             foreach (string str in strArray)
             {
@@ -9389,7 +9389,7 @@
 
         public void LoadNoFactionPersonsFromString(Dictionary<int, Person> persons, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             foreach (string str in strArray)
             {
@@ -9405,7 +9405,7 @@
 
         public void LoadfeiziPersonsFromString(Dictionary<int, Person> persons, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             foreach (string str in strArray)
             {
@@ -9427,7 +9427,7 @@
 
         public void LoadPersonsFromString(Dictionary<int, Person> persons, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             foreach (string str in strArray)
             {
@@ -9443,7 +9443,7 @@
 
         internal void LoadPopulationPacksFromString(string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.PopulationPacks.Clear();
             for (int i = 0; i < strArray.Length; i += 2)
@@ -9454,7 +9454,7 @@
 
         internal void LoadSpyPacksFromString(string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.SpyPacks.Clear();
             for (int i = 0; i < strArray.Length; i += 2)

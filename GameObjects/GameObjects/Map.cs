@@ -73,7 +73,7 @@
         {
             this.mapDimensions.X = X;
             this.mapDimensions.Y = Y;
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = mapdata.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             if (strArray.Length != this.MapTileCount)
             {

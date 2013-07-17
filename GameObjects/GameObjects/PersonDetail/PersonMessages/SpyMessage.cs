@@ -37,7 +37,7 @@
 
         internal void LoadPersonPacksFromString(Dictionary<int, Person> persons, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.PersonPacks.Clear();
             for (int i = 0; i < strArray.Length; i += 2)

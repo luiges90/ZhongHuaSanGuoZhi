@@ -42,7 +42,7 @@
 
         public void LoadFromString(SkillTable allSkills, string skillIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = skillIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             Skill skill = null;
             for (int i = 0; i < strArray.Length; i++)

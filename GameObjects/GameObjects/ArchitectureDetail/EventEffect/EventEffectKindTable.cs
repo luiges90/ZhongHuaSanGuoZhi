@@ -47,7 +47,7 @@
 
         public void LoadFromString(EventEffectKindTable allEventEffectKinds, string influenceIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = influenceIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             EventEffectKind kind = null;
             for (int i = 0; i < strArray.Length; i++)

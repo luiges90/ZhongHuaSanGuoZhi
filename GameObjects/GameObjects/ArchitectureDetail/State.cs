@@ -52,7 +52,7 @@
 
         public void LoadContactStatesFromString(StateList contactStates, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.ContactStates.Clear();
             foreach (string str in strArray)

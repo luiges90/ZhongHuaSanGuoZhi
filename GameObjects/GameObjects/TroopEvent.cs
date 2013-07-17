@@ -270,7 +270,7 @@
 
         public void LoadDialogFromString(Dictionary<int, Person> persons, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Dialogs.Clear();
             for (int i = 0; i < strArray.Length; i += 2)
@@ -289,7 +289,7 @@
 
         public void LoadEffectAreaFromString(EventEffectTable eventEffects, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.EffectAreas.Clear();
             for (int i = 0; i < strArray.Length; i += 2)
@@ -303,7 +303,7 @@
 
         public void LoadEffectPersonFromString(Dictionary<int, Person> persons, EventEffectTable eventEffects, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.EffectPersons.Clear();
             for (int i = 0; i < strArray.Length; i += 2)
@@ -318,7 +318,7 @@
 
         public void LoadSelfEffectFromString(EventEffectTable eventEffects, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.SelfEffects.Clear();
             for (int i = 0; i < strArray.Length; i++)
@@ -333,7 +333,7 @@
 
         public void LoadTargetPersonFromString(Dictionary<int, Person> persons, string data)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.TargetPersons.Clear();
             for (int i = 0; i < strArray.Length; i += 2)

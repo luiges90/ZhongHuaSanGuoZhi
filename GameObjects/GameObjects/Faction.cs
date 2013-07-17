@@ -1912,7 +1912,7 @@
 
         public void LoadArchitecturesFromString(ArchitectureList architectures, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Architectures.Clear();
             foreach (string str in strArray)
@@ -1928,7 +1928,7 @@
 
         public void LoadInformationsFromString(InformationList informations, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Informations.Clear();
             foreach (string str in strArray)
@@ -1943,7 +1943,7 @@
 
         public void LoadLegionsFromString(LegionList legions, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Legions.Clear();
             foreach (string str in strArray)
@@ -1958,7 +1958,7 @@
 
         public void LoadRoutewaysFromString(RoutewayList routeways, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Routeways.Clear();
             foreach (string str in strArray)
@@ -1973,7 +1973,7 @@
 
         public void LoadSectionsFromString(SectionList sections, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Sections.Clear();
             foreach (string str in strArray)
@@ -1988,7 +1988,7 @@
 
         public void LoadTroopsFromString(TroopList troops, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Troops.Clear();
             foreach (string str in strArray)

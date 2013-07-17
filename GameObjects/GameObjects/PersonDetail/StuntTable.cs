@@ -42,7 +42,7 @@
 
         public void LoadFromString(StuntTable allStunts, string stuntIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = stuntIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             Stunt stunt = null;
             for (int i = 0; i < strArray.Length; i++)

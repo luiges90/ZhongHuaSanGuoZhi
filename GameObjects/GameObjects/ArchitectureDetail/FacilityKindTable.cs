@@ -58,7 +58,7 @@
 
         public void LoadFromString(FacilityKindTable allFacilityKinds, string facilityKindIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = facilityKindIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             FacilityKind kind = null;
             for (int i = 0; i < strArray.Length; i++)

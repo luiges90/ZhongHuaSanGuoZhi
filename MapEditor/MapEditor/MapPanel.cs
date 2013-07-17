@@ -241,7 +241,7 @@
 
         public void LoadMapData()
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             this.mapDataValueString = this.Scenario.ScenarioMap.SaveToString().Split(separator, StringSplitOptions.RemoveEmptyEntries);
         }
 

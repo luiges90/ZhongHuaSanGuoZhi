@@ -42,7 +42,7 @@
 
         public void LoadFromString(TechniqueTable allTechniques, string techniqueIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = techniqueIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             Technique technique = null;
             for (int i = 0; i < strArray.Length; i++)

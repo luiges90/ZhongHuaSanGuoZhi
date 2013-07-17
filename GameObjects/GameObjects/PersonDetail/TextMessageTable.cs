@@ -42,7 +42,7 @@
 
         public void LoadFromString(TextMessageTable allTextMessages, string textMessageIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = textMessageIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             TextMessage message = null;
             for (int i = 0; i < strArray.Length; i++)

@@ -42,7 +42,7 @@
 
         public void LoadFromString(ConditionKindTable allConditionKinds, string conditionIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = conditionIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             ConditionKind kind = null;
             for (int i = 0; i < strArray.Length; i++)

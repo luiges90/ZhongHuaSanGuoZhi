@@ -68,7 +68,7 @@
 
         public void LoadFromString(SectionAIDetailTable allSectionAIDetails, string sectionAIDetailIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = sectionAIDetailIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             SectionAIDetail detail = null;
             for (int i = 0; i < strArray.Length; i++)

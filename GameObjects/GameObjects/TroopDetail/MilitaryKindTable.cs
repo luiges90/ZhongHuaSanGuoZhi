@@ -70,7 +70,7 @@
 
         public void LoadFromString(MilitaryKindTable allMilitaryKinds, string militaryKindIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = militaryKindIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             MilitaryKind kind = null;
             for (int i = 0; i < strArray.Length; i++)

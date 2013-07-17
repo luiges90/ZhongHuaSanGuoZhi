@@ -93,7 +93,7 @@
 
         public void LoadArchitecturesFromString(ArchitectureList architectures, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Architectures.Clear();
             foreach (string str in strArray)

@@ -45,7 +45,7 @@ namespace GameObjects
 
         public void LoadFromString(guanjuezhongleibiao suoyouguanjuedezhonglei, string guanjuedezhongleiIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = guanjuedezhongleiIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             guanjuezhongleilei kind = null;
             for (int i = 0; i < strArray.Length; i++)

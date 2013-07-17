@@ -42,7 +42,7 @@
 
         public void LoadFromString(TerrainDetailTable allTerrainDetails, string terrainDetailIDs)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = terrainDetailIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             TerrainDetail detail = null;
             for (int i = 0; i < strArray.Length; i++)

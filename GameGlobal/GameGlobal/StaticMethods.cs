@@ -280,7 +280,7 @@
 
         public static Microsoft.Xna.Framework.Point? LoadFromString(string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             if (strArray.Length == 2)
             {
@@ -291,7 +291,7 @@
 
         public static void LoadFromString(int[] intArray, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             intArray = new int[strArray.Length];
             for (int i = 0; i < strArray.Length; i++)
@@ -302,7 +302,7 @@
 
         public static void LoadFromString(List<Microsoft.Xna.Framework.Point> pointList, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             pointList.Clear();
             for (int i = 0; i < strArray.Length; i += 2)
@@ -313,7 +313,7 @@
 
         public static void LoadFromString(List<int> intList, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             intList.Clear();
             for (int i = 0; i < strArray.Length; i++)
@@ -324,7 +324,7 @@
 
         public static void LoadFromString(List<string> list, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r' };
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             list.Clear();
             for (int i = 0; i < strArray.Length; i++)
