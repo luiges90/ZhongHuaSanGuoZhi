@@ -200,8 +200,6 @@
         public float enduranceDecreaseRateDrop;
         public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
 
-        private int attemptedMovePerson;
-
         public float ExperienceRate;
 
         public float facilityConstructionTimeRateDecrease = 0;
@@ -701,9 +699,9 @@
             this.AIFacility();
             this.DiplomaticRelationAI();
             this.AICampaign();
-            this.AITransfer();
             this.OutsideTacticsAI();
             this.AIWork(false);
+            this.AITransfer();
             this.InsideTacticsAI();
             ExtensionInterface.call("AIArchitecture", new Object[] { this.Scenario, this });
         }
@@ -1381,9 +1379,8 @@
                     Math.Max((this.Endurance - this.EnduranceCeiling) / 30,
                     Math.Max((this.Morale - this.MoraleCeiling) / 30,
                     (this.Domination - this.DominationCeiling) / 30)))));
-                int recruit = this.Population / 30000;
                 int frontLine = (this.FrontLine || this.noFactionFrontline) ? this.EffectiveMilitaryCount * 2 : 0;
-                return Math.Min(Math.Max(develop, Math.Max(recruit, frontLine)), fundSupport);
+                return Math.Min(Math.Max(develop, frontLine), fundSupport);
             }
         }
 
@@ -1484,7 +1481,6 @@
                                         (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                     {
                                         p.MoveToArchitecture(this);
-                                        attemptedMovePerson = 2;
                                     }
                                     num2++;
                                 }
@@ -1500,31 +1496,36 @@
                     if (this.IdlingPersonCount >= this.PersonCount / 2)
                     {
                         idleDays++;
-                        if (idleDays >= 3)
+                        if (idleDays >= 2)
                         {
-                            if (idleDays == 3)
-                            {
-                                attemptedMovePerson = 2;
-                            }
                             while (this.PersonCount + this.MovingPersonCount > this.EnoughPeople + 3)
                             {
                                 bool everMoved = false;
                                 ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
                                 Architecture dest = null;
+                                int movingPersonCount = 0;
                                 foreach (Architecture i in otherArchitectureList)
                                 {
                                     double minDist = double.MaxValue;
                                     double distance = base.Scenario.GetDistance(this.Position, i.Position);
                                     if (distance < minDist && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this
-                                        && i.PersonCount + i.MovingPersonCount < i.EnoughPeople)
+                                        && (i.PersonCount + i.MovingPersonCount < i.EnoughPeople || i.Population * 1.2 > this.Population))
                                     {
-                                        minDist = distance;
-                                        dest = i;
+                                        int num = Math.Min(this.PersonCount - this.EnoughPeople - 3, i.EnoughPeople - i.PersonCount - i.MovingPersonCount);
+                                        if (i.Population > this.Population)
+                                        {
+                                            num = Math.Max(num, (int)(this.PersonCount * (i.Population - this.Population) / (double)this.Population));
+                                        }
+                                        if (num > 0)
+                                        {
+                                            movingPersonCount = num;
+                                            minDist = distance;
+                                            dest = i;
+                                        }
                                     }
                                 }
                                 if (dest != null)
                                 {
-                                    int num = Math.Min(this.PersonCount - this.EnoughPeople, dest.EnoughPeople - dest.PersonCount - dest.MovingPersonCount);
                                     GameObjectList list = this.Persons.GetList();
                                     if (this.FrontLine)
                                     {
@@ -1536,7 +1537,7 @@
                                             list.ReSort();
                                         }
                                     }
-                                    for (int i = 0, moved = 0; moved < num && i < list.Count; ++i)
+                                    for (int i = 0, moved = 0; moved < movingPersonCount && i < list.Count; ++i)
                                     {
                                         Person p = list[i] as Person;
                                         if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
@@ -8839,10 +8840,9 @@
                             //Label_0220:;
                         }
                     }
-                    attemptedMovePerson--;
-                    if (attemptedMovePerson <= 0)
+                    foreach (Person person in this.Persons.GetList())
                     {
-                        foreach (Person person in this.Persons.GetList())
+                        if (person.ReturnedDaySince >= 3)
                         {
                             if (this.Fund < Parameters.InternalFundCost ||
                                     (person.WaitForFeiZi == null && person.WorkKind == ArchitectureWorkKind.无 &&

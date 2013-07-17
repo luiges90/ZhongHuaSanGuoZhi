@@ -253,6 +253,34 @@
         private int enduranceAbility = 0;
         private int trainingAbility = 0;
 
+        private OutsideTaskKind lastOutsideTask = OutsideTaskKind.无;
+
+        public OutsideTaskKind LastOutsideTask
+        {
+            get
+            {
+                return lastOutsideTask;
+            }
+            private set
+            {
+                lastOutsideTask = value;
+            }
+        }
+
+        private int returnedDaySince = 0;
+
+        public int ReturnedDaySince
+        {
+            get
+            {
+                return returnedDaySince;
+            }
+            private set
+            {
+                returnedDaySince = value;
+            }
+        }
+
         public int ServedYears
         {
             get
@@ -384,13 +412,14 @@
         }
 
 
-        private void doNotMovePeriodReduction()
+        private void updateDayCounters()
         {
             waitForFeiZiPeriod--;
             if (waitForFeiZiPeriod < 0)
             {
                 WaitForFeiZi = null;
             }
+            ReturnedDaySince++;
         }
 
         public event BeAwardedTreasure OnBeAwardedTreasure;
@@ -1030,7 +1059,7 @@
                 this.LoyaltyChange();
                 this.ProgressArrivingDays();
                 this.huaiyunshijian();
-                this.doNotMovePeriodReduction();
+                this.updateDayCounters();
             }
             agricultureAbility = 0;
             commerceAbility = 0;
@@ -3337,6 +3366,7 @@
 
         private void ProgressArrivingDays()
         {
+            this.LastOutsideTask = this.outsideTask;
             if (this.TaskDays > 0)
             {
                 this.TaskDays--;
@@ -3358,6 +3388,7 @@
                 this.ArrivingDays--;
                 if ((this.ArrivingDays == 0) && (this.TargetArchitecture != null))
                 {
+                    this.ReturnedDaySince = 0;
                     if (this.BelongedFaction != null)
                     {
                         if (this.TargetArchitecture.BelongedFaction == this.BelongedFaction)
