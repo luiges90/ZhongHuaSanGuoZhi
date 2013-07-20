@@ -3028,6 +3028,7 @@
             {
                 return null;
             }
+            troop.Destroy(true, false);
             troop = this.CreateTroop(leader, leader[0] as Person, military, food, nullable.Value);
             troop.WillArchitecture = destination;
             troop.zijin = fund;
@@ -4587,6 +4588,10 @@
                     this.PostCreateTroop(troop, false);
                 }
             }
+            foreach (Troop t in list)
+            {
+                t.Destroy(true, false);
+            }
             return null;
         }
 
@@ -5939,6 +5944,10 @@
                                 this.TotalFriendlyForce += troop2.FightingForce;
                                 troopSent++;
                             }
+                            foreach (Troop t in list4)
+                            {
+                                t.Destroy(true, false);
+                            }
                             if (stopSendingTroop) break;
                             if (!hasEvetSentTroop) break;
                         }
@@ -6034,6 +6043,10 @@
                                 this.TotalFriendlyForce += troop2.FightingForce;
                                 troopAdded = true;
                                 break;
+                            }
+                            foreach (Troop t in supportList)
+                            {
+                                t.Destroy(true, false);
                             }
                             if (this.TotalFriendlyForce > this.TotalHostileForce) break;
                             //no troop could be added, give up.

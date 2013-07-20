@@ -413,6 +413,12 @@
 
         public int captureChance = 0;
 
+        internal List<TileData> TilesContacting = new List<TileData>();
+        internal List<TileData> TilesOffencing = new List<TileData>();
+        internal List<TileData> TilesStratageming = new List<TileData>();
+        internal List<TileData> TilesViewing = new List<TileData>();
+        internal List<Influence> InfluencesApplying = new List<Influence>();
+
         public GameObjectList Candidates;
 
         public event Ambush OnAmbush;
@@ -3239,14 +3245,24 @@
             }
             if (removeReferences)
             {
-                foreach (TileData td in base.Scenario.MapTileData)
+                this.Scenario.ResetMapTileTroop(this.Position);
+                foreach (TileData td in this.TilesContacting)
                 {
                     td.RemoveContactingTroop(this);
+                }
+                foreach (TileData td in this.TilesOffencing)
+                {
                     td.RemoveOffencingTroop(this);
+                }
+                foreach (TileData td in this.TilesStratageming)
+                {
                     td.RemoveStratagemingTroop(this);
+                }
+                foreach (TileData td in this.TilesViewing)
+                {
                     td.RemoveViewingTroop(this);
                 }
-                foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+                foreach (Influence i in this.InfluencesApplying)
                 {
                     i.TroopDestroyed(this);
                 }
@@ -4766,7 +4782,9 @@
             foreach (Point point in sourceArea.Area)
             {
                 PersonList originalPersons = this.Persons;
-                int fightingForce = CreateSimulateTroop(this.Candidates, this.Army, point).FightingForce;
+                Troop troop = CreateSimulateTroop(this.Candidates, this.Army, point);
+                int fightingForce = troop.FightingForce;
+                troop.Destroy(true, false);
                 if (fightingForce > num)
                 {
                     num = fightingForce;

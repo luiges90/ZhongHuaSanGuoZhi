@@ -3181,7 +3181,7 @@
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
-                FontColor="4294967295"
+                FontColor="4278255360"
                 Align="Middle">
         </Column>
         <Column ID="24" Name="LeaderAvailable" IsNumber="false" DisplayName="将领在城" MinWidth="60" DetailLevel="6"

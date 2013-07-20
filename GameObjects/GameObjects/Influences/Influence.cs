@@ -74,6 +74,7 @@
             ApplyingTroop a = new ApplyingTroop(troop, applier, applierID);
             if (appliedTroop.Contains(a) && (this.ID < 390 || this.ID > 399)) return;
             appliedTroop.Add(a);
+            troop.InfluencesApplying.Add(this);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -168,7 +169,7 @@
 
         public void TroopDestroyed(Troop troop)
         {
-            appliedTroop.RemoveWhere((x) => { return x.troop.Equals(troop); });
+            appliedTroop.RemoveWhere((x) => { return x.troop == troop; });
         }
 
         public void PurifyInfluence(Troop troop, Applier applier, int applierID)
