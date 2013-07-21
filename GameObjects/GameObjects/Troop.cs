@@ -2363,7 +2363,6 @@
                         {
                             this.AddCaptive(captive);
                         }
-                        person.LocationArchitecture.Persons.Remove(person);
                         person.LocationArchitecture = null;
                         person.LocationTroop = this;
 
@@ -4773,7 +4772,7 @@
 
         public GameArea GetHighestFightingForceArea(GameArea sourceArea)
         {
-            if (sourceArea == null)
+            if (sourceArea == null || sourceArea.Count == 0)
             {
                 return null;
             }

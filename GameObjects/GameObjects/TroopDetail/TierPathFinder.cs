@@ -114,6 +114,10 @@
                 }
             } while (true);
             troop.MovabilityLeft = movabilityLeft;
+            openDictionary.Clear();
+            openList.Clear();
+            closeDictionary.Clear();
+            //closeList.Clear();
             return area;
         }
 
@@ -146,6 +150,10 @@
                 flag = square.Position == end;
             }
             while (!flag && (square.RealG < 0xdac));
+            openDictionary.Clear();
+            openList.Clear();
+            closeDictionary.Clear();
+            //closeList.Clear();
             return flag;
         }
 
