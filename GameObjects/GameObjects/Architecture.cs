@@ -4251,7 +4251,6 @@
                     troopByPosition.Enter(this);
                 }
             }
-            base.Scenario.ClearPersonStatusCache();
         }
 
         public bool AllEnterAvail()

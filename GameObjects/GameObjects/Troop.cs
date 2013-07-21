@@ -616,6 +616,16 @@
             }
         }
 
+        private string getSoundPath(Animation a)
+        {
+            return this.Leader.Sex ? a.FemaleSoundPath : a.MaleSoundPath;
+        }
+
+        private static string getSoundPath(Troop t, Animation a)
+        {
+            return t.Leader.Sex ? a.FemaleSoundPath : a.MaleSoundPath;
+        }
+
         private void AddCastAnimation(Troop troop, bool sound)
         {
             if (this.CurrentStratagem.AnimationKind != TileAnimationKind.无)
@@ -623,7 +633,7 @@
                 GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(this.CurrentStratagem.AnimationKind, troop.Position, false);
                 if ((animation != null) && sound)
                 {
-                    this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
             }
         }
@@ -635,7 +645,7 @@
                 GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(this.CurrentCombatMethod.AnimationKind, troop.Position, false);
                 if ((animation != null) && sound && this.PreAction != TroopPreAction.暴击)
                 {
-                    this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
             }
         }
@@ -647,7 +657,7 @@
                 GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(this.CurrentCombatMethod.AnimationKind, this.Position, false);
                 if (animation != null && this.PreAction != TroopPreAction.暴击)
                 {
-                    this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
             }
         }
@@ -701,7 +711,7 @@
                 GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(this.CurrentStratagem.AnimationKind, this.SelfCastPosition, false);
                 if (animation != null)
                 {
-                    this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
             }
         }
@@ -2434,7 +2444,7 @@
                 GameObjects.Animations.TileAnimation animation = receiving.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.被击破, receiving.Position, false);
                 if (animation != null)
                 {
-                    receiving.TryToPlaySound(receiving.Position, animation.LinkedAnimation.SoundPath, false);
+                    receiving.TryToPlaySound(receiving.Position, Troop.getSoundPath(receiving, animation.LinkedAnimation), false);
                 }
                 if (receiving.BelongedFaction != null)
                 {
@@ -2472,7 +2482,7 @@
                 GameObjects.Animations.TileAnimation animation = sending.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.被击破, receiving.Position, false);
                 if (animation != null)
                 {
-                    receiving.TryToPlaySound(receiving.Position, animation.LinkedAnimation.SoundPath, false);
+                    receiving.TryToPlaySound(receiving.Position, Troop.getSoundPath(receiving, animation.LinkedAnimation), false);
                 }
                 if ((sending.BelongedFaction != null) && (belongedFaction != null))
                 {
@@ -3480,7 +3490,7 @@
             GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.被击破, this.Position, false);
             if (animation != null)
             {
-                this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
             }
             foreach (Person person in this.Persons)
             {
@@ -4501,7 +4511,7 @@
                     GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.抵挡, troop.Position, false);
                     if (animation != null)
                     {
-                        troop.TryToPlaySound(troop.Position, animation.LinkedAnimation.SoundPath, false);
+                        troop.TryToPlaySound(troop.Position, this.getSoundPath(animation.LinkedAnimation), false);
                     }
                     if (this.OnResistStratagem != null)
                     {
@@ -5850,7 +5860,7 @@
                     }
                     if (animation != null)
                     {
-                        this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                        this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                     }
                     if (damage.DestinationArchitecture.RecentlyBreaked <= 0)
                     {
@@ -5914,7 +5924,7 @@
                 animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.抵挡, damage.DestinationTroop.Position, false);
                 if (animation != null)
                 {
-                    damage.DestinationTroop.TryToPlaySound(damage.DestinationTroop.Position, animation.LinkedAnimation.SoundPath, false);
+                    damage.DestinationTroop.TryToPlaySound(damage.DestinationTroop.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
                 if (this.OnAntiAttack != null)
                 {
@@ -5926,7 +5936,7 @@
                 animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.抵挡, damage.DestinationTroop.Position, false);
                 if (animation != null)
                 {
-                    damage.DestinationTroop.TryToPlaySound(damage.DestinationTroop.Position, animation.LinkedAnimation.SoundPath, false);
+                    damage.DestinationTroop.TryToPlaySound(damage.DestinationTroop.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
                 if (this.OnAntiArrowAttack != null)
                 {
@@ -11347,7 +11357,7 @@
                 }
                 if (this.preAction != TroopPreAction.无)
                 {
-                    this.TryToPlaySound(this.Position, base.Scenario.GameCommonData.AllTileAnimations.GetAnimation((int) this.CurrentTileAnimationKind).SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(base.Scenario.GameCommonData.AllTileAnimations.GetAnimation((int) this.CurrentTileAnimationKind)), false);
                 }
             }
         }
@@ -11568,7 +11578,7 @@
                 }
                 if (this.CurrentTileAnimationKind != TileAnimationKind.无)
                 {
-                    this.TryToPlaySound(this.Position, base.Scenario.GameCommonData.AllTileAnimations.GetAnimation((int) this.CurrentTileAnimationKind).SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(base.Scenario.GameCommonData.AllTileAnimations.GetAnimation((int) this.CurrentTileAnimationKind)), false);
                 }
             }
         }

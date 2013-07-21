@@ -606,6 +606,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.AllEnter:
                     this.CurrentArchitecture.AllEnter();
                     this.Plugins.AirViewPlugin.ReloadTroopView();
+                    this.Scenario.ClearPersonStatusCache();
                     break;
 
                 case ContextMenuResult.DateGo_1Day:

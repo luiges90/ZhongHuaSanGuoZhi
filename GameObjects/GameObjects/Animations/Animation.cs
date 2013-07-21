@@ -12,7 +12,8 @@
         private bool back;
         public GraphicsDevice Device;
         private int frameCount;
-        public string SoundPath;
+        public string MaleSoundPath;
+        public string FemaleSoundPath;
         private int stayCount;
         private Texture2D texture;
         public string TextureFileName;

@@ -1025,6 +1025,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.CurrentTroop.Enter(architecture2);
                         this.CurrentTroop = null;
                         this.Plugins.AirViewPlugin.ReloadTroopView();
+                        this.Scenario.ClearPersonStatusCache();
                         return;
                     }
                     
