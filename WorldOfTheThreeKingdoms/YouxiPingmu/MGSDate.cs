@@ -61,9 +61,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
 
 
-                cundangShijianJiange=DateTime.Now -shangciCundangShijian;
+                cundangShijianJiange = DateTime.Now - shangciCundangShijian;
 
-                if (cundangShijianJiange.Minutes>30)
+                if (cundangShijianJiange.Minutes >= GlobalVariables.AutoSaveFrequency)
                 {
                     if (GlobalVariables.doAutoSave)
                     {
