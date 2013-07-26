@@ -112,6 +112,7 @@
                 {
                     break;
                 }
+                if (closeList.Count > 2500 || closeDictionary.Count > 2500) break;
             } while (true);
             troop.MovabilityLeft = movabilityLeft;
             openDictionary.Clear();
@@ -148,6 +149,7 @@
                     break;
                 }
                 flag = square.Position == end;
+                if (closeList.Count > 2500 || closeDictionary.Count > 2500) break;
             }
             while (!flag && (square.RealG < 0xdac));
             openDictionary.Clear();
