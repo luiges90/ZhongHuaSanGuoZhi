@@ -48,7 +48,13 @@
             {
                 Rectangle? sourceRectangle = null;
                 spriteBatch.Draw(this.BackgroundTexture, this.BackgroundDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
-                spriteBatch.Draw(this.ShowingPerson.Portrait, this.PortraitDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
+                try
+                {
+                    spriteBatch.Draw(this.ShowingPerson.Portrait, this.PortraitDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
+                }
+                catch
+                {
+                }
                 this.SurNameText.Draw(spriteBatch, 0.1999f);
                 this.GivenNameText.Draw(spriteBatch, 0.1999f);
                 this.CalledNameText.Draw(spriteBatch, 0.1999f);

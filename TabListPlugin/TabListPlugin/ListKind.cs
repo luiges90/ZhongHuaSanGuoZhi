@@ -90,41 +90,47 @@
                 spriteBatch.Draw(this.tabList.focusTrackTexture, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Right - 1, this.tabList.Focused, 1, this.tabList.rowHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White  , 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
                 if (this.ShowPortrait)
                 {
-                    if (this.tabList.FocusedObject is Person)
+                    try
                     {
-                        nullable = null;
-                        spriteBatch.Draw((this.tabList.FocusedObject as Person).SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
-                    }
-                    else if (this.tabList.FocusedObject is Captive)
-                    {
-                        nullable = null;
-                        spriteBatch.Draw((this.tabList.FocusedObject as Captive).CaptivePerson.SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
-                    }
-                    else if (this.tabList.FocusedObject is Faction)
-                    {
-                        nullable = null;
-                        spriteBatch.Draw((this.tabList.FocusedObject as Faction).Leader.SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
-                    }
-                    else if (this.tabList.FocusedObject is Troop)
-                    {
-                        nullable = null;
-                        spriteBatch.Draw((this.tabList.FocusedObject as Troop).Leader.SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
-                    }
-                    else if (!(this.tabList.FocusedObject is Architecture))
-                    {
-                        if (this.tabList.FocusedObject is Military)
+                        if (this.tabList.FocusedObject is Person)
                         {
-                            if ((this.tabList.FocusedObject as Military).Leader != null)
+                            nullable = null;
+                            spriteBatch.Draw((this.tabList.FocusedObject as Person).SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
+                        }
+                        else if (this.tabList.FocusedObject is Captive)
+                        {
+                            nullable = null;
+                            spriteBatch.Draw((this.tabList.FocusedObject as Captive).CaptivePerson.SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
+                        }
+                        else if (this.tabList.FocusedObject is Faction)
+                        {
+                            nullable = null;
+                            spriteBatch.Draw((this.tabList.FocusedObject as Faction).Leader.SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
+                        }
+                        else if (this.tabList.FocusedObject is Troop)
+                        {
+                            nullable = null;
+                            spriteBatch.Draw((this.tabList.FocusedObject as Troop).Leader.SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
+                        }
+                        else if (!(this.tabList.FocusedObject is Architecture))
+                        {
+                            if (this.tabList.FocusedObject is Military)
                             {
-                                nullable = null;
-                                spriteBatch.Draw((this.tabList.FocusedObject as Military).Leader.SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
+                                if ((this.tabList.FocusedObject as Military).Leader != null)
+                                {
+                                    nullable = null;
+                                    spriteBatch.Draw((this.tabList.FocusedObject as Military).Leader.SmallPortrait, new Microsoft.Xna.Framework.Rectangle(this.tabList.VisibleLowerClient.Left - this.tabList.PortraitWidth, this.tabList.Focused, this.tabList.PortraitWidth, this.tabList.PortraitHeight), nullable, Microsoft.Xna.Framework.Graphics.Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.3498f);
+                                }
+                            }
+                            else if (this.tabList.FocusedObject is Treasure)
+                            {
                             }
                         }
-                        else if (this.tabList.FocusedObject is Treasure)
-                        {
-                        }
                     }
-                }
+                    catch
+                    {
+                    }
+                }// end if (this.ShowPortrait)
             }
             if (this.tabList.ShowVerticalScrollBar)
             {

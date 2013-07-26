@@ -100,7 +100,14 @@
                     spriteBatch.Draw(this.BackgroundTexture, this.BackgroundDisplayPosition(this.Bubbles[i].Position), sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, layerDepth);
                     layerDepth += -1E-06f;
                     sourceRectangle = null;
-                    spriteBatch.Draw(this.Bubbles[i].SpeakingPerson.SmallPortrait, this.PortraitDisplayPosition(this.Bubbles[i].Position), sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, layerDepth);
+                    try
+                    {
+                        spriteBatch.Draw(this.Bubbles[i].SpeakingPerson.SmallPortrait, this.PortraitDisplayPosition(this.Bubbles[i].Position), sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, layerDepth);
+                    }
+                    catch
+                    {
+
+                    }
                     layerDepth += -1E-06f;
                     if (this.Bubbles[i].RichText != null)
                     {
