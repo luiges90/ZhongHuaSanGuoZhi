@@ -158,7 +158,13 @@ namespace TroopDetailPlugin
 				Rectangle? nullable = null;
 				spriteBatch.Draw(this.BackgroundTexture, this.BackgroundDisplayPosition, nullable, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
 				nullable = null;
-				spriteBatch.Draw(this.ShowingTroop.Leader.SmallPortrait, this.PortraitDisplayPosition, nullable, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
+                try
+                {
+                    spriteBatch.Draw(this.ShowingTroop.Leader.SmallPortrait, this.PortraitDisplayPosition, nullable, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
+                }
+                catch
+                {
+                }
 				this.TroopNameText.Draw(spriteBatch, 0.1999f);
 				List<LabelText>.Enumerator enumerator = this.LabelTexts.GetEnumerator();
 				try
