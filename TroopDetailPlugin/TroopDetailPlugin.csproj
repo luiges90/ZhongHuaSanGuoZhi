@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.Xna.Framework">
       <HintPath>.\TroopDetailPluginReferences\Microsoft.Xna.Framework.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="Microsoft.Xna.Framework.Game">
