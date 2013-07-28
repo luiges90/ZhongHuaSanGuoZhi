@@ -381,19 +381,6 @@
         public int TirednessIncreaseOnAttack = 0;
         public int TirednessIncreaseOnCritical = 0;
         public int StealFood = 0;
-        public List<KeyValuePair<int, int>> CommandDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> CommandIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> StrengthDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> StrengthIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> IntelligenceDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> IntelligenceIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> PoliticsDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> PoliticsIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> GlamourDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> GlamourIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> ReputationDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> ReputationIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> LoseSkill = new List<KeyValuePair<int, int>>();
 
         public int stratagemTirednessIncrease;
         public int stratagemStealTroop;
@@ -2526,103 +2513,99 @@
                     sending.TargetArchitecture = oldLandedArch;
                 }
 
-                foreach (Person p in receiving.Persons)
+                foreach (Person p in sending.Persons)
                 {
-                    foreach (KeyValuePair<int, int> i in sending.CommandDecrease)
+                    foreach (KeyValuePair<int, int> i in p.CommandDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseCommand -= i.Value;
+                            receiving.Leader.BaseCommand -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.StrengthDecrease)
+                    foreach (KeyValuePair<int, int> i in p.StrengthDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseStrength -= i.Value;
+                            receiving.Leader.BaseStrength -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.IntelligenceDecrease)
+                    foreach (KeyValuePair<int, int> i in p.IntelligenceDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseIntelligence -= i.Value;
+                            receiving.Leader.BaseIntelligence -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.PoliticsDecrease)
+                    foreach (KeyValuePair<int, int> i in p.PoliticsDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BasePolitics -= i.Value;
+                            receiving.Leader.BasePolitics -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.GlamourDecrease)
+                    foreach (KeyValuePair<int, int> i in p.GlamourDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseGlamour -= i.Value;
+                            receiving.Leader.BaseGlamour -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.ReputationDecrease)
+                    foreach (KeyValuePair<int, int> i in p.ReputationDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseReputation -= i.Value;
+                            receiving.Leader.BaseReputation -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.LoseSkill)
+                    foreach (KeyValuePair<int, int> i in p.LoseSkill)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             for (int si = 0; si < i.Value; ++si)
                             {
-                                if (p.Skills.Skills.Count > 0)
+                                if (receiving.Leader.Skills.Skills.Count > 0)
                                 {
-                                    p.Skills.Skills.Remove(GameObject.Random(p.Skills.Skills.Count));
+                                    receiving.Leader.Skills.Skills.Remove(GameObject.Random(receiving.Leader.Skills.Skills.Count));
                                 }
                             }
                         }
                     }
-                }
-
-                foreach (Person p in sending.Persons)
-                {
-                    foreach (KeyValuePair<int, int> i in sending.CommandIncrease)
+                    foreach (KeyValuePair<int, int> i in p.CommandIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BaseCommand += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.StrengthIncrease)
+                    foreach (KeyValuePair<int, int> i in p.StrengthIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BaseStrength += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.IntelligenceIncrease)
+                    foreach (KeyValuePair<int, int> i in p.IntelligenceIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BaseIntelligence += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.PoliticsIncrease)
+                    foreach (KeyValuePair<int, int> i in p.PoliticsIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BasePolitics += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.GlamourIncrease)
+                    foreach (KeyValuePair<int, int> i in p.GlamourIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BaseGlamour += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.ReputationIncrease)
+                    foreach (KeyValuePair<int, int> i in p.ReputationIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
@@ -9629,6 +9612,13 @@
                 int num4 = this.NextPositionCost(this.Position, this.NextPosition, kind);
                 if (this.MovabilityLeft >= num4)
                 {
+                    if (this.FirstTierPath != null && (this.firstTierPathIndex == (this.FirstTierPath.Count - 1) || this.FirstTierPath.Count == 0))
+                    {
+                        this.HasPath = false;
+                        this.MovabilityLeft = -1;
+                        return path;
+                    }
+
                     this.MovabilityLeft -= num4;
                     this.firstTierPathIndex++;
                     this.Position = this.FirstTierPath[this.firstTierPathIndex];
@@ -11037,6 +11027,7 @@
         {
             get
             {
+                if (this.FirstTierPath.Count == 0) return new Point(0, 0);
                 if ((this.firstTierPathIndex + 1) >= this.FirstTierPath.Count)
                 {
                     return this.FirstTierPath[this.firstTierPathIndex];

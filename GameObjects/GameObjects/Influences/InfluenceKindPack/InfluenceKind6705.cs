@@ -9,12 +9,12 @@
         private int increment;
         private int prob;
 
-        public override void ApplyInfluenceKind(Troop t)
+        public override void ApplyInfluenceKind(Person t)
         {
             t.CommandIncrease.Add(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
         }
 
-        public override void PurifyInfluenceKind(Troop t)
+        public override void PurifyInfluenceKind(Person t)
         {
             t.CommandIncrease.Remove(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
         }

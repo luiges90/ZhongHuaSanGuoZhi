@@ -265,7 +265,11 @@
 
         public void SetPath(List<Point> path)
         {
-            path = lastPath;
+            path.Clear();
+            foreach (Point p in lastPath)
+            {
+                path.Add(new Point(p.X, p.Y));
+            }
         }
 
         public delegate int GetCost(Point position, bool Oblique, int DirectionCost, MilitaryKind kind);
