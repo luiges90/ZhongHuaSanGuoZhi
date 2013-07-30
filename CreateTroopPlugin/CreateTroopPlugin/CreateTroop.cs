@@ -239,7 +239,13 @@
             }
             if (this.CreatingTroop.Leader != null)
             {
-                spriteBatch.Draw(this.CreatingTroop.Leader.SmallPortrait, this.PortraitDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
+                try
+                {
+                    spriteBatch.Draw(this.CreatingTroop.Leader.SmallPortrait, this.PortraitDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
+                }
+                catch
+                {
+                }
             }
             this.TroopNameText.Draw(spriteBatch, 0.1999f);
             foreach (LabelText text in this.LabelTexts)
