@@ -8667,6 +8667,14 @@
                                     /////////////////////////////////////////////////调用单挑程序
                                     string fileName = @"Dantiao\start.exe";
 
+                                    //武将ID,姓,名,字,性别(0,女、1,男),头像编号,
+                                    //生命,体力,力量,敏捷,
+                                    //武艺,统御,智谋,政治,魅力,
+                                    //相性,勇猛,冷静,义理,野心,名声,
+                                    //坐骑(赤兔马；301、的卢；302、绝影；303、爪黄飞电；304、大宛马),
+                                    //忠诚度,当前所属势力声望
+
+
                                     string para = "1," + maxStrengthPerson.SurName + "," + maxStrengthPerson.GivenName + "," + (maxStrengthPerson.CalledName == "" ? "无" : maxStrengthPerson.CalledName) + "," + maxStrengthPerson.PictureIndex.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Braveness.ToString();
                                     para += "\r\n";
                                     para += "2," + destination.SurName + "," + destination.GivenName + "," + (destination.CalledName == "" ? "无" : destination.CalledName) + "," + destination.PictureIndex.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Braveness.ToString();
