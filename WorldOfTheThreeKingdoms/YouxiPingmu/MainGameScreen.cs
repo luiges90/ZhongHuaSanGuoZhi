@@ -2301,7 +2301,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
         }
 
-        public override void TroopPersonChallenge(bool win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination)
+        public override void TroopPersonChallenge(int  win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination)
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sourceTroop.Position)) || base.Scenario.CurrentPlayer.IsPositionKnown(destinationTroop.Position)) || GlobalVariables.SkyEye)
             {
@@ -2312,7 +2312,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     neutralPerson = source;
                 }
                 this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
-                if (win)
+                if (win==1)
                 {
                     this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceWin");
                     if ((source.PersonTextMessage != null) && (source.PersonTextMessage.DualInitiativeWin.Count > 0))
@@ -2324,7 +2324,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(source, sourceTroop, "TroopPersonChallengeAfterSourceWin");
                     }
                 }
-                else
+                else if (win == 2)
                 {
                     this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceLose");
                     if ((destination.PersonTextMessage != null) && (destination.PersonTextMessage.DualPassiveWin.Count > 0))
@@ -2336,14 +2336,24 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonChallengeAfterSourceLose");
                     }
                 }
+                else  //win==-1,打平，只有在单挑演示时才有可能发生
+                {
+                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeDraw");
+
+                }
+
                 this.Plugins.PersonTextDialogPlugin.IsShowing = true;
-                if (win)
+                if (win==1)
                 {
                     this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceWin", sourceTroop.Position);
                 }
-                else
+                else if (win == 2)
                 {
                     this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceLose", sourceTroop.Position);
+                }
+                else //win==-1,打平，只有在单挑演示时才有可能发生
+                {
+                    this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeDraw", sourceTroop.Position);
                 }
             }
         }

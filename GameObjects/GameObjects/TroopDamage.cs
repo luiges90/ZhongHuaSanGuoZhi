@@ -10,7 +10,7 @@
         public bool BeCountered;
         public Person ChallengeDestinationPerson;
         public bool ChallengeHappened;
-        public bool ChallengeResult;
+        public int ChallengeResult;
         public Person ChallengeSourcePerson;
         public bool Chaos;
         public int CombativityDown;

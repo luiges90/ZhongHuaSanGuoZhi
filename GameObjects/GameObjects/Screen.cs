@@ -642,7 +642,7 @@
         {
         }
 
-        public virtual void TroopPersonChallenge(bool win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination)
+        public virtual void TroopPersonChallenge(int  win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination)
         {
         }
 
