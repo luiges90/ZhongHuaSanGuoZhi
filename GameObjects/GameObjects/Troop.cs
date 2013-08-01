@@ -8667,9 +8667,47 @@
                                     /////////////////////////////////////////////////调用单挑程序
                                     string fileName = @"Dantiao\start.exe";
 
-                                    string para = "1," + maxStrengthPerson.SurName + "," + maxStrengthPerson.GivenName + "," + (maxStrengthPerson.CalledName == "" ? "无" : maxStrengthPerson.CalledName) + "," + maxStrengthPerson.PictureIndex.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Braveness.ToString();
+                                    //武将ID,姓,名,字,性别(0,女、1,男),头像编号,
+                                    //生命,体力,力量,敏捷,
+                                    //武艺,统御,智谋,政治,魅力,
+                                    //相性,勇猛,冷静,义理,野心,名声,
+                                    //坐骑(1、没有马；300、赤兔马；301、的卢；302、绝影；303、爪黄飞电；304、大宛马),
+                                    //忠诚度,当前所属势力声望
+
+
+                                    string para = maxStrengthPerson.ID.ToString() + "," + maxStrengthPerson.SurName + "," + maxStrengthPerson.GivenName + "," + (maxStrengthPerson.CalledName == "" ? "无" : maxStrengthPerson.CalledName) + "," + (maxStrengthPerson.Sex ? "0" : "1") + "," + maxStrengthPerson.PictureIndex.ToString() + ",";
+                                    para += maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + ",";
+                                    para += maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Command.ToString() +"," + maxStrengthPerson.Intelligence.ToString() + "," + maxStrengthPerson.Politics.ToString() + "," + maxStrengthPerson.Glamour.ToString() + ",";
+                                    para += maxStrengthPerson.Ideal.ToString() + "," + maxStrengthPerson.Braveness.ToString() + "," + maxStrengthPerson.Calmness.ToString() + "," + maxStrengthPerson.PersonalLoyalty.ToString() + "," + maxStrengthPerson.Ambition.ToString()+","+maxStrengthPerson.Reputation.ToString()+",";
+                                    ///////////////////////////////判断有没有宝物马
+                                    if (maxStrengthPerson.HasHorse()==-1)
+                                    {
+                                        para += "1" + ",";
+                                    }
+                                    else
+                                    {
+                                        para += maxStrengthPerson.HasHorse().ToString() + ",";
+                                    }
+                                    /////////////////////////////////
+                                    para += maxStrengthPerson.Loyalty.ToString() + "," + (maxStrengthPerson.BelongedFaction==null?0: maxStrengthPerson.BelongedFaction.Reputation).ToString();
                                     para += "\r\n";
-                                    para += "2," + destination.SurName + "," + destination.GivenName + "," + (destination.CalledName == "" ? "无" : destination.CalledName) + "," + destination.PictureIndex.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Braveness.ToString();
+
+                                    /////////------------------------------------以下添加第二个人的字符串
+                                    para += destination.ID.ToString() + "," + destination.SurName + "," + destination.GivenName + "," + (destination.CalledName == "" ? "无" : destination.CalledName) + "," + (destination.Sex ? "0" : "1") + "," + destination.PictureIndex.ToString() + ",";
+                                    para += destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + ",";
+                                    para += destination.Strength.ToString() + "," + destination.Command.ToString() +"," + destination.Intelligence.ToString() + "," + destination.Politics.ToString() + "," + destination.Glamour.ToString() + ",";
+                                    para += destination.Ideal.ToString() + "," + destination.Braveness.ToString() + "," + destination.Calmness.ToString() + "," + destination.PersonalLoyalty.ToString() + "," + destination.Ambition.ToString() + "," + destination.Reputation.ToString() + ",";
+                                    ///////////////////////////////判断有没有宝物马
+                                    if (destination.HasHorse() == -1)
+                                    {
+                                        para += "1" + ",";
+                                    }
+                                    else
+                                    {
+                                        para += destination.HasHorse().ToString() + ",";
+                                    }
+                                    /////////////////////////////////
+                                    para += destination.Loyalty.ToString() + "," + (destination.BelongedFaction == null ? 0 : destination.BelongedFaction.Reputation).ToString();
                                     para += "\r\n";
 
 
