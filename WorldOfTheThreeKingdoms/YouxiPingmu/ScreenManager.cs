@@ -1091,6 +1091,28 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.mainGameScreen.Plugins.PersonBubblePlugin.AddPerson(this.CurrentPerson, this.CurrentTroop.Position, "Campaign");
             this.mainGameScreen.Plugins.AirViewPlugin.ReloadTroopView();
         }
+
+        internal void ArchitectureExpand()
+        {
+            this.CurrentArchitecture.Fund -= this.CurrentArchitecture.ExpandFund();
+            foreach (Point point in this.CurrentArchitecture.ExpandPoint())
+            {
+                this.CurrentArchitecture.ArchitectureArea.AddPoint(point);
+            }
+
+
+            this.CurrentArchitecture.ContactArea = this.CurrentArchitecture.ArchitectureArea.GetContactArea(false);
+            this.CurrentArchitecture.ViewArea = GameArea.GetAreaFromArea(this.CurrentArchitecture.ArchitectureArea, this.CurrentArchitecture.ViewDistance, this.CurrentArchitecture.Kind.HasObliqueView, this.gameScenario, this.CurrentArchitecture.BelongedFaction);
+            this.CurrentArchitecture.LongViewArea = GameArea.GetAreaFromArea(this.CurrentArchitecture.ArchitectureArea, this.CurrentArchitecture.LongViewDistance, this.CurrentArchitecture.Kind.HasObliqueView, this.gameScenario, this.CurrentArchitecture.BelongedFaction);
+            this.CurrentArchitecture.BaseFoodSurplyArea = this.CurrentArchitecture.LongViewArea;
+
+            foreach (Point point in this.CurrentArchitecture.ArchitectureArea.Area)
+            {
+                this.gameScenario.MapTileData[point.X, point.Y].TileArchitecture = this.CurrentArchitecture;
+            }
+
+            this.gameScenario.SetMapTileArchitecture(this.CurrentArchitecture);
+        }
     }
 
  

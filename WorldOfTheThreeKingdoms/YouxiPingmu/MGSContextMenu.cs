@@ -309,6 +309,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.Plugins.NumberInputerPlugin.SetEnterFunction(function2);
                     this.Plugins.NumberInputerPlugin.IsShowing = true;
                     break;
+                case ContextMenuResult.Internal_Expand:
+
+                    this.screenManager.ArchitectureExpand();
+                    break;
+
 
                 case ContextMenuResult.Military_Campaign:
                     if (function3 == null)

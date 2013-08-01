@@ -38,6 +38,7 @@
         Internal_Facility_Demolish,
         Internal_Trade_BuyFood,
         Internal_Trade_SellFood,
+        Internal_Expand,
         Military_Campaign,
         Military_Troopership,
         Military_Training,

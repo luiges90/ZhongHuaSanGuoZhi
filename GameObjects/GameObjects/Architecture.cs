@@ -11724,6 +11724,11 @@
                 }
                 return this.baseFoodSurplyArea;
             }
+            set
+            {
+                this.baseFoodSurplyArea = value;
+            }
+
         }
 
         public int BuildingDaysLeft
@@ -11853,6 +11858,10 @@
                     this.contactArea = this.ArchitectureArea.GetContactArea(false);
                 }
                 return this.contactArea;
+            }
+            set
+            {
+                this.contactArea = value;
             }
         }
 
@@ -13339,6 +13348,86 @@
             return false;
 
         }
+        public int ExpandFund()
+        {
+            if (this.JianzhuGuimo == 1)
+            {
+                return 100000;
+            }
+            else if (this.JianzhuGuimo == 5)
+            {
+                return 200000;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public List<Point> ExpandPoint()
+        {
+            List<Point> xinjiadedian = new List<Point>();
+            if (this.JianzhuGuimo == 1)
+            {
+                
+                xinjiadedian.Add(new Point(zhongxindian.X - 1, zhongxindian.Y));
+                xinjiadedian.Add(new Point(zhongxindian.X + 1, zhongxindian.Y));
+                xinjiadedian.Add(new Point(zhongxindian.X, zhongxindian.Y - 1));
+                xinjiadedian.Add(new Point(zhongxindian.X, zhongxindian.Y + 1));
+
+
+            }
+            else if (this.JianzhuGuimo == 5)
+            {
+                
+                xinjiadedian.Add(new Point(zhongxindian.X - 2, zhongxindian.Y));
+                xinjiadedian.Add(new Point(zhongxindian.X + 2, zhongxindian.Y));
+                xinjiadedian.Add(new Point(zhongxindian.X, zhongxindian.Y - 2));
+                xinjiadedian.Add(new Point(zhongxindian.X, zhongxindian.Y + 2));
+                xinjiadedian.Add(new Point(zhongxindian.X - 1, zhongxindian.Y - 1));
+                xinjiadedian.Add(new Point(zhongxindian.X - 1, zhongxindian.Y + 1));
+                xinjiadedian.Add(new Point(zhongxindian.X + 1, zhongxindian.Y - 1));
+                xinjiadedian.Add(new Point(zhongxindian.X + 1, zhongxindian.Y + 1));
+            }
+            else
+            {
+                return null;
+            }
+            return xinjiadedian;
+        }
+
+        public bool ExpandAvail()
+        {
+            if (this.Kind.ID != 1) return false;
+            if (this.Fund < this.ExpandFund()) return false;
+            if (this.JianzhuGuimo != 1 && this.JianzhuGuimo != 5) return false;
+
+
+            TerrainKind terrainKindByPosition;
+            foreach (Point point in this.ExpandPoint())
+            {
+                if (base.Scenario.PositionOutOfRange(point))
+                {
+                    return false;
+                }
+                terrainKindByPosition = base.Scenario.GetTerrainKindByPosition(point);
+                if (terrainKindByPosition==TerrainKind.峻岭||terrainKindByPosition==TerrainKind.湿地||terrainKindByPosition==TerrainKind.水域||terrainKindByPosition==TerrainKind.无)
+                {
+                    return false;
+                }
+            }
+            if (this.HasHostileTroopsInView()) return false;
+
+            if (this.Population <= this.PopulationCeiling * 0.5) return false;
+            if (this.Agriculture <= this.AgricultureCeiling * 0.95) return false;
+            if (this.Commerce <= this.CommerceCeiling * 0.95) return false;
+            if (this.Technology <= this.TechnologyCeiling * 0.95) return false;
+            if (this.Endurance <= this.EnduranceCeiling  * 0.95) return false;
+            if (this.Morale <= this.MoraleCeiling * 0.95) return false;
+            if (this.Domination <= this.DominationCeiling * 0.95) return false;
+
+            return true;
+        }
+
 
         public PersonList meifaxianhuaiyundefeiziliebiao()
         {
