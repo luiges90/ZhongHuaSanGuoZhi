@@ -139,7 +139,13 @@
             if (this.SpeakingPerson != null)
             {
                 Rectangle? sourceRectangle = null;
-                spriteBatch.Draw(this.SpeakingPerson.Portrait, this.PortraitDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.201f);
+                try
+                {
+                    spriteBatch.Draw(this.SpeakingPerson.Portrait, this.PortraitDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.201f);
+                }
+                catch
+                {
+                }
                 sourceRectangle = null;
                 spriteBatch.Draw(this.BackgroundTexture, this.BackgroundDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
                 if (this.shijiantupian != null)

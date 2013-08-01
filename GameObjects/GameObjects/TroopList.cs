@@ -347,7 +347,7 @@
             troop.Scenario.GameScreen.TroopPathNotFound(troop);
         }
 
-        private void troop_OnPersonChallenge(bool win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination)
+        private void troop_OnPersonChallenge(int  win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination)
         {
             source.Scenario.GameScreen.TroopPersonChallenge(win, sourceTroop, source, destinationTroop, destination);
         }

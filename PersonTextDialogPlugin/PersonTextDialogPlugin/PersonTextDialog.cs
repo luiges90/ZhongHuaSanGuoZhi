@@ -90,10 +90,16 @@
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            if (this.SpeakingPerson != null && this.SpeakingPerson.Portrait != null)
+            if (this.SpeakingPerson != null)
             {
                 Rectangle? sourceRectangle = null;
-                spriteBatch.Draw(this.SpeakingPerson.Portrait, this.PortraitDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.201f);
+                try
+                {
+                    spriteBatch.Draw(this.SpeakingPerson.Portrait, this.PortraitDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.201f);
+                }
+                catch
+                {
+                }
                 sourceRectangle = null;
                 spriteBatch.Draw(this.BackgroundTexture, this.BackgroundDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
                 this.NameText.Draw(spriteBatch, 0.1999f);

@@ -66,7 +66,13 @@ namespace TroopTitlePlugin
                 this.NameText.Draw(spriteBatch, 0.47f);
                 this.binglitext.Draw(spriteBatch, 0.47f);
                 sourceRectangle = null;
-                spriteBatch.Draw(troop.Leader.SmallPortrait, new Rectangle(this.displayOffset.X + this.PortraitPosition.X, this.displayOffset.Y + this.PortraitPosition.Y, this.PortraitPosition.Width, this.PortraitPosition.Height), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4687f);
+                try
+                {
+                    spriteBatch.Draw(troop.Leader.SmallPortrait, new Rectangle(this.displayOffset.X + this.PortraitPosition.X, this.displayOffset.Y + this.PortraitPosition.Y, this.PortraitPosition.Width, this.PortraitPosition.Height), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4687f);
+                }
+                catch
+                {
+                }
 
                 if (playerControlling && (GlobalVariables.SkyEye || troop.Scenario.IsCurrentPlayer(troop.BelongedFaction)))
                 {

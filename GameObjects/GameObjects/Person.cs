@@ -231,6 +231,18 @@
             }
         }
 
+        public int  HasHorse()
+        {
+            foreach (Treasure treasure in this.Treasures)
+            {
+                if (treasure.Influences.HasInfluence(5110))
+                {
+                    return treasure.ID;
+                }
+            }
+            return -1;
+        }
+
         public int YearJoin{ get; set; }
         public int TroopDamageDealt{ get; set; }
         public int TroopBeDamageDealt{ get; set; }

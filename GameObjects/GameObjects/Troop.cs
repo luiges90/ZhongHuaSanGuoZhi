@@ -15,6 +15,7 @@
     using System.IO;
     using System.Runtime.CompilerServices;
     using System.Threading;
+    using System.Diagnostics;
 
     public class Troop : GameObject
     {
@@ -8641,6 +8642,7 @@
             damage.InjuredDamage = (int) (this.reduceInjuredOnAttack * damage.DestinationTroop.Army.Kind.MinScale);
             damage.TirednessIncrease = this.TirednessIncreaseOnAttack;
             damage.StealFood = Math.Min(damage.DestinationTroop.Food, this.StealFood);
+            //if (true)  //单挑必然发生
             if (damage.Critical)
             {
                 this.PreAction = TroopPreAction.暴击;
@@ -8653,29 +8655,133 @@
                 {
                     damage.DestinationMoraleChange -= this.MoraleDecrementOfCriticalStrike;
                 }
+                //if ((!this.IsFriendly(troop.BelongedFaction) && !this.AirOffence)) //单挑必然发生
                 if ((!this.IsFriendly(troop.BelongedFaction) && !this.AirOffence) && GameObject.Chance(20))
                 {
                     Person maxStrengthPerson = this.Persons.GetMaxStrengthPerson();
                     Person destination = troop.Persons.GetMaxStrengthPerson();
+                    //if (((maxStrengthPerson != null) && (destination != null))) //单挑必然发生
                     if (((maxStrengthPerson != null) && (destination != null)) && (GameObject.Random(GameObject.Square(destination.Calmness)) < GameObject.Random(0x19)))
                     {
                         int chance = Person.ChanlengeWinningChance(maxStrengthPerson, destination);
-                        if ((maxStrengthPerson.Character.ChallengeChance + chance) >= 60)
+                        if (true) //单挑必然发生
+                        //if ((maxStrengthPerson.Character.ChallengeChance + chance) >= 60)
                         {
-                            bool flag = GameObject.Chance(chance);
+                            int flag=0;
                             damage.ChallengeHappened = true;
+                            //if (true) //单挑必然发生
+                            if (base.Scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || base.Scenario.IsPlayer(destination.BelongedFaction))  //单挑双方有玩家的武将才演示
+                            {
+                                try
+                                {
+                                    /////////////////////////////////////////////////调用单挑程序
+                                    string fileName = @"Dantiao\start.exe";
+
+                                    //武将ID,姓,名,字,性别(0,女、1,男),头像编号,
+                                    //生命,体力,力量,敏捷,
+                                    //武艺,统御,智谋,政治,魅力,
+                                    //相性,勇猛,冷静,义理,野心,名声,
+                                    //坐骑(1、没有马；300、赤兔马；301、的卢；302、绝影；303、爪黄飞电；304、大宛马),
+                                    //忠诚度,当前所属势力声望
+
+
+                                    string para = maxStrengthPerson.ID.ToString() + "," + maxStrengthPerson.SurName + "," + maxStrengthPerson.GivenName + "," + (maxStrengthPerson.CalledName == "" ? "无" : maxStrengthPerson.CalledName) + "," + (maxStrengthPerson.Sex ? "0" : "1") + "," + maxStrengthPerson.PictureIndex.ToString() + ",";
+                                    para += maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + ",";
+                                    para += maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Command.ToString() +"," + maxStrengthPerson.Intelligence.ToString() + "," + maxStrengthPerson.Politics.ToString() + "," + maxStrengthPerson.Glamour.ToString() + ",";
+                                    para += maxStrengthPerson.Ideal.ToString() + "," + maxStrengthPerson.Braveness.ToString() + "," + maxStrengthPerson.Calmness.ToString() + "," + maxStrengthPerson.PersonalLoyalty.ToString() + "," + maxStrengthPerson.Ambition.ToString()+","+maxStrengthPerson.Reputation.ToString()+",";
+                                    ///////////////////////////////判断有没有宝物马
+                                    if (maxStrengthPerson.HasHorse()==-1)
+                                    {
+                                        para += "1" + ",";
+                                    }
+                                    else
+                                    {
+                                        para += maxStrengthPerson.HasHorse().ToString() + ",";
+                                    }
+                                    /////////////////////////////////
+                                    para += maxStrengthPerson.Loyalty.ToString() + "," + (maxStrengthPerson.BelongedFaction==null?0: maxStrengthPerson.BelongedFaction.Reputation).ToString();
+                                    para += "\r\n";
+
+                                    /////////------------------------------------以下添加第二个人的字符串
+                                    para += destination.ID.ToString() + "," + destination.SurName + "," + destination.GivenName + "," + (destination.CalledName == "" ? "无" : destination.CalledName) + "," + (destination.Sex ? "0" : "1") + "," + destination.PictureIndex.ToString() + ",";
+                                    para += destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + ",";
+                                    para += destination.Strength.ToString() + "," + destination.Command.ToString() +"," + destination.Intelligence.ToString() + "," + destination.Politics.ToString() + "," + destination.Glamour.ToString() + ",";
+                                    para += destination.Ideal.ToString() + "," + destination.Braveness.ToString() + "," + destination.Calmness.ToString() + "," + destination.PersonalLoyalty.ToString() + "," + destination.Ambition.ToString() + "," + destination.Reputation.ToString() + ",";
+                                    ///////////////////////////////判断有没有宝物马
+                                    if (destination.HasHorse() == -1)
+                                    {
+                                        para += "1" + ",";
+                                    }
+                                    else
+                                    {
+                                        para += destination.HasHorse().ToString() + ",";
+                                    }
+                                    /////////////////////////////////
+                                    para += destination.Loyalty.ToString() + "," + (destination.BelongedFaction == null ? 0 : destination.BelongedFaction.Reputation).ToString();
+                                    para += "\r\n";
+
+
+
+
+
+                                    Process myProcess = new Process();
+                                    ProcessStartInfo myProcessStartInfo = new ProcessStartInfo(fileName, para);
+                                    myProcess.StartInfo = myProcessStartInfo;
+                                    myProcess.Start();
+                                    while (!myProcess.HasExited)
+                                    {
+
+                                        myProcess.WaitForExit();
+
+                                    }
+                                    int returnValue = myProcess.ExitCode;
+
+
+                                    ////////////////////////////////////////////////
+                                    if (returnValue == 1)
+                                    {
+                                        flag = 1;
+
+                                    }
+                                    else if (returnValue == 2)
+                                    {
+                                        flag = 2;
+                                    }
+                                    else if (returnValue == -1)
+                                    {
+                                        flag = -1;
+                                    }
+                                    else   //返回值出错时避免跳出
+                                    {
+                                        flag = (GameObject.Chance(chance) ? 1 : 2);
+                                    }
+
+
+                                }
+                                catch
+                                {
+                                    flag = (GameObject.Chance(chance) ? 1 : 2);
+                                }
+                            }
+                            else
+                            {
+                                flag = (GameObject.Chance(chance) ? 1 : 2);
+                            }
                             damage.ChallengeResult = flag;
                             damage.ChallengeSourcePerson = maxStrengthPerson;
                             damage.ChallengeDestinationPerson = destination;
-                            if (flag)
+                            if (flag==1)
                             {
                                 damage.SourceMoraleChange += 20;
                                 damage.DestinationMoraleChange -= 20;
                             }
-                            else
+                            else if (flag == 2)
                             {
                                 damage.SourceMoraleChange -= 20;
                                 damage.DestinationMoraleChange += 20;
+                            }
+                            else  //flag==-1,打平，只有在单挑演示中才有可能发生
+                            {
                             }
                         }
                     }
@@ -12241,7 +12347,7 @@
 
         public delegate void PathNotFound(Troop troop);
 
-        public delegate void PersonChallenge(bool win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination);
+        public delegate void PersonChallenge(int  win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination);
 
         public delegate void PersonControversy(bool win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination);
 
