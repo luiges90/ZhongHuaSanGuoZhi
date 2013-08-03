@@ -5539,7 +5539,7 @@
 
         private void zainanshijian()
         {
-            if (base.Scenario.DaySince < 1080) return;
+            if (base.Scenario.DaySince < 720) return;
             if (this.youzainan)
             {
                 this.DecreaseFood(this.ZhenzaiWorkingPersons.Count * 3000);
