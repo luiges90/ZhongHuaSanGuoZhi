@@ -8664,13 +8664,12 @@
                     if (((maxStrengthPerson != null) && (destination != null)) && (GameObject.Random(GameObject.Square(destination.Calmness)) < GameObject.Random(0x19)))
                     {
                         int chance = Person.ChanlengeWinningChance(maxStrengthPerson, destination);
-                        if (true) //单挑必然发生
-                        //if ((maxStrengthPerson.Character.ChallengeChance + chance) >= 60)
+                        if ((maxStrengthPerson.Character.ChallengeChance + chance) >= 60)
                         {
                             int flag=0;
                             damage.ChallengeHappened = true;
                             //if (true) //单挑必然发生
-                            if (base.Scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || base.Scenario.IsPlayer(destination.BelongedFaction))  //单挑双方有玩家的武将才演示
+                            if ((base.Scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || base.Scenario.IsPlayer(destination.BelongedFaction)))  //单挑双方有玩家的武将才演示
                             {
                                 try
                                 {
