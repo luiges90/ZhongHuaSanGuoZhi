@@ -4677,7 +4677,7 @@
                 return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + 
                     this.UntiredPolitics + this.UntiredGlamour) * 
                     (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) 
-                    + this.AllSkillMerit + this.TreasureMerit);
+                    + this.AllSkillMerit);
             }
         }
 
