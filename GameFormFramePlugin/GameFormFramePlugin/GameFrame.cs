@@ -244,10 +244,6 @@
                         this.CancelButtonState = FrameButtonState.Normal;
                     }
                 }
-                if ((this.frameContent.MapViewSelectorButtonEnabled && StaticMethods.PointInRectangle(position, this.mapviewselectorButtonRectangle)) && (this.frameContent.MapViewSelectorFunction != null))
-                {
-                    this.frameContent.MapViewSelectorFunction();
-                }
             }
         }
 
@@ -274,6 +270,10 @@
                     this.CancelButtonState = FrameButtonState.Selected;
                     this.Result = FrameResult.Cancel;
                     this.IsShowing = false;
+                }
+                if ((this.frameContent.MapViewSelectorButtonEnabled && StaticMethods.PointInRectangle(position, this.mapviewselectorButtonRectangle)) && (this.frameContent.MapViewSelectorFunction != null))
+                {
+                    this.frameContent.MapViewSelectorFunction();
                 }
             }
         }
