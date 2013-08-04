@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <Branch Name="ArchitectureBeginRecentlyAttacked">
-    <Leaf Text="探马来报，" Color="4294967295"></Leaf>
-    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
-    <Leaf Text="城外发现敌军。" Color="4294967295"></Leaf>
-  </Branch>
-
-
   <Branch Name="PersonLeave">
     <Leaf Text="继续为" Color="4294967295"></Leaf>
     <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
