@@ -956,8 +956,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(transport.TransportReturn), new GameDelegates.VoidFunction(transport.TransportEnter));
                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
 
-                transport.TextDestinationString = destination.Name;
-                transport.TextResultString = transport.StartingArchitecture.Name;
+                transport.Leader.TextDestinationString = destination.Name;
+                transport.Leader.TextResultString = transport.StartingArchitecture.Name;
                 this.Plugins.tupianwenziPlugin.SetGameObjectBranch(transport.Leader, transport, "TransportReturn");
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
             }

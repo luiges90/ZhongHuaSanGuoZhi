@@ -12,7 +12,7 @@
         internal Point BackgroundSize;
         internal Texture2D BackgroundTexture;
         private Point DisplayOffset;
-        private IPersonTextDialog iPersonTextDialog;
+        private Itupianwenzi iPersonTextDialog;
         private ISimpleTextDialog iSimpleTextDialog;
         private bool isShowing;
         private Texture2D NoDisplayTexture;
@@ -102,7 +102,7 @@
             this.IsShowing = false;
         }
 
-        internal void SetPersonTextDialog(IPersonTextDialog iPersonTextDialog)
+        internal void SetPersonTextDialog(Itupianwenzi iPersonTextDialog)
         {
             this.iPersonTextDialog = iPersonTextDialog;
             this.iSimpleTextDialog = null;
