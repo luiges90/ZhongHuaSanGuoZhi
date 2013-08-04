@@ -19,7 +19,7 @@
         public string Name;
         public float Scale = 1f;
         public bool SmallToBig;
-        public int ItemID;
+        public int ItemID = -1;
         public int DetailLevel;
         public bool CountToDisplay = true;
         private TabListInFrame tabList;
