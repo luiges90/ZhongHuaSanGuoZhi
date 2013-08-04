@@ -5090,15 +5090,16 @@
                     person.WorkKind = ArchitectureWorkKind.无;
                 }
             }
-            /*        统治到顶时不停止工作
+           
             if (this.Domination >= this.DominationCeiling)
             {
                 foreach (Person person in this.DominationWorkingPersons)
                 {
-                    this.RemovePersonFromWorkingList(person);
+                    //this.RemovePersonFromWorkingList(person);
+                    person.WorkKind = ArchitectureWorkKind.无;
                 }
             }
-            */
+            
 
             if (this.Morale >= this.MoraleCeiling)
             {
