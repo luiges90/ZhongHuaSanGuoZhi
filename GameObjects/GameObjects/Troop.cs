@@ -7232,7 +7232,7 @@
                         military.Combativity /= 2;
                     }
 
-
+                    this.BelongedFaction.Leader.TextDestinationString = this.BelongedFaction.Name;
                     this.Scenario.GameScreen.xianshishijiantupian(this.BelongedFaction.Leader , currentArchitecture.Name ,"zhanling","zhanling.jpg","zhanling.wma",false );
                     currentArchitecture.ResetFaction(this.BelongedFaction);
                     if (

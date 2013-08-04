@@ -8,7 +8,7 @@
   <Branch Name="PersonBeKilled">
     <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
     <Leaf Text="在" Color="4294967295"></Leaf>
-    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
     <Leaf Text="被处死。" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="FactionAfterCatchLeader">
@@ -134,7 +134,7 @@
     <Leaf Text="军送来赎金" Color="4294967295"></Leaf>
     <Leaf Property="RansomFund" Color="4278232306"></Leaf>
     <Leaf Text="请求我军释放" Color="4294967295"></Leaf>
-    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
     <Leaf Text="。是否同意？" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="TroopPersonChallengeSourceWin">
@@ -247,9 +247,9 @@
   </Branch>
   <Branch Name="zhanling">
 
-    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
     
-    <Leaf Text="军攻克了" Color="4294967295"></Leaf>
+    <Leaf Text="攻克了" Color="4294967295"></Leaf>
 
     <Leaf Property="TextResultString" Color="4278255360"></Leaf>
     <Leaf Text="。" Color="4294967295"></Leaf>
@@ -504,8 +504,8 @@
   </Branch>
   
   <Branch Name="ArchitectureBeginRecentlyAttacked">
-    <Leaf Text="紧急军情:" Color="4294967295"></Leaf>
-    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="紧急军情：" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
     <Leaf Text="正遭受敌军的攻击。" Color="4294967295"></Leaf>
   </Branch>
 
