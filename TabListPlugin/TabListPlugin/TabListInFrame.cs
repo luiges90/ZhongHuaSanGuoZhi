@@ -469,7 +469,7 @@
                     Column columnByPosition = this.GetColumnByPosition(position);
                     if (columnByPosition != null)
                     {
-                        PropertyComparer comparer = new PropertyComparer(columnByPosition.Name, columnByPosition.IsNumber, columnByPosition.SmallToBig);
+                        PropertyComparer comparer = new PropertyComparer(columnByPosition.Name, columnByPosition.IsNumber, columnByPosition.SmallToBig, columnByPosition.ItemID);
                         this.gameObjectList.Sort(comparer);
                         this.listKindToDisplay.ResetAllTextures();
                         columnByPosition.SmallToBig = !columnByPosition.SmallToBig;

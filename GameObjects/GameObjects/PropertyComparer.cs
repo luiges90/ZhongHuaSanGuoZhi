@@ -10,12 +10,22 @@
         private bool isNumber;
         private string propertyName;
         private bool SmallToBig;
+        private int itemID;
 
         public PropertyComparer(string propertyName, bool isNumber, bool SmallToBig)
         {
             this.propertyName = propertyName;
             this.isNumber = isNumber;
             this.SmallToBig = SmallToBig;
+            this.itemID = -1;
+        }
+
+        public PropertyComparer(string propertyName, bool isNumber, bool SmallToBig, int itemID)
+        {
+            this.propertyName = propertyName;
+            this.isNumber = isNumber;
+            this.SmallToBig = SmallToBig;
+            this.itemID = itemID;
         }
 
         private static Regex dateMatcher = new Regex("^(\\d+)年(1?\\d)月([123]?\\d)日$", RegexOptions.Compiled);
@@ -34,8 +44,18 @@
             }
             int result = 0;
 
-            Object objX = StaticMethods.GetPropertyValue(x, this.propertyName);
-            Object objY = StaticMethods.GetPropertyValue(y, this.propertyName);
+            Object objX, objY;
+
+            if (itemID < 0)
+            {
+                objX = StaticMethods.GetPropertyValue(x, this.propertyName);
+                objY = StaticMethods.GetPropertyValue(y, this.propertyName);
+            }
+            else
+            {
+                objX = StaticMethods.GetMethodValue(x, this.propertyName, new object[] { this.itemID });
+                objY = StaticMethods.GetMethodValue(y, this.propertyName, new object[] { this.itemID });
+            }
 
             if (this.isNumber)
             {

@@ -118,6 +118,28 @@
             return (Math.Round((double) (rate * 100f), digits) + "%");
         }
 
+        public static object GetMethodValue(object ClassInstance, string MethodName, object[] param)
+        {
+            MethodInfo method = ClassInstance.GetType().GetMethod(MethodName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+            if (method != null)
+            {
+                try
+                {
+                    object obj = method.Invoke(ClassInstance, param);
+                    if (obj != null)
+                    {
+                        return obj;
+                    }
+                    return "----";
+                }
+                catch
+                {
+                    return "----";
+                }
+            }
+            return "----";
+        }
+
         public static object GetPropertyValue(object ClassInstance, string PropertyName)
         {
             PropertyInfo property = ClassInstance.GetType().GetProperty(PropertyName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
