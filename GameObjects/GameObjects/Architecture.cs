@@ -703,7 +703,16 @@
             this.AIWork(false);
             this.AITransfer();
             this.InsideTacticsAI();
+            this.AIExpand();
             ExtensionInterface.call("AIArchitecture", new Object[] { this.Scenario, this });
+        }
+
+        private void AIExpand()
+        {
+            if (this.ExpandAvail())
+            {
+                this.Expand();
+            }
         }
 
         private void AIExecute()
@@ -13429,6 +13438,27 @@
             return true;
         }
 
+        public void Expand()
+        {
+            this.Fund -= this.ExpandFund();
+            foreach (Point point in this.ExpandPoint())
+            {
+                this.ArchitectureArea.AddPoint(point);
+            }
+
+
+            this.ContactArea = this.ArchitectureArea.GetContactArea(false);
+            this.ViewArea = GameArea.GetAreaFromArea(this.ArchitectureArea, this.ViewDistance, this.Kind.HasObliqueView, base.Scenario, this.BelongedFaction);
+            this.LongViewArea = GameArea.GetAreaFromArea(this.ArchitectureArea, this.LongViewDistance, this.Kind.HasObliqueView, base.Scenario, this.BelongedFaction);
+            this.BaseFoodSurplyArea = this.LongViewArea;
+
+            foreach (Point point in this.ArchitectureArea.Area)
+            {
+                base.Scenario.MapTileData[point.X, point.Y].TileArchitecture = this;
+            }
+
+            base.Scenario.SetMapTileArchitecture(this);
+        }
 
         public PersonList meifaxianhuaiyundefeiziliebiao()
         {
