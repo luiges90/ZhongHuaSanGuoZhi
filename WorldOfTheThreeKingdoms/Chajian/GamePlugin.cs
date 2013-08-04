@@ -37,7 +37,6 @@ namespace WorldOfTheThreeKingdoms.GameLogic
         internal IPersonBubble PersonBubblePlugin = null;
         internal IPersonDetail PersonDetailPlugin = null;
         internal IPersonPortrait PersonPortraitPlugin = null;
-        internal IPersonTextDialog PersonTextDialogPlugin = null;
 
         internal Itupianwenzi tupianwenziPlugin = null;
 
@@ -190,16 +189,6 @@ namespace WorldOfTheThreeKingdoms.GameLogic
                 this.SimpleTextDialogPlugin.SetGraphicsDevice(screen.spriteBatch.GraphicsDevice);
                 screen.PluginList.Add(this.SimpleTextDialogPlugin.Instance as GameObject);
             }
-            plugin = Plugin.Plugins.AvailablePlugins.Find("PersonTextDialogPlugin");
-            if ((plugin != null) && (plugin.Instance is IPersonTextDialog))
-            {
-                this.PersonTextDialogPlugin = plugin.Instance as IPersonTextDialog;
-                this.PersonTextDialogPlugin.SetScreen(screen);
-                this.PersonTextDialogPlugin.SetGraphicsDevice(screen.spriteBatch.GraphicsDevice);
-                this.PersonTextDialogPlugin.SetContextMenu(this.ContextMenuPlugin);
-                screen.PluginList.Add(this.PersonTextDialogPlugin.Instance as GameObject);
-            }
-
 
             plugin = Plugin.Plugins.AvailablePlugins.Find("tupianwenziPlugin");
             if ((plugin != null) && (plugin.Instance is Itupianwenzi))
