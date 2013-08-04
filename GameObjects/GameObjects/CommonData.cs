@@ -1948,6 +1948,8 @@
                 {
                     if (i.IsLiteral) continue;
 
+                    if (GlobalVariables.getFieldsExcludedFromSave().Contains(i.Name)) continue;
+
                     row = dataSet.Tables["GlobalVariables"].NewRow();
                     row.BeginEdit();
                     row["Name"] = i.Name;

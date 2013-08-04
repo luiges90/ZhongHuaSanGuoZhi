@@ -2304,6 +2304,9 @@
                 foreach (FieldInfo i in typeof(Parameters).GetFields(BindingFlags.Public | BindingFlags.Static))
                 {
                     if (i.IsLiteral) continue;
+
+                    if (GlobalVariables.getFieldsExcludedFromSave().Contains(i.Name)) continue;
+
                     if (i.Name == name)
                     {
                         int outInt;

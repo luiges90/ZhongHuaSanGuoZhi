@@ -1892,7 +1892,7 @@
                 }
                 if (this.CanEnter())
                 {
-                    if (base.Scenario.IsPlayer(this.BelongedFaction))
+                    if (base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture != null)
                     {
                         if (this.mingling == "入城" && this.Position == this.minglingweizhi)
                         {
