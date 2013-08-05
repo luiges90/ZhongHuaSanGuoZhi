@@ -71,11 +71,12 @@
           <MenuItem ID="1"  Name="BuyFood" DisplayName="买粮" DisplayIfTrue="BuyFoodAvail"></MenuItem>
           <MenuItem ID="2"  Name="SellFood" DisplayName="卖粮" DisplayIfTrue="SellFoodAvail"></MenuItem>
         </MenuItem>
-		<MenuItem ID="10"  Name="AutoWorking" DisplayName="委任工作" OppositeName="手动工作" OppositeIfTrue="AutoWorking" DisplayIfTrue="AutoWorkingAvail"></MenuItem>
+        <MenuItem ID="10"  Name="Expand" DisplayName="扩建" DisplayIfTrue="ExpandAvail"></MenuItem>
+        <MenuItem ID="11"  Name="AutoWorking" DisplayName="委任工作" OppositeName="手动工作" OppositeIfTrue="AutoWorking" DisplayIfTrue="AutoWorkingAvail"></MenuItem>
       </MenuItem>
       <MenuItem ID="2"  Name="Military" DisplayName="军事">
         <MenuItem ID="1"  Name="Campaign" DisplayName="出征" DisplayIfTrue="CampaignAvail"></MenuItem>
-		<MenuItem ID="2"  Name="Troopership" DisplayName="运兵船" DisplayIfTrue="TroopershipAvail"></MenuItem>
+        <MenuItem ID="2"  Name="Troopership" DisplayName="运兵船" DisplayIfTrue="TroopershipAvail"></MenuItem>
         <MenuItem ID="10"  Name="Training" DisplayName="训练" DisplayIfTrue="TrainingAvail"></MenuItem>
         <MenuItem ID="11"  Name="Recruitment" DisplayName="补充" DisplayIfTrue="RecruitmentAvail"></MenuItem>
         <MenuItem ID="12"  Name="New" DisplayName="新编" DisplayIfTrue="NewMilitaryAvail"></MenuItem>

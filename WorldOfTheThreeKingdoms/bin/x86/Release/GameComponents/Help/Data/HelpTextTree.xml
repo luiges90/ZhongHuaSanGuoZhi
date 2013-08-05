@@ -198,6 +198,41 @@
     <Leaf Text="\n" Color="4294967295"></Leaf>
     <Leaf Text="当建筑的商业值达到500后，即可在冬春两季卖出粮草。换算方式为200粮草兑换1资金。" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="Internal_Expand">
+    <Leaf Text="内政" Color="4294967295"></Leaf>
+    <Leaf Text="扩建" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="可以扩建城池，使之规模变大。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="条件" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="建筑种类为大城" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="城池的规模为1或者5" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="扩建资金足够(1格城扩建资金10万,5格城扩建资金20万)" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="扩建点都在地图范围内" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="扩建点地形不是峻岭、水域、湿地或者未知" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="城池视野范围内没有敌军" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="农业、商业、技术、民心、耐久、统治均超过上限的95%" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="人口超过上限的50%" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="效果" Color="4278232306"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="可以把1格城扩建为5格，5格城扩建为13格" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+    <Leaf Text="城池各项参数相应增加。" Color="4294967295"></Leaf>
+  </Branch>
   <Branch Name="Military_Campaign">
     <Leaf Text="军事" Color="4294967295"></Leaf>
     <Leaf Text="出征" Color="4278232306"></Leaf>
