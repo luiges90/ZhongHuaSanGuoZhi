@@ -1091,6 +1091,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.mainGameScreen.Plugins.PersonBubblePlugin.AddPerson(this.CurrentPerson, this.CurrentTroop.Position, "Campaign");
             this.mainGameScreen.Plugins.AirViewPlugin.ReloadTroopView();
         }
+
+        internal void ArchitectureExpand()
+        {
+            this.CurrentArchitecture.Expand();
+        }
     }
 
  
