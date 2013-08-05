@@ -224,7 +224,7 @@
             this.BuildingRichText.Clear();
             if (gameObject != null)
             {
-                this.BuildingRichText.AddGameObjectTextBranch(gongfang , this.TextTree.GetBranch(branchName));
+                this.BuildingRichText.AddGameObjectTextBranch(gameObject , this.TextTree.GetBranch(branchName));
             }
             if (this.HasConfirmationDialog)
             {
