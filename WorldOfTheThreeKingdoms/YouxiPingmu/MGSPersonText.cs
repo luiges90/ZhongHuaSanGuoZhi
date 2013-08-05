@@ -180,7 +180,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(captive.ReleaseCaptive), new GameDelegates.VoidFunction(captive.ReturnRansom));
                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                from.Leader.TextDestinationString = captive.Name;
                 this.Plugins.tupianwenziPlugin.SetGameObjectBranch(from.Leader, captive, "ReleaseCaptive");
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
             }
