@@ -250,7 +250,19 @@ namespace WorldOfTheThreeKingdoms.Resources
                     {
                         animation.Device = device;
                         animation.TextureFileName = "Resources/Effects/TileEffect/" + animation.Name + ".png";
-                        animation.SoundPath = "GameSound/Animation/" + animation.Name + ".wav";
+                        
+                        animation.MaleSoundPath = "GameSound/Animation/Male/" + animation.Name + ".wav";
+                        if (!File.Exists(animation.MaleSoundPath))
+                        {
+                            animation.MaleSoundPath = "GameSound/Animation/" + animation.Name + ".wav";
+                        }
+                        
+                        animation.FemaleSoundPath = "GameSound/Animation/Female/" + animation.Name + ".wav";
+                        if (!File.Exists(animation.FemaleSoundPath))
+                        {
+                            animation.FemaleSoundPath = "GameSound/Animation/" + animation.Name + ".wav";
+                        }
+                     
                     }
                 }
                 catch (Exception exception8)

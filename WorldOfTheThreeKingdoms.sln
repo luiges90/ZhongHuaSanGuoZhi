@@ -72,8 +72,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonBubble", "PersonBubbl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonPortraitPlugin", "PersonPortraitPlugin\PersonPortraitPlugin.csproj", "{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonTextDialogPlugin", "PersonTextDialogPlugin\PersonTextDialogPlugin.csproj", "{4A953D73-C2C7-4384-987B-590927A20D68}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutewayEditorPlugin", "RoutewayEditorPlugin\RoutewayEditorPlugin.csproj", "{9A4F6074-0B7D-4AC2-B0A4-6101D4CC131A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTextDialogPlugin", "SimpleTextDialogPlugin\SimpleTextDialogPlugin.csproj", "{7B551D6E-EF58-41AC-B349-5763C89C2A85}"
@@ -438,16 +436,6 @@ Global
 		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|Mixed Platforms.Build.0 = Release|x86
 		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|x86.ActiveCfg = Release|x86
 		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|x86.Build.0 = Release|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Debug|x86.ActiveCfg = Debug|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Debug|x86.Build.0 = Debug|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Release|Any CPU.ActiveCfg = Release|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Release|Mixed Platforms.Build.0 = Release|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Release|x86.ActiveCfg = Release|x86
-		{4A953D73-C2C7-4384-987B-590927A20D68}.Release|x86.Build.0 = Release|x86
 		{9A4F6074-0B7D-4AC2-B0A4-6101D4CC131A}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{9A4F6074-0B7D-4AC2-B0A4-6101D4CC131A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{9A4F6074-0B7D-4AC2-B0A4-6101D4CC131A}.Debug|Mixed Platforms.Build.0 = Debug|x86

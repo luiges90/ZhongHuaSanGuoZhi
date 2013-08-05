@@ -83,9 +83,6 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
-    <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>PluginInterface\obj\x86\Debug\PluginInterface.dll</HintPath>
-    </Reference>
     <Reference Include="PluginServices, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <HintPath>PluginServices\obj\x86\Debug\PluginServices.dll</HintPath>
     </Reference>
@@ -241,6 +238,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Chuangkou\formAbout.resx">
       <DependentUpon>formAbout.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Chuangkou\formMainMenu.resx">
       <DependentUpon>formMainMenu.cs</DependentUpon>
@@ -259,6 +257,10 @@
     <ProjectReference Include="..\GameObjects\GameObjects.csproj">
       <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
       <Name>GameObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="PluginInterface\PluginInterface.csproj">
+      <Project>{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}</Project>
+      <Name>PluginInterface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

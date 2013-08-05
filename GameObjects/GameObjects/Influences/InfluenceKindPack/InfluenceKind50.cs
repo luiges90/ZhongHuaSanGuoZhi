@@ -11,10 +11,7 @@
         public override void ApplyInfluenceKind(Person person)
         {
             person.DayRateIncrementOfInternal += this.rate ;
-            if (((person.BelongedFaction != null) && (person.LocationArchitecture != null)) && (person.LocationArchitecture.DayRateIncrementOfInternal < this.rate))
-            {
-                person.LocationArchitecture.DayRateIncrementOfInternal += this.rate;
-            }
+            person.LocationArchitecture.DayRateIncrementOfInternal += this.rate;
         }
 
         public override void PurifyInfluenceKind(Person person)

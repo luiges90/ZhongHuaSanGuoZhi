@@ -107,7 +107,12 @@
             this.tupianwenzi.iContextMenu = iContextMenu;
         }
 
-        public void SetGameObjectBranch(object person, object gameObject, string branchName,string tupian,string shengyin)
+        public void SetGameObjectBranch(object person, object gameObject, string branchName)
+        {
+            SetGameObjectBranch(person, gameObject, branchName, "", "");
+        }
+
+        public void SetGameObjectBranch(object person, object gameObject, string branchName, string tupian, string shengyin)
         {
             string shijianshengyin;
             Texture2D shijiantupian;

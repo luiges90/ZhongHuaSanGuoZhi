@@ -135,10 +135,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             if (!this.Plugins.ContextMenuPlugin.IsShowing && (this.CurrentTroop.CutRoutewayDays > 0))
                             {
                                 this.CurrentTroop.Leader.TextDestinationString = this.CurrentTroop.CutRoutewayDays.ToString();
-                                this.Plugins.PersonTextDialogPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(this.CurrentTroop.StopCutRouteway), null);
+                                this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(this.CurrentTroop.StopCutRouteway), null);
                                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                                this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(this.CurrentTroop.Leader, this.CurrentTroop.Leader, "StopCutRouteway");
-                                this.Plugins.PersonTextDialogPlugin.IsShowing = true;
+                                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(this.CurrentTroop.Leader, this.CurrentTroop.Leader, "StopCutRouteway");
+                                this.Plugins.tupianwenziPlugin.IsShowing = true;
                             }
                         }
                     }
@@ -194,10 +194,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             if (!this.Plugins.ContextMenuPlugin.IsShowing && (this.CurrentTroop.CutRoutewayDays > 0))
                             {
                                 this.CurrentTroop.Leader.TextDestinationString = this.CurrentTroop.CutRoutewayDays.ToString();
-                                this.Plugins.PersonTextDialogPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(this.CurrentTroop.StopCutRouteway), null);
+                                this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(this.CurrentTroop.StopCutRouteway), null);
                                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                                this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(this.CurrentTroop.Leader, this.CurrentTroop.Leader, "StopCutRouteway");
-                                this.Plugins.PersonTextDialogPlugin.IsShowing = true;
+                                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(this.CurrentTroop.Leader, this.CurrentTroop.Leader, "StopCutRouteway");
+                                this.Plugins.tupianwenziPlugin.IsShowing = true;
                             }
                         }
                     }

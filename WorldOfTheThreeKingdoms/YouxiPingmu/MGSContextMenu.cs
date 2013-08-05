@@ -670,6 +670,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.AllEnter:
                     this.CurrentArchitecture.AllEnter();
                     this.Plugins.AirViewPlugin.ReloadTroopView();
+                    this.Scenario.ClearPersonStatusCache();
                     break;
 
                 case ContextMenuResult.DateGo_1Day:
@@ -921,10 +922,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case ContextMenuResult.TroopCutRouteway:
                     this.CurrentTroop.Leader.TextDestinationString = this.CurrentTroop.CutRoutewayDaysNeeded.ToString();
-                    this.Plugins.PersonTextDialogPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(this.CurrentTroop.CutRouteway), null);
+                    this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(this.CurrentTroop.CutRouteway), null);
                     this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(this.CurrentTroop.Leader, this.CurrentTroop.Leader, "CutRouteway");
-                    this.Plugins.PersonTextDialogPlugin.IsShowing = true;
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(this.CurrentTroop.Leader, this.CurrentTroop.Leader, "CutRouteway");
+                    this.Plugins.tupianwenziPlugin.IsShowing = true;
                     this.CurrentTroop.mingling = "——";
                     break;
 

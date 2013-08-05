@@ -196,7 +196,10 @@
 
         public void IncreaseInjuryQuantity(int increment)
         {
-            this.InjuryQuantity += increment;
+            if (increment > 0)
+            {
+                this.InjuryQuantity += increment;
+            }
         }
 
         public bool IncreaseLeaderExperience(int increment)

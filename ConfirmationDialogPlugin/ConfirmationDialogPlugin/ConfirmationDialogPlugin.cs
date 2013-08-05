@@ -84,7 +84,7 @@
             this.LoadDataFromXMLDocument(@"GameComponents\ConfirmationDialog\ConfirmationDialogData.xml");
         }
 
-        public void SetPersonTextDialog(IPersonTextDialog iPersonTextDialog)
+        public void SetPersonTextDialog(Itupianwenzi iPersonTextDialog)
         {
             this.confirmationDialog.SetPersonTextDialog(iPersonTextDialog);
         }

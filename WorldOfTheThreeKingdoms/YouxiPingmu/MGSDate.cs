@@ -61,9 +61,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
 
 
-                cundangShijianJiange=DateTime.Now -shangciCundangShijian;
+                cundangShijianJiange = DateTime.Now - shangciCundangShijian;
 
-                if (cundangShijianJiange.Minutes>30)
+                if (cundangShijianJiange.Minutes >= GlobalVariables.AutoSaveFrequency)
                 {
                     if (GlobalVariables.doAutoSave)
                     {
@@ -107,15 +107,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 if (this.Scenario.CurrentPlayer.BattleState == ZhandouZhuangtai.进攻)
                 {
-                    this.PlayMusic("GameMusic/Attack.wma");
+                    this.PlayMusic("GameMusic/Attack.mp3");
                 }
                 else if (this.Scenario.CurrentPlayer.BattleState == ZhandouZhuangtai.防守)
                 {
-                    this.PlayMusic("GameMusic/Defend.wma");
+                    this.PlayMusic("GameMusic/Defend.mp3");
                 }
                 else
                 {
-                    this.PlayMusic("GameMusic/Battle.wma");
+                    this.PlayMusic("GameMusic/Battle.mp3");
                 }
             }
             else
@@ -123,19 +123,19 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 switch (season)
                 {
                     case GameSeason.春:
-                        this.PlayMusic("GameMusic/Spring.wma");
+                        this.PlayMusic("GameMusic/Spring.mp3");
                         break;
 
                     case GameSeason.夏:
-                        this.PlayMusic("GameMusic/Summer.wma");
+                        this.PlayMusic("GameMusic/Summer.mp3");
                         break;
 
                     case GameSeason.秋:
-                        this.PlayMusic("GameMusic/Autumn.wma");
+                        this.PlayMusic("GameMusic/Autumn.mp3");
                         break;
 
                     case GameSeason.冬:
-                        this.PlayMusic("GameMusic/Winter.wma");
+                        this.PlayMusic("GameMusic/Winter.mp3");
                         break;
                 }
             }

@@ -10,7 +10,7 @@
 
         public override void ApplyInfluenceKind(Troop troop)
         {
-            troop.BaseRateOfQibingDamage = this.rate;
+            troop.RateOfQibingDamage = this.rate;
         }
 
         public override void InitializeParameter(string parameter)

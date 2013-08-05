@@ -27,7 +27,6 @@
         public const string OptionDialogPluginName = "OptionDialogPlugin";
         public const string ConfirmationDialogPluginName = "ConfirmationDialogPlugin";
         public const string SimpleTextDialogPluginName = "SimpleTextDialogPlugin";
-        public const string PersonTextDialogPluginName = "PersonTextDialogPlugin";
         public const string ToolBarPluginName = "ToolBarPlugin";
         public const string DateRunnerPluginName = "DateRunnerPlugin";
         public const string MapLayerPluginName = "MapLayerPlugin";

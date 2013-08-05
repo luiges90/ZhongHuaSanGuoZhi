@@ -18,6 +18,7 @@
         private SortedList<int, GameSquare> openList = new SortedList<int, GameSquare>();
         private Dictionary<Point, GameSquare> closeDictionary = new Dictionary<Point, GameSquare>();
         private List<GameSquare> closeList = new List<GameSquare>();
+        private List<Point> lastPath = new List<Point>();
         
         public event GetCost OnGetCost;
 
@@ -73,6 +74,22 @@
             }
             return 0xdac;
         }
+        
+        private void saveLastPath() {
+            lastPath.Clear();
+            List<Point> list = new List<Point>();
+            GameSquare parent = this.closeList[this.closeList.Count - 1];
+            do
+            {
+                list.Add(parent.Position);
+                parent = parent.Parent;
+            }
+            while (parent != null);
+            for (int i = 1; i <= list.Count; i++)
+            {
+                lastPath.Add(list[list.Count - i]);
+            }
+        }
 
         public GameArea GetDayArea(Troop troop, int Days)
         {
@@ -112,8 +129,14 @@
                 {
                     break;
                 }
+                if (closeList.Count > 2500 || closeDictionary.Count > 2500) break;
             } while (true);
             troop.MovabilityLeft = movabilityLeft;
+            saveLastPath();
+            openDictionary.Clear();
+            openList.Clear();
+            closeDictionary.Clear();
+            closeList.Clear();
             return area;
         }
 
@@ -144,8 +167,14 @@
                     break;
                 }
                 flag = square.Position == end;
+                if (closeList.Count > 2500 || closeDictionary.Count > 2500) break;
             }
             while (!flag && (square.RealG < 0xdac));
+            saveLastPath();
+            openDictionary.Clear();
+            openList.Clear();
+            closeDictionary.Clear();
+            closeList.Clear();
             return flag;
         }
 
@@ -237,17 +266,9 @@
         public void SetPath(List<Point> path)
         {
             path.Clear();
-            List<Point> list = new List<Point>();
-            GameSquare parent = this.closeList[this.closeList.Count - 1];
-            do
+            foreach (Point p in lastPath)
             {
-                list.Add(parent.Position);
-                parent = parent.Parent;
-            }
-            while (parent != null);
-            for (int i = 1; i <= list.Count; i++)
-            {
-                path.Add(list[list.Count - i]);
+                path.Add(new Point(p.X, p.Y));
             }
         }
 

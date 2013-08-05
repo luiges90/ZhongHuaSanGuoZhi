@@ -2304,6 +2304,9 @@
                 foreach (FieldInfo i in typeof(Parameters).GetFields(BindingFlags.Public | BindingFlags.Static))
                 {
                     if (i.IsLiteral) continue;
+
+                    if (GlobalVariables.getFieldsExcludedFromSave().Contains(i.Name)) continue;
+
                     if (i.Name == name)
                     {
                         int outInt;
@@ -3590,7 +3593,7 @@
 
         public void ResetMapTileTroop(Point position)
         {
-            if (this.MapTileData[position.X, position.Y].TileTroop != null)
+            if (this.MapTileData[position.X, position.Y].TileTroop != null && this.MapTileData[position.X, position.Y].TileTroop.Destroyed)
             {
                 TileData data1 = this.MapTileData[position.X, position.Y];
                 data1.TroopCount--;

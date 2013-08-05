@@ -51,7 +51,7 @@ namespace PluginInterface
         void AddYesFunction(GameDelegates.VoidFunction yesFunction);
         void ClearFunctions();
         void SetDescriptionText(string Text);
-        void SetPersonTextDialog(IPersonTextDialog iPersonTextDialog);
+        void SetPersonTextDialog(Itupianwenzi iPersonTextDialog);
         void SetPosition(ShowPosition showPosition);
         void SetScreen(object screen);
         void SetSimpleTextDialog(ISimpleTextDialog iSimpleTextDialog);
@@ -282,30 +282,14 @@ namespace PluginInterface
     }
 
 
-
-
-    public interface IPersonTextDialog : IBasePlugin, IPluginXML, IPluginGraphics
-    {
-        void Close();
-        void SetCloseFunction(GameDelegates.VoidFunction closeFunction);
-        void SetConfirmationDialog(IConfirmationDialog iConfirmationDialog, GameDelegates.VoidFunction yesFunction, GameDelegates.VoidFunction noFunction);
-        void SetContextMenu(IGameContextMenu iContextMenu);
-        void SetGameObjectBranch(object person, object gameObject, string branchName);
-        void SetPosition(ShowPosition showPosition);
-        void SetScreen(object screen);
-
-        bool IsShowing { get; set; }
-        FreeRichText RichText { get; }
-    }
-
-
     public interface Itupianwenzi : IBasePlugin, IPluginXML, IPluginGraphics
     {
         void Close();
         void SetCloseFunction(GameDelegates.VoidFunction closeFunction);
         void SetConfirmationDialog(IConfirmationDialog iConfirmationDialog, GameDelegates.VoidFunction yesFunction, GameDelegates.VoidFunction noFunction);
         void SetContextMenu(IGameContextMenu iContextMenu);
-        void SetGameObjectBranch(object person, object gameObject, string branchName,string tupian,string shengyin);
+        void SetGameObjectBranch(object person, object gameObject, string branchName);
+        void SetGameObjectBranch(object person, object gameObject, string branchName, string tupian, string shengyin);
         void SetPosition(ShowPosition showPosition);
         void SetScreen(object screen);
 

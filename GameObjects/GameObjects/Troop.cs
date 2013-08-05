@@ -382,19 +382,6 @@
         public int TirednessIncreaseOnAttack = 0;
         public int TirednessIncreaseOnCritical = 0;
         public int StealFood = 0;
-        public List<KeyValuePair<int, int>> CommandDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> CommandIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> StrengthDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> StrengthIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> IntelligenceDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> IntelligenceIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> PoliticsDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> PoliticsIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> GlamourDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> GlamourIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> ReputationDecrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> ReputationIncrease = new List<KeyValuePair<int, int>>();
-        public List<KeyValuePair<int, int>> LoseSkill = new List<KeyValuePair<int, int>>();
 
         public int stratagemTirednessIncrease;
         public int stratagemStealTroop;
@@ -413,6 +400,12 @@
         public List<int> AllowedStrategems = new List<int>();
 
         public int captureChance = 0;
+
+        internal List<TileData> TilesContacting = new List<TileData>();
+        internal List<TileData> TilesOffencing = new List<TileData>();
+        internal List<TileData> TilesStratageming = new List<TileData>();
+        internal List<TileData> TilesViewing = new List<TileData>();
+        internal List<Influence> InfluencesApplying = new List<Influence>();
 
         public GameObjectList Candidates;
 
@@ -611,6 +604,16 @@
             }
         }
 
+        private string getSoundPath(Animation a)
+        {
+            return this.Leader.Sex ? a.FemaleSoundPath : a.MaleSoundPath;
+        }
+
+        private static string getSoundPath(Troop t, Animation a)
+        {
+            return t.Leader.Sex ? a.FemaleSoundPath : a.MaleSoundPath;
+        }
+
         private void AddCastAnimation(Troop troop, bool sound)
         {
             if (this.CurrentStratagem.AnimationKind != TileAnimationKind.无)
@@ -618,7 +621,7 @@
                 GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(this.CurrentStratagem.AnimationKind, troop.Position, false);
                 if ((animation != null) && sound)
                 {
-                    this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
             }
         }
@@ -630,7 +633,7 @@
                 GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(this.CurrentCombatMethod.AnimationKind, troop.Position, false);
                 if ((animation != null) && sound && this.PreAction != TroopPreAction.暴击)
                 {
-                    this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
             }
         }
@@ -642,7 +645,7 @@
                 GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(this.CurrentCombatMethod.AnimationKind, this.Position, false);
                 if (animation != null && this.PreAction != TroopPreAction.暴击)
                 {
-                    this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
             }
         }
@@ -696,7 +699,7 @@
                 GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(this.CurrentStratagem.AnimationKind, this.SelfCastPosition, false);
                 if (animation != null)
                 {
-                    this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
             }
         }
@@ -1889,7 +1892,7 @@
                 }
                 if (this.CanEnter())
                 {
-                    if (base.Scenario.IsPlayer(this.BelongedFaction))
+                    if (base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture != null)
                     {
                         if (this.mingling == "入城" && this.Position == this.minglingweizhi)
                         {
@@ -2358,7 +2361,6 @@
                         {
                             this.AddCaptive(captive);
                         }
-                        person.LocationArchitecture.Persons.Remove(person);
                         person.LocationArchitecture = null;
                         person.LocationTroop = this;
 
@@ -2430,7 +2432,7 @@
                 GameObjects.Animations.TileAnimation animation = receiving.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.被击破, receiving.Position, false);
                 if (animation != null)
                 {
-                    receiving.TryToPlaySound(receiving.Position, animation.LinkedAnimation.SoundPath, false);
+                    receiving.TryToPlaySound(receiving.Position, Troop.getSoundPath(receiving, animation.LinkedAnimation), false);
                 }
                 if (receiving.BelongedFaction != null)
                 {
@@ -2468,7 +2470,7 @@
                 GameObjects.Animations.TileAnimation animation = sending.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.被击破, receiving.Position, false);
                 if (animation != null)
                 {
-                    receiving.TryToPlaySound(receiving.Position, animation.LinkedAnimation.SoundPath, false);
+                    receiving.TryToPlaySound(receiving.Position, Troop.getSoundPath(receiving, animation.LinkedAnimation), false);
                 }
                 if ((sending.BelongedFaction != null) && (belongedFaction != null))
                 {
@@ -2512,103 +2514,99 @@
                     sending.TargetArchitecture = oldLandedArch;
                 }
 
-                foreach (Person p in receiving.Persons)
+                foreach (Person p in sending.Persons)
                 {
-                    foreach (KeyValuePair<int, int> i in sending.CommandDecrease)
+                    foreach (KeyValuePair<int, int> i in p.CommandDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseCommand -= i.Value;
+                            receiving.Leader.BaseCommand -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.StrengthDecrease)
+                    foreach (KeyValuePair<int, int> i in p.StrengthDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseStrength -= i.Value;
+                            receiving.Leader.BaseStrength -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.IntelligenceDecrease)
+                    foreach (KeyValuePair<int, int> i in p.IntelligenceDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseIntelligence -= i.Value;
+                            receiving.Leader.BaseIntelligence -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.PoliticsDecrease)
+                    foreach (KeyValuePair<int, int> i in p.PoliticsDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BasePolitics -= i.Value;
+                            receiving.Leader.BasePolitics -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.GlamourDecrease)
+                    foreach (KeyValuePair<int, int> i in p.GlamourDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseGlamour -= i.Value;
+                            receiving.Leader.BaseGlamour -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.ReputationDecrease)
+                    foreach (KeyValuePair<int, int> i in p.ReputationDecrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseReputation -= i.Value;
+                            receiving.Leader.BaseReputation -= i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.LoseSkill)
+                    foreach (KeyValuePair<int, int> i in p.LoseSkill)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             for (int si = 0; si < i.Value; ++si)
                             {
-                                if (p.Skills.Skills.Count > 0)
+                                if (receiving.Leader.Skills.Skills.Count > 0)
                                 {
-                                    p.Skills.Skills.Remove(GameObject.Random(p.Skills.Skills.Count));
+                                    receiving.Leader.Skills.Skills.Remove(GameObject.Random(receiving.Leader.Skills.Skills.Count));
                                 }
                             }
                         }
                     }
-                }
-
-                foreach (Person p in sending.Persons)
-                {
-                    foreach (KeyValuePair<int, int> i in sending.CommandIncrease)
+                    foreach (KeyValuePair<int, int> i in p.CommandIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BaseCommand += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.StrengthIncrease)
+                    foreach (KeyValuePair<int, int> i in p.StrengthIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BaseStrength += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.IntelligenceIncrease)
+                    foreach (KeyValuePair<int, int> i in p.IntelligenceIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BaseIntelligence += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.PoliticsIncrease)
+                    foreach (KeyValuePair<int, int> i in p.PoliticsIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BasePolitics += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.GlamourIncrease)
+                    foreach (KeyValuePair<int, int> i in p.GlamourIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
                             p.BaseGlamour += i.Value;
                         }
                     }
-                    foreach (KeyValuePair<int, int> i in sending.ReputationIncrease)
+                    foreach (KeyValuePair<int, int> i in p.ReputationIncrease)
                     {
                         if (GameObject.Chance(i.Key))
                         {
@@ -3240,14 +3238,24 @@
             }
             if (removeReferences)
             {
-                foreach (TileData td in base.Scenario.MapTileData)
+                this.Scenario.ResetMapTileTroop(this.Position);
+                foreach (TileData td in this.TilesContacting)
                 {
                     td.RemoveContactingTroop(this);
+                }
+                foreach (TileData td in this.TilesOffencing)
+                {
                     td.RemoveOffencingTroop(this);
+                }
+                foreach (TileData td in this.TilesStratageming)
+                {
                     td.RemoveStratagemingTroop(this);
+                }
+                foreach (TileData td in this.TilesViewing)
+                {
                     td.RemoveViewingTroop(this);
                 }
-                foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+                foreach (Influence i in this.InfluencesApplying)
                 {
                     i.TroopDestroyed(this);
                 }
@@ -3466,7 +3474,7 @@
             GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.被击破, this.Position, false);
             if (animation != null)
             {
-                this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
             }
             foreach (Person person in this.Persons)
             {
@@ -4487,7 +4495,7 @@
                     GameObjects.Animations.TileAnimation animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.抵挡, troop.Position, false);
                     if (animation != null)
                     {
-                        troop.TryToPlaySound(troop.Position, animation.LinkedAnimation.SoundPath, false);
+                        troop.TryToPlaySound(troop.Position, this.getSoundPath(animation.LinkedAnimation), false);
                     }
                     if (this.OnResistStratagem != null)
                     {
@@ -4758,7 +4766,7 @@
 
         public GameArea GetHighestFightingForceArea(GameArea sourceArea)
         {
-            if (sourceArea == null)
+            if (sourceArea == null || sourceArea.Count == 0)
             {
                 return null;
             }
@@ -4767,7 +4775,9 @@
             foreach (Point point in sourceArea.Area)
             {
                 PersonList originalPersons = this.Persons;
-                int fightingForce = CreateSimulateTroop(this.Candidates, this.Army, point).FightingForce;
+                Troop troop = CreateSimulateTroop(this.Candidates, this.Army, point);
+                int fightingForce = troop.FightingForce;
+                troop.Destroy(true, false);
                 if (fightingForce > num)
                 {
                     num = fightingForce;
@@ -5834,7 +5844,7 @@
                     }
                     if (animation != null)
                     {
-                        this.TryToPlaySound(this.Position, animation.LinkedAnimation.SoundPath, false);
+                        this.TryToPlaySound(this.Position, this.getSoundPath(animation.LinkedAnimation), false);
                     }
                     if (damage.DestinationArchitecture.RecentlyBreaked <= 0)
                     {
@@ -5898,7 +5908,7 @@
                 animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.抵挡, damage.DestinationTroop.Position, false);
                 if (animation != null)
                 {
-                    damage.DestinationTroop.TryToPlaySound(damage.DestinationTroop.Position, animation.LinkedAnimation.SoundPath, false);
+                    damage.DestinationTroop.TryToPlaySound(damage.DestinationTroop.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
                 if (this.OnAntiAttack != null)
                 {
@@ -5910,7 +5920,7 @@
                 animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.抵挡, damage.DestinationTroop.Position, false);
                 if (animation != null)
                 {
-                    damage.DestinationTroop.TryToPlaySound(damage.DestinationTroop.Position, animation.LinkedAnimation.SoundPath, false);
+                    damage.DestinationTroop.TryToPlaySound(damage.DestinationTroop.Position, this.getSoundPath(animation.LinkedAnimation), false);
                 }
                 if (this.OnAntiArrowAttack != null)
                 {
@@ -7222,7 +7232,7 @@
                         military.Combativity /= 2;
                     }
 
-
+                    this.BelongedFaction.Leader.TextDestinationString = this.BelongedFaction.Name;
                     this.Scenario.GameScreen.xianshishijiantupian(this.BelongedFaction.Leader , currentArchitecture.Name ,"zhanling","zhanling.jpg","zhanling.wma",false );
                     currentArchitecture.ResetFaction(this.BelongedFaction);
                     if (
@@ -8654,13 +8664,12 @@
                     if (((maxStrengthPerson != null) && (destination != null)) && (GameObject.Random(GameObject.Square(destination.Calmness)) < GameObject.Random(0x19)))
                     {
                         int chance = Person.ChanlengeWinningChance(maxStrengthPerson, destination);
-                        if (true) //单挑必然发生
-                        //if ((maxStrengthPerson.Character.ChallengeChance + chance) >= 60)
+                        if ((maxStrengthPerson.Character.ChallengeChance + chance) >= 60)
                         {
                             int flag=0;
                             damage.ChallengeHappened = true;
                             //if (true) //单挑必然发生
-                            if (base.Scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || base.Scenario.IsPlayer(destination.BelongedFaction))  //单挑双方有玩家的武将才演示
+                            if (GlobalVariables.ShowChallengeAnimation && (base.Scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || base.Scenario.IsPlayer(destination.BelongedFaction)))  //单挑双方有玩家的武将才演示
                             {
                                 try
                                 {
@@ -9708,6 +9717,13 @@
                 int num4 = this.NextPositionCost(this.Position, this.NextPosition, kind);
                 if (this.MovabilityLeft >= num4)
                 {
+                    if (this.FirstTierPath != null && (this.firstTierPathIndex == (this.FirstTierPath.Count - 1) || this.FirstTierPath.Count == 0))
+                    {
+                        this.HasPath = false;
+                        this.MovabilityLeft = -1;
+                        return path;
+                    }
+
                     this.MovabilityLeft -= num4;
                     this.firstTierPathIndex++;
                     this.Position = this.FirstTierPath[this.firstTierPathIndex];
@@ -11116,6 +11132,7 @@
         {
             get
             {
+                if (this.FirstTierPath.Count == 0) return new Point(0, 0);
                 if ((this.firstTierPathIndex + 1) >= this.FirstTierPath.Count)
                 {
                     return this.FirstTierPath[this.firstTierPathIndex];
@@ -11436,7 +11453,7 @@
                 }
                 if (this.preAction != TroopPreAction.无)
                 {
-                    this.TryToPlaySound(this.Position, base.Scenario.GameCommonData.AllTileAnimations.GetAnimation((int) this.CurrentTileAnimationKind).SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(base.Scenario.GameCommonData.AllTileAnimations.GetAnimation((int) this.CurrentTileAnimationKind)), false);
                 }
             }
         }
@@ -11657,7 +11674,7 @@
                 }
                 if (this.CurrentTileAnimationKind != TileAnimationKind.无)
                 {
-                    this.TryToPlaySound(this.Position, base.Scenario.GameCommonData.AllTileAnimations.GetAnimation((int) this.CurrentTileAnimationKind).SoundPath, false);
+                    this.TryToPlaySound(this.Position, this.getSoundPath(base.Scenario.GameCommonData.AllTileAnimations.GetAnimation((int) this.CurrentTileAnimationKind)), false);
                 }
             }
         }

@@ -115,13 +115,12 @@
                 }
                 this.RichText.ResortTexts();
                 if (name.iConfirmationDialog != null)
-                {/*
+                {
                     this.iConfirmationDialog = name.iConfirmationDialog;
                     this.iConfirmationDialog.SetPersonTextDialog(this.iPersonTextDialog);
                     this.iConfirmationDialog.AddYesFunction(name.YesFunction);
                     this.iConfirmationDialog.AddNoFunction(name.NoFunction);
                     this.iConfirmationDialog.IsShowing = true;
-                    */
                 }
                 else
                 {

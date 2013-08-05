@@ -214,7 +214,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.Plugins.HelpPlugin.Draw(base.spriteBatch);
             this.Plugins.OptionDialogPlugin.Draw(base.spriteBatch);
             this.Plugins.SimpleTextDialogPlugin.Draw(base.spriteBatch);
-            this.Plugins.PersonTextDialogPlugin.Draw(base.spriteBatch);
+            this.Plugins.tupianwenziPlugin.Draw(base.spriteBatch);
             //this.Plugins.tupianwenziPlugin.Draw(base.spriteBatch);
             this.Plugins.ConfirmationDialogPlugin.Draw(base.spriteBatch);
             this.Plugins.TransportDialogPlugin.Draw(base.spriteBatch);
@@ -1025,6 +1025,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.CurrentTroop.Enter(architecture2);
                         this.CurrentTroop = null;
                         this.Plugins.AirViewPlugin.ReloadTroopView();
+                        this.Scenario.ClearPersonStatusCache();
                         return;
                     }
                     
@@ -1526,11 +1527,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             };
             base.Scenario.ScenarioMap.JumpPosition = this.mainMapLayer.GetCurrentScreenCenter(base.viewportSize);
 
+            GC.Collect();
+
             base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveMap, saveMap);
 
             File.Delete(tempFilePath);
-
-            GC.Collect();
 
             if (GlobalVariables.EncryptSave)
             {
@@ -1619,9 +1620,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 faction.Leader.TextDestinationString = faction.Capital.Name;
                 this.Plugins.GameRecordPlugin.AddBranch(faction.Leader, "NewFactionAppear", faction.Leader.Position);
-                this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
-                this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(faction.Leader, faction.Leader, "NewFactionAppear");
-                this.Plugins.PersonTextDialogPlugin.IsShowing = true;
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(faction.Leader, faction.Leader, "NewFactionAppear");
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
             }
         }
 
@@ -2012,22 +2013,22 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye) && (te.Dialogs.Count > 0))
             {
-                this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 foreach (PersonDialog dialog in te.Dialogs)
                 {
                     if (dialog.SpeakingPerson != null)
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(dialog.SpeakingPerson, null, dialog.Text);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(dialog.SpeakingPerson, null, dialog.Text);
                     }
                     else
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(troop.Leader, null, dialog.Text);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(troop.Leader, null, dialog.Text);
                     }
                 }
                 if (GlobalVariables.DialogShowTime > 0)
                 {
-                    this.Plugins.PersonTextDialogPlugin.SetCloseFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyTroopEvents));
-                    this.Plugins.PersonTextDialogPlugin.IsShowing = true;
+                    this.Plugins.tupianwenziPlugin.SetCloseFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyTroopEvents));
+                    this.Plugins.tupianwenziPlugin.IsShowing = true;
                 }
                 else
                 {
@@ -2044,22 +2045,22 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsArchitectureKnown(a)) || GlobalVariables.SkyEye) && (e.matchedDialog != null && e.matchedDialog.Count > 0))
             {
-                this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 foreach (PersonDialog dialog in e.matchedDialog)
                 {
                     if (dialog.SpeakingPerson != null)
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(dialog.SpeakingPerson, null, dialog.Text);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(dialog.SpeakingPerson, null, dialog.Text);
                     }
                     else
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(a.BelongedFaction.Leader, null, dialog.Text);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(a.BelongedFaction.Leader, null, dialog.Text);
                     }
                 }
                 if (GameGlobal.GlobalVariables.DialogShowTime > 0)
                 {
-                    this.Plugins.PersonTextDialogPlugin.SetCloseFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyEvents));
-                    this.Plugins.PersonTextDialogPlugin.IsShowing = true;
+                    this.Plugins.tupianwenziPlugin.SetCloseFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyEvents));
+                    this.Plugins.tupianwenziPlugin.IsShowing = true;
                 }
                 else
                 {
@@ -2311,38 +2312,38 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     neutralPerson = source;
                 }
-                this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 if (win==1)
                 {
-                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceWin");
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceWin");
                     if ((source.PersonTextMessage != null) && (source.PersonTextMessage.DualInitiativeWin.Count > 0))
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(source, null, source.PersonTextMessage.DualInitiativeWin[GameObject.Random(source.PersonTextMessage.DualInitiativeWin.Count)]);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, null, source.PersonTextMessage.DualInitiativeWin[GameObject.Random(source.PersonTextMessage.DualInitiativeWin.Count)]);
                     }
                     else
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(source, sourceTroop, "TroopPersonChallengeAfterSourceWin");
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, sourceTroop, "TroopPersonChallengeAfterSourceWin");
                     }
                 }
                 else if (win == 2)
                 {
-                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceLose");
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceLose");
                     if ((destination.PersonTextMessage != null) && (destination.PersonTextMessage.DualPassiveWin.Count > 0))
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(destination, null, destination.PersonTextMessage.DualPassiveWin[GameObject.Random(destination.PersonTextMessage.DualPassiveWin.Count)]);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, null, destination.PersonTextMessage.DualPassiveWin[GameObject.Random(destination.PersonTextMessage.DualPassiveWin.Count)]);
                     }
                     else
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonChallengeAfterSourceLose");
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonChallengeAfterSourceLose");
                     }
                 }
                 else  //win==-1,打平，只有在单挑演示时才有可能发生
                 {
-                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeDraw");
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeDraw");
 
                 }
 
-                this.Plugins.PersonTextDialogPlugin.IsShowing = true;
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
                 if (win==1)
                 {
                     this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceWin", sourceTroop.Position);
@@ -2368,32 +2369,32 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     neutralPerson = source;
                 }
-                this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 if (win)
                 {
-                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonControversySourceWin");
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonControversySourceWin");
                     if ((source.PersonTextMessage != null) && (source.PersonTextMessage.ControversyInitiativeWin.Count > 0))
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(source, null, source.PersonTextMessage.ControversyInitiativeWin[GameObject.Random(source.PersonTextMessage.ControversyInitiativeWin.Count)]);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, null, source.PersonTextMessage.ControversyInitiativeWin[GameObject.Random(source.PersonTextMessage.ControversyInitiativeWin.Count)]);
                     }
                     else
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(source, sourceTroop, "TroopPersonControversyAfterSourceWin");
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, sourceTroop, "TroopPersonControversyAfterSourceWin");
                     }
                 }
                 else
                 {
-                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonControversySourceLose");
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonControversySourceLose");
                     if ((destination.PersonTextMessage != null) && (destination.PersonTextMessage.ControversyPassiveWin.Count > 0))
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(destination, null, destination.PersonTextMessage.ControversyPassiveWin[GameObject.Random(destination.PersonTextMessage.ControversyPassiveWin.Count)]);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, null, destination.PersonTextMessage.ControversyPassiveWin[GameObject.Random(destination.PersonTextMessage.ControversyPassiveWin.Count)]);
                     }
                     else
                     {
-                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonControversyAfterSourceLose");
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonControversyAfterSourceLose");
                     }
                 }
-                this.Plugins.PersonTextDialogPlugin.IsShowing = true;
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
                 if (win)
                 {
                     this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonControversySourceWin", sourceTroop.Position);
@@ -2595,7 +2596,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public void TryToDemolishRouteway()
         {
-            if (!this.Plugins.PersonTextDialogPlugin.IsShowing)
+            if (!this.Plugins.tupianwenziPlugin.IsShowing)
             {
                 this.Plugins.ConfirmationDialogPlugin.SetSimpleTextDialog(this.Plugins.SimpleTextDialogPlugin);
                 this.Plugins.ConfirmationDialogPlugin.ClearFunctions();
@@ -2608,7 +2609,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void TryToExit()
         {
-            if (!this.Plugins.PersonTextDialogPlugin.IsShowing)
+            if (!this.Plugins.tupianwenziPlugin.IsShowing)
             {
                 this.Plugins.ConfirmationDialogPlugin.SetSimpleTextDialog(this.Plugins.SimpleTextDialogPlugin);
                 this.Plugins.ConfirmationDialogPlugin.ClearFunctions();
@@ -2814,9 +2815,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 this.Plugins.SimpleTextDialogPlugin.Update(gameTime);
             }
-            if (this.Plugins.PersonTextDialogPlugin != null)
+            if (this.Plugins.tupianwenziPlugin != null)
             {
-                this.Plugins.PersonTextDialogPlugin.Update(gameTime);
+                this.Plugins.tupianwenziPlugin.Update(gameTime);
             }
 
 

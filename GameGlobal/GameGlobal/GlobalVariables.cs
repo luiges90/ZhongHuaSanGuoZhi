@@ -2,6 +2,8 @@
 {
     using System;
     using System.Xml;
+    using System.Collections;
+    using System.Collections.Generic;
 
     public class GlobalVariables
     {
@@ -119,7 +121,34 @@
         public static bool EnableExtensions = true;
         public static bool EncryptSave = false;
 
+        public static int AutoSaveFrequency = 30;
+        public static bool ShowChallengeAnimation = true;
+
         public const string cryptKey = "A3g0c3%2";
+
+        public static List<String> getFieldsExcludedFromSave()
+        {
+            List<String> s = new List<string>();
+            s.Add("MapScrollSpeed");
+            s.Add("TroopMoveSpeed");
+            s.Add("RunWhileNotFocused");
+            s.Add("PlayMusic");
+            s.Add("PlayNormalSound");
+            s.Add("PlayBattleSound");
+            s.Add("DrawMapVeil");
+            s.Add("DrawTroopAnimation");
+            s.Add("SingleSelectionOneClick");
+            s.Add("NoHintOnSmallFacility");
+            s.Add("HintPopulation");
+            s.Add("HintPopulationUnder1000");
+            s.Add("doAutoSave");
+            s.Add("DialogShowTime");
+            s.Add("FastBattleSpeed");
+            s.Add("AutoSaveFrequency");
+            s.Add("ShowChallengeAnimation");
+
+            return s;
+        }
 
         public bool InitialGlobalVariables()
         {
@@ -630,6 +659,24 @@
             {
                 exception = exception24;
                 throw new Exception("EncryptSave:\n" + exception.ToString());
+            }
+            try
+            {
+                AutoSaveFrequency = int.Parse(nextSibling.Attributes.GetNamedItem("AutoSaveFrequency").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("AutoSaveFrequency:\n" + exception.ToString());
+            }
+            try
+            {
+                ShowChallengeAnimation = bool.Parse(nextSibling.Attributes.GetNamedItem("ShowChallengeAnimation").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("ShowChallengeAnimation:\n" + exception.ToString());
             }
             return true;
         }

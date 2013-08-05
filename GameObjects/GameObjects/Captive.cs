@@ -268,7 +268,7 @@
                 this.CaptivePerson.Status = GameObjects.PersonDetail.PersonStatus.NoFaction;
                 if (this.LocationTroop == null)
                 {
-                    this.CaptivePerson.LocationArchitecture.NoFactionPersons.Add(this.CaptivePerson);
+                    
                 }
                 else
                 {

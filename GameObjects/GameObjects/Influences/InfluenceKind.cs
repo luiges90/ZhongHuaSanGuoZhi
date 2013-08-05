@@ -86,6 +86,7 @@
                     if (!i.appliedTroop.Contains(a))
                     {
                         i.appliedTroop.Add(a);
+                        t.InfluencesApplying.Add(i);
                         ApplyInfluenceKind(t, i, applier, applierID);
                     }
                 }
@@ -122,6 +123,7 @@
                     if (!i.appliedTroop.Contains(z))
                     {
                         i.appliedTroop.Add(z);
+                        person.LocationTroop.InfluencesApplying.Add(i);
                         ApplyInfluenceKind(person.LocationTroop, i, applier, applierID);
                     }
                 }

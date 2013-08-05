@@ -32,6 +32,7 @@
                 this.ContactingTroops.Remove(troop);
             }
             this.ContactingTroops.Add(troop);
+            troop.TilesContacting.Add(this);
         }
 
         public void AddOffencingTroop(Troop troop)
@@ -45,6 +46,7 @@
                 this.OffencingTroops.Remove(troop);
             }
             this.OffencingTroops.Add(troop);
+            troop.TilesOffencing.Add(this);
         }
 
         public void AddStratagemingTroop(Troop troop)
@@ -58,6 +60,7 @@
                 this.StratagemingTroops.Remove(troop);
             }
             this.StratagemingTroops.Add(troop);
+            troop.TilesStratageming.Add(this);
         }
 
         public void AddViewingTroop(Troop troop)
@@ -71,6 +74,7 @@
                 this.ViewingTroops.Remove(troop);
             }
             this.ViewingTroops.Add(troop);
+            troop.TilesViewing.Add(this);
         }
 
         public void RemoveContactingTroop(Troop troop)

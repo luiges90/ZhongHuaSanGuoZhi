@@ -81,19 +81,19 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             switch (season)
             {
                 case GameSeason.春:
-                    this.PlayMusic("GameMusic/Spring.wma");
+                    this.PlayMusic("GameMusic/Spring.mp3");
                     break;
 
                 case GameSeason.夏:
-                    this.PlayMusic("GameMusic/Summer.wma");
+                    this.PlayMusic("GameMusic/Summer.mp3");
                     break;
 
                 case GameSeason.秋:
-                    this.PlayMusic("GameMusic/Autumn.wma");
+                    this.PlayMusic("GameMusic/Autumn.mp3");
                     break;
 
                 case GameSeason.冬:
-                    this.PlayMusic("GameMusic/Winter.wma");
+                    this.PlayMusic("GameMusic/Winter.mp3");
                     break;
             }
 

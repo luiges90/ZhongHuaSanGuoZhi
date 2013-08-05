@@ -265,6 +265,20 @@
         private int enduranceAbility = 0;
         private int trainingAbility = 0;
 
+        public List<KeyValuePair<int, int>> CommandDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> CommandIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> StrengthDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> StrengthIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> IntelligenceDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> IntelligenceIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> PoliticsDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> PoliticsIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> GlamourDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> GlamourIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> ReputationDecrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> ReputationIncrease = new List<KeyValuePair<int, int>>();
+        public List<KeyValuePair<int, int>> LoseSkill = new List<KeyValuePair<int, int>>();
+
         private OutsideTaskKind lastOutsideTask = OutsideTaskKind.无;
 
         public OutsideTaskKind LastOutsideTask
@@ -4663,7 +4677,7 @@
                 return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + 
                     this.UntiredPolitics + this.UntiredGlamour) * 
                     (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) 
-                    + this.AllSkillMerit + this.TreasureMerit);
+                    + this.AllSkillMerit);
             }
         }
 
