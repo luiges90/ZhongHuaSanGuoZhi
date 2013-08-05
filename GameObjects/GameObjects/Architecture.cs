@@ -13420,7 +13420,7 @@
             if (this.Kind.ID != 1) return false;
             if (this.Fund < this.ExpandFund()) return false;
             if (this.JianzhuGuimo != 1 && this.JianzhuGuimo != 5) return false;
-
+            if (base.Scenario.ScenarioMap.UseSimpleArchImages) return false;
 
             TerrainKind terrainKindByPosition;
             foreach (Point point in this.ExpandPoint())
