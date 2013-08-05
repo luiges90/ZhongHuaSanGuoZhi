@@ -234,7 +234,6 @@
         public bool CanOwnSkillByAge(Skill s)
         {
             if (!GlobalVariables.EnableAgeAbilityFactor) return true;
-            if (s == null) return true;
             return (this.ID * 143
                             + (this.Name.Length > 0 ? this.Name[0] : 92) * 230
                             + (this.Name.Length > 1 ? this.Name[1] : 653) * 852
@@ -267,7 +266,6 @@
         public bool CanOwnTitleByAge(Title t)
         {
             if (!GlobalVariables.EnableAgeAbilityFactor) return true;
-            if (t == null) return true;
             return (this.ID * 953
                     + (this.Name.Length > 0 ? this.Name[0] : 753) * 866
                     + (this.Name.Length > 1 ? this.Name[1] : 125) * 539
@@ -298,7 +296,7 @@
         {
             get
             {
-                if (!GlobalVariables.EnableAgeAbilityFactor) return this.combatTitle;
+                if (!GlobalVariables.EnableAgeAbilityFactor) return this.personalTitle;
                 if (this.CanOwnTitleByAge(this.combatTitle))
                 {
                     return this.combatTitle;
@@ -314,7 +312,6 @@
         public bool CanOwnStuntByAge(Stunt s)
         {
             if (!GlobalVariables.EnableAgeAbilityFactor) return true;
-            if (s == null) return true;
             return (this.ID * 754
                     + (this.Name.Length > 0 ? this.Name[0] : 725) * 957
                     + (this.Name.Length > 1 ? this.Name[1] : 762) * 532
