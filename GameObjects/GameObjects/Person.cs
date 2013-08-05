@@ -43,7 +43,7 @@
         public CharacterKind Character;
         private int CharacterKindID;
         private List<int> closePersons = new List<int>();
-        private Title combatTitle;
+        public Title CombatTitle;
         private int command;
         private float commandExperience;
         public Person ConvincingPerson;
@@ -134,7 +134,7 @@
         private Point? outsideDestination;
         private OutsideTaskKind outsideTask;
         private int personalLoyalty;
-        private Title personalTitle;
+        public Title PersonalTitle;
         public Biography PersonBiography;
         public TextMessage PersonTextMessage;
         private int pictureIndex;
@@ -165,7 +165,7 @@
         private int routedCount;
         private bool sex = false;
         private float shuijunExperience;
-        private SkillTable skills = new SkillTable();
+        public SkillTable Skills = new SkillTable();
         private int spouse = -1;
         private int strain;
         private float stratagemExperience;
@@ -176,7 +176,7 @@
         public Title StudyingTitle;
         public GameObjectList StudyStuntList = new GameObjectList();
         public GameObjectList StudyTitleList = new GameObjectList();
-        private StuntTable stunts = new StuntTable();
+        public StuntTable Stunts = new StuntTable();
         private string surName;
         private float tacticsExperience;
         public Architecture TargetArchitecture;
@@ -231,117 +231,7 @@
             }
         }
 
-        public bool CanOwnSkillByAge(Skill s)
-        {
-            if (!GlobalVariables.EnableAgeAbilityFactor) return true;
-            return (this.ID * 143
-                            + (this.Name.Length > 0 ? this.Name[0] : 92) * 230
-                            + (this.Name.Length > 1 ? this.Name[1] : 653) * 852
-                            + s.ID * 503
-                            + (s.Description.Length > 0 ? s.Description[0] : 863) * 867
-                        ) % 15 < this.Age;
-        }
-
-        public SkillTable Skills
-        {
-            get
-            {
-                if (!GlobalVariables.EnableAgeAbilityFactor) return this.skills;
-                SkillTable actualSkills = new SkillTable();
-                foreach (Skill s in this.skills.Skills.Values)
-                {
-                    if (this.CanOwnSkillByAge(s))
-                    {
-                        actualSkills.AddSkill(s);
-                    }
-                }
-                return actualSkills;
-            }
-            set
-            {
-                this.skills = value;
-            }
-        }
-
-        public bool CanOwnTitleByAge(Title t)
-        {
-            if (!GlobalVariables.EnableAgeAbilityFactor) return true;
-            return (this.ID * 953
-                    + (this.Name.Length > 0 ? this.Name[0] : 753) * 866
-                    + (this.Name.Length > 1 ? this.Name[1] : 125) * 539
-                    + t.ID * 829
-                    + (t.Description.Length > 0 ? t.Description[0] : 850) * 750
-                    ) % 15 < this.Age 
-                    && (this.Age > t.Level * 3 || this.Age >= 15);
-        }
-
-        public Title PersonalTitle
-        {
-            get
-            {
-                if (!GlobalVariables.EnableAgeAbilityFactor) return this.personalTitle;
-                if (this.CanOwnTitleByAge(this.personalTitle))
-                {
-                    return this.personalTitle;
-                }
-                return null;
-            }
-            set
-            {
-                this.personalTitle = value;
-            }
-        }
-
-        public Title CombatTitle
-        {
-            get
-            {
-                if (!GlobalVariables.EnableAgeAbilityFactor) return this.personalTitle;
-                if (this.CanOwnTitleByAge(this.combatTitle))
-                {
-                    return this.combatTitle;
-                }
-                return null;
-            }
-            set
-            {
-                this.combatTitle = value;
-            }
-        }
-
-        public bool CanOwnStuntByAge(Stunt s)
-        {
-            if (!GlobalVariables.EnableAgeAbilityFactor) return true;
-            return (this.ID * 754
-                    + (this.Name.Length > 0 ? this.Name[0] : 725) * 957
-                    + (this.Name.Length > 1 ? this.Name[1] : 762) * 532
-                    + s.ID * 256
-                    + (s.Name.Length > 0 ? s.Name[0] : 643) * 135
-                    ) % 15 < this.Age;
-        }
-
-        public StuntTable Stunts
-        {
-            get
-            {
-                if (!GlobalVariables.EnableAgeAbilityFactor) return this.stunts;
-                StuntTable actualStunts = new StuntTable();
-                foreach (Stunt s in this.stunts.Stunts.Values)
-                {
-                    if (this.CanOwnStuntByAge(s))
-                    {
-                        actualStunts.AddStunt(s);
-                    }
-                }
-                return actualStunts;
-            }
-            set
-            {
-                this.stunts = value;
-            }
-        }
-
-        public int HasHorse()
+        public int  HasHorse()
         {
             foreach (Treasure treasure in this.Treasures)
             {
@@ -2292,7 +2182,7 @@
             string skillString = "";
             foreach (Skill skill in base.Scenario.GameCommonData.AllSkills.Skills.Values)
             {
-                if (((this.Skills.GetSkill(skill.ID) == null) && skill.CanLearn(this) && this.CanOwnSkillByAge(skill)) && (GameObject.Random((skill.Level * 2) + 8) >= ((skill.Level + num) * 2 - Parameters.LearnSkillSuccessRate)))
+                if (((this.Skills.GetSkill(skill.ID) == null) && skill.CanLearn(this)) && (GameObject.Random((skill.Level * 2) + 8) >= ((skill.Level + num) * 2 - Parameters.LearnSkillSuccessRate)))
                 {
                     this.Skills.AddSkill(skill);
                     skill.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID);
@@ -2314,7 +2204,7 @@
             this.OutsideTask = OutsideTaskKind.无;
             if (this.StudyingStunt != null)
             {
-                if (GameObject.Chance(Parameters.LearnStuntSuccessRate) && this.CanOwnStuntByAge(this.StudyingStunt))
+                if (GameObject.Chance(Parameters.LearnStuntSuccessRate))
                 {
                     this.Stunts.AddStunt(this.StudyingStunt);
 					ExtensionInterface.call("StudyStuntSuccess", new Object[] { this.Scenario, this, this.StudyingStunt });
@@ -2341,7 +2231,7 @@
             if (this.StudyingTitle != null)
             {
                 bool flag = false;
-                if (GameObject.Random((this.StudyingTitle.Level * 2) + 8) >= (this.StudyingTitle.Level * 2 - Parameters.LearnTitleSuccessRate) && this.CanOwnTitleByAge(this.StudyingTitle))
+                if (GameObject.Random((this.StudyingTitle.Level * 2) + 8) >= (this.StudyingTitle.Level * 2 - Parameters.LearnTitleSuccessRate))
                 {
                     if (this.StudyingTitle.Kind == TitleKind.个人)
                     {
