@@ -2154,6 +2154,53 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
         }
 
+        public override void TroopPersonChallenge(bool win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination)
+        {
+            if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sourceTroop.Position)) || base.Scenario.CurrentPlayer.IsPositionKnown(destinationTroop.Position)) || GlobalVariables.SkyEye)
+            {
+                sourceTroop.TextDestinationString = destinationTroop.DisplayName;
+                Person neutralPerson = base.Scenario.NeutralPerson;
+                if (neutralPerson == null)
+                {
+                    neutralPerson = source;
+                }
+                this.Plugins.PersonTextDialogPlugin.SetPosition(ShowPosition.Bottom);
+                if (win)
+                {
+                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceWin");
+                    if ((source.PersonTextMessage != null) && (source.PersonTextMessage.DualInitiativeWin.Count > 0))
+                    {
+                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(source, null, source.PersonTextMessage.DualInitiativeWin[GameObject.Random(source.PersonTextMessage.DualInitiativeWin.Count)]);
+                    }
+                    else
+                    {
+                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(source, sourceTroop, "TroopPersonChallengeAfterSourceWin");
+                    }
+                }
+                else
+                {
+                    this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceLose");
+                    if ((destination.PersonTextMessage != null) && (destination.PersonTextMessage.DualPassiveWin.Count > 0))
+                    {
+                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(destination, null, destination.PersonTextMessage.DualPassiveWin[GameObject.Random(destination.PersonTextMessage.DualPassiveWin.Count)]);
+                    }
+                    else
+                    {
+                        this.Plugins.PersonTextDialogPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonChallengeAfterSourceLose");
+                    }
+                }
+                this.Plugins.PersonTextDialogPlugin.IsShowing = true;
+                if (win)
+                {
+                    this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceWin", sourceTroop.Position);
+                }
+                else
+                {
+                    this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceLose", sourceTroop.Position);
+                }
+            }
+        }
+
         public override void TroopPersonControversy(bool win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination)
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sourceTroop.Position)) || base.Scenario.CurrentPlayer.IsPositionKnown(destinationTroop.Position)) || GlobalVariables.SkyEye)
