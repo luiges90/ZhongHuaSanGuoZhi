@@ -2748,11 +2748,6 @@
                 }
             }
 
-            if (this.BelongedFaction == executingFaction) // 斩下属
-            {
-                this.LocationArchitecture.Persons.Remove(this);
-            }
-
             foreach (Person p in base.Scenario.Persons)
             {
                 if (p == this) continue;
@@ -2892,8 +2887,6 @@
         {
             Architecture locationArchitecture = this.LocationArchitecture;
             this.Status = PersonStatus.NoFaction;
-            locationArchitecture.Persons.Remove(this);
-            locationArchitecture.NoFactionPersons.Add(this);
             this.ProhibitedFactionID = locationArchitecture.BelongedFaction.ID;
         }
 
