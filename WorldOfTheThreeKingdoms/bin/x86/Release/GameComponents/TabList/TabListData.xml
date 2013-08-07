@@ -74,7 +74,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="9" Name="SubOfficerSkillMerit" IsNumber="true" DisplayName="副将战斗力" MinWidth="80" DetailLevel="4"
+		<Column ID="9" Name="SubFightingForce" IsNumber="true" DisplayName="副将战斗力" MinWidth="80" DetailLevel="4"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"

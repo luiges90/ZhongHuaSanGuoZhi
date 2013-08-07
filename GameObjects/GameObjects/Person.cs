@@ -4280,8 +4280,8 @@
         {
             get
             {
-                return (int)((this.Character.IntelligenceRate * 2 * (this.Strength * (1 - GlobalVariables.LeadershipOffenceRate) + this.Command * (GlobalVariables.LeadershipOffenceRate + 1)) 
-                    + (1 - this.Character.IntelligenceRate) * this.Intelligence) * 
+                return (int)((this.Character.IntelligenceRate * (this.Strength * (1 - GlobalVariables.LeadershipOffenceRate) + this.Command * (GlobalVariables.LeadershipOffenceRate + 1)) 
+                    + (1 - this.Character.IntelligenceRate) * this.Intelligence * 0.5) * 
                     (100 + (this.PersonalTitle != null ? this.PersonalTitle.FightingMerit : 0) 
                     + (this.CombatTitle != null ? this.CombatTitle.FightingMerit : 0) 
                     + this.TreasureMerit + this.CombatSkillMerit + this.StuntCount * 30));
@@ -4295,7 +4295,7 @@
                 return (int)((this.Strength * 0.25 + this.Command * 0.25 + this.Intelligence * 2.5) *
                     (100 + (this.PersonalTitle != null ? this.PersonalTitle.SubOfficerMerit : 0)
                     + (this.CombatTitle != null ? this.CombatTitle.SubOfficerMerit : 0)
-                    + this.TreasureMerit + this.SubOfficerSkillMerit + this.StuntCount * 30));
+                    + this.TreasureMerit + this.SubOfficerSkillMerit));
             }
         }
 
