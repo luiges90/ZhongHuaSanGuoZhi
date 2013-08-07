@@ -246,6 +246,7 @@
         public bool CanOwnTitleByAge(Title t)
         {
             if (!GlobalVariables.EnableAgeAbilityFactor) return true;
+            if (t == null) return true;
             return (this.ID * 953
                     + (this.Name.Length > 0 ? this.Name[0] : 753) * 866
                     + (this.Name.Length > 1 ? this.Name[1] : 125) * 539
