@@ -2254,7 +2254,7 @@
 
         public bool SaveAvail()
         {
-            return (this.IsPlayerControlling() && this.EnableLoadAndSave);
+            return (this.IsPlayerControlling() && this.EnableLoadAndSave && GlobalVariables.EnableLoadInGame);
         }
 
         public bool LoadAvail()
