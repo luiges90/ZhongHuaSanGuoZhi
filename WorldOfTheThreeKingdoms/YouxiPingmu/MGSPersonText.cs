@@ -50,13 +50,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (base.Scenario.IsCurrentPlayer(architecture.BelongedFaction) && architecture.BelongedFaction != null)
             {
-                //this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-                //this.Plugins.tupianwenziPlugin.SetGameObjectBranch(architecture.BelongedFaction.Leader, architecture, "ArchitectureBeginRecentlyAttacked");
-                //this.Plugins.tupianwenziPlugin.IsShowing = true;
-                architecture.BelongedFaction.Leader.TextResultString = architecture.Name;
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(architecture.BelongedFaction.Leader, architecture, "ArchitectureBeginRecentlyAttacked", "zaoshougongji.jpg", "");
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                /*architecture.BelongedFaction.Leader.TextResultString = architecture.Name;
                 architecture.BelongedFaction.TextResultString = architecture.Name;
                 this.xianshishijiantupian(architecture.BelongedFaction.Leader, architecture.BelongedFaction.Leader.TextResultString, "ArchitectureBeginRecentlyAttacked", "zaoshougongji.jpg", "", false);
-                this.Plugins.GameRecordPlugin.AddBranch(architecture.BelongedFaction, "zaoshougongji", architecture.Position);
+                this.Plugins.GameRecordPlugin.AddBranch(architecture.BelongedFaction, "zaoshougongji", architecture.Position);*/
                 if (architecture.BelongedFaction.StopToControl)
                 {
                     this.Plugins.DateRunnerPlugin.Pause();
