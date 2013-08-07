@@ -2252,7 +2252,7 @@
                         if (unfullArmyCount < unfullArmyCountThreshold)
                         {
                             if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && 
-                                (this.AdjacentToHostileByWater || GameObject.Chance(10)) && unfullNavalArmyCount < this.MilitaryCount + 1)
+                                (this.AdjacentToHostileByWater || GameObject.Chance(10)) && (unfullNavalArmyCount < this.MilitaryCount || this.AILandLinks.Count == 0))
                             {
                                 this.AIRecruitment(true, false);
                             }
