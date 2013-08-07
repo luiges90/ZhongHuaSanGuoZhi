@@ -152,7 +152,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 base.Scenario.SeasonChangeEvent();
                 
             }
-        }//
+        }
 
         private bool Date_OnYearPassed()
         {
