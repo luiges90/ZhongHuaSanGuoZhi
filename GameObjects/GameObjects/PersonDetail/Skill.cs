@@ -162,6 +162,28 @@
                 return str;
             }
         }
+
+        private int? subOfficerMerit = null;
+        public int SubOfficerMerit
+        {
+            get
+            {
+                if (subOfficerMerit == null)
+                {
+                    int subofficerInfluences = 0;
+                    foreach (Influence i in this.Influences.Influences.Values)
+                    {
+                        if (i.Kind.ID == 281) break;
+                        if (i.Kind.Combat)
+                        {
+                            subofficerInfluences++;
+                        }
+                    }
+                    subOfficerMerit = (int)(this.Merit * ((double)subofficerInfluences / this.Influences.Count));
+                }
+                return subOfficerMerit.Value;
+            }
+        }
     }
 }
 

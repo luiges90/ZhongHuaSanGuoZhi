@@ -4003,7 +4003,23 @@
                 {
                     if (skill.Combat)
                     {
-                        num += 5 * skill.Level;
+                        num += skill.Merit;
+                    }
+                }
+                return num;
+            }
+        }
+
+        public int SubOfficerSkillMerit
+        {
+            get
+            {
+                int num = 0;
+                foreach (Skill skill in this.Skills.Skills.Values)
+                {
+                    if (skill.Combat)
+                    {
+                        num += skill.SubOfficerMerit;
                     }
                 }
                 return num;
@@ -4225,7 +4241,22 @@
         {
             get
             {
-                return (this.Strength + this.Command + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) * (100 + (this.PersonalTitle != null ? this.PersonalTitle.FightingMerit : 0) + (this.CombatTitle != null? this.CombatTitle.FightingMerit : 0) + this.TreasureMerit + this.StuntCount * 30);
+                return (int)((this.Character.IntelligenceRate * 2 * (this.Strength * (1 - GlobalVariables.LeadershipOffenceRate) + this.Command * (GlobalVariables.LeadershipOffenceRate + 1)) 
+                    + (1 - this.Character.IntelligenceRate) * this.Intelligence) * 
+                    (100 + (this.PersonalTitle != null ? this.PersonalTitle.FightingMerit : 0) 
+                    + (this.CombatTitle != null ? this.CombatTitle.FightingMerit : 0) 
+                    + this.TreasureMerit + this.CombatSkillMerit + this.StuntCount * 30));
+            }
+        }
+
+        public int SubFightingForce
+        {
+            get
+            {
+                return (int)((this.Strength * 0.25 + this.Command * 0.25 + this.Intelligence * 2.5) *
+                    (100 + (this.PersonalTitle != null ? this.PersonalTitle.SubOfficerMerit : 0)
+                    + (this.CombatTitle != null ? this.CombatTitle.SubOfficerMerit : 0)
+                    + this.TreasureMerit + this.SubOfficerSkillMerit + this.StuntCount * 30));
             }
         }
 
