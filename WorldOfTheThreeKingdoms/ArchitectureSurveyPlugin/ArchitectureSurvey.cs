@@ -161,7 +161,15 @@ namespace ArchitectureSurveyPlugin
                 this.DominationText.Text = this.ArchitectureToSurvey.DominationString;
                 this.EnduranceText.Text = this.ArchitectureToSurvey.EnduranceString;
                 this.FundText.Text = this.ArchitectureToSurvey.Fund.ToString();
-                this.FoodText.Text = this.ArchitectureToSurvey.Food.ToString();
+                if (this.ArchitectureToSurvey.Food < 10000)
+                {
+                    this.FoodText.Text = (this.ArchitectureToSurvey.Food / 10000.0f).ToString("f1") + "万";
+
+                }
+                else
+                {
+                    this.FoodText.Text = Math.Floor(this.ArchitectureToSurvey.Food / 10000.0f).ToString() + "万";
+                }
                 this.PersonCountText.Text =meigongzuoderenshuzifuchuan +"/"+ this.ArchitectureToSurvey.PersonCount.ToString();
                 this.FacilityCountText.Text = this.ArchitectureToSurvey.SheshiMiaoshu;
                 this.NoFactionPersonCountText.Text = this.ArchitectureToSurvey.NoFactionPersonCount.ToString();

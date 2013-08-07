@@ -905,7 +905,16 @@
         {
             this.NumberInputerPlugin.SetMax(((this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) < this.CreatingTroop.RationDays) ? (this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) : this.CreatingTroop.RationDays);
             this.NumberInputerPlugin.SetDepthOffset(-0.01f);
+            if (this.CreatingTroop.Army.KindID == 29)
+            {
+                this.NumberInputerPlugin.SetUnit("万");
+            }
+            else
+            {
+                this.NumberInputerPlugin.SetUnit("天");
+            }
             this.NumberInputerPlugin.SetMapPosition(ShowPosition.Center);
+            
             this.NumberInputerPlugin.SetEnterFunction(delegate 
             {
                 this.RationDays = this.NumberInputerPlugin.Number;

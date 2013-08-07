@@ -100,6 +100,10 @@
         {
             this.numberInputer.EnterFunction = function;
         }
+        public void SetUnit(string unit)
+        {
+            this.numberInputer.unit = unit;
+        }
 
         public void SetGraphicsDevice(GraphicsDevice device)
         {
