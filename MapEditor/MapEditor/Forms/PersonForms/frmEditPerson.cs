@@ -277,8 +277,8 @@
             else
             {
                 this.SavePersonSkills(this.person);
-                this.person.PersonalTitle = this.cbPersonalTitle.SelectedItem as Title;
-                this.person.CombatTitle = this.cbCombatTitle.SelectedItem as Title;
+                this.person.RealPersonalTitle = this.cbPersonalTitle.SelectedItem as Title;
+                this.person.RealCombatTitle = this.cbCombatTitle.SelectedItem as Title;
             }
         }
 

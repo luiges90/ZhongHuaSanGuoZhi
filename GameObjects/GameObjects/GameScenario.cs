@@ -2515,8 +2515,8 @@
                 StaticMethods.LoadFromString(person.ClosePersons, reader["ClosePersons"].ToString());
                 StaticMethods.LoadFromString(person.HatedPersons, reader["HatedPersons"].ToString());
                 person.Skills.LoadFromString(this.GameCommonData.AllSkills, reader["Skills"].ToString());
-                person.PersonalTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["PersonalTitle"]);
-                person.CombatTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["CombatTitle"]);
+                person.RealPersonalTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["PersonalTitle"]);
+                person.RealCombatTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["CombatTitle"]);
                 person.StudyingTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["StudyingTitle"]);
                 person.huaiyun = (bool)reader["huaiyun"];
                 person.faxianhuaiyun = (bool)reader["faxianhuaiyun"];

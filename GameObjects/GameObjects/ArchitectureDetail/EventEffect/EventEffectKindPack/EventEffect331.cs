@@ -8,7 +8,7 @@
         public override void ApplyEffectKind(Person person, Event e)
         {
             person.CombatTitle.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.CombatTitle, 0);
-            person.CombatTitle = null;
+            person.RealCombatTitle = null;
         }
     }
 }
