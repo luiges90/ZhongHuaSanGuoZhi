@@ -152,6 +152,8 @@
             this.AddToCloseList(square);
             if (start == end)
             {
+                lastPath = new List<Point>();
+                lastPath.Add(start);
                 return true;
             }
             do
