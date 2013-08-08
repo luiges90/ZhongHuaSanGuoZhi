@@ -233,8 +233,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
             this.tabPageEnvironment = new System.Windows.Forms.TabPage();
+            this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.tbAutosaveFrequency = new System.Windows.Forms.TextBox();
             this.tbTabListDetailLevel = new System.Windows.Forms.TextBox();
             this.label55 = new System.Windows.Forms.Label();
+            this.cbLandArmyCanGoDownWater = new System.Windows.Forms.CheckBox();
             this.cbEnableLoadInGame = new System.Windows.Forms.CheckBox();
             this.cbEnableCheat = new System.Windows.Forms.CheckBox();
             this.tbBattleSpeed = new System.Windows.Forms.TextBox();
@@ -403,10 +407,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.tbAutosaveFrequency = new System.Windows.Forms.TextBox();
-            this.label59 = new System.Windows.Forms.Label();
-            this.cbLandArmyCanGoDownWater = new System.Windows.Forms.CheckBox();
-            this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
             this.tcOptions.SuspendLayout();
             this.tabPageEnvironment.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -475,6 +475,34 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageEnvironment.Text = "环境";
             this.tabPageEnvironment.UseVisualStyleBackColor = true;
             // 
+            // cbShowChallengeAnimation
+            // 
+            this.cbShowChallengeAnimation.AutoSize = true;
+            this.cbShowChallengeAnimation.Location = new System.Drawing.Point(260, 149);
+            this.cbShowChallengeAnimation.Name = "cbShowChallengeAnimation";
+            this.cbShowChallengeAnimation.Size = new System.Drawing.Size(72, 16);
+            this.cbShowChallengeAnimation.TabIndex = 117;
+            this.cbShowChallengeAnimation.Text = "单挑演示";
+            this.cbShowChallengeAnimation.UseVisualStyleBackColor = true;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(386, 18);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(29, 12);
+            this.label59.TabIndex = 115;
+            this.label59.Text = "分钟";
+            // 
+            // tbAutosaveFrequency
+            // 
+            this.tbAutosaveFrequency.Location = new System.Drawing.Point(353, 14);
+            this.tbAutosaveFrequency.MaxLength = 2;
+            this.tbAutosaveFrequency.Name = "tbAutosaveFrequency";
+            this.tbAutosaveFrequency.Size = new System.Drawing.Size(27, 22);
+            this.tbAutosaveFrequency.TabIndex = 114;
+            this.tbAutosaveFrequency.Text = "30";
+            // 
             // tbTabListDetailLevel
             // 
             this.tbTabListDetailLevel.Location = new System.Drawing.Point(373, 375);
@@ -493,14 +521,24 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.label55.TabIndex = 112;
             this.label55.Text = "资料显示详细度";
             // 
+            // cbLandArmyCanGoDownWater
+            // 
+            this.cbLandArmyCanGoDownWater.AutoSize = true;
+            this.cbLandArmyCanGoDownWater.Location = new System.Drawing.Point(260, 127);
+            this.cbLandArmyCanGoDownWater.Name = "cbLandArmyCanGoDownWater";
+            this.cbLandArmyCanGoDownWater.Size = new System.Drawing.Size(132, 16);
+            this.cbLandArmyCanGoDownWater.TabIndex = 111;
+            this.cbLandArmyCanGoDownWater.Text = "陆上部队可直接下水";
+            this.cbLandArmyCanGoDownWater.UseVisualStyleBackColor = true;
+            // 
             // cbEnableLoadInGame
             // 
             this.cbEnableLoadInGame.AutoSize = true;
             this.cbEnableLoadInGame.Location = new System.Drawing.Point(260, 104);
             this.cbEnableLoadInGame.Name = "cbEnableLoadInGame";
-            this.cbEnableLoadInGame.Size = new System.Drawing.Size(132, 16);
+            this.cbEnableLoadInGame.Size = new System.Drawing.Size(120, 16);
             this.cbEnableLoadInGame.TabIndex = 110;
-            this.cbEnableLoadInGame.Text = "容许游戏中读取游戏";
+            this.cbEnableLoadInGame.Text = "容许游戏中存读档";
             this.cbEnableLoadInGame.UseVisualStyleBackColor = true;
             // 
             // cbEnableCheat
@@ -2102,44 +2140,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // tbAutosaveFrequency
-            // 
-            this.tbAutosaveFrequency.Location = new System.Drawing.Point(353, 14);
-            this.tbAutosaveFrequency.MaxLength = 2;
-            this.tbAutosaveFrequency.Name = "tbAutosaveFrequency";
-            this.tbAutosaveFrequency.Size = new System.Drawing.Size(27, 22);
-            this.tbAutosaveFrequency.TabIndex = 114;
-            this.tbAutosaveFrequency.Text = "30";
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(386, 18);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(29, 12);
-            this.label59.TabIndex = 115;
-            this.label59.Text = "分钟";
-            // 
-            // cbLandArmyCanGoDownWater
-            // 
-            this.cbLandArmyCanGoDownWater.AutoSize = true;
-            this.cbLandArmyCanGoDownWater.Location = new System.Drawing.Point(260, 127);
-            this.cbLandArmyCanGoDownWater.Name = "cbLandArmyCanGoDownWater";
-            this.cbLandArmyCanGoDownWater.Size = new System.Drawing.Size(132, 16);
-            this.cbLandArmyCanGoDownWater.TabIndex = 111;
-            this.cbLandArmyCanGoDownWater.Text = "陆上部队可直接下水";
-            this.cbLandArmyCanGoDownWater.UseVisualStyleBackColor = true;
-            // 
-            // cbShowChallengeAnimation
-            // 
-            this.cbShowChallengeAnimation.AutoSize = true;
-            this.cbShowChallengeAnimation.Location = new System.Drawing.Point(260, 149);
-            this.cbShowChallengeAnimation.Name = "cbShowChallengeAnimation";
-            this.cbShowChallengeAnimation.Size = new System.Drawing.Size(72, 16);
-            this.cbShowChallengeAnimation.TabIndex = 117;
-            this.cbShowChallengeAnimation.Text = "单挑演示";
-            this.cbShowChallengeAnimation.UseVisualStyleBackColor = true;
             // 
             // formOptions
             // 

@@ -584,12 +584,32 @@
             int personCnt = 1;
             PersonList result = new PersonList();
             result.Add(t.Leader);
-            if (t.TroopIntelligence < (0x4b - t.Leader.Calmness))
+            t.Leader.Selected = true;
+
+            GameObjectList candidates = this.Persons.GetList();
+            candidates.IsNumber = true;
+            candidates.PropertyName = "SubFightingForce";
+            candidates.SmallToBig = false;
+            candidates.ReSort();
+
+            foreach (Person person in candidates)
             {
-                foreach (Person person in this.Persons)
+                if ((!person.Selected && !t.Persons.HasGameObject(person)) && person.SubFightingForce > t.Leader.FightingForce 
+                    && t.Leader.FightingForce > t.Leader.SubFightingForce && person.SubFightingForce > person.FightingForce)
+                {
+                    person.Selected = true;
+                    result.Add(person);
+                    personCnt++;
+                    if (personCnt >= 2) break;
+                }
+                else if (person.SubFightingForce <= t.Leader.FightingForce || t.Leader.FightingForce > t.Leader.SubFightingForce) break;
+            }
+            if (t.TroopIntelligence < 80)
+            {
+                foreach (Person person in candidates)
                 {
                     if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Intelligence >= (0x4b - t.Leader.Calmness))) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    if ((!person.Selected && (person.Intelligence >= 80)) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
                     {
                         person.Selected = true;
                         result.Add(person);
@@ -598,12 +618,12 @@
                     }
                 }
             }
-            if (t.TroopStrength < 0x4b)
+            if (t.TroopStrength < 75)
             {
-                foreach (Person person in this.Persons)
+                foreach (Person person in candidates)
                 {
                     if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Strength >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Strength - t.TroopStrength) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    if ((!person.Selected && (person.Strength >= 75)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Strength - t.TroopStrength) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
                     {
                         person.Selected = true;
                         result.Add(person);
@@ -612,12 +632,12 @@
                     }
                 }
             }
-            if (t.TroopCommand < 0x4b)
+            if (t.TroopCommand < 75)
             {
-                foreach (Person person in this.Persons)
+                foreach (Person person in candidates)
                 {
                     if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Command >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Command - t.TroopCommand) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    if ((!person.Selected && (person.Command >= 75)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Command - t.TroopCommand) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
                     {
                         person.Selected = true;
                         result.Add(person);
@@ -626,7 +646,7 @@
                     }
                 }
             }
-            foreach (Person person in this.Persons)
+            foreach (Person person in candidates)
             {
                 if (person.WaitForFeiZi != null) continue;
                 if ((!person.Selected && !t.Persons.HasGameObject(person)) && ((person.FightingForce < t.Leader.FightingForce) && !person.HasLeaderValidCombatTitle))
@@ -667,6 +687,7 @@
                 }
                 if (personCnt >= 5) break;
             }
+
             return result;
         }
 
@@ -2252,7 +2273,7 @@
                         if (unfullArmyCount < unfullArmyCountThreshold)
                         {
                             if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && 
-                                (this.AdjacentToHostileByWater || GameObject.Chance(10)) && unfullNavalArmyCount < this.MilitaryCount + 1)
+                                (this.AdjacentToHostileByWater || GameObject.Chance(10)) && (unfullNavalArmyCount < this.MilitaryCount || this.AILandLinks.Count == 0))
                             {
                                 this.AIRecruitment(true, false);
                             }
@@ -13420,7 +13441,7 @@
             if (this.Kind.ID != 1) return false;
             if (this.Fund < this.ExpandFund()) return false;
             if (this.JianzhuGuimo != 1 && this.JianzhuGuimo != 5) return false;
-
+            if (base.Scenario.ScenarioMap.UseSimpleArchImages) return false;
 
             TerrainKind terrainKindByPosition;
             foreach (Point point in this.ExpandPoint())

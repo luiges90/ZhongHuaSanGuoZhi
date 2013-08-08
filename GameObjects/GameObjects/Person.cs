@@ -43,7 +43,7 @@
         public CharacterKind Character;
         private int CharacterKindID;
         private List<int> closePersons = new List<int>();
-        public Title CombatTitle;
+        public Title RealCombatTitle;
         private int command;
         private float commandExperience;
         public Person ConvincingPerson;
@@ -134,7 +134,7 @@
         private Point? outsideDestination;
         private OutsideTaskKind outsideTask;
         private int personalLoyalty;
-        public Title PersonalTitle;
+        public Title RealPersonalTitle;
         public Biography PersonBiography;
         public TextMessage PersonTextMessage;
         private int pictureIndex;
@@ -231,7 +231,7 @@
             }
         }
 
-        public int  HasHorse()
+        public int HasHorse()
         {
             foreach (Treasure treasure in this.Treasures)
             {
@@ -241,6 +241,45 @@
                 }
             }
             return -1;
+        }
+
+        public bool CanOwnTitleByAge(Title t)
+        {
+            if (!GlobalVariables.EnableAgeAbilityFactor) return true;
+            if (t == null) return true;
+            return (this.ID * 953
+                    + (this.Name.Length > 0 ? this.Name[0] : 753) * 866
+                    + (this.Name.Length > 1 ? this.Name[1] : 125) * 539
+                    + t.ID * 829
+                    + (t.Description.Length > 0 ? t.Description[0] : 850) * 750
+                    ) % 15 < this.Age 
+                    && (this.Age > t.Level * 3 || this.Age >= 15);
+        }
+
+        public Title PersonalTitle
+        {
+            get
+            {
+                if (!GlobalVariables.EnableAgeAbilityFactor) return this.RealPersonalTitle;
+                if (this.CanOwnTitleByAge(this.RealPersonalTitle))
+                {
+                    return this.RealPersonalTitle;
+                }
+                return null;
+            }
+        }
+
+        public Title CombatTitle
+        {
+            get
+            {
+                if (!GlobalVariables.EnableAgeAbilityFactor) return this.RealCombatTitle;
+                if (this.CanOwnTitleByAge(this.RealCombatTitle))
+                {
+                    return this.RealCombatTitle;
+                }
+                return null;
+            }
         }
 
         public int YearJoin{ get; set; }
@@ -2240,7 +2279,7 @@
                             this.PersonalTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.PersonalTitle, 0);
                             flag = true;
                         }
-                        this.PersonalTitle = this.StudyingTitle;
+                        this.RealPersonalTitle = this.StudyingTitle;
                     }
                     else
                     {
@@ -2253,7 +2292,7 @@
                             this.CombatTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.CombatTitle, 0);
                             flag = true;
                         }
-                        this.CombatTitle = this.StudyingTitle;
+                        this.RealCombatTitle = this.StudyingTitle;
                     }
                     if (flag)
                     {
@@ -2748,11 +2787,6 @@
                 }
             }
 
-            if (this.BelongedFaction == executingFaction) // 斩下属
-            {
-                this.LocationArchitecture.Persons.Remove(this);
-            }
-
             foreach (Person p in base.Scenario.Persons)
             {
                 if (p == this) continue;
@@ -2892,8 +2926,6 @@
         {
             Architecture locationArchitecture = this.LocationArchitecture;
             this.Status = PersonStatus.NoFaction;
-            locationArchitecture.Persons.Remove(this);
-            locationArchitecture.NoFactionPersons.Add(this);
             this.ProhibitedFactionID = locationArchitecture.BelongedFaction.ID;
         }
 
@@ -4010,7 +4042,23 @@
                 {
                     if (skill.Combat)
                     {
-                        num += 5 * skill.Level;
+                        num += skill.Merit;
+                    }
+                }
+                return num;
+            }
+        }
+
+        public int SubOfficerSkillMerit
+        {
+            get
+            {
+                int num = 0;
+                foreach (Skill skill in this.Skills.Skills.Values)
+                {
+                    if (skill.Combat)
+                    {
+                        num += skill.SubOfficerMerit;
                     }
                 }
                 return num;
@@ -4232,7 +4280,22 @@
         {
             get
             {
-                return (this.Strength + this.Command + Math.Max((int)(90 * this.Character.IntelligenceRate), this.Intelligence)) * (100 + (this.PersonalTitle != null ? this.PersonalTitle.FightingMerit : 0) + (this.CombatTitle != null? this.CombatTitle.FightingMerit : 0) + this.TreasureMerit + this.StuntCount * 30);
+                return (int)((this.Character.IntelligenceRate * (this.Strength * (1 - GlobalVariables.LeadershipOffenceRate) + this.Command * (GlobalVariables.LeadershipOffenceRate + 1)) 
+                    + (1 - this.Character.IntelligenceRate) * this.Intelligence * 0.5) * 
+                    (100 + (this.PersonalTitle != null ? this.PersonalTitle.FightingMerit : 0) 
+                    + (this.CombatTitle != null ? this.CombatTitle.FightingMerit : 0) 
+                    + this.TreasureMerit + this.CombatSkillMerit + this.StuntCount * 30));
+            }
+        }
+
+        public int SubFightingForce
+        {
+            get
+            {
+                return (int)((this.Strength * 0.25 + this.Command * 0.25 + this.Intelligence * 2.5) *
+                    (100 + (this.PersonalTitle != null ? this.PersonalTitle.SubOfficerMerit : 0)
+                    + (this.CombatTitle != null ? this.CombatTitle.SubOfficerMerit : 0)
+                    + this.TreasureMerit + this.SubOfficerSkillMerit));
             }
         }
 
@@ -6170,7 +6233,7 @@
 
             if (GameObject.Chance(20))
             {
-                r.PersonalTitle = GameObject.Chance(50) ? father.PersonalTitle : mother.PersonalTitle;
+                r.RealPersonalTitle = GameObject.Chance(50) ? father.PersonalTitle : mother.PersonalTitle;
             }
             else
             {
@@ -6186,7 +6249,7 @@
                         {
                             if (GameObject.Chance((r.BaseCommand + r.BaseStrength) / 2))
                             {
-                                r.PersonalTitle = t;
+                                r.RealPersonalTitle = t;
                                 break;
                             }
                         }
@@ -6194,7 +6257,7 @@
                         {
                             if (GameObject.Chance((r.BaseIntelligence + r.BasePolitics) / 2))
                             {
-                                r.PersonalTitle = t;
+                                r.RealPersonalTitle = t;
                                 break;
                             }
                         }
@@ -6204,7 +6267,7 @@
 
             if (GameObject.Chance(20))
             {
-                r.CombatTitle = GameObject.Chance(50) ? father.CombatTitle : mother.CombatTitle;
+                r.RealCombatTitle = GameObject.Chance(50) ? father.CombatTitle : mother.CombatTitle;
             }
             else
             {
@@ -6220,7 +6283,7 @@
                         {
                             if (GameObject.Chance((r.BaseCommand + r.BaseStrength + r.BaseIntelligence) / 3))
                             {
-                                r.CombatTitle = t;
+                                r.RealCombatTitle = t;
                                 break;
                             }
                         }
@@ -6228,7 +6291,7 @@
                         {
                             if (GameObject.Chance((r.BaseIntelligence + r.BasePolitics) / 2))
                             {
-                                r.CombatTitle = t;
+                                r.RealCombatTitle = t;
                                 break;
                             }
                         }

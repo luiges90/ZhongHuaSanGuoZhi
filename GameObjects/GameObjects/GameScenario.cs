@@ -2254,7 +2254,7 @@
 
         public bool SaveAvail()
         {
-            return (this.IsPlayerControlling() && this.EnableLoadAndSave);
+            return (this.IsPlayerControlling() && this.EnableLoadAndSave && GlobalVariables.EnableLoadInGame);
         }
 
         public bool LoadAvail()
@@ -2515,8 +2515,8 @@
                 StaticMethods.LoadFromString(person.ClosePersons, reader["ClosePersons"].ToString());
                 StaticMethods.LoadFromString(person.HatedPersons, reader["HatedPersons"].ToString());
                 person.Skills.LoadFromString(this.GameCommonData.AllSkills, reader["Skills"].ToString());
-                person.PersonalTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["PersonalTitle"]);
-                person.CombatTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["CombatTitle"]);
+                person.RealPersonalTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["PersonalTitle"]);
+                person.RealCombatTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["CombatTitle"]);
                 person.StudyingTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["StudyingTitle"]);
                 person.huaiyun = (bool)reader["huaiyun"];
                 person.faxianhuaiyun = (bool)reader["faxianhuaiyun"];
@@ -4119,8 +4119,8 @@
                     row["ClosePersons"] = StaticMethods.SaveToString(person.ClosePersons);
                     row["HatedPersons"] = StaticMethods.SaveToString(person.HatedPersons);
                     row["Skills"] = person.Skills.SaveToString();
-                    row["PersonalTitle"] = (person.PersonalTitle != null) ? person.PersonalTitle.ID : -1;
-                    row["CombatTitle"] = (person.CombatTitle != null) ? person.CombatTitle.ID : -1;
+                    row["PersonalTitle"] = (person.RealPersonalTitle != null) ? person.RealPersonalTitle.ID : -1;
+                    row["CombatTitle"] = (person.RealCombatTitle != null) ? person.RealCombatTitle.ID : -1;
                     row["StudyingTitle"] = (person.StudyingTitle != null) ? person.StudyingTitle.ID : -1;
                     row["Stunts"] = person.Stunts.SaveToString();
                     row["StudyingStunt"] = (person.StudyingStunt != null) ? person.StudyingStunt.ID : -1;

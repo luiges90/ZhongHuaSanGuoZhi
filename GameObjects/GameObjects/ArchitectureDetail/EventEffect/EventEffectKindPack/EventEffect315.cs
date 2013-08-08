@@ -12,12 +12,12 @@
             GameObjects.PersonDetail.Title title = person.Scenario.GameCommonData.AllTitles.GetTitle(increment);
             if (person.CombatTitle == title)
             {
-                person.CombatTitle = null;
+                person.RealCombatTitle = null;
                 title.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.CombatTitle, 0);
             }
             else if (person.PersonalTitle == title)
             {
-                person.PersonalTitle = null;
+                person.RealPersonalTitle = null;
                 title.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.PersonalTitle, 0);
             }
             

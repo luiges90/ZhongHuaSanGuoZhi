@@ -50,13 +50,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (base.Scenario.IsCurrentPlayer(architecture.BelongedFaction) && architecture.BelongedFaction != null)
             {
-                //this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-                //this.Plugins.tupianwenziPlugin.SetGameObjectBranch(architecture.BelongedFaction.Leader, architecture, "ArchitectureBeginRecentlyAttacked");
-                //this.Plugins.tupianwenziPlugin.IsShowing = true;
-                architecture.BelongedFaction.Leader.TextResultString = architecture.Name;
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(architecture.BelongedFaction.Leader, architecture, "ArchitectureBeginRecentlyAttacked", "zaoshougongji.jpg", "");
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                /*architecture.BelongedFaction.Leader.TextResultString = architecture.Name;
                 architecture.BelongedFaction.TextResultString = architecture.Name;
                 this.xianshishijiantupian(architecture.BelongedFaction.Leader, architecture.BelongedFaction.Leader.TextResultString, "ArchitectureBeginRecentlyAttacked", "zaoshougongji.jpg", "", false);
-                this.Plugins.GameRecordPlugin.AddBranch(architecture.BelongedFaction, "zaoshougongji", architecture.Position);
+                this.Plugins.GameRecordPlugin.AddBranch(architecture.BelongedFaction, "zaoshougongji", architecture.Position);*/
                 if (architecture.BelongedFaction.StopToControl)
                 {
                     this.Plugins.DateRunnerPlugin.Pause();
@@ -180,7 +180,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(captive.ReleaseCaptive), new GameDelegates.VoidFunction(captive.ReturnRansom));
                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                from.Leader.TextDestinationString = captive.Name;
                 this.Plugins.tupianwenziPlugin.SetGameObjectBranch(from.Leader, captive, "ReleaseCaptive");
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
             }
@@ -957,8 +956,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(transport.TransportReturn), new GameDelegates.VoidFunction(transport.TransportEnter));
                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
 
-                transport.Leader.TextDestinationString = destination.Name;
-                transport.Leader.TextResultString = transport.StartingArchitecture.Name;
+                transport.TextDestinationString = destination.Name;
+                transport.TextResultString = transport.StartingArchitecture.Name;
                 this.Plugins.tupianwenziPlugin.SetGameObjectBranch(transport.Leader, transport, "TransportReturn");
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
             }

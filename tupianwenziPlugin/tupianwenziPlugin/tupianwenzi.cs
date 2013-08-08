@@ -219,12 +219,16 @@
             }
         }
 
-        internal void SetGameObjectBranch(GameObject   gongfang, GameObject gameObject, string branchName)
+        internal void SetGameObjectBranch(GameObject gongfang, GameObject gameObject, string branchName)
         {
             this.BuildingRichText.Clear();
             if (gameObject != null)
             {
-                this.BuildingRichText.AddGameObjectTextBranch(gongfang , this.TextTree.GetBranch(branchName));
+                this.BuildingRichText.AddGameObjectTextBranch(gameObject, this.TextTree.GetBranch(branchName));
+            }
+            else
+            {
+                this.BuildingRichText.AddGameObjectTextBranch(gongfang, this.TextTree.GetBranch(branchName));
             }
             if (this.HasConfirmationDialog)
             {
