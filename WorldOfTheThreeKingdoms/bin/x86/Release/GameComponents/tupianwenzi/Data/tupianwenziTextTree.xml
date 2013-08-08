@@ -504,11 +504,10 @@
   </Branch>
   
   <Branch Name="ArchitectureBeginRecentlyAttacked">
-    <Leaf Text="紧急军情:" Color="4294967295"></Leaf>
+    <Leaf Text="探马来报，" Color="4294967295"></Leaf>
     <Leaf Property="Name" Color="4278255360"></Leaf>
-    <Leaf Text="正遭受敌军的攻击。" Color="4294967295"></Leaf>
+    <Leaf Text="发现敌军来袭。" Color="4294967295"></Leaf>
   </Branch>
-
 
   <Branch Name="wujiangbeiduoqi">
     <Leaf Property="TextResultString" Color="4286644223"></Leaf>

@@ -199,6 +199,7 @@
         public float militaryPopulationRateIncrease;
         public float enduranceDecreaseRateDrop;
         public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
+        internal bool hostileTroopInViewLastDay = false;
 
         public float ExperienceRate;
 
@@ -11173,6 +11174,7 @@
             {
                 ExtensionInterface.call("ArchitectureBeingAttacked", new Object[] { this.Scenario, this });
                 this.JustAttacked = true;
+                /*
                 if (this.BelongedFaction != null)
                 {
                     this.BelongedFaction.StopToControl = true;
@@ -11181,9 +11183,11 @@
                 {
                     this.OnBeginRecentlyAttacked(this);
                 }
+                */
+
             }
             this.RecentlyAttacked = 10;
-            this.AttackedReminder();
+            //this.AttackedReminder();
         }
 
         private bool remindedAboutAttack = false;
