@@ -5574,8 +5574,8 @@
             if (base.Scenario.DaySince < 720) return;
             if (this.youzainan)
             {
-                this.DecreaseFood(this.ZhenzaiWorkingPersons.Count * 3000);
-                this.DecreaseFund(this.ZhenzaiWorkingPersons.Count * 200);
+                //this.DecreaseFood(this.ZhenzaiWorkingPersons.Count * 3000);
+                this.DecreaseFund(this.ZhenzaiWorkingPersons.Count * this.InternalFundCost);
                 this.zhixingzainanshanghai();
 
                 this.zainan.shengyutianshu--;

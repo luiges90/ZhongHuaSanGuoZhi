@@ -153,7 +153,7 @@
 	<Leaf Text="可减少人口伤亡和民心的下降，以及减少灾难持续时间。" Color="4294967295"></Leaf>
 	<Leaf Text="\n" Color="4294967295"></Leaf>
 	<Leaf Text="\n" Color="4294967295"></Leaf>
-	<Leaf Text="赈灾时每个武将每天花费200资金和3000粮食。" Color="4294967295"></Leaf>
+	<Leaf Text="赈灾时每个武将每天花费1个内政资金（默认为5，可在设置界面设置）。" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="Internal_Facility_Build">
     <Leaf Text="内政" Color="4294967295"></Leaf>
