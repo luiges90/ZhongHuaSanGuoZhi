@@ -2290,7 +2290,7 @@
                 FontColor="4294967295"
                 Align="Left">
         </Column>
-        <Column ID="2" Name="WorkKind" CountToDisplay="False" IsNumber="false" DisplayName="工作" MinWidth="80" DetailLevel="2"
+        <Column ID="2" Name="WorkKindString" CountToDisplay="False" IsNumber="false" DisplayName="工作" MinWidth="80" DetailLevel="2"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"

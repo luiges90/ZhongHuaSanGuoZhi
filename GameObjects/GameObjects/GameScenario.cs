@@ -1014,10 +1014,10 @@
             numberOfAmbushTroop = -1; // 缓存有几支部队在埋伏，绝大多数时候地图上根本没有埋伏部队，这时候不需要叫浪费时间的函数detectAmbushTroop
         }
 
-        private int hostileTroopInViewCountdown = 0;
+        
         private void detectCurrentPlayerBattleState(Faction faction)
         {
-            
+
             if (faction == null) return;
             //defend
             ZhandouZhuangtai originalBattleState = faction.BattleState;
@@ -1034,21 +1034,26 @@
                 {
                     fightingArchitectureCount++;
 
-                    if (hostileTroopInViewCountdown <= 0)
+                    if (!architecture.hostileTroopInViewLastDay)  //如果已经提醒过就不再提醒
                     {
-                        architecture.JustAttacked = true;
+                        //architecture.JustAttacked = true;
                         architecture.BelongedFaction.StopToControl = true;
-                        hostileTroopInViewCountdown = 10;
-                        //architecture.RecentlyAttacked = 10;
+                        architecture.RecentlyAttacked = 10;
                         this.GameScreen.ArchitectureBeginRecentlyAttacked(architecture);  //提示玩家建筑视野范围内出现敌军。
 
                     }
+                    architecture.hostileTroopInViewLastDay = true;
+
+                }
+                else
+                {
+                    architecture.hostileTroopInViewLastDay = false;
                 }
 
             }
             if (fightingArchitectureCount == 0)
             {
-                fangshou = false; 
+                fangshou = false;
             }
             else
             {
@@ -1092,7 +1097,7 @@
                 this.GameScreen.SwichMusic(this.Date.Season);
             }
 
-            hostileTroopInViewCountdown--;
+
 
         }
 
