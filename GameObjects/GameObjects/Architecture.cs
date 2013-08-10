@@ -199,6 +199,7 @@
         public float militaryPopulationRateIncrease;
         public float enduranceDecreaseRateDrop;
         public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
+        internal bool hostileTroopInViewLastDay = false;
 
         public float ExperienceRate;
 
@@ -5573,8 +5574,8 @@
             if (base.Scenario.DaySince < 720) return;
             if (this.youzainan)
             {
-                this.DecreaseFood(this.ZhenzaiWorkingPersons.Count * 3000);
-                this.DecreaseFund(this.ZhenzaiWorkingPersons.Count * 200);
+                //this.DecreaseFood(this.ZhenzaiWorkingPersons.Count * 3000);
+                this.DecreaseFund(this.ZhenzaiWorkingPersons.Count * this.InternalFundCost);
                 this.zhixingzainanshanghai();
 
                 this.zainan.shengyutianshu--;
@@ -11173,6 +11174,7 @@
             {
                 ExtensionInterface.call("ArchitectureBeingAttacked", new Object[] { this.Scenario, this });
                 this.JustAttacked = true;
+                /*
                 if (this.BelongedFaction != null)
                 {
                     this.BelongedFaction.StopToControl = true;
@@ -11181,9 +11183,11 @@
                 {
                     this.OnBeginRecentlyAttacked(this);
                 }
+                */
+
             }
             this.RecentlyAttacked = 10;
-            this.AttackedReminder();
+            //this.AttackedReminder();
         }
 
         private bool remindedAboutAttack = false;

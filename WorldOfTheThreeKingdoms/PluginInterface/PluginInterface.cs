@@ -229,7 +229,7 @@ namespace PluginInterface
         void SetMapPosition(ShowPosition showPosition);
         void SetMax(int max);
         void SetScreen(object screen);
-
+        void SetUnit(string unit);
         bool IsShowing { get; set; }
         int Number { get; }
     }

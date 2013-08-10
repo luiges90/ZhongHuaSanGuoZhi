@@ -39,6 +39,7 @@
         internal Rectangle SelectionDisplayPosition;
         internal Texture2D SelectionTexture;
         internal bool ShowSelection;
+        internal string unit = "";
 
         private void Backspace()
         {
@@ -258,7 +259,7 @@
             this.RangeText.DisplayOffset = this.DisplayOffset;
             if (this.Max >= 0)
             {
-                this.RangeText.Text = "0 - " + this.Max.ToString();
+                this.RangeText.Text = "0 - " + this.Max.ToString() + this.unit;
             }
             else
             {
@@ -479,6 +480,7 @@
                     this.Max = -1;
                     this.DepthOffset = 0f;
                     this.Num = 0;
+                    this.unit = "";
                     if (this.screen.PopUndoneWork().Kind != UndoneWorkKind.Inputer)
                     {
                         throw new Exception("The UndoneWork is not a NumberInputer.");

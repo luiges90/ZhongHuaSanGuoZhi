@@ -56,7 +56,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 /*architecture.BelongedFaction.Leader.TextResultString = architecture.Name;
                 architecture.BelongedFaction.TextResultString = architecture.Name;
                 this.xianshishijiantupian(architecture.BelongedFaction.Leader, architecture.BelongedFaction.Leader.TextResultString, "ArchitectureBeginRecentlyAttacked", "zaoshougongji.jpg", "", false);
-                this.Plugins.GameRecordPlugin.AddBranch(architecture.BelongedFaction, "zaoshougongji", architecture.Position);*/
+                */
+                architecture.BelongedFaction.TextResultString = architecture.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(architecture.BelongedFaction, "zaoshougongji", architecture.Position);
                 if (architecture.BelongedFaction.StopToControl)
                 {
                     this.Plugins.DateRunnerPlugin.Pause();
