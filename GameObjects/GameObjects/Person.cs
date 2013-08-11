@@ -5676,7 +5676,7 @@
             }
             set
             {
-                if (this.workKind == ArchitectureWorkKind.补充 && value != ArchitectureWorkKind.补充)
+                if (this.workKind == ArchitectureWorkKind.补充 && value != ArchitectureWorkKind.补充 && this.recruitmentMilitary != null)
                 {
                     this.recruitmentMilitary.RecruitmentPerson = null;
                     this.recruitmentMilitary = null;
