@@ -2306,6 +2306,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sourceTroop.Position)) || base.Scenario.CurrentPlayer.IsPositionKnown(destinationTroop.Position)) || GlobalVariables.SkyEye)
             {
+                return;
                 sourceTroop.TextDestinationString = destinationTroop.DisplayName;
                 Person neutralPerson = base.Scenario.NeutralPerson;
                 if (neutralPerson == null)
@@ -2313,49 +2314,81 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     neutralPerson = source;
                 }
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-                if (win==1)
-                {
-                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceWin");
-                    if ((source.PersonTextMessage != null) && (source.PersonTextMessage.DualInitiativeWin.Count > 0))
-                    {
-                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, null, source.PersonTextMessage.DualInitiativeWin[GameObject.Random(source.PersonTextMessage.DualInitiativeWin.Count)]);
-                    }
-                    else
-                    {
-                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, sourceTroop, "TroopPersonChallengeAfterSourceWin");
-                    }
-                }
-                else if (win == 2)
-                {
-                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceLose");
-                    if ((destination.PersonTextMessage != null) && (destination.PersonTextMessage.DualPassiveWin.Count > 0))
-                    {
-                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, null, destination.PersonTextMessage.DualPassiveWin[GameObject.Random(destination.PersonTextMessage.DualPassiveWin.Count)]);
-                    }
-                    else
-                    {
-                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonChallengeAfterSourceLose");
-                    }
-                }
-                else if (win==-1) //win==-1,打平，只有在单挑演示时才有可能发生
-                {
-                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeDraw");
 
+                
+                switch (win)
+                {
+                    case 1: //P1武将胜利
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceWin");
+                        if ((source.PersonTextMessage != null) && (source.PersonTextMessage.DualInitiativeWin.Count > 0))
+                        {
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, null, source.PersonTextMessage.DualInitiativeWin[GameObject.Random(source.PersonTextMessage.DualInitiativeWin.Count)]);
+                        }
+                        else
+                        {
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, sourceTroop, "TroopPersonChallengeAfterSourceWin");
+                        }
+                        this.Plugins.tupianwenziPlugin.IsShowing = true;
+
+                        this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceWin", sourceTroop.Position);
+                        break;
+                    case 2: //2：P2武将胜利
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceLose");
+                        if ((destination.PersonTextMessage != null) && (destination.PersonTextMessage.DualPassiveWin.Count > 0))
+                        {
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, null, destination.PersonTextMessage.DualPassiveWin[GameObject.Random(destination.PersonTextMessage.DualPassiveWin.Count)]);
+                        }
+                        else
+                        {
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonChallengeAfterSourceLose");
+                        }
+                        this.Plugins.tupianwenziPlugin.IsShowing = true;
+
+                        this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceLose", sourceTroop.Position);
+                        break;
+                    case 3: //3：P1武将被杀
+
+                        break;
+                    case 4: //4：P2武将被杀
+
+                        break;
+                    case 5: //5：P1武将逃跑
+
+                        break;
+                    case 6: //6：P2武将逃跑
+
+                        break;
+                    case 7: //7、P1武将被俘虏
+
+                        break;
+                    case 8: //8、P2武将被俘虏
+
+                        break;
+                    case 9: //9、P1武将被拉拢
+                        break;
+                    case 10: //10、P2武将被拉拢
+                        break;
+                    case -1: //-1：平局
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeDraw");
+                        this.Plugins.tupianwenziPlugin.IsShowing = true;
+
+                        this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeDraw", sourceTroop.Position);
+                        break;
+                    case -2: //-2：平局：P1武将被杀
+
+                        break;
+                    case -3: //-3：平局：P2武将被杀
+
+                        break;
+                    case -4: //-4：平局：双方武将被杀
+
+                        break;
                 }
 
-                this.Plugins.tupianwenziPlugin.IsShowing = true;
-                if (win==1)
-                {
-                    this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceWin", sourceTroop.Position);
-                }
-                else if (win == 2)
-                {
-                    this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceLose", sourceTroop.Position);
-                }
-                else if (win == -1)//win==-1,打平，只有在单挑演示时才有可能发生
-                {
-                    this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeDraw", sourceTroop.Position);
-                }
+
+
+
+
             }
         }
 

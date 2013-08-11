@@ -928,7 +928,13 @@
             {
                 locationTroop = this.LocationTroop; 
                 locationArchitecture = this.LocationTroop.StartingArchitecture;
-                this.LocationTroop.PersonDeathRoutORChangeLeader(this);
+                if (!locationTroop.Destroyed)
+                {
+                    locationTroop.Persons.Remove(this);
+                    this.LocationTroop = null;
+                    locationTroop.RefreshAfterLosePerson();
+                }
+
             }
             else if (this.LocationArchitecture != null)
             {

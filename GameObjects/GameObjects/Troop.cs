@@ -2331,15 +2331,9 @@
                 {
                     foreach (Person person in personlist)
                     {
-                        person.LocationTroop.persons.Remove(person);
-                        Captive captive = Captive.Create(base.Scenario, person, this.BelongedFaction);
-                        if (captive != null)
-                        {
-                            this.AddCaptive(captive);
-                        }
-                        person.LocationTroop = this;
+                        this.CatchCaptiveFromTroop(person);
 
-                        this.Leader.CaptiveCount++;
+
 
 						ExtensionInterface.call("CapturedByTroop", new Object[] { this.Scenario, this, person });
                     }
@@ -2349,6 +2343,19 @@
                     }
                 }
             }
+        }
+
+        internal void CatchCaptiveFromTroop(Person person)
+        {
+            person.LocationTroop.persons.Remove(person);
+            Captive captive = Captive.Create(base.Scenario, person, this.BelongedFaction);
+            if (captive != null)
+            {
+                this.AddCaptive(captive);
+            }
+            person.LocationTroop = this;
+
+            this.Leader.CaptiveCount++;
         }
 
         private void CheckCaptiveOnOccupy(Architecture a)
@@ -2432,12 +2439,10 @@
             return secondTierPath;
         }
 
-        public void PersonDeathRoutORChangeLeader(Person person)
+        public void RefreshAfterLosePerson()
         {
             if (!this.Destroyed)
             {
-                this.Persons.Remove(person);
-                person.LocationTroop = null;
                 if (this.PersonCount == 0)
                 {
                     //CheckTroopRout(this);
@@ -5943,6 +5948,20 @@
             damage.SourceTroop.Leader.TroopDamageDealt += damage.Damage;
             damage.DestinationTroop.Leader.TroopBeDamageDealt += damage.Damage;
 
+            if (damage.ChallengeHappened)  //处理单挑结果
+            {
+                /*
+                this.CurrentSourceChallengePerson = damage.ChallengeSourcePerson;
+                this.CurrentDestinationChallengePerson = damage.ChallengeDestinationPerson;
+                if (this.OnPersonChallenge != null)
+                {
+                    this.OnPersonChallenge(damage.ChallengeResult, damage.SourceTroop, this.CurrentSourceChallengePerson, damage.DestinationTroop, this.CurrentDestinationChallengePerson);
+                }
+                */
+                Challenge challeng = new Challenge();
+                challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
+            }
+
             if (damage.AntiAttack)
             {
                 animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.抵挡, damage.DestinationTroop.Position, false);
@@ -5969,19 +5988,7 @@
             }
             else
             {
-                if (damage.ChallengeHappened)  //处理单挑结果
-                {
-                    /*
-                    this.CurrentSourceChallengePerson = damage.ChallengeSourcePerson;
-                    this.CurrentDestinationChallengePerson = damage.ChallengeDestinationPerson;
-                    if (this.OnPersonChallenge != null)
-                    {
-                        this.OnPersonChallenge(damage.ChallengeResult, damage.SourceTroop, this.CurrentSourceChallengePerson, damage.DestinationTroop, this.CurrentDestinationChallengePerson);
-                    }
-                    */
-                    Challenge challeng = new Challenge();
-                    challeng.HandleChallengeResult(damage,damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
-                }
+
 
                 if (damage.OnFire && base.Scenario.IsFireVaild(damage.DestinationTroop.Position, false, MilitaryType.步兵))
                 {

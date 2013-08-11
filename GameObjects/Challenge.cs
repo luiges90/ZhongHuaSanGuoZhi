@@ -20,7 +20,7 @@
 	{
         internal void ChallgenEvent(Troop sourceTroop, Troop troop, TroopDamage damage, GameScenario gameScenario)
         {
-            if ((!sourceTroop.IsFriendly(troop.BelongedFaction) && !sourceTroop.AirOffence) && GameObject.Chance(120))  //此处无GlobalVariables.ChallengeOftenShow
+            if ((!sourceTroop.IsFriendly(troop.BelongedFaction) && !sourceTroop.AirOffence) && GameObject.Chance(20))  //此处无GlobalVariables.ChallengeOftenShow
             {
                 Person maxStrengthPerson = sourceTroop.Persons.GetMaxStrengthPerson();
                 Person destination = troop.Persons.GetMaxStrengthPerson();
@@ -39,12 +39,12 @@
         {
             int flag = 0;
             damage.ChallengeHappened = true;  //单挑发生
-            if (GlobalVariables.ShowChallengeAnimation && (scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || scenario.IsPlayer(destination.BelongedFaction)))  //单挑双方有玩家的武将才演示
+            if (GlobalVariables.ChallengeOftenShow || GlobalVariables.ShowChallengeAnimation && (scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || scenario.IsPlayer(destination.BelongedFaction)))  //单挑双方有玩家的武将才演示
             {
                 try
                 {
-                    int returnValue=3;
-                    //returnValue = this.challengeShow(maxStrengthPerson, destination);
+                    int returnValue;
+                    returnValue = this.challengeShow(maxStrengthPerson, destination);
                     if (returnValue >= -4 && returnValue <= 10 && returnValue != 0)
                     {
                         flag = returnValue;
@@ -65,7 +65,7 @@
                 flag = (GameObject.Chance(chance) ? 1 : 2);
             }
 
-            flag = -4;
+            //flag = -4;
 
             damage.ChallengeResult = flag;
             damage.ChallengeSourcePerson = maxStrengthPerson;
@@ -165,8 +165,20 @@
                     damage.DestinationMoraleChange -= 20;
                     break;
                 case 7: //7、P1武将被俘虏
+                    destinationTroop.CatchCaptiveFromTroop(sourcePerson);
+                    sourceTroop.RefreshAfterLosePerson();
+                    damage.SourceMoraleChange -= 20;
+                    damage.DestinationMoraleChange += 20;
+                    damage.SourceCombativityChange -= 20;
+                    damage.DestinationCombativityChange += 20;
                     break;
                 case 8: //8、P2武将被俘虏
+                    sourceTroop.CatchCaptiveFromTroop(destinationPerson);
+                    destinationTroop.RefreshAfterLosePerson();
+                    damage.SourceMoraleChange += 20;
+                    damage.DestinationMoraleChange -= 20;
+                    damage.SourceCombativityChange += 20;
+                    damage.DestinationCombativityChange -= 20; 
                     break;
                 case 9: //9、P1武将被拉拢
                     break;
