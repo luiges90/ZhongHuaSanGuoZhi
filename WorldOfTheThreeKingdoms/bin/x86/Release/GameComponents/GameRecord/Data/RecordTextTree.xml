@@ -64,6 +64,13 @@
     <Leaf Text="死亡。" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="PersonDeathInChallenge">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4292673536"></Leaf>
+    <Leaf Text="在单挑中阵亡。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
   <Branch Name="PersonLeave">
     <Leaf Property="TextDestinationString" Color="4292673536"></Leaf>
     <Leaf Text="于" Color="4294967295"></Leaf>

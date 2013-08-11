@@ -921,15 +921,36 @@
 
         public void ToDeath()
         {
-            Architecture locationArchitecture = this.LocationArchitecture;
+            Architecture locationArchitecture;
+            Troop locationTroop=new Troop();
             GameObjects.Faction belongedFaction = this.BelongedFaction;
+            if (this.LocationTroop != null)
+            {
+                locationTroop = this.LocationTroop; 
+                locationArchitecture = this.LocationTroop.StartingArchitecture;
+                this.LocationTroop.PersonDeathRoutORChangeLeader(this);
+            }
+            else if (this.LocationArchitecture != null)
+            {
+                locationArchitecture = this.LocationArchitecture;
+            }
+            else
+            {
+                throw new Exception("try to kill person onway");
+            }
+            
+            
             this.Alive = false;  //死亡
             this.BelongedCaptive = null;
             this.LocationArchitecture = null;
             this.Status = PersonStatus.None;
-            if (this.OnDeath != null && locationArchitecture !=null )
+            if (this.OnDeath != null && locationArchitecture != null && locationTroop == null)
             {
                 this.OnDeath(this, locationArchitecture);
+            }
+            else if (locationTroop != null)
+            {
+                base.Scenario.GameScreen.PersonDeathInChallenge(this, locationTroop);
             }
             if (belongedFaction != null && this == belongedFaction.Leader)
             {

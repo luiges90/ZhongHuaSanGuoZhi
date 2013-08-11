@@ -370,6 +370,11 @@
         {
         }
 
+        public virtual void PersonDeathInChallenge(Person person, Troop troop)
+        {
+        }
+
+
         public virtual void PersonDeathChangeFaction(Person dead, Person leader, string oldName)
         {
         }

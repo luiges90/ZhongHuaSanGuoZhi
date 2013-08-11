@@ -279,6 +279,12 @@
     <Leaf Property="TextResultString" Color="4292673536"></Leaf>
     <Leaf Text="的势力灭亡了……" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="renwusiwangInChallenge">
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="在单挑中阵亡。" Color="4294967295"></Leaf>
+  </Branch>
   <Branch Name="renwusiwang">
     <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
     <Leaf Text="的" Color="4294967295"></Leaf>

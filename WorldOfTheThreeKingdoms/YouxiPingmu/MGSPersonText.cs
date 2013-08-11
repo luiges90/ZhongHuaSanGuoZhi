@@ -526,6 +526,26 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             location.TextDestinationString = person.Name;
             this.Plugins.GameRecordPlugin.AddBranch(location, "PersonDeath", location.Position);
+            Person neutralPerson;
+            neutralPerson = this.getNeutralPerson();
+
+            this.xianshishijiantupian(neutralPerson, person.Name, "renwusiwang", person.ID.ToString() , "renwusiwang.wav",location.Name ,true);
+
+        }
+
+        public override void PersonDeathInChallenge(Person person, Troop troop)
+        {
+            troop.TextDestinationString = person.Name;
+            this.Plugins.GameRecordPlugin.AddBranch(troop, "PersonDeathInChallenge", troop.Position);
+            Person neutralPerson;
+            neutralPerson = this.getNeutralPerson();
+
+            this.xianshishijiantupian(neutralPerson, person.Name, "renwusiwangInChallenge", person.ID.ToString(), "renwusiwang.wav", troop.DisplayName, true);
+
+        }
+
+        private Person getNeutralPerson()
+        {
             Person neutralPerson = base.Scenario.NeutralPerson;
             if (neutralPerson == null)
             {
@@ -537,17 +557,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     if (base.Scenario.Factions.Count <= 0)
                     {
-                        return;
+                        return null;
                     }
                     neutralPerson = (base.Scenario.Factions[0] as Faction).Leader;
                 }
             }
-            this.xianshishijiantupian(neutralPerson, person.Name, "renwusiwang", person.ID.ToString() , "renwusiwang.wav",location.Name ,true);
-            /*
-            this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, location, "PersonDeath");
-            this.Plugins.tupianwenziPlugin.IsShowing = true;
-             */
+            return neutralPerson;
         }
 
         public override void PersonDeathChangeFaction(Person dead, Person leader, string oldName)

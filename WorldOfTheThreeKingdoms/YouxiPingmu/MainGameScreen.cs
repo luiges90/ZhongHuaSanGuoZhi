@@ -2337,7 +2337,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonChallengeAfterSourceLose");
                     }
                 }
-                else  //win==-1,打平，只有在单挑演示时才有可能发生
+                else if (win==-1) //win==-1,打平，只有在单挑演示时才有可能发生
                 {
                     this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeDraw");
 
@@ -2352,7 +2352,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceLose", sourceTroop.Position);
                 }
-                else //win==-1,打平，只有在单挑演示时才有可能发生
+                else if (win == -1)//win==-1,打平，只有在单挑演示时才有可能发生
                 {
                     this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeDraw", sourceTroop.Position);
                 }

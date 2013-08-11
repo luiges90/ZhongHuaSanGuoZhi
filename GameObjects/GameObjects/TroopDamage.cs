@@ -13,7 +13,8 @@
         public int ChallengeResult;
         public Person ChallengeSourcePerson;
         public bool Chaos;
-        public int CombativityDown;
+        public int DestinationCombativityChange;
+        public int SourceCombativityChange;
         public bool Counter;
         public int CounterCombativityDown;
         public int CounterDamage;
