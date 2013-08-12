@@ -582,4 +582,14 @@
 	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
 	<Leaf Text="吗？" Color="4294967295"></Leaf>
   </Branch>
+
+  <Branch Name="PersonConvinceSuccess">
+    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="成功的说服" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="加入" Color="4294967295"></Leaf>
+    <Leaf Property="Faction" Color="4278255360"></Leaf>
+    <Leaf Text="的势力。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
 </Root>

@@ -1378,57 +1378,9 @@
 
                     if (ConvinceSuccess)
                     {
-                        GameObjects.Faction belongedFaction = null;
-                        if (this.ConvincingPerson.BelongedFaction != null)
-                        {
-                            belongedFaction = this.ConvincingPerson.BelongedFaction;
-                            base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.ConvincingPerson.BelongedFaction.ID, -10);
-                            if (this.ConvincingPerson.BelongedFaction.Leader.hasStrainTo(this.ConvincingPerson))
-                            {
-                                base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.ConvincingPerson.BelongedFaction.ID, -10);
-                            }
-                            if (this.ConvincingPerson.BelongedFaction.Leader.hasCloseStrainTo(this.ConvincingPerson))
-                            {
-                                base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.ConvincingPerson.BelongedFaction.ID, -10);
-                            }
-                            this.ConvincingPerson.RebelCount++;
-                        }
+                        this.ConvincePersonSuccess(this.ConvincingPerson);
 
-                        Architecture from = null;
-                        if (this.ConvincingPerson.IsCaptive)
-                        {
-                            from = this.ConvincingPerson.BelongedCaptive.LocationArchitecture;
-                            this.ConvincingPerson.Status = PersonStatus.Normal;
-                            this.ConvincingPerson.BelongedCaptive = null;
-                        }
-                        else
-                        {
-                            from = this.ConvincingPerson.LocationArchitecture;
-                        }
 
-                        this.ConvincingPerson.ChangeFaction(this.BelongedFaction);
-                        if (from == null)
-                        {
-                            this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture, null);
-                        }
-                        else
-                        {
-                            this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Area[0]);
-                        }
-
-                        /*if (!(flag || (this.ConvincingPerson.LocationArchitecture == null)))
-                        {
-                            this.ConvincingPerson.LocationArchitecture.RemovePerson(this.ConvincingPerson);
-                        }*/
-                        this.AddGlamourExperience(40);
-                        this.IncreaseReputation(40);
-                        this.BelongedFaction.IncreaseReputation(20 * this.MultipleOfTacticsReputation);
-                        this.BelongedFaction.IncreaseTechniquePoint((20 * this.MultipleOfTacticsTechniquePoint) * 100);
-						ExtensionInterface.call("DoConvinceSuccess", new Object[] { this.Scenario, this });
-                        if (this.OnConvinceSuccess != null)
-                        {
-                            this.OnConvinceSuccess(this, this.ConvincingPerson, belongedFaction);
-                        }
                         if (architectureByPosition.BelongedFaction != this.BelongedFaction)
                         {
                             CheckCapturedByArchitecture(architectureByPosition);
@@ -1441,6 +1393,104 @@
 							this.OnConvinceFailed(this, this.ConvincingPerson);
 						}
                     }
+                }
+            }
+        }
+
+        internal void ConvincePersonSuccess(Person person)
+        {
+            if (this.BelongedFaction == null)  //盗贼不能说服武将
+            {
+                return;
+            }
+            GameObjects.Faction belongedFaction = null;
+            if (person.BelongedFaction != null && this.BelongedFaction!=null)
+            {
+                belongedFaction = person.BelongedFaction;
+                base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
+                if (person.BelongedFaction.Leader.hasStrainTo(person))
+                {
+                    base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
+                }
+                if (person.BelongedFaction.Leader.hasCloseStrainTo(person))
+                {
+                    base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
+                }
+                person.RebelCount++;
+            }
+
+            Architecture from = null;
+            if (person.IsCaptive)
+            {
+                from = person.BelongedCaptive.LocationArchitecture;
+                person.Status = PersonStatus.Normal;
+                person.BelongedCaptive = null;
+            }
+            else if (person.LocationTroop != null)
+            {
+                from = person.LocationTroop.StartingArchitecture;
+            }
+            else
+            {
+                from = person.LocationArchitecture;
+            }
+
+            person.ChangeFaction(this.BelongedFaction);
+
+            if (person.LocationTroop != null)  //单挑中说服敌人
+            {
+                this.ConvincePersonInTroop(person);
+            }
+            else if (from == null)
+            {
+                person.MoveToArchitecture(this.TargetArchitecture, null);
+            }
+            else
+            {
+                person.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Area[0]);
+            }
+
+            /*if (!(flag || (person.LocationArchitecture == null)))
+            {
+                person.LocationArchitecture.RemovePerson(person);
+            }*/
+            this.AddGlamourExperience(40);
+            this.IncreaseReputation(40);
+            this.BelongedFaction.IncreaseReputation(20 * this.MultipleOfTacticsReputation);
+            this.BelongedFaction.IncreaseTechniquePoint((20 * this.MultipleOfTacticsTechniquePoint) * 100);
+
+            ExtensionInterface.call("DoConvinceSuccess", new Object[] { this.Scenario, this });
+            if (this.OnConvinceSuccess != null)
+            {
+                this.OnConvinceSuccess(this, person, belongedFaction);
+            }
+        }
+
+        private void ConvincePersonInTroop(Person person)
+        {
+            if (person.LocationTroop.PersonCount >= 2)
+            {
+                if (!person.LocationTroop.Destroyed)
+                {
+                    Troop locationTroop = person.LocationTroop;
+
+                    person.LocationTroop.Persons.Remove(person);
+                    person.LocationTroop = null;
+                    locationTroop.RefreshAfterLosePerson();
+                    person.MoveToArchitecture(this.BelongedFaction.Capital, locationTroop.Position);
+
+                }
+                else
+                {
+                    person.MoveToArchitecture(this.BelongedFaction.Capital, null);
+
+                }
+            }
+            else
+            {
+                if (!person.LocationTroop.Destroyed)
+                {
+                    person.LocationTroop.ChangeFaction(this.BelongedFaction);
                 }
             }
         }

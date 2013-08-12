@@ -18,7 +18,7 @@
     using System.Diagnostics;
 	internal class Challenge
 	{
-        private bool ChallengeOftenShow = true;  //调试单挑程序用，默认为false
+        private bool ChallengeOftenShow = true;  //暴击必然触发单挑，调试单挑程序用，默认为false
 
 
         internal void ChallgenEvent(Troop sourceTroop, Troop troop, TroopDamage damage, GameScenario gameScenario)
@@ -48,6 +48,7 @@
                 {
                     int returnValue;
                     returnValue = this.challengeShow(maxStrengthPerson, destination);
+                    //returnValue = 10;
                     if (returnValue >= -4 && returnValue <= 10 && returnValue != 0)
                     {
                         flag = returnValue;
@@ -183,9 +184,16 @@
                     damage.SourceCombativityChange += 20;
                     damage.DestinationCombativityChange -= 20; 
                     break;
-                case 9: //9、P1武将被拉拢
+                case 9: //9、P1武将被说服
+                    destinationPerson.ConvincePersonSuccess(sourcePerson);
+                    damage.SourceCombativityChange -= 30;
+                    damage.DestinationCombativityChange += 30;
                     break;
-                case 10: //10、P2武将被拉拢
+                case 10: //10、P2武将被说服
+                    sourcePerson.ConvincePersonSuccess(destinationPerson);
+
+                    damage.SourceCombativityChange += 30;
+                    damage.DestinationCombativityChange -= 30; 
                     break;
                 case -1: //-1：平局
                     break;
@@ -203,6 +211,8 @@
 
 
         }
+
+
 
         private void challengePersonDie(Person challengePerson,Troop troop)
         {
