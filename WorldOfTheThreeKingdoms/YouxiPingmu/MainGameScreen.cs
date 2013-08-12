@@ -800,6 +800,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     break;
 
+                case SelectingUndoneWorkKind.JailBreakPosition:
+                    if (this.CurrentArchitecture != null)
+                    {
+                        this.selectingLayer.AreaFrameKind = SelectingUndoneWorkKind.JailBreakPosition;
+                        this.selectingLayer.Area = this.CurrentArchitecture.GetJailBreakArchitectureArea();
+                        this.selectingLayer.ShowComment = true;
+                        this.selectingLayer.SingleWay = true;
+                        this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
+                    }
+                    break;
+
                 case SelectingUndoneWorkKind.TroopDestination:
                     if (this.CurrentTroop != null)
                     {
@@ -981,6 +992,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         foreach (Person person in this.CurrentPersons)
                         {
                             person.GoForGossip(this.selectingLayer.SelectedPoint);
+                        }
+                        base.PlayNormalSound("GameSound/Tactics/Outside.wav");
+                    }
+                    return;
+
+                case SelectingUndoneWorkKind.JailBreakPosition:
+                    if (!this.selectingLayer.Canceled)
+                    {
+                        foreach (Person person in this.CurrentPersons)
+                        {
+                            person.GoForJailBreak(this.selectingLayer.SelectedPoint);
                         }
                         base.PlayNormalSound("GameSound/Tactics/Outside.wav");
                     }
