@@ -1662,7 +1662,6 @@
                 this.Scenario.CurrentPlayer = null;
                 foreach (Architecture architecture in this.Scenario.Architectures)
                 {
-                    architecture.Persons.Clear();
                     architecture.Militaries.Clear();
                     architecture.Facilities.Clear();
                     architecture.BelongedSection = null;
