@@ -18,16 +18,19 @@
     using System.Diagnostics;
 	internal class Challenge
 	{
+        private bool ChallengeOftenShow = true;  //调试单挑程序用，默认为false
+
+
         internal void ChallgenEvent(Troop sourceTroop, Troop troop, TroopDamage damage, GameScenario gameScenario)
         {
-            if ((!sourceTroop.IsFriendly(troop.BelongedFaction) && !sourceTroop.AirOffence) && GameObject.Chance(20))  //此处无GlobalVariables.ChallengeOftenShow
+            if ((!sourceTroop.IsFriendly(troop.BelongedFaction) && !sourceTroop.AirOffence) && (this.ChallengeOftenShow || GameObject.Chance(20)))
             {
                 Person maxStrengthPerson = sourceTroop.Persons.GetMaxStrengthPerson();
                 Person destination = troop.Persons.GetMaxStrengthPerson();
-                if (((maxStrengthPerson != null) && (destination != null)) && (GlobalVariables.ChallengeOftenShow || (GameObject.Random(GameObject.Square(destination.Calmness)) < GameObject.Random(0x19))))
+                if (((maxStrengthPerson != null) && (destination != null)) && (this.ChallengeOftenShow || (GameObject.Random(GameObject.Square(destination.Calmness)) < GameObject.Random(0x19))))
                 {
                     int chance = Person.ChanlengeWinningChance(maxStrengthPerson, destination);
-                    if (GlobalVariables.ChallengeOftenShow||(maxStrengthPerson.Character.ChallengeChance + chance) >= 60)
+                    if (this.ChallengeOftenShow || (maxStrengthPerson.Character.ChallengeChance + chance) >= 60)
                     {
                         this.challengeHappen(damage, maxStrengthPerson, destination, chance, gameScenario);
                     }
@@ -39,7 +42,7 @@
         {
             int flag = 0;
             damage.ChallengeHappened = true;  //单挑发生
-            if (GlobalVariables.ChallengeOftenShow || GlobalVariables.ShowChallengeAnimation && (scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || scenario.IsPlayer(destination.BelongedFaction)))  //单挑双方有玩家的武将才演示
+            if (this.ChallengeOftenShow || GlobalVariables.ShowChallengeAnimation && (scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || scenario.IsPlayer(destination.BelongedFaction)))  //单挑双方有玩家的武将才演示
             {
                 try
                 {

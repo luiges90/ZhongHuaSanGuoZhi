@@ -7,7 +7,6 @@
 
     public class GlobalVariables
     {
-        public static bool ChallengeOftenShow = false;  //调试单挑程序用，默认为false
         public static bool WujiangYoukenengDuli = true;
         public static bool LiangdaoXitong = false;
         public static bool ShowGrid = false;

@@ -2302,16 +2302,22 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
         }
 
-        public override void TroopPersonChallenge(int  win, Troop sourceTroop, Person source, Troop destinationTroop, Person destination)
+        public override void TroopPersonChallenge(int  win, Troop sourceTroop, Person P1, Troop destinationTroop, Person P2)
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sourceTroop.Position)) || base.Scenario.CurrentPlayer.IsPositionKnown(destinationTroop.Position)) || GlobalVariables.SkyEye)
             {
-                return;
                 sourceTroop.TextDestinationString = destinationTroop.DisplayName;
+                sourceTroop.CurrentSourceChallengePersonName=P1.Name;
+                sourceTroop.CurrentDestinationChallengePersonName = P2.Name;
+
+                destinationTroop.TextDestinationString = sourceTroop.DisplayName;
+                destinationTroop.CurrentSourceChallengePersonName = P1.Name;
+                destinationTroop.CurrentDestinationChallengePersonName = P2.Name;
+
                 Person neutralPerson = base.Scenario.NeutralPerson;
                 if (neutralPerson == null)
                 {
-                    neutralPerson = source;
+                    neutralPerson = P1;
                 }
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
 
@@ -2320,13 +2326,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     case 1: //P1武将胜利
                         this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceWin");
-                        if ((source.PersonTextMessage != null) && (source.PersonTextMessage.DualInitiativeWin.Count > 0))
+                        if ((P1.PersonTextMessage != null) && (P1.PersonTextMessage.DualInitiativeWin.Count > 0))
                         {
-                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, null, source.PersonTextMessage.DualInitiativeWin[GameObject.Random(source.PersonTextMessage.DualInitiativeWin.Count)]);
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(P1, null, P1.PersonTextMessage.DualInitiativeWin[GameObject.Random(P1.PersonTextMessage.DualInitiativeWin.Count)]);
                         }
                         else
                         {
-                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, sourceTroop, "TroopPersonChallengeAfterSourceWin");
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(P1, sourceTroop, "TroopPersonChallengeAfterSourceWin");
                         }
                         this.Plugins.tupianwenziPlugin.IsShowing = true;
 
@@ -2334,35 +2340,41 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         break;
                     case 2: //2：P2武将胜利
                         this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceLose");
-                        if ((destination.PersonTextMessage != null) && (destination.PersonTextMessage.DualPassiveWin.Count > 0))
+                        if ((P2.PersonTextMessage != null) && (P2.PersonTextMessage.DualPassiveWin.Count > 0))
                         {
-                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, null, destination.PersonTextMessage.DualPassiveWin[GameObject.Random(destination.PersonTextMessage.DualPassiveWin.Count)]);
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(P2, null, P2.PersonTextMessage.DualPassiveWin[GameObject.Random(P2.PersonTextMessage.DualPassiveWin.Count)]);
                         }
                         else
                         {
-                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, sourceTroop, "TroopPersonChallengeAfterSourceLose");
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(P2, sourceTroop, "TroopPersonChallengeAfterSourceLose");
                         }
                         this.Plugins.tupianwenziPlugin.IsShowing = true;
 
                         this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceLose", sourceTroop.Position);
                         break;
                     case 3: //3：P1武将被杀
+                        this.PersonDeathInChallenge(P1, sourceTroop);
 
                         break;
                     case 4: //4：P2武将被杀
+                        this.PersonDeathInChallenge(P2, destinationTroop);
 
                         break;
                     case 5: //5：P1武将逃跑
-
+                        this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeEscape", sourceTroop.Position);
                         break;
                     case 6: //6：P2武将逃跑
-
+                        this.Plugins.GameRecordPlugin.AddBranch(destinationTroop, "TroopPersonChallengeEscape", destinationTroop.Position);
                         break;
                     case 7: //7、P1武将被俘虏
-
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceBeCaptured");
+                        this.Plugins.tupianwenziPlugin.IsShowing = true;
+                        this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeSourceBeCaptured", sourceTroop.Position);
                         break;
                     case 8: //8、P2武将被俘虏
-
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, destinationTroop, "TroopPersonChallengeDestinationBeCaptured");
+                        this.Plugins.tupianwenziPlugin.IsShowing = true;
+                        this.Plugins.GameRecordPlugin.AddBranch(destinationTroop, "TroopPersonChallengeDestinationBeCaptured", destinationTroop.Position);
                         break;
                     case 9: //9、P1武将被拉拢
                         break;
@@ -2375,13 +2387,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeDraw", sourceTroop.Position);
                         break;
                     case -2: //-2：平局：P1武将被杀
-
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeDraw");
+                        this.PersonDeathInChallenge(P1, sourceTroop);
+                        
+                        //this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeDraw", sourceTroop.Position);
                         break;
                     case -3: //-3：平局：P2武将被杀
-
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeDraw");
+                        this.PersonDeathInChallenge(P2, destinationTroop);
+                        
+                        //this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeDraw", sourceTroop.Position);
                         break;
                     case -4: //-4：平局：双方武将被杀
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeDraw");
 
+                        this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeDraw", sourceTroop.Position);
+                        this.PersonDeathInChallenge(P1, sourceTroop);
+                        this.PersonDeathInChallenge(P2, destinationTroop);
                         break;
                 }
 

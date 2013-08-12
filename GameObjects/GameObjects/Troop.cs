@@ -120,11 +120,11 @@
         private int criticalStrikeChance;
         private CombatMethod currentCombatMethod;
         private int currentCombatMethodID = -1;
-        private Person CurrentDestinationChallengePerson;
+        //private Person CurrentDestinationChallengePerson;
         private Person CurrentDestinationControversyPerson;
         public OutburstKind CurrentOutburstKind;
         private List<Point> CurrentPath;
-        private Person CurrentSourceChallengePerson;
+        //private Person CurrentSourceChallengePerson;
         private Person CurrentSourceControversyPerson;
         private Stratagem currentStratagem;
         private int currentStratagemID = -1;
@@ -5948,19 +5948,7 @@
             damage.SourceTroop.Leader.TroopDamageDealt += damage.Damage;
             damage.DestinationTroop.Leader.TroopBeDamageDealt += damage.Damage;
 
-            if (damage.ChallengeHappened)  //处理单挑结果
-            {
-                /*
-                this.CurrentSourceChallengePerson = damage.ChallengeSourcePerson;
-                this.CurrentDestinationChallengePerson = damage.ChallengeDestinationPerson;
-                if (this.OnPersonChallenge != null)
-                {
-                    this.OnPersonChallenge(damage.ChallengeResult, damage.SourceTroop, this.CurrentSourceChallengePerson, damage.DestinationTroop, this.CurrentDestinationChallengePerson);
-                }
-                */
-                Challenge challeng = new Challenge();
-                challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
-            }
+
 
             if (damage.AntiAttack)
             {
@@ -5988,7 +5976,19 @@
             }
             else
             {
-
+                if (damage.ChallengeHappened)  //处理单挑结果
+                {
+                    /*
+                    this.CurrentSourceChallengePerson = damage.ChallengeSourcePerson;
+                    this.CurrentDestinationChallengePerson = damage.ChallengeDestinationPerson;
+                    if (this.OnPersonChallenge != null)
+                    {
+                        this.OnPersonChallenge(damage.ChallengeResult, damage.SourceTroop, this.CurrentSourceChallengePerson, damage.DestinationTroop, this.CurrentDestinationChallengePerson);
+                    }
+                    */
+                    Challenge challeng = new Challenge();
+                    challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
+                }
 
                 if (damage.OnFire && base.Scenario.IsFireVaild(damage.DestinationTroop.Position, false, MilitaryType.步兵))
                 {
@@ -8707,7 +8707,7 @@
             damage.InjuredDamage = (int) (this.reduceInjuredOnAttack * damage.DestinationTroop.Army.Kind.MinScale);
             damage.TirednessIncrease = this.TirednessIncreaseOnAttack;
             damage.StealFood = Math.Min(damage.DestinationTroop.Food, this.StealFood);
-            if (GlobalVariables.ChallengeOftenShow||damage.Critical) //控制单挑发生相关
+            if (damage.Critical) //控制单挑发生相关
             {
                 this.PreAction = TroopPreAction.暴击;
                 num4 = (int) ((num4 * 1.5f) * troop.RateOfCriticalDamageReceived);
@@ -10441,13 +10441,8 @@
             }
         }
 
-        public string CurrentDestinationChallengePersonName
-        {
-            get
-            {
-                return this.CurrentDestinationChallengePerson.Name;
-            }
-        }
+        public string CurrentDestinationChallengePersonName;
+
 
         public string CurrentDestinationControversyPersonName
         {
@@ -10473,13 +10468,8 @@
             }
         }
 
-        public string CurrentSourceChallengePersonName
-        {
-            get
-            {
-                return this.CurrentSourceChallengePerson.Name;
-            }
-        }
+        public string CurrentSourceChallengePersonName;
+
 
         public string CurrentSourceControversyPersonName
         {

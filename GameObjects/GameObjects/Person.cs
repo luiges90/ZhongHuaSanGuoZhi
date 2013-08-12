@@ -924,10 +924,12 @@
             Architecture locationArchitecture;
             Troop locationTroop=new Troop();
             GameObjects.Faction belongedFaction = this.BelongedFaction;
+            int deathLocation = 0;
             if (this.LocationTroop != null)
             {
                 locationTroop = this.LocationTroop; 
                 locationArchitecture = this.LocationTroop.StartingArchitecture;
+                deathLocation = 2;
                 if (!locationTroop.Destroyed)
                 {
                     locationTroop.Persons.Remove(this);
@@ -939,9 +941,11 @@
             else if (this.LocationArchitecture != null)
             {
                 locationArchitecture = this.LocationArchitecture;
+                deathLocation = 1;
             }
             else
             {
+                deathLocation = 3;
                 throw new Exception("try to kill person onway");
             }
             
@@ -950,14 +954,11 @@
             this.BelongedCaptive = null;
             this.LocationArchitecture = null;
             this.Status = PersonStatus.None;
-            if (this.OnDeath != null && locationArchitecture != null && locationTroop == null)
+            if (this.OnDeath != null && locationArchitecture != null && deathLocation == 1)
             {
                 this.OnDeath(this, locationArchitecture);
             }
-            else if (locationTroop != null)
-            {
-                base.Scenario.GameScreen.PersonDeathInChallenge(this, locationTroop);
-            }
+
             if (belongedFaction != null && this == belongedFaction.Leader)
             {
                 string name = belongedFaction.Name;
