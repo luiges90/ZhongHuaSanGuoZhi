@@ -2307,10 +2307,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sourceTroop.Position)) || base.Scenario.CurrentPlayer.IsPositionKnown(destinationTroop.Position)) || GlobalVariables.SkyEye)
             {
                 sourceTroop.TextDestinationString = destinationTroop.DisplayName;
+                sourceTroop.TextResultString = P1.Name;
                 sourceTroop.CurrentSourceChallengePersonName=P1.Name;
                 sourceTroop.CurrentDestinationChallengePersonName = P2.Name;
 
                 destinationTroop.TextDestinationString = sourceTroop.DisplayName;
+                destinationTroop.TextResultString = P2.Name;
                 destinationTroop.CurrentSourceChallengePersonName = P1.Name;
                 destinationTroop.CurrentDestinationChallengePersonName = P2.Name;
 
@@ -2361,9 +2363,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                         break;
                     case 5: //5：P1武将逃跑
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeEscape");
+                        this.Plugins.tupianwenziPlugin.IsShowing = true;
                         this.Plugins.GameRecordPlugin.AddBranch(sourceTroop, "TroopPersonChallengeEscape", sourceTroop.Position);
                         break;
                     case 6: //6：P2武将逃跑
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, destinationTroop, "TroopPersonChallengeEscape");
+                        this.Plugins.tupianwenziPlugin.IsShowing = true;
                         this.Plugins.GameRecordPlugin.AddBranch(destinationTroop, "TroopPersonChallengeEscape", destinationTroop.Position);
                         break;
                     case 7: //7、P1武将被俘虏

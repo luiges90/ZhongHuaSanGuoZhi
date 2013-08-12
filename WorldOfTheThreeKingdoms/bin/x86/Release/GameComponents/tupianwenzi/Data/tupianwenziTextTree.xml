@@ -148,6 +148,13 @@
     <Leaf Text="俘虏。" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="TroopPersonChallengeEscape">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4292673536"></Leaf>
+    <Leaf Text="在单挑中处于劣势，趁机逃跑。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
   <Branch Name="TroopPersonChallengeDestinationBeCaptured">
     <Leaf Property="DisplayName" Color="4278223103"></Leaf>
     <Leaf Text="的" Color="4294967295"></Leaf>
