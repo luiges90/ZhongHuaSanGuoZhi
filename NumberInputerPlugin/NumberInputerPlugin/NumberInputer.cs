@@ -40,6 +40,7 @@
         internal Texture2D SelectionTexture;
         internal bool ShowSelection;
         internal string unit = "";
+        internal int Scale = 1;
 
         private void Backspace()
         {
@@ -479,6 +480,7 @@
                 {
                     this.Max = -1;
                     this.DepthOffset = 0f;
+                    this.Scale = 1;
                     this.Num = 0;
                     this.unit = "";
                     if (this.screen.PopUndoneWork().Kind != UndoneWorkKind.Inputer)

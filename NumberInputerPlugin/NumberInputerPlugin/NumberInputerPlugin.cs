@@ -100,9 +100,15 @@
         {
             this.numberInputer.EnterFunction = function;
         }
+
         public void SetUnit(string unit)
         {
             this.numberInputer.unit = unit;
+        }
+
+        public void SetScale(int scale)
+        {
+            this.numberInputer.Scale = scale;
         }
 
         public void SetGraphicsDevice(GraphicsDevice device)
@@ -118,7 +124,7 @@
 
         public void SetMax(int max)
         {
-            this.numberInputer.Max = max;
+            this.numberInputer.Max = max / Scale;
         }
 
         public void SetScreen(object screen)
@@ -170,11 +176,19 @@
             }
         }
 
+        public int Scale
+        {
+            get
+            {
+                return this.numberInputer.Scale;
+            }
+        }
+
         public int Number
         {
             get
             {
-                return this.numberInputer.Num;
+                return this.numberInputer.Num * Scale;
             }
         }
 

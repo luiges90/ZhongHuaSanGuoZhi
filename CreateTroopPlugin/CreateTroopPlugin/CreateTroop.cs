@@ -903,16 +903,17 @@
 
         private void SetRation()
         {
-            this.NumberInputerPlugin.SetMax(((this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) < this.CreatingTroop.RationDays) ? (this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) : this.CreatingTroop.RationDays);
             this.NumberInputerPlugin.SetDepthOffset(-0.01f);
             if (this.CreatingTroop.Army.KindID == 29)
             {
+                this.NumberInputerPlugin.SetScale((int)(10000.0 / this.CreatingTroop.Army.Quantity));
                 this.NumberInputerPlugin.SetUnit("万");
             }
             else
             {
                 this.NumberInputerPlugin.SetUnit("天");
             }
+            this.NumberInputerPlugin.SetMax(((this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) < this.CreatingTroop.RationDays) ? (this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) : this.CreatingTroop.RationDays);
             this.NumberInputerPlugin.SetMapPosition(ShowPosition.Center);
             
             this.NumberInputerPlugin.SetEnterFunction(delegate 
