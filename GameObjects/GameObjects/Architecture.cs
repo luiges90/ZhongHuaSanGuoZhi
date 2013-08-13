@@ -585,6 +585,48 @@
             int personCnt = 1;
             PersonList result = new PersonList();
             result.Add(t.Leader);
+            if (t.TroopIntelligence < (0x4b - t.Leader.Calmness))
+            {
+                foreach (Person person in this.Persons)
+                {
+                    if (person.WaitForFeiZi != null) continue;
+                    if ((!person.Selected && (person.Intelligence >= (0x4b - t.Leader.Calmness))) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    {
+                        person.Selected = true;
+                        result.Add(person);
+                        personCnt++;
+                        break;
+                    }
+                }
+            }
+            if (t.TroopStrength < 0x4b)
+            {
+                foreach (Person person in this.Persons)
+                {
+                    if (person.WaitForFeiZi != null) continue;
+                    if ((!person.Selected && (person.Strength >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Strength - t.TroopStrength) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    {
+                        person.Selected = true;
+                        result.Add(person);
+                        personCnt++;
+                        break;
+                    }
+                }
+            }
+            if (t.TroopCommand < 0x4b)
+            {
+                foreach (Person person in this.Persons)
+                {
+                    if (person.WaitForFeiZi != null) continue;
+                    if ((!person.Selected && (person.Command >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Command - t.TroopCommand) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    {
+                        person.Selected = true;
+                        result.Add(person);
+                        personCnt++;
+                        break;
+                    }
+                }
+            }
             foreach (Person person in this.Persons)
             {
                 if (person.WaitForFeiZi != null) continue;
@@ -625,55 +667,6 @@
                     }
                 }
                 if (personCnt >= 5) break;
-                if ((!person.Selected && !t.Persons.HasGameObject(person)) && person.SubFightingForce > t.Leader.FightingForce * 0.8)
-                {
-                    person.Selected = true;
-                    result.Add(person);
-                    personCnt++;
-                }
-                if (personCnt >= 5) break;
-            }
-            if (t.TroopIntelligence < 75)
-            {
-                foreach (Person person in this.Persons)
-                {
-                    if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Intelligence >= 75)) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
-                    {
-                        person.Selected = true;
-                        result.Add(person);
-                        personCnt++;
-                        break;
-                    }
-                }
-            }
-            if (t.TroopStrength < 75)
-            {
-                foreach (Person person in this.Persons)
-                {
-                    if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Strength >= 75)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Strength - t.TroopStrength) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
-                    {
-                        person.Selected = true;
-                        result.Add(person);
-                        personCnt++;
-                        break;
-                    }
-                }
-            }
-            if (t.TroopCommand < 75)
-            {
-                foreach (Person person in this.Persons)
-                {
-                    if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Command >= 75)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Command - t.TroopCommand) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
-                    {
-                        person.Selected = true;
-                        result.Add(person);
-                        personCnt++;
-                        break;
-                    }
-                }
             }
             return result;
         }
