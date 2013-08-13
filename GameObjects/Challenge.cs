@@ -18,7 +18,7 @@
     using System.Diagnostics;
 	internal class Challenge
 	{
-        private bool ChallengeOftenShow = false;  //暴击必然触发单挑，调试单挑程序用，默认为false
+        private bool ChallengeOftenShow = true;  //暴击必然触发单挑，调试单挑程序用，默认为false
 
 
         internal void ChallgenEvent(Troop sourceTroop, Troop troop, TroopDamage damage, GameScenario gameScenario)
@@ -83,14 +83,17 @@
 
         private string challengePersonString(Person person)
         {
-            //武将ID,姓,名,字,性别(0,女、1,男),头像编号,
+            //武将ID,姓,名,字,性别(0,女、1,男),头像编号,身份(0 盗贼，1 武将，2君主)
             //生命,体力,力量,敏捷,
             //武艺,统御,智谋,政治,魅力,
             //相性,勇猛,冷静,义理,野心,名声,
             //坐骑(1、没有马；300、赤兔马；301、的卢；302、绝影；303、爪黄飞电；304、大宛马),
-            //忠诚度,当前所属势力声望
+            //忠诚度,当前所属势力声望,
+            //当前效力君主的魅力(没有君主传-1),当前效力君主的相性(没有君主传-1)
+
+
             string para;
-            para = person.ID.ToString() + "," + person.SurName + "," + person.GivenName + "," + (person.CalledName == "" ? "无" : person.CalledName) + "," + (person.Sex ? "0" : "1") + "," + person.PictureIndex.ToString() + ",";
+            para = person.ID.ToString() + "," + person.SurName + "," + person.GivenName + "," + (person.CalledName == "" ? "无" : person.CalledName) + "," + (person.Sex ? "0" : "1") + "," + person.PictureIndex.ToString() + ","+person.Identity().ToString()+",";
             para += person.Strength.ToString() + "," + person.Strength.ToString() + "," + person.Strength.ToString() + "," + person.Strength.ToString() + ",";
             para += person.Strength.ToString() + "," + person.Command.ToString() + "," + person.Intelligence.ToString() + "," + person.Politics.ToString() + "," + person.Glamour.ToString() + ",";
             para += person.Ideal.ToString() + "," + person.Braveness.ToString() + "," + person.Calmness.ToString() + "," + person.PersonalLoyalty.ToString() + "," + person.Ambition.ToString() + "," + person.Reputation.ToString() + ",";
@@ -104,7 +107,8 @@
                 para += person.HasHorse().ToString() + ",";
             }
             /////////////////////////////////
-            para += person.Loyalty.ToString() + "," + (person.BelongedFaction == null ? 0 : person.BelongedFaction.Reputation).ToString();
+            para += person.Loyalty.ToString() + "," + (person.BelongedFaction == null ? 0 : person.BelongedFaction.Reputation).ToString()+",";
+            para += (person.BelongedFaction == null ? -1 : person.BelongedFaction.Leader.Glamour).ToString() + "," + (person.BelongedFaction == null ? -1 : person.BelongedFaction.Leader.Ideal).ToString();
             para += "\r\n";
             return para;
         }

@@ -6684,6 +6684,23 @@
             }
         }
 
+        public int Identity()
+        {
+            if (this.ID == 7108)  //盗贼
+            {
+                return 0;
+            }
+            else if (this.BelongedFaction != null && this == this.BelongedFaction.Leader)  //君主
+            {
+                return 2;
+            }
+            else  //普通武将
+            {
+                return 1;
+            }
+
+        }
+
     }
 }
 
