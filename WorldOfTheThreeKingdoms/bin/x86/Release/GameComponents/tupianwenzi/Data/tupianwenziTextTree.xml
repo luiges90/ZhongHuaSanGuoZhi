@@ -186,6 +186,17 @@
     <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
     <Leaf Text="发起单挑，败阵而回。" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="TroopPersonChallengeDraw">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="发起单挑，结果打了个平手。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
   <Branch Name="TroopPersonChallengeAfterSourceWin">
     <Leaf Text="看来" Color="4294967295"></Leaf>
     <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
