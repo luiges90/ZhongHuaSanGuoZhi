@@ -18,12 +18,12 @@
     using System.Diagnostics;
 	internal class Challenge
 	{
-        private bool ChallengeOftenShow = true;  //暴击必然触发单挑，调试单挑程序用，默认为false
+        private bool ChallengeOftenShow = false;  //暴击必然触发单挑，调试单挑程序用，默认为false
 
 
         internal void ChallgenEvent(Troop sourceTroop, Troop troop, TroopDamage damage, GameScenario gameScenario)
         {
-            if ((!sourceTroop.IsFriendly(troop.BelongedFaction) && !sourceTroop.AirOffence) && (this.ChallengeOftenShow || GameObject.Chance(10)))
+            if ((!sourceTroop.IsFriendly(troop.BelongedFaction) && !sourceTroop.AirOffence) && (this.ChallengeOftenShow || GameObject.Chance(20)))
             {
                 Person maxStrengthPerson = sourceTroop.Persons.GetMaxStrengthPerson();
                 Person destination = troop.Persons.GetMaxStrengthPerson();
