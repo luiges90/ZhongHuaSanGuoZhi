@@ -585,69 +585,7 @@
             int personCnt = 1;
             PersonList result = new PersonList();
             result.Add(t.Leader);
-            t.Leader.Selected = true;
-
-            GameObjectList candidates = this.Persons.GetList();
-            candidates.IsNumber = true;
-            candidates.PropertyName = "SubFightingForce";
-            candidates.SmallToBig = false;
-            candidates.ReSort();
-
-            foreach (Person person in candidates)
-            {
-                if ((!person.Selected && !t.Persons.HasGameObject(person)) && person.SubFightingForce > t.Leader.FightingForce 
-                    && t.Leader.FightingForce > t.Leader.SubFightingForce && person.SubFightingForce > person.FightingForce)
-                {
-                    person.Selected = true;
-                    result.Add(person);
-                    personCnt++;
-                    if (personCnt >= 2) break;
-                }
-                else if (person.SubFightingForce <= t.Leader.FightingForce || t.Leader.FightingForce > t.Leader.SubFightingForce) break;
-            }
-            if (t.TroopIntelligence < 80)
-            {
-                foreach (Person person in candidates)
-                {
-                    if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Intelligence >= 80)) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
-                    {
-                        person.Selected = true;
-                        result.Add(person);
-                        personCnt++;
-                        break;
-                    }
-                }
-            }
-            if (t.TroopStrength < 75)
-            {
-                foreach (Person person in candidates)
-                {
-                    if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Strength >= 75)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Strength - t.TroopStrength) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
-                    {
-                        person.Selected = true;
-                        result.Add(person);
-                        personCnt++;
-                        break;
-                    }
-                }
-            }
-            if (t.TroopCommand < 75)
-            {
-                foreach (Person person in candidates)
-                {
-                    if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Command >= 75)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Command - t.TroopCommand) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
-                    {
-                        person.Selected = true;
-                        result.Add(person);
-                        personCnt++;
-                        break;
-                    }
-                }
-            }
-            foreach (Person person in candidates)
+            foreach (Person person in this.Persons)
             {
                 if (person.WaitForFeiZi != null) continue;
                 if ((!person.Selected && !t.Persons.HasGameObject(person)) && ((person.FightingForce < t.Leader.FightingForce) && !person.HasLeaderValidCombatTitle))
@@ -687,8 +625,56 @@
                     }
                 }
                 if (personCnt >= 5) break;
+                if ((!person.Selected && !t.Persons.HasGameObject(person)) && person.SubFightingForce > t.Leader.FightingForce * 0.8)
+                {
+                    person.Selected = true;
+                    result.Add(person);
+                    personCnt++;
+                }
+                if (personCnt >= 5) break;
             }
-
+            if (t.TroopIntelligence < 75)
+            {
+                foreach (Person person in this.Persons)
+                {
+                    if (person.WaitForFeiZi != null) continue;
+                    if ((!person.Selected && (person.Intelligence >= 75)) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    {
+                        person.Selected = true;
+                        result.Add(person);
+                        personCnt++;
+                        break;
+                    }
+                }
+            }
+            if (t.TroopStrength < 75)
+            {
+                foreach (Person person in this.Persons)
+                {
+                    if (person.WaitForFeiZi != null) continue;
+                    if ((!person.Selected && (person.Strength >= 75)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Strength - t.TroopStrength) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    {
+                        person.Selected = true;
+                        result.Add(person);
+                        personCnt++;
+                        break;
+                    }
+                }
+            }
+            if (t.TroopCommand < 75)
+            {
+                foreach (Person person in this.Persons)
+                {
+                    if (person.WaitForFeiZi != null) continue;
+                    if ((!person.Selected && (person.Command >= 75)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Command - t.TroopCommand) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    {
+                        person.Selected = true;
+                        result.Add(person);
+                        personCnt++;
+                        break;
+                    }
+                }
+            }
             return result;
         }
 
