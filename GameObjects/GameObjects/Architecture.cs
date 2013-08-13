@@ -592,10 +592,7 @@
             candidates.SmallToBig = false;
             candidates.ReSort();
 
-            foreach (Person person in candidates)
-            {
-                person.Selected = false;
-            }
+            candidates.ClearSelected();
             t.Leader.Selected = true;
 
             foreach (Person person in candidates)
@@ -4580,6 +4577,11 @@
                 list.ReSort();
                 foreach (Troop troop2 in list.GetList())
                 {
+                    if (troop2.SimulatingFightingForce < 10000 && offensive)
+                    {
+                        break;
+                    }
+
                     bool personAlreadyOut = false;
                     foreach (Person p in troop2.Candidates)
                     {
@@ -4589,6 +4591,7 @@
                             break;
                         }
                     }
+                    if (personAlreadyOut) continue;
                     bool militaryOut = true;
                     foreach (Military m in this.Militaries)
                     {
@@ -4598,12 +4601,8 @@
                             break;
                         }
                     }
-                    if (personAlreadyOut) continue;
                     if (militaryOut) continue;
-                    if (troop2.FightingForce < 10000 && offensive)
-                    {
-                        break;
-                    }
+                    
                     Point? nullable = this.GetRandomStartingPosition(troop2);
                     if (!nullable.HasValue)
                     {
@@ -5827,15 +5826,40 @@
             }
         }
 
-        private PersonList AISelectPersonIntoTroop_inner(Person leader, PersonList otherPersons, bool markSelected)
+        private Troop AISelectPersonIntoTroop_inner(Person leader, Military military, Architecture from)
         {
-            PersonList persons = new PersonList();
-            persons.Add(leader);
-            if (markSelected)
+            PersonList singleton = new PersonList();
+            singleton.Add(leader);
+            Troop t = Troop.CreateSimulateTroop(singleton, military, from.Position);
+
+            if (t.Leader.preferredTroopPersons.Count > 0)
             {
-                leader.Selected = true;
+                foreach (Person p in t.Leader.preferredTroopPersons)
+                {
+                    bool allPersonHere = true;
+                    if (p.LocationArchitecture != from) 
+                    {
+                        allPersonHere = false;
+                    }
+                    if (allPersonHere) 
+                    {
+                        t.Candidates.Add(p);
+                        return t;
+                    }
+                }
             }
-            return persons;
+
+            PersonList pl = this.SelectSubOfficersToTroop(t);
+            t.Candidates = pl;
+            foreach (Person i in t.Candidates)
+            {
+                if (i != t.Leader)
+                {
+                    t.Leader.preferredTroopPersons.Add(i);
+                }
+            }
+
+            return t;
         }
 
         private TroopList AISelectPersonIntoTroop(Architecture from, Military military)
@@ -5843,18 +5867,12 @@
             TroopList result = new TroopList();
             if ((military.FollowedLeader != null) && from.Persons.HasGameObject(military.FollowedLeader) && military.FollowedLeader.LocationTroop == null)
             {
-                Troop t = Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(military.FollowedLeader, from.Persons, true), military, from.Position);
-                PersonList p = this.SelectSubOfficersToTroop(t);
-                t.Candidates = p;
-                result.Add(t);
+                result.Add(AISelectPersonIntoTroop_inner(military.FollowedLeader, military, from));
             }
             else if ((((military.Leader != null) && (military.LeaderExperience >= 10)) && (((military.Leader.Strength >= 80) || (military.Leader.Command >= 80)) || military.Leader.HasLeaderValidCombatTitle))
                 && from.Persons.HasGameObject(military.Leader) && military.Leader.LocationTroop == null)
             {
-                Troop t = Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(military.Leader, from.Persons, true), military, from.Position);
-                PersonList p = this.SelectSubOfficersToTroop(t);
-                t.Candidates = p;
-                result.Add(t);
+                result.Add(AISelectPersonIntoTroop_inner(military.Leader, military, from));
             }
             else
             {
@@ -5865,10 +5883,7 @@
                         if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && !military.Kind.Unique) ||
                             person.FightingForce >= Parameters.AIUniqueTroopFightingForceThreshold || this.Endurance < 30)
                         {
-                            Troop t = Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position);
-                            PersonList p = this.SelectSubOfficersToTroop(t);
-                            t.Candidates = p;
-                            result.Add(t);
+                           result.Add(AISelectPersonIntoTroop_inner(person, military, from));
                         }
                     }
                 }
