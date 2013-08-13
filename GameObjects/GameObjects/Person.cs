@@ -6651,6 +6651,23 @@
             }
         }
 
+        public bool IsCivil()
+        {
+            if (this.BaseStrength > 70)
+            {
+                return false;
+            }
+            if (this.BaseIntelligence>60 && this.BaseIntelligence - this.BaseStrength > 20)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         public bool IsBeingTroopPerson
         {
             get
