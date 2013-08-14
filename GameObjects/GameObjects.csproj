@@ -1128,6 +1128,7 @@
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1700.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Challenge.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1705.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4130.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4135.cs" />

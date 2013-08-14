@@ -120,11 +120,11 @@
         private int criticalStrikeChance;
         private CombatMethod currentCombatMethod;
         private int currentCombatMethodID = -1;
-        private Person CurrentDestinationChallengePerson;
+        //private Person CurrentDestinationChallengePerson;
         private Person CurrentDestinationControversyPerson;
         public OutburstKind CurrentOutburstKind;
         private List<Point> CurrentPath;
-        private Person CurrentSourceChallengePerson;
+        //private Person CurrentSourceChallengePerson;
         private Person CurrentSourceControversyPerson;
         private Stratagem currentStratagem;
         private int currentStratagemID = -1;
@@ -1572,7 +1572,7 @@
             if (this.BelongedFaction == null)
             {
                 this.Destroy(true, true);
-                if (this.StartingArchitecture != null && this.StartingArchitecture.RobberTroop == this)
+                if (this.StartingArchitecture != null && this.StartingArchitecture.RobberTroop == this)  //盗贼队
                 {
                     this.StartingArchitecture.RobberTroop = null;
                     this.StartingArchitecture.RobberTroopID = -1;
@@ -2283,6 +2283,17 @@
                 this.RefreshWithPersonList(this.Persons.GetList());
             }
         }
+        public void ChangeCombativity(int offset)
+        {
+            if (offset > 0)
+            {
+                this.IncreaseCombativity(offset);
+            }
+            else if (offset < 0)
+            {
+                this.DecreaseCombativity(Math.Abs(offset));
+            }
+        }
 
         public void ChangeMorale(int offset)
         {
@@ -2320,15 +2331,9 @@
                 {
                     foreach (Person person in personlist)
                     {
-                        person.LocationTroop.persons.Remove(person);
-                        Captive captive = Captive.Create(base.Scenario, person, this.BelongedFaction);
-                        if (captive != null)
-                        {
-                            this.AddCaptive(captive);
-                        }
-                        person.LocationTroop = this;
+                        this.CatchCaptiveFromTroop(person);
 
-                        this.Leader.CaptiveCount++;
+
 
 						ExtensionInterface.call("CapturedByTroop", new Object[] { this.Scenario, this, person });
                     }
@@ -2338,6 +2343,19 @@
                     }
                 }
             }
+        }
+
+        internal void CatchCaptiveFromTroop(Person person)
+        {
+            person.LocationTroop.persons.Remove(person);
+            Captive captive = Captive.Create(base.Scenario, person, this.BelongedFaction);
+            if (captive != null)
+            {
+                this.AddCaptive(captive);
+            }
+            person.LocationTroop = this;
+
+            this.Leader.CaptiveCount++;
         }
 
         private void CheckCaptiveOnOccupy(Architecture a)
@@ -2421,9 +2439,36 @@
             return secondTierPath;
         }
 
+        public void RefreshAfterLosePerson()
+        {
+            if (!this.Destroyed)
+            {
+                if (this.PersonCount == 0)
+                {
+                    //CheckTroopRout(this);
+                }
+                else
+                {
+                    this.RefreshWithPersonList(this.Persons.GetList());
+                }
+            }
+        }
+
+        public void ChangeLeader()
+        {
+            if (this.PersonCount == 1)
+            {
+                this.SetLeader(this.Persons[0] as Person);
+            }
+            else
+            {
+                this.SetLeader(this.Persons.GetMaxStrengthPerson());
+            }
+        }
+
         public static void CheckTroopRout(Troop receiving)
         {
-            if (!receiving.Destroyed && ((receiving.Quantity <= 0) || (receiving.Morale <= 0)))
+            if (!receiving.Destroyed && ((receiving.Quantity <= 0) || (receiving.Morale <= 0)||receiving.PersonCount==0))
             {
                 if (receiving.OnRouted != null)
                 {
@@ -2450,7 +2495,7 @@
 
         public static void CheckTroopRout(Troop sending, Troop receiving)
         {
-            if (!receiving.Destroyed && ((receiving.Quantity <= 0) || (receiving.Morale <= 0)))
+            if (!receiving.Destroyed && ((receiving.Quantity <= 0) || (receiving.Morale <= 0) || receiving.PersonCount == 0))
             {
                 Faction belongedFaction = null;
                 Person leader = null;
@@ -5903,6 +5948,8 @@
             damage.SourceTroop.Leader.TroopDamageDealt += damage.Damage;
             damage.DestinationTroop.Leader.TroopBeDamageDealt += damage.Damage;
 
+
+
             if (damage.AntiAttack)
             {
                 animation = base.Scenario.GeneratorOfTileAnimation.AddTileAnimation(TileAnimationKind.抵挡, damage.DestinationTroop.Position, false);
@@ -5929,6 +5976,20 @@
             }
             else
             {
+                if (damage.ChallengeHappened)  //处理单挑结果
+                {
+                    /*
+                    this.CurrentSourceChallengePerson = damage.ChallengeSourcePerson;
+                    this.CurrentDestinationChallengePerson = damage.ChallengeDestinationPerson;
+                    if (this.OnPersonChallenge != null)
+                    {
+                        this.OnPersonChallenge(damage.ChallengeResult, damage.SourceTroop, this.CurrentSourceChallengePerson, damage.DestinationTroop, this.CurrentDestinationChallengePerson);
+                    }
+                    */
+                    Challenge challeng = new Challenge();
+                    challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
+                }
+
                 if (damage.OnFire && base.Scenario.IsFireVaild(damage.DestinationTroop.Position, false, MilitaryType.步兵))
                 {
                     base.Scenario.SetPositionOnFire(damage.DestinationTroop.Position);
@@ -5948,6 +6009,11 @@
                         damage.SourceTroop.ChangeMorale(damage.SourceMoraleChange);
                         CheckTroopRout(damage.SourceTroop);
                     }
+                    if (!damage.SourceTroop.CombativityNoChanceAfterAttacked)
+                    {
+                        damage.SourceTroop.ChangeCombativity(damage.SourceCombativityChange);
+                    }
+                    /////////////////////////////////////////////////////////////////////
                     damage.DestinationTroop.DecreaseQuantity(damage.Damage);
                     if (damage.OnFire)
                     {
@@ -5956,17 +6022,19 @@
                     damage.DestinationTroop.IncreaseInjuryQuantity(damage.Injury);
                     if (!damage.DestinationTroop.CombativityNoChanceAfterAttacked)
                     {
-                        damage.DestinationTroop.DecreaseCombativity(damage.CombativityDown);
+                        damage.DestinationTroop.ChangeCombativity(damage.DestinationCombativityChange);
                     }
                     if (!damage.DestinationTroop.MoraleNoChanceAfterAttacked)
                     {
                         damage.DestinationTroop.ChangeMorale(damage.DestinationMoraleChange);
                     }
                     damage.DestinationTroop.DecreaseInjuryQuantity(damage.InjuredDamage);
+                    //////////////////////////////////////////////////////////////////////////////////
                     damage.SourceTroop.IncreaseQuantity(damage.StealTroop);
                     //damage.DestinationTroop.DecreaseQuantity(damage.StealTroop);
                     damage.SourceTroop.InjuryQuantity += damage.StealInjured;
                     //damage.DestinationTroop.DecreaseInjuryQuantity(damage.StealInjured);
+                    ///////////////////////////////////////////////////////////////////////////////////
                     damage.DestinationTroop.Army.Tiredness += damage.TirednessIncrease;
                     damage.DestinationTroop.Food -= damage.StealFood;
                     damage.SourceTroop.IncreaseFood(damage.StealFood);
@@ -5998,15 +6066,10 @@
                             }
                             CheckTroopRout(damage.DestinationTroop, damage.SourceTroop);
                         }
-                        if (damage.ChallengeHappened)
-                        {
-                            this.CurrentSourceChallengePerson = damage.ChallengeSourcePerson;
-                            this.CurrentDestinationChallengePerson = damage.ChallengeDestinationPerson;
-                            if (this.OnPersonChallenge != null)
-                            {
-                                this.OnPersonChallenge(damage.ChallengeResult, damage.SourceTroop, this.CurrentSourceChallengePerson, damage.DestinationTroop, this.CurrentDestinationChallengePerson);
-                            }
-                        }
+
+                        //原来的单挑结果处理位置。因为必须在部队毁灭前处理人物，所以把代码上移。
+
+
                         if (!damage.SourceTroop.Destroyed)
                         {
                             if (damage.Waylay)
@@ -6031,6 +6094,8 @@
                 }
             }
         }
+
+
 
         public bool HasCaptive()
         {
@@ -8642,8 +8707,7 @@
             damage.InjuredDamage = (int) (this.reduceInjuredOnAttack * damage.DestinationTroop.Army.Kind.MinScale);
             damage.TirednessIncrease = this.TirednessIncreaseOnAttack;
             damage.StealFood = Math.Min(damage.DestinationTroop.Food, this.StealFood);
-            //if (true)  //单挑必然发生
-            if (damage.Critical)
+            if (damage.Critical) //控制单挑发生相关
             {
                 this.PreAction = TroopPreAction.暴击;
                 num4 = (int) ((num4 * 1.5f) * troop.RateOfCriticalDamageReceived);
@@ -8655,136 +8719,8 @@
                 {
                     damage.DestinationMoraleChange -= this.MoraleDecrementOfCriticalStrike;
                 }
-                //if ((!this.IsFriendly(troop.BelongedFaction) && !this.AirOffence)) //单挑必然发生
-                if ((!this.IsFriendly(troop.BelongedFaction) && !this.AirOffence) && GameObject.Chance(20))
-                {
-                    Person maxStrengthPerson = this.Persons.GetMaxStrengthPerson();
-                    Person destination = troop.Persons.GetMaxStrengthPerson();
-                    //if (((maxStrengthPerson != null) && (destination != null))) //单挑必然发生
-                    if (((maxStrengthPerson != null) && (destination != null)) && (GameObject.Random(GameObject.Square(destination.Calmness)) < GameObject.Random(0x19)))
-                    {
-                        int chance = Person.ChanlengeWinningChance(maxStrengthPerson, destination);
-                        if ((maxStrengthPerson.Character.ChallengeChance + chance) >= 60)
-                        {
-                            int flag=0;
-                            damage.ChallengeHappened = true;
-                            //if (true) //单挑必然发生
-                            if (GlobalVariables.ShowChallengeAnimation && (base.Scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || base.Scenario.IsPlayer(destination.BelongedFaction)))  //单挑双方有玩家的武将才演示
-                            {
-                                try
-                                {
-                                    /////////////////////////////////////////////////调用单挑程序
-                                    string fileName = @"Dantiao\start.exe";
-
-                                    //武将ID,姓,名,字,性别(0,女、1,男),头像编号,
-                                    //生命,体力,力量,敏捷,
-                                    //武艺,统御,智谋,政治,魅力,
-                                    //相性,勇猛,冷静,义理,野心,名声,
-                                    //坐骑(1、没有马；300、赤兔马；301、的卢；302、绝影；303、爪黄飞电；304、大宛马),
-                                    //忠诚度,当前所属势力声望
-
-
-                                    string para = maxStrengthPerson.ID.ToString() + "," + maxStrengthPerson.SurName + "," + maxStrengthPerson.GivenName + "," + (maxStrengthPerson.CalledName == "" ? "无" : maxStrengthPerson.CalledName) + "," + (maxStrengthPerson.Sex ? "0" : "1") + "," + maxStrengthPerson.PictureIndex.ToString() + ",";
-                                    para += maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Strength.ToString() + ",";
-                                    para += maxStrengthPerson.Strength.ToString() + "," + maxStrengthPerson.Command.ToString() +"," + maxStrengthPerson.Intelligence.ToString() + "," + maxStrengthPerson.Politics.ToString() + "," + maxStrengthPerson.Glamour.ToString() + ",";
-                                    para += maxStrengthPerson.Ideal.ToString() + "," + maxStrengthPerson.Braveness.ToString() + "," + maxStrengthPerson.Calmness.ToString() + "," + maxStrengthPerson.PersonalLoyalty.ToString() + "," + maxStrengthPerson.Ambition.ToString()+","+maxStrengthPerson.Reputation.ToString()+",";
-                                    ///////////////////////////////判断有没有宝物马
-                                    if (maxStrengthPerson.HasHorse()==-1)
-                                    {
-                                        para += "1" + ",";
-                                    }
-                                    else
-                                    {
-                                        para += maxStrengthPerson.HasHorse().ToString() + ",";
-                                    }
-                                    /////////////////////////////////
-                                    para += maxStrengthPerson.Loyalty.ToString() + "," + (maxStrengthPerson.BelongedFaction==null?0: maxStrengthPerson.BelongedFaction.Reputation).ToString();
-                                    para += "\r\n";
-
-                                    /////////------------------------------------以下添加第二个人的字符串
-                                    para += destination.ID.ToString() + "," + destination.SurName + "," + destination.GivenName + "," + (destination.CalledName == "" ? "无" : destination.CalledName) + "," + (destination.Sex ? "0" : "1") + "," + destination.PictureIndex.ToString() + ",";
-                                    para += destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + "," + destination.Strength.ToString() + ",";
-                                    para += destination.Strength.ToString() + "," + destination.Command.ToString() +"," + destination.Intelligence.ToString() + "," + destination.Politics.ToString() + "," + destination.Glamour.ToString() + ",";
-                                    para += destination.Ideal.ToString() + "," + destination.Braveness.ToString() + "," + destination.Calmness.ToString() + "," + destination.PersonalLoyalty.ToString() + "," + destination.Ambition.ToString() + "," + destination.Reputation.ToString() + ",";
-                                    ///////////////////////////////判断有没有宝物马
-                                    if (destination.HasHorse() == -1)
-                                    {
-                                        para += "1" + ",";
-                                    }
-                                    else
-                                    {
-                                        para += destination.HasHorse().ToString() + ",";
-                                    }
-                                    /////////////////////////////////
-                                    para += destination.Loyalty.ToString() + "," + (destination.BelongedFaction == null ? 0 : destination.BelongedFaction.Reputation).ToString();
-                                    para += "\r\n";
-
-
-
-
-
-                                    Process myProcess = new Process();
-                                    ProcessStartInfo myProcessStartInfo = new ProcessStartInfo(fileName, para);
-                                    myProcess.StartInfo = myProcessStartInfo;
-                                    myProcess.Start();
-                                    while (!myProcess.HasExited)
-                                    {
-
-                                        myProcess.WaitForExit();
-
-                                    }
-                                    int returnValue = myProcess.ExitCode;
-
-
-                                    ////////////////////////////////////////////////
-                                    if (returnValue == 1)
-                                    {
-                                        flag = 1;
-
-                                    }
-                                    else if (returnValue == 2)
-                                    {
-                                        flag = 2;
-                                    }
-                                    else if (returnValue == -1)
-                                    {
-                                        flag = -1;
-                                    }
-                                    else   //返回值出错时避免跳出
-                                    {
-                                        flag = (GameObject.Chance(chance) ? 1 : 2);
-                                    }
-
-
-                                }
-                                catch
-                                {
-                                    flag = (GameObject.Chance(chance) ? 1 : 2);
-                                }
-                            }
-                            else
-                            {
-                                flag = (GameObject.Chance(chance) ? 1 : 2);
-                            }
-                            damage.ChallengeResult = flag;
-                            damage.ChallengeSourcePerson = maxStrengthPerson;
-                            damage.ChallengeDestinationPerson = destination;
-                            if (flag==1)
-                            {
-                                damage.SourceMoraleChange += 20;
-                                damage.DestinationMoraleChange -= 20;
-                            }
-                            else if (flag == 2)
-                            {
-                                damage.SourceMoraleChange -= 20;
-                                damage.DestinationMoraleChange += 20;
-                            }
-                            else  //flag==-1,打平，只有在单挑演示中才有可能发生
-                            {
-                            }
-                        }
-                    }
-                }
+                Challenge challenge = new Challenge();
+                challenge.ChallgenEvent(this, troop, damage, base.Scenario);  //单挑事件
                 damage.InjuredDamage += (int)(this.reduceInjuredOnCritical * damage.DestinationTroop.Army.Kind.MinScale);
                 damage.TirednessIncrease += this.TirednessIncreaseOnCritical;
             }
@@ -8806,7 +8742,7 @@
             }
             if (!(counter || (this.AttackDecrementOfCombativity <= 0)))
             {
-                damage.CombativityDown += this.AttackDecrementOfCombativity;
+                damage.DestinationCombativityChange -= this.AttackDecrementOfCombativity;
             }
             if (counter && (this.CounterAttackDecrementOfCombativity > 0))
             {
@@ -8816,7 +8752,7 @@
             {
                 if (this.CombativityDecrementOnPower > 0)
                 {
-                    damage.CombativityDown += this.CombativityDecrementOnPower;
+                    damage.DestinationCombativityChange -= this.CombativityDecrementOnPower;
                 }
                 if (this.MoraleDecrementOnPrestige > 0)
                 {
@@ -8841,6 +8777,8 @@
 			ExtensionInterface.call("TroopSendTroopDamage", new Object[] { this.Scenario, this, damage, troop, counter });
             return damage;
         }
+
+
 
         public void SetAmbush()
         {
@@ -10503,13 +10441,8 @@
             }
         }
 
-        public string CurrentDestinationChallengePersonName
-        {
-            get
-            {
-                return this.CurrentDestinationChallengePerson.Name;
-            }
-        }
+        public string CurrentDestinationChallengePersonName;
+
 
         public string CurrentDestinationControversyPersonName
         {
@@ -10535,13 +10468,8 @@
             }
         }
 
-        public string CurrentSourceChallengePersonName
-        {
-            get
-            {
-                return this.CurrentSourceChallengePerson.Name;
-            }
-        }
+        public string CurrentSourceChallengePersonName;
+
 
         public string CurrentSourceControversyPersonName
         {

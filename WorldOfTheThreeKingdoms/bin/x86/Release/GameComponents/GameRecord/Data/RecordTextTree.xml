@@ -64,6 +64,42 @@
     <Leaf Text="死亡。" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="PersonDeathInChallenge">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4292673536"></Leaf>
+    <Leaf Text="在单挑中阵亡。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeEscape">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4292673536"></Leaf>
+    <Leaf Text="在单挑中处于劣势，趁机逃跑。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeSourceBeCaptured">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="在单挑中被" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="俘虏。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeDestinationBeCaptured">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="在单挑中被" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="俘虏。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
   <Branch Name="PersonLeave">
     <Leaf Property="TextDestinationString" Color="4292673536"></Leaf>
     <Leaf Text="于" Color="4294967295"></Leaf>
@@ -487,3 +523,4 @@
   </Branch>
 
 </Root>
+>>>>>>> pr/139

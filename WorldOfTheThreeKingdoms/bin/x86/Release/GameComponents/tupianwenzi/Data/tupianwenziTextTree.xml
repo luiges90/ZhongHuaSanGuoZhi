@@ -137,6 +137,35 @@
     <Leaf Property="Name" Color="4278255360"></Leaf>
     <Leaf Text="。是否同意？" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="TroopPersonChallengeSourceBeCaptured">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="在单挑中被" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="俘虏。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeEscape">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4292673536"></Leaf>
+    <Leaf Text="在单挑中处于劣势，趁机逃跑。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeDestinationBeCaptured">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="在单挑中被" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="俘虏。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
   <Branch Name="TroopPersonChallengeSourceWin">
     <Leaf Property="DisplayName" Color="4278223103"></Leaf>
     <Leaf Text="的" Color="4294967295"></Leaf>
@@ -156,6 +185,17 @@
     <Leaf Text="的" Color="4294967295"></Leaf>
     <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
     <Leaf Text="发起单挑，败阵而回。" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopPersonChallengeDraw">
+    <Leaf Property="DisplayName" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentSourceChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="CurrentDestinationChallengePersonName" Color="4278255360"></Leaf>
+    <Leaf Text="发起单挑，结果打了个平手。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="TroopPersonChallengeAfterSourceWin">
     <Leaf Text="看来" Color="4294967295"></Leaf>
@@ -278,6 +318,12 @@
   <Branch Name="FactionDestroy">
     <Leaf Property="TextResultString" Color="4292673536"></Leaf>
     <Leaf Text="的势力灭亡了……" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="renwusiwangInChallenge">
+    <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
+    <Leaf Text="的" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="在单挑中阵亡。" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="renwusiwang">
     <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
@@ -547,4 +593,15 @@
 	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
 	<Leaf Text="吗？" Color="4294967295"></Leaf>
   </Branch>
+
+  <Branch Name="PersonConvinceSuccess">
+    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="成功的说服" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+    <Leaf Text="加入" Color="4294967295"></Leaf>
+    <Leaf Property="Faction" Color="4278255360"></Leaf>
+    <Leaf Text="的势力。" Color="4294967295"></Leaf>
+    <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
 </Root>
+
