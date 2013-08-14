@@ -3,8 +3,6 @@ GameComponents\PersonPortrait\Images\Player
 GameData\GameParameters
 GameData\GlobalVariables
 GameData\Common\archive\
-GameData\Common\CommonData.mdb
-GameData\Common\CommonDataPublic.mdb
 GameData\Scenario\archive\
 GameData\Scenario\generatedScen.mdb
 GameData\Save\

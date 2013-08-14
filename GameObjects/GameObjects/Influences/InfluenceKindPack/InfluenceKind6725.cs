@@ -16,7 +16,7 @@
 
         public override void PurifyInfluenceKind(Person t)
         {
-            t.IntelligenceIncrease.Add(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
+            t.IntelligenceIncrease.Remove(new System.Collections.Generic.KeyValuePair<int, int>(prob, increment));
         }
 
         public override void InitializeParameter(string parameter)

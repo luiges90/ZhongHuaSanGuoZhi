@@ -1708,7 +1708,7 @@
                 this.FirstTierPath = section;
             }
 
-            this.firstTierPathIndex = 0;
+            this.FirstIndex = 0;
 
             this.SecondTierPath = null;
             this.ThirdTierPath = null;
@@ -2683,7 +2683,7 @@
         public void ClearFirstTierPath()
         {
             this.FirstTierPath = null;
-            this.firstTierPathIndex = 0;
+            this.FirstIndex = 0;
         }
 
         public void ClearSecondTierPath()
@@ -9606,7 +9606,7 @@
                         this.chongshemubiaoweizhi();
                         return path;
                     }
-                    int firstTierPathIndex = this.firstTierPathIndex;
+                    int firstTierPathIndex = this.FirstIndex;
                     int movabilityLeft = this.MovabilityLeft;
                     while ((firstTierPathIndex + 1) < this.FirstTierPath.Count)
                     {
@@ -9655,7 +9655,7 @@
                 int num4 = this.NextPositionCost(this.Position, this.NextPosition, kind);
                 if (this.MovabilityLeft >= num4)
                 {
-                    if (this.FirstTierPath != null && (this.firstTierPathIndex == (this.FirstTierPath.Count - 1) || this.FirstTierPath.Count == 0))
+                    if (this.FirstTierPath != null && (this.FirstIndex == (this.FirstTierPath.Count - 1) || this.FirstTierPath.Count == 0))
                     {
                         this.HasPath = false;
                         this.MovabilityLeft = -1;
@@ -9663,13 +9663,13 @@
                     }
 
                     this.MovabilityLeft -= num4;
-                    this.firstTierPathIndex++;
-                    this.Position = this.FirstTierPath[this.firstTierPathIndex];
+                    this.FirstIndex++;
+                    this.Position = this.FirstTierPath[this.FirstIndex];
                     this.Moved = true;
 
                     if (this.FirstTierPath != null)
                     {
-                        if (this.firstTierPathIndex == (this.FirstTierPath.Count - 1))
+                        if (this.FirstIndex == (this.FirstTierPath.Count - 1))
                         {
                             this.HasPath = false;
                             this.MovabilityLeft = -1;
@@ -11061,11 +11061,11 @@
             get
             {
                 if (this.FirstTierPath.Count == 0) return new Point(0, 0);
-                if ((this.firstTierPathIndex + 1) >= this.FirstTierPath.Count)
+                if (this.FirstIndex + 1 >= this.FirstTierPath.Count)
                 {
-                    return this.FirstTierPath[this.firstTierPathIndex];
+                    return this.FirstTierPath[this.FirstIndex];
                 }
-                return this.FirstTierPath[this.firstTierPathIndex + 1];
+                return this.FirstTierPath[this.FirstIndex + 1];
             }
         }
 
@@ -11925,7 +11925,7 @@
         {
             get
             {
-                return this.FirstTierPath.GetRange(this.firstTierPathIndex + 1, (this.FirstTierPath.Count - this.firstTierPathIndex) - 1);
+                return this.FirstTierPath.GetRange(this.FirstIndex + 1, (this.FirstTierPath.Count - this.FirstIndex) - 1);
             }
         }
 

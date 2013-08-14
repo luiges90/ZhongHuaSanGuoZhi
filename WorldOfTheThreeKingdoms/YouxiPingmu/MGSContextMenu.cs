@@ -520,7 +520,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
 
                 case ContextMenuResult.Tactics_JailBreak:
-                    this.Plugins.TabListPlugin.SetSelectedItemMaxCount(this.CurrentArchitecture.JailBreakArchitectureFund);
+                    this.Plugins.TabListPlugin.SetSelectedItemMaxCount(this.CurrentArchitecture.JailBreakPersonMaxCount);
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetJailBreakPerson, false, true, true, true, this.CurrentArchitecture.Persons, null, "劫狱", "劫狱");
                     break;
 

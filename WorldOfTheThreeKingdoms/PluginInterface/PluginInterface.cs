@@ -230,6 +230,7 @@ namespace PluginInterface
         void SetMax(int max);
         void SetScreen(object screen);
         void SetUnit(string unit);
+        void SetScale(int scale);
         bool IsShowing { get; set; }
         int Number { get; }
     }
