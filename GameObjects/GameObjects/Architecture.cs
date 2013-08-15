@@ -3840,7 +3840,7 @@
         {
             if (GameObject.Chance(Parameters.AITreasureChance) && !base.Scenario.IsPlayer(this.BelongedFaction))
             {
-                if (this.HasTreasureToConfiscate())
+                /*if (this.HasTreasureToConfiscate())
                 {
                     foreach (Person person in this.Persons.GetList())
                     {
@@ -3856,7 +3856,7 @@
                             }
                         }
                     }
-                }
+                }*/
                 if (((this.BelongedFaction.Leader != null) && (this.BelongedFaction.Leader.TreasureCount > Parameters.AITreasureCountMax)) && this.HasTreasureToAward())
                 {
                     GameObjectList list = this.Persons.GetList();
