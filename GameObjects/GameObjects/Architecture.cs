@@ -5835,8 +5835,8 @@
                 {
                     if (!person.Selected)
                     {
-                        if ((person.PersonalTitle != null && military.Kind == person.PersonalTitle.MilitaryKindOnly) ||
-                            (person.CombatTitle != null && military.Kind == person.CombatTitle.MilitaryKindOnly))
+                        if ((person.PersonalTitle != null && military.Kind.ID == person.PersonalTitle.MilitaryKindOnly) ||
+                            (person.CombatTitle != null && military.Kind.ID == person.CombatTitle.MilitaryKindOnly))
                         {
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
                         }

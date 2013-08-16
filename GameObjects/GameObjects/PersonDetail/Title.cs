@@ -52,7 +52,7 @@
         }
 
 
-        public MilitaryKind MilitaryKindOnly
+        public int MilitaryKindOnly
         {
             get
             {
@@ -60,10 +60,10 @@
                 {
                     if (i.Kind.ID == 300)
                     {
-                        return base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(int.Parse(i.Parameter));
+                        return int.Parse(i.Parameter);
                     }
                 }
-                return null;
+                return -1;
             }
         }
 
