@@ -5826,11 +5826,26 @@
             }
             else
             {
-                foreach (Person person in from.Persons)
+                GameObjectList pl = from.Persons.GetList();
+                pl.PropertyName = "FightingForce";
+                pl.IsNumber = true;
+                pl.SmallToBig = false;
+                pl.ReSort();
+                foreach (Person person in pl)
                 {
                     if (!person.Selected)
                     {
-                        if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && !military.Kind.Unique) ||
+                        if ((person.PersonalTitle != null && military.Kind == person.PersonalTitle.MilitaryKindOnly) ||
+                            (person.CombatTitle != null && military.Kind == person.CombatTitle.MilitaryKindOnly))
+                        {
+                            result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
+                        }
+                        else if ((person.PersonalTitle != null && military.Kind.Type == person.PersonalTitle.MilitaryTypeOnly) || 
+                            (person.CombatTitle != null && military.Kind.Type == person.CombatTitle.MilitaryTypeOnly))
+                        {
+                            result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
+                        } 
+                        else if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && !military.Kind.Unique) ||
                             person.FightingForce >= Parameters.AIUniqueTroopFightingForceThreshold || this.Endurance < 30)
                         {
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
