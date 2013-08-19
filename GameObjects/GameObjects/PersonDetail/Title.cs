@@ -51,6 +51,22 @@
             }
         }
 
+
+        public int MilitaryKindOnly
+        {
+            get
+            {
+                foreach (Influence i in this.Influences.Influences.Values)
+                {
+                    if (i.Kind.ID == 300)
+                    {
+                        return int.Parse(i.Parameter);
+                    }
+                }
+                return -1;
+            }
+        }
+
         public void AddInfluence(Influence influence)
         {
             this.Influences.AddInfluence(influence);
@@ -206,6 +222,7 @@
                 return str;
             }
         }
+
     }
 }
 

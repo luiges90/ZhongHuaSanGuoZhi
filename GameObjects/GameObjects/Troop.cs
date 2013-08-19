@@ -4579,7 +4579,10 @@
                     {
                         this.IncreaseCombativity(StaticMethods.GetRandomValue((int) ((this.Leader.Calmness * 100) * this.BelongedFaction.RateOfCombativityRecoveryAfterStratagemSuccess), 100));
                     }
-                    troop.army.Tiredness += this.stratagemTirednessIncrease;
+                    if (troop.BelongedFaction != this.BelongedFaction)
+                    {
+                        troop.army.Tiredness += this.stratagemTirednessIncrease;
+                    }
                     if (this.stratagemStealTroop > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
                         int c = Math.Min(troop.Quantity, this.stratagemStealTroop);

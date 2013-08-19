@@ -3322,14 +3322,10 @@
                 if (this.BelongedFaction != null)
                 {
                     this.Status = PersonStatus.Moving;
-                    this.LocationArchitecture.Persons.Remove(this);
-                    this.LocationArchitecture.MovingPersons.Add(this);
                 }
                 else
                 {
                     this.Status = PersonStatus.NoFactionMoving;
-                    this.LocationArchitecture.NoFactionPersons.Remove(this);
-                    this.LocationArchitecture.NoFactionMovingPersons.Add(this);
                 }
             }
         }

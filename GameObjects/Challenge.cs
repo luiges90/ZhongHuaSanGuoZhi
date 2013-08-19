@@ -46,7 +46,8 @@
         {
             int flag = 0;
             damage.ChallengeHappened = true;  //单挑发生
-            if (this.ChallengeOftenShow || GlobalVariables.ShowChallengeAnimation && (scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || scenario.IsPlayer(destination.BelongedFaction)))  //单挑双方有玩家的武将才演示
+            if ((this.ChallengeOftenShow || GlobalVariables.ShowChallengeAnimation) && 
+                (scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || scenario.IsPlayer(destination.BelongedFaction) || GlobalVariables.SkyEye))  //单挑双方有玩家的武将才演示
             {
                 try
                 {

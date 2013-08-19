@@ -82,6 +82,7 @@
                             Portrait = Image.FromFile(str),
                             SmallPortrait = Image.FromFile(str2)
                         };
+                        this.PlayerImages.Remove(i);
                         this.PlayerImages.Add(i, image);
                     }
                 }
