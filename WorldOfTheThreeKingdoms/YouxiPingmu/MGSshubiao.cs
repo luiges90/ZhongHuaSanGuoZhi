@@ -283,10 +283,19 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void HandleLaterMouseScroll()
         {
-            if ((this.mouseState.ScrollWheelValue != this.previousMouseState.ScrollWheelValue) && (this.oldScrollWheelValue != this.mouseState.ScrollWheelValue))
+            if (this.currentKey == Keys.OemPlus || this.currentKey == Keys.OemMinus || (this.mouseState.ScrollWheelValue != this.previousMouseState.ScrollWheelValue && this.oldScrollWheelValue != this.mouseState.ScrollWheelValue))
             {
                 float num = this.mouseState.ScrollWheelValue - this.oldScrollWheelValue;
                 this.oldScrollWheelValue = this.mouseState.ScrollWheelValue;
+                if (this.currentKey == Keys.OemPlus)
+                {
+                    num = 0.1f;
+                }
+                else if (this.currentKey == Keys.OemMinus)
+                {
+                    num = -0.1f;
+                }
+
                 if (num > 0f)
                 {
                     num = 0.1f;

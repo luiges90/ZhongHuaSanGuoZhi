@@ -626,6 +626,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.currentKey = Keys.W;
                     GlobalVariables.ShowGrid = !GlobalVariables.ShowGrid;
                 }
+                else if (this.keyState.IsKeyDown(Keys.OemPlus) || this.keyState.IsKeyDown(Keys.Add))
+                {
+                    this.currentKey = Keys.OemPlus;
+                }
+                else if (this.keyState.IsKeyDown(Keys.OemMinus) || this.keyState.IsKeyDown(Keys.Subtract))
+                {
+                    this.currentKey = Keys.OemMinus;
+                }
             }
             if (this.keyState.IsKeyDown(Keys.Space))
             {
