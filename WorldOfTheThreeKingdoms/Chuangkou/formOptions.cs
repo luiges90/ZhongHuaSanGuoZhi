@@ -135,7 +135,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TabControl tcOptions;
         private CheckBox cbPinPointAtPlayer;
         private CheckBox cbIgnoreStrategyTendency;
-        private CheckBox cbCreateChildren;
         private CheckBox cbDoAutoSave;
         private CheckBox cbCreateChildrenIgnoreLimit;
         private CheckBox cbInternalSurplusRateForPlayer;
@@ -206,6 +205,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbGetChildrenRate;
         private Label getChildrenRateLabel;
         private CheckBox cbMultipleResource;
+        private CheckBox cbCreateChildren;
         private TextBox zainanfashengjilv;
 
         public formOptions()
@@ -313,7 +313,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbPlayerPersonAvailable = new System.Windows.Forms.CheckBox();
             this.cbAdditionalPersonAvailable = new System.Windows.Forms.CheckBox();
             this.cbCommonPersonAvailable = new System.Windows.Forms.CheckBox();
-            this.cbCreateChildren = new System.Windows.Forms.CheckBox();
             this.cbCreateChildrenIgnoreLimit = new System.Windows.Forms.CheckBox();
             this.tabPageParameter = new System.Windows.Forms.TabPage();
             this.label47 = new System.Windows.Forms.Label();
@@ -411,6 +410,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.cbMultipleResource = new System.Windows.Forms.CheckBox();
+            this.cbCreateChildren = new System.Windows.Forms.CheckBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -438,6 +438,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageBasic
             // 
+            this.tabPageBasic.Controls.Add(this.cbCreateChildren);
             this.tabPageBasic.Controls.Add(this.tbGetChildrenRate);
             this.tabPageBasic.Controls.Add(this.getChildrenRateLabel);
             this.tabPageBasic.Controls.Add(this.cbEnableAgeAbilityFactor);
@@ -462,14 +463,14 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageBasic.Location = new System.Drawing.Point(4, 22);
             this.tabPageBasic.Name = "tabPageBasic";
             this.tabPageBasic.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPageBasic.Size = new System.Drawing.Size(445, 422);
+            this.tabPageBasic.Size = new System.Drawing.Size(446, 422);
             this.tabPageBasic.TabIndex = 4;
             this.tabPageBasic.Text = "基本";
             this.tabPageBasic.UseVisualStyleBackColor = true;
             // 
             // tbGetChildrenRate
             // 
-            this.tbGetChildrenRate.Location = new System.Drawing.Point(279, 376);
+            this.tbGetChildrenRate.Location = new System.Drawing.Point(288, 397);
             this.tbGetChildrenRate.Name = "tbGetChildrenRate";
             this.tbGetChildrenRate.Size = new System.Drawing.Size(71, 22);
             this.tbGetChildrenRate.TabIndex = 134;
@@ -477,7 +478,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // getChildrenRateLabel
             // 
             this.getChildrenRateLabel.AutoSize = true;
-            this.getChildrenRateLabel.Location = new System.Drawing.Point(11, 379);
+            this.getChildrenRateLabel.Location = new System.Drawing.Point(11, 403);
             this.getChildrenRateLabel.Name = "getChildrenRateLabel";
             this.getChildrenRateLabel.Size = new System.Drawing.Size(275, 12);
             this.getChildrenRateLabel.TabIndex = 133;
@@ -525,7 +526,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbTabListDetailLevel
             // 
-            this.tbTabListDetailLevel.Location = new System.Drawing.Point(108, 349);
+            this.tbTabListDetailLevel.Location = new System.Drawing.Point(106, 373);
             this.tbTabListDetailLevel.MaxLength = 1;
             this.tbTabListDetailLevel.Name = "tbTabListDetailLevel";
             this.tbTabListDetailLevel.Size = new System.Drawing.Size(27, 22);
@@ -535,7 +536,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(11, 352);
+            this.label55.Location = new System.Drawing.Point(11, 376);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(89, 12);
             this.label55.TabIndex = 127;
@@ -715,7 +716,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // zainanbiaoqian
             // 
             this.zainanbiaoqian.AutoSize = true;
-            this.zainanbiaoqian.Location = new System.Drawing.Point(11, 325);
+            this.zainanbiaoqian.Location = new System.Drawing.Point(11, 349);
             this.zainanbiaoqian.Name = "zainanbiaoqian";
             this.zainanbiaoqian.Size = new System.Drawing.Size(194, 12);
             this.zainanbiaoqian.TabIndex = 117;
@@ -723,7 +724,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // zainanfashengjilv
             // 
-            this.zainanfashengjilv.Location = new System.Drawing.Point(211, 322);
+            this.zainanfashengjilv.Location = new System.Drawing.Point(211, 346);
             this.zainanfashengjilv.Name = "zainanfashengjilv";
             this.zainanfashengjilv.Size = new System.Drawing.Size(50, 22);
             this.zainanfashengjilv.TabIndex = 116;
@@ -754,7 +755,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageEnvironment.Location = new System.Drawing.Point(4, 22);
             this.tabPageEnvironment.Name = "tabPageEnvironment";
             this.tabPageEnvironment.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPageEnvironment.Size = new System.Drawing.Size(445, 422);
+            this.tabPageEnvironment.Size = new System.Drawing.Size(446, 422);
             this.tabPageEnvironment.TabIndex = 0;
             this.tabPageEnvironment.Text = "环境";
             this.tabPageEnvironment.UseVisualStyleBackColor = true;
@@ -983,12 +984,11 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.Controls.Add(this.cbPlayerPersonAvailable);
             this.tabPagePerson.Controls.Add(this.cbAdditionalPersonAvailable);
             this.tabPagePerson.Controls.Add(this.cbCommonPersonAvailable);
-            this.tabPagePerson.Controls.Add(this.cbCreateChildren);
             this.tabPagePerson.Controls.Add(this.cbCreateChildrenIgnoreLimit);
             this.tabPagePerson.Location = new System.Drawing.Point(4, 22);
             this.tabPagePerson.Name = "tabPagePerson";
             this.tabPagePerson.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPagePerson.Size = new System.Drawing.Size(445, 422);
+            this.tabPagePerson.Size = new System.Drawing.Size(446, 422);
             this.tabPagePerson.TabIndex = 1;
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
@@ -996,7 +996,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(180, 235);
+            this.label58.Location = new System.Drawing.Point(180, 213);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(65, 12);
             this.label58.TabIndex = 39;
@@ -1004,7 +1004,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLearnTitleSuccessRate
             // 
-            this.tbLearnTitleSuccessRate.Location = new System.Drawing.Point(251, 232);
+            this.tbLearnTitleSuccessRate.Location = new System.Drawing.Point(251, 210);
             this.tbLearnTitleSuccessRate.Name = "tbLearnTitleSuccessRate";
             this.tbLearnTitleSuccessRate.Size = new System.Drawing.Size(71, 22);
             this.tbLearnTitleSuccessRate.TabIndex = 38;
@@ -1012,7 +1012,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(180, 207);
+            this.label57.Location = new System.Drawing.Point(180, 185);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(65, 12);
             this.label57.TabIndex = 37;
@@ -1020,7 +1020,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLearnStuntSuccessRate
             // 
-            this.tbLearnStuntSuccessRate.Location = new System.Drawing.Point(251, 204);
+            this.tbLearnStuntSuccessRate.Location = new System.Drawing.Point(251, 182);
             this.tbLearnStuntSuccessRate.Name = "tbLearnStuntSuccessRate";
             this.tbLearnStuntSuccessRate.Size = new System.Drawing.Size(71, 22);
             this.tbLearnStuntSuccessRate.TabIndex = 36;
@@ -1028,7 +1028,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(180, 179);
+            this.label56.Location = new System.Drawing.Point(180, 157);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(65, 12);
             this.label56.TabIndex = 35;
@@ -1036,7 +1036,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLearnSkillSuccessRate
             // 
-            this.tbLearnSkillSuccessRate.Location = new System.Drawing.Point(251, 176);
+            this.tbLearnSkillSuccessRate.Location = new System.Drawing.Point(251, 154);
             this.tbLearnSkillSuccessRate.Name = "tbLearnSkillSuccessRate";
             this.tbLearnSkillSuccessRate.Size = new System.Drawing.Size(71, 22);
             this.tbLearnSkillSuccessRate.TabIndex = 34;
@@ -1092,7 +1092,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbLockChildrenLoyalty
             // 
             this.cbLockChildrenLoyalty.AutoSize = true;
-            this.cbLockChildrenLoyalty.Location = new System.Drawing.Point(13, 101);
+            this.cbLockChildrenLoyalty.Location = new System.Drawing.Point(13, 79);
             this.cbLockChildrenLoyalty.Name = "cbLockChildrenLoyalty";
             this.cbLockChildrenLoyalty.Size = new System.Drawing.Size(132, 16);
             this.cbLockChildrenLoyalty.TabIndex = 26;
@@ -1117,7 +1117,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(11, 294);
+            this.label42.Location = new System.Drawing.Point(11, 272);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(113, 12);
             this.label42.TabIndex = 23;
@@ -1125,7 +1125,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbFollowedLeaderDefenceRateIncrement
             // 
-            this.tbFollowedLeaderDefenceRateIncrement.Location = new System.Drawing.Point(128, 291);
+            this.tbFollowedLeaderDefenceRateIncrement.Location = new System.Drawing.Point(128, 269);
             this.tbFollowedLeaderDefenceRateIncrement.Name = "tbFollowedLeaderDefenceRateIncrement";
             this.tbFollowedLeaderDefenceRateIncrement.Size = new System.Drawing.Size(71, 22);
             this.tbFollowedLeaderDefenceRateIncrement.TabIndex = 22;
@@ -1133,7 +1133,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(11, 267);
+            this.label41.Location = new System.Drawing.Point(11, 245);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(113, 12);
             this.label41.TabIndex = 21;
@@ -1141,7 +1141,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbFollowedLeaderOffenceRateIncrement
             // 
-            this.tbFollowedLeaderOffenceRateIncrement.Location = new System.Drawing.Point(128, 264);
+            this.tbFollowedLeaderOffenceRateIncrement.Location = new System.Drawing.Point(128, 242);
             this.tbFollowedLeaderOffenceRateIncrement.Name = "tbFollowedLeaderOffenceRateIncrement";
             this.tbFollowedLeaderOffenceRateIncrement.Size = new System.Drawing.Size(71, 22);
             this.tbFollowedLeaderOffenceRateIncrement.TabIndex = 20;
@@ -1149,7 +1149,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(11, 235);
+            this.label37.Location = new System.Drawing.Point(11, 213);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(77, 12);
             this.label37.TabIndex = 19;
@@ -1157,7 +1157,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLearnTitleDays
             // 
-            this.tbLearnTitleDays.Location = new System.Drawing.Point(94, 232);
+            this.tbLearnTitleDays.Location = new System.Drawing.Point(94, 210);
             this.tbLearnTitleDays.Name = "tbLearnTitleDays";
             this.tbLearnTitleDays.Size = new System.Drawing.Size(71, 22);
             this.tbLearnTitleDays.TabIndex = 18;
@@ -1165,7 +1165,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(11, 207);
+            this.label38.Location = new System.Drawing.Point(11, 185);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(77, 12);
             this.label38.TabIndex = 17;
@@ -1173,7 +1173,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLearnStuntDays
             // 
-            this.tbLearnStuntDays.Location = new System.Drawing.Point(94, 204);
+            this.tbLearnStuntDays.Location = new System.Drawing.Point(94, 182);
             this.tbLearnStuntDays.Name = "tbLearnStuntDays";
             this.tbLearnStuntDays.Size = new System.Drawing.Size(71, 22);
             this.tbLearnStuntDays.TabIndex = 16;
@@ -1181,7 +1181,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(11, 179);
+            this.label39.Location = new System.Drawing.Point(11, 157);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(77, 12);
             this.label39.TabIndex = 15;
@@ -1189,7 +1189,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLearnSkillDays
             // 
-            this.tbLearnSkillDays.Location = new System.Drawing.Point(94, 176);
+            this.tbLearnSkillDays.Location = new System.Drawing.Point(94, 154);
             this.tbLearnSkillDays.Name = "tbLearnSkillDays";
             this.tbLearnSkillDays.Size = new System.Drawing.Size(71, 22);
             this.tbLearnSkillDays.TabIndex = 14;
@@ -1197,7 +1197,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(11, 151);
+            this.label36.Location = new System.Drawing.Point(11, 129);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(209, 12);
             this.label36.TabIndex = 13;
@@ -1205,7 +1205,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbFindTreasureChance
             // 
-            this.tbFindTreasureChance.Location = new System.Drawing.Point(226, 148);
+            this.tbFindTreasureChance.Location = new System.Drawing.Point(226, 126);
             this.tbFindTreasureChance.MaxLength = 2;
             this.tbFindTreasureChance.Name = "tbFindTreasureChance";
             this.tbFindTreasureChance.Size = new System.Drawing.Size(25, 22);
@@ -1215,7 +1215,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbPlayerPersonAvailable
             // 
             this.cbPlayerPersonAvailable.AutoSize = true;
-            this.cbPlayerPersonAvailable.Location = new System.Drawing.Point(13, 79);
+            this.cbPlayerPersonAvailable.Location = new System.Drawing.Point(13, 57);
             this.cbPlayerPersonAvailable.Name = "cbPlayerPersonAvailable";
             this.cbPlayerPersonAvailable.Size = new System.Drawing.Size(172, 16);
             this.cbPlayerPersonAvailable.TabIndex = 2;
@@ -1225,7 +1225,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbAdditionalPersonAvailable
             // 
             this.cbAdditionalPersonAvailable.AutoSize = true;
-            this.cbAdditionalPersonAvailable.Location = new System.Drawing.Point(13, 57);
+            this.cbAdditionalPersonAvailable.Location = new System.Drawing.Point(13, 35);
             this.cbAdditionalPersonAvailable.Name = "cbAdditionalPersonAvailable";
             this.cbAdditionalPersonAvailable.Size = new System.Drawing.Size(172, 16);
             this.cbAdditionalPersonAvailable.TabIndex = 1;
@@ -1237,24 +1237,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbCommonPersonAvailable.AutoSize = true;
             this.cbCommonPersonAvailable.Location = new System.Drawing.Point(13, 13);
             this.cbCommonPersonAvailable.Name = "cbCommonPersonAvailable";
-            this.cbCommonPersonAvailable.Size = new System.Drawing.Size(172, 16);
+            this.cbCommonPersonAvailable.Size = new System.Drawing.Size(96, 16);
             this.cbCommonPersonAvailable.TabIndex = 0;
-            this.cbCommonPersonAvailable.Text = "一般人物登场（0000-4999）";
+            this.cbCommonPersonAvailable.Text = "一般人物登场";
             this.cbCommonPersonAvailable.UseVisualStyleBackColor = true;
-            // 
-            // cbCreateChildren
-            // 
-            this.cbCreateChildren.AutoSize = true;
-            this.cbCreateChildren.Location = new System.Drawing.Point(13, 35);
-            this.cbCreateChildren.Name = "cbCreateChildren";
-            this.cbCreateChildren.Size = new System.Drawing.Size(172, 16);
-            this.cbCreateChildren.TabIndex = 10;
-            this.cbCreateChildren.Text = "生成虚拟子嗣（5000-6999）";
             // 
             // cbCreateChildrenIgnoreLimit
             // 
             this.cbCreateChildrenIgnoreLimit.AutoSize = true;
-            this.cbCreateChildrenIgnoreLimit.Location = new System.Drawing.Point(13, 123);
+            this.cbCreateChildrenIgnoreLimit.Location = new System.Drawing.Point(13, 101);
             this.cbCreateChildrenIgnoreLimit.Name = "cbCreateChildrenIgnoreLimit";
             this.cbCreateChildrenIgnoreLimit.Size = new System.Drawing.Size(156, 16);
             this.cbCreateChildrenIgnoreLimit.TabIndex = 10;
@@ -1324,7 +1315,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageParameter.Controls.Add(this.tbInternalRate);
             this.tabPageParameter.Location = new System.Drawing.Point(4, 22);
             this.tabPageParameter.Name = "tabPageParameter";
-            this.tabPageParameter.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageParameter.Padding = new System.Windows.Forms.Padding(10);
             this.tabPageParameter.Size = new System.Drawing.Size(445, 422);
             this.tabPageParameter.TabIndex = 2;
             this.tabPageParameter.Text = "参数";
@@ -1333,7 +1324,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(194, 388);
+            this.label47.Location = new System.Drawing.Point(218, 395);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(137, 12);
             this.label47.TabIndex = 59;
@@ -1341,7 +1332,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbLeadershipOffenceRate
             // 
-            this.tbLeadershipOffenceRate.Location = new System.Drawing.Point(348, 385);
+            this.tbLeadershipOffenceRate.Location = new System.Drawing.Point(361, 392);
             this.tbLeadershipOffenceRate.Name = "tbLeadershipOffenceRate";
             this.tbLeadershipOffenceRate.Size = new System.Drawing.Size(71, 22);
             this.tbLeadershipOffenceRate.TabIndex = 58;
@@ -1349,7 +1340,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(8, 388);
+            this.label46.Location = new System.Drawing.Point(12, 395);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(65, 12);
             this.label46.TabIndex = 57;
@@ -1357,7 +1348,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbTechniquePointMultiple
             // 
-            this.tbTechniquePointMultiple.Location = new System.Drawing.Point(102, 385);
+            this.tbTechniquePointMultiple.Location = new System.Drawing.Point(107, 392);
             this.tbTechniquePointMultiple.Name = "tbTechniquePointMultiple";
             this.tbTechniquePointMultiple.Size = new System.Drawing.Size(71, 22);
             this.tbTechniquePointMultiple.TabIndex = 56;
@@ -1365,7 +1356,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(8, 252);
+            this.label40.Location = new System.Drawing.Point(12, 259);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(65, 12);
             this.label40.TabIndex = 55;
@@ -1373,7 +1364,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbFireDamageScale
             // 
-            this.tbFireDamageScale.Location = new System.Drawing.Point(102, 249);
+            this.tbFireDamageScale.Location = new System.Drawing.Point(107, 256);
             this.tbFireDamageScale.Name = "tbFireDamageScale";
             this.tbFireDamageScale.Size = new System.Drawing.Size(71, 22);
             this.tbFireDamageScale.TabIndex = 54;
@@ -1381,7 +1372,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(8, 225);
+            this.label33.Location = new System.Drawing.Point(12, 232);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(77, 12);
             this.label33.TabIndex = 53;
@@ -1389,7 +1380,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbSurroundArchitectureDominationUnit
             // 
-            this.tbSurroundArchitectureDominationUnit.Location = new System.Drawing.Point(102, 222);
+            this.tbSurroundArchitectureDominationUnit.Location = new System.Drawing.Point(107, 229);
             this.tbSurroundArchitectureDominationUnit.Name = "tbSurroundArchitectureDominationUnit";
             this.tbSurroundArchitectureDominationUnit.Size = new System.Drawing.Size(71, 22);
             this.tbSurroundArchitectureDominationUnit.TabIndex = 52;
@@ -1397,7 +1388,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(8, 360);
+            this.label27.Location = new System.Drawing.Point(12, 367);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(89, 12);
             this.label27.TabIndex = 51;
@@ -1405,7 +1396,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbFoodToFundDivisor
             // 
-            this.tbFoodToFundDivisor.Location = new System.Drawing.Point(102, 357);
+            this.tbFoodToFundDivisor.Location = new System.Drawing.Point(107, 364);
             this.tbFoodToFundDivisor.Name = "tbFoodToFundDivisor";
             this.tbFoodToFundDivisor.Size = new System.Drawing.Size(71, 22);
             this.tbFoodToFundDivisor.TabIndex = 50;
@@ -1413,7 +1404,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(8, 333);
+            this.label26.Location = new System.Drawing.Point(12, 340);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(89, 12);
             this.label26.TabIndex = 49;
@@ -1421,7 +1412,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbFundToFoodMultiple
             // 
-            this.tbFundToFoodMultiple.Location = new System.Drawing.Point(102, 330);
+            this.tbFundToFoodMultiple.Location = new System.Drawing.Point(107, 337);
             this.tbFundToFoodMultiple.Name = "tbFundToFoodMultiple";
             this.tbFundToFoodMultiple.Size = new System.Drawing.Size(71, 22);
             this.tbFundToFoodMultiple.TabIndex = 48;
@@ -1429,7 +1420,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(8, 306);
+            this.label25.Location = new System.Drawing.Point(12, 313);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(77, 12);
             this.label25.TabIndex = 47;
@@ -1437,7 +1428,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbSellFoodCommerce
             // 
-            this.tbSellFoodCommerce.Location = new System.Drawing.Point(102, 303);
+            this.tbSellFoodCommerce.Location = new System.Drawing.Point(107, 310);
             this.tbSellFoodCommerce.Name = "tbSellFoodCommerce";
             this.tbSellFoodCommerce.Size = new System.Drawing.Size(71, 22);
             this.tbSellFoodCommerce.TabIndex = 46;
@@ -1445,7 +1436,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(8, 279);
+            this.label24.Location = new System.Drawing.Point(12, 286);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(77, 12);
             this.label24.TabIndex = 45;
@@ -1453,7 +1444,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbBuyFoodAgriculture
             // 
-            this.tbBuyFoodAgriculture.Location = new System.Drawing.Point(102, 276);
+            this.tbBuyFoodAgriculture.Location = new System.Drawing.Point(107, 283);
             this.tbBuyFoodAgriculture.Name = "tbBuyFoodAgriculture";
             this.tbBuyFoodAgriculture.Size = new System.Drawing.Size(71, 22);
             this.tbBuyFoodAgriculture.TabIndex = 44;
@@ -1461,7 +1452,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(254, 360);
+            this.label23.Location = new System.Drawing.Point(278, 367);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(77, 12);
             this.label23.TabIndex = 43;
@@ -1469,7 +1460,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbClearFieldAgricultureCostUnit
             // 
-            this.tbClearFieldAgricultureCostUnit.Location = new System.Drawing.Point(348, 357);
+            this.tbClearFieldAgricultureCostUnit.Location = new System.Drawing.Point(361, 364);
             this.tbClearFieldAgricultureCostUnit.Name = "tbClearFieldAgricultureCostUnit";
             this.tbClearFieldAgricultureCostUnit.Size = new System.Drawing.Size(71, 22);
             this.tbClearFieldAgricultureCostUnit.TabIndex = 42;
@@ -1477,7 +1468,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(254, 333);
+            this.label22.Location = new System.Drawing.Point(278, 340);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(77, 12);
             this.label22.TabIndex = 41;
@@ -1485,7 +1476,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbClearFieldFundCostUnit
             // 
-            this.tbClearFieldFundCostUnit.Location = new System.Drawing.Point(348, 330);
+            this.tbClearFieldFundCostUnit.Location = new System.Drawing.Point(361, 337);
             this.tbClearFieldFundCostUnit.Name = "tbClearFieldFundCostUnit";
             this.tbClearFieldFundCostUnit.Size = new System.Drawing.Size(71, 22);
             this.tbClearFieldFundCostUnit.TabIndex = 40;
@@ -1493,7 +1484,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(254, 306);
+            this.label20.Location = new System.Drawing.Point(278, 313);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(77, 12);
             this.label20.TabIndex = 39;
@@ -1501,7 +1492,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbGossipArchitectureCost
             // 
-            this.tbGossipArchitectureCost.Location = new System.Drawing.Point(348, 303);
+            this.tbGossipArchitectureCost.Location = new System.Drawing.Point(361, 310);
             this.tbGossipArchitectureCost.Name = "tbGossipArchitectureCost";
             this.tbGossipArchitectureCost.Size = new System.Drawing.Size(71, 22);
             this.tbGossipArchitectureCost.TabIndex = 38;
@@ -1509,7 +1500,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(254, 279);
+            this.label21.Location = new System.Drawing.Point(278, 286);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(77, 12);
             this.label21.TabIndex = 37;
@@ -1517,7 +1508,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbInstigateArchitectureCost
             // 
-            this.tbInstigateArchitectureCost.Location = new System.Drawing.Point(348, 276);
+            this.tbInstigateArchitectureCost.Location = new System.Drawing.Point(361, 283);
             this.tbInstigateArchitectureCost.Name = "tbInstigateArchitectureCost";
             this.tbInstigateArchitectureCost.Size = new System.Drawing.Size(71, 22);
             this.tbInstigateArchitectureCost.TabIndex = 36;
@@ -1525,7 +1516,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(254, 252);
+            this.label19.Location = new System.Drawing.Point(278, 259);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(77, 12);
             this.label19.TabIndex = 35;
@@ -1533,7 +1524,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbDestroyArchitectureCost
             // 
-            this.tbDestroyArchitectureCost.Location = new System.Drawing.Point(348, 249);
+            this.tbDestroyArchitectureCost.Location = new System.Drawing.Point(361, 256);
             this.tbDestroyArchitectureCost.Name = "tbDestroyArchitectureCost";
             this.tbDestroyArchitectureCost.Size = new System.Drawing.Size(71, 22);
             this.tbDestroyArchitectureCost.TabIndex = 34;
@@ -1541,7 +1532,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(254, 225);
+            this.label18.Location = new System.Drawing.Point(278, 232);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(77, 12);
             this.label18.TabIndex = 33;
@@ -1549,7 +1540,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbSendSpyCost
             // 
-            this.tbSendSpyCost.Location = new System.Drawing.Point(348, 222);
+            this.tbSendSpyCost.Location = new System.Drawing.Point(361, 229);
             this.tbSendSpyCost.Name = "tbSendSpyCost";
             this.tbSendSpyCost.Size = new System.Drawing.Size(71, 22);
             this.tbSendSpyCost.TabIndex = 32;
@@ -1557,7 +1548,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(254, 198);
+            this.label17.Location = new System.Drawing.Point(278, 205);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(77, 12);
             this.label17.TabIndex = 31;
@@ -1565,7 +1556,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbRewardPersonCost
             // 
-            this.tbRewardPersonCost.Location = new System.Drawing.Point(348, 195);
+            this.tbRewardPersonCost.Location = new System.Drawing.Point(361, 202);
             this.tbRewardPersonCost.Name = "tbRewardPersonCost";
             this.tbRewardPersonCost.Size = new System.Drawing.Size(71, 22);
             this.tbRewardPersonCost.TabIndex = 30;
@@ -1573,7 +1564,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(254, 171);
+            this.label16.Location = new System.Drawing.Point(278, 178);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(77, 12);
             this.label16.TabIndex = 29;
@@ -1581,7 +1572,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbConvincePersonCost
             // 
-            this.tbConvincePersonCost.Location = new System.Drawing.Point(348, 168);
+            this.tbConvincePersonCost.Location = new System.Drawing.Point(361, 175);
             this.tbConvincePersonCost.Name = "tbConvincePersonCost";
             this.tbConvincePersonCost.Size = new System.Drawing.Size(71, 22);
             this.tbConvincePersonCost.TabIndex = 28;
@@ -1589,7 +1580,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(254, 144);
+            this.label15.Location = new System.Drawing.Point(278, 151);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(77, 12);
             this.label15.TabIndex = 27;
@@ -1597,7 +1588,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbHireNoFactionPersonCost
             // 
-            this.tbHireNoFactionPersonCost.Location = new System.Drawing.Point(348, 141);
+            this.tbHireNoFactionPersonCost.Location = new System.Drawing.Point(361, 148);
             this.tbHireNoFactionPersonCost.Name = "tbHireNoFactionPersonCost";
             this.tbHireNoFactionPersonCost.Size = new System.Drawing.Size(71, 22);
             this.tbHireNoFactionPersonCost.TabIndex = 26;
@@ -1605,7 +1596,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(254, 117);
+            this.label14.Location = new System.Drawing.Point(278, 124);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(77, 12);
             this.label14.TabIndex = 25;
@@ -1613,7 +1604,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbChangeCapitalCost
             // 
-            this.tbChangeCapitalCost.Location = new System.Drawing.Point(348, 114);
+            this.tbChangeCapitalCost.Location = new System.Drawing.Point(361, 121);
             this.tbChangeCapitalCost.Name = "tbChangeCapitalCost";
             this.tbChangeCapitalCost.Size = new System.Drawing.Size(71, 22);
             this.tbChangeCapitalCost.TabIndex = 24;
@@ -1621,7 +1612,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(254, 90);
+            this.label13.Location = new System.Drawing.Point(278, 97);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(77, 12);
             this.label13.TabIndex = 23;
@@ -1629,7 +1620,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbRecruitmentMorale
             // 
-            this.tbRecruitmentMorale.Location = new System.Drawing.Point(348, 87);
+            this.tbRecruitmentMorale.Location = new System.Drawing.Point(361, 94);
             this.tbRecruitmentMorale.Name = "tbRecruitmentMorale";
             this.tbRecruitmentMorale.Size = new System.Drawing.Size(71, 22);
             this.tbRecruitmentMorale.TabIndex = 22;
@@ -1637,7 +1628,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(254, 63);
+            this.label12.Location = new System.Drawing.Point(278, 70);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(77, 12);
             this.label12.TabIndex = 21;
@@ -1645,7 +1636,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbRecruitmentDomination
             // 
-            this.tbRecruitmentDomination.Location = new System.Drawing.Point(348, 60);
+            this.tbRecruitmentDomination.Location = new System.Drawing.Point(361, 67);
             this.tbRecruitmentDomination.Name = "tbRecruitmentDomination";
             this.tbRecruitmentDomination.Size = new System.Drawing.Size(71, 22);
             this.tbRecruitmentDomination.TabIndex = 20;
@@ -1653,7 +1644,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(254, 36);
+            this.label11.Location = new System.Drawing.Point(278, 43);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(77, 12);
             this.label11.TabIndex = 19;
@@ -1661,7 +1652,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbRecruitmentFundCost
             // 
-            this.tbRecruitmentFundCost.Location = new System.Drawing.Point(348, 33);
+            this.tbRecruitmentFundCost.Location = new System.Drawing.Point(361, 40);
             this.tbRecruitmentFundCost.Name = "tbRecruitmentFundCost";
             this.tbRecruitmentFundCost.Size = new System.Drawing.Size(71, 22);
             this.tbRecruitmentFundCost.TabIndex = 18;
@@ -1669,7 +1660,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(254, 9);
+            this.label10.Location = new System.Drawing.Point(278, 16);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(77, 12);
             this.label10.TabIndex = 17;
@@ -1677,7 +1668,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbInternalFundCost
             // 
-            this.tbInternalFundCost.Location = new System.Drawing.Point(348, 6);
+            this.tbInternalFundCost.Location = new System.Drawing.Point(361, 13);
             this.tbInternalFundCost.Name = "tbInternalFundCost";
             this.tbInternalFundCost.Size = new System.Drawing.Size(71, 22);
             this.tbInternalFundCost.TabIndex = 16;
@@ -1685,7 +1676,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(8, 198);
+            this.label9.Location = new System.Drawing.Point(12, 205);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(89, 12);
             this.label9.TabIndex = 15;
@@ -1693,7 +1684,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbDefaultPopulationDevelopingRate
             // 
-            this.tbDefaultPopulationDevelopingRate.Location = new System.Drawing.Point(102, 195);
+            this.tbDefaultPopulationDevelopingRate.Location = new System.Drawing.Point(107, 202);
             this.tbDefaultPopulationDevelopingRate.Name = "tbDefaultPopulationDevelopingRate";
             this.tbDefaultPopulationDevelopingRate.Size = new System.Drawing.Size(71, 22);
             this.tbDefaultPopulationDevelopingRate.TabIndex = 14;
@@ -1701,7 +1692,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(8, 171);
+            this.label8.Location = new System.Drawing.Point(12, 178);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(65, 12);
             this.label8.TabIndex = 13;
@@ -1709,7 +1700,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbArchitectureDamageRate
             // 
-            this.tbArchitectureDamageRate.Location = new System.Drawing.Point(102, 168);
+            this.tbArchitectureDamageRate.Location = new System.Drawing.Point(107, 175);
             this.tbArchitectureDamageRate.Name = "tbArchitectureDamageRate";
             this.tbArchitectureDamageRate.Size = new System.Drawing.Size(71, 22);
             this.tbArchitectureDamageRate.TabIndex = 12;
@@ -1717,7 +1708,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 144);
+            this.label7.Location = new System.Drawing.Point(12, 151);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 12);
             this.label7.TabIndex = 11;
@@ -1725,7 +1716,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbTroopDamageRate
             // 
-            this.tbTroopDamageRate.Location = new System.Drawing.Point(102, 141);
+            this.tbTroopDamageRate.Location = new System.Drawing.Point(107, 148);
             this.tbTroopDamageRate.Name = "tbTroopDamageRate";
             this.tbTroopDamageRate.Size = new System.Drawing.Size(71, 22);
             this.tbTroopDamageRate.TabIndex = 10;
@@ -1733,7 +1724,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 117);
+            this.label6.Location = new System.Drawing.Point(12, 124);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 12);
             this.label6.TabIndex = 9;
@@ -1741,7 +1732,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbFoodRate
             // 
-            this.tbFoodRate.Location = new System.Drawing.Point(102, 114);
+            this.tbFoodRate.Location = new System.Drawing.Point(107, 121);
             this.tbFoodRate.Name = "tbFoodRate";
             this.tbFoodRate.Size = new System.Drawing.Size(71, 22);
             this.tbFoodRate.TabIndex = 8;
@@ -1749,7 +1740,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 90);
+            this.label5.Location = new System.Drawing.Point(12, 97);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 7;
@@ -1757,7 +1748,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbFundRate
             // 
-            this.tbFundRate.Location = new System.Drawing.Point(102, 87);
+            this.tbFundRate.Location = new System.Drawing.Point(107, 94);
             this.tbFundRate.Name = "tbFundRate";
             this.tbFundRate.Size = new System.Drawing.Size(71, 22);
             this.tbFundRate.TabIndex = 6;
@@ -1765,7 +1756,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 63);
+            this.label4.Location = new System.Drawing.Point(12, 70);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 5;
@@ -1773,7 +1764,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbRecruitmentRate
             // 
-            this.tbRecruitmentRate.Location = new System.Drawing.Point(102, 60);
+            this.tbRecruitmentRate.Location = new System.Drawing.Point(107, 67);
             this.tbRecruitmentRate.Name = "tbRecruitmentRate";
             this.tbRecruitmentRate.Size = new System.Drawing.Size(71, 22);
             this.tbRecruitmentRate.TabIndex = 4;
@@ -1781,7 +1772,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 36);
+            this.label3.Location = new System.Drawing.Point(12, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 3;
@@ -1789,7 +1780,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbTrainingRate
             // 
-            this.tbTrainingRate.Location = new System.Drawing.Point(102, 33);
+            this.tbTrainingRate.Location = new System.Drawing.Point(107, 40);
             this.tbTrainingRate.Name = "tbTrainingRate";
             this.tbTrainingRate.Size = new System.Drawing.Size(71, 22);
             this.tbTrainingRate.TabIndex = 2;
@@ -1797,7 +1788,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 9);
+            this.label2.Location = new System.Drawing.Point(12, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 1;
@@ -1805,7 +1796,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbInternalRate
             // 
-            this.tbInternalRate.Location = new System.Drawing.Point(102, 6);
+            this.tbInternalRate.Location = new System.Drawing.Point(107, 13);
             this.tbInternalRate.Name = "tbInternalRate";
             this.tbInternalRate.Size = new System.Drawing.Size(71, 22);
             this.tbInternalRate.TabIndex = 0;
@@ -1846,7 +1837,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.Location = new System.Drawing.Point(4, 22);
             this.tabPageAIParameter.Name = "tabPageAIParameter";
             this.tabPageAIParameter.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPageAIParameter.Size = new System.Drawing.Size(445, 422);
+            this.tabPageAIParameter.Size = new System.Drawing.Size(446, 422);
             this.tabPageAIParameter.TabIndex = 3;
             this.tabPageAIParameter.Text = "电脑";
             this.tabPageAIParameter.UseVisualStyleBackColor = true;
@@ -2134,7 +2125,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(293, 454);
+            this.btnOK.Location = new System.Drawing.Point(292, 454);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 1;
@@ -2162,6 +2153,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbMultipleResource.TabIndex = 115;
             this.cbMultipleResource.Text = "资源收入加倍";
             this.cbMultipleResource.UseVisualStyleBackColor = true;
+            // 
+            // cbCreateChildren
+            // 
+            this.cbCreateChildren.AutoSize = true;
+            this.cbCreateChildren.Location = new System.Drawing.Point(13, 321);
+            this.cbCreateChildren.Name = "cbCreateChildren";
+            this.cbCreateChildren.Size = new System.Drawing.Size(96, 16);
+            this.cbCreateChildren.TabIndex = 135;
+            this.cbCreateChildren.Text = "生成虚拟子嗣";
             // 
             // formOptions
             // 
