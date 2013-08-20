@@ -386,7 +386,7 @@ namespace PluginInterface
         object SelectedItem { get; }
         object SelectedItemList { get; }
         object TabList { get; }
-
+        Rectangle FrameRectangle { get; }
 
         FrameFunction Function { get; set; }
 

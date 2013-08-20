@@ -167,6 +167,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (base.Scenario.CurrentPlayer == null) return;
 
+            if (this.Plugins.youcelanPlugin.IsShowing && StaticMethods.PointInRectangle(this.MousePosition, this.Plugins.youcelanPlugin.FrameRectangle))
+            {
+                return;
+            }
+
             if ((this.previousMouseState.LeftButton == ButtonState.Pressed) && (this.mouseState.LeftButton == ButtonState.Released) && (this.viewMove == ViewMove.Stop))
             {
                 if (((GlobalVariables.SkyEye || base.Scenario.NoCurrentPlayer) || base.Scenario.CurrentPlayer.IsPositionKnown(this.position)) && ((this.Plugins.ContextMenuPlugin != null) && (this.PeekUndoneWork().Kind == UndoneWorkKind.None)))
