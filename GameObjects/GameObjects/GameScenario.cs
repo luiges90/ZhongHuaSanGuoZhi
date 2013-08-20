@@ -751,6 +751,11 @@
             this.Informations.Clear();
             this.SpyMessages.Clear();
             this.Routeways.Clear();
+            GameObjectList t1 = this.Troops.GetList();
+            foreach (Troop t in t1)
+            {
+                t.Destroy(true, false);
+            }
             this.Troops.Clear();
             this.Legions.Clear();
             this.Architectures.Clear();
