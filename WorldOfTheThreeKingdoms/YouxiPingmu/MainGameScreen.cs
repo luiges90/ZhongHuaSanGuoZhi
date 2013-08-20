@@ -449,7 +449,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void Game_Activated(object sender, EventArgs e)
         {
-            this.UpdateViewport();
+            //this.UpdateViewport();
             this.ResumeMusic();
             base.EnableMouseEvent = true;
             if (!GlobalVariables.RunWhileNotFocused)
@@ -2601,7 +2601,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             this.UpdateScreenBlind(gameTime);
                             //this.Plugins.youcelanPlugin.Update(gameTime);
                             //this.Plugins.youcelanPlugin.IsShowing = false;
-
                             this.UpdateViewMove();
                             this.HandleLaterMouseEvent(gameTime);
                             this.ScrollTheMainMap(gameTime);
@@ -3001,7 +3000,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.viewportSize.Y = base.Game.GraphicsDevice.Viewport.Height - this.Plugins.ToolBarPlugin.Height;
                 this.Plugins.ToolBarPlugin.SetRealViewportSize(new Point(base.Game.GraphicsDevice.Viewport.Width, base.Game.GraphicsDevice.Viewport.Height));
                 this.ResetScreenEdge();
-                //this.mainMapLayer.ReCalculateTileDestination(base.spriteBatch.GraphicsDevice);
+                this.mainMapLayer.ReCalculateTileDestination(base.spriteBatch.GraphicsDevice);
             }
         }
 
