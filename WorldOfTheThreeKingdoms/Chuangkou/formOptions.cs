@@ -463,7 +463,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageBasic.Location = new System.Drawing.Point(4, 22);
             this.tabPageBasic.Name = "tabPageBasic";
             this.tabPageBasic.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPageBasic.Size = new System.Drawing.Size(446, 422);
+            this.tabPageBasic.Size = new System.Drawing.Size(445, 422);
             this.tabPageBasic.TabIndex = 4;
             this.tabPageBasic.Text = "基本";
             this.tabPageBasic.UseVisualStyleBackColor = true;
@@ -487,7 +487,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbEnableAgeAbilityFactor
             // 
             this.cbEnableAgeAbilityFactor.AutoSize = true;
-            this.cbEnableAgeAbilityFactor.Location = new System.Drawing.Point(13, 123);
+            this.cbEnableAgeAbilityFactor.Location = new System.Drawing.Point(113, 121);
             this.cbEnableAgeAbilityFactor.Name = "cbEnableAgeAbilityFactor";
             this.cbEnableAgeAbilityFactor.Size = new System.Drawing.Size(96, 16);
             this.cbEnableAgeAbilityFactor.TabIndex = 132;
@@ -497,7 +497,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbIdealTendencyValid
             // 
             this.cbIdealTendencyValid.AutoSize = true;
-            this.cbIdealTendencyValid.Location = new System.Drawing.Point(13, 35);
+            this.cbIdealTendencyValid.Location = new System.Drawing.Point(113, 33);
             this.cbIdealTendencyValid.Name = "cbIdealTendencyValid";
             this.cbIdealTendencyValid.Size = new System.Drawing.Size(120, 16);
             this.cbIdealTendencyValid.TabIndex = 131;
@@ -507,7 +507,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbPersonNaturalDeath
             // 
             this.cbPersonNaturalDeath.AutoSize = true;
-            this.cbPersonNaturalDeath.Location = new System.Drawing.Point(13, 101);
+            this.cbPersonNaturalDeath.Location = new System.Drawing.Point(113, 99);
             this.cbPersonNaturalDeath.Name = "cbPersonNaturalDeath";
             this.cbPersonNaturalDeath.Size = new System.Drawing.Size(72, 16);
             this.cbPersonNaturalDeath.TabIndex = 130;
@@ -517,7 +517,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbPersonDieInChallenge
             // 
             this.cbPersonDieInChallenge.AutoSize = true;
-            this.cbPersonDieInChallenge.Location = new System.Drawing.Point(13, 79);
+            this.cbPersonDieInChallenge.Location = new System.Drawing.Point(113, 77);
             this.cbPersonDieInChallenge.Name = "cbPersonDieInChallenge";
             this.cbPersonDieInChallenge.Size = new System.Drawing.Size(144, 16);
             this.cbPersonDieInChallenge.TabIndex = 129;
@@ -545,7 +545,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbLandArmyCanGoDownWater
             // 
             this.cbLandArmyCanGoDownWater.AutoSize = true;
-            this.cbLandArmyCanGoDownWater.Location = new System.Drawing.Point(13, 167);
+            this.cbLandArmyCanGoDownWater.Location = new System.Drawing.Point(113, 165);
             this.cbLandArmyCanGoDownWater.Name = "cbLandArmyCanGoDownWater";
             this.cbLandArmyCanGoDownWater.Size = new System.Drawing.Size(132, 16);
             this.cbLandArmyCanGoDownWater.TabIndex = 126;
@@ -555,7 +555,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbEnableLoadInGame
             // 
             this.cbEnableLoadInGame.AutoSize = true;
-            this.cbEnableLoadInGame.Location = new System.Drawing.Point(13, 299);
+            this.cbEnableLoadInGame.Location = new System.Drawing.Point(113, 297);
             this.cbEnableLoadInGame.Name = "cbEnableLoadInGame";
             this.cbEnableLoadInGame.Size = new System.Drawing.Size(120, 16);
             this.cbEnableLoadInGame.TabIndex = 125;
@@ -565,7 +565,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbEnableCheat
             // 
             this.cbEnableCheat.AutoSize = true;
-            this.cbEnableCheat.Location = new System.Drawing.Point(13, 277);
+            this.cbEnableCheat.Location = new System.Drawing.Point(113, 275);
             this.cbEnableCheat.Name = "cbEnableCheat";
             this.cbEnableCheat.Size = new System.Drawing.Size(96, 16);
             this.cbEnableCheat.TabIndex = 124;
@@ -575,7 +575,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // wujiangYoukenengDuli
             // 
             this.wujiangYoukenengDuli.AutoSize = true;
-            this.wujiangYoukenengDuli.Location = new System.Drawing.Point(13, 145);
+            this.wujiangYoukenengDuli.Location = new System.Drawing.Point(113, 143);
             this.wujiangYoukenengDuli.Name = "wujiangYoukenengDuli";
             this.wujiangYoukenengDuli.Size = new System.Drawing.Size(108, 16);
             this.wujiangYoukenengDuli.TabIndex = 123;
@@ -585,7 +585,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // checkLiangdaoXitong
             // 
             this.checkLiangdaoXitong.AutoSize = true;
-            this.checkLiangdaoXitong.Location = new System.Drawing.Point(13, 13);
+            this.checkLiangdaoXitong.Location = new System.Drawing.Point(113, 11);
             this.checkLiangdaoXitong.Name = "checkLiangdaoXitong";
             this.checkLiangdaoXitong.Size = new System.Drawing.Size(72, 16);
             this.checkLiangdaoXitong.TabIndex = 122;
@@ -600,7 +600,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.groupBox1.Controls.Add(this.rbNormal);
             this.groupBox1.Controls.Add(this.rbEasy);
             this.groupBox1.Controls.Add(this.rbBeginner);
-            this.groupBox1.Location = new System.Drawing.Point(338, 13);
+            this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(94, 151);
             this.groupBox1.TabIndex = 121;
@@ -676,7 +676,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbPermitFactionMerge
             // 
             this.cbPermitFactionMerge.AutoSize = true;
-            this.cbPermitFactionMerge.Location = new System.Drawing.Point(13, 189);
+            this.cbPermitFactionMerge.Location = new System.Drawing.Point(113, 187);
             this.cbPermitFactionMerge.Name = "cbPermitFactionMerge";
             this.cbPermitFactionMerge.Size = new System.Drawing.Size(96, 16);
             this.cbPermitFactionMerge.TabIndex = 120;
@@ -686,7 +686,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbMilitaryKindSpeedValid
             // 
             this.cbMilitaryKindSpeedValid.AutoSize = true;
-            this.cbMilitaryKindSpeedValid.Location = new System.Drawing.Point(13, 57);
+            this.cbMilitaryKindSpeedValid.Location = new System.Drawing.Point(113, 55);
             this.cbMilitaryKindSpeedValid.Name = "cbMilitaryKindSpeedValid";
             this.cbMilitaryKindSpeedValid.Size = new System.Drawing.Size(96, 16);
             this.cbMilitaryKindSpeedValid.TabIndex = 119;
@@ -696,7 +696,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbPopulationRecruitmentLimit
             // 
             this.cbPopulationRecruitmentLimit.AutoSize = true;
-            this.cbPopulationRecruitmentLimit.Location = new System.Drawing.Point(13, 211);
+            this.cbPopulationRecruitmentLimit.Location = new System.Drawing.Point(113, 209);
             this.cbPopulationRecruitmentLimit.Name = "cbPopulationRecruitmentLimit";
             this.cbPopulationRecruitmentLimit.Size = new System.Drawing.Size(156, 16);
             this.cbPopulationRecruitmentLimit.TabIndex = 118;
@@ -706,7 +706,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbSkyEye
             // 
             this.cbSkyEye.AutoSize = true;
-            this.cbSkyEye.Location = new System.Drawing.Point(13, 255);
+            this.cbSkyEye.Location = new System.Drawing.Point(113, 253);
             this.cbSkyEye.Name = "cbSkyEye";
             this.cbSkyEye.Size = new System.Drawing.Size(96, 16);
             this.cbSkyEye.TabIndex = 114;
@@ -2147,7 +2147,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbMultipleResource
             // 
             this.cbMultipleResource.AutoSize = true;
-            this.cbMultipleResource.Location = new System.Drawing.Point(13, 233);
+            this.cbMultipleResource.Location = new System.Drawing.Point(113, 231);
             this.cbMultipleResource.Name = "cbMultipleResource";
             this.cbMultipleResource.Size = new System.Drawing.Size(96, 16);
             this.cbMultipleResource.TabIndex = 115;
@@ -2157,7 +2157,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbCreateChildren
             // 
             this.cbCreateChildren.AutoSize = true;
-            this.cbCreateChildren.Location = new System.Drawing.Point(13, 321);
+            this.cbCreateChildren.Location = new System.Drawing.Point(113, 319);
             this.cbCreateChildren.Name = "cbCreateChildren";
             this.cbCreateChildren.Size = new System.Drawing.Size(96, 16);
             this.cbCreateChildren.TabIndex = 135;
