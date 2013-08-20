@@ -2807,6 +2807,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if (this.Plugins.ArchitectureSurveyPlugin != null)
             {
                 Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.position);
+                if (this.Plugins.youcelanPlugin.IsShowing && StaticMethods.PointInRectangle(this.MousePosition, this.Plugins.youcelanPlugin.FrameRectangle))
+                {
+                    architectureByPosition = null;
+                }
                 if ((architectureByPosition != null) && ((this.CurrentTroop == null) || ((!GlobalVariables.SkyEye && (base.Scenario.CurrentPlayer != null)) && !base.Scenario.CurrentPlayer.IsPositionKnown(this.CurrentTroop.Position))))
                 {
                     this.Plugins.ArchitectureSurveyPlugin.SetArchitecture(architectureByPosition, this.position);
@@ -2826,6 +2830,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 if (GlobalVariables.SkyEye || ((base.Scenario.CurrentPlayer != null) && base.Scenario.CurrentPlayer.IsPositionKnown(this.position)))
                 {
                     Troop troopByPosition = base.Scenario.GetTroopByPosition(this.position);
+                    if (this.Plugins.youcelanPlugin.IsShowing && StaticMethods.PointInRectangle(this.MousePosition, this.Plugins.youcelanPlugin.FrameRectangle))
+                    {
+                        troopByPosition = null;
+                    }
                     if (troopByPosition != null)
                     {
                         this.Plugins.TroopSurveyPlugin.SetTroop(troopByPosition);
