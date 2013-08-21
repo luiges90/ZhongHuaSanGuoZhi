@@ -27,7 +27,7 @@
             {
                 Person maxStrengthPerson = sourceTroop.Persons.GetMaxStrengthPerson();
                 Person destination = troop.Persons.GetMaxStrengthPerson();
-                if (((maxStrengthPerson != null) && (destination != null)) && ( (GameObject.Random(GameObject.Square(destination.Calmness)) < GameObject.Random(0x19))))
+                if (((maxStrengthPerson != null) && (destination != null)) && (this.ChallengeOftenShow || (GameObject.Random(GameObject.Square(destination.Calmness)) < GameObject.Random(0x19))))
                 {
                     if (maxStrengthPerson.IsCivil() || destination.IsCivil())  //文官不单挑
                     {
@@ -46,8 +46,8 @@
         {
             int flag = 0;
             damage.ChallengeHappened = true;  //单挑发生
-            if ((this.ChallengeOftenShow || GlobalVariables.ShowChallengeAnimation) && 
-                (scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || scenario.IsPlayer(destination.BelongedFaction) || GlobalVariables.SkyEye))  //单挑双方有玩家的武将才演示
+            if ((GlobalVariables.ShowChallengeAnimation) &&
+                (scenario.IsPlayer(maxStrengthPerson.BelongedFaction) || scenario.IsPlayer(destination.BelongedFaction) || GlobalVariables.SkyEye || this.ChallengeOftenShow))  //单挑双方有玩家的武将才演示
             {
                 try
                 {
