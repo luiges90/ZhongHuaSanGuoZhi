@@ -386,7 +386,7 @@ namespace PluginInterface
         object SelectedItem { get; }
         object SelectedItemList { get; }
         object TabList { get; }
-
+        Rectangle FrameRectangle { get; }
 
         FrameFunction Function { get; set; }
 
@@ -431,7 +431,7 @@ namespace PluginInterface
         void SetContextMenuPlugin(IGameContextMenu contextMenuPlugin);
         void SetRealViewportSize(Point realViewportSize);
         void SetScreen(object screen);
-
+        void Draw(SpriteBatch spriteBatch, GameTime gameTime);
         bool DrawTools { get; set; }
         bool Enabled { get; set; }
         int Height { get; set; }

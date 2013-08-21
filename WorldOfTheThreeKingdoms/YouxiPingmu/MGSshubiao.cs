@@ -167,6 +167,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (base.Scenario.CurrentPlayer == null) return;
 
+            if (this.Plugins.youcelanPlugin.IsShowing && StaticMethods.PointInRectangle(this.MousePosition, this.Plugins.youcelanPlugin.FrameRectangle))
+            {
+                return;
+            }
+
             if ((this.previousMouseState.LeftButton == ButtonState.Pressed) && (this.mouseState.LeftButton == ButtonState.Released) && (this.viewMove == ViewMove.Stop))
             {
                 if (((GlobalVariables.SkyEye || base.Scenario.NoCurrentPlayer) || base.Scenario.CurrentPlayer.IsPositionKnown(this.position)) && ((this.Plugins.ContextMenuPlugin != null) && (this.PeekUndoneWork().Kind == UndoneWorkKind.None)))
@@ -283,10 +288,19 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void HandleLaterMouseScroll()
         {
-            if ((this.mouseState.ScrollWheelValue != this.previousMouseState.ScrollWheelValue) && (this.oldScrollWheelValue != this.mouseState.ScrollWheelValue))
+            if (this.currentKey == Keys.OemPlus || this.currentKey == Keys.OemMinus || (this.mouseState.ScrollWheelValue != this.previousMouseState.ScrollWheelValue && this.oldScrollWheelValue != this.mouseState.ScrollWheelValue))
             {
                 float num = this.mouseState.ScrollWheelValue - this.oldScrollWheelValue;
                 this.oldScrollWheelValue = this.mouseState.ScrollWheelValue;
+                if (this.currentKey == Keys.OemPlus)
+                {
+                    num = 0.1f;
+                }
+                else if (this.currentKey == Keys.OemMinus)
+                {
+                    num = -0.1f;
+                }
+
                 if (num > 0f)
                 {
                     num = 0.1f;

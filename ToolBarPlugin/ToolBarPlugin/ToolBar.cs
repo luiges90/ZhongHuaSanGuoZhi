@@ -22,14 +22,21 @@
         internal int SpliterWidth;
         internal List<Tool> Tools = new List<Tool>();
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.Draw(this.BackgroundTexture, this.BackgroundPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
             if (this.DrawTools)
             {
                 foreach (Tool tool in this.Tools)
                 {
-                    tool.Draw(spriteBatch);
+                    if (tool.Name == "AirViewPlugin")
+                    {
+                        tool.Draw(spriteBatch,gameTime);
+                    }
+                    else
+                    {
+                        tool.Draw(spriteBatch);
+                    }
                 }
             }
         }
