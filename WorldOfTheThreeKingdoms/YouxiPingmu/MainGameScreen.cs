@@ -355,7 +355,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
             this.DrawScreenBlind();
             this.DrawPersonBubble();
-            this.DrawToolBar();
+            this.DrawToolBar(gameTime);
 
 
             this.DrawMouseArrow();
@@ -421,13 +421,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.Plugins.TreasureDetailPlugin.Draw(base.spriteBatch);
         }
 
-        private void DrawToolBar()
+        private void DrawToolBar(GameTime gameTime)
         {
             if (this.Plugins.ToolBarPlugin != null)
             {
                 try
                 {
-                    this.Plugins.ToolBarPlugin.Draw(base.spriteBatch);
+                    //this.Plugins.ToolBarPlugin.Draw(base.spriteBatch);
+                    this.Plugins.ToolBarPlugin.Draw(base.spriteBatch, gameTime);
                 }
                 catch (ArgumentNullException)
                 {
@@ -1054,7 +1055,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     {
                         this.CurrentTroop.Enter(architecture2);
                         this.CurrentTroop = null;
-                        this.Plugins.AirViewPlugin.ReloadTroopView();
+                        //this.Plugins.AirViewPlugin.ReloadTroopView();
                         this.Scenario.ClearPersonStatusCache();
                         return;
                     }

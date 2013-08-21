@@ -1089,7 +1089,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.CurrentArchitecture.DefensiveLegion.AddTroop(this.CurrentTroop);
             this.CurrentArchitecture.PostCreateTroop(this.CurrentTroop, true);
             this.mainGameScreen.Plugins.PersonBubblePlugin.AddPerson(this.CurrentPerson, this.CurrentTroop.Position, "Campaign");
-            this.mainGameScreen.Plugins.AirViewPlugin.ReloadTroopView();
+            //this.mainGameScreen.Plugins.AirViewPlugin.ReloadTroopView();
         }
 
         internal void ArchitectureExpand()

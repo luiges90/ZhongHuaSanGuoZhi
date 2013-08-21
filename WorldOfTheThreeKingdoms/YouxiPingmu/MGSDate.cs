@@ -46,7 +46,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 base.Scenario.DayPassedEvent();
                 //base.Scenario.CheckRepeatedPerson();
-                this.Plugins.AirViewPlugin.ReloadTroopView();
+                //this.Plugins.AirViewPlugin.ReloadTroopView();
 
                 this.gengxinyoucelan();
                 //this.DrawAutoSavePicture();
