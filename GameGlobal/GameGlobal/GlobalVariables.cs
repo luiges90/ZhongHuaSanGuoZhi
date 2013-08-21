@@ -123,6 +123,7 @@
 
         public static int AutoSaveFrequency = 30;
         public static bool ShowChallengeAnimation = true;
+        public static bool PersonDieInChallenge = true;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -677,6 +678,15 @@
             {
                 exception = exception24;
                 throw new Exception("ShowChallengeAnimation:\n" + exception.ToString());
+            }
+            try
+            {
+                PersonDieInChallenge = bool.Parse(nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("PersonDieInChallenge:\n" + exception.ToString());
             }
             return true;
         }
