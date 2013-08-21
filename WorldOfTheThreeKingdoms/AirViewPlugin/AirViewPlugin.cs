@@ -54,7 +54,11 @@ namespace AirViewPlugin
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            this.airView.Draw(spriteBatch);
+        }
+
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            this.airView.Draw(spriteBatch,gameTime);
         }
 
         public void Initialize()
@@ -97,12 +101,19 @@ namespace AirViewPlugin
             this.troopImage = Image.FromFile(@"GameComponents\AirView\Data\" + node.Attributes.GetNamedItem("FileName").Value);
             this.troopFriendlyImage = Image.FromFile(@"GameComponents\AirView\Data\" + node.Attributes.GetNamedItem("Friendly").Value);
             this.troopHostileImage = Image.FromFile(@"GameComponents\AirView\Data\" + node.Attributes.GetNamedItem("Hostile").Value);
+            this.airView.TroopFactionColorTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\AirView\Data\" + node.Attributes.GetNamedItem("FileName").Value);
             node = nextSibling.ChildNodes.Item(6);
             this.airView.ConmentBackgroundTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\AirView\Data\" + node.Attributes.GetNamedItem("FileName").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.airView.Conment = new FreeText(this.graphicsDevice, font, color);
             this.airView.Conment.Position = StaticMethods.LoadRectangleFromXMLNode(node);
             this.airView.Conment.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
+
+            node = nextSibling.ChildNodes.Item(7);
+            this.airView.TroopToolTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\AirView\Data\" + node.Attributes.GetNamedItem("FileName").Value);
+            this.airView.TroopToolSelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\AirView\Data\" + node.Attributes.GetNamedItem("Selected").Value);
+            this.airView.TroopToolDisplayTexture = this.airView.TroopToolSelectedTexture;
+            this.airView.TroopToolPosition = StaticMethods.LoadRectangleFromXMLNode(node);
         }
         
         public void ReloadAirView()
@@ -132,7 +143,7 @@ namespace AirViewPlugin
             {
                 this.airView.MapTexture = null;
             }
-            this.ReloadTroopView();
+            //this.ReloadTroopView();
         }
         
         
@@ -155,11 +166,11 @@ namespace AirViewPlugin
             {
                 this.airView.MapTexture = null;
             }
-            this.ReloadTroopView();
+            //this.ReloadTroopView();
         }
         
 
-        public void ReloadArchitectureView()
+        public void ReloadArchitectureView()  //以前的代码，现在已不用
         {
             if (this.airView.ArchitectureTexture != null)
             {
@@ -191,7 +202,7 @@ namespace AirViewPlugin
             }
         }
 
-        public void ReloadTroopView()
+        public void ReloadTroopView() //以前的代码，现在已不用
         {
             if (!this.airView.scenario.NoCurrentPlayer)
             {
@@ -274,6 +285,7 @@ namespace AirViewPlugin
 
         public void SetScreen(object screen)
         {
+            this.airView.Name = this.pluginName;
             this.airView.Initialize(screen as Screen);
         }
 

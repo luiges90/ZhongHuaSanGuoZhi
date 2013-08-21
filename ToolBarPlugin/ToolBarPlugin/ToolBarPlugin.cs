@@ -31,9 +31,13 @@
 
         public void Draw(SpriteBatch spriteBatch)
         {
+        }
+
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        {
             if (this.IsShowing)
             {
-                this.toolBar.Draw(spriteBatch);
+                this.toolBar.Draw(spriteBatch,gameTime);
             }
         }
 

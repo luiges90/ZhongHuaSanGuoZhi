@@ -53,12 +53,12 @@ namespace WorldOfTheThreeKingdoms
             DateTime buildDate = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
             base.Window.Title = "中华三国志威力加强版(已命名修改版 v.19-dev build-" + buildDate.Year + "-" + buildDate.Month + "-" + buildDate.Day + ")";
 
-            System.Windows.Forms.Control control = System.Windows.Forms.Control.FromHandle(base.Window.Handle);
-            GameForm = (System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(this.Window.Handle);
-            GameForm.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            //System.Windows.Forms.Control control = System.Windows.Forms.Control.FromHandle(base.Window.Handle);
+            this.GameForm = (System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(this.Window.Handle);
+            this.GameForm.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 
 
-            this.GameForm = control as System.Windows.Forms.Form;
+            //this.GameForm = control as System.Windows.Forms.Form;
             this.GameForm.KeyDown += new KeyEventHandler(this.GameForm_KeyDown);
             int uFlags = 0x400;
             IntPtr systemMenu = GetSystemMenu(base.Window.Handle, false);

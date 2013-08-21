@@ -320,6 +320,20 @@
             }
         }
 
+        public Microsoft.Xna.Framework.Rectangle FrameRectangle
+        {
+            get
+            {
+                if (this.tabList.xianshiyoucelan)
+                {
+                    return new Microsoft.Xna.Framework.Rectangle(this.tabList.FramePosition.X - 18, this.tabList.FramePosition.Y - 28, this.tabList.FramePosition.Width + 32, this.tabList.FramePosition.Height + 54);
+                }
+                else
+                {
+                    return this.tabList.ToolDisplayPosition;
+                }
+            }
+        }
 
         public void SetyoucelanContent(Microsoft.Xna.Framework.Point viewportSize)
         {

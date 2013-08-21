@@ -257,7 +257,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         public override void FactionGetControl(Faction faction)
         {
             base.Scenario.CurrentPlayer = faction;
-            this.Plugins.AirViewPlugin.ReloadTroopView();
+            //this.Plugins.AirViewPlugin.ReloadTroopView();
             this.gengxinyoucelan();
             if (faction.IsPositionKnown(faction.Leader.Position) || GlobalVariables.SkyEye)
             {

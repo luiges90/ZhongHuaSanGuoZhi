@@ -355,7 +355,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
             this.DrawScreenBlind();
             this.DrawPersonBubble();
-            this.DrawToolBar();
+            this.DrawToolBar(gameTime);
 
 
             this.DrawMouseArrow();
@@ -421,13 +421,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.Plugins.TreasureDetailPlugin.Draw(base.spriteBatch);
         }
 
-        private void DrawToolBar()
+        private void DrawToolBar(GameTime gameTime)
         {
             if (this.Plugins.ToolBarPlugin != null)
             {
                 try
                 {
-                    this.Plugins.ToolBarPlugin.Draw(base.spriteBatch);
+                    //this.Plugins.ToolBarPlugin.Draw(base.spriteBatch);
+                    this.Plugins.ToolBarPlugin.Draw(base.spriteBatch, gameTime);
                 }
                 catch (ArgumentNullException)
                 {
@@ -449,7 +450,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void Game_Activated(object sender, EventArgs e)
         {
-            this.UpdateViewport();
+            //this.UpdateViewport();
             this.ResumeMusic();
             base.EnableMouseEvent = true;
             if (!GlobalVariables.RunWhileNotFocused)
@@ -625,6 +626,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     this.currentKey = Keys.W;
                     GlobalVariables.ShowGrid = !GlobalVariables.ShowGrid;
+                }
+                else if (this.keyState.IsKeyDown(Keys.OemPlus) || this.keyState.IsKeyDown(Keys.Add))
+                {
+                    this.currentKey = Keys.OemPlus;
+                }
+                else if (this.keyState.IsKeyDown(Keys.OemMinus) || this.keyState.IsKeyDown(Keys.Subtract))
+                {
+                    this.currentKey = Keys.OemMinus;
                 }
             }
             if (this.keyState.IsKeyDown(Keys.Space))
@@ -1046,7 +1055,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     {
                         this.CurrentTroop.Enter(architecture2);
                         this.CurrentTroop = null;
-                        this.Plugins.AirViewPlugin.ReloadTroopView();
+                        //this.Plugins.AirViewPlugin.ReloadTroopView();
                         this.Scenario.ClearPersonStatusCache();
                         return;
                     }
@@ -2593,7 +2602,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             this.UpdateScreenBlind(gameTime);
                             //this.Plugins.youcelanPlugin.Update(gameTime);
                             //this.Plugins.youcelanPlugin.IsShowing = false;
-
                             this.UpdateViewMove();
                             this.HandleLaterMouseEvent(gameTime);
                             this.ScrollTheMainMap(gameTime);
@@ -2800,6 +2808,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if (this.Plugins.ArchitectureSurveyPlugin != null)
             {
                 Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.position);
+                if (this.Plugins.youcelanPlugin.IsShowing && StaticMethods.PointInRectangle(this.MousePosition, this.Plugins.youcelanPlugin.FrameRectangle))
+                {
+                    architectureByPosition = null;
+                }
                 if ((architectureByPosition != null) && ((this.CurrentTroop == null) || ((!GlobalVariables.SkyEye && (base.Scenario.CurrentPlayer != null)) && !base.Scenario.CurrentPlayer.IsPositionKnown(this.CurrentTroop.Position))))
                 {
                     this.Plugins.ArchitectureSurveyPlugin.SetArchitecture(architectureByPosition, this.position);
@@ -2819,6 +2831,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 if (GlobalVariables.SkyEye || ((base.Scenario.CurrentPlayer != null) && base.Scenario.CurrentPlayer.IsPositionKnown(this.position)))
                 {
                     Troop troopByPosition = base.Scenario.GetTroopByPosition(this.position);
+                    if (this.Plugins.youcelanPlugin.IsShowing && StaticMethods.PointInRectangle(this.MousePosition, this.Plugins.youcelanPlugin.FrameRectangle))
+                    {
+                        troopByPosition = null;
+                    }
                     if (troopByPosition != null)
                     {
                         this.Plugins.TroopSurveyPlugin.SetTroop(troopByPosition);
@@ -2993,7 +3009,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.viewportSize.Y = base.Game.GraphicsDevice.Viewport.Height - this.Plugins.ToolBarPlugin.Height;
                 this.Plugins.ToolBarPlugin.SetRealViewportSize(new Point(base.Game.GraphicsDevice.Viewport.Width, base.Game.GraphicsDevice.Viewport.Height));
                 this.ResetScreenEdge();
-                //this.mainMapLayer.ReCalculateTileDestination(base.spriteBatch.GraphicsDevice);
+                this.mainMapLayer.ReCalculateTileDestination(base.spriteBatch.GraphicsDevice);
             }
         }
 

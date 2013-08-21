@@ -17,6 +17,10 @@
         {
         }
 
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+        }
+
         public virtual void DrawBackground(SpriteBatch spriteBatch, Rectangle Position)
         {
         }
