@@ -39,8 +39,19 @@ namespace AirViewPlugin
         internal Rectangle ToolPosition;
         internal Texture2D ToolSelectedTexture;
         internal Texture2D ToolTexture;
+
+        internal Texture2D TroopToolDisplayTexture;
+        internal Rectangle TroopToolPosition;
+        internal Texture2D TroopToolSelectedTexture;
+        internal Texture2D TroopToolTexture;
+
         internal float Transparent = 1f;
         internal Texture2D TroopTexture;
+        internal Texture2D TroopFactionColorTexture;
+        int timeSinceLastFrame = 0;
+        int millisecondsPerFrame = 240;
+        bool drawTroopFlag = true;
+        bool showTroop = true;
 
         internal void AddDisableRects()
         {
@@ -48,21 +59,39 @@ namespace AirViewPlugin
             this.screen.AddDisableRectangle(this.screen.SelectingDisableRects, this.MapPosition);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             Rectangle? sourceRectangle = null;
             spriteBatch.Draw(this.ToolDisplayTexture, this.ToolDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.099f);
             if (this.IsMapShowing)
             {
+                spriteBatch.Draw(this.TroopToolDisplayTexture, this.TroopToolDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.099f);
+
                 if (this.MapTexture != null)
                 {
                     sourceRectangle = null;
                     spriteBatch.Draw(this.MapTexture, this.MapPosition, sourceRectangle, new Color(1f, 1f, 1f, this.Transparent), 0f, Vector2.Zero, SpriteEffects.None, 0.1f);
                 }
+                /*
                 if (this.TroopTexture != null)
                 {
                     sourceRectangle = null;
                     spriteBatch.Draw(this.TroopTexture, this.MapPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.09999f);
+                }
+                */
+                if (this.showTroop)
+                {
+                    timeSinceLastFrame += gameTime.ElapsedGameTime.Milliseconds;
+                    if (timeSinceLastFrame > millisecondsPerFrame)
+                    {
+                        //timeSinceLastFrame -= millisecondsPerFrame;
+                        timeSinceLastFrame = 0;
+                        this.drawTroopFlag = !this.drawTroopFlag;
+                    }
+                    if (this.drawTroopFlag)
+                    {
+                        this.drawTroop(spriteBatch, gameTime);
+                    }
                 }
                 foreach (Architecture architecture in this.scenario.Architectures)
                 {
@@ -78,11 +107,40 @@ namespace AirViewPlugin
                     }
                 }
                 sourceRectangle = null;
-                spriteBatch.Draw(this.FrameTexture, this.FrameDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.0998f);
+                //spriteBatch.Draw(this.FrameTexture, this.FrameDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.0998f);
+                spriteBatch.Draw(this.FrameTexture, this.frameTopPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.0998f);
+                spriteBatch.Draw(this.FrameTexture, this.frameLeftPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.0998f);
+                spriteBatch.Draw(this.FrameTexture, this.frameBottomPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.0998f);
+                spriteBatch.Draw(this.FrameTexture, this.frameRightPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.0998f);
                 if (this.Conment.Text != "")
                 {
                     spriteBatch.Draw(this.ConmentBackgroundTexture, this.Conment.AlignedPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.09999f);
                     this.Conment.Draw(spriteBatch, 0.0999f);
+                }
+            }
+        }
+
+        private void drawTroop(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+
+            for (int i = 0; i < this.scenario.ScenarioMap.MapDimensions.X; i++)
+            {
+                for (int j = 0; j < this.scenario.ScenarioMap.MapDimensions.Y; j++)
+                {
+                    if (GlobalVariables.SkyEye||this.scenario.CurrentPlayer.IsPositionKnown(new Microsoft.Xna.Framework.Point(i, j)))
+                    {
+                        Troop troopByPositionNoCheck = this.scenario.GetTroopByPositionNoCheck(new Microsoft.Xna.Framework.Point(i, j));
+                        if ((troopByPositionNoCheck != null) && !troopByPositionNoCheck.Destroyed)
+                        {
+                            Color color = Color.White;
+                            if (troopByPositionNoCheck.BelongedFaction != null)
+                            {
+                                color = troopByPositionNoCheck.BelongedFaction.FactionColor;
+                            }
+                            spriteBatch.Draw(TroopFactionColorTexture, new Rectangle(i * this.TileLength + this.MapDisplayOffset.X - 1, j * this.TileLength + this.MapDisplayOffset.Y - 1, this.TileLength * 4, this.TileLength * 4), null,color, 0f, Vector2.Zero, SpriteEffects.None, 0.09998f);
+
+                        }
+                    }
                 }
             }
         }
@@ -216,6 +274,18 @@ namespace AirViewPlugin
                         }
                     }
                 }
+                else if (this.IsMapShowing && StaticMethods.PointInRectangle(position, this.TroopToolDisplayPosition))
+                {
+                    this.showTroop = !this.showTroop;
+                    if (this.showTroop)
+                    {
+                        this.TroopToolDisplayTexture = this.TroopToolSelectedTexture;
+                    }
+                    else
+                    {
+                        this.TroopToolDisplayTexture = this.TroopToolTexture;
+                    }
+                }
                 else if (this.IsMapShowing && StaticMethods.PointInRectangle(position, this.MapPosition))
                 {
                     this.JumpTo(position);
@@ -336,6 +406,38 @@ namespace AirViewPlugin
             }
         }
 
+        private Rectangle frameTopPosition
+        {
+            get
+            {
+                return new Rectangle(this.MapDisplayOffset.X + this.framePosition.X, this.MapDisplayOffset.Y + this.framePosition.Y, this.framePosition.Width, 2);
+            }
+        }
+
+        private Rectangle frameLeftPosition
+        {
+            get
+            {
+                return new Rectangle(this.MapDisplayOffset.X + this.framePosition.X, this.MapDisplayOffset.Y + this.framePosition.Y, 2, this.framePosition.Height);
+            }
+        }
+
+        private Rectangle frameBottomPosition
+        {
+            get
+            {
+                return new Rectangle(this.MapDisplayOffset.X + this.framePosition.X, this.MapDisplayOffset.Y + this.framePosition.Y + this.framePosition.Height-1, this.framePosition.Width+1, 2);
+            }
+        }
+
+        private Rectangle frameRightPosition
+        {
+            get
+            {
+                return new Rectangle(this.MapDisplayOffset.X + this.framePosition.X + this.framePosition.Width-1, this.MapDisplayOffset.Y + this.framePosition.Y, 2, this.framePosition.Height+1);
+            }
+        }
+
         internal bool IsMapShowing
         {
             get
@@ -375,6 +477,14 @@ namespace AirViewPlugin
             get
             {
                 return new Rectangle(this.ToolPosition.X + this.DisplayOffset.X, this.ToolPosition.Y + this.DisplayOffset.Y, this.ToolPosition.Width, this.ToolPosition.Height);
+            }
+        }
+
+        private Rectangle TroopToolDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.TroopToolPosition.X + this.DisplayOffset.X, this.TroopToolPosition.Y + this.DisplayOffset.Y, this.TroopToolPosition.Width, this.TroopToolPosition.Height);
             }
         }
     }

@@ -135,7 +135,7 @@
         internal Texture2D topedgeTexture;
         internal int topedgeWidth;
 
-        private Rectangle ToolDisplayPosition;
+        internal Rectangle ToolDisplayPosition;
         //private FrameContent frameContent = null;
         private bool jiancexianshi=false ;
         public void SetyoucelanContent(Point viewportSize)
