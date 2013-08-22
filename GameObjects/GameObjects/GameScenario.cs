@@ -4111,10 +4111,10 @@
                     row["BornRegion"] = (int)person.BornRegion;
                     row["AvailableLocation"] = person.AvailableLocation;
                     row["Strain"] = person.Strain;
-                    row["Father"] = person.Father;
-                    row["Mother"] = person.Mother;
-                    row["Spouse"] = person.Spouse;
-                    row["Brother"] = person.Brother;
+                    row["Father"] = person.Father == null ? -1 : person.Father.ID;
+                    row["Mother"] = person.Mother == null ? -1 : person.Mother.ID;
+                    row["Spouse"] = person.Spouse == null ? -1 : person.Spouse.ID;
+                    row["Brother"] = person.Brother == null ? -1 : person.Brother.ID;
                     row["Generation"] = person.Generation;
                     row["PersonalLoyalty"] = (int)person.PersonalLoyalty;
                     row["Ambition"] = (int)person.Ambition;
