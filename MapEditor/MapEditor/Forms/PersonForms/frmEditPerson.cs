@@ -3282,10 +3282,10 @@
                 p.Loyalty = int.Parse(this.tbLoyalty.Text);
                 p.Character = p.Scenario.GameCommonData.AllCharacterKinds[this.cbCharacter.SelectedIndex];
                 p.Strain = int.Parse(this.tbStrain.Text);
-                p.Father = int.Parse(this.tbFather.Text);
-                p.Mother = int.Parse(this.tbMother.Text);
-                p.Spouse = int.Parse(this.tbSpouse.Text);
-                p.Brother = int.Parse(this.tbBrother.Text);
+                p.Father = p.Scenario.Persons.GetGameObject(this.tbFather.Text) as Person;
+                p.Mother = p.Scenario.Persons.GetGameObject(this.tbMother.Text) as Person;
+                p.Spouse = p.Scenario.Persons.GetGameObject(this.tbSpouse.Text) as Person;
+                p.Brother = p.Scenario.Persons.GetGameObject(this.tbBrother.Text) as Person;
                 p.Generation = int.Parse(this.tbGeneration.Text);
                 p.PersonalLoyalty = (int) this.cbPersonalLoyalty.SelectedIndex;
                 p.Ambition = (int) this.cbAmbition.SelectedIndex;

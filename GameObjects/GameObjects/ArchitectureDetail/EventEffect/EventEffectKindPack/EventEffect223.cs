@@ -7,7 +7,7 @@
     {
         public override void ApplyEffectKind(Person person, Event e)
         {
-            person.Brother = -1;
+            person.Brother = null;
         }
 
     }

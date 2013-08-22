@@ -1238,7 +1238,7 @@
                         PersonList candidate = new PersonList();
                         foreach (Person p in this.BelongedFaction.Persons)
                         {
-                            Person spousePerson = p.Spouse == -1 ? null : base.Scenario.Persons.GetGameObject(p.Spouse) as Person;
+                            Person spousePerson = p.Spouse == null ? null : p.Spouse;
                             if (p.Merit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.HatedPersons.Contains(this.BelongedFaction.Leader.ID) &&
                                 (spousePerson == null || spousePerson.ID == leader.ID || !spousePerson.Alive || (leader.PersonalLoyalty < (int)PersonLoyalty.很高 && spousePerson.Merit < p.Merit * ((int)leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd))) &&
                                 (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply)))

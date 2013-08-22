@@ -9,8 +9,8 @@
         {
             if (person.BelongedFaction != null)
             {
-                person.BelongedFaction.Leader.Spouse = person.ID;
-                person.Spouse = person.BelongedFaction.Leader.ID;
+                person.BelongedFaction.Leader.Spouse = person;
+                person.Spouse = person.BelongedFaction.Leader;
             }
         }
 

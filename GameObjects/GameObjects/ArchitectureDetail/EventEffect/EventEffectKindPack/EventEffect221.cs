@@ -7,8 +7,8 @@
     {
         public override void ApplyEffectKind(Person person, Event e)
         {
-            (person.Scenario.Persons.GetGameObject(person.Spouse) as Person).Spouse = -1;
-            person.Spouse = -1;
+            person.Spouse.Spouse = null;
+            person.Spouse = null;
         }
 
     }
