@@ -1348,7 +1348,7 @@
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
                         // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
                         ConvinceSuccess |= (this.ConvincingPerson.closePersons.Contains(this.BelongedFaction.LeaderID)) || (this.ConvincingPerson.closePersons.Contains(this.ID));
-                        ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.Leader) || (this.ConvincingPerson.Brother == this.BelongedFaction.Leader.Brother);
+                        ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.Leader) || (this.ConvincingPerson.Brother == this.BelongedFaction.Leader.Brother && this.ConvincingPerson.Brother != null);
                     }
                     else
                     {
@@ -6384,14 +6384,14 @@
 
         public bool hasCloseStrainTo(Person b)
         {
-            if (this.father == b) return true;
-            if (this.mother == b) return true;
+            if (this.Father == b) return true;
+            if (this.Mother == b) return true;
 
-            if (b.father == this.father) return true;
-            if (b.mother == this.mother) return true;
+            if (this.Father != null && b.Father == this.Father) return true;
+            if (this.Mother != null && b.Mother == this.Mother) return true;
 
-            if (b.father == this) return true;
-            if (b.mother == this) return true;
+            if (b.Father == this) return true;
+            if (b.Mother == this) return true;
 
             return false;
         }
