@@ -20,7 +20,14 @@
         {
             foreach (Point point in this.Area.Area)
             {
-                this.BelongedArchitecture.BelongedFaction.AddPositionInformation(point, this.Level);
+                if (this.BelongedArchitecture != null)
+                {
+                    this.BelongedArchitecture.BelongedFaction.AddPositionInformation(point, this.Level);
+                }
+                if (this.BelongedFaction != null)
+                {
+                    this.BelongedFaction.AddPositionInformation(point, this.Level);
+                }
                 //this.CheckAmbushTroop(point);
             }
         }
@@ -36,7 +43,9 @@
         private void CheckAmbushTroop(Point p)
         {
             Troop troopByPosition = base.Scenario.GetTroopByPosition(p);
-            if (((troopByPosition != null) && (troopByPosition.Status == TroopStatus.埋伏)) && !this.BelongedArchitecture.IsFriendly(troopByPosition.BelongedFaction))
+            if (troopByPosition != null && troopByPosition.Status == TroopStatus.埋伏 && 
+                (this.BelongedArchitecture != null && !this.BelongedArchitecture.IsFriendly(troopByPosition.BelongedFaction)) || 
+                (this.BelongedFaction != null && !this.BelongedFaction.IsFriendly(troopByPosition.BelongedFaction)))
             {
                 this.DetectAmbush(troopByPosition);
             }
