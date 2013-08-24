@@ -6631,7 +6631,7 @@
                 if (this.LocationArchitecture == null) return false;
                 foreach (Person p in this.LocationArchitecture.Persons)
                 {
-                    if (p.preferredTroopPersons.GameObjects.Contains(this))
+                    if (p.preferredTroopPersons.GameObjects.Contains(this) && p.HasLeadingArmy)
                     {
                         return true;
                     }
