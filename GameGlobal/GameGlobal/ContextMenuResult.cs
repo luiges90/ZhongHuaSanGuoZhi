@@ -72,6 +72,7 @@
         RoutewayClose,
         RoutewayDemolish,
         Tactics_Information,
+        Tactics_StopInformation,
         Tactics_Spy,
         Tactics_Destroy,
         Tactics_Instigate,

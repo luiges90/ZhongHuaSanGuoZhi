@@ -32,7 +32,8 @@
         Region,
         SimpleArchitecture,
         Treasure,
-        YearTable
+        YearTable,
+        Information
     }
 }
 

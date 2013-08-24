@@ -115,6 +115,14 @@
             }
         }
 
+        public string LevelString
+        {
+            get
+            {
+                return this.level.ToString();
+            }
+        }
+
         public bool Oblique
         {
             get
@@ -168,6 +176,14 @@
             set
             {
                 this.position = value;
+            }
+        }
+
+        public string PositionString
+        {
+            get
+            {
+                return this.position.X + ", " + this.position.Y;
             }
         }
 

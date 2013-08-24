@@ -8720,6 +8720,11 @@
             return (this.HasPerson() && base.Scenario.GameCommonData.AllInformationKinds.HasAvailItem(this));
         }
 
+        public bool StopInformationAvail()
+        {
+            return this.Informations.Count > 0;
+        }
+
         public int InformationDayCost
         {
             get
@@ -8730,6 +8735,14 @@
                     sum += i.DayCost;
                 }
                 return sum;
+            }
+        }
+
+        public string InformationCostString
+        {
+            get
+            {
+                return this.InformationDayCost * 30 + "/月";
             }
         }
 

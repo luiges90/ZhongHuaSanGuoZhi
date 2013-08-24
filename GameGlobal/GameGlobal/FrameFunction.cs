@@ -75,7 +75,8 @@
         KillCaptive,
         ReleaseSelfPerson,
         PersonManualHire,
-        SelectPrince
+        SelectPrince,
+        GetInformationToStop
     }
 }
 

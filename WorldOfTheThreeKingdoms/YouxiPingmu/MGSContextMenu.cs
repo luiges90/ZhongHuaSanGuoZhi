@@ -495,6 +495,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.InformationKind, FrameFunction.GetInformationKind, false, true, true, false, base.Scenario.GameCommonData.AllInformationKinds.GetAvailList(this.CurrentArchitecture), null, "情报种类", "");
                     break;
 
+                case ContextMenuResult.Tactics_StopInformation:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Information, FrameFunction.GetInformationToStop, false, true, true, true, this.CurrentArchitecture.Informations, null, "停止情报", "情报");
+
                 case ContextMenuResult.Tactics_Spy:
                     this.Plugins.TabListPlugin.SetSelectedItemMaxCount(this.CurrentArchitecture.SpyPersonMaxCount);
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetSpyPerson, false, true, true, true, this.CurrentArchitecture.Persons, null, "间谍", "间谍");

@@ -362,6 +362,18 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        private void FrameFunction_Architecture_AfterGetInformationToStop()
+        {
+            this.CurrentGameObjects = this.CurrentArchitecture.Informations.GetSelectedList();
+            if (this.CurrentGameObjects != null)
+            {
+                foreach (Information i in this.CurrentGameObjects)
+                {
+                    this.CurrentArchitecture.RemoveInformation(i);
+                }
+            }
+        }
+
         private void FrameFunction_Architecture_AfterGetInformationKind()
         {
             this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetInformationPerson, false, true, true, false, this.CurrentArchitecture.Persons, null, "情报", "情报");
@@ -929,6 +941,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case FrameFunction.GetInformationKind:
                     this.FrameFunction_Architecture_AfterGetInformationKind();
                     break;
+
+                case FrameFunction.GetInformation:
+                    this.FrameFunction_Architecture_AfterGetInformationToStop();
 
                 case FrameFunction.GetInformationPerson:
                     this.FrameFunction_Architecture_AfterGetInformationPerson();
