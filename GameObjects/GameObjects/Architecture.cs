@@ -2493,6 +2493,10 @@
                     }
                 }
             }
+            foreach (Information information in this.Informations)
+            {
+                
+            }
         }
 
 
@@ -8732,10 +8736,16 @@
         {
             foreach (Information information in this.Informations)
             {
-                information.Purify();
                 this.RemoveInformation(information);
-                base.Scenario.Informations.Remove(information);
             }
+        }
+
+        public void RemoveInformation(Information information)
+        {
+            information.Purify();
+            this.Informations.Remove(information);
+            information.BelongedArchitecture = null;
+            base.Scenario.Informations.Remove(information);
         }
 
         private void InformationDayEvent()
@@ -13677,14 +13687,10 @@
 
         public void AddInformation(Information information)
         {
+            base.Scenario.Informations.Add(information);
             this.Informations.AddInformation(information);
             information.BelongedArchitecture = this;
-        }
-
-        public void RemoveInformation(Information information)
-        {
-            this.Informations.Remove(information);
-            information.BelongedArchitecture = null;
+            information.Apply();
         }
 
         public delegate void BeginRecentlyAttacked(Architecture architecture);
