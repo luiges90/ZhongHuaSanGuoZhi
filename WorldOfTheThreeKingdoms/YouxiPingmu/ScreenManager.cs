@@ -942,8 +942,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.FrameFunction_Architecture_AfterGetInformationKind();
                     break;
 
-                case FrameFunction.GetInformation:
+                case FrameFunction.GetInformationToStop:
                     this.FrameFunction_Architecture_AfterGetInformationToStop();
+                    break;
 
                 case FrameFunction.GetInformationPerson:
                     this.FrameFunction_Architecture_AfterGetInformationPerson();
