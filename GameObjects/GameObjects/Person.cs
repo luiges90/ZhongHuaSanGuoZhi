@@ -1608,7 +1608,8 @@
                     (this.InformationAbility + GameObject.Random(100) - 50) / 200;
                 information.Position = this.OutsideDestination.Value;
                 information.Oblique = this.CurrentInformationKind.Oblique;
-                information.DayCost = (int)(240.0 / this.InformationAbility * this.CurrentInformationKind.CostFund);
+                information.DayCost = (int)(240.0 / this.InformationAbility * this.CurrentInformationKind.CostFund * 
+                    base.Scenario.GetDistance(information.Position, this.BelongedArchitecture.Position) / 10.0);
 				
                 base.Scenario.Informations.AddInformation(information);
                 this.BelongedArchitecture.AddInformation(information);
