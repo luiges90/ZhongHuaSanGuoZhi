@@ -2223,35 +2223,9 @@
                 }
 
                 // 新建部队
-                int unfullArmyCount = 0;
-                int unfullNavalArmyCount = 0;
                 if (!forPlayer)
                 {
                     this.AIRecruitMilitary();
-                }
-
-                //disband unused transports except one
-                MilitaryList ml = new MilitaryList();
-                foreach (Military m in Militaries)
-                {
-                    if (m.IsTransport)
-                    {
-                        ml.Add(m);
-                    }
-                }
-                if (ml.Count > 1)
-                {
-                    Military minTroop = null;
-                    int min = int.MaxValue;
-                    foreach (Military m in ml)
-                    {
-                        if (m.Quantity < min)
-                        {
-                            min = m.Quantity;
-                            minTroop = m;
-                        }
-                    }
-                    this.DisbandMilitary(minTroop);
                 }
             }
         }
