@@ -92,7 +92,6 @@
             </MenuItem>
             <MenuItem ID="6" Name="Tactics" DisplayName="策略">
                 <MenuItem ID="1" Name="Information" DisplayName="情报" DisplayIfTrue="InformationAvail" />
-                <MenuItem ID="2" Name="Spy" DisplayName="间谍" DisplayIfTrue="SpyAvail" />
                 <MenuItem ID="3" Name="Destroy" DisplayName="破坏" DisplayIfTrue="DestroyAvail" />
                 <MenuItem ID="4" Name="Instigate" DisplayName="煽动" DisplayIfTrue="InstigateAvail" />
                 <MenuItem ID="5" Name="Gossip" DisplayName="流言" DisplayIfTrue="GossipAvail" />
