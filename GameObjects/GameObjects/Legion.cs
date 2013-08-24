@@ -63,6 +63,7 @@
 
         internal void CallInformation()
         {
+            return;
             if (!this.InformationDestination.HasValue)
             {
                 PersonList list = new PersonList();

@@ -1859,6 +1859,7 @@
 
         public bool IsArchitectureKnown(Architecture a)
         {
+            if (!base.Scenario.IsPlayer(a.BelongedFaction)) return true;
             foreach (Point point in a.ArchitectureArea.Area)
             {
                 if (this.knownAreaData[point.X, point.Y].Level != InformationLevel.无)
