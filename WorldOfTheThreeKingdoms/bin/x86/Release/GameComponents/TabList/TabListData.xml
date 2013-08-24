@@ -1435,7 +1435,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="80" Name="InformationCoolDown" IsNumber="true" DisplayName="情报冷却时间" MinWidth="100" DetailLevel="5"
+        <Column ID="80" Name="InformationDayCost" IsNumber="true" DisplayName="情报维持费" MinWidth="100" DetailLevel="5"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -3361,13 +3361,6 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="3" Name="Days" IsNumber="true" DisplayName="持续天数" MinWidth="80" DetailLevel="2"
-                FontName="宋体"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Right">
-        </Column>
         <Column ID="4" Name="Level" IsNumber="false" DisplayName="等级" MinWidth="80" DetailLevel="2"
                 FontName="宋体"
                 FontSize="11"
@@ -3381,13 +3374,6 @@
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
-        </Column>
-        <Column ID="6" Name="CoolDown" IsNumber="true" DisplayName="冷却时间" MinWidth="80" DetailLevel="2"
-                FontName="宋体"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Right">
         </Column>
       </Columns>
       <Tabs Margin="5">

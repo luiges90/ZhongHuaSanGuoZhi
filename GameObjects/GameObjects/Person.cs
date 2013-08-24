@@ -1599,52 +1599,54 @@
 
         public void DoInformation()
         {
-            if (!base.Scenario.IsPlayer(this.BelongedFaction) || (this.InformationAbility >90 && GameObject.Random(280) < this.InformationAbility))
-                    {
-                        Information information = new Information();
-                        information.Scenario = base.Scenario;
-                        information.ID = base.Scenario.Informations.GetFreeGameObjectID();
-                        information.Level = this.CurrentInformationKind.Level;
-                        information.Radius = this.CurrentInformationKind.Radius + this.RadiusIncrementOfInformation + 
-                            (this.InformationAbility + GameObject.Random(100) - 50) / 200;
-                        information.Position = this.OutsideDestination.Value;
-                        information.Oblique = this.CurrentInformationKind.Oblique;
-                        information.DaysLeft = (int) Math.Max(5, this.CurrentInformationKind.Days * (this.InformationAbility / 300.0 + 0.5));
-						
-                        base.Scenario.Informations.AddInformation(information);
-                        this.BelongedFaction.AddInformation(information);
+            if (this.CurrentInformationKind != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || (this.InformationAbility >90 && GameObject.Random(280) < this.InformationAbility))) {
+                Information information = new Information();
+                information.Scenario = base.Scenario;
+                information.ID = base.Scenario.Informations.GetFreeGameObjectID();
+                information.Level = this.CurrentInformationKind.Level;
+                information.Radius = this.CurrentInformationKind.Radius + this.RadiusIncrementOfInformation + 
+                    (this.InformationAbility + GameObject.Random(100) - 50) / 200;
+                information.Position = this.OutsideDestination.Value;
+                information.Oblique = this.CurrentInformationKind.Oblique;
+                information.DayCost = (int)(240.0 / this.InformationAbility * this.CurrentInformationKind.CostFund);
+				
+                base.Scenario.Informations.AddInformation(information);
+                this.BelongedArchitecture.AddInformation(information);
 
-                        information.Apply();
+                information.Apply();
 
-                        this.CurrentInformationKind = null;
-                        this.OutsideTask = OutsideTaskKind.无;
+                this.CurrentInformationKind = null;
+                this.OutsideTask = OutsideTaskKind.无;
 
-                        int increment = (int)(((int)information.Level - 2) * (information.Radius + (information.Oblique ? 1 : 0)));
-                        this.AddTacticsExperience(increment * 2);
-                        this.AddIntelligenceExperience(increment);
-                        this.IncreaseReputation(increment * 2);
-                        this.BelongedFaction.IncreaseReputation(increment * this.MultipleOfTacticsReputation);
-                        this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfTacticsTechniquePoint) * 100);
-						ExtensionInterface.call("DoInformationSuccess", new Object[] { this.Scenario, this, information });
-                        if (this.OnInformationObtained != null)
-                        {
-                            this.OnInformationObtained(this, information);
-                        }
- 
-                    }
+                int increment = (int)(((int)information.Level - 2) * (information.Radius + (information.Oblique ? 1 : 0)));
+                this.AddTacticsExperience(increment * 2);
+                this.AddIntelligenceExperience(increment);
+                this.IncreaseReputation(increment * 2);
+                this.BelongedFaction.IncreaseReputation(increment * this.MultipleOfTacticsReputation);
+                this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfTacticsTechniquePoint) * 100);
+				ExtensionInterface.call("DoInformationSuccess", new Object[] { this.Scenario, this, information });
+                if (this.OnInformationObtained != null)
+                {
+                    this.OnInformationObtained(this, information);
+                }
+
+            }
             else
-                    {
-                        int increment = (int)(((int)this.CurrentInformationKind.Level - 2) * (this.CurrentInformationKind.Radius + (this.CurrentInformationKind.Oblique? 1 : 0)));
-                        this.AddTacticsExperience(increment * 2);
-                        this.AddIntelligenceExperience(increment);
-                        this.CurrentInformationKind = null;
-                        this.OutsideTask = OutsideTaskKind.无;
-						ExtensionInterface.call("DoInformationFail", new Object[] { this.Scenario, this });
-                        if (this.qingbaoshibaishijian != null)
-                        {
-                            this.qingbaoshibaishijian(this);
-                        }
-                    }
+            {
+                if (this.CurrentInformationKind != null)
+                {
+                    int increment = (int)(((int)this.CurrentInformationKind.Level - 2) * (this.CurrentInformationKind.Radius + (this.CurrentInformationKind.Oblique ? 1 : 0)));
+                    this.AddTacticsExperience(increment * 2);
+                    this.AddIntelligenceExperience(increment);
+                    this.CurrentInformationKind = null;
+                }
+                this.OutsideTask = OutsideTaskKind.无;
+				ExtensionInterface.call("DoInformationFail", new Object[] { this.Scenario, this });
+                if (this.qingbaoshibaishijian != null)
+                {
+                    this.qingbaoshibaishijian(this);
+                }
+            }
 
         }
 
@@ -2577,8 +2579,6 @@
             {
                 this.OutsideTask = OutsideTaskKind.情报;
                 this.OutsideDestination = new Point?(position);
-                this.LocationArchitecture.InformationCoolDown += this.CurrentInformationKind.CoolDown;
-                this.LocationArchitecture.DecreaseFund(this.CurrentInformationKind.CostFund);
                 this.GoToDestinationAndReturn(position);
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForInformation", new Object[] { this.Scenario, this, position});

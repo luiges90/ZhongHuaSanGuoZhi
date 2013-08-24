@@ -595,8 +595,6 @@
                 kind9.Level = (InformationLevel)((short)reader["iLevel"]);
                 kind9.Oblique = (bool)reader["Oblique"];
                 kind9.Radius = (short)reader["Radius"];
-                kind9.Days = (short)reader["Days"];
-                kind9.CoolDown = (short)reader["CoolDown"];
                 kind9.CostFund = (int)reader["CostFund"];
                 this.AllInformationKinds.Add(kind9);
             }
@@ -1450,8 +1448,6 @@
                     row = dataSet.Tables["InformationKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
-                    row["Days"] = i.Days;
-                    row["CoolDown"] = i.CoolDown;
                     row["iLevel"] = (int)i.Level;
                     row["Radius"] = i.Radius;
                     row["Oblique"] = i.Oblique;

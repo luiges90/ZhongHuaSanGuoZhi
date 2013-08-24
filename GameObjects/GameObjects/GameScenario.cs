@@ -2705,7 +2705,8 @@
                 information.Position = new Point((short)reader["PositionX"], (short)reader["PositionY"]);
                 information.Radius = (short)reader["Radius"];
                 information.Oblique = (bool)reader["Oblique"];
-                information.DaysLeft = (short)reader["DaysLeft"];
+                information.DayCost = (int)reader["DayCost"];
+                information.DaysLeft = (int)reader["DaysLeft"];
                 this.Informations.AddInformation(information);
             }
             DbConnection.Close();
@@ -2807,7 +2808,6 @@
                 architecture.RobberTroopID = (short)reader["RobberTroop"];
                 architecture.RecentlyAttacked = (short)reader["RecentlyAttacked"];
                 architecture.RecentlyBreaked = (short)reader["RecentlyBreaked"];
-                architecture.InformationCoolDown = (short)reader["InformationCoolDown"];
                 architecture.AILandLinksString = reader["AILandLinks"].ToString();
                 architecture.AIWaterLinksString = reader["AIWaterLinks"].ToString();
 
@@ -2830,6 +2830,16 @@
                 {
                     architecture.huangdisuozai = false;
 
+                }
+
+
+                try
+                {
+
+                    architecture.LoadInformationsFromString(this.Informations, (string)reader["Informations"]);
+                }
+                catch
+                {
                 }
 
                 this.Architectures.AddArchitectureWithEvent(architecture);
@@ -3797,7 +3807,6 @@
                     row["RobberTroop"] = (architecture.RobberTroop != null) ? architecture.RobberTroop.ID : -1;
                     row["RecentlyAttacked"] = architecture.RecentlyAttacked;
                     row["RecentlyBreaked"] = architecture.RecentlyBreaked;
-                    row["InformationCoolDown"] = architecture.InformationCoolDown;
                     row["AILandLinks"] = architecture.AILandLinks.SaveToString();
                     row["AIWaterLinks"] = architecture.AIWaterLinks.SaveToString();
                     row["youzainan"] = architecture.youzainan;
@@ -3805,6 +3814,7 @@
                     row["zainanshengyutianshu"] = architecture.zainan.shengyutianshu;
                     row["Emperor"] = architecture.huangdisuozai;
                     row["MilitaryPopulation"] = architecture.MilitaryPopulation;
+                    row["Informations"] = architecture.Informations.SaveToString();
                     row.EndEdit();
                     dataSet.Tables["Architecture"].Rows.Add(row);
                 }
@@ -3963,6 +3973,7 @@
                     row["PositionY"] = information.Position.Y;
                     row["Radius"] = information.Radius;
                     row["Oblique"] = information.Oblique;
+                    row["DayCost"] = information.DayCost;
                     row["DaysLeft"] = information.DaysLeft;
                     row.EndEdit();
                     dataSet.Tables["Information"].Rows.Add(row);

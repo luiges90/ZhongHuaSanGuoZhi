@@ -6,9 +6,7 @@
 
     public class InformationKind : GameObject
     {
-        private int coolDown;
         private int costFund;
-        private int days;
         private InformationLevel level;
         private bool oblique;
         private int radius;
@@ -16,18 +14,6 @@
         public bool Avail(Architecture a)
         {
             return (a.Fund >= this.costFund);
-        }
-
-        public int CoolDown
-        {
-            get
-            {
-                return this.coolDown;
-            }
-            set
-            {
-                this.coolDown = value;
-            }
         }
 
         public int CostFund
@@ -42,23 +28,11 @@
             }
         }
 
-        public int Days
-        {
-            get
-            {
-                return this.days;
-            }
-            set
-            {
-                this.days = value;
-            }
-        }
-
         public int FightingWeighing
         {
             get
             {
-                return ((((this.Days * this.Radius) *(int)  this.Level) * 100) / this.CostFund);
+                return ((((this.Radius) *(int)  this.Level) * 100) / this.CostFund);
             }
         }
 

@@ -7239,6 +7239,7 @@
                 }
                 currentArchitecture.BuildingFacility = -1;
                 currentArchitecture.BuildingDaysLeft = 0;
+                currentArchitecture.RemoveAllInformations();
                 if (currentArchitecture.IsCapital)
                 {
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, currentArchitecture.BelongedFaction.ID, -50 * currentArchitecture.AreaCount);
