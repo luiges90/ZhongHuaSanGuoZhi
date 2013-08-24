@@ -2227,61 +2227,7 @@
                 int unfullNavalArmyCount = 0;
                 if (!forPlayer)
                 {
-                    foreach (Military military in this.Militaries)
-                    {
-                        if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && military.Kind.ID != 29)
-                        {
-                            unfullArmyCount++;
-                            if (military.Kind.Type == MilitaryType.水军)
-                            {
-                                unfullNavalArmyCount++;
-                            }
-                        }
-                    }
-                    int unfullArmyCountThreshold;
-                    if (this.IsFoodAbundant && this.IsFundAbundant)
-                    {
-                        unfullArmyCountThreshold = Math.Min((this.MilitaryPopulation) / Parameters.AINewMilitaryPopulationThresholdDivide + 1, (this.PersonCount + this.MovingPersonCount) / Parameters.AINewMilitaryPersonThresholdDivide + 1);
-                    }
-                    else
-                    {
-                        unfullArmyCountThreshold = 1;
-                    }
-                    if ((this.Kind.HasPopulation && (recentlyAttacked || (this.BelongedFaction.PlanTechniqueArchitecture != this))) &&
-                        (recentlyAttacked || (this.Population > ((this.RecruitmentPopulationBoundary * (1 + (int)this.BelongedFaction.Leader.StrategyTendency * 0.5f)) + GameObject.Random(this.RecruitmentPopulationBoundary)))))
-                    {
-                        if (unfullArmyCount < unfullArmyCountThreshold)
-                        {
-                            if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && 
-                                (this.AdjacentToHostileByWater || GameObject.Chance(10)) && (unfullNavalArmyCount < this.MilitaryCount || this.AILandLinks.Count == 0))
-                            {
-                                this.AIRecruitment(true, false);
-                            }
-                            else
-                            {
-                                int siegeCount = 0;
-                                foreach (Military m in this.Militaries)
-                                {
-                                    if (m.Kind.Type == MilitaryType.器械)
-                                    {
-                                        siegeCount++;
-                                    }
-                                }
-                                if (siegeCount < this.Militaries.Count / 5)
-                                {
-                                    this.AIRecruitment(false, true);
-                                }
-                                else
-                                {
-                                    this.AIRecruitment(false, false);
-                                }
-                            }
-                        }
-                        else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.MilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
-                        {
-                            this.AIRecruitment(true, false);
-                        }
-                    }
+                    this.AIRecruitMilitary();
                 }
 
                 //disband unused transports except one
@@ -2344,6 +2290,10 @@
                     {
                         this.AIRecruitment(true, false);
                     }
+                    else if (this.AILandLinks.Count <= 0)
+                    {
+                        this.AIRecruitment(true, false);
+                    } 
                     else
                     {
                         int siegeCount = 0;
@@ -2363,10 +2313,6 @@
                             this.AIRecruitment(false, false);
                         }
                     }
-                }
-                else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.EffectiveMilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
-                {
-                    this.AIRecruitment(true, false);
                 }
             }
 
