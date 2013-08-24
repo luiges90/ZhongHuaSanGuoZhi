@@ -21,7 +21,7 @@
             foreach (Point point in this.Area.Area)
             {
                 this.BelongedArchitecture.BelongedFaction.AddPositionInformation(point, this.Level);
-                this.CheckAmbushTroop(point);
+                //this.CheckAmbushTroop(point);
             }
         }
 
