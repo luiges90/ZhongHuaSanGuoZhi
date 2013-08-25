@@ -4065,9 +4065,16 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="5" Name="DayCost" CountToDisplay="False" IsNumber="True" DisplayName="已进行日数" MinWidth="100" DetailLevel="2"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Information" DisplayName="情报" Columns="1 2 3 4">
+        <Tab ID="1"  Name="Information" DisplayName="情报" Columns="1 2 3 4 5">
         </Tab>
       </Tabs>
     </ListKind>

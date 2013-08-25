@@ -2493,6 +2493,32 @@
                     }
                 }
             }
+            foreach (Information i in this.Informations)
+            {
+                bool stop = true;
+                foreach (Point p in i.Area.Area)
+                {
+                    Troop t = base.Scenario.GetTroopByPosition(p);
+                    Architecture a = base.Scenario.GetArchitectureByPosition(p);
+                    if (t != null && !this.IsFriendly(t.BelongedFaction))
+                    {
+                        stop = false;
+                        break;
+                    }
+                    if (a != null && !this.IsFriendly(a.BelongedFaction) && this.IsFundIncomeEnough && this.IsFundEnough
+                        && this.Informations.Count <= 3 && this.InformationDayCost <= 300 && i.DaysStarted <= 3)
+                    {
+                        stop = false;
+                        break;
+                    }
+                }
+                if (stop)
+                {
+                    i.Purify();
+                    this.RemoveInformation(i);
+                    base.Scenario.Informations.Remove(i);
+                }
+            }
         }
 
 
@@ -8765,6 +8791,7 @@
             foreach (Information information in this.Informations)
             {
                 information.CheckAmbushTroop();
+                information.DaysStarted++;
             }
         }
 

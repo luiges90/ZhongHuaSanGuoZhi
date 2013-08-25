@@ -1840,6 +1840,7 @@
             foreach (Information information in this.Informations)
             {
                 information.DaysLeft--;
+                information.DaysStarted++;
                 if (information.DaysLeft == 0)
                 {
                     list.Add(information);
