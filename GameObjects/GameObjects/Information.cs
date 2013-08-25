@@ -15,11 +15,10 @@
         private int radius;
         private int dayCost;
         private int daysLeft;
-        private int daysStarted;
+        private int daysStarted = 0;
 
         public void Apply()
         {
-            this.DaysStarted = 0;
             foreach (Point point in this.Area.Area)
             {
                 if (this.BelongedArchitecture != null)

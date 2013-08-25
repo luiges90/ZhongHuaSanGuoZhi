@@ -8769,7 +8769,7 @@
 
         public void RemoveAllInformations()
         {
-            foreach (Information information in this.Informations)
+            foreach (Information information in this.Informations.GetList())
             {
                 information.Purify();
                 this.RemoveInformation(information);

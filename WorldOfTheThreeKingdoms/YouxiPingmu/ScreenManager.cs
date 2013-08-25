@@ -369,7 +369,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 foreach (Information i in this.CurrentGameObjects)
                 {
+                    i.Purify();
                     this.CurrentArchitecture.RemoveInformation(i);
+                    i.Scenario.Informations.Remove(i);
                 }
             }
         }
