@@ -4151,6 +4151,28 @@
             }
         }
 
+        public InformationList getAllInformationList()
+        {
+            InformationList result = new InformationList();
+            foreach (Information i in this.Informations)
+            {
+                result.Add(i);
+            }
+            foreach (Architecture a in this.Architectures)
+            {
+                foreach (Information i in a.Informations)
+                {
+                    result.Add(i);
+                }
+            }
+            return result;
+        }
+
+        public bool HasInformation()
+        {
+            return this.getAllInformationList().Count > 0;
+        }
+
         public delegate void AfterCatchLeader(Person leader, Faction faction);
 
         [StructLayout(LayoutKind.Sequential)]

@@ -2493,6 +2493,8 @@
                     }
                 }
             }
+
+            InformationList toRemove = new InformationList();
             foreach (Information i in this.Informations)
             {
                 bool stop = true;
@@ -2506,7 +2508,7 @@
                         break;
                     }
                     if (a != null && !this.IsFriendly(a.BelongedFaction) && this.IsFundIncomeEnough && this.IsFundEnough
-                        && this.Informations.Count <= 3 && this.InformationDayCost <= 300 && i.DaysStarted <= 3)
+                        && ((this.Informations.Count <= 3 && this.InformationDayCost <= 300) || i.DaysStarted <= 3))
                     {
                         stop = false;
                         break;
@@ -2514,10 +2516,14 @@
                 }
                 if (stop)
                 {
-                    i.Purify();
-                    this.RemoveInformation(i);
-                    base.Scenario.Informations.Remove(i);
+                    toRemove.Add(i);
                 }
+            }
+            foreach (Information i in toRemove)
+            {
+                i.Purify();
+                this.RemoveInformation(i);
+                base.Scenario.Informations.Remove(i);
             }
         }
 
@@ -8317,20 +8323,9 @@
             return list;
         }
 
-        public int Shuiju9nMilitaryCount
+        public bool HasInformation()
         {
-            get
-            {
-                int r = 0;
-                foreach (Military military in this.Militaries)
-                {
-                    if (military.Kind.Type == MilitaryType.水军 && military.KindID != 28 && !military.IsTransport)
-                    {
-                        r++;
-                    }
-                }
-                return r;
-            }
+            return this.Informations.Count > 0;
         }
 
         public int ShuijunMilitaryCount

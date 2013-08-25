@@ -3985,6 +3985,7 @@
                     row["Oblique"] = information.Oblique;
                     row["DayCost"] = information.DayCost;
                     row["DaysLeft"] = information.DaysLeft;
+                    row["DaysStarted"] = information.DaysStarted;
                     row.EndEdit();
                     dataSet.Tables["Information"].Rows.Add(row);
                 }

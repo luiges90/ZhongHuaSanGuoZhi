@@ -4065,7 +4065,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="5" Name="DayCost" CountToDisplay="False" IsNumber="True" DisplayName="已进行日数" MinWidth="100" DetailLevel="2"
+		<Column ID="5" Name="DaysStarted" CountToDisplay="False" IsNumber="True" DisplayName="已进行日数" MinWidth="100" DetailLevel="2"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"

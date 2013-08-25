@@ -147,6 +147,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.Architecture_Princesses:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.Feiziliebiao, null, "", "");
                     break;
+                case ContextMenuResult.Architecture_Informations:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Information, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.Informations, null, "", "");
+                    break;
                 case ContextMenuResult.Faction_Detail:
                     if (this.CurrentArchitecture.BelongedFaction != null)
                     {
@@ -230,7 +233,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Treasure, FrameFunction.Browse, true, true, false, false, this.CurrentArchitecture.GetAllTreasureInFaction(), null, "", "");
                     }
                     break;
-
+                case ContextMenuResult.Faction_Informations:
+                    if (this.CurrentArchitecture.BelongedFaction != null)
+                    {
+                        this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Information, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.BelongedFaction.getAllInformationList(), null, "", "");
+                    }
+                    break;
                 case ContextMenuResult.Internal_StopWork:
                     this.screenManager.CurrentArchitectureWorkKind = ArchitectureWorkKind.无;
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.Architecture_WorkingList, true, true, true, true, this.CurrentArchitecture.Persons, null, "停止工作", "");
