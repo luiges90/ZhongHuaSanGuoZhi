@@ -3252,6 +3252,14 @@
             }
         }
 
+        private void ApplyInformations()
+        {
+            foreach (Information i in this.Informations)
+            {
+                i.Apply();
+            }
+        }
+
         public bool LoadGameScenarioFromDatabase(string connectionString)  //读取剧本
         {
             this.Clear();
@@ -3279,6 +3287,7 @@
             this.ApplyFireTable();
             this.InitializeArchitectureMapTile();
             this.InitializeFactionData();
+            this.ApplyInformations();
             this.Preparing = true;
             this.Factions.BuildQueue(true);
             this.Factions.ApplyInfluences();
@@ -3326,6 +3335,7 @@
             this.ApplyFireTable();
             this.InitializeArchitectureMapTile();
             this.InitializeFactionData();
+            this.ApplyInformations();
             this.Preparing = true;
             this.Factions.ApplyInfluences();
             this.Architectures.ApplyInfluences();
