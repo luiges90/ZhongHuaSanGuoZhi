@@ -2707,6 +2707,7 @@
                 information.Oblique = (bool)reader["Oblique"];
                 information.DayCost = (int)reader["DayCost"];
                 information.DaysLeft = (int)reader["DaysLeft"];
+                information.DaysStarted = (int)reader["DaysStarted"];
                 this.Informations.AddInformation(information);
             }
             DbConnection.Close();
