@@ -884,7 +884,7 @@
                 {
                     this.RowRectangles[i] = new Rectangle(this.RowRectangles[i].X, this.RowRectangles[i].Y, (this.RowRectangles[i].Width - (2 * this.scrolltrackWidth)) - this.scrollbuttonWidth, this.RowRectangles[i].Height);
                 }
-                //this.WidthCanShrink = false;
+                this.WidthCanShrink = false;
             }
         }
 
