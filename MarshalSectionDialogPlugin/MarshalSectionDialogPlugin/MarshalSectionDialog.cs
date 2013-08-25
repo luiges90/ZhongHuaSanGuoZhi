@@ -407,6 +407,7 @@
                 this.EditingSection.OrientationFaction = section.OrientationFaction;
                 this.EditingSection.OrientationSection = section.OrientationSection;
                 this.EditingSection.OrientationState = section.OrientationState;
+                this.EditingSection.OrientationArchitecture = section.OrientationArchitecture;
                 this.RefreshOKButton();
                 this.RefreshOrientationButton();
                 this.RefreshLabelTextsDisplay();
