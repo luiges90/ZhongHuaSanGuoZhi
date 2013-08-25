@@ -495,7 +495,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                 {
                     foreach (Tile tile in this.DisplayingTiles)
                     {
-                        if (this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 0 && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 7)
+                        if (this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 0 && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 4 && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 7)
                         {
                             spriteBatch.Draw(this.screen.Textures.wanggetupian, tile.Destination, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.81f);
                         }
