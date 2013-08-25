@@ -2320,8 +2320,7 @@
                 Architecture architecture2;
                 int diplomaticRelation;
                 Person firstHalfPerson;
-                ArchitectureList list2 = this.GetClosestArchitectures(20, 40);
-                /*ArchitectureList list = new ArchitectureList();
+                ArchitectureList list = new ArchitectureList();
                 ArchitectureList list2 = new ArchitectureList();
                 foreach (Architecture architecture in this.GetClosestArchitectures(20, 40))
                 {
@@ -2362,7 +2361,7 @@
                             }
                         }
                     }
-                }*/
+                }
                 if ((this.BelongedSection != null) && ((list2.Count > 0) && (this.PlanArchitecture == null)) && this.BelongedSection.AIDetail.AllowPersonTactics)
                 {
                     if (list2.Count > 1)
@@ -9878,7 +9877,7 @@
                     }
                     else if (this.InformationAvail())
                     {
-                        /*Routeway routeway = this.GetRouteway(wayToTarget, true);
+                        Routeway routeway = this.GetRouteway(wayToTarget, true);
                         if ((routeway != null) && ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
                         {
                             double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
@@ -9899,7 +9898,7 @@
                                     this.PlanArchitecture = null;
                                 }
                             }
-                        }*/
+                        }
                     }
 
                 }
