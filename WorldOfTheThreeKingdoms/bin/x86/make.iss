@@ -36,6 +36,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 ;Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\WorldOfTheThreeKingdoms.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\*"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\Dantiao\*"; DestDir: "{app}\Dantiao"; Flags: ignoreversion createallsubdirs recursesubdirs
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameComponents\*"; DestDir: "{app}\GameComponents"; Flags: ignoreversion createallsubdirs recursesubdirs
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameData\*"; DestDir: "{app}\GameData"; Flags: ignoreversion createallsubdirs recursesubdirs
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameMusic\*"; DestDir: "{app}\GameMusic"; Flags: ignoreversion createallsubdirs recursesubdirs
