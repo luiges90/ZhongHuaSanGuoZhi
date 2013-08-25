@@ -6762,7 +6762,9 @@
             information.Position = this.SelfCastPosition;
             information.Oblique = false;
             information.DaysLeft = days;
+            base.Scenario.Informations.AddInformation(information);
             this.BelongedFaction.AddInformation(information);
+            information.Apply();
         }
 
         public bool IsAccessable(Point p)

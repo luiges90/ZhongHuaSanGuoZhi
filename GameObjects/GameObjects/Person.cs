@@ -1610,8 +1610,11 @@
                 information.Oblique = this.CurrentInformationKind.Oblique;
                 information.DayCost = (int)(240.0 / this.InformationAbility * this.CurrentInformationKind.CostFund * 
                     base.Scenario.GetDistance(information.Position, this.BelongedArchitecture.Position) / 10.0);
-
+				
+                base.Scenario.Informations.AddInformation(information);
                 this.BelongedArchitecture.AddInformation(information);
+
+                information.Apply();
 
                 this.CurrentInformationKind = null;
                 this.OutsideTask = OutsideTaskKind.无;

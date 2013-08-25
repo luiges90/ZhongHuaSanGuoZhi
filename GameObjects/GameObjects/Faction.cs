@@ -368,10 +368,8 @@
 
         public void AddInformation(Information information)
         {
-            base.Scenario.Informations.Add(information);
             this.Informations.AddInformation(information);
             information.BelongedFaction = this;
-            information.Apply();
         }
 
         public void AddLegion(Legion legion)
@@ -1853,7 +1851,9 @@
             }
             foreach (Information information in list)
             {
+                information.Purify();
                 this.RemoveInformation(information);
+                base.Scenario.Informations.Remove(information);
             }
         }
 
@@ -2235,10 +2235,8 @@
 
         public void RemoveInformation(Information information)
         {
-            information.Purify();
             this.Informations.Remove(information);
             information.BelongedFaction = null;
-            base.Scenario.Informations.Remove(information);
         }
 
         public void RemoveLegion(Legion legion)
