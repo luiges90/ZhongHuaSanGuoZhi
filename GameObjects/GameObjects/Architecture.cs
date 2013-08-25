@@ -8328,6 +8328,11 @@
             return this.Informations.Count > 0;
         }
 
+        public bool FactionHasInformation()
+        {
+            return this.BelongedFaction != null && this.BelongedFaction.HasInformation();
+        }
+
         public int ShuijunMilitaryCount
         {
             get

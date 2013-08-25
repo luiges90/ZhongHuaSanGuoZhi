@@ -4151,7 +4151,7 @@
             }
         }
 
-        public InformationList getAllInformationList()
+        public InformationList GetAllInformationList()
         {
             InformationList result = new InformationList();
             foreach (Information i in this.Informations)
@@ -4170,7 +4170,7 @@
 
         public bool HasInformation()
         {
-            return this.getAllInformationList().Count > 0;
+            return this.GetAllInformationList().Count > 0;
         }
 
         public delegate void AfterCatchLeader(Person leader, Faction faction);

@@ -236,7 +236,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.Faction_Informations:
                     if (this.CurrentArchitecture.BelongedFaction != null)
                     {
-                        this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Information, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.BelongedFaction.getAllInformationList(), null, "", "");
+                        this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Information, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.BelongedFaction.GetAllInformationList(), null, "", "");
                     }
                     break;
                 case ContextMenuResult.Internal_StopWork:
