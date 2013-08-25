@@ -7,3 +7,5 @@
 - GameData/Common/CommonDataPublic.mdb => GameData/Common/CommonData.mdb
 - GameData/GameParametersPublic.xml => GameData/GameParameters.xml
 - GameData/GlobalVariablesPublic.xml => GameData/GlobalVariables.xml
+
+另外，如希望建立安裝版本，需先下載 [InnoSetup](http://www.jrsoftware.org/isinfo.php) 再開啟\WorldOfTheThreeKingdoms\bin\x86下的make.iss
