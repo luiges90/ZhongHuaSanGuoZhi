@@ -1609,7 +1609,7 @@
                 information.Position = this.OutsideDestination.Value;
                 information.Oblique = this.CurrentInformationKind.Oblique;
                 information.DayCost = (int)(240.0 / this.InformationAbility * this.CurrentInformationKind.CostFund * 
-                    base.Scenario.GetDistance(information.Position, this.BelongedArchitecture.Position) / 10.0);
+                    Math.Max(1.0, base.Scenario.GetDistance(information.Position, this.BelongedArchitecture.Position) / 20.0));
 				
                 base.Scenario.Informations.AddInformation(information);
                 this.BelongedArchitecture.AddInformation(information);

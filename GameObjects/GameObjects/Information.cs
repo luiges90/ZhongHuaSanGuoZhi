@@ -45,8 +45,8 @@
         {
             Troop troopByPosition = base.Scenario.GetTroopByPosition(p);
             if (troopByPosition != null && troopByPosition.Status == TroopStatus.埋伏 && 
-                (this.BelongedArchitecture != null && !this.BelongedArchitecture.IsFriendly(troopByPosition.BelongedFaction)) || 
-                (this.BelongedFaction != null && !this.BelongedFaction.IsFriendly(troopByPosition.BelongedFaction)))
+                ((this.BelongedArchitecture != null && !this.BelongedArchitecture.IsFriendly(troopByPosition.BelongedFaction)) || 
+                (this.BelongedFaction != null && !this.BelongedFaction.IsFriendly(troopByPosition.BelongedFaction))))
             {
                 this.DetectAmbush(troopByPosition);
             }
@@ -82,9 +82,19 @@
 
         public void Purify()
         {
-            foreach (Point point in this.Area.Area)
+            if (this.BelongedArchitecture != null)
             {
-                this.BelongedArchitecture.BelongedFaction.RemovePositionInformation(point, this.Level);
+                foreach (Point point in this.Area.Area)
+                {
+                    this.BelongedArchitecture.BelongedFaction.RemovePositionInformation(point, this.Level);
+                }
+            }
+            if (this.BelongedFaction != null)
+            {
+                foreach (Point point in this.Area.Area)
+                {
+                    this.BelongedFaction.RemovePositionInformation(point, this.Level);
+                }
             }
         }
 
