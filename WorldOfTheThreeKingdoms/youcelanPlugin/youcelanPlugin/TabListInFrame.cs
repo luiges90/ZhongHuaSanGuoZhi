@@ -134,7 +134,7 @@
         private Rectangle topedgeRectangle;
         internal Texture2D topedgeTexture;
         internal int topedgeWidth;
-
+        
         internal Rectangle ToolDisplayPosition;
         //private FrameContent frameContent = null;
         private bool jiancexianshi=false ;
@@ -249,36 +249,38 @@
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            
-            spriteBatch.Draw(this.ToolDisplayTexture, this.ToolDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.099f);
-            if (this.xianshiyoucelan)
+            if (this.jiancexianshi)
             {
-                
-                spriteBatch.Draw(this.leftedgeTexture, this.leftedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                
-                spriteBatch.Draw(this.rightedgeTexture, this.rightedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                
-                spriteBatch.Draw(this.topedgeTexture, this.topedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                
-                spriteBatch.Draw(this.bottomedgeTexture, this.bottomedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                
-                spriteBatch.Draw(this.backgroundTexture, this.backgroundRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-
-                spriteBatch.Draw(this.TopLeftTexture, this.TopLeftRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                spriteBatch.Draw(this.TopRightTexture, this.TopRightRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                spriteBatch.Draw(this.BottomLeftTexture, this.BottomLeftRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-                spriteBatch.Draw(this.BottomRightTexture, this.BottomRightRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
-
-
-                //base.Draw(spriteBatch);
-                //if (this.frameContent != null)
-                //{
-                //    this.frameContent.Draw(spriteBatch);
-                //}
-
-                if (this.listKindToDisplay != null)
+                spriteBatch.Draw(this.ToolDisplayTexture, this.ToolDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.099f);
+                if (this.xianshiyoucelan)
                 {
-                    this.listKindToDisplay.Draw(spriteBatch);
+
+                    spriteBatch.Draw(this.leftedgeTexture, this.leftedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+
+                    spriteBatch.Draw(this.rightedgeTexture, this.rightedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+
+                    spriteBatch.Draw(this.topedgeTexture, this.topedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+
+                    spriteBatch.Draw(this.bottomedgeTexture, this.bottomedgeRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+
+                    spriteBatch.Draw(this.backgroundTexture, this.backgroundRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+
+                    spriteBatch.Draw(this.TopLeftTexture, this.TopLeftRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+                    spriteBatch.Draw(this.TopRightTexture, this.TopRightRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+                    spriteBatch.Draw(this.BottomLeftTexture, this.BottomLeftRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+                    spriteBatch.Draw(this.BottomRightTexture, this.BottomRightRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f);
+
+
+                    //base.Draw(spriteBatch);
+                    //if (this.frameContent != null)
+                    //{
+                    //    this.frameContent.Draw(spriteBatch);
+                    //}
+
+                    if (this.listKindToDisplay != null)
+                    {
+                        this.listKindToDisplay.Draw(spriteBatch);
+                    }
                 }
             }
         }

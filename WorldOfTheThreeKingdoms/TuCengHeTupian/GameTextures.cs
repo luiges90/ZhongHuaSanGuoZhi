@@ -35,6 +35,7 @@ namespace WorldOfTheThreeKingdoms.Resources
             public Dictionary<int, Texture2D> largeCityImg = new Dictionary<int, Texture2D>();
             public Texture2D[] guandetupian = new Texture2D[3];
             public Texture2D wanggetupian;
+            public Texture2D EditModeGrid;
             
 
             public void LoadTextures(GraphicsDevice device, GameScenario scenario)
@@ -342,6 +343,7 @@ namespace WorldOfTheThreeKingdoms.Resources
                 this.guandetupian[1] = Texture2D.FromFile(device, "Resources/Architecture/shuguan3.png");
                 this.guandetupian[2] = Texture2D.FromFile(device, "Resources/Architecture/shuguan5.png");
                 this.wanggetupian = Texture2D.FromFile(device, "Resources/TileFrame/wangge.png");
+                this.EditModeGrid = Texture2D.FromFile(device, "Resources/TileFrame/Blue.png");
                 this.zidongcundangtupian  = Texture2D.FromFile(device, "Resources/Effects/zidongcundang.png");
             }
         }
