@@ -94,6 +94,11 @@
 
         private void screen_OnMouseLeftDown(Point position)
         {
+
+        }
+
+        private void screen_OnMouseLeftUp(Point position)
+        {
             for (int i = 0; i < this.OptionTextures.Count; i++)
             {
                 if (StaticMethods.PointInRectangle(position, this.OptionTextList.DisplayPosition(i)))
@@ -103,10 +108,7 @@
                     break;
                 }
             }
-        }
 
-        private void screen_OnMouseLeftUp(Point position)
-        {
             this.dragging = false;
         }
 

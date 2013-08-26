@@ -106,6 +106,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void HandleLaterMouseLeftDown()
         {
+            if (this.editMode && ((this.previousMouseState.LeftButton == ButtonState.Released) && (this.mouseState.LeftButton == ButtonState.Pressed)) && (this.viewMove == ViewMove.Stop))
+            {
+
+                int x = (this.mouseState.X - this.mainMapLayer.LeftEdge) / base.Scenario.ScenarioMap.TileWidth;
+                int y = (this.mouseState.Y - this.mainMapLayer.TopEdge) / base.Scenario.ScenarioMap.TileHeight;
+                this.mainMapLayer.mainMap.MapData[x, y] = this.ditukuaidezhi;
+                this.mainMapLayer.chongsheditukuaitupian(x, y);
+            }
             /*
             if (base.Scenario.CurrentPlayer == null) return;
             if (((this.previousMouseState.LeftButton == ButtonState.Released) && (this.mouseState.LeftButton == ButtonState.Pressed)) && (this.viewMove == ViewMove.Stop))
@@ -165,7 +173,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void HandleLaterMouseLeftUp()
         {
-            if (base.Scenario.CurrentPlayer == null) return;
+            if (base.Scenario.CurrentPlayer == null||this.editMode) return;
 
             if (this.Plugins.youcelanPlugin.IsShowing && StaticMethods.PointInRectangle(this.MousePosition, this.Plugins.youcelanPlugin.FrameRectangle))
             {
@@ -224,6 +232,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void HandleLaterMouseMove()
         {
+            /*
             if ((this.mouseState.X != this.previousMouseState.X) || (this.mouseState.Y != this.previousMouseState.Y))
             {
                 this.UpdateViewMove();
@@ -231,51 +240,98 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                 }
             }
+            */
+
+            if ((this.mouseState.X != this.previousMouseState.X) || (this.mouseState.Y != this.previousMouseState.Y))
+            {
+                this.UpdateViewMove();
+                if (this.editMode)
+                {
+                    if ((this.mouseState.LeftButton == ButtonState.Pressed) && (this.mouseState.RightButton != ButtonState.Pressed))
+                    {
+                        int x = (this.mouseState.X - this.mainMapLayer.LeftEdge) / base.Scenario.ScenarioMap.TileWidth;
+                        int y = (this.mouseState.Y - this.mainMapLayer.TopEdge) / base.Scenario.ScenarioMap.TileHeight;
+                        if (this.mainMapLayer.mainMap.MapData[x, y] != this.ditukuaidezhi)
+                        {
+                            this.mainMapLayer.mainMap.MapData[x, y] = this.ditukuaidezhi;
+                            this.mainMapLayer.chongsheditukuaitupian(x, y);
+
+                        }
+                    }
+                    if ((this.mouseState.LeftButton != ButtonState.Pressed) && (this.mouseState.RightButton == ButtonState.Pressed))
+                    {
+                        int x = (this.mouseState.X - this.mainMapLayer.LeftEdge) / base.Scenario.ScenarioMap.TileWidth;
+                        int y = (this.mouseState.Y - this.mainMapLayer.TopEdge) / base.Scenario.ScenarioMap.TileHeight;
+                        if (this.mainMapLayer.mainMap.MapData[x, y] != 0)
+                        {
+                            this.mainMapLayer.mainMap.MapData[x, y] = 0;
+                            this.mainMapLayer.chongsheditukuaitupian(x, y);
+
+                        }
+                    }
+                }
+            }
+
+
         }
 
         private void HandleLaterMouseRightDown()
         {
-            GameDelegates.VoidFunction optionFunction = null;
-            if ((this.previousMouseState.RightButton == ButtonState.Released) && (this.mouseState.RightButton == ButtonState.Pressed))
+            if (this.editMode)
             {
-                if ((this.Plugins.OptionDialogPlugin != null) && (GlobalVariables.CurrentMapLayer == MapLayerKind.Routeway))
+                if ((this.previousMouseState.RightButton == ButtonState.Released) && (this.mouseState.RightButton == ButtonState.Pressed))
                 {
-                    List<Routeway> routewaysByPositionAndFaction = base.Scenario.GetRoutewaysByPositionAndFaction(this.position, base.Scenario.CurrentPlayer);
-                    List<Routeway> list2 = new List<Routeway>();
-                    foreach (Routeway routeway in routewaysByPositionAndFaction)
+                    int x = (this.mouseState.X - this.mainMapLayer.LeftEdge) / base.Scenario.ScenarioMap.TileWidth;
+                    int y = (this.mouseState.Y - this.mainMapLayer.TopEdge) / base.Scenario.ScenarioMap.TileHeight;
+                    this.mainMapLayer.mainMap.MapData[x, y] = 0;
+                    this.mainMapLayer.chongsheditukuaitupian(x, y);
+                }
+            }
+            else
+            {
+
+                GameDelegates.VoidFunction optionFunction = null;
+                if ((this.previousMouseState.RightButton == ButtonState.Released) && (this.mouseState.RightButton == ButtonState.Pressed))
+                {
+                    if ((this.Plugins.OptionDialogPlugin != null) && (GlobalVariables.CurrentMapLayer == MapLayerKind.Routeway))
                     {
-                        if ((routeway.StartArchitecture == null) || ((((routeway.DestinationArchitecture != null) && routeway.StartArchitecture.BelongedSection.AIDetail.AutoRun) && !routeway.Building) && (routeway.LastActivePointIndex < 0)))
-                        {
-                            list2.Add(routeway);
-                        }
-                    }
-                    foreach (Routeway routeway in list2)
-                    {
-                        routewaysByPositionAndFaction.Remove(routeway);
-                    }
-                    if ((routewaysByPositionAndFaction.Count > 1) && !base.Scenario.PositionIsTroop(this.position))
-                    {
-                        this.Plugins.OptionDialogPlugin.SetStyle("Small");
-                        this.Plugins.OptionDialogPlugin.SetTitle("粮道");
-                        this.Plugins.OptionDialogPlugin.Clear();
-                        this.Plugins.OptionDialogPlugin.SetReturnObjectFunction(new GameDelegates.ObjectFunction(this.RoutewayOptionDialogClickCallback));
+                        List<Routeway> routewaysByPositionAndFaction = base.Scenario.GetRoutewaysByPositionAndFaction(this.position, base.Scenario.CurrentPlayer);
+                        List<Routeway> list2 = new List<Routeway>();
                         foreach (Routeway routeway in routewaysByPositionAndFaction)
                         {
-                            if (optionFunction == null)
+                            if ((routeway.StartArchitecture == null) || ((((routeway.DestinationArchitecture != null) && routeway.StartArchitecture.BelongedSection.AIDetail.AutoRun) && !routeway.Building) && (routeway.LastActivePointIndex < 0)))
                             {
-                                optionFunction = delegate
-                                {
-                                    this.ContextMenuRightClick();
-                                };
+                                list2.Add(routeway);
                             }
-                            this.Plugins.OptionDialogPlugin.AddOption(routeway.DisplayName, routeway, optionFunction);
                         }
-                        this.Plugins.OptionDialogPlugin.EndAddOptions();
-                        this.Plugins.OptionDialogPlugin.ShowOptionDialog(ShowPosition.Mouse);
-                        return;
+                        foreach (Routeway routeway in list2)
+                        {
+                            routewaysByPositionAndFaction.Remove(routeway);
+                        }
+                        if ((routewaysByPositionAndFaction.Count > 1) && !base.Scenario.PositionIsTroop(this.position))
+                        {
+                            this.Plugins.OptionDialogPlugin.SetStyle("Small");
+                            this.Plugins.OptionDialogPlugin.SetTitle("粮道");
+                            this.Plugins.OptionDialogPlugin.Clear();
+                            this.Plugins.OptionDialogPlugin.SetReturnObjectFunction(new GameDelegates.ObjectFunction(this.RoutewayOptionDialogClickCallback));
+                            foreach (Routeway routeway in routewaysByPositionAndFaction)
+                            {
+                                if (optionFunction == null)
+                                {
+                                    optionFunction = delegate
+                                    {
+                                        this.ContextMenuRightClick();
+                                    };
+                                }
+                                this.Plugins.OptionDialogPlugin.AddOption(routeway.DisplayName, routeway, optionFunction);
+                            }
+                            this.Plugins.OptionDialogPlugin.EndAddOptions();
+                            this.Plugins.OptionDialogPlugin.ShowOptionDialog(ShowPosition.Mouse);
+                            return;
+                        }
                     }
+                    this.ContextMenuRightClick();
                 }
-                this.ContextMenuRightClick();
             }
         }
 

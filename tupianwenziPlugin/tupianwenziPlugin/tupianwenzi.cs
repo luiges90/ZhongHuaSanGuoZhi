@@ -180,6 +180,11 @@
 
         private void screen_OnMouseLeftDown(Point position)
         {
+
+        }
+
+        private void screen_OnMouseLeftUp(Point position)
+        {
             if (StaticMethods.PointInRectangle(position, this.FirstPageButtonDisplayPosition))
             {
                 //this.RichText.FirstPage();
@@ -360,6 +365,7 @@
                         this.diyigeshengyin = true;
                         this.screen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.tupianwenzi, UndoneWorkSubKind.None));
                         this.screen.OnMouseLeftDown += new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
+                        this.screen.OnMouseLeftUp += new Screen.MouseLeftUp(this.screen_OnMouseLeftUp);
                         this.screen.OnMouseMove += new Screen.MouseMove(this.screen_OnMouseMove);
                         this.FirstPageButtonDisplayTexture = this.FirstPageButtonDisabledTexture;
                         this.screen.EnableLaterMouseEvent = false;
@@ -373,6 +379,7 @@
                             //throw new Exception("The UndoneWork is not a tupianwenzi.");
                         }
                         this.screen.OnMouseLeftDown -= new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
+                        this.screen.OnMouseLeftUp -= new Screen.MouseLeftUp(this.screen_OnMouseLeftUp);
                         this.screen.OnMouseMove -= new Screen.MouseMove(this.screen_OnMouseMove);
                         this.screen.EnableLaterMouseEvent = true;
 

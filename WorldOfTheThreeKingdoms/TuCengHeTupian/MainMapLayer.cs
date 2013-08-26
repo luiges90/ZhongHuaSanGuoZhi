@@ -52,6 +52,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
         private int topEdge = 0;
         private Rectangle jianzhujuxing = new Rectangle();
         private Rectangle qizijuxing = new Rectangle();
+        internal bool xianshidituxiaokuai = true;
 
         public void freeTilesMemory()
         {
@@ -467,6 +468,20 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                             }
                         }
                     }
+                    if (this.screen.editMode)
+                    {
+                        foreach (Tile tile in this.DisplayingTiles)
+                        {
+                            List<Texture2D> decorativeTextures = null;
+                            this.CheckTileTexture(tile, out decorativeTextures);
+                            Rectangle? sourceRectangle = null;
+                            if (this.xianshidituxiaokuai && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 0) //未知地形显示为透明，以方便地形编辑
+                            {
+                                spriteBatch.Draw(tile.TileTexture, tile.Destination, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.8998f);
+                            }
+
+                        }
+                    }
 
                 }
                 else
@@ -495,9 +510,16 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                 {
                     foreach (Tile tile in this.DisplayingTiles)
                     {
-                        if (this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 0 && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 7)
+                        if (this.screen.editMode)
                         {
-                            spriteBatch.Draw(this.screen.Textures.wanggetupian, tile.Destination, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.81f);
+                            spriteBatch.Draw(this.screen.Textures.EditModeGrid, tile.Destination, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.81f);
+                        }
+                        else
+                        {
+                            if (this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 0 && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 4 && this.mainMap.MapData[tile.Position.X, tile.Position.Y] != 7)
+                            {
+                                spriteBatch.Draw(this.screen.Textures.wanggetupian, tile.Destination, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.81f);
+                            }
                         }
                     }
                 }
@@ -856,6 +878,28 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                 return this.mainMap.TotalTileWidth;
             }
         }
+
+        public void chongsheditukuaitupian(int i, int j)
+        {
+            this.Tiles[i, j] = new Tile();
+            this.Tiles[i, j].Position = new Point(i, j);
+            TerrainDetail terrainDetailByPositionNoCheck = this.screen.Scenario.GetTerrainDetailByPositionNoCheck(this.Tiles[i, j].Position);
+            if (terrainDetailByPositionNoCheck != null)
+            {
+                if (terrainDetailByPositionNoCheck.Textures.BasicTextures.Count > 0)
+                {
+                    this.Tiles[i, j].TileTexture = terrainDetailByPositionNoCheck.Textures.BasicTextures[((i * 7) + (j * 11)) % terrainDetailByPositionNoCheck.Textures.BasicTextures.Count];
+                }
+                else
+                {
+                    this.Tiles[i, j].TileTexture = this.screen.Textures.TerrainTextures[this.mainMap.MapData[i, j]];
+                }
+            }
+
+            this.ReCalculateTileDestination(device);
+
+        }
+
 
         internal void jiazaibeijingtupian()
         {
