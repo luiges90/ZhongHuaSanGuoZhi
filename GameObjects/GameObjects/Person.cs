@@ -6510,9 +6510,9 @@
             if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 int houGongDays = nvren.Glamour / 4 + GameObject.Random(6) + 10;
-                if (houGongDays > 90)
+                if (houGongDays > 60)
                 {
-                    houGongDays = GameObject.Random(20) + 80;
+                    houGongDays = GameObject.Random(10) + 60;
                 }
                 if (!nvren.HatedPersons.Contains(this.ID) && GlobalVariables.getChildrenRate > 0)
                 {
