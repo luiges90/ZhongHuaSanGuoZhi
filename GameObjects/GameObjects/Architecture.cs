@@ -2495,28 +2495,54 @@
             }
 
             InformationList toRemove = new InformationList();
+            int dayCost = this.InformationDayCost;
             foreach (Information i in this.Informations)
             {
                 bool stop = true;
-                foreach (Point p in i.Area.Area)
+                if (i.DaysStarted <= 3)
                 {
-                    Troop t = base.Scenario.GetTroopByPosition(p);
-                    Architecture a = base.Scenario.GetArchitectureByPosition(p);
-                    if (t != null && !this.IsFriendly(t.BelongedFaction))
+                    stop = false;
+                } 
+                else if (i.DaysStarted < GameObject.Random(10) + 30 && this.IsFundIncomeEnough && this.IsFundEnough 
+                    && dayCost < 500)
+                {
+                    foreach (Point p in i.Area.Area)
                     {
-                        stop = false;
-                        break;
-                    }
-                    if (a != null && !this.IsFriendly(a.BelongedFaction) && this.IsFundIncomeEnough && this.IsFundEnough
-                        && ((this.Informations.Count <= 3 && this.InformationDayCost <= 300) || i.DaysStarted <= 3))
-                    {
-                        stop = false;
-                        break;
+                        Architecture a = base.Scenario.GetArchitectureByPosition(p);
+                        if (a != null && !this.IsFriendly(a.BelongedFaction))
+                        {
+                            stop = false;
+                            break;
+                        }
                     }
                 }
+                if (!stop)
+                {
+                    bool hasEnemy = false;
+                    bool hasOwn = false;
+                    foreach (Point p in i.Area.Area)
+                    {
+                        Troop t = base.Scenario.GetTroopByPosition(p);
+                        if (t != null && !this.IsFriendly(t.BelongedFaction))
+                        {
+                            hasEnemy = true;
+                        }
+                        if (t != null && t.BelongedFaction == this.BelongedFaction)
+                        {
+                            hasOwn = true;
+                        }
+                        if (hasEnemy && hasOwn)
+                        {
+                            stop = false;
+                            break;
+                        }
+                    }
+                }
+
                 if (stop)
                 {
                     toRemove.Add(i);
+                    dayCost -= i.DayCost;
                 }
             }
             foreach (Information i in toRemove)
