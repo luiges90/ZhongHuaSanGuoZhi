@@ -543,7 +543,7 @@
                     treasure.Available = true;
                 }
 
-                Person joinToPerson = this.Persons.GetGameObject(person.Father) as Person;
+                Person joinToPerson = person.Father;
 
                 if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive &&  joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
@@ -559,7 +559,7 @@
                     continue;
                 }
 
-                joinToPerson = this.Persons.GetGameObject(person.Mother) as Person;
+                joinToPerson = person.Mother;
                 if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive && joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
@@ -571,7 +571,7 @@
                     continue;
                 }
 
-                joinToPerson = this.Persons.GetGameObject(person.Spouse) as Person;
+                joinToPerson = person.Spouse;
                 if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive && joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
@@ -887,10 +887,10 @@
             {
                 if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.Status != PersonStatus.Princess && p != leader)
                 {
-                    if (p.Father == leader.ID || p.Mother == leader.ID || p.ID == leader.Father || p.ID == leader.Mother ||
-                        (p.Father != -1 && p.Father == leader.Father) || (p.Mother != -1 && p.Mother == leader.Mother) ||
-                        (p.Spouse != -1 && p.Spouse == leader.ID) || (leader.Spouse != -1 && p.ID == leader.Spouse) || (leader.Strain == p.Strain) ||
-                        (p.Brother != -1 && p.Brother == leader.Brother) || (GameObject.Chance(100 - (Person.GetIdealOffset(leader, p)) * 20)))
+                    if (p.Father == leader || p.Mother == leader || p == leader.Father || p == leader.Mother ||
+                        (p.Father != null && p.Father == leader.Father) || (p.Mother != null && p.Mother == leader.Mother) ||
+                        (p.Spouse != null && p.Spouse == leader) || (leader.Spouse != null && p == leader.Spouse) || (leader.Strain == p.Strain) ||
+                        (p.Brother != null && p.Brother == leader.Brother) || (GameObject.Chance(100 - (Person.GetIdealOffset(leader, p)) * 20)))
                     {
                         if (p.BelongedFaction == null || (GameObject.Chance(100 - ((int)p.PersonalLoyalty) * 25) && GameObject.Chance(220 - p.Loyalty * 2)))
                         {
@@ -898,13 +898,13 @@
                             {
                                 p.ChangeFaction(newFaction);
                             }
-                            if ((p.Spouse != -1 && p.Spouse == leader.ID) || (leader.Spouse != -1 && p.ID == leader.Spouse) ||
-                                (p.Brother != -1 && p.Brother == leader.Brother))
+                            if ((p.Spouse != null && p.Spouse == leader) || (leader.Spouse != null && p == leader.Spouse) ||
+                                (p.Brother != null && p.Brother == leader.Brother))
                             {
                                 p.Loyalty = 150;
                             }
-                            else if ((p.Father == leader.ID || p.Mother == leader.ID || p.ID == leader.Father || p.ID == leader.Mother ||
-                                (p.Father != -1 && p.Father == leader.Father) || (p.Mother != -1 && p.Mother == leader.Mother)))
+                            else if ((p.Father == leader || p.Mother == leader || p == leader.Father || p == leader.Mother ||
+                                (p.Father != null && p.Father == leader.Father) || (p.Mother != null && p.Mother == leader.Mother)))
                             {
                                 p.Loyalty = 120;
                             }
@@ -2135,18 +2135,6 @@
             return (this.CurrentPlayer == faction);
         }
 
-        private bool IsFather(PersonList list, Person p, Person subp)
-        {
-            for (Person person = list.GetGameObject(p.Father) as Person; person != null; person = list.GetGameObject(person.Father) as Person)
-            {
-                if (person.Father == subp.ID)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         public bool IsFireVaild(Point position, bool typevalid, MilitaryType type)
         {
             if (this.GetArchitectureByPosition(position) != null)
@@ -2451,6 +2439,10 @@
             DbConnection.Close();
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Person", DbConnection).ExecuteReader();
+            Dictionary<int, int> fatherIds = new Dictionary<int, int>();
+            Dictionary<int, int> motherIds = new Dictionary<int, int>();
+            Dictionary<int, int> spouseIds = new Dictionary<int, int>();
+            Dictionary<int, int> brotherIds = new Dictionary<int, int>();
             while (reader.Read())
             {
                 Person person = new Person();
@@ -2500,10 +2492,10 @@
                 person.BornRegion = (PersonBornRegion)((short)reader["BornRegion"]);
                 person.AvailableLocation = (short)reader["AvailableLocation"];
                 person.Strain = (short)reader["Strain"];
-                person.Father = (short)reader["Father"];
-                person.Mother = (short)reader["Mother"];
-                person.Spouse = (short)reader["Spouse"];
-                person.Brother = (short)reader["Brother"];
+                fatherIds[person.ID] = (short)reader["Father"];
+                motherIds[person.ID] = (short)reader["Mother"];
+                spouseIds[person.ID] = (short)reader["Spouse"];
+                brotherIds[person.ID] = (short)reader["Brother"];
                 person.Generation = (short)reader["Generation"];
                 person.PersonalLoyalty = ((short)reader["PersonalLoyalty"]);
                 person.Ambition = ((short)reader["Ambition"]);
@@ -2612,6 +2604,22 @@
                 p.WaitForFeiZi = this.Persons.GetGameObject(p.waitForFeiziId) as Person;
                 p.preferredTroopPersons.LoadFromString(this.Persons, p.preferredTroopPersonsString);
             }
+            foreach (KeyValuePair<int, int> i in fatherIds)
+            {
+                (this.Persons.GetGameObject(i.Key) as Person).Father = this.Persons.GetGameObject(i.Value) as Person;
+            }
+            foreach (KeyValuePair<int, int> i in motherIds)
+            {
+                (this.Persons.GetGameObject(i.Key) as Person).Mother = this.Persons.GetGameObject(i.Value) as Person;
+            }
+            foreach (KeyValuePair<int, int> i in spouseIds)
+            {
+                (this.Persons.GetGameObject(i.Key) as Person).Spouse = this.Persons.GetGameObject(i.Value) as Person;
+            }
+            foreach (KeyValuePair<int, int> i in brotherIds)
+            {
+                (this.Persons.GetGameObject(i.Key) as Person).Brother = this.Persons.GetGameObject(i.Value) as Person;
+            }
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Captive", DbConnection).ExecuteReader();
             while (reader.Read())
@@ -2697,7 +2705,9 @@
                 information.Position = new Point((short)reader["PositionX"], (short)reader["PositionY"]);
                 information.Radius = (short)reader["Radius"];
                 information.Oblique = (bool)reader["Oblique"];
-                information.DaysLeft = (short)reader["DaysLeft"];
+                information.DayCost = (int)reader["DayCost"];
+                information.DaysLeft = (int)reader["DaysLeft"];
+                information.DaysStarted = (int)reader["DaysStarted"];
                 this.Informations.AddInformation(information);
             }
             DbConnection.Close();
@@ -2799,7 +2809,6 @@
                 architecture.RobberTroopID = (short)reader["RobberTroop"];
                 architecture.RecentlyAttacked = (short)reader["RecentlyAttacked"];
                 architecture.RecentlyBreaked = (short)reader["RecentlyBreaked"];
-                architecture.InformationCoolDown = (short)reader["InformationCoolDown"];
                 architecture.AILandLinksString = reader["AILandLinks"].ToString();
                 architecture.AIWaterLinksString = reader["AIWaterLinks"].ToString();
 
@@ -2822,6 +2831,16 @@
                 {
                     architecture.huangdisuozai = false;
 
+                }
+
+
+                try
+                {
+
+                    architecture.LoadInformationsFromString(this.Informations, (string)reader["Informations"]);
+                }
+                catch
+                {
                 }
 
                 this.Architectures.AddArchitectureWithEvent(architecture);
@@ -3234,6 +3253,14 @@
             }
         }
 
+        private void ApplyInformations()
+        {
+            foreach (Information i in this.Informations)
+            {
+                i.Apply();
+            }
+        }
+
         public bool LoadGameScenarioFromDatabase(string connectionString)  //读取剧本
         {
             this.Clear();
@@ -3261,6 +3288,7 @@
             this.ApplyFireTable();
             this.InitializeArchitectureMapTile();
             this.InitializeFactionData();
+            this.ApplyInformations();
             this.Preparing = true;
             this.Factions.BuildQueue(true);
             this.Factions.ApplyInfluences();
@@ -3308,6 +3336,7 @@
             this.ApplyFireTable();
             this.InitializeArchitectureMapTile();
             this.InitializeFactionData();
+            this.ApplyInformations();
             this.Preparing = true;
             this.Factions.ApplyInfluences();
             this.Architectures.ApplyInfluences();
@@ -3356,7 +3385,7 @@
             {
                 architecture.MonthEvent();
             }
-            foreach (MilitaryKind kind in this.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values)
+            /*foreach (MilitaryKind kind in this.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values)
             {
                 bool flag = true;
                 foreach (Troop troop in this.Troops)
@@ -3371,7 +3400,7 @@
                 {
                     kind.Textures.Dispose();
                 }
-            }
+            }*/
         }
 
         public void MonthStartingEvent()
@@ -3789,7 +3818,6 @@
                     row["RobberTroop"] = (architecture.RobberTroop != null) ? architecture.RobberTroop.ID : -1;
                     row["RecentlyAttacked"] = architecture.RecentlyAttacked;
                     row["RecentlyBreaked"] = architecture.RecentlyBreaked;
-                    row["InformationCoolDown"] = architecture.InformationCoolDown;
                     row["AILandLinks"] = architecture.AILandLinks.SaveToString();
                     row["AIWaterLinks"] = architecture.AIWaterLinks.SaveToString();
                     row["youzainan"] = architecture.youzainan;
@@ -3797,6 +3825,7 @@
                     row["zainanshengyutianshu"] = architecture.zainan.shengyutianshu;
                     row["Emperor"] = architecture.huangdisuozai;
                     row["MilitaryPopulation"] = architecture.MilitaryPopulation;
+                    row["Informations"] = architecture.Informations.SaveToString();
                     row.EndEdit();
                     dataSet.Tables["Architecture"].Rows.Add(row);
                 }
@@ -3955,7 +3984,9 @@
                     row["PositionY"] = information.Position.Y;
                     row["Radius"] = information.Radius;
                     row["Oblique"] = information.Oblique;
+                    row["DayCost"] = information.DayCost;
                     row["DaysLeft"] = information.DaysLeft;
+                    row["DaysStarted"] = information.DaysStarted;
                     row.EndEdit();
                     dataSet.Tables["Information"].Rows.Add(row);
                 }
@@ -4103,10 +4134,10 @@
                     row["BornRegion"] = (int)person.BornRegion;
                     row["AvailableLocation"] = person.AvailableLocation;
                     row["Strain"] = person.Strain;
-                    row["Father"] = person.Father;
-                    row["Mother"] = person.Mother;
-                    row["Spouse"] = person.Spouse;
-                    row["Brother"] = person.Brother;
+                    row["Father"] = person.Father == null ? -1 : person.Father.ID;
+                    row["Mother"] = person.Mother == null ? -1 : person.Mother.ID;
+                    row["Spouse"] = person.Spouse == null ? -1 : person.Spouse.ID;
+                    row["Brother"] = person.Brother == null ? -1 : person.Brother.ID;
                     row["Generation"] = person.Generation;
                     row["PersonalLoyalty"] = (int)person.PersonalLoyalty;
                     row["Ambition"] = (int)person.Ambition;

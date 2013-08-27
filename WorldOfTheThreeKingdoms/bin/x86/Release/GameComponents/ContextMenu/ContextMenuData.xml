@@ -12,6 +12,7 @@
                 <MenuItem ID="1" Name="Detail" DisplayName="详细信息" DisplayIfTrue="DetailAvail" />
                 <MenuItem ID="2" Name="Persons" DisplayName="人物列表" DisplayIfTrue="HasAnyPerson" />
                 <MenuItem ID="3" Name="Militaries" DisplayName="编队列表" DisplayIfTrue="HasMilitary" />
+				<MenuItem ID="8" Name="Informations" DisplayName="情报列表" DisplayIfTrue="HasInformation" />
                 <MenuItem ID="4" Name="NoFactionPersons" DisplayName="在野人物" DisplayIfTrue="HasNoFactionPerson" />
                 <MenuItem ID="4" Name="Facilities" DisplayName="设施列表" DisplayIfTrue="HasFacility" />
                 <MenuItem ID="5" Name="Captive" DisplayName="俘虏列表" DisplayIfTrue="HasCaptive" />
@@ -24,6 +25,7 @@
                 <MenuItem ID="3" Name="Troops" DisplayName="部队列表" />
                 <MenuItem ID="4" Name="Persons" DisplayName="人物列表" />
                 <MenuItem ID="5" Name="Militaries" DisplayName="编队列表" />
+				<MenuItem ID="13" Name="Informations" DisplayName="情报列表" DisplayIfTrue="FactionHasInformation" />
                 <MenuItem ID="6" Name="AvailableMilitaryKinds" DisplayName="兵种列表" />
                 <MenuItem ID="7" Name="Captive" DisplayName="俘虏列表" DisplayIfTrue="FactionHasCaptive" />
                 <MenuItem ID="8" Name="SelfCaptive" DisplayName="被俘虏列表" DisplayIfTrue="FactionHasSelfCaptive" />
@@ -92,7 +94,7 @@
             </MenuItem>
             <MenuItem ID="6" Name="Tactics" DisplayName="策略">
                 <MenuItem ID="1" Name="Information" DisplayName="情报" DisplayIfTrue="InformationAvail" />
-                <MenuItem ID="2" Name="Spy" DisplayName="间谍" DisplayIfTrue="SpyAvail" />
+				<MenuItem ID="2" Name="StopInformation" DisplayName="停止情报" DisplayIfTrue="StopInformationAvail" />
                 <MenuItem ID="3" Name="Destroy" DisplayName="破坏" DisplayIfTrue="DestroyAvail" />
                 <MenuItem ID="4" Name="Instigate" DisplayName="煽动" DisplayIfTrue="InstigateAvail" />
                 <MenuItem ID="5" Name="Gossip" DisplayName="流言" DisplayIfTrue="GossipAvail" />

@@ -7239,6 +7239,7 @@
                 }
                 currentArchitecture.BuildingFacility = -1;
                 currentArchitecture.BuildingDaysLeft = 0;
+                currentArchitecture.RemoveAllInformations();
                 if (currentArchitecture.IsCapital)
                 {
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, currentArchitecture.BelongedFaction.ID, -50 * currentArchitecture.AreaCount);
@@ -8112,7 +8113,7 @@
                 Person maxCommandPerson = this.Persons.GetMaxCommandPerson();
                 if (maxCommandPerson != this.Leader)
                 {
-                    if ((maxCommandPerson.Brother >= 0) && (maxCommandPerson.Brother == this.Leader.Brother))
+                    if ((maxCommandPerson.Brother != null) && (maxCommandPerson.Brother == this.Leader.Brother))
                     {
                         this.troopCommand = maxCommandPerson.Command;
                     }
@@ -8147,7 +8148,7 @@
                 Person maxStrengthPerson = this.Persons.GetMaxStrengthPerson();
                 if (maxStrengthPerson != this.Leader)
                 {
-                    if ((maxStrengthPerson.Brother >= 0) && (maxStrengthPerson.Brother == this.Leader.Brother))
+                    if ((maxStrengthPerson.Brother != null) && (maxStrengthPerson.Brother == this.Leader.Brother))
                     {
                         this.troopStrength = maxStrengthPerson.Strength;
                     }

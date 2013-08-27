@@ -11,14 +11,14 @@
 
         public override bool CheckConditionKind(Person person)
         {
-            HashSet<int> relatedPersons = new HashSet<int>();
+            HashSet<Person> relatedPersons = new HashSet<Person>();
             foreach (Person p in person.Scenario.Persons)
             {
-                if (p.Father == person.ID)
+                if (p.Father == person)
                 {
                     relatedPersons.Add(p.Mother);   
                 }
-                if (p.Mother == person.ID)
+                if (p.Mother == person)
                 {
                     relatedPersons.Add(p.Father);
                 }

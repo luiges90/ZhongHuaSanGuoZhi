@@ -127,7 +127,7 @@ namespace AirViewPlugin
             {
                 for (int j = 0; j < this.scenario.ScenarioMap.MapDimensions.Y; j++)
                 {
-                    if (GlobalVariables.SkyEye||this.scenario.CurrentPlayer.IsPositionKnown(new Microsoft.Xna.Framework.Point(i, j)))
+                    if (GlobalVariables.SkyEye||(this.scenario.CurrentPlayer != null && this.scenario.CurrentPlayer.IsPositionKnown(new Microsoft.Xna.Framework.Point(i, j))))
                     {
                         Troop troopByPositionNoCheck = this.scenario.GetTroopByPositionNoCheck(new Microsoft.Xna.Framework.Point(i, j));
                         if ((troopByPositionNoCheck != null) && !troopByPositionNoCheck.Destroyed)

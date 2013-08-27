@@ -96,7 +96,7 @@
         public int IncrementOfViewRadius;
         public int IncrementOfFundCeiling = 0;
         public int IncrementOfFoodCeiling = 0;
-        private int informationCoolDown;
+        public InformationList Informations = new InformationList();
         private bool isStrategicCenter;
         internal bool JustAttacked = false;
         private ArchitectureKind kind;
@@ -1238,7 +1238,7 @@
                         PersonList candidate = new PersonList();
                         foreach (Person p in this.BelongedFaction.Persons)
                         {
-                            Person spousePerson = p.Spouse == -1 ? null : base.Scenario.Persons.GetGameObject(p.Spouse) as Person;
+                            Person spousePerson = p.Spouse == null ? null : p.Spouse;
                             if (p.Merit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.HatedPersons.Contains(this.BelongedFaction.Leader.ID) &&
                                 (spousePerson == null || spousePerson.ID == leader.ID || !spousePerson.Alive || (leader.PersonalLoyalty < (int)PersonLoyalty.很高 && spousePerson.Merit < p.Merit * ((int)leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd))) &&
                                 (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply)))
@@ -2090,8 +2090,6 @@
                     need[5] = this.Endurance < 30;
                 }
 
-                
-
                 if (trainingMilitaryList.Count == 1)
                 {
                     Military m = trainingMilitaryList[0] as Military;                       // 因为补充导致的士气和战意下降1-3点时，只需要选择1个武将进行训练就足够了
@@ -2223,89 +2221,9 @@
                 }
 
                 // 新建部队
-                int unfullArmyCount = 0;
-                int unfullNavalArmyCount = 0;
                 if (!forPlayer)
                 {
-                    foreach (Military military in this.Militaries)
-                    {
-                        if (military.Scales < ((((float)military.Kind.MaxScale) / ((float)military.Kind.MinScale)) * 0.75f) && military.Kind.ID != 29)
-                        {
-                            unfullArmyCount++;
-                            if (military.Kind.Type == MilitaryType.水军)
-                            {
-                                unfullNavalArmyCount++;
-                            }
-                        }
-                    }
-                    int unfullArmyCountThreshold;
-                    if (this.IsFoodAbundant && this.IsFundAbundant)
-                    {
-                        unfullArmyCountThreshold = Math.Min((this.MilitaryPopulation) / Parameters.AINewMilitaryPopulationThresholdDivide + 1, (this.PersonCount + this.MovingPersonCount) / Parameters.AINewMilitaryPersonThresholdDivide + 1);
-                    }
-                    else
-                    {
-                        unfullArmyCountThreshold = 1;
-                    }
-                    if ((this.Kind.HasPopulation && (recentlyAttacked || (this.BelongedFaction.PlanTechniqueArchitecture != this))) &&
-                        (recentlyAttacked || (this.Population > ((this.RecruitmentPopulationBoundary * (1 + (int)this.BelongedFaction.Leader.StrategyTendency * 0.5f)) + GameObject.Random(this.RecruitmentPopulationBoundary)))))
-                    {
-                        if (unfullArmyCount < unfullArmyCountThreshold)
-                        {
-                            if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && 
-                                (this.AdjacentToHostileByWater || GameObject.Chance(10)) && (unfullNavalArmyCount < this.MilitaryCount || this.AILandLinks.Count == 0))
-                            {
-                                this.AIRecruitment(true, false);
-                            }
-                            else
-                            {
-                                int siegeCount = 0;
-                                foreach (Military m in this.Militaries)
-                                {
-                                    if (m.Kind.Type == MilitaryType.器械)
-                                    {
-                                        siegeCount++;
-                                    }
-                                }
-                                if (siegeCount < this.Militaries.Count / 5)
-                                {
-                                    this.AIRecruitment(false, true);
-                                }
-                                else
-                                {
-                                    this.AIRecruitment(false, false);
-                                }
-                            }
-                        }
-                        else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.MilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
-                        {
-                            this.AIRecruitment(true, false);
-                        }
-                    }
-                }
-
-                //disband unused transports except one
-                MilitaryList ml = new MilitaryList();
-                foreach (Military m in Militaries)
-                {
-                    if (m.IsTransport)
-                    {
-                        ml.Add(m);
-                    }
-                }
-                if (ml.Count > 1)
-                {
-                    Military minTroop = null;
-                    int min = int.MaxValue;
-                    foreach (Military m in ml)
-                    {
-                        if (m.Quantity < min)
-                        {
-                            min = m.Quantity;
-                            minTroop = m;
-                        }
-                    }
-                    this.DisbandMilitary(minTroop);
+                    this.AIRecruitMilitary();
                 }
             }
         }
@@ -2344,6 +2262,10 @@
                     {
                         this.AIRecruitment(true, false);
                     }
+                    else if (this.AILandLinks.Count <= 0)
+                    {
+                        this.AIRecruitment(true, false);
+                    } 
                     else
                     {
                         int siegeCount = 0;
@@ -2363,10 +2285,6 @@
                             this.AIRecruitment(false, false);
                         }
                     }
-                }
-                else if (this.AIWaterLinks.Count > 0 && this.IsBesideWater && this.HasShuijunMilitaryKind() && this.ShuijunMilitaryCount < this.EffectiveMilitaryCount / 2 && unfullNavalArmyCount < unfullArmyCountThreshold)
-                {
-                    this.AIRecruitment(true, false);
                 }
             }
 
@@ -2415,7 +2333,7 @@
                         list2.Add(architecture);
                     }
                 }
-                /*if (this.BelongedSection != null && (list.Count > 0) && this.BelongedSection.AIDetail.AllowInvestigateTactics)
+                if (this.BelongedSection != null && (list.Count > 0) && this.BelongedSection.AIDetail.AllowInvestigateTactics)
                 {
                     if (list.Count > 1)
                     {
@@ -2443,23 +2361,7 @@
                             }
                         }
                     }
-                    if (((this.PlanArchitecture == null) && (GameObject.Random(40) < GameObject.Random(list.Count))) && (this.HasPerson() && (GameObject.Random(this.Fund) >= this.SpyArchitectureFund)))
-                    {
-                        architecture2 = list[GameObject.Random(list.Count / 2)] as Architecture;
-                        if ((!architecture2.HasFactionSpy(this.BelongedFaction) || GameObject.Chance(20)) && (((architecture2.BelongedFaction != null) && (GameObject.Random(architecture2.AreaCount + 4) >= 4)) && (!this.IsFriendly(architecture2.BelongedFaction) || GameObject.Chance(10))))
-                        {
-                            diplomaticRelation = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, architecture2.BelongedFaction.ID);
-                            if (((diplomaticRelation >= 0) && (GameObject.Random(diplomaticRelation + 200) <= GameObject.Random(50))) || ((diplomaticRelation < 0) && (GameObject.Random(Math.Abs(diplomaticRelation) + 100) >= GameObject.Random(100))))
-                            {
-                                firstHalfPerson = this.GetFirstHalfPerson("SpyAbility");
-                                if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)) && (GameObject.Random(firstHalfPerson.SpyAbility) >= 200))
-                                {
-                                    firstHalfPerson.GoForSpy(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
-                                }
-                            }
-                        }
-                    }
-                }*/
+                }
                 if ((this.BelongedSection != null) && ((list2.Count > 0) && (this.PlanArchitecture == null)) && this.BelongedSection.AIDetail.AllowPersonTactics)
                 {
                     if (list2.Count > 1)
@@ -2590,6 +2492,64 @@
                         }
                     }
                 }
+            }
+
+            InformationList toRemove = new InformationList();
+            int dayCost = this.InformationDayCost;
+            foreach (Information i in this.Informations)
+            {
+                bool stop = true;
+                if (i.DaysStarted <= 3)
+                {
+                    stop = false;
+                } 
+                else if (i.DaysStarted < GameObject.Random(10) + 30 && this.IsFundIncomeEnough && this.IsFundEnough 
+                    && dayCost < 500)
+                {
+                    foreach (Point p in i.Area.Area)
+                    {
+                        Architecture a = base.Scenario.GetArchitectureByPosition(p);
+                        if (a != null && !this.IsFriendly(a.BelongedFaction))
+                        {
+                            stop = false;
+                            break;
+                        }
+                    }
+                }
+                if (!stop)
+                {
+                    bool hasEnemy = false;
+                    bool hasOwn = false;
+                    foreach (Point p in i.Area.Area)
+                    {
+                        Troop t = base.Scenario.GetTroopByPosition(p);
+                        if (t != null && !this.IsFriendly(t.BelongedFaction))
+                        {
+                            hasEnemy = true;
+                        }
+                        if (t != null && t.BelongedFaction == this.BelongedFaction)
+                        {
+                            hasOwn = true;
+                        }
+                        if (hasEnemy && hasOwn)
+                        {
+                            stop = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (stop)
+                {
+                    toRemove.Add(i);
+                    dayCost -= i.DayCost;
+                }
+            }
+            foreach (Information i in toRemove)
+            {
+                i.Purify();
+                this.RemoveInformation(i);
+                base.Scenario.Informations.Remove(i);
             }
         }
 
@@ -4842,7 +4802,6 @@
                         captive.CaptivePerson.BelongedCaptive = null;
                     }
                 }
-                this.InformationCoolDown = 0;
                 foreach (Military military in this.Militaries)
                 {
                     faction.AddMilitary(military);
@@ -5457,11 +5416,11 @@
 
         public void DayEvent()
         {
-            this.InformationDayEvent();
             this.FundPacksDayEvent();
             this.PopulationPacksDayEvent();
             this.SpyPacksDayEvent();
             this.characteristicsDoWork();
+            this.InformationDayEvent();
             this.HandleFacilities();
             this.ViewAreaEvent();
             this.StrategicCenterEffect();
@@ -8390,20 +8349,14 @@
             return list;
         }
 
-        public int Shuiju9nMilitaryCount
+        public bool HasInformation()
         {
-            get
-            {
-                int r = 0;
-                foreach (Military military in this.Militaries)
-                {
-                    if (military.Kind.Type == MilitaryType.水军 && military.KindID != 28 && !military.IsTransport)
-                    {
-                        r++;
-                    }
-                }
-                return r;
-            }
+            return this.Informations.Count > 0;
+        }
+
+        public bool FactionHasInformation()
+        {
+            return this.BelongedFaction != null && this.BelongedFaction.HasInformation();
         }
 
         public int ShuijunMilitaryCount
@@ -8811,14 +8764,60 @@
 
         public bool InformationAvail()
         {
-            return (((this.InformationCoolDown <= 0) && this.HasPerson()) && base.Scenario.GameCommonData.AllInformationKinds.HasAvailItem(this));
+            return (this.HasPerson() && base.Scenario.GameCommonData.AllInformationKinds.HasAvailItem(this));
+        }
+
+        public bool StopInformationAvail()
+        {
+            return this.Informations.Count > 0;
+        }
+
+        public int InformationDayCost
+        {
+            get
+            {
+                int sum = 0;
+                foreach (Information i in this.Informations)
+                {
+                    sum += i.DayCost;
+                }
+                return sum;
+            }
+        }
+
+        public string InformationCostString
+        {
+            get
+            {
+                return this.InformationDayCost * 30 + "/月";
+            }
+        }
+
+        public void RemoveAllInformations()
+        {
+            foreach (Information information in this.Informations.GetList())
+            {
+                information.Purify();
+                this.RemoveInformation(information);
+                base.Scenario.Informations.Remove(information);
+            }
         }
 
         private void InformationDayEvent()
         {
-            if (this.InformationCoolDown > 0)
+            int cost = this.InformationDayCost;
+            if (this.Fund >= cost)
             {
-                this.InformationCoolDown--;
+                this.DecreaseFund(cost);
+            }
+            else
+            {
+                this.RemoveAllInformations();
+            }
+            foreach (Information information in this.Informations)
+            {
+                information.CheckAmbushTroop();
+                information.DaysStarted++;
             }
         }
 
@@ -9451,12 +9450,6 @@
                     person.LocationArchitecture = this;
                     person.LocationTroop = null;
                     person.Status = PersonStatus.Princess;
-
-
-                    /*if (person.suoshurenwu == -1)
-                    {
-                        person.suoshurenwu = this.BelongedFaction.LeaderID;
-                    }*/
                 }
             }
         }
@@ -9499,6 +9492,21 @@
                 if (gameObject != null)
                 {
                     this.SpyPacks.Add(new SpyPack(gameObject, int.Parse(strArray[i + 1])));
+                }
+            }
+        }
+
+        public void LoadInformationsFromString(InformationList informations, string dataString)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            this.Informations.Clear();
+            foreach (string str in strArray)
+            {
+                Information gameObject = informations.GetGameObject(int.Parse(str)) as Information;
+                if (gameObject != null)
+                {
+                    this.AddInformation(gameObject);
                 }
             }
         }
@@ -9686,7 +9694,7 @@
             {
                 this.PlanArchitecture = null;
             }
-            else if ((this.PlanArchitecture != null) || ((this.InformationCoolDown <= 0) && (this.IsGood() || GameObject.Chance((int)(GameObject.Square((int)leader.Ambition) * Parameters.AIAttackChanceIfUnfull))) &&
+            else if ((this.PlanArchitecture != null) || ((this.IsGood() || GameObject.Chance((int)(GameObject.Square((int)leader.Ambition) * Parameters.AIAttackChanceIfUnfull))) &&
                 (this.Domination >= this.DominationCeiling || this.Population <= this.Kind.PopulationBoundary / 2)))
             {
                 Architecture target = this.PlanArchitecture;
@@ -11570,6 +11578,7 @@
                 num += this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0;
                 num += (int)(Math.Sqrt(this.Population) * 8.0);
                 num += this.BelongedFaction.Capital == this ? this.BelongedFaction.FundToAdvance : 0;
+                num += this.InformationDayCost;
                 return num;
             }
         }
@@ -12039,6 +12048,7 @@
                 int num = this.FacilityMaintenanceCost * 30;
                 num += this.RoutewayActiveCost * 30;
                 num += this.PersonCount * Parameters.RewardPersonCost;
+                num += this.InformationDayCost;
                 return num;
             }
         }
@@ -12539,18 +12549,6 @@
             get
             {
                 return (int)((Parameters.HireNoFactionPersonCost * this.AreaCount) * this.RateOfHirePerson);
-            }
-        }
-
-        public int InformationCoolDown
-        {
-            get
-            {
-                return this.informationCoolDown;
-            }
-            set
-            {
-                this.informationCoolDown = value;
             }
         }
 
@@ -13741,8 +13739,18 @@
                 }
             }
             return bianduiShu;
+        }
 
+        public void AddInformation(Information information)
+        {
+            this.Informations.AddInformation(information);
+            information.BelongedArchitecture = this;
+        }
 
+        public void RemoveInformation(Information information)
+        {
+            this.Informations.Remove(information);
+            information.BelongedArchitecture = null;
         }
 
         public delegate void BeginRecentlyAttacked(Architecture architecture);

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "中华三国志"
-#define MyAppVersion "v.18"
+#define MyAppVersion "v.19"
 #define MyAppPublisher "中华三国志"
 #define MyAppURL "http://tieba.baidu.com/f?kw=%D6%D0%BB%AA%C8%FD%B9%FA%D6%BE"
 #define MyAppExeName "WorldOfTheThreeKingdoms.exe"
@@ -36,6 +36,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 ;Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\WorldOfTheThreeKingdoms.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\*"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\Dantiao\*"; DestDir: "{app}\Dantiao"; Flags: ignoreversion createallsubdirs recursesubdirs
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameComponents\*"; DestDir: "{app}\GameComponents"; Flags: ignoreversion createallsubdirs recursesubdirs
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameData\*"; DestDir: "{app}\GameData"; Flags: ignoreversion createallsubdirs recursesubdirs
 Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameMusic\*"; DestDir: "{app}\GameMusic"; Flags: ignoreversion createallsubdirs recursesubdirs

@@ -1435,7 +1435,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="80" Name="InformationCoolDown" IsNumber="true" DisplayName="情报冷却时间" MinWidth="100" DetailLevel="5"
+        <Column ID="80" Name="InformationDayCost" IsNumber="true" DisplayName="情报维持费" MinWidth="100" DetailLevel="5"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -3361,13 +3361,6 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="3" Name="Days" IsNumber="true" DisplayName="持续天数" MinWidth="80" DetailLevel="2"
-                FontName="宋体"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Right">
-        </Column>
         <Column ID="4" Name="Level" IsNumber="false" DisplayName="等级" MinWidth="80" DetailLevel="2"
                 FontName="宋体"
                 FontSize="11"
@@ -3381,13 +3374,6 @@
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
-        </Column>
-        <Column ID="6" Name="CoolDown" IsNumber="true" DisplayName="冷却时间" MinWidth="80" DetailLevel="2"
-                FontName="宋体"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Right">
         </Column>
       </Columns>
       <Tabs Margin="5">
@@ -4049,76 +4035,46 @@
         </Tab>
       </Tabs>
     </ListKind>
-	<ListKind ID="2" Name="ArchitectureTargetSelection" DisplayName="建筑列表" ShowPortrait ="false">
+	<ListKind ID="30" Name="Information" DisplayName="情报列表" ShowPortrait ="false">
       <Columns>
-        <Column ID="1" Name="Name" CountToDisplay="False" IsNumber="false" DisplayName="名称" MinWidth="80" DetailLevel="1"
+        <Column ID="1" Name="PositionString" CountToDisplay="True" IsNumber="false" DisplayName="位置" MinWidth="100" DetailLevel="1"
                 FontName="宋体"
                 FontSize="11"
-                FontStyle="Regular"
+                FontStyle="Bold"
                 FontColor="4294967295"
-                Align="Left">
+                Align="Middle">
         </Column>
-        <Column ID="2" Name="FactionString" IsNumber="false" DisplayName="势力" MinWidth="80" DetailLevel="1"
+		<Column ID="2" Name="Radius" CountToDisplay="False" IsNumber="True" DisplayName="範圍" MinWidth="40" DetailLevel="1"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
-        <Column ID="3" Name="KindString" CountToDisplay="False" IsNumber="false" DisplayName="种类" MinWidth="50" DetailLevel="1"
+		<Column ID="3" Name="LevelString" CountToDisplay="False" IsNumber="false" DisplayName="等級" MinWidth="40" DetailLevel="1"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
-        <Column ID="4" Name="JianzhuGuimo" IsNumber="true" DisplayName="规模" MinWidth="40" DetailLevel="1"
+		<Column ID="4" Name="DayCost" CountToDisplay="False" IsNumber="True" DisplayName="耗費資金" MinWidth="80" DetailLevel="1"
                 FontName="宋体"
-                FontSize="12"
+                FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="30" Name="StateString" IsNumber="false" DisplayName="州域" MinWidth="80" DetailLevel="1"
+		<Column ID="5" Name="DaysStarted" CountToDisplay="False" IsNumber="True" DisplayName="已进行日数" MinWidth="100" DetailLevel="2"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
-                Align="Middle">
-        </Column>
-        <Column ID="31" Name="RegionString" IsNumber="false" DisplayName="所属地区" MinWidth="80" DetailLevel="1"
-                FontName="宋体"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Middle">
-        </Column>
-        <Column ID="32" Name="AILandLinksDisplayString" IsNumber="false" DisplayName="陆上链接建筑" MinWidth="300" DetailLevel="5"
-                FontName="宋体"
-                FontSize="10"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Middle">
-        </Column>
-        <Column ID="33" Name="AIWaterLinksDisplayString" IsNumber="false" DisplayName="水上链接建筑" MinWidth="300" DetailLevel="5"
-                FontName="宋体"
-                FontSize="10"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Middle">
-        </Column>
-		<Column ID="102" Name="FrontLineString" IsNumber="false" DisplayName="前线" MinWidth="40" DetailLevel="5"
-            FontName="宋体"
-            FontSize="12"
-            FontStyle="Regular"
-            FontColor="4294967295"
-            Align="Right">
+                Align="Right">
         </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 30 31 102">
-        </Tab>
-        <Tab ID="2"  Name="Land" DisplayName="连接" Columns="1 3 32 33">
+        <Tab ID="1"  Name="Information" DisplayName="情报" Columns="1 2 3 4 5">
         </Tab>
       </Tabs>
     </ListKind>

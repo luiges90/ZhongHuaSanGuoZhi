@@ -619,10 +619,18 @@
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="获得地图上任意某个区域的" Color="4294967295" />
         <Leaf Text="情报" Color="4278255360" />
-        <Leaf Text="。发出命令后，发出命令的建筑将有一定的时间不能执行情报命令。" Color="4294967295" />
+        <Leaf Text="。情报会每天耗费建筑的资金，耗费量与情报种类、执行情报的武将及距离相关。" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="情报范围内，每天都有机会发现埋伏中的部队。" Color="4294967295" />
+    </Branch>
+	<Branch Name="Tactics_StopInformation">
+        <Leaf Text="策略" Color="4294967295" />
+        <Leaf Text="停止情报" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="停止对某区域进行的情报活动。" Color="4294967295" />
     </Branch>
     <Branch Name="Tactics_Spy">
         <Leaf Text="策略" Color="4294967295" />

@@ -35,7 +35,7 @@
         public Captive BelongedCaptive;
         private PersonBornRegion bornRegion;
         private int braveness;
-        private int brother = -1;
+        private Person brother = null;
         private float bubingExperience;
         private string calledName;
         private int calmness;
@@ -56,7 +56,7 @@
         public bool DayLocationLoyaltyNoChange;
         public float DayRateIncrementOfInternal = 0f;
         private PersonDeadReason deadReason;
-        private int father = -1;
+        private Person father = null;
         private PersonForm form;
         private int generation;
         private string givenName;
@@ -108,7 +108,7 @@
         private int loyalty;
         public int MonthIncrementOfFactionReputation = 0;
         public int MonthIncrementOfTechniquePoint = 0;
-        private int mother = -1;
+        private Person mother = null;
         public int MultipleOfAgricultureReputation = 1;
         public int MultipleOfAgricultureTechniquePoint = 1;
         public int MultipleOfCommerceReputation = 1;
@@ -166,7 +166,7 @@
         private bool sex = false;
         private float shuijunExperience;
         public SkillTable Skills = new SkillTable();
-        private int spouse = -1;
+        private Person spouse = null;
         private int strain;
         private float stratagemExperience;
         private PersonStrategyTendency strategyTendency;
@@ -1204,8 +1204,8 @@
                             if (origChildren.Count > 0)
                             {
                                 haizi = origChildren[0] as Person;
-                                haizi.father = this.Sex ? haizifuqin.ID : this.ID;
-                                haizi.mother = this.Sex ? this.ID : haizifuqin.ID;
+                                haizi.father = this.Sex ? haizifuqin : this;
+                                haizi.mother = this.Sex ? this : haizifuqin;
                             }
                             else
                             {
@@ -1248,7 +1248,7 @@
                 int cnt = 0;
                 foreach (Person p in base.Scenario.Persons)
                 {
-                    if ((p.Father == this.ID || p.Mother == this.ID) && p.Available)
+                    if ((p.Father == this || p.Mother == this) && p.Available)
                     {
                         cnt++;
                     }
@@ -1348,7 +1348,7 @@
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
                         // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
                         ConvinceSuccess |= (this.ConvincingPerson.closePersons.Contains(this.BelongedFaction.LeaderID)) || (this.ConvincingPerson.closePersons.Contains(this.ID));
-                        ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.LeaderID) || (this.ConvincingPerson.Brother == this.BelongedFaction.LeaderID) || (this.ConvincingPerson.Brother == this.ID);
+                        ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.Leader) || (this.ConvincingPerson.Brother == this.BelongedFaction.Leader.Brother && this.ConvincingPerson.Brother != null);
                     }
                     else
                     {
@@ -1369,12 +1369,12 @@
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(this.ConvincingPerson.BelongedFaction) && 
                             GlobalVariables.AIAutoTakePlayerCaptives && (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || this.ConvincingPerson.Loyalty < 100);
                         //兄弟相互说服
-                        ConvinceSuccess |= ((this.ConvincingPerson.Brother == this.Brother) && (this.ConvincingPerson.Brother != this.ConvincingPerson.BelongedFaction.LeaderID)
-                            && this.ConvincingPerson.Brother >= 0);
+                        ConvinceSuccess |= ((this.ConvincingPerson.Brother == this.Brother) && (this.ConvincingPerson.Brother != this.ConvincingPerson.BelongedFaction.Leader)
+                            && this.ConvincingPerson.Brother != null);
                     }
                     ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
                     //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
-                    ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.LeaderID) || (this.ConvincingPerson.Brother == this.BelongedFaction.LeaderID && this.ConvincingPerson.Brother >= 0);
+                    ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.Leader) || (this.ConvincingPerson.Brother == this.BelongedFaction.Leader && this.ConvincingPerson.Brother != null);
 
                     if (ConvinceSuccess)
                     {
@@ -1599,52 +1599,55 @@
 
         public void DoInformation()
         {
-            if (!base.Scenario.IsPlayer(this.BelongedFaction) || (this.InformationAbility >90 && GameObject.Random(280) < this.InformationAbility))
-                    {
-                        Information information = new Information();
-                        information.Scenario = base.Scenario;
-                        information.ID = base.Scenario.Informations.GetFreeGameObjectID();
-                        information.Level = this.CurrentInformationKind.Level;
-                        information.Radius = this.CurrentInformationKind.Radius + this.RadiusIncrementOfInformation + 
-                            (this.InformationAbility + GameObject.Random(100) - 50) / 200;
-                        information.Position = this.OutsideDestination.Value;
-                        information.Oblique = this.CurrentInformationKind.Oblique;
-                        information.DaysLeft = (int) Math.Max(5, this.CurrentInformationKind.Days * (this.InformationAbility / 300.0 + 0.5));
-						
-                        base.Scenario.Informations.AddInformation(information);
-                        this.BelongedFaction.AddInformation(information);
+            if (this.CurrentInformationKind != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || (this.InformationAbility >90 && GameObject.Random(280) < this.InformationAbility))) {
+                Information information = new Information();
+                information.Scenario = base.Scenario;
+                information.ID = base.Scenario.Informations.GetFreeGameObjectID();
+                information.Level = this.CurrentInformationKind.Level;
+                information.Radius = this.CurrentInformationKind.Radius + this.RadiusIncrementOfInformation + 
+                    (this.InformationAbility + GameObject.Random(100) - 50) / 200;
+                information.Position = this.OutsideDestination.Value;
+                information.Oblique = this.CurrentInformationKind.Oblique;
+                information.DayCost = (int)(240.0 / this.InformationAbility * this.CurrentInformationKind.CostFund * 
+                    Math.Max(1.0, base.Scenario.GetDistance(information.Position, this.BelongedArchitecture.Position) / 20.0));
+				
+                base.Scenario.Informations.AddInformation(information);
+                this.BelongedArchitecture.AddInformation(information);
 
-                        information.Apply();
+                information.Apply();
 
-                        this.CurrentInformationKind = null;
-                        this.OutsideTask = OutsideTaskKind.无;
+                this.CurrentInformationKind = null;
+                this.OutsideTask = OutsideTaskKind.无;
 
-                        int increment = (int)(((int)information.Level - 2) * (information.Radius + (information.Oblique ? 1 : 0)));
-                        this.AddTacticsExperience(increment * 2);
-                        this.AddIntelligenceExperience(increment);
-                        this.IncreaseReputation(increment * 2);
-                        this.BelongedFaction.IncreaseReputation(increment * this.MultipleOfTacticsReputation);
-                        this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfTacticsTechniquePoint) * 100);
-						ExtensionInterface.call("DoInformationSuccess", new Object[] { this.Scenario, this, information });
-                        if (this.OnInformationObtained != null)
-                        {
-                            this.OnInformationObtained(this, information);
-                        }
- 
-                    }
+                int increment = (int)(((int)information.Level - 2) * (information.Radius + (information.Oblique ? 1 : 0)));
+                this.AddTacticsExperience(increment * 2);
+                this.AddIntelligenceExperience(increment);
+                this.IncreaseReputation(increment * 2);
+                this.BelongedFaction.IncreaseReputation(increment * this.MultipleOfTacticsReputation);
+                this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfTacticsTechniquePoint) * 100);
+				ExtensionInterface.call("DoInformationSuccess", new Object[] { this.Scenario, this, information });
+                if (this.OnInformationObtained != null)
+                {
+                    this.OnInformationObtained(this, information);
+                }
+
+            }
             else
-                    {
-                        int increment = (int)(((int)this.CurrentInformationKind.Level - 2) * (this.CurrentInformationKind.Radius + (this.CurrentInformationKind.Oblique? 1 : 0)));
-                        this.AddTacticsExperience(increment * 2);
-                        this.AddIntelligenceExperience(increment);
-                        this.CurrentInformationKind = null;
-                        this.OutsideTask = OutsideTaskKind.无;
-						ExtensionInterface.call("DoInformationFail", new Object[] { this.Scenario, this });
-                        if (this.qingbaoshibaishijian != null)
-                        {
-                            this.qingbaoshibaishijian(this);
-                        }
-                    }
+            {
+                if (this.CurrentInformationKind != null)
+                {
+                    int increment = (int)(((int)this.CurrentInformationKind.Level - 2) * (this.CurrentInformationKind.Radius + (this.CurrentInformationKind.Oblique ? 1 : 0)));
+                    this.AddTacticsExperience(increment * 2);
+                    this.AddIntelligenceExperience(increment);
+                    this.CurrentInformationKind = null;
+                }
+                this.OutsideTask = OutsideTaskKind.无;
+				ExtensionInterface.call("DoInformationFail", new Object[] { this.Scenario, this });
+                if (this.qingbaoshibaishijian != null)
+                {
+                    this.qingbaoshibaishijian(this);
+                }
+            }
 
         }
 
@@ -1713,7 +1716,7 @@
             {
                 //int g = (5 + (int)(5 * this.Glamour / 100));
                 int c = 2;
-                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.LeaderID || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother > 0))
+                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.Leader || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother != null))
                     || this.TargetArchitecture.BelongedFaction.Leader.closePersons.Contains(this.ID))
                 {
                     c = 3;
@@ -1763,7 +1766,7 @@
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
                 int c = 2;
-                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.LeaderID || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother > 0))
+                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.Leader || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother != null))
                     || this.TargetArchitecture.BelongedFaction.Leader.closePersons.Contains(this.ID))
                 {
                     c = 3;
@@ -1821,7 +1824,7 @@
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
                 int c = 2;
-                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.LeaderID || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother > 0))
+                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.Leader || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother != null))
                     || this.TargetArchitecture.BelongedFaction.Leader.closePersons.Contains(this.ID))
                 {
                     c = 4;
@@ -2443,10 +2446,10 @@
             else
             {
                 if (this == this.BelongedFaction.Leader) return false;
-                if (this.Father >= 0 && this.Father == this.BelongedFaction.Leader.ID) return false;  //隐含父亲活着，下同。
-                if (this.Mother >= 0 && this.Mother == this.BelongedFaction.Leader.ID) return false;
-                if (this.Spouse >= 0 && this.Spouse == this.BelongedFaction.Leader.ID) return false;
-                if (this.Brother >= 0 && this.Brother == this.BelongedFaction.Leader.ID) return false;
+                if (this.Father == this.BelongedFaction.Leader) return false;  //隐含父亲活着，下同。
+                if (this.Mother == this.BelongedFaction.Leader) return false;
+                if (this.Spouse == this.BelongedFaction.Leader) return false;
+                if (this.Brother == this.BelongedFaction.Leader) return false;
                 if (this.Strain == this.BelongedFaction.Leader.Strain) return false;  //同一血缘不能独立，孙子不能从爷爷手下独立。
                 return true; 
             }
@@ -2577,8 +2580,6 @@
             {
                 this.OutsideTask = OutsideTaskKind.情报;
                 this.OutsideDestination = new Point?(position);
-                this.LocationArchitecture.InformationCoolDown += this.CurrentInformationKind.CoolDown;
-                this.LocationArchitecture.DecreaseFund(this.CurrentInformationKind.CostFund);
                 this.GoToDestinationAndReturn(position);
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForInformation", new Object[] { this.Scenario, this, position});
@@ -2739,7 +2740,7 @@
             {
                 num += 20;
             }
-            if (this.Father == this.BelongedFaction.Leader.ID || this.Mother == this.BelongedFaction.Leader.ID)
+            if (this.Father == this.BelongedFaction.Leader || this.Mother == this.BelongedFaction.Leader)
             {
                 num += 20;
             }
@@ -2747,7 +2748,7 @@
             {
                 num += 30;
             }
-            if (this.Spouse == this.BelongedFaction.Leader.ID || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother >= 0))
+            if (this.Spouse == this.BelongedFaction.Leader || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother != null))
             {
                 num += 50;
             }
@@ -2798,7 +2799,7 @@
                 {
                     foreach (Person person in base.Scenario.AvailablePersons)
                     {
-                        if ((person != this) && (((person.Father >= 0) && (person.Father == base.ID)) || ((person.Brother >= 0) && (person.Brother == this.Brother))))
+                        if ((person != this) && ((person.Father == this) || ((person.Brother != null) && (person.Brother == this.Brother))))
                         {
                             person.ProhibitedFactionID = this.LocationArchitecture.BelongedFaction.Leader.ID;
                         }
@@ -2819,7 +2820,7 @@
                 {
                     foreach (Person person in base.Scenario.AvailablePersons)
                     {
-                        if ((person != this) && (((person.Father >= 0) && (person.Father == base.ID)) || ((person.Brother >= 0) && (person.Brother == this.Brother))))
+                        if ((person != this) && ((person.Father == this) || ((person.Brother != null) && (person.Brother == this.Brother))))
                         {
                             person.ProhibitedFactionID = this.TargetArchitecture.BelongedFaction.Leader.ID;
                         }
@@ -3072,7 +3073,7 @@
                     {
                         decrement *= 2;
                     }
-                    if (decrement > 0 && !(this.Spouse == this.BelongedFaction.LeaderID || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother > 0)))
+                    if (decrement > 0 && !(this.Spouse == this.BelongedFaction.Leader || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother != null)))
                     {
                         this.DecreaseLoyalty( (int) Math.Sqrt(decrement));
                     }
@@ -3098,7 +3099,7 @@
         {
             foreach (Faction faction in this.Scenario.Factions)
             {
-                if (this.Scenario.IsPlayer(faction) && this.Father == faction.LeaderID)
+                if (this.Scenario.IsPlayer(faction) && this.Father == faction.Leader)
                 {
                     return false;
                 }
@@ -3949,7 +3950,7 @@
             }
         }
 
-        public int Brother
+        public Person Brother
         {
             get
             {
@@ -3965,18 +3966,8 @@
         {
             get
             {
-                if (brother == -1) return "－－－－";
-                PersonList allPersons = base.Scenario.Persons;
-                Person brotherPerson = null;
-                foreach (Person i in allPersons)
-                {
-                    if (i.ID == brother)
-                    {
-                        brotherPerson = i;
-                        break;
-                    }
-                }
-                return brotherPerson == null ? "－－－－" : brotherPerson.Name;
+                if (Brother == null) return "－－－－";
+                return Brother.Name;
             }
         }
 
@@ -4338,7 +4329,7 @@
             }
         }
 
-        public int Father
+        public Person Father
         {
             get
             {
@@ -4836,7 +4827,7 @@
             }
         }
 
-        public int Mother
+        public Person Mother
         {
             get
             {
@@ -5481,7 +5472,7 @@
             }
         }
 
-        public int Spouse
+        public Person Spouse
         {
             get
             {
@@ -5813,7 +5804,7 @@
             PersonList haiziliebiao = new PersonList();
             foreach (Person person in this.Scenario.Persons)
             {
-                if (person.Alive && person.Available && person.Father == this.ID && person.BelongedCaptive == null && person.sex == false)
+                if (person.Alive && person.Available && person.Father == this && person.BelongedCaptive == null && person.sex == false)
                 {
                     haiziliebiao.Add(person);
                 }
@@ -5833,7 +5824,7 @@
             PersonList haiziliebiao = new PersonList();
             foreach (Person person in this.Scenario.Persons)
             {
-                if (person.Alive && !person.Available && person.Father == this.ID)
+                if (person.Alive && !person.Available && person.Father == this)
                 {
                     haiziliebiao.Add(person);
                 }
@@ -5849,18 +5840,8 @@
         {
             get
             {
-                if (father == -1) return "－－－－";
-                PersonList allPersons = base.Scenario.Persons;
-                Person fatherPerson = null;
-                foreach (Person i in allPersons)
-                {
-                    if (i.ID == Father)
-                    {
-                        fatherPerson = i;
-                        break;
-                    }
-                }
-                return fatherPerson == null ? "－－－－" : fatherPerson.Name;
+                if (Father == null) return "－－－－";
+                return Father.Name;
             }
         }
 
@@ -5868,18 +5849,8 @@
         {
             get
             {
-                if (mother == -1) return "－－－－";
-                PersonList allPersons = base.Scenario.Persons;
-                Person motherPerson = null;
-                foreach (Person i in allPersons)
-                {
-                    if (i.ID == Mother)
-                    {
-                        motherPerson = i;
-                        break;
-                    }
-                }
-                return motherPerson == null ? "－－－－" : motherPerson.Name;
+                if (Mother == null) return "－－－－";
+                return Mother.Name;
             }
         }
 
@@ -5887,18 +5858,8 @@
         {
             get
             {
-                if (spouse == -1) return "－－－－";
-                PersonList allPersons = base.Scenario.Persons;
-                Person spousePerson = null;
-                foreach (Person i in allPersons)
-                {
-                    if (i.ID == spouse)
-                    {
-                        spousePerson = i;
-                        break;
-                    }
-                }
-                return spousePerson == null ? "－－－－" : spousePerson.Name;
+                if (spouse == null) return "－－－－";
+                return Spouse.Name;
             }
         }
 
@@ -5965,7 +5926,7 @@
         {
             int idealOffset = Person.GetIdealOffset(this, f.Leader);
             //义兄弟或者配偶直接登用。(当前判断是和所在势力的君主)
-            if ((this.Spouse == f.LeaderID) || (this.Brother == f.LeaderID))
+            if ((this.Spouse == f.Leader) || (this.Brother == f.Leader))
             {
                 return true;
             }
@@ -5977,7 +5938,7 @@
                 {
                     if (((i != this.BelongedFaction) && (i.Leader != null)) && (GetIdealOffset(this, i.Leader) <= this.IdealTendency.Offset)
                         && !this.HatedPersons.Contains(i.LeaderID) &&
-                        ((((this.PersonalLoyalty < (int) PersonLoyalty.很高) || ((this.Father >= 0) && (this.Father == i.Leader.ID))) || ((this.Brother >= 0) && (this.Brother == i.Leader.Brother))) || (idealOffset > 10)))
+                        ((((this.PersonalLoyalty < (int) PersonLoyalty.很高) || ((this.Father != null) && (this.Father == i.Leader))) || ((this.Brother != null) && (this.Brother == i.Leader.Brother))) || (idealOffset > 10)))
                     {
                         return false;
                     }
@@ -6081,8 +6042,8 @@
             }
             r.ID = id;
 
-            r.Father = father.ID;
-            r.Mother = mother.ID;
+            r.Father = father;
+            r.Mother = mother;
             r.Generation = father.Generation + 1;
             r.Strain = father.Strain;
 
@@ -6424,14 +6385,14 @@
 
         public bool hasCloseStrainTo(Person b)
         {
-            if (this.father == b.ID) return true;
-            if (this.mother == b.ID) return true;
+            if (this.Father == b) return true;
+            if (this.Mother == b) return true;
 
-            if (this.father != -1 && b.father == this.father) return true;
-            if (this.mother != -1 && b.mother == this.mother) return true;
+            if (this.Father != null && b.Father == this.Father) return true;
+            if (this.Mother != null && b.Mother == this.Mother) return true;
 
-            if (b.father == this.ID) return true;
-            if (b.mother == this.ID) return true;
+            if (b.Father == this) return true;
+            if (b.Mother == this) return true;
 
             return false;
         }
@@ -6442,11 +6403,11 @@
 
             if (this.Strain == b.Strain) return true;
 
-            if (this.Mother != -1)
+            if (this.Mother != null)
             {
                 foreach (Person p in base.Scenario.Persons)
                 {
-                    if (p.ID == this.Mother)
+                    if (p == this.Mother)
                     {
                         if (p.Strain == b.Strain)
                         {
@@ -6456,11 +6417,11 @@
                 }
             }
 
-            if (b.Mother != -1)
+            if (b.Mother != null)
             {
                 foreach (Person p in base.Scenario.Persons)
                 {
-                    if (p.ID == b.Mother)
+                    if (p == b.Mother)
                     {
                         if (p.Strain == this.Strain)
                         {
@@ -6496,12 +6457,12 @@
             nvren.LocationTroop = null;
             nvren.TargetArchitecture = null;
 
-            if (nvren.Spouse != -1)
+            if (nvren.Spouse != null)
             {
                 Person p = new Person();
                 foreach (Person person in base.Scenario.Persons)
                 {
-                    if (person.ID == nvren.Spouse)
+                    if (person == nvren.Spouse)
                     {
                         p = person;
                         break;
@@ -6549,9 +6510,9 @@
             if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 int houGongDays = nvren.Glamour / 4 + GameObject.Random(6) + 10;
-                if (houGongDays > 90)
+                if (houGongDays > 60)
                 {
-                    houGongDays = GameObject.Random(20) + 80;
+                    houGongDays = GameObject.Random(10) + 60;
                 }
                 if (!nvren.HatedPersons.Contains(this.ID) && GlobalVariables.getChildrenRate > 0)
                 {
@@ -6671,7 +6632,7 @@
                 if (this.LocationArchitecture == null) return false;
                 foreach (Person p in this.LocationArchitecture.Persons)
                 {
-                    if (p.preferredTroopPersons.GameObjects.Contains(this))
+                    if (p.preferredTroopPersons.GameObjects.Contains(this) && p.HasLeadingArmy)
                     {
                         return true;
                     }

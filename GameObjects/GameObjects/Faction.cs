@@ -1026,7 +1026,7 @@
             {
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Father >= 0) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Father == person3.Father) || (person3.Father == this.Leader.ID)))
+                    if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Father == person3.Father) || (person3.Father == this.Leader)))
                     {
                         list.Add(person3);
                     }
@@ -1070,7 +1070,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Brother >= 0) && (person3.Sex == this.Leader.Sex) && (this.Leader.Brother == person3.Brother))
+                    if ((person3.Brother != null) && (person3.Sex == this.Leader.Sex) && (this.Leader.Brother == person3.Brother))
                     {
                         list.Add(person3);
                     }
@@ -1090,7 +1090,7 @@
             {
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Mother >= 0) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Mother == person3.Mother) || (person3.Mother == this.Leader.ID)))
+                    if ((person3.Mother != null) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Mother == person3.Mother) || (person3.Mother == this.Leader)))
                     {
                         list.Add(person3);
                     }
@@ -1128,7 +1128,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((this.Leader.Ideal == person3.Ideal) && (person3.Sex == this.Leader.Sex) && ((person3.Brother < 0) || (person3.Brother == person3.ID)))
+                    if ((this.Leader.Ideal == person3.Ideal) && (person3.Sex == this.Leader.Sex) && ((person3.Brother == null) || (person3.Brother == person3)))
                     {
                         list.Add(person3);
                     }
@@ -1149,7 +1149,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Sex == this.Leader.Sex) && (person3.Brother < 0) || (person3.Brother == person3.ID))
+                    if ((person3.Sex == this.Leader.Sex) && (person3.Brother == null) || (person3.Brother == person3))
                     {
                         list.Add(person3);
                     }
@@ -1170,7 +1170,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Brother < 0) || (person3.Brother == person3.ID))
+                    if ((person3.Brother == null) || (person3.Brother == person3))
                     {
                         list.Add(person3);
                     }
@@ -1840,6 +1840,7 @@
             foreach (Information information in this.Informations)
             {
                 information.DaysLeft--;
+                information.DaysStarted++;
                 if (information.DaysLeft == 0)
                 {
                     list.Add(information);
@@ -4148,6 +4149,28 @@
             {
                 this.isAlien=value;
             }
+        }
+
+        public InformationList GetAllInformationList()
+        {
+            InformationList result = new InformationList();
+            foreach (Information i in this.Informations)
+            {
+                result.Add(i);
+            }
+            foreach (Architecture a in this.Architectures)
+            {
+                foreach (Information i in a.Informations)
+                {
+                    result.Add(i);
+                }
+            }
+            return result;
+        }
+
+        public bool HasInformation()
+        {
+            return this.GetAllInformationList().Count > 0;
         }
 
         public delegate void AfterCatchLeader(Person leader, Faction faction);
