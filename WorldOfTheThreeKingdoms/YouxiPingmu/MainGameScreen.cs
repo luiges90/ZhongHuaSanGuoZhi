@@ -542,6 +542,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         }
 
         private int oldDialogShowTime = -1;
+        private bool mapEdited = false;
         private void HandleKey(GameTime gameTime)
         {
             if (this.currentKey != Keys.None)
@@ -719,23 +720,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     this.currentKey = Keys.OemMinus;
                 }
-                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.C))
+                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.C) && GlobalVariables.EnableCheat)
                 {
-
-                        this.currentKey = Keys.C;
-                        if (!this.editMode)
-                        {
-                            changeFaction();
-                        }
+                    this.currentKey = Keys.C;
+                    if (!this.editMode)
+                    {
+                        changeFaction();
+                    }
                 }
-                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.E))
+                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.E) && GlobalVariables.EnableCheat)
                 {
                     this.currentKey = Keys.E;
                     this.editMode = true;
                     this.mainMapLayer.xianshidituxiaokuai = true;
                     this.Plugins.youcelanPlugin.IsShowing = false;
+                    this.mapEdited = true;
                 }
-                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.Q))
+                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.Q) && GlobalVariables.EnableCheat)
                 {
                     this.currentKey = Keys.Q;
                     this.editMode = false;
@@ -1674,6 +1675,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 Provider = "Microsoft.Jet.OLEDB.4.0"
             };
             base.Scenario.ScenarioMap.JumpPosition = this.mainMapLayer.GetCurrentScreenCenter(base.viewportSize);
+            saveMap = saveMap || this.mapEdited;
 
             GC.Collect();
 

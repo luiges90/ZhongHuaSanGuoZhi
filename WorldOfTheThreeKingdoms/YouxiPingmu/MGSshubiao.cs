@@ -113,6 +113,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 int y = (this.mouseState.Y - this.mainMapLayer.TopEdge) / base.Scenario.ScenarioMap.TileHeight;
                 this.mainMapLayer.mainMap.MapData[x, y] = this.ditukuaidezhi;
                 this.mainMapLayer.chongsheditukuaitupian(x, y);
+
             }
             /*
             if (base.Scenario.CurrentPlayer == null) return;
