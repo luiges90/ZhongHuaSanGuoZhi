@@ -450,7 +450,7 @@
         {
             this.SubKinds.Clear();
             this.SetObjectList(gameObjectList);
-            this.SetSelectedObjectList(selectedObjectList);
+            //this.SetSelectedObjectList(selectedObjectList); 不能影响建筑连接的改动，建筑列表插件和建筑是否被选中无关
             this.oldScrollValue = scrollValue;
             this.Title = title;
         }
@@ -951,7 +951,7 @@
             this.gameObjectList = gameObjectList;
             foreach (GameObject obj2 in gameObjectList)
             {
-                obj2.Selected = false;
+                //obj2.Selected = false;  不能影响建筑连接的改动，建筑列表插件和建筑是否被选中无关
             }
             this.FullLowerClient.Height = (gameObjectList.Count * this.rowHeight) + this.columnheaderHeight;
         }
