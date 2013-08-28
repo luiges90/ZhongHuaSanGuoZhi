@@ -640,6 +640,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
             return qizijuxing;
         }
 
+        internal Point GetCenterCoordinate(Point point)
+        {
+            Point p = new Point();
+            p.X = this.leftEdge + (point.X * this.TileWidth)+this.TileWidth / 2;
+            p.Y = this.topEdge + (point.Y * this.TileHeight) + this.TileHeight / 2;
+            return p;
+        }
 
         public Rectangle GetHalfDestination(Point position)
         {
@@ -921,6 +928,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
 
 
         }
+
+
 
 
 
