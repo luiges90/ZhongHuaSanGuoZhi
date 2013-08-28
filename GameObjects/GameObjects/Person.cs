@@ -3771,6 +3771,7 @@
             }
         }
 
+        private const float[] AGE_FACTORS = { 0.0062f, 0.0109f, 0.0192f, 0.0334f, 0.0577f, 0.0978f, 0.1615f, 0.2557f, 0.3814f, 0.5283f, 0.6754f, 0.8018f, 0.8967f, 0.961f };
         private float AbilityAgeFactor
         {
             get
@@ -3778,7 +3779,7 @@
                 if (!GlobalVariables.EnableAgeAbilityFactor) return 1;
                 if (this.Age >= 15) return 1;
                 if (this.Age < 0) return 0.1f;
-                return -0.002f * this.Age * this.Age + 0.09f * this.Age + 0.1f;
+                return AGE_FACTORS[this.Age];
             }
         }
 
