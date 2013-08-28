@@ -225,14 +225,17 @@
 
         private void challengePersonDie(Person challengePerson,Troop troop)
         {
-            if (troop == troop.StartingArchitecture.RobberTroop)
+            if (GlobalVariables.PersonDieInChallenge)
             {
-                troop.Persons.Remove(troop.Leader);
-                troop.Leader.LocationTroop = null;
-            }
-            else
-            {
-                challengePerson.ToDeath();
+                if (troop == troop.StartingArchitecture.RobberTroop)
+                {
+                    troop.Persons.Remove(troop.Leader);
+                    troop.Leader.LocationTroop = null;
+                }
+                else
+                {
+                    challengePerson.ToDeath();
+                }
             }
         }
 
