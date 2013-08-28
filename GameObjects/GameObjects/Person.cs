@@ -3771,7 +3771,8 @@
             }
         }
 
-        private static readonly float[] AGE_FACTORS = { 0.004f, 0.0062f, 0.0109f, 0.0192f, 0.0334f, 0.0577f, 0.0978f, 0.1615f, 0.2557f, 0.3814f, 0.5283f, 0.6754f, 0.8018f, 0.8967f, 0.961f };
+        // precomputed values of y = 1.12 / (1+ 69.06e^(-0.428x))
+        private static readonly float[] AGE_FACTORS = { 0.0160f, 0.0243f, 0.0369f, 0.0557f, 0.0832f, 0.1227f, 0.1779f, 0.2516f, 0.3446f, 0.4541f, 0.5726f, 0.6900f, 0.7965f, 0.8856f, 0.9552f };
         private float AbilityAgeFactor
         {
             get
@@ -3943,7 +3944,7 @@
         {
             get
             {
-                return this.braveness + this.bravenessIncrease;
+                return (int) ((this.braveness + this.bravenessIncrease) * this.AbilityAgeFactor);
             }
             set
             {
@@ -4008,7 +4009,7 @@
         {
             get
             {
-                return this.calmness + this.calmnessIncrease;
+                return (int)((this.calmness + this.calmnessIncrease) * this.AbilityAgeFactor);
             }
             set
             {

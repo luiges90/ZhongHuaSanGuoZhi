@@ -8774,7 +8774,7 @@
             damage.OfficerDie = false;
             if (damage.Critical && damage.Damage > 0 && GlobalVariables.OfficerDieInBattleRate > 0)
             {
-                float dieChance = GlobalVariables.OfficerDieInBattleRate / 20000;
+                float dieChance = GlobalVariables.OfficerDieInBattleRate / 20000.0f;
                 if (troop.Quantity <= damage.Damage)
                 {
                     dieChance *= 2;
