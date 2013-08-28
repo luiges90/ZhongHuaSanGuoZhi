@@ -342,6 +342,17 @@
             }
         }
 
+        public void SetSelected(GameObjectList gameObjectList)
+        {
+            foreach (GameObject gameObject in this.gameObjects)
+            {
+                if (gameObjectList.HasGameObject(gameObject))
+                {
+                    gameObject.Selected=true;
+                }
+            }
+        }
+
         public void Sort(IComparer<GameObject> comparer)
         {
             this.gameObjects.Sort(comparer);

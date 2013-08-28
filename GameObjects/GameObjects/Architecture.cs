@@ -8104,6 +8104,16 @@
             return (this.Feiziliebiao.Count > 0);
         }
 
+        public bool HasLandLink()
+        {
+            return (this.AILandLinks.Count > 0);
+        }
+
+        public bool HasWaterLink()
+        {
+            return (this.AIWaterLinks.Count > 0);
+        }
+
         public bool HasFacility()
         {
             return (this.FacilityCount > 0);
@@ -8115,6 +8125,11 @@
         public bool HasFaction()
         {
             return (this.BelongedFaction != null);
+        }
+
+        public bool ArchitectureEditMode()
+        {
+            return true;
         }
 
         public bool HasFactionInClose(Faction faction, int level)
@@ -8193,6 +8208,48 @@
                 }
             }
             return false;
+        }
+
+        public void ResetLandLink(GameObjectList gameObjectList)
+        {
+            foreach (Architecture architecture in this.AILandLinks)
+            {
+                architecture.AILandLinks.Remove(this);
+            }
+            this.AILandLinks.Clear();
+            foreach (GameObject gameObject in gameObjectList)
+            {
+                Architecture architecture = gameObject as Architecture;
+                if (architecture != null)
+                {
+                    this.AILandLinks.Add(architecture);
+                }
+            }
+            foreach (Architecture architecture in this.AILandLinks)
+            {
+                architecture.AILandLinks.Add(this);
+            }
+        }
+
+        public void ResetWaterLink(GameObjectList gameObjectList)
+        {
+            foreach (Architecture architecture in this.AIWaterLinks)
+            {
+                architecture.AIWaterLinks.Remove(this);
+            }
+            this.AIWaterLinks.Clear();
+            foreach (GameObject gameObject in gameObjectList)
+            {
+                Architecture architecture = gameObject as Architecture;
+                if (architecture != null)
+                {
+                    this.AIWaterLinks.Add(architecture);
+                }
+            }
+            foreach (Architecture architecture in this.AIWaterLinks)
+            {
+                architecture.AIWaterLinks.Add(this);
+            }
         }
 
         public bool HasHostileTroopsInView()
@@ -13739,6 +13796,17 @@
                 }
             }
             return bianduiShu;
+        }
+
+        public ArchitectureList ArchitectureListWithoutSelf()
+        {
+            ArchitectureList architectureList=new ArchitectureList() ;
+            foreach (Architecture architecture in base.Scenario.Architectures)
+            {
+                architectureList.Add(architecture);
+            }
+            architectureList.Remove(this);
+            return architectureList;
         }
 
         public void AddInformation(Information information)

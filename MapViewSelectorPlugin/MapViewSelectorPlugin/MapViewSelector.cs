@@ -126,7 +126,13 @@
                 else if (this.OKButtonSelected)
                 {
                     this.IsShowing = false;
+                    if (this.OKFunction != null)
+                    {
+                        this.OKFunction();
+                        this.OKFunction = null;
+                    }
                     this.iGameFrame.OK();
+
                 }
                 else if (this.CancelButtonSelected)
                 {

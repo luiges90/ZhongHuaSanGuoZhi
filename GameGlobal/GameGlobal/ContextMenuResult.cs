@@ -15,6 +15,8 @@
         Architecture_Treasure,
         Architecture_Informations,
         Architecture_Princesses,
+        Architecture_LandLink,
+        Architecture_WaterLink,
         Faction_Detail,
         Faction_Architectures,
         Faction_Troops,
