@@ -3771,7 +3771,7 @@
             }
         }
 
-        private static readonly float[] AGE_FACTORS = { 0.0062f, 0.0109f, 0.0192f, 0.0334f, 0.0577f, 0.0978f, 0.1615f, 0.2557f, 0.3814f, 0.5283f, 0.6754f, 0.8018f, 0.8967f, 0.961f };
+        private static readonly float[] AGE_FACTORS = { 0.004f, 0.0062f, 0.0109f, 0.0192f, 0.0334f, 0.0577f, 0.0978f, 0.1615f, 0.2557f, 0.3814f, 0.5283f, 0.6754f, 0.8018f, 0.8967f, 0.961f };
         private float AbilityAgeFactor
         {
             get
