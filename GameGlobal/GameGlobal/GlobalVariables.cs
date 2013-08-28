@@ -125,6 +125,8 @@
         public static bool ShowChallengeAnimation = true;
         public static bool PersonDieInChallenge = true;
 
+        public static int OfficerDieInBattleRate = 10;
+
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()
@@ -687,6 +689,15 @@
             {
                 exception = exception24;
                 throw new Exception("PersonDieInChallenge:\n" + exception.ToString());
+            }
+            try
+            {
+                OfficerDieInBattleRate = int.Parse(nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("OfficerDieInBattleRate:\n" + exception.ToString());
             }
             return true;
         }

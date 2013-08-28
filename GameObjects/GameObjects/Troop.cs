@@ -5972,6 +5972,19 @@
                     Challenge challeng = new Challenge();
                     challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
                 }
+                if (damage.OfficerDie)
+                {
+                    if (damage.DestinationTroop == damage.DestinationTroop.StartingArchitecture.RobberTroop)
+                    {
+                        damage.DestinationTroop.Persons.Remove(damage.DestinationTroop.Leader);
+                        damage.DestinationTroop.Leader.LocationTroop = null;
+                    }
+                    else
+                    {
+                        int c = GameObject.Random(damage.DestinationTroop.Persons.Count);
+                        (damage.DestinationTroop.Persons[c] as Person).ToDeath();
+                    }
+                }
 
                 if (damage.OnFire && base.Scenario.IsFireVaild(damage.DestinationTroop.Position, false, MilitaryType.步兵))
                 {
@@ -8758,6 +8771,28 @@
             damage.Damage = num4;
             damage.StealTroop = Math.Min(damage.DestinationTroop.Quantity, (int)(damage.Damage * this.StealTroop));
             damage.StealInjured = Math.Min(damage.DestinationTroop.InjuryQuantity, (int)(damage.Damage * this.StealInjured));
+            damage.OfficerDie = false;
+            if (damage.Critical && damage.Damage > 0 && GlobalVariables.OfficerDieInBattleRate > 0)
+            {
+                float dieChance = GlobalVariables.OfficerDieInBattleRate / 20000;
+                if (troop.Quantity <= damage.Damage)
+                {
+                    dieChance *= 2;
+                }
+                if (damage.Surround)
+                {
+                    dieChance *= 1.5f;
+                }
+                if (damage.Waylay)
+                {
+                    dieChance *= 3;
+                }
+                dieChance *= 200.0f / (damage.DestinationTroop.Leader.Strength + damage.DestinationTroop.Leader.Braveness * 10 + 100);
+                if (GameObject.Random(100000) < dieChance * 100000)
+                {
+                    damage.OfficerDie = true;
+                }
+            }
 			ExtensionInterface.call("TroopSendTroopDamage", new Object[] { this.Scenario, this, damage, troop, counter });
             return damage;
         }

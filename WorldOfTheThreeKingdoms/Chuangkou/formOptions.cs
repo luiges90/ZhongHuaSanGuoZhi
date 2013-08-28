@@ -206,6 +206,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label getChildrenRateLabel;
         private CheckBox cbMultipleResource;
         private CheckBox cbCreateChildren;
+        private Label label60;
+        private TextBox tbOfficerDieInBattleRate;
         private TextBox zainanfashengjilv;
 
         public formOptions()
@@ -411,6 +413,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label60 = new System.Windows.Forms.Label();
+            this.tbOfficerDieInBattleRate = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -438,6 +442,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageBasic
             // 
+            this.tabPageBasic.Controls.Add(this.label60);
+            this.tabPageBasic.Controls.Add(this.tbOfficerDieInBattleRate);
             this.tabPageBasic.Controls.Add(this.cbCreateChildren);
             this.tabPageBasic.Controls.Add(this.tbGetChildrenRate);
             this.tabPageBasic.Controls.Add(this.getChildrenRateLabel);
@@ -479,19 +485,20 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbGetChildrenRate
             // 
-            this.tbGetChildrenRate.Location = new System.Drawing.Point(288, 397);
+            this.tbGetChildrenRate.Location = new System.Drawing.Point(381, 226);
             this.tbGetChildrenRate.Name = "tbGetChildrenRate";
-            this.tbGetChildrenRate.Size = new System.Drawing.Size(71, 22);
+            this.tbGetChildrenRate.Size = new System.Drawing.Size(51, 22);
             this.tbGetChildrenRate.TabIndex = 134;
+            this.tbGetChildrenRate.Text = "100";
             // 
             // getChildrenRateLabel
             // 
             this.getChildrenRateLabel.AutoSize = true;
-            this.getChildrenRateLabel.Location = new System.Drawing.Point(11, 403);
+            this.getChildrenRateLabel.Location = new System.Drawing.Point(322, 229);
             this.getChildrenRateLabel.Name = "getChildrenRateLabel";
-            this.getChildrenRateLabel.Size = new System.Drawing.Size(275, 12);
+            this.getChildrenRateLabel.Size = new System.Drawing.Size(53, 12);
             this.getChildrenRateLabel.TabIndex = 133;
-            this.getChildrenRateLabel.Text = "怀孕机率（数字愈大怀孕机率愈高，0为关闭后宫）";
+            this.getChildrenRateLabel.Text = "怀孕机率";
             // 
             // cbEnableAgeAbilityFactor
             // 
@@ -535,7 +542,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbTabListDetailLevel
             // 
-            this.tbTabListDetailLevel.Location = new System.Drawing.Point(106, 373);
+            this.tbTabListDetailLevel.Location = new System.Drawing.Point(405, 170);
             this.tbTabListDetailLevel.MaxLength = 1;
             this.tbTabListDetailLevel.Name = "tbTabListDetailLevel";
             this.tbTabListDetailLevel.Size = new System.Drawing.Size(27, 22);
@@ -545,7 +552,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(11, 376);
+            this.label55.Location = new System.Drawing.Point(310, 173);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(89, 12);
             this.label55.TabIndex = 127;
@@ -2168,6 +2175,23 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(311, 201);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(65, 12);
+            this.label60.TabIndex = 137;
+            this.label60.Text = "武将战死率";
+            // 
+            // tbOfficerDieInBattleRate
+            // 
+            this.tbOfficerDieInBattleRate.Location = new System.Drawing.Point(382, 198);
+            this.tbOfficerDieInBattleRate.Name = "tbOfficerDieInBattleRate";
+            this.tbOfficerDieInBattleRate.Size = new System.Drawing.Size(50, 22);
+            this.tbOfficerDieInBattleRate.TabIndex = 136;
+            this.tbOfficerDieInBattleRate.Text = "10";
+            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -2259,6 +2283,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbTabListDetailLevel.Text = nextSibling.Attributes.GetNamedItem("TabListDetailLevel").Value;
             this.cbShowChallengeAnimation.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("ShowChallengeAnimation").Value);
             this.cbPersonDieInChallenge.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value);
+            this.tbOfficerDieInBattleRate.Text = nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value;
         }
 
         private void LoadParameterDoc()
@@ -2374,6 +2399,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("TabListDetailLevel").Value = this.tbTabListDetailLevel.Text;
             nextSibling.Attributes.GetNamedItem("ShowChallengeAnimation").Value = this.cbShowChallengeAnimation.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value = this.cbPersonDieInChallenge.Checked.ToString();
+            nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value = this.tbOfficerDieInBattleRate.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 
