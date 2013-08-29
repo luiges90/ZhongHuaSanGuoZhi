@@ -8774,7 +8774,7 @@
             damage.OfficerDie = false;
             if (damage.Critical && damage.Damage > 0 && GlobalVariables.OfficerDieInBattleRate > 0)
             {
-                float dieChance = GlobalVariables.OfficerDieInBattleRate / 20000.0f;
+                float dieChance = GlobalVariables.OfficerDieInBattleRate / 10000.0f;
                 if (troop.Quantity <= damage.Damage)
                 {
                     dieChance *= 2;
@@ -8787,7 +8787,8 @@
                 {
                     dieChance *= 3;
                 }
-                dieChance *= 200.0f / (damage.DestinationTroop.Leader.Strength + damage.DestinationTroop.Leader.Braveness * 10 + 100);
+                dieChance *= (damage.SourceTroop.Leader.Strength + damage.SourceTroop.Leader.Braveness * 10 
+					- damage.DestinationTroop.Leader.Strength - damage.DestinationTroop.Leader.Braveness * 10 + 100) / 100.0f;
                 if (GameObject.Random(100000) < dieChance * 100000)
                 {
                     damage.OfficerDie = true;
