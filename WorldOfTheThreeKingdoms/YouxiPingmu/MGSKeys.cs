@@ -206,16 +206,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     this.currentKey = Keys.OemMinus;
                 }
-                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.C))
+                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.C) && GlobalVariables.EnableCheat)
                 {
-
                     this.currentKey = Keys.C;
                     if (!this.editMode)
                     {
                         changeFaction();
                     }
                 }
-                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.E))
+                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.E) && GlobalVariables.EnableCheat)
                 {
                     this.currentKey = Keys.E;
                     this.editMode = true;
@@ -223,7 +222,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.Plugins.youcelanPlugin.IsShowing = false;
                     this.mapEdited = true;
                 }
-                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.Q))
+                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.Q) && GlobalVariables.EnableCheat)
                 {
                     this.currentKey = Keys.Q;
                     this.editMode = false;
