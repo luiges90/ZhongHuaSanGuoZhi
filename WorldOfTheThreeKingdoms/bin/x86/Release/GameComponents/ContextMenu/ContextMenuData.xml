@@ -14,12 +14,12 @@
                 <MenuItem ID="3" Name="Militaries" DisplayName="编队列表" DisplayIfTrue="HasMilitary" />
 				        <MenuItem ID="8" Name="Informations" DisplayName="情报列表" DisplayIfTrue="HasInformation" />
                 <MenuItem ID="4" Name="NoFactionPersons" DisplayName="在野人物" DisplayIfTrue="HasNoFactionPerson" />
-                <MenuItem ID="4" Name="Facilities" DisplayName="设施列表" DisplayIfTrue="HasFacility" />
-                <MenuItem ID="5" Name="Captive" DisplayName="俘虏列表" DisplayIfTrue="HasCaptive" />
-                <MenuItem ID="6" Name="Treasure" DisplayName="相关宝物" DisplayIfTrue="HasTreasure" />
-                <MenuItem ID="7" Name="Princesses" DisplayName="妃子列表" DisplayIfTrue="HasPrincess" />
-              <MenuItem ID="9" Name="LandLink" DisplayName="陆上连接" DisplayIfTrue="ArchitectureEditMode" />
-              <MenuItem ID="10" Name="WaterLink" DisplayName="水上连接" DisplayIfTrue="ArchitectureEditMode" />
+                <MenuItem ID="5" Name="Facilities" DisplayName="设施列表" DisplayIfTrue="HasFacility" />
+                <MenuItem ID="6" Name="Captive" DisplayName="俘虏列表" DisplayIfTrue="HasCaptive" />
+                <MenuItem ID="7" Name="Treasure" DisplayName="相关宝物" DisplayIfTrue="HasTreasure" />
+                <MenuItem ID="8" Name="Princesses" DisplayName="妃子列表" DisplayIfTrue="HasPrincess" />
+				<MenuItem ID="9" Name="LandLink" DisplayName="陆上连接*" DisplayIfTrue="ArchitectureEditMode" />
+				<MenuItem ID="10" Name="WaterLink" DisplayName="水上连接*" DisplayIfTrue="ArchitectureEditMode" />
             </MenuItem>
             <MenuItem ID="2" Name="Faction" DisplayName="当前势力" DisplayIfTrue="CurrentPlayerOwned" DisplayAll="False">
                 <MenuItem ID="1" Name="Detail" DisplayName="详细信息" />

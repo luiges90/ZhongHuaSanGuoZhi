@@ -237,7 +237,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     {
                         this.mainMapLayer.xianshidituxiaokuai = !this.mainMapLayer.xianshidituxiaokuai;
                     }
-
                 }
                 else if (this.keyState.IsKeyDown(Keys.L))
                 {

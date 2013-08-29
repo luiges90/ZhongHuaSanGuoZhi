@@ -152,7 +152,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Information, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.Informations, null, "", "");
                     break;
                 case ContextMenuResult.Architecture_LandLink:
-
+                    this.mapEdited = true;
                     function5 = delegate
                     {
                         this.screenManager.FrameFunction_Architecture_SelectLandLink();
@@ -167,6 +167,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                     break;
                 case ContextMenuResult.Architecture_WaterLink:
+                    this.mapEdited = true;
                     function6 = delegate
                     {
                         this.screenManager.FrameFunction_Architecture_SelectWaterLink();
