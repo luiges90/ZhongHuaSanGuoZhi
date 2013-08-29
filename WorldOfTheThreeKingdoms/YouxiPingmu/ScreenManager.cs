@@ -1029,8 +1029,42 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case FrameFunction.SelectPrince:
                     this.FrameFunction_Architecture_SelectPrince();
                     break;
+                case FrameFunction.SelectLandLink:
+                    this.FrameFunction_Architecture_SelectLandLink();
+                    break;
+                case FrameFunction.SelectWaterLink:
+                    this.FrameFunction_Architecture_SelectWaterLink();
+                    break;
+
             }
             this.lastFrameFunction = function;
+        }
+        internal void FrameFunction_Architecture_SelectLandLink()
+        {
+            if (this.CurrentArchitecture != null)
+            {
+                this.CurrentGameObjects = this.CurrentArchitecture.ArchitectureListWithoutSelf().GetSelectedList();
+                if (this.CurrentGameObjects != null)
+                {
+
+                    this.CurrentArchitecture.ResetLandLink(this.CurrentGameObjects.GetList());
+
+                }
+            }
+        }
+
+        internal void FrameFunction_Architecture_SelectWaterLink()
+        {
+            if (this.CurrentArchitecture != null)
+            {
+                this.CurrentGameObjects = this.CurrentArchitecture.ArchitectureListWithoutSelf().GetSelectedList();
+                if (this.CurrentGameObjects != null)
+                {
+
+                    this.CurrentArchitecture.ResetWaterLink(this.CurrentGameObjects.GetList());
+
+                }
+            }
         }
 
         private void FrameFunction_Architecture_SelectPrince()

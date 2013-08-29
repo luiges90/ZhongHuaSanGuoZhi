@@ -188,6 +188,7 @@
     <Compile Include="YouxiPingmu\MGSPersonText.cs" />
     <Compile Include="YouxiPingmu\MGSshubiao.cs" />
     <Compile Include="YouxiPingmu\MGSStartLoad.cs" />
+    <Compile Include="YouxiPingmu\MGSKeys.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Qita\game.ico" />

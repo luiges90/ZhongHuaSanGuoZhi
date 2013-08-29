@@ -105,7 +105,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             GameDelegates.VoidFunction function2 = null;
             GameDelegates.VoidFunction function3 = null;
             GameDelegates.VoidFunction function4 = null;
-
+            GameDelegates.VoidFunction function5 = null;
+            GameDelegates.VoidFunction function6 = null;
             this.bianduiLiebiaoBiaoji = "";
             this.Plugins.BianduiLiebiao.IsShowing = false;
             this.Plugins.youcelanPlugin.IsShowing = true;
@@ -149,6 +150,30 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
                 case ContextMenuResult.Architecture_Informations:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Information, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.Informations, null, "", "");
+                    break;
+                case ContextMenuResult.Architecture_LandLink:
+
+                    function5 = delegate
+                    {
+                        this.screenManager.FrameFunction_Architecture_SelectLandLink();
+                    };
+                    /*
+                    this.CurrentArchitecture.ArchitectureListWithoutSelf().ClearSelected();
+                    this.CurrentArchitecture.ArchitectureListWithoutSelf().SetSelected(this.CurrentArchitecture.AILandLinks);
+                    */
+                    this.SetTabListInFrame(UndoneWorkKind.Frame, FrameKind.Architecture, FrameFunction.SelectLandLink, true, true, true, true, this.CurrentArchitecture.ArchitectureListWithoutSelf(), this.CurrentArchitecture.AILandLinks, "陆上连接", "");
+
+                    this.ShowMapViewSelector(true, this.CurrentArchitecture.ArchitectureListWithoutSelf(), function5, MapViewSelectorKind.建筑);
+
+                    break;
+                case ContextMenuResult.Architecture_WaterLink:
+                    function6 = delegate
+                    {
+                        this.screenManager.FrameFunction_Architecture_SelectWaterLink();
+                    };
+                    this.SetTabListInFrame(UndoneWorkKind.Frame, FrameKind.Architecture, FrameFunction.SelectWaterLink, true, true, true, true, this.CurrentArchitecture.ArchitectureListWithoutSelf(), this.CurrentArchitecture.AIWaterLinks, "水上连接", "");
+                    this.ShowMapViewSelector(true, this.CurrentArchitecture.ArchitectureListWithoutSelf(), function6, MapViewSelectorKind.建筑);
+
                     break;
                 case ContextMenuResult.Faction_Detail:
                     if (this.CurrentArchitecture.BelongedFaction != null)
@@ -1073,6 +1098,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
             }
         }
+
 
     }
 }

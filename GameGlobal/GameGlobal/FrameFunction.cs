@@ -76,7 +76,9 @@
         ReleaseSelfPerson,
         PersonManualHire,
         SelectPrince,
-        GetInformationToStop
+        GetInformationToStop,
+        SelectLandLink,
+        SelectWaterLink
     }
 }
 

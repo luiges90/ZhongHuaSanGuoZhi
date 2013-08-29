@@ -36,7 +36,9 @@ namespace WorldOfTheThreeKingdoms.Resources
             public Texture2D[] guandetupian = new Texture2D[3];
             public Texture2D wanggetupian;
             public Texture2D EditModeGrid;
-            
+            public Texture2D LandConnect;
+            public Texture2D WaterConnect;
+            public Texture2D SingleConnect;
 
             public void LoadTextures(GraphicsDevice device, GameScenario scenario)
             {
@@ -310,6 +312,19 @@ namespace WorldOfTheThreeKingdoms.Resources
                     exception = exception11;
                     throw new Exception("The huangdi Textures are not completely loaded.\n" + exception.ToString());
                 }
+
+                try
+                {
+                    this.LandConnect = Texture2D.FromFile(device, "Resources/Architecture/LandConnect.png");
+                    this.WaterConnect = Texture2D.FromFile(device, "Resources/Architecture/WaterConnect.png");
+                    this.SingleConnect = Texture2D.FromFile(device, "Resources/Architecture/SingleConnect.png");
+                }
+                catch (Exception exception12)
+                {
+                    exception = exception12;
+                    throw new Exception("The ArchitectureConnect Textures are not completely loaded.\n" + exception.ToString());
+                }
+
                 //this.jianzhubiaotibeijing = Texture2D.FromFile(device, "Resources/Architecture/jianzhubiaotibeijing.png");
 
                 mediumCityImg.Clear();

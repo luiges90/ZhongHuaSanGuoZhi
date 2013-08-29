@@ -41,6 +41,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
             {
                 foreach (Architecture architecture in this.Architectures)
                 {
+                    if (this.screen.ShowArchitectureConnectedLine && this.mainMapLayer.TileInScreen(architecture.zhongxindian))
+                    {
+                        this.drawArchitectureConnectedLine(architecture, spriteBatch);
+                    }
+
                     Color zainanyanse = new Color();
                     if (architecture.youzainan )
                     {
@@ -50,6 +55,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                     {
                         zainanyanse=Color.White;
                     }
+
+
                     foreach (Point point in architecture.ArchitectureArea.Area)
                     {
                         if (this.mainMapLayer.TileInScreen(point))
@@ -57,7 +64,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                             if ((point == architecture.zhongxindian || architecture.Scenario.ScenarioMap.UseSimpleArchImages))
                             {
                                 spriteBatch.Draw(this.huoqujianzhutupian(architecture), this.mainMapLayer.huoqujianzhujuxing(point, architecture), null, zainanyanse, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
-
                             }
 
                             if (point == architecture.dingdian  && point.Y>0)
@@ -155,6 +161,106 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                 }
             }
         }
+
+        private void drawArchitectureConnectedLine(Architecture architecture, SpriteBatch spriteBatch)
+        {
+            int linkType;
+            foreach (Architecture connectedArchitecture in architecture.AILandLinks)
+            {
+                if (connectedArchitecture.AILandLinks.GameObjects.Contains(architecture))
+                {
+                    linkType = 0;
+                }
+                else
+                {
+                    linkType = 2;
+                }
+                this.drawConnectedLineArchitectureToArchitecture(architecture, connectedArchitecture, spriteBatch, linkType);
+
+            }
+            foreach (Architecture connectedArchitecture in architecture.AIWaterLinks)
+            {
+                if (connectedArchitecture.AIWaterLinks.GameObjects.Contains(architecture))
+                {
+                    linkType = 1;
+                }
+                else
+                {
+                    linkType = 2;
+                }
+                this.drawConnectedLineArchitectureToArchitecture(architecture, connectedArchitecture, spriteBatch, linkType);
+            }
+        }
+
+        private void drawConnectedLineArchitectureToArchitecture(Architecture architecture, Architecture connectedArchitecture, SpriteBatch spriteBatch, int linkType)
+        {
+            this.drawPointToPointLine(this.mainMapLayer.GetCenterCoordinate(architecture.zhongxindian), this.mainMapLayer.GetCenterCoordinate(connectedArchitecture.zhongxindian),spriteBatch,linkType);
+        }
+
+        private void drawPointToPointLine(Point point1, Point point2, SpriteBatch spriteBatch,int linkType)
+        {
+
+            if (Math.Abs(point2.Y - point1.Y) <= Math.Abs(point2.X - point1.X))
+            {
+                int x, x1, x2;
+                if (point1.X < point2.X)
+                {
+                    x1 = point1.X;
+                    x2 = point2.X;
+                }
+                else
+                {
+                    x1 = point2.X;
+                    x2 = point1.X;
+                }
+                for (x = x1; x < x2; x += 2)
+                {
+                    Rectangle rectangle = new Rectangle(x, (x - point1.X) * (point2.Y - point1.Y) / (point2.X - point1.X) + point1.Y, 3, 3);
+
+                    this.drawLinkLinePoint(linkType, rectangle, spriteBatch);
+
+                }
+            }
+            else
+            {
+                int y, y1, y2;
+                if (point1.Y  < point2.Y )
+                {
+                    y1 = point1.Y ;
+                    y2 = point2.Y ;
+                }
+                else
+                {
+                    y1 = point2.Y ;
+                    y2 = point1.Y ;
+                }
+                for (y = y1; y < y2; y += 2)
+                {
+                    Rectangle rectangle = new Rectangle((y - point1.Y) * (point2.X - point1.X) / (point2.Y - point1.Y) + point1.X , y, 3, 3);
+
+                    this.drawLinkLinePoint(linkType, rectangle, spriteBatch);
+                }
+            }
+        }
+
+        private void drawLinkLinePoint(int linkType, Rectangle rectangle, SpriteBatch spriteBatch)
+        {
+            if (linkType == 0)
+            {
+                spriteBatch.Draw(this.screen.Textures.LandConnect, rectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.7999f);
+
+            }
+            else if (linkType == 1)
+            {
+                spriteBatch.Draw(this.screen.Textures.WaterConnect , rectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.7999f);
+
+            }
+            else if (linkType == 2)
+            {
+                spriteBatch.Draw(this.screen.Textures.SingleConnect , rectangle, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.7999f);
+            }
+        }
+
 
         private Texture2D huoqujianzhutupian(Architecture architecture)
         {

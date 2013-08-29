@@ -73,7 +73,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private bool isKeyScrolling = false;
         internal FreeText qizidezi;
         internal bool editMode = false;
+        internal bool ShowArchitectureConnectedLine = false;
         private int ditukuaidezhi = 1;
+
+        private bool mapEdited = false;
 
         public MainGameScreen(MainGame game)
             : base(game)
@@ -542,229 +545,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         }
 
         private int oldDialogShowTime = -1;
-        private bool mapEdited = false;
-        private void HandleKey(GameTime gameTime)
-        {
-            if (this.currentKey != Keys.None)
-            {
-                if (!base.KeyState.IsKeyUp(this.currentKey))
-                {
-                    return;
-                }
-                this.currentKey = Keys.None;
-            }
-            if ((base.Scenario.CurrentPlayer != null) && base.Scenario.CurrentPlayer.Controlling)
-            {
-                if (this.keyState.IsKeyDown(Keys.D1))
-                {
-                    this.currentKey = Keys.D1;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 1;
-                    }
-                    else
-                    {
-                        this.DateGo(1);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.D2))
-                {
-                    this.currentKey = Keys.D2;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 2;
-                    }
-                    else
-                    {
-                        this.DateGo(2);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.D3))
-                {
-                    this.currentKey = Keys.D3;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 3;
-                    }
-                    else
-                    {
-                        this.DateGo(3);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.D4))
-                {
-                    this.currentKey = Keys.D4;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 4;
-                    }
-                    else
-                    {
-                        this.DateGo(4);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.D5))
-                {
-                    this.currentKey = Keys.D5;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 5;
-                    }
-                    else
-                    {
-                        this.DateGo(5);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.D6))
-                {
-                    this.currentKey = Keys.D6;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 6;
-                    }
-                    else
-                    {
-                        this.DateGo(6);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.D7))
-                {
-                    this.currentKey = Keys.D7;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 7;
-                    }
-                    else
-                    {
-                        this.DateGo(7);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.D8))
-                {
-                    this.currentKey = Keys.D8;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 8;
-                    }
-                    else
-                    {
-                        this.DateGo(8);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.D9))
-                {
-                    this.currentKey = Keys.D9;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 9;
-                    }
-                    else
-                    {
-                        this.DateGo(9);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.D0))
-                {
-                    this.currentKey = Keys.D0;
-                    if (this.editMode)
-                    {
-                        this.ditukuaidezhi = 10;
-                    }
-                    else
-                    {
-                        this.DateGo(10);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.F1))
-                {
-                    this.currentKey = Keys.F1;
-                    if (!this.editMode)
-                    {
-                        this.DateGo(30);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.F2))
-                {
-                    this.currentKey = Keys.F2;
-                    if (!this.editMode)
-                    {
-                        this.DateGo(60);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.F3))
-                {
-                    this.currentKey = Keys.F3;
-                    if (!this.editMode)
-                    {
-                        this.DateGo(90);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.F5))
-                {
-                    this.currentKey = Keys.F5;
-                    if (!this.editMode)
-                    {
-                        this.DateGo(-999);
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.W))
-                {
-                    this.currentKey = Keys.W;
-                    GlobalVariables.ShowGrid = !GlobalVariables.ShowGrid;
-                }
-                else if (this.keyState.IsKeyDown(Keys.OemPlus) || this.keyState.IsKeyDown(Keys.Add))
-                {
-                    this.currentKey = Keys.OemPlus;
-                }
-                else if (this.keyState.IsKeyDown(Keys.OemMinus) || this.keyState.IsKeyDown(Keys.Subtract))
-                {
-                    this.currentKey = Keys.OemMinus;
-                }
-                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.C) && GlobalVariables.EnableCheat)
-                {
-                    this.currentKey = Keys.C;
-                    if (!this.editMode)
-                    {
-                        changeFaction();
-                    }
-                }
-                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.E) && GlobalVariables.EnableCheat)
-                {
-                    this.currentKey = Keys.E;
-                    this.editMode = true;
-                    this.mainMapLayer.xianshidituxiaokuai = true;
-                    this.Plugins.youcelanPlugin.IsShowing = false;
-                    this.mapEdited = true;
-                }
-                else if (this.keyState.IsKeyDown(Keys.LeftAlt) && this.keyState.IsKeyDown(Keys.Q) && GlobalVariables.EnableCheat)
-                {
-                    this.currentKey = Keys.Q;
-                    this.editMode = false;
-                    this.mainMapLayer.xianshidituxiaokuai = false;
-                    this.Plugins.youcelanPlugin.IsShowing = true;
-                }
-                else if (this.keyState.IsKeyDown(Keys.T))
-                {
-                    this.currentKey = Keys.T;
-                    if (this.editMode)
-                    {
-                        this.mainMapLayer.xianshidituxiaokuai = !this.mainMapLayer.xianshidituxiaokuai;
-                    }
-
-
-                }
-            }
-            if (this.keyState.IsKeyDown(Keys.Space))
-            {
-
-                this.currentKey = Keys.Space;
-                if (!this.editMode)
-                {
-                    this.Plugins.DateRunnerPlugin.Run();
-                }
-            }
-
-        }
 
         public void changeFaction()
         {
@@ -2016,7 +1796,24 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        internal void ShowMapViewSelector(bool multiSelecting, GameObjectList gameObjectList)
+        public void SetTabListInFrame(UndoneWorkKind undoneWork, FrameKind kind, FrameFunction function, bool OKEnabled, bool CancelEnabled, bool showCheckBox, bool multiselecting, GameObjectList gameObjectList, GameObjectList selectedObjectList, string title, string tabName)
+        {
+            if ((gameObjectList != null) && (gameObjectList.Count != 0))
+            {
+                this.Plugins.GameFramePlugin.Kind = kind;
+                this.Plugins.GameFramePlugin.Function = function;
+                this.Plugins.TabListPlugin.InitialValues(gameObjectList, selectedObjectList, this.mouseState.ScrollWheelValue, title);
+                this.Plugins.TabListPlugin.SetListKindByName(kind.ToString(), showCheckBox, multiselecting);
+                this.Plugins.TabListPlugin.SetSelectedTab(tabName);
+                this.Plugins.GameFramePlugin.SetFrameContent(this.Plugins.TabListPlugin.TabList, base.viewportSize);
+
+                this.Plugins.GameFramePlugin.OKButtonEnabled = OKEnabled;
+                this.Plugins.GameFramePlugin.CancelButtonEnabled = CancelEnabled;
+                //this.Plugins.GameFramePlugin.IsShowing = true;
+            }
+        }
+
+        internal void ShowMapViewSelector(bool multiSelecting, GameObjectList gameObjectList, GameDelegates.VoidFunction function, MapViewSelectorKind mapViewSelectorKind)
         {
                         this.Plugins.MapViewSelectorPlugin.SetMultiSelecting(multiSelecting);
                         this.Plugins.MapViewSelectorPlugin.SetGameObjectList(gameObjectList);
@@ -2025,6 +1822,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             //this.firstTimeMapViewSelector = false;
                             this.Plugins.MapViewSelectorPlugin.SetMapPosition(ShowPosition.Center);
                         }
+                        this.Plugins.MapViewSelectorPlugin.SetOKFunction(function);
+                        this.Plugins.MapViewSelectorPlugin.Kind =mapViewSelectorKind;
+                        //this.Plugins.MapViewSelectorPlugin.SetTabList(this.Plugins.TabListPlugin);
                         this.Plugins.MapViewSelectorPlugin.IsShowing = true;
         }
         
