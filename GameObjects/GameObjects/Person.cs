@@ -6128,13 +6128,13 @@
 
             r.Qualification = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.Qualification : mother.Qualification) : (PersonQualification)GameObject.Random(Enum.GetNames(typeof(PersonQualification)).Length);
 
-            r.Braveness = (GameObject.Chance(50) ? father.Braveness : mother.Braveness) + GameObject.Random(5) - 2;
-            if (r.Braveness < 1) r.Braveness = 1;
-            if (r.Braveness > 10 && !GlobalVariables.createChildrenIgnoreLimit) r.Braveness = 10;
+            r.Braveness = (GameObject.Chance(50) ? father.BaseBraveness : mother.BaseBraveness) + GameObject.Random(5) - 2;
+            if (r.BaseBraveness < 1) r.Braveness = 1;
+            if (r.BaseBraveness > 10 && !GlobalVariables.createChildrenIgnoreLimit) r.Braveness = 10;
 
-            r.Calmness = (GameObject.Chance(50) ? father.Calmness : mother.Calmness) + GameObject.Random(5) - 2;
-            if (r.Calmness < 1) r.Calmness = 1;
-            if (r.Calmness > 10 && !GlobalVariables.createChildrenIgnoreLimit) r.Calmness = 10;
+            r.Calmness = (GameObject.Chance(50) ? father.BaseCalmness : mother.BaseCalmness) + GameObject.Random(5) - 2;
+            if (r.BaseCalmness < 1) r.Calmness = 1;
+            if (r.BaseCalmness > 10 && !GlobalVariables.createChildrenIgnoreLimit) r.Calmness = 10;
 
             r.ValuationOnGovernment = (GameObject.Chance(50) ? father.ValuationOnGovernment : mother.ValuationOnGovernment);
 
