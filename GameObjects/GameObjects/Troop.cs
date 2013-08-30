@@ -7782,6 +7782,7 @@
                             break;
                     }
                 }
+                this.antiCriticalStrikeChance += this.BelongedFaction.AntiCriticalOfMillitaryType[(int)this.Army.Kind.Type];
             }
         }
 
@@ -7793,6 +7794,7 @@
             {
                 this.antiStratagemChanceIncrement += this.BelongedFaction.IncrementOfResistStratagemChance;
             }
+            this.antiStratagemChanceIncrement += this.BelongedFaction.AntiStratagemOfMillitaryType[(int)this.Army.Kind.Type];
         }
 
         private void RefreshAvoidSurroundedChance()
@@ -7849,6 +7851,7 @@
                             break;
                     }
                 }
+                this.criticalStrikeChance += this.BelongedFaction.CriticalOfMillitaryType[(int) this.Army.Kind.Type];
             }
         }
 
@@ -8102,6 +8105,7 @@
             {
                 this.stratagemChanceIncrement += this.BelongedFaction.IncrementOfStratagemSuccessChance;
             }
+            this.stratagemChanceIncrement += this.BelongedFaction.StratagemOfMillitaryType[(int)this.Army.Kind.Type];
         }
 
         public void RefreshTerrainRelatedData()
@@ -10031,7 +10035,8 @@
         {
             get
             {
-                return this.Army.Kind.ArchitectureDamageRate;
+                return this.Army.Kind.ArchitectureDamageRate * 
+                    (this.BelongedFaction == null ? 1 : this.BelongedFaction.ArchitectureDamageOfMillitaryType[(int) this.Army.Kind.ID]);
             }
         }
 
@@ -11480,7 +11485,8 @@
         {
             get
             {
-                return (int) ((this.Army.Kind.Movability + this.IncrementOfMovability) * this.RateOfMovability);
+                return (int) ((this.Army.Kind.Movability + this.IncrementOfMovability) * this.RateOfMovability * 
+                    (this.BelongedFaction == null ? 1 : this.BelongedFaction.SpeedOfMillitaryType[(int) this.Army.Kind.ID]));
             }
         }
 
@@ -12003,7 +12009,8 @@
             {
                 if (this.BelongedFaction != null)
                 {
-                    return (this.Army.Kind.ViewRadius + this.BelongedFaction.IncrementOfViewRadius);
+                    return (this.Army.Kind.ViewRadius + this.BelongedFaction.IncrementOfViewRadius 
+                        + this.BelongedFaction.ViewAreaOfMillitaryType[(int) this.Army.Kind.ID]);
                 }
                 return this.Army.Kind.ViewRadius;
             }

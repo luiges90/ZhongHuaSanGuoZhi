@@ -143,6 +143,14 @@
         public List<float> techniqueTimeRateDecrease = new List<float>();
         public List<float> techniqueFundCostRateDecrease = new List<float>();
 
+        public int[] CriticalOfMillitaryType = new int[5];
+        public int[] AntiCriticalOfMillitaryType = new int[5];
+        public float[] ArchitectureDamageOfMillitaryType = {1f, 1f, 1f, 1f, 1f};
+        public float[] SpeedOfMillitaryType = {1f, 1f, 1f, 1f, 1f};
+        public int[] ViewAreaOfMillitaryType = new int[5];
+        public int[] StratagemOfMillitaryType = new int[5];
+        public int[] AntiStratagemOfMillitaryType = new int[5];
+
         public event AfterCatchLeader OnAfterCatchLeader;
 
         public event FactionDestroy OnFactionDestroy;
