@@ -7793,8 +7793,8 @@
             if (this.BelongedFaction != null)
             {
                 this.antiStratagemChanceIncrement += this.BelongedFaction.IncrementOfResistStratagemChance;
+                this.antiStratagemChanceIncrement += this.BelongedFaction.AntiStratagemOfMillitaryType[(int)this.Army.Kind.Type];
             }
-            this.antiStratagemChanceIncrement += this.BelongedFaction.AntiStratagemOfMillitaryType[(int)this.Army.Kind.Type];
         }
 
         private void RefreshAvoidSurroundedChance()
@@ -8104,8 +8104,8 @@
             if (this.BelongedFaction != null)
             {
                 this.stratagemChanceIncrement += this.BelongedFaction.IncrementOfStratagemSuccessChance;
+                this.stratagemChanceIncrement += this.BelongedFaction.StratagemOfMillitaryType[(int)this.Army.Kind.Type];
             }
-            this.stratagemChanceIncrement += this.BelongedFaction.StratagemOfMillitaryType[(int)this.Army.Kind.Type];
         }
 
         public void RefreshTerrainRelatedData()
