@@ -235,6 +235,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
             this.tabPageBasic = new System.Windows.Forms.TabPage();
+            this.cbCreateChildren = new System.Windows.Forms.CheckBox();
             this.tbGetChildrenRate = new System.Windows.Forms.TextBox();
             this.getChildrenRateLabel = new System.Windows.Forms.Label();
             this.cbEnableAgeAbilityFactor = new System.Windows.Forms.CheckBox();
@@ -258,6 +259,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbPermitFactionMerge = new System.Windows.Forms.CheckBox();
             this.cbMilitaryKindSpeedValid = new System.Windows.Forms.CheckBox();
             this.cbPopulationRecruitmentLimit = new System.Windows.Forms.CheckBox();
+            this.cbMultipleResource = new System.Windows.Forms.CheckBox();
             this.cbSkyEye = new System.Windows.Forms.CheckBox();
             this.zainanbiaoqian = new System.Windows.Forms.Label();
             this.zainanfashengjilv = new System.Windows.Forms.TextBox();
@@ -409,8 +411,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.cbMultipleResource = new System.Windows.Forms.CheckBox();
-            this.cbCreateChildren = new System.Windows.Forms.CheckBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -467,6 +467,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageBasic.TabIndex = 4;
             this.tabPageBasic.Text = "基本";
             this.tabPageBasic.UseVisualStyleBackColor = true;
+            // 
+            // cbCreateChildren
+            // 
+            this.cbCreateChildren.AutoSize = true;
+            this.cbCreateChildren.Location = new System.Drawing.Point(13, 321);
+            this.cbCreateChildren.Name = "cbCreateChildren";
+            this.cbCreateChildren.Size = new System.Drawing.Size(96, 16);
+            this.cbCreateChildren.TabIndex = 135;
+            this.cbCreateChildren.Text = "生成虚拟子嗣";
             // 
             // tbGetChildrenRate
             // 
@@ -628,6 +637,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.rbVeryhard.TabStop = true;
             this.rbVeryhard.Text = "修罗";
             this.rbVeryhard.UseVisualStyleBackColor = true;
+            this.rbVeryhard.CheckedChanged += new System.EventHandler(this.veryhardSelected);
             // 
             // rbHard
             // 
@@ -639,6 +649,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.rbHard.TabStop = true;
             this.rbHard.Text = "超级";
             this.rbHard.UseVisualStyleBackColor = true;
+            this.rbHard.CheckedChanged += new System.EventHandler(this.hardSelected);
             // 
             // rbNormal
             // 
@@ -650,6 +661,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.rbNormal.TabStop = true;
             this.rbNormal.Text = "上级";
             this.rbNormal.UseVisualStyleBackColor = true;
+            this.rbNormal.CheckedChanged += new System.EventHandler(this.normalSelected);
             // 
             // rbEasy
             // 
@@ -661,6 +673,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.rbEasy.TabStop = true;
             this.rbEasy.Text = "初级";
             this.rbEasy.UseVisualStyleBackColor = true;
+            this.rbEasy.CheckedChanged += new System.EventHandler(this.easySelected);
             // 
             // rbBeginner
             // 
@@ -672,6 +685,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.rbBeginner.TabStop = true;
             this.rbBeginner.Text = "入门";
             this.rbBeginner.UseVisualStyleBackColor = true;
+            this.rbBeginner.CheckedChanged += new System.EventHandler(this.beginnerSelected);
             // 
             // cbPermitFactionMerge
             // 
@@ -702,6 +716,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbPopulationRecruitmentLimit.TabIndex = 118;
             this.cbPopulationRecruitmentLimit.Text = "人口小于兵力时禁止征兵";
             this.cbPopulationRecruitmentLimit.UseVisualStyleBackColor = true;
+            // 
+            // cbMultipleResource
+            // 
+            this.cbMultipleResource.AutoSize = true;
+            this.cbMultipleResource.Location = new System.Drawing.Point(13, 233);
+            this.cbMultipleResource.Name = "cbMultipleResource";
+            this.cbMultipleResource.Size = new System.Drawing.Size(96, 16);
+            this.cbMultipleResource.TabIndex = 115;
+            this.cbMultipleResource.Text = "资源收入加倍";
+            this.cbMultipleResource.UseVisualStyleBackColor = true;
             // 
             // cbSkyEye
             // 
@@ -755,7 +779,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageEnvironment.Location = new System.Drawing.Point(4, 22);
             this.tabPageEnvironment.Name = "tabPageEnvironment";
             this.tabPageEnvironment.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPageEnvironment.Size = new System.Drawing.Size(446, 422);
+            this.tabPageEnvironment.Size = new System.Drawing.Size(445, 422);
             this.tabPageEnvironment.TabIndex = 0;
             this.tabPageEnvironment.Text = "环境";
             this.tabPageEnvironment.UseVisualStyleBackColor = true;
@@ -988,7 +1012,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.Location = new System.Drawing.Point(4, 22);
             this.tabPagePerson.Name = "tabPagePerson";
             this.tabPagePerson.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPagePerson.Size = new System.Drawing.Size(446, 422);
+            this.tabPagePerson.Size = new System.Drawing.Size(445, 422);
             this.tabPagePerson.TabIndex = 1;
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
@@ -1837,7 +1861,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.Location = new System.Drawing.Point(4, 22);
             this.tabPageAIParameter.Name = "tabPageAIParameter";
             this.tabPageAIParameter.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPageAIParameter.Size = new System.Drawing.Size(446, 422);
+            this.tabPageAIParameter.Size = new System.Drawing.Size(445, 422);
             this.tabPageAIParameter.TabIndex = 3;
             this.tabPageAIParameter.Text = "电脑";
             this.tabPageAIParameter.UseVisualStyleBackColor = true;
@@ -2143,25 +2167,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // cbMultipleResource
-            // 
-            this.cbMultipleResource.AutoSize = true;
-            this.cbMultipleResource.Location = new System.Drawing.Point(13, 233);
-            this.cbMultipleResource.Name = "cbMultipleResource";
-            this.cbMultipleResource.Size = new System.Drawing.Size(96, 16);
-            this.cbMultipleResource.TabIndex = 115;
-            this.cbMultipleResource.Text = "资源收入加倍";
-            this.cbMultipleResource.UseVisualStyleBackColor = true;
-            // 
-            // cbCreateChildren
-            // 
-            this.cbCreateChildren.AutoSize = true;
-            this.cbCreateChildren.Location = new System.Drawing.Point(13, 321);
-            this.cbCreateChildren.Name = "cbCreateChildren";
-            this.cbCreateChildren.Size = new System.Drawing.Size(96, 16);
-            this.cbCreateChildren.TabIndex = 135;
-            this.cbCreateChildren.Text = "生成虚拟子嗣";
             // 
             // formOptions
             // 
