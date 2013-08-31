@@ -10036,7 +10036,7 @@
             get
             {
                 return this.Army.Kind.ArchitectureDamageRate * 
-                    (this.BelongedFaction == null ? 1 : this.BelongedFaction.ArchitectureDamageOfMillitaryType[(int) this.Army.Kind.ID]);
+                    (this.BelongedFaction == null ? 1 : this.BelongedFaction.ArchitectureDamageOfMillitaryType[(int) this.Army.Kind.Type]);
             }
         }
 
@@ -11486,7 +11486,7 @@
             get
             {
                 return (int) ((this.Army.Kind.Movability + this.IncrementOfMovability) * this.RateOfMovability * 
-                    (this.BelongedFaction == null ? 1 : this.BelongedFaction.SpeedOfMillitaryType[(int) this.Army.Kind.ID]));
+                    (this.BelongedFaction == null ? 1 : this.BelongedFaction.SpeedOfMillitaryType[(int) this.Army.Kind.Type]));
             }
         }
 
@@ -12010,7 +12010,7 @@
                 if (this.BelongedFaction != null)
                 {
                     return (this.Army.Kind.ViewRadius + this.BelongedFaction.IncrementOfViewRadius 
-                        + this.BelongedFaction.ViewAreaOfMillitaryType[(int) this.Army.Kind.ID]);
+                        + this.BelongedFaction.ViewAreaOfMillitaryType[(int) this.Army.Kind.Type]);
                 }
                 return this.Army.Kind.ViewRadius;
             }
