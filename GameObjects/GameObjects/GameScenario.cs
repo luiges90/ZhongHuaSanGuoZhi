@@ -3385,7 +3385,7 @@
             {
                 architecture.MonthEvent();
             }
-            /*foreach (MilitaryKind kind in this.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values)
+            foreach (MilitaryKind kind in this.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values)
             {
                 bool flag = true;
                 foreach (Troop troop in this.Troops)
@@ -3400,7 +3400,7 @@
                 {
                     kind.Textures.Dispose();
                 }
-            }*/
+            }
         }
 
         public void MonthStartingEvent()
