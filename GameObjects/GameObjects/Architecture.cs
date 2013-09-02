@@ -1442,7 +1442,7 @@
                     {
                         p.WaitForFeiZi = null;
                         p.MoveToArchitecture(dest);
-                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal)
+                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction)
                         {
                             p.MoveToArchitecture(dest);
                         }
@@ -1560,7 +1560,7 @@
                                             p.MoveToArchitecture(dest);
                                             moved++;
                                             everMoved = true;
-                                            if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal)
+                                            if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction)
                                             {
                                                 p.MoveToArchitecture(dest);
                                             }
