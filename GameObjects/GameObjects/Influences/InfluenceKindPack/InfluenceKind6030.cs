@@ -10,10 +10,7 @@
 
         public override void ApplyInfluenceKind(Person person)
         {
-            if (this.increment > person.InfluenceIncrementOfPolitics)
-            {
-                person.InfluenceIncrementOfPolitics += this.increment;
-            }
+            person.InfluenceIncrementOfPolitics += this.increment;
         }
 
         public override void PurifyInfluenceKind(Person person)
