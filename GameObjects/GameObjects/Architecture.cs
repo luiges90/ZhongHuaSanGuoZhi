@@ -1442,6 +1442,10 @@
                     {
                         p.WaitForFeiZi = null;
                         p.MoveToArchitecture(dest);
+                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal)
+                        {
+                            p.MoveToArchitecture(dest);
+                        }
                     }
                     num2++;
                 }
@@ -1556,6 +1560,10 @@
                                             p.MoveToArchitecture(dest);
                                             moved++;
                                             everMoved = true;
+                                            if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal)
+                                            {
+                                                p.MoveToArchitecture(dest);
+                                            }
                                         }
                                     }
                                 }
