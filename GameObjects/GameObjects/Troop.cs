@@ -7382,7 +7382,12 @@
                     {
                         this.OnOccupyArchitecture(this, currentArchitecture);
                     }
-                     
+
+                    foreach (Person p in currentArchitecture.Feiziliebiao)
+                    {
+                        p.Status = PersonStatus.Normal;
+                        p.InitialLoyalty();
+                    }
                 }
 				ExtensionInterface.call("Occupy", new Object[] { this.Scenario, this, currentArchitecture });
             }
