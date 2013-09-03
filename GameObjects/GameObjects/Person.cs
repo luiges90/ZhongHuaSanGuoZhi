@@ -3791,7 +3791,7 @@
 
                 if (this.huaiyun && this.huaiyuntianshu > 240)
                 {
-                    factor *= (320 - this.huaiyuntianshu) / 80.0f + 0.5f;
+                    factor *= (320 - this.huaiyuntianshu) / 160.0f + 0.5f;
                 }
 
                 return factor;
