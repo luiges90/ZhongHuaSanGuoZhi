@@ -3778,9 +3778,23 @@
             get
             {
                 if (!GlobalVariables.EnableAgeAbilityFactor) return 1;
-                if (this.Age >= 15) return 1;
-                if (this.Age < 0) return 0.1f;
-                return AGE_FACTORS[this.Age];
+
+                float factor = 1;
+                if (this.Age < 0)
+                {
+                    factor = AGE_FACTORS[0];
+                }
+                else if (this.Age < 15)
+                {
+                    factor = AGE_FACTORS[this.Age];
+                }
+
+                if (this.huaiyun && this.huaiyuntianshu > 240)
+                {
+                    factor *= (320 - this.huaiyuntianshu) / 80.0f + 0.5f;
+                }
+
+                return factor;
             }
         }
 
