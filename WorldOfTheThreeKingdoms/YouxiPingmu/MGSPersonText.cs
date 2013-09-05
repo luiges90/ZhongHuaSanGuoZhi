@@ -698,15 +698,28 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        public override void PersonDeath(Person person, Architecture location)
+        public override void PersonDeath(Person person, Architecture location, Troop troopLocation)
         {
-            location.TextDestinationString = person.Name;
-            this.Plugins.GameRecordPlugin.AddBranch(location, "PersonDeath", location.Position);
+            if (location != null)
+            {
+                location.TextDestinationString = person.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(location, "PersonDeath", location.Position);
+            }
+            else if (troopLocation != null)
+            {
+                troopLocation.TextDestinationString = person.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(troopLocation, "PersonDeath", troopLocation.Position);
+            }
+            else
+            {
+                return;
+            }
+
             Person neutralPerson;
             neutralPerson = this.getNeutralPerson();
 
-            this.xianshishijiantupian(neutralPerson, person.Name, "renwusiwang", person.ID.ToString() , "renwusiwang.wav",location.Name ,true);
-
+            this.xianshishijiantupian(neutralPerson, person.Name, "renwusiwang", person.ID.ToString() , "renwusiwang.wav", 
+                location == null ? troopLocation.Name : location.Name, true);
         }
 
         public override void PersonDeathInChallenge(Person person, Troop troop)

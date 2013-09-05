@@ -919,10 +919,61 @@
             }
         }
 
+        private int ClosePersonKilledReaction
+        {
+            get
+            {
+                int[] reaction = { 0, 2, 4, 3, 1 };
+                if (this.PersonalLoyalty < 0) return reaction[0];
+                if (this.PersonalLoyalty > 4) return reaction[4];
+
+                return reaction[this.PersonalLoyalty];
+            }
+        }
+
+        public void KilledInBattle(Troop killer)
+        {
+            Person kill;
+            if (GameObject.Chance(70))
+            {
+                kill = killer.Leader;
+            }
+            else
+            {
+                kill = killer.Persons.GetMaxStrengthPerson();
+            }
+
+            foreach (Person p in base.Scenario.Persons)
+            {
+                if (p == this) continue;
+                if (p.hasCloseStrainTo(this))
+                {
+                    if (!p.HatedPersons.Contains(kill.ID) && GameObject.Chance(this.ClosePersonKilledReaction * 25))
+                    {
+                        p.HatedPersons.Add(kill.ID);
+                    }
+                    foreach (Person q in base.Scenario.Persons)
+                    {
+                        if (p == q || q == this || q == kill) continue;
+                        if (GameObject.Chance(this.ClosePersonKilledReaction * 10)) continue;
+                        if (q.hasCloseStrainTo(kill))
+                        {
+                            if (!p.HatedPersons.Contains(q.ID))
+                            {
+                                p.HatedPersons.Add(q.ID);
+                            }
+                        }
+                    }
+                }
+            }
+
+            this.ToDeath();
+        }
+
         public void ToDeath()
         {
             Architecture locationArchitecture;
-            Troop locationTroop=new Troop();
+            Troop locationTroop = null;
             GameObjects.Faction belongedFaction = this.BelongedFaction;
             int deathLocation = 0;
             if (this.LocationTroop != null)
@@ -956,7 +1007,11 @@
             this.Status = PersonStatus.None;
             if (this.OnDeath != null && locationArchitecture != null && deathLocation == 1)
             {
-                this.OnDeath(this, locationArchitecture);
+                this.OnDeath(this, locationArchitecture, null);
+            }
+            else if (this.OnDeath != null && locationTroop != null && deathLocation == 2)
+            {
+                this.OnDeath(this, null, locationTroop);
             }
 
             if (belongedFaction != null && this == belongedFaction.Leader)
@@ -2878,7 +2933,7 @@
                     foreach (Person q in base.Scenario.Persons)
                     {
                         if (p == q || q == this || q == executor) continue;
-                        if (GameObject.Chance((int)p.PersonalLoyalty * 25)) continue;
+                        if (GameObject.Chance(p.ClosePersonKilledReaction * 25)) continue;
                         if (q.hasCloseStrainTo(executor))
                         {
                             if (!p.HatedPersons.Contains(q.ID))
@@ -5896,7 +5951,7 @@
 
         public delegate void JailBreakSuccess(Person source, Captive destination);
 
-        public delegate void Death(Person person, Architecture location);
+        public delegate void Death(Person person, Architecture location, Troop locationTroop);
 
         public delegate void DeathChangeFaction(Person dead, Person leader, string oldName);
 

@@ -5982,7 +5982,7 @@
                     else
                     {
                         int c = GameObject.Random(damage.DestinationTroop.Persons.Count);
-                        (damage.DestinationTroop.Persons[c] as Person).ToDeath();
+                        (damage.DestinationTroop.Persons[c] as Person).KilledInBattle(damage.SourceTroop);
                     }
                 }
 
@@ -8807,7 +8807,20 @@
             return damage;
         }
 
-
+        public string Name
+        {
+            get
+            {
+                if (this.Leader != null)
+                {
+                    return this.Leader.Name + "队";
+                }
+                else
+                {
+                    return "某部队";
+                }
+            }
+        }
 
         public void SetAmbush()
         {

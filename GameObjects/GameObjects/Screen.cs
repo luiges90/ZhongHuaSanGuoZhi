@@ -366,7 +366,7 @@
         {
         }
 
-        public virtual void PersonDeath(Person person, Architecture location)
+        public virtual void PersonDeath(Person person, Architecture location, Troop troopLocation)
         {
         }
 
