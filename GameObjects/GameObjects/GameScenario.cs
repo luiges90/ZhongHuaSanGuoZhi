@@ -2622,13 +2622,20 @@
                 (this.Persons.GetGameObject(i.Key) as Person).Brother = this.Persons.GetGameObject(i.Value) as Person;
             }
             DbConnection.Open();
-            reader = new OleDbCommand("Select * From PersonRelation", DbConnection).ExecuteReader();
-            while (reader.Read())
+            try
             {
-                Person person1 = this.Persons.GetGameObject((short)reader["Person1"]) as Person;
-                Person person2 = this.Persons.GetGameObject((short)reader["Person2"]) as Person;
-                int relation = (int)reader["Relation"];
-                this.PersonRelation.Add(new KeyValuePair<Person, Person>(person1, person2), relation);
+                reader = new OleDbCommand("Select * From PersonRelation", DbConnection).ExecuteReader();
+                while (reader.Read())
+                {
+                    Person person1 = this.Persons.GetGameObject((short)reader["Person1"]) as Person;
+                    Person person2 = this.Persons.GetGameObject((short)reader["Person2"]) as Person;
+                    int relation = (int)reader["Relation"];
+                    this.PersonRelation.Add(new KeyValuePair<Person, Person>(person1, person2), relation);
+                }
+            }
+            catch (OleDbException)
+            {
+                //ignore
             }
             DbConnection.Close();
             DbConnection.Open();
@@ -4202,23 +4209,30 @@
                 }
                 adapter.Update(dataSet, "Person");
                 dataSet.Clear();
-                new OleDbCommand("Delete from PersonRelation", selectConnection).ExecuteNonQuery();
-                adapter = new OleDbDataAdapter("Select * from PersonRelation", selectConnection);
-                builder = new OleDbCommandBuilder(adapter);
-                adapter.Fill(dataSet, "PersonRelation");
-                dataSet.Tables["PersonRelation"].Rows.Clear();
-                foreach (KeyValuePair<KeyValuePair<Person, Person>, int> i in this.PersonRelation)
+                try
                 {
-                    row = dataSet.Tables["PersonRelation"].NewRow();
-                    row.BeginEdit();
-                    row["Person1"] = i.Key.Key.ID;
-                    row["Person2"] = i.Key.Value.ID;
-                    row["Relation"] = i.Value;
-                    row.EndEdit();
-                    dataSet.Tables["PersonRelation"].Rows.Add(row);
+                    new OleDbCommand("Delete from PersonRelation", selectConnection).ExecuteNonQuery();
+                    adapter = new OleDbDataAdapter("Select * from PersonRelation", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    adapter.Fill(dataSet, "PersonRelation");
+                    dataSet.Tables["PersonRelation"].Rows.Clear();
+                    foreach (KeyValuePair<KeyValuePair<Person, Person>, int> i in this.PersonRelation)
+                    {
+                        row = dataSet.Tables["PersonRelation"].NewRow();
+                        row.BeginEdit();
+                        row["Person1"] = i.Key.Key.ID;
+                        row["Person2"] = i.Key.Value.ID;
+                        row["Relation"] = i.Value;
+                        row.EndEdit();
+                        dataSet.Tables["PersonRelation"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "PersonRelation");
+                    dataSet.Clear();
                 }
-                adapter.Update(dataSet, "PersonRelation");
-                dataSet.Clear();
+                catch (OleDbException)
+                {
+                    //ignore
+                }
                 if (saveMap)
                 {
                     new OleDbCommand("Delete from Region", selectConnection).ExecuteNonQuery();
