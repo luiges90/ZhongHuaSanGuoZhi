@@ -8207,7 +8207,7 @@
             this.StartingArchitecture = startingArchitecture;
             base.ID = iD;
             this.Persons.Clear();
-            if (!personList.HasGameObject(leader))
+            if (!personList.HasGameObject(leader) && personList.Count > 0)
             {
                 if (personList.Count > 1)
                 {
