@@ -69,6 +69,7 @@
         public EventList AllEvents = new EventList();
         public String LoadedFileName;
         public bool UsingOwnCommonData;
+        public Dictionary<KeyValuePair<Person, Person>, int> PersonRelation = new Dictionary<KeyValuePair<Person, Person>, int>();
         
         // 缓存地图上有几支部队在埋伏
         private int numberOfAmbushTroop = -1;
@@ -2621,6 +2622,16 @@
                 (this.Persons.GetGameObject(i.Key) as Person).Brother = this.Persons.GetGameObject(i.Value) as Person;
             }
             DbConnection.Open();
+            reader = new OleDbCommand("Select * From PersonRelation", DbConnection).ExecuteReader();
+            while (reader.Read())
+            {
+                Person person1 = this.Persons.GetGameObject((short)reader["Person1"]) as Person;
+                Person person2 = this.Persons.GetGameObject((short)reader["Person2"]) as Person;
+                int relation = (int)reader["Relation"];
+                this.PersonRelation.Add(new KeyValuePair<Person, Person>(person1, person2), relation);
+            }
+            DbConnection.Close();
+            DbConnection.Open();
             reader = new OleDbCommand("Select * From Captive", DbConnection).ExecuteReader();
             while (reader.Read())
             {
@@ -4190,6 +4201,23 @@
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
                 adapter.Update(dataSet, "Person");
+                dataSet.Clear();
+                new OleDbCommand("Delete from PersonRelation", selectConnection).ExecuteNonQuery();
+                adapter = new OleDbDataAdapter("Select * from PersonRelation", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "PersonRelation");
+                dataSet.Tables["PersonRelation"].Rows.Clear();
+                foreach (KeyValuePair<KeyValuePair<Person, Person>, int> i in this.PersonRelation)
+                {
+                    row = dataSet.Tables["PersonRelation"].NewRow();
+                    row.BeginEdit();
+                    row["Person1"] = i.Key.Key.ID;
+                    row["Person2"] = i.Key.Value.ID;
+                    row["Relation"] = i.Value;
+                    row.EndEdit();
+                    dataSet.Tables["PersonRelation"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "PersonRelation");
                 dataSet.Clear();
                 if (saveMap)
                 {
