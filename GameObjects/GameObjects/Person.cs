@@ -1284,6 +1284,25 @@
 
                 }
             }
+            else if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun && 
+                GameObject.Random((int) (10000.0 / GlobalVariables.getChildrenRate * 20)) == 0 &&
+                (this.Spouse.LocationArchitecture == this.LocationArchitecture || this.Spouse.LocationTroop == this.LocationTroop) &&
+                this.Status == PersonStatus.Normal && this.Spouse.Status == PersonStatus.Normal &&
+                this.isLegalFeiZi(this.Spouse) && this.Spouse.isLegalFeiZi(this))
+            {
+                this.suoshurenwu = this.Spouse.ID;
+                this.Spouse.suoshurenwu = this.ID;
+                if (this.Sex)
+                {
+                    this.huaiyun = true;
+                    this.huaiyuntianshu = 0;
+                }
+                else
+                {
+                    this.Spouse.huaiyun = true;
+                    this.Spouse.huaiyuntianshu = 0;
+                }
+            }
         }
 
 
