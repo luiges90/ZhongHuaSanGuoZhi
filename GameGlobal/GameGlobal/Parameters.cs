@@ -113,7 +113,7 @@
         public static int FireStayProb = 20;
         public static float FireSpreadProbMultiply = 1f;
 
-        public static int MinPregnantProb = 2;
+        public static int MinPregnantProb = 0;
 
         public static float InternalExperienceRate = 1f;
         public static float AbilityExperienceRate = 1f;

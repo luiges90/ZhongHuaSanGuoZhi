@@ -6606,7 +6606,32 @@
                 }
                 if (!nvren.HatedPersons.Contains(this.ID) && GlobalVariables.getChildrenRate > 0)
                 {
-                    if ((GameObject.Random(Math.Max((int)((this.NumberOfChildren * (GlobalVariables.PersonNaturalDeath ? 1 : 0) + 2) / 2.0 * (10000.0 / GlobalVariables.getChildrenRate) / houGongDays), Parameters.MinPregnantProb)) == 0 ||
+                    float extraRate = 1;
+                    if (this.ClosePersons.Contains(nvren.ID))
+                    {
+                        extraRate += 0.2f;
+                    }
+                    if (nvren.ClosePersons.Contains(this.ID))
+                    {
+                        extraRate += 0.2f;
+                    }
+                    if (nvren.Ideal == this.Ideal)
+                    {
+                        extraRate += 0.2f;
+                    }
+                    if (this.Spouse == nvren)
+                    {
+                        extraRate += 1.6f;
+                    }
+
+                    float pregnantChance = GlobalVariables.getChildrenRate / 100.0f;
+                    if (GlobalVariables.PersonNaturalDeath)
+                    {
+                        pregnantChance /= this.NumberOfChildren;
+                    }
+                    pregnantChance *= houGongDays * extraRate;
+
+                    if ((GameObject.Chance(Math.Max((int)pregnantChance, Parameters.MinPregnantProb)) ||
                         GameObject.Chance(this.pregnantChance) || GameObject.Chance(nvren.pregnantChance))
                         && !nvren.huaiyun && !this.huaiyun && this.isLegalFeiZi(nvren) &&
                         (this.LocationArchitecture.BelongedFaction.Leader.meichushengdehaiziliebiao().Count - this.LocationArchitecture.yihuaiyundefeiziliebiao().Count > 0 || GlobalVariables.createChildren))
