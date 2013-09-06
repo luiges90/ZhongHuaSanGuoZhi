@@ -561,6 +561,22 @@
     <Leaf Text="狗贼，竟敢夺我妻室！我与你势不两立！" Color="4294967295"></Leaf>
 
   </Branch>
+  <Branch Name="selfFoundPregnant">
+
+
+    <Leaf Text="有好消息，我" Color="4294967295"></Leaf>
+    <Leaf Text="怀孕" Color="4286644223"></Leaf>
+    <Leaf Text="了。" Color="4294967295"></Leaf>
+
+  </Branch>
+  <Branch Name="coupleFoundPregnant">
+
+
+    <Leaf Text="告诉将军一个好消息，我" Color="4294967295"></Leaf>
+    <Leaf Text="怀孕" Color="4286644223"></Leaf>
+    <Leaf Text="了。" Color="4294967295"></Leaf>
+
+  </Branch>
   <Branch Name="faxianhuaiyun">
 
 

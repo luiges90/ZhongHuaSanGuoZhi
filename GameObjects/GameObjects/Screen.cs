@@ -806,6 +806,14 @@
 
         public delegate void MouseScroll(Point position, int scrollValue);
 
+        public virtual void selfFoundPregnant(Person person)
+        {
+        }
+
+        public virtual void coupleFoundPregnant(Person person)
+        {
+        }
+
         public virtual void faxianhuaiyun(Person person)
         {
         }

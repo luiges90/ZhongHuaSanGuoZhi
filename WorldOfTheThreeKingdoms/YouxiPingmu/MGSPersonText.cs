@@ -334,6 +334,34 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void selfFoundPregnant(Person person)
+        {
+            if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
+                    base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
+            {
+                //person.TextResultString = t.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(person, person, "selfFoundPregnant");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+
+
+            }
+        }
+
+        public override void coupleFoundPregnant(Person person)
+        {
+            if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
+                    base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
+            {
+                //person.TextResultString = t.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(person, person, "coupleFoundPregnant");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+
+
+            }
+        }
+
         public override void faxianhuaiyun(Person person)
         {
             if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null && 

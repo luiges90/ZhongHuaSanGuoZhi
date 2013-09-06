@@ -1230,10 +1230,18 @@
                     this.faxianhuaiyun = true;
                     if (this.BelongedFaction != null && this == this.BelongedFaction.Leader)  //女君主自己怀孕
                     {
+                        this.Scenario.GameScreen.selfFoundPregnant(this);
                     }
                     else 
                     {
-                        this.Scenario.GameScreen.faxianhuaiyun(this);
+                        if (this.Status == PersonStatus.Princess)
+                        {
+                            this.Scenario.GameScreen.faxianhuaiyun(this);
+                        }
+                        else
+                        {
+                            this.Scenario.GameScreen.coupleFoundPregnant(this);
+                        }
                     }
                 }
                 else if (GameObject.Chance((this.huaiyuntianshu - 290) * 5))
