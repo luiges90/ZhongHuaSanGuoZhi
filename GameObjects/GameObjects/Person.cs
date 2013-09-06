@@ -1292,12 +1292,8 @@
 
                 }
             }
-        }
-
-        private void CouplePregnant()
-        {
-            if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun &&
-                GameObject.Random((int)(300.0 / GlobalVariables.getChildrenRate * 20)) == 0 &&
+            else if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun && 
+                GameObject.Random((int) (10000.0 / GlobalVariables.getChildrenRate * 20)) == 0 &&
                 (this.LocationArchitecture != null && this.Spouse.LocationArchitecture == this.LocationArchitecture || 
                     (this.LocationTroop != null && this.Spouse.LocationTroop == this.LocationTroop)) &&
                 this.Status == PersonStatus.Normal && this.Spouse.Status == PersonStatus.Normal &&
@@ -1308,15 +1304,17 @@
                 if (this.Sex)
                 {
                     this.huaiyun = true;
-                    this.huaiyuntianshu = -GameObject.Random(30);
+                    this.huaiyuntianshu = 0;
                 }
                 else
                 {
                     this.Spouse.huaiyun = true;
-                    this.Spouse.huaiyuntianshu = -GameObject.Random(30);
+                    this.Spouse.huaiyuntianshu = 0;
                 }
             }
         }
+
+
 
         public int Uncruelty
         {
@@ -3194,7 +3192,6 @@
 
         public void MonthEvent()
         {
-            this.CouplePregnant();
             if ((this.MonthIncrementOfTechniquePoint > 0) && (this.BelongedFaction != null))
             {
                 this.BelongedFaction.IncreaseTechniquePoint(this.MonthIncrementOfTechniquePoint);
