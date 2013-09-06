@@ -6624,15 +6624,15 @@
                         extraRate += 1.6f;
                     }
 
-                    float pregnantChance = GlobalVariables.getChildrenRate / 100.0f;
+                    float pregnantChance = GlobalVariables.getChildrenRate / 200.0f;
                     if (GlobalVariables.PersonNaturalDeath)
                     {
                         pregnantChance /= this.NumberOfChildren;
                     }
                     pregnantChance *= houGongDays * extraRate;
+                    pregnantChance += this.pregnantChance + nvren.pregnantChance;
 
-                    if ((GameObject.Chance(Math.Max((int)pregnantChance, Parameters.MinPregnantProb)) ||
-                        GameObject.Chance(this.pregnantChance) || GameObject.Chance(nvren.pregnantChance))
+                    if (GameObject.Chance(Math.Max((int)pregnantChance, Parameters.MinPregnantProb))
                         && !nvren.huaiyun && !this.huaiyun && this.isLegalFeiZi(nvren) &&
                         (this.LocationArchitecture.BelongedFaction.Leader.meichushengdehaiziliebiao().Count - this.LocationArchitecture.yihuaiyundefeiziliebiao().Count > 0 || GlobalVariables.createChildren))
                     {
