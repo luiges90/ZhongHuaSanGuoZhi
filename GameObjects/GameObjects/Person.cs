@@ -1290,7 +1290,8 @@
         {
             if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun &&
                 GameObject.Random((int)(300.0 / GlobalVariables.getChildrenRate * 20)) == 0 &&
-                (this.Spouse.LocationArchitecture == this.LocationArchitecture || this.Spouse.LocationTroop == this.LocationTroop) &&
+                (this.LocationArchitecture != null && this.Spouse.LocationArchitecture == this.LocationArchitecture || 
+                    (this.LocationTroop != null && this.Spouse.LocationTroop == this.LocationTroop)) &&
                 this.Status == PersonStatus.Normal && this.Spouse.Status == PersonStatus.Normal &&
                 this.isLegalFeiZi(this.Spouse) && this.Spouse.isLegalFeiZi(this))
             {

@@ -2024,7 +2024,7 @@
 
         private void CallRoutewayHelp()
         {
-            if (this.BelongedFaction == null) return;
+            if (this.BelongedFaction == null || this.BelongedLegion == null) return;
             if (!this.IsFriendly(this.BelongedLegion.WillArchitecture.BelongedFaction) && ((this.BelongedLegion.PreferredRouteway != null) && (this.BelongedLegion.PreferredRouteway.BelongedFaction != null)))
             {
                 Architecture destinationArchitecture = this.BelongedLegion.PreferredRouteway.DestinationArchitecture;
@@ -4664,7 +4664,7 @@
         private int GetFoodCredit(Point position)
         {
             bool flag;
-            if (this.BelongedFaction == null || !GlobalVariables.LiangdaoXitong)
+            if (this.BelongedFaction == null || this.BelongedLegion == null || !GlobalVariables.LiangdaoXitong)
             {
                 return 0;
             }
