@@ -3119,10 +3119,10 @@
                     }
                     catch (ArgumentOutOfRangeException) { }
                     this.tbStrain.Text = this.person.Strain.ToString();
-                    this.tbFather.Text = this.person.Father.ToString();
-                    this.tbMother.Text = this.person.Mother.ToString();
-                    this.tbSpouse.Text = this.person.Spouse.ToString();
-                    this.tbBrother.Text = this.person.Brother.ToString();
+                    this.tbFather.Text = this.person.Father != null ? this.person.Father.ID.ToString() : "-1";
+                    this.tbMother.Text = this.person.Mother != null ? this.person.Mother.ID.ToString() : "-1";
+                    this.tbSpouse.Text = this.person.Spouse != null ? this.person.Spouse.ID.ToString() : "-1";
+                    this.tbBrother.Text = this.person.Brother != null ? this.person.Brother.ID.ToString() : "-1";
                     this.tbGeneration.Text = this.person.Generation.ToString();
                     try
                     {
@@ -3282,10 +3282,15 @@
                 p.Loyalty = int.Parse(this.tbLoyalty.Text);
                 p.Character = p.Scenario.GameCommonData.AllCharacterKinds[this.cbCharacter.SelectedIndex];
                 p.Strain = int.Parse(this.tbStrain.Text);
-                p.Father = p.Scenario.Persons.GetGameObject(this.tbFather.Text) as Person;
-                p.Mother = p.Scenario.Persons.GetGameObject(this.tbMother.Text) as Person;
-                p.Spouse = p.Scenario.Persons.GetGameObject(this.tbSpouse.Text) as Person;
-                p.Brother = p.Scenario.Persons.GetGameObject(this.tbBrother.Text) as Person;
+                int t;
+                int.TryParse(this.tbFather.Text, out t);
+                p.Father = p.Scenario.Persons.GetGameObject(t) as Person;
+                int.TryParse(this.tbMother.Text, out t);
+                p.Mother = p.Scenario.Persons.GetGameObject(t) as Person;
+                int.TryParse(this.tbSpouse.Text, out t);
+                p.Spouse = p.Scenario.Persons.GetGameObject(t) as Person;
+                int.TryParse(this.tbBrother.Text, out t);
+                p.Brother = p.Scenario.Persons.GetGameObject(t) as Person;
                 p.Generation = int.Parse(this.tbGeneration.Text);
                 p.PersonalLoyalty = (int) this.cbPersonalLoyalty.SelectedIndex;
                 p.Ambition = (int) this.cbAmbition.SelectedIndex;
