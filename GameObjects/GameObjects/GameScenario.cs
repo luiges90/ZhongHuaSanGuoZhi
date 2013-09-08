@@ -2723,10 +2723,16 @@
                 information.Position = new Point((short)reader["PositionX"], (short)reader["PositionY"]);
                 information.Radius = (short)reader["Radius"];
                 information.Oblique = (bool)reader["Oblique"];
-                information.DayCost = (int)reader["DayCost"];
-                information.DaysLeft = (int)reader["DaysLeft"];
-                information.DaysStarted = (int)reader["DaysStarted"];
-                this.Informations.AddInformation(information);
+                try
+                {
+                    information.DayCost = (int)reader["DayCost"];
+                    information.DaysLeft = (int)reader["DaysLeft"];
+                    information.DaysStarted = (int)reader["DaysStarted"];
+                    this.Informations.AddInformation(information);
+                }
+                catch
+                {
+                }
             }
             DbConnection.Close();
             DbConnection.Open();
