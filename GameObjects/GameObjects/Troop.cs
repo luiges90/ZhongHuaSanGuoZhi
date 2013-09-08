@@ -7602,11 +7602,11 @@
                 receivedDamage.Damage = 1;
             }
             receivedDamage.Injury = ((damage + receivedDamage.FireDamage) * this.InjuryChance) / 100;
-            if (receivedDamage.Critical && (receivedDamage.SourceTroop.RateOfInjuryOnCriticalStrike < 1f))
+            if (receivedDamage.Critical && (receivedDamage.SourceTroop.RateOfInjuryOnCriticalStrike < this.InjuryChance))
             {
                 receivedDamage.Injury = (int) (receivedDamage.Injury * receivedDamage.SourceTroop.RateOfInjuryOnCriticalStrike);
             } 
-            else if (receivedDamage.SourceTroop.attackInjuryRate < 1f)
+            else if (receivedDamage.SourceTroop.attackInjuryRate < this.InjuryChance)
             {
                 receivedDamage.Injury = (int)(receivedDamage.Injury * receivedDamage.SourceTroop.attackInjuryRate);
             }
