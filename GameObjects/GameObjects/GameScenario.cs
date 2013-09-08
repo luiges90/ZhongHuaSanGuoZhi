@@ -625,11 +625,11 @@
             {
                 person.muqinyingxiangnengli(muqin);
             }
-            if (person.Command < 1) person.Command = 1;
-            if (person.Strength < 1) person.Strength = 1;
-            if (person.Intelligence < 1) person.Intelligence = 1;
-            if (person.Politics < 1) person.Politics = 1;
-            if (person.Glamour < 1) person.Glamour = 1;
+            if (person.BaseCommand < 1) person.BaseCommand = 1;
+            if (person.BaseStrength < 1) person.BaseStrength = 1;
+            if (person.BaseIntelligence < 1) person.BaseIntelligence = 1;
+            if (person.BasePolitics < 1) person.BasePolitics = 1;
+            if (person.BaseGlamour < 1) person.BaseGlamour = 1;
             this.GameScreen.haizizhangdachengren(person, person);
         }
 
