@@ -1392,12 +1392,20 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private bool RunTheFactions(GameTime gameTime)
         {
-            base.Scenario.Factions.RunQueue();
-            if (base.Scenario.Factions.QueueEmpty)
+            try
             {
+                base.Scenario.Factions.RunQueue();
+                if (base.Scenario.Factions.QueueEmpty)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (OutOfMemoryException)
+            {
+                base.Scenario.DisposeLotsOfMemory();
                 return false;
             }
-            return true;
         }
 
         public override void SaveGame()

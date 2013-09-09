@@ -114,16 +114,21 @@
             }
         }
 
+        private string DescriptionCache;
         public string Description
         {
             get
             {
-                string str = "";
-                foreach (Influence influence in this.Influences.Influences.Values)
+                if (DescriptionCache == null)
                 {
-                    str = str + "•" + influence.Description;
+                    string str = "";
+                    foreach (Influence influence in this.Influences.Influences.Values)
+                    {
+                        str = str + "•" + influence.Description;
+                    }
+                    DescriptionCache = str;
                 }
-                return str;
+                return DescriptionCache;
             }
         }
 
