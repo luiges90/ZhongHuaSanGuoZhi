@@ -6441,11 +6441,11 @@
                     {
                         if (person == this.Leader)
                         {
-                            person.AddQixieExperience(increment * 2);
+                            person.AddQixieExperience(increment * 6);
                         }
                         else
                         {
-                            person.AddQixieExperience(increment);
+                            person.AddQixieExperience(increment * 3);
                         }
                     }
                     break;
@@ -6503,13 +6503,13 @@
                 if (person2 == maxIntelligencePerson)
                 {
                     person2.AddIntelligenceExperience(increment * 2);
-                    person2.AddStratagemExperience((increment * 2) * 2);
-                    person2.IncreaseReputation((increment * 2) * 2);
+                    person2.AddStratagemExperience(increment * 12);
+                    person2.IncreaseReputation(increment * 4);
                 }
                 else
                 {
                     person2.AddIntelligenceExperience(increment);
-                    person2.AddStratagemExperience(increment * 2);
+                    person2.AddStratagemExperience(increment * 6);
                     person2.IncreaseReputation(increment * 2);
                 }
             }

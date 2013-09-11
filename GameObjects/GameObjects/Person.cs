@@ -1373,6 +1373,7 @@
                                     success = true;
                                     this.AddStrengthExperience(10);
                                     this.AddIntelligenceExperience(10);
+                                    this.AddTacticsExperience(20);
                                     this.IncreaseReputation(20);
                                     this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
                                     this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
