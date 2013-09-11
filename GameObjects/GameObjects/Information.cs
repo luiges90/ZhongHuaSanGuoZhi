@@ -76,7 +76,14 @@
         {
             foreach (Point point in this.Area.Area)
             {
-                this.BelongedArchitecture.BelongedFaction.AddPositionInformation(point, this.Level);
+                if (this.BelongedArchitecture != null)
+                {
+                    this.BelongedArchitecture.BelongedFaction.AddPositionInformation(point, this.Level);
+                }
+                else if (this.BelongedFaction != null)
+                {
+                    this.BelongedFaction.AddPositionInformation(point, this.Level);
+                }
             }
         }
 
