@@ -80,7 +80,7 @@ namespace WorldOfTheThreeKingdoms.Resources
                                 {
                                     detail.Textures.BasicTextures.Add(Texture2D.FromFile(device, str2));
                                 }
-                                    
+                                /*    
                                 else if (info.Extension.Equals(".png") && info.Name.Contains("TopLeftCorner"))
                                 {
                                     detail.Textures.TopLeftCornerTextures.Add(Texture2D.FromFile(device, str2));
@@ -133,7 +133,7 @@ namespace WorldOfTheThreeKingdoms.Resources
                                 {
                                     detail.Textures.BottomTextures.Add(Texture2D.FromFile(device, str2));
                                 }
-                                
+                                */
                             }
                         }
                     }

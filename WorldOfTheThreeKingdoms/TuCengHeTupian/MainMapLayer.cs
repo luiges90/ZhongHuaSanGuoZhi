@@ -115,6 +115,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
         private void CheckTileTexture(Tile tile, out List<Texture2D> decorativeTextures)
         {
             decorativeTextures = null;
+            return;
             TerrainDetail terrainDetailByPositionNoCheck = this.screen.Scenario.GetTerrainDetailByPositionNoCheck(tile.Position);
             if (terrainDetailByPositionNoCheck.Textures != null && terrainDetailByPositionNoCheck.Textures.BasicTextures.Count != 0)
             {
