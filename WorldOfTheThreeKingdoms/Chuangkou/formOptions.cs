@@ -2562,6 +2562,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITroopDefenceRate.Text = "0.7";
                     this.tbAIRecruitmentSpeedRate.Text = "0.7";
                     this.tbAITrainingSpeedRate.Text = "0.7";
+                    this.tbAIOfficerExperienceRate.Text = "0.7";
+                    this.tbAIArmyExperienceRate.Text = "0.7";
                     this.cbPinPointAtPlayer.Checked = false;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = true;
@@ -2578,6 +2580,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITroopDefenceRate.Text = "1.0";
                     this.tbAIRecruitmentSpeedRate.Text = "1.0";
                     this.tbAITrainingSpeedRate.Text = "1.0";
+                    this.tbAIOfficerExperienceRate.Text = "1.0";
+                    this.tbAIArmyExperienceRate.Text = "1.0";
                     this.cbPinPointAtPlayer.Checked = false;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = false;
@@ -2594,6 +2598,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITroopDefenceRate.Text = "1.0";
                     this.tbAIRecruitmentSpeedRate.Text = "1.2";
                     this.tbAITrainingSpeedRate.Text = "1.2";
+                    this.tbAIOfficerExperienceRate.Text = "1.0";
+                    this.tbAIArmyExperienceRate.Text = "1.5";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = false;
@@ -2610,6 +2616,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITroopDefenceRate.Text = "1.0";
                     this.tbAIRecruitmentSpeedRate.Text = "1.5";
                     this.tbAITrainingSpeedRate.Text = "1.5";
+                    this.tbAIOfficerExperienceRate.Text = "1.0";
+                    this.tbAIArmyExperienceRate.Text = "2.0";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = false;
@@ -2626,6 +2634,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITroopDefenceRate.Text = "1.2";
                     this.tbAIRecruitmentSpeedRate.Text = "2.0";
                     this.tbAITrainingSpeedRate.Text = "2.0";
+                    this.tbAIOfficerExperienceRate.Text = "1.0";
+                    this.tbAIArmyExperienceRate.Text = "3.0";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = true;
                     this.cbInternalSurplusRateForAI.Checked = false;
