@@ -228,6 +228,14 @@
                 this.radius = value;
             }
         }
+
+        public string BelongedArchitectureName
+        {
+            get
+            {
+                return this.BelongedArchitecture != null ? this.BelongedArchitecture.Name : "－－－－";
+            }
+        }
     }
 }
 
