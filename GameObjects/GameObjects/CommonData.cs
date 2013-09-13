@@ -277,7 +277,10 @@
                 influence.Parameter = reader["Parameter"].ToString();
                 influence.Parameter2 = reader["Parameter2"].ToString();
                 influence.Kind = this.AllInfluenceKinds.GetInfluenceKind((short)reader["Kind"]);
-                this.AllInfluences.AddInfluence(influence);
+                if (influence.Kind != null)
+                {
+                    this.AllInfluences.AddInfluence(influence);
+                }
             }
             connection.Close();
             connection.Open();

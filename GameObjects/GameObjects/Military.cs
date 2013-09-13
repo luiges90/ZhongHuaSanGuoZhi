@@ -675,7 +675,8 @@
 
         private bool bushiShuijunBingqieChuyuShuiyu()
         {
-            if (GlobalVariables.LandArmyCanGoDownWater && this.kind.Type != MilitaryType.水军 && base.Scenario.GetTerrainKindByPosition(this.Position) == TerrainKind.水域)
+            if (GlobalVariables.LandArmyCanGoDownWater && this.kind.Type != MilitaryType.水军 && 
+                base.Scenario.GetTerrainKindByPosition(this.Position) == TerrainKind.水域)
             {
                 return true;
             }

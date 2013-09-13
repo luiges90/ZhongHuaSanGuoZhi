@@ -1254,7 +1254,14 @@
 
                     if (this.suoshurenwu == -1)
                     {
-                        this.suoshurenwu = this.LocationArchitecture.BelongedFaction.LeaderID;
+                        if (this.BelongedFaction != null)
+                        {
+                            this.suoshurenwu = this.BelongedFaction.LeaderID;
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
                     haizifuqin = this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person;
 
