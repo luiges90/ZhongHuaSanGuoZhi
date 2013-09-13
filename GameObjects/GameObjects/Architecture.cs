@@ -2510,8 +2510,8 @@
                 if (i.DaysStarted <= 3)
                 {
                     stop = false;
-                } 
-                else if (i.DaysStarted < GameObject.Random(10) + 30 && this.IsFundIncomeEnough && this.IsFundEnough 
+                }
+                else if (i.DaysStarted < GameObject.Random(10) + 30 && this.IsFundIncomeEnough && this.IsFundEnough
                     && dayCost < 500)
                 {
                     foreach (Point p in i.Area.Area)
@@ -2520,6 +2520,17 @@
                         if (a != null && !this.IsFriendly(a.BelongedFaction))
                         {
                             stop = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (Information j in this.Informations)
+                    {
+                        if (j.Position == i.Position && j.Radius >= i.Radius)
+                        {
+                            stop = true;
                             break;
                         }
                     }
