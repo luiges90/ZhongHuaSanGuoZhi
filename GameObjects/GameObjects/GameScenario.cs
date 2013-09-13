@@ -2057,6 +2057,10 @@
                 {
                     section.OrientationState = this.States.GetGameObject(section.OrientationStateID) as State;
                 }
+                if (section.OrientationArchitectureID >= 0)
+                {
+                    section.OrientationArchitecture = this.Architectures.GetGameObject(section.OrientationArchitectureID) as Architecture;
+                }
             }
         }
 
@@ -2985,6 +2989,13 @@
                 section.OrientationFactionID = (short)reader["OrientationFaction"];
                 section.OrientationSectionID = (short)reader["OrientationSection"];
                 section.OrientationStateID = (short)reader["OrientationState"];
+                try
+                {
+                    section.OrientationArchitectureID = (short)reader["OrientationArchitecture"];
+                }
+                catch
+                {
+                }
                 section.LoadArchitecturesFromString(this.Architectures, reader["Architectures"].ToString());
                 this.Sections.AddSectionWithEvent(section);
             }
@@ -3772,6 +3783,7 @@
                     row["OrientationFaction"] = (section.OrientationFaction != null) ? section.OrientationFaction.ID : -1;
                     row["OrientationSection"] = (section.OrientationSection != null) ? section.OrientationSection.ID : -1;
                     row["OrientationState"] = (section.OrientationState != null) ? section.OrientationState.ID : -1;
+                    row["OrientationArchitecture"] = (section.OrientationArchitecture != null) ? section.OrientationArchitecture.ID : -1;
                     row["Architectures"] = section.Architectures.SaveToString();
                     row.EndEdit();
                     dataSet.Tables["Sections"].Rows.Add(row);
