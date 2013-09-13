@@ -2524,18 +2524,8 @@
                         }
                     }
                 }
-                else
-                {
-                    foreach (Information j in this.Informations)
-                    {
-                        if (j.Position == i.Position && j.Radius >= i.Radius)
-                        {
-                            stop = true;
-                            break;
-                        }
-                    }
-                }
-                if (!stop)
+
+                if (stop)
                 {
                     bool hasEnemy = false;
                     bool hasOwn = false;
@@ -2553,6 +2543,33 @@
                         if (hasEnemy && hasOwn)
                         {
                             stop = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (stop && this.PlanArchitecture != null)
+                {
+                    foreach (Point p in i.Area.Area)
+                    {
+                        Architecture a = base.Scenario.GetArchitectureByPosition(p);
+                        if (a == this.PlanArchitecture)
+                        {
+                            stop = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (!stop)
+                {
+                    foreach (Information j in this.Informations)
+                    {
+                        if (i == j) continue;
+                        if (toRemove.GameObjects.Contains(i)) continue;
+                        if (j.Position == i.Position && j.Radius >= i.Radius && j.DayCost < i.DayCost)
+                        {
+                            stop = true;
                             break;
                         }
                     }
