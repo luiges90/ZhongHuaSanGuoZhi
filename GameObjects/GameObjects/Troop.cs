@@ -7250,6 +7250,38 @@
                         //CheckTroopRout(troopByPositionNoCheck);
                     }
                 }
+                if (this.BelongedFaction != null)
+                {
+                    List<Information> toRemove = new List<Information>();
+                    foreach (Architecture a in this.BelongedFaction.Architectures)
+                    {
+                        foreach (Information i in a.Informations)
+                        {
+                            foreach (Point p in currentArchitecture.ArchitectureArea.Area)
+                            {
+                                if (i.Area.Area.Contains(p))
+                                {
+                                    toRemove.Add(i);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    while (toRemove.Count > 0)
+                    {
+                        toRemove[0].Purify();
+                        if (toRemove[0].BelongedArchitecture != null)
+                        {
+                            toRemove[0].BelongedArchitecture.RemoveInformation(toRemove[0]);
+                        }
+                        else if (toRemove[0].BelongedFaction != null)
+                        {
+                            toRemove[0].BelongedFaction.RemoveInformation(toRemove[0]);
+                        }
+                        base.Scenario.Informations.Remove(toRemove[0]);
+                        toRemove.Remove(toRemove[0]);
+                    }
+                }
                 currentArchitecture.BuildingFacility = -1;
                 currentArchitecture.BuildingDaysLeft = 0;
                 currentArchitecture.RemoveAllInformations();
