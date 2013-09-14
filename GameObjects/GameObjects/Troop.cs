@@ -9704,7 +9704,7 @@
                             }
 
                             Architecture a = base.Scenario.GetArchitectureByPosition(nextPosition);
-                            if ((!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城") && this.TargetArchitecture == a)
+                            if (a != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城") && this.TargetArchitecture == a)
                             {
                                 Point old = this.position;
                                 this.position = nextPosition;

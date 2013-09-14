@@ -2595,6 +2595,13 @@
                 catch
                 {
                 }
+                try
+                {
+                    person.OfficerKillCount = (int)reader["OfficerKillCount"];
+                }
+                catch
+                {
+                }
 
                 this.Persons.AddPersonWithEvent(person);  //所有武将，并加载武将事件
                 this.AllPersons.Add(person.ID, person);   //武将字典
@@ -4222,6 +4229,7 @@
                     row["StratagemBeSuccessCount"] = person.StratagemBeSuccessCount;
                     row["StratagemBeFailCount"] = person.StratagemBeFailCount;
                     row["Tiredness"] = person.Tiredness;
+                    row["OfficerKillCount"] = person.OfficerKillCount;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }

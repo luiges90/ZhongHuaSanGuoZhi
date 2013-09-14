@@ -288,6 +288,7 @@
         public int ArchitectureDamageDealt{ get; set; }
         public int RebelCount{ get; set; }
         public int ExecuteCount{ get; set; }
+        public int OfficerKillCount{ get; set; }
         public int FleeCount{ get; set; }
         public int HeldCaptiveCount{ get; set; }
         public int CaptiveCount { get; set; }
@@ -931,6 +932,37 @@
             }
         }
 
+        public void KilledInBattle(Person killer)
+        {
+            killer.OfficerKillCount++;
+
+            foreach (Person p in base.Scenario.Persons)
+            {
+                if (p == this) continue;
+                if (p.hasCloseStrainTo(this))
+                {
+                    if (!p.HatedPersons.Contains(killer.ID) && GameObject.Chance(this.ClosePersonKilledReaction * 25))
+                    {
+                        p.HatedPersons.Add(killer.ID);
+                    }
+                    foreach (Person q in base.Scenario.Persons)
+                    {
+                        if (p == q || q == this || q == killer) continue;
+                        if (GameObject.Chance(this.ClosePersonKilledReaction * 10)) continue;
+                        if (q.hasCloseStrainTo(killer))
+                        {
+                            if (!p.HatedPersons.Contains(q.ID))
+                            {
+                                p.HatedPersons.Add(q.ID);
+                            }
+                        }
+                    }
+                }
+            }
+
+            this.ToDeath();
+        }
+
         public void KilledInBattle(Troop killer)
         {
             Person kill;
@@ -943,31 +975,7 @@
                 kill = killer.Persons.GetMaxStrengthPerson();
             }
 
-            foreach (Person p in base.Scenario.Persons)
-            {
-                if (p == this) continue;
-                if (p.hasCloseStrainTo(this))
-                {
-                    if (!p.HatedPersons.Contains(kill.ID) && GameObject.Chance(this.ClosePersonKilledReaction * 25))
-                    {
-                        p.HatedPersons.Add(kill.ID);
-                    }
-                    foreach (Person q in base.Scenario.Persons)
-                    {
-                        if (p == q || q == this || q == kill) continue;
-                        if (GameObject.Chance(this.ClosePersonKilledReaction * 10)) continue;
-                        if (q.hasCloseStrainTo(kill))
-                        {
-                            if (!p.HatedPersons.Contains(q.ID))
-                            {
-                                p.HatedPersons.Add(q.ID);
-                            }
-                        }
-                    }
-                }
-            }
-
-            this.ToDeath();
+            this.KilledInBattle(kill);
         }
 
         public void ToDeath()

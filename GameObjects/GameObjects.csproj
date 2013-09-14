@@ -1132,6 +1132,8 @@
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1705.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4130.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4135.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4140.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4145.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind2500.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind2510.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind2520.cs" />

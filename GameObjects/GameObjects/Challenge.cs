@@ -234,7 +234,7 @@
                 }
                 else
                 {
-                    challengePerson.ToDeath();
+                    challengePerson.KilledInBattle(challengePerson);
                 }
             }
         }
