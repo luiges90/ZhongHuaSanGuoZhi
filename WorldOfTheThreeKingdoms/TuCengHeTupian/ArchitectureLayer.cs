@@ -63,7 +63,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                         {
                             if ((point == architecture.zhongxindian || architecture.Scenario.ScenarioMap.UseSimpleArchImages))
                             {
-                                spriteBatch.Draw(this.huoqujianzhutupian(architecture), this.mainMapLayer.huoqujianzhujuxing(point, architecture), null, zainanyanse, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
+                                Texture2D texture = this.huoqujianzhutupian(architecture);
+                                if (texture != null)
+                                {
+                                    spriteBatch.Draw(texture, this.mainMapLayer.huoqujianzhujuxing(point, architecture), null, zainanyanse, 0, Vector2.Zero, SpriteEffects.None, 0.8f);
+                                }
                             }
 
                             if (point == architecture.dingdian  && point.Y>0)
