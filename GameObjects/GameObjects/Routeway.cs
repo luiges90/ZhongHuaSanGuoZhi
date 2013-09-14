@@ -160,7 +160,8 @@
                 this.Building = true;
             }
 
-            if (this.StartArchitecture.BelongedSection.AIDetail.AutoRun && this.BelongedFaction == this.EndArchitecture.BelongedFaction)
+            if (this.EndArchitecture != null && 
+                this.StartArchitecture.BelongedSection.AIDetail.AutoRun && this.BelongedFaction == this.EndArchitecture.BelongedFaction)
             {
                 this.Close();
                 return;
