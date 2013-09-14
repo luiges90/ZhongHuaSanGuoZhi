@@ -1415,7 +1415,8 @@
             if (this.ConvincingPerson != null && this.BelongedFaction != null)
             {
                 Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
-                if ((architectureByPosition != null) && ((architectureByPosition.BelongedFaction != null) && (this.ConvincingPerson.IsCaptive || (architectureByPosition.BelongedFaction != this.BelongedFaction))))
+                if ((architectureByPosition != null) && (
+                    (this.ConvincingPerson.IsCaptive || this.ConvincingPerson.Status == PersonStatus.NoFaction || (architectureByPosition.BelongedFaction != this.BelongedFaction))))
                 {
                     bool ConvinceSuccess;
                     int idealOffset = Person.GetIdealOffset(this.ConvincingPerson, this.BelongedFaction.Leader);

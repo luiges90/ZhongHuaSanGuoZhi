@@ -1022,9 +1022,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case FrameFunction.ReleaseSelfPerson:
                     this.FrameFunction_Architecture_ReleaseSelfPerson();
                     break;
-                case FrameFunction.PersonManualHire:
-                    this.FrameFunction_Architecture_PersonManualHire();
-                    break;
 
                 case FrameFunction.SelectPrince:
                     this.FrameFunction_Architecture_SelectPrince();
@@ -1077,15 +1074,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.BelongedFaction.Leader, this.CurrentPerson.Name, "SelectPrince", "", "", true );
                 
             }
-        }
-
-        private void FrameFunction_Architecture_PersonManualHire()
-        {
-              this.CurrentPerson = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
-              if (this.CurrentPerson != null)
-              {
-                  this.CurrentArchitecture.ManualHire(this.CurrentPerson);
-              }
         }
 
         private void FrameFunction_Architecture_ReleaseSelfPerson()

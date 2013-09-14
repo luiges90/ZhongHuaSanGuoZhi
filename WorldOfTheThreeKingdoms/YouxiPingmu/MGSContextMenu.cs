@@ -673,14 +673,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Section, FrameFunction.GetSectionToDemolish, false, true, true, true, this.CurrentArchitecture.BelongedFaction.Sections, null, "", "");
                     break;
 
-                case ContextMenuResult.Person_Hiring:     //委任录用
-                    this.CurrentArchitecture.AutoHiring = !this.CurrentArchitecture.AutoHiring;
-                    if (this.CurrentArchitecture.AutoHiring)
-                    {
-                        this.CurrentArchitecture.PlayerAIHire();
-                    }
-                    break;
-
                 case ContextMenuResult.Person_AutoReward:   //委任褒奖
                     this.CurrentArchitecture.AutoRewarding = !this.CurrentArchitecture.AutoRewarding;
                     if (this.CurrentArchitecture.AutoRewarding)

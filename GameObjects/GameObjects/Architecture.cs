@@ -2047,10 +2047,6 @@
 
         private void AIWork(bool forPlayer)
         {
-            if (!forPlayer)
-            {
-                this.AIAutoHire();
-            }
             this.StopAllWork();
             if (!this.HasPerson()) return;
 
@@ -2323,6 +2319,38 @@
 
         private void OutsideTacticsAI()
         {
+            if (this.HasPerson() && this.IsFundEnough && this.HasNoFactionPerson() 
+                && GameObject.Chance((int) Math.Max(30, 800 / this.BelongedFaction.PersonCount)))
+            {
+                GameObjectList convincer = this.Persons.GetList();
+                convincer.SmallToBig = false;
+                convincer.PropertyName = "ConvinceAbility";
+                convincer.IsNumber = true;
+                convincer.ReSort();
+
+                GameObjectList convinced = this.GetConvinceDestinationPersonList(this.BelongedFaction).GetList();
+                convinced.SmallToBig = false;
+                convinced.PropertyName = "Merit";
+                convinced.IsNumber = true;
+                convinced.ReSort();
+
+                int i = 0;
+                foreach (Person p in convinced)
+                {
+                    if (p.RecruitableBy(this.BelongedFaction, 0))
+                    {
+                        Person q = (Person)convincer[i];
+                        if (q.Status == PersonStatus.Normal)
+                        {
+                            q.OutsideDestination = this.ArchitectureArea.Centre;
+                            q.GoForConvince(p);
+                        }
+                        i++;
+                        if (i >= convincer.Count) break;
+                    }
+                }
+            }
+
             if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && (((this.RecentlyAttacked <= 0) && this.HasPerson()) && this.IsFundEnough))
             {
                 Architecture architecture2;
@@ -2609,14 +2637,6 @@
                 return (list);
             }
             return null;
-        }
-
-        private void AIAutoHire()
-        {
-            if ((this.BelongedFaction != null) && (((!this.HireFinished && (this.NoFactionPersonCount > 0)) && (this.Fund >= this.HirePersonFund)) && (GameObject.Random(this.HirablePersonCount + 1) >= 1)))
-            {
-                this.HireNoFactionPerson();
-            }
         }
 
         private void AIAutoReward()
@@ -7028,6 +7048,10 @@
                     result.Add(person);
                 }
             }
+            foreach (Person person in this.NoFactionPersons)
+            {
+                result.Add(person);
+            }
             ConvinceDestinationPersonList = result;
             return result;
         }
@@ -7063,13 +7087,9 @@
             //Label_0121:
             foreach (Architecture architecture in base.Scenario.Architectures)
             {
-                if (architecture.BelongedFaction == null)
-                {
-                    continue;
-                }
                 if (architecture.BelongedFaction == this.BelongedFaction)
                 {
-                    if (!architecture.HasCaptive())
+                    if (!architecture.HasCaptive() && !architecture.HasNoFactionPerson())
                     {
                         //goto Label_0121;
                         continue;
@@ -7081,7 +7101,7 @@
                 }
                 else
                 {
-                    if (!architecture.HasPerson() || !this.BelongedFaction.IsArchitectureKnown(architecture))
+                    if ((!architecture.HasPerson() && !architecture.HasNoFactionPerson()) || !this.BelongedFaction.IsArchitectureKnown(architecture))
                     {
                         continue;
                     }
@@ -8575,154 +8595,6 @@
             return (this.ViewArea.HasPoint(troop.Position) && (((this.BelongedFaction != null) && this.IsFriendly(troop.BelongedFaction)) || (troop.Status != TroopStatus.埋伏)));
         }
 
-        public void HireNoFactionPerson()
-        {
-            PersonList personList = new PersonList();
-            PersonList recruitablePeople = new PersonList();
-            foreach (Person person in this.NoFactionPersons.GetList())
-            {
-                if ((person.BelongedFaction != null) || (person.LocationArchitecture != this))
-                {
-                    //this.RemoveNoFactionPerson(person);
-                }
-                else
-                {
-                    int idealOffset = Person.GetIdealOffset(person, this.BelongedFaction.Leader);
-                    if (
-                            ((!GlobalVariables.IdealTendencyValid || (idealOffset <= person.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                            && (!this.BelongedFaction.IsAlien || (int)person.PersonalLoyalty < 2)
-                            && (!person.HatedPersons.Contains(this.BelongedFaction.LeaderID)))
-                        || (!base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionPerson)
-                           )
-                    {
-                        recruitablePeople.Add(person);
-                    }
-                }
-            }
-            if (recruitablePeople.Count > 0)
-            {
-                foreach (Person toRecruit in recruitablePeople.GetRandomList())
-                {
-                    this.DecreaseFund(this.HirePersonFund);
-                    if (!((toRecruit.BelongedFaction != null) || (toRecruit.LocationArchitecture != this)))
-                    {
-                        int idealOffset = Person.GetIdealOffset(toRecruit, this.BelongedFaction.Leader);
-                        if (
-                            ((!GlobalVariables.IdealTendencyValid || (idealOffset <= toRecruit.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                            && (GameObject.Random(idealOffset * idealOffset + 100) < 100)
-                            && (!this.BelongedFaction.IsAlien || (int)toRecruit.PersonalLoyalty < 2)
-                            && (!toRecruit.HatedPersons.Contains(this.BelongedFaction.LeaderID)))
-                        || (!base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionPerson)
-                           )
-                        {
-                            if (toRecruit.ProhibitedFactionID != this.BelongedFaction.ID)
-                            {
-                                personList.Add(toRecruit);
-                            }
-                        }
-                    }
-                    if (this.Fund < this.HirePersonFund)
-                    {
-                        break;
-                    }
-                    /*if (GameObject.Random(recruitablePeople.Count) < 0)
-                    {
-                        break;
-                    }*/
-                }
-            }
-            foreach (Person person in personList)
-            {
-                person.ChangeFaction(this.BelongedFaction);
-                ExtensionInterface.call("HirePerson", new Object[] { this.Scenario, this, person });
-                this.Scenario.GameScreen.xianshishijiantupian(person, this.Name, "ArchitectureHirePerson", "", "", this.BelongedFaction.Name, false);
-            }
-            if (personList.Count > 0)
-            {
-                /*
-                if (this.OnHirePerson != null)
-                {
-                    this.OnHirePerson(personList);
-                }
-                */
-                if (this.HasSpy)
-                {
-                    this.CreateHireNewPersonSpyMessage(personList[GameObject.Random(personList.Count)] as Person);
-                }
-            }
-            else if (personList.Count == 0)
-            {
-                if ((this.Scenario.CurrentPlayer != null) && this.BelongedFaction == this.Scenario.CurrentPlayer)
-                {
-                    //this.shoudongluyongshibai = true;
-                }
-
-            }
-            this.HireFinished = true;
-        }
-        /*
-        public void shoudongluyong()
-        {
-            this.shoudongluyongshibai = false;
-            this.HireNoFactionPerson();
-            if (this.shoudongluyongshibai)
-            {
-                this.Scenario.GameScreen.xianshishijiantupian(this.NoFactionPersons[0] as Person, "", "luyongshibai", "", "",true );
-
-            }
-            this.shoudongluyongshibai = false;
-        }
-        */
-        public void ManualHire(Person person)
-        {
-
-
-            this.DecreaseFund(this.HirePersonFund);
-
-
-
-            if ((person.BelongedFaction != null) || (person.LocationArchitecture != this))
-            {
-                //this.NoFactionPerson.Remove(person);
-                this.Scenario.GameScreen.xianshishijiantupian(person, "", "luyongshibai", "", "", true);
-
-            }
-            else
-            {
-                int idealOffset = Person.GetIdealOffset(person, this.BelongedFaction.Leader);
-                if (GlobalVariables.IdealTendencyValid && idealOffset > person.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
-                {
-                    this.Scenario.GameScreen.xianshishijiantupian(person, "", "LinianButong", "", "", true);
-
-                }
-                else if (
-                        (!GlobalVariables.IdealTendencyValid || (idealOffset <= person.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                        && (GameObject.Random(idealOffset * idealOffset + 100) < 100)
-                        && (!this.BelongedFaction.IsAlien || (int)person.PersonalLoyalty < 2)
-                        && (!person.HatedPersons.Contains(this.BelongedFaction.LeaderID))
-                       )
-                {
-                    person.ChangeFaction(this.BelongedFaction);
-                    ExtensionInterface.call("HirePerson", new Object[] { this.Scenario, this, person });
-
-                    this.Scenario.GameScreen.xianshishijiantupian(person, this.Name, "ArchitectureHirePerson", "", "", this.BelongedFaction.Name, false);
-                    if (this.HasSpy)
-                    {
-                        this.CreateHireNewPersonSpyMessage(person);
-                    }
-                }
-                else
-                {
-                    this.Scenario.GameScreen.xianshishijiantupian(person, "", "luyongshibai", "", "", true);
-
-                }
-            }
-
-            this.HireFinished = true;
-            this.HasManualHire = true;
-        }
-
-
         public void IncreaseAgriculture(int increment)
         {
             this.Agriculture += increment;
@@ -10118,11 +9990,6 @@
             return ((this.BelongedFaction != null) && ((this.Persons.Count > 0) && (this.BelongedFaction.ArchitectureCount > 1)));
         }
 
-        public void PlayerAIHire()
-        {
-            this.AIAutoHire();
-        }
-
         public void PlayerAIReward()
         {
             this.AIAutoReward();
@@ -10140,10 +10007,6 @@
 
         public void PlayerAutoAI()
         {
-            if (this.AutoHiring)
-            {
-                this.PlayerAIHire();
-            }
             if (this.AutoRewarding)
             {
                 this.PlayerAIReward();
