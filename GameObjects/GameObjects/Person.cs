@@ -6160,7 +6160,7 @@
             r.SurName = father.SurName;
             List<String> givenNameList = r.Sex ? Person.readTextList("CreateChildrenTextFile/femalegivenname.txt") : Person.readTextList("CreateChildrenTextFile/malegivenname.txt");
             r.GivenName = givenNameList[GameObject.Random(givenNameList.Count)];
-            if (GameObject.Chance(80))
+            if (GameObject.Chance(r.Sex ? 90 : 10))
             {
                 r.GivenName += givenNameList[GameObject.Random(givenNameList.Count)];
             }
