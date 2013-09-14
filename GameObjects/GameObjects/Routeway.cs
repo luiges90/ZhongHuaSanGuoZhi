@@ -37,50 +37,6 @@
             }
         }
 
-        private void AITransfer()
-        {
-            if (this.IsActive && (((this.DestinationArchitecture != null) && (this.BelongedFaction == this.DestinationArchitecture.BelongedFaction)) || ((this.EndArchitecture != null) && (this.BelongedFaction == this.EndArchitecture.BelongedFaction))))
-            {
-                this.DestinationToEnd();
-                if (this.EndArchitecture != null)
-                {
-                    int enoughFood;
-                    int decrement = 0;
-                    if (this.StartArchitecture.IsFoodEnough)
-                    {
-                        if (!this.EndArchitecture.IsFoodEnough)
-                        {
-                            decrement = this.StartArchitecture.Food - this.StartArchitecture.EnoughFood;
-                            if (decrement > this.EndArchitecture.FoodCostPerDayOfAllMilitaries)
-                            {
-                                enoughFood = this.EndArchitecture.EnoughFood;
-                                if (decrement > enoughFood)
-                                {
-                                    decrement = enoughFood;
-                                }
-                                this.StartArchitecture.DecreaseFood(decrement);
-                                this.EndArchitecture.IncreaseFood((int) (decrement * (1f - this.LastPoint.ConsumptionRate)));
-                            }
-                        }
-                    }
-                    else if (this.EndArchitecture.IsFoodEnough)
-                    {
-                        decrement = this.EndArchitecture.Food - this.EndArchitecture.EnoughFood;
-                        if (decrement > this.StartArchitecture.FoodCostPerDayOfAllMilitaries)
-                        {
-                            enoughFood = this.StartArchitecture.EnoughFood;
-                            if (decrement > enoughFood)
-                            {
-                                decrement = enoughFood;
-                            }
-                            this.EndArchitecture.DecreaseFood(decrement);
-                            this.StartArchitecture.IncreaseFood((int) (decrement * (1f - this.LastPoint.ConsumptionRate)));
-                        }
-                    }
-                }
-            }
-        }
-
         public void Build()
         {
             this.Building = !this.Building;
@@ -199,18 +155,17 @@
                     }
                 }
             }
-            if (!this.IsInUsing)
-            {
-                if (!(base.Scenario.IsPlayer(this.BelongedFaction) && (((this.StartArchitecture == null) || (this.DestinationArchitecture == null)) || !this.StartArchitecture.BelongedSection.AIDetail.AutoRun)))
-                {
-                    this.AITransfer();
-                    this.Close();
-                }
-            }
             else if (this.HasSupportedLegion)
             {
                 this.Building = true;
             }
+
+            if (this.StartArchitecture.BelongedSection.AIDetail.AutoRun && this.BelongedFaction == this.EndArchitecture.BelongedFaction)
+            {
+                this.Close();
+                return;
+            }
+
             if (this.Building)
             {
                 this.ExpandActiveRouteway(lastActiveNode);
