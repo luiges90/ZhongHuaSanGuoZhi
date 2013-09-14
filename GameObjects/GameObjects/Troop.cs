@@ -9702,6 +9702,22 @@
                                 this.chongshemubiaoweizhi();
                                 return path;
                             }
+
+                            Architecture a = base.Scenario.GetArchitectureByPosition(nextPosition);
+                            if ((!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城") && this.TargetArchitecture == a)
+                            {
+                                Point old = this.position;
+                                this.position = nextPosition;
+                                bool canEnter = this.CanEnter();
+                                this.position = old;
+
+                                if (canEnter)
+                                {
+                                    this.Enter(a);
+                                    return false;
+                                }
+                            }
+
                             movabilityLeft -= num3;
                             firstTierPathIndex++;
                         }
