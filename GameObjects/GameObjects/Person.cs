@@ -939,23 +939,20 @@
             foreach (Person p in base.Scenario.Persons)
             {
                 if (p == this) continue;
+                if (p == killer) continue;
                 if (p.hasCloseStrainTo(this))
                 {
-                    if (!p.HatedPersons.Contains(killer.ID) && GameObject.Chance(this.ClosePersonKilledReaction * 25))
+                    if (p.Spouse == killer) continue;
+                    if (p.Brother == null || p.Brother != killer.Brother) continue;
+                    if (!p.HatedPersons.Contains(killer.ID)) continue;
+                    int hateChance = this.ClosePersonKilledReaction * 25;
+                    if (p.hasCloseStrainTo(killer))
+                    {
+                        hateChance /= 10;
+                    }
+                    if (GameObject.Chance(hateChance))
                     {
                         p.HatedPersons.Add(killer.ID);
-                    }
-                    foreach (Person q in base.Scenario.Persons)
-                    {
-                        if (p == q || q == this || q == killer) continue;
-                        if (GameObject.Chance(this.ClosePersonKilledReaction * 10)) continue;
-                        if (q.hasCloseStrainTo(killer))
-                        {
-                            if (!p.HatedPersons.Contains(q.ID))
-                            {
-                                p.HatedPersons.Add(q.ID);
-                            }
-                        }
                     }
                 }
             }
