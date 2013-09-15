@@ -938,6 +938,7 @@
 
             foreach (Person p in base.Scenario.Persons)
             {
+                // person close to killed one may hate killer
                 if (p == this) continue;
                 if (p == killer) continue;
                 if (p.hasCloseStrainTo(this))
@@ -2966,16 +2967,20 @@
             foreach (Person p in base.Scenario.Persons)
             {
                 if (p == this) continue;
+                if (p == executor) continue;
                 if (p.hasCloseStrainTo(this))
                 {
+                    // person close to killed one hates executor
                     if (!p.HatedPersons.Contains(executor.ID))
                     {
                         p.HatedPersons.Add(executor.ID);
                     }
+
+                    // person close to killed one may also hate executor's close persons
                     foreach (Person q in base.Scenario.Persons)
                     {
                         if (p == q || q == this || q == executor) continue;
-                        if (GameObject.Chance(p.ClosePersonKilledReaction * 25)) continue;
+                        if (GameObject.Chance((4 - p.PersonalLoyalty) * 25)) continue;
                         if (q.hasCloseStrainTo(executor))
                         {
                             if (!p.HatedPersons.Contains(q.ID))
