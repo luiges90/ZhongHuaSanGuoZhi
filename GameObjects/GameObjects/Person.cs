@@ -947,10 +947,6 @@
                     if (p.Brother == null || p.Brother != killer.Brother) continue;
                     if (!p.HatedPersons.Contains(killer.ID)) continue;
                     int hateChance = this.ClosePersonKilledReaction * 25;
-                    if (p.hasCloseStrainTo(killer))
-                    {
-                        hateChance /= 10;
-                    }
                     if (GameObject.Chance(hateChance))
                     {
                         p.HatedPersons.Add(killer.ID);
