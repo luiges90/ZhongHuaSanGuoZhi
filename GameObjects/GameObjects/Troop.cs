@@ -7653,10 +7653,7 @@
         public void ReceiveFireDamage(float scale)
         {
             int decrement = (int) (this.Army.Kind.MinScale * scale);
-            if (this.AfraidOfFire)
-            {
-                decrement *= 3;
-            }
+            decrement = (int) (decrement * this.FireDamageRate);
             if (this.RateOfFireProtection > 0f)
             {
                 decrement = (int) (decrement * this.RateOfFireProtection);
@@ -8732,10 +8729,7 @@
             if (damage.OnFire)
             {
                 int num5 = (int) ((troop.Army.Kind.MinScale * Parameters.FireDamageScale) * base.Scenario.GetTerrainDetailByPositionNoCheck(troop.Position).FireDamageRate);
-                if (troop.AfraidOfFire)
-                {
-                    num5 *= 3;
-                }
+                num5 = (int) (num5 * this.FireDamageRate);
                 if (troop.RateOfFireProtection > 0f)
                 {
                     num5 = (int) (num5 * troop.RateOfFireProtection);
@@ -10049,19 +10043,12 @@
             }
         }
 
-        public bool AfraidOfFire
+        public float FireDamageRate
         {
             get
             {
-                return (this.Army.Kind.AfraidOfFire && !this.NotAfraidOfFire);
-            }
-        }
-
-        public string AfraidOfFireString
-        {
-            get
-            {
-                return (this.AfraidOfFire ? "○" : "×");
+                if (this.NotAfraidOfFire) return Math.Min(1.0f, this.Army.Kind.FireDamageRate);
+                return this.Army.Kind.FireDamageRate;
             }
         }
 
@@ -12037,19 +12024,11 @@
             }
         }
 
-        public bool Unique
+        public int RecruitLimit
         {
             get
             {
-                return this.Army.Kind.Unique;
-            }
-        }
-
-        public string UniqueString
-        {
-            get
-            {
-                return this.Army.Kind.UniqueString;
+                return this.Army.Kind.RecruitLimit;
             }
         }
 

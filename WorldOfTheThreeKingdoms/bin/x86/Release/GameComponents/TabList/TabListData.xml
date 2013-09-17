@@ -2069,14 +2069,14 @@
                 FontColor="4294934528"
                 Align="Right">
         </Column>
-        <Column ID="80" Name="AfraidOfFireString" IsNumber="false" DisplayName="怕火" MinWidth="50" DetailLevel="4"
+        <Column ID="80" Name="FireDamageRate" IsNumber="false" DisplayName="受火伤率" MinWidth="80" DetailLevel="4"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
-        <Column ID="81" Name="UniqueString" IsNumber="false" DisplayName="唯一" MinWidth="50" DetailLevel="2"
+        <Column ID="81" Name="RecruitLimit" IsNumber="false" DisplayName="编队上限" MinWidth="80" DetailLevel="4"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
@@ -2883,14 +2883,14 @@
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
-        <Column ID="40" Name="AfraidOfFireString" IsNumber="false" DisplayName="怕火" MinWidth="50" DetailLevel="4"
+        <Column ID="40" Name="FireDamageRate" IsNumber="false" DisplayName="受火伤率" MinWidth="80" DetailLevel="4"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
-        <Column ID="41" Name="UniqueString" IsNumber="false" DisplayName="唯一" MinWidth="50" DetailLevel="4"
+        <Column ID="41" Name="RecruitLimit" IsNumber="false" DisplayName="编队上限" MinWidth="80" DetailLevel="4"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"

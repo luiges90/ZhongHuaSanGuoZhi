@@ -6,7 +6,7 @@
 
     public class MilitaryKind : GameObject
     {
-        private bool afraidOfFire;
+        private float fireDamageRate;
         private bool airOffence;
         private float architectureCounterDamageRate;
         private float architectureDamageRate;
@@ -69,7 +69,7 @@
         public TroopTextures Textures;
         private int titleInfluence = -1;
         private MilitaryType type;
-        private bool unique;
+        private int recruitLimit;
         private int viewRadius;
         private int wastelandAdaptability;
         private float wastelandRate;
@@ -89,7 +89,7 @@
             {
                 return false;
             }
-            if (this.Unique && a.BelongedFaction.HasMilitaryKind(base.ID))
+            if (a.BelongedFaction.IsMilitaryKindOverLimit(base.ID))
             {
                 return false;
             }
@@ -171,23 +171,15 @@
             return (base.Name + "  " + this.Type.ToString());
         }
 
-        public bool AfraidOfFire
+        public float FireDamageRate
         {
             get
             {
-                return this.afraidOfFire;
+                return this.fireDamageRate;
             }
             set
             {
-                this.afraidOfFire = value;
-            }
-        }
-
-        public string AfraidOfFireString
-        {
-            get
-            {
-                return (this.AfraidOfFire ? "○" : "×");
+                this.fireDamageRate = value;
             }
         }
 
@@ -995,23 +987,15 @@
             }
         }
 
-        public bool Unique
+        public int RecruitLimit
         {
             get
             {
-                return this.unique;
+                return this.recruitLimit;
             }
             set
             {
-                this.unique = value;
-            }
-        }
-
-        public string UniqueString
-        {
-            get
-            {
-                return (this.Unique ? "○" : "×");
+                this.recruitLimit = value;
             }
         }
 

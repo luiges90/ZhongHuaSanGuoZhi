@@ -556,8 +556,16 @@
                 militaryKind.DesertRate = (float)reader["DesertRate"];
                 militaryKind.CliffRate = (float)reader["CliffRate"];
                 militaryKind.InjuryChance = (short)reader["InjuryRate"];
-                militaryKind.AfraidOfFire = (bool)reader["AfraidOfFire"];
-                militaryKind.Unique = (bool)reader["Unique"];
+                try
+                {
+                    militaryKind.FireDamageRate = (float)reader["FireDamageRate"];
+                    militaryKind.RecruitLimit = (int)reader["RecruitLimit"];
+                }
+                catch
+                {
+                    militaryKind.FireDamageRate = 1.0f;
+                    militaryKind.RecruitLimit = 10000;
+                }
                 militaryKind.FoodPerSoldier = (short)reader["FoodPerSoldier"];
                 militaryKind.RationDays = (int)reader["RationDays"];
                 militaryKind.PointsPerSoldier = (int)reader["PointsPerSoldier"];
@@ -1526,8 +1534,8 @@
                     row["WastelandRate"] = i.WastelandRate;
                     row["DesertRate"] = i.DesertRate;
                     row["CliffRate"] = i.CliffRate;
-                    row["AfraidOfFire"] = i.AfraidOfFire;
-                    row["Unique"] = i.Unique;
+                    row["FireDamageRate"] = i.FireDamageRate;
+                    row["RecruitLimit"] = i.RecruitLimit;
                     row["FoodPerSoldier"] = i.FoodPerSoldier;
                     row["MinScale"] = i.MinScale;
                     row["RationDays"] = i.RationDays;

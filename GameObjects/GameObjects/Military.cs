@@ -71,7 +71,7 @@
             military.Scenario = scenario;
             military.KindID = kind.ID;
             military.ID = scenario.Militaries.GetFreeGameObjectID();
-            if (kind.Unique)
+            if (kind.RecruitLimit == 1)
             {
                 military.Name = kind.Name;
             }
@@ -339,7 +339,7 @@
             military.Scenario = scenario;
             military.KindID = kind.ID;
             military.ID = scenario.Militaries.GetFreeGameObjectID();
-            if (kind.Unique)
+            if (kind.RecruitLimit == 1)
             {
                 military.Name = kind.Name;
                 return military;
@@ -1009,7 +1009,7 @@
         {
             get
             {
-                return ((this.Offence + this.Defence) * (((this.Kind.ViewRadius + (this.Kind.AfraidOfFire ? -1 : 0)) + (this.Kind.ObliqueView ? 1 : 0)) + (this.Kind.Unique ? 1 : 0)));
+                return ((this.Offence + this.Defence) * (((this.Kind.ViewRadius + (this.Kind.FireDamageRate >= 1.5 ? -1 : 0)) + (this.Kind.ObliqueView ? 1 : 0)) + (this.Kind.RecruitLimit <= 10 ? 1 : 0)));
             }
         }
 
@@ -1057,9 +1057,9 @@
             {
                 if (this.BelongedFaction == null) return 0;
                 int result = (int)(this.Kind.CreateCost * (1 + (this.Experience + (this.Leader == this.Leader ? 1000 : this.LeaderExperience)) / 1000.0));
-                if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.RealMilitaryKind) || this.RealMilitaryKind.Unique)
+                if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.RealMilitaryKind) || this.RealMilitaryKind.RecruitLimit == 1)
                 {
-                    result += 50000;
+                    result += 100000;
                 }
                 return result;
             }

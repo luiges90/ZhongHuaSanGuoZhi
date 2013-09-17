@@ -36,7 +36,7 @@
                 int num3 = source.GetStratagemSuccessChanceCredit(troop, source.InevitableHuogongOnLowerIntelligence || source.InevitableStratagemOnLowerIntelligence, troop.InvincibleHuogong, troop.InvincibleStratagemFromLowerIntelligence);
                 if (num3 > 0)
                 {
-                    num3 = (((num3 + (troop.AfraidOfFire ? 0 : ((5 - troop.Army.Scales) * 5))) * (troop.AfraidOfFire ? 3 : 1)) * troop.PureFightingForce) / pureFightingForce;
+                    num3 = (int)(((num3 + (((5 - troop.Army.Scales) * 5))) * (troop.FireDamageRate - 1)) * troop.PureFightingForce) / pureFightingForce;
                     if (troop.RateOfFireProtection > 0f)
                     {
                         num += (int) (num3 * troop.RateOfFireProtection);

@@ -1803,17 +1803,19 @@
             return (this.CaptiveCount > 0);
         }
 
-        public bool HasMilitaryKind(int id)
+        public bool IsMilitaryKindOverLimit(int id)
         {
+            int count = 0;
             foreach (Military military in this.Militaries)
             {
                 if (military.RealKindID == id)
                 {
-                    return true;
+                    count++;
                 }
             }
-            return false;
-        }
+            MilitaryKind mk = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(id);
+            return count >= mk.RecruitLimit;
+       }
 
         public bool HasPerson(Person person)
         {

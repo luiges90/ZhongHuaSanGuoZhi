@@ -5860,7 +5860,7 @@
                         {
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
                         } 
-                        else if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && !military.Kind.Unique) ||
+                        else if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && military.Kind.RecruitLimit > 10) ||
                             person.FightingForce >= Parameters.AIUniqueTroopFightingForceThreshold || this.Endurance < 30)
                         {
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
@@ -7548,7 +7548,7 @@
             foreach (Military military in this.Militaries)
             {
                 if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience)
-                    && (!(base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(military.Kind.LevelUpKindID).Unique && military.BelongedFaction.HasMilitaryKind(military.Kind.LevelUpKindID))))
+                    && (!military.BelongedFaction.IsMilitaryKindOverLimit(military.Kind.LevelUpKindID)))
                 {
                     this.LevelUpMilitaryList.AddMilitary(military);
                 }
@@ -9053,7 +9053,7 @@
             foreach (Military military in this.Militaries)
             {
                 if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience)
-                     && (!(base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(military.Kind.LevelUpKindID).Unique && military.BelongedFaction.HasMilitaryKind(military.Kind.LevelUpKindID))))
+                     && (!military.BelongedFaction.IsMilitaryKindOverLimit(military.Kind.LevelUpKindID)))
                 {
                     return true;
                 }
@@ -9064,7 +9064,7 @@
         public void LevelUpMilitary(Military m)
         {
             MilitaryKind militaryKind = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(m.Kind.LevelUpKindID);
-            if ((militaryKind != null) && (!(militaryKind.Unique && m.BelongedFaction.HasMilitaryKind(militaryKind.ID))))
+            if ((militaryKind != null) && (!m.BelongedFaction.IsMilitaryKindOverLimit(militaryKind.ID)))
             {
                 int num = (m.Quantity * militaryKind.MinScale) / m.Kind.MinScale;
                 int num2 = ((m.Experience - m.Kind.LevelUpExperience) * militaryKind.MinScale) / m.Kind.MinScale;
