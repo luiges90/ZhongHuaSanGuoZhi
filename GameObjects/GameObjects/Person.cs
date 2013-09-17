@@ -1426,18 +1426,17 @@
                     if (this.ConvincingPerson.BelongedFaction == null)
                     {
                         ConvinceSuccess =
-                                (
-                        ((this.ConvincingPerson.IsCaptive && architectureByPosition.IsCaptiveInArchitecture(this.ConvincingPerson.BelongedCaptive))
-                        || (this.ConvincingPerson.LocationArchitecture == architectureByPosition))
-                        && (
-                        (
-                            
-                            ((this.ConvincingPerson.BelongedFaction == null) && (this.ConvincingPerson.IsCaptive))
+                            (
+                                (this.ConvincingPerson.IsCaptive && 
+                                 architectureByPosition.IsCaptiveInArchitecture(this.ConvincingPerson.BelongedCaptive)
+                                 )
+                            || (this.ConvincingPerson.LocationArchitecture == architectureByPosition)
                         )
-                        && ((this.ConvincingPerson.Loyalty < 100))))
-                        && (!this.ConvincingPerson.HatedPersons.Contains(this.BelongedFaction.LeaderID))
-                        && (!GlobalVariables.IdealTendencyValid || (idealOffset <= this.ConvincingPerson.IdealTendency.Offset + (double) this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                        && (GameObject.Random((this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 2)) - ((int)this.ConvincingPerson.PersonalLoyalty * (int)((PersonLoyalty)0x19))) > this.ConvincingPerson.Loyalty);
+                        && !this.ConvincingPerson.HatedPersons.Contains(this.BelongedFaction.LeaderID)
+                        && (!GlobalVariables.IdealTendencyValid || 
+                            (idealOffset <= this.ConvincingPerson.IdealTendency.Offset + 
+                             (double) this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
+                        );
                         
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
                         // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
