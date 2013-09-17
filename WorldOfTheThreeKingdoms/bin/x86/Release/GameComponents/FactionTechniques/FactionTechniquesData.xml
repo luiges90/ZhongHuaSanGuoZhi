@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <Background FileName="Background.png" Width="800" Height="380"></Background>
-  <Labels>
+  <Background FileName="Background.png" Width="1000" Height="700"></Background>
+<Labels>
     <Label X="50" Y="34" Width="60" Height="25" Label ="势力"
                 FontName="宋体"
                 FontSize="11"
@@ -75,13 +75,13 @@
   </Labels>
   <ButtonText StartX="40" StartY="129"
                 FontName="宋体"
-                FontSize="11"
+                FontSize="10"
                 FontStyle="Bold"
                 FontColor="4278190080"
                 Align="Middle">
   </ButtonText>
-  <ButtonTexture Width="100" Height="25" Basic="ButtonBasic.png" Available="ButtonAvailable.png" Upgrading="ButtonUpgrading.png" Upgraded="ButtonUpgraded.png"></ButtonTexture>
-  <Comments X="470" Y="139" Width="290" Height="200" RowMargin="0"
+  <ButtonTexture Width="80" Height="22" Basic="ButtonBasic.png" Available="ButtonAvailable.png" Upgrading="ButtonUpgrading.png" Upgraded="ButtonUpgraded.png"></ButtonTexture>
+  <Comments X="810" Y="139" Width="170" Height="200" RowMargin="0"
             FontName="宋体"
             FontSize="11"
             FontStyle="Regular"

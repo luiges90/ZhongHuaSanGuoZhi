@@ -1834,7 +1834,95 @@
         <Leaf Text="暴击对建筑伤害+50%，必爆，火伤，散射，可斜向。" Color="4278255360" />
         <Leaf Text="\n" Color="4294967295" />
     </Branch>
-    <Branch Name="TroopStratagem_0">
+   <Branch Name="TroopCombatMethod_100">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="乱射" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击增加10%，暴击增加10%，攻击攻击范围内的所有部队，会误伤" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+  <Branch Name="TroopCombatMethod_101">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="齐射" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击增加30%，防御降低20%攻击对本队与攻击目标之间及相邻部队造成伤害。" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+    <Branch Name="TroopCombatMethod_102">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="飞射" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击增加20%，暴击几率增加20%,暴击致乱几率增加20%" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+  <Branch Name="TroopCombatMethod_103">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="流矢" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击目标二格内所有敌军，攻击力提高30%" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+    <Branch Name="TroopCombatMethod_104">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="连弩" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击增加10%，暴击几率增加30%,攻击目标与本队之间的所有部队，忽虐超过500的防御力，击破部队后可再次攻击" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+  <Branch Name="TroopCombatMethod_105">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="连击" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击增加20%，暴击几率增加30%，暴击至乱几率增加10%，击破部队后可再次攻击。" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+    <Branch Name="TroopCombatMethod_106">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="横扫" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击增加20%，暴击几率增加10%，攻击目标邻边所以部队" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+  <Branch Name="TroopCombatMethod_107">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="御甲" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="防御增加30%，抗爆几率增加30%，抗围几率增加40%，反击使敌人战意-10" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+  <Branch Name="TroopCombatMethod_108">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="刺杀" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击增加10%，对骑兵伤害增加100%" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+    <Branch Name="TroopCombatMethod_112">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="突袭" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击增加20%，暴击增加20%，暴击至乱几率增加20%" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>
+  <Branch Name="TroopCombatMethod_114">
+        <Leaf Text="战法" Color="4294967295" />
+        <Leaf Text="破杀" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="攻击增加30%，暴击增加30%暴击至乱增加20%" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+    </Branch>  
+<Branch Name="TroopStratagem_0">
         <Leaf Text="计略" Color="4294967295" />
         <Leaf Text="攻心" Color="4278232306" />
         <Leaf Text="\n" Color="4294967295" />
