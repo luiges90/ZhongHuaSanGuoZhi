@@ -941,11 +941,13 @@
                 // person close to killed one may hate killer
                 if (p == this) continue;
                 if (p == killer) continue;
+                if (p.Spouse == killer) continue;
+                if (p.Brother == null && p.Brother == killer.Brother) continue;
+                if (!p.HatedPersons.Contains(killer.ID)) continue;
+                if (p.hasCloseStrainTo(killer)) continue;
+                if (p.ClosePersons.Contains(killer.ID)) continue;
                 if (p.hasCloseStrainTo(this))
                 {
-                    if (p.Spouse == killer) continue;
-                    if (p.Brother == null && p.Brother == killer.Brother) continue;
-                    if (!p.HatedPersons.Contains(killer.ID)) continue;
                     int hateChance = this.ClosePersonKilledReaction * 25;
                     if (GameObject.Chance(hateChance))
                     {
