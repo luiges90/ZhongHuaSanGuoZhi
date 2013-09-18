@@ -127,6 +127,8 @@
 
         public static int OfficerDieInBattleRate = 10;
 
+        public static int AIOffensiveTroopHardLimit = 50;
+
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()

@@ -3079,6 +3079,7 @@
             if (this.HasHostileTroopsInView() || this.RecentlyAttacked > 0 || this.DefensiveLegion != null || !this.HasCampaignableMilitary()) return;
             if (this.HostileLine || this.FrontLine || this.noFactionFrontline) return;
             if (!this.IsFoodEnough) return;
+            if (base.Scenario.Troops.Count > GlobalVariables.AIOffensiveTroopHardLimit) return;
 
             Person leader = this.BelongedFaction.Leader;
             int reserve = (int)(((leader.Calmness - leader.Braveness) * Parameters.AIBackendArmyReserveCalmBraveDifferenceMultiply +
