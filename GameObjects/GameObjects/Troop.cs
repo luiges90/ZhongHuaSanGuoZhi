@@ -3435,7 +3435,7 @@
 
         public void Enter(Architecture a, bool doAsk)
         {
-            if (doAsk && this.OnTransportArrived != null)
+            if (doAsk && base.Scenario.CurrentPlayer != null && this.OnTransportArrived != null)
             {
                 this.OnTransportArrived(this, a);
             } 
