@@ -87,7 +87,6 @@
         private Label label33;
         private Label label34;
         private Label label35;
-        private Label label36;
         private Label label37;
         private Label label38;
         private Label label39;
@@ -195,7 +194,6 @@
         private TextBox tbPic;
         private TextBox tbPolitics;
         private TextBox tbPoliticsExperience;
-        private TextBox tbProhibitedFactionID;
         private TextBox tbSpouse;
         private TextBox tbStrain;
         private TextBox tbStrength;
@@ -480,8 +478,6 @@
             this.cbCharacter = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
             this.cbFactionColor = new System.Windows.Forms.ComboBox();
-            this.tbProhibitedFactionID = new System.Windows.Forms.TextBox();
-            this.label36 = new System.Windows.Forms.Label();
             this.tbOldFactionID = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -814,7 +810,7 @@
             this.clb08.Location = new System.Drawing.Point(68, 236);
             this.clb08.MultiColumn = true;
             this.clb08.Name = "clb08";
-            this.clb08.Size = new System.Drawing.Size(509, 20);
+            this.clb08.Size = new System.Drawing.Size(509, 4);
             this.clb08.TabIndex = 29;
             // 
             // label50
@@ -842,7 +838,7 @@
             this.clb07.Location = new System.Drawing.Point(68, 210);
             this.clb07.MultiColumn = true;
             this.clb07.Name = "clb07";
-            this.clb07.Size = new System.Drawing.Size(509, 20);
+            this.clb07.Size = new System.Drawing.Size(509, 4);
             this.clb07.TabIndex = 27;
             // 
             // label49
@@ -870,7 +866,7 @@
             this.clb04.Location = new System.Drawing.Point(68, 132);
             this.clb04.MultiColumn = true;
             this.clb04.Name = "clb04";
-            this.clb04.Size = new System.Drawing.Size(509, 20);
+            this.clb04.Size = new System.Drawing.Size(509, 4);
             this.clb04.TabIndex = 25;
             // 
             // label48
@@ -898,7 +894,7 @@
             this.clb05.Location = new System.Drawing.Point(68, 158);
             this.clb05.MultiColumn = true;
             this.clb05.Name = "clb05";
-            this.clb05.Size = new System.Drawing.Size(509, 20);
+            this.clb05.Size = new System.Drawing.Size(509, 4);
             this.clb05.TabIndex = 23;
             // 
             // label47
@@ -926,7 +922,7 @@
             this.clb01.Location = new System.Drawing.Point(68, 52);
             this.clb01.MultiColumn = true;
             this.clb01.Name = "clb01";
-            this.clb01.Size = new System.Drawing.Size(509, 20);
+            this.clb01.Size = new System.Drawing.Size(509, 4);
             this.clb01.TabIndex = 21;
             // 
             // label44
@@ -993,7 +989,7 @@
             this.clb11.Location = new System.Drawing.Point(68, 314);
             this.clb11.MultiColumn = true;
             this.clb11.Name = "clb11";
-            this.clb11.Size = new System.Drawing.Size(509, 20);
+            this.clb11.Size = new System.Drawing.Size(509, 4);
             this.clb11.TabIndex = 12;
             // 
             // clb10
@@ -1012,7 +1008,7 @@
             this.clb10.Location = new System.Drawing.Point(68, 288);
             this.clb10.MultiColumn = true;
             this.clb10.Name = "clb10";
-            this.clb10.Size = new System.Drawing.Size(509, 20);
+            this.clb10.Size = new System.Drawing.Size(509, 4);
             this.clb10.TabIndex = 11;
             // 
             // clb09
@@ -1031,7 +1027,7 @@
             this.clb09.Location = new System.Drawing.Point(68, 262);
             this.clb09.MultiColumn = true;
             this.clb09.Name = "clb09";
-            this.clb09.Size = new System.Drawing.Size(509, 20);
+            this.clb09.Size = new System.Drawing.Size(509, 4);
             this.clb09.TabIndex = 10;
             // 
             // clb06
@@ -1050,7 +1046,7 @@
             this.clb06.Location = new System.Drawing.Point(68, 184);
             this.clb06.MultiColumn = true;
             this.clb06.Name = "clb06";
-            this.clb06.Size = new System.Drawing.Size(509, 20);
+            this.clb06.Size = new System.Drawing.Size(509, 4);
             this.clb06.TabIndex = 9;
             // 
             // clb03
@@ -1069,7 +1065,7 @@
             this.clb03.Location = new System.Drawing.Point(68, 106);
             this.clb03.MultiColumn = true;
             this.clb03.Name = "clb03";
-            this.clb03.Size = new System.Drawing.Size(509, 20);
+            this.clb03.Size = new System.Drawing.Size(509, 4);
             this.clb03.TabIndex = 8;
             // 
             // clb02
@@ -1088,7 +1084,7 @@
             this.clb02.Location = new System.Drawing.Point(68, 80);
             this.clb02.MultiColumn = true;
             this.clb02.Name = "clb02";
-            this.clb02.Size = new System.Drawing.Size(509, 20);
+            this.clb02.Size = new System.Drawing.Size(509, 4);
             this.clb02.TabIndex = 7;
             // 
             // clb00
@@ -1107,7 +1103,7 @@
             this.clb00.Location = new System.Drawing.Point(68, 26);
             this.clb00.MultiColumn = true;
             this.clb00.Name = "clb00";
-            this.clb00.Size = new System.Drawing.Size(509, 20);
+            this.clb00.Size = new System.Drawing.Size(509, 4);
             this.clb00.TabIndex = 6;
             // 
             // tpBasic
@@ -1133,8 +1129,6 @@
             this.tpBasic.Controls.Add(this.cbCharacter);
             this.tpBasic.Controls.Add(this.label38);
             this.tpBasic.Controls.Add(this.cbFactionColor);
-            this.tpBasic.Controls.Add(this.tbProhibitedFactionID);
-            this.tpBasic.Controls.Add(this.label36);
             this.tpBasic.Controls.Add(this.tbOldFactionID);
             this.tpBasic.Controls.Add(this.label37);
             this.tpBasic.Controls.Add(this.label35);
@@ -1332,17 +1326,17 @@
             // 
             // tbAvailableLocation
             // 
-            this.tbAvailableLocation.Location = new System.Drawing.Point(361, 262);
+            this.tbAvailableLocation.Location = new System.Drawing.Point(186, 262);
             this.tbAvailableLocation.MaxLength = 4;
             this.tbAvailableLocation.Name = "tbAvailableLocation";
-            this.tbAvailableLocation.Size = new System.Drawing.Size(59, 21);
+            this.tbAvailableLocation.Size = new System.Drawing.Size(59, 22);
             this.tbAvailableLocation.TabIndex = 155;
             this.tbAvailableLocation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(302, 265);
+            this.label45.Location = new System.Drawing.Point(127, 265);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(53, 12);
             this.label45.TabIndex = 154;
@@ -1488,36 +1482,17 @@
             this.cbFactionColor.FormattingEnabled = true;
             this.cbFactionColor.Location = new System.Drawing.Point(588, 150);
             this.cbFactionColor.Name = "cbFactionColor";
-            this.cbFactionColor.Size = new System.Drawing.Size(82, 22);
+            this.cbFactionColor.Size = new System.Drawing.Size(82, 23);
             this.cbFactionColor.TabIndex = 123;
             this.cbFactionColor.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbFactionColor_DrawItem);
             this.cbFactionColor.SelectedIndexChanged += new System.EventHandler(this.cbFactionColor_SelectedIndexChanged);
-            // 
-            // tbProhibitedFactionID
-            // 
-            this.tbProhibitedFactionID.Location = new System.Drawing.Point(222, 262);
-            this.tbProhibitedFactionID.MaxLength = 4;
-            this.tbProhibitedFactionID.Name = "tbProhibitedFactionID";
-            this.tbProhibitedFactionID.Size = new System.Drawing.Size(59, 21);
-            this.tbProhibitedFactionID.TabIndex = 149;
-            this.tbProhibitedFactionID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.tbProhibitedFactionID.MouseHover += new System.EventHandler(this.tbProhibitedFactionID_MouseHover);
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(139, 265);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(77, 12);
-            this.label36.TabIndex = 146;
-            this.label36.Text = "禁止出仕势力";
             // 
             // tbOldFactionID
             // 
             this.tbOldFactionID.Location = new System.Drawing.Point(58, 262);
             this.tbOldFactionID.MaxLength = 4;
             this.tbOldFactionID.Name = "tbOldFactionID";
-            this.tbOldFactionID.Size = new System.Drawing.Size(59, 21);
+            this.tbOldFactionID.Size = new System.Drawing.Size(59, 22);
             this.tbOldFactionID.TabIndex = 148;
             this.tbOldFactionID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbOldFactionID.MouseHover += new System.EventHandler(this.tbOldFactionID_MouseHover);
@@ -1653,7 +1628,7 @@
             this.tbGeneration.Location = new System.Drawing.Point(611, 187);
             this.tbGeneration.MaxLength = 2;
             this.tbGeneration.Name = "tbGeneration";
-            this.tbGeneration.Size = new System.Drawing.Size(59, 21);
+            this.tbGeneration.Size = new System.Drawing.Size(59, 22);
             this.tbGeneration.TabIndex = 135;
             this.tbGeneration.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1671,7 +1646,7 @@
             this.tbBrother.Location = new System.Drawing.Point(498, 187);
             this.tbBrother.MaxLength = 4;
             this.tbBrother.Name = "tbBrother";
-            this.tbBrother.Size = new System.Drawing.Size(59, 21);
+            this.tbBrother.Size = new System.Drawing.Size(59, 22);
             this.tbBrother.TabIndex = 133;
             this.tbBrother.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbBrother.MouseHover += new System.EventHandler(this.tbBrother_MouseHover);
@@ -1690,7 +1665,7 @@
             this.tbSpouse.Location = new System.Drawing.Point(380, 187);
             this.tbSpouse.MaxLength = 4;
             this.tbSpouse.Name = "tbSpouse";
-            this.tbSpouse.Size = new System.Drawing.Size(59, 21);
+            this.tbSpouse.Size = new System.Drawing.Size(59, 22);
             this.tbSpouse.TabIndex = 131;
             this.tbSpouse.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbSpouse.MouseHover += new System.EventHandler(this.tbSpouse_MouseHover);
@@ -1709,7 +1684,7 @@
             this.tbMother.Location = new System.Drawing.Point(264, 187);
             this.tbMother.MaxLength = 4;
             this.tbMother.Name = "tbMother";
-            this.tbMother.Size = new System.Drawing.Size(59, 21);
+            this.tbMother.Size = new System.Drawing.Size(59, 22);
             this.tbMother.TabIndex = 129;
             this.tbMother.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbMother.MouseHover += new System.EventHandler(this.tbMother_MouseHover);
@@ -1728,7 +1703,7 @@
             this.tbFather.Location = new System.Drawing.Point(156, 187);
             this.tbFather.MaxLength = 4;
             this.tbFather.Name = "tbFather";
-            this.tbFather.Size = new System.Drawing.Size(59, 21);
+            this.tbFather.Size = new System.Drawing.Size(59, 22);
             this.tbFather.TabIndex = 127;
             this.tbFather.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbFather.MouseHover += new System.EventHandler(this.tbFather_MouseHover);
@@ -1747,7 +1722,7 @@
             this.tbStrain.Location = new System.Drawing.Point(49, 187);
             this.tbStrain.MaxLength = 4;
             this.tbStrain.Name = "tbStrain";
-            this.tbStrain.Size = new System.Drawing.Size(59, 21);
+            this.tbStrain.Size = new System.Drawing.Size(59, 22);
             this.tbStrain.TabIndex = 125;
             this.tbStrain.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbStrain.MouseHover += new System.EventHandler(this.tbStrain_MouseHover);
@@ -1799,7 +1774,7 @@
             this.tbLoyalty.Location = new System.Drawing.Point(319, 150);
             this.tbLoyalty.MaxLength = 4;
             this.tbLoyalty.Name = "tbLoyalty";
-            this.tbLoyalty.Size = new System.Drawing.Size(59, 21);
+            this.tbLoyalty.Size = new System.Drawing.Size(59, 22);
             this.tbLoyalty.TabIndex = 120;
             this.tbLoyalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1817,7 +1792,7 @@
             this.tbCalmness.Location = new System.Drawing.Point(186, 150);
             this.tbCalmness.MaxLength = 2;
             this.tbCalmness.Name = "tbCalmness";
-            this.tbCalmness.Size = new System.Drawing.Size(59, 21);
+            this.tbCalmness.Size = new System.Drawing.Size(59, 22);
             this.tbCalmness.TabIndex = 118;
             this.tbCalmness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1835,7 +1810,7 @@
             this.tbBraveness.Location = new System.Drawing.Point(58, 150);
             this.tbBraveness.MaxLength = 2;
             this.tbBraveness.Name = "tbBraveness";
-            this.tbBraveness.Size = new System.Drawing.Size(59, 21);
+            this.tbBraveness.Size = new System.Drawing.Size(59, 22);
             this.tbBraveness.TabIndex = 116;
             this.tbBraveness.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1853,7 +1828,7 @@
             this.tbGlamourExperience.Location = new System.Drawing.Point(507, 113);
             this.tbGlamourExperience.MaxLength = 4;
             this.tbGlamourExperience.Name = "tbGlamourExperience";
-            this.tbGlamourExperience.Size = new System.Drawing.Size(59, 21);
+            this.tbGlamourExperience.Size = new System.Drawing.Size(59, 22);
             this.tbGlamourExperience.TabIndex = 114;
             this.tbGlamourExperience.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1871,7 +1846,7 @@
             this.tbPoliticsExperience.Location = new System.Drawing.Point(389, 113);
             this.tbPoliticsExperience.MaxLength = 4;
             this.tbPoliticsExperience.Name = "tbPoliticsExperience";
-            this.tbPoliticsExperience.Size = new System.Drawing.Size(59, 21);
+            this.tbPoliticsExperience.Size = new System.Drawing.Size(59, 22);
             this.tbPoliticsExperience.TabIndex = 112;
             this.tbPoliticsExperience.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1889,7 +1864,7 @@
             this.tbIntelligenceExperience.Location = new System.Drawing.Point(273, 113);
             this.tbIntelligenceExperience.MaxLength = 4;
             this.tbIntelligenceExperience.Name = "tbIntelligenceExperience";
-            this.tbIntelligenceExperience.Size = new System.Drawing.Size(59, 21);
+            this.tbIntelligenceExperience.Size = new System.Drawing.Size(59, 22);
             this.tbIntelligenceExperience.TabIndex = 110;
             this.tbIntelligenceExperience.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1907,7 +1882,7 @@
             this.tbCommandExperience.Location = new System.Drawing.Point(165, 113);
             this.tbCommandExperience.MaxLength = 4;
             this.tbCommandExperience.Name = "tbCommandExperience";
-            this.tbCommandExperience.Size = new System.Drawing.Size(59, 21);
+            this.tbCommandExperience.Size = new System.Drawing.Size(59, 22);
             this.tbCommandExperience.TabIndex = 108;
             this.tbCommandExperience.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1925,7 +1900,7 @@
             this.tbStrengthExperience.Location = new System.Drawing.Point(58, 113);
             this.tbStrengthExperience.MaxLength = 4;
             this.tbStrengthExperience.Name = "tbStrengthExperience";
-            this.tbStrengthExperience.Size = new System.Drawing.Size(59, 21);
+            this.tbStrengthExperience.Size = new System.Drawing.Size(59, 22);
             this.tbStrengthExperience.TabIndex = 106;
             this.tbStrengthExperience.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1943,7 +1918,7 @@
             this.tbGlamour.Location = new System.Drawing.Point(507, 86);
             this.tbGlamour.MaxLength = 4;
             this.tbGlamour.Name = "tbGlamour";
-            this.tbGlamour.Size = new System.Drawing.Size(59, 21);
+            this.tbGlamour.Size = new System.Drawing.Size(59, 22);
             this.tbGlamour.TabIndex = 104;
             this.tbGlamour.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1961,7 +1936,7 @@
             this.tbPolitics.Location = new System.Drawing.Point(389, 86);
             this.tbPolitics.MaxLength = 4;
             this.tbPolitics.Name = "tbPolitics";
-            this.tbPolitics.Size = new System.Drawing.Size(59, 21);
+            this.tbPolitics.Size = new System.Drawing.Size(59, 22);
             this.tbPolitics.TabIndex = 102;
             this.tbPolitics.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1979,7 +1954,7 @@
             this.tbIntelligence.Location = new System.Drawing.Point(273, 86);
             this.tbIntelligence.MaxLength = 4;
             this.tbIntelligence.Name = "tbIntelligence";
-            this.tbIntelligence.Size = new System.Drawing.Size(59, 21);
+            this.tbIntelligence.Size = new System.Drawing.Size(59, 22);
             this.tbIntelligence.TabIndex = 100;
             this.tbIntelligence.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -1997,7 +1972,7 @@
             this.tbCommand.Location = new System.Drawing.Point(165, 86);
             this.tbCommand.MaxLength = 4;
             this.tbCommand.Name = "tbCommand";
-            this.tbCommand.Size = new System.Drawing.Size(59, 21);
+            this.tbCommand.Size = new System.Drawing.Size(59, 22);
             this.tbCommand.TabIndex = 98;
             this.tbCommand.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -2015,7 +1990,7 @@
             this.tbStrength.Location = new System.Drawing.Point(58, 86);
             this.tbStrength.MaxLength = 4;
             this.tbStrength.Name = "tbStrength";
-            this.tbStrength.Size = new System.Drawing.Size(59, 21);
+            this.tbStrength.Size = new System.Drawing.Size(59, 22);
             this.tbStrength.TabIndex = 96;
             this.tbStrength.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -2056,7 +2031,7 @@
             this.tbDeadYear.Location = new System.Drawing.Point(469, 47);
             this.tbDeadYear.MaxLength = 4;
             this.tbDeadYear.Name = "tbDeadYear";
-            this.tbDeadYear.Size = new System.Drawing.Size(59, 21);
+            this.tbDeadYear.Size = new System.Drawing.Size(59, 22);
             this.tbDeadYear.TabIndex = 92;
             this.tbDeadYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -2074,7 +2049,7 @@
             this.tbBornYear.Location = new System.Drawing.Point(338, 47);
             this.tbBornYear.MaxLength = 4;
             this.tbBornYear.Name = "tbBornYear";
-            this.tbBornYear.Size = new System.Drawing.Size(59, 21);
+            this.tbBornYear.Size = new System.Drawing.Size(59, 22);
             this.tbBornYear.TabIndex = 91;
             this.tbBornYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -2092,7 +2067,7 @@
             this.tbAvailableYear.Location = new System.Drawing.Point(210, 47);
             this.tbAvailableYear.MaxLength = 4;
             this.tbAvailableYear.Name = "tbAvailableYear";
-            this.tbAvailableYear.Size = new System.Drawing.Size(59, 21);
+            this.tbAvailableYear.Size = new System.Drawing.Size(59, 22);
             this.tbAvailableYear.TabIndex = 90;
             this.tbAvailableYear.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -2119,7 +2094,7 @@
             this.tbIdeal.Location = new System.Drawing.Point(435, 9);
             this.tbIdeal.MaxLength = 4;
             this.tbIdeal.Name = "tbIdeal";
-            this.tbIdeal.Size = new System.Drawing.Size(59, 21);
+            this.tbIdeal.Size = new System.Drawing.Size(59, 22);
             this.tbIdeal.TabIndex = 85;
             this.tbIdeal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -2137,7 +2112,7 @@
             this.tbPic.Location = new System.Drawing.Point(319, 9);
             this.tbPic.MaxLength = 4;
             this.tbPic.Name = "tbPic";
-            this.tbPic.Size = new System.Drawing.Size(59, 21);
+            this.tbPic.Size = new System.Drawing.Size(59, 22);
             this.tbPic.TabIndex = 84;
             this.tbPic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -2155,7 +2130,7 @@
             this.tbCalledName.Location = new System.Drawing.Point(198, 9);
             this.tbCalledName.MaxLength = 6;
             this.tbCalledName.Name = "tbCalledName";
-            this.tbCalledName.Size = new System.Drawing.Size(40, 21);
+            this.tbCalledName.Size = new System.Drawing.Size(40, 22);
             this.tbCalledName.TabIndex = 83;
             // 
             // label3
@@ -2172,7 +2147,7 @@
             this.tbGivenName.Location = new System.Drawing.Point(118, 9);
             this.tbGivenName.MaxLength = 6;
             this.tbGivenName.Name = "tbGivenName";
-            this.tbGivenName.Size = new System.Drawing.Size(40, 21);
+            this.tbGivenName.Size = new System.Drawing.Size(40, 22);
             this.tbGivenName.TabIndex = 82;
             // 
             // label2
@@ -2189,7 +2164,7 @@
             this.tbSurName.Location = new System.Drawing.Point(41, 9);
             this.tbSurName.MaxLength = 6;
             this.tbSurName.Name = "tbSurName";
-            this.tbSurName.Size = new System.Drawing.Size(40, 21);
+            this.tbSurName.Size = new System.Drawing.Size(40, 22);
             this.tbSurName.TabIndex = 81;
             // 
             // label1
@@ -3122,7 +3097,7 @@
                     this.tbFather.Text = this.person.Father != null ? this.person.Father.ID.ToString() : "-1";
                     this.tbMother.Text = this.person.Mother != null ? this.person.Mother.ID.ToString() : "-1";
                     this.tbSpouse.Text = this.person.Spouse != null ? this.person.Spouse.ID.ToString() : "-1";
-                    this.tbBrother.Text = this.person.Brother != null ? this.person.Brother.ID.ToString() : "-1";
+                    this.tbBrother.Text = this.person.GetBrotherIDForStore().ToString();
                     this.tbGeneration.Text = this.person.Generation.ToString();
                     try
                     {
@@ -3150,7 +3125,6 @@
                     }
                     catch (ArgumentOutOfRangeException) { }
                     this.tbOldFactionID.Text = this.person.OldFactionID.ToString();
-                    this.tbProhibitedFactionID.Text = this.person.ProhibitedFactionID.ToString();
                     try
                     {
                         foreach (int num in this.person.ClosePersons)
@@ -3290,7 +3264,7 @@
                 int.TryParse(this.tbSpouse.Text, out t);
                 p.Spouse = p.Scenario.Persons.GetGameObject(t) as Person;
                 int.TryParse(this.tbBrother.Text, out t);
-                p.Brother = p.Scenario.Persons.GetGameObject(t) as Person;
+                p.ResetBrothersFromID(t);
                 p.Generation = int.Parse(this.tbGeneration.Text);
                 p.PersonalLoyalty = (int) this.cbPersonalLoyalty.SelectedIndex;
                 p.Ambition = (int) this.cbAmbition.SelectedIndex;
@@ -3298,7 +3272,6 @@
                 p.ValuationOnGovernment = (PersonValuationOnGovernment) this.cbValuationOnGovernment.SelectedIndex;
                 p.StrategyTendency = (PersonStrategyTendency) this.cbStrategyTendency.SelectedIndex;
                 p.OldFactionID = int.Parse(this.tbOldFactionID.Text);
-                p.ProhibitedFactionID = int.Parse(this.tbProhibitedFactionID.Text);
                 p.ClosePersons.Clear();
                 foreach (string str in this.lbClosePersons.Items)
                 {

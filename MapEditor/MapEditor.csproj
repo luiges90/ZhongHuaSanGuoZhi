@@ -173,6 +173,9 @@
     <EmbeddedResource Include="MapEditor.Forms.SectionForms.frmSelectSectionList.resources" />
     <EmbeddedResource Include="MapEditor.Forms.HintForm.resources" />
     <EmbeddedResource Include="MapEditor.Forms.frmFactionList.resources" />
+    <EmbeddedResource Include="MapEditor\Forms\PersonForms\frmEditPerson.resx">
+      <DependentUpon>frmEditPerson.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameObjects\GameObjects.csproj">

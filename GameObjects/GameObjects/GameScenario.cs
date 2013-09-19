@@ -4158,15 +4158,7 @@
                     row["Father"] = person.Father == null ? -1 : person.Father.ID;
                     row["Mother"] = person.Mother == null ? -1 : person.Mother.ID;
                     row["Spouse"] = person.Spouse == null ? -1 : person.Spouse.ID;
-                    int minID = -1;
-                    foreach (Person p in person.Brothers)
-                    {
-                        if (p.ID < minID)
-                        {
-                            minID = p.ID;
-                        }
-                    }
-                    row["Brother"] = minID;
+                    row["Brother"] = person.GetBrotherIDForStore();
                     row["Generation"] = person.Generation;
                     row["PersonalLoyalty"] = (int)person.PersonalLoyalty;
                     row["Ambition"] = (int)person.Ambition;

@@ -6752,6 +6752,7 @@
         public void ResetBrothersFromID(int id)
         {
             this.Brothers.Clear();
+            if (id == -1) return;
             foreach (Person p in base.Scenario.Persons)
             {
                 if (p.ID == id && p != this)
@@ -6759,6 +6760,19 @@
                     this.Brothers.Add(p);
                 }
             }
+        }
+
+        public int GetBrotherIDForStore()
+        {
+            int minID = -1;
+            foreach (Person p in this.Brothers)
+            {
+                if (p.ID < minID)
+                {
+                    minID = p.ID;
+                }
+            }
+            return minID;
         }
 
         public Dictionary<Person, int> GetRelations()
