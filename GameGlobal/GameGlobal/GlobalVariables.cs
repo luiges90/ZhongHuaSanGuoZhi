@@ -701,6 +701,15 @@
                 exception = exception24;
                 throw new Exception("OfficerDieInBattleRate:\n" + exception.ToString());
             }
+            try
+            {
+                AIOffensiveTroopHardLimit = int.Parse(nextSibling.Attributes.GetNamedItem("AIOffensiveTroopHardLimit").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("AIOffensiveTroopHardLimit:\n" + exception.ToString());
+            }
             return true;
         }
     }

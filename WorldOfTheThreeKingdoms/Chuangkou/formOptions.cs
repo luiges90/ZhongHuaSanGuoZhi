@@ -208,6 +208,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private CheckBox cbCreateChildren;
         private Label label60;
         private TextBox tbOfficerDieInBattleRate;
+        private Label label61;
+        private TextBox tbAIOffensiveTroopHardLimit;
         private TextBox zainanfashengjilv;
 
         public formOptions()
@@ -237,6 +239,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
             this.tabPageBasic = new System.Windows.Forms.TabPage();
+            this.label60 = new System.Windows.Forms.Label();
+            this.tbOfficerDieInBattleRate = new System.Windows.Forms.TextBox();
             this.cbCreateChildren = new System.Windows.Forms.CheckBox();
             this.tbGetChildrenRate = new System.Windows.Forms.TextBox();
             this.getChildrenRateLabel = new System.Windows.Forms.Label();
@@ -413,8 +417,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label60 = new System.Windows.Forms.Label();
-            this.tbOfficerDieInBattleRate = new System.Windows.Forms.TextBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.tbAIOffensiveTroopHardLimit = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -473,6 +477,23 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageBasic.TabIndex = 4;
             this.tabPageBasic.Text = "基本";
             this.tabPageBasic.UseVisualStyleBackColor = true;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(311, 201);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(65, 12);
+            this.label60.TabIndex = 137;
+            this.label60.Text = "武将战死率";
+            // 
+            // tbOfficerDieInBattleRate
+            // 
+            this.tbOfficerDieInBattleRate.Location = new System.Drawing.Point(382, 198);
+            this.tbOfficerDieInBattleRate.Name = "tbOfficerDieInBattleRate";
+            this.tbOfficerDieInBattleRate.Size = new System.Drawing.Size(50, 22);
+            this.tbOfficerDieInBattleRate.TabIndex = 136;
+            this.tbOfficerDieInBattleRate.Text = "10";
             // 
             // cbCreateChildren
             // 
@@ -1834,6 +1855,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageAIParameter
             // 
+            this.tabPageAIParameter.Controls.Add(this.label61);
+            this.tabPageAIParameter.Controls.Add(this.tbAIOffensiveTroopHardLimit);
             this.tabPageAIParameter.Controls.Add(this.label54);
             this.tabPageAIParameter.Controls.Add(this.tbMaxAITroopTime);
             this.tabPageAIParameter.Controls.Add(this.label50);
@@ -1876,7 +1899,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(250, 131);
+            this.label54.Location = new System.Drawing.Point(250, 124);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(101, 12);
             this.label54.TabIndex = 53;
@@ -1884,7 +1907,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbMaxAITroopTime
             // 
-            this.tbMaxAITroopTime.Location = new System.Drawing.Point(357, 128);
+            this.tbMaxAITroopTime.Location = new System.Drawing.Point(357, 121);
             this.tbMaxAITroopTime.Name = "tbMaxAITroopTime";
             this.tbMaxAITroopTime.Size = new System.Drawing.Size(71, 22);
             this.tbMaxAITroopTime.TabIndex = 54;
@@ -1924,7 +1947,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbAIAutoTakePlayerCaptiveOnlyUnfull
             // 
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull.AutoSize = true;
-            this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Location = new System.Drawing.Point(270, 101);
+            this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Location = new System.Drawing.Point(270, 97);
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Name = "cbAIAutoTakePlayerCaptiveOnlyUnfull";
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Size = new System.Drawing.Size(150, 16);
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull.TabIndex = 48;
@@ -2175,22 +2198,21 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // label60
+            // label61
             // 
-            this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(311, 201);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(65, 12);
-            this.label60.TabIndex = 137;
-            this.label60.Text = "武将战死率";
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(238, 155);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(113, 12);
+            this.label61.TabIndex = 55;
+            this.label61.Text = "进攻时地图部队上限";
             // 
-            // tbOfficerDieInBattleRate
+            // tbAIOffensiveTroopHardLimit
             // 
-            this.tbOfficerDieInBattleRate.Location = new System.Drawing.Point(382, 198);
-            this.tbOfficerDieInBattleRate.Name = "tbOfficerDieInBattleRate";
-            this.tbOfficerDieInBattleRate.Size = new System.Drawing.Size(50, 22);
-            this.tbOfficerDieInBattleRate.TabIndex = 136;
-            this.tbOfficerDieInBattleRate.Text = "10";
+            this.tbAIOffensiveTroopHardLimit.Location = new System.Drawing.Point(357, 149);
+            this.tbAIOffensiveTroopHardLimit.Name = "tbAIOffensiveTroopHardLimit";
+            this.tbAIOffensiveTroopHardLimit.Size = new System.Drawing.Size(71, 22);
+            this.tbAIOffensiveTroopHardLimit.TabIndex = 56;
             // 
             // formOptions
             // 
@@ -2284,6 +2306,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbShowChallengeAnimation.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("ShowChallengeAnimation").Value);
             this.cbPersonDieInChallenge.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value);
             this.tbOfficerDieInBattleRate.Text = nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value;
+            this.tbAIOffensiveTroopHardLimit.Text = nextSibling.Attributes.GetNamedItem("AIOffensiveTroopHardLimit").Value;
         }
 
         private void LoadParameterDoc()
@@ -2400,6 +2423,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("ShowChallengeAnimation").Value = this.cbShowChallengeAnimation.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value = this.cbPersonDieInChallenge.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value = this.tbOfficerDieInBattleRate.Text;
+            nextSibling.Attributes.GetNamedItem("AIOffensiveTroopHardLimit").Value = this.tbAIOffensiveTroopHardLimit.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 

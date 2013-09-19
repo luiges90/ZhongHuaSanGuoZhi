@@ -4859,6 +4859,19 @@
             }
             return ran;
         }
+
+        public int GetAITroopCount()
+        {
+            int cnt = 0;
+            foreach (Troop t in this.Troops)
+            {
+                if (!this.IsPlayer(t.BelongedFaction) && !t.IsTransport)
+                {
+                    cnt++;
+                }
+            }
+            return cnt;
+        }
     }
 }
 
