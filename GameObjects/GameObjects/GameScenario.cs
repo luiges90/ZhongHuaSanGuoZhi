@@ -4865,7 +4865,7 @@
             int cnt = 0;
             foreach (Troop t in this.Troops)
             {
-                if (!this.IsPlayer(t.BelongedFaction) && !t.IsTransport)
+                if (!this.IsPlayer(t.BelongedFaction))
                 {
                     cnt++;
                 }
