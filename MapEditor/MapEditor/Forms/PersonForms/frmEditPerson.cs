@@ -3403,20 +3403,6 @@
             }
         }
 
-        private void tbProhibitedFactionID_MouseHover(object sender, EventArgs e)
-        {
-            if (this.person != null)
-            {
-                try
-                {
-                    this.tsslIDtoName.Text = this.person.Name + "不能加入" + (this.AllPersons.GetGameObject(int.Parse(this.tbProhibitedFactionID.Text)) as Person).Name + "的势力";
-                }
-                catch
-                {
-                }
-            }
-        }
-
         private void tbSpouse_MouseHover(object sender, EventArgs e)
         {
             if (this.person != null)
