@@ -3097,7 +3097,14 @@
                     this.tbFather.Text = this.person.Father != null ? this.person.Father.ID.ToString() : "-1";
                     this.tbMother.Text = this.person.Mother != null ? this.person.Mother.ID.ToString() : "-1";
                     this.tbSpouse.Text = this.person.Spouse != null ? this.person.Spouse.ID.ToString() : "-1";
-                    this.tbBrother.Text = this.person.GetBrotherIDForStore().ToString();
+                    try
+                    {
+                        foreach (Person num in this.person.Brothers)
+                        {
+                            this.lbClosePersons.Items.Add(num.ToString() + " " + num.Name);
+                        }
+                    }
+                    catch { }
                     this.tbGeneration.Text = this.person.Generation.ToString();
                     try
                     {
@@ -3127,13 +3134,13 @@
                     this.tbOldFactionID.Text = this.person.OldFactionID.ToString();
                     try
                     {
-                        foreach (int num in this.person.GetClosePersons())
+                        foreach (Person num in this.person.GetClosePersons())
                         {
-                            this.lbClosePersons.Items.Add(num.ToString() + " " + (this.AllPersons.GetGameObject(num) as Person).Name);
+                            this.lbClosePersons.Items.Add(num.ToString() + " " + num.Name);
                         }
-                        foreach (int num in this.person.GetHatedPersons())
+                        foreach (Person num in this.person.GetHatedPersons())
                         {
-                            this.lbHatedPersons.Items.Add(num.ToString() + " " + (this.AllPersons.GetGameObject(num) as Person).Name);
+                            this.lbHatedPersons.Items.Add(num.ToString() + " " + num.Name);
                         }
                     }
                     catch
@@ -3263,8 +3270,17 @@
                 p.Mother = p.Scenario.Persons.GetGameObject(t) as Person;
                 int.TryParse(this.tbSpouse.Text, out t);
                 p.Spouse = p.Scenario.Persons.GetGameObject(t) as Person;
-                int.TryParse(this.tbBrother.Text, out t);
-                p.ResetBrothersFromID(t);
+
+                p.Brothers.Clear();
+                char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+                string[] strArray = this.tbBrother.Text.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                foreach (String s in strArray)
+                {
+                    int.TryParse(s, out t);
+                    Person q = this.Persons.GetGameObject(t) as Person;
+                    p.Brothers.Add(q);
+                }
+
                 p.Generation = int.Parse(this.tbGeneration.Text);
                 p.PersonalLoyalty = (int) this.cbPersonalLoyalty.SelectedIndex;
                 p.Ambition = (int) this.cbAmbition.SelectedIndex;

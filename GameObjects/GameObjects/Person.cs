@@ -6724,38 +6724,13 @@
 
         }
 
-        public void ResetBrothersFromID(int id)
-        {
-            this.Brothers.Clear();
-            if (id == -1) return;
-            foreach (Person p in base.Scenario.Persons)
-            {
-                if (p.ID == id && p != this)
-                {
-                    this.Brothers.Add(p);
-                }
-            }
-        }
-
-        public int GetBrotherIDForStore()
-        {
-            int minID = -1;
-            foreach (Person p in this.Brothers)
-            {
-                if (p.ID < minID)
-                {
-                    minID = p.ID;
-                }
-            }
-            return minID;
-        }
-
         public float BrotherAbilityFactor
         {
             get
             {
                 foreach (Person p in this.Brothers)
                 {
+                    if (p == this) continue;
                     if (p.BelongedArchitecture == this.BelongedArchitecture || p.BelongedTroop == this.BelongedTroop)
                     {
                         return 1.33f;
@@ -6777,7 +6752,7 @@
 
         public void AddHated(Person p)
         {
-            if (!this.Hates(p))
+            if (p != null && p != this && !this.Hates(p))
             {
                 this.hatedPersons.Add(p);
             }
@@ -6785,7 +6760,7 @@
 
         public void AddClose(Person p)
         {
-            if (!this.Closes(p))
+            if (p != null && p != this && !this.Closes(p))
             {
                 this.closePersons.Add(p);
             }

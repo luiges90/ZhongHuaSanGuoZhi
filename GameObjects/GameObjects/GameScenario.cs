@@ -2426,7 +2426,7 @@
             Dictionary<int, int> fatherIds = new Dictionary<int, int>();
             Dictionary<int, int> motherIds = new Dictionary<int, int>();
             Dictionary<int, int> spouseIds = new Dictionary<int, int>();
-            Dictionary<int, int> brotherIds = new Dictionary<int, int>();
+            Dictionary<int, int[]> brotherIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> closeIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> hatedIds = new Dictionary<int, int[]>();
             while (reader.Read())
@@ -2481,7 +2481,17 @@
                 fatherIds[person.ID] = (short)reader["Father"];
                 motherIds[person.ID] = (short)reader["Mother"];
                 spouseIds[person.ID] = (short)reader["Spouse"];
-                brotherIds[person.ID] = (short)reader["Brother"];
+
+                String str = reader["Brother"].ToString();
+                char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+                string[] strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                int[] intArray = new int[strArray.Length];
+                for (int i = 0; i < strArray.Length; i++)
+                {
+                    intArray[i] = int.Parse(strArray[i]);
+                }
+                brotherIds.Add(person.ID, intArray);
+
                 person.Generation = (short)reader["Generation"];
                 person.PersonalLoyalty = ((short)reader["PersonalLoyalty"]);
                 person.Ambition = ((short)reader["Ambition"]);
@@ -2499,8 +2509,25 @@
                 person.OutsideDestination = StaticMethods.LoadFromString(reader["OutsideDestination"].ToString());
                 person.ConvincingPersonID = (short)reader["ConvincingPerson"];
                 person.InformationKindID = (short)reader["InformationKind"];
-                StaticMethods.LoadFromString(closeIds[person.ID], reader["ClosePersons"].ToString());
-                StaticMethods.LoadFromString(hatedIds[person.ID], reader["HatedPersons"].ToString());
+
+                str = reader["ClosePersons"].ToString();
+                strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                intArray = new int[strArray.Length];
+                for (int i = 0; i < strArray.Length; i++)
+                {
+                    intArray[i] = int.Parse(strArray[i]);
+                }
+                closeIds.Add(person.ID, intArray);
+
+                str = reader["HatedPersons"].ToString();
+                strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                intArray = new int[strArray.Length];
+                for (int i = 0; i < strArray.Length; i++)
+                {
+                    intArray[i] = int.Parse(strArray[i]);
+                }
+                hatedIds.Add(person.ID, intArray);
+               
                 person.Skills.LoadFromString(this.GameCommonData.AllSkills, reader["Skills"].ToString());
                 person.RealPersonalTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["PersonalTitle"]);
                 person.RealCombatTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["CombatTitle"]);
@@ -2608,9 +2635,17 @@
             {
                 (this.Persons.GetGameObject(i.Key) as Person).Spouse = this.Persons.GetGameObject(i.Value) as Person;
             }
-            foreach (KeyValuePair<int, int> i in brotherIds)
+            foreach (KeyValuePair<int, int[]> i in brotherIds)
             {
-                (this.Persons.GetGameObject(i.Key) as Person).ResetBrothersFromID(i.Value);
+                Person p = this.Persons.GetGameObject(i.Key) as Person;
+                foreach (int j in i.Value)
+                {
+                    Person q = this.Persons.GetGameObject(j) as Person;
+                    if (q != null)
+                    {
+                        p.Brothers.Add(q);
+                    }
+                }
             }
             foreach (KeyValuePair<int, int[]> i in closeIds)
             {
@@ -4178,7 +4213,14 @@
                     row["Father"] = person.Father == null ? -1 : person.Father.ID;
                     row["Mother"] = person.Mother == null ? -1 : person.Mother.ID;
                     row["Spouse"] = person.Spouse == null ? -1 : person.Spouse.ID;
-                    row["Brother"] = person.GetBrotherIDForStore();
+
+                    String brotherStr = "";
+                    foreach (Person p in person.Brothers)
+                    {
+                        brotherStr = p.ID + " ";
+                    }
+                    row["ClosePersons"] = brotherStr;
+
                     row["Generation"] = person.Generation;
                     row["PersonalLoyalty"] = (int)person.PersonalLoyalty;
                     row["Ambition"] = (int)person.Ambition;
