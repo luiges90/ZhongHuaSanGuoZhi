@@ -9,7 +9,7 @@
         {
             if (person.BelongedFaction != null)
             {
-                person.BelongedFaction.Leader.ClosePersons.Add(person.ID);
+                person.BelongedFaction.Leader.AddClose(person);
             }
         }
 

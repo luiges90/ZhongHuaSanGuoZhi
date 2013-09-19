@@ -604,7 +604,9 @@
                 foreach (Person person in this.Persons)
                 {
                     if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Strength >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Strength - t.TroopStrength) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    if (!person.Selected && person.Strength >= 0x4b && !t.Persons.HasGameObject(person) && person.Closes(t.Leader) && 
+                        person.Strength - t.TroopStrength >= 10 && person.FightingForce < t.Leader.FightingForce && 
+                        !person.HasLeaderValidCombatTitle)
                     {
                         person.Selected = true;
                         result.Add(person);
@@ -618,7 +620,9 @@
                 foreach (Person person in this.Persons)
                 {
                     if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Command >= 0x4b)) && ((!t.Persons.HasGameObject(person) && (person.ClosePersons.IndexOf(t.Leader.ID) >= 0)) && ((((person.Command - t.TroopCommand) >= 10) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    if (!person.Selected && person.Command >= 0x4b && !t.Persons.HasGameObject(person) && person.Closes(t.Leader) && 
+                        person.Command - t.TroopCommand >= 10 && person.FightingForce < t.Leader.FightingForce && 
+                        !person.HasLeaderValidCombatTitle)
                     {
                         person.Selected = true;
                         result.Add(person);
@@ -729,11 +733,11 @@
             //int leaderExecutionRate = uncruelty * uncruelty * uncruelty * 4;
             foreach (Captive i in this.Captives)
             {
-                if ((!i.CaptivePerson.RecruitableBy(this.BelongedFaction, (int)((uncruelty - 2) * Parameters.AIExecutePersonIdealToleranceMultiply)) || this.BelongedFaction.Leader.HatedPersons.Contains(i.CaptivePersonID)) &&
+                if ((!i.CaptivePerson.RecruitableBy(this.BelongedFaction, (int)((uncruelty - 2) * Parameters.AIExecutePersonIdealToleranceMultiply)) || this.BelongedFaction.Leader.Hates(i.CaptivePerson)) &&
                     GameObject.Random((int)(uncruelty * uncruelty * (GlobalVariables.AIExecuteBetterOfficer ? 100000.0 / i.CaptivePerson.Merit : i.CaptivePerson.Merit / 100000.0)
                         * (100.0 / GlobalVariables.AIExecutionRate))) == 0)  //处斩几率修改系数就可以，可设为小数
                 {
-                    if (!this.BelongedFaction.Leader.hasStrainTo(i.CaptivePerson))
+                    if (!this.BelongedFaction.Leader.HasStrainTo(i.CaptivePerson))
                     {
 
                         this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.NeutralPerson, this.BelongedFaction.Leader.Name, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", i.CaptivePerson.Name, true);
@@ -1239,7 +1243,7 @@
                         foreach (Person p in this.BelongedFaction.Persons)
                         {
                             Person spousePerson = p.Spouse == null ? null : p.Spouse;
-                            if (p.Merit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.HatedPersons.Contains(this.BelongedFaction.Leader.ID) &&
+                            if (p.Merit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.Hates(this.BelongedFaction.Leader) &&
                                 (spousePerson == null || spousePerson.ID == leader.ID || !spousePerson.Alive || (leader.PersonalLoyalty < (int)PersonLoyalty.很高 && spousePerson.Merit < p.Merit * ((int)leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd))) &&
                                 (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply)))
                             {
@@ -7219,7 +7223,7 @@
                 {
                     int idealOffset = Person.GetIdealOffset(c.CaptivePerson, this.BelongedFaction.Leader);
                     if ((!GlobalVariables.IdealTendencyValid || (idealOffset <= c.CaptivePerson.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                        && (!c.CaptivePerson.HatedPersons.Contains(this.BelongedFaction.LeaderID)) && (!this.BelongedFaction.IsAlien || c.CaptivePerson.PersonalLoyalty < 2))
+                        && (!c.CaptivePerson.Hates(this.BelongedFaction.Leader)) && (!this.BelongedFaction.IsAlien || c.CaptivePerson.PersonalLoyalty < 2))
                     {
                         if (c.CaptivePerson.Loyalty < lowestLoyalty)
                         {
@@ -7260,7 +7264,7 @@
                 {
                     int idealOffset = Person.GetIdealOffset(c, this.BelongedFaction.Leader);
                     if ((!GlobalVariables.IdealTendencyValid || (idealOffset <= c.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                        && (!c.HatedPersons.Contains(this.BelongedFaction.LeaderID)) && (!this.BelongedFaction.IsAlien || c.PersonalLoyalty < 2))
+                        && (!c.Hates(this.BelongedFaction.Leader)) && (!this.BelongedFaction.IsAlien || c.PersonalLoyalty < 2))
                     {
                         if (c.Loyalty < lowestLoyalty)
                         {

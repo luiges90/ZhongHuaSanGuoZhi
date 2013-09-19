@@ -8,7 +8,7 @@
     {
         public override bool CheckConditionKind(Person person)
         {
-            return person.BelongedFaction != null && person.BelongedFaction.Leader.hasStrainTo(person);
+            return person.BelongedFaction != null && person.BelongedFaction.Leader.HasStrainTo(person);
         }
     }
 }

@@ -881,13 +881,13 @@
 
             if (oldFaction != null && !GameObject.Chance((int)oldFaction.Leader.PersonalLoyalty * 10))
             {
-                oldFaction.Leader.HatedPersons.Add(leader.ID);
+                oldFaction.Leader.AddHated(leader);
             }
             foreach (Person p in this.AvailablePersons)
             {
                 if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.Status != PersonStatus.Princess && p != leader)
                 {
-                    if (p.hasCloseStrainTo(leader) || p.isVeryCloseTo(leader) || (GameObject.Chance(100 - (Person.GetIdealOffset(leader, p)) * 20)))
+                    if (p.HasCloseStrainTo(leader) || p.IsVeryCloseTo(leader) || (GameObject.Chance(100 - (Person.GetIdealOffset(leader, p)) * 20)))
                     {
                         if (p.BelongedFaction == null || (GameObject.Chance(100 - ((int)p.PersonalLoyalty) * 25) && GameObject.Chance(220 - p.Loyalty * 2)))
                         {
@@ -2427,6 +2427,8 @@
             Dictionary<int, int> motherIds = new Dictionary<int, int>();
             Dictionary<int, int> spouseIds = new Dictionary<int, int>();
             Dictionary<int, int> brotherIds = new Dictionary<int, int>();
+            Dictionary<int, int[]> closeIds = new Dictionary<int, int[]>();
+            Dictionary<int, int[]> hatedIds = new Dictionary<int, int[]>();
             while (reader.Read())
             {
                 Person person = new Person();
@@ -2497,8 +2499,8 @@
                 person.OutsideDestination = StaticMethods.LoadFromString(reader["OutsideDestination"].ToString());
                 person.ConvincingPersonID = (short)reader["ConvincingPerson"];
                 person.InformationKindID = (short)reader["InformationKind"];
-                StaticMethods.LoadFromString(person.ClosePersons, reader["ClosePersons"].ToString());
-                StaticMethods.LoadFromString(person.HatedPersons, reader["HatedPersons"].ToString());
+                StaticMethods.LoadFromString(closeIds[person.ID], reader["ClosePersons"].ToString());
+                StaticMethods.LoadFromString(hatedIds[person.ID], reader["HatedPersons"].ToString());
                 person.Skills.LoadFromString(this.GameCommonData.AllSkills, reader["Skills"].ToString());
                 person.RealPersonalTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["PersonalTitle"]);
                 person.RealCombatTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["CombatTitle"]);
@@ -2609,6 +2611,24 @@
             foreach (KeyValuePair<int, int> i in brotherIds)
             {
                 (this.Persons.GetGameObject(i.Key) as Person).ResetBrothersFromID(i.Value);
+            }
+            foreach (KeyValuePair<int, int[]> i in closeIds)
+            {
+                Person p = this.Persons.GetGameObject(i.Key) as Person;
+                foreach (int j in i.Value)
+                {
+                    Person q = this.Persons.GetGameObject(j) as Person;
+                    p.AddClose(q);
+                }
+            }
+            foreach (KeyValuePair<int, int[]> i in hatedIds)
+            {
+                Person p = this.Persons.GetGameObject(i.Key) as Person;
+                foreach (int j in i.Value)
+                {
+                    Person q = this.Persons.GetGameObject(j) as Person;
+                    p.AddHated(q);
+                }
             }
             DbConnection.Open();
             try
@@ -4177,8 +4197,20 @@
                     row["OutsideDestination"] = StaticMethods.SaveToString(person.OutsideDestination);
                     row["ConvincingPerson"] = (person.ConvincingPerson != null) ? person.ConvincingPerson.ID : -1;
                     row["InformationKind"] = person.InformationKindID;
-                    row["ClosePersons"] = StaticMethods.SaveToString(person.ClosePersons);
-                    row["HatedPersons"] = StaticMethods.SaveToString(person.HatedPersons);
+
+                    String closeStr = "";
+                    String hatedStr = "";
+                    foreach (Person p in person.GetClosePersons())
+                    {
+                        closeStr = p.ID + " ";
+                    }
+                    foreach (Person p in person.GetHatedPersons())
+                    {
+                        hatedStr = p.ID + " ";
+                    }
+                    row["ClosePersons"] = closeStr;
+                    row["HatedPersons"] = hatedStr;
+
                     row["Skills"] = person.Skills.SaveToString();
                     row["PersonalTitle"] = (person.RealPersonalTitle != null) ? person.RealPersonalTitle.ID : -1;
                     row["CombatTitle"] = (person.RealCombatTitle != null) ? person.RealCombatTitle.ID : -1;

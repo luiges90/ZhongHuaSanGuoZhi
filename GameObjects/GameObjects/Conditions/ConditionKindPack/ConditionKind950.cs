@@ -8,7 +8,7 @@
     {
         public override bool CheckConditionKind(Person person)
         {
-            return person.BelongedFaction != null && person.ClosePersons.Contains(person.BelongedFaction.LeaderID);
+            return person.BelongedFaction != null && person.Closes(person.BelongedFaction.Leader);
         }
     }
 }

@@ -3127,11 +3127,11 @@
                     this.tbOldFactionID.Text = this.person.OldFactionID.ToString();
                     try
                     {
-                        foreach (int num in this.person.ClosePersons)
+                        foreach (int num in this.person.GetClosePersons())
                         {
                             this.lbClosePersons.Items.Add(num.ToString() + " " + (this.AllPersons.GetGameObject(num) as Person).Name);
                         }
-                        foreach (int num in this.person.HatedPersons)
+                        foreach (int num in this.person.GetHatedPersons())
                         {
                             this.lbHatedPersons.Items.Add(num.ToString() + " " + (this.AllPersons.GetGameObject(num) as Person).Name);
                         }
@@ -3272,15 +3272,28 @@
                 p.ValuationOnGovernment = (PersonValuationOnGovernment) this.cbValuationOnGovernment.SelectedIndex;
                 p.StrategyTendency = (PersonStrategyTendency) this.cbStrategyTendency.SelectedIndex;
                 p.OldFactionID = int.Parse(this.tbOldFactionID.Text);
-                p.ClosePersons.Clear();
+
+                PersonList pl = p.GetClosePersons();
+                foreach (Person q in pl)
+                {
+                    p.RemoveClose(q);
+                }
+                pl = p.GetHatedPersons();
+                foreach (Person q in pl)
+                {
+                    p.RemoveHated(q);
+                }
+
                 foreach (string str in this.lbClosePersons.Items)
                 {
-                    p.ClosePersons.Add(int.Parse(str.Substring(0, str.IndexOf(" "))));
+                    int id = int.Parse(str.Substring(0, str.IndexOf(" ")));
+                    p.AddClose(this.Persons.GetGameObject(id) as Person);
                 }
-                p.HatedPersons.Clear();
+
                 foreach (string str in this.lbHatedPersons.Items)
                 {
-                    p.HatedPersons.Add(int.Parse(str.Substring(0, str.IndexOf(" "))));
+                    int id = int.Parse(str.Substring(0, str.IndexOf(" ")));
+                    p.AddHated(this.Persons.GetGameObject(id) as Person);
                 }
             }
             catch

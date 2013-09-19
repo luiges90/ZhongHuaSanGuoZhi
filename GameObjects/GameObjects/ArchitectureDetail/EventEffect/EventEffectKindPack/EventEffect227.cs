@@ -9,7 +9,7 @@
         {
             if (person.BelongedFaction != null)
             {
-                person.HatedPersons.Add(person.BelongedFaction.LeaderID);
+                person.AddHated(person.BelongedFaction.Leader);
             }
         }
 

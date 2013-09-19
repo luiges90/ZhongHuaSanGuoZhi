@@ -41,7 +41,7 @@
         private int calmness;
         public int ChanceOfNoCapture;
         public CharacterKind Character;
-        private List<int> closePersons = new List<int>();
+        private PersonList closePersons = new PersonList();
         public Title RealCombatTitle;
         private int command;
         private float commandExperience;
@@ -61,7 +61,7 @@
         private string givenName;
         private int glamour;
         private float glamourExperience;
-        private List<int> hatedPersons = new List<int>();
+        private PersonList hatedPersons = new PersonList();
         private int ideal;
         public IdealTendencyKind IdealTendency;
         public bool ImmunityOfCaptive;
@@ -940,16 +940,16 @@
                 // person close to killed one may hate killer
                 if (p == this) continue;
                 if (p == killer) continue;
-                if (p.isVeryCloseTo(killer)) continue;
-                if (p.HatedPersons.Contains(killer.ID)) continue;
-                if (p.hasCloseStrainTo(killer)) continue;
-                if (p.ClosePersons.Contains(killer.ID)) continue;
-                if (p.hasCloseStrainTo(this))
+                if (p.HasCloseStrainTo(killer)) continue;
+                if (p.IsCloseTo(killer)) continue;
+                if (p.Hates(killer)) continue;
+                if (p.Hates(this)) continue;
+                if (p.HasCloseStrainTo(this))
                 {
                     int hateChance = this.ClosePersonKilledReaction * 25;
                     if (GameObject.Chance(hateChance))
                     {
-                        p.HatedPersons.Add(killer.ID);
+                        p.AddHated(killer);
                     }
                 }
             }
@@ -1432,7 +1432,7 @@
                                  )
                             || (this.ConvincingPerson.LocationArchitecture == architectureByPosition)
                         )
-                        && !this.ConvincingPerson.HatedPersons.Contains(this.BelongedFaction.LeaderID)
+                        && !this.ConvincingPerson.Hates(this.BelongedFaction.Leader)
                         && (!GlobalVariables.IdealTendencyValid || 
                             (idealOffset <= this.ConvincingPerson.IdealTendency.Offset + 
                              (double) this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
@@ -1440,7 +1440,7 @@
                         
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
                         // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
-                        ConvinceSuccess |= (this.ConvincingPerson.closePersons.Contains(this.BelongedFaction.LeaderID)) || (this.ConvincingPerson.closePersons.Contains(this.ID));
+                        ConvinceSuccess |= this.ConvincingPerson.Closes(this) || this.ConvincingPerson.Closes(this.BelongedFaction.Leader);
                     }
                     else
                     {
@@ -1454,7 +1454,7 @@
                                 
                             )
                             && ((this.ConvincingPerson != this.ConvincingPerson.BelongedFaction.Leader) && (this.ConvincingPerson.Loyalty < 100))))
-                            && (!this.ConvincingPerson.HatedPersons.Contains(this.BelongedFaction.LeaderID))
+                            && (!this.ConvincingPerson.Hates(this.BelongedFaction.Leader))
                             && (!GlobalVariables.IdealTendencyValid || (idealOffset <= this.ConvincingPerson.IdealTendency.Offset + (double) this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
                             && (GameObject.Random((this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 2)) - ((int)this.ConvincingPerson.PersonalLoyalty *(int) ((PersonLoyalty) 0x19))) > this.ConvincingPerson.Loyalty);
 
@@ -1463,7 +1463,7 @@
                     }
                     ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
                     //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
-                    ConvinceSuccess |= this.ConvincingPerson.isVeryCloseTo(this);
+                    ConvinceSuccess |= this.ConvincingPerson.IsVeryCloseTo(this);
 
                     if (ConvinceSuccess)
                     {
@@ -1497,11 +1497,11 @@
             {
                 belongedFaction = person.BelongedFaction;
                 base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
-                if (person.BelongedFaction.Leader.hasStrainTo(person))
+                if (person.BelongedFaction.Leader.HasStrainTo(person))
                 {
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
                 }
-                if (person.BelongedFaction.Leader.hasCloseStrainTo(person))
+                if (person.BelongedFaction.Leader.HasCloseStrainTo(person))
                 {
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
                 }
@@ -1805,11 +1805,11 @@
             {
                 //int g = (5 + (int)(5 * this.Glamour / 100));
                 int c = 2;
-                if (this.TargetArchitecture.BelongedFaction.Leader.isCloseTo(this))
+                if (this.TargetArchitecture.BelongedFaction.Leader.IsCloseTo(this))
                 {
                     c = 3;
                 }
-                if (this.TargetArchitecture.BelongedFaction.Leader.hatedPersons.Contains(this.ID))
+                if (this.TargetArchitecture.BelongedFaction.Leader.Hates(this))
                 {
                     c = -2;
                 }
@@ -1854,11 +1854,11 @@
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
                 int c = 2;
-                if (this.TargetArchitecture.BelongedFaction.Leader.isCloseTo(this))
+                if (this.TargetArchitecture.BelongedFaction.Leader.IsCloseTo(this))
                 {
                     c = 3;
                 }
-                if (this.TargetArchitecture.BelongedFaction.Leader.hatedPersons.Contains(this.ID))
+                if (this.TargetArchitecture.BelongedFaction.Leader.Hates(this))
                 {
                     c = -2;
                 }
@@ -1911,11 +1911,11 @@
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
                 int c = 2;
-                if (this.TargetArchitecture.BelongedFaction.Leader.isCloseTo(this))
+                if (this.TargetArchitecture.BelongedFaction.Leader.IsCloseTo(this))
                 {
                     c = 4;
                 }
-                if (this.TargetArchitecture.BelongedFaction.Leader.hatedPersons.Contains(this.ID))
+                if (this.TargetArchitecture.BelongedFaction.Leader.Hates(this))
                 {
                     c = -3;
                 }
@@ -2534,7 +2534,7 @@
                 if (this == this.BelongedFaction.Leader) return false;
                 if (this.Father == this.BelongedFaction.Leader) return false;  //隐含父亲活着，下同。
                 if (this.Mother == this.BelongedFaction.Leader) return false;
-                if (this.isCloseTo(this.BelongedFaction.Leader)) return false;
+                if (this.IsCloseTo(this.BelongedFaction.Leader)) return false;
                 if (this.Strain == this.BelongedFaction.Leader.Strain) return false;  //同一血缘不能独立，孙子不能从爷爷手下独立。
                 return true; 
             }
@@ -2829,11 +2829,11 @@
             {
                 num += 20;
             }
-            if (this.ClosePersons.Contains(this.BelongedFaction.Leader.ID))
+            if (this.Closes(this.BelongedFaction.Leader))
             {
                 num += 30;
             }
-            if (this.isVeryCloseTo(this.BelongedFaction.Leader))
+            if (this.IsVeryCloseTo(this.BelongedFaction.Leader))
             {
                 num += 50;
             }
@@ -2844,7 +2844,7 @@
         {
             if (faction.Leader != null)
             {
-                if (this.HatedPersons.Contains(faction.Leader.ID))
+                if (this.Hates(faction.Leader))
                 {
                     return false;
                 }
@@ -2915,11 +2915,11 @@
             if (this.BelongedCaptive != null && this.BelongedCaptive.CaptiveFaction != null && this.BelongedCaptive.CaptiveFaction != executingFaction) // 斩有势力的俘虏
             {
                 base.Scenario.ChangeDiplomaticRelation(this.BelongedCaptive.CaptiveFaction.ID, executingFaction.ID, -10);
-                if (this.BelongedFaction.Leader.hasStrainTo(this))
+                if (this.BelongedFaction.Leader.HasStrainTo(this))
                 {
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedCaptive.CaptiveFaction.ID, executingFaction.ID, -10);
                 }
-                if (this.BelongedFaction.Leader.hasCloseStrainTo(this))
+                if (this.BelongedFaction.Leader.HasCloseStrainTo(this))
                 {
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedCaptive.CaptiveFaction.ID, executingFaction.ID, -10);
                     base.Scenario.SetDiplomaticRelationIfHigher(this.BelongedCaptive.CaptiveFaction.ID, executingFaction.ID, 0);
@@ -2935,25 +2935,19 @@
             {
                 if (p == this) continue;
                 if (p == executor) continue;
-                if (p.hasCloseStrainTo(this))
+                if (p.HasCloseStrainTo(this))
                 {
                     // person close to killed one hates executor
-                    if (!p.HatedPersons.Contains(executor.ID))
-                    {
-                        p.HatedPersons.Add(executor.ID);
-                    }
+                    p.AddHated(executor);
 
                     // person close to killed one may also hate executor's close persons
                     foreach (Person q in base.Scenario.Persons)
                     {
                         if (p == q || q == this || q == executor) continue;
                         if (GameObject.Chance((4 - p.PersonalLoyalty) * 25)) continue;
-                        if (q.hasCloseStrainTo(executor))
+                        if (q.HasCloseStrainTo(executor))
                         {
-                            if (!p.HatedPersons.Contains(q.ID))
-                            {
-                                p.HatedPersons.Add(q.ID);
-                            }
+                            p.AddHated(q);
                         }
                     }
                 }
@@ -3042,7 +3036,7 @@
                         }
                     }
                 }*/
-                if ((this.BelongedFaction != null) && (this.BelongedFaction.Leader != null) && this.HatedPersons.Contains(this.BelongedFaction.LeaderID) && (GameObject.Random(this.Loyalty * (1 + (int)this.PersonalLoyalty)) <= GameObject.Random(5)))
+                if ((this.BelongedFaction != null) && (this.BelongedFaction.Leader != null) && this.Hates(this.BelongedFaction.Leader) && (GameObject.Random(this.Loyalty * (1 + (int)this.PersonalLoyalty)) <= GameObject.Random(5)))
                     {
                         this.LeaveToNoFaction();
                         ArchitectureList allArch = base.Scenario.Architectures;
@@ -3123,7 +3117,7 @@
             {
                 int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
                 //亲爱武将性格差调整
-                if (this.closePersons.Contains(this.BelongedFaction.LeaderID) && (idealOffset > 5))
+                if (this.Closes(this.BelongedFaction.Leader) && (idealOffset > 5))
                 {
                     idealOffset = 5;
                 }
@@ -3141,7 +3135,7 @@
                     {
                         decrement *= 2;
                     }
-                    if (decrement > 0 && !this.isVeryCloseTo(this.BelongedFaction.Leader))
+                    if (decrement > 0 && !this.IsVeryCloseTo(this.BelongedFaction.Leader))
                     {
                         this.DecreaseLoyalty( (int) Math.Sqrt(decrement));
                     }
@@ -4131,15 +4125,6 @@
             }
         }
 
-        public List<int> ClosePersons
-        {
-            get
-            {
-                return this.closePersons;
-            }
-        }
-
-
         public int MilitaryTypeSkillMerit(MilitaryType kind)
         {
             int result = 0;
@@ -4641,14 +4626,6 @@
                     }
                 }
                 return false;
-            }
-        }
-
-        public List<int> HatedPersons
-        {
-            get
-            {
-                return this.hatedPersons;
             }
         }
 
@@ -6002,13 +5979,16 @@
         {
             int idealOffset = Person.GetIdealOffset(this, f.Leader);
             //义兄弟或者配偶直接登用。(当前判断是和所在势力的君主)
-            if (this.isVeryCloseTo(f.Leader))
+            if (this.IsVeryCloseTo(f.Leader))
             {
                 return true;
             }
-            
-            if ((GlobalVariables.IdealTendencyValid && idealOffset > this.IdealTendency.Offset + (double)f.Reputation / f.MaxPossibleReputation * 75 + idealLeniency) ||
-                this.HatedPersons.Contains(f.LeaderID))
+
+            if (this.Hates(f.Leader))
+            {
+                return false;
+            }
+            if (GlobalVariables.IdealTendencyValid && idealOffset > this.IdealTendency.Offset + (double)f.Reputation / f.MaxPossibleReputation * 75 + idealLeniency)
             {
                 return false;
             }
@@ -6418,38 +6398,33 @@
 
             r.Scenario = father.Scenario;
 
-            foreach (int i in father.HatedPersons)
+            foreach (Person p in father.GetClosePersons())
             {
                 if (!GameObject.Chance((int)r.personalLoyalty * 25))
                 {
-                    if (!r.HatedPersons.Contains(i))
-                    {
-                        r.HatedPersons.Add(i);
-                    }
+                    r.AddClose(p);
                 }
             }
-            foreach (int i in mother.HatedPersons)
+            foreach (Person p in father.GetClosePersons())
             {
                 if (!GameObject.Chance((int)r.personalLoyalty * 25))
                 {
-                    if (!r.HatedPersons.Contains(i))
-                    {
-                        r.HatedPersons.Add(i);
-                    }
+                    r.AddClose(p);
                 }
             }
 
-            foreach (Person p in father.Scenario.Persons)
+            foreach (Person p in father.GetHatedPersons())
             {
-                if (p.HatedPersons.Contains(father.ID) || p.HatedPersons.Contains(mother.ID))
+                if (!GameObject.Chance((int)r.personalLoyalty * 25))
                 {
-                    if (!GameObject.Chance((int)p.personalLoyalty * 25))
-                    {
-                        if (!p.HatedPersons.Contains(r.ID))
-                        {
-                            p.HatedPersons.Add(r.ID);
-                        }
-                    }
+                    r.AddHated(p);
+                }
+            }
+            foreach (Person p in father.GetHatedPersons())
+            {
+                if (!GameObject.Chance((int)r.personalLoyalty * 25))
+                {
+                    r.AddHated(p);
                 }
             }
 
@@ -6458,17 +6433,17 @@
             return r;
         }
 
-        public bool isCloseTo(Person p)
+        public bool IsCloseTo(Person p)
         {
-            return this.isVeryCloseTo(p) || this.ClosePersons.Contains(p.ID);
+            return this.IsVeryCloseTo(p) || this.Closes(p);
         }
 
-        public bool isVeryCloseTo(Person p)
+        public bool IsVeryCloseTo(Person p)
         {
             return this.Spouse == p || this.Brothers.GameObjects.Contains(p);
         }
 
-        public bool hasCloseStrainTo(Person b)
+        public bool HasCloseStrainTo(Person b)
         {
             if (this.Father == b) return true;
             if (this.Mother == b) return true;
@@ -6482,9 +6457,9 @@
             return false;
         }
 
-        public bool hasStrainTo(Person b)
+        public bool HasStrainTo(Person b)
         {
-            if (this.hasCloseStrainTo(b)) return true;
+            if (this.HasCloseStrainTo(b)) return true;
 
             if (this.Strain == b.Strain) return true;
 
@@ -6525,7 +6500,7 @@
 
             if ((b.Age < 16 || b.Age > 50) && GlobalVariables.PersonNaturalDeath) return false;
 
-            if (this.hasStrainTo(b)) return false;
+            if (this.HasStrainTo(b)) return false;
 
             return true;
         }
@@ -6560,7 +6535,7 @@
                     {
                         tookSpouse = p;
 
-                        p.HatedPersons.Add(this.BelongedFaction.LeaderID);
+                        p.Hates(this.BelongedFaction.Leader);
                     }
                 }
             }// end if (this.CurrentPerson.Spouse != -1)
@@ -6580,14 +6555,14 @@
                 {
                     houGongDays = GameObject.Random(10) + 60;
                 }
-                if (!nvren.HatedPersons.Contains(this.ID) && GlobalVariables.getChildrenRate > 0)
+                if (!nvren.Hates(this) && GlobalVariables.getChildrenRate > 0)
                 {
                     float extraRate = 1;
-                    if (this.ClosePersons.Contains(nvren.ID))
+                    if (this.Closes(nvren))
                     {
                         extraRate += 0.2f;
                     }
-                    if (nvren.ClosePersons.Contains(this.ID))
+                    if (nvren.Closes(this))
                     {
                         extraRate += 0.2f;
                     }
@@ -6788,6 +6763,62 @@
                 }
                 return 1f;
             }
+        }
+
+        public bool Closes(Person p)
+        {
+            return this.closePersons.GameObjects.Contains(p);
+        }
+
+        public bool Hates(Person p)
+        {
+            return this.hatedPersons.GameObjects.Contains(p);
+        }
+
+        public void AddHated(Person p)
+        {
+            if (!this.Hates(p))
+            {
+                this.hatedPersons.Add(p);
+            }
+        }
+
+        public void AddClose(Person p)
+        {
+            if (!this.Closes(p))
+            {
+                this.closePersons.Add(p);
+            }
+        }
+
+        public void RemoveClose(Person p)
+        {
+            this.closePersons.Remove(p);
+        }
+
+        public void RemoveHated(Person p)
+        {
+            this.hatedPersons.Remove(p);
+        }
+
+        public PersonList GetClosePersons()
+        {
+            PersonList pl = new PersonList();
+            foreach (Person p in this.closePersons)
+            {
+                pl.Add(p);
+            }
+            return pl;
+        }
+
+        public PersonList GetHatedPersons()
+        {
+            PersonList pl = new PersonList();
+            foreach (Person p in this.hatedPersons)
+            {
+                pl.Add(p);
+            }
+            return pl;
         }
 
         public Dictionary<Person, int> GetRelations()

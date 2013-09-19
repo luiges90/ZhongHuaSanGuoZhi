@@ -8168,7 +8168,7 @@
                     {
                         this.troopCommand = maxCommandPerson.Command;
                     }
-                    else if (maxCommandPerson.ClosePersons.IndexOf(this.Leader.ID) >= 0)
+                    else if (maxCommandPerson.Closes(this.Leader))
                     {
                         int num = maxCommandPerson.Command - this.Leader.Command;
                         this.troopCommand += (int) (num * 0.5f);
@@ -8203,7 +8203,7 @@
                     {
                         this.troopStrength = maxStrengthPerson.Strength;
                     }
-                    else if (maxStrengthPerson.ClosePersons.IndexOf(this.Leader.ID) >= 0)
+                    else if (maxStrengthPerson.Closes(this.Leader))
                     {
                         int num = maxStrengthPerson.Strength - this.Leader.Strength;
                         this.troopStrength += (int) (num * 0.5f);
