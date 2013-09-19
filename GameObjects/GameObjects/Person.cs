@@ -6749,6 +6749,18 @@
 
         }
 
+        public void ResetBrothersFromID(int id)
+        {
+            this.Brothers.Clear();
+            foreach (Person p in base.Scenario.Persons)
+            {
+                if (p.ID == id && p != this)
+                {
+                    this.Brothers.Add(p);
+                }
+            }
+        }
+
         public Dictionary<Person, int> GetRelations()
         {
             return new Dictionary<Person, int>(relations);

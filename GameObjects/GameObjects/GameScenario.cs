@@ -2608,7 +2608,7 @@
             }
             foreach (KeyValuePair<int, int> i in brotherIds)
             {
-                
+                (this.Persons.GetGameObject(i.Key) as Person).ResetBrothersFromID(i.Value);
             }
             DbConnection.Open();
             try
