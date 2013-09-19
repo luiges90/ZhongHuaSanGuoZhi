@@ -2487,7 +2487,6 @@
                 person.ValuationOnGovernment = (PersonValuationOnGovernment)((short)reader["ValuationOnGovernment"]);
                 person.StrategyTendency = (PersonStrategyTendency)((short)reader["StrategyTendency"]);
                 person.OldFactionID = (short)reader["OldFactionID"];
-                person.ProhibitedFactionID = (short)reader["ProhibitedFactionID"];
                 person.RewardFinished = (bool)reader["RewardFinished"];
                 person.WorkKind = (ArchitectureWorkKind)((short)reader["WorkKind"]);
                 person.OldWorkKind = (ArchitectureWorkKind)((short)reader["OldWorkKind"]);
@@ -2609,13 +2608,7 @@
             }
             foreach (KeyValuePair<int, int> i in brotherIds)
             {
-                foreach (Person p in this.Persons)
-                {
-                    if (p.ID == i.Value && p.ID != i.Key)
-                    {
-                        (this.Persons.GetGameObject(i.Key) as Person).Brothers.Add(p);
-                    }
-                }
+                
             }
             DbConnection.Open();
             try
@@ -4181,7 +4174,6 @@
                     row["ValuationOnGovernment"] = (int)person.ValuationOnGovernment;
                     row["StrategyTendency"] = (int)person.StrategyTendency;
                     row["OldFactionID"] = person.OldFactionID;
-                    row["ProhibitedFactionID"] = person.ProhibitedFactionID;
                     row["RewardFinished"] = person.RewardFinished;
                     row["WorkKind"] = person.WorkKind;
                     row["OldWorkKind"] = person.OldWorkKind;

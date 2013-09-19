@@ -139,7 +139,6 @@
         private int pictureIndex;
         private int politics;
         private float politicsExperience;
-        private int prohibitedFactionID = -1;
         private float qibingExperience;
         private float qixieExperience;
         private PersonQualification qualification;
@@ -2845,7 +2844,7 @@
         {
             if (faction.Leader != null)
             {
-                if (this.ProhibitedFactionID == faction.Leader.ID)
+                if (this.HatedPersons.Contains(faction.Leader.ID))
                 {
                     return false;
                 }
@@ -3075,7 +3074,6 @@
         {
             Architecture locationArchitecture = this.LocationArchitecture;
             this.Status = PersonStatus.NoFaction;
-            this.ProhibitedFactionID = locationArchitecture.BelongedFaction.ID;
         }
 
         public void LoseTreasure(Treasure t)
@@ -5306,18 +5304,6 @@
             }
         }
 
-        public int ProhibitedFactionID
-        {
-            get
-            {
-                return this.prohibitedFactionID;
-            }
-            set
-            {
-                this.prohibitedFactionID = value;
-            }
-        }
-
         public int QibingExperience
         {
             get
@@ -6575,25 +6561,6 @@
                         tookSpouse = p;
 
                         p.HatedPersons.Add(this.BelongedFaction.LeaderID);
-                        if (p.Available == false)
-                        {
-                            p.ProhibitedFactionID = this.BelongedFaction.ID;
-
-                        }
-                        else if (p.BelongedFaction == null)
-                        {
-                            p.ProhibitedFactionID = this.BelongedFaction.ID;
-                        }
-                        else if (p.BelongedFaction != this.BelongedFaction)
-                        {
-                            p.ProhibitedFactionID = this.BelongedFaction.ID;
-                        }
-                        else if (p.BelongedFaction == this.BelongedFaction)
-                        {
-                            p.ProhibitedFactionID = this.BelongedFaction.ID;
-
-                            p.Loyalty = -100;
-                        }
                     }
                 }
             }// end if (this.CurrentPerson.Spouse != -1)
@@ -6791,6 +6758,8 @@
         {
             this.relations.Add(p, val);
         }
+
+
 
     }
 }
