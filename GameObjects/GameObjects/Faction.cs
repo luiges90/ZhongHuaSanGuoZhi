@@ -1076,13 +1076,7 @@
             if (person2 == null)
             {
                 list.Clear();
-                foreach (Person person3 in this.Persons)
-                {
-                    if ((person3.Brother != null) && (person3.Sex == this.Leader.Sex) && (this.Leader.Brother == person3.Brother))
-                    {
-                        list.Add(person3);
-                    }
-                }
+                list = this.Leader.Brothers;
                 if (list.Count > 0)
                 {
                     if (list.Count > 1)
@@ -1134,9 +1128,17 @@
             if (person2 == null)
             {
                 list.Clear();
+                if (this.Leader.Spouse != null)
+                {
+                    person2 = this.Leader.Spouse;
+                }
+            }
+            if (person2 == null)
+            {
+                list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((this.Leader.Ideal == person3.Ideal) && (person3.Sex == this.Leader.Sex) && ((person3.Brother == null) || (person3.Brother == person3)))
+                    if ((this.Leader.Ideal == person3.Ideal) && (person3.Sex == this.Leader.Sex))
                     {
                         list.Add(person3);
                     }
@@ -1157,7 +1159,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Sex == this.Leader.Sex) && (person3.Brother == null) || (person3.Brother == person3))
+                    if (person3.Sex == this.Leader.Sex)
                     {
                         list.Add(person3);
                     }
@@ -1178,10 +1180,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Brother == null) || (person3.Brother == person3))
-                    {
-                        list.Add(person3);
-                    }
+                    list.Add(person3);
                 }
                 if (list.Count > 0)
                 {

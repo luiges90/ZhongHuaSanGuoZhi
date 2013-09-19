@@ -887,10 +887,7 @@
             {
                 if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.Status != PersonStatus.Princess && p != leader)
                 {
-                    if (p.Father == leader || p.Mother == leader || p == leader.Father || p == leader.Mother ||
-                        (p.Father != null && p.Father == leader.Father) || (p.Mother != null && p.Mother == leader.Mother) ||
-                        (p.Spouse != null && p.Spouse == leader) || (leader.Spouse != null && p == leader.Spouse) || (leader.Strain == p.Strain) ||
-                        (p.Brother != null && p.Brother == leader.Brother) || (GameObject.Chance(100 - (Person.GetIdealOffset(leader, p)) * 20)))
+                    if (p.hasCloseStrainTo(leader) || p.isVeryCloseTo(leader) || (GameObject.Chance(100 - (Person.GetIdealOffset(leader, p)) * 20)))
                     {
                         if (p.BelongedFaction == null || (GameObject.Chance(100 - ((int)p.PersonalLoyalty) * 25) && GameObject.Chance(220 - p.Loyalty * 2)))
                         {
@@ -898,24 +895,7 @@
                             {
                                 p.ChangeFaction(newFaction);
                             }
-                            if ((p.Spouse != null && p.Spouse == leader) || (leader.Spouse != null && p == leader.Spouse) ||
-                                (p.Brother != null && p.Brother == leader.Brother))
-                            {
-                                p.Loyalty = 150;
-                            }
-                            else if ((p.Father == leader || p.Mother == leader || p == leader.Father || p == leader.Mother ||
-                                (p.Father != null && p.Father == leader.Father) || (p.Mother != null && p.Mother == leader.Mother)))
-                            {
-                                p.Loyalty = 120;
-                            }
-                            else
-                            {
-                                p.Loyalty = (int)p.PersonalLoyalty * 5 + 80;
-                                if (p.Ideal == leader.Ideal)
-                                {
-                                    p.Loyalty += 10;
-                                }
-                            }
+                            p.InitialLoyalty();
                             p.MoveToArchitecture(newFactionCapital);
                         }
                     }
@@ -2629,7 +2609,13 @@
             }
             foreach (KeyValuePair<int, int> i in brotherIds)
             {
-                (this.Persons.GetGameObject(i.Key) as Person).Brother = this.Persons.GetGameObject(i.Value) as Person;
+                foreach (Person p in this.Persons)
+                {
+                    if (p.ID == i.Value && p.ID != i.Key)
+                    {
+                        (this.Persons.GetGameObject(i.Key) as Person).Brothers.Add(p);
+                    }
+                }
             }
             DbConnection.Open();
             try
@@ -4179,7 +4165,15 @@
                     row["Father"] = person.Father == null ? -1 : person.Father.ID;
                     row["Mother"] = person.Mother == null ? -1 : person.Mother.ID;
                     row["Spouse"] = person.Spouse == null ? -1 : person.Spouse.ID;
-                    row["Brother"] = person.Brother == null ? -1 : person.Brother.ID;
+                    int minID = -1;
+                    foreach (Person p in person.Brothers)
+                    {
+                        if (p.ID < minID)
+                        {
+                            minID = p.ID;
+                        }
+                    }
+                    row["Brother"] = minID;
                     row["Generation"] = person.Generation;
                     row["PersonalLoyalty"] = (int)person.PersonalLoyalty;
                     row["Ambition"] = (int)person.Ambition;

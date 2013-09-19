@@ -35,13 +35,12 @@
         public Captive BelongedCaptive;
         private PersonBornRegion bornRegion;
         private int braveness;
-        private Person brother = null;
+        private PersonList brothers = new PersonList();
         private float bubingExperience;
         private string calledName;
         private int calmness;
         public int ChanceOfNoCapture;
         public CharacterKind Character;
-        private int CharacterKindID;
         private List<int> closePersons = new List<int>();
         public Title RealCombatTitle;
         private int command;
@@ -942,9 +941,8 @@
                 // person close to killed one may hate killer
                 if (p == this) continue;
                 if (p == killer) continue;
-                if (p.Spouse == killer) continue;
-                if (p.Brother == null && p.Brother == killer.Brother) continue;
-                if (!p.HatedPersons.Contains(killer.ID)) continue;
+                if (p.isVeryCloseTo(killer)) continue;
+                if (p.HatedPersons.Contains(killer.ID)) continue;
                 if (p.hasCloseStrainTo(killer)) continue;
                 if (p.ClosePersons.Contains(killer.ID)) continue;
                 if (p.hasCloseStrainTo(this))
@@ -1444,7 +1442,6 @@
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
                         // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
                         ConvinceSuccess |= (this.ConvincingPerson.closePersons.Contains(this.BelongedFaction.LeaderID)) || (this.ConvincingPerson.closePersons.Contains(this.ID));
-                        ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.Leader) || (this.ConvincingPerson.Brother == this.BelongedFaction.Leader.Brother && this.ConvincingPerson.Brother != null);
                     }
                     else
                     {
@@ -1464,13 +1461,10 @@
 
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(this.ConvincingPerson.BelongedFaction) && 
                             GlobalVariables.AIAutoTakePlayerCaptives && (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || this.ConvincingPerson.Loyalty < 100);
-                        //兄弟相互说服
-                        ConvinceSuccess |= ((this.ConvincingPerson.Brother == this.Brother) && (this.ConvincingPerson.Brother != this.ConvincingPerson.BelongedFaction.Leader)
-                            && this.ConvincingPerson.Brother != null);
                     }
                     ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
                     //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
-                    ConvinceSuccess |= (this.ConvincingPerson.Spouse == this.BelongedFaction.Leader) || (this.ConvincingPerson.Brother == this.BelongedFaction.Leader && this.ConvincingPerson.Brother != null);
+                    ConvinceSuccess |= this.ConvincingPerson.isVeryCloseTo(this);
 
                     if (ConvinceSuccess)
                     {
@@ -1812,8 +1806,7 @@
             {
                 //int g = (5 + (int)(5 * this.Glamour / 100));
                 int c = 2;
-                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.Leader || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother != null))
-                    || this.TargetArchitecture.BelongedFaction.Leader.closePersons.Contains(this.ID))
+                if (this.TargetArchitecture.BelongedFaction.Leader.isCloseTo(this))
                 {
                     c = 3;
                 }
@@ -1862,8 +1855,7 @@
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
                 int c = 2;
-                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.Leader || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother != null))
-                    || this.TargetArchitecture.BelongedFaction.Leader.closePersons.Contains(this.ID))
+                if (this.TargetArchitecture.BelongedFaction.Leader.isCloseTo(this))
                 {
                     c = 3;
                 }
@@ -1920,8 +1912,7 @@
             if ((this.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction != null))
             {
                 int c = 2;
-                if ((this.Spouse == this.TargetArchitecture.BelongedFaction.Leader || (this.Brother == this.TargetArchitecture.BelongedFaction.Leader.Brother && this.Brother != null))
-                    || this.TargetArchitecture.BelongedFaction.Leader.closePersons.Contains(this.ID))
+                if (this.TargetArchitecture.BelongedFaction.Leader.isCloseTo(this))
                 {
                     c = 4;
                 }
@@ -2544,8 +2535,7 @@
                 if (this == this.BelongedFaction.Leader) return false;
                 if (this.Father == this.BelongedFaction.Leader) return false;  //隐含父亲活着，下同。
                 if (this.Mother == this.BelongedFaction.Leader) return false;
-                if (this.Spouse == this.BelongedFaction.Leader) return false;
-                if (this.Brother == this.BelongedFaction.Leader) return false;
+                if (this.isCloseTo(this.BelongedFaction.Leader)) return false;
                 if (this.Strain == this.BelongedFaction.Leader.Strain) return false;  //同一血缘不能独立，孙子不能从爷爷手下独立。
                 return true; 
             }
@@ -2844,7 +2834,7 @@
             {
                 num += 30;
             }
-            if (this.Spouse == this.BelongedFaction.Leader || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother != null))
+            if (this.isVeryCloseTo(this.BelongedFaction.Leader))
             {
                 num += 50;
             }
@@ -2891,16 +2881,6 @@
                 {
                     this.OnBeKilled(this, this.LocationArchitecture);
                 }
-                if ((this.LocationArchitecture.BelongedFaction != null) && (this.LocationArchitecture.BelongedFaction.Leader != null))
-                {
-                    foreach (Person person in base.Scenario.AvailablePersons)
-                    {
-                        if ((person != this) && ((person.Father == this) || ((person.Brother != null) && (person.Brother == this.Brother))))
-                        {
-                            person.ProhibitedFactionID = this.LocationArchitecture.BelongedFaction.Leader.ID;
-                        }
-                    }
-                }
                 this.Alive = false;
                 this.ArrivingDays = 0;
                 this.Status = PersonStatus.None;
@@ -2911,16 +2891,6 @@
                 if (this.OnBeKilled != null)
                 {
                     this.OnBeKilled(this, this.TargetArchitecture);
-                }
-                if ((this.TargetArchitecture.BelongedFaction != null) && (this.TargetArchitecture.BelongedFaction.Leader != null))
-                {
-                    foreach (Person person in base.Scenario.AvailablePersons)
-                    {
-                        if ((person != this) && ((person.Father == this) || ((person.Brother != null) && (person.Brother == this.Brother))))
-                        {
-                            person.ProhibitedFactionID = this.TargetArchitecture.BelongedFaction.Leader.ID;
-                        }
-                    }
                 }
                 this.Alive = false;
                 this.ArrivingDays = 0;
@@ -3173,7 +3143,7 @@
                     {
                         decrement *= 2;
                     }
-                    if (decrement > 0 && !(this.Spouse == this.BelongedFaction.Leader || (this.Brother == this.BelongedFaction.Leader.Brother && this.Brother != null)))
+                    if (decrement > 0 && !this.isVeryCloseTo(this.BelongedFaction.Leader))
                     {
                         this.DecreaseLoyalty( (int) Math.Sqrt(decrement));
                     }
@@ -4066,15 +4036,15 @@
             }
         }
 
-        public Person Brother
+        public PersonList Brothers
         {
             get
             {
-                return this.brother;
+                return this.brothers;
             }
             set
             {
-                this.brother = value;
+                this.brothers = value;
             }
         }
 
@@ -4082,8 +4052,12 @@
         {
             get
             {
-                if (Brother == null) return "－－－－";
-                return Brother.Name;
+                String s = "";
+                foreach (Person p in this.Brothers)
+                {
+                    s += p.Name + " ";
+                }
+                return s;
             }
         }
 
@@ -6042,7 +6016,7 @@
         {
             int idealOffset = Person.GetIdealOffset(this, f.Leader);
             //义兄弟或者配偶直接登用。(当前判断是和所在势力的君主)
-            if ((this.Spouse == f.Leader) || (this.Brother == f.Leader))
+            if (this.isVeryCloseTo(f.Leader))
             {
                 return true;
             }
@@ -6050,15 +6024,7 @@
             if ((GlobalVariables.IdealTendencyValid && idealOffset > this.IdealTendency.Offset + (double)f.Reputation / f.MaxPossibleReputation * 75 + idealLeniency) ||
                 this.HatedPersons.Contains(f.LeaderID))
             {
-                foreach (Faction i in base.Scenario.Factions)
-                {
-                    if (((i != this.BelongedFaction) && (i.Leader != null)) && (GetIdealOffset(this, i.Leader) <= this.IdealTendency.Offset)
-                        && !this.HatedPersons.Contains(i.LeaderID) &&
-                        ((((this.PersonalLoyalty < (int) PersonLoyalty.很高) || ((this.Father != null) && (this.Father == i.Leader))) || ((this.Brother != null) && (this.Brother == i.Leader.Brother))) || (idealOffset > 10)))
-                    {
-                        return false;
-                    }
-                }
+                return false;
             }
             if (this.Loyalty > 100 && this.BelongedFaction != f)
             {
@@ -6504,6 +6470,16 @@
             ExtensionInterface.call("CreateChildren", new Object[] { father.Scenario, r });
 
             return r;
+        }
+
+        public bool isCloseTo(Person p)
+        {
+            return this.isVeryCloseTo(p) || this.ClosePersons.Contains(p.ID);
+        }
+
+        public bool isVeryCloseTo(Person p)
+        {
+            return this.Spouse == p || this.Brothers.GameObjects.Contains(p);
         }
 
         public bool hasCloseStrainTo(Person b)

@@ -7,7 +7,14 @@
     {
         public override void ApplyEffectKind(Person person, Event e)
         {
-            person.Brother = null;
+            foreach (Person p in person.Scenario.Persons)
+            {
+                if (p.Brothers.GameObjects.Contains(p))
+                {
+                    p.Brothers.Remove(p);
+                }
+            }
+            person.Brothers.Clear();
         }
 
     }

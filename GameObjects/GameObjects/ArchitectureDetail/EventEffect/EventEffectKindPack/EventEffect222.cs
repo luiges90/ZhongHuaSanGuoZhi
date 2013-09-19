@@ -9,19 +9,8 @@
         {
             if (person.BelongedFaction != null)
             {
-                if (person.Brother != null)
-                {
-                    person.BelongedFaction.Leader.Brother = person.Brother;
-                }
-                else if (person.BelongedFaction.Leader.Brother != null)
-                {
-                    person.Brother = person.BelongedFaction.Leader.Brother;
-                }
-                else
-                {
-                    person.Brother = person;
-                    person.BelongedFaction.Leader.Brother = person;
-                }
+                person.Brothers.Add(person.BelongedFaction.Leader);
+                person.BelongedFaction.Leader.Brothers.Add(person);
             }
         }
 

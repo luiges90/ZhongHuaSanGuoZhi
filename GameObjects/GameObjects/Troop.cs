@@ -8164,7 +8164,7 @@
                 Person maxCommandPerson = this.Persons.GetMaxCommandPerson();
                 if (maxCommandPerson != this.Leader)
                 {
-                    if ((maxCommandPerson.Brother != null) && (maxCommandPerson.Brother == this.Leader.Brother))
+                    if (maxCommandPerson.Brothers.GameObjects.Contains(this.Leader))
                     {
                         this.troopCommand = maxCommandPerson.Command;
                     }
@@ -8199,7 +8199,7 @@
                 Person maxStrengthPerson = this.Persons.GetMaxStrengthPerson();
                 if (maxStrengthPerson != this.Leader)
                 {
-                    if ((maxStrengthPerson.Brother != null) && (maxStrengthPerson.Brother == this.Leader.Brother))
+                    if (maxStrengthPerson.Brothers.GameObjects.Contains(this.Leader))
                     {
                         this.troopStrength = maxStrengthPerson.Strength;
                     }
