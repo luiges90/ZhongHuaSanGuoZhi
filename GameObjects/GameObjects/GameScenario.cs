@@ -69,7 +69,6 @@
         public EventList AllEvents = new EventList();
         public String LoadedFileName;
         public bool UsingOwnCommonData;
-        public Dictionary<KeyValuePair<Person, Person>, int> PersonRelation = new Dictionary<KeyValuePair<Person, Person>, int>();
         
         // 缓存地图上有几支部队在埋伏
         private int numberOfAmbushTroop = -1;
@@ -2641,7 +2640,7 @@
                     Person person1 = this.Persons.GetGameObject((short)reader["Person1"]) as Person;
                     Person person2 = this.Persons.GetGameObject((short)reader["Person2"]) as Person;
                     int relation = (int)reader["Relation"];
-                    this.PersonRelation.Add(new KeyValuePair<Person, Person>(person1, person2), relation);
+                    person1.AddRelation(person2, relation);
                 }
             }
             catch (OleDbException)
@@ -4242,15 +4241,18 @@
                     builder = new OleDbCommandBuilder(adapter);
                     adapter.Fill(dataSet, "PersonRelation");
                     dataSet.Tables["PersonRelation"].Rows.Clear();
-                    foreach (KeyValuePair<KeyValuePair<Person, Person>, int> i in this.PersonRelation)
+                    foreach (Person p in this.Persons)
                     {
-                        row = dataSet.Tables["PersonRelation"].NewRow();
-                        row.BeginEdit();
-                        row["Person1"] = i.Key.Key.ID;
-                        row["Person2"] = i.Key.Value.ID;
-                        row["Relation"] = i.Value;
-                        row.EndEdit();
-                        dataSet.Tables["PersonRelation"].Rows.Add(row);
+                        foreach (KeyValuePair<Person, int> pi in p.GetRelations())
+                        {
+                            row = dataSet.Tables["PersonRelation"].NewRow();
+                            row.BeginEdit();
+                            row["Person1"] = p.ID;
+                            row["Person2"] = pi.Key.ID;
+                            row["Relation"] = pi.Value;
+                            row.EndEdit();
+                            dataSet.Tables["PersonRelation"].Rows.Add(row);
+                        }
                     }
                     adapter.Update(dataSet, "PersonRelation");
                     dataSet.Clear();

@@ -187,6 +187,7 @@
         private int yearAvailable;
         private int yearBorn;
         private int yearDead;
+        private Dictionary<Person, int> relations;
 
         private PersonStatus status;
 
@@ -6803,6 +6804,16 @@
                 return 1;
             }
 
+        }
+
+        public Dictionary<Person, int> GetRelations()
+        {
+            return new Dictionary<Person, int>(relations);
+        }
+
+        public void AddRelation(Person p, int val)
+        {
+            this.relations.Add(p, val);
         }
 
     }
