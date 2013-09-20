@@ -78,13 +78,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 if (base.Scenario.IsCurrentPlayer(architecture.BelongedFaction) && architecture.BelongedFaction != null)
                 {
                     if (!((facility.PositionOccupied <= 1) && GlobalVariables.NoHintOnSmallFacility))
-                    {   /*
-                        this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(architecture.BelongedFaction.Leader, architecture, "ArchitectureFacilityCompleted");
-                        this.Plugins.tupianwenziPlugin.IsShowing = true;
-                         */
+                    {
                         string sheshitupian = "../sheshi/sheshi" + facility.KindID.ToString() + ".jpg";
-                        this.xianshishijiantupian(architecture.BelongedFaction.Leader,architecture.Name  , "ArchitectureFacilityCompleted", sheshitupian, "sheshiwancheng.wav",facility.Kind.Name,false ); 
+                        this.xianshishijiantupian(architecture.BelongedFaction.Leader,architecture.Name  , "ArchitectureFacilityCompleted", sheshitupian, "sheshiwancheng.wav",facility.Kind.Name,false );
+                        this.Plugins.GameRecordPlugin.AddBranch(architecture, "FacilityCompleted", architecture.Position);
                     }
                 }
                 else if (facility.UniqueInArchitecture && (facility.PositionOccupied > 4))
