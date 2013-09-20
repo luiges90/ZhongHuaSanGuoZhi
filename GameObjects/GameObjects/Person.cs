@@ -6788,7 +6788,7 @@
                     if (p == this) continue;
                     if (p.BelongedArchitecture == this.BelongedArchitecture || p.BelongedTroop == this.BelongedTroop)
                     {
-                        return 1.33f;
+                        return 1.2f;
                     }
                 }
                 return 1f;
