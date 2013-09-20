@@ -6803,6 +6803,10 @@
                 this.hatedPersons.Add(p);
                 this.EnsureRelationAtMost(p, -1000);
             }
+            else if (p != null && p != this)
+            {
+                this.AdjustRelation(p, -1000);
+            }
         }
 
         public void AddClose(Person p)
