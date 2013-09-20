@@ -1177,8 +1177,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             p.TextResultString = TextResultString;
             p.TextDestinationString = TextDestinationString;
             this.Plugins.GameRecordPlugin.AddBranch(p, shijian, point );
-
-
         }
 
         public override void AskWhenTransportArrived(Troop transport, Architecture destination)
@@ -1194,6 +1192,42 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 transport.TextResultString = transport.StartingArchitecture.Name;
                 this.Plugins.tupianwenziPlugin.SetGameObjectBranch(transport.Leader, transport, "TransportReturn");
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
+            }
+        }
+
+        public override void CreateBrother(Person p, Person q)
+        {
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
+            {
+                p.TextResultString = q.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, "CreateBrother");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "CreateBrother", p.Position);
+            }
+        }
+
+        public override void CreateSister(Person p, Person q)
+        {
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
+            {
+                p.TextResultString = q.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, "CreateSister");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "CreateSister", p.Position);
+            }
+        }
+
+        public override void CreateSpouse(Person p, Person q)
+        {
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
+            {
+                p.TextResultString = q.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, "CreateSpouse");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "CreateSpouse", p.Position);
             }
         }
 

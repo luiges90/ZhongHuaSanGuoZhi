@@ -619,5 +619,23 @@
     <Leaf Text="的势力。" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
+  
+  <Branch Name="CreateSpouse">
+    <Leaf Text="告诉将军一个好消息，我與" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="青梅竹馬，決定結為夫妻了！" Color="4294967295"></Leaf>
+  </Branch>
+  
+  <Branch Name="CreateBrother">
+    <Leaf Text="告诉将军一个好消息，我與" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="決定結拜為義兄弟了！" Color="4294967295"></Leaf>
+  </Branch>
+  
+  <Branch Name="CreateSister">
+    <Leaf Text="告诉将军一个好消息，我與" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="決定結拜為義姊妹了！" Color="4294967295"></Leaf>
+  </Branch>
 </Root>
 

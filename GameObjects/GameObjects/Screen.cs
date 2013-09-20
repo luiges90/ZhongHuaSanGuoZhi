@@ -719,6 +719,12 @@
         {
         }
 
+        public virtual void CreateSpouse(Person p, Person q) { }
+
+        public virtual void CreateBrother(Person p, Person q) { }
+
+        public virtual void CreateSister(Person p, Person q) { }
+
         public override void Update(GameTime gameTime)
         {
             if (this.EnableUpdate)

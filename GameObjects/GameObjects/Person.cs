@@ -545,6 +545,12 @@
 
         public event CapturedByArchitecture OnCapturedByArchitecture;
 
+        public event CreateSpouse OnCreateSpouse;
+
+        public event CreateBrother OnCreateBrother;
+
+        public event CreateSister OnCreateSister;
+
         public double TirednessFactor
         {
             get
@@ -1227,7 +1233,8 @@
             {
                 foreach (KeyValuePair<Person, int> i in this.relations)
                 {
-                    if (i.Value >= 4000 && i.Key.GetRelation(this) >= 4000 && Person.GetIdealOffset(this, i.Key) <= 5)
+                    if (i.Value >= 4000 && i.Key.GetRelation(this) >= 4000 && i.Key.BelongedFaction == this.BelongedFaction 
+                        && Person.GetIdealOffset(this, i.Key) <= 5)
                     {
                         if (this.Sex == i.Key.Sex)
                         {
@@ -1235,6 +1242,20 @@
                             {
                                 this.Brothers.Add(i.Key);
                                 i.Key.Brothers.Add(this);
+                                if (this.Sex)
+                                {
+                                    if (this.OnCreateSister != null)
+                                    {
+                                        this.OnCreateSister(this, i.Key);
+                                    }
+                                }
+                                else
+                                {
+                                    if (this.OnCreateBrother != null)
+                                    {
+                                        this.OnCreateBrother(this, i.Key);
+                                    }
+                                }
                             }
                         }
                         else
@@ -1243,6 +1264,10 @@
                             {
                                 this.Spouse = i.Key;
                                 i.Key.Spouse = this;
+                                if (this.OnCreateSpouse != null)
+                                {
+                                    this.OnCreateSpouse(this, i.Key);
+                                }
                             }
                         }
                     }
@@ -6920,6 +6945,12 @@
                 this.relations[p] = val;
             }
         }
+
+        public delegate void CreateSpouse(Person p, Person q);
+
+        public delegate void CreateBrother(Person p, Person q);
+
+        public delegate void CreateSister(Person p, Person q);
 
     }
 }

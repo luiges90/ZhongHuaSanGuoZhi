@@ -521,6 +521,27 @@
     <Leaf Text="的劫牢行动失败了。" Color="4294967295"></Leaf>
     <Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
+  
+  <Branch Name="CreateSpouse">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="與" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="青梅竹馬，決定結為夫妻了！" Color="4294967295"></Leaf>
+  </Branch>
+  
+  <Branch Name="CreateBrother">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="與" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="決定結拜為義兄弟了！" Color="4294967295"></Leaf>
+  </Branch>
+  
+  <Branch Name="CreateSister">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="與" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+    <Leaf Text="決定結拜為義姊妹了！" Color="4294967295"></Leaf>
+  </Branch>
 
 </Root>
 

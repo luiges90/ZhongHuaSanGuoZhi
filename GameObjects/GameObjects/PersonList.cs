@@ -45,6 +45,9 @@
                 person.OnBeAwardedTreasure += new Person.BeAwardedTreasure(this.person_OnBeAwardedTreasure);
                 person.OnBeConfiscatedTreasure += new Person.BeConfiscatedTreasure(this.person_OnBeConfiscatedTreasure);
                 person.OnCapturedByArchitecture += new Person.CapturedByArchitecture(this.person_OnCapturedByArchitecture);
+                person.OnCreateBrother += new Person.CreateBrother(this.person_OnCreateBrother);
+                person.OnCreateSister += new Person.CreateSister(person_OnCreateSister);
+                person.OnCreateSpouse += new Person.CreateSpouse(person_OnCreateSpouse);
             }
         }
 
@@ -309,6 +312,21 @@
         void person_OnJailBreakFailed(Person source, Architecture destination)
         {
             source.Scenario.GameScreen.PersonJailBreakFailed(source, destination);
+        }
+
+        void person_OnCreateBrother(Person p, Person q)
+        {
+            p.Scenario.GameScreen.CreateBrother(p, q);
+        }
+
+        void person_OnCreateSister(Person p, Person q)
+        {
+            p.Scenario.GameScreen.CreateSister(p, q);
+        }
+
+        void person_OnCreateSpouse(Person p, Person q)
+        {
+            p.Scenario.GameScreen.CreateSpouse(p, q);
         }
     }
 }
