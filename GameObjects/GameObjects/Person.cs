@@ -1430,7 +1430,7 @@
                         if (c.CaptiveFaction == this.BelongedFaction)
                         {
                             attempted = true;
-                            if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale) * 2) <=
+                            if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale) * 2) + 300 <=
                                 GameObject.Random(this.JailBreakAbility + c.CaptivePerson.CaptiveAbility))
                             {
                                 if (!GameObject.Chance(architectureByPosition.noEscapeChance) || GameObject.Chance(c.CaptivePerson.captiveEscapeChance))
