@@ -6,18 +6,18 @@
 
     internal class InfluenceKind461 : InfluenceKind
     {
-        private int increment;
+        private float increment;
 
         public override void ApplyInfluenceKind(Person person)
         {
-            person.IncrementOfSpyDays = this.increment;
+            person.RateIncrementOfJailBreakAbility += this.increment;
         }
 
         public override void InitializeParameter(string parameter)
         {
             try
             {
-                this.increment = int.Parse(parameter);
+                this.increment = float.Parse(parameter);
             }
             catch
             {

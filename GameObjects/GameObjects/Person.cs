@@ -151,6 +151,7 @@
         public float RateIncrementOfEnduranceAbility;
         public float RateIncrementOfGossip;
         public float RateIncrementOfInstigate;
+        public float RateIncrementOfJailBreakAbility;
         public float RateIncrementOfMoraleAbility;
         public float RateIncrementOfRecruitmentAbility;
         public float RateIncrementOfSearch;
@@ -4607,7 +4608,7 @@
         {
             get
             {
-                return this.CaptiveAbility;
+                return (int) (this.CaptiveAbility * (1f + this.RateIncrementOfJailBreakAbility));
             }
         }
 
