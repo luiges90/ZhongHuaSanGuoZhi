@@ -1508,13 +1508,13 @@
                                         p.MoveToArchitecture(this);
                                         if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction)
                                         {
-                                            p.Spouse.MoveToArchitecture(dest);
+                                            p.Spouse.MoveToArchitecture(this);
                                         }
                                         foreach (Person q in p.Brothers)
                                         {
                                             if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction)
                                             {
-                                                q.MoveToArchitecture(dest);
+                                                q.MoveToArchitecture(this);
                                             }
                                         }
                                     }
