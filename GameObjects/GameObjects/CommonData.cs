@@ -563,8 +563,16 @@
                 }
                 catch
                 {
-                    militaryKind.FireDamageRate = 1.0f;
-                    militaryKind.RecruitLimit = 10000;
+                    try
+                    {
+                        militaryKind.FireDamageRate = (bool)reader["AfraidOfFire"] ? 3.0f : 1.0f;
+                        militaryKind.RecruitLimit = (bool)reader["Unique"] ? 1 : 1000;
+                    }
+                    catch
+                    {
+                        militaryKind.FireDamageRate = 1.0f;
+                        militaryKind.RecruitLimit = 10000;
+                    }
                 }
                 militaryKind.FoodPerSoldier = (short)reader["FoodPerSoldier"];
                 militaryKind.RationDays = (int)reader["RationDays"];
