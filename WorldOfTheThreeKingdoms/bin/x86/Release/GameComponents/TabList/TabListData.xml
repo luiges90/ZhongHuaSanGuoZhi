@@ -504,7 +504,7 @@
 			Align="Right">
         </Column>
 		
-		<Column ID="125" Name="BrotherName" IsNumber="false" DisplayName="义兄弟" MinWidth="100" DetailLevel="4"
+		<Column ID="125" Name="BrotherName" IsNumber="false" DisplayName="义兄弟" MinWidth="120" DetailLevel="4"
                     FontName="宋体"
                     FontSize="12"
                     FontStyle="Regular"
