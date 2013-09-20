@@ -1223,27 +1223,11 @@
 
         private void createRelations()
         {
-            if (this.LocationArchitecture != null && GameObject.Chance(20))
+            if (this.LocationArchitecture != null && GameObject.Random(60) == 0)
             {
                 foreach (KeyValuePair<Person, int> i in this.relations)
                 {
-                    if (i.Value <= -1000)
-                    {
-                        this.AddHated(i.Key);
-                    }
-                    if (i.Value >= -500)
-                    {
-                        this.RemoveHated(i.Key);
-                    }
-                    if (i.Value <= 500)
-                    {
-                        this.RemoveClose(i.Key);
-                    }
-                    if (i.Value >= 1000)
-                    {
-                        this.AddClose(i.Key);
-                    }
-                    if (i.Value >= 4000 && GameObject.Chance(10) && i.Key.GetRelation(this) >= 4000 && Person.GetIdealOffset(this, i.Key) <= 5)
+                    if (i.Value >= 4000 && i.Key.GetRelation(this) >= 4000 && Person.GetIdealOffset(this, i.Key) <= 5)
                     {
                         if (this.Sex == i.Key.Sex)
                         {
@@ -6888,6 +6872,22 @@
             else
             {
                 this.relations.Add(p, val);
+            }
+            if (this.relations[p] <= -1000)
+            {
+                this.AddHated(p);
+            }
+            if (this.relations[p] >= -500)
+            {
+                this.RemoveHated(p);
+            }
+            if (this.relations[p] <= 500)
+            {
+                this.RemoveClose(p);
+            }
+            if (this.relations[p] >= 1000)
+            {
+                this.AddClose(p);
             }
         }
 
