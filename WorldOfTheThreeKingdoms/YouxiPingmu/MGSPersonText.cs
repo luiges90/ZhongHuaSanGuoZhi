@@ -1200,7 +1200,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 p.TextResultString = q.Name;
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, "CreateBrother");
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, "CreateBrother", "CreateBrother.jpg", "");
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
                 this.Plugins.GameRecordPlugin.AddBranch(p, "CreateBrother", p.Position);
@@ -1212,7 +1212,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 p.TextResultString = q.Name;
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, "CreateSister");
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, "CreateSister", "CreateSister.jpg", "");
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
                 this.Plugins.GameRecordPlugin.AddBranch(p, "CreateSister", p.Position);
@@ -1224,7 +1224,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 p.TextResultString = q.Name;
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, "CreateSpouse");
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, "CreateSpouse", "CreateSpouse.jpg", "");
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
                 this.Plugins.GameRecordPlugin.AddBranch(p, "CreateSpouse", p.Position);
