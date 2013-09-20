@@ -2637,13 +2637,28 @@
             }
             foreach (KeyValuePair<int, int[]> i in brotherIds)
             {
-                Person p = this.Persons.GetGameObject(i.Key) as Person;
-                foreach (int j in i.Value)
+                if (i.Value.Length == 1 && i.Value[0] != -1)
                 {
-                    Person q = this.Persons.GetGameObject(j) as Person;
-                    if (q != null)
+                    foreach (KeyValuePair<int, int[]> j in brotherIds)
                     {
-                        p.Brothers.Add(q);
+                        if (i.Value[0] == j.Value[0])
+                        {
+                            Person p = this.Persons.GetGameObject(i.Key) as Person;
+                            Person q = this.Persons.GetGameObject(j.Key) as Person;
+                            p.Brothers.Add(q);
+                        }
+                    }
+                }
+                else
+                {
+                    Person p = this.Persons.GetGameObject(i.Key) as Person;
+                    foreach (int j in i.Value)
+                    {
+                        Person q = this.Persons.GetGameObject(j) as Person;
+                        if (q != null)
+                        {
+                            p.Brothers.Add(q);
+                        }
                     }
                 }
             }
