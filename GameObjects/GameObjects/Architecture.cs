@@ -1448,7 +1448,14 @@
                         p.MoveToArchitecture(dest);
                         if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction)
                         {
-                            p.MoveToArchitecture(dest);
+                            p.Spouse.MoveToArchitecture(dest);
+                        }
+                        foreach (Person q in p.Brothers)
+                        {
+                            if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction)
+                            {
+                                q.MoveToArchitecture(dest);
+                            }
                         }
                     }
                     num2++;
@@ -1499,6 +1506,17 @@
                                         (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                     {
                                         p.MoveToArchitecture(this);
+                                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction)
+                                        {
+                                            p.Spouse.MoveToArchitecture(dest);
+                                        }
+                                        foreach (Person q in p.Brothers)
+                                        {
+                                            if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction)
+                                            {
+                                                q.MoveToArchitecture(dest);
+                                            }
+                                        }
                                     }
                                     num2++;
                                 }
@@ -1566,7 +1584,14 @@
                                             everMoved = true;
                                             if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction)
                                             {
-                                                p.MoveToArchitecture(dest);
+                                                p.Spouse.MoveToArchitecture(dest);
+                                            }
+                                            foreach (Person q in p.Brothers)
+                                            {
+                                                if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction)
+                                                {
+                                                    q.MoveToArchitecture(dest);
+                                                }
                                             }
                                         }
                                     }
