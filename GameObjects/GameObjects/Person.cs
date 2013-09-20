@@ -1210,6 +1210,7 @@
                 this.ProgressArrivingDays();
                 this.huaiyunshijian();
                 this.updateDayCounters();
+                this.createRelations();
             }
             agricultureAbility = 0;
             commerceAbility = 0;
@@ -1218,6 +1219,51 @@
             dominationAbility = 0;
             enduranceAbility = 0;
             trainingAbility = 0;
+        }
+
+        private void createRelations()
+        {
+            if (this.LocationArchitecture != null && GameObject.Chance(20))
+            {
+                foreach (KeyValuePair<Person, int> i in this.relations)
+                {
+                    if (i.Value <= -1000)
+                    {
+                        this.AddHated(i.Key);
+                    }
+                    if (i.Value >= -500)
+                    {
+                        this.RemoveHated(i.Key);
+                    }
+                    if (i.Value <= 500)
+                    {
+                        this.RemoveClose(i.Key);
+                    }
+                    if (i.Value >= 1000)
+                    {
+                        this.AddClose(i.Key);
+                    }
+                    if (i.Value >= 4000 && GameObject.Chance(10) && i.Key.GetRelation(this) >= 4000 && Person.GetIdealOffset(this, i.Key) <= 5)
+                    {
+                        if (this.Sex == i.Key.Sex)
+                        {
+                            if (this.Brothers.Count <= 2 && i.Key.Brothers.Count <= 2)
+                            {
+                                this.Brothers.Add(i.Key);
+                                i.Key.Brothers.Add(this);
+                            }
+                        }
+                        else
+                        {
+                            if (this.Spouse == null && i.Key.Spouse == null)
+                            {
+                                this.Spouse = i.Key;
+                                i.Key.Spouse = this;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void huaiyunshijian()
@@ -6755,6 +6801,7 @@
             if (p != null && p != this && !this.Hates(p))
             {
                 this.hatedPersons.Add(p);
+                this.EnsureRelationAtMost(p, -1000);
             }
         }
 
@@ -6763,17 +6810,20 @@
             if (p != null && p != this && !this.Closes(p))
             {
                 this.closePersons.Add(p);
+                this.EnsureRelationAtLeast(p, 1000);
             }
         }
 
         public void RemoveClose(Person p)
         {
             this.closePersons.Remove(p);
+            this.EnsureRelationAtMost(p, 500);
         }
 
         public void RemoveHated(Person p)
         {
             this.hatedPersons.Remove(p);
+            this.EnsureRelationAtLeast(p, -500);
         }
 
         public PersonList GetClosePersons()
@@ -6825,7 +6875,7 @@
             }
         }
 
-        public void AddRelation(Person p, int val)
+        public void AdjustRelation(Person p, int val)
         {
             if (this.relations.ContainsKey(p))
             {
@@ -6837,15 +6887,33 @@
             }
         }
 
-        public void SubtractRelation(Person p, int val)
+        public void EnsureRelationAtMost(Person p, int val)
         {
             if (this.relations.ContainsKey(p))
             {
-                this.relations[p] -= val;
+                if (this.relations[p] > val)
+                {
+                    this.relations[p] = val;
+                }
             }
             else
             {
-                this.relations.Add(p, -val);
+                this.relations[p] = val;
+            }
+        }
+
+        public void EnsureRelationAtLeast(Person p, int val)
+        {
+            if (this.relations.ContainsKey(p))
+            {
+                if (this.relations[p] < val)
+                {
+                    this.relations[p] = val;
+                }
+            }
+            else
+            {
+                this.relations[p] = val;
             }
         }
 

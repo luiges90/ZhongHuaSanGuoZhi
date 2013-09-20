@@ -1587,6 +1587,14 @@
                 }
                 Faction f = this.BelongedFaction;
                 this.Destroy(true, true);
+                foreach (Person p in this.persons)
+                {
+                    foreach (Person q in this.persons)
+                    {
+                        if (p == q) continue;
+                        p.AdjustRelation(q, -Person.GetIdealOffset(p, q) * 75 / 30 - 3);
+                    }
+                }
                 foreach (Person person in this.persons)
                 {
                     Point from = person.LocationTroop.Position;
@@ -2522,6 +2530,14 @@
                 {
                     sending.IncreaseRoutExperience(true);
                     sending.AddRoutCount();
+                    foreach (Person p in sending.persons)
+                    {
+                        foreach (Person q in sending.persons)
+                        {
+                            if (p == q) continue;
+                            p.AdjustRelation(q, Person.GetIdealOffset(p, q) * 75 / 30 + 3);
+                        }
+                    }
                 }
                 if (GameObject.Chance(sending.stealTreasureRate) && sending.BelongedFaction != null)
                 {
