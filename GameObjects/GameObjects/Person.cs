@@ -1235,7 +1235,9 @@
                 foreach (KeyValuePair<Person, int> i in this.relations)
                 {
                     if (i.Value >= 4000 && i.Key.GetRelation(this) >= 4000 && i.Key.BelongedFaction == this.BelongedFaction 
-                        && Person.GetIdealOffset(this, i.Key) <= 5)
+                        && Person.GetIdealOffset(this, i.Key) <= 5 && !this.HasStrainTo(i.Key) 
+                        && (!GlobalVariables.PersonNaturalDeath || (Math.Abs(this.Age - i.Key.Age) <= 40 && this.Age <= 50 && i.Key.Age <= 50
+                            && this.Age >= 16 && i.Key.Age >= 16)))
                     {
                         if (this.Sex == i.Key.Sex)
                         {
@@ -1259,16 +1261,13 @@
                                 }
                             }
                         }
-                        else
+                        else if (this.Spouse == null && i.Key.Spouse == null)
                         {
-                            if (this.Spouse == null && i.Key.Spouse == null)
+                            this.Spouse = i.Key;
+                            i.Key.Spouse = this;
+                            if (this.OnCreateSpouse != null)
                             {
-                                this.Spouse = i.Key;
-                                i.Key.Spouse = this;
-                                if (this.OnCreateSpouse != null)
-                                {
-                                    this.OnCreateSpouse(this, i.Key);
-                                }
+                                this.OnCreateSpouse(this, i.Key);
                             }
                         }
                     }
