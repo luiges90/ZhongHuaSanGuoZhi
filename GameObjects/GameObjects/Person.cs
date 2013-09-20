@@ -185,7 +185,7 @@
         private int yearAvailable;
         private int yearBorn;
         private int yearDead;
-        private Dictionary<Person, int> relations;
+        private Dictionary<Person, int> relations = new Dictionary<Person,int>();
 
         private PersonStatus status;
 
@@ -6801,12 +6801,53 @@
             return new Dictionary<Person, int>(relations);
         }
 
-        public void AddRelation(Person p, int val)
+        public int GetRelation(Person p)
         {
-            this.relations.Add(p, val);
+            if (this.relations.ContainsKey(p))
+            {
+                return this.relations[p];
+            }
+            else
+            {
+                return 0;
+            }
         }
 
+        public void SetRelation(Person p, int val)
+        {
+            if (this.relations.ContainsKey(p))
+            {
+                this.relations[p] = val;
+            }
+            else
+            {
+                this.relations.Add(p, val);
+            }
+        }
 
+        public void AddRelation(Person p, int val)
+        {
+            if (this.relations.ContainsKey(p))
+            {
+                this.relations[p] += val;
+            }
+            else
+            {
+                this.relations.Add(p, val);
+            }
+        }
+
+        public void SubtractRelation(Person p, int val)
+        {
+            if (this.relations.ContainsKey(p))
+            {
+                this.relations[p] -= val;
+            }
+            else
+            {
+                this.relations.Add(p, -val);
+            }
+        }
 
     }
 }

@@ -2674,7 +2674,7 @@
                     Person person1 = this.Persons.GetGameObject((short)reader["Person1"]) as Person;
                     Person person2 = this.Persons.GetGameObject((short)reader["Person2"]) as Person;
                     int relation = (int)reader["Relation"];
-                    person1.AddRelation(person2, relation);
+                    person1.SetRelation(person2, relation);
                 }
             }
             catch (OleDbException)
@@ -4217,9 +4217,9 @@
                     String brotherStr = "";
                     foreach (Person p in person.Brothers)
                     {
-                        brotherStr = p.ID + " ";
+                        brotherStr += p.ID + " ";
                     }
-                    row["ClosePersons"] = brotherStr;
+                    row["Brother"] = brotherStr;
 
                     row["Generation"] = person.Generation;
                     row["PersonalLoyalty"] = (int)person.PersonalLoyalty;
@@ -4244,11 +4244,11 @@
                     String hatedStr = "";
                     foreach (Person p in person.GetClosePersons())
                     {
-                        closeStr = p.ID + " ";
+                        closeStr += p.ID + " ";
                     }
                     foreach (Person p in person.GetHatedPersons())
                     {
-                        hatedStr = p.ID + " ";
+                        hatedStr += p.ID + " ";
                     }
                     row["ClosePersons"] = closeStr;
                     row["HatedPersons"] = hatedStr;

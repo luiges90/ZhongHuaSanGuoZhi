@@ -3099,9 +3099,10 @@
                     this.tbSpouse.Text = this.person.Spouse != null ? this.person.Spouse.ID.ToString() : "-1";
                     try
                     {
+                        this.tbBrother.Text = "";
                         foreach (Person num in this.person.Brothers)
                         {
-                            this.lbClosePersons.Items.Add(num.ToString() + " " + num.Name);
+                            this.tbBrother.Text += num.ID + " ";
                         }
                     }
                     catch { }
