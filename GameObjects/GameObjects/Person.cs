@@ -6905,19 +6905,19 @@
             {
                 this.relations.Add(p, val);
             }
-            if (this.relations[p] <= -1000)
+            if (this.relations[p] <= -1000 && !this.Hates(p))
             {
                 this.AddHated(p);
             }
-            if (this.relations[p] >= -500)
+            if (this.relations[p] >= -500 && this.Hates(p))
             {
                 this.RemoveHated(p);
             }
-            if (this.relations[p] <= 500)
+            if (this.relations[p] <= 500 && this.Closes(p))
             {
                 this.RemoveClose(p);
             }
-            if (this.relations[p] >= 1000)
+            if (this.relations[p] >= 1000 && !this.Closes(p))
             {
                 this.AddClose(p);
             }
