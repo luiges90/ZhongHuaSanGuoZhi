@@ -5,6 +5,7 @@
     using GameObjects.Influences;
     using GameObjects.TroopDetail;
     using System;
+    using System.Collections.Generic;
 
     public class Skill : GameObject
     {
@@ -38,6 +39,22 @@
                 if (!condition.CheckCondition(person))
                 {
                     return false;
+                }
+            }
+            return true;
+        }
+
+        public virtual bool CanBeBorn(Person person)
+        {
+            foreach (Condition condition in this.Conditions.Conditions.Values)
+            {
+                if (condition == base.Scenario.GameCommonData.AllConditions.GetCondition(901)) return false;
+                if (new List<int> { 600, 610, 970, 971 }.Contains(condition.ID))
+                {
+                    if (!condition.CheckCondition(person))
+                    {
+                        return false;
+                    }
                 }
             }
             return true;

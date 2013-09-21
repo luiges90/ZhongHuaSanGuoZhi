@@ -6287,76 +6287,46 @@
 
             foreach (Skill i in father.Skills.GetSkillList())
             {
-                if (GameObject.Chance(50 + father.childrenSkillChanceIncrease))
+                if (GameObject.Chance(50 + father.childrenSkillChanceIncrease) && i.CanBeBorn(r))
                 {
                     r.Skills.AddSkill(i);
                 }
             }
             foreach (Skill i in mother.Skills.GetSkillList())
             {
-                if (GameObject.Chance(50 + mother.childrenSkillChanceIncrease))
+                if (GameObject.Chance(50 + mother.childrenSkillChanceIncrease) && i.CanBeBorn(r))
                 {
                     r.Skills.AddSkill(i);
                 }
             }
             foreach (Skill i in father.Scenario.GameCommonData.AllSkills.GetSkillList())
             {
-                if ((GameObject.Random(father.Scenario.GameCommonData.AllSkills.GetSkillList().Count / 2) == 0 && GameObject.Random(i.Level * i.Level / 2 + i.Level) == 0)
+                if (((GameObject.Random(father.Scenario.GameCommonData.AllSkills.GetSkillList().Count / 2) == 0 && GameObject.Random(i.Level * i.Level / 2 + i.Level) == 0)
                     ||
-                    GameObject.Chance(father.childrenSkillChanceIncrease + mother.childrenSkillChanceIncrease))
+                    GameObject.Chance(father.childrenSkillChanceIncrease + mother.childrenSkillChanceIncrease)) && i.CanBeBorn(r))
                 {
                     r.Skills.AddSkill(i);
                 }
             }
 
             foreach (Stunt i in father.Stunts.GetStuntList())
-            {
-                if (GameObject.Chance(50 + father.childrenStuntChanceIncrease))
+            { 
+                if (GameObject.Chance(50 + father.childrenStuntChanceIncrease) && i.CanBeBorn(r))
                 {
-                    bool ok = true;
-                    foreach (Condition j in i.LearnConditions.Conditions.Values)
-                    {
-                        if (j.Kind.ID == 600 || j.Kind.ID == 610) //check personality kind only
-                        {
-                            if (!j.CheckCondition(r))
-                            {
-                                ok = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (ok)
-                    {
-                        r.Stunts.AddStunt(i);
-                    }
+                    r.Stunts.AddStunt(i);
                 }
             }
             foreach (Stunt i in mother.Stunts.GetStuntList())
             {
-                if (GameObject.Chance(50 + mother.childrenStuntChanceIncrease))
+                if (GameObject.Chance(50 + mother.childrenStuntChanceIncrease) && i.CanBeBorn(r))
                 {
-                    bool ok = true;
-                    foreach (Condition j in i.LearnConditions.Conditions.Values)
-                    {
-                        if (j.Kind.ID == 600 || j.Kind.ID == 610) //check personality kind only
-                        {
-                            if (!j.CheckCondition(r))
-                            {
-                                ok = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (ok)
-                    {
-                        r.Stunts.AddStunt(i);
-                    }
+                    r.Stunts.AddStunt(i);
                 }
             }
             foreach (Stunt i in father.Scenario.GameCommonData.AllStunts.GetStuntList())
             {
-                if (GameObject.Random(father.Scenario.GameCommonData.AllStunts.GetStuntList().Count * 2) == 0 || 
-                    GameObject.Chance(father.childrenStuntChanceIncrease + mother.childrenStuntChanceIncrease))
+                if ((GameObject.Random(father.Scenario.GameCommonData.AllStunts.GetStuntList().Count * 2) == 0 ||
+                    GameObject.Chance(father.childrenStuntChanceIncrease + mother.childrenStuntChanceIncrease)) && i.CanBeBorn(r))
                 {
                     bool ok = true;
                     foreach (Condition j in i.LearnConditions.Conditions.Values)
@@ -6377,17 +6347,21 @@
                 }
             }
 
+            r.RealPersonalTitle = null;
             if (GameObject.Chance(20))
             {
                 r.RealPersonalTitle = GameObject.Chance(50) ? father.PersonalTitle : mother.PersonalTitle;
+                if (!r.RealPersonalTitle.CanBeBorn(r)) r.RealPersonalTitle = null;
             }
-            else
+            
+            if (r.RealPersonalTitle == null)
             {
                 GameObjectList titles = father.Scenario.GameCommonData.AllTitles.GetTitleList().GetRandomList();
                 int levelTendency = ((father.PersonalTitle == null ? 0 : father.PersonalTitle.Level) + (mother.PersonalTitle == null ? 0 : mother.PersonalTitle.Level)) / 2
                     + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
                 foreach (Title t in titles)
                 {
+                    if (!t.CanBeBorn(r)) continue;
                     if (t.Kind == TitleKind.个人 && (GameObject.Random(t.Level * t.Level + titles.Count / 8) == 0 ||
                         (t.Level == levelTendency && GameObject.Chance(50)) || (t.Level - 1 == levelTendency && GameObject.Chance(25)) || (t.Level + 1 == levelTendency && GameObject.Chance(25))))
                     {
@@ -6411,17 +6385,21 @@
                 }
             }
 
+            r.RealCombatTitle = null;
             if (GameObject.Chance(20))
             {
                 r.RealCombatTitle = GameObject.Chance(50) ? father.CombatTitle : mother.CombatTitle;
+                if (!r.RealCombatTitle.CanBeBorn(r)) r.RealCombatTitle = null;
             }
-            else
+            
+            if (r.RealCombatTitle == null)
             {
                 GameObjectList titles = father.Scenario.GameCommonData.AllTitles.GetTitleList().GetRandomList();
                 int levelTendency = ((father.CombatTitle == null ? 0 : father.CombatTitle.Level) + (mother.CombatTitle == null ? 0 : mother.CombatTitle.Level)) / 2
                     + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
                 foreach (Title t in titles)
                 {
+                    if (!t.CanBeBorn(r)) continue;
                     if (t.Kind == TitleKind.战斗 && (GameObject.Random(t.Level * t.Level + titles.Count / 8) == 0 ||
                         (t.Level == levelTendency && GameObject.Chance(50)) || (t.Level - 1 == levelTendency && GameObject.Chance(25)) || (t.Level + 1 == levelTendency && GameObject.Chance(25))))
                     {
