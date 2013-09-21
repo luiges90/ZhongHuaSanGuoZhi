@@ -4988,7 +4988,7 @@
         {
             get
             {
-                return (int) (Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.BrotherAbilityFactor);
+                return (int) (Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor);
             }
         }
 
@@ -5028,7 +5028,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.BrotherAbilityFactor);
+                return (int)(Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor);
             }
         }
 
@@ -5044,7 +5044,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.BrotherAbilityFactor);
+                return (int)(Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor);
             }
         }
 
@@ -5076,7 +5076,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.BrotherAbilityFactor);
+                return (int)(Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor);
             }
         }
 
@@ -5100,7 +5100,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.BrotherAbilityFactor);
+                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor);
             }
         }
 
@@ -6780,19 +6780,25 @@
 
         }
 
-        public float BrotherAbilityFactor
+        public float RelationAbilityFactor
         {
             get
             {
-                foreach (Person p in this.Brothers)
+                if (this.LocationTroop == null) return 1f;
+
+                float rate = 1f;
+                foreach (Person p in this.LocationTroop.Persons)
                 {
-                    if (p == this) continue;
-                    if (p.BelongedArchitecture == this.BelongedArchitecture || p.BelongedTroop == this.BelongedTroop)
+                    if (this.Brothers.GameObjects.Contains(p) & rate < 1.33)
                     {
-                        return 1.2f;
+                        rate = 1.33f;
+                    }
+                    if (this.HasCloseStrainTo(p) && !this.Hates(p) && ! p.Hates(this) && rate < 1.2)
+                    {
+                        rate = 1.2f;
                     }
                 }
-                return 1f;
+                return rate;
             }
         }
 
