@@ -543,7 +543,7 @@
     <Leaf Text="決定結拜為義姊妹了！" Color="4294967295"></Leaf>
   </Branch>
   
-  <Branch Name="NoFactionPersonEnterArchitecture">
+  <Branch Name="NoFactionPersonArrivesAtArchitecture">
     <Leaf Text="在野之士" Color="4294967295"></Leaf>
     <Leaf Property="Name" Color="4278255360"></Leaf>
     <Leaf Text="進入了" Color="4294967295"></Leaf>

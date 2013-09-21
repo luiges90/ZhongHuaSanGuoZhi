@@ -1233,7 +1233,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if (a.BelongedFaction != null && base.Scenario.IsPlayer(a.BelongedFaction) && p.Status == PersonStatus.NoFaction)
             {
                 p.TextResultString = a.Name;
-                this.Plugins.GameRecordPlugin.AddBranch(p, "PersonArrive", a.Position);
+                this.Plugins.GameRecordPlugin.AddBranch(p, "NoFactionPersonArrivesAtArchitecture", a.Position);
             }
         }
 
