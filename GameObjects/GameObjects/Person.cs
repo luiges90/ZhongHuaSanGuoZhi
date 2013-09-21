@@ -3665,6 +3665,7 @@
                     else
                     {
                         this.Status = PersonStatus.NoFaction;
+                        this.Scenario.GameScreen.NoFactionPersonArrivesAtArchitecture(this, this.TargetArchitecture);
                         this.TargetArchitecture = null;
                     }
 					ExtensionInterface.call("ArrivedAtArchitecture", new Object[] { this.Scenario, this, this.TargetArchitecture });

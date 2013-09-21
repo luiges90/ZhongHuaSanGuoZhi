@@ -856,6 +856,10 @@
         public virtual void AskWhenTransportArrived(Troop transport, Architecture destination)
         {
         }
+
+        public virtual void NoFactionPersonArrivesAtArchitecture(Person p, Architecture a)
+        {
+        }
     }
 }
 

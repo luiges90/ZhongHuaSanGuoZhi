@@ -1228,5 +1228,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void NoFactionPersonArrivesAtArchitecture(Person p, Architecture a)
+        {
+            if (a.BelongedFaction != null && base.Scenario.IsPlayer(a.BelongedFaction) && p.Status == PersonStatus.NoFaction)
+            {
+                p.TextResultString = a.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "PersonArrive", a.Position);
+            }
+        }
+
     }
 }
