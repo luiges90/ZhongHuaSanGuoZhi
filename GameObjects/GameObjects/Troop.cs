@@ -1597,7 +1597,7 @@
                 }
                 foreach (Person person in this.persons)
                 {
-                    Point from = person.LocationTroop.Position;
+                    Point from = this.Position;
                     person.LocationTroop = null;
                     if ((this.StartingArchitecture == null) || (f != this.StartingArchitecture.BelongedFaction))
                     {
@@ -2351,7 +2351,7 @@
 
         internal void CatchCaptiveFromTroop(Person person)
         {
-            person.LocationTroop.persons.Remove(person);
+            this.persons.Remove(person);
             Captive captive = Captive.Create(base.Scenario, person, this.BelongedFaction);
             if (captive != null)
             {

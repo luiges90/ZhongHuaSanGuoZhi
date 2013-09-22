@@ -2641,7 +2641,7 @@
                 {
                     foreach (KeyValuePair<int, int[]> j in brotherIds)
                     {
-                        if (i.Value[0] == j.Value[0])
+                        if (j.Value.Length > 0 && i.Value[0] == j.Value[0])
                         {
                             Person p = this.Persons.GetGameObject(i.Key) as Person;
                             Person q = this.Persons.GetGameObject(j.Key) as Person;

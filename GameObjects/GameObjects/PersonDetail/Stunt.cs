@@ -103,8 +103,8 @@
         {
             foreach (Condition condition in this.LearnConditions.Conditions.Values)
             {
-                if (condition == base.Scenario.GameCommonData.AllConditions.GetCondition(901)) return false;
-                if (new List<int> { 600, 610, 970, 971 }.Contains(condition.ID))
+                if (condition.Kind.ID == 901) return false;
+                if (new List<int> { 600, 610, 970, 971 }.Contains(condition.Kind.ID))
                 {
                     if (!condition.CheckCondition(person))
                     {
