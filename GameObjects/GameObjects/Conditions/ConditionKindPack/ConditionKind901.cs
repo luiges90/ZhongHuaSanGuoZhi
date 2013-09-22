@@ -6,22 +6,22 @@
 
     internal class ConditionKind901 : ConditionKind
     {
-        public virtual bool CheckConditionKind(Architecture architecture)
+        public override bool CheckConditionKind(Architecture architecture)
         {
             return true;
         }
 
-        public virtual bool CheckConditionKind(Faction faction)
+        public override bool CheckConditionKind(Faction faction)
         {
             return true;
         }
 
-        public virtual bool CheckConditionKind(Person person)
+        public override bool CheckConditionKind(Person person)
         {
             return true;
         }
 
-        public virtual bool CheckConditionKind(Troop troop)
+        public override bool CheckConditionKind(Troop troop)
         {
             return true;
         }
