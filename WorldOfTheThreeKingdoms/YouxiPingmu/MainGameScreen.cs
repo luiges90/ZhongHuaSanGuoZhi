@@ -1379,9 +1379,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public void ResumeMusic()
         {
-            if (GlobalVariables.PlayMusic && (this.Player.playState == WMPPlayState.wmppsPaused))
+            try
             {
-                this.Player.play();
+                if (GlobalVariables.PlayMusic && (this.Player.playState == WMPPlayState.wmppsPaused))
+                {
+                    this.Player.play();
+                }
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
             }
         }
 

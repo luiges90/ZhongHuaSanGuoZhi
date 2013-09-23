@@ -6351,7 +6351,7 @@
             if (GameObject.Chance(20))
             {
                 r.RealPersonalTitle = GameObject.Chance(50) ? father.PersonalTitle : mother.PersonalTitle;
-                if (!r.RealPersonalTitle.CanBeBorn(r)) r.RealPersonalTitle = null;
+                if (r.RealPersonalTitle != null && !r.RealPersonalTitle.CanBeBorn(r)) r.RealPersonalTitle = null;
             }
             
             if (r.RealPersonalTitle == null)
@@ -6389,7 +6389,7 @@
             if (GameObject.Chance(20))
             {
                 r.RealCombatTitle = GameObject.Chance(50) ? father.CombatTitle : mother.CombatTitle;
-                if (!r.RealCombatTitle.CanBeBorn(r)) r.RealCombatTitle = null;
+                if (r.RealCombatTitle != null && !r.RealCombatTitle.CanBeBorn(r)) r.RealCombatTitle = null;
             }
             
             if (r.RealCombatTitle == null)
