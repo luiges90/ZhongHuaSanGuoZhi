@@ -115,23 +115,6 @@
                             item.OperationDone = true;
                             break;
                         }
-                        if (!(item.HasToDoCombatAction || !item.ToDoCombatAction()))
-                        {
-                            item.HasToDoCombatAction = true;
-                            this.CurrentQueue.Enqueue(item);
-                            break;
-                        }
-                        if (item.HasToDoCombatAction)
-                        {
-                            item.HasToDoCombatAction = false;
-                            item.DoCombatAction();
-                            this.CurrentQueue.Enqueue(item);
-                            break;
-                        }
-                        if (this.troopQueue.Count > 0)
-                        {
-                            this.CurrentQueue.Enqueue(this.troopQueue.Dequeue());
-                        }
                         if (item.Destroyed || (item.Status != TroopStatus.一般))
                         {
                             item.MovabilityLeft = -1;
@@ -142,6 +125,24 @@
                             this.TroopChangeRealDestination(item);
                             this.TroopMoveThread(item);
                         }
+
+                        if (item.MovabilityLeft <= 0)
+                        {
+                            if (!item.HasToDoCombatAction &&item.ToDoCombatAction())
+                            {
+                                item.HasToDoCombatAction = true;
+                                this.CurrentQueue.Enqueue(item);
+                                break;
+                            }
+                            if (item.HasToDoCombatAction)
+                            {
+                                item.HasToDoCombatAction = false;
+                                item.DoCombatAction();
+                                this.CurrentQueue.Enqueue(item);
+                                break;
+                            }
+                        }
+
                         if ((!item.OperationDone && item.OffenceOnlyBeforeMove) && (item.Position != item.PreviousPosition))
                         {
                             item.OperationDone = true;
@@ -151,6 +152,12 @@
                             this.CurrentTroop = item;
                             break;
                         }
+
+                        if (this.troopQueue.Count > 0)
+                        {
+                            this.CurrentQueue.Enqueue(this.troopQueue.Dequeue());
+                        }
+
                         if (!this.queueEnded)
                         {
                             if (item.MovabilityLeft > 0)
