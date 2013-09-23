@@ -2351,7 +2351,7 @@
 
         internal void CatchCaptiveFromTroop(Person person)
         {
-            this.persons.Remove(person);
+            person.BelongedTroop.persons.Remove(person);
             Captive captive = Captive.Create(base.Scenario, person, this.BelongedFaction);
             if (captive != null)
             {
