@@ -4689,23 +4689,29 @@
                 return 0;
             }
             int num = 0;
-            if ((this.RationDaysLeft <= 3) && ((this.RationDaysLeft != 3) || !GameObject.Chance(50)))
+            if (this.RationDaysLeft <= 1)
             {
-                TerrainDetail terrainDetailByPosition = base.Scenario.GetTerrainDetailByPosition(position);
-                if (terrainDetailByPosition == null)
-                {
-                    goto Label_0426;
-                }
-                if (((this.RationDaysLeft <= 1) && !base.Scenario.NoFoodDictionary.HasPosition(position)) && (base.Scenario.GetArchitectureByPosition(position) == null))
-                {
-                    num += terrainDetailByPosition.GetFood(base.Scenario.Date.Season) / 0x1388;
-                }
-                flag = false;
                 foreach (Architecture architecture in base.Scenario.GetSupplyArchitecturesByPositionAndFaction(position, this.BelongedFaction))
                 {
                     if (architecture.Food >= this.FoodCostPerDay)
                     {
-                        num += 0x1f;
+                        return 10000;
+                    }
+                }
+                if ((this.BelongedLegion.PreferredRouteway != null) && this.BelongedLegion.PreferredRouteway.IsEnough(position, this.FoodCostPerDay))
+                {
+                    return 10000;
+                }
+            }
+            if ((this.RationDaysLeft <= 3) && ((this.RationDaysLeft != 3) || !GameObject.Chance(50)))
+            {
+                flag = false;
+
+                foreach (Architecture architecture in base.Scenario.GetSupplyArchitecturesByPositionAndFaction(position, this.BelongedFaction))
+                {
+                    if (architecture.Food >= this.FoodCostPerDay)
+                    {
+                        num += 31;
                         this.HasSupply = true;
                         flag = true;
                         break;
@@ -4719,7 +4725,7 @@
                 {
                     if (architecture.Food >= this.FoodCostPerDay)
                     {
-                        num += 0x11;
+                        num += 17;
                         flag = true;
                         this.HasSupply = true;
                         break;
@@ -4729,7 +4735,7 @@
                 {
                     if ((this.BelongedLegion.PreferredRouteway != null) && this.BelongedLegion.PreferredRouteway.IsEnough(position, this.FoodCostPerDay))
                     {
-                        num += 0x17;
+                        num += 23;
                         this.HasSupply = true;
                     }
                     else
@@ -4756,13 +4762,13 @@
                         num += (this.GetPositionIndexInCurrentPath(position) * 0x13) + (int)(this.DistanceToWillArchitecture - base.Scenario.GetDistance(position, this.WillArchitecture.ArchitectureArea));
                     }
                 }
-                goto Label_0505;
+                return num;
             }
             if (!flag)
             {
                 if ((this.BelongedLegion.PreferredRouteway != null) && this.BelongedLegion.PreferredRouteway.IsEnough(position, this.FoodCostPerDay))
                 {
-                    num += 0x29;
+                    num += 41;
                     this.HasSupply = true;
                 }
                 else
@@ -4778,20 +4784,17 @@
                     }
                 }
             }
-        Label_0426:
-            if (!this.ViewingWillArchitecture)
+
+            if (this.CurrentPath == null)
             {
-                if (this.CurrentPath == null)
-                {
-                    num = ((((num * GameObject.Square(4 - this.RationDaysLeft)) + base.Scenario.GetSimpleDistance(this.Position, position)) + ((int) ((this.DistanceToWillArchitecture - base.Scenario.GetDistance(position, this.WillArchitecture.ArchitectureArea)) * 1.0))) + this.Army.MoraleCeiling) - this.Army.Morale;
-                }
-                else
-                {
-                    num += ((((this.GetPositionIndexInCurrentPath(position) * GameObject.Square(4 - this.RationDaysLeft)) * 0x13) + ((int) (this.DistanceToWillArchitecture - base.Scenario.GetDistance(position, this.WillArchitecture.ArchitectureArea)))) + this.Army.MoraleCeiling) - this.Army.Morale;
-                }
+                num = ((((num * GameObject.Square(4 - this.RationDaysLeft)) + base.Scenario.GetSimpleDistance(this.Position, position)) + ((int) ((this.DistanceToWillArchitecture - base.Scenario.GetDistance(position, this.WillArchitecture.ArchitectureArea)) * 1.0))) + this.Army.MoraleCeiling) - this.Army.Morale;
             }
-        Label_0505:
-            return GameObject.Random(num * 2);
+            else
+            {
+                num += ((((this.GetPositionIndexInCurrentPath(position) * GameObject.Square(4 - this.RationDaysLeft)) * 0x13) + ((int) (this.DistanceToWillArchitecture - base.Scenario.GetDistance(position, this.WillArchitecture.ArchitectureArea)))) + this.Army.MoraleCeiling) - this.Army.Morale;
+            }
+
+            return num;
         }
 
         public TroopList GetFriendlyTroopsInView()
