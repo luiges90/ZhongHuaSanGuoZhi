@@ -58,7 +58,7 @@
         public bool DayAvoidInfluenceByBattle;
         public bool DayAvoidInternalDecrementOnBattle;
         public bool DayAvoidPopulationEscape;
-        public int DayLearnTitleDay;
+        public int DayLearnTitleDay = Parameters.LearnTitleDays;
         public bool DayLocationLoyaltyNoChange;
         public float DayRateIncrementOfInternal;
         public CombatNumberItemList DecrementNumberList = new CombatNumberItemList(CombatNumberDirection.下);
