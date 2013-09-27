@@ -205,6 +205,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.ReadSaveFile("Save09.mdb");
             this.ReadSaveFile("Save10.mdb");
             this.ReadSaveFile("AutoSave.mdb");
+            this.ReadSaveFile("QuitSave.mdb");
 
             this.ReadSaveFile("Save01.zhs");
             this.ReadSaveFile("Save02.zhs");
@@ -217,6 +218,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.ReadSaveFile("Save09.zhs");
             this.ReadSaveFile("Save10.zhs");
             this.ReadSaveFile("AutoSave.zhs");
+            this.ReadSaveFile("QuitSave.zhs");
         }
 
         private void 删除存档ToolStripMenuItem_Click(object sender, EventArgs e)

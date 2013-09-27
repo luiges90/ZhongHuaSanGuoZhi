@@ -1492,6 +1492,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.SaveFileName = "AutoSave" + this.SaveFileExtension;
             this.SaveGameToDisk(this.SaveFileName);
         }
+
+        private void SaveGameQuitPosition()
+        {
+            this.SaveFileName = "QuitSave" + this.SaveFileExtension;
+            this.SaveGameToDisk(this.SaveFileName);
+        }
+
         private void SaveGameToPosition01()
         {
             this.SaveFileName = "Save01" + this.SaveFileExtension;
@@ -2469,15 +2476,24 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        private void saveBeforeExit()
+        {
+            if (!GlobalVariables.EnableLoadInGame)
+            {
+                this.SaveGameQuitPosition();
+            }
+            base.Game.Exit();
+        }
+
         public override void TryToExit()
         {
             if (!this.Plugins.tupianwenziPlugin.IsShowing)
             {
                 this.Plugins.ConfirmationDialogPlugin.SetSimpleTextDialog(this.Plugins.SimpleTextDialogPlugin);
                 this.Plugins.ConfirmationDialogPlugin.ClearFunctions();
-                this.Plugins.ConfirmationDialogPlugin.AddYesFunction(new GameDelegates.VoidFunction(base.Game.Exit));
+                this.Plugins.ConfirmationDialogPlugin.AddYesFunction(new GameDelegates.VoidFunction(this.saveBeforeExit));
                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                this.Plugins.SimpleTextDialogPlugin.SetBranch("ExitGame");
+                this.Plugins.SimpleTextDialogPlugin.SetBranch(GlobalVariables.EnableLoadInGame ? "ExitGame" : "ExitSaveGame");
                 this.Plugins.ConfirmationDialogPlugin.IsShowing = true;
             }
         }
