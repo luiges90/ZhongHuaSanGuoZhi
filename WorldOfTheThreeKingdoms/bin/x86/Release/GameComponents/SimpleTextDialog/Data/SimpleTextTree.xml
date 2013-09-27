@@ -10,7 +10,7 @@
    <Branch Name="ExitSaveGame">
     <Leaf Text="您确定要" Color="4294967295"></Leaf>
     <Leaf Text="退出" Color="4278255360"></Leaf>
-    <Leaf Text="游戏吗？" Color="4294967295"></Leaf>
+    <Leaf Text="游戏吗？游戏内容将会在离开前保存。" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="DemolishRouteway">
     <Leaf Text="您确定要" Color="4294967295"></Leaf>

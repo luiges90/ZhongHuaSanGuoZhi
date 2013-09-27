@@ -384,6 +384,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.label2 = new System.Windows.Forms.Label();
             this.tbInternalRate = new System.Windows.Forms.TextBox();
             this.tabPageAIParameter = new System.Windows.Forms.TabPage();
+            this.label61 = new System.Windows.Forms.Label();
+            this.tbAIOffensiveTroopHardLimit = new System.Windows.Forms.TextBox();
             this.label54 = new System.Windows.Forms.Label();
             this.tbMaxAITroopTime = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
@@ -417,8 +419,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label61 = new System.Windows.Forms.Label();
-            this.tbAIOffensiveTroopHardLimit = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -596,7 +596,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbEnableLoadInGame.Name = "cbEnableLoadInGame";
             this.cbEnableLoadInGame.Size = new System.Drawing.Size(120, 16);
             this.cbEnableLoadInGame.TabIndex = 125;
-            this.cbEnableLoadInGame.Text = "容许游戏中存读档";
+            this.cbEnableLoadInGame.Text = "硬核模式(禁止S/L)";
             this.cbEnableLoadInGame.UseVisualStyleBackColor = true;
             // 
             // cbEnableCheat
@@ -1896,6 +1896,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.Text = "电脑";
             this.tabPageAIParameter.UseVisualStyleBackColor = true;
             // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(238, 155);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(113, 12);
+            this.label61.TabIndex = 55;
+            this.label61.Text = "进攻时地图部队上限";
+            // 
+            // tbAIOffensiveTroopHardLimit
+            // 
+            this.tbAIOffensiveTroopHardLimit.Location = new System.Drawing.Point(357, 149);
+            this.tbAIOffensiveTroopHardLimit.Name = "tbAIOffensiveTroopHardLimit";
+            this.tbAIOffensiveTroopHardLimit.Size = new System.Drawing.Size(71, 22);
+            this.tbAIOffensiveTroopHardLimit.TabIndex = 56;
+            // 
             // label54
             // 
             this.label54.AutoSize = true;
@@ -2197,22 +2213,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(238, 155);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(113, 12);
-            this.label61.TabIndex = 55;
-            this.label61.Text = "进攻时地图部队上限";
-            // 
-            // tbAIOffensiveTroopHardLimit
-            // 
-            this.tbAIOffensiveTroopHardLimit.Location = new System.Drawing.Point(357, 149);
-            this.tbAIOffensiveTroopHardLimit.Name = "tbAIOffensiveTroopHardLimit";
-            this.tbAIOffensiveTroopHardLimit.Size = new System.Drawing.Size(71, 22);
-            this.tbAIOffensiveTroopHardLimit.TabIndex = 56;
             // 
             // formOptions
             // 
