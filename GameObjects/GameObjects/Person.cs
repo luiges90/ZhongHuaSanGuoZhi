@@ -6762,18 +6762,19 @@
         {
             get
             {
-                if (this.LocationTroop == null) return 1f;
+                if (this.LocationTroop == null || this.LocationArchitecture != null) return 1f;
 
                 float rate = 1f;
                 foreach (Person p in this.LocationTroop.Persons)
                 {
+                    if (p == this) continue;
                     if (this.Brothers.GameObjects.Contains(p) & rate < 1.33)
                     {
                         rate = 1.33f;
                     }
-                    if (this.HasCloseStrainTo(p) && !this.Hates(p) && ! p.Hates(this) && rate < 1.2)
+                    if (this.HasCloseStrainTo(p) && !this.Hates(p) && ! p.Hates(this) && rate < 1.15)
                     {
-                        rate = 1.2f;
+                        rate = 1.15f;
                     }
                 }
                 return rate;
