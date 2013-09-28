@@ -4,6 +4,8 @@
 
 **百度貼吧：http://tieba.baidu.com/f?kw=%D6%D0%BB%AA%C8%FD%B9%FA%D6%BE**
 
+**遊俠傳區：http://game.ali213.net/forum-876-1.html**
+
 ---
 
 **注意**：源碼需以VS2008 + XNA3.0才能開啟
