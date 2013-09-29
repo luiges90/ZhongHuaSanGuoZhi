@@ -180,7 +180,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private CheckBox cbShowChallengeAnimation;
         private TabPage tabPageBasic;
         private CheckBox cbLandArmyCanGoDownWater;
-        private CheckBox cbEnableLoadInGame;
+        private CheckBox cbHardcoreMode;
         private CheckBox cbEnableCheat;
         private CheckBox wujiangYoukenengDuli;
         private CheckBox checkLiangdaoXitong;
@@ -251,7 +251,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbTabListDetailLevel = new System.Windows.Forms.TextBox();
             this.label55 = new System.Windows.Forms.Label();
             this.cbLandArmyCanGoDownWater = new System.Windows.Forms.CheckBox();
-            this.cbEnableLoadInGame = new System.Windows.Forms.CheckBox();
+            this.cbHardcoreMode = new System.Windows.Forms.CheckBox();
             this.cbEnableCheat = new System.Windows.Forms.CheckBox();
             this.wujiangYoukenengDuli = new System.Windows.Forms.CheckBox();
             this.checkLiangdaoXitong = new System.Windows.Forms.CheckBox();
@@ -458,7 +458,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageBasic.Controls.Add(this.tbTabListDetailLevel);
             this.tabPageBasic.Controls.Add(this.label55);
             this.tabPageBasic.Controls.Add(this.cbLandArmyCanGoDownWater);
-            this.tabPageBasic.Controls.Add(this.cbEnableLoadInGame);
+            this.tabPageBasic.Controls.Add(this.cbHardcoreMode);
             this.tabPageBasic.Controls.Add(this.cbEnableCheat);
             this.tabPageBasic.Controls.Add(this.wujiangYoukenengDuli);
             this.tabPageBasic.Controls.Add(this.checkLiangdaoXitong);
@@ -591,13 +591,13 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // cbEnableLoadInGame
             // 
-            this.cbEnableLoadInGame.AutoSize = true;
-            this.cbEnableLoadInGame.Location = new System.Drawing.Point(13, 299);
-            this.cbEnableLoadInGame.Name = "cbEnableLoadInGame";
-            this.cbEnableLoadInGame.Size = new System.Drawing.Size(120, 16);
-            this.cbEnableLoadInGame.TabIndex = 125;
-            this.cbEnableLoadInGame.Text = "硬核模式(禁止S/L)";
-            this.cbEnableLoadInGame.UseVisualStyleBackColor = true;
+            this.cbHardcoreMode.AutoSize = true;
+            this.cbHardcoreMode.Location = new System.Drawing.Point(13, 299);
+            this.cbHardcoreMode.Name = "cbEnableLoadInGame";
+            this.cbHardcoreMode.Size = new System.Drawing.Size(120, 16);
+            this.cbHardcoreMode.TabIndex = 125;
+            this.cbHardcoreMode.Text = "硬核模式(禁止S/L)";
+            this.cbHardcoreMode.UseVisualStyleBackColor = true;
             // 
             // cbEnableCheat
             // 
@@ -2296,7 +2296,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.wujiangYoukenengDuli.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("WujiangYoukenengDuli").Value);
             this.tbBattleSpeed.Text = nextSibling.Attributes.GetNamedItem("FastBattleSpeed").Value;
             this.cbEnableCheat.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableCheat").Value);
-            this.cbEnableLoadInGame.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value);
+            this.cbHardcoreMode.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("HardcoreMode").Value);
             this.cbLandArmyCanGoDownWater.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("LandArmyCanGoDownWater").Value);
             this.tbMaxAbility.Text = nextSibling.Attributes.GetNamedItem("MaxAbility").Value;
             this.tbTirednessIncrease.Text = nextSibling.Attributes.GetNamedItem("TirednessIncrease").Value;
@@ -2413,7 +2413,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("WujiangYoukenengDuli").Value = this.wujiangYoukenengDuli.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("FastBattleSpeed").Value = this.tbBattleSpeed.Text;
             nextSibling.Attributes.GetNamedItem("EnableCheat").Value = this.cbEnableCheat.Checked.ToString();
-            nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value = this.cbEnableLoadInGame.Checked.ToString();
+            nextSibling.Attributes.GetNamedItem("HardcoreMode").Value = this.cbHardcoreMode.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("LandArmyCanGoDownWater").Value = this.cbLandArmyCanGoDownWater.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("MaxAbility").Value = this.tbMaxAbility.Text;
             nextSibling.Attributes.GetNamedItem("TirednessIncrease").Value = this.tbTirednessIncrease.Text;

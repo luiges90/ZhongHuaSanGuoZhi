@@ -2236,12 +2236,12 @@
 
         public bool SaveAvail()
         {
-            return (this.IsPlayerControlling() && this.EnableLoadAndSave && GlobalVariables.EnableLoadInGame);
+            return (this.IsPlayerControlling() && this.EnableLoadAndSave && !GlobalVariables.HardcoreMode);
         }
 
         public bool LoadAvail()
         {
-            return (this.IsPlayerControlling() && this.EnableLoadAndSave && GlobalVariables.EnableLoadInGame);
+            return (this.IsPlayerControlling() && this.EnableLoadAndSave && !GlobalVariables.HardcoreMode);
         }
 
         public bool isInCaptiveList(int personId)

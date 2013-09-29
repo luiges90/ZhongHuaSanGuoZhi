@@ -2478,7 +2478,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void saveBeforeExit()
         {
-            if (!GlobalVariables.EnableLoadInGame)
+            if (GlobalVariables.HardcoreMode)
             {
                 this.SaveGameQuitPosition();
             }
@@ -2493,7 +2493,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.ConfirmationDialogPlugin.ClearFunctions();
                 this.Plugins.ConfirmationDialogPlugin.AddYesFunction(new GameDelegates.VoidFunction(this.saveBeforeExit));
                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                this.Plugins.SimpleTextDialogPlugin.SetBranch(GlobalVariables.EnableLoadInGame ? "ExitGame" : "ExitSaveGame");
+                this.Plugins.SimpleTextDialogPlugin.SetBranch(GlobalVariables.HardcoreMode ? "ExitSaveGame" : "ExitGame");
                 this.Plugins.ConfirmationDialogPlugin.IsShowing = true;
             }
         }

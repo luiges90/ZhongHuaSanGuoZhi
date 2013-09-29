@@ -110,7 +110,7 @@
         public static bool EnableResposiveThreading = false;
 
         public static bool EnableCheat = false;
-        public static bool EnableLoadInGame = true;
+        public static bool HardcoreMode = false;
 
         public static int MaxAbility = 150;
         public static int TirednessIncrease = 1;
@@ -586,12 +586,12 @@
             }
             try
             {
-                EnableLoadInGame = bool.Parse(nextSibling.Attributes.GetNamedItem("EnableLoadInGame").Value);
+                HardcoreMode = bool.Parse(nextSibling.Attributes.GetNamedItem("HardcoreMode").Value);
             }
             catch (Exception exception24)
             {
                 exception = exception24;
-                throw new Exception("EnableLoadInGame:\n" + exception.ToString());
+                throw new Exception("HardcoreMode:\n" + exception.ToString());
             }
             try
             {
