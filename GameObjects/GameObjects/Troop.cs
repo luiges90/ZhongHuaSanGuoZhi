@@ -8826,7 +8826,7 @@
             damage.StealTroop = Math.Min(damage.DestinationTroop.Quantity, (int)(damage.Damage * this.StealTroop));
             damage.StealInjured = Math.Min(damage.DestinationTroop.InjuryQuantity, (int)(damage.Damage * this.StealInjured));
             damage.OfficerDie = false;
-            if (damage.Critical && damage.Damage > 0 && GlobalVariables.OfficerDieInBattleRate > 0)
+            if ((damage.Critical || troop.Quantity <= damage.Damage) && damage.Damage > 0 && GlobalVariables.OfficerDieInBattleRate > 0)
             {
                 float dieChance = GlobalVariables.OfficerDieInBattleRate / 10000.0f;
                 if (troop.Quantity <= damage.Damage)
