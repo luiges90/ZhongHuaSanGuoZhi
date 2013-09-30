@@ -7626,7 +7626,7 @@
             }
             foreach (MilitaryKind kind in this.PrivateMilitaryKinds.MilitaryKinds.Values)
             {
-                if (kind.CreateAvail(this))
+                if (kind.CreateAvail(this) && !this.NewMilitaryKindList.GameObjects.Contains(kind))
                 {
                     this.NewMilitaryKindList.Add(kind);
                 }
