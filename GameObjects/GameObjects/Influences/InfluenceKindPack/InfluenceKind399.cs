@@ -19,7 +19,7 @@
                 {
                     recoverQuantity = troop.OrientationTroop.InjuryQuantity;
                 }
-                troop.OrientationTroop.IncreaseQuantity(recoverQuantity);
+                recoverQuantity = troop.OrientationTroop.IncreaseQuantity(recoverQuantity);
                 troop.OrientationTroop.InjuryQuantity -= recoverQuantity;
             }
             foreach (Troop troop2 in troop.AreaStratagemTroops)
@@ -32,7 +32,7 @@
                     {
                         recoverQuantity = troop2.InjuryQuantity;
                     }
-                    troop2.IncreaseQuantity(recoverQuantity);
+                    recoverQuantity = troop2.IncreaseQuantity(recoverQuantity);
                     troop2.OrientationTroop.InjuryQuantity -= recoverQuantity;
                 }
             }

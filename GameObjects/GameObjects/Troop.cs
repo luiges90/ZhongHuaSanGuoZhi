@@ -6534,9 +6534,9 @@
             }
         }
 
-        public void IncreaseQuantity(int increment)
+        public int IncreaseQuantity(int increment)
         {
-            if (increment == 0) return;
+            if (increment == 0) return 0;
             int num = 0;
             if ((this.Army.Quantity + increment) > this.Army.Kind.MaxScale)
             {
@@ -6554,6 +6554,7 @@
             }
             this.IncrementNumberList.AddNumber(num, CombatNumberKind.人数, this.Position);
             this.ShowNumber = true;
+            return num;
         }
 
         private void IncreaseRoutExperience(bool rout)
