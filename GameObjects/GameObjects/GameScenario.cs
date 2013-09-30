@@ -3220,6 +3220,7 @@
                     try
                     {
                         Event e = new Event();
+                        e.Scenario = this;
                         e.ID = (short)reader["ID"];
                         e.Name = reader["Name"].ToString();
                         e.repeatable = (bool)reader["Repeatable"];

@@ -64,11 +64,34 @@
 
         public bool matchEventPersons(Architecture a)
         {
+            HashSet<int> haveCond = new HashSet<int>();
+            foreach (KeyValuePair<int, List<Condition>> i in this.personCond)
+            {
+                haveCond.Add(i.Key);
+            }
+
+            HashSet<int> noCond = new HashSet<int>();
+            foreach (int i in this.person.Keys)
+            {
+                if (!haveCond.Contains(i))
+                {
+                    noCond.Add(i);
+                }
+            }
+
             Dictionary<int, List<Person>> candidates = new Dictionary<int, List<Person>>();
             foreach (int i in this.person.Keys)
             {
                 candidates[i] = new List<Person>();
+                if (noCond.Contains(i))
+                {
+                    foreach (Person p in a.Persons.GetList())
+                    {
+                        candidates[i].Add(p);
+                    }
+                }
             }
+
             foreach (KeyValuePair<int, List<Condition>> i in this.personCond)
             {
                 foreach (Person p in a.Persons)
@@ -163,6 +186,12 @@
 
         public bool checkConditions(Architecture a)
         {
+            if (a.ID == 91)
+            {
+                int z = 0;
+                z++;
+            }
+
             if (this.happened && !this.repeatable) return false;
             if (GameObject.Random(this.happenChance) != 0)
             {
