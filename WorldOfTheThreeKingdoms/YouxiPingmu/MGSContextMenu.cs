@@ -468,6 +468,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.PersonConvene, false, true, true, true, this.CurrentArchitecture.GetPersonConveneList(), null, "召集", "");
                     break;
 
+                case ContextMenuResult.Person_AutoHire:
+                    this.CurrentArchitecture.AutoHiring = !this.CurrentArchitecture.AutoHiring;
+                    break;
+
+
                 case ContextMenuResult.Person_Hire:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.PersonManualHire, false, true, true, false, this.CurrentArchitecture.NoFactionPersons, null, "录用", "");
 

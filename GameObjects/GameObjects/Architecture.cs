@@ -2346,10 +2346,10 @@
             }
         }
 
-        private void OutsideTacticsAI()
+        private void ConvinceNoFactionAI()
         {
-            if (this.HasPerson() && this.IsFundEnough && this.HasNoFactionPerson() 
-                && GameObject.Chance((int) Math.Max(30, 800 / this.BelongedFaction.PersonCount)))
+            if (this.HasPerson() && this.IsFundEnough && this.HasNoFactionPerson()
+                && GameObject.Chance((int)Math.Max(30, 800 / this.BelongedFaction.PersonCount)))
             {
                 GameObjectList convincer = this.Persons.GetList();
                 convincer.SmallToBig = false;
@@ -2357,7 +2357,7 @@
                 convincer.IsNumber = true;
                 convincer.ReSort();
 
-                GameObjectList convinced = this.GetConvinceDestinationPersonList(this.BelongedFaction).GetList();
+                GameObjectList convinced = this.NoFactionPersons.GetList();
                 convinced.SmallToBig = false;
                 convinced.PropertyName = "Merit";
                 convinced.IsNumber = true;
@@ -2379,36 +2379,60 @@
                     }
                 }
             }
+        }
 
-            if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && (((this.RecentlyAttacked <= 0) && this.HasPerson()) && this.IsFundEnough))
+        private void ConvinceCaptivesAI(Architecture architecture2)
+        {
+            Captive extremeLoyaltyCaptive = architecture2.GetLowestLoyaltyCaptiveRecruitable();
+            if ((((extremeLoyaltyCaptive != null) && (extremeLoyaltyCaptive.CaptivePerson != null)) &&
+                ((extremeLoyaltyCaptive.Loyalty < 100 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction)))))
+                && (extremeLoyaltyCaptive.CaptiveFaction == null || extremeLoyaltyCaptive.CaptivePerson != extremeLoyaltyCaptive.CaptiveFaction.Leader))
+            {
+                PersonList firstHalfPersonList = this.GetFirstHalfPersonList("ConvinceAbility");
+                foreach (Person i in firstHalfPersonList)
+                {
+                    if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) || ((((i != null) && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33))) && (GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber))) && (GameObject.Random(i.FightingNumber) < 100)) && ((GameObject.Random(i.ConvinceAbility) >= 200) && (GameObject.Random(i.ConvinceAbility) > GameObject.Random(extremeLoyaltyCaptive.Loyalty * 5))))
+                    {
+                        i.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
+                        i.GoForConvince(extremeLoyaltyCaptive.CaptivePerson);
+                    }
+                }
+            }
+        }
+
+        private void OutsideTacticsAI()
+        {
+            ConvinceNoFactionAI();
+
+            if (this.PlanArchitecture == null && this.RecentlyAttacked <= 0 && this.HasPerson() && this.IsFundEnough)
             {
                 Architecture architecture2;
                 int diplomaticRelation;
                 Person firstHalfPerson;
-                ArchitectureList list = new ArchitectureList();
-                ArchitectureList list2 = new ArchitectureList();
+                ArchitectureList unknownArch = new ArchitectureList();
+                ArchitectureList knownArch = new ArchitectureList();
                 foreach (Architecture architecture in this.GetClosestArchitectures(20, 40))
                 {
                     if (!this.BelongedFaction.IsArchitectureKnown(architecture))
                     {
-                        list.Add(architecture);
+                        unknownArch.Add(architecture);
                     }
                     else
                     {
-                        list2.Add(architecture);
+                        knownArch.Add(architecture);
                     }
                 }
-                if (this.BelongedSection != null && (list.Count > 0) && this.BelongedSection.AIDetail.AllowInvestigateTactics)
+                if (this.BelongedSection != null && (unknownArch.Count > 0) && this.BelongedSection.AIDetail.AllowInvestigateTactics)
                 {
-                    if (list.Count > 1)
+                    if (unknownArch.Count > 1)
                     {
-                        list.PropertyName = "Population";
-                        list.IsNumber = true;
-                        list.ReSort();
+                        unknownArch.PropertyName = "Population";
+                        unknownArch.IsNumber = true;
+                        unknownArch.ReSort();
                     }
-                    if ((((this.RecentlyAttacked <= 0) && (GameObject.Random(40) < GameObject.Random(list.Count))) && GameObject.Chance(20)) && this.InformationAvail())
+                    if ((((this.RecentlyAttacked <= 0) && (GameObject.Random(40) < GameObject.Random(unknownArch.Count))) && GameObject.Chance(20)) && this.InformationAvail())
                     {
-                        architecture2 = list[GameObject.Random(list.Count / 2)] as Architecture;
+                        architecture2 = unknownArch[GameObject.Random(unknownArch.Count / 2)] as Architecture;
                         if ((!this.BelongedFaction.IsArchitectureKnown(architecture2) || GameObject.Chance(20)) && ((architecture2.BelongedFaction != null) && (!this.IsFriendly(architecture2.BelongedFaction) || GameObject.Chance(10))))
                         {
                             diplomaticRelation = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, architecture2.BelongedFaction.ID);
@@ -2427,18 +2451,18 @@
                         }
                     }
                 }
-                if ((this.BelongedSection != null) && ((list2.Count > 0) && (this.PlanArchitecture == null)) && this.BelongedSection.AIDetail.AllowPersonTactics)
+                if ((this.BelongedSection != null) && ((knownArch.Count > 0) && (this.PlanArchitecture == null)) && this.BelongedSection.AIDetail.AllowPersonTactics)
                 {
-                    if (list2.Count > 1)
+                    if (knownArch.Count > 1)
                     {
-                        list2.PropertyName = "PersonCount";
-                        list2.IsNumber = true;
-                        list2.ReSort();
+                        knownArch.PropertyName = "PersonCount";
+                        knownArch.IsNumber = true;
+                        knownArch.ReSort();
                     }
                     if ((this.HasPerson() && (GameObject.Random(this.Fund) >= this.GossipArchitectureFund)) && GameObject.Chance(50))
                     {
                         ArchitectureList list3 = new ArchitectureList();
-                        foreach (Architecture architecture in list2)
+                        foreach (Architecture architecture in knownArch)
                         {
                             if ((architecture.BelongedFaction != this.BelongedFaction) && (architecture.BelongedFaction != null))
                             {
@@ -2468,7 +2492,7 @@
                     if ((this.HasPerson() && (GameObject.Random(this.Fund) >= this.ConvincePersonFund)) && GameObject.Chance(50))
                     {
                         ArchitectureList list4 = new ArchitectureList();
-                        foreach (Architecture architecture in list2)
+                        foreach (Architecture architecture in knownArch)
                         {
                             if (((architecture.BelongedFaction != this.BelongedFaction) && (architecture.BelongedFaction != null)) && architecture.HasPerson())
                             {
@@ -2487,21 +2511,7 @@
                             architecture2 = list4[GameObject.Random(list4.Count)] as Architecture;
                             if (architecture2.BelongedFaction == this.BelongedFaction)
                             {
-                                Captive extremeLoyaltyCaptive = architecture2.GetLowestLoyaltyCaptiveRecruitable();
-                                if ((((extremeLoyaltyCaptive != null) && (extremeLoyaltyCaptive.CaptivePerson != null)) &&
-                                    ((extremeLoyaltyCaptive.Loyalty < 100 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction)))))
-                                    && (extremeLoyaltyCaptive.CaptiveFaction == null || extremeLoyaltyCaptive.CaptivePerson != extremeLoyaltyCaptive.CaptiveFaction.Leader))
-                                {
-                                    PersonList firstHalfPersonList = this.GetFirstHalfPersonList("ConvinceAbility");
-                                    foreach (Person i in firstHalfPersonList)
-                                    {
-                                        if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) || ((((i != null) && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33))) && (GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber))) && (GameObject.Random(i.FightingNumber) < 100)) && ((GameObject.Random(i.ConvinceAbility) >= 200) && (GameObject.Random(i.ConvinceAbility) > GameObject.Random(extremeLoyaltyCaptive.Loyalty * 5))))
-                                        {
-                                            i.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
-                                            i.GoForConvince(extremeLoyaltyCaptive.CaptivePerson);
-                                        }
-                                    }
-                                }
+                                ConvinceCaptivesAI(architecture2);
                             }
                             else if (!this.IsFriendly(architecture2.BelongedFaction) || GameObject.Chance(50))
                             {
@@ -2527,7 +2537,7 @@
                         List<Architecture> a = new List<Architecture>();
                         foreach (Architecture architecture in base.Scenario.Architectures)
                         {
-                            if (architecture.HasFactionCaptive(this.BelongedFaction) && list2.GameObjects.Contains(architecture))
+                            if (architecture.HasFactionCaptive(this.BelongedFaction) && knownArch.GameObjects.Contains(architecture))
                             {
                                 a.Add(architecture);
                             }
@@ -10035,6 +10045,22 @@
             this.AIWork(true);
         }
 
+        public void PlayerAIHire()
+        {
+            if (this.ConvincePersonAvail())
+            {
+                if (this.NoFactionPersons.Count > 0)
+                {
+                    ConvinceNoFactionAI();
+                }
+                
+                if (this.Captives.Count > 0)
+                {
+                    ConvinceCaptivesAI(this);
+                }
+            }
+        }
+
         public void PlayerAutoAI()
         {
             if (this.AutoRewarding)
@@ -10044,6 +10070,10 @@
             if (this.AutoWorking)
             {
                 this.PlayerAIWork();
+            }
+            if (this.AutoHiring)
+            {
+                this.PlayerAIHire();
             }
             if (this.AutoSearching)
             {

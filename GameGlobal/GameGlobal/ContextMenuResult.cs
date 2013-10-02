@@ -64,6 +64,7 @@
         Person_Convene,
         Person_Hire,
         Person_Convince,
+        Person_AutoHire,
         Person_Reward,
         Person_RewardAll,
         Person_Redeem,
