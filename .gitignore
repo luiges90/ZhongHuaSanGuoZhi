@@ -113,5 +113,8 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario
 MODS
 JSGME.ini
 
+!Interop.WMPLib.DLL
+!MakePublic.bat
+
 *.xlsx
 L*.mdb
