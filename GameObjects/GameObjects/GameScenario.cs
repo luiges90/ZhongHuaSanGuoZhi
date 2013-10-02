@@ -1026,7 +1026,7 @@
                     {
                         //architecture.JustAttacked = true;
                         architecture.BelongedFaction.StopToControl = true;
-                        architecture.RecentlyAttacked = 10;
+                        architecture.RecentlyAttacked = 5;
                         this.GameScreen.ArchitectureBeginRecentlyAttacked(architecture);  //提示玩家建筑视野范围内出现敌军。
 
                     }
