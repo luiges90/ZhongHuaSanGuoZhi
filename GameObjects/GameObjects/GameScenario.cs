@@ -1015,6 +1015,9 @@
                 {
                     continue;
                 }
+
+                if (architecture.BelongedFaction == null) continue;
+
                 if (architecture.FindHostileTroopInView())
                 {
                     fightingArchitectureCount++;
@@ -1077,7 +1080,7 @@
 
 
 
-            if (originalBattleState != faction.BattleState)
+            if (originalBattleState != faction.BattleState && this.GameScreen != null)
             {
                 this.GameScreen.SwichMusic(this.Date.Season);
             }
