@@ -198,10 +198,7 @@
         {
             if (troop.mingling == "攻击军队" && troop.TargetTroop != null)
             {
-                if (!troop.Scenario.IsPlayer(troop.BelongedFaction) || !troop.OffenceArea.Area.Contains(troop.TargetTroop.Position))
-                {
-                    troop.RealDestination = troop.TargetTroop.Position;
-                }
+                troop.RealDestination = troop.TargetTroop.Position;
             }
             else if (troop.mingling == "攻击军队" && troop.TargetTroop == null)
             {
