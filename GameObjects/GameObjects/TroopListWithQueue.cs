@@ -115,33 +115,71 @@
                             item.OperationDone = true;
                             break;
                         }
-                        if (!(item.HasToDoCombatAction || !item.ToDoCombatAction()))
-                        {
-                            item.HasToDoCombatAction = true;
-                            this.CurrentQueue.Enqueue(item);
-                            break;
-                        }
-                        if (item.HasToDoCombatAction)
-                        {
-                            item.HasToDoCombatAction = false;
-                            item.DoCombatAction();
-                            this.CurrentQueue.Enqueue(item);
-                            break;
-                        }
-                        if (this.troopQueue.Count > 0)
-                        {
-                            this.CurrentQueue.Enqueue(this.troopQueue.Dequeue());
-                        }
+
                         if (item.Destroyed || (item.Status != TroopStatus.一般))
                         {
                             item.MovabilityLeft = -1;
                             item.OperationDone = true;
                         }
-                        else if (item.MovabilityLeft > 0)
+
+                        if (item.Scenario.IsPlayer(item.BelongedFaction))
                         {
-                            this.TroopChangeRealDestination(item);
-                            this.TroopMoveThread(item);
+                            if (!(item.HasToDoCombatAction || !item.ToDoCombatAction()))
+                            {
+                                item.HasToDoCombatAction = true;
+                                this.CurrentQueue.Enqueue(item);
+                                break;
+                            }
+                            if (item.HasToDoCombatAction)
+                            {
+                                item.HasToDoCombatAction = false;
+                                item.DoCombatAction();
+                                this.CurrentQueue.Enqueue(item);
+                                break;
+                            }
+                            if (this.troopQueue.Count > 0)
+                            {
+                                this.CurrentQueue.Enqueue(this.troopQueue.Dequeue());
+                            }
+
+                            if (item.MovabilityLeft > 0)
+                            {
+                                this.TroopChangeRealDestination(item);
+                                this.TroopMoveThread(item);
+                            }
                         }
+                        else
+                        {
+                            if (item.MovabilityLeft > 0)
+                            {
+                                this.TroopChangeRealDestination(item);
+                                this.TroopMoveThread(item);
+                            }
+
+                            if (item.MovabilityLeft <= 0)
+                            {
+                                if (!item.HasToDoCombatAction && item.ToDoCombatAction())
+                                {
+                                    item.HasToDoCombatAction = true;
+                                    this.CurrentQueue.Enqueue(item);
+                                    break;
+                                }
+                                if (item.HasToDoCombatAction)
+                                {
+                                    item.HasToDoCombatAction = false;
+                                    item.DoCombatAction();
+                                    this.CurrentQueue.Enqueue(item);
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (item.Destroyed || (item.Status != TroopStatus.一般))
+                        {
+                            item.MovabilityLeft = -1;
+                            item.OperationDone = true;
+                        }
+                       
                         if ((!item.OperationDone && item.OffenceOnlyBeforeMove) && (item.Position != item.PreviousPosition))
                         {
                             item.OperationDone = true;
