@@ -545,6 +545,35 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         }
 
         private int oldDialogShowTime = -1;
+        private bool? oldEnableCheat = null;
+        private bool? oldSkyEye = null;
+
+        private void StartAutoplayMode()
+        {
+            this.Scenario.CurrentPlayer = null;
+            oldSkyEye = GlobalVariables.SkyEye;
+            GlobalVariables.SkyEye = true;
+            oldDialogShowTime = GlobalVariables.DialogShowTime;
+            GlobalVariables.DialogShowTime = 0;
+            oldEnableCheat = GlobalVariables.EnableCheat;
+            GlobalVariables.EnableCheat = true;
+        }
+
+        private void StopAutoplayMode()
+        {
+            if (oldSkyEye != null)
+            {
+                GlobalVariables.SkyEye = oldSkyEye.Value;
+            }
+            if (oldEnableCheat != null)
+            {
+                GlobalVariables.EnableCheat = oldEnableCheat.Value;
+            }
+            if (this.oldDialogShowTime >= 0)
+            {
+                GlobalVariables.DialogShowTime = this.oldDialogShowTime;
+            }
+        }
 
         public void changeFaction()
         {
@@ -595,28 +624,16 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     if (this.Scenario.PlayerFactions.Count == 0)
                     {
-                        this.Scenario.CurrentPlayer = null;
-                        oldSkyEye = GlobalVariables.SkyEye;
-                        GlobalVariables.SkyEye = true;
-                        oldDialogShowTime = GlobalVariables.DialogShowTime;
-                        GlobalVariables.DialogShowTime = 0;
+                        this.StartAutoplayMode();
                     }
                     else
                     {
-                        if (oldSkyEye != null)
-                        {
-                            GlobalVariables.SkyEye = oldSkyEye.Value;
-                        }
-                        if (this.oldDialogShowTime >= 0)
-                        {
-                            GlobalVariables.DialogShowTime = this.oldDialogShowTime;
-                        }
+                        this.StopAutoplayMode();
                     }
                 };
             }
             this.Plugins.GameFramePlugin.SetOKFunction(function);
         }
-        private bool? oldSkyEye = null;
 
         private void HandlePushSelectingUndoneWork(Enum kind)
         {
@@ -2478,7 +2495,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void saveBeforeExit()
         {
-            if (GlobalVariables.HardcoreMode)
+            if (GlobalVariables.HardcoreMode && this.Scenario.PlayerFactions.Count > 0)
             {
                 this.SaveGameQuitPosition();
             }
