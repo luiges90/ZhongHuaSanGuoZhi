@@ -2239,12 +2239,12 @@
 
         public bool SaveAvail()
         {
-            return (this.IsPlayerControlling() && this.EnableLoadAndSave && (!GlobalVariables.HardcoreMode || this.PlayerFactions.Count > 0));
+            return (this.IsPlayerControlling() && this.EnableLoadAndSave && !GlobalVariables.HardcoreMode);
         }
 
         public bool LoadAvail()
         {
-            return (this.IsPlayerControlling() && this.EnableLoadAndSave && (!GlobalVariables.HardcoreMode || this.PlayerFactions.Count > 0));
+            return (this.IsPlayerControlling() && this.EnableLoadAndSave && !GlobalVariables.HardcoreMode);
         }
 
         public bool isInCaptiveList(int personId)
@@ -3355,6 +3355,16 @@
             }
         }
 
+        private void ForceOptionsOnAutoplay()
+        {
+            if (this.PlayerFactions.Count == 0)
+            {
+                GlobalVariables.SkyEye = true;
+                GlobalVariables.EnableCheat = true;
+                GlobalVariables.HardcoreMode = false;
+            }
+        }
+
         public bool LoadGameScenarioFromDatabase(string connectionString)  //读取剧本
         {
             this.Clear();
@@ -3395,6 +3405,7 @@
                 this.OnAfterLoadScenario(this);
             }
             this.detectCurrentPlayerBattleState(this.CurrentPlayer);
+            this.ForceOptionsOnAutoplay();
             this.LoadedFileName = "";
             return true;
         }
@@ -3454,6 +3465,7 @@
                     GlobalVariables.DialogShowTime = oldDialogShowTime;
                 }
             }
+            this.ForceOptionsOnAutoplay();
             this.LoadedFileName = LoadedFileName;
             return true;
         }

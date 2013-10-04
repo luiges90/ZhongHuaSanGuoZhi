@@ -2495,7 +2495,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void saveBeforeExit()
         {
-            if (GlobalVariables.HardcoreMode && this.Scenario.PlayerFactions.Count > 0)
+            if (GlobalVariables.HardcoreMode)
             {
                 this.SaveGameQuitPosition();
             }
