@@ -75,7 +75,7 @@
                     }
                     foreach (Treasure t in person.Treasures)
                     {
-                        t.Influences.PurifyInfluence(person, Applier.Treasure, t.ID);
+                        t.Influences.PurifyInfluence(person, Applier.Treasure, t.TreasureGroup);
                     }
                 }
             }

@@ -16,6 +16,12 @@
         private Texture2D picture;
         private int worth;
 
+        public int TreasureGroup
+        {
+            get;
+            set;
+        }
+
         public int AppearYear
         {
             get

@@ -3140,6 +3140,14 @@
                     treasure.Worth = (short)reader["Worth"];
                     treasure.Available = (bool)reader["Available"];
                     treasure.AppearYear = (short)reader["AppearYear"];
+                    try
+                    {
+                        treasure.TreasureGroup = (short)reader["TreasureGroup"];
+                    }
+                    catch
+                    {
+                        treasure.TreasureGroup = treasure.ID;
+                    }
                     int key = (short)reader["HidePlace"];
                     treasure.HidePlace = this.AllArchitectures.ContainsKey(key) ? this.AllArchitectures[key] : null;
                     int num2 = (short)reader["BelongedPerson"];

@@ -825,7 +825,7 @@
         {
             foreach (Treasure treasure in this.Treasures)
             {
-                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.ID);
+                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup);
             }
         }
 
@@ -833,7 +833,7 @@
         {
             foreach (Treasure treasure in this.Treasures)
             {
-                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.ID);
+                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup);
             }
         }
 
@@ -3128,7 +3128,7 @@
         public void LoseTreasure(Treasure t)
         {
             this.Treasures.Remove(t);
-            t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, t.ID);
+            t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, t.TreasureGroup);
             t.BelongedPerson = null;
         }
 
@@ -3137,7 +3137,7 @@
             foreach (Treasure treasure in list)
             {
                 this.Treasures.Remove(treasure);
-                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.ID);
+                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup);
                 treasure.BelongedPerson = null;
             }
         }
@@ -3677,7 +3677,7 @@
         {
             this.Treasures.Add(t);
             t.BelongedPerson = this;
-            t.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, t.ID);
+            t.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, t.TreasureGroup);
         }
 
         public void ReceiveTreasureList(TreasureList list)
@@ -3686,7 +3686,7 @@
             {
                 this.Treasures.Add(treasure);
                 treasure.BelongedPerson = this;
-                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.ID);
+                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup);
             }
         }
 
