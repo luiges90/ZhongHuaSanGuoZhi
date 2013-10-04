@@ -380,6 +380,14 @@
                 FacilityKind facilityKind = new FacilityKind();
                 facilityKind.ID = (short)reader["ID"];
                 facilityKind.Name = reader["Name"].ToString();
+                try
+                {
+                    facilityKind.AILevel = (float)reader["AILevel"];
+                }
+                catch
+                {
+                    facilityKind.AILevel = 1;
+                }
                 facilityKind.PositionOccupied = (int)reader["PositionOccupied"];
                 facilityKind.TechnologyNeeded = (int)reader["TechnologyNeeded"];
                 facilityKind.FundCost = (int)reader["FundCost"];

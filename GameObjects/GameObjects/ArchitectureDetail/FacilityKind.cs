@@ -19,6 +19,12 @@
         private int technologyNeeded;
         private bool uniqueInArchitecture;
         private bool uniqueInFaction;
+
+        public float AILevel
+        {
+            get;
+            set;
+        }
         public bool bukechaichu
         {
             get;
@@ -52,7 +58,7 @@
                 }
             }
             if (influenceValue < 0) return influenceValue;
-            return (influenceValue - ((double) this.MaintenanceCost / a.ExpectedFund) * 30.0) * 1.0 / this.PositionOccupied;
+            return (influenceValue - ((double) this.MaintenanceCost / a.ExpectedFund) * 30.0) * this.AILevel / this.PositionOccupied;
         }
 
         public int Days

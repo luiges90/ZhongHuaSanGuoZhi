@@ -110,6 +110,18 @@
             return this.Influences.ContainsKey(influenceID);
         }
 
+        public bool HasInfluenceKind(int id)
+        {
+            foreach (Influence i in this.Influences.Values)
+            {
+                if (i.Kind.ID == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void LoadFromString(InfluenceTable allInfluences, string influenceIDs)
         {
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };

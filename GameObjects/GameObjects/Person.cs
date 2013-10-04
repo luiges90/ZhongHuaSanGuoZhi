@@ -235,7 +235,7 @@
         {
             foreach (Treasure treasure in this.Treasures)
             {
-                if (treasure.Influences.HasInfluence(5110))
+                if (treasure.Influences.HasInfluenceKind(5110))
                 {
                     return treasure.ID;
                 }
