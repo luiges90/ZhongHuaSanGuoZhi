@@ -4410,6 +4410,13 @@
                     row["BelongedPerson"] = (treasure.BelongedPerson != null) ? treasure.BelongedPerson.ID : -1;
                     row["HidePlace"] = (treasure.HidePlace != null) ? treasure.HidePlace.ID : -1;
                     row["Influences"] = treasure.Influences.SaveToString();
+                    try
+                    {
+                        row["TreasureGroup"] = treasure.TreasureGroup;
+                    }
+                    catch
+                    {
+                    }
                     row.EndEdit();
                     dataSet.Tables["Treasure"].Rows.Add(row);
                 }

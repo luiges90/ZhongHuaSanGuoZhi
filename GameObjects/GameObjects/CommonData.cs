@@ -1351,6 +1351,13 @@
                     row["ID"] = i.ID;
                     row["Name"] = i.Name;
                     row["Description"] = i.Description;
+                    try
+                    {
+                        row["AILevel"] = i.AILevel;
+                    }
+                    catch
+                    {
+                    }
                     row["PositionOccupied"] = i.PositionOccupied;
                     row["TechnologyNeeded"] = i.TechnologyNeeded;
                     row["FundCost"] = i.FundCost;
