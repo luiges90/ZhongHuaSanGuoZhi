@@ -2351,11 +2351,7 @@
             if (this.HasPerson() && this.IsFundEnough && this.HasNoFactionPerson()
                 && GameObject.Chance((int)Math.Max(30, 800 / this.BelongedFaction.PersonCount)))
             {
-                GameObjectList convincer = this.Persons.GetList();
-                convincer.SmallToBig = false;
-                convincer.PropertyName = "ConvinceAbility";
-                convincer.IsNumber = true;
-                convincer.ReSort();
+                PersonList convincer = this.GetFirstHalfPersonList("ConvinceAbility");
 
                 GameObjectList convinced = this.NoFactionPersons.GetList();
                 convinced.SmallToBig = false;
@@ -2363,19 +2359,23 @@
                 convinced.IsNumber = true;
                 convinced.ReSort();
 
-                int i = 0;
+                int cnt = 0;
                 foreach (Person p in convinced)
                 {
                     if (p.RecruitableBy(this.BelongedFaction, 0))
                     {
-                        Person q = (Person)convincer[i];
-                        if (q.Status == PersonStatus.Normal)
+                        Person i = (Person)convincer[cnt];
+                        if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) || 
+                            (i != null && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33)) &&
+                            GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber) && 
+                            GameObject.Random(i.FightingNumber) < 100 &&
+                            GameObject.Random(i.ConvinceAbility) >= 200))
                         {
-                            q.OutsideDestination = this.ArchitectureArea.Centre;
-                            q.GoForConvince(p);
+                            i.OutsideDestination = this.ArchitectureArea.Centre;
+                            i.GoForConvince(p);
                         }
-                        i++;
-                        if (i >= convincer.Count) break;
+                        cnt++;
+                        if (cnt >= convincer.Count) break;
                     }
                 }
             }
@@ -2391,7 +2391,12 @@
                 PersonList firstHalfPersonList = this.GetFirstHalfPersonList("ConvinceAbility");
                 foreach (Person i in firstHalfPersonList)
                 {
-                    if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) || ((((i != null) && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33))) && (GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber))) && (GameObject.Random(i.FightingNumber) < 100)) && ((GameObject.Random(i.ConvinceAbility) >= 200) && (GameObject.Random(i.ConvinceAbility) > GameObject.Random(extremeLoyaltyCaptive.Loyalty * 5))))
+                    if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) ||
+                            (i != null && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33)) &&
+                            GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber) &&
+                            GameObject.Random(i.FightingNumber) < 100 &&
+                            GameObject.Random(i.ConvinceAbility) >= 200 &&
+                            GameObject.Random(i.ConvinceAbility) > GameObject.Random(extremeLoyaltyCaptive.Loyalty * 5)))
                     {
                         i.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
                         i.GoForConvince(extremeLoyaltyCaptive.CaptivePerson);
