@@ -2561,21 +2561,18 @@
                 }
                 return false;
             }
-            if (!base.Scenario.Threading)
+
+            if (!this.AIFinished)
             {
-                if (!this.AIFinished)
-                {
-                    /*thread = new Thread(new ThreadStart(this.AI));
-                            thread.Start();
-                            thread.Join();
-                            thread = null;*/
-                    this.AI();
-                    return false;
-                }
-                this.Passed = true;
-                return true;
+                /*thread = new Thread(new ThreadStart(this.AI));
+                        thread.Start();
+                        thread.Join();
+                        thread = null;*/
+                this.AI();
+                return false;
             }
-            return false;
+            this.Passed = true;
+            return true;
         }
 
         public string SaveLegionsToString()
