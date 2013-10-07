@@ -3130,7 +3130,7 @@
             }
             if (this.BelongedFaction != null)
             {
-                foreach (TroopEvent event2 in base.Scenario.TroopEvents.GetRandomList())
+                foreach (TroopEvent event2 in base.Scenario.TroopEvents.GetList())
                 {
                     if (event2.CheckTroop(this))
                     {
