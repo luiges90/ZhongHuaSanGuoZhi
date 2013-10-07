@@ -2307,6 +2307,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbPersonDieInChallenge.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value);
             this.tbOfficerDieInBattleRate.Text = nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value;
             this.tbAIOffensiveTroopHardLimit.Text = nextSibling.Attributes.GetNamedItem("AIOffensiveTroopHardLimit").Value;
+            this.tbAutosaveFrequency.Text = nextSibling.Attributes.GetNamedItem("AutoSaveFrequency").Value;
         }
 
         private void LoadParameterDoc()
@@ -2424,6 +2425,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value = this.cbPersonDieInChallenge.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value = this.tbOfficerDieInBattleRate.Text;
             nextSibling.Attributes.GetNamedItem("AIOffensiveTroopHardLimit").Value = this.tbAIOffensiveTroopHardLimit.Text;
+            nextSibling.Attributes.GetNamedItem("AutoSaveFrequency").Value = this.tbAutosaveFrequency.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 
