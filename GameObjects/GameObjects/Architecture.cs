@@ -2352,6 +2352,7 @@
                 && GameObject.Chance((int)Math.Max(30, 800 / this.BelongedFaction.PersonCount)))
             {
                 PersonList convincer = this.GetFirstHalfPersonList("ConvinceAbility");
+                if (convincer.Count <= 0) return;
 
                 GameObjectList convinced = this.NoFactionPersons.GetList();
                 convinced.SmallToBig = false;
