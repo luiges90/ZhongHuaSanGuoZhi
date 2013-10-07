@@ -5503,7 +5503,7 @@
 
         public void checkEvent()
         {
-            foreach (Event e in base.Scenario.AllEvents.GetRandomList())
+            foreach (Event e in base.Scenario.AllEvents.GetList())
             {
                 if (e.checkConditions(this))
                 {
