@@ -14,3 +14,4 @@ Resources\CreateChildrenTextFile\
 MODS
 MakePublic.bat
 publicExclude.txt
+JubenBianjiqi.vshost.exe
