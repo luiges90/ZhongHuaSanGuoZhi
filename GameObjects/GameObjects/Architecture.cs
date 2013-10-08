@@ -692,12 +692,32 @@
             return (this.Kind.HasAgriculture && this.HasPerson());
         }
 
+        private void RoutewayAI()
+        {
+            if (GameObject.Random(10) == 0)
+            {
+                RoutewayList toRemove = new RoutewayList();
+                foreach (Routeway r in this.Routeways)
+                {
+                    if (!r.IsInUsing)
+                    {
+                        toRemove.Add(r);
+                    }
+                }
+                foreach (Routeway r in toRemove)
+                {
+                    this.RemoveRoutewayToArchitecture(r.DestinationArchitecture);
+                }
+            }
+        }
+
         public void AI()
         {
             this.PrepareAI();
             this.AIHouGong();
             this.AIExecute();
             this.ClearFieldAI();
+            this.RoutewayAI();
             this.AITreasure();
             this.AITrade();
             this.AIMilitary();
