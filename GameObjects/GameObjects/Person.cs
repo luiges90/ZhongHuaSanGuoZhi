@@ -1234,7 +1234,7 @@
             {
                 foreach (KeyValuePair<Person, int> i in this.relations)
                 {
-                    if (i.Value >= 4000 && i.Key.GetRelation(this) >= 4000 && i.Key.BelongedFaction == this.BelongedFaction 
+                    if (i.Value >= 2000 && i.Key.GetRelation(this) >= 2000 && i.Key.BelongedFaction == this.BelongedFaction 
                         && Person.GetIdealOffset(this, i.Key) <= 5 && !this.HasStrainTo(i.Key) 
                         && (!GlobalVariables.PersonNaturalDeath || (Math.Abs(this.Age - i.Key.Age) <= 40 && this.Age <= 50 && i.Key.Age <= 50
                             && this.Age >= 16 && i.Key.Age >= 16)))
@@ -6796,11 +6796,11 @@
             if (p != null && p != this && !this.Hates(p))
             {
                 this.hatedPersons.Add(p);
-                this.EnsureRelationAtMost(p, -1000);
+                this.EnsureRelationAtMost(p, -500);
             }
             else if (p != null && p != this)
             {
-                this.AdjustRelation(p, -1000);
+                this.AdjustRelation(p, -500);
             }
         }
 
@@ -6809,20 +6809,20 @@
             if (p != null && p != this && !this.Closes(p))
             {
                 this.closePersons.Add(p);
-                this.EnsureRelationAtLeast(p, 1000);
+                this.EnsureRelationAtLeast(p, 500);
             }
         }
 
         public void RemoveClose(Person p)
         {
             this.closePersons.Remove(p);
-            this.EnsureRelationAtMost(p, 500);
+            this.EnsureRelationAtMost(p, 250);
         }
 
         public void RemoveHated(Person p)
         {
             this.hatedPersons.Remove(p);
-            this.EnsureRelationAtLeast(p, -500);
+            this.EnsureRelationAtLeast(p, -250);
         }
 
         public PersonList GetClosePersons()
@@ -6884,19 +6884,19 @@
             {
                 this.relations.Add(p, val);
             }
-            if (this.relations[p] <= -1000 && !this.Hates(p))
+            if (this.relations[p] <= -500 && !this.Hates(p))
             {
                 this.AddHated(p);
             }
-            if (this.relations[p] >= -500 && this.Hates(p))
+            if (this.relations[p] >= -250 && this.Hates(p))
             {
                 this.RemoveHated(p);
             }
-            if (this.relations[p] <= 500 && this.Closes(p))
+            if (this.relations[p] <= 250 && this.Closes(p))
             {
                 this.RemoveClose(p);
             }
-            if (this.relations[p] >= 1000 && !this.Closes(p))
+            if (this.relations[p] >= 500 && !this.Closes(p))
             {
                 this.AddClose(p);
             }
