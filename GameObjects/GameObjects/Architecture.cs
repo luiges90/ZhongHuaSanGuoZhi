@@ -9691,6 +9691,24 @@
             return reserve;
         }
 
+        public void RemoveRoutewayToArchitecture(Architecture a)
+        {
+            Routeway toRemove = null;
+            foreach (Routeway r in this.Routeways)
+            {
+                if (r.DestinationArchitecture == a)
+                {
+                    toRemove = r;
+                    break;
+                }
+            }
+            if (toRemove != null)
+            {
+                toRemove.RemoveAfterClose = true;
+                toRemove.Close();
+            }
+        }
+
         private bool ignoreReserve = false;
         private void OffensiveCampaign()
         {
@@ -9700,15 +9718,18 @@
 
             if (this.actuallyUnreachableArch.Contains(this.PlanArchitecture))
             {
+                this.RemoveRoutewayToArchitecture(this.PlanArchitecture);
                 this.PlanArchitecture = null;
             }
 
             if (this.BelongedSection != null && !this.BelongedSection.AIDetail.AllowOffensiveCampaign)
             {
+                this.RemoveRoutewayToArchitecture(this.PlanArchitecture);
                 this.PlanArchitecture = null;
             }
             else if (!this.HasPerson())
             {
+                this.RemoveRoutewayToArchitecture(this.PlanArchitecture);
                 this.PlanArchitecture = null;
             }
             else if ((this.PlanArchitecture != null) || ((this.IsGood() || GameObject.Chance((int)(GameObject.Square((int)leader.Ambition) * Parameters.AIAttackChanceIfUnfull))) &&
