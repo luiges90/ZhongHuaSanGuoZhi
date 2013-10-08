@@ -9697,6 +9697,12 @@
             DateTime beforeStart = DateTime.UtcNow;
 
             Person leader = this.BelongedFaction.Leader;
+
+            if (this.actuallyUnreachableArch.Contains(this.PlanArchitecture))
+            {
+                this.PlanArchitecture = null;
+            }
+
             if (this.BelongedSection != null && !this.BelongedSection.AIDetail.AllowOffensiveCampaign)
             {
                 this.PlanArchitecture = null;
@@ -9726,6 +9732,11 @@
                         else if (i.Level > maxLevel)
                         {
                             maxLevel++;
+                        }
+
+                        if (this.actuallyUnreachableArch.Contains(i.A))
+                        {
+                            continue;
                         }
                         if (this.IsFriendly(i.A.BelongedFaction) || i.Kind == LinkKind.None)
                         {
