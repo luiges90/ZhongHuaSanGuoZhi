@@ -302,11 +302,11 @@
                 if (this.ShowingPerson.PersonBiography != null)
                 {
                     this.BiographyText.Clear();
-                    this.BiographyText.AddText("列传", Color.Orange);
+                    this.BiographyText.AddText("列传", Color.Yellow);
                     this.BiographyText.AddNewLine();
                     this.BiographyText.AddText(this.ShowingPerson.PersonBiography.Brief);
                     this.BiographyText.AddNewLine();
-                    this.BiographyText.AddText("演义", Color.Green);
+                    this.BiographyText.AddText("演义", Color.Lime);
                     this.BiographyText.AddText("：" + this.ShowingPerson.PersonBiography.Romance);
                     this.BiographyText.AddNewLine();
                     this.BiographyText.AddText("历史", Color.Red);
