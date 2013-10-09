@@ -593,6 +593,10 @@
                                     {
                                         this.screen.JumpTo((gameObjectByPosition as Treasure).BelongedPerson.Position);
                                     }
+                                } 
+                                else if (this.listKindToDisplay.SelectedTab.ListMethod != null)
+                                {
+                                    this.PushSubKindByName(this.listKindToDisplay.SelectedTab.ListKind, StaticMethods.GetListMethodValue(gameObjectByPosition, this.listKindToDisplay.SelectedTab.ListMethod) as GameObjectList);
                                 }
                                 if (gameObjectByPosition != null)
                                 {
