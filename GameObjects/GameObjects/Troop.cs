@@ -1592,7 +1592,7 @@
                     foreach (Person q in this.persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, (-Person.GetIdealOffset(p, q) * 75 / 30 - 3) / 2);
+                        p.AdjustRelation(q, -0.5f, -3);
                     }
                 }
                 foreach (Person person in this.persons)
@@ -2535,7 +2535,7 @@
                         foreach (Person q in sending.persons)
                         {
                             if (p == q) continue;
-                            p.AdjustRelation(q, Person.GetIdealOffset(p, q) * 75 / 30 + 3);
+                            p.AdjustRelation(q, 1, 3);
                         }
                     }
                 }
@@ -2677,7 +2677,7 @@
                     foreach (Person q in sending.persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, (-Person.GetIdealOffset(p, q) * 75 / 30 - 3) / 2);
+                        p.AdjustRelation(q, -0.5f, -3);
                     }
                 }
 
