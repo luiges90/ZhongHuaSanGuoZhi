@@ -6432,6 +6432,18 @@
 
             r.Scenario = father.Scenario;
 
+            foreach (Person p in father.Scenario.Persons)
+            {
+                int fatherRel = father.GetRelation(p);
+                int motherRel = mother.GetRelation(p);
+
+                if (fatherRel != 0 && motherRel != 0)
+                {
+                    int rel = GameObject.Random(Math.Abs(fatherRel - motherRel)) + Math.Min(fatherRel, motherRel);
+                    p.SetRelation(p, rel);
+                }
+            }
+
             foreach (Person p in father.GetClosePersons())
             {
                 if (!GameObject.Chance((int)r.personalLoyalty * 25))
