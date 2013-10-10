@@ -1234,7 +1234,7 @@
             {
                 foreach (Person p in this.LocationArchitecture.Persons)
                 {
-                    if (GameObject.Random(5) == 0 && p.WorkKind == this.WorkKind)
+                    if (GameObject.Random(3) == 0 && p.WorkKind == this.WorkKind)
                     {
                         this.AdjustRelation(p, 0.05f, 0);
                     }
