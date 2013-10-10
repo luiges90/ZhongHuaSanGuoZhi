@@ -2404,9 +2404,10 @@
 
         private void ConvinceCaptivesAI(Architecture architecture2)
         {
+            if (this.BelongedFaction == null) return;
             Captive extremeLoyaltyCaptive = architecture2.GetLowestLoyaltyCaptiveRecruitable();
-            if ((((extremeLoyaltyCaptive != null) && (extremeLoyaltyCaptive.CaptivePerson != null)) &&
-                ((extremeLoyaltyCaptive.Loyalty < 100 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction)))))
+            if (extremeLoyaltyCaptive != null && extremeLoyaltyCaptive.CaptivePerson != null &&
+                (extremeLoyaltyCaptive.Loyalty < 100 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction)))
                 && (extremeLoyaltyCaptive.CaptiveFaction == null || extremeLoyaltyCaptive.CaptivePerson != extremeLoyaltyCaptive.CaptiveFaction.Leader))
             {
                 PersonList firstHalfPersonList = this.GetFirstHalfPersonList("ConvinceAbility");
@@ -2701,7 +2702,7 @@
                 list.GameObjects.RemoveRange(list.Count / 2, list.Count - list.Count / 2);
                 return (list);
             }
-            return null;
+            return new PersonList();
         }
 
         private void AIAutoReward()
