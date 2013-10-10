@@ -1592,7 +1592,7 @@
                     foreach (Person q in this.persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, -Person.GetIdealOffset(p, q) * 75 / 30 - 3);
+                        p.AdjustRelation(q, (-Person.GetIdealOffset(p, q) * 75 / 30 - 3) / 2);
                     }
                 }
                 foreach (Person person in this.persons)
@@ -2669,6 +2669,15 @@
                         {
                             p.BaseReputation += i.Value;
                         }
+                    }
+                }
+
+                foreach (Person p in receiving.persons)
+                {
+                    foreach (Person q in sending.persons)
+                    {
+                        if (p == q) continue;
+                        p.AdjustRelation(q, (-Person.GetIdealOffset(p, q) * 75 / 30 - 3) / 2);
                     }
                 }
 
