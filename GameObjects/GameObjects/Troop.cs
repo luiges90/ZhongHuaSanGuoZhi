@@ -1408,8 +1408,13 @@
                             this.DecreaseCombativity(30);
                             troop.IncreaseCombativity(30);
                         }
+
                         this.CurrentSourceControversyPerson = maxControversyAbilityPerson;
                         this.CurrentDestinationControversyPerson = destination;
+
+                        this.CurrentSourceControversyPerson.AdjustRelation(this.CurrentDestinationControversyPerson, -1, -3);
+                        this.CurrentDestinationControversyPerson.AdjustRelation(this.CurrentSourceControversyPerson, -1, -3);
+
                         if (this.OnPersonControversy != null)
                         {
                             this.OnPersonControversy(win, this, this.CurrentSourceControversyPerson, troop, this.CurrentDestinationControversyPerson);
@@ -1587,14 +1592,7 @@
                 }
                 Faction f = this.BelongedFaction;
                 this.Destroy(true, true);
-                foreach (Person p in this.persons)
-                {
-                    foreach (Person q in this.persons)
-                    {
-                        if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f, -3);
-                    }
-                }
+ 
                 foreach (Person person in this.persons)
                 {
                     Point from = this.Position;
@@ -2541,12 +2539,15 @@
                 {
                     sending.IncreaseRoutExperience(true);
                     sending.AddRoutCount();
-                    foreach (Person p in sending.persons)
+                    foreach (Person p in sending.Persons)
                     {
-                        foreach (Person q in sending.persons)
+                        foreach (Person q in sending.Persons)
                         {
-                            if (p == q) continue;
                             p.AdjustRelation(q, 1, 3);
+                        }
+                        foreach (Person q in receiving.Persons)
+                        {
+                            q.AdjustRelation(p, -1, 3);
                         }
                     }
                 }
@@ -5970,7 +5971,53 @@
             damage.SourceTroop.Leader.TroopDamageDealt += damage.Damage;
             damage.DestinationTroop.Leader.TroopBeDamageDealt += damage.Damage;
 
-
+            if (GameObject.Random(2000 / damage.Damage) == 0)
+            {
+                foreach (Person p in damage.SourceTroop.Persons)
+                {
+                    foreach (Person q in damage.SourceTroop.Persons)
+                    {
+                        p.AdjustRelation(q, 0.5f, 0);
+                    }
+                    foreach (Person q in damage.DestinationTroop.Persons)
+                    {
+                        p.AdjustRelation(q, -0.5f, 0);
+                    }
+                }
+            }
+            if (GameObject.Random(2500 / damage.Damage) == 0)
+            {
+                for (int x = damage.DestinationTroop.Position.X - 2; x <= damage.DestinationTroop.Position.X + 2; x++)
+                {
+                    for (int y = damage.DestinationTroop.Position.Y - 2; y <= damage.DestinationTroop.Position.Y + 2; y++)
+                    {
+                        Troop t = base.Scenario.GetTroopByPosition(new Point(x, y));
+                        if (t != null)
+                        {
+                            if (t.BelongedFaction == damage.SourceTroop.BelongedFaction)
+                            {
+                                foreach (Person tp in t.Persons)
+                                {
+                                    foreach (Person p in damage.SourceTroop.Persons)
+                                    {
+                                        tp.AdjustRelation(p, 0.25f, 0);
+                                    }
+                                }
+                            }
+                            else if (t.BelongedFaction == damage.DestinationTroop.BelongedFaction)
+                            {
+                                foreach (Person tp in t.Persons)
+                                {
+                                    foreach (Person p in damage.SourceTroop.Persons)
+                                    {
+                                        tp.AdjustRelation(p, -0.25f, 0);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
             if (damage.AntiAttack)
             {
@@ -6010,6 +6057,9 @@
                     */
                     Challenge challeng = new Challenge();
                     challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
+
+                    damage.ChallengeSourcePerson.AdjustRelation(damage.ChallengeDestinationPerson, -1, -3);
+                    damage.ChallengeDestinationPerson.AdjustRelation(damage.ChallengeSourcePerson, -1, -3);
                 }
                 if (damage.OfficerDie)
                 {
@@ -9493,6 +9543,71 @@
                     {
                         troop2.RecentlyFighting = 3;
                         troop2.Action = TroopAction.BeCasted;
+                    }
+
+                    if (GameObject.Random(8) == 0)
+                    {
+                        foreach (Person p in this.Persons)
+                        {
+                            foreach (Person q in this.Persons)
+                            {
+                                p.AdjustRelation(q, 0.5f, 0);
+                            }
+                            foreach (Person q in troop.Persons)
+                            {
+                                p.AdjustRelation(q, -0.5f, 0);
+                            }
+                        }
+                    }
+                    if (GameObject.Random(12) == 0)
+                    {
+                        for (int x = troop.Position.X - 2; x <= troop.Position.X + 2; x++)
+                        {
+                            for (int y = troop.Position.Y - 2; y <= troop.Position.Y + 2; y++)
+                            {
+                                Troop t = base.Scenario.GetTroopByPosition(new Point(x, y));
+                                if (t != null)
+                                {
+                                    if (t.BelongedFaction == this.BelongedFaction)
+                                    {
+                                        foreach (Person tp in t.Persons)
+                                        {
+                                            foreach (Person p in this.Persons)
+                                            {
+                                                tp.AdjustRelation(p, 0.25f, 0);
+                                            }
+                                        }
+                                    }
+                                    else if (t.BelongedFaction == troop.BelongedFaction)
+                                    {
+                                        foreach (Person tp in t.Persons)
+                                        {
+                                            foreach (Person p in this.Persons)
+                                            {
+                                                tp.AdjustRelation(p, -0.25f, 0);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (GameObject.Random(8) == 0)
+                    {
+                        foreach (Person p in this.Persons)
+                        {
+                            foreach (Person q in this.Persons)
+                            {
+                                p.AdjustRelation(q, 0.5f, 0);
+                            }
+                            foreach (Person q in troop.Persons)
+                            {
+                                p.AdjustRelation(q, 0.5f, 0);
+                            }
+                        }
                     }
                 }
                 this.AddCastAnimation(troop, true);
