@@ -2337,13 +2337,24 @@
                     {
                         this.CatchCaptiveFromTroop(person);
 
-
+                        foreach (Person q in this.Persons)
+                        {
+                            person.AdjustRelation(q, -1, -3);
+                        }
 
 						ExtensionInterface.call("CapturedByTroop", new Object[] { this.Scenario, this, person });
                     }
                     if (this.OnGetNewCaptive != null)
                     {
                         this.OnGetNewCaptive(this, personlist);
+                    }
+                }
+                foreach (Person p in this.Persons)
+                {
+                    foreach (Person q in this.Persons)
+                    {
+                        if (p == q) continue;
+                        p.AdjustRelation(q, 1, 3);
                     }
                 }
             }
