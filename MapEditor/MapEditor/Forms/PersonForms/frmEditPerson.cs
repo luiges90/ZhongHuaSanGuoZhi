@@ -810,7 +810,8 @@
             this.clb08.Location = new System.Drawing.Point(68, 236);
             this.clb08.MultiColumn = true;
             this.clb08.Name = "clb08";
-            this.clb08.Size = new System.Drawing.Size(509, 4);
+            this.clb08.IntegralHeight = false;
+            this.clb08.Size = new System.Drawing.Size(509, 24);
             this.clb08.TabIndex = 29;
             // 
             // label50
@@ -838,7 +839,8 @@
             this.clb07.Location = new System.Drawing.Point(68, 210);
             this.clb07.MultiColumn = true;
             this.clb07.Name = "clb07";
-            this.clb07.Size = new System.Drawing.Size(509, 4);
+            this.clb07.IntegralHeight = false;
+            this.clb07.Size = new System.Drawing.Size(509, 24);
             this.clb07.TabIndex = 27;
             // 
             // label49
@@ -866,7 +868,8 @@
             this.clb04.Location = new System.Drawing.Point(68, 132);
             this.clb04.MultiColumn = true;
             this.clb04.Name = "clb04";
-            this.clb04.Size = new System.Drawing.Size(509, 4);
+            this.clb04.IntegralHeight = false;
+            this.clb04.Size = new System.Drawing.Size(509, 24);
             this.clb04.TabIndex = 25;
             // 
             // label48
@@ -894,7 +897,8 @@
             this.clb05.Location = new System.Drawing.Point(68, 158);
             this.clb05.MultiColumn = true;
             this.clb05.Name = "clb05";
-            this.clb05.Size = new System.Drawing.Size(509, 4);
+            this.clb05.IntegralHeight = false;
+            this.clb05.Size = new System.Drawing.Size(509, 24);
             this.clb05.TabIndex = 23;
             // 
             // label47
@@ -922,7 +926,8 @@
             this.clb01.Location = new System.Drawing.Point(68, 52);
             this.clb01.MultiColumn = true;
             this.clb01.Name = "clb01";
-            this.clb01.Size = new System.Drawing.Size(509, 4);
+            this.clb01.IntegralHeight = false;
+            this.clb01.Size = new System.Drawing.Size(509, 24);
             this.clb01.TabIndex = 21;
             // 
             // label44
@@ -989,7 +994,8 @@
             this.clb11.Location = new System.Drawing.Point(68, 314);
             this.clb11.MultiColumn = true;
             this.clb11.Name = "clb11";
-            this.clb11.Size = new System.Drawing.Size(509, 4);
+            this.clb11.IntegralHeight = false;
+            this.clb11.Size = new System.Drawing.Size(509, 24);
             this.clb11.TabIndex = 12;
             // 
             // clb10
@@ -1008,7 +1014,8 @@
             this.clb10.Location = new System.Drawing.Point(68, 288);
             this.clb10.MultiColumn = true;
             this.clb10.Name = "clb10";
-            this.clb10.Size = new System.Drawing.Size(509, 4);
+            this.clb10.IntegralHeight = false;
+            this.clb10.Size = new System.Drawing.Size(509, 24);
             this.clb10.TabIndex = 11;
             // 
             // clb09
@@ -1027,7 +1034,8 @@
             this.clb09.Location = new System.Drawing.Point(68, 262);
             this.clb09.MultiColumn = true;
             this.clb09.Name = "clb09";
-            this.clb09.Size = new System.Drawing.Size(509, 4);
+            this.clb09.IntegralHeight = false;
+            this.clb09.Size = new System.Drawing.Size(509, 24);
             this.clb09.TabIndex = 10;
             // 
             // clb06
@@ -1046,7 +1054,8 @@
             this.clb06.Location = new System.Drawing.Point(68, 184);
             this.clb06.MultiColumn = true;
             this.clb06.Name = "clb06";
-            this.clb06.Size = new System.Drawing.Size(509, 4);
+            this.clb06.IntegralHeight = false;
+            this.clb06.Size = new System.Drawing.Size(509, 24);
             this.clb06.TabIndex = 9;
             // 
             // clb03
@@ -1065,7 +1074,8 @@
             this.clb03.Location = new System.Drawing.Point(68, 106);
             this.clb03.MultiColumn = true;
             this.clb03.Name = "clb03";
-            this.clb03.Size = new System.Drawing.Size(509, 4);
+            this.clb03.IntegralHeight = false;
+            this.clb03.Size = new System.Drawing.Size(509, 24);
             this.clb03.TabIndex = 8;
             // 
             // clb02
@@ -1084,7 +1094,8 @@
             this.clb02.Location = new System.Drawing.Point(68, 80);
             this.clb02.MultiColumn = true;
             this.clb02.Name = "clb02";
-            this.clb02.Size = new System.Drawing.Size(509, 4);
+            this.clb02.IntegralHeight = false;
+            this.clb02.Size = new System.Drawing.Size(509, 24);
             this.clb02.TabIndex = 7;
             // 
             // clb00
@@ -1103,7 +1114,8 @@
             this.clb00.Location = new System.Drawing.Point(68, 26);
             this.clb00.MultiColumn = true;
             this.clb00.Name = "clb00";
-            this.clb00.Size = new System.Drawing.Size(509, 4);
+            this.clb00.IntegralHeight = false;
+            this.clb00.Size = new System.Drawing.Size(509, 24);
             this.clb00.TabIndex = 6;
             // 
             // tpBasic
