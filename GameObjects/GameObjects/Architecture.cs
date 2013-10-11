@@ -5616,6 +5616,11 @@
                 {
                     if (!GameObject.Chance(noEscapeChance) || GameObject.Chance(p.CaptivePerson.captiveEscapeChance))
                     {
+                        foreach (Person q in this.Persons.GetRandomList())
+                        {
+                            if (GameObject.Chance(30)) break;
+                            p.CaptivePerson.AdjustRelation(q, -0.15f, 0);
+                        }
                         p.CaptiveEscape();
                     }
                 }
