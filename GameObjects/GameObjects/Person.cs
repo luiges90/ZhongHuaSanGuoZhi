@@ -6839,9 +6839,9 @@
             return this.hatedPersons.GameObjects.Contains(p);
         }
 
-        public const int CLOSE_THRESHOLD = 500;
-        public const int HATE_THRESHOLD = -500;
-        public const int VERY_CLOSE_THRESHOLD = 2000;
+        public const int CLOSE_THRESHOLD = 1000;
+        public const int HATE_THRESHOLD = -1000;
+        public const int VERY_CLOSE_THRESHOLD = 4000;
 
         public void AddHated(Person p)
         {
