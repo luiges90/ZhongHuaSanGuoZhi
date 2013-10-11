@@ -1230,16 +1230,6 @@
 
         private void createRelations()
         {
-            if (this.LocationArchitecture != null && GameObject.Random(10) == 0)
-            {
-                foreach (Person p in this.LocationArchitecture.Persons)
-                {
-                    if (GameObject.Random(3) == 0 && p.WorkKind == this.WorkKind)
-                    {
-                        this.AdjustRelation(p, 0.05f, 0);
-                    }
-                }
-            }
             if (this.LocationArchitecture != null && GameObject.Random(60) == 0)
             {
                 foreach (KeyValuePair<Person, int> i in this.relations)
