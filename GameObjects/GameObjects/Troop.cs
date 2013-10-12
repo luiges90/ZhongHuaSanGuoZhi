@@ -2550,36 +2550,6 @@
                             q.AdjustRelation(p, -1, 3);
                         }
                     }
-                    for (int x = receiving.Position.X - 2; x <= receiving.Position.X + 2; x++)
-                    {
-                        for (int y = receiving.Position.Y - 2; y <= receiving.Position.Y + 2; y++)
-                        {
-                            Troop t = receiving.Scenario.GetTroopByPosition(new Point(x, y));
-                            if (t != null)
-                            {
-                                if (t.BelongedFaction == sending.BelongedFaction)
-                                {
-                                    foreach (Person tp in t.Persons)
-                                    {
-                                        foreach (Person p in sending.Persons)
-                                        {
-                                            tp.AdjustRelation(p, 0.5f, 0);
-                                        }
-                                    }
-                                }
-                                else if (t.BelongedFaction == receiving.BelongedFaction)
-                                {
-                                    foreach (Person tp in t.Persons)
-                                    {
-                                        foreach (Person p in sending.Persons)
-                                        {
-                                            tp.AdjustRelation(p, -0.5f, 0);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
                 if (GameObject.Chance(sending.stealTreasureRate) && sending.BelongedFaction != null)
                 {
