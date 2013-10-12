@@ -3373,7 +3373,7 @@
             }
         }
 
-        public bool LoadGameScenarioFromDatabase(string connectionString)  //读取剧本
+        public bool LoadGameScenarioFromDatabase(string connectionString, List<int> playerFactions)
         {
             this.Clear();
             OleDbConnection dbConnection = new OleDbConnection(connectionString);
@@ -3383,7 +3383,7 @@
             OleDbDataReader reader = command.ExecuteReader();
             reader.Read();
             this.PlayerFactions.LoadFromString(this.Factions, reader["PlayerList"].ToString());
-            int iD = (short) reader["CurrentPlayer"];
+            int iD = (short)reader["CurrentPlayer"];
             if (iD >= 0)
             {
                 this.CurrentPlayer = this.Factions.GetGameObject(iD) as Faction;
@@ -3413,9 +3413,19 @@
                 this.OnAfterLoadScenario(this);
             }
             this.detectCurrentPlayerBattleState(this.CurrentPlayer);
-            this.ForceOptionsOnAutoplay();
+
+            if (playerFactions.Count == 0)
+            {
+                this.ForceOptionsOnAutoplay();
+            }
+
             this.LoadedFileName = "";
             return true;
+        }
+
+        public bool LoadGameScenarioFromDatabase(string connectionString)  //读取剧本
+        {
+            return this.LoadGameScenarioFromDatabase(connectionString, new List<int>());
         }
 
         public bool LoadSaveFileFromDatabase(string connectionString, String LoadedFileName) //读取存档
