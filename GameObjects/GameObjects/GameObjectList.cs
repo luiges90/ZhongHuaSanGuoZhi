@@ -37,12 +37,6 @@
             this.gameObjects.Clear();
         }
 
-        public GameObject GetRandomItem()
-        {
-            if (this.Count == 0) return null;
-            return this.GameObjects[GameObject.Random(this.Count)];
-        }
-
         public void ClearSelected()
         {
             foreach (GameObject obj2 in this.gameObjects)

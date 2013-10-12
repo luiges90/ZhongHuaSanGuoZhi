@@ -1230,16 +1230,6 @@
 
         private void createRelations()
         {
-            if (this.LocationArchitecture != null && GameObject.Random(10) == 0)
-            {
-                foreach (Person p in this.LocationArchitecture.Persons)
-                {
-                    if (GameObject.Random(5) == 0 && p.WorkKind == this.WorkKind)
-                    {
-                        this.AdjustRelation(p, 0.05f, 0);
-                    }
-                }
-            }
             if (this.LocationArchitecture != null && GameObject.Random(60) == 0)
             {
                 foreach (KeyValuePair<Person, int> i in this.relations)
@@ -1456,12 +1446,6 @@
                                     {
                                         this.OnJailBreakSuccess(this, c);
                                     }
-                                    c.CaptivePerson.AdjustRelation(this, 0.15f, 1);
-                                    foreach (Person p in architectureByPosition.Persons.GetRandomList())
-                                    {
-                                        if (GameObject.Chance(30)) break;
-                                        p.AdjustRelation(this, -0.15f, 0);
-                                    }
                                     c.CaptiveEscapeNoHint();
                                 }
                             }
@@ -1540,11 +1524,6 @@
                     {
                         this.ConvincePersonSuccess(this.ConvincingPerson);
 
-                        foreach (Person p in architectureByPosition.Persons.GetRandomList())
-                        {
-                            if (GameObject.Chance(30)) break;
-                            p.AdjustRelation(this, -0.15f, 0);
-                        }
 
                         if (architectureByPosition.BelongedFaction != this.BelongedFaction)
                         {
@@ -1624,9 +1603,6 @@
             this.BelongedFaction.IncreaseReputation(20 * this.MultipleOfTacticsReputation);
             this.BelongedFaction.IncreaseTechniquePoint((20 * this.MultipleOfTacticsTechniquePoint) * 100);
 
-            this.AdjustRelation(person, 0.5f, 5);
-            person.AdjustRelation(this, 0.5f, 5);
-
             ExtensionInterface.call("DoConvinceSuccess", new Object[] { this.Scenario, this });
             if (this.OnConvinceSuccess != null)
             {
@@ -1687,11 +1663,6 @@
                         {
                             base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, architectureByPosition.BelongedFaction.ID, -5);
                         }
-                        foreach (Person p in architectureByPosition.Persons.GetRandomList())
-                        {
-                            if (GameObject.Chance(30)) break;
-                            p.AdjustRelation(this, -0.15f, 0);
-                        }
                         if (this.OnDestroySuccess != null)
                         {
                             this.OnDestroySuccess(this, architectureByPosition, randomValue);
@@ -1744,11 +1715,6 @@
                         if (architectureByPosition.BelongedFaction != null)
                         {
                             base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, architectureByPosition.BelongedFaction.ID, -5);
-                        }
-                        foreach (Person p in architectureByPosition.Persons.GetRandomList())
-                        {
-                            if (GameObject.Chance(30)) break;
-                            p.AdjustRelation(this, -0.15f, 0);
                         }
 						ExtensionInterface.call("DoGossipSuccess", new Object[] { this.Scenario, this });
                         if (this.OnGossipSuccess != null)
@@ -1851,11 +1817,6 @@
                         if (architectureByPosition.BelongedFaction != null)
                         {
                             base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, architectureByPosition.BelongedFaction.ID, -5);
-                        }
-                        foreach (Person p in architectureByPosition.Persons.GetRandomList())
-                        {
-                            if (GameObject.Chance(30)) break;
-                            p.AdjustRelation(this, -0.15f, 0);
                         }
                         if (this.OnInstigateSuccess != null)
                         {
@@ -2367,13 +2328,6 @@
                 Captive captive = Captive.Create(base.Scenario, this, a.BelongedFaction);
                 this.Status = PersonStatus.Captive;
                 this.LocationArchitecture = a;
-
-                foreach (Person p in a.Persons.GetRandomList())
-                {
-                    if (GameObject.Chance(30)) break;
-                    this.AdjustRelation(p, -0.25f, 0);
-                }
-
 				ExtensionInterface.call("CapturedByArchitecture", new Object[] { this.Scenario, this, a });
                 if (this.OnCapturedByArchitecture != null)
                 {
@@ -6940,17 +6894,7 @@
         public void AdjustRelation(Person p, float factor, int adjust)
         {
             if (this == p) return;
-
-            int val;
-            if (factor < 0)
-            {
-                val = (int)(Person.GetIdealOffset(this, p) * 30 / 75 * factor + adjust);
-            }
-            else
-            {
-                val = (int)((75 - Person.GetIdealOffset(this, p)) * 30 / 75 * factor + adjust);
-            }
-
+            int val = (int) (Person.GetIdealOffset(this, p) * 75 / 30 * factor + adjust);
             if (this.relations.ContainsKey(p))
             {
                 this.relations[p] += val;
