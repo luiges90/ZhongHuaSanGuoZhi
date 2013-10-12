@@ -43,7 +43,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             
             if (base.LoadScenarioInInitialization)
             {
-                this.LoadScenario(base.InitializationFileName);
+                this.LoadScenario(base.InitializationFileName, base.InitializationFactionIDs);
                 //this.mainMapLayer.jiazaibeijingtupian();
 
 
@@ -353,14 +353,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             thread = null;
         }
 
-        public bool LoadScenario(string filename)
+        public bool LoadScenario(string filename, List<int> playerFactions)
         {
             OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder
             {
                 DataSource = filename,
                 Provider = "Microsoft.Jet.OLEDB.4.0"
             };
-            return base.Scenario.LoadGameScenarioFromDatabase(builder.ConnectionString);
+            return base.Scenario.LoadGameScenarioFromDatabase(builder.ConnectionString, playerFactions);
         }
 
         private void Scenario_OnAfterLoadScenario(GameScenario scenario)
