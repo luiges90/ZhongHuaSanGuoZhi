@@ -7409,6 +7409,10 @@
                         if (currentArchitecture.Kind.HasMorale)
                         {
                             currentArchitecture.Morale = (currentArchitecture.MoraleCeiling - currentArchitecture.Morale) / 5;
+                            if (currentArchitecture.Morale < 0)
+                            {
+                                currentArchitecture.Morale = 0;
+                            }
                         }
                     }
                     if (currentArchitecture.Kind.HasDomination)
