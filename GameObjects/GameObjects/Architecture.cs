@@ -2405,6 +2405,8 @@
         private void ConvinceCaptivesAI(Architecture architecture2)
         {
             if (this.BelongedFaction == null) return;
+            if (this.HasHostileTroopsInView()) return;
+
             Captive extremeLoyaltyCaptive = architecture2.GetLowestLoyaltyCaptiveRecruitable();
             if (extremeLoyaltyCaptive != null && extremeLoyaltyCaptive.CaptivePerson != null &&
                 (extremeLoyaltyCaptive.Loyalty < 100 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction)))
