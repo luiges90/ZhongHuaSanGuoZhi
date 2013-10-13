@@ -5788,11 +5788,7 @@
             {
                 return 0;
             }
-            if (this.IsCapital)
-            {
-                decrement = (decrement * 2) / 3;
-            }
-
+ 
             int endurance = decrement;
             if ((this.Endurance - decrement) < 0)
             {
