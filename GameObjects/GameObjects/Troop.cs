@@ -8651,10 +8651,17 @@
                         this.OnCriticalStrike(this, null);
                     }
                 }
+
+                num = (int) (num * (1 - architecture.enduranceDecreaseRateDrop));
+
                 damage.Damage = num;
                 if (damage.Damage <= 0)
                 {
                     damage.Damage = 1;
+                }
+                if (damage.Damage > architecture.Endurance)
+                {
+                    damage.Damage = architecture.Endurance;
                 }
             }
             else
