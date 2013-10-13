@@ -515,6 +515,8 @@
 
         private void ShowOrientationFrame()
         {
+            if (this.EditingFaction == null) return;
+
             GameDelegates.VoidFunction function = null;
             GameDelegates.VoidFunction function2 = null;
             GameDelegates.VoidFunction function3 = null;
