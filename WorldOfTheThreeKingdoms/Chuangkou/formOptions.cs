@@ -44,51 +44,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private XmlDocument commonDoc = new XmlDocument();
         private IContainer components = null;
         private Label label1;
-        private Label label10;
-        private Label label11;
-        private Label label12;
-        private Label label13;
-        private Label label14;
-        private Label label15;
-        private Label label16;
-        private Label label17;
-        private Label label18;
-        private Label label19;
-        private Label label2;
-        private Label label20;
-        private Label label21;
-        private Label label22;
-        private Label label23;
-        private Label label24;
-        private Label label25;
-        private Label label26;
-        private Label label27;
         private Label label28;
         private Label label29;
-        private Label label3;
         private Label label30;
         private Label label31;
         private Label label32;
-        private Label label33;
         private Label label34;
         private Label label35;
         private Label label36;
         private Label label37;
         private Label label38;
         private Label label39;
-        private Label label4;
-        private Label label40;
         private Label label41;
         private Label label42;
-        private Label label5;
-        private Label label6;
-        private Label label7;
-        private Label label8;
-        private Label label9;
         private XmlDocument parameterDoc = new XmlDocument();
         private TabPage tabPageAIParameter;
         private TabPage tabPageEnvironment;
-        private TabPage tabPageParameter;
         private TabPage tabPagePerson;
         private TextBox tbAIArchitectureDamageRate;
         private TextBox tbAIFoodRate;
@@ -97,40 +68,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbAITrainingSpeedRate;
         private TextBox tbAITroopDefenceRate;
         private TextBox tbAITroopOffenceRate;
-        private TextBox tbArchitectureDamageRate;
-        private TextBox tbBuyFoodAgriculture;
-        private TextBox tbChangeCapitalCost;
-        private TextBox tbClearFieldAgricultureCostUnit;
-        private TextBox tbClearFieldFundCostUnit;
-        private TextBox tbConvincePersonCost;
-        private TextBox tbDefaultPopulationDevelopingRate;
-        private TextBox tbDestroyArchitectureCost;
         private TextBox tbFindTreasureChance;
-        private TextBox tbFireDamageScale;
         private TextBox tbFollowedLeaderDefenceRateIncrement;
         private TextBox tbFollowedLeaderOffenceRateIncrement;
-        private TextBox tbFoodRate;
-        private TextBox tbFoodToFundDivisor;
-        private TextBox tbFundRate;
-        private TextBox tbFundToFoodMultiple;
-        private TextBox tbGossipArchitectureCost;
-        private TextBox tbHireNoFactionPersonCost;
-        private TextBox tbInstigateArchitectureCost;
-        private TextBox tbInternalFundCost;
-        private TextBox tbInternalRate;
         private TextBox tbLearnSkillDays;
         private TextBox tbLearnStuntDays;
         private TextBox tbLearnTitleDays;
-        private TextBox tbRecruitmentDomination;
-        private TextBox tbRecruitmentFundCost;
-        private TextBox tbRecruitmentMorale;
-        private TextBox tbRecruitmentRate;
-        private TextBox tbRewardPersonCost;
-        private TextBox tbSellFoodCommerce;
-        private TextBox tbSendSpyCost;
-        private TextBox tbSurroundArchitectureDominationUnit;
-        private TextBox tbTrainingRate;
-        private TextBox tbTroopDamageRate;
         private TextBox tbTroopMoveSpeed;
         private TabControl tcOptions;
         private CheckBox cbPinPointAtPlayer;
@@ -151,10 +94,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private CheckBox cbAIAutoTakePlayerCaptiveOnlyUnfull;
         private Label label45;
         private TextBox tbDialogShowTime;
-        private Label label46;
-        private TextBox tbTechniquePointMultiple;
-        private Label label47;
-        private TextBox tbLeadershipOffenceRate;
         private TextBox tbBattleSpeed;
         private Label label48;
         private Label label50;
@@ -178,7 +117,19 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbAutosaveFrequency;
         private Label label59;
         private CheckBox cbShowChallengeAnimation;
+        private Label label61;
         private TabPage tabPageBasic;
+        private Label label60;
+        private TextBox tbOfficerDieInBattleRate;
+        private CheckBox cbCreateChildren;
+        private TextBox tbGetChildrenRate;
+        private Label getChildrenRateLabel;
+        private CheckBox cbEnableAgeAbilityFactor;
+        private CheckBox cbIdealTendencyValid;
+        private CheckBox cbPersonNaturalDeath;
+        private CheckBox cbPersonDieInChallenge;
+        private TextBox tbTabListDetailLevel;
+        private Label label55;
         private CheckBox cbLandArmyCanGoDownWater;
         private CheckBox cbHardcoreMode;
         private CheckBox cbEnableCheat;
@@ -194,23 +145,70 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private CheckBox cbPermitFactionMerge;
         private CheckBox cbMilitaryKindSpeedValid;
         private CheckBox cbPopulationRecruitmentLimit;
-        private CheckBox cbSkyEye;
-        private CheckBox cbPersonDieInChallenge;
-        private CheckBox cbEnableAgeAbilityFactor;
-        private CheckBox cbIdealTendencyValid;
-        private CheckBox cbPersonNaturalDeath;
-        private TextBox tbTabListDetailLevel;
-        private Label label55;
-        private Label zainanbiaoqian;
-        private TextBox tbGetChildrenRate;
-        private Label getChildrenRateLabel;
         private CheckBox cbMultipleResource;
-        private CheckBox cbCreateChildren;
-        private Label label60;
-        private TextBox tbOfficerDieInBattleRate;
-        private Label label61;
-        private TextBox tbAIOffensiveTroopHardLimit;
+        private CheckBox cbSkyEye;
+        private Label zainanbiaoqian;
         private TextBox zainanfashengjilv;
+        private TabPage tabPageParameter;
+        private Label label47;
+        private TextBox tbLeadershipOffenceRate;
+        private Label label46;
+        private TextBox tbTechniquePointMultiple;
+        private Label label40;
+        private TextBox tbFireDamageScale;
+        private Label label33;
+        private TextBox tbSurroundArchitectureDominationUnit;
+        private Label label27;
+        private TextBox tbFoodToFundDivisor;
+        private Label label26;
+        private TextBox tbFundToFoodMultiple;
+        private Label label25;
+        private TextBox tbSellFoodCommerce;
+        private Label label24;
+        private TextBox tbBuyFoodAgriculture;
+        private Label label20;
+        private TextBox tbGossipArchitectureCost;
+        private Label label21;
+        private TextBox tbInstigateArchitectureCost;
+        private Label label19;
+        private TextBox tbDestroyArchitectureCost;
+        private Label label17;
+        private TextBox tbRewardPersonCost;
+        private Label label16;
+        private TextBox tbConvincePersonCost;
+        private Label label14;
+        private TextBox tbChangeCapitalCost;
+        private Label label13;
+        private TextBox tbRecruitmentMorale;
+        private Label label12;
+        private TextBox tbRecruitmentDomination;
+        private Label label11;
+        private TextBox tbRecruitmentFundCost;
+        private Label label10;
+        private TextBox tbInternalFundCost;
+        private Label label9;
+        private TextBox tbDefaultPopulationDevelopingRate;
+        private Label label8;
+        private TextBox tbArchitectureDamageRate;
+        private Label label7;
+        private TextBox tbTroopDamageRate;
+        private Label label6;
+        private TextBox tbFoodRate;
+        private Label label5;
+        private TextBox tbFundRate;
+        private Label label4;
+        private TextBox tbRecruitmentRate;
+        private Label label3;
+        private TextBox tbTrainingRate;
+        private Label label2;
+        private TextBox tbInternalRate;
+        private Label label22;
+        private TextBox tbMilitaryPopulationReloadQuantity;
+        private Label label18;
+        private TextBox tbMilitaryPopulationCap;
+        private Label label15;
+        private TextBox tbJailBreakArchitectureCost;
+        private TextBox tbAIOffensiveTroopHardLimit;
 
         public formOptions()
         {
@@ -238,37 +236,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private void InitializeComponent()
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
-            this.tabPageBasic = new System.Windows.Forms.TabPage();
-            this.label60 = new System.Windows.Forms.Label();
-            this.tbOfficerDieInBattleRate = new System.Windows.Forms.TextBox();
-            this.cbCreateChildren = new System.Windows.Forms.CheckBox();
-            this.tbGetChildrenRate = new System.Windows.Forms.TextBox();
-            this.getChildrenRateLabel = new System.Windows.Forms.Label();
-            this.cbEnableAgeAbilityFactor = new System.Windows.Forms.CheckBox();
-            this.cbIdealTendencyValid = new System.Windows.Forms.CheckBox();
-            this.cbPersonNaturalDeath = new System.Windows.Forms.CheckBox();
-            this.cbPersonDieInChallenge = new System.Windows.Forms.CheckBox();
-            this.tbTabListDetailLevel = new System.Windows.Forms.TextBox();
-            this.label55 = new System.Windows.Forms.Label();
-            this.cbLandArmyCanGoDownWater = new System.Windows.Forms.CheckBox();
-            this.cbHardcoreMode = new System.Windows.Forms.CheckBox();
-            this.cbEnableCheat = new System.Windows.Forms.CheckBox();
-            this.wujiangYoukenengDuli = new System.Windows.Forms.CheckBox();
-            this.checkLiangdaoXitong = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbCustom = new System.Windows.Forms.RadioButton();
-            this.rbVeryhard = new System.Windows.Forms.RadioButton();
-            this.rbHard = new System.Windows.Forms.RadioButton();
-            this.rbNormal = new System.Windows.Forms.RadioButton();
-            this.rbEasy = new System.Windows.Forms.RadioButton();
-            this.rbBeginner = new System.Windows.Forms.RadioButton();
-            this.cbPermitFactionMerge = new System.Windows.Forms.CheckBox();
-            this.cbMilitaryKindSpeedValid = new System.Windows.Forms.CheckBox();
-            this.cbPopulationRecruitmentLimit = new System.Windows.Forms.CheckBox();
-            this.cbMultipleResource = new System.Windows.Forms.CheckBox();
-            this.cbSkyEye = new System.Windows.Forms.CheckBox();
-            this.zainanbiaoqian = new System.Windows.Forms.Label();
-            this.zainanfashengjilv = new System.Windows.Forms.TextBox();
             this.tabPageEnvironment = new System.Windows.Forms.TabPage();
             this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
             this.label59 = new System.Windows.Forms.Label();
@@ -322,67 +289,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbAdditionalPersonAvailable = new System.Windows.Forms.CheckBox();
             this.cbCommonPersonAvailable = new System.Windows.Forms.CheckBox();
             this.cbCreateChildrenIgnoreLimit = new System.Windows.Forms.CheckBox();
-            this.tabPageParameter = new System.Windows.Forms.TabPage();
-            this.label47 = new System.Windows.Forms.Label();
-            this.tbLeadershipOffenceRate = new System.Windows.Forms.TextBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.tbTechniquePointMultiple = new System.Windows.Forms.TextBox();
-            this.label40 = new System.Windows.Forms.Label();
-            this.tbFireDamageScale = new System.Windows.Forms.TextBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.tbSurroundArchitectureDominationUnit = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.tbFoodToFundDivisor = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.tbFundToFoodMultiple = new System.Windows.Forms.TextBox();
-            this.label25 = new System.Windows.Forms.Label();
-            this.tbSellFoodCommerce = new System.Windows.Forms.TextBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.tbBuyFoodAgriculture = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.tbClearFieldAgricultureCostUnit = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.tbClearFieldFundCostUnit = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.tbGossipArchitectureCost = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.tbInstigateArchitectureCost = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.tbDestroyArchitectureCost = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.tbSendSpyCost = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.tbRewardPersonCost = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tbConvincePersonCost = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tbHireNoFactionPersonCost = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.tbChangeCapitalCost = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tbRecruitmentMorale = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.tbRecruitmentDomination = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.tbRecruitmentFundCost = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.tbInternalFundCost = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tbDefaultPopulationDevelopingRate = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.tbArchitectureDamageRate = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.tbTroopDamageRate = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.tbFoodRate = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbFundRate = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tbRecruitmentRate = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tbTrainingRate = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbInternalRate = new System.Windows.Forms.TextBox();
             this.tabPageAIParameter = new System.Windows.Forms.TabPage();
             this.label61 = new System.Windows.Forms.Label();
             this.tbAIOffensiveTroopHardLimit = new System.Windows.Forms.TextBox();
@@ -419,13 +325,103 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.zainanfashengjilv = new System.Windows.Forms.TextBox();
+            this.zainanbiaoqian = new System.Windows.Forms.Label();
+            this.cbSkyEye = new System.Windows.Forms.CheckBox();
+            this.cbMultipleResource = new System.Windows.Forms.CheckBox();
+            this.cbPopulationRecruitmentLimit = new System.Windows.Forms.CheckBox();
+            this.cbMilitaryKindSpeedValid = new System.Windows.Forms.CheckBox();
+            this.cbPermitFactionMerge = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbBeginner = new System.Windows.Forms.RadioButton();
+            this.rbEasy = new System.Windows.Forms.RadioButton();
+            this.rbNormal = new System.Windows.Forms.RadioButton();
+            this.rbHard = new System.Windows.Forms.RadioButton();
+            this.rbVeryhard = new System.Windows.Forms.RadioButton();
+            this.rbCustom = new System.Windows.Forms.RadioButton();
+            this.checkLiangdaoXitong = new System.Windows.Forms.CheckBox();
+            this.wujiangYoukenengDuli = new System.Windows.Forms.CheckBox();
+            this.cbEnableCheat = new System.Windows.Forms.CheckBox();
+            this.cbHardcoreMode = new System.Windows.Forms.CheckBox();
+            this.cbLandArmyCanGoDownWater = new System.Windows.Forms.CheckBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.tbTabListDetailLevel = new System.Windows.Forms.TextBox();
+            this.cbPersonDieInChallenge = new System.Windows.Forms.CheckBox();
+            this.cbPersonNaturalDeath = new System.Windows.Forms.CheckBox();
+            this.cbIdealTendencyValid = new System.Windows.Forms.CheckBox();
+            this.cbEnableAgeAbilityFactor = new System.Windows.Forms.CheckBox();
+            this.getChildrenRateLabel = new System.Windows.Forms.Label();
+            this.tbGetChildrenRate = new System.Windows.Forms.TextBox();
+            this.cbCreateChildren = new System.Windows.Forms.CheckBox();
+            this.tbOfficerDieInBattleRate = new System.Windows.Forms.TextBox();
+            this.label60 = new System.Windows.Forms.Label();
+            this.tabPageBasic = new System.Windows.Forms.TabPage();
+            this.tbInternalRate = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbTrainingRate = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbRecruitmentRate = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbFundRate = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbFoodRate = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbTroopDamageRate = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbArchitectureDamageRate = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbDefaultPopulationDevelopingRate = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbInternalFundCost = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tbRecruitmentFundCost = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbRecruitmentDomination = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbRecruitmentMorale = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tbChangeCapitalCost = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tbConvincePersonCost = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.tbRewardPersonCost = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.tbDestroyArchitectureCost = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbInstigateArchitectureCost = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.tbGossipArchitectureCost = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tbBuyFoodAgriculture = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.tbSellFoodCommerce = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.tbFundToFoodMultiple = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.tbFoodToFundDivisor = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.tbSurroundArchitectureDominationUnit = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.tbFireDamageScale = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.tbTechniquePointMultiple = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.tbLeadershipOffenceRate = new System.Windows.Forms.TextBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.tabPageParameter = new System.Windows.Forms.TabPage();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tbJailBreakArchitectureCost = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tbMilitaryPopulationCap = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.tbMilitaryPopulationReloadQuantity = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
-            this.tabPageBasic.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.tabPageEnvironment.SuspendLayout();
             this.tabPagePerson.SuspendLayout();
-            this.tabPageParameter.SuspendLayout();
             this.tabPageAIParameter.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabPageBasic.SuspendLayout();
+            this.tabPageParameter.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcOptions
@@ -443,344 +439,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tcOptions.SelectedIndex = 0;
             this.tcOptions.Size = new System.Drawing.Size(453, 448);
             this.tcOptions.TabIndex = 0;
-            // 
-            // tabPageBasic
-            // 
-            this.tabPageBasic.Controls.Add(this.label60);
-            this.tabPageBasic.Controls.Add(this.tbOfficerDieInBattleRate);
-            this.tabPageBasic.Controls.Add(this.cbCreateChildren);
-            this.tabPageBasic.Controls.Add(this.tbGetChildrenRate);
-            this.tabPageBasic.Controls.Add(this.getChildrenRateLabel);
-            this.tabPageBasic.Controls.Add(this.cbEnableAgeAbilityFactor);
-            this.tabPageBasic.Controls.Add(this.cbIdealTendencyValid);
-            this.tabPageBasic.Controls.Add(this.cbPersonNaturalDeath);
-            this.tabPageBasic.Controls.Add(this.cbPersonDieInChallenge);
-            this.tabPageBasic.Controls.Add(this.tbTabListDetailLevel);
-            this.tabPageBasic.Controls.Add(this.label55);
-            this.tabPageBasic.Controls.Add(this.cbLandArmyCanGoDownWater);
-            this.tabPageBasic.Controls.Add(this.cbHardcoreMode);
-            this.tabPageBasic.Controls.Add(this.cbEnableCheat);
-            this.tabPageBasic.Controls.Add(this.wujiangYoukenengDuli);
-            this.tabPageBasic.Controls.Add(this.checkLiangdaoXitong);
-            this.tabPageBasic.Controls.Add(this.groupBox1);
-            this.tabPageBasic.Controls.Add(this.cbPermitFactionMerge);
-            this.tabPageBasic.Controls.Add(this.cbMilitaryKindSpeedValid);
-            this.tabPageBasic.Controls.Add(this.cbPopulationRecruitmentLimit);
-            this.tabPageBasic.Controls.Add(this.cbMultipleResource);
-            this.tabPageBasic.Controls.Add(this.cbSkyEye);
-            this.tabPageBasic.Controls.Add(this.zainanbiaoqian);
-            this.tabPageBasic.Controls.Add(this.zainanfashengjilv);
-            this.tabPageBasic.Location = new System.Drawing.Point(4, 22);
-            this.tabPageBasic.Name = "tabPageBasic";
-            this.tabPageBasic.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPageBasic.Size = new System.Drawing.Size(445, 422);
-            this.tabPageBasic.TabIndex = 4;
-            this.tabPageBasic.Text = "基本";
-            this.tabPageBasic.UseVisualStyleBackColor = true;
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Location = new System.Drawing.Point(311, 201);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(65, 12);
-            this.label60.TabIndex = 137;
-            this.label60.Text = "武将战死率";
-            // 
-            // tbOfficerDieInBattleRate
-            // 
-            this.tbOfficerDieInBattleRate.Location = new System.Drawing.Point(382, 198);
-            this.tbOfficerDieInBattleRate.Name = "tbOfficerDieInBattleRate";
-            this.tbOfficerDieInBattleRate.Size = new System.Drawing.Size(50, 22);
-            this.tbOfficerDieInBattleRate.TabIndex = 136;
-            this.tbOfficerDieInBattleRate.Text = "10";
-            // 
-            // cbCreateChildren
-            // 
-            this.cbCreateChildren.AutoSize = true;
-            this.cbCreateChildren.Location = new System.Drawing.Point(13, 321);
-            this.cbCreateChildren.Name = "cbCreateChildren";
-            this.cbCreateChildren.Size = new System.Drawing.Size(96, 16);
-            this.cbCreateChildren.TabIndex = 135;
-            this.cbCreateChildren.Text = "生成虚拟子嗣";
-            // 
-            // tbGetChildrenRate
-            // 
-            this.tbGetChildrenRate.Location = new System.Drawing.Point(381, 226);
-            this.tbGetChildrenRate.Name = "tbGetChildrenRate";
-            this.tbGetChildrenRate.Size = new System.Drawing.Size(51, 22);
-            this.tbGetChildrenRate.TabIndex = 134;
-            this.tbGetChildrenRate.Text = "100";
-            // 
-            // getChildrenRateLabel
-            // 
-            this.getChildrenRateLabel.AutoSize = true;
-            this.getChildrenRateLabel.Location = new System.Drawing.Point(322, 229);
-            this.getChildrenRateLabel.Name = "getChildrenRateLabel";
-            this.getChildrenRateLabel.Size = new System.Drawing.Size(53, 12);
-            this.getChildrenRateLabel.TabIndex = 133;
-            this.getChildrenRateLabel.Text = "怀孕机率";
-            // 
-            // cbEnableAgeAbilityFactor
-            // 
-            this.cbEnableAgeAbilityFactor.AutoSize = true;
-            this.cbEnableAgeAbilityFactor.Location = new System.Drawing.Point(13, 123);
-            this.cbEnableAgeAbilityFactor.Name = "cbEnableAgeAbilityFactor";
-            this.cbEnableAgeAbilityFactor.Size = new System.Drawing.Size(96, 16);
-            this.cbEnableAgeAbilityFactor.TabIndex = 132;
-            this.cbEnableAgeAbilityFactor.Text = "年龄影响能力";
-            this.cbEnableAgeAbilityFactor.UseVisualStyleBackColor = true;
-            // 
-            // cbIdealTendencyValid
-            // 
-            this.cbIdealTendencyValid.AutoSize = true;
-            this.cbIdealTendencyValid.Location = new System.Drawing.Point(13, 35);
-            this.cbIdealTendencyValid.Name = "cbIdealTendencyValid";
-            this.cbIdealTendencyValid.Size = new System.Drawing.Size(120, 16);
-            this.cbIdealTendencyValid.TabIndex = 131;
-            this.cbIdealTendencyValid.Text = "出仕相性考虑有效";
-            this.cbIdealTendencyValid.UseVisualStyleBackColor = true;
-            // 
-            // cbPersonNaturalDeath
-            // 
-            this.cbPersonNaturalDeath.AutoSize = true;
-            this.cbPersonNaturalDeath.Location = new System.Drawing.Point(13, 101);
-            this.cbPersonNaturalDeath.Name = "cbPersonNaturalDeath";
-            this.cbPersonNaturalDeath.Size = new System.Drawing.Size(72, 16);
-            this.cbPersonNaturalDeath.TabIndex = 130;
-            this.cbPersonNaturalDeath.Text = "年龄有效";
-            this.cbPersonNaturalDeath.UseVisualStyleBackColor = true;
-            // 
-            // cbPersonDieInChallenge
-            // 
-            this.cbPersonDieInChallenge.AutoSize = true;
-            this.cbPersonDieInChallenge.Location = new System.Drawing.Point(13, 79);
-            this.cbPersonDieInChallenge.Name = "cbPersonDieInChallenge";
-            this.cbPersonDieInChallenge.Size = new System.Drawing.Size(144, 16);
-            this.cbPersonDieInChallenge.TabIndex = 129;
-            this.cbPersonDieInChallenge.Text = "武将可能在单挑中死亡";
-            this.cbPersonDieInChallenge.UseVisualStyleBackColor = true;
-            // 
-            // tbTabListDetailLevel
-            // 
-            this.tbTabListDetailLevel.Location = new System.Drawing.Point(405, 170);
-            this.tbTabListDetailLevel.MaxLength = 1;
-            this.tbTabListDetailLevel.Name = "tbTabListDetailLevel";
-            this.tbTabListDetailLevel.Size = new System.Drawing.Size(27, 22);
-            this.tbTabListDetailLevel.TabIndex = 128;
-            this.tbTabListDetailLevel.Text = "1";
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(310, 173);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(89, 12);
-            this.label55.TabIndex = 127;
-            this.label55.Text = "资料显示详细度";
-            // 
-            // cbLandArmyCanGoDownWater
-            // 
-            this.cbLandArmyCanGoDownWater.AutoSize = true;
-            this.cbLandArmyCanGoDownWater.Location = new System.Drawing.Point(13, 167);
-            this.cbLandArmyCanGoDownWater.Name = "cbLandArmyCanGoDownWater";
-            this.cbLandArmyCanGoDownWater.Size = new System.Drawing.Size(132, 16);
-            this.cbLandArmyCanGoDownWater.TabIndex = 126;
-            this.cbLandArmyCanGoDownWater.Text = "陆上部队可直接下水";
-            this.cbLandArmyCanGoDownWater.UseVisualStyleBackColor = true;
-            // 
-            // cbEnableLoadInGame
-            // 
-            this.cbHardcoreMode.AutoSize = true;
-            this.cbHardcoreMode.Location = new System.Drawing.Point(13, 299);
-            this.cbHardcoreMode.Name = "cbEnableLoadInGame";
-            this.cbHardcoreMode.Size = new System.Drawing.Size(120, 16);
-            this.cbHardcoreMode.TabIndex = 125;
-            this.cbHardcoreMode.Text = "硬核模式(禁止S/L)";
-            this.cbHardcoreMode.UseVisualStyleBackColor = true;
-            // 
-            // cbEnableCheat
-            // 
-            this.cbEnableCheat.AutoSize = true;
-            this.cbEnableCheat.Location = new System.Drawing.Point(13, 277);
-            this.cbEnableCheat.Name = "cbEnableCheat";
-            this.cbEnableCheat.Size = new System.Drawing.Size(96, 16);
-            this.cbEnableCheat.TabIndex = 124;
-            this.cbEnableCheat.Text = "开启作弊功能";
-            this.cbEnableCheat.UseVisualStyleBackColor = true;
-            // 
-            // wujiangYoukenengDuli
-            // 
-            this.wujiangYoukenengDuli.AutoSize = true;
-            this.wujiangYoukenengDuli.Location = new System.Drawing.Point(13, 145);
-            this.wujiangYoukenengDuli.Name = "wujiangYoukenengDuli";
-            this.wujiangYoukenengDuli.Size = new System.Drawing.Size(108, 16);
-            this.wujiangYoukenengDuli.TabIndex = 123;
-            this.wujiangYoukenengDuli.Text = "武将有可能独立";
-            this.wujiangYoukenengDuli.UseVisualStyleBackColor = true;
-            // 
-            // checkLiangdaoXitong
-            // 
-            this.checkLiangdaoXitong.AutoSize = true;
-            this.checkLiangdaoXitong.Location = new System.Drawing.Point(13, 13);
-            this.checkLiangdaoXitong.Name = "checkLiangdaoXitong";
-            this.checkLiangdaoXitong.Size = new System.Drawing.Size(72, 16);
-            this.checkLiangdaoXitong.TabIndex = 122;
-            this.checkLiangdaoXitong.Text = "粮道系统";
-            this.checkLiangdaoXitong.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rbCustom);
-            this.groupBox1.Controls.Add(this.rbVeryhard);
-            this.groupBox1.Controls.Add(this.rbHard);
-            this.groupBox1.Controls.Add(this.rbNormal);
-            this.groupBox1.Controls.Add(this.rbEasy);
-            this.groupBox1.Controls.Add(this.rbBeginner);
-            this.groupBox1.Location = new System.Drawing.Point(338, 13);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(94, 151);
-            this.groupBox1.TabIndex = 121;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "游戏难度";
-            // 
-            // rbCustom
-            // 
-            this.rbCustom.AutoSize = true;
-            this.rbCustom.Location = new System.Drawing.Point(7, 129);
-            this.rbCustom.Name = "rbCustom";
-            this.rbCustom.Size = new System.Drawing.Size(47, 16);
-            this.rbCustom.TabIndex = 5;
-            this.rbCustom.TabStop = true;
-            this.rbCustom.Text = "自订";
-            this.rbCustom.UseVisualStyleBackColor = true;
-            // 
-            // rbVeryhard
-            // 
-            this.rbVeryhard.AutoSize = true;
-            this.rbVeryhard.Location = new System.Drawing.Point(7, 107);
-            this.rbVeryhard.Name = "rbVeryhard";
-            this.rbVeryhard.Size = new System.Drawing.Size(47, 16);
-            this.rbVeryhard.TabIndex = 4;
-            this.rbVeryhard.TabStop = true;
-            this.rbVeryhard.Text = "修罗";
-            this.rbVeryhard.UseVisualStyleBackColor = true;
-            this.rbVeryhard.CheckedChanged += new System.EventHandler(this.veryhardSelected);
-            // 
-            // rbHard
-            // 
-            this.rbHard.AutoSize = true;
-            this.rbHard.Location = new System.Drawing.Point(7, 85);
-            this.rbHard.Name = "rbHard";
-            this.rbHard.Size = new System.Drawing.Size(47, 16);
-            this.rbHard.TabIndex = 3;
-            this.rbHard.TabStop = true;
-            this.rbHard.Text = "超级";
-            this.rbHard.UseVisualStyleBackColor = true;
-            this.rbHard.CheckedChanged += new System.EventHandler(this.hardSelected);
-            // 
-            // rbNormal
-            // 
-            this.rbNormal.AutoSize = true;
-            this.rbNormal.Location = new System.Drawing.Point(6, 63);
-            this.rbNormal.Name = "rbNormal";
-            this.rbNormal.Size = new System.Drawing.Size(47, 16);
-            this.rbNormal.TabIndex = 2;
-            this.rbNormal.TabStop = true;
-            this.rbNormal.Text = "上级";
-            this.rbNormal.UseVisualStyleBackColor = true;
-            this.rbNormal.CheckedChanged += new System.EventHandler(this.normalSelected);
-            // 
-            // rbEasy
-            // 
-            this.rbEasy.AutoSize = true;
-            this.rbEasy.Location = new System.Drawing.Point(6, 41);
-            this.rbEasy.Name = "rbEasy";
-            this.rbEasy.Size = new System.Drawing.Size(47, 16);
-            this.rbEasy.TabIndex = 1;
-            this.rbEasy.TabStop = true;
-            this.rbEasy.Text = "初级";
-            this.rbEasy.UseVisualStyleBackColor = true;
-            this.rbEasy.CheckedChanged += new System.EventHandler(this.easySelected);
-            // 
-            // rbBeginner
-            // 
-            this.rbBeginner.AutoSize = true;
-            this.rbBeginner.Location = new System.Drawing.Point(6, 19);
-            this.rbBeginner.Name = "rbBeginner";
-            this.rbBeginner.Size = new System.Drawing.Size(47, 16);
-            this.rbBeginner.TabIndex = 0;
-            this.rbBeginner.TabStop = true;
-            this.rbBeginner.Text = "入门";
-            this.rbBeginner.UseVisualStyleBackColor = true;
-            this.rbBeginner.CheckedChanged += new System.EventHandler(this.beginnerSelected);
-            // 
-            // cbPermitFactionMerge
-            // 
-            this.cbPermitFactionMerge.AutoSize = true;
-            this.cbPermitFactionMerge.Location = new System.Drawing.Point(13, 189);
-            this.cbPermitFactionMerge.Name = "cbPermitFactionMerge";
-            this.cbPermitFactionMerge.Size = new System.Drawing.Size(96, 16);
-            this.cbPermitFactionMerge.TabIndex = 120;
-            this.cbPermitFactionMerge.Text = "容许势力合并";
-            this.cbPermitFactionMerge.UseVisualStyleBackColor = true;
-            // 
-            // cbMilitaryKindSpeedValid
-            // 
-            this.cbMilitaryKindSpeedValid.AutoSize = true;
-            this.cbMilitaryKindSpeedValid.Location = new System.Drawing.Point(13, 57);
-            this.cbMilitaryKindSpeedValid.Name = "cbMilitaryKindSpeedValid";
-            this.cbMilitaryKindSpeedValid.Size = new System.Drawing.Size(96, 16);
-            this.cbMilitaryKindSpeedValid.TabIndex = 119;
-            this.cbMilitaryKindSpeedValid.Text = "部队速率有效";
-            this.cbMilitaryKindSpeedValid.UseVisualStyleBackColor = true;
-            // 
-            // cbPopulationRecruitmentLimit
-            // 
-            this.cbPopulationRecruitmentLimit.AutoSize = true;
-            this.cbPopulationRecruitmentLimit.Location = new System.Drawing.Point(13, 211);
-            this.cbPopulationRecruitmentLimit.Name = "cbPopulationRecruitmentLimit";
-            this.cbPopulationRecruitmentLimit.Size = new System.Drawing.Size(156, 16);
-            this.cbPopulationRecruitmentLimit.TabIndex = 118;
-            this.cbPopulationRecruitmentLimit.Text = "人口小于兵力时禁止征兵";
-            this.cbPopulationRecruitmentLimit.UseVisualStyleBackColor = true;
-            // 
-            // cbMultipleResource
-            // 
-            this.cbMultipleResource.AutoSize = true;
-            this.cbMultipleResource.Location = new System.Drawing.Point(13, 233);
-            this.cbMultipleResource.Name = "cbMultipleResource";
-            this.cbMultipleResource.Size = new System.Drawing.Size(96, 16);
-            this.cbMultipleResource.TabIndex = 115;
-            this.cbMultipleResource.Text = "资源收入加倍";
-            this.cbMultipleResource.UseVisualStyleBackColor = true;
-            // 
-            // cbSkyEye
-            // 
-            this.cbSkyEye.AutoSize = true;
-            this.cbSkyEye.Location = new System.Drawing.Point(13, 255);
-            this.cbSkyEye.Name = "cbSkyEye";
-            this.cbSkyEye.Size = new System.Drawing.Size(96, 16);
-            this.cbSkyEye.TabIndex = 114;
-            this.cbSkyEye.Text = "默认开启天眼";
-            this.cbSkyEye.UseVisualStyleBackColor = true;
-            // 
-            // zainanbiaoqian
-            // 
-            this.zainanbiaoqian.AutoSize = true;
-            this.zainanbiaoqian.Location = new System.Drawing.Point(11, 349);
-            this.zainanbiaoqian.Name = "zainanbiaoqian";
-            this.zainanbiaoqian.Size = new System.Drawing.Size(194, 12);
-            this.zainanbiaoqian.TabIndex = 117;
-            this.zainanbiaoqian.Text = "灾难发生几率（发生几率为1/此数）";
-            // 
-            // zainanfashengjilv
-            // 
-            this.zainanfashengjilv.Location = new System.Drawing.Point(211, 346);
-            this.zainanfashengjilv.Name = "zainanfashengjilv";
-            this.zainanfashengjilv.Size = new System.Drawing.Size(50, 22);
-            this.zainanfashengjilv.TabIndex = 116;
-            this.zainanfashengjilv.Text = "3000";
             // 
             // tabPageEnvironment
             // 
@@ -1303,556 +961,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbCreateChildrenIgnoreLimit.TabIndex = 10;
             this.cbCreateChildrenIgnoreLimit.Text = "虚拟子嗣能力可超越上限";
             // 
-            // tabPageParameter
-            // 
-            this.tabPageParameter.Controls.Add(this.label47);
-            this.tabPageParameter.Controls.Add(this.tbLeadershipOffenceRate);
-            this.tabPageParameter.Controls.Add(this.label46);
-            this.tabPageParameter.Controls.Add(this.tbTechniquePointMultiple);
-            this.tabPageParameter.Controls.Add(this.label40);
-            this.tabPageParameter.Controls.Add(this.tbFireDamageScale);
-            this.tabPageParameter.Controls.Add(this.label33);
-            this.tabPageParameter.Controls.Add(this.tbSurroundArchitectureDominationUnit);
-            this.tabPageParameter.Controls.Add(this.label27);
-            this.tabPageParameter.Controls.Add(this.tbFoodToFundDivisor);
-            this.tabPageParameter.Controls.Add(this.label26);
-            this.tabPageParameter.Controls.Add(this.tbFundToFoodMultiple);
-            this.tabPageParameter.Controls.Add(this.label25);
-            this.tabPageParameter.Controls.Add(this.tbSellFoodCommerce);
-            this.tabPageParameter.Controls.Add(this.label24);
-            this.tabPageParameter.Controls.Add(this.tbBuyFoodAgriculture);
-            this.tabPageParameter.Controls.Add(this.label23);
-            this.tabPageParameter.Controls.Add(this.tbClearFieldAgricultureCostUnit);
-            this.tabPageParameter.Controls.Add(this.label22);
-            this.tabPageParameter.Controls.Add(this.tbClearFieldFundCostUnit);
-            this.tabPageParameter.Controls.Add(this.label20);
-            this.tabPageParameter.Controls.Add(this.tbGossipArchitectureCost);
-            this.tabPageParameter.Controls.Add(this.label21);
-            this.tabPageParameter.Controls.Add(this.tbInstigateArchitectureCost);
-            this.tabPageParameter.Controls.Add(this.label19);
-            this.tabPageParameter.Controls.Add(this.tbDestroyArchitectureCost);
-            this.tabPageParameter.Controls.Add(this.label18);
-            this.tabPageParameter.Controls.Add(this.tbSendSpyCost);
-            this.tabPageParameter.Controls.Add(this.label17);
-            this.tabPageParameter.Controls.Add(this.tbRewardPersonCost);
-            this.tabPageParameter.Controls.Add(this.label16);
-            this.tabPageParameter.Controls.Add(this.tbConvincePersonCost);
-            this.tabPageParameter.Controls.Add(this.label15);
-            this.tabPageParameter.Controls.Add(this.tbHireNoFactionPersonCost);
-            this.tabPageParameter.Controls.Add(this.label14);
-            this.tabPageParameter.Controls.Add(this.tbChangeCapitalCost);
-            this.tabPageParameter.Controls.Add(this.label13);
-            this.tabPageParameter.Controls.Add(this.tbRecruitmentMorale);
-            this.tabPageParameter.Controls.Add(this.label12);
-            this.tabPageParameter.Controls.Add(this.tbRecruitmentDomination);
-            this.tabPageParameter.Controls.Add(this.label11);
-            this.tabPageParameter.Controls.Add(this.tbRecruitmentFundCost);
-            this.tabPageParameter.Controls.Add(this.label10);
-            this.tabPageParameter.Controls.Add(this.tbInternalFundCost);
-            this.tabPageParameter.Controls.Add(this.label9);
-            this.tabPageParameter.Controls.Add(this.tbDefaultPopulationDevelopingRate);
-            this.tabPageParameter.Controls.Add(this.label8);
-            this.tabPageParameter.Controls.Add(this.tbArchitectureDamageRate);
-            this.tabPageParameter.Controls.Add(this.label7);
-            this.tabPageParameter.Controls.Add(this.tbTroopDamageRate);
-            this.tabPageParameter.Controls.Add(this.label6);
-            this.tabPageParameter.Controls.Add(this.tbFoodRate);
-            this.tabPageParameter.Controls.Add(this.label5);
-            this.tabPageParameter.Controls.Add(this.tbFundRate);
-            this.tabPageParameter.Controls.Add(this.label4);
-            this.tabPageParameter.Controls.Add(this.tbRecruitmentRate);
-            this.tabPageParameter.Controls.Add(this.label3);
-            this.tabPageParameter.Controls.Add(this.tbTrainingRate);
-            this.tabPageParameter.Controls.Add(this.label2);
-            this.tabPageParameter.Controls.Add(this.tbInternalRate);
-            this.tabPageParameter.Location = new System.Drawing.Point(4, 22);
-            this.tabPageParameter.Name = "tabPageParameter";
-            this.tabPageParameter.Padding = new System.Windows.Forms.Padding(10);
-            this.tabPageParameter.Size = new System.Drawing.Size(445, 422);
-            this.tabPageParameter.TabIndex = 2;
-            this.tabPageParameter.Text = "参数";
-            this.tabPageParameter.UseVisualStyleBackColor = true;
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(218, 395);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(137, 12);
-            this.label47.TabIndex = 59;
-            this.label47.Text = "统率对部队防御影响参数";
-            // 
-            // tbLeadershipOffenceRate
-            // 
-            this.tbLeadershipOffenceRate.Location = new System.Drawing.Point(361, 392);
-            this.tbLeadershipOffenceRate.Name = "tbLeadershipOffenceRate";
-            this.tbLeadershipOffenceRate.Size = new System.Drawing.Size(71, 22);
-            this.tbLeadershipOffenceRate.TabIndex = 58;
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(12, 395);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(65, 12);
-            this.label46.TabIndex = 57;
-            this.label46.Text = "技巧点乘数";
-            // 
-            // tbTechniquePointMultiple
-            // 
-            this.tbTechniquePointMultiple.Location = new System.Drawing.Point(107, 392);
-            this.tbTechniquePointMultiple.Name = "tbTechniquePointMultiple";
-            this.tbTechniquePointMultiple.Size = new System.Drawing.Size(71, 22);
-            this.tbTechniquePointMultiple.TabIndex = 56;
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(12, 259);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(65, 12);
-            this.label40.TabIndex = 55;
-            this.label40.Text = "火焰伤害率";
-            // 
-            // tbFireDamageScale
-            // 
-            this.tbFireDamageScale.Location = new System.Drawing.Point(107, 256);
-            this.tbFireDamageScale.Name = "tbFireDamageScale";
-            this.tbFireDamageScale.Size = new System.Drawing.Size(71, 22);
-            this.tbFireDamageScale.TabIndex = 54;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(12, 232);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(77, 12);
-            this.label33.TabIndex = 53;
-            this.label33.Text = "围城统治单位";
-            // 
-            // tbSurroundArchitectureDominationUnit
-            // 
-            this.tbSurroundArchitectureDominationUnit.Location = new System.Drawing.Point(107, 229);
-            this.tbSurroundArchitectureDominationUnit.Name = "tbSurroundArchitectureDominationUnit";
-            this.tbSurroundArchitectureDominationUnit.Size = new System.Drawing.Size(71, 22);
-            this.tbSurroundArchitectureDominationUnit.TabIndex = 52;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(12, 367);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(89, 12);
-            this.label27.TabIndex = 51;
-            this.label27.Text = "粮草换资金除数";
-            // 
-            // tbFoodToFundDivisor
-            // 
-            this.tbFoodToFundDivisor.Location = new System.Drawing.Point(107, 364);
-            this.tbFoodToFundDivisor.Name = "tbFoodToFundDivisor";
-            this.tbFoodToFundDivisor.Size = new System.Drawing.Size(71, 22);
-            this.tbFoodToFundDivisor.TabIndex = 50;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(12, 340);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(89, 12);
-            this.label26.TabIndex = 49;
-            this.label26.Text = "资金换粮草乘数";
-            // 
-            // tbFundToFoodMultiple
-            // 
-            this.tbFundToFoodMultiple.Location = new System.Drawing.Point(107, 337);
-            this.tbFundToFoodMultiple.Name = "tbFundToFoodMultiple";
-            this.tbFundToFoodMultiple.Size = new System.Drawing.Size(71, 22);
-            this.tbFundToFoodMultiple.TabIndex = 48;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(12, 313);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(77, 12);
-            this.label25.TabIndex = 47;
-            this.label25.Text = "卖粮所需商业";
-            // 
-            // tbSellFoodCommerce
-            // 
-            this.tbSellFoodCommerce.Location = new System.Drawing.Point(107, 310);
-            this.tbSellFoodCommerce.Name = "tbSellFoodCommerce";
-            this.tbSellFoodCommerce.Size = new System.Drawing.Size(71, 22);
-            this.tbSellFoodCommerce.TabIndex = 46;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(12, 286);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(77, 12);
-            this.label24.TabIndex = 45;
-            this.label24.Text = "买粮所需农业";
-            // 
-            // tbBuyFoodAgriculture
-            // 
-            this.tbBuyFoodAgriculture.Location = new System.Drawing.Point(107, 283);
-            this.tbBuyFoodAgriculture.Name = "tbBuyFoodAgriculture";
-            this.tbBuyFoodAgriculture.Size = new System.Drawing.Size(71, 22);
-            this.tbBuyFoodAgriculture.TabIndex = 44;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(278, 367);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(77, 12);
-            this.label23.TabIndex = 43;
-            this.label23.Text = "清野农业单位";
-            // 
-            // tbClearFieldAgricultureCostUnit
-            // 
-            this.tbClearFieldAgricultureCostUnit.Location = new System.Drawing.Point(361, 364);
-            this.tbClearFieldAgricultureCostUnit.Name = "tbClearFieldAgricultureCostUnit";
-            this.tbClearFieldAgricultureCostUnit.Size = new System.Drawing.Size(71, 22);
-            this.tbClearFieldAgricultureCostUnit.TabIndex = 42;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(278, 340);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(77, 12);
-            this.label22.TabIndex = 41;
-            this.label22.Text = "清野资金单位";
-            // 
-            // tbClearFieldFundCostUnit
-            // 
-            this.tbClearFieldFundCostUnit.Location = new System.Drawing.Point(361, 337);
-            this.tbClearFieldFundCostUnit.Name = "tbClearFieldFundCostUnit";
-            this.tbClearFieldFundCostUnit.Size = new System.Drawing.Size(71, 22);
-            this.tbClearFieldFundCostUnit.TabIndex = 40;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(278, 313);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(77, 12);
-            this.label20.TabIndex = 39;
-            this.label20.Text = "流言所需资金";
-            // 
-            // tbGossipArchitectureCost
-            // 
-            this.tbGossipArchitectureCost.Location = new System.Drawing.Point(361, 310);
-            this.tbGossipArchitectureCost.Name = "tbGossipArchitectureCost";
-            this.tbGossipArchitectureCost.Size = new System.Drawing.Size(71, 22);
-            this.tbGossipArchitectureCost.TabIndex = 38;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(278, 286);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(77, 12);
-            this.label21.TabIndex = 37;
-            this.label21.Text = "煽动所需资金";
-            // 
-            // tbInstigateArchitectureCost
-            // 
-            this.tbInstigateArchitectureCost.Location = new System.Drawing.Point(361, 283);
-            this.tbInstigateArchitectureCost.Name = "tbInstigateArchitectureCost";
-            this.tbInstigateArchitectureCost.Size = new System.Drawing.Size(71, 22);
-            this.tbInstigateArchitectureCost.TabIndex = 36;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(278, 259);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(77, 12);
-            this.label19.TabIndex = 35;
-            this.label19.Text = "破坏所需资金";
-            // 
-            // tbDestroyArchitectureCost
-            // 
-            this.tbDestroyArchitectureCost.Location = new System.Drawing.Point(361, 256);
-            this.tbDestroyArchitectureCost.Name = "tbDestroyArchitectureCost";
-            this.tbDestroyArchitectureCost.Size = new System.Drawing.Size(71, 22);
-            this.tbDestroyArchitectureCost.TabIndex = 34;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(278, 232);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(77, 12);
-            this.label18.TabIndex = 33;
-            this.label18.Text = "间谍所需资金";
-            // 
-            // tbSendSpyCost
-            // 
-            this.tbSendSpyCost.Location = new System.Drawing.Point(361, 229);
-            this.tbSendSpyCost.Name = "tbSendSpyCost";
-            this.tbSendSpyCost.Size = new System.Drawing.Size(71, 22);
-            this.tbSendSpyCost.TabIndex = 32;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(278, 205);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(77, 12);
-            this.label17.TabIndex = 31;
-            this.label17.Text = "褒奖所需资金";
-            // 
-            // tbRewardPersonCost
-            // 
-            this.tbRewardPersonCost.Location = new System.Drawing.Point(361, 202);
-            this.tbRewardPersonCost.Name = "tbRewardPersonCost";
-            this.tbRewardPersonCost.Size = new System.Drawing.Size(71, 22);
-            this.tbRewardPersonCost.TabIndex = 30;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(278, 178);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(77, 12);
-            this.label16.TabIndex = 29;
-            this.label16.Text = "说服所需资金";
-            // 
-            // tbConvincePersonCost
-            // 
-            this.tbConvincePersonCost.Location = new System.Drawing.Point(361, 175);
-            this.tbConvincePersonCost.Name = "tbConvincePersonCost";
-            this.tbConvincePersonCost.Size = new System.Drawing.Size(71, 22);
-            this.tbConvincePersonCost.TabIndex = 28;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(278, 151);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(77, 12);
-            this.label15.TabIndex = 27;
-            this.label15.Text = "录用资金单位";
-            // 
-            // tbHireNoFactionPersonCost
-            // 
-            this.tbHireNoFactionPersonCost.Location = new System.Drawing.Point(361, 148);
-            this.tbHireNoFactionPersonCost.Name = "tbHireNoFactionPersonCost";
-            this.tbHireNoFactionPersonCost.Size = new System.Drawing.Size(71, 22);
-            this.tbHireNoFactionPersonCost.TabIndex = 26;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(278, 124);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(77, 12);
-            this.label14.TabIndex = 25;
-            this.label14.Text = "迁都资金单位";
-            // 
-            // tbChangeCapitalCost
-            // 
-            this.tbChangeCapitalCost.Location = new System.Drawing.Point(361, 121);
-            this.tbChangeCapitalCost.Name = "tbChangeCapitalCost";
-            this.tbChangeCapitalCost.Size = new System.Drawing.Size(71, 22);
-            this.tbChangeCapitalCost.TabIndex = 24;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(278, 97);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(77, 12);
-            this.label13.TabIndex = 23;
-            this.label13.Text = "补充最小民心";
-            // 
-            // tbRecruitmentMorale
-            // 
-            this.tbRecruitmentMorale.Location = new System.Drawing.Point(361, 94);
-            this.tbRecruitmentMorale.Name = "tbRecruitmentMorale";
-            this.tbRecruitmentMorale.Size = new System.Drawing.Size(71, 22);
-            this.tbRecruitmentMorale.TabIndex = 22;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(278, 70);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(77, 12);
-            this.label12.TabIndex = 21;
-            this.label12.Text = "补充最小统治";
-            // 
-            // tbRecruitmentDomination
-            // 
-            this.tbRecruitmentDomination.Location = new System.Drawing.Point(361, 67);
-            this.tbRecruitmentDomination.Name = "tbRecruitmentDomination";
-            this.tbRecruitmentDomination.Size = new System.Drawing.Size(71, 22);
-            this.tbRecruitmentDomination.TabIndex = 20;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(278, 43);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(77, 12);
-            this.label11.TabIndex = 19;
-            this.label11.Text = "补充资金单位";
-            // 
-            // tbRecruitmentFundCost
-            // 
-            this.tbRecruitmentFundCost.Location = new System.Drawing.Point(361, 40);
-            this.tbRecruitmentFundCost.Name = "tbRecruitmentFundCost";
-            this.tbRecruitmentFundCost.Size = new System.Drawing.Size(71, 22);
-            this.tbRecruitmentFundCost.TabIndex = 18;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(278, 16);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(77, 12);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "内政资金单位";
-            // 
-            // tbInternalFundCost
-            // 
-            this.tbInternalFundCost.Location = new System.Drawing.Point(361, 13);
-            this.tbInternalFundCost.Name = "tbInternalFundCost";
-            this.tbInternalFundCost.Size = new System.Drawing.Size(71, 22);
-            this.tbInternalFundCost.TabIndex = 16;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 205);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(89, 12);
-            this.label9.TabIndex = 15;
-            this.label9.Text = "人口默认增长率";
-            // 
-            // tbDefaultPopulationDevelopingRate
-            // 
-            this.tbDefaultPopulationDevelopingRate.Location = new System.Drawing.Point(107, 202);
-            this.tbDefaultPopulationDevelopingRate.Name = "tbDefaultPopulationDevelopingRate";
-            this.tbDefaultPopulationDevelopingRate.Size = new System.Drawing.Size(71, 22);
-            this.tbDefaultPopulationDevelopingRate.TabIndex = 14;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(12, 178);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 12);
-            this.label8.TabIndex = 13;
-            this.label8.Text = "建筑伤害率";
-            // 
-            // tbArchitectureDamageRate
-            // 
-            this.tbArchitectureDamageRate.Location = new System.Drawing.Point(107, 175);
-            this.tbArchitectureDamageRate.Name = "tbArchitectureDamageRate";
-            this.tbArchitectureDamageRate.Size = new System.Drawing.Size(71, 22);
-            this.tbArchitectureDamageRate.TabIndex = 12;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 151);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(65, 12);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "部队伤害率";
-            // 
-            // tbTroopDamageRate
-            // 
-            this.tbTroopDamageRate.Location = new System.Drawing.Point(107, 148);
-            this.tbTroopDamageRate.Name = "tbTroopDamageRate";
-            this.tbTroopDamageRate.Size = new System.Drawing.Size(71, 22);
-            this.tbTroopDamageRate.TabIndex = 10;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 124);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 12);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "粮草收入率";
-            // 
-            // tbFoodRate
-            // 
-            this.tbFoodRate.Location = new System.Drawing.Point(107, 121);
-            this.tbFoodRate.Name = "tbFoodRate";
-            this.tbFoodRate.Size = new System.Drawing.Size(71, 22);
-            this.tbFoodRate.TabIndex = 8;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 97);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "资金收入率";
-            // 
-            // tbFundRate
-            // 
-            this.tbFundRate.Location = new System.Drawing.Point(107, 94);
-            this.tbFundRate.Name = "tbFundRate";
-            this.tbFundRate.Size = new System.Drawing.Size(71, 22);
-            this.tbFundRate.TabIndex = 6;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 70);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "补充速率";
-            // 
-            // tbRecruitmentRate
-            // 
-            this.tbRecruitmentRate.Location = new System.Drawing.Point(107, 67);
-            this.tbRecruitmentRate.Name = "tbRecruitmentRate";
-            this.tbRecruitmentRate.Size = new System.Drawing.Size(71, 22);
-            this.tbRecruitmentRate.TabIndex = 4;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 43);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "训练速率";
-            // 
-            // tbTrainingRate
-            // 
-            this.tbTrainingRate.Location = new System.Drawing.Point(107, 40);
-            this.tbTrainingRate.Name = "tbTrainingRate";
-            this.tbTrainingRate.Size = new System.Drawing.Size(71, 22);
-            this.tbTrainingRate.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "内政速率";
-            // 
-            // tbInternalRate
-            // 
-            this.tbInternalRate.Location = new System.Drawing.Point(107, 13);
-            this.tbInternalRate.Name = "tbInternalRate";
-            this.tbInternalRate.Size = new System.Drawing.Size(71, 22);
-            this.tbInternalRate.TabIndex = 0;
-            // 
             // tabPageAIParameter
             // 
             this.tabPageAIParameter.Controls.Add(this.label61);
@@ -2214,6 +1322,876 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // zainanfashengjilv
+            // 
+            this.zainanfashengjilv.Location = new System.Drawing.Point(211, 346);
+            this.zainanfashengjilv.Name = "zainanfashengjilv";
+            this.zainanfashengjilv.Size = new System.Drawing.Size(50, 22);
+            this.zainanfashengjilv.TabIndex = 116;
+            this.zainanfashengjilv.Text = "3000";
+            // 
+            // zainanbiaoqian
+            // 
+            this.zainanbiaoqian.AutoSize = true;
+            this.zainanbiaoqian.Location = new System.Drawing.Point(11, 349);
+            this.zainanbiaoqian.Name = "zainanbiaoqian";
+            this.zainanbiaoqian.Size = new System.Drawing.Size(194, 12);
+            this.zainanbiaoqian.TabIndex = 117;
+            this.zainanbiaoqian.Text = "灾难发生几率（发生几率为1/此数）";
+            // 
+            // cbSkyEye
+            // 
+            this.cbSkyEye.AutoSize = true;
+            this.cbSkyEye.Location = new System.Drawing.Point(13, 255);
+            this.cbSkyEye.Name = "cbSkyEye";
+            this.cbSkyEye.Size = new System.Drawing.Size(96, 16);
+            this.cbSkyEye.TabIndex = 114;
+            this.cbSkyEye.Text = "默认开启天眼";
+            this.cbSkyEye.UseVisualStyleBackColor = true;
+            // 
+            // cbMultipleResource
+            // 
+            this.cbMultipleResource.AutoSize = true;
+            this.cbMultipleResource.Location = new System.Drawing.Point(13, 233);
+            this.cbMultipleResource.Name = "cbMultipleResource";
+            this.cbMultipleResource.Size = new System.Drawing.Size(96, 16);
+            this.cbMultipleResource.TabIndex = 115;
+            this.cbMultipleResource.Text = "资源收入加倍";
+            this.cbMultipleResource.UseVisualStyleBackColor = true;
+            // 
+            // cbPopulationRecruitmentLimit
+            // 
+            this.cbPopulationRecruitmentLimit.AutoSize = true;
+            this.cbPopulationRecruitmentLimit.Location = new System.Drawing.Point(13, 211);
+            this.cbPopulationRecruitmentLimit.Name = "cbPopulationRecruitmentLimit";
+            this.cbPopulationRecruitmentLimit.Size = new System.Drawing.Size(156, 16);
+            this.cbPopulationRecruitmentLimit.TabIndex = 118;
+            this.cbPopulationRecruitmentLimit.Text = "人口小于兵力时禁止征兵";
+            this.cbPopulationRecruitmentLimit.UseVisualStyleBackColor = true;
+            // 
+            // cbMilitaryKindSpeedValid
+            // 
+            this.cbMilitaryKindSpeedValid.AutoSize = true;
+            this.cbMilitaryKindSpeedValid.Location = new System.Drawing.Point(13, 57);
+            this.cbMilitaryKindSpeedValid.Name = "cbMilitaryKindSpeedValid";
+            this.cbMilitaryKindSpeedValid.Size = new System.Drawing.Size(96, 16);
+            this.cbMilitaryKindSpeedValid.TabIndex = 119;
+            this.cbMilitaryKindSpeedValid.Text = "部队速率有效";
+            this.cbMilitaryKindSpeedValid.UseVisualStyleBackColor = true;
+            // 
+            // cbPermitFactionMerge
+            // 
+            this.cbPermitFactionMerge.AutoSize = true;
+            this.cbPermitFactionMerge.Location = new System.Drawing.Point(13, 189);
+            this.cbPermitFactionMerge.Name = "cbPermitFactionMerge";
+            this.cbPermitFactionMerge.Size = new System.Drawing.Size(96, 16);
+            this.cbPermitFactionMerge.TabIndex = 120;
+            this.cbPermitFactionMerge.Text = "容许势力合并";
+            this.cbPermitFactionMerge.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbCustom);
+            this.groupBox1.Controls.Add(this.rbVeryhard);
+            this.groupBox1.Controls.Add(this.rbHard);
+            this.groupBox1.Controls.Add(this.rbNormal);
+            this.groupBox1.Controls.Add(this.rbEasy);
+            this.groupBox1.Controls.Add(this.rbBeginner);
+            this.groupBox1.Location = new System.Drawing.Point(338, 13);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(94, 151);
+            this.groupBox1.TabIndex = 121;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "游戏难度";
+            // 
+            // rbBeginner
+            // 
+            this.rbBeginner.AutoSize = true;
+            this.rbBeginner.Location = new System.Drawing.Point(6, 19);
+            this.rbBeginner.Name = "rbBeginner";
+            this.rbBeginner.Size = new System.Drawing.Size(47, 16);
+            this.rbBeginner.TabIndex = 0;
+            this.rbBeginner.TabStop = true;
+            this.rbBeginner.Text = "入门";
+            this.rbBeginner.UseVisualStyleBackColor = true;
+            this.rbBeginner.CheckedChanged += new System.EventHandler(this.beginnerSelected);
+            // 
+            // rbEasy
+            // 
+            this.rbEasy.AutoSize = true;
+            this.rbEasy.Location = new System.Drawing.Point(6, 41);
+            this.rbEasy.Name = "rbEasy";
+            this.rbEasy.Size = new System.Drawing.Size(47, 16);
+            this.rbEasy.TabIndex = 1;
+            this.rbEasy.TabStop = true;
+            this.rbEasy.Text = "初级";
+            this.rbEasy.UseVisualStyleBackColor = true;
+            this.rbEasy.CheckedChanged += new System.EventHandler(this.easySelected);
+            // 
+            // rbNormal
+            // 
+            this.rbNormal.AutoSize = true;
+            this.rbNormal.Location = new System.Drawing.Point(6, 63);
+            this.rbNormal.Name = "rbNormal";
+            this.rbNormal.Size = new System.Drawing.Size(47, 16);
+            this.rbNormal.TabIndex = 2;
+            this.rbNormal.TabStop = true;
+            this.rbNormal.Text = "上级";
+            this.rbNormal.UseVisualStyleBackColor = true;
+            this.rbNormal.CheckedChanged += new System.EventHandler(this.normalSelected);
+            // 
+            // rbHard
+            // 
+            this.rbHard.AutoSize = true;
+            this.rbHard.Location = new System.Drawing.Point(7, 85);
+            this.rbHard.Name = "rbHard";
+            this.rbHard.Size = new System.Drawing.Size(47, 16);
+            this.rbHard.TabIndex = 3;
+            this.rbHard.TabStop = true;
+            this.rbHard.Text = "超级";
+            this.rbHard.UseVisualStyleBackColor = true;
+            this.rbHard.CheckedChanged += new System.EventHandler(this.hardSelected);
+            // 
+            // rbVeryhard
+            // 
+            this.rbVeryhard.AutoSize = true;
+            this.rbVeryhard.Location = new System.Drawing.Point(7, 107);
+            this.rbVeryhard.Name = "rbVeryhard";
+            this.rbVeryhard.Size = new System.Drawing.Size(47, 16);
+            this.rbVeryhard.TabIndex = 4;
+            this.rbVeryhard.TabStop = true;
+            this.rbVeryhard.Text = "修罗";
+            this.rbVeryhard.UseVisualStyleBackColor = true;
+            this.rbVeryhard.CheckedChanged += new System.EventHandler(this.veryhardSelected);
+            // 
+            // rbCustom
+            // 
+            this.rbCustom.AutoSize = true;
+            this.rbCustom.Location = new System.Drawing.Point(7, 129);
+            this.rbCustom.Name = "rbCustom";
+            this.rbCustom.Size = new System.Drawing.Size(47, 16);
+            this.rbCustom.TabIndex = 5;
+            this.rbCustom.TabStop = true;
+            this.rbCustom.Text = "自订";
+            this.rbCustom.UseVisualStyleBackColor = true;
+            // 
+            // checkLiangdaoXitong
+            // 
+            this.checkLiangdaoXitong.AutoSize = true;
+            this.checkLiangdaoXitong.Location = new System.Drawing.Point(13, 13);
+            this.checkLiangdaoXitong.Name = "checkLiangdaoXitong";
+            this.checkLiangdaoXitong.Size = new System.Drawing.Size(72, 16);
+            this.checkLiangdaoXitong.TabIndex = 122;
+            this.checkLiangdaoXitong.Text = "粮道系统";
+            this.checkLiangdaoXitong.UseVisualStyleBackColor = true;
+            // 
+            // wujiangYoukenengDuli
+            // 
+            this.wujiangYoukenengDuli.AutoSize = true;
+            this.wujiangYoukenengDuli.Location = new System.Drawing.Point(13, 145);
+            this.wujiangYoukenengDuli.Name = "wujiangYoukenengDuli";
+            this.wujiangYoukenengDuli.Size = new System.Drawing.Size(108, 16);
+            this.wujiangYoukenengDuli.TabIndex = 123;
+            this.wujiangYoukenengDuli.Text = "武将有可能独立";
+            this.wujiangYoukenengDuli.UseVisualStyleBackColor = true;
+            // 
+            // cbEnableCheat
+            // 
+            this.cbEnableCheat.AutoSize = true;
+            this.cbEnableCheat.Location = new System.Drawing.Point(13, 277);
+            this.cbEnableCheat.Name = "cbEnableCheat";
+            this.cbEnableCheat.Size = new System.Drawing.Size(96, 16);
+            this.cbEnableCheat.TabIndex = 124;
+            this.cbEnableCheat.Text = "开启作弊功能";
+            this.cbEnableCheat.UseVisualStyleBackColor = true;
+            // 
+            // cbHardcoreMode
+            // 
+            this.cbHardcoreMode.AutoSize = true;
+            this.cbHardcoreMode.Location = new System.Drawing.Point(13, 299);
+            this.cbHardcoreMode.Name = "cbHardcoreMode";
+            this.cbHardcoreMode.Size = new System.Drawing.Size(120, 16);
+            this.cbHardcoreMode.TabIndex = 125;
+            this.cbHardcoreMode.Text = "硬核模式(禁止S/L)";
+            this.cbHardcoreMode.UseVisualStyleBackColor = true;
+            // 
+            // cbLandArmyCanGoDownWater
+            // 
+            this.cbLandArmyCanGoDownWater.AutoSize = true;
+            this.cbLandArmyCanGoDownWater.Location = new System.Drawing.Point(13, 167);
+            this.cbLandArmyCanGoDownWater.Name = "cbLandArmyCanGoDownWater";
+            this.cbLandArmyCanGoDownWater.Size = new System.Drawing.Size(132, 16);
+            this.cbLandArmyCanGoDownWater.TabIndex = 126;
+            this.cbLandArmyCanGoDownWater.Text = "陆上部队可直接下水";
+            this.cbLandArmyCanGoDownWater.UseVisualStyleBackColor = true;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(310, 173);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(89, 12);
+            this.label55.TabIndex = 127;
+            this.label55.Text = "资料显示详细度";
+            // 
+            // tbTabListDetailLevel
+            // 
+            this.tbTabListDetailLevel.Location = new System.Drawing.Point(405, 170);
+            this.tbTabListDetailLevel.MaxLength = 1;
+            this.tbTabListDetailLevel.Name = "tbTabListDetailLevel";
+            this.tbTabListDetailLevel.Size = new System.Drawing.Size(27, 22);
+            this.tbTabListDetailLevel.TabIndex = 128;
+            this.tbTabListDetailLevel.Text = "1";
+            // 
+            // cbPersonDieInChallenge
+            // 
+            this.cbPersonDieInChallenge.AutoSize = true;
+            this.cbPersonDieInChallenge.Location = new System.Drawing.Point(13, 79);
+            this.cbPersonDieInChallenge.Name = "cbPersonDieInChallenge";
+            this.cbPersonDieInChallenge.Size = new System.Drawing.Size(144, 16);
+            this.cbPersonDieInChallenge.TabIndex = 129;
+            this.cbPersonDieInChallenge.Text = "武将可能在单挑中死亡";
+            this.cbPersonDieInChallenge.UseVisualStyleBackColor = true;
+            // 
+            // cbPersonNaturalDeath
+            // 
+            this.cbPersonNaturalDeath.AutoSize = true;
+            this.cbPersonNaturalDeath.Location = new System.Drawing.Point(13, 101);
+            this.cbPersonNaturalDeath.Name = "cbPersonNaturalDeath";
+            this.cbPersonNaturalDeath.Size = new System.Drawing.Size(72, 16);
+            this.cbPersonNaturalDeath.TabIndex = 130;
+            this.cbPersonNaturalDeath.Text = "年龄有效";
+            this.cbPersonNaturalDeath.UseVisualStyleBackColor = true;
+            // 
+            // cbIdealTendencyValid
+            // 
+            this.cbIdealTendencyValid.AutoSize = true;
+            this.cbIdealTendencyValid.Location = new System.Drawing.Point(13, 35);
+            this.cbIdealTendencyValid.Name = "cbIdealTendencyValid";
+            this.cbIdealTendencyValid.Size = new System.Drawing.Size(120, 16);
+            this.cbIdealTendencyValid.TabIndex = 131;
+            this.cbIdealTendencyValid.Text = "出仕相性考虑有效";
+            this.cbIdealTendencyValid.UseVisualStyleBackColor = true;
+            // 
+            // cbEnableAgeAbilityFactor
+            // 
+            this.cbEnableAgeAbilityFactor.AutoSize = true;
+            this.cbEnableAgeAbilityFactor.Location = new System.Drawing.Point(13, 123);
+            this.cbEnableAgeAbilityFactor.Name = "cbEnableAgeAbilityFactor";
+            this.cbEnableAgeAbilityFactor.Size = new System.Drawing.Size(96, 16);
+            this.cbEnableAgeAbilityFactor.TabIndex = 132;
+            this.cbEnableAgeAbilityFactor.Text = "年龄影响能力";
+            this.cbEnableAgeAbilityFactor.UseVisualStyleBackColor = true;
+            // 
+            // getChildrenRateLabel
+            // 
+            this.getChildrenRateLabel.AutoSize = true;
+            this.getChildrenRateLabel.Location = new System.Drawing.Point(322, 229);
+            this.getChildrenRateLabel.Name = "getChildrenRateLabel";
+            this.getChildrenRateLabel.Size = new System.Drawing.Size(53, 12);
+            this.getChildrenRateLabel.TabIndex = 133;
+            this.getChildrenRateLabel.Text = "怀孕机率";
+            // 
+            // tbGetChildrenRate
+            // 
+            this.tbGetChildrenRate.Location = new System.Drawing.Point(381, 226);
+            this.tbGetChildrenRate.Name = "tbGetChildrenRate";
+            this.tbGetChildrenRate.Size = new System.Drawing.Size(51, 22);
+            this.tbGetChildrenRate.TabIndex = 134;
+            this.tbGetChildrenRate.Text = "100";
+            // 
+            // cbCreateChildren
+            // 
+            this.cbCreateChildren.AutoSize = true;
+            this.cbCreateChildren.Location = new System.Drawing.Point(13, 321);
+            this.cbCreateChildren.Name = "cbCreateChildren";
+            this.cbCreateChildren.Size = new System.Drawing.Size(96, 16);
+            this.cbCreateChildren.TabIndex = 135;
+            this.cbCreateChildren.Text = "生成虚拟子嗣";
+            // 
+            // tbOfficerDieInBattleRate
+            // 
+            this.tbOfficerDieInBattleRate.Location = new System.Drawing.Point(382, 198);
+            this.tbOfficerDieInBattleRate.Name = "tbOfficerDieInBattleRate";
+            this.tbOfficerDieInBattleRate.Size = new System.Drawing.Size(50, 22);
+            this.tbOfficerDieInBattleRate.TabIndex = 136;
+            this.tbOfficerDieInBattleRate.Text = "10";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(311, 201);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(65, 12);
+            this.label60.TabIndex = 137;
+            this.label60.Text = "武将战死率";
+            // 
+            // tabPageBasic
+            // 
+            this.tabPageBasic.Controls.Add(this.label60);
+            this.tabPageBasic.Controls.Add(this.tbOfficerDieInBattleRate);
+            this.tabPageBasic.Controls.Add(this.cbCreateChildren);
+            this.tabPageBasic.Controls.Add(this.tbGetChildrenRate);
+            this.tabPageBasic.Controls.Add(this.getChildrenRateLabel);
+            this.tabPageBasic.Controls.Add(this.cbEnableAgeAbilityFactor);
+            this.tabPageBasic.Controls.Add(this.cbIdealTendencyValid);
+            this.tabPageBasic.Controls.Add(this.cbPersonNaturalDeath);
+            this.tabPageBasic.Controls.Add(this.cbPersonDieInChallenge);
+            this.tabPageBasic.Controls.Add(this.tbTabListDetailLevel);
+            this.tabPageBasic.Controls.Add(this.label55);
+            this.tabPageBasic.Controls.Add(this.cbLandArmyCanGoDownWater);
+            this.tabPageBasic.Controls.Add(this.cbHardcoreMode);
+            this.tabPageBasic.Controls.Add(this.cbEnableCheat);
+            this.tabPageBasic.Controls.Add(this.wujiangYoukenengDuli);
+            this.tabPageBasic.Controls.Add(this.checkLiangdaoXitong);
+            this.tabPageBasic.Controls.Add(this.groupBox1);
+            this.tabPageBasic.Controls.Add(this.cbPermitFactionMerge);
+            this.tabPageBasic.Controls.Add(this.cbMilitaryKindSpeedValid);
+            this.tabPageBasic.Controls.Add(this.cbPopulationRecruitmentLimit);
+            this.tabPageBasic.Controls.Add(this.cbMultipleResource);
+            this.tabPageBasic.Controls.Add(this.cbSkyEye);
+            this.tabPageBasic.Controls.Add(this.zainanbiaoqian);
+            this.tabPageBasic.Controls.Add(this.zainanfashengjilv);
+            this.tabPageBasic.Location = new System.Drawing.Point(4, 22);
+            this.tabPageBasic.Name = "tabPageBasic";
+            this.tabPageBasic.Padding = new System.Windows.Forms.Padding(10);
+            this.tabPageBasic.Size = new System.Drawing.Size(445, 422);
+            this.tabPageBasic.TabIndex = 4;
+            this.tabPageBasic.Text = "基本";
+            this.tabPageBasic.UseVisualStyleBackColor = true;
+            // 
+            // tbInternalRate
+            // 
+            this.tbInternalRate.Location = new System.Drawing.Point(107, 13);
+            this.tbInternalRate.Name = "tbInternalRate";
+            this.tbInternalRate.Size = new System.Drawing.Size(71, 22);
+            this.tbInternalRate.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "内政速率";
+            // 
+            // tbTrainingRate
+            // 
+            this.tbTrainingRate.Location = new System.Drawing.Point(107, 40);
+            this.tbTrainingRate.Name = "tbTrainingRate";
+            this.tbTrainingRate.Size = new System.Drawing.Size(71, 22);
+            this.tbTrainingRate.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 43);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "训练速率";
+            // 
+            // tbRecruitmentRate
+            // 
+            this.tbRecruitmentRate.Location = new System.Drawing.Point(107, 67);
+            this.tbRecruitmentRate.Name = "tbRecruitmentRate";
+            this.tbRecruitmentRate.Size = new System.Drawing.Size(71, 22);
+            this.tbRecruitmentRate.TabIndex = 4;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 70);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 12);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "补充速率";
+            // 
+            // tbFundRate
+            // 
+            this.tbFundRate.Location = new System.Drawing.Point(107, 94);
+            this.tbFundRate.Name = "tbFundRate";
+            this.tbFundRate.Size = new System.Drawing.Size(71, 22);
+            this.tbFundRate.TabIndex = 6;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 97);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "资金收入率";
+            // 
+            // tbFoodRate
+            // 
+            this.tbFoodRate.Location = new System.Drawing.Point(107, 121);
+            this.tbFoodRate.Name = "tbFoodRate";
+            this.tbFoodRate.Size = new System.Drawing.Size(71, 22);
+            this.tbFoodRate.TabIndex = 8;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 124);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 12);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "粮草收入率";
+            // 
+            // tbTroopDamageRate
+            // 
+            this.tbTroopDamageRate.Location = new System.Drawing.Point(107, 148);
+            this.tbTroopDamageRate.Name = "tbTroopDamageRate";
+            this.tbTroopDamageRate.Size = new System.Drawing.Size(71, 22);
+            this.tbTroopDamageRate.TabIndex = 10;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 151);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(65, 12);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "部队伤害率";
+            // 
+            // tbArchitectureDamageRate
+            // 
+            this.tbArchitectureDamageRate.Location = new System.Drawing.Point(107, 175);
+            this.tbArchitectureDamageRate.Name = "tbArchitectureDamageRate";
+            this.tbArchitectureDamageRate.Size = new System.Drawing.Size(71, 22);
+            this.tbArchitectureDamageRate.TabIndex = 12;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(12, 178);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 12);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "建筑伤害率";
+            // 
+            // tbDefaultPopulationDevelopingRate
+            // 
+            this.tbDefaultPopulationDevelopingRate.Location = new System.Drawing.Point(107, 202);
+            this.tbDefaultPopulationDevelopingRate.Name = "tbDefaultPopulationDevelopingRate";
+            this.tbDefaultPopulationDevelopingRate.Size = new System.Drawing.Size(71, 22);
+            this.tbDefaultPopulationDevelopingRate.TabIndex = 14;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 205);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(89, 12);
+            this.label9.TabIndex = 15;
+            this.label9.Text = "人口默认增长率";
+            // 
+            // tbInternalFundCost
+            // 
+            this.tbInternalFundCost.Location = new System.Drawing.Point(361, 13);
+            this.tbInternalFundCost.Name = "tbInternalFundCost";
+            this.tbInternalFundCost.Size = new System.Drawing.Size(71, 22);
+            this.tbInternalFundCost.TabIndex = 16;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(278, 16);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(77, 12);
+            this.label10.TabIndex = 17;
+            this.label10.Text = "内政资金单位";
+            // 
+            // tbRecruitmentFundCost
+            // 
+            this.tbRecruitmentFundCost.Location = new System.Drawing.Point(361, 40);
+            this.tbRecruitmentFundCost.Name = "tbRecruitmentFundCost";
+            this.tbRecruitmentFundCost.Size = new System.Drawing.Size(71, 22);
+            this.tbRecruitmentFundCost.TabIndex = 18;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(278, 43);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(77, 12);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "补充资金单位";
+            // 
+            // tbRecruitmentDomination
+            // 
+            this.tbRecruitmentDomination.Location = new System.Drawing.Point(361, 67);
+            this.tbRecruitmentDomination.Name = "tbRecruitmentDomination";
+            this.tbRecruitmentDomination.Size = new System.Drawing.Size(71, 22);
+            this.tbRecruitmentDomination.TabIndex = 20;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(278, 70);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(77, 12);
+            this.label12.TabIndex = 21;
+            this.label12.Text = "补充最小统治";
+            // 
+            // tbRecruitmentMorale
+            // 
+            this.tbRecruitmentMorale.Location = new System.Drawing.Point(361, 94);
+            this.tbRecruitmentMorale.Name = "tbRecruitmentMorale";
+            this.tbRecruitmentMorale.Size = new System.Drawing.Size(71, 22);
+            this.tbRecruitmentMorale.TabIndex = 22;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(278, 97);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(77, 12);
+            this.label13.TabIndex = 23;
+            this.label13.Text = "补充最小民心";
+            // 
+            // tbChangeCapitalCost
+            // 
+            this.tbChangeCapitalCost.Location = new System.Drawing.Point(361, 121);
+            this.tbChangeCapitalCost.Name = "tbChangeCapitalCost";
+            this.tbChangeCapitalCost.Size = new System.Drawing.Size(71, 22);
+            this.tbChangeCapitalCost.TabIndex = 24;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(278, 124);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(77, 12);
+            this.label14.TabIndex = 25;
+            this.label14.Text = "迁都资金单位";
+            // 
+            // tbConvincePersonCost
+            // 
+            this.tbConvincePersonCost.Location = new System.Drawing.Point(361, 148);
+            this.tbConvincePersonCost.Name = "tbConvincePersonCost";
+            this.tbConvincePersonCost.Size = new System.Drawing.Size(71, 22);
+            this.tbConvincePersonCost.TabIndex = 28;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(278, 151);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(77, 12);
+            this.label16.TabIndex = 29;
+            this.label16.Text = "说服所需资金";
+            // 
+            // tbRewardPersonCost
+            // 
+            this.tbRewardPersonCost.Location = new System.Drawing.Point(361, 175);
+            this.tbRewardPersonCost.Name = "tbRewardPersonCost";
+            this.tbRewardPersonCost.Size = new System.Drawing.Size(71, 22);
+            this.tbRewardPersonCost.TabIndex = 30;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(278, 178);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(77, 12);
+            this.label17.TabIndex = 31;
+            this.label17.Text = "褒奖所需资金";
+            // 
+            // tbDestroyArchitectureCost
+            // 
+            this.tbDestroyArchitectureCost.Location = new System.Drawing.Point(361, 229);
+            this.tbDestroyArchitectureCost.Name = "tbDestroyArchitectureCost";
+            this.tbDestroyArchitectureCost.Size = new System.Drawing.Size(71, 22);
+            this.tbDestroyArchitectureCost.TabIndex = 34;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(278, 232);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(77, 12);
+            this.label19.TabIndex = 35;
+            this.label19.Text = "破坏所需资金";
+            // 
+            // tbInstigateArchitectureCost
+            // 
+            this.tbInstigateArchitectureCost.Location = new System.Drawing.Point(361, 256);
+            this.tbInstigateArchitectureCost.Name = "tbInstigateArchitectureCost";
+            this.tbInstigateArchitectureCost.Size = new System.Drawing.Size(71, 22);
+            this.tbInstigateArchitectureCost.TabIndex = 36;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(278, 259);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(77, 12);
+            this.label21.TabIndex = 37;
+            this.label21.Text = "煽动所需资金";
+            // 
+            // tbGossipArchitectureCost
+            // 
+            this.tbGossipArchitectureCost.Location = new System.Drawing.Point(361, 283);
+            this.tbGossipArchitectureCost.Name = "tbGossipArchitectureCost";
+            this.tbGossipArchitectureCost.Size = new System.Drawing.Size(71, 22);
+            this.tbGossipArchitectureCost.TabIndex = 38;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(278, 286);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(77, 12);
+            this.label20.TabIndex = 39;
+            this.label20.Text = "流言所需资金";
+            // 
+            // tbBuyFoodAgriculture
+            // 
+            this.tbBuyFoodAgriculture.Location = new System.Drawing.Point(107, 283);
+            this.tbBuyFoodAgriculture.Name = "tbBuyFoodAgriculture";
+            this.tbBuyFoodAgriculture.Size = new System.Drawing.Size(71, 22);
+            this.tbBuyFoodAgriculture.TabIndex = 44;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(12, 286);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(77, 12);
+            this.label24.TabIndex = 45;
+            this.label24.Text = "买粮所需农业";
+            // 
+            // tbSellFoodCommerce
+            // 
+            this.tbSellFoodCommerce.Location = new System.Drawing.Point(107, 310);
+            this.tbSellFoodCommerce.Name = "tbSellFoodCommerce";
+            this.tbSellFoodCommerce.Size = new System.Drawing.Size(71, 22);
+            this.tbSellFoodCommerce.TabIndex = 46;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(12, 313);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(77, 12);
+            this.label25.TabIndex = 47;
+            this.label25.Text = "卖粮所需商业";
+            // 
+            // tbFundToFoodMultiple
+            // 
+            this.tbFundToFoodMultiple.Location = new System.Drawing.Point(107, 337);
+            this.tbFundToFoodMultiple.Name = "tbFundToFoodMultiple";
+            this.tbFundToFoodMultiple.Size = new System.Drawing.Size(71, 22);
+            this.tbFundToFoodMultiple.TabIndex = 48;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(12, 340);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(89, 12);
+            this.label26.TabIndex = 49;
+            this.label26.Text = "资金换粮草乘数";
+            // 
+            // tbFoodToFundDivisor
+            // 
+            this.tbFoodToFundDivisor.Location = new System.Drawing.Point(107, 364);
+            this.tbFoodToFundDivisor.Name = "tbFoodToFundDivisor";
+            this.tbFoodToFundDivisor.Size = new System.Drawing.Size(71, 22);
+            this.tbFoodToFundDivisor.TabIndex = 50;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(12, 367);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(89, 12);
+            this.label27.TabIndex = 51;
+            this.label27.Text = "粮草换资金除数";
+            // 
+            // tbSurroundArchitectureDominationUnit
+            // 
+            this.tbSurroundArchitectureDominationUnit.Location = new System.Drawing.Point(107, 229);
+            this.tbSurroundArchitectureDominationUnit.Name = "tbSurroundArchitectureDominationUnit";
+            this.tbSurroundArchitectureDominationUnit.Size = new System.Drawing.Size(71, 22);
+            this.tbSurroundArchitectureDominationUnit.TabIndex = 52;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(12, 232);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(77, 12);
+            this.label33.TabIndex = 53;
+            this.label33.Text = "围城统治单位";
+            // 
+            // tbFireDamageScale
+            // 
+            this.tbFireDamageScale.Location = new System.Drawing.Point(107, 256);
+            this.tbFireDamageScale.Name = "tbFireDamageScale";
+            this.tbFireDamageScale.Size = new System.Drawing.Size(71, 22);
+            this.tbFireDamageScale.TabIndex = 54;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(12, 259);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(65, 12);
+            this.label40.TabIndex = 55;
+            this.label40.Text = "火焰伤害率";
+            // 
+            // tbTechniquePointMultiple
+            // 
+            this.tbTechniquePointMultiple.Location = new System.Drawing.Point(107, 392);
+            this.tbTechniquePointMultiple.Name = "tbTechniquePointMultiple";
+            this.tbTechniquePointMultiple.Size = new System.Drawing.Size(71, 22);
+            this.tbTechniquePointMultiple.TabIndex = 56;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(12, 395);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(65, 12);
+            this.label46.TabIndex = 57;
+            this.label46.Text = "技巧点乘数";
+            // 
+            // tbLeadershipOffenceRate
+            // 
+            this.tbLeadershipOffenceRate.Location = new System.Drawing.Point(361, 392);
+            this.tbLeadershipOffenceRate.Name = "tbLeadershipOffenceRate";
+            this.tbLeadershipOffenceRate.Size = new System.Drawing.Size(71, 22);
+            this.tbLeadershipOffenceRate.TabIndex = 58;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(218, 395);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(137, 12);
+            this.label47.TabIndex = 59;
+            this.label47.Text = "统率对部队防御影响参数";
+            // 
+            // tabPageParameter
+            // 
+            this.tabPageParameter.Controls.Add(this.label22);
+            this.tabPageParameter.Controls.Add(this.tbMilitaryPopulationReloadQuantity);
+            this.tabPageParameter.Controls.Add(this.label18);
+            this.tabPageParameter.Controls.Add(this.tbMilitaryPopulationCap);
+            this.tabPageParameter.Controls.Add(this.label15);
+            this.tabPageParameter.Controls.Add(this.tbJailBreakArchitectureCost);
+            this.tabPageParameter.Controls.Add(this.label47);
+            this.tabPageParameter.Controls.Add(this.tbLeadershipOffenceRate);
+            this.tabPageParameter.Controls.Add(this.label46);
+            this.tabPageParameter.Controls.Add(this.tbTechniquePointMultiple);
+            this.tabPageParameter.Controls.Add(this.label40);
+            this.tabPageParameter.Controls.Add(this.tbFireDamageScale);
+            this.tabPageParameter.Controls.Add(this.label33);
+            this.tabPageParameter.Controls.Add(this.tbSurroundArchitectureDominationUnit);
+            this.tabPageParameter.Controls.Add(this.label27);
+            this.tabPageParameter.Controls.Add(this.tbFoodToFundDivisor);
+            this.tabPageParameter.Controls.Add(this.label26);
+            this.tabPageParameter.Controls.Add(this.tbFundToFoodMultiple);
+            this.tabPageParameter.Controls.Add(this.label25);
+            this.tabPageParameter.Controls.Add(this.tbSellFoodCommerce);
+            this.tabPageParameter.Controls.Add(this.label24);
+            this.tabPageParameter.Controls.Add(this.tbBuyFoodAgriculture);
+            this.tabPageParameter.Controls.Add(this.label20);
+            this.tabPageParameter.Controls.Add(this.tbGossipArchitectureCost);
+            this.tabPageParameter.Controls.Add(this.label21);
+            this.tabPageParameter.Controls.Add(this.tbInstigateArchitectureCost);
+            this.tabPageParameter.Controls.Add(this.label19);
+            this.tabPageParameter.Controls.Add(this.tbDestroyArchitectureCost);
+            this.tabPageParameter.Controls.Add(this.label17);
+            this.tabPageParameter.Controls.Add(this.tbRewardPersonCost);
+            this.tabPageParameter.Controls.Add(this.label16);
+            this.tabPageParameter.Controls.Add(this.tbConvincePersonCost);
+            this.tabPageParameter.Controls.Add(this.label14);
+            this.tabPageParameter.Controls.Add(this.tbChangeCapitalCost);
+            this.tabPageParameter.Controls.Add(this.label13);
+            this.tabPageParameter.Controls.Add(this.tbRecruitmentMorale);
+            this.tabPageParameter.Controls.Add(this.label12);
+            this.tabPageParameter.Controls.Add(this.tbRecruitmentDomination);
+            this.tabPageParameter.Controls.Add(this.label11);
+            this.tabPageParameter.Controls.Add(this.tbRecruitmentFundCost);
+            this.tabPageParameter.Controls.Add(this.label10);
+            this.tabPageParameter.Controls.Add(this.tbInternalFundCost);
+            this.tabPageParameter.Controls.Add(this.label9);
+            this.tabPageParameter.Controls.Add(this.tbDefaultPopulationDevelopingRate);
+            this.tabPageParameter.Controls.Add(this.label8);
+            this.tabPageParameter.Controls.Add(this.tbArchitectureDamageRate);
+            this.tabPageParameter.Controls.Add(this.label7);
+            this.tabPageParameter.Controls.Add(this.tbTroopDamageRate);
+            this.tabPageParameter.Controls.Add(this.label6);
+            this.tabPageParameter.Controls.Add(this.tbFoodRate);
+            this.tabPageParameter.Controls.Add(this.label5);
+            this.tabPageParameter.Controls.Add(this.tbFundRate);
+            this.tabPageParameter.Controls.Add(this.label4);
+            this.tabPageParameter.Controls.Add(this.tbRecruitmentRate);
+            this.tabPageParameter.Controls.Add(this.label3);
+            this.tabPageParameter.Controls.Add(this.tbTrainingRate);
+            this.tabPageParameter.Controls.Add(this.label2);
+            this.tabPageParameter.Controls.Add(this.tbInternalRate);
+            this.tabPageParameter.Location = new System.Drawing.Point(4, 22);
+            this.tabPageParameter.Name = "tabPageParameter";
+            this.tabPageParameter.Padding = new System.Windows.Forms.Padding(10);
+            this.tabPageParameter.Size = new System.Drawing.Size(445, 422);
+            this.tabPageParameter.TabIndex = 2;
+            this.tabPageParameter.Text = "参数";
+            this.tabPageParameter.UseVisualStyleBackColor = true;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(278, 205);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(77, 12);
+            this.label15.TabIndex = 61;
+            this.label15.Text = "劫牢所需资金";
+            // 
+            // tbJailBreakArchitectureCost
+            // 
+            this.tbJailBreakArchitectureCost.Location = new System.Drawing.Point(361, 201);
+            this.tbJailBreakArchitectureCost.Name = "tbJailBreakArchitectureCost";
+            this.tbJailBreakArchitectureCost.Size = new System.Drawing.Size(71, 22);
+            this.tbJailBreakArchitectureCost.TabIndex = 60;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(302, 313);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(53, 12);
+            this.label18.TabIndex = 63;
+            this.label18.Text = "兵役上限";
+            // 
+            // tbMilitaryPopulationCap
+            // 
+            this.tbMilitaryPopulationCap.Location = new System.Drawing.Point(361, 310);
+            this.tbMilitaryPopulationCap.Name = "tbMilitaryPopulationCap";
+            this.tbMilitaryPopulationCap.Size = new System.Drawing.Size(71, 22);
+            this.tbMilitaryPopulationCap.TabIndex = 62;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(278, 340);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(77, 12);
+            this.label22.TabIndex = 65;
+            this.label22.Text = "兵役增量倍数";
+            // 
+            // tbMilitaryPopulationReloadQuantity
+            // 
+            this.tbMilitaryPopulationReloadQuantity.Location = new System.Drawing.Point(361, 337);
+            this.tbMilitaryPopulationReloadQuantity.Name = "tbMilitaryPopulationReloadQuantity";
+            this.tbMilitaryPopulationReloadQuantity.Size = new System.Drawing.Size(71, 22);
+            this.tbMilitaryPopulationReloadQuantity.TabIndex = 64;
+            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -2227,18 +2205,18 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "游戏设置";
             this.tcOptions.ResumeLayout(false);
-            this.tabPageBasic.ResumeLayout(false);
-            this.tabPageBasic.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.tabPageEnvironment.ResumeLayout(false);
             this.tabPageEnvironment.PerformLayout();
             this.tabPagePerson.ResumeLayout(false);
             this.tabPagePerson.PerformLayout();
-            this.tabPageParameter.ResumeLayout(false);
-            this.tabPageParameter.PerformLayout();
             this.tabPageAIParameter.ResumeLayout(false);
             this.tabPageAIParameter.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabPageBasic.ResumeLayout(false);
+            this.tabPageBasic.PerformLayout();
+            this.tabPageParameter.ResumeLayout(false);
+            this.tabPageParameter.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2340,15 +2318,11 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbRecruitmentDomination.Text = nextSibling.Attributes.GetNamedItem("RecruitmentDomination").Value;
             this.tbRecruitmentMorale.Text = nextSibling.Attributes.GetNamedItem("RecruitmentMorale").Value;
             this.tbChangeCapitalCost.Text = nextSibling.Attributes.GetNamedItem("ChangeCapitalCost").Value;
-            this.tbHireNoFactionPersonCost.Text = nextSibling.Attributes.GetNamedItem("HireNoFactionPersonCost").Value;
             this.tbConvincePersonCost.Text = nextSibling.Attributes.GetNamedItem("ConvincePersonCost").Value;
             this.tbRewardPersonCost.Text = nextSibling.Attributes.GetNamedItem("RewardPersonCost").Value;
-            this.tbSendSpyCost.Text = nextSibling.Attributes.GetNamedItem("SendSpyCost").Value;
             this.tbDestroyArchitectureCost.Text = nextSibling.Attributes.GetNamedItem("DestroyArchitectureCost").Value;
             this.tbInstigateArchitectureCost.Text = nextSibling.Attributes.GetNamedItem("InstigateArchitectureCost").Value;
             this.tbGossipArchitectureCost.Text = nextSibling.Attributes.GetNamedItem("GossipArchitectureCost").Value;
-            this.tbClearFieldFundCostUnit.Text = nextSibling.Attributes.GetNamedItem("ClearFieldFundCostUnit").Value;
-            this.tbClearFieldAgricultureCostUnit.Text = nextSibling.Attributes.GetNamedItem("ClearFieldAgricultureCostUnit").Value;
             this.tbAIFundRate.Text = nextSibling.Attributes.GetNamedItem("AIFundRate").Value;
             this.tbAIFoodRate.Text = nextSibling.Attributes.GetNamedItem("AIFoodRate").Value;
             this.tbAITroopOffenceRate.Text = nextSibling.Attributes.GetNamedItem("AITroopOffenceRate").Value;
@@ -2362,6 +2336,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbLearnSkillSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value;
             this.tbLearnStuntSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value;
             this.tbLearnTitleSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnTitleSuccessRate").Value;
+            this.tbJailBreakArchitectureCost.Text = nextSibling.Attributes.GetNamedItem("JailBreakArchitectureCost").Value;
+            this.tbMilitaryPopulationCap.Text = nextSibling.Attributes.GetNamedItem("MilitaryPopulationCap").Value;
+            this.tbMilitaryPopulationReloadQuantity.Text = nextSibling.Attributes.GetNamedItem("MilitaryPopulationReloadQuantity").Value;
             doNotSetDifficultyToCustom = false;
         }
 
@@ -2457,15 +2434,11 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("RecruitmentDomination").Value = this.tbRecruitmentDomination.Text;
             nextSibling.Attributes.GetNamedItem("RecruitmentMorale").Value = this.tbRecruitmentMorale.Text;
             nextSibling.Attributes.GetNamedItem("ChangeCapitalCost").Value = this.tbChangeCapitalCost.Text;
-            nextSibling.Attributes.GetNamedItem("HireNoFactionPersonCost").Value = this.tbHireNoFactionPersonCost.Text;
             nextSibling.Attributes.GetNamedItem("ConvincePersonCost").Value = this.tbConvincePersonCost.Text;
             nextSibling.Attributes.GetNamedItem("RewardPersonCost").Value = this.tbRewardPersonCost.Text;
-            nextSibling.Attributes.GetNamedItem("SendSpyCost").Value = this.tbSendSpyCost.Text;
             nextSibling.Attributes.GetNamedItem("DestroyArchitectureCost").Value = this.tbDestroyArchitectureCost.Text;
             nextSibling.Attributes.GetNamedItem("InstigateArchitectureCost").Value = this.tbInstigateArchitectureCost.Text;
             nextSibling.Attributes.GetNamedItem("GossipArchitectureCost").Value = this.tbGossipArchitectureCost.Text;
-            nextSibling.Attributes.GetNamedItem("ClearFieldFundCostUnit").Value = this.tbClearFieldFundCostUnit.Text;
-            nextSibling.Attributes.GetNamedItem("ClearFieldAgricultureCostUnit").Value = this.tbClearFieldAgricultureCostUnit.Text;
             nextSibling.Attributes.GetNamedItem("AIFundRate").Value = this.tbAIFundRate.Text;
             nextSibling.Attributes.GetNamedItem("AIFoodRate").Value = this.tbAIFoodRate.Text;
             nextSibling.Attributes.GetNamedItem("AITroopOffenceRate").Value = this.tbAITroopOffenceRate.Text;
@@ -2479,6 +2452,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value = this.tbLearnSkillSuccessRate.Text;
             nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value = this.tbLearnStuntSuccessRate.Text;
             nextSibling.Attributes.GetNamedItem("LearnTitleSuccessRate").Value = this.tbLearnTitleSuccessRate.Text;
+            nextSibling.Attributes.GetNamedItem("JailBreakArchitectureCost").Value = this.tbJailBreakArchitectureCost.Text;
+            nextSibling.Attributes.GetNamedItem("MilitaryPopulationCap").Value = this.tbMilitaryPopulationCap.Text;
+            nextSibling.Attributes.GetNamedItem("MilitaryPopulationReloadQuantity").Value = this.tbMilitaryPopulationReloadQuantity.Text;
             this.parameterDoc.Save("GameData/GameParameters.xml");
         }
 

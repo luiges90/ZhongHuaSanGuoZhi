@@ -8737,9 +8737,9 @@
         public void IncreaseMilitaryPopulation(int increment)
         {
             this.militaryPopulation += increment;
-            if (this.militaryPopulation > (int)(this.Population * (0.1 + militaryPopulationRateIncrease)))
+            if (this.militaryPopulation > (int)(this.Population * (Parameters.MilitaryPopulationCap + militaryPopulationRateIncrease)))
             {
-                this.militaryPopulation = (int)(this.Population * (0.1 + militaryPopulationRateIncrease));
+                this.militaryPopulation = (int)(this.Population * (Parameters.MilitaryPopulationCap + militaryPopulationRateIncrease));
             }
         }
 
@@ -12241,6 +12241,7 @@
             {
                 int num;
                 num = this.Population / 10 * this.Morale / 1000;
+                num = (int)(num * Parameters.MilitaryPopulationReloadQuantity);
                 return num;
             }
         }
