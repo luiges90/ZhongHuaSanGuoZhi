@@ -217,6 +217,11 @@
             return list;
         }
 
+        public GameObject GetRandomObject()
+        {
+            return this.GameObjects[GameObject.Random(this.GameObjects.Count)];
+        }
+
         public IEnumerator GetRealEnumerator()
         {
             foreach (GameObject iteratorVariable0 in this.gameObjects)

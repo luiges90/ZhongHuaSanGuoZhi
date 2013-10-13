@@ -3540,7 +3540,12 @@
             }
             foreach (Person person in this.Persons)
             {
-                person.MoveToArchitecture(this.StartingArchitecture);
+                person.OutsideTask = OutsideTaskKind.无;
+                person.TaskDays = 0;
+                person.Status = PersonStatus.NoFaction;
+
+                person.LocationArchitecture = (Architecture) (this.StartingArchitecture == null ? base.Scenario.Architectures.GetRandomObject() : this.StartingArchitecture);
+                person.TargetArchitecture = null;
             }
             this.Destroy(true, true);
             this.BelongedFaction = null;
