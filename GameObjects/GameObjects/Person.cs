@@ -1366,7 +1366,7 @@
 
                 }
             }
-            else if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun && 
+            else if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun && GlobalVariables.getChildrenRate > 0 &&
                 GameObject.Random((int) (10000.0 / GlobalVariables.getChildrenRate * 20)) == 0 &&
                 (this.LocationArchitecture != null && this.Spouse.LocationArchitecture == this.LocationArchitecture || 
                     (this.LocationTroop != null && this.Spouse.LocationTroop == this.LocationTroop)) &&
