@@ -2368,7 +2368,7 @@
 
         private void ConvinceNoFactionAI()
         {
-            if (this.HasPerson() && this.IsFundEnough && this.HasNoFactionPerson()
+            if (this.HasPerson() && this.IsFundEnough && this.HasNoFactionPerson() && !this.HasHostileTroopsInView()
                 && GameObject.Chance((int)Math.Max(30, 800 / this.BelongedFaction.PersonCount)))
             {
                 PersonList convincer = this.GetFirstHalfPersonList("ConvinceAbility");
@@ -5792,11 +5792,7 @@
             {
                 decrement = (decrement * 2) / 3;
             }
-            decrement = (int)(decrement * (1 - enduranceDecreaseRateDrop));
-            if (decrement <= 0)
-            {
-                decrement = 1;
-            }
+
             int endurance = decrement;
             if ((this.Endurance - decrement) < 0)
             {
