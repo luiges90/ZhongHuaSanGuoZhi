@@ -8664,6 +8664,10 @@
                 {
                     damage.Damage = 1;
                 }
+                if (damage.Damage > architecture.Endurance)
+                {
+                    damage.Damage = architecture.Endurance;
+                }
             }
             else
             {
