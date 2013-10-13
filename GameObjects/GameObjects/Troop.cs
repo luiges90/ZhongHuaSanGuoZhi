@@ -7499,17 +7499,24 @@
                         this.BelongedFaction.FirstSection.AddArchitecture(currentArchitecture);
                     }
                     currentArchitecture.CheckIsFrontLine();
+
+
+                    foreach (Person p in currentArchitecture.Feiziliebiao)
+                    {
+                        Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
+                        if (captive != null)
+                        {
+                            this.AddCaptive(captive);
+                        }
+                        p.Loyalty = 100;
+                    }
+
                     //this.Controllable = false;
                     if (this.OnOccupyArchitecture != null)
                     {
                         this.OnOccupyArchitecture(this, currentArchitecture);
                     }
 
-                    foreach (Person p in currentArchitecture.Feiziliebiao)
-                    {
-                        p.Status = PersonStatus.Normal;
-                        p.InitialLoyalty();
-                    }
                 }
 				ExtensionInterface.call("Occupy", new Object[] { this.Scenario, this, currentArchitecture });
             }
