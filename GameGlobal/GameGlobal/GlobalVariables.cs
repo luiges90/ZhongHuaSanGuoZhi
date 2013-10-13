@@ -124,7 +124,7 @@
         public static int AutoSaveFrequency = 30;
         public static bool ShowChallengeAnimation = true;
         public static bool PersonDieInChallenge = true;
-
+        
         public static int OfficerDieInBattleRate = 10;
 
         public static int AIOffensiveTroopHardLimit = 100;

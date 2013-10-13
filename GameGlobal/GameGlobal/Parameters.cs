@@ -142,6 +142,9 @@
         public static int LearnStuntSuccessRate = 75;
         public static int LearnTitleSuccessRate = 0;
 
+        public static float MilitaryPopulationCap = 0.1f;
+        public static float MilitaryPopulationReloadQuantity = 1.0f;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();
@@ -273,6 +276,9 @@
             LearnSkillSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value);
             LearnStuntSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value);
             LearnTitleSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("LearnTitleSuccessRate").Value);
+
+            MilitaryPopulationCap = float.Parse(nextSibling.Attributes.GetNamedItem("MilitaryPopulationCap").Value);
+            MilitaryPopulationReloadQuantity = float.Parse(nextSibling.Attributes.GetNamedItem("MilitaryPopulationReloadQuantity").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;
