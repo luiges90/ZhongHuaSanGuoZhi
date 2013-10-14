@@ -246,7 +246,7 @@
                 {
                     this.person.RealTitles.Add(selectedItem);
                 }
-                this.RefreshStuntList();
+                this.RefreshTitleList();
             }
         }
 
@@ -307,7 +307,7 @@
         private void btnDeleteAllTitle_Click(object sender, EventArgs e)
         {
             this.person.RealTitles.Clear();
-            this.RefreshStuntList();
+            this.RefreshTitleList();
         }
 
         private void btnDeleteAllStunt_Click(object sender, EventArgs e)
@@ -2619,6 +2619,7 @@
             this.btnDeleteAllTitle.TabIndex = 4;
             this.btnDeleteAllTitle.Text = "删除全部";
             this.btnDeleteAllTitle.UseVisualStyleBackColor = true;
+            this.btnDeleteAllTitle.Click += new EventHandler(btnDeleteAllTitle_Click);
             // 
             // btnDeleteSelectedTitle
             // 
@@ -2628,6 +2629,7 @@
             this.btnDeleteSelectedTitle.TabIndex = 3;
             this.btnDeleteSelectedTitle.Text = "删除选中";
             this.btnDeleteSelectedTitle.UseVisualStyleBackColor = true;
+            this.btnDeleteSelectedTitle.Click += new EventHandler(btnDeleteSelectedTitle_Click);
             // 
             // btnAddTitle
             // 
@@ -2637,6 +2639,7 @@
             this.btnAddTitle.TabIndex = 2;
             this.btnAddTitle.Text = "添加";
             this.btnAddTitle.UseVisualStyleBackColor = true;
+            this.btnAddTitle.Click += new System.EventHandler(this.btnAddTitle_Click);
             // 
             // cbAllTitle
             // 
@@ -2685,6 +2688,16 @@
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
+        }
+
+        void btnDeleteSelectedTitle_Click(object sender, EventArgs e)
+        {
+            Title selectedItem = this.lbTitle.SelectedItem as Title;
+            if (selectedItem != null)
+            {
+                this.person.RealTitles.Remove(selectedItem);
+                this.RefreshTitleList();
+            }
         }
 
         private void InitializeSkillData(Person p)
@@ -3207,11 +3220,11 @@
         {
             foreach (Title title in p.RealTitles)
             {
-                this.lbStunt.Items.Add(title);
+                this.lbTitle.Items.Add(title);
             }
             foreach (Title title in p.Scenario.GameCommonData.AllTitles.Titles.Values)
             {
-                this.cbAllStunt.Items.Add(title);
+                this.cbAllTitle.Items.Add(title);
             }
         }
 

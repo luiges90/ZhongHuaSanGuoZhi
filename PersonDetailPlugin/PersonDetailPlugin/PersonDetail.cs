@@ -99,15 +99,17 @@
             bool flag = false;
             if (!flag && this.ShowingPerson.Titles.Count > 0 && StaticMethods.PointInRectangle(position, this.TitleLabelText.Text.AlignedPosition))
             {
-                if (this.current != this.ShowingPerson.Titles[0])
+                Title activeTitle = this.ShowingPerson.Titles[0];
+                if (this.current != activeTitle)
                 {
                     this.InfluenceText.Clear();
                     if (this.ShowingPerson.Titles[0].InfluenceCount > 0)
                     {
+                        this.InfluenceText.AddText(activeTitle.KindName, Color.Red);
                         this.InfluenceText.AddText("称号", Color.Yellow);
-                        this.InfluenceText.AddText(this.ShowingPerson.Titles[0].Name, Color.Lime);
+                        this.InfluenceText.AddText(activeTitle.Name, Color.Lime);
                         this.InfluenceText.AddNewLine();
-                        foreach (Influence influence in this.ShowingPerson.Titles[0].Influences.Influences.Values)
+                        foreach (Influence influence in activeTitle.Influences.Influences.Values)
                         {
                             this.InfluenceText.AddText(influence.Description);
                             this.InfluenceText.AddNewLine();
@@ -116,7 +118,7 @@
                         this.ConditionText.Clear();
                         this.ConditionText.AddText("修习条件", Color.LightPink);
                         this.ConditionText.AddNewLine();
-                        foreach (Condition condition in this.ShowingPerson.Titles[0].Conditions.Conditions.Values)
+                        foreach (Condition condition in activeTitle.Conditions.Conditions.Values)
                         {
                             if (condition.CheckCondition(this.ShowingPerson))
                             {
@@ -130,7 +132,7 @@
                         }
                         this.ConditionText.ResortTexts();
                     }
-                    this.current = this.ShowingPerson.Titles[0];
+                    this.current = activeTitle;
                 }
                 flag = true;
             }
