@@ -102,6 +102,7 @@
                 Title activeTitle = this.ShowingPerson.Titles[0];
                 if (this.current != activeTitle)
                 {
+                    this.BiographyText.Clear();
                     this.InfluenceText.Clear();
                     if (this.ShowingPerson.Titles[0].InfluenceCount > 0)
                     {

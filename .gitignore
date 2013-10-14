@@ -90,8 +90,7 @@ WorldOfTheThreeKingdoms/bin/x86/Debug
 WorldOfTheThreeKingdoms/bin/x86/public
 WorldOfTheThreeKingdoms/bin/x86/*.zip
 WorldOfTheThreeKingdoms/bin/x86/v*
-WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/
-!WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/**/*.xml
+WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/*
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GameParameters.xml
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GlobalVariables.xml
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/archive
@@ -100,9 +99,6 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/generatedScen.mdb
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/archive
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/L*
 [Rr]esources
-WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/sheshi
-WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/tupian
-WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/tupianwenzi/Data/yinxiao
 WorldOfTheThreeKingdoms/bin/x86/Release/Dantiao
 WorldOfTheThreeKingdoms/bin/x86/Release/GameSound
 WorldOfTheThreeKingdoms/bin/x86/Release/GameMusic
