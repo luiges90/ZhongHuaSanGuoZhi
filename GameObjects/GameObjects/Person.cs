@@ -575,7 +575,7 @@
             {
                 if (allTitles.Titles.TryGetValue(int.Parse(strArray[i]), out title))
                 {
-                    this.Titles.Add(title);
+                    this.RealTitles.Add(title);
                 }
             }
         }
@@ -2408,6 +2408,19 @@
                 foreach (Title t in this.Titles)
                 {
                     s += t.Name + " ";
+                }
+                return s;
+            }
+        }
+
+        public String TitleDetailedNames
+        {
+            get
+            {
+                String s = "";
+                foreach (Title t in this.Titles)
+                {
+                    s += t.DetailedName + " ";
                 }
                 return s;
             }

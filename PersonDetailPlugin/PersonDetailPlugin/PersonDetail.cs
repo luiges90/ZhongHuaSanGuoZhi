@@ -105,9 +105,7 @@
                     this.InfluenceText.Clear();
                     if (this.ShowingPerson.Titles[0].InfluenceCount > 0)
                     {
-                        this.InfluenceText.AddText(activeTitle.KindName, Color.Red);
-                        this.InfluenceText.AddText("称号", Color.Yellow);
-                        this.InfluenceText.AddText(activeTitle.Name, Color.Lime);
+                        this.InfluenceText.AddText(activeTitle.DetailedName, Color.Yellow);
                         this.InfluenceText.AddNewLine();
                         foreach (Influence influence in activeTitle.Influences.Influences.Values)
                         {

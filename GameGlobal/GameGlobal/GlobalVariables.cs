@@ -128,7 +128,6 @@
         public static int OfficerDieInBattleRate = 10;
 
         public static int AIOffensiveTroopHardLimit = 100;
-        public static int CombatKindTitle = 1;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -710,15 +709,6 @@
             {
                 exception = exception24;
                 throw new Exception("AIOffensiveTroopHardLimit:\n" + exception.ToString());
-            }
-            try
-            {
-                CombatKindTitle = int.Parse(nextSibling.Attributes.GetNamedItem("CombatKindTitle").Value);
-            }
-            catch (Exception exception24)
-            {
-                exception = exception24;
-                throw new Exception("CombatKindTitle:\n" + exception.ToString());
             }
             return true;
         }

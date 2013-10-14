@@ -51,6 +51,7 @@
         public TextMessageTable AllTextMessages = new TextMessageTable();
         public AnimationTable AllTileAnimations = new AnimationTable();
         public TitleTable AllTitles = new TitleTable();
+        public TitleKindTable AllTitleKinds = new TitleKindTable();
         public AnimationTable AllTroopAnimations = new AnimationTable();
         public EventEffectKindTable AllTroopEventEffectKinds = new EventEffectKindTable();
         public EventEffectTable AllTroopEventEffects = new EventEffectTable();
@@ -89,6 +90,7 @@
             this.AllTextMessages.Clear();
             this.AllTileAnimations.Clear();
             this.AllTitles.Clear();
+            this.AllTitleKinds.Clear();
             this.AllTroopAnimations.Clear();
             this.AllTroopEventEffectKinds.Clear();
             this.AllTroopEventEffects.Clear();
@@ -793,6 +795,39 @@
                 this.AllTextMessages.AddTextMessage(textMessage);
             }
             connection.Close();
+
+            try
+            {
+                connection.Open();
+                reader = new OleDbCommand("Select * From TitleKind", connection).ExecuteReader();
+                while (reader.Read())
+                {
+                    TitleKind tk = new TitleKind();
+                    tk.ID = (short)reader["ID"];
+                    tk.Name = reader["KName"].ToString();
+                    tk.Combat = (bool)reader["Combat"];
+                    this.AllTitleKinds.AddTitleKind(tk);
+                }
+                connection.Close();
+            }
+            catch
+            {
+                TitleKind tk = new TitleKind();
+                tk.ID = 0;
+                tk.Name = "个人称号";
+                tk.Combat = false;
+                this.AllTitleKinds.AddTitleKind(tk);
+                tk = new TitleKind();
+                tk.ID = 1;
+                tk.Name = "战斗称号";
+                tk.Combat = true;
+                this.AllTitleKinds.AddTitleKind(tk);
+            }
+            foreach (Title t in this.AllTitles.Titles.Values)
+            {
+                t.KindName = this.AllTitleKinds.GetTitleKind(t.Kind).Name;
+            }
+
             return true;
         }
 

@@ -232,7 +232,6 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind860.cs" />
     <Compile Include="GameObjects\FactionDetail\Technique.cs" />
     <Compile Include="GameObjects\TroopDetail\StratagemTable.cs" />
-    <Compile Include="GameObjects\PersonDetail\TitleKind.cs" />
     <Compile Include="GameObjects\PersonDetail\Title.cs" />
     <Compile Include="GameObjects\PersonDetail\BiographyTable.cs" />
     <Compile Include="GameObjects\PersonDetail\Biography.cs" />
@@ -1185,5 +1184,7 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6935.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6945.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3157.cs" />
+    <Compile Include="GameObjects\PersonDetail\TitleKindTable.cs" />
+    <Compile Include="GameObjects\PersonDetail\TitleKind.cs" />
   </ItemGroup>
 </Project>

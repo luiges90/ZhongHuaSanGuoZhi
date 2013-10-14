@@ -1,11 +1,14 @@
 ﻿namespace GameObjects.PersonDetail
 {
+    using GameObjects;
     using System;
+    using System.Collections.Generic;
 
-    public enum TitleKind
+    public class TitleKind : GameObject
     {
-        个人,
-        战斗
+        public bool Combat { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 }
 

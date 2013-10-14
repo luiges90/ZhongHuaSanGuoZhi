@@ -169,6 +169,8 @@
             }
         }
 
+        public string KindName { get; set; }
+
         public int Level
         {
             get
@@ -242,6 +244,14 @@
                     str = str + "•" + condition.Name;
                 }
                 return str;
+            }
+        }
+
+        public string DetailedName
+        {
+            get
+            {
+                return this.Level + "级" + this.KindName + "「" + this.Name + "」";
             }
         }
 
