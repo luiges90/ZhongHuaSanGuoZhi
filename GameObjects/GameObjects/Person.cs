@@ -1235,7 +1235,7 @@
                 foreach (KeyValuePair<Person, int> i in this.relations)
                 {
                     if (i.Value >= VERY_CLOSE_THRESHOLD && i.Key.GetRelation(this) >= VERY_CLOSE_THRESHOLD && i.Key.BelongedFaction == this.BelongedFaction 
-                        && Person.GetIdealOffset(this, i.Key) <= 5 && !this.HasStrainTo(i.Key) 
+                        && Person.GetIdealOffset(this, i.Key) <= 5 && !this.HasStrainTo(i.Key) && !this.IsVeryCloseTo(i.Key) 
                         && (!GlobalVariables.PersonNaturalDeath || (Math.Abs(this.Age - i.Key.Age) <= 40 && this.Age <= 50 && i.Key.Age <= 50
                             && this.Age >= 16 && i.Key.Age >= 16)))
                     {
