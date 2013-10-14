@@ -14,8 +14,10 @@
             {
                 if (i.Influences.HasInfluence(this.number)) return false;
             }
-            if (person.PersonalTitle.Influences.HasInfluence(this.number)) return false;
-            if (person.CombatTitle.Influences.HasInfluence(this.number)) return false;
+            foreach (GameObjects.PersonDetail.Title t in person.Titles)
+            {
+                if (t.Influences.HasInfluence(this.number)) return false;
+            }
             foreach (GameObjects.PersonDetail.Stunt i in person.Stunts.Stunts.Values)
             {
                 if (i.Influences.HasInfluence(this.number)) return false;

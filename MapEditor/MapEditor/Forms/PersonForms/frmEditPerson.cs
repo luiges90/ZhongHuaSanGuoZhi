@@ -19,8 +19,6 @@
         private Button btnAddStunt;
         private Button btnApply;
         private Button btnApplySkills;
-        private Button btnCancelCombatlTitle;
-        private Button btnCancelPersonalTitle;
         private Button btnChangePortrait;
         private Button btnDeleteAllStunt;
         private Button btnDeleteSelectedStunt;
@@ -31,13 +29,11 @@
         private ComboBox cbAmbition;
         private ComboBox cbBornRegion;
         private ComboBox cbCharacter;
-        private ComboBox cbCombatTitle;
         private ComboBox cbDeadReason;
         private ComboBox cbFactionColor;
         private ComboBox cbIdealTendency;
         private CheckBox cbOnlySelectFromTheNew;
         private ComboBox cbPersonalLoyalty;
-        private ComboBox cbPersonalTitle;
         private ComboBox cbQualification;
         private ComboBox cbStrategyTendency;
         private ComboBox cbValuationOnGovernment;
@@ -104,8 +100,6 @@
         private Label label5;
         private Label label50;
         private Label label51;
-        private Label label52;
-        private Label label53;
         private Label label54;
         private Label label55;
         private Label label56;
@@ -202,6 +196,12 @@
         private TabPage tpBasic;
         private TabPage tpSkill;
         private TabPage tpTextMessage;
+        private GroupBox groupBox1;
+        private Button btnDeleteAllTitle;
+        private Button btnDeleteSelectedTitle;
+        private Button btnAddTitle;
+        private ComboBox cbAllTitle;
+        private ListBox lbTitle;
         private ToolStripStatusLabel tsslIDtoName;
 
         public frmEditPerson()
@@ -234,6 +234,19 @@
                 {
                     this.lbHatedPersons.Items.Add(num.ToString() + " " + (this.AllPersons.GetGameObject(num) as Person).Name);
                 }
+            }
+        }
+
+        private void btnAddTitle_Click(object sender, EventArgs e)
+        {
+            Title selectedItem = this.cbAllTitle.SelectedItem as Title;
+            if (selectedItem != null)
+            {
+                if (!this.person.RealTitles.Contains(selectedItem))
+                {
+                    this.person.RealTitles.Add(selectedItem);
+                }
+                this.RefreshStuntList();
             }
         }
 
@@ -275,19 +288,7 @@
             else
             {
                 this.SavePersonSkills(this.person);
-                this.person.RealPersonalTitle = this.cbPersonalTitle.SelectedItem as Title;
-                this.person.RealCombatTitle = this.cbCombatTitle.SelectedItem as Title;
             }
-        }
-
-        private void btnCancelCombatlTitle_Click(object sender, EventArgs e)
-        {
-            this.cbCombatTitle.SelectedItem = null;
-        }
-
-        private void btnCancelPersonalTitle_Click(object sender, EventArgs e)
-        {
-            this.cbPersonalTitle.SelectedItem = null;
         }
 
         private void btnChangePortrait_Click(object sender, EventArgs e)
@@ -301,6 +302,12 @@
                 this.tbPic.Text = this.person.PictureIndex.ToString();
                 this.pbHead.Image = this.MainForm.GetPersonPortrait(this.person.PictureIndex);
             }
+        }
+
+        private void btnDeleteAllTitle_Click(object sender, EventArgs e)
+        {
+            this.person.RealTitles.Clear();
+            this.RefreshStuntList();
         }
 
         private void btnDeleteAllStunt_Click(object sender, EventArgs e)
@@ -418,12 +425,6 @@
             this.btnAddStunt = new System.Windows.Forms.Button();
             this.cbAllStunt = new System.Windows.Forms.ComboBox();
             this.lbStunt = new System.Windows.Forms.ListBox();
-            this.btnCancelCombatlTitle = new System.Windows.Forms.Button();
-            this.btnCancelPersonalTitle = new System.Windows.Forms.Button();
-            this.label53 = new System.Windows.Forms.Label();
-            this.cbCombatTitle = new System.Windows.Forms.ComboBox();
-            this.label52 = new System.Windows.Forms.Label();
-            this.cbPersonalTitle = new System.Windows.Forms.ComboBox();
             this.btnApplySkills = new System.Windows.Forms.Button();
             this.gbSkills = new System.Windows.Forms.GroupBox();
             this.label51 = new System.Windows.Forms.Label();
@@ -595,6 +596,12 @@
             this.rtbCriticalStrikeOnArchitecture = new System.Windows.Forms.RichTextBox();
             this.label60 = new System.Windows.Forms.Label();
             this.rtbCriticalStrike = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDeleteAllTitle = new System.Windows.Forms.Button();
+            this.btnDeleteSelectedTitle = new System.Windows.Forms.Button();
+            this.btnAddTitle = new System.Windows.Forms.Button();
+            this.cbAllTitle = new System.Windows.Forms.ComboBox();
+            this.lbTitle = new System.Windows.Forms.ListBox();
             this.tpSkill.SuspendLayout();
             this.gbStunt.SuspendLayout();
             this.gbSkills.SuspendLayout();
@@ -605,17 +612,13 @@
             this.gbClosePersons.SuspendLayout();
             this.tabPerson.SuspendLayout();
             this.tpTextMessage.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tpSkill
             // 
+            this.tpSkill.Controls.Add(this.groupBox1);
             this.tpSkill.Controls.Add(this.gbStunt);
-            this.tpSkill.Controls.Add(this.btnCancelCombatlTitle);
-            this.tpSkill.Controls.Add(this.btnCancelPersonalTitle);
-            this.tpSkill.Controls.Add(this.label53);
-            this.tpSkill.Controls.Add(this.cbCombatTitle);
-            this.tpSkill.Controls.Add(this.label52);
-            this.tpSkill.Controls.Add(this.cbPersonalTitle);
             this.tpSkill.Controls.Add(this.btnApplySkills);
             this.tpSkill.Controls.Add(this.gbSkills);
             this.tpSkill.Location = new System.Drawing.Point(4, 22);
@@ -633,16 +636,16 @@
             this.gbStunt.Controls.Add(this.btnAddStunt);
             this.gbStunt.Controls.Add(this.cbAllStunt);
             this.gbStunt.Controls.Add(this.lbStunt);
-            this.gbStunt.Location = new System.Drawing.Point(620, 18);
+            this.gbStunt.Location = new System.Drawing.Point(620, 268);
             this.gbStunt.Name = "gbStunt";
-            this.gbStunt.Size = new System.Drawing.Size(200, 431);
+            this.gbStunt.Size = new System.Drawing.Size(200, 244);
             this.gbStunt.TabIndex = 160;
             this.gbStunt.TabStop = false;
             this.gbStunt.Text = "战斗特技列表";
             // 
             // btnDeleteAllStunt
             // 
-            this.btnDeleteAllStunt.Location = new System.Drawing.Point(103, 391);
+            this.btnDeleteAllStunt.Location = new System.Drawing.Point(103, 207);
             this.btnDeleteAllStunt.Name = "btnDeleteAllStunt";
             this.btnDeleteAllStunt.Size = new System.Drawing.Size(91, 23);
             this.btnDeleteAllStunt.TabIndex = 4;
@@ -652,7 +655,7 @@
             // 
             // btnDeleteSelectedStunt
             // 
-            this.btnDeleteSelectedStunt.Location = new System.Drawing.Point(6, 391);
+            this.btnDeleteSelectedStunt.Location = new System.Drawing.Point(6, 207);
             this.btnDeleteSelectedStunt.Name = "btnDeleteSelectedStunt";
             this.btnDeleteSelectedStunt.Size = new System.Drawing.Size(91, 23);
             this.btnDeleteSelectedStunt.TabIndex = 3;
@@ -662,7 +665,7 @@
             // 
             // btnAddStunt
             // 
-            this.btnAddStunt.Location = new System.Drawing.Point(135, 353);
+            this.btnAddStunt.Location = new System.Drawing.Point(135, 169);
             this.btnAddStunt.Name = "btnAddStunt";
             this.btnAddStunt.Size = new System.Drawing.Size(55, 23);
             this.btnAddStunt.TabIndex = 2;
@@ -673,7 +676,7 @@
             // cbAllStunt
             // 
             this.cbAllStunt.FormattingEnabled = true;
-            this.cbAllStunt.Location = new System.Drawing.Point(6, 355);
+            this.cbAllStunt.Location = new System.Drawing.Point(6, 171);
             this.cbAllStunt.Name = "cbAllStunt";
             this.cbAllStunt.Size = new System.Drawing.Size(121, 20);
             this.cbAllStunt.TabIndex = 1;
@@ -682,66 +685,10 @@
             // 
             this.lbStunt.FormattingEnabled = true;
             this.lbStunt.ItemHeight = 12;
-            this.lbStunt.Location = new System.Drawing.Point(6, 20);
+            this.lbStunt.Location = new System.Drawing.Point(6, 17);
             this.lbStunt.Name = "lbStunt";
-            this.lbStunt.Size = new System.Drawing.Size(184, 316);
+            this.lbStunt.Size = new System.Drawing.Size(184, 148);
             this.lbStunt.TabIndex = 0;
-            // 
-            // btnCancelCombatlTitle
-            // 
-            this.btnCancelCombatlTitle.Location = new System.Drawing.Point(245, 491);
-            this.btnCancelCombatlTitle.Name = "btnCancelCombatlTitle";
-            this.btnCancelCombatlTitle.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelCombatlTitle.TabIndex = 159;
-            this.btnCancelCombatlTitle.Text = "取消称号";
-            this.btnCancelCombatlTitle.UseVisualStyleBackColor = true;
-            this.btnCancelCombatlTitle.Click += new System.EventHandler(this.btnCancelCombatlTitle_Click);
-            // 
-            // btnCancelPersonalTitle
-            // 
-            this.btnCancelPersonalTitle.Location = new System.Drawing.Point(245, 467);
-            this.btnCancelPersonalTitle.Name = "btnCancelPersonalTitle";
-            this.btnCancelPersonalTitle.Size = new System.Drawing.Size(75, 23);
-            this.btnCancelPersonalTitle.TabIndex = 158;
-            this.btnCancelPersonalTitle.Text = "取消称号";
-            this.btnCancelPersonalTitle.UseVisualStyleBackColor = true;
-            this.btnCancelPersonalTitle.Click += new System.EventHandler(this.btnCancelPersonalTitle_Click);
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(28, 496);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(53, 12);
-            this.label53.TabIndex = 157;
-            this.label53.Text = "战斗称号";
-            // 
-            // cbCombatTitle
-            // 
-            this.cbCombatTitle.FormattingEnabled = true;
-            this.cbCombatTitle.Location = new System.Drawing.Point(90, 493);
-            this.cbCombatTitle.MaxDropDownItems = 20;
-            this.cbCombatTitle.Name = "cbCombatTitle";
-            this.cbCombatTitle.Size = new System.Drawing.Size(149, 20);
-            this.cbCombatTitle.TabIndex = 156;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(28, 470);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(53, 12);
-            this.label52.TabIndex = 155;
-            this.label52.Text = "个人称号";
-            // 
-            // cbPersonalTitle
-            // 
-            this.cbPersonalTitle.FormattingEnabled = true;
-            this.cbPersonalTitle.Location = new System.Drawing.Point(90, 467);
-            this.cbPersonalTitle.MaxDropDownItems = 20;
-            this.cbPersonalTitle.Name = "cbPersonalTitle";
-            this.cbPersonalTitle.Size = new System.Drawing.Size(149, 20);
-            this.cbPersonalTitle.TabIndex = 154;
             // 
             // btnApplySkills
             // 
@@ -799,6 +746,7 @@
             this.clb08.CheckOnClick = true;
             this.clb08.ColumnWidth = 70;
             this.clb08.FormattingEnabled = true;
+            this.clb08.IntegralHeight = false;
             this.clb08.Items.AddRange(new object[] {
             "练步",
             "练弩",
@@ -810,7 +758,6 @@
             this.clb08.Location = new System.Drawing.Point(68, 236);
             this.clb08.MultiColumn = true;
             this.clb08.Name = "clb08";
-            this.clb08.IntegralHeight = false;
             this.clb08.Size = new System.Drawing.Size(509, 24);
             this.clb08.TabIndex = 29;
             // 
@@ -828,6 +775,7 @@
             this.clb07.CheckOnClick = true;
             this.clb07.ColumnWidth = 70;
             this.clb07.FormattingEnabled = true;
+            this.clb07.IntegralHeight = false;
             this.clb07.Items.AddRange(new object[] {
             "冲车",
             "井栏",
@@ -839,7 +787,6 @@
             this.clb07.Location = new System.Drawing.Point(68, 210);
             this.clb07.MultiColumn = true;
             this.clb07.Name = "clb07";
-            this.clb07.IntegralHeight = false;
             this.clb07.Size = new System.Drawing.Size(509, 24);
             this.clb07.TabIndex = 27;
             // 
@@ -857,6 +804,7 @@
             this.clb04.CheckOnClick = true;
             this.clb04.ColumnWidth = 70;
             this.clb04.FormattingEnabled = true;
+            this.clb04.IntegralHeight = false;
             this.clb04.Items.AddRange(new object[] {
             "火矢",
             "贯穿",
@@ -868,7 +816,6 @@
             this.clb04.Location = new System.Drawing.Point(68, 132);
             this.clb04.MultiColumn = true;
             this.clb04.Name = "clb04";
-            this.clb04.IntegralHeight = false;
             this.clb04.Size = new System.Drawing.Size(509, 24);
             this.clb04.TabIndex = 25;
             // 
@@ -886,6 +833,7 @@
             this.clb05.CheckOnClick = true;
             this.clb05.ColumnWidth = 70;
             this.clb05.FormattingEnabled = true;
+            this.clb05.IntegralHeight = false;
             this.clb05.Items.AddRange(new object[] {
             "进击",
             "冲击",
@@ -897,7 +845,6 @@
             this.clb05.Location = new System.Drawing.Point(68, 158);
             this.clb05.MultiColumn = true;
             this.clb05.Name = "clb05";
-            this.clb05.IntegralHeight = false;
             this.clb05.Size = new System.Drawing.Size(509, 24);
             this.clb05.TabIndex = 23;
             // 
@@ -915,6 +862,7 @@
             this.clb01.CheckOnClick = true;
             this.clb01.ColumnWidth = 70;
             this.clb01.FormattingEnabled = true;
+            this.clb01.IntegralHeight = false;
             this.clb01.Items.AddRange(new object[] {
             "开垦",
             "商才",
@@ -926,7 +874,6 @@
             this.clb01.Location = new System.Drawing.Point(68, 52);
             this.clb01.MultiColumn = true;
             this.clb01.Name = "clb01";
-            this.clb01.IntegralHeight = false;
             this.clb01.Size = new System.Drawing.Size(509, 24);
             this.clb01.TabIndex = 21;
             // 
@@ -989,12 +936,12 @@
             this.clb11.CheckOnClick = true;
             this.clb11.ColumnWidth = 70;
             this.clb11.FormattingEnabled = true;
+            this.clb11.IntegralHeight = false;
             this.clb11.Items.AddRange(new object[] {
             "医治"});
             this.clb11.Location = new System.Drawing.Point(68, 314);
             this.clb11.MultiColumn = true;
             this.clb11.Name = "clb11";
-            this.clb11.IntegralHeight = false;
             this.clb11.Size = new System.Drawing.Size(509, 24);
             this.clb11.TabIndex = 12;
             // 
@@ -1003,6 +950,7 @@
             this.clb10.CheckOnClick = true;
             this.clb10.ColumnWidth = 70;
             this.clb10.FormattingEnabled = true;
+            this.clb10.IntegralHeight = false;
             this.clb10.Items.AddRange(new object[] {
             "情报",
             "间谍",
@@ -1014,7 +962,6 @@
             this.clb10.Location = new System.Drawing.Point(68, 288);
             this.clb10.MultiColumn = true;
             this.clb10.Name = "clb10";
-            this.clb10.IntegralHeight = false;
             this.clb10.Size = new System.Drawing.Size(509, 24);
             this.clb10.TabIndex = 11;
             // 
@@ -1023,6 +970,7 @@
             this.clb09.CheckOnClick = true;
             this.clb09.ColumnWidth = 70;
             this.clb09.FormattingEnabled = true;
+            this.clb09.IntegralHeight = false;
             this.clb09.Items.AddRange(new object[] {
             "攻心",
             "扰乱",
@@ -1034,7 +982,6 @@
             this.clb09.Location = new System.Drawing.Point(68, 262);
             this.clb09.MultiColumn = true;
             this.clb09.Name = "clb09";
-            this.clb09.IntegralHeight = false;
             this.clb09.Size = new System.Drawing.Size(509, 24);
             this.clb09.TabIndex = 10;
             // 
@@ -1043,6 +990,7 @@
             this.clb06.CheckOnClick = true;
             this.clb06.ColumnWidth = 70;
             this.clb06.FormattingEnabled = true;
+            this.clb06.IntegralHeight = false;
             this.clb06.Items.AddRange(new object[] {
             "涉水",
             "穿梭",
@@ -1054,7 +1002,6 @@
             this.clb06.Location = new System.Drawing.Point(68, 184);
             this.clb06.MultiColumn = true;
             this.clb06.Name = "clb06";
-            this.clb06.IntegralHeight = false;
             this.clb06.Size = new System.Drawing.Size(509, 24);
             this.clb06.TabIndex = 9;
             // 
@@ -1063,6 +1010,7 @@
             this.clb03.CheckOnClick = true;
             this.clb03.ColumnWidth = 70;
             this.clb03.FormattingEnabled = true;
+            this.clb03.IntegralHeight = false;
             this.clb03.Items.AddRange(new object[] {
             "大盾",
             "枪阵",
@@ -1074,7 +1022,6 @@
             this.clb03.Location = new System.Drawing.Point(68, 106);
             this.clb03.MultiColumn = true;
             this.clb03.Name = "clb03";
-            this.clb03.IntegralHeight = false;
             this.clb03.Size = new System.Drawing.Size(509, 24);
             this.clb03.TabIndex = 8;
             // 
@@ -1083,6 +1030,7 @@
             this.clb02.CheckOnClick = true;
             this.clb02.ColumnWidth = 70;
             this.clb02.FormattingEnabled = true;
+            this.clb02.IntegralHeight = false;
             this.clb02.Items.AddRange(new object[] {
             "驰骋",
             "穿林",
@@ -1094,7 +1042,6 @@
             this.clb02.Location = new System.Drawing.Point(68, 80);
             this.clb02.MultiColumn = true;
             this.clb02.Name = "clb02";
-            this.clb02.IntegralHeight = false;
             this.clb02.Size = new System.Drawing.Size(509, 24);
             this.clb02.TabIndex = 7;
             // 
@@ -1103,6 +1050,7 @@
             this.clb00.CheckOnClick = true;
             this.clb00.ColumnWidth = 70;
             this.clb00.FormattingEnabled = true;
+            this.clb00.IntegralHeight = false;
             this.clb00.Items.AddRange(new object[] {
             "农业",
             "商业",
@@ -1114,7 +1062,6 @@
             this.clb00.Location = new System.Drawing.Point(68, 26);
             this.clb00.MultiColumn = true;
             this.clb00.Name = "clb00";
-            this.clb00.IntegralHeight = false;
             this.clb00.Size = new System.Drawing.Size(509, 24);
             this.clb00.TabIndex = 6;
             // 
@@ -2650,6 +2597,64 @@
             this.rtbCriticalStrike.TabIndex = 20;
             this.rtbCriticalStrike.Text = "";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnDeleteAllTitle);
+            this.groupBox1.Controls.Add(this.btnDeleteSelectedTitle);
+            this.groupBox1.Controls.Add(this.btnAddTitle);
+            this.groupBox1.Controls.Add(this.cbAllTitle);
+            this.groupBox1.Controls.Add(this.lbTitle);
+            this.groupBox1.Location = new System.Drawing.Point(625, 18);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 244);
+            this.groupBox1.TabIndex = 161;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "称号列表";
+            // 
+            // btnDeleteAllTitle
+            // 
+            this.btnDeleteAllTitle.Location = new System.Drawing.Point(103, 207);
+            this.btnDeleteAllTitle.Name = "btnDeleteAllTitle";
+            this.btnDeleteAllTitle.Size = new System.Drawing.Size(91, 23);
+            this.btnDeleteAllTitle.TabIndex = 4;
+            this.btnDeleteAllTitle.Text = "删除全部";
+            this.btnDeleteAllTitle.UseVisualStyleBackColor = true;
+            // 
+            // btnDeleteSelectedTitle
+            // 
+            this.btnDeleteSelectedTitle.Location = new System.Drawing.Point(6, 207);
+            this.btnDeleteSelectedTitle.Name = "btnDeleteSelectedTitle";
+            this.btnDeleteSelectedTitle.Size = new System.Drawing.Size(91, 23);
+            this.btnDeleteSelectedTitle.TabIndex = 3;
+            this.btnDeleteSelectedTitle.Text = "删除选中";
+            this.btnDeleteSelectedTitle.UseVisualStyleBackColor = true;
+            // 
+            // btnAddTitle
+            // 
+            this.btnAddTitle.Location = new System.Drawing.Point(135, 169);
+            this.btnAddTitle.Name = "btnAddTitle";
+            this.btnAddTitle.Size = new System.Drawing.Size(55, 23);
+            this.btnAddTitle.TabIndex = 2;
+            this.btnAddTitle.Text = "添加";
+            this.btnAddTitle.UseVisualStyleBackColor = true;
+            // 
+            // cbAllTitle
+            // 
+            this.cbAllTitle.FormattingEnabled = true;
+            this.cbAllTitle.Location = new System.Drawing.Point(6, 171);
+            this.cbAllTitle.Name = "cbAllTitle";
+            this.cbAllTitle.Size = new System.Drawing.Size(121, 20);
+            this.cbAllTitle.TabIndex = 1;
+            // 
+            // lbTitle
+            // 
+            this.lbTitle.FormattingEnabled = true;
+            this.lbTitle.ItemHeight = 12;
+            this.lbTitle.Location = new System.Drawing.Point(6, 17);
+            this.lbTitle.Name = "lbTitle";
+            this.lbTitle.Size = new System.Drawing.Size(184, 148);
+            this.lbTitle.TabIndex = 0;
+            // 
             // frmEditPerson
             // 
             this.ClientSize = new System.Drawing.Size(841, 605);
@@ -2664,7 +2669,6 @@
             this.Load += new System.EventHandler(this.frmEditPerson_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmEditPerson_FormClosed);
             this.tpSkill.ResumeLayout(false);
-            this.tpSkill.PerformLayout();
             this.gbStunt.ResumeLayout(false);
             this.gbSkills.ResumeLayout(false);
             this.gbSkills.PerformLayout();
@@ -2678,6 +2682,7 @@
             this.tabPerson.ResumeLayout(false);
             this.tpTextMessage.ResumeLayout(false);
             this.tpTextMessage.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3200,24 +3205,22 @@
 
         private void InitializeTitleData(Person p)
         {
+            foreach (Title title in p.RealTitles)
+            {
+                this.lbStunt.Items.Add(title);
+            }
             foreach (Title title in p.Scenario.GameCommonData.AllTitles.Titles.Values)
             {
-                if (title.Kind == TitleKind.个人)
-                {
-                    this.cbPersonalTitle.Items.Add(title);
-                }
-                else if (title.Kind == TitleKind.战斗)
-                {
-                    this.cbCombatTitle.Items.Add(title);
-                }
+                this.cbAllStunt.Items.Add(title);
             }
-            if (p.PersonalTitle != null)
+        }
+
+        private void RefreshTitleList()
+        {
+            this.lbTitle.Items.Clear();
+            foreach (Title title in this.person.RealTitles)
             {
-                this.cbPersonalTitle.SelectedItem = p.PersonalTitle;
-            }
-            if (p.CombatTitle != null)
-            {
-                this.cbCombatTitle.SelectedItem = p.CombatTitle;
+                this.lbTitle.Items.Add(title);
             }
         }
 

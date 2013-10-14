@@ -4,8 +4,7 @@
     {
         Skill,
         Stunt,
-        PersonalTitle,
-        CombatTitle,
+        Title,
         Treasure,
         Characteristics,
         Facility,

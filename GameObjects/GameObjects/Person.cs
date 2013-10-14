@@ -42,7 +42,6 @@
         public int ChanceOfNoCapture;
         public CharacterKind Character;
         private PersonList closePersons = new PersonList();
-        public Title RealCombatTitle;
         private int command;
         private float commandExperience;
         public Person ConvincingPerson;
@@ -133,7 +132,6 @@
         private Point? outsideDestination;
         private OutsideTaskKind outsideTask;
         private int personalLoyalty;
-        public Title RealPersonalTitle;
         public Biography PersonBiography;
         public TextMessage PersonTextMessage;
         private int pictureIndex;
@@ -187,6 +185,7 @@
         private int yearBorn;
         private int yearDead;
         private Dictionary<Person, int> relations = new Dictionary<Person,int>();
+        public List<Title> RealTitles = new List<Title>();
 
         private PersonStatus status;
 
@@ -256,30 +255,45 @@
                     && (this.Age > t.Level * 3 || this.Age >= 15);
         }
 
-        public Title PersonalTitle
+        public List<Title> Titles
         {
             get
             {
-                if (!GlobalVariables.EnableAgeAbilityFactor) return this.RealPersonalTitle;
-                if (this.CanOwnTitleByAge(this.RealPersonalTitle))
+                List<Title> result = new List<Title>();
+                foreach (Title t in this.RealTitles)
                 {
-                    return this.RealPersonalTitle;
+                    if (!GlobalVariables.EnableAgeAbilityFactor || this.CanOwnTitleByAge(t))
+                    {
+                        result.Add(t);
+                    }
                 }
-                return null;
+                return result;
             }
         }
 
-        public Title CombatTitle
+        public int TotalTitleLevel
         {
             get
             {
-                if (!GlobalVariables.EnableAgeAbilityFactor) return this.RealCombatTitle;
-                if (this.CanOwnTitleByAge(this.RealCombatTitle))
+                int result = 0;
+                foreach (Title t in this.Titles)
                 {
-                    return this.RealCombatTitle;
+                    result += t.Level;
                 }
-                return null;
+                return result;
             }
+        }
+
+        public Title getTitleOfKind(int kind)
+        {
+            foreach (Title t in this.Titles)
+            {
+                if (t.Kind == kind)
+                {
+                    return t;
+                }
+            }
+            return null;
         }
 
         public int YearJoin{ get; set; }
@@ -552,6 +566,30 @@
 
         public event CreateSister OnCreateSister;
 
+        public void LoadTitleFromString(String s, TitleTable allTitles)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = s.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            Title title = null;
+            for (int i = 0; i < strArray.Length; i++)
+            {
+                if (allTitles.Titles.TryGetValue(int.Parse(strArray[i]), out title))
+                {
+                    this.Titles.Add(title);
+                }
+            }
+        }
+
+        public String SaveTitleToString()
+        {
+            String s = "";
+            foreach (Title t in this.Titles)
+            {
+                s += t.ID + " ";
+            }
+            return s;
+        }
+
         public double TirednessFactor
         {
             get
@@ -799,25 +837,17 @@
 
         public void ApplyTitles()
         {
-            if (this.PersonalTitle != null)
+            foreach (Title t in this.Titles)
             {
-                this.PersonalTitle.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.PersonalTitle, 0);
-            }
-            if (this.CombatTitle != null)
-            {
-                this.CombatTitle.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.CombatTitle, 0);
+                t.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Title, t.ID);
             }
         }
 
         public void PurifyTitles()
         {
-            if (this.PersonalTitle != null)
+            foreach (Title t in this.Titles)
             {
-                this.PersonalTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.PersonalTitle, 0);
-            }
-            if (this.CombatTitle != null)
-            {
-                this.CombatTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.CombatTitle, 0);
+                t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Title, t.ID);
             }
         }
 
@@ -2370,69 +2400,32 @@
             }
         }
 
-        public int StudyablePersonalTitleCount
+        public String TitleNames
         {
             get
             {
-                int result = 0;
-                foreach (Title t in base.Scenario.GameCommonData.AllTitles.Titles.Values)
+                String s = "";
+                foreach (Title t in this.Titles)
                 {
-                    if (this.PersonalTitle != t && !t.Combat && t.CanLearn(this))
-                    {
-                        result++;
-                    }
+                    s += t.Name + " ";
                 }
-                return result;
+                return s;
             }
         }
 
-        public int StudyableCombatTitleCount
+        public int StudyableTitleCount
         {
             get
             {
-                int result = 0;
-                foreach (Title t in base.Scenario.GameCommonData.AllTitles.Titles.Values)
-                {
-                    if (this.CombatTitle != t && t.Combat && t.CanLearn(this))
-                    {
-                        result++;
-                    }
-                }
-                return result;
+                return this.GetStudyTitleList().Count;
             }
         }
 
-        public int StudyableHigherLevelPersonalTitleCount
+        public int StudyableHigherLevelTitleCount
         {
             get
             {
-                if (this.PersonalTitle == null) return this.StudyablePersonalTitleCount;
-                int result = 0;
-                foreach (Title t in base.Scenario.GameCommonData.AllTitles.Titles.Values)
-                {
-                    if (this.PersonalTitle != t && !t.Combat && t.Level > this.PersonalTitle.Level && t.CanLearn(this))
-                    {
-                        result++;
-                    }
-                }
-                return result;
-            }
-        }
-
-        public int StudyableHigherLevelCombatTitleCount
-        {
-            get
-            {
-                if (this.CombatTitle == null) return this.StudyableCombatTitleCount;
-                int result = 0;
-                foreach (Title t in base.Scenario.GameCommonData.AllTitles.Titles.Values)
-                {
-                    if (this.CombatTitle != t && t.Combat && t.Level > this.CombatTitle.Level && t.CanLearn(this))
-                    {
-                        result++;
-                    }
-                }
-                return result;
+                return this.HigherLevelLearnableTitle.Count;
             }
         }
 
@@ -2494,28 +2487,18 @@
                 bool flag = false;
                 if (GameObject.Random((this.StudyingTitle.Level * 2) + 8) >= (this.StudyingTitle.Level * 2 - Parameters.LearnTitleSuccessRate))
                 {
-                    if (this.StudyingTitle.Kind == TitleKind.个人)
+                    foreach (Title t in this.RealTitles)
                     {
-                        if (this.PersonalTitle != null)
+                        if (t.Kind == this.StudyingTitle.Kind)
                         {
-                            this.PersonalTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.PersonalTitle, 0);
+                            t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Title, t.ID);
                             flag = true;
                         }
-                        this.RealPersonalTitle = this.StudyingTitle;
+                        this.RealTitles.Remove(t);
+                        break;
                     }
-                    else
-                    {
-                        if (this.StudyingTitle.Kind != TitleKind.战斗)
-                        {
-                            return;
-                        }
-                        if (this.CombatTitle != null)
-                        {
-                            this.CombatTitle.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.CombatTitle, 0);
-                            flag = true;
-                        }
-                        this.RealCombatTitle = this.StudyingTitle;
-                    }
+                    this.RealTitles.Add(this.StudyingTitle);
+
                     if (flag)
                     {
                         this.ApplyTitles();
@@ -2537,15 +2520,6 @@
                 this.StudyingTitle = null;
                 this.ManualStudy = false;
             }
-        }
-
-        public GameObjectList GetCombatTitleInfluenceList()
-        {
-            if (this.CombatTitle == null)
-            {
-                return null;
-            }
-            return this.CombatTitle.GetInfluenceList();
         }
 
         public GameObjectList GetHirableFactionList()
@@ -2596,15 +2570,6 @@
 
         }
 
-        public GameObjectList GetPersonalTitleInfluenceList()
-        {
-            if (this.PersonalTitle == null)
-            {
-                return null;
-            }
-            return this.PersonalTitle.GetInfluenceList();
-        }
-
         public GameObjectList GetSkillList()
         {
             return this.Skills.GetSkillList();
@@ -2625,7 +2590,17 @@
                     this.StudyStuntList.Add(stunt);
                 }
             }
-            return this.StudyStuntList;
+            return StudyStuntList;
+        }
+
+        public GameObjectList GetTitleList()
+        {
+            GameObjectList result = new GameObjectList();
+            foreach (Title t in this.Titles)
+            {
+                result.Add(t);
+            }
+            return result;
         }
 
         public GameObjectList GetStudyTitleList()
@@ -2633,12 +2608,12 @@
             this.StudyTitleList.Clear();
             foreach (Title title in base.Scenario.GameCommonData.AllTitles.Titles.Values)
             {
-                if (((title != this.PersonalTitle) && (title != this.CombatTitle)) && title.CanLearn(this))
+                if (!this.RealTitles.Contains(title) && title.CanLearn(this))
                 {
                     this.StudyTitleList.Add(title);
                 }
             }
-            return this.StudyTitleList;
+            return StudyTitleList;
         }
 
         public int GetWorkAbility(ArchitectureWorkKind workKind)
@@ -4207,22 +4182,26 @@
             return result;
         }
 
-        public bool MilitaryTypePersonalTitle(MilitaryType kind)
+        public bool HasMilitaryKindTitle(MilitaryKind kind)
         {
-            if (this.PersonalTitle == null) return false;
-            if (this.PersonalTitle.Combat && (this.PersonalTitle.MilitaryTypeOnly == kind || this.PersonalTitle.MilitaryTypeOnly == MilitaryType.其他))
+            foreach (Title t in this.Titles)
             {
-                return true;
+                if (t.MilitaryKindOnly == kind.ID)
+                {
+                    return true;
+                }
             }
             return false;
         }
 
-        public bool MilitaryTypeCombatTitle(MilitaryType kind)
+        public bool HasMilitaryTypeTitle(MilitaryType kind)
         {
-            if (this.CombatTitle == null) return false;
-            if (this.CombatTitle.Combat && (this.CombatTitle.MilitaryTypeOnly == kind || this.CombatTitle.MilitaryTypeOnly == MilitaryType.其他))
+            foreach (Title t in this.Titles)
             {
-                return true;
+                if (t.MilitaryTypeOnly == kind || t.MilitaryTypeOnly == MilitaryType.其他)
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -4258,39 +4237,6 @@
                 return num;
             }
         }
-
-        public int CombatTitleInfluenceCount
-        {
-            get
-            {
-                if (this.CombatTitle != null)
-                {
-                    return this.CombatTitle.InfluenceCount;
-                }
-                return 0;
-            }
-        }
-
-        public string CombatTitleString
-        {
-            get
-            {
-                if (this.CombatTitle != null)
-                {
-                    return this.CombatTitle.Name;
-                }
-                return "----";
-            }
-        }
-
-        public int CombatTitleLevel
-        {
-            get
-            {
-                return this.CombatTitle != null ? this.CombatTitle.Level : 0;
-            }
-        }
-
 
         public int Command
         {
@@ -4470,14 +4416,52 @@
             }
         }
 
+        public int TitleMerit
+        {
+            get
+            {
+                int result = 0;
+                foreach (Title t in this.Titles)
+                {
+                    result += t.Merit;
+                }
+                return result;
+            }
+        }
+
+        public int TitleFightingMerit
+        {
+            get
+            {
+                int result = 0;
+                foreach (Title t in this.Titles)
+                {
+                    result += t.FightingMerit;
+                }
+                return result;
+            }
+        }
+
+        public int TitleSubofficerMerit
+        {
+            get
+            {
+                int result = 0;
+                foreach (Title t in this.Titles)
+                {
+                    result += t.SubOfficerMerit;
+                }
+                return result;
+            }
+        }
+
         public int FightingForce
         {
             get
             {
                 return (int)((this.Character.IntelligenceRate * (this.Strength * (1 - GlobalVariables.LeadershipOffenceRate) + this.Command * (GlobalVariables.LeadershipOffenceRate + 1)) 
                     + (1 - this.Character.IntelligenceRate) * this.Intelligence * 0.5) * 
-                    (100 + (this.PersonalTitle != null ? this.PersonalTitle.FightingMerit : 0) 
-                    + (this.CombatTitle != null ? this.CombatTitle.FightingMerit : 0) 
+                    (100 + this.TitleFightingMerit
                     + this.TreasureMerit + this.CombatSkillMerit + this.StuntCount * 30));
             }
         }
@@ -4487,8 +4471,7 @@
             get
             {
                 return (int)((this.Strength * 0.25 + this.Command * 0.25 + this.Intelligence * 2.5) *
-                    (100 + (this.PersonalTitle != null ? this.PersonalTitle.SubOfficerMerit : 0)
-                    + (this.CombatTitle != null ? this.CombatTitle.SubOfficerMerit : 0)
+                    (100 + this.TitleSubofficerMerit
                     + this.TreasureMerit + this.SubOfficerSkillMerit));
             }
         }
@@ -4612,15 +4595,18 @@
             }
         }
 
-        public bool HasLeaderValidCombatTitle
+        public bool HasLeaderValidTitle
         {
             get
             {
-                if (this.CombatTitle == null)
+                foreach (Title t in this.Titles)
                 {
-                    return false;
+                    if (t.Influences.HasTroopLeaderValidInfluence)
+                    {
+                        return true;
+                    }
                 }
-                return this.CombatTitle.Influences.HasTroopLeaderValidInfluence;
+                return false;
             }
         }
 
@@ -4674,45 +4660,29 @@
         {
             get
             {
-                foreach (Title title in base.Scenario.GameCommonData.AllTitles.Titles.Values)
-                {
-                    if (((title != this.PersonalTitle) && (title != this.CombatTitle)) && title.CanLearn(this))
-                    {
-                        return true;
-                    }
-                }
-                return false;
+                return this.StudyableTitleCount > 0;
             }
         }
 
-        public Title HigherLevelLearnableTitle
+        public List<Title> HigherLevelLearnableTitle
         {
             get
             {
-                Title title = null;
-                foreach (Title title2 in base.Scenario.GameCommonData.AllTitles.Titles.Values)
+                List<Title> title = new List<Title>();
+                foreach (Title candidate in base.Scenario.GameCommonData.AllTitles.Titles.Values)
                 {
-                    if ((title2.Kind == TitleKind.个人) && (((this.PersonalTitle == null) || (title2.Level > this.PersonalTitle.Level)) && title2.CanLearn(this)))
+                    HashSet<int> hasKind = new HashSet<int>();
+                    foreach (Title t in this.Titles)
                     {
-                        if ((title == null) || (title.Level < title2.Level))
+                        if (t.Kind == candidate.Kind && candidate.Level > t.Level && candidate.CanLearn(this))
                         {
-                            title = title2;
+                            title.Add(candidate);
                         }
-                        /*else if ((title.Level == title2.Level) && GameObject.Chance(50))
-                        {
-                            title = title2;
-                        }*/
+                        hasKind.Add(t.Kind);
                     }
-                    if ((title2.Kind == TitleKind.战斗) && (((this.CombatTitle == null) || (title2.Level > this.CombatTitle.Level)) && title2.CanLearn(this)))
+                    if (!hasKind.Contains(candidate.Kind) && candidate.CanLearn(this))
                     {
-                        if ((title == null) || (title.Level < title2.Level))
-                        {
-                            title = title2;
-                        }
-                        /*else if (GameObject.Chance(50))
-                        {
-                            title = title2;
-                        }*/
+                        title.Add(candidate);
                     }
                 }
                 return title;
@@ -4914,8 +4884,7 @@
             get
             {
                 return (this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) * 
-                    (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) 
-                    + this.AllSkillMerit + this.TreasureMerit);
+                    (100 + this.TitleMerit + this.AllSkillMerit + this.TreasureMerit);
             }
         }
 
@@ -4923,10 +4892,8 @@
         {
             get
             {
-                return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + 
-                    this.UntiredPolitics + this.UntiredGlamour) * 
-                    (100 + ((this.PersonalTitle != null) ? this.PersonalTitle.Merit : 0) + ((this.CombatTitle != null) ? this.CombatTitle.Merit : 0) 
-                    + this.AllSkillMerit);
+                return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + this.UntiredPolitics + this.UntiredGlamour) *
+                    (100 + this.TitleMerit + this.AllSkillMerit);
             }
         }
 
@@ -5209,38 +5176,6 @@
             set
             {
                 this.personalLoyalty = value;
-            }
-        }
-
-        public int PersonalTitleInfluenceCount
-        {
-            get
-            {
-                if (this.PersonalTitle != null)
-                {
-                    return this.PersonalTitle.InfluenceCount;
-                }
-                return 0;
-            }
-        }
-
-        public string PersonalTitleString
-        {
-            get
-            {
-                if (this.PersonalTitle != null)
-                {
-                    return this.PersonalTitle.Name;
-                }
-                return "----";
-            }
-        }
-
-        public int PersonalTitleLevel
-        {
-            get
-            {
-                return this.PersonalTitle != null ? this.PersonalTitle.Level : 0;
             }
         }
 
@@ -6347,78 +6282,58 @@
                 }
             }
 
-            r.RealPersonalTitle = null;
-            if (GameObject.Chance(20))
+            GameObjectList rawTitles = father.Scenario.GameCommonData.AllTitles.GetTitleList().GetRandomList();
+            Dictionary<int, List<Title>> titles = new Dictionary<int, List<Title>>();
+            foreach (Title t in rawTitles)
             {
-                r.RealPersonalTitle = GameObject.Chance(50) ? father.PersonalTitle : mother.PersonalTitle;
-                if (r.RealPersonalTitle != null && !r.RealPersonalTitle.CanBeBorn(r)) r.RealPersonalTitle = null;
-            }
-            
-            if (r.RealPersonalTitle == null)
-            {
-                GameObjectList titles = father.Scenario.GameCommonData.AllTitles.GetTitleList().GetRandomList();
-                int levelTendency = ((father.PersonalTitle == null ? 0 : father.PersonalTitle.Level) + (mother.PersonalTitle == null ? 0 : mother.PersonalTitle.Level)) / 2
-                    + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
-                foreach (Title t in titles)
+                if (!titles.ContainsKey(t.Kind))
                 {
-                    if (!t.CanBeBorn(r)) continue;
-                    if (t.Kind == TitleKind.个人 && (GameObject.Random(t.Level * t.Level + titles.Count / 8) == 0 ||
-                        (t.Level == levelTendency && GameObject.Chance(50)) || (t.Level - 1 == levelTendency && GameObject.Chance(25)) || (t.Level + 1 == levelTendency && GameObject.Chance(25))))
+                    titles[t.Kind] = new List<Title>();
+                }
+                titles[t.Kind].Add(t);
+            }
+            foreach (KeyValuePair<int, List<Title>> i in titles)
+            {
+                Title ft = father.getTitleOfKind(i.Key);
+                Title mt = mother.getTitleOfKind(i.Key);
+                int levelTendency = (((ft == null ? 0 : ft.Level) + (mt == null ? 0 : mt.Level)) / 2) 
+                    + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
+
+                if (GameObject.Chance(20) && ft != null && ft.CanBeBorn(r))
+                {
+                    r.RealTitles.Add(ft);
+                }
+                else if (GameObject.Chance(25) && mt != null && mt.CanBeBorn(r)) //20% of remaining 80% = 25%
+                {
+                    r.RealTitles.Add(mt);
+                }
+                else
+                {
+                    int targetLevel = levelTendency + GameObject.Random(3) - 1;
+                    if (targetLevel <= 0) continue;
+
+                    List<Title> candidates = new List<Title>();
+                    List<Title> lesserCandidates = new List<Title>();
+
+                    foreach (Title t in i.Value)
                     {
-                        if (t.Combat)
+                        if (t.Level == targetLevel && t.CanBeBorn(r))
                         {
-                            if (GameObject.Chance((r.BaseCommand + r.BaseStrength) / 2))
-                            {
-                                r.RealPersonalTitle = t;
-                                break;
-                            }
+                            candidates.Add(t);
                         }
-                        else
+                        else if (t.Level < targetLevel && t.CanBeBorn(r))
                         {
-                            if (GameObject.Chance((r.BaseIntelligence + r.BasePolitics) / 2))
-                            {
-                                r.RealPersonalTitle = t;
-                                break;
-                            }
+                            lesserCandidates.Add(t);
                         }
                     }
-                }
-            }
 
-            r.RealCombatTitle = null;
-            if (GameObject.Chance(20))
-            {
-                r.RealCombatTitle = GameObject.Chance(50) ? father.CombatTitle : mother.CombatTitle;
-                if (r.RealCombatTitle != null && !r.RealCombatTitle.CanBeBorn(r)) r.RealCombatTitle = null;
-            }
-            
-            if (r.RealCombatTitle == null)
-            {
-                GameObjectList titles = father.Scenario.GameCommonData.AllTitles.GetTitleList().GetRandomList();
-                int levelTendency = ((father.CombatTitle == null ? 0 : father.CombatTitle.Level) + (mother.CombatTitle == null ? 0 : mother.CombatTitle.Level)) / 2
-                    + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
-                foreach (Title t in titles)
-                {
-                    if (!t.CanBeBorn(r)) continue;
-                    if (t.Kind == TitleKind.战斗 && (GameObject.Random(t.Level * t.Level + titles.Count / 8) == 0 ||
-                        (t.Level == levelTendency && GameObject.Chance(50)) || (t.Level - 1 == levelTendency && GameObject.Chance(25)) || (t.Level + 1 == levelTendency && GameObject.Chance(25))))
+                    if (candidates.Count > 0)
                     {
-                        if (t.Combat)
-                        {
-                            if (GameObject.Chance((r.BaseCommand + r.BaseStrength + r.BaseIntelligence) / 3))
-                            {
-                                r.RealCombatTitle = t;
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            if (GameObject.Chance((r.BaseIntelligence + r.BasePolitics) / 2))
-                            {
-                                r.RealCombatTitle = t;
-                                break;
-                            }
-                        }
+                        r.RealTitles.Add(candidates[GameObject.Random(candidates.Count)]);
+                    }
+                    else if (lesserCandidates.Count > 0)
+                    {
+                        r.RealTitles.Add(lesserCandidates[GameObject.Random(lesserCandidates.Count)]);
                     }
                 }
             }

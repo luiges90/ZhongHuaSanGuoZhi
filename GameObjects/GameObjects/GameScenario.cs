@@ -2532,8 +2532,23 @@
                 hatedIds.Add(person.ID, intArray);
                
                 person.Skills.LoadFromString(this.GameCommonData.AllSkills, reader["Skills"].ToString());
-                person.RealPersonalTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["PersonalTitle"]);
-                person.RealCombatTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["CombatTitle"]);
+                try
+                {
+                    person.LoadTitleFromString(reader["Title"].ToString(), this.GameCommonData.AllTitles);
+                }
+                catch
+                {
+                    Title t = this.GameCommonData.AllTitles.GetTitle((short)reader["PersonalTitle"]);
+                    if (t != null)
+                    {
+                        person.RealTitles.Add(t);
+                    }
+                    t = this.GameCommonData.AllTitles.GetTitle((short)reader["CombatTitle"]);
+                    if (t != null)
+                    {
+                        person.RealTitles.Add(t);
+                    }
+                }
                 person.StudyingTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["StudyingTitle"]);
                 person.huaiyun = (bool)reader["huaiyun"];
                 person.faxianhuaiyun = (bool)reader["faxianhuaiyun"];
@@ -4303,8 +4318,7 @@
                     row["HatedPersons"] = hatedStr;
 
                     row["Skills"] = person.Skills.SaveToString();
-                    row["PersonalTitle"] = (person.RealPersonalTitle != null) ? person.RealPersonalTitle.ID : -1;
-                    row["CombatTitle"] = (person.RealCombatTitle != null) ? person.RealCombatTitle.ID : -1;
+                    row["Title"] = person.SaveTitleToString();
                     row["StudyingTitle"] = (person.StudyingTitle != null) ? person.StudyingTitle.ID : -1;
                     row["Stunts"] = person.Stunts.SaveToString();
                     row["StudyingStunt"] = (person.StudyingStunt != null) ? person.StudyingStunt.ID : -1;

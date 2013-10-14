@@ -590,7 +590,7 @@
                 foreach (Person person in this.Persons)
                 {
                     if (person.WaitForFeiZi != null) continue;
-                    if ((!person.Selected && (person.Intelligence >= (0x4b - t.Leader.Calmness))) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidCombatTitle)))
+                    if ((!person.Selected && (person.Intelligence >= (0x4b - t.Leader.Calmness))) && (!t.Persons.HasGameObject(person) && ((((person.Strength < t.TroopStrength) && ((person.Intelligence - t.TroopIntelligence) >= 10)) && (person.FightingForce < t.Leader.FightingForce)) && !person.HasLeaderValidTitle)))
                     {
                         person.Selected = true;
                         result.Add(person);
@@ -606,7 +606,7 @@
                     if (person.WaitForFeiZi != null) continue;
                     if (!person.Selected && person.Strength >= 0x4b && !t.Persons.HasGameObject(person) && person.Closes(t.Leader) && 
                         person.Strength - t.TroopStrength >= 10 && person.FightingForce < t.Leader.FightingForce && 
-                        !person.HasLeaderValidCombatTitle)
+                        !person.HasLeaderValidTitle)
                     {
                         person.Selected = true;
                         result.Add(person);
@@ -622,7 +622,7 @@
                     if (person.WaitForFeiZi != null) continue;
                     if (!person.Selected && person.Command >= 0x4b && !t.Persons.HasGameObject(person) && person.Closes(t.Leader) && 
                         person.Command - t.TroopCommand >= 10 && person.FightingForce < t.Leader.FightingForce && 
-                        !person.HasLeaderValidCombatTitle)
+                        !person.HasLeaderValidTitle)
                     {
                         person.Selected = true;
                         result.Add(person);
@@ -634,7 +634,7 @@
             foreach (Person person in this.Persons)
             {
                 if (person.WaitForFeiZi != null) continue;
-                if ((!person.Selected && !t.Persons.HasGameObject(person)) && ((person.FightingForce < t.Leader.FightingForce) && !person.HasLeaderValidCombatTitle))
+                if ((!person.Selected && !t.Persons.HasGameObject(person)) && ((person.FightingForce < t.Leader.FightingForce) && !person.HasLeaderValidTitle))
                 {
                     int incrementPerDayOfCombativity = t.IncrementPerDayOfCombativity;
                     bool immunityOfCaptive = t.ImmunityOfCaptive;
@@ -653,13 +653,9 @@
                     {
                         s.Influences.PurifyInfluence(this, Applier.Skill, s.ID);
                     }
-                    if (person.PersonalTitle != null)
+                    foreach (Title i in person.Titles)
                     {
-                        person.PersonalTitle.Influences.PurifyInfluence(this, Applier.PersonalTitle, 0);
-                    }
-                    if (person.CombatTitle != null)
-                    {
-                        person.CombatTitle.Influences.PurifyInfluence(this, Applier.CombatTitle, 0);
+                        i.Influences.PurifyInfluence(this, Applier.Title, i.ID);
                     }
                     person.ApplySkills();
                     person.ApplyTitles();
@@ -3323,7 +3319,7 @@
                     legion.AddTroop(troop);
                     return troop;
                 }
-                if ((((military2.Leader != null) && (military2.LeaderExperience >= 10)) && (((military2.Leader.Strength >= 80) || (military2.Leader.Command >= 80)) || military2.Leader.HasLeaderValidCombatTitle))
+                if ((((military2.Leader != null) && (military2.LeaderExperience >= 10)) && (((military2.Leader.Strength >= 80) || (military2.Leader.Command >= 80)) || military2.Leader.HasLeaderValidTitle))
                     && this.Persons.HasGameObject(military2.Leader) && military2.Leader.WaitForFeiZi == null && military2.Leader.LocationTroop == null)
                 {
                     list2 = new PersonList();
@@ -3954,9 +3950,7 @@
                         {
                             continue;
                         }
-                        if ((((person.PersonalTitle != null) && (person.PersonalTitle.Level > 1)) && (person.CombatTitle != null)) && (person.CombatTitle.Level > 1)
-                            && person.TreasureCount < person.PersonalTitle.Level * Parameters.AITreasureCountCappedTitleLevelMultiply + Parameters.AITreasureCountCappedTitleLevelAdd
-                            && person.TreasureCount < person.CombatTitle.Level * Parameters.AITreasureCountCappedTitleLevelMultiply + Parameters.AITreasureCountCappedTitleLevelAdd)
+                        if (person.TreasureCount < person.TotalTitleLevel * Parameters.AITreasureCountCappedTitleLevelMultiply + Parameters.AITreasureCountCappedTitleLevelAdd)
                         {
                             foreach (Treasure treasure in this.BelongedFaction.Leader.Treasures.GetRandomList())
                             {
@@ -5895,7 +5889,7 @@
             {
                 result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(military.FollowedLeader, from.Persons, true), military, from.Position));
             }
-            else if ((((military.Leader != null) && (military.LeaderExperience >= 10)) && (((military.Leader.Strength >= 80) || (military.Leader.Command >= 80)) || military.Leader.HasLeaderValidCombatTitle))
+            else if ((((military.Leader != null) && (military.LeaderExperience >= 10)) && (((military.Leader.Strength >= 80) || (military.Leader.Command >= 80)) || military.Leader.HasLeaderValidTitle))
                 && from.Persons.HasGameObject(military.Leader) && military.Leader.LocationTroop == null)
             {
                 result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(military.Leader, from.Persons, true), military, from.Position));
@@ -5911,13 +5905,11 @@
                 {
                     if (!person.Selected)
                     {
-                        if ((person.PersonalTitle != null && military.Kind.ID == person.PersonalTitle.MilitaryKindOnly) ||
-                            (person.CombatTitle != null && military.Kind.ID == person.CombatTitle.MilitaryKindOnly))
+                        if (person.HasMilitaryKindTitle(military.Kind))
                         {
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
                         }
-                        else if ((person.PersonalTitle != null && military.Kind.Type == person.PersonalTitle.MilitaryTypeOnly) || 
-                            (person.CombatTitle != null && military.Kind.Type == person.CombatTitle.MilitaryTypeOnly))
+                        else if (person.HasMilitaryTypeTitle(military.Kind.Type))
                         {
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
                         } 
@@ -8882,10 +8874,10 @@
                         }
                         else if (GameObject.Chance(50))
                         {
-                            Title higherLevelLearnableTitle = person.HigherLevelLearnableTitle;
+                            List<Title> higherLevelLearnableTitle = person.HigherLevelLearnableTitle;
                             if (higherLevelLearnableTitle != null)
                             {
-                                person.GoForStudyTitle(higherLevelLearnableTitle);
+                                person.GoForStudyTitle(higherLevelLearnableTitle[GameObject.Random(higherLevelLearnableTitle.Count)]);
                             }
                         }
                         else if (base.Scenario.GameCommonData.AllStunts.Count > person.StuntCount)

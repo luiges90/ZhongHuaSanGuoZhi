@@ -10,7 +10,7 @@
 
         public override bool CheckConditionKind(Person person)
         {
-            return (((person.PersonalTitle == null) || (person.PersonalTitle.ID != this.number)) && ((person.CombatTitle == null) || (person.CombatTitle.ID != this.number)));
+            return !person.Titles.Contains(person.Scenario.GameCommonData.AllTitles.GetTitle(number));
         }
 
         public override void InitializeParameter(string parameter)

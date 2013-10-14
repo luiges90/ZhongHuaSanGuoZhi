@@ -57,13 +57,9 @@
             {
                 if (!person.Scenario.Preparing)
                 {
-                    if (person.CombatTitle != null)
+                    foreach (Title t in person.Titles)
                     {
-                        person.CombatTitle.Influences.PurifyInfluence(person, Applier.CombatTitle, 0);
-                    }
-                    if (person.PersonalTitle != null)
-                    {
-                        person.PersonalTitle.Influences.PurifyInfluence(person, Applier.PersonalTitle, 0);
+                        t.Influences.PurifyInfluence(person, Applier.Title, t.ID);
                     }
                     foreach (Skill s in person.Skills.GetSkillList())
                     {

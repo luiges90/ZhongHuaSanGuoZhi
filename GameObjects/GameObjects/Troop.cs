@@ -10415,18 +10415,6 @@
             }
         }
 
-        public string CombatTitleString
-        {
-            get
-            {
-                if (this.HasCombatTitle)
-                {
-                    return this.Leader.CombatTitle.Name;
-                }
-                return "----";
-            }
-        }
-
         public GameArea ContactArea
         {
             get
@@ -10827,7 +10815,7 @@
         {
             get
             {
-                return Math.Max(1, ((this.Offence + this.Defence) * (((((((((((((((((((((((((1 + (((this.CurrentArchitecture != null) && (this.CurrentArchitecture.Endurance > 0)) ? 10 : 0)) + (this.TroopIntelligence / 2)) + (this.Quantity / 500)) + (this.Combativity / 4)) + (this.HasCombatTitle ? (20 * this.Leader.CombatTitle.Level) : 0)) + (this.CombatMethods.Count * 5)) + (this.Stunts.Count * 20)) + this.CriticalStrikeChance) + this.AntiCriticalStrikeChance) + this.ChaosAfterCriticalStrikeChance) + (this.AvoidSurroundedChance / 2)) + this.ChaosAfterSurroundAttackChance) + this.StratagemChanceIncrement) + this.AntiStratagemChanceIncrement) + this.ChaosAfterStratagemSuccessChance) + (this.ChanceIncrementOfCriticalStrikeInViewArea * 4)) + (this.ChanceDecrementOfCriticalStrikeInViewArea * 4)) + (this.CombativityIncrementPerDayInViewArea * 4)) + (this.CombativityDecrementPerDayInViewArea * 4)) + (this.ChanceIncrementOfStratagemInViewArea * 4)) + (this.ChanceDecrementOfStratagemInViewArea * 4)) + ((int) (this.OffenceRateIncrementInViewArea * 100f))) + ((int) (this.OffenceRateDecrementInViewArea * 100f))) + ((int) (this.DefenceRateIncrementInViewArea * 100f))) + ((int) (this.DefenceRateDecrementInViewArea * 100f)))));
+                return Math.Max(1, ((this.Offence + this.Defence) * (((((((((((((((((((((((((1 + (((this.CurrentArchitecture != null) && (this.CurrentArchitecture.Endurance > 0)) ? 10 : 0)) + (this.TroopIntelligence / 2)) + (this.Quantity / 500)) + (this.Combativity / 4)) + this.Leader.TitleFightingMerit) + (this.CombatMethods.Count * 5)) + (this.Stunts.Count * 20)) + this.CriticalStrikeChance) + this.AntiCriticalStrikeChance) + this.ChaosAfterCriticalStrikeChance) + (this.AvoidSurroundedChance / 2)) + this.ChaosAfterSurroundAttackChance) + this.StratagemChanceIncrement) + this.AntiStratagemChanceIncrement) + this.ChaosAfterStratagemSuccessChance) + (this.ChanceIncrementOfCriticalStrikeInViewArea * 4)) + (this.ChanceDecrementOfCriticalStrikeInViewArea * 4)) + (this.CombativityIncrementPerDayInViewArea * 4)) + (this.CombativityDecrementPerDayInViewArea * 4)) + (this.ChanceIncrementOfStratagemInViewArea * 4)) + (this.ChanceDecrementOfStratagemInViewArea * 4)) + ((int) (this.OffenceRateIncrementInViewArea * 100f))) + ((int) (this.OffenceRateDecrementInViewArea * 100f))) + ((int) (this.DefenceRateIncrementInViewArea * 100f))) + ((int) (this.DefenceRateDecrementInViewArea * 100f)))));
             }
         }
 
@@ -10939,19 +10927,35 @@
             }
         }
 
+        public String CombatTitleString
+        {
+            get
+            {
+                if (this.Leader == null) return "----";
+                foreach (Title t in this.Leader.Titles)
+                {
+                    if (t.Kind == GlobalVariables.CombatKindTitle)
+                    {
+                        return t.Name;
+                    }
+                }
+                return "----";
+            }
+        }
+
         public bool HasCombatTitle
         {
             get
             {
-                return ((this.Leader != null) && (this.Leader.CombatTitle != null));
-            }
-        }
-
-        public bool HasPersonalTitle
-        {
-            get
-            {
-                return ((this.Leader != null) && (this.Leader.PersonalTitle != null));
+                if (this.Leader == null) return false;
+                foreach (Title t in this.Leader.Titles)
+                {
+                    if (t.Kind == GlobalVariables.CombatKindTitle)
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
         }
 
@@ -11536,7 +11540,7 @@
         {
             get
             {
-                return Math.Max(1, (((1 + this.Offence) + this.Defence) * (((((((((((1 + (((this.CurrentArchitecture != null) && (this.CurrentArchitecture.Endurance > 0)) ? 10 : 0)) + (this.Quantity / 500)) + (this.Combativity / 4)) + (this.HasCombatTitle ? (20 * this.Leader.CombatTitle.Level) : 0)) + (this.CombatMethods.Count * 5)) + (this.Stunts.Count * 20)) + this.CriticalStrikeChance) + this.AntiCriticalStrikeChance) + this.ChaosAfterCriticalStrikeChance) + (this.AvoidSurroundedChance / 2)) + this.ChaosAfterSurroundAttackChance)));
+                return Math.Max(1, (((1 + this.Offence) + this.Defence) * (((((((((((1 + (((this.CurrentArchitecture != null) && (this.CurrentArchitecture.Endurance > 0)) ? 10 : 0)) + (this.Quantity / 500)) + (this.Combativity / 4)) + this.Leader.TitleFightingMerit) + (this.CombatMethods.Count * 5)) + (this.Stunts.Count * 20)) + this.CriticalStrikeChance) + this.AntiCriticalStrikeChance) + this.ChaosAfterCriticalStrikeChance) + (this.AvoidSurroundedChance / 2)) + this.ChaosAfterSurroundAttackChance)));
             }
         }
 
@@ -11712,7 +11716,7 @@
         {
             get
             {
-                return (((1 + this.Offence) + this.Defence) * ((((((((((((((((((((((((((1 + (((this.CurrentArchitecture != null) && (this.CurrentArchitecture.Endurance > 0)) ? 10 : 0)) + (this.TroopIntelligence / 2)) + (this.Quantity / 500)) + (this.Combativity / 4)) + (this.HasPersonalTitle ? (this.Leader.PersonalTitle.Influences.HasInfluence(this.Army.Kind.TitleInfluence) ? 100 : 0) : 0)) + (this.HasCombatTitle ? ((20 * this.Leader.CombatTitle.Level) + (this.Leader.CombatTitle.Influences.HasInfluence(this.Army.Kind.TitleInfluence) ? 100 : 0)) : 0)) + (this.CombatMethods.Count * 5)) + (this.Stunts.Count * 20)) + this.CriticalStrikeChance) + this.AntiCriticalStrikeChance) + this.ChaosAfterCriticalStrikeChance) + (this.AvoidSurroundedChance / 2)) + this.ChaosAfterSurroundAttackChance) + this.StratagemChanceIncrement) + this.AntiStratagemChanceIncrement) + this.ChaosAfterStratagemSuccessChance) + (this.ChanceIncrementOfCriticalStrikeInViewArea * 4)) + (this.ChanceDecrementOfCriticalStrikeInViewArea * 4)) + (this.CombativityIncrementPerDayInViewArea * 4)) + (this.CombativityDecrementPerDayInViewArea * 4)) + (this.ChanceIncrementOfStratagemInViewArea * 4)) + (this.ChanceDecrementOfStratagemInViewArea * 4)) + ((int) (this.OffenceRateIncrementInViewArea * 100f))) + ((int) (this.OffenceRateDecrementInViewArea * 100f))) + ((int) (this.DefenceRateIncrementInViewArea * 100f))) + ((int) (this.DefenceRateDecrementInViewArea * 100f))));
+                return (((1 + this.Offence) + this.Defence) * ((((((((((((((((((((((((((1 + (((this.CurrentArchitecture != null) && (this.CurrentArchitecture.Endurance > 0)) ? 10 : 0)) + (this.TroopIntelligence / 2)) + (this.Quantity / 500)) + (this.Combativity / 4)) + this.Leader.TitleMerit)) + (this.CombatMethods.Count * 5)) + (this.Stunts.Count * 20)) + this.CriticalStrikeChance) + this.AntiCriticalStrikeChance) + this.ChaosAfterCriticalStrikeChance) + (this.AvoidSurroundedChance / 2)) + this.ChaosAfterSurroundAttackChance) + this.StratagemChanceIncrement) + this.AntiStratagemChanceIncrement) + this.ChaosAfterStratagemSuccessChance) + (this.ChanceIncrementOfCriticalStrikeInViewArea * 4)) + (this.ChanceDecrementOfCriticalStrikeInViewArea * 4)) + (this.CombativityIncrementPerDayInViewArea * 4)) + (this.CombativityDecrementPerDayInViewArea * 4)) + (this.ChanceIncrementOfStratagemInViewArea * 4)) + (this.ChanceDecrementOfStratagemInViewArea * 4)) + ((int) (this.OffenceRateIncrementInViewArea * 100f))) + ((int) (this.OffenceRateDecrementInViewArea * 100f))) + ((int) (this.DefenceRateIncrementInViewArea * 100f))) + ((int) (this.DefenceRateDecrementInViewArea * 100f))));
             }
         }
 

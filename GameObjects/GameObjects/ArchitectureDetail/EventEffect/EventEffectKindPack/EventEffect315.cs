@@ -10,17 +10,12 @@
         public override void ApplyEffectKind(Person person, Event e)
         {
             GameObjects.PersonDetail.Title title = person.Scenario.GameCommonData.AllTitles.GetTitle(increment);
-            if (person.CombatTitle == title)
+
+            if (person.RealTitles.Contains(title))
             {
-                person.RealCombatTitle = null;
-                title.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.CombatTitle, 0);
+                title.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.Title, title.ID);
+                person.RealTitles.Remove(title);
             }
-            else if (person.PersonalTitle == title)
-            {
-                person.RealPersonalTitle = null;
-                title.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.PersonalTitle, 0);
-            }
-            
         }
 
         public override void InitializeParameter(string parameter)

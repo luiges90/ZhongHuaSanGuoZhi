@@ -309,17 +309,13 @@
                 {
                     foreach (Person person in this.CreatingPersons)
                     {
-                        if (person.CombatTitle != null)
-                        {
-                            person.CombatTitle.Influences.PurifyInfluence(person, Applier.CombatTitle, 0);
-                        }
-                        if (person.PersonalTitle != null)
-                        {
-                            person.PersonalTitle.Influences.PurifyInfluence(person, Applier.PersonalTitle, 0);
-                        }
                         foreach (Skill s in person.Skills.GetSkillList())
                         {
                             s.Influences.PurifyInfluence(person, Applier.Skill, s.ID);
+                        }
+                        foreach (Title t in person.Titles)
+                        {
+                            t.Influences.PurifyInfluence(person, Applier.Title, t.ID);
                         }
                         foreach (Stunt s in person.Stunts.GetStuntList())
                         {

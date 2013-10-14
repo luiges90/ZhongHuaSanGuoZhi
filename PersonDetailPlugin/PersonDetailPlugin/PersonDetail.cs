@@ -19,7 +19,6 @@
         internal Rectangle BiographyClient;
         internal FreeRichText BiographyText = new FreeRichText();
         internal FreeText CalledNameText;
-        internal LabelText CombatTitleLabelText = new LabelText();
         internal Rectangle ConditionClient;
         internal FreeRichText ConditionText = new FreeRichText();
         private object current;
@@ -31,7 +30,7 @@
         internal List<LabelText> LabelTexts = new List<LabelText>();
         internal FreeTextList LearnableSkillTexts;
         internal List<Skill> LinkedSkills = new List<Skill>();
-        internal LabelText PersonalTitleLabelText = new LabelText();
+        internal LabelText TitleLabelText = new LabelText();
         internal FreeTextList PersonSkillTexts;
         internal Rectangle PortraitClient;
         internal Screen screen;
@@ -63,10 +62,8 @@
                     text.Label.Draw(spriteBatch, 0.1999f);
                     text.Text.Draw(spriteBatch, 0.1999f);
                 }
-                this.PersonalTitleLabelText.Label.Draw(spriteBatch, 0.1999f);
-                this.PersonalTitleLabelText.Text.Draw(spriteBatch, 0.1999f);
-                this.CombatTitleLabelText.Label.Draw(spriteBatch, 0.1999f);
-                this.CombatTitleLabelText.Text.Draw(spriteBatch, 0.1999f);
+                this.TitleLabelText.Label.Draw(spriteBatch, 0.1999f);
+                this.TitleLabelText.Text.Draw(spriteBatch, 0.1999f);
                 this.AllSkillTexts.Draw(spriteBatch, (float) 0.1999f);
                 this.PersonSkillTexts.Draw(spriteBatch, (float) 0.1998f);
                 this.LearnableSkillTexts.Draw(spriteBatch, (float) 0.1998f);
@@ -100,17 +97,17 @@
         private void screen_OnMouseMove(Point position, bool leftDown)
         {
             bool flag = false;
-            if ((!flag && (this.ShowingPerson.PersonalTitle != null)) && StaticMethods.PointInRectangle(position, this.PersonalTitleLabelText.Text.AlignedPosition))
+            if (!flag && this.ShowingPerson.Titles.Count > 0 && StaticMethods.PointInRectangle(position, this.TitleLabelText.Text.AlignedPosition))
             {
-                if (this.current != this.ShowingPerson.PersonalTitle)
+                if (this.current != this.ShowingPerson.Titles[0])
                 {
                     this.InfluenceText.Clear();
-                    if (this.ShowingPerson.PersonalTitle.InfluenceCount > 0)
+                    if (this.ShowingPerson.Titles[0].InfluenceCount > 0)
                     {
-                        this.InfluenceText.AddText("个人称号", Color.Yellow);
-                        this.InfluenceText.AddText(this.ShowingPerson.PersonalTitleString, Color.Lime);
+                        this.InfluenceText.AddText("称号", Color.Yellow);
+                        this.InfluenceText.AddText(this.ShowingPerson.Titles[0].Name, Color.Lime);
                         this.InfluenceText.AddNewLine();
-                        foreach (Influence influence in this.ShowingPerson.PersonalTitle.Influences.Influences.Values)
+                        foreach (Influence influence in this.ShowingPerson.Titles[0].Influences.Influences.Values)
                         {
                             this.InfluenceText.AddText(influence.Description);
                             this.InfluenceText.AddNewLine();
@@ -119,7 +116,7 @@
                         this.ConditionText.Clear();
                         this.ConditionText.AddText("修习条件", Color.LightPink);
                         this.ConditionText.AddNewLine();
-                        foreach (Condition condition in this.ShowingPerson.PersonalTitle.Conditions.Conditions.Values)
+                        foreach (Condition condition in this.ShowingPerson.Titles[0].Conditions.Conditions.Values)
                         {
                             if (condition.CheckCondition(this.ShowingPerson))
                             {
@@ -133,90 +130,9 @@
                         }
                         this.ConditionText.ResortTexts();
                     }
-                    this.current = this.ShowingPerson.PersonalTitle;
+                    this.current = this.ShowingPerson.Titles[0];
                 }
                 flag = true;
-            }
-            if ((!flag && (this.ShowingPerson.CombatTitle != null)) && StaticMethods.PointInRectangle(position, this.CombatTitleLabelText.Text.AlignedPosition))
-            {
-                if (this.current != this.ShowingPerson.CombatTitle)
-                {
-                    this.InfluenceText.Clear();
-                    if (this.ShowingPerson.CombatTitle.InfluenceCount > 0)
-                    {
-                        this.InfluenceText.AddText("战斗称号", Color.Yellow);
-                        this.InfluenceText.AddText(this.ShowingPerson.CombatTitleString, Color.Red);
-                        this.InfluenceText.AddNewLine();
-                        foreach (Influence influence in this.ShowingPerson.CombatTitle.Influences.Influences.Values)
-                        {
-                            this.InfluenceText.AddText(influence.Description);
-                            this.InfluenceText.AddNewLine();
-                        }
-                        this.InfluenceText.ResortTexts();
-                        this.ConditionText.Clear();
-                        this.ConditionText.AddText("修习条件", Color.LightPink);
-                        this.ConditionText.AddNewLine();
-                        foreach (Condition condition in this.ShowingPerson.CombatTitle.Conditions.Conditions.Values)
-                        {
-                            if (condition.CheckCondition(this.ShowingPerson))
-                            {
-                                this.ConditionText.AddText(condition.Name, Color.Lime);
-                            }
-                            else
-                            {
-                                this.ConditionText.AddText(condition.Name, Color.Red);
-                            }
-                            this.ConditionText.AddNewLine();
-                        }
-                        this.ConditionText.ResortTexts();
-                    }
-                    this.current = this.ShowingPerson.CombatTitle;
-                }
-                flag = true;
-            }
-            if (!flag)
-            {
-                for (int i = 0; i < this.AllSkillTexts.Count; i++)
-                {
-                    if (StaticMethods.PointInRectangle(position, this.AllSkillTexts[i].AlignedPosition))
-                    {
-                        if (this.current != this.LinkedSkills[i])
-                        {
-                            this.InfluenceText.Clear();
-                            if (this.LinkedSkills[i].InfluenceCount > 0)
-                            {
-                                this.InfluenceText.AddText("技能", Color.Yellow);
-                                this.InfluenceText.AddText(this.LinkedSkills[i].Name, Color.Lime);
-                                this.InfluenceText.AddNewLine();
-                                foreach (Influence influence in this.LinkedSkills[i].Influences.Influences.Values)
-                                {
-                                    this.InfluenceText.AddText(influence.Description);
-                                    this.InfluenceText.AddNewLine();
-                                }
-                                this.InfluenceText.ResortTexts();
-                                this.ConditionText.Clear();
-                                this.ConditionText.AddText("修习条件", Color.LightPink);
-                                this.ConditionText.AddNewLine();
-                                foreach (Condition condition in this.LinkedSkills[i].Conditions.Conditions.Values)
-                                {
-                                    if (condition.CheckCondition(this.ShowingPerson))
-                                    {
-                                        this.ConditionText.AddText(condition.Name, Color.Lime);
-                                    }
-                                    else
-                                    {
-                                        this.ConditionText.AddText(condition.Name, Color.Red);
-                                    }
-                                    this.ConditionText.AddNewLine();
-                                }
-                                this.ConditionText.ResortTexts();
-                            }
-                            this.current = this.LinkedSkills[i];
-                        }
-                        flag = true;
-                        break;
-                    }
-                }
             }
             if (!flag && StaticMethods.PointInRectangle(position, this.StuntDisplayPosition))
             {
@@ -341,8 +257,7 @@
             {
                 text.Text.Text = StaticMethods.GetPropertyValue(person, text.PropertyName).ToString();
             }
-            this.PersonalTitleLabelText.Text.Text = StaticMethods.GetPropertyValue(person, this.PersonalTitleLabelText.PropertyName).ToString();
-            this.CombatTitleLabelText.Text.Text = StaticMethods.GetPropertyValue(person, this.CombatTitleLabelText.PropertyName).ToString();
+            this.TitleLabelText.Text.Text = StaticMethods.GetPropertyValue(person, this.TitleLabelText.PropertyName).ToString();
             this.PersonSkillTexts.SimpleClear();
             this.LearnableSkillTexts.SimpleClear();
             foreach (Skill skill in this.screen.Scenario.GameCommonData.AllSkills.Skills.Values)
@@ -441,10 +356,8 @@
                 text.Label.DisplayOffset = this.DisplayOffset;
                 text.Text.DisplayOffset = this.DisplayOffset;
             }
-            this.PersonalTitleLabelText.Label.DisplayOffset = this.DisplayOffset;
-            this.PersonalTitleLabelText.Text.DisplayOffset = this.DisplayOffset;
-            this.CombatTitleLabelText.Label.DisplayOffset = this.DisplayOffset;
-            this.CombatTitleLabelText.Text.DisplayOffset = this.DisplayOffset;
+            this.TitleLabelText.Label.DisplayOffset = this.DisplayOffset;
+            this.TitleLabelText.Text.DisplayOffset = this.DisplayOffset;
             this.AllSkillTexts.DisplayOffset = this.DisplayOffset;
             this.PersonSkillTexts.DisplayOffset = this.DisplayOffset;
             this.LearnableSkillTexts.DisplayOffset = this.DisplayOffset;

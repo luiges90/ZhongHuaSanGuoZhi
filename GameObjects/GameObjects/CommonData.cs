@@ -500,7 +500,7 @@
             {
                 Title title = new Title();
                 title.ID = (short)reader["ID"];
-                title.Kind = (TitleKind)((short)reader["Kind"]);
+                title.Kind = ((short)reader["Kind"]);
                 title.Level = (short)reader["Level"];
                 title.Combat = (bool)reader["Combat"];
                 title.Name = reader["Name"].ToString();

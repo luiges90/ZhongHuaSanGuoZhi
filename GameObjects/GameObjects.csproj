@@ -858,11 +858,10 @@
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect300.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect305.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect310.cs" />
-    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect315.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect320.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect325.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect315.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect330.cs" />
-    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect331.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect1000.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect1010.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect1020.cs" />
