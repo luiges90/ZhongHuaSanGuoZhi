@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <Background FileName="Background.png" Width="1000" Height="700"></Background>
+<Labels>
+    <Label X="50" Y="34" Width="60" Height="25" Label ="势力"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="110" Y="34" Width="80" Height="25" PropertyName="FactionName"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Bold"
+                FontColor="4278255424"
+                Align="Middle">
+    </Text>
+    <Label X="230" Y="34" Width="80" Height="25" Label ="技巧点数"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="310" Y="34" Width="80" Height="23" PropertyName="FactionTotalTechniquePoint"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Bold"
+                FontColor="4278255615"
+                Align="Right">
+    </Text>
+    <Label X="430" Y="34" Width="80" Height="25" Label ="势力声望"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="510" Y="34" Width="80" Height="23" PropertyName="FactionReputation"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Bold"
+                FontColor="4278255615"
+                Align="Right">
+    </Text>
+    <Label X="50" Y="74" Width="60" Height="25" Label ="建筑"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="110" Y="74" Width="80" Height="25" PropertyName="ArchitectureName"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Bold"
+                FontColor="4278255424"
+                Align="Middle">
+    </Text>
+    <Label X="230" Y="74" Width="80" Height="25" Label ="资金"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="310" Y="74" Width="80" Height="23" PropertyName="ArchitectureFund"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Bold"
+                FontColor="4278255615"
+                Align="Right">
+    </Text>
+  </Labels>
+  <ButtonText StartX="40" StartY="129"
+                FontName="宋体"
+                FontSize="10"
+                FontStyle="Bold"
+                FontColor="4278190080"
+                Align="Middle">
+  </ButtonText>
+  <ButtonTexture Width="80" Height="22" Basic="ButtonBasic.png" Available="ButtonAvailable.png" Upgrading="ButtonUpgrading.png" Upgraded="ButtonUpgraded.png"></ButtonTexture>
+  <Comments X="810" Y="139" Width="170" Height="200" RowMargin="0"
+            FontName="宋体"
+            FontSize="11"
+            FontStyle="Regular"
+            FontColor="4294967295">
+  </Comments>
+</Root>
