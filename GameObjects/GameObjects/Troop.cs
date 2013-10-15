@@ -7377,6 +7377,19 @@
                         toRemove.Remove(toRemove[0]);
                     }
                 }
+
+                foreach (Person p in currentArchitecture.Feiziliebiao)
+                {
+                    p.Status = PersonStatus.Normal;
+                    Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
+                    captive.CaptivePerson.LocationArchitecture = null;
+                    captive.CaptivePerson.LocationTroop = this;
+                    if (captive != null)
+                    {
+                        this.AddCaptive(captive);
+                    }
+                    p.Loyalty = 100;
+                }
                 currentArchitecture.BuildingFacility = -1;
                 currentArchitecture.BuildingDaysLeft = 0;
                 currentArchitecture.RemoveAllInformations();
@@ -7508,17 +7521,6 @@
                         this.BelongedFaction.FirstSection.AddArchitecture(currentArchitecture);
                     }
                     currentArchitecture.CheckIsFrontLine();
-
-
-                    foreach (Person p in currentArchitecture.Feiziliebiao)
-                    {
-                        Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
-                        if (captive != null)
-                        {
-                            this.AddCaptive(captive);
-                        }
-                        p.Loyalty = 100;
-                    }
 
                     //this.Controllable = false;
                     if (this.OnOccupyArchitecture != null)
