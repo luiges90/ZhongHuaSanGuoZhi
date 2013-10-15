@@ -72,7 +72,7 @@
             }
             else
             {
-                for (int i = 0; i <= 32767; i++)
+                for (int i = 0; i <= 9999; i++)
                 {
                     string str = path + @"\" + i.ToString() + ".jpg";
                     string str2 = path + @"\" + i.ToString() + "s.jpg";

@@ -263,12 +263,33 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="60" Name="TitleDetailedNames" IsNumber="false" DisplayName="称号" MinWidth="500" DetailLevel="3"
+        <Column ID="60" Name="PersonalTitleString" IsNumber="false" DisplayName="个人称号" MinWidth="120" DetailLevel="3"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4278255360"
                 Align="Middle">
+        </Column>
+        <Column ID="61" Name="CombatTitleString" IsNumber="false" DisplayName="战斗称号" MinWidth="120" DetailLevel="3"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294901862"
+                Align="Middle">
+        </Column>
+        <Column ID="62" Name="PersonalTitleInfluenceCount" IsNumber="true" DisplayName="影响个数" MinWidth="80" DetailLevel="3"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="63" Name="CombatTitleInfluenceCount" IsNumber="true" DisplayName="影响个数" MinWidth="80" DetailLevel="3"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
         </Column>
         <Column ID="70" Name="OutsideTaskString" CountToDisplay="False" IsNumber="false" DisplayName="任务" MinWidth="60" DetailLevel="1"
                 FontName="宋体"
@@ -513,7 +534,22 @@
                     FontColor="4294967295"
                     Align="Right">
         </Column>
-		<Column ID="136" Name="StudyableSkillCount" IsNumber="true" DisplayName="可习得技能" MinWidth="100" DetailLevel="7"
+
+		<Column ID="134" Name="PersonalTitleLevel" IsNumber="true" DisplayName="等级" MinWidth="40" DetailLevel="2"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="135" Name="CombatTitleLevel" IsNumber="true" DisplayName="等级" MinWidth="40" DetailLevel="2"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="136" Name="StudyableSkillCount" IsNumber="true" DisplayName="学习得技能" MinWidth="100" DetailLevel="7"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -542,21 +578,36 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="140" Name="StudyableStuntCount" IsNumber="true" DisplayName="可习得特技" MinWidth="100" DetailLevel="7"
+		<Column ID="140" Name="StudyableStuntCount" IsNumber="true" DisplayName="学习得特技" MinWidth="100" DetailLevel="7"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="141" Name="StudyableTitleCount" IsNumber="true" DisplayName="可习得称号" MinWidth="60" DetailLevel="7"
+		
+		<Column ID="141" Name="StudyablePersonalTitleCount" IsNumber="true" DisplayName="学习得个人称号" MinWidth="120" DetailLevel="7"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="142" Name="StudyableHigherLevelTitleCount" IsNumber="true" DisplayName="可习得较高级称号" MinWidth="120" DetailLevel="7"
+		<Column ID="142" Name="StudyableCombatTitleCount" IsNumber="true" DisplayName="学习得战斗称号" MinWidth="120" DetailLevel="7"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="143" Name="StudyableHigherLevelPersonalTitleCount" IsNumber="true" DisplayName="学习得较高级个人称号" MinWidth="170" DetailLevel="7"
+                FontName="宋体"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="144" Name="StudyableHigherLevelCombatTitleCount" IsNumber="true" DisplayName="学习得较高级战斗称号" MinWidth="170" DetailLevel="7"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -1091,9 +1142,11 @@
         </Tab>
         <Tab ID="7"  Name="Skill" DisplayName="技能" Columns="1 50 136" ListKind="Skill" ListMethod="GetSkillList">
         </Tab>
-        <Tab ID="8"  Name="PersonalTitle" DisplayName="称号" Columns="1 60 134 141 142">
+        <Tab ID="8"  Name="PersonalTitle" DisplayName="个人称号" Columns="1 60 62 134 141 143" ListKind="Influence" ListMethod="GetPersonalTitleInfluenceList">
         </Tab>
-		<Tab ID="10"  Name="Stunt" DisplayName="特技" Columns="1 139 140" ListKind="Stunt" ListMethod="GetStuntList">
+        <Tab ID="9"  Name="CombatTitle" DisplayName="战斗称号" Columns="1 61 63 135 142 144" ListKind="Influence" ListMethod="GetCombatTitleInfluenceList">
+        </Tab>
+		<Tab ID="10"  Name="Skill" DisplayName="特技" Columns="1 139 140" ListKind="Stunt" ListMethod="GetStuntList">
         </Tab>
         <Tab ID="11"  Name="Experience" DisplayName="内政经验" Columns="1 80 100 101 102 103 104">
         </Tab>
@@ -2627,7 +2680,7 @@
                 FontColor="4294967295"
                 Align="Left">
         </Column>
-        <Column ID="2" Name="KindName" IsNumber="false" DisplayName="种类" MinWidth="80" DetailLevel="3"
+        <Column ID="2" Name="Kind" IsNumber="false" DisplayName="种类" MinWidth="120" DetailLevel="3"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
@@ -2664,7 +2717,9 @@
         </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 6 3" ListKind="Influence" ListMethod="GetInfluenceList">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 6 3" ListKind="Influence" ListMethod="GetInfluenceList">
+        </Tab>
+        <Tab ID="2"  Name="Kind" DisplayName="种类" Columns="1 2" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
         <Tab ID="3"  Name="Condition" DisplayName="条件" Columns="1 4" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>

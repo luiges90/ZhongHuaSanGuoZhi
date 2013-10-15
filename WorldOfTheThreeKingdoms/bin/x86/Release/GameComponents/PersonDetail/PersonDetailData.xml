@@ -236,18 +236,32 @@
     </Text>
   </Labels>
   <TitleLabels>
-    <Label X="680" Y="40" Width="320" Height="30" Label="称号"
+    <Label X="240" Y="200" Width="100" Height="30" Label ="个人称号"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="680" Y="70" Width="320" Height="180" PropertyName="TitleNames"
+    <Text X="240" Y="230" Width="100" Height="30" PropertyName="PersonalTitleString"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Bold"
                 FontColor="4286643968"
+                Align="Middle">
+    </Text>
+    <Label X="380" Y="200" Width="100" Height="30" Label ="战斗称号"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="380" Y="230" Width="100" Height="30" PropertyName="CombatTitleString"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Bold"
+                FontColor="4294901862"
                 Align="Middle">
     </Text>
   </TitleLabels>
@@ -260,25 +274,25 @@
               LearnableColor="4294967040"
               Align="Middle">
   </SkillBlock>
-  <Stunt X="300" Y="220" Width="160" Height="360" RowMargin="0"
+  <Stunt X="300" Y="280" Width="160" Height="360" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </Stunt>
-  <Influence X="460" Y="220" Width="250" Height="360" RowMargin="0"
+  <Influence X="460" Y="280" Width="250" Height="360" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </Influence>
-  <Condition X="710" Y="220" Width="250" Height="360" RowMargin="0"
+  <Condition X="710" Y="280" Width="250" Height="360" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </Condition>
-  <Biography X="460" Y="220" Width="500" Height="360" RowMargin="0"
+  <Biography X="680" Y="40" Width="320" Height="240" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
