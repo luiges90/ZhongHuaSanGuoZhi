@@ -235,22 +235,12 @@
                 Align="Middle">
     </Text>
   </Labels>
-  <TitleLabels>
-    <Label X="680" Y="40" Width="320" Height="30" Label="称号"
-                FontName="宋体"
-                FontSize="11"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Middle">
-    </Label>
-    <Text X="680" Y="70" Width="320" Height="180" PropertyName="TitleNames"
-                FontName="宋体"
-                FontSize="11"
-                FontStyle="Bold"
-                FontColor="4286643968"
-                Align="Middle">
-    </Text>
-  </TitleLabels>
+  <Title X="680" Y="40" Width="320" Height="210" RowMargin="10"
+            FontName="宋体"
+            FontSize="11"
+            FontStyle="Bold"
+            FontColor="4286643968">
+  </Title>
   <SkillBlock Width="34" Height="20" OffsetX="10" OffsetY="280"
               FontName="宋体"
               FontSize="11"

@@ -92,21 +92,13 @@
                 this.personDetail.LabelTexts.Add(item);
             }
             node = nextSibling.ChildNodes.Item(6);
-            node3 = node.ChildNodes.Item(0);
-            rectangle = StaticMethods.LoadRectangleFromXMLNode(node3);
-            StaticMethods.LoadFontAndColorFromXMLNode(node3, out font, out color);
-            this.personDetail.TitleLabelText.Label = new FreeText(this.graphicsDevice, font, color);
-            this.personDetail.TitleLabelText.Label.Position = rectangle;
-            this.personDetail.TitleLabelText.Label.Align = (TextAlign) Enum.Parse(typeof(TextAlign), node3.Attributes.GetNamedItem("Align").Value);
-            this.personDetail.TitleLabelText.Label.Text = node3.Attributes.GetNamedItem("Label").Value;
-            node3 = node.ChildNodes.Item(1);
-            rectangle = StaticMethods.LoadRectangleFromXMLNode(node3);
-            StaticMethods.LoadFontAndColorFromXMLNode(node3, out font, out color);
-            this.personDetail.TitleLabelText.Text = new FreeText(this.graphicsDevice, font, color);
-            this.personDetail.TitleLabelText.Text.Position = rectangle;
-            this.personDetail.TitleLabelText.Text.Align = (TextAlign) Enum.Parse(typeof(TextAlign), node3.Attributes.GetNamedItem("Align").Value);
-            this.personDetail.TitleLabelText.PropertyName = node3.Attributes.GetNamedItem("PropertyName").Value;
-            node3 = node.ChildNodes.Item(2);
+            this.personDetail.TitleClient = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.personDetail.TitleText.ClientWidth = this.personDetail.TitleClient.Width;
+            this.personDetail.TitleText.ClientHeight = this.personDetail.TitleClient.Height;
+            this.personDetail.TitleText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
+            this.personDetail.TitleText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
+            this.personDetail.TitleText.DefaultColor = color;
             node = nextSibling.ChildNodes.Item(7);
             this.personDetail.SkillBlockSize.X = int.Parse(node.Attributes.GetNamedItem("Width").Value);
             this.personDetail.SkillBlockSize.Y = int.Parse(node.Attributes.GetNamedItem("Height").Value);

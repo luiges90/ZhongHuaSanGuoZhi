@@ -30,7 +30,8 @@
         internal List<LabelText> LabelTexts = new List<LabelText>();
         internal FreeTextList LearnableSkillTexts;
         internal List<Skill> LinkedSkills = new List<Skill>();
-        internal LabelText TitleLabelText = new LabelText();
+        internal Rectangle TitleClient;
+        internal FreeRichText TitleText = new FreeRichText();
         internal FreeTextList PersonSkillTexts;
         internal Rectangle PortraitClient;
         internal Screen screen;
@@ -62,8 +63,7 @@
                     text.Label.Draw(spriteBatch, 0.1999f);
                     text.Text.Draw(spriteBatch, 0.1999f);
                 }
-                this.TitleLabelText.Label.Draw(spriteBatch, 0.1999f);
-                this.TitleLabelText.Text.Draw(spriteBatch, 0.1999f);
+                this.TitleText.Draw(spriteBatch, 0.1999f);
                 this.AllSkillTexts.Draw(spriteBatch, (float) 0.1999f);
                 this.PersonSkillTexts.Draw(spriteBatch, (float) 0.1998f);
                 this.LearnableSkillTexts.Draw(spriteBatch, (float) 0.1998f);
@@ -97,43 +97,51 @@
         private void screen_OnMouseMove(Point position, bool leftDown)
         {
             bool flag = false;
-            if (!flag && this.ShowingPerson.Titles.Count > 0 && StaticMethods.PointInRectangle(position, this.TitleLabelText.Text.AlignedPosition))
+            if (!flag && StaticMethods.PointInRectangle(position, this.TitleDisplayPosition))
             {
-                Title activeTitle = this.ShowingPerson.Titles[0];
-                if (this.current != activeTitle)
+                int num2 = (position.Y - this.TitleText.DisplayOffset.Y) / this.TitleText.RowHeight;
+                if (num2 >= 0)
                 {
-                    this.BiographyText.Clear();
-                    this.InfluenceText.Clear();
-                    if (this.ShowingPerson.Titles[0].InfluenceCount > 0)
+                    int num3 = num2;
+                    if (this.ShowingPerson.Titles.Count > num3)
                     {
-                        this.InfluenceText.AddText(activeTitle.DetailedName, Color.Yellow);
-                        this.InfluenceText.AddNewLine();
-                        foreach (Influence influence in activeTitle.Influences.Influences.Values)
+                        Title title = this.ShowingPerson.Titles[num3] as Title;
+                        if (title != null)
                         {
-                            this.InfluenceText.AddText(influence.Description);
-                            this.InfluenceText.AddNewLine();
-                        }
-                        this.InfluenceText.ResortTexts();
-                        this.ConditionText.Clear();
-                        this.ConditionText.AddText("修习条件", Color.LightPink);
-                        this.ConditionText.AddNewLine();
-                        foreach (Condition condition in activeTitle.Conditions.Conditions.Values)
-                        {
-                            if (condition.CheckCondition(this.ShowingPerson))
+                            if (this.current != title)
                             {
-                                this.ConditionText.AddText(condition.Name, Color.Lime);
+                                this.BiographyText.Clear();
+                                this.InfluenceText.Clear();
+                                this.InfluenceText.AddText(title.DetailedName, Color.Yellow);
+                                this.InfluenceText.AddNewLine();
+                                foreach (Influence influence in title.Influences.Influences.Values)
+                                {
+                                    this.InfluenceText.AddText(influence.Description);
+                                    this.InfluenceText.AddNewLine();
+                                }
+                                this.InfluenceText.ResortTexts();
+                                this.ConditionText.Clear();
+                                this.ConditionText.AddText("修习条件", Color.LightPink);
+                                this.ConditionText.AddNewLine();
+                                foreach (Condition condition in title.Conditions.Conditions.Values)
+                                {
+                                    if (condition.CheckCondition(this.ShowingPerson))
+                                    {
+                                        this.ConditionText.AddText(condition.Name, Color.Lime);
+                                    }
+                                    else
+                                    {
+                                        this.ConditionText.AddText(condition.Name, Color.Red);
+                                    }
+                                    this.ConditionText.AddNewLine();
+                                }
+                                this.ConditionText.ResortTexts();
+                                this.current = title;
                             }
-                            else
-                            {
-                                this.ConditionText.AddText(condition.Name, Color.Red);
-                            }
-                            this.ConditionText.AddNewLine();
+                            flag = true;
                         }
-                        this.ConditionText.ResortTexts();
                     }
-                    this.current = activeTitle;
                 }
-                flag = true;
             }
             if (!flag && StaticMethods.PointInRectangle(position, this.StuntDisplayPosition))
             {
@@ -148,6 +156,7 @@
                         {
                             if (this.current != stunt)
                             {
+                                this.BiographyText.Clear();
                                 this.InfluenceText.Clear();
                                 this.InfluenceText.AddText("战斗特技", Color.Yellow);
                                 this.InfluenceText.AddText(stunt.Name, Color.Red);
@@ -258,7 +267,13 @@
             {
                 text.Text.Text = StaticMethods.GetPropertyValue(person, text.PropertyName).ToString();
             }
-            this.TitleLabelText.Text.Text = StaticMethods.GetPropertyValue(person, this.TitleLabelText.PropertyName).ToString();
+            this.TitleText.Clear();
+            foreach (Title title in person.Titles)
+            {
+                this.TitleText.AddText(title.DetailedName, Color.Lime);
+                this.TitleText.AddNewLine();
+            }
+            this.TitleText.ResortTexts();
             this.PersonSkillTexts.SimpleClear();
             this.LearnableSkillTexts.SimpleClear();
             foreach (Skill skill in this.screen.Scenario.GameCommonData.AllSkills.Skills.Values)
@@ -357,8 +372,7 @@
                 text.Label.DisplayOffset = this.DisplayOffset;
                 text.Text.DisplayOffset = this.DisplayOffset;
             }
-            this.TitleLabelText.Label.DisplayOffset = this.DisplayOffset;
-            this.TitleLabelText.Text.DisplayOffset = this.DisplayOffset;
+            this.TitleText.DisplayOffset = new Point(this.DisplayOffset.X + this.TitleClient.X, this.DisplayOffset.Y + this.TitleClient.Y);
             this.AllSkillTexts.DisplayOffset = this.DisplayOffset;
             this.PersonSkillTexts.DisplayOffset = this.DisplayOffset;
             this.LearnableSkillTexts.DisplayOffset = this.DisplayOffset;
@@ -413,6 +427,14 @@
             get
             {
                 return new Rectangle(this.PortraitClient.X + this.DisplayOffset.X, this.PortraitClient.Y + this.DisplayOffset.Y, this.PortraitClient.Width, this.PortraitClient.Height);
+            }
+        }
+
+        private Rectangle TitleDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.TitleText.DisplayOffset.X, this.TitleText.DisplayOffset.Y, this.TitleText.ClientWidth, this.TitleText.ClientHeight);
             }
         }
 
