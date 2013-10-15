@@ -8875,7 +8875,7 @@
                         else if (GameObject.Chance(50))
                         {
                             List<Title> higherLevelLearnableTitle = person.HigherLevelLearnableTitle;
-                            if (higherLevelLearnableTitle != null)
+                            if (higherLevelLearnableTitle.Count > 0)
                             {
                                 person.GoForStudyTitle(higherLevelLearnableTitle[GameObject.Random(higherLevelLearnableTitle.Count)]);
                             }
