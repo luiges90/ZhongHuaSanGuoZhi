@@ -72,18 +72,24 @@
             }
             else
             {
-                for (int i = 0; i <= 32767; i++)
+                DirectoryInfo d = new DirectoryInfo(path);
+
+                foreach (var file in d.GetFiles("*.jpg"))
                 {
-                    string str = path + @"\" + i.ToString() + ".jpg";
-                    string str2 = path + @"\" + i.ToString() + "s.jpg";
-                    if (File.Exists(str) && File.Exists(str2))
+                    int id;
+                    String name = file.Name.Substring(0, file.Name.Length - 4);
+                    if (int.TryParse(name, out id))
                     {
-                        PlayerImage image = new PlayerImage {
-                            Portrait = Image.FromFile(str),
-                            SmallPortrait = Image.FromFile(str2)
-                        };
-                        this.PlayerImages.Remove(i);
-                        this.PlayerImages.Add(i, image);
+                        if (File.Exists(path + @"\" + name + "s.jpg"))
+                        {
+                            PlayerImage image = new PlayerImage
+                            {
+                                Portrait = Image.FromFile(path + @"\" + name + ".jpg"),
+                                SmallPortrait = Image.FromFile(path + @"\" + name + "s.jpg")
+                            };
+                            this.PlayerImages.Remove(id);
+                            this.PlayerImages.Add(id, image);
+                        }
                     }
                 }
             }
