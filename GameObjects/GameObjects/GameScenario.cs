@@ -2532,6 +2532,7 @@
                 hatedIds.Add(person.ID, intArray);
                
                 person.Skills.LoadFromString(this.GameCommonData.AllSkills, reader["Skills"].ToString());
+
                 try
                 {
                     person.LoadTitleFromString(reader["Title"].ToString(), this.GameCommonData.AllTitles);
@@ -2549,6 +2550,7 @@
                         person.RealTitles.Add(t);
                     }
                 }
+
                 person.StudyingTitle = this.GameCommonData.AllTitles.GetTitle((short)reader["StudyingTitle"]);
                 person.huaiyun = (bool)reader["huaiyun"];
                 person.faxianhuaiyun = (bool)reader["faxianhuaiyun"];
