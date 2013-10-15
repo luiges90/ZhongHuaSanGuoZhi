@@ -5788,7 +5788,7 @@
             {
                 return 0;
             }
-            if (this.IsCapital)
+            if (this.IsCapital && decrement > 1)
             {
                 decrement = (decrement * 2) / 3;
             }
