@@ -266,7 +266,7 @@
 
             foreach (Person i in this.AvailablePersons)
             {
-                if (i.Status == PersonStatus.Normal && i.LocationArchitecture != null)
+                if (i.Status == PersonStatus.Normal && i.LocationArchitecture != null && i.LocationTroop == null)
                 {
                     if (!this.NormalPLCache.ContainsKey(i.LocationArchitecture)) 
                     {
@@ -274,7 +274,7 @@
                     }
                     NormalPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Moving && i.LocationArchitecture != null)
+                if (i.Status == PersonStatus.Moving && i.LocationArchitecture != null && i.LocationTroop == null)
                 {
                     if (!this.MovingPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -282,7 +282,7 @@
                     }
                     MovingPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture != null)
+                if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture != null && i.LocationTroop == null)
                 {
                     if (!this.NoFactionPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -290,7 +290,7 @@
                     }
                     NoFactionPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture != null)
+                if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture != null && i.LocationTroop == null)
                 {
                     if (!this.NoFactionMovingPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -298,7 +298,7 @@
                     }
                     NoFactionMovingPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Princess && i.LocationArchitecture != null)
+                if (i.Status == PersonStatus.Princess && i.LocationArchitecture != null && i.LocationTroop == null)
                 {
                     if (!this.PrincessPLCache.ContainsKey(i.LocationArchitecture))
                     {
