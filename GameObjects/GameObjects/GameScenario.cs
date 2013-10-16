@@ -266,7 +266,7 @@
 
             foreach (Person i in this.AvailablePersons)
             {
-                if (i.Status == PersonStatus.Normal && i.LocationArchitecture != null && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Normal && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.NormalPLCache.ContainsKey(i.LocationArchitecture)) 
                     {
@@ -274,7 +274,7 @@
                     }
                     NormalPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Moving && i.LocationArchitecture != null && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Moving && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.MovingPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -282,7 +282,7 @@
                     }
                     MovingPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture != null && i.LocationTroop == null)
+                if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.NoFactionPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -290,7 +290,7 @@
                     }
                     NoFactionPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture != null && i.LocationTroop == null)
+                if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.NoFactionMovingPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -298,7 +298,7 @@
                     }
                     NoFactionMovingPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Princess && i.LocationArchitecture != null && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Princess && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.PrincessPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -307,7 +307,7 @@
                     PrincessPLCache[i.LocationArchitecture].Add(i);
                 }
 
-                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.赈灾 && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.赈灾 && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.ZhenzaiPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -315,7 +315,7 @@
                     }
                     ZhenzaiPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.农业 && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.农业 && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.AgriculturePLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -323,7 +323,7 @@
                     }
                     AgriculturePLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.商业 && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.商业 && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.CommercePLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -331,7 +331,7 @@
                     }
                     CommercePLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.技术 && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.技术 && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.TechnologyPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -339,7 +339,7 @@
                     }
                     TechnologyPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.统治 && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.统治 && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.DominationPLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -347,7 +347,7 @@
                     }
                     DominationPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.民心 && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.民心 && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.MoralePLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -355,7 +355,7 @@
                     }
                     MoralePLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.耐久 && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.耐久 && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.EndurancePLCache.ContainsKey(i.LocationArchitecture))
                     {
@@ -363,7 +363,7 @@
                     }
                     EndurancePLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.训练 && i.LocationTroop == null)
+                if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.训练 && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.TrainingPLCache.ContainsKey(i.LocationArchitecture))
                     {
