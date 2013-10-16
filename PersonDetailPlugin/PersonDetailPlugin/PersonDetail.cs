@@ -222,6 +222,50 @@
             }
             if (!flag)
             {
+                for (int i = 0; i < this.AllSkillTexts.Count; i++)
+                {
+                    if (StaticMethods.PointInRectangle(position, this.AllSkillTexts[i].AlignedPosition))
+                    {
+                        if (this.current != this.LinkedSkills[i])
+                        {
+                            this.InfluenceText.Clear();
+                            if (this.LinkedSkills[i].InfluenceCount > 0)
+                            {
+                                this.InfluenceText.AddText("技能", Color.Yellow);
+                                this.InfluenceText.AddText(this.LinkedSkills[i].Name, Color.Lime);
+                                this.InfluenceText.AddNewLine();
+                                foreach (Influence influence in this.LinkedSkills[i].Influences.Influences.Values)
+                                {
+                                    this.InfluenceText.AddText(influence.Description);
+                                    this.InfluenceText.AddNewLine();
+                                }
+                                this.InfluenceText.ResortTexts();
+                                this.ConditionText.Clear();
+                                this.ConditionText.AddText("修习条件", Color.LightPink);
+                                this.ConditionText.AddNewLine();
+                                foreach (Condition condition in this.LinkedSkills[i].Conditions.Conditions.Values)
+                                {
+                                    if (condition.CheckCondition(this.ShowingPerson))
+                                    {
+                                        this.ConditionText.AddText(condition.Name, Color.Lime);
+                                    }
+                                    else
+                                    {
+                                        this.ConditionText.AddText(condition.Name, Color.Red);
+                                    }
+                                    this.ConditionText.AddNewLine();
+                                }
+                                this.ConditionText.ResortTexts();
+                            }
+                            this.current = this.LinkedSkills[i];
+                        }
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            if (!flag)
+            {
                 this.current = null;
                 this.InfluenceText.Clear();
                 this.ConditionText.Clear();
