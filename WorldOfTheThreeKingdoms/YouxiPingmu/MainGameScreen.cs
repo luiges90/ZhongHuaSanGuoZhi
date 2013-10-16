@@ -1464,7 +1464,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             string tempFilePath = zhsPath + ".bak";
 
             bool saveMap;
-            if (File.Exists(zhsPath) && base.Scenario.LoadedFileName.Equals(LoadedFileName))
+            if (File.Exists(zhsPath) && base.Scenario.LoadedFileName.Equals(LoadedFileName) && base.Scenario.UsingOwnCommonData)
             {
                 if (GlobalVariables.EncryptSave)
                 {
