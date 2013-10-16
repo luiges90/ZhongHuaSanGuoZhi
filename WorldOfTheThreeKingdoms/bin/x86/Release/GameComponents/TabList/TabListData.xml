@@ -2634,7 +2634,7 @@
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
-        <Column ID="3" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="660" DetailLevel="3"
+        <Column ID="3" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="580" DetailLevel="3"
                 FontName="宋体"
                 FontSize="9"
                 FontStyle="Regular"
