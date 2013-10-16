@@ -2359,6 +2359,7 @@
             }
             catch (Exception)
             {
+                this.GameCommonData.Clear();
                 this.LoadCommonData();
                 UsingOwnCommonData = false;
             }
