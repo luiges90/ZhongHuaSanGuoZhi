@@ -2104,7 +2104,7 @@
             MilitaryList trainingMilitaryList = this.GetTrainingMilitaryList();
             bool needTrain = (trainingMilitaryList.Count > 0);
 
-            if (!this.IsFundEnough) // 资金不足时全武将训练
+            if (!this.IsFundEnough && this.RecentlyAttacked <= 0) // 资金不足时全武将训练
             {
                 if (needTrain)
                 {
