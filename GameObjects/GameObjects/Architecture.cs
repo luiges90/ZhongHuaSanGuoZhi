@@ -1466,13 +1466,15 @@
                     {
                         p.WaitForFeiZi = null;
                         p.MoveToArchitecture(dest);
-                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction)
+                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction
+                            && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
                         {
                             p.Spouse.MoveToArchitecture(dest);
                         }
                         foreach (Person q in p.Brothers)
                         {
-                            if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction)
+                            if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction
+                                && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
                             {
                                 q.MoveToArchitecture(dest);
                             }
@@ -1526,15 +1528,17 @@
                                         (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
                                     {
                                         p.MoveToArchitecture(this);
-                                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction)
+                                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction
+                                            && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
                                         {
-                                            p.Spouse.MoveToArchitecture(this);
+                                            p.Spouse.MoveToArchitecture(dest);
                                         }
                                         foreach (Person q in p.Brothers)
                                         {
-                                            if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction)
+                                            if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction
+                                                && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
                                             {
-                                                q.MoveToArchitecture(this);
+                                                q.MoveToArchitecture(dest);
                                             }
                                         }
                                     }
@@ -1602,13 +1606,15 @@
                                             p.MoveToArchitecture(dest);
                                             moved++;
                                             everMoved = true;
-                                            if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction)
+                                            if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction
+                                                && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
                                             {
                                                 p.Spouse.MoveToArchitecture(dest);
                                             }
                                             foreach (Person q in p.Brothers)
                                             {
-                                                if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction)
+                                                if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction
+                                                    && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
                                                 {
                                                     q.MoveToArchitecture(dest);
                                                 }
