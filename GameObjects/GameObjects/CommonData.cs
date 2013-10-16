@@ -1902,6 +1902,29 @@
                 adapter.Update(dataSet, "Title");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from TitleKind", selectConnection).ExecuteNonQuery();
+                adapter = new OleDbDataAdapter("Select * from TitleKind", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                builder.QuotePrefix = "[";
+                builder.QuoteSuffix = "]";
+                adapter.Fill(dataSet, "TitleKind");
+                dataSet.Tables["TitleKind"].Rows.Clear();
+                storedIds.Clear();
+                foreach (TitleKind i in this.AllTitleKinds.TitleKinds.Values)
+                {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
+                    row = dataSet.Tables["TitleKind"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["KName"] = i.Name;
+                    row["Combat"] = i.Combat;
+                    row.EndEdit();
+                    dataSet.Tables["Title"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Title");
+                dataSet.Clear();
+
                 new OleDbCommand("Delete from TroopAnimation", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from TroopAnimation", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
