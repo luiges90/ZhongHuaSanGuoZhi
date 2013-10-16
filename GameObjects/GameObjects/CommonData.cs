@@ -497,6 +497,33 @@
             }
             connection.Close();
             connection.Open();
+            try
+            {
+                reader = new OleDbCommand("Select * From TitleKind", connection).ExecuteReader();
+                while (reader.Read())
+                {
+                    TitleKind tk = new TitleKind();
+                    tk.ID = (short)reader["ID"];
+                    tk.Name = reader["KName"].ToString();
+                    tk.Combat = (bool)reader["Combat"];
+                    this.AllTitleKinds.AddTitleKind(tk);
+                }
+            }
+            catch
+            {
+                TitleKind tk = new TitleKind();
+                tk.ID = 0;
+                tk.Name = "个人称号";
+                tk.Combat = false;
+                this.AllTitleKinds.AddTitleKind(tk);
+                tk = new TitleKind();
+                tk.ID = 1;
+                tk.Name = "战斗称号";
+                tk.Combat = true;
+                this.AllTitleKinds.AddTitleKind(tk);
+            }
+            connection.Close();
+            connection.Open();
             reader = new OleDbCommand("Select * From Title", connection).ExecuteReader();
             while (reader.Read())
             {
@@ -508,7 +535,11 @@
                 title.Name = reader["Name"].ToString();
                 title.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
                 title.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString());
-                this.AllTitles.AddTitle(title);
+                if (this.AllTitleKinds.GetTitleKind(title.Kind) != null)
+                {
+                    title.KindName = this.AllTitleKinds.GetTitleKind(title.Kind).Name;
+                    this.AllTitles.AddTitle(title);
+                }
             }
             connection.Close();
             connection.Open();
@@ -795,38 +826,6 @@
                 this.AllTextMessages.AddTextMessage(textMessage);
             }
             connection.Close();
-
-            try
-            {
-                connection.Open();
-                reader = new OleDbCommand("Select * From TitleKind", connection).ExecuteReader();
-                while (reader.Read())
-                {
-                    TitleKind tk = new TitleKind();
-                    tk.ID = (short)reader["ID"];
-                    tk.Name = reader["KName"].ToString();
-                    tk.Combat = (bool)reader["Combat"];
-                    this.AllTitleKinds.AddTitleKind(tk);
-                }
-                connection.Close();
-            }
-            catch
-            {
-                TitleKind tk = new TitleKind();
-                tk.ID = 0;
-                tk.Name = "个人称号";
-                tk.Combat = false;
-                this.AllTitleKinds.AddTitleKind(tk);
-                tk = new TitleKind();
-                tk.ID = 1;
-                tk.Name = "战斗称号";
-                tk.Combat = true;
-                this.AllTitleKinds.AddTitleKind(tk);
-            }
-            foreach (Title t in this.AllTitles.Titles.Values)
-            {
-                t.KindName = this.AllTitleKinds.GetTitleKind(t.Kind).Name;
-            }
 
             return true;
         }
