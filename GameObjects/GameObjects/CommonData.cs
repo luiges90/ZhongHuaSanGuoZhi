@@ -1920,7 +1920,7 @@
                     row["KName"] = i.Name;
                     row["Combat"] = i.Combat;
                     row.EndEdit();
-                    dataSet.Tables["Title"].Rows.Add(row);
+                    dataSet.Tables["TitleKind"].Rows.Add(row);
                 }
                 adapter.Update(dataSet, "Title");
                 dataSet.Clear();
