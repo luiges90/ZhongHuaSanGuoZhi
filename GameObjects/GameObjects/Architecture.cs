@@ -1531,14 +1531,14 @@
                                         if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction
                                             && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
                                         {
-                                            p.Spouse.MoveToArchitecture(dest);
+                                            p.Spouse.MoveToArchitecture(this);
                                         }
                                         foreach (Person q in p.Brothers)
                                         {
                                             if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction
                                                 && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
                                             {
-                                                q.MoveToArchitecture(dest);
+                                                q.MoveToArchitecture(this);
                                             }
                                         }
                                     }
