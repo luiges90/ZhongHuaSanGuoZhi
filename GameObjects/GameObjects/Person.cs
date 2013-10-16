@@ -6327,6 +6327,7 @@
 
                     List<Title> candidates = new List<Title>();
                     List<Title> lesserCandidates = new List<Title>();
+                    List<Title> leastCandidates = new List<Title>();
 
                     foreach (Title t in i.Value)
                     {
@@ -6334,9 +6335,13 @@
                         {
                             candidates.Add(t);
                         }
-                        else if (t.Level < targetLevel && t.CanBeBorn(r))
+                        else if (t.Level + 1 == targetLevel || t.Level - 1 == targetLevel)
                         {
                             lesserCandidates.Add(t);
+                        }
+                        else if (t.Level < targetLevel && t.CanBeBorn(r))
+                        {
+                            leastCandidates.Add(t);
                         }
                     }
 
@@ -6347,6 +6352,10 @@
                     else if (lesserCandidates.Count > 0)
                     {
                         r.RealTitles.Add(lesserCandidates[GameObject.Random(lesserCandidates.Count)]);
+                    }
+                    else if (leastCandidates.Count > 0)
+                    {
+                        r.RealTitles.Add(leastCandidates[GameObject.Random(lesserCandidates.Count)]);
                     }
                 }
             }
