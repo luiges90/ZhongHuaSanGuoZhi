@@ -1922,7 +1922,7 @@
                     row.EndEdit();
                     dataSet.Tables["TitleKind"].Rows.Add(row);
                 }
-                adapter.Update(dataSet, "Title");
+                adapter.Update(dataSet, "TitleKind");
                 dataSet.Clear();
 
                 new OleDbCommand("Delete from TroopAnimation", selectConnection).ExecuteNonQuery();
