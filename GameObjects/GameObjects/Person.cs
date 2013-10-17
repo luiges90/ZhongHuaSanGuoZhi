@@ -2806,7 +2806,8 @@
                 this.OutsideTask = OutsideTaskKind.称号;
                 this.StudyingTitle = desTitle;
                 this.TargetArchitecture = this.LocationArchitecture;
-                this.ArrivingDays = Math.Max(1, this.LocationArchitecture.DayLearnTitleDay);
+                this.ArrivingDays = Math.Max(1, 
+                    Math.Min(this.LocationArchitecture.DayLearnTitleDay, base.Scenario.GameCommonData.AllTitleKinds.GetTitleKind(desTitle.Kind).StudyDay));
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForStudyTitle", new Object[] { this.Scenario, this });

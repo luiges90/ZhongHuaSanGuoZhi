@@ -506,20 +506,23 @@
                     tk.ID = (short)reader["ID"];
                     tk.Name = reader["KName"].ToString();
                     tk.Combat = (bool)reader["Combat"];
+                    tk.StudyDay = (short)reader["StudyDay"];
                     this.AllTitleKinds.AddTitleKind(tk);
                 }
             }
             catch
             {
                 TitleKind tk = new TitleKind();
-                tk.ID = 0;
+                tk.ID = 1;
                 tk.Name = "个人称号";
                 tk.Combat = false;
+                tk.StudyDay = 60;
                 this.AllTitleKinds.AddTitleKind(tk);
                 tk = new TitleKind();
-                tk.ID = 1;
+                tk.ID = 2;
                 tk.Name = "战斗称号";
                 tk.Combat = true;
+                tk.StudyDay = 60;
                 this.AllTitleKinds.AddTitleKind(tk);
             }
             connection.Close();
@@ -1919,6 +1922,7 @@
                     row["ID"] = i.ID;
                     row["KName"] = i.Name;
                     row["Combat"] = i.Combat;
+                    row["StudyDay"] = i.StudyDay;
                     row.EndEdit();
                     dataSet.Tables["TitleKind"].Rows.Add(row);
                 }
