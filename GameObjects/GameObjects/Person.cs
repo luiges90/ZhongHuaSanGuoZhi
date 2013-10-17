@@ -6470,13 +6470,17 @@
                     }
                 }
             }
-            foreach (String s in adjectives)
+            if (adjectives.Count > 0)
             {
-                biography += s + "，";
-            }
-            biography = biography.Substring(0, biography.Length - 1);
-            if (adjectives.Count > 0){
-                biography += "的" + (suffixes.Count > 0 ? suffixes[GameObject.Random(suffixes.Count)] : "將領");
+                foreach (String s in adjectives)
+                {
+                    biography += s + "，";
+                }
+                biography = biography.Substring(0, biography.Length - 1);
+                if (adjectives.Count > 0)
+                {
+                    biography += "的" + (suffixes.Count > 0 ? suffixes[GameObject.Random(suffixes.Count)] : "將領");
+                }
             }
 
             Biography bio = new Biography();
