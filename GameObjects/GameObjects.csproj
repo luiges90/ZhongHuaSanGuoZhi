@@ -1184,6 +1184,7 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6935.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6945.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3157.cs" />
+    <Compile Include="GameObjects\PersonDetail\BiographyAdjectives.cs" />
     <Compile Include="GameObjects\PersonDetail\TitleKindTable.cs" />
     <Compile Include="GameObjects\PersonDetail\TitleKind.cs" />
   </ItemGroup>

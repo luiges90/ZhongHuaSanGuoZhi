@@ -6216,7 +6216,7 @@
                 }
             }
 
-            Architecture bornArch = father.BelongedArchitecture == null ? mother.BelongedArchitecture : father.BelongedArchitecture;
+            Architecture bornArch = mother.BelongedArchitecture != null ? mother.BelongedArchitecture : father.BelongedArchitecture;
 
             try //best-effort approach for getting PersonBornRegion
             {
@@ -6360,6 +6360,132 @@
                     }
                 }
             }
+
+            String biography = "";
+            int fatherChildCount = father.NumberOfChildren;
+            int motherChildCount = mother.NumberOfChildren;
+            String[] order = new String[] { "长", "次", "三", "四", "五", "六", "七", "八" };
+            biography += r.Father.Name + "之" + (fatherChildCount > 7 ? "" : order[fatherChildCount]) + (r.Sex ? "女" : "子") + "，" +
+                r.Mother.Name + "之" + (motherChildCount > 7 ? "" : order[fatherChildCount]) + (r.Sex ? "女" : "子") + "。" +
+                "在" + r.father.Scenario.Date.Year + "年" + r.Father.Scenario.Date.Month + "月於" + bornArch.Name + "出生。";
+
+            List<String> adjectives = new List<String>();
+            List<String> suffixes = new List<String>();
+            bool strength, command, intelligence, politics, glamour, braveness, calmness, personalLoyalty, ambition, sex;
+            strength = command = intelligence = politics = glamour = braveness = calmness = personalLoyalty = ambition = sex = false;
+            foreach (BiographyAdjectives b in father.Scenario.GameCommonData.AllBiographyAdjectives)
+            {
+                if (b.Male && r.Sex)
+                {
+                    continue;
+                }
+                if (b.Female && !r.Sex)
+                {
+                    continue;
+                }
+
+                bool use = false;
+                if (b.Strength > 0 && !strength)
+                {
+                    if (r.BaseStrength >= b.Strength)
+                    {
+                        strength = true;
+                        use = true;
+                    }
+                }
+                if (b.Command > 0 && !command)
+                {
+                    if (r.BaseCommand >= b.Command)
+                    {
+                        command = true;
+                        use = true;
+                    }
+                }
+                if (b.Intelligence > 0 && !intelligence)
+                {
+                    if (r.BaseIntelligence >= b.Intelligence)
+                    {
+                        intelligence = true;
+                        use = true;
+                    }
+                }
+                if (b.Politics > 0 && !politics)
+                {
+                    if (r.BasePolitics >= b.Politics)
+                    {
+                        politics = true;
+                        use = true;
+                    }
+                }
+                if (b.Glamour > 0 && !glamour)
+                {
+                    if (r.BaseGlamour >= b.Glamour)
+                    {
+                        glamour = true;
+                        use = true;
+                    }
+                }
+                if (b.Braveness > 0 && !braveness)
+                {
+                    if (r.BaseBraveness >= b.Braveness)
+                    {
+                        braveness = true;
+                        use = true;
+                    }
+                }
+                if (b.Calmness > 0 && !calmness)
+                {
+                    if (r.BaseCalmness >= b.Calmness)
+                    {
+                        calmness = true;
+                        use = true;
+                    }
+                }
+                if (b.PersonalLoyalty > 0 && !personalLoyalty)
+                {
+                    if (r.PersonalLoyalty >= b.PersonalLoyalty)
+                    {
+                        personalLoyalty = true;
+                        use = true;
+                    }
+                } 
+                if (b.Ambition > 0 && !ambition)
+                {
+                    if (r.Ambition >= b.Ambition)
+                    {
+                        ambition = true;
+                        use = true;
+                    }
+                }
+
+                if (use)
+                {
+                    if (b.Text.Count > 0)
+                    {
+                        adjectives.Add(b.Text[GameObject.Random(b.Text.Count)]);
+                    }
+                    if (b.SuffixText.Count > 0)
+                    {
+                        suffixes.Add(b.SuffixText[GameObject.Random(b.SuffixText.Count)]);
+                    }
+                }
+            }
+            foreach (String s in adjectives)
+            {
+                biography += s + "，";
+            }
+            biography = biography.Substring(0, biography.Length - 1);
+            if (adjectives.Count > 0){
+                biography += "的" + (suffixes.Count > 0 ? suffixes[GameObject.Random(suffixes.Count)] : "將領");
+            }
+
+            Biography bio = new Biography();
+            bio.Brief = biography;
+            bio.ID = r.ID;
+            Biography fatherBio = father.Scenario.GameCommonData.AllBiographies.GetBiography(father.ID);
+            bio.FactionColor = fatherBio.FactionColor;
+            bio.MilitaryKinds = fatherBio.MilitaryKinds;
+            father.Scenario.GameCommonData.AllBiographies.AddBiography(bio);
 
             /*r.LocationArchitecture = father.BelongedArchitecture; //mother has no location arch!
             r.BelongedFaction = r.BelongedArchitecture.BelongedFaction;

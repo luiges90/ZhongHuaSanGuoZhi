@@ -4572,6 +4572,28 @@
                 {
                     this.OnAfterSaveScenario(this);
                 }
+
+                new OleDbCommand("Delete from Biography", selectConnection).ExecuteNonQuery();
+                adapter = new OleDbDataAdapter("Select * from Biography", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "Biography");
+                dataSet.Tables["Biography"].Rows.Clear();
+                foreach (Biography i in this.GameCommonData.AllBiographies.Biographys.Values)
+                {
+                    row = dataSet.Tables["Biography"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Brief"] = i.Brief;
+                    row["Romance"] = i.Romance;
+                    row["History"] = i.History;
+                    row["FactionColor"] = i.FactionColor;
+                    row["MilitaryKinds"] = i.MilitaryKinds.SaveToString();
+                    row.EndEdit();
+                    dataSet.Tables["Biography"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "Biography");
+                dataSet.Clear();
+
                 //}
                 if (saveCommonData)
                 {

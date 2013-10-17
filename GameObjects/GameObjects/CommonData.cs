@@ -59,6 +59,7 @@
         public GameObjects.ArchitectureDetail.EventEffect.EventEffectTable AllEventEffects = new GameObjects.ArchitectureDetail.EventEffect.EventEffectTable();
         public CombatNumberGenerator NumberGenerator = new CombatNumberGenerator();
         public TroopAnimation TroopAnimations = new TroopAnimation();
+        public List<BiographyAdjectives> AllBiographyAdjectives = new List<BiographyAdjectives>();
 
         public void Clear()
         {
@@ -829,6 +830,34 @@
                 this.AllTextMessages.AddTextMessage(textMessage);
             }
             connection.Close();
+            connection.Open();
+            try
+            {
+                reader = new OleDbCommand("Select * From BiographyAdjectives", connection).ExecuteReader();
+                while (reader.Read())
+                {
+                    BiographyAdjectives b = new BiographyAdjectives();
+                    b.ID = (short)reader["ID"];
+                    b.Strength = (int)reader["Strength"];
+                    b.Command = (int)reader["Command"];
+                    b.Intelligence = (int)reader["Intelligence"];
+                    b.Politics = (int)reader["Politics"];
+                    b.Glamour = (int)reader["Glamour"];
+                    b.Braveness = (int)reader["Braveness"];
+                    b.Calmness = (int)reader["Calmness"];
+                    b.PersonalLoyalty = (int)reader["PersonalLoyalty"];
+                    b.Ambition = (int)reader["Ambition"];
+                    b.Male = (bool)reader["Male"];
+                    b.Female = (bool)reader["Female"];
+                    StaticMethods.LoadFromString(b.Text, reader["BioText"].ToString());
+                    StaticMethods.LoadFromString(b.SuffixText, reader["SuffixText"].ToString());
+                    this.AllBiographyAdjectives.Add(b);
+                }
+            }
+            catch
+            {
+            }
+            connection.Close();
 
             return true;
         }
@@ -1119,30 +1148,6 @@
                     dataSet.Tables["AttackTargetKind"].Rows.Add(row);
                 }
                 adapter.Update(dataSet, "AttackTargetKind");
-                dataSet.Clear();
-
-                new OleDbCommand("Delete from Biography", selectConnection).ExecuteNonQuery();
-                adapter = new OleDbDataAdapter("Select * from Biography", selectConnection);
-                builder = new OleDbCommandBuilder(adapter);
-                adapter.Fill(dataSet, "Biography");
-                dataSet.Tables["Biography"].Rows.Clear();
-                storedIds.Clear();
-                foreach (Biography i in this.AllBiographies.Biographys.Values)
-                {
-                    if (storedIds.Contains(i.ID)) continue;
-                    storedIds.Add(i.ID);
-                    row = dataSet.Tables["Biography"].NewRow();
-                    row.BeginEdit();
-                    row["ID"] = i.ID;
-                    row["Brief"] = i.Brief;
-                    row["Romance"] = i.Romance;
-                    row["History"] = i.History;
-                    row["FactionColor"] = i.FactionColor;
-                    row["MilitaryKinds"] = i.MilitaryKinds.SaveToString();
-                    row.EndEdit();
-                    dataSet.Tables["Biography"].Rows.Add(row);
-                }
-                adapter.Update(dataSet, "Biography");
                 dataSet.Clear();
 
                 new OleDbCommand("Delete from CastDefaultKind", selectConnection).ExecuteNonQuery();
@@ -1991,6 +1996,38 @@
                     dataSet.Tables["TroopEventEffectKind"].Rows.Add(row);
                 }
                 adapter.Update(dataSet, "TroopEventEffectKind");
+                dataSet.Clear();
+
+                new OleDbCommand("Delete from BiographyAdjectives", selectConnection).ExecuteNonQuery();
+                adapter = new OleDbDataAdapter("Select * from BiographyAdjectives", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "BiographyAdjectives");
+                dataSet.Tables["BiographyAdjectives"].Rows.Clear();
+                storedIds.Clear();
+                foreach (BiographyAdjectives i in this.AllBiographyAdjectives)
+                {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
+                    row = dataSet.Tables["BiographyAdjectives"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["Strength"] = i.Strength;
+                    row["Command"] = i.Command;
+                    row["Intelligence"] = i.Intelligence;
+                    row["Politics"] = i.Politics;
+                    row["Glamour"] = i.Glamour;
+                    row["Braveness"] = i.Braveness;
+                    row["Calmness"] = i.Calmness;
+                    row["Male"] = i.Male;
+                    row["Female"] = i.Female;
+                    row["PersonalLoyalty"] = i.PersonalLoyalty;
+                    row["Ambition"] = i.Ambition;
+                    row["BioText"] = StaticMethods.SaveToString(i.Text);
+                    row["SuffixText"] = StaticMethods.SaveToString(i.SuffixText);
+                    row.EndEdit();
+                    dataSet.Tables["BiographyAdjectives"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "BiographyAdjectives");
                 dataSet.Clear();
 
                 new OleDbCommand("Delete from GameParameters", selectConnection).ExecuteNonQuery();
