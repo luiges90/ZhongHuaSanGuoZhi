@@ -18,8 +18,12 @@
         public int Ambition { get; set; }
         public Boolean Male { get; set; }
         public Boolean Female { get; set; }
-        public List<String> Text { get; set; }
-        public List<String> SuffixText { get; set; }
+
+        private List<String> text = new List<string>();
+        public List<String> Text { get { return text; } set { text = value; } }
+
+        private List<String> suffixText = new List<string>();
+        public List<String> SuffixText { get { return suffixText; } set { suffixText = value; } }
     }
 }
 

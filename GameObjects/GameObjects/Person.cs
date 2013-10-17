@@ -6481,6 +6481,7 @@
                 {
                     biography += "的" + (suffixes.Count > 0 ? suffixes[GameObject.Random(suffixes.Count)] : "將領");
                 }
+                biography += "。";
             }
 
             Biography bio = new Biography();
