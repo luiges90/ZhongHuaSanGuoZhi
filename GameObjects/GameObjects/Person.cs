@@ -1277,6 +1277,7 @@
                                 i.Key.Brothers.Add(this);
                                 if (this.Sex)
                                 {
+                                    base.Scenario.YearTable.addCreateSisterEntry(base.Scenario.Date, this, i.Key);
                                     if (this.OnCreateSister != null)
                                     {
                                         this.OnCreateSister(this, i.Key);
@@ -1284,6 +1285,7 @@
                                 }
                                 else
                                 {
+                                    base.Scenario.YearTable.addCreateBrotherEntry(base.Scenario.Date, this, i.Key);
                                     if (this.OnCreateBrother != null)
                                     {
                                         this.OnCreateBrother(this, i.Key);
@@ -1295,6 +1297,7 @@
                         {
                             this.Spouse = i.Key;
                             i.Key.Spouse = this;
+                            base.Scenario.YearTable.addCreateSpouseEntry(base.Scenario.Date, this, i.Key);
                             if (this.OnCreateSpouse != null)
                             {
                                 this.OnCreateSpouse(this, i.Key);
@@ -6366,7 +6369,7 @@
             int motherChildCount = mother.NumberOfChildren;
             String[] order = new String[] { "长", "次", "三", "四", "五", "六", "七", "八" };
             biography += r.Father.Name + "之" + (fatherChildCount > 7 ? "" : order[fatherChildCount]) + (r.Sex ? "女" : "子") + "，" +
-                r.Mother.Name + "之" + (motherChildCount > 7 ? "" : order[fatherChildCount]) + (r.Sex ? "女" : "子") + "。" +
+                r.Mother.Name + "之" + (motherChildCount > 7 ? "" : order[motherChildCount]) + (r.Sex ? "女" : "子") + "。" +
                 "在" + r.father.Scenario.Date.Year + "年" + r.Father.Scenario.Date.Month + "月於" + bornArch.Name + "出生。";
 
             List<String> adjectives = new List<String>();
