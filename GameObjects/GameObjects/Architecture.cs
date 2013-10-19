@@ -5794,10 +5794,6 @@
             {
                 return 0;
             }
-            if (this.IsCapital && decrement > 1)
-            {
-                decrement = (decrement * 2) / 3;
-            }
 
             int endurance = decrement;
             if ((this.Endurance - decrement) < 0)
