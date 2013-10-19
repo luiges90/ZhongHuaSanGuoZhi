@@ -10,7 +10,7 @@
 
         public override bool CheckConditionKind(Person person)
         {
-            return (person.Politics >= this.number);
+            return (person.PoliticsIncludingExperience >= this.number);
         }
 
         public override void InitializeParameter(string parameter)
