@@ -10936,7 +10936,7 @@
                 if (this.Leader == null) return "----";
                 foreach (Title t in this.Leader.Titles)
                 {
-                    if (t.Kind == base.Scenario.GameCommonData.AllTitleKinds.CombatKind)
+                    if (t.Kind.Combat)
                     {
                         return t.Name;
                     }
@@ -10952,7 +10952,7 @@
                 if (this.Leader == null) return false;
                 foreach (Title t in this.Leader.Titles)
                 {
-                    if (t.Kind == base.Scenario.GameCommonData.AllTitleKinds.CombatKind)
+                    if (t.Kind.Combat)
                     {
                         return true;
                     }

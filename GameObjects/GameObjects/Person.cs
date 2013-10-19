@@ -2500,26 +2500,24 @@
             this.OutsideTask = OutsideTaskKind.无;
             if (this.StudyingTitle != null)
             {
-                bool flag = false;
                 if (GameObject.Random((this.StudyingTitle.Level * 2) + 8) + this.StudyingTitle.Kind.SuccessRate >= (this.StudyingTitle.Level * 2 - Parameters.LearnTitleSuccessRate))
                 {
+                    this.PurifyTitles();
+
                     foreach (Title t in this.RealTitles)
                     {
                         if (t.Kind == this.StudyingTitle.Kind)
                         {
-                            t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Title, t.ID);
-                            flag = true;
+                            this.RealTitles.Remove(t);
+                            break;
                         }
-                        this.RealTitles.Remove(t);
-                        break;
+                        
                     }
                     this.RealTitles.Add(this.StudyingTitle);
 
-                    if (flag)
-                    {
-                        this.ApplyTitles();
-                        this.ApplySkills();
-                    }
+                    this.ApplyTitles();
+                    this.ApplySkills();
+
 					ExtensionInterface.call("StudyTitleSuccess", new Object[] { this.Scenario, this, this.StudyingTitle });
                     if (this.OnStudyTitleFinished != null && this.ManualStudy)
                     {

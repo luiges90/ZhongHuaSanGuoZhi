@@ -537,12 +537,13 @@
             {
                 Title title = new Title();
                 title.ID = (short)reader["ID"];
-                title.Kind = this.AllTitleKinds.GetTitleKind((short)reader["TitleKind"] + titleKindShift);
+                title.Kind = this.AllTitleKinds.GetTitleKind((short)reader["Kind"] + titleKindShift);
                 title.Level = (short)reader["Level"];
                 title.Combat = (bool)reader["Combat"];
                 title.Name = reader["Name"].ToString();
                 title.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
                 title.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString());
+                this.AllTitles.AddTitle(title);
             }
             connection.Close();
             connection.Open();

@@ -169,7 +169,13 @@
             }
         }
 
-        public string KindName { get; set; }
+        public string KindName
+        {
+            get
+            {
+                return this.Kind.Name;
+            }
+        }
 
         public int Level
         {
