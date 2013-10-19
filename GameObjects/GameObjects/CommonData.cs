@@ -497,6 +497,8 @@
                 this.AllSkills.AddSkill(skill);
             }
             connection.Close();
+
+            int titleKindShift = 0;
             connection.Open();
             try
             {
@@ -508,6 +510,7 @@
                     tk.Name = reader["KName"].ToString();
                     tk.Combat = (bool)reader["Combat"];
                     tk.StudyDay = (short)reader["StudyDay"];
+                    tk.SuccessRate = (short)reader["SuccessRate"];
                     this.AllTitleKinds.AddTitleKind(tk);
                 }
             }
@@ -517,14 +520,15 @@
                 tk.ID = 1;
                 tk.Name = "个人称号";
                 tk.Combat = false;
-                tk.StudyDay = 60;
+                tk.StudyDay = 90;
                 this.AllTitleKinds.AddTitleKind(tk);
                 tk = new TitleKind();
                 tk.ID = 2;
                 tk.Name = "战斗称号";
                 tk.Combat = true;
-                tk.StudyDay = 60;
+                tk.StudyDay = 90;
                 this.AllTitleKinds.AddTitleKind(tk);
+                titleKindShift = 1;
             }
             connection.Close();
             connection.Open();
@@ -533,17 +537,12 @@
             {
                 Title title = new Title();
                 title.ID = (short)reader["ID"];
-                title.Kind = ((short)reader["Kind"]);
+                title.Kind = this.AllTitleKinds.GetTitleKind((short)reader["TitleKind"] + titleKindShift);
                 title.Level = (short)reader["Level"];
                 title.Combat = (bool)reader["Combat"];
                 title.Name = reader["Name"].ToString();
                 title.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
                 title.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString());
-                if (this.AllTitleKinds.GetTitleKind(title.Kind) != null)
-                {
-                    title.KindName = this.AllTitleKinds.GetTitleKind(title.Kind).Name;
-                    this.AllTitles.AddTitle(title);
-                }
             }
             connection.Close();
             connection.Open();
@@ -1914,7 +1913,7 @@
                     row = dataSet.Tables["Title"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
-                    row["Kind"] = (int)i.Kind;
+                    row["Kind"] = i.Kind.ID;
                     row["Level"] = i.Level;
                     row["Combat"] = i.Combat;
                     row["Name"] = i.Name;
@@ -1946,6 +1945,7 @@
                     row["KName"] = i.Name;
                     row["Combat"] = i.Combat;
                     row["StudyDay"] = i.StudyDay;
+                    row["SuccessRate"] = i.SuccessRate;
                     row.EndEdit();
                     dataSet.Tables["TitleKind"].Rows.Add(row);
                 }

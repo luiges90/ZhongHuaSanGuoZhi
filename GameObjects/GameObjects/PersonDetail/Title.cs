@@ -12,7 +12,7 @@
         private bool combat;
         public ConditionTable Conditions = new ConditionTable();
         public InfluenceTable Influences = new InfluenceTable();
-        private int kind;
+        private TitleKind kind;
         private int level;
 
         private bool? containsLeaderOnlyCache = null;
@@ -157,7 +157,7 @@
             }
         }
 
-        public int Kind
+        public TitleKind Kind
         {
             get
             {

@@ -284,7 +284,7 @@
             }
         }
 
-        public Title getTitleOfKind(int kind)
+        public Title getTitleOfKind(TitleKind kind)
         {
             foreach (Title t in this.Titles)
             {
@@ -2501,7 +2501,7 @@
             if (this.StudyingTitle != null)
             {
                 bool flag = false;
-                if (GameObject.Random((this.StudyingTitle.Level * 2) + 8) >= (this.StudyingTitle.Level * 2 - Parameters.LearnTitleSuccessRate))
+                if (GameObject.Random((this.StudyingTitle.Level * 2) + 8) + this.StudyingTitle.Kind.SuccessRate >= (this.StudyingTitle.Level * 2 - Parameters.LearnTitleSuccessRate))
                 {
                     foreach (Title t in this.RealTitles)
                     {
@@ -2810,7 +2810,7 @@
                 this.StudyingTitle = desTitle;
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = Math.Max(1, 
-                    Math.Min(this.LocationArchitecture.DayLearnTitleDay, base.Scenario.GameCommonData.AllTitleKinds.GetTitleKind(desTitle.Kind).StudyDay));
+                    Math.Min(this.LocationArchitecture.DayLearnTitleDay, desTitle.Kind.StudyDay));
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
 				ExtensionInterface.call("GoForStudyTitle", new Object[] { this.Scenario, this });
@@ -4688,7 +4688,7 @@
                 List<Title> title = new List<Title>();
                 foreach (Title candidate in base.Scenario.GameCommonData.AllTitles.Titles.Values)
                 {
-                    HashSet<int> hasKind = new HashSet<int>();
+                    HashSet<TitleKind> hasKind = new HashSet<TitleKind>();
                     foreach (Title t in this.Titles)
                     {
                         if (t.Kind == candidate.Kind && candidate.Level > t.Level && candidate.CanLearn(this))
@@ -6300,7 +6300,7 @@
             }
 
             GameObjectList rawTitles = father.Scenario.GameCommonData.AllTitles.GetTitleList().GetRandomList();
-            Dictionary<int, List<Title>> titles = new Dictionary<int, List<Title>>();
+            Dictionary<TitleKind, List<Title>> titles = new Dictionary<TitleKind, List<Title>>();
             foreach (Title t in rawTitles)
             {
                 if (!titles.ContainsKey(t.Kind))
@@ -6309,7 +6309,7 @@
                 }
                 titles[t.Kind].Add(t);
             }
-            foreach (KeyValuePair<int, List<Title>> i in titles)
+            foreach (KeyValuePair<TitleKind, List<Title>> i in titles)
             {
                 Title ft = father.getTitleOfKind(i.Key);
                 Title mt = mother.getTitleOfKind(i.Key);
