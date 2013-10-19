@@ -235,7 +235,7 @@
                 Align="Middle">
     </Text>
   </Labels>
-  <Title X="680" Y="40" Width="320" Height="210" RowMargin="10"
+  <Title X="680" Y="48" Width="320" Height="210" RowMargin="10"
             FontName="宋体"
             FontSize="11"
             FontStyle="Bold"
