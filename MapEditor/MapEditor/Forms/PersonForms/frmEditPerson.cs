@@ -344,27 +344,27 @@
 
         private void btnSaveTextMessage_Click(object sender, EventArgs e)
         {
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.CriticalStrike, this.rtbCriticalStrike.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.CriticalStrikeOnArchitecture, this.rtbCriticalStrikeOnArchitecture.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.DeepChaos, this.rtbDeepChaos.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.DualInitiativeWin, this.rtbDualInitiativeWin.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.DualPassiveWin, this.rtbDualPassiveWin.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.ControversyInitiativeWin, this.rtbControversyInitiativeWin.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.ControversyPassiveWin, this.rtbControversyPassiveWin.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.AntiAttack, this.rtbAntiAttack.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.BreakWall, this.rtbBreakWall.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.CastDeepChaos, this.rtbCastDeepChaos.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.Chaos, this.rtbChaos.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.HelpedByStratagem, this.rtbHelpedByStratagem.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.OutburstAngry, this.rtbOutburstAngry.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.OutburstQuiet, this.rtbOutburstQuiet.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.ReceiveCriticalStrike, this.rtbReceiveCriticalStrike.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.RecoverFromChaos, this.rtbRecoverFromChaos.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.ResistHarmfulStratagem, this.rtbResistHarmfulStratagem.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.ResistHelpfulStratagem, this.rtbResistHelpfulStratagem.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.Rout, this.rtbRout.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.Surround, this.rtbSurround.Text);
-            StaticMethods.LoadFromString(this.person.PersonTextMessage.TrappedByStratagem, this.rtbTrappedByStratagem.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Critical), this.rtbCriticalStrike.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.CriticalArchitecture), this.rtbCriticalStrikeOnArchitecture.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.DeepChaos), this.rtbDeepChaos.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.DualActiveWin), this.rtbDualInitiativeWin.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.DualPassiveWin), this.rtbDualPassiveWin.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.ControversyActiveWin), this.rtbControversyInitiativeWin.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.ControversyPassiveWin), this.rtbControversyPassiveWin.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.AntiAttack), this.rtbAntiAttack.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.BreakWall), this.rtbBreakWall.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.CastDeepChaos), this.rtbCastDeepChaos.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Chaos), this.rtbChaos.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.HelpedByStratagem), this.rtbHelpedByStratagem.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Angry), this.rtbOutburstAngry.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Calm), this.rtbOutburstQuiet.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.BeCritical), this.rtbReceiveCriticalStrike.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.RecoverChaos), this.rtbRecoverFromChaos.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.ResistHarmfulStratagem), this.rtbResistHarmfulStratagem.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.ResistHelpfulStratagem), this.rtbResistHelpfulStratagem.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Rout), this.rtbRout.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Surround), this.rtbSurround.Text);
+            StaticMethods.LoadFromString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.TrappedByStratagem), this.rtbTrappedByStratagem.Text);
         }
 
         private void cbFactionColor_DrawItem(object sender, DrawItemEventArgs e)
@@ -3050,15 +3050,6 @@
                         this.person.Scenario.GameCommonData.AllBiographies.AddBiography(biography);
                     }
                     this.person.PersonBiography = biography;
-                    TextMessage textMessage = this.MainForm.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID);
-                    if (textMessage == null)
-                    {
-                        textMessage = new TextMessage();
-                        textMessage.ID = this.person.ID;
-                        textMessage.Scenario = this.person.Scenario;
-                        this.person.Scenario.GameCommonData.AllTextMessages.AddTextMessage(textMessage);
-                    }
-                    this.person.PersonTextMessage = textMessage;
                     this.tbSurName.Text = this.person.SurName;
                     this.tbGivenName.Text = this.person.GivenName;
                     this.tbCalledName.Text = this.person.CalledName;
@@ -3192,27 +3183,27 @@
                     this.InitializeSkillData(this.person);
                     this.InitializeStuntData(this.person);
                     this.InitializeTitleData(this.person);
-                    this.rtbCriticalStrike.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.CriticalStrike);
-                    this.rtbCriticalStrikeOnArchitecture.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.CriticalStrikeOnArchitecture);
-                    this.rtbReceiveCriticalStrike.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.ReceiveCriticalStrike);
-                    this.rtbSurround.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.Surround);
-                    this.rtbRout.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.Rout);
-                    this.rtbDualInitiativeWin.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.DualInitiativeWin);
-                    this.rtbDualPassiveWin.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.DualPassiveWin);
-                    this.rtbControversyInitiativeWin.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.ControversyInitiativeWin);
-                    this.rtbControversyPassiveWin.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.ControversyPassiveWin);
-                    this.rtbChaos.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.Chaos);
-                    this.rtbDeepChaos.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.DeepChaos);
-                    this.rtbCastDeepChaos.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.CastDeepChaos);
-                    this.rtbRecoverFromChaos.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.RecoverFromChaos);
-                    this.rtbTrappedByStratagem.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.TrappedByStratagem);
-                    this.rtbHelpedByStratagem.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.HelpedByStratagem);
-                    this.rtbResistHarmfulStratagem.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.ResistHarmfulStratagem);
-                    this.rtbResistHelpfulStratagem.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.ResistHelpfulStratagem);
-                    this.rtbAntiAttack.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.AntiAttack);
-                    this.rtbBreakWall.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.BreakWall);
-                    this.rtbOutburstAngry.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.OutburstAngry);
-                    this.rtbOutburstQuiet.Text = StaticMethods.SaveToString(this.person.PersonTextMessage.OutburstQuiet);
+                    this.rtbCriticalStrike.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Critical));
+                    this.rtbCriticalStrikeOnArchitecture.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.CriticalArchitecture));
+                    this.rtbReceiveCriticalStrike.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.BeCritical));
+                    this.rtbSurround.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Surround));
+                    this.rtbRout.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Rout));
+                    this.rtbDualInitiativeWin.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.DualActiveWin));
+                    this.rtbDualPassiveWin.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.DualPassiveWin));
+                    this.rtbControversyInitiativeWin.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.ControversyActiveWin));
+                    this.rtbControversyPassiveWin.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.ControversyPassiveWin));
+                    this.rtbChaos.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Chaos));
+                    this.rtbDeepChaos.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.DeepChaos));
+                    this.rtbCastDeepChaos.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.CastDeepChaos));
+                    this.rtbRecoverFromChaos.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.RecoverChaos));
+                    this.rtbTrappedByStratagem.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.TrappedByStratagem));
+                    this.rtbHelpedByStratagem.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.HelpedByStratagem));
+                    this.rtbResistHarmfulStratagem.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.ResistHarmfulStratagem));
+                    this.rtbResistHelpfulStratagem.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.ResistHelpfulStratagem));
+                    this.rtbAntiAttack.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.AntiAttack));
+                    this.rtbBreakWall.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.BreakWall));
+                    this.rtbOutburstAngry.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Angry));
+                    this.rtbOutburstQuiet.Text = StaticMethods.SaveToString(this.person.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.person.ID, TextMessageKind.Calm));
             }
         }
 

@@ -577,14 +577,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 }
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
 
-
+                List<string> msg;
                 switch (win)
                 {
                     case 1: //P1武将胜利
                         this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceWin");
-                        if ((P1.PersonTextMessage != null) && (P1.PersonTextMessage.DualInitiativeWin.Count > 0))
+                        msg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(P1.ID, TextMessageKind.DualActiveWin);
+                        if (msg.Count > 0)
                         {
-                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(P1, null, P1.PersonTextMessage.DualInitiativeWin[GameObject.Random(P1.PersonTextMessage.DualInitiativeWin.Count)]);
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(P1, null, msg[GameObject.Random(msg.Count)]);
                         }
                         else
                         {
@@ -596,9 +597,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         break;
                     case 2: //2：P2武将胜利
                         this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonChallengeSourceLose");
-                        if ((P2.PersonTextMessage != null) && (P2.PersonTextMessage.DualPassiveWin.Count > 0))
+                        msg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(P1.ID, TextMessageKind.DualPassiveWin);
+                        if (msg.Count > 0)
                         {
-                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(P2, null, P2.PersonTextMessage.DualPassiveWin[GameObject.Random(P2.PersonTextMessage.DualPassiveWin.Count)]);
+                            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(P2, null, msg[GameObject.Random(msg.Count)]);
                         }
                         else
                         {
@@ -687,12 +689,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     neutralPerson = source;
                 }
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                List<string> msg;
                 if (win)
                 {
                     this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonControversySourceWin");
-                    if ((source.PersonTextMessage != null) && (source.PersonTextMessage.ControversyInitiativeWin.Count > 0))
+                    msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(source.ID, TextMessageKind.ControversyActiveWin);
+                    if (msg.Count > 0)
                     {
-                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, null, source.PersonTextMessage.ControversyInitiativeWin[GameObject.Random(source.PersonTextMessage.ControversyInitiativeWin.Count)]);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, null, msg[GameObject.Random(msg.Count)]);
                     }
                     else
                     {
@@ -702,9 +706,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 else
                 {
                     this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonControversySourceLose");
-                    if ((destination.PersonTextMessage != null) && (destination.PersonTextMessage.ControversyPassiveWin.Count > 0))
+                    msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(source.ID, TextMessageKind.ControversyPassiveWin);
+                    if (msg.Count > 0)
                     {
-                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, null, destination.PersonTextMessage.ControversyPassiveWin[GameObject.Random(destination.PersonTextMessage.ControversyPassiveWin.Count)]);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, null, msg[GameObject.Random(msg.Count)]);
                     }
                     else
                     {

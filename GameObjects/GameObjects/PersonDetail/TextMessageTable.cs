@@ -1,76 +1,52 @@
-﻿namespace GameObjects.PersonDetail
+﻿using System;
+using System.Collections.Generic;
+
+namespace GameObjects.PersonDetail
 {
-    using GameObjects;
-    using System;
-    using System.Collections.Generic;
+	public class TextMessageTable
+	{
+        private Dictionary<KeyValuePair<int, TextMessageKind>, List<string>> textMessages = new Dictionary<KeyValuePair<int, TextMessageKind>, List<string>>();
 
-    public class TextMessageTable
-    {
-        public Dictionary<int, TextMessage> TextMessages = new Dictionary<int, TextMessage>();
-
-        public bool AddTextMessage(TextMessage textMessage)
+        public Dictionary<KeyValuePair<int, TextMessageKind>, List<string>> GetAllMessages()
         {
-            if (this.TextMessages.ContainsKey(textMessage.ID))
+            return textMessages;
+        }
+
+        public bool AddTextMessages(int pid, TextMessageKind kind, List<string> messages)
+        {
+            KeyValuePair<int, TextMessageKind> key = new KeyValuePair<int, TextMessageKind>(pid, kind);
+            if (this.textMessages.ContainsKey(key) || messages.Count == 0)
             {
                 return false;
             }
-            this.TextMessages.Add(textMessage.ID, textMessage);
+            this.textMessages.Add(key, new List<string>(messages));
             return true;
         }
 
         public void Clear()
         {
-            this.TextMessages.Clear();
+            this.textMessages.Clear();
         }
 
-        public TextMessage GetTextMessage(int textMessageID)
+        public List<string> GetTextMessage(int pid, TextMessageKind kind)
         {
-            TextMessage message = null;
-            this.TextMessages.TryGetValue(textMessageID, out message);
-            return message;
-        }
-
-        public GameObjectList GetTextMessageList()
-        {
-            GameObjectList list = new GameObjectList();
-            foreach (TextMessage message in this.TextMessages.Values)
+            KeyValuePair<int, TextMessageKind> key = new KeyValuePair<int, TextMessageKind>(pid, kind);
+            if (this.textMessages.ContainsKey(key))
             {
-                list.Add(message);
+                return this.textMessages[key];
             }
-            return list;
-        }
-
-        public void LoadFromString(TextMessageTable allTextMessages, string textMessageIDs)
-        {
-            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
-            string[] strArray = textMessageIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            TextMessage message = null;
-            for (int i = 0; i < strArray.Length; i++)
+            else
             {
-                if (allTextMessages.TextMessages.TryGetValue(int.Parse(strArray[i]), out message))
-                {
-                    this.AddTextMessage(message);
-                }
+                return new List<string>();
             }
-        }
-
-        public string SaveToString()
-        {
-            string str = "";
-            foreach (TextMessage message in this.TextMessages.Values)
-            {
-                str = str + message.ID.ToString() + " ";
-            }
-            return str;
         }
 
         public int Count
         {
             get
             {
-                return this.TextMessages.Count;
+                return this.textMessages.Count;
             }
         }
-    }
+	}
 }
-

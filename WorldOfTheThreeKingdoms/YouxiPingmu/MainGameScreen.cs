@@ -1955,9 +1955,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(receiving.Position)) || GlobalVariables.SkyEye)
             {
-                if ((receiving.Leader.PersonTextMessage != null) && (receiving.Leader.PersonTextMessage.AntiAttack.Count > 0))
+                List<string> msg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(receiving.Leader.ID, TextMessageKind.AntiAttack);
+                if (msg.Count > 0)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, receiving.Leader.PersonTextMessage.AntiAttack[GameObject.Random(receiving.Leader.PersonTextMessage.AntiAttack.Count)]);
+                    this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, msg[GameObject.Random(msg.Count)]);
                 }
                 else
                 {
@@ -1970,9 +1971,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(receiving.Position)) || GlobalVariables.SkyEye)
             {
-                if ((receiving.Leader.PersonTextMessage != null) && (receiving.Leader.PersonTextMessage.AntiAttack.Count > 0))
+                List<string> msg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(receiving.Leader.ID, TextMessageKind.AntiAttack);
+                if (msg.Count > 0)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, receiving.Leader.PersonTextMessage.AntiAttack[GameObject.Random(receiving.Leader.PersonTextMessage.AntiAttack.Count)]);
+                    this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, msg[GameObject.Random(msg.Count)]);
                 }
                 else
                 {
@@ -2065,9 +2067,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye)
             {
-                if ((troop.Leader.PersonTextMessage != null) && (troop.Leader.PersonTextMessage.BreakWall.Count > 0))
+                List<string> msg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(troop.Leader.ID, TextMessageKind.BreakWall);
+                if (msg.Count > 0)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, troop.Leader.PersonTextMessage.BreakWall[GameObject.Random(troop.Leader.PersonTextMessage.BreakWall.Count)]);
+                    this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, msg[GameObject.Random(msg.Count)]);
                 }
                 else
                 {
@@ -2080,9 +2083,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sending.Position)) || GlobalVariables.SkyEye)
             {
-                if ((sending.Leader.PersonTextMessage != null) && (sending.Leader.PersonTextMessage.CastDeepChaos.Count > 0))
+                List<string> msg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(sending.Leader.ID, TextMessageKind.CastDeepChaos);
+                if (msg.Count > 0)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, sending.Leader.PersonTextMessage.CastDeepChaos[GameObject.Random(sending.Leader.PersonTextMessage.CastDeepChaos.Count)]);
+                    this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, msg[GameObject.Random(msg.Count)]);
                 }
                 else
                 {
@@ -2116,20 +2120,22 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye)
             {
+                List<string> msg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(troop.Leader.ID, TextMessageKind.Chaos);
                 if (deepChaos)
                 {
-                    if ((troop.Leader.PersonTextMessage != null) && (troop.Leader.PersonTextMessage.DeepChaos.Count > 0))
+                    List<string> deepMsg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(troop.Leader.ID, TextMessageKind.DeepChaos);
+                    if (msg.Count > 0)
                     {
-                        this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, troop.Leader.PersonTextMessage.DeepChaos[GameObject.Random(troop.Leader.PersonTextMessage.DeepChaos.Count)]);
+                        this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, deepMsg[GameObject.Random(msg.Count)]);
                     }
                     else
                     {
                         this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, "DeepChaos");
                     }
                 }
-                else if ((troop.Leader.PersonTextMessage != null) && (troop.Leader.PersonTextMessage.Chaos.Count > 0))
+                else if (msg.Count > 0)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, troop.Leader.PersonTextMessage.Chaos[GameObject.Random(troop.Leader.PersonTextMessage.Chaos.Count)]);
+                    this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, msg[GameObject.Random(msg.Count)]);
                 }
                 else
                 {
@@ -2166,26 +2172,31 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void TroopCriticalStrike(Troop sending, Troop receiving)
         {
-            if ((((sending.CurrentCombatMethod == null) || (((receiving != null) && (sending.Leader.PersonTextMessage != null)) && (sending.Leader.PersonTextMessage.CriticalStrike.Count > 0))) || (((receiving == null) && (sending.Leader.PersonTextMessage != null)) && (sending.Leader.PersonTextMessage.CriticalStrikeOnArchitecture.Count > 0))) && (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sending.Position)) || GlobalVariables.SkyEye))
+            if (sending.CurrentCombatMethod == null && (base.Scenario.CurrentPlayer == null || base.Scenario.CurrentPlayer.IsPositionKnown(sending.Position) || GlobalVariables.SkyEye))
             {
                 if (receiving != null)
                 {
-                    if ((sending.Leader.PersonTextMessage != null) && (sending.Leader.PersonTextMessage.CriticalStrike.Count > 0))
+                    List<string> msg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(sending.Leader.ID, TextMessageKind.Critical);
+                    if (msg.Count > 0)
                     {
-                        this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, sending.Leader.PersonTextMessage.CriticalStrike[GameObject.Random(sending.Leader.PersonTextMessage.CriticalStrike.Count)]);
+                        this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, msg[GameObject.Random(msg.Count)]);
                     }
                     else
                     {
                         this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, "CriticalStrike");
                     }
-                }
-                else if ((sending.Leader.PersonTextMessage != null) && (sending.Leader.PersonTextMessage.CriticalStrikeOnArchitecture.Count > 0))
+                } 
+                else 
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, sending.Leader.PersonTextMessage.CriticalStrikeOnArchitecture[GameObject.Random(sending.Leader.PersonTextMessage.CriticalStrikeOnArchitecture.Count)]);
-                }
-                else
-                {
-                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, "CriticalStrikeOnArchitecture");
+                    List<string> msg = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(sending.Leader.ID, TextMessageKind.CriticalArchitecture);
+                    if (msg.Count > 0)
+                    {
+                        this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, msg[GameObject.Random(msg.Count)]);
+                    }
+                    else
+                    {
+                        this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, "CriticalStrikeOnArchitecture");
+                    }
                 }
             }
         }
@@ -2263,24 +2274,27 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye)
             {
+                List<string> msg;
                 switch (kind)
                 {
                     case OutburstKind.愤怒:
-                        if ((troop.Leader.PersonTextMessage == null) || (troop.Leader.PersonTextMessage.OutburstAngry.Count <= 0))
+                        msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(troop.Leader.ID, TextMessageKind.Angry);
+                        if (msg.Count <= 0)
                         {
                             this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, "TroopOutburstAngry");
                             break;
                         }
-                        this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, troop.Leader.PersonTextMessage.OutburstAngry[GameObject.Random(troop.Leader.PersonTextMessage.OutburstAngry.Count)]);
+                        this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, msg[GameObject.Random(msg.Count)]);
                         break;
 
                     case OutburstKind.沉静:
-                        if ((troop.Leader.PersonTextMessage == null) || (troop.Leader.PersonTextMessage.OutburstQuiet.Count <= 0))
+                        msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(troop.Leader.ID, TextMessageKind.Calm);
+                        if (msg.Count <= 0)
                         {
                             this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, "TroopOutburstQuiet");
                             break;
                         }
-                        this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, troop.Leader.PersonTextMessage.OutburstQuiet[GameObject.Random(troop.Leader.PersonTextMessage.OutburstQuiet.Count)]);
+                        this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, msg[GameObject.Random(msg.Count)]);
                         break;
                 }
             }
@@ -2294,11 +2308,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void TroopReceiveCriticalStrike(Troop sending, Troop receiving)
         {
-            if (!receiving.Destroyed && ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(receiving.Position)) || GlobalVariables.SkyEye) && ((receiving.Status != TroopStatus.混乱) && (GameObject.Chance(receiving.Leader.Braveness) || ((receiving.Leader.PersonTextMessage != null) && (receiving.Leader.PersonTextMessage.ReceiveCriticalStrike.Count > 0))))))
+            List<string> msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(receiving.Leader.ID, TextMessageKind.BeCritical);
+            if (!receiving.Destroyed && ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(receiving.Position)) || GlobalVariables.SkyEye) && ((receiving.Status != TroopStatus.混乱) && (GameObject.Chance(receiving.Leader.Braveness) || msg.Count > 0))))
             {
-                if ((receiving.Leader.PersonTextMessage != null) && (receiving.Leader.PersonTextMessage.ReceiveCriticalStrike.Count > 0))
+                if (msg.Count > 0)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, receiving.Leader.PersonTextMessage.ReceiveCriticalStrike[GameObject.Random(receiving.Leader.PersonTextMessage.ReceiveCriticalStrike.Count)]);
+                    this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, msg[GameObject.Random(msg.Count)]);
                 }
                 else
                 {
@@ -2319,9 +2334,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye)
             {
-                if ((troop.Leader.PersonTextMessage != null) && (troop.Leader.PersonTextMessage.RecoverFromChaos.Count > 0))
+                List<string> msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(troop.ID, TextMessageKind.RecoverChaos);
+                if (msg.Count > 0)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, troop.Leader.PersonTextMessage.RecoverFromChaos[GameObject.Random(troop.Leader.PersonTextMessage.RecoverFromChaos.Count)]);
+                    this.Plugins.PersonBubblePlugin.AddPersonText(troop.Leader, troop.Position, msg[GameObject.Random(msg.Count)]);
                 }
                 else
                 {
@@ -2348,9 +2364,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     if (GameObject.Random(receiving.TroopIntelligence) > GameObject.Random(sending.TroopIntelligence))
                     {
-                        if ((receiving.Leader.PersonTextMessage != null) && (receiving.Leader.PersonTextMessage.ResistHarmfulStratagem.Count > 0))
+                        List<string> msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(receiving.Leader.ID, TextMessageKind.ResistHarmfulStratagem);
+                        if (msg.Count > 0)
                         {
-                            this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, receiving.Leader.PersonTextMessage.ResistHarmfulStratagem[GameObject.Random(receiving.Leader.PersonTextMessage.ResistHarmfulStratagem.Count)]);
+                            this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, msg[GameObject.Random(msg.Count)]);
                         }
                         else
                         {
@@ -2358,13 +2375,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         }
                     }
                 }
-                else if ((receiving.Leader.PersonTextMessage != null) && (receiving.Leader.PersonTextMessage.ResistHelpfulStratagem.Count > 0))
-                {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, receiving.Leader.PersonTextMessage.ResistHelpfulStratagem[GameObject.Random(receiving.Leader.PersonTextMessage.ResistHelpfulStratagem.Count)]);
-                }
                 else
                 {
-                    this.Plugins.PersonBubblePlugin.AddPerson(receiving.Leader, receiving.Position, "ResistNoHarmStratagem");
+                    List<string> msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(receiving.Leader.ID, TextMessageKind.ResistHelpfulStratagem);
+                    if (msg.Count > 0)
+                    {
+                        this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, msg[GameObject.Random(msg.Count)]);
+                    }
+                    else
+                    {
+                        this.Plugins.PersonBubblePlugin.AddPerson(receiving.Leader, receiving.Position, "ResistNoHarmStratagem");
+                    }
                 }
             }
         }
@@ -2373,9 +2394,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sending.Position)) || GlobalVariables.SkyEye)
             {
-                if ((sending.Leader.PersonTextMessage != null) && (sending.Leader.PersonTextMessage.Rout.Count > 0))
+                List<string> msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(sending.Leader.ID, TextMessageKind.Rout);
+                if (msg.Count > 0)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, sending.Leader.PersonTextMessage.Rout[GameObject.Random(sending.Leader.PersonTextMessage.Rout.Count)]);
+                    this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, msg[GameObject.Random(msg.Count)]);
                 }
                 else
                 {
@@ -2431,9 +2453,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     if (GameObject.Chance(0x21))
                     {
-                        if ((receiving.Leader.PersonTextMessage != null) && (receiving.Leader.PersonTextMessage.TrappedByStratagem.Count > 0))
+                        List<string> msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(receiving.Leader.ID, TextMessageKind.TrappedByStratagem);
+                        if (msg.Count > 0)
                         {
-                            this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, receiving.Leader.PersonTextMessage.TrappedByStratagem[GameObject.Random(receiving.Leader.PersonTextMessage.TrappedByStratagem.Count)]);
+                            this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, msg[GameObject.Random(msg.Count)]);
                         }
                         else
                         {
@@ -2443,9 +2466,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 }
                 else if ((sending != receiving) && GameObject.Chance(0x21))
                 {
-                    if ((receiving.Leader.PersonTextMessage != null) && (receiving.Leader.PersonTextMessage.HelpedByStratagem.Count > 0))
+                    List<string> msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(receiving.Leader.ID, TextMessageKind.HelpedByStratagem);
+                    if (msg.Count > 0)
                     {
-                        this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, receiving.Leader.PersonTextMessage.HelpedByStratagem[GameObject.Random(receiving.Leader.PersonTextMessage.HelpedByStratagem.Count)]);
+                        this.Plugins.PersonBubblePlugin.AddPersonText(receiving.Leader, receiving.Position, msg[GameObject.Random(msg.Count)]);
                     }
                     else
                     {
@@ -2459,9 +2483,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sending.Position)) || GlobalVariables.SkyEye)
             {
-                if ((sending.Leader.PersonTextMessage != null) && (sending.Leader.PersonTextMessage.Surround.Count > 0))
+                List<string> msg = this.Scenario.GameCommonData.AllTextMessages.GetTextMessage(receiving.Leader.ID, TextMessageKind.Surround);
+                if (msg.Count > 0)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, sending.Leader.PersonTextMessage.Surround[GameObject.Random(sending.Leader.PersonTextMessage.Surround.Count)]);
+                    this.Plugins.PersonBubblePlugin.AddPersonText(sending.Leader, sending.Position, msg[GameObject.Random(msg.Count)]);
                 }
                 else
                 {

@@ -442,8 +442,6 @@
     <Compile Include="GameObjects\TroopDetail\AttackDefaultKindList.cs" />
     <Compile Include="GameObjects\TroopDetail\AttackDefaultKind.cs" />
     <Compile Include="GameObjects\SectionDetail\SectionAIDetail.cs" />
-    <Compile Include="GameObjects\PersonDetail\TextMessageTable.cs" />
-    <Compile Include="GameObjects\PersonDetail\TextMessage.cs" />
     <Compile Include="GameObjects\MapDetail\TerrainDirection.cs" />
     <Compile Include="GameObjects\MapDetail\TerrainTextures.cs" />
     <Compile Include="GameObjects\MapDetail\TerrainDetail.cs" />
@@ -1185,6 +1183,8 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6945.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3157.cs" />
     <Compile Include="GameObjects\PersonDetail\BiographyAdjectives.cs" />
+    <Compile Include="GameObjects\PersonDetail\TextMessageKind.cs" />
+    <Compile Include="GameObjects\PersonDetail\TextMessageTable.cs" />
     <Compile Include="GameObjects\PersonDetail\TitleKindTable.cs" />
     <Compile Include="GameObjects\PersonDetail\TitleKind.cs" />
   </ItemGroup>

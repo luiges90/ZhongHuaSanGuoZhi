@@ -630,15 +630,6 @@
                         t.Scenario.GameCommonData.AllBiographies.AddBiography(biography);
                     }
                     t.PersonBiography = biography;
-                    TextMessage textMessage = this.MainForm.Scenario.GameCommonData.AllTextMessages.GetTextMessage(t.ID);
-                    if (textMessage == null)
-                    {
-                        textMessage = new TextMessage();
-                        textMessage.ID = t.ID;
-                        textMessage.Scenario = t.Scenario;
-                        t.Scenario.GameCommonData.AllTextMessages.AddTextMessage(textMessage);
-                    }
-                    t.PersonTextMessage = textMessage;
                     this.RebindDataSource();
                     break;
                 }

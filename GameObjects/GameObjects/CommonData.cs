@@ -800,36 +800,114 @@
                 this.AllBiographies.AddBiography(biography);
             }
             connection.Close();
+
             connection.Open();
-            reader = new OleDbCommand("Select * From TextMessage", connection).ExecuteReader();
-            while (reader.Read())
+            try
             {
-                TextMessage textMessage = new TextMessage();
-                textMessage.ID = (short)reader["ID"];
-                StaticMethods.LoadFromString(textMessage.CriticalStrike, reader["CriticalStrike"].ToString());
-                StaticMethods.LoadFromString(textMessage.CriticalStrikeOnArchitecture, reader["CriticalStrikeOnArchitecture"].ToString());
-                StaticMethods.LoadFromString(textMessage.ReceiveCriticalStrike, reader["ReceiveCriticalStrike"].ToString());
-                StaticMethods.LoadFromString(textMessage.Surround, reader["Surround"].ToString());
-                StaticMethods.LoadFromString(textMessage.Rout, reader["Rout"].ToString());
-                StaticMethods.LoadFromString(textMessage.DualInitiativeWin, reader["DualInitiativeWin"].ToString());
-                StaticMethods.LoadFromString(textMessage.DualPassiveWin, reader["DualPassiveWin"].ToString());
-                StaticMethods.LoadFromString(textMessage.ControversyInitiativeWin, reader["ControversyInitiativeWin"].ToString());
-                StaticMethods.LoadFromString(textMessage.ControversyPassiveWin, reader["ControversyPassiveWin"].ToString());
-                StaticMethods.LoadFromString(textMessage.Chaos, reader["Chaos"].ToString());
-                StaticMethods.LoadFromString(textMessage.DeepChaos, reader["DeepChaos"].ToString());
-                StaticMethods.LoadFromString(textMessage.CastDeepChaos, reader["CastDeepChaos"].ToString());
-                StaticMethods.LoadFromString(textMessage.RecoverFromChaos, reader["RecoverFromChaos"].ToString());
-                StaticMethods.LoadFromString(textMessage.TrappedByStratagem, reader["TrappedByStratagem"].ToString());
-                StaticMethods.LoadFromString(textMessage.HelpedByStratagem, reader["HelpedByStratagem"].ToString());
-                StaticMethods.LoadFromString(textMessage.ResistHarmfulStratagem, reader["ResistHarmfulStratagem"].ToString());
-                StaticMethods.LoadFromString(textMessage.ResistHelpfulStratagem, reader["ResistHelpfulStratagem"].ToString());
-                StaticMethods.LoadFromString(textMessage.AntiAttack, reader["AntiAttack"].ToString());
-                StaticMethods.LoadFromString(textMessage.BreakWall, reader["BreakWall"].ToString());
-                StaticMethods.LoadFromString(textMessage.OutburstAngry, reader["OutburstAngry"].ToString());
-                StaticMethods.LoadFromString(textMessage.OutburstQuiet, reader["OutburstQuiet"].ToString());
-                this.AllTextMessages.AddTextMessage(textMessage);
+                reader = new OleDbCommand("Select * From TextMessageMap", connection).ExecuteReader();
+                while (reader.Read())
+                {
+                    int pid = (short)reader["Person"];
+                    TextMessageKind kind = (TextMessageKind)reader["Kind"];
+                    List<string> messages = new List<string>();
+                    StaticMethods.LoadFromString(messages, reader["Messages"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, kind, messages);
+                }
+            }
+            catch
+            {
+                reader = new OleDbCommand("Select * From TextMessage", connection).ExecuteReader();
+                while (reader.Read())
+                {
+                    int pid = (short)reader["ID"];
+
+                    List<string> messages = new List<string>();
+                    StaticMethods.LoadFromString(messages, reader["CriticalStrike"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.Critical, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["CriticalStrikeOnArchitecture"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.CriticalArchitecture, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["ReceiveCriticalStrike"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.BeCritical, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["Surround"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.Surround, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["Rout"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.Rout, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["DualInitiativeWin"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.DualActiveWin, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["DualPassiveWin"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.DualPassiveWin, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["ControversyInitiativeWin"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.ControversyActiveWin, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["ControversyPassiveWin"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.ControversyPassiveWin, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["Chaos"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.Chaos, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["DeepChaos"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.DeepChaos, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["CastDeepChaos"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.CastDeepChaos, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["RecoverFromChaos"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.RecoverChaos, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["TrappedByStratagem"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.TrappedByStratagem, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["HelpedByStratagem"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.HelpedByStratagem, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["ResistHarmfulStratagem"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.ResistHarmfulStratagem, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["ResistHelpfulStratagem"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.ResistHelpfulStratagem, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["AntiAttack"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.AntiAttack, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["BreakWall"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.BreakWall, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["OutburstAngry"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.Angry, messages);
+
+                    messages.Clear();
+                    StaticMethods.LoadFromString(messages, reader["OutburstQuiet"].ToString());
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.Calm, messages); 
+                }
             }
             connection.Close();
+
             connection.Open();
             try
             {
@@ -938,85 +1016,25 @@
             }
             adapter.Update(dataSet, "Biography");
             dataSet.Clear();
-            adapter = new OleDbDataAdapter("Select * from TextMessage", selectConnection);
+
+            new OleDbCommand("Delete from TextMessageMap", selectConnection).ExecuteNonQuery();
+            adapter = new OleDbDataAdapter("Select * from TextMessageMap", selectConnection);
             builder = new OleDbCommandBuilder(adapter);
-            adapter.Fill(dataSet, "TextMessage");
-            dictionary.Clear();
-            list.Clear();
-            num = 0;
-            //using (enumerator = dataSet.Tables["TextMessage"].Rows.GetEnumerator())
-            enumerator = dataSet.Tables["TextMessage"].Rows.GetEnumerator();
+            adapter.Fill(dataSet, "TextMessageMap");
+            dataSet.Tables["TextMessageMap"].Rows.Clear();
+            int id = 1;
+            foreach (KeyValuePair<KeyValuePair<int, TextMessageKind>, List<string>> i in this.AllTextMessages.GetAllMessages())
             {
-                while (enumerator.MoveNext())
-                {
-                    current = (DataRow) enumerator.Current;
-                    TextMessage message = null;
-                    num2 = (short) current["ID"];
-                    dictionary.Add(num2, num2);
-                    if (this.AllTextMessages.TextMessages.TryGetValue(num2, out message))
-                    {
-                        current.BeginEdit();
-                        current["CriticalStrike"] = StaticMethods.SaveToString(message.CriticalStrike);
-                        current["ReceiveCriticalStrike"] = StaticMethods.SaveToString(message.ReceiveCriticalStrike);
-                        current["OutburstAngry"] = StaticMethods.SaveToString(message.OutburstAngry);
-                        current["OutburstQuiet"] = StaticMethods.SaveToString(message.OutburstQuiet);
-                        current["RecoverFromChaos"] = StaticMethods.SaveToString(message.RecoverFromChaos);
-                        current["ResistHarmfulStratagem"] = StaticMethods.SaveToString(message.ResistHarmfulStratagem);
-                        current["ResistHelpfulStratagem"] = StaticMethods.SaveToString(message.ResistHelpfulStratagem);
-                        current["Rout"] = StaticMethods.SaveToString(message.Rout);
-                        current["AntiAttack"] = StaticMethods.SaveToString(message.AntiAttack);
-                        current["BreakWall"] = StaticMethods.SaveToString(message.BreakWall);
-                        current["CastDeepChaos"] = StaticMethods.SaveToString(message.CastDeepChaos);
-                        current["Chaos"] = StaticMethods.SaveToString(message.Chaos);
-                        current["CriticalStrikeOnArchitecture"] = StaticMethods.SaveToString(message.CriticalStrikeOnArchitecture);
-                        current["DeepChaos"] = StaticMethods.SaveToString(message.DeepChaos);
-                        current["DualInitiativeWin"] = StaticMethods.SaveToString(message.DualInitiativeWin);
-                        current["DualPassiveWin"] = StaticMethods.SaveToString(message.DualPassiveWin);
-                        current["ControversyInitiativeWin"] = StaticMethods.SaveToString(message.ControversyInitiativeWin);
-                        current["ControversyPassiveWin"] = StaticMethods.SaveToString(message.ControversyPassiveWin);
-                        current["HelpedByStratagem"] = StaticMethods.SaveToString(message.HelpedByStratagem);
-                        current["Surround"] = StaticMethods.SaveToString(message.Surround);
-                        current["TrappedByStratagem"] = StaticMethods.SaveToString(message.TrappedByStratagem);
-                        current.EndEdit();
-                    }
-                    num++;
-                }
+                DataRow row = dataSet.Tables["TextMessageMap"].NewRow();
+                row.BeginEdit();
+                row["ID"] = id++;
+                row["Person"] = i.Key.Key;
+                row["Kind"] = i.Key.Value;
+                row["Messages"] = StaticMethods.SaveToString(i.Value);
+                row.EndEdit();
+                dataSet.Tables["TextMessageMap"].Rows.Add(row);
             }
-            foreach (int num3 in list)
-            {
-                dataSet.Tables["TextMessage"].Rows[num3].Delete();
-            }
-            foreach (TextMessage message in this.AllTextMessages.TextMessages.Values)
-            {
-                if (!dictionary.ContainsKey(message.ID))
-                {
-                    current = dataSet.Tables["TextMessage"].NewRow();
-                    current.BeginEdit();
-                    current["ID"] = message.ID;
-                    current["CriticalStrike"] = StaticMethods.SaveToString(message.CriticalStrike);
-                    current["ReceiveCriticalStrike"] = StaticMethods.SaveToString(message.ReceiveCriticalStrike);
-                    current["OutburstAngry"] = StaticMethods.SaveToString(message.OutburstAngry);
-                    current["OutburstQuiet"] = StaticMethods.SaveToString(message.OutburstQuiet);
-                    current["RecoverFromChaos"] = StaticMethods.SaveToString(message.RecoverFromChaos);
-                    current["ResistHarmfulStratagem"] = StaticMethods.SaveToString(message.ResistHarmfulStratagem);
-                    current["ResistHelpfulStratagem"] = StaticMethods.SaveToString(message.ResistHelpfulStratagem);
-                    current["Rout"] = StaticMethods.SaveToString(message.Rout);
-                    current["AntiAttack"] = StaticMethods.SaveToString(message.AntiAttack);
-                    current["BreakWall"] = StaticMethods.SaveToString(message.BreakWall);
-                    current["CastDeepChaos"] = StaticMethods.SaveToString(message.CastDeepChaos);
-                    current["Chaos"] = StaticMethods.SaveToString(message.Chaos);
-                    current["CriticalStrikeOnArchitecture"] = StaticMethods.SaveToString(message.CriticalStrikeOnArchitecture);
-                    current["DeepChaos"] = StaticMethods.SaveToString(message.DeepChaos);
-                    current["DualInitiativeWin"] = StaticMethods.SaveToString(message.DualInitiativeWin);
-                    current["DualPassiveWin"] = StaticMethods.SaveToString(message.DualPassiveWin);
-                    current["HelpedByStratagem"] = StaticMethods.SaveToString(message.HelpedByStratagem);
-                    current["Surround"] = StaticMethods.SaveToString(message.Surround);
-                    current["TrappedByStratagem"] = StaticMethods.SaveToString(message.TrappedByStratagem);
-                    current.EndEdit();
-                    dataSet.Tables["TextMessage"].Rows.Add(current);
-                }
-            }
-            adapter.Update(dataSet, "TextMessage");
+            adapter.Update(dataSet, "TextMessageMap");
             dataSet.Clear();
         }
 
@@ -1068,6 +1086,7 @@
 
         public void SaveAllToDatabase(string connectionString)
         {
+            this.SaveToDatabase(connectionString);
             List<int> storedIds = new List<int>();
             using (OleDbConnection selectConnection = new OleDbConnection(connectionString))
             {
@@ -1836,44 +1855,6 @@
                     dataSet.Tables["TerrainDetail"].Rows.Add(row);
                 }
                 adapter.Update(dataSet, "TerrainDetail");
-                dataSet.Clear();
-
-                new OleDbCommand("Delete from TextMessage", selectConnection).ExecuteNonQuery();
-                adapter = new OleDbDataAdapter("Select * from TextMessage", selectConnection);
-                builder = new OleDbCommandBuilder(adapter);
-                adapter.Fill(dataSet, "TextMessage");
-                dataSet.Tables["TextMessage"].Rows.Clear();
-                storedIds.Clear();
-                foreach (TextMessage message in this.AllTextMessages.TextMessages.Values)
-                {
-                    if (storedIds.Contains(message.ID)) continue;
-                    storedIds.Add(message.ID);
-                    DataRow current = dataSet.Tables["TextMessage"].NewRow();
-                    current.BeginEdit();
-                    current["ID"] = message.ID;
-                    current["CriticalStrike"] = StaticMethods.SaveToString(message.CriticalStrike);
-                    current["ReceiveCriticalStrike"] = StaticMethods.SaveToString(message.ReceiveCriticalStrike);
-                    current["OutburstAngry"] = StaticMethods.SaveToString(message.OutburstAngry);
-                    current["OutburstQuiet"] = StaticMethods.SaveToString(message.OutburstQuiet);
-                    current["RecoverFromChaos"] = StaticMethods.SaveToString(message.RecoverFromChaos);
-                    current["ResistHarmfulStratagem"] = StaticMethods.SaveToString(message.ResistHarmfulStratagem);
-                    current["ResistHelpfulStratagem"] = StaticMethods.SaveToString(message.ResistHelpfulStratagem);
-                    current["Rout"] = StaticMethods.SaveToString(message.Rout);
-                    current["AntiAttack"] = StaticMethods.SaveToString(message.AntiAttack);
-                    current["BreakWall"] = StaticMethods.SaveToString(message.BreakWall);
-                    current["CastDeepChaos"] = StaticMethods.SaveToString(message.CastDeepChaos);
-                    current["Chaos"] = StaticMethods.SaveToString(message.Chaos);
-                    current["CriticalStrikeOnArchitecture"] = StaticMethods.SaveToString(message.CriticalStrikeOnArchitecture);
-                    current["DeepChaos"] = StaticMethods.SaveToString(message.DeepChaos);
-                    current["DualInitiativeWin"] = StaticMethods.SaveToString(message.DualInitiativeWin);
-                    current["DualPassiveWin"] = StaticMethods.SaveToString(message.DualPassiveWin);
-                    current["HelpedByStratagem"] = StaticMethods.SaveToString(message.HelpedByStratagem);
-                    current["Surround"] = StaticMethods.SaveToString(message.Surround);
-                    current["TrappedByStratagem"] = StaticMethods.SaveToString(message.TrappedByStratagem);
-                    current.EndEdit();
-                    dataSet.Tables["TextMessage"].Rows.Add(current);
-                }
-                adapter.Update(dataSet, "TextMessage");
                 dataSet.Clear();
 
                 new OleDbCommand("Delete from TileAnimation", selectConnection).ExecuteNonQuery();

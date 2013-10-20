@@ -2439,7 +2439,6 @@
                 person.Scenario = this;
                 person.ID = (short)reader["ID"];
                 person.PersonBiography = this.GameCommonData.AllBiographies.GetBiography(person.ID);
-                person.PersonTextMessage = this.GameCommonData.AllTextMessages.GetTextMessage(person.ID);
                 person.Available = (bool)reader["Available"];
                 person.Alive = (bool)reader["Alive"];
                 person.SurName = reader["SurName"].ToString();

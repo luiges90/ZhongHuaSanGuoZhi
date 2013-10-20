@@ -9393,23 +9393,8 @@
             {
                 if (!damage.Counter)
                 {
-                    bool meiyouyouPersonTextMessage;
-                    ///以下if程序为了解决原程序(this.Leader.PersonTextMessage.CriticalStrike.Count == 0)跳出的问题
-                    if (this.Leader.PersonTextMessage == null)
-                    {
-                        meiyouyouPersonTextMessage = true;
-                    }
-                    else
-                    {
-                        if (this.Leader.PersonTextMessage.CriticalStrike.Count == 0)
-                        {
-                            meiyouyouPersonTextMessage = true;
-                        }
-                        else
-                        {
-                            meiyouyouPersonTextMessage = false ;
-                        }
-                    }
+                    bool meiyouyouPersonTextMessage = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.Leader.ID, TextMessageKind.Critical).Count > 0;
+
                     //if ((this.CombatMethodApplied && !damage.Surround) && (!damage.Critical || (this.Leader.PersonTextMessage.CriticalStrike.Count == 0)))
                     if ((this.CombatMethodApplied && !damage.Surround) && (!damage.Critical || meiyouyouPersonTextMessage))
 
