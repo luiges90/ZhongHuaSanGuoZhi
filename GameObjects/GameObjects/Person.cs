@@ -6372,7 +6372,7 @@
             List<String> adjectives = new List<String>();
             List<String> suffixes = new List<String>();
             int strength, command, intelligence, politics, glamour, braveness, calmness, personalLoyalty, ambition;
-            strength = command = intelligence = politics = glamour = braveness = calmness = personalLoyalty = ambition = -1;
+            strength = command = intelligence = politics = glamour = braveness = calmness = personalLoyalty = ambition = 0;
             foreach (BiographyAdjectives b in father.Scenario.GameCommonData.AllBiographyAdjectives)
             {
                 if (b.Male && r.Sex)
@@ -6384,82 +6384,27 @@
                     continue;
                 }
 
-                bool use = false;
-                if (b.Strength > strength)
+                if ((b.Strength == 0 || (b.Strength > strength && r.BaseStrength >= b.Strength)) &&
+                    (b.Command == 0 || (b.Command > command && r.BaseCommand >= b.Command)) &&
+                    (b.Intelligence == 0 || (b.Intelligence > intelligence && r.BaseIntelligence >= b.Intelligence)) &&
+                    (b.Politics == 0 || (b.Politics > politics && r.BasePolitics >= b.Politics)) &&
+                    (b.Glamour == 0 || (b.Glamour > glamour && r.BaseGlamour >= b.Glamour)) &&
+                    (b.Braveness == 0 || (b.Braveness > braveness && r.BaseBraveness >= b.Braveness)) &&
+                    (b.Calmness == 0 || (b.Calmness > calmness && r.BaseCalmness >= b.Calmness)) &&
+                    (b.PersonalLoyalty == 0 || (b.PersonalLoyalty > personalLoyalty && r.PersonalLoyalty >= b.PersonalLoyalty)) &&
+                    (b.Ambition == 0 || (b.Ambition > ambition && r.Ambition >= b.Ambition))
+                    ) 
                 {
-                    if (r.BaseStrength >= b.Strength && b.Strength > 0)
-                    {
-                        strength = b.Strength;
-                        use = true;
-                    }
-                }
-                if (b.Command > command)
-                {
-                    if (r.BaseCommand >= b.Command && b.Command > 0)
-                    {
-                        command = b.Command;
-                        use = true;
-                    }
-                }
-                if (b.Intelligence > intelligence)
-                {
-                    if (r.BaseIntelligence >= b.Intelligence && b.Intelligence > 0)
-                    {
-                        intelligence = b.Intelligence;
-                        use = true;
-                    }
-                }
-                if (b.Politics > politics)
-                {
-                    if (r.BasePolitics >= b.Politics && b.Politics > 0)
-                    {
-                        politics = b.Politics;
-                        use = true;
-                    }
-                }
-                if (b.Glamour > glamour)
-                {
-                    if (r.BaseGlamour >= b.Glamour && b.Glamour > 0)
-                    {
-                        glamour = b.Glamour;
-                        use = true;
-                    }
-                }
-                if (b.Braveness > braveness)
-                {
-                    if (r.BaseBraveness >= b.Braveness && b.Braveness > 0)
-                    {
-                        braveness = b.Braveness;
-                        use = true;
-                    }
-                }
-                if (b.Calmness > calmness)
-                {
-                    if (r.BaseCalmness >= b.Calmness && b.Calmness > 0)
-                    {
-                        calmness = b.Calmness;
-                        use = true;
-                    }
-                }
-                if (b.PersonalLoyalty > personalLoyalty)
-                {
-                    if (r.PersonalLoyalty >= b.PersonalLoyalty && b.PersonalLoyalty > 0)
-                    {
-                        personalLoyalty = b.PersonalLoyalty;
-                        use = true;
-                    }
-                } 
-                if (b.Ambition > ambition)
-                {
-                    if (r.Ambition >= b.Ambition && b.Ambition > 0)
-                    {
-                        ambition = b.Ambition;
-                        use = true;
-                    }
-                }
+                    strength = b.Strength;
+                    command = b.Command;
+                    intelligence = b.Intelligence;
+                    politics = b.Politics;
+                    glamour = b.Glamour;
+                    braveness = b.Braveness;
+                    calmness = b.Calmness;
+                    personalLoyalty = b.PersonalLoyalty;
+                    ambition = b.Ambition;
 
-                if (use)
-                {
                     if (b.Text.Count > 0)
                     {
                         adjectives.Add(b.Text[GameObject.Random(b.Text.Count)]);
