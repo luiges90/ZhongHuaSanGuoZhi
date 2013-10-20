@@ -960,82 +960,58 @@
 
         public void SaveToDatabase(string connectionString)
         {
-            DataRow current;
-            int num2;
-            IEnumerator enumerator;
             OleDbConnection selectConnection = new OleDbConnection(connectionString);
             DataSet dataSet = new DataSet();
-            OleDbDataAdapter adapter = new OleDbDataAdapter("Select * from Biography", selectConnection);
-            OleDbCommandBuilder builder = new OleDbCommandBuilder(adapter);
+            OleDbDataAdapter adapter;
+            OleDbCommandBuilder builder;
+
+            selectConnection.Open();
+            new OleDbCommand("Delete from Biography", selectConnection).ExecuteNonQuery();
+            adapter = new OleDbDataAdapter("Select * from Biography", selectConnection);
+            builder = new OleDbCommandBuilder(adapter);
             adapter.Fill(dataSet, "Biography");
-            Dictionary<int, int> dictionary = new Dictionary<int, int>();
-            List<int> list = new List<int>();
-            int num = 0;
-            //using (enumerator = dataSet.Tables["Biography"].Rows.GetEnumerator())
-            enumerator = dataSet.Tables["Biography"].Rows.GetEnumerator();
+            dataSet.Tables["Biography"].Rows.Clear();
+            foreach (Biography i in this.AllBiographies.Biographys.Values)
             {
-                while (enumerator.MoveNext())
-                {
-                    current = (DataRow) enumerator.Current;
-                    Biography biography = null;
-                    num2 = (short) current["ID"];
-                    dictionary.Add(num2, num2);
-                    if (this.AllBiographies.Biographys.TryGetValue(num2, out biography))
-                    {
-                        current.BeginEdit();
-                        current["Brief"] = biography.Brief;
-                        current["Romance"] = biography.Romance;
-                        current["History"] = biography.History;
-                        current["FactionColor"] = biography.FactionColor;
-                        current["MilitaryKinds"] = biography.MilitaryKinds.SaveToString();
-                        current.EndEdit();
-                    }
-                    num++;
-                }
-            }
-            
-            foreach (int num3 in list)
-            {
-                dataSet.Tables["Biography"].Rows[num3].Delete();
-            }
-            foreach (Biography biography in this.AllBiographies.Biographys.Values)
-            {
-                if (!dictionary.ContainsKey(biography.ID))
-                {
-                    current = dataSet.Tables["Biography"].NewRow();
-                    current.BeginEdit();
-                    current["ID"] = biography.ID;
-                    current["Brief"] = biography.Brief;
-                    current["Romance"] = biography.Romance;
-                    current["History"] = biography.History;
-                    current["FactionColor"] = biography.FactionColor;
-                    current["MilitaryKinds"] = biography.MilitaryKinds.SaveToString();
-                    current.EndEdit();
-                    dataSet.Tables["Biography"].Rows.Add(current);
-                }
+                DataRow row = dataSet.Tables["Biography"].NewRow();
+                row.BeginEdit();
+                row["ID"] = i.ID;
+                row["Brief"] = i.Brief;
+                row["Romance"] = i.Romance;
+                row["History"] = i.History;
+                row["FactionColor"] = i.FactionColor;
+                row["MilitaryKinds"] = i.MilitaryKinds.SaveToString();
+                row.EndEdit();
+                dataSet.Tables["Biography"].Rows.Add(row);
             }
             adapter.Update(dataSet, "Biography");
             dataSet.Clear();
 
-            new OleDbCommand("Delete from TextMessageMap", selectConnection).ExecuteNonQuery();
-            adapter = new OleDbDataAdapter("Select * from TextMessageMap", selectConnection);
-            builder = new OleDbCommandBuilder(adapter);
-            adapter.Fill(dataSet, "TextMessageMap");
-            dataSet.Tables["TextMessageMap"].Rows.Clear();
-            int id = 1;
-            foreach (KeyValuePair<KeyValuePair<int, TextMessageKind>, List<string>> i in this.AllTextMessages.GetAllMessages())
+            try
             {
-                DataRow row = dataSet.Tables["TextMessageMap"].NewRow();
-                row.BeginEdit();
-                row["ID"] = id++;
-                row["Person"] = i.Key.Key;
-                row["Kind"] = i.Key.Value;
-                row["Messages"] = StaticMethods.SaveToString(i.Value);
-                row.EndEdit();
-                dataSet.Tables["TextMessageMap"].Rows.Add(row);
+                new OleDbCommand("Delete from TextMessageMap", selectConnection).ExecuteNonQuery();
+                adapter = new OleDbDataAdapter("Select * from TextMessageMap", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "TextMessageMap");
+                dataSet.Tables["TextMessageMap"].Rows.Clear();
+                int id = 1;
+                foreach (KeyValuePair<KeyValuePair<int, TextMessageKind>, List<string>> i in this.AllTextMessages.GetAllMessages())
+                {
+                    DataRow row = dataSet.Tables["TextMessageMap"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = id++;
+                    row["Person"] = i.Key.Key;
+                    row["Kind"] = i.Key.Value;
+                    row["Messages"] = StaticMethods.SaveToString(i.Value);
+                    row.EndEdit();
+                    dataSet.Tables["TextMessageMap"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "TextMessageMap");
+                dataSet.Clear();
             }
-            adapter.Update(dataSet, "TextMessageMap");
-            dataSet.Clear();
+            catch { }
+
+            selectConnection.Close();
         }
 
         public void DeleteCommonDataTables(string connectionString)
@@ -1072,6 +1048,10 @@
                 new OleDbCommand("drop table Technique", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table TerrainDetail", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table TextMessage", selectConnection).ExecuteNonQuery();
+                try
+                {
+                    new OleDbCommand("drop table TextMessageMap", selectConnection).ExecuteNonQuery();
+                } catch {}
                 new OleDbCommand("drop table TileAnimation", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table Title", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table TroopAnimation", selectConnection).ExecuteNonQuery();
