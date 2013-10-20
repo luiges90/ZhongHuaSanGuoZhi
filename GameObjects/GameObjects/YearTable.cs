@@ -181,19 +181,19 @@
         public void addCreateSpouseEntry(GameDate date, Person p1, Person p2)
         {
             this.addTableEntry(date, composeFactionList(p1.BelongedFaction, p2.BelongedFaction),
-                String.Format(yearTableStrings["createSpouse"], p1.Name, p2.Name), true);
+                String.Format(yearTableStrings["createSpouse"], p1.Name, p2.Name), false);
         }
 
         public void addCreateBrotherEntry(GameDate date, Person p1, Person p2)
         {
             this.addTableEntry(date, composeFactionList(p1.BelongedFaction, p2.BelongedFaction),
-                String.Format(yearTableStrings["createBrother"], p1.Name, p2.Name), true);
+                String.Format(yearTableStrings["createBrother"], p1.Name, p2.Name), false);
         }
 
         public void addCreateSisterEntry(GameDate date, Person p1, Person p2)
         {
             this.addTableEntry(date, composeFactionList(p1.BelongedFaction, p2.BelongedFaction),
-                String.Format(yearTableStrings["createSister"], p1.Name, p2.Name), true);
+                String.Format(yearTableStrings["createSister"], p1.Name, p2.Name), false);
         }
     }
 }
