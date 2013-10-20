@@ -808,7 +808,7 @@
                 while (reader.Read())
                 {
                     int pid = (short)reader["Person"];
-                    TextMessageKind kind = (TextMessageKind)reader["Kind"];
+                    TextMessageKind kind = (TextMessageKind) (int)reader["Kind"];
                     List<string> messages = new List<string>();
                     StaticMethods.LoadFromString(messages, reader["Messages"].ToString());
                     this.AllTextMessages.AddTextMessages(pid, kind, messages);

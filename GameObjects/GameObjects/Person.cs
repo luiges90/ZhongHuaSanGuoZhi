@@ -6372,7 +6372,7 @@
             List<String> adjectives = new List<String>();
             List<String> suffixes = new List<String>();
             int strength, command, intelligence, politics, glamour, braveness, calmness, personalLoyalty, ambition;
-            strength = command = intelligence = politics = glamour = braveness = calmness = personalLoyalty = ambition = -1;
+            strength = command = intelligence = politics = glamour = braveness = calmness = personalLoyalty = ambition = 0;
             foreach (BiographyAdjectives b in father.Scenario.GameCommonData.AllBiographyAdjectives)
             {
                 if (b.Male && r.Sex)
@@ -6384,77 +6384,104 @@
                     continue;
                 }
 
-                bool use = false;
+                bool use = true;
                 if (b.Strength > strength)
                 {
-                    if (r.BaseStrength >= b.Strength && b.Strength > 0)
+                    if (r.BaseStrength <= b.Strength)
+                    {
+                        use = false;
+                    }
+                    else
                     {
                         strength = b.Strength;
-                        use = true;
                     }
                 }
                 if (b.Command > command)
                 {
-                    if (r.BaseCommand >= b.Command && b.Command > 0)
+                    if (r.BaseCommand <= b.Command)
+                    {
+                        use = false;
+                    }
+                    else
                     {
                         command = b.Command;
-                        use = true;
                     }
                 }
                 if (b.Intelligence > intelligence)
                 {
-                    if (r.BaseIntelligence >= b.Intelligence && b.Intelligence > 0)
+                    if (r.BaseIntelligence <= b.Intelligence)
+                    {
+                        use = false;
+                    }
+                    else
                     {
                         intelligence = b.Intelligence;
-                        use = true;
                     }
                 }
                 if (b.Politics > politics)
                 {
-                    if (r.BasePolitics >= b.Politics && b.Politics > 0)
+                    if (r.BasePolitics <= b.Politics)
+                    {
+                        use = false;
+                    }
+                    else
                     {
                         politics = b.Politics;
-                        use = true;
                     }
                 }
                 if (b.Glamour > glamour)
                 {
-                    if (r.BaseGlamour >= b.Glamour && b.Glamour > 0)
+                    if (r.BaseGlamour <= b.Glamour)
+                    {
+                        use = false;
+                    }
+                    else
                     {
                         glamour = b.Glamour;
-                        use = true;
                     }
                 }
                 if (b.Braveness > braveness)
                 {
-                    if (r.BaseBraveness >= b.Braveness && b.Braveness > 0)
+                    if (r.BaseBraveness <= b.Braveness)
+                    {
+                        use = false;
+                    }
+                    else
                     {
                         braveness = b.Braveness;
-                        use = true;
                     }
                 }
                 if (b.Calmness > calmness)
                 {
-                    if (r.BaseCalmness >= b.Calmness && b.Calmness > 0)
+                    if (r.BaseCalmness <= b.Calmness)
+                    {
+                        use = false;
+                    }
+                    else
                     {
                         calmness = b.Calmness;
-                        use = true;
                     }
                 }
                 if (b.PersonalLoyalty > personalLoyalty)
                 {
-                    if (r.PersonalLoyalty >= b.PersonalLoyalty && b.PersonalLoyalty > 0)
+                    if (r.PersonalLoyalty <= b.PersonalLoyalty)
+                    {
+                        use = false;
+                    }
+                    else
                     {
                         personalLoyalty = b.PersonalLoyalty;
-                        use = true;
                     }
-                } 
+                }
                 if (b.Ambition > ambition)
                 {
-                    if (r.Ambition >= b.Ambition && b.Ambition > 0)
+                    if (r.Ambition <= b.Ambition)
+                    {
+                        use = false;
+                    }
+                    else
                     {
                         ambition = b.Ambition;
-                        use = true;
                     }
                 }
 
