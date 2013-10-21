@@ -3184,7 +3184,7 @@
                 && this.Position.Equals(this.Destination)
                 && this.Status == TroopStatus.一般 && this.WillArchitecture == this.StartingArchitecture 
                 && !this.HasHostileTroopInView() && !this.HasHostileArchitectureInView()
-                && this.mingling == "移动")
+                && this.mingling != "移动" && this.mingling != "待命")
             {
                 this.minglingweizhi = this.Destination = base.Scenario.GetClosestPoint(this.StartingArchitecture.ArchitectureArea, this.Position);
                 this.mingling = "入城";
