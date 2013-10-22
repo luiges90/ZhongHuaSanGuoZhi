@@ -85,28 +85,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                         maptile.TileTexture = Texture2D.FromFile(device, "Resources/ditu/" + mainMap.MapName + "/" + maptile.number + ".png");
                     }
                 }
-                catch (OutOfMemoryException)
+                catch (Exception)
                 {
-                    this.freeTilesMemory();
                     try
                     {
-                        maptile.TileTexture = Texture2D.FromFile(device, "Resources/ditu/" + mainMap.MapName + "/" + maptile.number + ".jpg");
+                        this.freeTilesMemory();
+                        try
+                        {
+                            maptile.TileTexture = Texture2D.FromFile(device, "Resources/ditu/" + mainMap.MapName + "/" + maptile.number + ".jpg");
+                        }
+                        catch (FileNotFoundException)
+                        {
+                            maptile.TileTexture = Texture2D.FromFile(device, "Resources/ditu/" + mainMap.MapName + "/" + maptile.number + ".png");
+                        }
                     }
-                    catch (FileNotFoundException)
+                    catch (Exception)
                     {
-                        maptile.TileTexture = Texture2D.FromFile(device, "Resources/ditu/" + mainMap.MapName + "/" + maptile.number + ".png");
-                    }
-                }
-                catch (InvalidOperationException)
-                {
-                    this.freeTilesMemory();
-                    try
-                    {
-                        maptile.TileTexture = Texture2D.FromFile(device, "Resources/ditu/" + mainMap.MapName + "/" + maptile.number + ".jpg");
-                    }
-                    catch (FileNotFoundException)
-                    {
-                        maptile.TileTexture = Texture2D.FromFile(device, "Resources/ditu/" + mainMap.MapName + "/" + maptile.number + ".png");
+                        maptile.TileTexture = new Texture2D(this.device, 1, 1);
                     }
                 }
             }
