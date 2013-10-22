@@ -6692,10 +6692,19 @@
         {
             get
             {
-                if (this.LocationArchitecture == null) return false;
-                foreach (Military i in this.LocationArchitecture.Militaries)
+                if (this.LocationArchitecture != null)
                 {
-                    if (i.FollowedLeader == this && !i.IsTransport)
+                    foreach (Military i in this.LocationArchitecture.Militaries)
+                    {
+                        if (i.FollowedLeader == this && !i.IsTransport)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (this.LocationTroop != null)
+                {
+                    if (this.LocationTroop.Army.FollowedLeader == this)
                     {
                         return true;
                     }
@@ -6708,10 +6717,19 @@
         {
             get
             {
-                if (this.LocationArchitecture == null) return false;
-                foreach (Military i in this.LocationArchitecture.Militaries)
+                if (this.LocationArchitecture != null)
                 {
-                    if ((i.Leader == this && i.Experience > 10 && !i.IsTransport) || i.FollowedLeader == this)
+                    foreach (Military i in this.LocationArchitecture.Militaries)
+                    {
+                        if ((i.Leader == this && i.Experience > 10 && !i.IsTransport) || i.FollowedLeader == this)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (this.LocationTroop != null)
+                {
+                    if (this.LocationTroop.Army.Experience > 10 || this.LocationTroop.Army.FollowedLeader == this)
                     {
                         return true;
                     }
@@ -6724,10 +6742,19 @@
         {
             get
             {
-                if (this.LocationArchitecture == null) return false;
-                foreach (Military i in this.LocationArchitecture.Militaries)
+                if (this.LocationArchitecture != null)
                 {
-                    if ((i.Leader == this || i.FollowedLeader == this) && !i.IsTransport)
+                    foreach (Military i in this.LocationArchitecture.Militaries)
+                    {
+                        if ((i.Leader == this || i.FollowedLeader == this) && !i.IsTransport)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (this.LocationTroop != null)
+                {
+                    if (this.LocationTroop.Leader == this)
                     {
                         return true;
                     }
@@ -6757,10 +6784,19 @@
         {
             get
             {
-                if (this.LocationArchitecture == null) return false;
-                foreach (Person p in this.LocationArchitecture.Persons)
+                if (this.LocationArchitecture != null)
                 {
-                    if (p.preferredTroopPersons.GameObjects.Contains(this) && p.HasLeadingArmy)
+                    foreach (Person p in this.LocationArchitecture.Persons)
+                    {
+                        if (p.preferredTroopPersons.GameObjects.Contains(this) && p.HasLeadingArmy)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (this.LocationTroop != null)
+                {
+                    if (this.LocationTroop.Army.Leader != this)
                     {
                         return true;
                     }
