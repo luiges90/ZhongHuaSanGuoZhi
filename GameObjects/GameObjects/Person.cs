@@ -1546,7 +1546,8 @@
                             && (GameObject.Random((this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 2)) - ((int)this.ConvincingPerson.PersonalLoyalty *(int) ((PersonLoyalty) 0x19))) > this.ConvincingPerson.Loyalty);
 
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(this.ConvincingPerson.BelongedFaction) && 
-                            GlobalVariables.AIAutoTakePlayerCaptives && (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || this.ConvincingPerson.Loyalty < 100);
+                            GlobalVariables.AIAutoTakePlayerCaptives && this.ConvincingPerson.IsCaptive &&
+                            (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || this.ConvincingPerson.Loyalty < 100);
                     }
                     ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
                     //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
@@ -6336,7 +6337,7 @@
                         {
                             candidates.Add(t);
                         }
-                        else if (t.Level + 1 == targetLevel || t.Level - 1 == targetLevel)
+                        else if ((t.Level + 1 == targetLevel || t.Level - 1 == targetLevel) && t.CanBeBorn(r))
                         {
                             lesserCandidates.Add(t);
                         }
@@ -6436,6 +6437,7 @@
             bio.FactionColor = fatherBio.FactionColor;
             bio.MilitaryKinds = fatherBio.MilitaryKinds;
             father.Scenario.GameCommonData.AllBiographies.AddBiography(bio);
+            r.PersonBiography = bio;
 
             /*r.LocationArchitecture = father.BelongedArchitecture; //mother has no location arch!
             r.BelongedFaction = r.BelongedArchitecture.BelongedFaction;
