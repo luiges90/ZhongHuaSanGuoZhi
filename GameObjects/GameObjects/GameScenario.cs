@@ -607,17 +607,25 @@
             person.LocationArchitecture = muqin.BelongedArchitecture;
             person.ChangeFaction(muqin.BelongedFaction);
 
-            if (GlobalVariables.lockChildrenLoyalty && father != null && father.BelongedFaction == person.LocationArchitecture.BelongedFaction)
+            if (muqin.IsCaptive)
             {
-                person.Loyalty = 120;
+                person.Loyalty = muqin.Loyalty;
+                Captive c = Captive.Create(this, person, muqin.BelongedCaptive.BelongedFaction);
             }
-            if (GameObject.Chance(father.childrenLoyaltyRate))
+            else
             {
-                person.Loyalty = father.childrenLoyalty;
-            }
-            else if (GameObject.Chance(muqin.childrenLoyaltyRate))
-            {
-                person.Loyalty = muqin.childrenLoyalty;
+                if (GlobalVariables.lockChildrenLoyalty && father != null && father.BelongedFaction == person.LocationArchitecture.BelongedFaction)
+                {
+                    person.Loyalty = 120;
+                }
+                if (GameObject.Chance(father.childrenLoyaltyRate))
+                {
+                    person.Loyalty = father.childrenLoyalty;
+                }
+                else if (GameObject.Chance(muqin.childrenLoyaltyRate))
+                {
+                    person.Loyalty = muqin.childrenLoyalty;
+                }
             }
 
             if (doAffect)
