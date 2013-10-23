@@ -228,6 +228,7 @@
                     {
                         if (this.current != this.LinkedSkills[i])
                         {
+                            this.BiographyText.Clear();
                             this.InfluenceText.Clear();
                             if (this.LinkedSkills[i].InfluenceCount > 0)
                             {
