@@ -827,12 +827,7 @@
             }
             else
             {
-                newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(0) as MilitaryKind);
-                newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(1) as MilitaryKind);
-                newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(2) as MilitaryKind);
-                newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(25) as MilitaryKind);
-                newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(29) as MilitaryKind);
-                newFaction.BaseMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(30) as MilitaryKind);
+                newFaction.BaseMilitaryKinds.AddBasicMilitaryKinds(this);
                 newFaction.ColorIndex = -1;
             }
 

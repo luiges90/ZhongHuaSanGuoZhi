@@ -624,9 +624,7 @@
                         biography.ID = t.ID;
                         biography.Scenario = t.Scenario;
                         biography.FactionColor = 0;
-                        biography.MilitaryKinds.AddMilitaryKind(t.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(0));
-                        biography.MilitaryKinds.AddMilitaryKind(t.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(1));
-                        biography.MilitaryKinds.AddMilitaryKind(t.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(2));
+                        biography.MilitaryKinds.AddBasicMilitaryKinds(this.MainForm.Scenario);
                         t.Scenario.GameCommonData.AllBiographies.AddBiography(biography);
                     }
                     t.PersonBiography = biography;

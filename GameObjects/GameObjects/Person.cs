@@ -6434,8 +6434,16 @@
             bio.Brief = biography;
             bio.ID = r.ID;
             Biography fatherBio = father.Scenario.GameCommonData.AllBiographies.GetBiography(father.ID);
-            bio.FactionColor = fatherBio.FactionColor;
-            bio.MilitaryKinds = fatherBio.MilitaryKinds;
+            if (fatherBio != null)
+            {
+                bio.FactionColor = fatherBio.FactionColor;
+                bio.MilitaryKinds = fatherBio.MilitaryKinds;
+            }
+            else
+            {
+                bio.FactionColor = 52;
+                bio.MilitaryKinds.AddBasicMilitaryKinds(father.Scenario);
+            }
             father.Scenario.GameCommonData.AllBiographies.AddBiography(bio);
             r.PersonBiography = bio;
 
