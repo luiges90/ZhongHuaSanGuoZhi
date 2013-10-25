@@ -75,7 +75,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                         int returnDays = 0;
                         if (this.SingleWay)
                         {
-                            returnDays = (this.screen.Scenario.GetReturnDays(this.SelectedPoint, this.FromArea) + 1) / 2;
+                            returnDays = Math.Max(this.screen.Scenario.GetReturnDays(this.SelectedPoint, this.FromArea) / 2, 1);
                         }
                         else
                         {
