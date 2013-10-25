@@ -4058,6 +4058,22 @@
             }
         }
 
+        public int TroopCountExcludeTransport
+        {
+            get
+            {
+                int r = 0;
+                foreach (Troop t in this.Troops)
+                {
+                    if (!t.IsTransport)
+                    {
+                        r++;
+                    }
+                }
+                return r;
+            }
+        }
+
         public int UpgradingDaysLeft
         {
             get

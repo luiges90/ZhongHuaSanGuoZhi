@@ -10775,7 +10775,7 @@
             {
                 return false;
             }
-            return (this.HasFriendlyDiplomaticRelation && (this.BelongedFaction.TroopCount == 0));
+            return (this.HasFriendlyDiplomaticRelation && (this.BelongedFaction.TroopCountExcludeTransport == 0));
         }
 
         public bool AllyDiplomaticRelationAvail()
