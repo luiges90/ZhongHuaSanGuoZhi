@@ -684,7 +684,7 @@
         {
             if (faction1 != faction2)
             {
-                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(faction1, faction2);
+                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(this, faction1, faction2);
                 if (diplomaticRelation != null)
                 {
                     diplomaticRelation.Relation += offset;
@@ -696,7 +696,7 @@
         {
             if (faction1 != faction2)
             {
-                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(faction1, faction2);
+                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(this, faction1, faction2);
                 if (diplomaticRelation != null)
                 {
                     if (diplomaticRelation.Relation > value)
@@ -711,7 +711,7 @@
         {
             if (faction1 != faction2)
             {
-                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(faction1, faction2);
+                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(this, faction1, faction2);
                 if (diplomaticRelation != null)
                 {
                     diplomaticRelation.Truce = value;
@@ -1308,7 +1308,7 @@
         {
             if (faction1 != faction2)
             {
-                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(faction1, faction2);
+                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(this, faction1, faction2);
                 if (diplomaticRelation != null)
                 {
                     return diplomaticRelation.Relation;
@@ -1321,7 +1321,7 @@
         {
             if (faction1 != faction2)
             {
-                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(faction1, faction2);
+                DiplomaticRelation diplomaticRelation = this.DiplomaticRelations.GetDiplomaticRelation(this, faction1, faction2);
                 if (diplomaticRelation != null)
                 {
                     return diplomaticRelation.Truce;
@@ -3697,7 +3697,7 @@
                 int theOtherFactionID = relation.GetTheOtherFactionID(des);
                 if ((theOtherFactionID != src) && (Math.Abs(relation.Relation) >= 100))
                 {
-                    int num2 = this.DiplomaticRelations.GetDiplomaticRelation(src, theOtherFactionID).Relation;
+                    int num2 = this.DiplomaticRelations.GetDiplomaticRelation(this, src, theOtherFactionID).Relation;
                     if ((num2 > -300) && (num2 < 300))
                     {
                         int num3 = relation.Relation;

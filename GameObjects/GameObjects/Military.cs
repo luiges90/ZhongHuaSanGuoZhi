@@ -675,7 +675,7 @@
 
         private bool bushiShuijunBingqieChuyuShuiyu()
         {
-            if (GlobalVariables.LandArmyCanGoDownWater && this.kind.Type != MilitaryType.水军 && 
+            if (GlobalVariables.LandArmyCanGoDownWater && this.kind != null && this.kind.Type != MilitaryType.水军 && 
                 base.Scenario.GetTerrainKindByPosition(this.Position) == TerrainKind.水域)
             {
                 return true;
@@ -1109,7 +1109,6 @@
                 if (this.BelongedTroop != null) return true;
                 if (this.BelongedArchitecture == null) return false;
                 if (this.Leader == null) return false;
-                if (this.Leader.preferredTroopPersons.Count == 0) return false;
                 foreach (Person p in this.Leader.preferredTroopPersons)
                 {
                     if (!this.BelongedArchitecture.Persons.GameObjects.Contains(p))

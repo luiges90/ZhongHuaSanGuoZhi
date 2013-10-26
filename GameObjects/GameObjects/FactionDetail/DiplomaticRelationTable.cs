@@ -37,7 +37,7 @@
             this.DiplomaticRelations.Clear();
         }
 
-        public DiplomaticRelation GetDiplomaticRelation(int faction1ID, int faction2ID)
+        public DiplomaticRelation GetDiplomaticRelation(GameScenario scenario, int faction1ID, int faction2ID)
         {
             int hashCode = this.GetHashCode(faction1ID, faction2ID);
             DiplomaticRelation relation = null;
@@ -46,6 +46,10 @@
             {
                 hashCode = this.GetHashCode(faction2ID, faction1ID);
                 this.DiplomaticRelations.TryGetValue(hashCode, out relation);
+            }
+            if (relation == null)
+            {
+                relation = new DiplomaticRelation(scenario, faction1ID, faction2ID, 0);
             }
             return relation;
         }

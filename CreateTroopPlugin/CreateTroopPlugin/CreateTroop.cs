@@ -900,7 +900,7 @@
         private void SetRation()
         {
             this.NumberInputerPlugin.SetDepthOffset(-0.01f);
-            if (this.CreatingTroop.Army.KindID == 29)
+            if (this.CreatingTroop.Army.KindID == 29 && this.CreatingTroop.Army.Quantity > 0)
             {
                 this.NumberInputerPlugin.SetScale((int)(10000.0 / this.CreatingTroop.Army.Quantity));
                 this.NumberInputerPlugin.SetUnit("万");
@@ -909,7 +909,14 @@
             {
                 this.NumberInputerPlugin.SetUnit("天");
             }
-            this.NumberInputerPlugin.SetMax(((this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) < this.CreatingTroop.RationDays) ? (this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) : this.CreatingTroop.RationDays);
+            if (this.CreatingTroop.FoodCostPerDay == 0)
+            {
+                this.NumberInputerPlugin.SetMax((this.CreatingArchitecture.Food < this.CreatingTroop.RationDays) ? (this.CreatingArchitecture.Food) : this.CreatingTroop.RationDays);
+            }
+            else
+            {
+                this.NumberInputerPlugin.SetMax(((this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) < this.CreatingTroop.RationDays) ? (this.CreatingArchitecture.Food / this.CreatingTroop.FoodCostPerDay) : this.CreatingTroop.RationDays);
+            }
             this.NumberInputerPlugin.SetMapPosition(ShowPosition.Center);
             
             this.NumberInputerPlugin.SetEnterFunction(delegate 

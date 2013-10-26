@@ -2340,7 +2340,7 @@
                     {
                         if (j.BelongedFaction==null) continue;
                         if (j.BelongedFaction.ID == this.ID) continue;
-                        if (base.Scenario.DiplomaticRelations.GetDiplomaticRelation(j.BelongedFaction.ID, this.ID).Relation < 300)
+                        if (base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, j.BelongedFaction.ID, this.ID).Relation < 300)
                         {
                             return true;
                         }
@@ -2349,7 +2349,7 @@
                     {
                         if (j.BelongedFaction == null) continue;
                         if (j.BelongedFaction.ID == this.ID) continue;
-                        if (base.Scenario.DiplomaticRelations.GetDiplomaticRelation(j.BelongedFaction.ID, this.ID).Relation < 300)
+                        if (base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, j.BelongedFaction.ID, this.ID).Relation < 300)
                         {
                             return true;
                         }
@@ -2368,7 +2368,7 @@
                 if ((f.Name != EncircleFactionName) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && ! f.IsAlien)
                 {
                     fc++;
-                    if (((base.Scenario.DiplomaticRelations.GetDiplomaticRelation(this.GetFactionByName(EncircleFactionName).ID, f.ID).Relation +
+                    if (((base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, this.GetFactionByName(EncircleFactionName).ID, f.ID).Relation +
                         Person.GetIdealOffset(this.GetFactionByName(EncircleFactionName).Leader, f.Leader) * 1.5) < 0
                         && GameObject.Chance(60))
                         )
@@ -2386,9 +2386,9 @@
                     {
                         if (i != j)
                         {
-                            if (this.Scenario.DiplomaticRelations.GetDiplomaticRelation(i.ID, j.ID).Truce < 90)
+                            if (this.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, i.ID, j.ID).Truce < 90)
                             {
-                                this.Scenario.DiplomaticRelations.GetDiplomaticRelation(i.ID, j.ID).Truce = 90;
+                                this.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, i.ID, j.ID).Truce = 90;
                             }
                         }
                     }
