@@ -1088,7 +1088,8 @@
         {
             get
             {
-                return this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.FollowedLeader);
+                return (this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.FollowedLeader)) ||
+                    (this.BelongedTroop != null && this.BelongedTroop.Leader == this.FollowedLeader);
             }
         }
 
@@ -1096,7 +1097,8 @@
         {
             get
             {
-                return this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.Leader);
+                return (this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.Leader)) ||
+                    (this.BelongedTroop != null);
             }
         }
 
@@ -1104,8 +1106,10 @@
         {
             get
             {
+                if (this.BelongedTroop != null) return true;
                 if (this.BelongedArchitecture == null) return false;
                 if (this.Leader == null) return false;
+                if (this.Leader.preferredTroopPersons.Count == 0) return false;
                 foreach (Person p in this.Leader.preferredTroopPersons)
                 {
                     if (!this.BelongedArchitecture.Persons.GameObjects.Contains(p))
