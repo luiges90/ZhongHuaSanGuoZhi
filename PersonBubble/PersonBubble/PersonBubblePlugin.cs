@@ -2,6 +2,7 @@
 {
     using GameGlobal;
     using GameObjects;
+    using GameObjects.PersonDetail;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using PluginInterface;
@@ -9,6 +10,7 @@
     using System;
     using System.Drawing;
     using System.Xml;
+    using System.Collections.Generic;
 
     public class PersonBubblePlugin : GameObject, IPersonBubble, IBasePlugin, IPluginXML, IPluginGraphics
     {
@@ -30,6 +32,21 @@
         public void AddPersonText(object person, Microsoft.Xna.Framework.Point position, string text)
         {
             this.personBubble.AddPersonText(person as Person, position, text);
+        }
+
+        public void AddPerson(object person, Microsoft.Xna.Framework.Point position, Enum kind, string fallback)
+        {
+            Person p = (Person)person;
+            TextMessageKind k = (TextMessageKind)kind;
+            List<string> msg = p.Scenario.GameCommonData.AllTextMessages.GetTextMessage(p.ID, k);
+            if (msg.Count > 0)
+            {
+                this.AddPersonText(person, position, msg[GameObject.Random(msg.Count)]);
+            }
+            else
+            {
+                this.AddPerson(person, position, fallback);
+            }
         }
 
         public void Dispose()

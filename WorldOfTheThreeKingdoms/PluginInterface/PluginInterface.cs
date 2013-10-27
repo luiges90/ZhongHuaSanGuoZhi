@@ -256,6 +256,7 @@ namespace PluginInterface
     {
         void AddPerson(object person, Point position, string branchName);
         void AddPersonText(object person, Point position, string text);
+        void AddPerson(object person, Point position, Enum kind, string fallback);
         void SetScreen(object screen);
 
         bool IsShowing { get; set; }

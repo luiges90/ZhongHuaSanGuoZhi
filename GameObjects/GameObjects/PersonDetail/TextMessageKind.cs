@@ -25,6 +25,16 @@
         AntiAttack,
         BreakWall,
         Angry,
-        Calm
+        Calm,
+        DiscoverAmbush,
+        BeDiscoverAmbush,
+        CutRoutewaySuccess,
+        CutRoutewayFail,
+        TroopNewCaptive,
+        GetSpreadBurnt,
+        BeAmbush,
+        StartCutRouteway,
+        StopAmbush,
+        StartAmbush,
     }
 }
