@@ -1088,8 +1088,9 @@
         {
             get
             {
-                return (this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.FollowedLeader)) ||
-                    (this.BelongedTroop != null && this.BelongedTroop.Leader == this.FollowedLeader);
+                return ((this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.FollowedLeader)) ||
+                    (this.BelongedTroop != null && this.BelongedTroop.Leader == this.FollowedLeader)) && 
+                    this.FollowedLeader != null && this.FollowedLeader.Status == GameObjects.PersonDetail.PersonStatus.Normal;
             }
         }
 
@@ -1097,8 +1098,9 @@
         {
             get
             {
-                return (this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.Leader)) ||
-                    (this.BelongedTroop != null);
+                return ((this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.Leader)) ||
+                    (this.BelongedTroop != null)) &&
+                    this.FollowedLeader != null && this.FollowedLeader.Status == GameObjects.PersonDetail.PersonStatus.Normal;
             }
         }
 
