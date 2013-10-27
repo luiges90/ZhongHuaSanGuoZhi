@@ -6,6 +6,7 @@
     using GameObjects.MapDetail;
     using GameObjects.SectionDetail;
     using GameObjects.TroopDetail;
+    using GameObjects.PersonDetail;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using System;
@@ -2379,7 +2380,7 @@
             }
             if ((encircleList.Count * 2 > fc) && fc > 3)
             {
-                this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, "EncircleDiplomaticRelation", "EncircleDiplomaticRelation.jpg", "EncircleDiplomaticRelation.wav", EncircleFactionName, true);
+                this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, TextMessageKind.EncircleDiplomaticRelation, "EncircleDiplomaticRelation", "EncircleDiplomaticRelation.jpg", "EncircleDiplomaticRelation.wav", EncircleFactionName, true);
                 foreach (Faction i in encircleList)
                 {
                     foreach (Faction j in encircleList)
@@ -2439,7 +2440,7 @@
                         if (i.Relation < 300)
                         {
                             //显示联盟破裂画面
-                            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, "BreakDiplomaticRelation", "BreakDiplomaticRelation.jpg", "BreakDiplomaticRelation.wav", opposite.Leader.Name, true);
+                            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, TextMessageKind.BreakDiplomaticRelation, "BreakDiplomaticRelation", "BreakDiplomaticRelation.jpg", "BreakDiplomaticRelation.wav", opposite.Leader.Name, true);
                         }
                         break;
                     }
@@ -2458,7 +2459,7 @@
                 {
                     minTroopFactionRelation.Relation = 0;
                     //AI宣布主动解盟
-                    this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, "ResetDiplomaticRelation", "ResetDiplomaticRelation.jpg", "ResetDiplomaticRelation.wav", minTroopFactionopposite.LeaderName, true);
+                    this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, TextMessageKind.ResetDiplomaticRelation, "ResetDiplomaticRelation", "ResetDiplomaticRelation.jpg", "ResetDiplomaticRelation.wav", minTroopFactionopposite.LeaderName, true);
                 }
             }
         }
@@ -2780,7 +2781,7 @@
         {
             this.guanjue++;
             base.Scenario.YearTable.addBecomeEmperorLegallyEntry(base.Scenario.Date, this.Scenario.Persons.GetGameObject(7000) as Person, this);
-            this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.Persons.GetGameObject(7000) as Person, this.LeaderName, "BecomeEmperorLegally", "shanwei.jpg", "",
+            this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.Persons.GetGameObject(7000) as Person, this.LeaderName, TextMessageKind.BecomeEmperorLegally, "BecomeEmperorLegally", "shanwei.jpg", "",
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
             this.Scenario.GameScreen.xiejinxingjilu("BecomeEmperorLegally", this.LeaderName,
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
@@ -2840,7 +2841,7 @@
         {
             this.guanjue++;
             base.Scenario.YearTable.addSelfBecomeEmperorEntry(base.Scenario.Date, this);
-            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, "Zili", "BecomeEmperor.jpg", "",
+            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, TextMessageKind.BecomeEmperorIllegally, "Zili", "BecomeEmperor.jpg", "",
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
             this.Scenario.GameScreen.xiejinxingjilu("Zili", this.LeaderName,
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
@@ -2887,14 +2888,14 @@
                 }
                 person.Loyalty =(int) (person.Loyalty * loyaltyMultiplier);
             }
-            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, "", "SelfBecomeEmperorInfluence", "","", true);
+            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, "", TextMessageKind.SelfBecomeInfluenceConsequence, "SelfBecomeEmperorInfluence", "","", true);
         }
 
 
         private void Advancement()
         {
             this.guanjue++;
-            this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.Persons.GetGameObject(7000) as Person, this.LeaderName, "shengguan", "shengguan.jpg", "",
+            this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.Persons.GetGameObject(7000) as Person, this.LeaderName, TextMessageKind.RiseEmperorClass, "shengguan", "shengguan.jpg", "",
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
             this.Scenario.GameScreen.xiejinxingjilu("shengguan", this.LeaderName,
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
@@ -2905,7 +2906,7 @@
         private void SelfAdvancement()
         {
             this.guanjue++;
-            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, "Zili", "", "",
+            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, TextMessageKind.BecomeEmperorIllegally, "Zili", "", "",
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
             this.Scenario.GameScreen.xiejinxingjilu("Zili", this.LeaderName,
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);

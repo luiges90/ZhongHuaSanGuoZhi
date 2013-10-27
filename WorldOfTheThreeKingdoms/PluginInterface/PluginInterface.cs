@@ -292,6 +292,9 @@ namespace PluginInterface
         void SetContextMenu(IGameContextMenu iContextMenu);
         void SetGameObjectBranch(object person, object gameObject, string branchName);
         void SetGameObjectBranch(object person, object gameObject, string branchName, string tupian, string shengyin);
+        void SetGameObjectBranch(object person, object gameObject, Enum kind, string branchName);
+        void SetGameObjectBranch(object person, object gameObject, Enum kind, string branchName, string tupian, string shengyin);
+
         void SetPosition(ShowPosition showPosition);
         void SetScreen(object screen);
 

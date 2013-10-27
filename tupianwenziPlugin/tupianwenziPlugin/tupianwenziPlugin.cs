@@ -3,6 +3,7 @@
     using GameFreeText;
     using GameGlobal;
     using GameObjects;
+    using GameObjects.PersonDetail;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using PluginInterface;
@@ -11,6 +12,7 @@
     using System.Drawing;
     using System.Xml;
     using System.IO;
+    using System.Collections.Generic;
 
     public class tupianwenziPlugin : GameObject, Itupianwenzi, IBasePlugin, IPluginXML, IPluginGraphics
     {
@@ -110,6 +112,27 @@
         public void SetGameObjectBranch(object person, object gameObject, string branchName)
         {
             SetGameObjectBranch(person, gameObject, branchName, "", "");
+        }
+
+        public void SetGameObjectBranch(object person, object gameObject, Enum kind, string branchName)
+        {
+            SetGameObjectBranch(person, gameObject, kind, branchName, "", "");
+        }
+
+        public void SetGameObjectBranch(object person, object gameObject, Enum kind, string branchName, string tupian, string shengyin)
+        {
+            GameObject p = (GameObject) person;
+            TextMessageKind k = (TextMessageKind) kind;
+
+            List<String> msg = p.Scenario.GameCommonData.AllTextMessages.GetTextMessage(p.ID, k);
+            if (msg.Count > 0)
+            {
+                SetGameObjectBranch(p, null, msg[GameObject.Random(msg.Count)]);
+            }
+            else
+            {
+                SetGameObjectBranch(p, gameObject, branchName);
+            }
         }
 
         public void SetGameObjectBranch(object person, object gameObject, string branchName, string tupian, string shengyin)

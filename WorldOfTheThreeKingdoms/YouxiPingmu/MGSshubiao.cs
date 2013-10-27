@@ -210,7 +210,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                                 this.CurrentTroop.Leader.TextDestinationString = this.CurrentTroop.CutRoutewayDays.ToString();
                                 this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(this.CurrentTroop.StopCutRouteway), null);
                                 this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(this.CurrentTroop.Leader, this.CurrentTroop.Leader, "StopCutRouteway");
+                                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(this.CurrentTroop.Leader, this.CurrentTroop.Leader, TextMessageKind.StopCutRouteway, "StopCutRouteway");
                                 this.Plugins.tupianwenziPlugin.IsShowing = true;
                             }
                         }

@@ -7388,7 +7388,7 @@
                     }
 
 
-                    this.Scenario.GameScreen.xianshishijiantupian(this.BelongedFaction.Leader , currentArchitecture.Name ,"zhanling","zhanling.jpg","zhanling.wma",false );
+                    this.Scenario.GameScreen.xianshishijiantupian(this.BelongedFaction.Leader, currentArchitecture.Name, TextMessageKind.LeaderOccupy, "zhanling", "zhanling.jpg", "zhanling.wma", false);
                     currentArchitecture.ResetFaction(this.BelongedFaction);
                     if (
                             currentArchitecture.huangdisuozai &&

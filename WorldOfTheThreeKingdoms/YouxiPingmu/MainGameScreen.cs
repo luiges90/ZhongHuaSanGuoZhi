@@ -1010,7 +1010,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             {
                                 troop.BelongedLegion.Kind = LegionKind.Defensive;
                             }
-                            this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, "Destination");
+                            this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, TextMessageKind.TroopMoveTo, "Destination");
                         }
                     }
                     this.SelectorTroops.Clear();
@@ -1182,7 +1182,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 default:
                     return;
             }
-            this.Plugins.PersonBubblePlugin.AddPerson(this.CurrentTroop.Leader, this.CurrentTroop.Position, "Destination");
+            this.Plugins.PersonBubblePlugin.AddPerson(this.CurrentTroop.Leader, this.CurrentTroop.Position, TextMessageKind.TroopMoveTo, "Destination");
         }
 
 
@@ -1589,7 +1589,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 faction.Leader.TextDestinationString = faction.Capital.Name;
                 this.Plugins.GameRecordPlugin.AddBranch(faction.Leader, "NewFactionAppear", faction.Leader.Position);
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(faction.Leader, faction.Leader, "NewFactionAppear");
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(faction.Leader, faction.Leader, TextMessageKind.CreateNewFaction, "NewFactionAppear");
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
             }
         }
@@ -1947,7 +1947,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye)
             {
-                this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, "Ambush");
+                this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, TextMessageKind.StartAmbush, "Ambush");
             }
         }
 
@@ -1974,11 +1974,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 if (troop.BelongedFaction != null)
                 {
                     troop.Leader.TextDestinationString = stunt.Name;
-                    this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, "ApplyStunt");
+                    this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, TextMessageKind.UseStunt, "ApplyStunt");
                 }
                 else
                 {
-                    this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, "ApplyStuntBasic");
+                    this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, TextMessageKind.UseStunt, "ApplyStuntBasic");
                 }
             }
         }
@@ -2071,15 +2071,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     sending.Leader.TextDestinationString = receiving.Leader.Name;
                     sending.Leader.TextResultString = receiving.DisplayName;
-                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, "Stratagem" + stratagem.ID);
+                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, (TextMessageKind) (((int) TextMessageKind.UseStratagem0) + stratagem.ID), "Stratagem" + stratagem.ID);
                 }
                 else if (stratagem.Friendly)
                 {
-                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, "StratagemFriendly");
+                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, TextMessageKind.NoFactionUseStratagemFriendly, "StratagemFriendly");
                 }
                 else
                 {
-                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, "StratagemHostile");
+                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, TextMessageKind.NoFactionUseStratagemHostile, "StratagemHostile");
                 }
             }
         }
@@ -2107,11 +2107,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     sending.Leader.TextDestinationString = receiving.Leader.Name;
                     sending.Leader.TextResultString = receiving.DisplayName;
-                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, "CombatMethod" + combatMethod.ID);
+                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, TextMessageKind.UseCombatMethod, "CombatMethod" + combatMethod.ID);
                 }
                 else
                 {
-                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, "CombatMethod");
+                    this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, TextMessageKind.UseCombatMethod, "CombatMethod");
                 }
             }
         }
@@ -2301,7 +2301,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye)
             {
                 troop.Leader.TextDestinationString = combatMethod.Name;
-                this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, "SetCombatMethod");
+                this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, TextMessageKind.SetCombatMethod, "SetCombatMethod");
             }
         }
 
@@ -2310,7 +2310,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye)
             {
                 troop.Leader.TextDestinationString = stratagem.Name;
-                this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, "SetStratagem");
+                this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, TextMessageKind.SetStratagem, "SetStratagem");
             }
         }
 
@@ -2363,7 +2363,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sending.Position)) || GlobalVariables.SkyEye)
             {
-                this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, TextMessageKind.StartAmbush, "Waylay");
+                this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, TextMessageKind.Ambush, "Waylay");
             }
         }
 

@@ -76,7 +76,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.CurrentPerson = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
             if (this.CurrentPerson != null)
             {
-                this.mainGameScreen.xianshishijiantupian(this.CurrentPerson, (this.gameScenario.CurrentFaction.Leader).Name, "nafei", "nafei.jpg", "nafei.wma",true );
+                this.mainGameScreen.xianshishijiantupian(this.CurrentPerson, (this.gameScenario.CurrentFaction.Leader).Name, TextMessageKind.TakePrincess, "nafei", "nafei.jpg", "nafei.wma",true );
                 Person tookSpouse = this.gameScenario.CurrentFaction.Leader.XuanZeMeiNv(this.CurrentPerson);
                 if (tookSpouse != null)
                 {
@@ -92,7 +92,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
 
                 this.gameScenario.CurrentFaction.Leader.GoForHouGong(this.CurrentPerson);
-                this.mainGameScreen.xianshishijiantupian(this.CurrentPerson, this.gameScenario.CurrentFaction.Leader.Name, "chongxing", this.CurrentPerson.ID.ToString() + ".jpg", "hougong.mp3", true);
+                this.mainGameScreen.xianshishijiantupian(this.CurrentPerson, this.gameScenario.CurrentFaction.Leader.Name, TextMessageKind.Hougong, "chongxing", this.CurrentPerson.ID.ToString() + ".jpg", "hougong.mp3", true);
                 //this.mainGameScreen.DateGo(1);
             }
         }
@@ -747,7 +747,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     Person extremePersonFromWorkingList = this.CurrentArchitecture.GetExtremePersonFromWorkingList(this.CurrentArchitectureWorkKind, true);
                     if (extremePersonFromWorkingList != null)
                     {
-                        this.mainGameScreen.Plugins.PersonBubblePlugin.AddPerson(extremePersonFromWorkingList, this.CurrentArchitecture.Position, "Work");
+                        this.mainGameScreen.Plugins.PersonBubblePlugin.AddPerson(extremePersonFromWorkingList, this.CurrentArchitecture.Position, TextMessageKind.StartWork, "Work");
                     }
                 }
                 else
@@ -1081,7 +1081,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.CurrentPerson = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
             if (this.CurrentPerson != null)
             {
-                this.mainGameScreen.xianshishijiantupian(this.CurrentPerson.BelongedFaction.Leader, this.CurrentPerson.Name, "ReleaseSelfPerson", "", "", false );
+                this.mainGameScreen.xianshishijiantupian(this.CurrentPerson.BelongedFaction.Leader, this.CurrentPerson.Name, TextMessageKind.ReleaseSelfPerson, "ReleaseSelfPerson", "", "", false );
                 this.CurrentPerson.BeLeaveToNoFaction();
             }
         }
@@ -1128,7 +1128,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
             this.CurrentArchitecture.DefensiveLegion.AddTroop(this.CurrentTroop);
             this.CurrentArchitecture.PostCreateTroop(this.CurrentTroop, true);
-            this.mainGameScreen.Plugins.PersonBubblePlugin.AddPerson(this.CurrentPerson, this.CurrentTroop.Position, "Campaign");
+            this.mainGameScreen.Plugins.PersonBubblePlugin.AddPerson(this.CurrentPerson, this.CurrentTroop.Position, TextMessageKind.StartCampaign, "Campaign");
             //this.mainGameScreen.Plugins.AirViewPlugin.ReloadTroopView();
         }
 

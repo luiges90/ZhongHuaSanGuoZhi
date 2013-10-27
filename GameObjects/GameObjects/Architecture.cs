@@ -756,7 +756,7 @@
                     if (!this.BelongedFaction.Leader.HasStrainTo(i.CaptivePerson))
                     {
 
-                        this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.NeutralPerson, this.BelongedFaction.Leader.Name, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", i.CaptivePerson.Name, true);
+                        this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.NeutralPerson, this.BelongedFaction.Leader.Name, TextMessageKind.KillCaptive, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", i.CaptivePerson.Name, true);
 
                         i.CaptivePerson.execute(this.BelongedFaction);
 

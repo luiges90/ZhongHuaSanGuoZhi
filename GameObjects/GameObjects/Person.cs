@@ -1909,7 +1909,7 @@
                 }
                 base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, g);
                 this.TargetArchitecture.Fund += 10000;
-                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, TextMessageKind.EnhanceDiplomaticRelation, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.AddPoliticsExperience(5);
                 this.IncreaseReputation(50);
@@ -1956,7 +1956,7 @@
                 {
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, 36);
                     this.TargetArchitecture.Fund += 20000;
-                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "AllyDiplomaticRelation", "AllyDiplomaticRelation.jpg", "AllyDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, TextMessageKind.CreateAlly, "AllyDiplomaticRelation", "AllyDiplomaticRelation.jpg", "AllyDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
                     this.TargetArchitecture = this.LocationArchitecture;
                     this.AddPoliticsExperience(5);
                     this.IncreaseReputation(500);
@@ -1965,7 +1965,7 @@
                 {
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, -10);
                     this.BelongedArchitecture.Fund += 20000;
-                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "AllyDiplomaticRelationFailed", "chuzhan.jpg", "BreakDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, TextMessageKind.CreateAllyFailed, "AllyDiplomaticRelationFailed", "chuzhan.jpg", "BreakDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
                     this.TargetArchitecture = this.LocationArchitecture;
                     this.AddPoliticsExperience(1);
                     this.IncreaseReputation(50);
@@ -2022,7 +2022,7 @@
                     }
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, di);
                     this.TargetArchitecture.Fund += 50000;
-                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "TruceDiplomaticRelation", "TruceDiplomaticRelation.jpg", "TruceDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, TextMessageKind.Truce, "TruceDiplomaticRelation", "TruceDiplomaticRelation.jpg", "TruceDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
                     //设置停战
                     this.Scenario.SetDiplomaticRelationTruce(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, 30);
                     this.TargetArchitecture = this.LocationArchitecture;
@@ -2034,7 +2034,7 @@
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, -10);
                     this.BelongedArchitecture.Fund += 30000;
                     this.TargetArchitecture.Fund += 20000;
-                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "TruceDiplomaticRelationFailed", "chuzhan.jpg", "BreakDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
+                    this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, TextMessageKind.TruceFailed, "TruceDiplomaticRelationFailed", "chuzhan.jpg", "BreakDiplomaticRelation.wav", this.TargetArchitecture.BelongedFaction.Name, true);
                     this.TargetArchitecture = this.LocationArchitecture;
                     this.AddPoliticsExperience(1);
                     this.IncreaseReputation(50);
@@ -3401,7 +3401,7 @@
 
             if (targetArchitecture == null)
             {
-                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", "啊，出错了!", true);
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, TextMessageKind.EnhanceDiplomaticRelation, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", "啊，出错了!", true);
                 return;
             }
 
@@ -3447,7 +3447,7 @@
 
             if (targetArchitecture == null)
             {
-                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "TruceDiplomaticRelation", "TruceDiplomaticRelation.jpg", "TruceDiplomaticRelation.wav", "啊，出错了!", true);
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, TextMessageKind.Truce, "TruceDiplomaticRelation", "TruceDiplomaticRelation.jpg", "TruceDiplomaticRelation.wav", "啊，出错了!", true);
                 return;
             }
 
@@ -3495,7 +3495,7 @@
 
             if (targetArchitecture == null)
             {
-                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", "啊，出错了!", true);
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, TextMessageKind.EnhanceDiplomaticRelation, "EnhaneceDiplomaticRelation", "EnhaneceDiplomaticRelation.jpg", "EnhaneceDiplomaticRelation.wav", "啊，出错了!", true);
                 return;
             }
 

@@ -630,12 +630,21 @@
         {
         }
 
-        public virtual void xianshishijiantupian(Person p, string TextResultString, string shijian, string tupian, string shengyin,bool zongshixianshi)
+        public virtual void xianshishijiantupian(Person p, string TextResultString, string shijian, string tupian, string shengyin, bool zongshixianshi)
+        {
+
+        }
+
+        public virtual void xianshishijiantupian(Person p, string TextResultString, TextMessageKind msgKind, string shijian, string tupian, string shengyin, bool zongshixianshi)
         {
            
         }
 
-        public virtual void xianshishijiantupian(Person p, string TextResultString, string shijian, string tupian, string shengyin, string TextDestinationString,bool zongshixianshi)
+        public virtual void xianshishijiantupian(Person p, string TextResultString, string shijian, string tupian, string shengyin, string TextDestinationString, bool zongshixianshi)
+        {
+        }
+
+        public virtual void xianshishijiantupian(Person p, string TextResultString, TextMessageKind msgKind, string shijian, string tupian, string shengyin, string TextDestinationString, bool zongshixianshi)
         {
         }
 

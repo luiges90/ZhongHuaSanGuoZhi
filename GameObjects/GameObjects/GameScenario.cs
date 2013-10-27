@@ -550,10 +550,10 @@
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
-                    this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, "ChildJoin", "", "", person.Name, false);
+                    this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, TextMessageKind.ChildJoin, "ChildJoin", "", "", person.Name, false);
                     if (person.LocationArchitecture != null)
                     {
-                        this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, "ChildJoinSelfTalk", "", "", false);
+                        this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, TextMessageKind.ChildJoinSelfTalk, "ChildJoinSelfTalk", "", "", false);
                     }
                     this.AvailablePersons.Add(person);
                     continue;
@@ -565,8 +565,8 @@
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
-                    this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, "ChildJoin", "", "", person.Name, false);
-                    this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, "ChildJoinSelfTalk", "", "", false);
+                    this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, TextMessageKind.ChildJoin, "ChildJoin", "", "", person.Name, false);
+                    this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, TextMessageKind.ChildJoinSelfTalk, "ChildJoinSelfTalk", "", "", false);
                     this.AvailablePersons.Add(person);
                     continue;
                 }
@@ -579,11 +579,11 @@
                     person.InitialLoyalty();
                     if (person.Sex) //女的
                     {
-                        this.GameScreen.xianshishijiantupian(person, joinToPerson.Name, "FemaleSpouseJoin", "", "", false);
+                        this.GameScreen.xianshishijiantupian(person, joinToPerson.Name, TextMessageKind.FemaleSpouseJoin, "FemaleSpouseJoin", "", "", false);
                     }
                     else
                     {
-                        this.GameScreen.xianshishijiantupian(person, joinToPerson.Name, "MaleSpouseJoin", "", "", false);
+                        this.GameScreen.xianshishijiantupian(person, joinToPerson.Name, TextMessageKind.MaleSpouseJoin, "MaleSpouseJoin", "", "", false);
 
                     }
                     this.AvailablePersons.Add(person);
