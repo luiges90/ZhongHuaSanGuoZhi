@@ -1100,7 +1100,7 @@
             {
                 return ((this.BelongedArchitecture != null && this.BelongedArchitecture.Persons.GameObjects.Contains(this.Leader)) ||
                     (this.BelongedTroop != null)) &&
-                    this.FollowedLeader != null && this.FollowedLeader.Status == GameObjects.PersonDetail.PersonStatus.Normal;
+                    this.Leader != null && this.Leader.Status == GameObjects.PersonDetail.PersonStatus.Normal;
             }
         }
 
