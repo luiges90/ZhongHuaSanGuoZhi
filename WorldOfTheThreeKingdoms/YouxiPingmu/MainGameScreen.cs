@@ -2355,7 +2355,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 sending.Leader.TextDestinationString = receiving.Leader.Name;
                 sending.Leader.TextResultString = receiving.DisplayName;
-                this.Plugins.PersonBubblePlugin.AddPerson(receiving.Leader, receiving.Position, TextMessageKind.Surround, "Surround");
+                this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, TextMessageKind.Surround, "Surround");
             }
         }
 

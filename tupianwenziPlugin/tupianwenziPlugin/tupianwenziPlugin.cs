@@ -127,11 +127,11 @@
             List<String> msg = p.Scenario.GameCommonData.AllTextMessages.GetTextMessage(p.ID, k);
             if (msg.Count > 0)
             {
-                SetGameObjectBranch(p, null, msg[GameObject.Random(msg.Count)]);
+                SetGameObjectBranch(p, null, msg[GameObject.Random(msg.Count)], tupian, shengyin);
             }
             else
             {
-                SetGameObjectBranch(p, gameObject, branchName);
+                SetGameObjectBranch(p, gameObject, branchName, tupian, shengyin);
             }
         }
 
