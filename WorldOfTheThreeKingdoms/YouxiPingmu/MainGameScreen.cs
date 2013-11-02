@@ -2288,7 +2288,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(sending.Position)) || GlobalVariables.SkyEye)
             {
-                this.Plugins.PersonBubblePlugin.AddPerson(receiving.Leader, receiving.Position, TextMessageKind.Rout, "Rout");
+                this.Plugins.PersonBubblePlugin.AddPerson(sending.Leader, sending.Position, TextMessageKind.Rout, "Rout");
             }
         }
 

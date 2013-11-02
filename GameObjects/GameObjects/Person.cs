@@ -2445,6 +2445,51 @@
             }
         }
 
+        public String StudyableHigherLevelTitle
+        {
+            get
+            {
+                Dictionary<TitleKind, int> title = new Dictionary<TitleKind, int>();
+                foreach (Title candidate in base.Scenario.GameCommonData.AllTitles.Titles.Values)
+                {
+                    HashSet<TitleKind> hasKind = new HashSet<TitleKind>();
+                    foreach (Title t in this.Titles)
+                    {
+                        if (t.Kind == candidate.Kind && candidate.Level > t.Level && candidate.CanLearn(this))
+                        {
+                            if (title.ContainsKey(candidate.Kind)) 
+                            {
+                                title[candidate.Kind]++;
+                            } 
+                            else 
+                            {
+                                title.Add(candidate.Kind, 1);
+                            }
+                        }
+                        hasKind.Add(t.Kind);
+                    }
+                    if (!hasKind.Contains(candidate.Kind) && candidate.CanLearn(this))
+                    {
+                        if (title.ContainsKey(candidate.Kind))
+                        {
+                            title[candidate.Kind]++;
+                        }
+                        else
+                        {
+                            title.Add(candidate.Kind, 1);
+                        }
+                    }
+                }
+
+                String s = "";
+                foreach (KeyValuePair<TitleKind, int> i in title)
+                {
+                    s += i.Key.Name + i.Value + "個";
+                }
+                return s;
+            }
+        }
+
         public void DoStudySkill()
         {
             this.OutsideTask = OutsideTaskKind.无;

@@ -549,19 +549,12 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="141" Name="StudyableTitleCount" IsNumber="true" DisplayName="可习得称号" MinWidth="60" DetailLevel="7"
+		<Column ID="142" Name="StudyableHigherLevelTitle" IsNumber="false" DisplayName="可习得较高级称号" MinWidth="180" DetailLevel="7"
                 FontName="宋体"
-                FontSize="12"
+                FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
-                Align="Right">
-        </Column>
-		<Column ID="142" Name="StudyableHigherLevelTitleCount" IsNumber="true" DisplayName="可习得较高级称号" MinWidth="120" DetailLevel="7"
-                FontName="宋体"
-                FontSize="12"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Right">
+                Align="Middle">
         </Column>
 		<Column ID="150" Name="ServedYears" IsNumber="true" DisplayName="仕官年" MinWidth="60" DetailLevel="3"
                 FontName="宋体"
@@ -1091,7 +1084,7 @@
         </Tab>
         <Tab ID="7"  Name="Skill" DisplayName="技能" Columns="1 50 136" ListKind="Skill" ListMethod="GetSkillList">
         </Tab>
-        <Tab ID="8"  Name="PersonalTitle" DisplayName="称号" Columns="1 60 134 141 142">
+        <Tab ID="8"  Name="PersonalTitle" DisplayName="称号" Columns="1 60 134 142">
         </Tab>
 		<Tab ID="10"  Name="Stunt" DisplayName="特技" Columns="1 139 140" ListKind="Stunt" ListMethod="GetStuntList">
         </Tab>
