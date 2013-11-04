@@ -1270,7 +1270,16 @@
                     {
                         if (this.Sex == i.Key.Sex)
                         {
-                            if (this.Brothers.Count <= 2 && i.Key.Brothers.Count <= 2)
+                            bool legal = true;
+                            foreach (Person p in i.Key.Brothers) 
+                            {
+                                if (this.HasStrainTo(p) || this.IsVeryCloseTo(p))
+                                {
+                                    legal = false;
+                                    break;
+                                }
+                            }
+                            if (legal && this.Brothers.Count <= 2 && i.Key.Brothers.Count <= 2)
                             {
                                 this.Brothers.Add(i.Key);
                                 i.Key.Brothers.Add(this);
