@@ -1056,7 +1056,7 @@
             get
             {
                 if (this.BelongedFaction == null) return 0;
-                int result = (int)(this.Kind.CreateCost * (1 + (this.Experience + (this.Leader == this.Leader ? 1000 : this.LeaderExperience)) / 1000.0));
+                int result = (int)(this.Kind.CreateCost + this.Experience * 5 + (this.FollowedLeader != null ? 1000 : this.LeaderExperience) / 1000.0 * 5000);
                 if (!this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.RealMilitaryKind) || this.RealMilitaryKind.RecruitLimit == 1)
                 {
                     result += 100000;
@@ -1069,7 +1069,7 @@
         {
             get
             {
-                double retreatScaleRatio = Math.Min(0.5, this.RecoverCost / 50000.0 * 0.4);
+                double retreatScaleRatio = Math.Min(0.5, this.RecoverCost / 50000.0);
                 return this.Kind.MaxScale / this.Kind.MinScale * retreatScaleRatio;
             }
         }
