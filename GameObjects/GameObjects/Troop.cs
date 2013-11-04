@@ -749,7 +749,7 @@
                         stuckedFor++;
                         if (stuckedFor >= 5)
                         {
-                            GoBack();
+                            this.GoBack();
                             return false;
                         }
                     }
@@ -764,9 +764,6 @@
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                    this.WillTroop = null;
-                    this.TargetTroop = null;
-                    this.TargetArchitecture = null;
                     return false;
                 }
                 //retreat if target has too much food/fund that further transfer will fill up there, for transport troop
@@ -776,9 +773,6 @@
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                    this.WillTroop = null;
-                    this.TargetTroop = null;
-                    this.TargetArchitecture = null;
                     return false;
                 }
                 //retreat if morale < 45 or has more injured troop than working troops, with 80 + 2 x calmness chance
@@ -794,9 +788,6 @@
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                     }
-                    this.WillTroop = null;
-                    this.TargetTroop = null;
-                    this.TargetArchitecture = null;
                     return false;
                 }
                 //retreat if the enemy base has > 30 endurance, morale <= 75, and routeway not started or don't have enough food
@@ -817,9 +808,6 @@
                         {
                             this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         }
-                        this.WillTroop = null;
-                        this.TargetTroop = null;
-                        this.TargetArchitecture = null;
                         return false;
                     }
                 }
@@ -844,9 +832,7 @@
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                    this.WillTroop = null;
-                    this.TargetTroop = null;
-                    this.TargetArchitecture = null;
+
                     return false;
                 }
                 //retreat if the other base become friendly and this legion is meant to be offensive
@@ -856,9 +842,6 @@
                     {
                         this.GoBack();
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                        this.WillTroop = null;
-                        this.TargetTroop = null;
-                        this.TargetArchitecture = null;
                         return false;
                     }
                 }
@@ -872,9 +855,6 @@
                     || (this.WillArchitecture.BelongedFaction == this.BelongedFaction)) || this.WillArchitecture.ViewTroop(this)))
                 {
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                    this.WillTroop = null;
-                    this.TargetTroop = null;
-                    this.TargetArchitecture = null;
                     return false;
                 }*/
                 //if
@@ -884,9 +864,6 @@
                     !this.IsFriendly(this.WillArchitecture.BelongedFaction)) || this.WillArchitecture.HasHostileTroopsInView()))
                 {
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                    this.WillTroop = null;
-                    this.TargetTroop = null;
-                    this.TargetArchitecture = null;
                     this.GoBack();
                     return false;
                 }
@@ -898,9 +875,6 @@
                         (this.WillArchitecture.Endurance >= 30 || this.StartingArchitecture.Endurance <= 30) && !this.IsTransport)
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                        this.WillTroop = null;
-                        this.TargetTroop = null;
-                        this.TargetArchitecture = null;
                         this.GoBack();
                         return false;
                     }
@@ -937,9 +911,6 @@
                             !this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(this.Army.Kind)))
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                        this.WillTroop = null;
-                        this.TargetTroop = null;
-                        this.TargetArchitecture = null;
                         this.GoBack();
                         return false;
                     }
@@ -1207,9 +1178,6 @@
             if (pack3 == null)
             {
                 this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                this.WillTroop = null;
-                this.TargetTroop = null;
-                this.TargetArchitecture = null;
                 this.GoBack();
                 return false;
             }
@@ -5770,7 +5738,6 @@
                 }
                 else
                 {
-                    CreditPack selfStratagemCredit;
                     Architecture movableBaseViewSelfArchitecture = this.GetMovableBaseViewSelfArchitecture();
                     if (movableBaseViewSelfArchitecture != null)
                     {
@@ -5796,7 +5763,12 @@
                     {
                         this.WillArchitecture = this.BelongedFaction.Capital;
                     }
-                    /*int credit = 0;
+                    this.TargetArchitecture = this.WillArchitecture;
+                    this.TargetTroop = null;
+                    this.WillTroop = null;
+                    /*
+                    CreditPack selfStratagemCredit;
+                    int credit = 0;
                     CreditPack pack = null;
                     GameArea dayArea = this.GetDayArea(1);
                     if ((((this.Morale < 0x4b) && !this.ViewingWillArchitecture) && !this.HasHostileTroopInView()) && !this.HasHostileArchitectureInView())
@@ -9748,8 +9720,7 @@
 
                             Architecture a = base.Scenario.GetArchitectureByPosition(nextPosition);
                             if (a != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城" ||
-                                (this.StartingArchitecture.BelongedSection.AIDetail.AutoRun && !this.ManualControl)) && 
-                                (this.TargetArchitecture == a || this.WillArchitecture == a))
+                                (this.StartingArchitecture.BelongedSection.AIDetail.AutoRun && !this.ManualControl)) && this.TargetArchitecture == a)
                             {
                                 Point old = this.position;
                                 this.position = nextPosition;
