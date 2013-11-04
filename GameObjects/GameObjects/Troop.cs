@@ -5862,16 +5862,7 @@
                 }
                 else if (this.WillArchitecture.BelongedFaction == this.BelongedFaction)
                 {
-                    GameArea realTroopEnterableArea = this.WillArchitecture.GetRealTroopEnterableArea(this);
-                    realTroopEnterableArea.RemovePoints(this.BelongedLegion.TakenPositions);
-                    if (realTroopEnterableArea.Count > 0)
-                    {
-                        this.RealDestination = base.Scenario.GetClosestPoint(realTroopEnterableArea, this.Position);
-                    }
-                    else
-                    {
-                        this.RealDestination = base.Scenario.GetClosestPoint(this.WillArchitecture.ArchitectureArea, this.Position);
-                    }
+                    this.RealDestination = base.Scenario.GetClosestPoint(this.WillArchitecture.ArchitectureArea, this.Position);
                 }
                 else if (!this.IsBaseViewingArchitecture(this.WillArchitecture))
                 {
@@ -9756,7 +9747,9 @@
                             }
 
                             Architecture a = base.Scenario.GetArchitectureByPosition(nextPosition);
-                            if (a != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城") && this.TargetArchitecture == a)
+                            if (a != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城" ||
+                                (this.StartingArchitecture.BelongedSection.AIDetail.AutoRun && !this.ManualControl)) && 
+                                (this.TargetArchitecture == a || this.WillArchitecture == a))
                             {
                                 Point old = this.position;
                                 this.position = nextPosition;
@@ -9996,12 +9989,16 @@
                     {
                         this.GoIntoArchitecture();
                     }
-                } 
+                }
                 else if (this.AIResetDestination())
                 {
                     this.WillTroop = this.TargetTroop;
                 }
-                else if (!this.Destroyed && (this.BelongedFaction != null))
+                else
+                {
+                    this.GoIntoArchitecture();
+                }
+                /*else if (!this.Destroyed && (this.BelongedFaction != null))
                 {
                     TroopList hostileTroopsInView = null;
                     if (this.WillArchitecture != null)
@@ -10041,7 +10038,7 @@
                             this.GoIntoArchitecture();
                         }
                     }
-                }
+                }*/
             }
             else if (this.Will == TroopWill.移动)
             {
