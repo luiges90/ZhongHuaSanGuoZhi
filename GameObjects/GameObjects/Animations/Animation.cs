@@ -87,7 +87,14 @@
             {
                 if (this.texture == null)
                 {
-                    this.texture = Texture2D.FromFile(this.Device, this.TextureFileName);
+                    try
+                    {
+                        this.texture = Texture2D.FromFile(this.Device, this.TextureFileName);
+                    }
+                    catch (OutOfMemoryException)
+                    {
+                        this.texture = new Texture2D(this.Device, 1, 1);
+                    }
                 }
                 return this.texture;
             }
