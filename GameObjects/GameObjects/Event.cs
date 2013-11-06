@@ -216,7 +216,7 @@
 
             foreach (Condition i in this.factionCond)
             {
-                if (!i.CheckCondition(a.BelongedFaction, this))
+                if (a.BelongedFaction == null || !i.CheckCondition(a.BelongedFaction, this))
                 {
                     return false;
                 }
