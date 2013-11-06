@@ -67,6 +67,7 @@
             this.AllAttackDefaultKinds.Clear();
             this.AllAttackTargetKinds.Clear();
             this.AllBiographies.Clear();
+            this.AllBiographyAdjectives.Clear();
             this.AllCastDefaultKinds.Clear();
             this.AllCastTargetKinds.Clear();
             this.AllCharacterKinds.Clear();
