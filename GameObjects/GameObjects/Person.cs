@@ -3822,7 +3822,14 @@
         {
             get
             {
-                return base.Scenario.Date.Year - this.yearBorn;
+                if (GlobalVariables.PersonNaturalDeath)
+                {
+                    return base.Scenario.Date.Year - this.yearBorn;
+                }
+                else
+                {
+                    return 30;
+                }
             }
         }
 
