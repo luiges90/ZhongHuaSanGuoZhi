@@ -3158,11 +3158,11 @@
                     {
                         foreach (Person num in this.person.GetClosePersons())
                         {
-                            this.lbClosePersons.Items.Add(num.ToString() + " " + num.Name);
+                            this.lbClosePersons.Items.Add(num.ID + " " + num.Name);
                         }
                         foreach (Person num in this.person.GetHatedPersons())
                         {
-                            this.lbHatedPersons.Items.Add(num.ToString() + " " + num.Name);
+                            this.lbHatedPersons.Items.Add(num.ID + " " + num.Name);
                         }
                     }
                     catch
@@ -3323,13 +3323,13 @@
                 foreach (string str in this.lbClosePersons.Items)
                 {
                     int id = int.Parse(str.Substring(0, str.IndexOf(" ")));
-                    p.AddClose(this.Persons.GetGameObject(id) as Person);
+                    p.AddClose(p.Scenario.Persons.GetGameObject(id) as Person);
                 }
 
                 foreach (string str in this.lbHatedPersons.Items)
                 {
                     int id = int.Parse(str.Substring(0, str.IndexOf(" ")));
-                    p.AddHated(this.Persons.GetGameObject(id) as Person);
+                    p.AddHated(p.Scenario.Persons.GetGameObject(id) as Person);
                 }
             }
             catch
