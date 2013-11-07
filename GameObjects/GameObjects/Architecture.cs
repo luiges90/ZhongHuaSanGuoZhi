@@ -12695,7 +12695,7 @@
         {
             get
             {
-                return ((this.Fund >= this.FundCeiling) || ((((this.Fund + this.FundInPack) - ((this.BelongedFaction.PlanTechniqueArchitecture == this) ? this.BelongedFaction.getTechniqueActualFundCost(this.BelongedFaction.PlanTechnique) : 0)) - ((this.PlanFacilityKind != null) ? this.PlanFacilityKind.FundCost : 0)) >= this.AbundantFund));
+                return ((this.Fund >= this.FundCeiling) || ((((this.Fund + this.FundInPack) - ((this.BelongedFaction != null && this.BelongedFaction.PlanTechniqueArchitecture == this) ? this.BelongedFaction.getTechniqueActualFundCost(this.BelongedFaction.PlanTechnique) : 0)) - ((this.PlanFacilityKind != null) ? this.PlanFacilityKind.FundCost : 0)) >= this.AbundantFund));
             }
         }
 
@@ -12703,7 +12703,7 @@
         {
             get
             {
-                return ((this.Fund >= this.FundCeiling) || ((((this.Fund + this.FundInPack) - ((this.BelongedFaction.PlanTechniqueArchitecture == this) ? this.BelongedFaction.getTechniqueActualFundCost(this.BelongedFaction.PlanTechnique) : 0)) - ((this.PlanFacilityKind != null) ? this.PlanFacilityKind.FundCost : 0)) >= this.EnoughFund));
+                return ((this.Fund >= this.FundCeiling) || ((((this.Fund + this.FundInPack) - ((this.BelongedFaction != null && this.BelongedFaction.PlanTechniqueArchitecture == this) ? this.BelongedFaction.getTechniqueActualFundCost(this.BelongedFaction.PlanTechnique) : 0)) - ((this.PlanFacilityKind != null) ? this.PlanFacilityKind.FundCost : 0)) >= this.EnoughFund));
             }
         }
 
