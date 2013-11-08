@@ -145,6 +145,10 @@
         public static float MilitaryPopulationCap = 0.1f;
         public static float MilitaryPopulationReloadQuantity = 1.0f;
 
+        public static int CloseThreshold = 500;
+        public static int HateThreshold = -500;
+        public static int VeryCloseThreshold = 2000;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();
@@ -279,6 +283,10 @@
 
             MilitaryPopulationCap = float.Parse(nextSibling.Attributes.GetNamedItem("MilitaryPopulationCap").Value);
             MilitaryPopulationReloadQuantity = float.Parse(nextSibling.Attributes.GetNamedItem("MilitaryPopulationReloadQuantity").Value);
+
+            CloseThreshold = int.Parse(nextSibling.Attributes.GetNamedItem("CloseThreshold").Value);
+            HateThreshold = int.Parse(nextSibling.Attributes.GetNamedItem("HateThreshold").Value);
+            VeryCloseThreshold = int.Parse(nextSibling.Attributes.GetNamedItem("VeryCloseThreshold").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;

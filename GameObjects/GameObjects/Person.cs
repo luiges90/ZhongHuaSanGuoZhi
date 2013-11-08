@@ -1263,7 +1263,7 @@
             {
                 foreach (KeyValuePair<Person, int> i in this.relations)
                 {
-                    if (i.Value >= VERY_CLOSE_THRESHOLD && i.Key.GetRelation(this) >= VERY_CLOSE_THRESHOLD && i.Key.BelongedFaction == this.BelongedFaction 
+                    if (i.Value >= Parameters.VeryCloseThreshold && i.Key.GetRelation(this) >= Parameters.VeryCloseThreshold && i.Key.BelongedFaction == this.BelongedFaction 
                         && Person.GetIdealOffset(this, i.Key) <= 5 && !this.HasStrainTo(i.Key) && !this.IsVeryCloseTo(i.Key) 
                         && (!GlobalVariables.PersonNaturalDeath || (Math.Abs(this.Age - i.Key.Age) <= 40 && this.Age <= 50 && i.Key.Age <= 50
                             && this.Age >= 16 && i.Key.Age >= 16)))
@@ -6924,20 +6924,16 @@
             return this.hatedPersons.GameObjects.Contains(p);
         }
 
-        public const int CLOSE_THRESHOLD = 500;
-        public const int HATE_THRESHOLD = -500;
-        public const int VERY_CLOSE_THRESHOLD = 2000;
-
         public void AddHated(Person p)
         {
             if (p != null && p != this && !this.Hates(p))
             {
                 this.hatedPersons.Add(p);
-                this.EnsureRelationAtMost(p, HATE_THRESHOLD);
+                this.EnsureRelationAtMost(p, Parameters.HateThreshold);
             }
             else if (p != null && p != this)
             {
-                this.AdjustRelation(p, 0, HATE_THRESHOLD);
+                this.AdjustRelation(p, 0, Parameters.HateThreshold);
             }
         }
 
@@ -6946,20 +6942,20 @@
             if (p != null && p != this && !this.Closes(p))
             {
                 this.closePersons.Add(p);
-                this.EnsureRelationAtLeast(p, CLOSE_THRESHOLD);
+                this.EnsureRelationAtLeast(p, Parameters.CloseThreshold);
             }
         }
 
         public void RemoveClose(Person p)
         {
             this.closePersons.Remove(p);
-            this.EnsureRelationAtMost(p, CLOSE_THRESHOLD / 2);
+            this.EnsureRelationAtMost(p, Parameters.CloseThreshold / 2);
         }
 
         public void RemoveHated(Person p)
         {
             this.hatedPersons.Remove(p);
-            this.EnsureRelationAtLeast(p, HATE_THRESHOLD / 2);
+            this.EnsureRelationAtLeast(p, Parameters.HateThreshold / 2);
         }
 
         public PersonList GetClosePersons()
@@ -7024,19 +7020,19 @@
             {
                 this.relations.Add(p, val);
             }
-            if (this.relations[p] <= HATE_THRESHOLD && !this.Hates(p))
+            if (this.relations[p] <= Parameters.HateThreshold && !this.Hates(p))
             {
                 this.AddHated(p);
             }
-            if (this.relations[p] >= HATE_THRESHOLD / 2 && this.Hates(p))
+            if (this.relations[p] >= Parameters.HateThreshold / 2 && this.Hates(p))
             {
                 this.RemoveHated(p);
             }
-            if (this.relations[p] <= CLOSE_THRESHOLD / 2 && this.Closes(p))
+            if (this.relations[p] <= Parameters.CloseThreshold / 2 && this.Closes(p))
             {
                 this.RemoveClose(p);
             }
-            if (this.relations[p] >= CLOSE_THRESHOLD && !this.Closes(p))
+            if (this.relations[p] >= Parameters.CloseThreshold && !this.Closes(p))
             {
                 this.AddClose(p);
             }
