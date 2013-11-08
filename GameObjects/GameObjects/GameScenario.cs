@@ -1433,7 +1433,17 @@
                 t.ID = (short) reader["ID"];
                 t.LeaderID = (short) reader["LeaderID"];
                 t.Name = reader["FName"].ToString();
-                list.Add(t);
+                try
+                {
+                    if (!((bool)reader["NotPlayerSelectable"]))
+                    {
+                        list.Add(t);
+                    }
+                }
+                catch
+                {
+                    list.Add(t);
+                }
             }
             DbConnection.Close();
             return list;
