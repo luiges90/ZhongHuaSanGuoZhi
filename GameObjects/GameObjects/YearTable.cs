@@ -71,10 +71,10 @@
                 String.Format(yearTableStrings["kingDeath"], oldFaction.Name, p.Name), true);
         }
 
-        public void addChangeKingEntry(GameDate date, Person p)
+        public void addChangeKingEntry(GameDate date, Person p, Faction oldFaction)
         {
-            this.addTableEntry(date, composeFactionList(p.BelongedFaction),
-                String.Format(yearTableStrings["changeKing"], p.BelongedFaction.Name, p.Name), true);
+            this.addTableEntry(date, composeFactionList(oldFaction),
+                String.Format(yearTableStrings["changeKing"], oldFaction.Name, p.Name), true);
         }
 
         public void addChangeFactionEntry(GameDate date, Faction oldFaction, Faction newFaction)

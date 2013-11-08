@@ -1208,7 +1208,7 @@
                     this.Leader.ReceiveTreasure(treasure);
                 }
 				ExtensionInterface.call("ChangeKing", new Object[] { this.Scenario, this });
-                base.Scenario.YearTable.addChangeKingEntry(base.Scenario.Date, this.Leader);
+                base.Scenario.YearTable.addChangeKingEntry(base.Scenario.Date, this.Leader, this);
                 return this;
             }
             foreach (Treasure treasure in leader.Treasures.GetList())
