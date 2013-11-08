@@ -78,13 +78,13 @@
         public int IncrementOfStratagemSuccessChance;
         public int IncrementOfViewRadius;
         public InformationList Informations = new InformationList();
-        private InformationTile[,] knownAreaData;
+        private InformationTile[,] knownAreaData; // reduce memory consumption of this. 1.37 MB for each faction, no.
         public Dictionary<int, Troop> KnownTroops = new Dictionary<int, Troop>();
         private Person leader = null;
         private int leaderID;
         public LegionList Legions = new LegionList();
         public InformationLevel LevelOfView = InformationLevel.中;
-        private int[,] mapData;
+        private int[,] mapData; // reduce memory consumption of this, possibly. 351 KB for each faction...
         public MilitaryList Militaries = new MilitaryList();
         public int NoCounterChanceIncrementOfBubing;
         public int NoCounterChanceIncrementOfNubing;
