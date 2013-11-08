@@ -1125,6 +1125,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Challenge.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3145.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3150.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1296.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1424.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1425.cs" />
@@ -1157,14 +1159,20 @@
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind2845.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind2900.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind2905.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3140.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3155.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3160.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3165.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3170.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3175.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3200.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3205.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3210.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3215.cs" />
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3220.cs" />
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3225.cs" />
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3230.cs" />
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3235.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3120.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3125.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3130.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3135.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4130.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4135.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4140.cs" />
@@ -1175,6 +1183,22 @@
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4215.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4220.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind4225.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5000.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5005.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5010.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5015.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5020.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5025.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5030.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5035.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5040.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5045.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5050.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5055.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5060.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5065.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5070.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind5075.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind870.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind875.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind880.cs" />
