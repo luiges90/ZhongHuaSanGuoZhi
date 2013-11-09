@@ -4987,7 +4987,7 @@
         public bool runScenarioStart(Architecture triggerArch)
         {
             bool ran = false;
-            foreach (Event e in this.AllEvents.GetRandomList())
+            foreach (Event e in this.AllEvents)
             {
                 if ((e.IsStart(this) && e.matchEventPersons(triggerArch)) || e.checkConditions(triggerArch))
                 {
@@ -5005,7 +5005,7 @@
         public bool runScenarioEnd(Architecture triggerArch)
         {
             bool ran = false;
-            foreach (Event e in this.AllEvents.GetRandomList())
+            foreach (Event e in this.AllEvents)
             {
                 if ((e.IsEnd(this) && e.matchEventPersons(triggerArch)) || e.checkConditions(triggerArch))
                 {

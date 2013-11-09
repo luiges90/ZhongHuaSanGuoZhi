@@ -71,11 +71,11 @@
             }
 
             HashSet<int> noCond = new HashSet<int>();
-            foreach (int i in this.person.Keys)
+            foreach (KeyValuePair<int, List<Person>> i in this.person)
             {
-                if (!haveCond.Contains(i))
+                if (!haveCond.Contains(i.Key) && i.Value.Count == 0)
                 {
-                    noCond.Add(i);
+                    noCond.Add(i.Key);
                 }
             }
 
@@ -92,6 +92,7 @@
                 }
             }
 
+            // check person in the architecture
             foreach (KeyValuePair<int, List<Condition>> i in this.personCond)
             {
                 foreach (Person p in a.Persons)
@@ -114,6 +115,7 @@
                     }
                 }
             }
+            // check 7000 - 8000 persons which can be in anywhere
             foreach (KeyValuePair<int, List<Person>> i in this.person)
             {
                 foreach (Person p in i.Value)
@@ -186,12 +188,6 @@
 
         public bool checkConditions(Architecture a)
         {
-            if (a.ID == 91)
-            {
-                int z = 0;
-                z++;
-            }
-
             if (this.happened && !this.repeatable) return false;
             if (GameObject.Random(this.happenChance) != 0)
             {
@@ -228,12 +224,14 @@
         public bool IsStart(GameScenario scenario)
         {
             Condition cstart = scenario.GameCommonData.AllConditions.GetCondition(9998);
+            if (cstart == null) return false;
             return this.architectureCond.Contains(cstart) || this.factionCond.Contains(cstart);
         }
 
         public bool IsEnd(GameScenario scenario)
         {
             Condition cend = scenario.GameCommonData.AllConditions.GetCondition(9999);
+            if (cend == null) return false;
             return this.architectureCond.Contains(cend) || this.factionCond.Contains(cend);
         }
 
