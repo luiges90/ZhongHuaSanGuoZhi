@@ -43,6 +43,16 @@
             return StaticMethods.Random(maxValue);
         }
 
+        public static int RandomGaussian(int mean, int var)
+        {
+            Random rand = new Random(); //reuse this if you are generating many
+            double u1 = rand.NextDouble(); //these are uniform(0,1) random doubles
+            double u2 = rand.NextDouble();
+            double randStdNormal = Math.Sqrt(-2.0 * Math.Log(u1)) *
+                         Math.Sin(2.0 * Math.PI * u2); //random normal(0,1)
+            return (int) Math.Round(mean + (var / 3) * randStdNormal); //random normal(mean,stdDev^2)
+        }
+
         public static int Square(int num)
         {
             return (num * num);

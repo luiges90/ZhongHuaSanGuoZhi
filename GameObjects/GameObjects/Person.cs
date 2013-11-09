@@ -6124,6 +6124,217 @@
             return result;
         }
 
+        private enum OfficerType { GENERAL, BRAVE, ADVISOR, POLITICIAN, INTEL_GENERAL, EMPEROR, ALL_ROUNDER, NORMAL, CHEAP };
+
+        public static Person createPerson(GameScenario scen)
+        {
+            throw new Exception("TODO");
+            Person r = new Person();
+
+            //look for empty id
+            int id = 3000;
+            PersonList pl = scen.Persons as PersonList;
+            pl.SmallToBig = true;
+            pl.IsNumber = true;
+            pl.PropertyName = "ID";
+            pl.ReSort();
+            foreach (Person p in pl)
+            {
+                if (p.ID == id)
+                {
+                    id++;
+                    if (id >= 5000 && id < 10000)
+                    {
+                        id = 10000;
+                    }
+                }
+                else if (p.ID > id)
+                {
+                    break;
+                }
+            }
+            r.ID = id;
+
+            r.Father = null;
+            r.Mother = null;
+            r.Generation = 1;
+            r.Strain = r.ID;
+
+            r.Sex = GameObject.Chance(50) ? true : false;
+
+            List<String> surnameList = Person.readTextList("CreateChildrenTextFile/surname.txt");
+            r.SurName = surnameList[GameObject.Random(surnameList.Count)];
+            List<String> givenNameList = r.Sex ? Person.readTextList("CreateChildrenTextFile/femalegivenname.txt") : Person.readTextList("CreateChildrenTextFile/malegivenname.txt");
+            r.GivenName = givenNameList[GameObject.Random(givenNameList.Count)];
+            if (r.GivenName.Length <= 1 && GameObject.Chance(r.Sex ? 90 : 10))
+            {
+                String s;
+                int tries = 0;
+                do
+                {
+                    s = givenNameList[GameObject.Random(givenNameList.Count)];
+                    tries++;
+                } while (s.Length > 1 && tries < 100);
+                r.GivenName += s;
+            }
+            r.CalledName = "";
+
+            List<int> pictureList;
+            if (r.Sex)
+            {
+                if (r.BaseCommand + r.BaseStrength > r.BaseIntelligence + r.BasePolitics)
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/femalefaceM.txt");
+                }
+                else
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/femalefaceA.txt");
+                }
+            }
+            else
+            {
+                if (r.BaseCommand < 50 && r.BaseStrength < 50 && r.BaseIntelligence < 50 && r.BasePolitics < 50 && r.BaseGlamour < 50)
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceU.txt");
+                }
+                else if (r.BaseCommand + r.BaseStrength > r.BaseIntelligence + r.BasePolitics)
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceM.txt");
+                }
+                else
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceA.txt");
+                }
+            }
+            r.PictureIndex = pictureList[GameObject.Random(pictureList.Count)];
+
+            int typeInt = GameObject.Random(1000);
+            OfficerType type;
+            if (typeInt < 1)
+            {
+                type = OfficerType.ALL_ROUNDER;
+            }
+            else if (typeInt < 20)
+            {
+                type = OfficerType.INTEL_GENERAL;
+            }
+            else if (typeInt < 50)
+            {
+                type = OfficerType.EMPEROR;
+            }
+            else if (typeInt < 100)
+            {
+                type = OfficerType.GENERAL;
+            }
+            else if (typeInt < 150)
+            {
+                type = OfficerType.ADVISOR;
+            }
+            else if (typeInt < 200)
+            {
+                type = OfficerType.POLITICIAN;
+            }
+            else if (typeInt < 250)
+            {
+                type = OfficerType.BRAVE;
+            }
+            else if (typeInt < 900)
+            {
+                type = OfficerType.NORMAL;
+            }
+            else
+            {
+                type = OfficerType.CHEAP;
+            }
+
+            switch (type)
+            {
+                case OfficerType.GENERAL:
+                    {
+                        r.BaseCommand = GameObject.RandomGaussian(85, 15);
+                        r.BaseStrength = GameObject.RandomGaussian(85, 15);
+                        r.BaseIntelligence = GameObject.RandomGaussian(50, 20);
+                        r.BasePolitics = GameObject.RandomGaussian(40, 20);
+                        r.BaseGlamour = GameObject.RandomGaussian(60, 30);
+                        break;
+                    }
+                case OfficerType.BRAVE:
+                    {
+                        r.Command = GameObject.RandomGaussian(55, 15);
+                        r.Strength = GameObject.RandomGaussian(90, 10);
+                        r.Intelligence = GameObject.RandomGaussian(25, 15);
+                        r.Politics = GameObject.RandomGaussian(15, 15);
+                        r.Glamour = GameObject.RandomGaussian(30, 30);
+                        break;
+                    }
+                case OfficerType.ADVISOR:
+                    {
+                        r.Command = GameObject.RandomGaussian(80, 20);
+                        r.Strength = GameObject.RandomGaussian(35, 35);
+                        r.Intelligence = GameObject.RandomGaussian(90, 10);
+                        r.Politics = GameObject.RandomGaussian(85, 15);
+                        r.Glamour = GameObject.RandomGaussian(80, 20);
+                        break;
+                    }
+                case OfficerType.POLITICIAN:
+                    {
+                        r.Command = GameObject.RandomGaussian(25, 25);
+                        r.Strength = GameObject.RandomGaussian(20, 20);
+                        r.Intelligence = GameObject.RandomGaussian(85, 15);
+                        r.Politics = GameObject.RandomGaussian(90, 10);
+                        r.Glamour = GameObject.RandomGaussian(50, 50);
+                        break;
+                    }
+                case OfficerType.INTEL_GENERAL:
+                    {
+                        r.Command = GameObject.RandomGaussian(85, 15);
+                        r.Strength = GameObject.RandomGaussian(85, 15);
+                        r.Intelligence = GameObject.RandomGaussian(85, 15);
+                        r.Politics = GameObject.RandomGaussian(25, 25);
+                        r.Glamour = GameObject.RandomGaussian(60, 30);
+                        break;
+                    }
+                case OfficerType.EMPEROR:
+                    {
+                        r.Command = GameObject.RandomGaussian(80, 20);
+                        r.Strength = GameObject.RandomGaussian(50, 20);
+                        r.Intelligence = GameObject.RandomGaussian(80, 20);
+                        r.Politics = GameObject.RandomGaussian(80, 20);
+                        r.Glamour = GameObject.RandomGaussian(90, 10);
+                        break;
+                    }
+                case OfficerType.ALL_ROUNDER:
+                    {
+                        r.Command = GameObject.RandomGaussian(85, 15);
+                        r.Strength = GameObject.RandomGaussian(85, 15);
+                        r.Intelligence = GameObject.RandomGaussian(85, 15);
+                        r.Politics = GameObject.RandomGaussian(85, 15);
+                        r.Glamour = GameObject.RandomGaussian(85, 15);
+                        break;
+                    }
+                case OfficerType.NORMAL:
+                    {
+                        r.Command = GameObject.RandomGaussian(60, 15);
+                        r.Strength = GameObject.RandomGaussian(60, 15);
+                        r.Intelligence = GameObject.RandomGaussian(60, 15);
+                        r.Politics = GameObject.RandomGaussian(60, 15);
+                        r.Glamour = GameObject.RandomGaussian(60, 15);
+                        break;
+                    }
+                case OfficerType.CHEAP:
+                    {
+                        r.Command = GameObject.RandomGaussian(25, 25);
+                        r.Strength = GameObject.RandomGaussian(25, 25);
+                        r.Intelligence = GameObject.RandomGaussian(25, 25);
+                        r.Politics = GameObject.RandomGaussian(25, 25);
+                        r.Glamour = GameObject.RandomGaussian(25, 25);
+                        break;
+                    }
+            }
+
+            return r;
+        }
+
         public static Person createChildren(Person father, Person mother)
         {
             Person r = new Person();
@@ -6149,11 +6360,6 @@
                 {
                     break;
                 }
-                /*if (id >= 7000)
-                {
-                    //no more room!
-                    throw new Exception("No more room for children!");
-                }*/
             }
             r.ID = id;
 
