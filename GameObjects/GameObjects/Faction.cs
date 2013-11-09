@@ -2906,7 +2906,7 @@
         private void SelfAdvancement()
         {
             this.guanjue++;
-            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, TextMessageKind.BecomeEmperorIllegally, "Zili", "", "",
+            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, TextMessageKind.SelfRiseEmperorClass, "Zili", "", "",
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
             this.Scenario.GameScreen.xiejinxingjilu("Zili", this.LeaderName,
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
