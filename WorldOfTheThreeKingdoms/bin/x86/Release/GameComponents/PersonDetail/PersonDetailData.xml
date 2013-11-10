@@ -235,7 +235,7 @@
                 Align="Middle">
     </Text>
   </Labels>
-  <Title X="680" Y="48" Width="320" Height="210" RowMargin="10"
+  <Title X="680" Y="48" Width="320" Height="810" RowMargin="1"
             FontName="宋体"
             FontSize="11"
             FontStyle="Bold"
@@ -256,19 +256,19 @@
             FontStyle="Regular"
             FontColor="4294967295">
   </Stunt>
-  <Influence X="460" Y="220" Width="250" Height="360" RowMargin="0"
+  <Influence X="460" Y="220" Width="220" Height="360" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </Influence>
-  <Condition X="710" Y="220" Width="250" Height="360" RowMargin="0"
+  <Condition X="460" Y="400" Width="220" Height="360" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </Condition>
-  <Biography X="460" Y="220" Width="500" Height="360" RowMargin="0"
+  <Biography X="460" Y="220" Width="220" Height="720" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
