@@ -78,13 +78,13 @@
         public int IncrementOfStratagemSuccessChance;
         public int IncrementOfViewRadius;
         public InformationList Informations = new InformationList();
-        private InformationTile[,] knownAreaData; // reduce memory consumption of this. 1.37 MB for each faction, no.
+        private Dictionary<KeyValuePair<int, int>, InformationTile> knownAreaData;
         public Dictionary<int, Troop> KnownTroops = new Dictionary<int, Troop>();
         private Person leader = null;
         private int leaderID;
         public LegionList Legions = new LegionList();
         public InformationLevel LevelOfView = InformationLevel.中;
-        private int[,] mapData; // reduce memory consumption of this, possibly. 351 KB for each faction...
+        private int[,] mapData;
         public MilitaryList Militaries = new MilitaryList();
         public int NoCounterChanceIncrementOfBubing;
         public int NoCounterChanceIncrementOfNubing;
@@ -342,17 +342,61 @@
             architecture.BelongedFaction = this;
         }
 
+        private void AddKnownAreaData(int x, int y, InformationLevel level)
+        {
+            KeyValuePair<int, int> p = new KeyValuePair<int, int>(x, y);
+            if (!this.knownAreaData.ContainsKey(p))
+            {
+                InformationTile it = new InformationTile();
+                it.AddInformationLevel(level);
+                this.knownAreaData.Add(p, it);
+            }
+            else
+            {
+                InformationTile it = this.knownAreaData[p];
+                it.AddInformationLevel(level);
+                this.knownAreaData[p] = it;
+            }
+        }
+
+        private void RemoveKnownAreaData(int x, int y, InformationLevel level)
+        {
+            KeyValuePair<int, int> p = new KeyValuePair<int, int>(x, y);
+            if (this.knownAreaData.ContainsKey(p))
+            {
+                InformationTile it = this.knownAreaData[p];
+                it.RemoveInformationLevel(level);
+                if (it.Level == InformationLevel.无)
+                {
+                    this.knownAreaData.Remove(p);
+                }
+            }
+        }
+
+        private InformationLevel getInformationLevel(int x, int y)
+        {
+            KeyValuePair<int, int> p = new KeyValuePair<int, int>(x, y);
+            if (!this.knownAreaData.ContainsKey(p))
+            {
+                return InformationLevel.无;
+            }
+            else
+            {
+                return this.knownAreaData[p].Level;
+            }
+        }
+
         public void AddArchitectureKnownData(Architecture a)
         {
             foreach (Point point in a.ArchitectureArea.Area)
             {
-                this.knownAreaData[point.X, point.Y].AddInformationLevel(InformationLevel.全);
+                this.AddKnownAreaData(point.X, point.Y, InformationLevel.全);
             }
             foreach (Point point in a.ViewArea.Area)
             {
                 if (!base.Scenario.PositionOutOfRange(point))
                 {
-                    this.knownAreaData[point.X, point.Y].AddInformationLevel(InformationLevel.高);
+                    this.AddKnownAreaData(point.X, point.Y, InformationLevel.高);
                 }
             }
             if (a.Kind.HasLongView)
@@ -361,7 +405,7 @@
                 {
                     if (!base.Scenario.PositionOutOfRange(point))
                     {
-                        this.knownAreaData[point.X, point.Y].AddInformationLevel(InformationLevel.中);
+                        this.AddKnownAreaData(point.X, point.Y, InformationLevel.中);
                     }
                 }
             }
@@ -397,7 +441,7 @@
         {
             if (!base.Scenario.PositionOutOfRange(position))
             {
-                this.knownAreaData[position.X, position.Y].AddInformationLevel(level);
+                this.AddKnownAreaData(position.X, position.Y, level);
             }
         }
 
@@ -478,11 +522,11 @@
                 }
                 if (point == troop.ViewArea.Centre)
                 {
-                    this.knownAreaData[point.X, point.Y].AddInformationLevel(InformationLevel.全);
+                    this.AddKnownAreaData(point.X, point.Y, InformationLevel.全);
                 }
                 else
                 {
-                    this.knownAreaData[point.X, point.Y].AddInformationLevel(troop.ScoutLevel);
+                    this.AddKnownAreaData(point.X, point.Y, troop.ScoutLevel);
                 }
             }
         }
@@ -1530,9 +1574,9 @@
             InformationLevel level = InformationLevel.无;
             foreach (Point point in a.ArchitectureArea.Area)
             {
-                if (this.knownAreaData[point.X, point.Y].Level > level)
+                if (this.getInformationLevel(point.X, point.Y) > level)
                 {
-                    level = this.knownAreaData[point.X, point.Y].Level;
+                    level = this.getInformationLevel(point.X, point.Y);
                 }
             }
             return level;
@@ -1592,12 +1636,12 @@
             {
                 return InformationLevel.未知;
             }
-            return this.knownAreaData[position.X, position.Y].Level;
+            return this.getInformationLevel(position.X, position.Y);
         }
 
         public InformationLevel GetKnownAreaDataNoCheck(Point position)
         {
-            return this.knownAreaData[position.X, position.Y].Level;
+            return this.getInformationLevel(position.X, position.Y);
         }
 
         public Legion GetLegion(Architecture will)
@@ -1872,7 +1916,7 @@
         {
             foreach (Point point in a.ArchitectureArea.Area)
             {
-                if (this.knownAreaData[point.X, point.Y].Level != InformationLevel.无)
+                if (this.getInformationLevel(point.X, point.Y) != InformationLevel.无)
                 {
                     return true;
                 }
@@ -1908,7 +1952,7 @@
             {
                 return false;
             }
-            return (this.knownAreaData[position.X, position.Y].Level != InformationLevel.无);
+            return (this.getInformationLevel(position.X, position.Y) != InformationLevel.无);
         }
 
         private bool IsTechniqueUpgradable(Technique t)
@@ -2108,7 +2152,7 @@
         {
             this.mapData = base.Scenario.ScenarioMap.MapData;
             this.architectureAdjustCost = new int[base.Scenario.ScenarioMap.MapDimensions.X, base.Scenario.ScenarioMap.MapDimensions.Y];
-            this.knownAreaData = new InformationTile[base.Scenario.ScenarioMap.MapDimensions.X, base.Scenario.ScenarioMap.MapDimensions.Y];
+            this.knownAreaData = new Dictionary<KeyValuePair<int, int>, InformationTile>();
             this.PrepareSecondTierMapCost();
             this.PrepareThirdTierMapCost();
             this.PrepareKnownAreaData();
@@ -2215,13 +2259,13 @@
         {
             foreach (Point point in a.ArchitectureArea.Area)
             {
-                this.knownAreaData[point.X, point.Y].RemoveInformationLevel(InformationLevel.全);
+               this.RemoveKnownAreaData(point.X, point.Y, InformationLevel.全);
             }
             foreach (Point point in a.ViewArea.Area)
             {
                 if (!base.Scenario.PositionOutOfRange(point))
                 {
-                    this.knownAreaData[point.X, point.Y].RemoveInformationLevel(InformationLevel.高);
+                    this.RemoveKnownAreaData(point.X, point.Y, InformationLevel.高);
                 }
             }
             if (a.Kind.HasLongView)
@@ -2230,7 +2274,7 @@
                 {
                     if (!base.Scenario.PositionOutOfRange(point))
                     {
-                        this.knownAreaData[point.X, point.Y].RemoveInformationLevel(InformationLevel.中);
+                        this.RemoveKnownAreaData(point.X, point.Y, InformationLevel.中);
                     }
                 }
             }
@@ -2266,7 +2310,7 @@
         {
             if (!base.Scenario.PositionOutOfRange(position))
             {
-                this.knownAreaData[position.X, position.Y].RemoveInformationLevel(level);
+                this.RemoveKnownAreaData(position.X, position.Y, level);
             }
         }
 
@@ -2298,11 +2342,11 @@
                 }
                 if (point == troop.ViewArea.Centre)
                 {
-                    this.knownAreaData[point.X, point.Y].RemoveInformationLevel(InformationLevel.全);
+                    this.RemoveKnownAreaData(point.X, point.Y, InformationLevel.全);
                 }
                 else
                 {
-                    this.knownAreaData[point.X, point.Y].RemoveInformationLevel(troop.ScoutLevel);
+                    this.RemoveKnownAreaData(point.X, point.Y, troop.ScoutLevel);
                 }
             }
         }
