@@ -4743,6 +4743,7 @@
                 t.Textures = null;
             }
 
+            this.GameScreen.DisposeMapTileMemory();
         }
 
 

@@ -68,6 +68,10 @@
             this.UndoneWorks.Push(new UndoneWorkItem(UndoneWorkKind.None, UndoneWorkSubKind.None));
         }
 
+        public virtual void DisposeMapTileMemory()
+        {
+        }
+
         public virtual void Activate()
         {
             this.EnableUpdate = true;

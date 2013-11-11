@@ -123,9 +123,9 @@ namespace AirViewPlugin
         private void drawTroop(SpriteBatch spriteBatch, GameTime gameTime)
         {
 
-            for (int i = 0; i < this.scenario.ScenarioMap.MapDimensions.X; i++)
+            for (int i = this.screen.TopLeftPosition.X; i <= this.screen.BottomRightPosition.X; i++)
             {
-                for (int j = 0; j < this.scenario.ScenarioMap.MapDimensions.Y; j++)
+                for (int j = this.screen.TopLeftPosition.Y; j <= this.screen.BottomRightPosition.Y; j++)
                 {
                     if (GlobalVariables.SkyEye||(this.scenario.CurrentPlayer != null && this.scenario.CurrentPlayer.IsPositionKnown(new Microsoft.Xna.Framework.Point(i, j))))
                     {

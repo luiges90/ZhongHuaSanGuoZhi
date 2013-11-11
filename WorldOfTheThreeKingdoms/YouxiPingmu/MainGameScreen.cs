@@ -146,8 +146,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
         }
 
-
-
+        public void DisposeMapTileMemory()
+        {
+            this.mainMapLayer.freeTilesMemory();
+        }
 
 
         public bool CurrentPlayerHasArchitecture()

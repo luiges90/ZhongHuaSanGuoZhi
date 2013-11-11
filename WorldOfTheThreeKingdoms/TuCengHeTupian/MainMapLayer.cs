@@ -780,15 +780,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                     }
                 }
             }
-            //重新开放内存清理，为大地图准备。
-            foreach (MapTile maptile in this.MapTiles)
-            {
-                if (!this.DisplayingMapTiles.Contains(maptile))
-                {
-                    maptile.TileTexture=null ;
-                }
-            }
-            
         }
 
         public bool TileInScreen(Point tile)
