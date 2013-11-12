@@ -1000,6 +1000,8 @@
             this.scenarioJustLoaded = false;
             this.GameScreen.LoadScenarioInInitialization = false;
             numberOfAmbushTroop = -1; // 缓存有几支部队在埋伏，绝大多数时候地图上根本没有埋伏部队，这时候不需要叫浪费时间的函数detectAmbushTroop
+
+            this.GameScreen.DisposeMapTileMemory();
         }
 
         

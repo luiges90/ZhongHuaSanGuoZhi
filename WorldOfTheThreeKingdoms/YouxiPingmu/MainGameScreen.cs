@@ -146,7 +146,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
         }
 
-        public void DisposeMapTileMemory()
+        public override void DisposeMapTileMemory()
         {
             this.mainMapLayer.freeTilesMemory();
         }
