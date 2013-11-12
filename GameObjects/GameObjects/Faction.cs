@@ -366,6 +366,7 @@
             {
                 InformationTile it = this.knownAreaData[p];
                 it.RemoveInformationLevel(level);
+                this.knownAreaData[p] = it;
                 if (it.Level == InformationLevel.无)
                 {
                     this.knownAreaData.Remove(p);
