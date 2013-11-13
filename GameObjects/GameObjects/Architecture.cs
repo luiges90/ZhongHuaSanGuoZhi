@@ -11992,6 +11992,7 @@
         {
             get
             {
+                if (this.ConvincePersonFund == 0) return int.MaxValue;
                 return (this.Fund / this.ConvincePersonFund);
             }
         }
@@ -12024,6 +12025,7 @@
         {
             get
             {
+                if (this.DestroyArchitectureFund == 0) return int.MaxValue;
                 return (this.Fund / this.DestroyArchitectureFund);
             }
         }
@@ -12514,6 +12516,7 @@
         {
             get
             {
+                if (this.GossipArchitectureFund == 0) return int.MaxValue;
                 return (this.Fund / this.GossipArchitectureFund);
             }
         }
@@ -12522,6 +12525,7 @@
         {
             get
             {
+                if (this.JailBreakArchitectureFund == 0) return int.MaxValue;
                 return (this.Fund / this.JailBreakArchitectureFund);
             }
         }
@@ -12632,6 +12636,7 @@
         {
             get
             {
+                if (this.InstigateArchitectureFund == 0) return int.MaxValue;
                 return (this.Fund / this.InstigateArchitectureFund);
             }
         }
@@ -13105,12 +13110,8 @@
         {
             get
             {
-                int rewardPersonFund = this.RewardPersonFund;
-                if (rewardPersonFund > 0)
-                {
-                    return (this.Fund / rewardPersonFund);
-                }
-                return this.PersonCount;
+                if (this.RewardPersonFund == 0) return int.MaxValue;
+                return (this.Fund / this.RewardPersonFund);
             }
         }
 
@@ -13192,6 +13193,7 @@
         {
             get
             {
+                if (this.SpyArchitectureFund == 0) return int.MaxValue;
                 return (this.Fund / this.SpyArchitectureFund);
             }
         }
