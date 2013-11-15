@@ -342,26 +342,17 @@
             architecture.BelongedFaction = this;
         }
 
-        private List<Point> knownAreaCache = null;
         public List<Point> GetAllKnownArea()
         {
-            if (knownAreaCache != null)
+            List<Point> result = new List<Point>();
+            foreach (Point p in this.knownAreaData.Keys) 
             {
-                return knownAreaCache;
-            }
-            else
-            {
-                List<Point> result = new List<Point>();
-                foreach (Point p in this.knownAreaData.Keys)
+                if (this.GetKnownAreaData(p) != InformationLevel.无 && this.GetKnownAreaData(p) != InformationLevel.未知)
                 {
-                    if (this.GetKnownAreaData(p) != InformationLevel.无 && this.GetKnownAreaData(p) != InformationLevel.未知)
-                    {
-                        result.Add(p);
-                    }
+                    result.Add(p);
                 }
-                knownAreaCache = result;
-                return result;
             }
+            return result;
         }
 
         private void AddKnownAreaData(Point p, InformationLevel level)
@@ -1346,7 +1337,6 @@
             }
             this.armyScale = this.ArmyScale; // 小写的是每天的缓存，因为被InternalSurplusRate叫很多次，不想每次都全部重新计算，大写的才是真正的值
             this.InternalSurplusRateCache = -1;
-            this.knownAreaCache = null;
         }
 
 
