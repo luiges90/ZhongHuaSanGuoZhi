@@ -290,6 +290,8 @@
             HateThreshold = int.Parse(nextSibling.Attributes.GetNamedItem("HateThreshold").Value);
             VeryCloseThreshold = int.Parse(nextSibling.Attributes.GetNamedItem("VeryCloseThreshold").Value);
 
+            MaxAITroopCountCandidates = int.Parse(nextSibling.Attributes.GetNamedItem("MaxAITroopCountCandidates").Value);
+
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;
             BasicAITroopOffenceRate = AITroopOffenceRate;
