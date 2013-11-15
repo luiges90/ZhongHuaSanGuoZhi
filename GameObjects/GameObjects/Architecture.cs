@@ -5966,7 +5966,7 @@
                     int militaryCount = this.MilitaryCount;
 
                     Troop troop2;
-                    TroopList list4 = new TroopList();
+                    SortedBoundedList<Troop> list4 = new SortedBoundedList<Troop>(Parameters.MaxAITroopCountCandidates, new FightingForceComparer());
                     bool isBesideWater = this.IsBesideWater;
 
                     foreach (Military military in this.Militaries.GetRandomList())
@@ -6001,10 +6001,7 @@
 
                     if (list4.Count > 0)
                     {
-                        list4.IsNumber = true;
-                        list4.PropertyName = "FightingForce";
-                        list4.ReSort();
-                        foreach (Troop troop in list4.GetList())
+                        foreach (Troop troop in list4)
                         {
                             bool personAlreadyOut = false;
                             foreach (Person p in troop.Candidates)
@@ -6084,7 +6081,7 @@
                             reserve = int.MaxValue;
                         }
 
-                        TroopList supportList = new TroopList();
+                        SortedBoundedList<Troop> supportList = new SortedBoundedList<Troop>(Parameters.MaxAITroopCountCandidates, new FightingForceComparer());
                         Troop troop2;
 
                         foreach (Military military in i.A.Militaries.GetRandomList())
@@ -6116,10 +6113,7 @@
 
                         if (supportList.Count > 0)
                         {
-                            supportList.IsNumber = true;
-                            supportList.PropertyName = "FightingForce";
-                            supportList.ReSort();
-                            foreach (Troop troop in supportList.GetList())
+                            foreach (Troop troop in supportList)
                             {
                                 bool personAlreadyOut = false;
                                 foreach (Person p in troop.Candidates)
