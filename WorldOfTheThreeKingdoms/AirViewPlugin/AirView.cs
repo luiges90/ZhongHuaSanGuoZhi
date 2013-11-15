@@ -131,7 +131,6 @@ namespace AirViewPlugin
                     color = troopByPositionNoCheck.BelongedFaction.FactionColor;
                 }
                 spriteBatch.Draw(TroopFactionColorTexture, new Rectangle(p.X * this.TileLength + this.MapDisplayOffset.X - 1, p.Y * this.TileLength + this.MapDisplayOffset.Y - 1, this.TileLength * 4, this.TileLength * 4), null, color, 0f, Vector2.Zero, SpriteEffects.None, 0.09998f);
-
             }
         }
 
@@ -149,7 +148,7 @@ namespace AirViewPlugin
             }
             else if (this.scenario.CurrentPlayer != null)
             {
-                foreach (Point p in this.scenario.CurrentFaction.GetAllKnownArea())
+                foreach (Point p in this.scenario.CurrentPlayer.GetAllKnownArea())
                 {
                     renderTroop(spriteBatch, gameTime, p);
                 }
