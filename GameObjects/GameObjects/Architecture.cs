@@ -4599,7 +4599,7 @@
                 return null;
             }
 
-            SortedBoundedList<Troop> list = new SortedBoundedList<Troop>(Parameters.MaxAITroopCountCandidates, new SimulatingFightingForceComparer());
+            SortedBoundedSet<Troop> list = new SortedBoundedSet<Troop>(Parameters.MaxAITroopCountCandidates, new SimulatingFightingForceComparer());
 
             this.Persons.ClearSelected();
             //Label_0309:
@@ -5966,7 +5966,7 @@
                     int militaryCount = this.MilitaryCount;
 
                     Troop troop2;
-                    SortedBoundedList<Troop> list4 = new SortedBoundedList<Troop>(Parameters.MaxAITroopCountCandidates, new FightingForceComparer());
+                    SortedBoundedSet<Troop> list4 = new SortedBoundedSet<Troop>(Parameters.MaxAITroopCountCandidates, new FightingForceComparer());
                     bool isBesideWater = this.IsBesideWater;
 
                     foreach (Military military in this.Militaries.GetRandomList())
@@ -6081,7 +6081,7 @@
                             reserve = int.MaxValue;
                         }
 
-                        SortedBoundedList<Troop> supportList = new SortedBoundedList<Troop>(Parameters.MaxAITroopCountCandidates, new FightingForceComparer());
+                        SortedBoundedSet<Troop> supportList = new SortedBoundedSet<Troop>(Parameters.MaxAITroopCountCandidates, new FightingForceComparer());
                         Troop troop2;
 
                         foreach (Military military in i.A.Militaries.GetRandomList())

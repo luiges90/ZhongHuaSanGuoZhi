@@ -4,18 +4,18 @@ using System.Linq;
 
 namespace GameObjects
 {
-	public class SortedBoundedList<T> : ICollection<T>
+	public class SortedBoundedSet<T> : ICollection<T>
 	{
         private SortedDictionary<T, T> dict;
         private int bound;
 
-        public SortedBoundedList(int bound)
+        public SortedBoundedSet(int bound)
         {
             this.bound = bound;
             this.dict = new SortedDictionary<T, T>();
         }
 
-        public SortedBoundedList(int bound, IComparer<T> comparator)
+        public SortedBoundedSet(int bound, IComparer<T> comparator)
         {
             this.bound = bound;
             this.dict = new SortedDictionary<T, T>(comparator);
