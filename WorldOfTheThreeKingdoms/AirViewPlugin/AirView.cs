@@ -120,18 +120,18 @@ namespace AirViewPlugin
             }
         }
 
-        private void renderTroop(SpriteBatch spriteBatch, GameTime gameTime, Point p)
+        private void renderTroop(SpriteBatch spriteBatch, GameTime gameTime, Troop troop)
         {
-            Troop troopByPositionNoCheck = this.scenario.GetTroopByPositionNoCheck(p);
-            if ((troopByPositionNoCheck != null) && !troopByPositionNoCheck.Destroyed)
+            Color color = Color.White;
+            if (troop.Destroyed) return;
+            if (troop.BelongedFaction != null)
             {
-                Color color = Color.White;
-                if (troopByPositionNoCheck.BelongedFaction != null)
-                {
-                    color = troopByPositionNoCheck.BelongedFaction.FactionColor;
-                }
-                spriteBatch.Draw(TroopFactionColorTexture, new Rectangle(p.X * this.TileLength + this.MapDisplayOffset.X - 1, p.Y * this.TileLength + this.MapDisplayOffset.Y - 1, this.TileLength * 4, this.TileLength * 4), null, color, 0f, Vector2.Zero, SpriteEffects.None, 0.09998f);
+                color = troop.BelongedFaction.FactionColor;
             }
+            spriteBatch.Draw(TroopFactionColorTexture, 
+                new Rectangle(troop.Position.X * this.TileLength + this.MapDisplayOffset.X - 1,
+                            troop.Position.Y * this.TileLength + this.MapDisplayOffset.Y - 1, this.TileLength * 4, this.TileLength * 4), 
+                            null, color, 0f, Vector2.Zero, SpriteEffects.None, 0.09998f);
         }
 
         private void drawTroop(SpriteBatch spriteBatch, GameTime gameTime)
@@ -140,17 +140,17 @@ namespace AirViewPlugin
             {
                 foreach (Faction f in this.scenario.Factions)
                 {
-                    foreach (Point p in f.GetAllKnownArea())
+                    foreach (Troop t in f.GetVisibleTroops())
                     {
-                        renderTroop(spriteBatch, gameTime, p);
+                        renderTroop(spriteBatch, gameTime, t);
                     }
                 }
             }
             else if (this.scenario.CurrentPlayer != null)
             {
-                foreach (Point p in this.scenario.CurrentPlayer.GetAllKnownArea())
+                foreach (Troop t in this.scenario.CurrentPlayer.GetVisibleTroops())
                 {
-                    renderTroop(spriteBatch, gameTime, p);
+                    renderTroop(spriteBatch, gameTime, t);
                 }
             }
         }

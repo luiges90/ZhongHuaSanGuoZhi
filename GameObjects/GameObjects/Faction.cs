@@ -355,6 +355,29 @@
             return result;
         }
 
+        private TroopList visibleTroopsCache = null;
+        public TroopList GetVisibleTroops()
+        {
+            if (visibleTroopsCache != null)
+            {
+                return visibleTroopsCache;
+            } 
+            else 
+            {
+                TroopList result = new TroopList();
+                foreach (Point p in this.GetAllKnownArea())
+                {
+                    Troop troopByPositionNoCheck = this.Scenario.GetTroopByPositionNoCheck(p);
+                    if ((troopByPositionNoCheck != null) && !troopByPositionNoCheck.Destroyed)
+                    {
+                        result.Add(troopByPositionNoCheck);
+                    }
+                }
+                visibleTroopsCache = result;
+                return result;
+            }
+        }
+
         private void AddKnownAreaData(Point p, InformationLevel level)
         {
             if (!this.knownAreaData.ContainsKey(p))
@@ -1337,6 +1360,7 @@
             }
             this.armyScale = this.ArmyScale; // 小写的是每天的缓存，因为被InternalSurplusRate叫很多次，不想每次都全部重新计算，大写的才是真正的值
             this.InternalSurplusRateCache = -1;
+            this.visibleTroopsCache = null;
         }
 
 
