@@ -4745,7 +4745,10 @@
                 t.Textures = null;
             }
 
-            this.GameScreen.DisposeMapTileMemory();
+            if (this.GameScreen != null)
+            {
+                this.GameScreen.DisposeMapTileMemory();
+            }
         }
 
 
