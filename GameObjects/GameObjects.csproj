@@ -1263,6 +1263,6 @@
     <Compile Include="GameObjects\PersonDetail\TextMessageTable.cs" />
     <Compile Include="GameObjects\PersonDetail\TitleKindTable.cs" />
     <Compile Include="GameObjects\PersonDetail\TitleKind.cs" />
-    <Compile Include="GameObjects\SortedBoundedList.cs" />
+    <Compile Include="GameObjects\SortedBoundedSet.cs" />
   </ItemGroup>
 </Project>
