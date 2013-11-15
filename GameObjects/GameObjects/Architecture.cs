@@ -20,6 +20,22 @@
 
     public class Architecture : GameObject
     {
+        class SimulatingFightingForceComparer : IComparer<Troop>
+        {
+            public int Compare(Troop x, Troop y)
+            {
+                return y.SimulatingFightingForce - x.SimulatingFightingForce;
+            }
+        }
+
+        class FightingForceComparer : IComparer<Troop>
+        {
+            public int Compare(Troop x, Troop y)
+            {
+                return y.SimulatingFightingForce - x.SimulatingFightingForce;
+            }
+        }
+
         private int militaryPopulation = 0;
         internal bool TodayPersonArriveNote = false;
         private int agriculture;
@@ -4582,7 +4598,9 @@
             {
                 return null;
             }
-            TroopList list = new TroopList();
+
+            SortedBoundedList<Troop> list = new SortedBoundedList<Troop>(Parameters.MaxAITroopCountCandidates, new SimulatingFightingForceComparer());
+
             this.Persons.ClearSelected();
             //Label_0309:
             foreach (Military military in this.Militaries.GetRandomList())
@@ -4627,16 +4645,17 @@
                     TroopList candidates = this.AISelectPersonIntoTroop(this, military);
                     foreach (Troop t in candidates)
                     {
+                        if (t.FightingForce < 10000 && offensive)
+                        {
+                            continue;
+                        }
                         list.Add(t);
                     }
                 }
             }
             if (list.Count > 0)
             {
-                list.IsNumber = true;
-                list.PropertyName = "SimulatingFightingForce";
-                list.ReSort();
-                foreach (Troop troop2 in list.GetList())
+                foreach (Troop troop2 in list)
                 {
                     bool personAlreadyOut = false;
                     foreach (Person p in troop2.Candidates)
@@ -4658,10 +4677,7 @@
                     }
                     if (personAlreadyOut) continue;
                     if (militaryOut) continue;
-                    if (troop2.FightingForce < 10000 && offensive)
-                    {
-                        break;
-                    }
+                    
                     Point? nullable = this.GetRandomStartingPosition(troop2);
                     if (!nullable.HasValue)
                     {
@@ -5961,6 +5977,15 @@
                             TroopList candidates = this.AISelectPersonIntoTroop(this, military);
                             foreach (Troop t in candidates)
                             {
+                                if (t.FightingForce < 10000 && t.FightingForce < (this.TotalHostileForce * 5 - this.TotalFriendlyForce) / 25)
+                                {
+                                    continue;
+                                }
+                                if (t.Army.Scales < 5 && this.Endurance > 30)
+                                {
+                                    continue;
+                                }
+
                                 list4.Add(t);
                                 if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
                                 {
@@ -5981,15 +6006,6 @@
                         list4.ReSort();
                         foreach (Troop troop in list4.GetList())
                         {
-                            if (troop.FightingForce < 10000 && troop.FightingForce < (this.TotalHostileForce * 5 - this.TotalFriendlyForce) / 25)
-                            {
-                                break;
-                            }
-                            if (troop.Army.Scales < 5 && this.Endurance > 30)
-                            {
-                                continue;
-                            }
-
                             bool personAlreadyOut = false;
                             foreach (Person p in troop.Candidates)
                             {
@@ -6080,6 +6096,11 @@
                                 TroopList candidates = this.AISelectPersonIntoTroop(this, military);
                                 foreach (Troop t in candidates)
                                 {
+                                    if ((t.FightingForce < 10000) && (t.Army.Scales < 10))
+                                    {
+                                        continue;
+                                    }
+
                                     supportList.Add(t);
                                     if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
                                     {
@@ -6100,11 +6121,6 @@
                             supportList.ReSort();
                             foreach (Troop troop in supportList.GetList())
                             {
-                                if ((troop.FightingForce < 10000) && (troop.Army.Scales < 10))
-                                {
-                                    break;
-                                }
-
                                 bool personAlreadyOut = false;
                                 foreach (Person p in troop.Candidates)
                                 {

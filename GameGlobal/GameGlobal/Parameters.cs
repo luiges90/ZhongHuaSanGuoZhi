@@ -149,6 +149,8 @@
         public static int HateThreshold = -500;
         public static int VeryCloseThreshold = 2000;
 
+        public static int MaxAITroopCountCandidates = 2000;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();
