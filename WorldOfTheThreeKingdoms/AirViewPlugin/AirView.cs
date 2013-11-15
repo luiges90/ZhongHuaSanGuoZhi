@@ -120,33 +120,38 @@ namespace AirViewPlugin
             }
         }
 
+        private void renderTroop(SpriteBatch spriteBatch, GameTime gameTime, Point p)
+        {
+            Troop troopByPositionNoCheck = this.scenario.GetTroopByPositionNoCheck(p);
+            if ((troopByPositionNoCheck != null) && !troopByPositionNoCheck.Destroyed)
+            {
+                Color color = Color.White;
+                if (troopByPositionNoCheck.BelongedFaction != null)
+                {
+                    color = troopByPositionNoCheck.BelongedFaction.FactionColor;
+                }
+                spriteBatch.Draw(TroopFactionColorTexture, new Rectangle(p.X * this.TileLength + this.MapDisplayOffset.X - 1, p.Y * this.TileLength + this.MapDisplayOffset.Y - 1, this.TileLength * 4, this.TileLength * 4), null, color, 0f, Vector2.Zero, SpriteEffects.None, 0.09998f);
+
+            }
+        }
+
         private void drawTroop(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            HashSet<Point> positions = new HashSet<Point>();
             if (GlobalVariables.SkyEye)
             {
                 foreach (Faction f in this.scenario.Factions)
                 {
-                    positions.UnionWith(f.GetAllKnownArea());
+                    foreach (Point p in f.GetAllKnownArea())
+                    {
+                        renderTroop(spriteBatch, gameTime, p);
+                    }
                 }
             }
             else if (this.scenario.CurrentPlayer != null)
             {
-                positions.UnionWith(this.scenario.CurrentPlayer.GetAllKnownArea());
-            }
-
-            foreach (Point p in positions)
-            {
-                Troop troopByPositionNoCheck = this.scenario.GetTroopByPositionNoCheck(p);
-                if ((troopByPositionNoCheck != null) && !troopByPositionNoCheck.Destroyed)
+                foreach (Point p in this.scenario.CurrentFaction.GetAllKnownArea())
                 {
-                    Color color = Color.White;
-                    if (troopByPositionNoCheck.BelongedFaction != null)
-                    {
-                        color = troopByPositionNoCheck.BelongedFaction.FactionColor;
-                    }
-                    spriteBatch.Draw(TroopFactionColorTexture, new Rectangle(p.X * this.TileLength + this.MapDisplayOffset.X - 1, p.Y * this.TileLength + this.MapDisplayOffset.Y - 1, this.TileLength * 4, this.TileLength * 4), null, color, 0f, Vector2.Zero, SpriteEffects.None, 0.09998f);
-
+                    renderTroop(spriteBatch, gameTime, p);
                 }
             }
         }
