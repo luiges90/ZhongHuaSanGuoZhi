@@ -1,233 +1,233 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <Background FileName="Background.png" Width="1000" Height="640"></Background>
-  <SurNameText X="10" Y="10" Width="60" Height="30"
+  <Background FileName="Background.png" Width="1000" Height="568"></Background>
+  <SurNameText X="30" Y="10" Width="60" Height="30"
             FontName="宋体"
             FontSize="16"
             FontStyle="Bold"
             FontColor="4294967040"
             Align="Left">
   </SurNameText>
-  <GivenNameText X="80" Y="10" Width="60" Height="30"
+  <GivenNameText X="100" Y="10" Width="60" Height="30"
             FontName="宋体"
             FontSize="16"
             FontStyle="Bold"
             FontColor="4294967040"
             Align="Left">
   </GivenNameText>
-  <CalledNameText X="150" Y="10" Width="60" Height="30"
+  <CalledNameText X="170" Y="10" Width="60" Height="30"
             FontName="宋体"
             FontSize="16"
             FontStyle="Bold"
             FontColor="4294967040"
             Align="Left">
   </CalledNameText>
-  <PortraitTexturePosition X="10" Y="50" Width="210" Height="210" ></PortraitTexturePosition>
+  <PortraitTexturePosition X="26" Y="50" Width="210" Height="210" ></PortraitTexturePosition>
   <Labels>
-    <Label X="240" Y="40" Width="40" Height="30" Label ="性别"
+    <Label X="250" Y="55" Width="40" Height="30" Label ="性别"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
-    <Text X="280" Y="40" Width="20" Height="30" PropertyName="SexString"
+    <Text X="300" Y="55" Width="20" Height="30" PropertyName="SexString"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294934528"
                 Align="Middle">
     </Text>
-    <Label X="340" Y="40" Width="40" Height="30" Label ="性格"
+    <Label X="350" Y="55" Width="40" Height="30" Label ="性格"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
-    <Text X="380" Y="40" Width="40" Height="30" PropertyName="CharacterString"
+    <Text X="400" Y="55" Width="40" Height="30" PropertyName="CharacterString"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294934720"
                 Align="Middle">
     </Text>
-    <Label X="460" Y="40" Width="40" Height="30" Label ="年龄"
+    <Label X="450" Y="55" Width="40" Height="30" Label ="年龄"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
-    <Text X="500" Y="40" Width="20" Height="28" PropertyName="DisplayedAge"
+    <Text X="500" Y="55" Width="20" Height="28" PropertyName="DisplayedAge"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
     </Text>
-    <Label X="560" Y="40" Width="40" Height="30" Label ="名声"
+    <Label X="550" Y="55" Width="40" Height="30" Label ="名声"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
-    <Text X="600" Y="40" Width="60" Height="28" PropertyName="Reputation"
+    <Text X="600" Y="55" Width="60" Height="28" PropertyName="Reputation"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4278255424"
                 Align="Right">
     </Text>
-    <Label X="240" Y="80" Width="40" Height="30" Label ="势力"
+    <Label X="250" Y="95" Width="40" Height="30" Label ="势力"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
-    <Text X="280" Y="80" Width="80" Height="30" PropertyName="Faction"
+    <Text X="280" Y="95" Width="80" Height="30" PropertyName="Faction"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Bold"
                 FontColor="4294967295"
                 Align="Middle">
     </Text>
-    <Label X="360" Y="80" Width="40" Height="30" Label ="所在"
+    <Label X="350" Y="95" Width="40" Height="30" Label ="所在"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
-    <Text X="400" Y="80" Width="80" Height="30" PropertyName="Location"
+    <Text X="380" Y="95" Width="80" Height="30" PropertyName="Location"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Bold"
                 FontColor="4294967295"
                 Align="Middle">
     </Text>
-    <Label X="480" Y="80" Width="40" Height="30" Label ="工作"
+    <Label X="450" Y="95" Width="40" Height="30" Label ="工作"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
-    <Text X="520" Y="80" Width="80" Height="30" PropertyName="WorkKindString"
+    <Text X="480" Y="95" Width="80" Height="30" PropertyName="WorkKindString"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Bold"
                 FontColor="4294967295"
                 Align="Middle">
     </Text>
-    <Label X="600" Y="80" Width="40" Height="30" Label ="宝物"
+    <Label X="550" Y="95" Width="40" Height="30" Label ="宝物"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
-    <Text X="640" Y="80" Width="20" Height="30" PropertyName="TreasureCount"
+    <Text X="600" Y="95" Width="20" Height="30" PropertyName="TreasureCount"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Bold"
                 FontColor="4294967295"
                 Align="Middle">
     </Text>
-    <Label X="240" Y="130" Width="40" Height="30" Label ="武勇"
+    <Label X="250" Y="140" Width="40" Height="30" Label ="武勇"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="240" Y="160" Width="40" Height="30" PropertyName="Strength"
+    <Text X="250" Y="170" Width="40" Height="30" PropertyName="Strength"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
-    <Label X="300" Y="130" Width="40" Height="30" Label ="统率"
+    <Label X="300" Y="140" Width="40" Height="30" Label ="统率"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="300" Y="160" Width="40" Height="30" PropertyName="Command"
+    <Text X="300" Y="170" Width="40" Height="30" PropertyName="Command"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
-    <Label X="360" Y="130" Width="40" Height="30" Label ="智谋"
+    <Label X="350" Y="140" Width="40" Height="30" Label ="智谋"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="360" Y="160" Width="40" Height="30" PropertyName="Intelligence"
+    <Text X="350" Y="170" Width="40" Height="30" PropertyName="Intelligence"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
-    <Label X="420" Y="130" Width="40" Height="30" Label ="政治"
+    <Label X="400" Y="140" Width="40" Height="30" Label ="政治"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="420" Y="160" Width="40" Height="30" PropertyName="Politics"
+    <Text X="400" Y="170" Width="40" Height="30" PropertyName="Politics"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
-    <Label X="480" Y="130" Width="40" Height="30" Label ="魅力"
+    <Label X="450" Y="140" Width="40" Height="30" Label ="魅力"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="480" Y="160" Width="40" Height="30" PropertyName="Glamour"
+    <Text X="450" Y="170" Width="40" Height="30" PropertyName="Glamour"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
-    <Label X="540" Y="130" Width="40" Height="30" Label ="勇猛"
+    <Label X="500" Y="140" Width="40" Height="30" Label ="勇猛"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="540" Y="160" Width="40" Height="30" PropertyName="Braveness"
+    <Text X="500" Y="170" Width="40" Height="30" PropertyName="Braveness"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
-    <Label X="600" Y="130" Width="40" Height="30" Label ="冷静"
+    <Label X="550" Y="140" Width="40" Height="30" Label ="冷静"
                 FontName="宋体"
                 FontSize="11"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
-    <Text X="600" Y="160" Width="40" Height="30" PropertyName="Calmness"
+    <Text X="550" Y="170" Width="40" Height="30" PropertyName="Calmness"
                 FontName="宋体"
                 FontSize="12"
                 FontStyle="Regular"
@@ -235,42 +235,42 @@
                 Align="Middle">
     </Text>
   </Labels>
-  <Title X="680" Y="48" Width="320" Height="210" RowMargin="10"
+  <Title X="450" Y="220" Width="220" Height="360" RowMargin="1"
             FontName="宋体"
             FontSize="11"
             FontStyle="Bold"
             FontColor="4286643968">
   </Title>
-  <SkillBlock Width="34" Height="20" OffsetX="10" OffsetY="280"
+  <SkillBlock Width="34" Height="20" OffsetX="24" OffsetY="280"
               FontName="宋体"
               FontSize="11"
-              FontStyle="Regular"
+              FontStyle="Bold"
               FontColor="4278222848"
               SkillColor="4286643968"
               LearnableColor="4294967040"
               Align="Middle">
   </SkillBlock>
-  <Stunt X="300" Y="220" Width="160" Height="360" RowMargin="0"
+  <Stunt X="280" Y="280" Width="160" Height="900" RowMargin="0"
             FontName="宋体"
-            FontSize="10"
-            FontStyle="Regular"
+            FontSize="11"
+            FontStyle="Bold"
             FontColor="4294967295">
   </Stunt>
-  <Influence X="460" Y="220" Width="250" Height="360" RowMargin="0"
+  <Influence X="680" Y="50" Width="300" Height="900" RowMargin="0"
             FontName="宋体"
-            FontSize="10"
+            FontSize="11"
             FontStyle="Regular"
             FontColor="4294967295">
   </Influence>
-  <Condition X="710" Y="220" Width="250" Height="360" RowMargin="0"
+  <Condition X="680" Y="320" Width="300" Height="900" RowMargin="0"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </Condition>
-  <Biography X="460" Y="220" Width="500" Height="360" RowMargin="0"
+  <Biography X="680" Y="50" Width="300" Height="900" RowMargin="0"
             FontName="宋体"
-            FontSize="10"
+            FontSize="11"
             FontStyle="Regular"
             FontColor="4294967295">
   </Biography>
