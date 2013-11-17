@@ -4647,9 +4647,15 @@
                     {
                         if (t.FightingForce < 10000 && offensive)
                         {
+                            t.Destroy(true, false);
                             continue;
                         }
-                        list.Add(t);
+                        Troop removed;
+                        list.Add(t, out removed);
+                        if (removed != null)
+                        {
+                            removed.Destroy(true, false);
+                        }
                     }
                 }
             }
@@ -5979,14 +5985,21 @@
                             {
                                 if (t.FightingForce < 10000 && t.FightingForce < (this.TotalHostileForce * 5 - this.TotalFriendlyForce) / 25)
                                 {
+                                    t.Destroy(true, false);
                                     continue;
                                 }
                                 if (t.Army.Scales < 5 && this.Endurance > 30)
                                 {
+                                    t.Destroy(true, false);
                                     continue;
                                 }
 
-                                list4.Add(t);
+                                Troop removed;
+                                list4.Add(t, out removed);
+                                if (removed != null)
+                                {
+                                    removed.Destroy(true, false);
+                                }
                                 if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
                                 {
                                     break;
@@ -6095,10 +6108,16 @@
                                 {
                                     if ((t.FightingForce < 10000) && (t.Army.Scales < 10))
                                     {
+                                        t.Destroy(true, false);
                                         continue;
                                     }
 
-                                    supportList.Add(t);
+                                    Troop removed;
+                                    supportList.Add(t, out removed);
+                                    if (removed != null)
+                                    {
+                                        removed.Destroy(true, false);
+                                    }
                                     if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
                                     {
                                         break;

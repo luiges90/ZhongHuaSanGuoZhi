@@ -67,16 +67,31 @@ namespace GameObjects
             dict.Clear(); 
         }
 
-        public void Add(T item)
+        public void Add(T item, out T removed)
         {
             if (!dict.ContainsKey(item))
             {
                 dict.Add(item, item);
                 if (dict.Count > bound)
                 {
+                    removed = dict.Keys.Last();
                     dict.Remove(dict.Keys.Last());
                 }
+                else
+                {
+                    removed = default(T);
+                }
             }
+            else
+            {
+                removed = item;
+            }
+        }
+
+        public void Add(T item)
+        {
+            T t = default(T);
+            this.Add(item, out t);
         }
 	}
 }
