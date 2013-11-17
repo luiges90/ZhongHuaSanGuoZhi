@@ -265,6 +265,23 @@
                 return fundIncrease - this.MaintenanceCost * 30;
             }
         }
+
+        public bool IsExtension
+        {
+            get
+            {
+                bool isExtension = false;
+                foreach (Influence i in this.Influences.Influences.Values)
+                {
+                    if (i.Kind.ID == 1000 || i.Kind.ID == 1001 || i.Kind.ID == 1002 || i.Kind.ID == 1003 || i.Kind.ID == 1020 || i.Kind.ID == 1050)
+                    {
+                        isExtension = true;
+                        break;
+                    }
+                }
+                return isExtension;
+            }
+        }
     }
 }
 

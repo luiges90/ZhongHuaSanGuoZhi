@@ -798,16 +798,7 @@
             {
                 foreach (FacilityKind kind in base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKindList().GetRandomList())
                 {
-                    bool isExtension = false;
-                    foreach (Influence i in kind.Influences.Influences.Values)
-                    {
-                        if (i.Kind.ID == 1000 || i.Kind.ID == 1001 || i.Kind.ID == 1002 || i.Kind.ID == 1003 || i.Kind.ID == 1020 || i.Kind.ID == 1050)
-                        {
-                            isExtension = true;
-                            break;
-                        }
-                    }
-                    if (isExtension)
+                    if (kind.IsExtension)
                     {
                         if (this.BuildingFacility >= 0)
                         {
@@ -941,7 +932,7 @@
                     List<Facility> realToDestroy = new List<Facility>();
                     foreach (FacilityKind kind in base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKindList())
                     {
-                        if (kind.bukechaichu) continue;
+                        if (kind.IsExtension || kind.rongna > 0) continue;
                         if (kind.PositionOccupied > 0 && this.FacilityPositionCount == 0) continue;
                         if (!(!kind.PopulationRelated || this.Kind.HasPopulation))
                         {
