@@ -1478,7 +1478,7 @@
                                     success = true;
                                     this.AddStrengthExperience(10);
                                     this.AddIntelligenceExperience(10);
-                                    this.AddTacticsExperience(20);
+                                    this.AddTacticsExperience(60);
                                     this.IncreaseReputation(20);
                                     this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
                                     this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
@@ -1694,7 +1694,7 @@
                         int randomValue = StaticMethods.GetRandomValue(this.DestroyAbility, 12);
                         randomValue = architectureByPosition.DecreaseEndurance(randomValue);
                         int increment = randomValue / 4;
-                        this.AddTacticsExperience(increment * 2);
+                        this.AddTacticsExperience(increment * 6);
                         this.AddIntelligenceExperience(increment);
                         this.AddStrengthExperience(increment / 2);
                         this.AddCommandExperience(increment / 2);
@@ -1748,7 +1748,7 @@
                     if (this.InevitableSuccessOfGossip || (GameObject.Random(architectureByPosition.Domination * 5) < GameObject.Random(this.GossipAbility)))
                     {
                         architectureByPosition.DamageByGossip(this.GossipAbility);
-                        this.AddTacticsExperience(20);
+                        this.AddTacticsExperience(60);
                         this.AddPoliticsExperience(10);
                         this.AddGlamourExperience(10);
                         this.IncreaseReputation(20);
@@ -1806,7 +1806,7 @@
                 this.OutsideTask = OutsideTaskKind.无;
 
                 int increment = (int)(((int)information.Level - 2) * (information.Radius + (information.Oblique ? 1 : 0)));
-                this.AddTacticsExperience(increment * 2);
+                this.AddTacticsExperience(increment * 6);
                 this.AddIntelligenceExperience(increment);
                 this.IncreaseReputation(increment * 2);
                 this.BelongedFaction.IncreaseReputation(increment * this.MultipleOfTacticsReputation);
@@ -1823,7 +1823,7 @@
                 if (this.CurrentInformationKind != null)
                 {
                     int increment = (int)(((int)this.CurrentInformationKind.Level - 2) * (this.CurrentInformationKind.Radius + (this.CurrentInformationKind.Oblique ? 1 : 0)));
-                    this.AddTacticsExperience(increment * 2);
+                    this.AddTacticsExperience(increment * 6);
                     this.AddIntelligenceExperience(increment);
                     this.CurrentInformationKind = null;
                 }
@@ -1850,7 +1850,7 @@
                         int randomValue = StaticMethods.GetRandomValue(this.InstigateAbility, 60);
                         randomValue = architectureByPosition.DecreaseDomination(randomValue);
                         int increment = randomValue / 1;
-                        this.AddTacticsExperience(increment * 2);
+                        this.AddTacticsExperience(increment * 6);
                         this.AddIntelligenceExperience(increment);
                         this.AddGlamourExperience(increment);
                         this.IncreaseReputation(increment * 2);
@@ -2186,7 +2186,7 @@
                 }
                 if (flag)
                 {
-                    this.AddTacticsExperience(20);
+                    this.AddTacticsExperience(60);
                     this.AddIntelligenceExperience(5);
                     this.AddPoliticsExperience(5);
                     this.AddGlamourExperience(10);
@@ -2320,7 +2320,7 @@
                     if (this.InevitableSuccessOfSpy || (GameObject.Random((architectureByPosition.Domination * (20 - architectureByPosition.AreaCount)) - architectureByPosition.Commerce) < this.SpyAbility))
                     {
                         architectureByPosition.AddSpyPack(this, this.SpyDays);
-                        this.AddTacticsExperience(20);
+                        this.AddTacticsExperience(60);
                         this.AddIntelligenceExperience(10);
                         this.AddStrengthExperience(5);
                         this.AddGlamourExperience(5);
