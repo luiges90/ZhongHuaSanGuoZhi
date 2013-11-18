@@ -13,7 +13,7 @@
 
             if (person.RealTitles.Contains(title))
             {
-                title.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.Title, title.ID);
+                title.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.Title, title.ID, false);
                 person.RealTitles.Remove(title);
             }
         }

@@ -59,19 +59,19 @@
                 {
                     foreach (Title t in person.Titles)
                     {
-                        t.Influences.PurifyInfluence(person, Applier.Title, t.ID);
+                        t.Influences.PurifyInfluence(person, Applier.Title, t.ID, false);
                     }
                     foreach (Skill s in person.Skills.GetSkillList())
                     {
-                        s.Influences.PurifyInfluence(person, Applier.Skill, s.ID);
+                        s.Influences.PurifyInfluence(person, Applier.Skill, s.ID, false);
                     }
                     foreach (Stunt s in person.Stunts.GetStuntList())
                     {
-                        s.Influences.PurifyInfluence(person, Applier.Stunt, 0);
+                        s.Influences.PurifyInfluence(person, Applier.Stunt, 0, false);
                     }
                     foreach (Treasure t in person.Treasures)
                     {
-                        t.Influences.PurifyInfluence(person, Applier.Treasure, t.TreasureGroup);
+                        t.Influences.PurifyInfluence(person, Applier.Treasure, t.TreasureGroup, false);
                     }
                 }
             }
@@ -82,10 +82,10 @@
             this.PurifyInfluences();
             foreach (Person person in base.GameObjects)
             {
-                person.ApplyTitles();
-                person.ApplySkills();
+                person.ApplyTitles(false);
+                person.ApplySkills(false);
                 person.ApplyStunts();
-                person.ApplyTreasures();
+                person.ApplyTreasures(false);
             }
         }
 

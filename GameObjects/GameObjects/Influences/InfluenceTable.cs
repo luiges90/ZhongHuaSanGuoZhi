@@ -34,7 +34,7 @@
             }
         }
 
-        public void ApplyInfluence(Person person, Applier applier, int applierID)
+        public void ApplyInfluence(Person person, Applier applier, int applierID, bool excludePersonal)
         {
             bool flag = false;
             bool flag2 = false;
@@ -44,7 +44,7 @@
                 {
                     if (!flag || flag2)
                     {
-                        influence.ApplyInfluence(person, applier, applierID);
+                        influence.ApplyInfluence(person, applier, applierID, excludePersonal);
                     }
                     continue;
                 }
@@ -152,11 +152,11 @@
             }
         }
 
-        public void PurifyInfluence(Person p, Applier applier, int applierID)
+        public void PurifyInfluence(Person p, Applier applier, int applierID, bool excludePersonal)
         {
             foreach (Influence influence in this.Influences.Values)
             {
-                influence.PurifyInfluence(p, applier, applierID);
+                influence.PurifyInfluence(p, applier, applierID, excludePersonal);
             }
         }
 

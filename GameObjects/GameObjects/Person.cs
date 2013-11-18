@@ -379,38 +379,6 @@
             }
             set
             {
-                /*if (status == PersonStatus.Princess)
-                {
-                    throw new Exception("Feizi cannot turn into any other state");
-                }
-                if (value == PersonStatus.Princess && this.LocationTroop != null)
-                {
-                    throw new Exception("Feizi cannot be in any troop");
-                }
-                if (value == PersonStatus.Princess && this.LocationArchitecture == null)
-                {
-                    throw new Exception("Feizi must be in some architectures");
-                }
-                if (value == PersonStatus.Captive && this.BelongedCaptive == null)
-                {
-                    throw new Exception("Captives must bear a belonged captive object");
-                }
-                if ((value == PersonStatus.NoFaction || value == PersonStatus.NoFactionMoving) && this.LocationTroop != null)
-                {
-                    throw new Exception("No faction persons cannot be in a troop");
-                }
-                if (value == PersonStatus.None && (this.LocationTroop != null || this.LocationArchitecture != null || this.BelongedCaptive != null))
-                {
-                    throw new Exception("Dead or unavailable person cannot be in anything!");
-                }
-                if ((value == PersonStatus.Moving || value == PersonStatus.NoFactionMoving) && this.ArrivingDays <= 0)
-                {
-                    throw new Exception("Moving persons must have arriving days set");
-                }
-                if (this.ArrivingDays == 0 && (value == PersonStatus.Moving || value == PersonStatus.NoFactionMoving))
-                {
-                    throw new Exception("Person finished moving must not remain moving");
-                }*/
                 if (value == PersonStatus.Moving && this.LocationTroop != null)
                 {
                     this.LocationTroop = null;
@@ -425,19 +393,19 @@
                 }
                 if (value != PersonStatus.Normal && status == PersonStatus.Normal)
                 {
-                    this.PurifySkills();
-                    this.PurifyTitles();
-                    this.PurifyTreasures();
-                    this.PurifyArchitectureInfluence();
-                    this.PurifyFactionInfluence();
+                    this.PurifySkills(true);
+                    this.PurifyTitles(true);
+                    this.PurifyTreasures(true);
+                    this.PurifyArchitectureInfluence(true);
+                    this.PurifyFactionInfluence(true);
                 }
                 else if (value == PersonStatus.Normal && status == PersonStatus.Moving)
                 {
-                    this.ApplySkills();
-                    this.ApplyTitles();
-                    this.ApplyTreasures();
-                    this.ApplyArchitectureInfluence();
-                    this.ApplyFactionInfluence();
+                    this.ApplySkills(true);
+                    this.ApplyTitles(true);
+                    this.ApplyTreasures(true);
+                    this.ApplyArchitectureInfluence(true);
+                    this.ApplyFactionInfluence(true);
                 }
                 base.Scenario.ClearPersonStatusCache();
                 status = value;
@@ -806,19 +774,19 @@
             }
         }
 
-        public void ApplySkills()
+        public void ApplySkills(bool excludePersonal)
         {
             foreach (Skill skill in this.Skills.Skills.Values)
             {
-                skill.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID);
+                skill.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID, excludePersonal);
             }
         }
 
-        public void PurifySkills()
+        public void PurifySkills(bool excludePersonal)
         {
             foreach (Skill skill in this.Skills.Skills.Values)
             {
-                skill.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID);
+                skill.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID, excludePersonal);
             }
         }
 
@@ -834,35 +802,35 @@
             }
         }
 
-        public void ApplyTitles()
+        public void ApplyTitles(bool excludePersonal)
         {
             foreach (Title t in this.Titles)
             {
-                t.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Title, t.ID);
+                t.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Title, t.ID, excludePersonal);
             }
         }
 
-        public void PurifyTitles()
+        public void PurifyTitles(bool excludePersonal)
         {
             foreach (Title t in this.Titles)
             {
-                t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Title, t.ID);
+                t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Title, t.ID, excludePersonal);
             }
         }
 
-        public void PurifyTreasures()
+        public void PurifyTreasures(bool excludePersonal)
         {
             foreach (Treasure treasure in this.Treasures)
             {
-                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup);
+                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, excludePersonal);
             }
         }
 
-        public void ApplyTreasures()
+        public void ApplyTreasures(bool excludePersonal)
         {
             foreach (Treasure treasure in this.Treasures)
             {
-                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup);
+                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, excludePersonal);
             }
         }
 
@@ -1125,7 +1093,7 @@
             }
         }
 
-        public void ApplyFactionInfluence()
+        public void ApplyFactionInfluence(bool excludePersonal)
         {
             if (this.BelongedFaction != null)
             {
@@ -1135,7 +1103,7 @@
                     {
                         if (i.Kind.Type != GameObjects.Influences.InfluenceType.战斗)
                         {
-                            i.ApplyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID);
+                            i.ApplyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID, excludePersonal);
                         }
                         else
                         {
@@ -1150,7 +1118,7 @@
             }
         }
 
-        public void PurifyFactionInfluence()
+        public void PurifyFactionInfluence(bool excludePersonal)
         {
             if (this.BelongedFaction != null)
             {
@@ -1160,7 +1128,7 @@
                     {
                         if (i.Kind.Type != GameObjects.Influences.InfluenceType.战斗)
                         {
-                            i.PurifyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID);
+                            i.PurifyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID, excludePersonal);
                         }
                         else
                         {
@@ -1175,24 +1143,24 @@
             }
         }
 
-        public void ApplyArchitectureInfluence()
+        public void ApplyArchitectureInfluence(bool excludePersonal)
         {
             if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 foreach (Influences.Influence i in this.LocationArchitecture.Characteristics.Influences.Values)
                 {
-                    i.ApplyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0);
+                    i.ApplyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0, excludePersonal);
                 }
             }
         }
 
-        public void PurifyArchitectureInfluence()
+        public void PurifyArchitectureInfluence(bool excludePersonal)
         {
             if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
             {
                 foreach (Influences.Influence i in this.LocationArchitecture.Characteristics.Influences.Values)
                 {
-                    i.PurifyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0);
+                    i.PurifyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0, excludePersonal);
                 }
             }
         }
@@ -2509,7 +2477,7 @@
                 if (((this.Skills.GetSkill(skill.ID) == null) && skill.CanLearn(this)) && (GameObject.Random((skill.Level * 2) + 8) >= ((skill.Level + num) * 2 - Parameters.LearnSkillSuccessRate)))
                 {
                     this.Skills.AddSkill(skill);
-                    skill.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID);
+                    skill.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Skill, skill.ID, false);
                     skillString = skillString + "•" + skill.Name;
                     num++;
 					ExtensionInterface.call("StudySkill", new Object[] { this.Scenario, this, skill });
@@ -2556,7 +2524,7 @@
             {
                 if (GameObject.Random((this.StudyingTitle.Level * 2) + 8) + this.StudyingTitle.Kind.SuccessRate >= (this.StudyingTitle.Level * 2 - Parameters.LearnTitleSuccessRate))
                 {
-                    this.PurifyTitles();
+                    this.PurifyTitles(false);
 
                     foreach (Title t in this.RealTitles)
                     {
@@ -2569,8 +2537,8 @@
                     }
                     this.RealTitles.Add(this.StudyingTitle);
 
-                    this.ApplyTitles();
-                    this.ApplySkills();
+                    this.ApplyTitles(false);
+                    this.ApplySkills(false);
 
 					ExtensionInterface.call("StudyTitleSuccess", new Object[] { this.Scenario, this, this.StudyingTitle });
                     if (this.OnStudyTitleFinished != null && this.ManualStudy)
@@ -3172,7 +3140,7 @@
         public void LoseTreasure(Treasure t)
         {
             this.Treasures.Remove(t);
-            t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, t.TreasureGroup);
+            t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, t.TreasureGroup, false);
             t.BelongedPerson = null;
         }
 
@@ -3181,7 +3149,7 @@
             foreach (Treasure treasure in list)
             {
                 this.Treasures.Remove(treasure);
-                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup);
+                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, false);
                 treasure.BelongedPerson = null;
             }
         }
@@ -3721,7 +3689,7 @@
         {
             this.Treasures.Add(t);
             t.BelongedPerson = this;
-            t.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, t.TreasureGroup);
+            t.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, t.TreasureGroup, false);
         }
 
         public void ReceiveTreasureList(TreasureList list)
@@ -3730,7 +3698,7 @@
             {
                 this.Treasures.Add(treasure);
                 treasure.BelongedPerson = this;
-                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup);
+                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, false);
             }
         }
 

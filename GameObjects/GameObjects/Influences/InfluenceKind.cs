@@ -41,7 +41,7 @@
                     if (!i.appliedPerson.Contains(a))
                     {
                         i.appliedPerson.Add(a);
-                        ApplyInfluenceKind(p, i, applier, applierID);
+                        ApplyInfluenceKind(p, i, applier, applierID, false);
                     }
                 }
                 foreach (Person p in architecture.MovingPersons)
@@ -50,7 +50,7 @@
                     if (!i.appliedPerson.Contains(a))
                     {
                         i.appliedPerson.Add(a);
-                        ApplyInfluenceKind(p, i, applier, applierID);
+                        ApplyInfluenceKind(p, i, applier, applierID, false);
                     }
                 }
             }
@@ -99,7 +99,7 @@
                     if (!i.appliedPerson.Contains(a))
                     {
                         i.appliedPerson.Add(a);
-                        ApplyInfluenceKind(p, i, applier, applierID);
+                        ApplyInfluenceKind(p, i, applier, applierID, false);
                     }
                 }
             }
@@ -109,9 +109,9 @@
         {
         }
 
-        public void ApplyInfluenceKind(Person person, Influence i, Applier applier, int applierID)
+        public void ApplyInfluenceKind(Person person, Influence i, Applier applier, int applierID, bool excludePersonal)
         {
-            if (this.Type == InfluenceType.个人)
+            if (this.Type == InfluenceType.个人 && !excludePersonal)
             {
                 ApplyInfluenceKind(person);
             }
@@ -203,7 +203,7 @@
                 foreach (Person p in architecture.Persons)
                 {
                     i.appliedPerson.RemoveWhere((p2) => { return p2.Equals(new ApplyingPerson(p, applier, applierID)); });
-                    PurifyInfluenceKind(p, i, applier, applierID);
+                    PurifyInfluenceKind(p, i, applier, applierID, false);
                 }
             }
         }
@@ -233,9 +233,9 @@
         {
         }
 
-        public void PurifyInfluenceKind(Person person, Influence i, Applier applier, int applierID)
+        public void PurifyInfluenceKind(Person person, Influence i, Applier applier, int applierID, bool excludePersonal)
         {
-            if (this.Type == InfluenceType.个人)
+            if (this.Type == InfluenceType.个人 && !excludePersonal)
             {
                 PurifyInfluenceKind(person);
             }

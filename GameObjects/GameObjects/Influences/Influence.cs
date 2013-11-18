@@ -51,7 +51,7 @@
             }
         }
 
-        public void ApplyInfluence(Person person, Applier applier, int applierID)
+        public void ApplyInfluence(Person person, Applier applier, int applierID, bool excludePersonal)
         {
             ApplyingPerson a = new ApplyingPerson(person, applier, applierID);
             if (appliedPerson.Contains(a) && 
@@ -62,7 +62,7 @@
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.ApplyInfluenceKind(person, this, applier, applierID);
+                this.Kind.ApplyInfluenceKind(person, this, applier, applierID, excludePersonal);
             }
             catch
             {
@@ -151,7 +151,7 @@
             }
         }
 
-        public void PurifyInfluence(Person person, Applier applier, int applierID)
+        public void PurifyInfluence(Person person, Applier applier, int applierID, bool excludePersonal)
         {
             ApplyingPerson a = new ApplyingPerson(person, applier, applierID);
             if (!appliedPerson.Contains(a)) return;
@@ -160,7 +160,7 @@
             this.Kind.InitializeParameter2(this.Parameter2);
             try
             {
-                this.Kind.PurifyInfluenceKind(person, this, applier, applierID);
+                this.Kind.PurifyInfluenceKind(person, this, applier, applierID, excludePersonal);
             }
             catch
             {

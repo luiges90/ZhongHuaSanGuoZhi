@@ -18,7 +18,7 @@
             {
                 if (t.Kind == title.Kind)
                 {
-                    t.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.Title, t.ID);
+                    t.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.Title, t.ID, false);
                     person.RealTitles.Remove(t);
                 }
             }

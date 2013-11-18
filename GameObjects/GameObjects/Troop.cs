@@ -1409,7 +1409,7 @@
             {
                 foreach (Influence influence in this.CurrentStunt.Influences.Influences.Values)
                 {
-                    influence.ApplyInfluence(this.Leader, Applier.Stunt, 0);
+                    influence.ApplyInfluence(this.Leader, Applier.Stunt, 0, false);
                 }
             }
         }
