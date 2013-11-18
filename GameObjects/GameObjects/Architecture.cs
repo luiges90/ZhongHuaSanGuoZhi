@@ -13062,7 +13062,7 @@
                     num += -0.00030000000000000003;
                 }
 
-                return num;
+                return num * Parameters.PopulationDevelopingRate;
             }
         }
 
@@ -13070,7 +13070,7 @@
         {
             get
             {
-                return Math.Round((double)(this.PopulationDevelopingRate / 0.0001), 1);
+                return Math.Round((double)(this.PopulationDevelopingRate / 0.0001), 3);
             }
         }
 
