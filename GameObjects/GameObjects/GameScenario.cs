@@ -4653,8 +4653,7 @@
             {
                 if (k.Texture != null)
                 {
-                    k.Texture.Dispose();
-                    k.Texture = null;
+                    k.ClearTexture();
                 }
             }
             foreach (Treasure t in this.Treasures)

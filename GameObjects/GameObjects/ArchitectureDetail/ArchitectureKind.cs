@@ -34,10 +34,43 @@
         private int populationUnit;
         private int technologyBase;
         private int technologyUnit;
-        public Texture2D Texture;
+        private Texture2D texture;
+        public String TextureFileName;
+        public GraphicsDevice Device;
         private int viewDistance;
         private int viewDistanceIncrementDivisor;
         private bool countToMerit;
+
+        public Texture2D Texture
+        {
+            get
+            {
+                try
+                {
+                    if (this.texture == null)
+                    {
+                        this.texture = Texture2D.FromFile(this.Device, this.TextureFileName);
+                    }
+                }
+                catch
+                {
+                    if (this.texture == null)
+                    {
+                        this.texture = new Texture2D(this.Device, 1, 1);
+                    }
+                }
+                return this.texture;
+            }
+        }
+
+        public void ClearTexture()
+        {
+            if (this.texture != null)
+            {
+                this.texture.Dispose();
+                this.texture = null;
+            }
+        }
 
         public int AgricultureBase
         {
