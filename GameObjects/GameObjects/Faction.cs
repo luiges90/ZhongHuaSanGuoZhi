@@ -1188,7 +1188,7 @@
                     person2 = list[0] as Person;
                 }
             }
-            if (GlobalVariables.PermitFactionMerge)
+            if (GlobalVariables.PermitFactionMerge && !this.IsAlien)
             {
                 Faction maxFriendlyDiplomaticRelation = this.MaxFriendlyDiplomaticRelation;
                 if (maxFriendlyDiplomaticRelation != null)
@@ -3952,7 +3952,8 @@
                 Faction diplomaticFaction = null;
                 foreach (DiplomaticRelation relation in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
-                    if ((relation.Relation >= 300) && (num < relation.Relation))
+                    if ((relation.Relation >= 300) && (num < relation.Relation) && 
+                        !relation.RelationFaction1.IsAlien && !relation.RelationFaction2.IsAlien)
                     {
                         num = relation.Relation;
                         diplomaticFaction = relation.GetDiplomaticFaction(base.ID);
