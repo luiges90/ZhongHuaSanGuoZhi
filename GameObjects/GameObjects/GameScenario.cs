@@ -610,7 +610,7 @@
             if (muqin.IsCaptive)
             {
                 person.Loyalty = muqin.Loyalty;
-                Captive c = Captive.Create(this, person, muqin.BelongedCaptive.BelongedFaction);
+                Captive.Create(this, person, muqin.BelongedArchitecture.BelongedFaction);
             }
             else
             {

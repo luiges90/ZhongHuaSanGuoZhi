@@ -22,13 +22,13 @@
 
         public event Escape OnEscape;
 
-        public static Captive Create(GameScenario scenario, Person person, Faction faction)
+        public static Captive Create(GameScenario scenario, Person person, Faction capturingFaction)
         {
             if (person.BelongedFaction == null)
             {
                 return null;
             }
-            if (person.BelongedFaction == faction)
+            if (person.BelongedFaction == capturingFaction)
             {
                 return null;
             }
