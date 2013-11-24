@@ -40,6 +40,7 @@
         private int viewDistance;
         private int viewDistanceIncrementDivisor;
         private bool countToMerit;
+        private bool expandable;
 
         public Texture2D Texture
         {
@@ -521,6 +522,18 @@
             set
             {
                 this.countToMerit = value;
+            }
+        }
+
+        public bool Expandable
+        {
+            get
+            {
+                return this.expandable;
+            }
+            set
+            {
+                this.expandable = value;
             }
         }
     }

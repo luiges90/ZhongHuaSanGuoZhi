@@ -206,6 +206,14 @@
                 {
                     architectureKind.CountToMerit = architectureKind.ID == 1 ? true : false;
                 }
+                try
+                {
+                    architectureKind.Expandable = (bool)reader["Expandable"];
+                }
+                catch (Exception)
+                {
+                    architectureKind.Expandable = architectureKind.ID == 1 ? true : false;
+                }
                 this.AllArchitectureKinds.AddArchitectureKind(architectureKind);
             }
             connection.Close();
@@ -1122,6 +1130,7 @@
                     row["FundMaxUnit"] = i.FundMaxUnit;
                     row["FoodMaxUnit"] = i.FoodMaxUnit;
                     row["CountToMerit"] = i.CountToMerit;
+                    row["Expandable"] = i.Expandable;
                     row.EndEdit();
                     dataSet.Tables["ArchitectureKind"].Rows.Add(row);
                 }
