@@ -3266,6 +3266,7 @@
                         e.Scenario = this;
                         e.ID = (short)reader["ID"];
                         e.Name = reader["Name"].ToString();
+                        e.happened = (bool)reader["Happened"];
                         e.repeatable = (bool)reader["Repeatable"];
                         e.AfterEventHappened = (short)reader["AfterEventHappened"];
                         e.happenChance = (short)reader["Chance"];
