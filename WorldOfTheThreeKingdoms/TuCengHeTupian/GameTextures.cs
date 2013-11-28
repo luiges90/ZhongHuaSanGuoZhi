@@ -148,7 +148,6 @@ namespace WorldOfTheThreeKingdoms.Resources
                     foreach (ArchitectureKind kind in scenario.GameCommonData.AllArchitectureKinds.ArchitectureKinds.Values )
                     {
                         kind.Device = device;
-                        kind.TextureFileName = "Resources/Architecture/" + kind.ID.ToString() + ".png";
                     }
                 }
                 catch (Exception exception3)

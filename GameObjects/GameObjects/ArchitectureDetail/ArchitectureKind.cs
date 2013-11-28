@@ -46,11 +46,12 @@
         {
             get
             {
+                if (this.Device == null) return null;
                 try
                 {
                     if (this.texture == null)
                     {
-                        this.texture = Texture2D.FromFile(this.Device, this.TextureFileName);
+                        this.texture = Texture2D.FromFile(this.Device, "Resources/Architecture/" + this.ID.ToString() + ".png");
                     }
                 }
                 catch
