@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <BackgroundFile FileName="Background.png" Width="90" Height="38"></BackgroundFile>
-  <PortraitTexturePosition X="16" Y="0" Width="24" Height="32" ></PortraitTexturePosition>
-  <FactionTextureFile FileName="Faction.png" X="0" Y="0" Width="16" Height="24"></FactionTextureFile>
-  <NameText X="40" Y="9" Width="50" Height="30"
+  <BackgroundFile FileName="Background.png" Width="100" Height="38"></BackgroundFile>
+  <PortraitTexturePosition X="17" Y="0" Width="26" Height="34" ></PortraitTexturePosition>
+  <FactionTextureFile FileName="Faction.png" X="0" Y="0" Width="17" Height="24"></FactionTextureFile>
+  <NameText X="43" Y="10" Width="55" Height="30"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295"
-            Align="Middle">
+            Align="Left">
   </NameText>
-  <ActionIcon Done="ActionDone.png" Undone="ActionUndone.png" Auto="ActionAuto.png" AutoDone="ActionAutoDone.png" X="90" Y="0" Width="18" Height="18"></ActionIcon>
-  <FoodIcon Normal="FoodNormal.png" Shortage="FoodShortage.png" X="90" Y="18" Width="18" Height="18"></FoodIcon>
-  <Control NoControl="NoControl.png" X="90" Y="0" Width="18" Height="18"></Control>
-  <Stunt Stunt="Stunt.png" X="0" Y="24" Width="18" Height="18"></Stunt>
-  <binglitext X="40" Y="-3" Width="50" Height="20"
+  <ActionIcon Done="ActionDone.png" Undone="ActionUndone.png" Auto="ActionAuto.png" AutoDone="ActionAutoDone.png" X="85" Y="0" Width="14" Height="14"></ActionIcon>
+  <FoodIcon Normal="FoodNormal.png" Shortage="FoodShortage.png" X="85" Y="14" Width="14" Height="14"></FoodIcon>
+  <Control NoControl="NoControl.png" X="85" Y="0" Width="14" Height="14"></Control>
+  <Stunt Stunt="Stunt.png" X="3" Y="24" Width="14" Height="14"></Stunt>
+  <binglitext X="43" Y="-3" Width="45" Height="20"
         FontName="宋体"
-        FontSize="10"
+        FontSize="11"
         FontStyle="Regular"
         FontColor="4294967295"
-        Align="Middle">
+        Align="Left">
   </binglitext>
-  <shiqicao FileName="shiqicao.png" X="16" Y="32"  Width="74" Height="6"></shiqicao>
-  <shiqitiao FileName="shiqitiao.png" X="18" Y="33"  Width="70" Height="4"></shiqitiao>
+  <shiqicao FileName="shiqicao.png" X="17" Y="34"  Width="83" Height="5"></shiqicao>
+  <shiqitiao FileName="shiqitiao.png" X="19" Y="35"  Width="79" Height="3"></shiqitiao>
 </Root>
