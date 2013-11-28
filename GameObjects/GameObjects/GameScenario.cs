@@ -3280,7 +3280,14 @@
                         e.LoadEffectFromString(this.GameCommonData.AllEventEffects, reader["Effect"].ToString());
                         e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
                         e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
-                        e.nextScenario = reader["NextScenario"].ToString();
+                        try
+                        {
+                            e.nextScenario = reader["NextScenario"].ToString();
+                        }
+                        catch
+                        {
+                            e.nextScenario = "";
+                        }
                         this.AllEvents.AddEventWithEvent(e);
                     }
                     catch
@@ -4508,6 +4515,7 @@
                         row.BeginEdit();
                         row["ID"] = e.ID;
                         row["Name"] = e.Name;
+                        row["Happened"] = e.happened;
                         row["Repeatable"] = e.repeatable;
                         row["AfterEventHappened"] = e.AfterEventHappened;
                         row["Chance"] = e.happenChance;
