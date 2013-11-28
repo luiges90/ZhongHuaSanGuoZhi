@@ -17,6 +17,7 @@
         public int happenChance;
         public bool happened;
         public bool repeatable;
+        public String nextScenario;
         public Dictionary<int, List<Person>> person;
         public Dictionary<int, List<Condition>> personCond;
         public ArchitectureList architecture;
@@ -38,6 +39,16 @@
             if (this.OnApplyEvent != null)
             {
                 this.OnApplyEvent(this, a);
+            }
+            if (nextScenario.Length > 0)
+            {
+                List<int> factionIds = new List<int>();
+                foreach (Faction f in this.Scenario.PlayerFactions) 
+                {
+                    factionIds.Add(f.ID);
+                }
+
+                this.Scenario.LoadGameScenarioFromDatabase(nextScenario, factionIds);
             }
         }
 

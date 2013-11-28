@@ -3280,6 +3280,7 @@
                         e.LoadEffectFromString(this.GameCommonData.AllEventEffects, reader["Effect"].ToString());
                         e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
                         e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
+                        e.nextScenario = reader["NextScenario"].ToString();
                         this.AllEvents.AddEventWithEvent(e);
                     }
                     catch
