@@ -258,6 +258,169 @@
                 return this.Kind.Type;
             }
         }
+
+        public double AIPersonValue
+        {
+            get
+            {
+                float p1;
+
+                try
+                {
+                    p1 = float.Parse(this.Parameter);
+                }
+                catch
+                {
+                    return this.Kind.AIPersonValue;
+                }
+
+                double v;
+                switch (this.Kind.ID)
+                {
+                    case 320:
+                        return this.Kind.AIPersonValue *
+                            (base.Scenario.GameCommonData.AllCombatMethods.GetCombatMethod((int)p1).Combativity * this.Kind.AIPersonValuePow);
+                    case 860:
+                        return this.Kind.AIPersonValue *
+                            (base.Scenario.GameCommonData.AllStratagems.GetStratagem((int)p1).Combativity * this.Kind.AIPersonValuePow);
+                    case 200:
+                    case 220:
+                        try
+                        {
+                            int p2 = int.Parse(this.Parameter2);
+                            v = this.Kind.AIPersonValue * Math.Pow(p2, this.Kind.AIPersonValuePow);
+                            switch ((int) p1)
+                            {
+                                case 1:
+                                case 2:
+                                    return v * 2;
+                                case 3:
+                                case 5:
+                                    return v;
+                                case 6:
+                                    return v * 1.5;
+                                case 8:
+                                case 9:
+                                case 10:
+                                    return v * 0.5;
+                                default:
+                                    return 0;
+                            }
+                        }
+                        catch
+                        {
+                            return this.Kind.AIPersonValue * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        }
+                    case 352:
+                        v = this.Kind.AIPersonValue * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        try
+                        {
+                            float p2 = float.Parse(Parameter2);
+                            return this.Kind.AIPersonValue * Math.Min(p1, p2 - 0.5) * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        }
+                        catch
+                        {
+                            return v;
+                        }
+                    case 6140:
+                        v = this.Kind.AIPersonValue * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        try
+                        {
+                            int p2 = int.Parse(this.Parameter2);
+                            if (p1 >= 100)
+                            {
+                                v *= 1.2;
+                            }
+                            if (p1 > 110)
+                            {
+                                v *= 1.5;
+                            }
+                            return v * p2;
+                        }
+                        catch
+                        {
+                            return v;
+                        }
+                    case 6350:
+                        v = this.Kind.AIPersonValue * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        try
+                        {
+                            int p2 = int.Parse(this.Parameter2);
+                            return this.Kind.AIPersonValue * Math.Pow(p2 - 1, p1 / 100.0) * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        }
+                        catch
+                        {
+                            return v;
+                        }
+                    case 6360:
+                        v = this.Kind.AIPersonValue * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        try
+                        {
+                            int p2 = int.Parse(this.Parameter2);
+                            return this.Kind.AIPersonValue * (Math.Max(p2, 100) / 100.0) * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        }
+                        catch
+                        {
+                            return v;
+                        }
+                    case 6420:
+                    case 6430:
+                    case 6450:
+                        try
+                        {
+                            float p2 = float.Parse(this.Parameter2);
+                            return this.Kind.AIPersonValue * Math.Pow(p2, this.Kind.AIPersonValuePow);
+                        }
+                        catch
+                        {
+                            return this.Kind.AIPersonValue * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        }
+                    case 6700:
+                    case 6705:
+                    case 6710:
+                    case 6715:
+                    case 6720:
+                    case 6725:
+                    case 6730:
+                    case 6735:
+                    case 6740:
+                    case 6745:
+                    case 6760:
+                        v = this.Kind.AIPersonValue * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        try
+                        {
+                            int p2 = int.Parse(this.Parameter2);
+                            return v * Math.Pow(p2, 1.2);
+                        }
+                        catch
+                        {
+                            return v;
+                        }
+                    case 6750:
+                    case 6755:
+                        v = this.Kind.AIPersonValue * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        try
+                        {
+                            int p2 = int.Parse(this.Parameter2);
+                            return v * Math.Pow(p2 / 1000, 1.2);
+                        }
+                        catch
+                        {
+                            return v;
+                        }
+                    default:
+                        if (p1 == 0 && this.Kind.AIPersonValuePow <= 0)
+                        {
+                            v = this.Kind.AIPersonValuePow > 0 ? this.Kind.AIPersonValue : this.Kind.AIPersonValue * 10;
+                        }
+                        else
+                        {
+                            v = this.Kind.AIPersonValue * Math.Pow(p1, this.Kind.AIPersonValuePow);
+                        }
+                        return v;
+                }
+            }
+        }
     }
 }
 

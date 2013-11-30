@@ -261,6 +261,76 @@
             }
         }
 
+        private double? aiPersonValue = null;
+        public double AIPersonValue
+        {
+            get
+            {
+                if (aiPersonValue != null)
+                {
+                    return aiPersonValue.Value;
+                }
+
+                double d = 1;
+                bool hasKind = false;
+                bool hasType = false;
+
+                double result = 0;
+                foreach (Influence i in this.Influences.GetInfluenceList())
+                {
+                    switch (i.Kind.ID)
+                    {
+                        case 281:
+                            d *= 0.8;
+                            break;
+                        case 290:
+                            if (hasKind)
+                            {
+                                d *= 1.2;
+                            }
+                            else
+                            {
+                                hasKind = true;
+                                d *= 0.4;
+                            }
+                            break;
+                        case 300:
+                            if (hasType)
+                            {
+                                d *= 1.1;
+                                if (d > 1)
+                                {
+                                    d = 1;
+                                }
+                            }
+                            else
+                            {
+                                hasKind = true;
+                                d *= 0.2;
+                            }
+                            break;
+                    }
+                    result += i.AIPersonValue * d;
+                }
+
+                aiPersonValue = result;
+                return result;
+            }
+        }
+
+        private int? aiPersonLevel = null;
+        public int AIPersonLevel
+        {
+            get
+            {
+                if (aiPersonLevel != null)
+                {
+                    return aiPersonLevel.Value;
+                }
+                aiPersonLevel = (int)(Math.Sqrt(Math.Max(1, AIPersonValue - 15)) * 0.2828 + 1);
+                return aiPersonLevel.Value;
+            }
+        }
     }
 }
 

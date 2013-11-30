@@ -100,7 +100,7 @@
             this.suoyouzainanzhonglei.Clear();
         }
 
-        public bool LoadFromDatabase(string connectionString)
+        public bool LoadFromDatabase(string connectionString, GameScenario scen)
         {
             int num;
             Animation animation;
@@ -110,6 +110,7 @@
             while (reader.Read())
             {
                 TerrainDetail terrainDetail = new TerrainDetail();
+                terrainDetail.Scenario = scen;
                 terrainDetail.ID = (short)reader["ID"];
                 terrainDetail.Name = reader["Name"].ToString();
                 terrainDetail.GraphicLayer = (int)reader["GraphicLayer"];
@@ -142,6 +143,7 @@
             while (reader.Read())
             {
                 IdealTendencyKind t = new IdealTendencyKind();
+                t.Scenario = scen;
                 t.ID = (short)reader["ID"];
                 t.Name = reader["Name"].ToString();
                 t.Offset = (short)reader["Offset"];
@@ -153,6 +155,7 @@
             while (reader.Read())
             {
                 CharacterKind kind2 = new CharacterKind();
+                kind2.Scenario = scen;
                 kind2.ID = (short)reader["ID"];
                 kind2.Name = reader["Name"].ToString();
                 kind2.IntelligenceRate = (float)reader["IntelligenceRate"];
@@ -166,6 +169,7 @@
             while (reader.Read())
             {
                 ArchitectureKind architectureKind = new ArchitectureKind();
+                architectureKind.Scenario = scen;
                 architectureKind.ID = (short)reader["ID"];
                 architectureKind.Name = reader["Name"].ToString();
                 architectureKind.AgricultureBase = (short)reader["AgricultureBase"];
@@ -222,6 +226,7 @@
             while (reader.Read())
             {
                 SectionAIDetail sectionAIDetail = new SectionAIDetail();
+                sectionAIDetail.Scenario = scen;
                 sectionAIDetail.ID = (short)reader["ID"];
                 sectionAIDetail.Name = reader["Name"].ToString();
                 sectionAIDetail.Description = reader["Description"].ToString();
@@ -263,6 +268,7 @@
                 InfluenceKind ik = InfluenceKindFactory.CreateInfluenceKindByID(num);
                 if (ik != null)
                 {
+                    ik.Scenario = scen;
                     ik.ID = num;
                     ik.Type = (InfluenceType)((short)reader["Type"]);
                     ik.Name = reader["Name"].ToString();
@@ -274,6 +280,12 @@
                     {
                         ik.Combat = true;
                     }
+                    try
+                    {
+                        ik.AIPersonValue = (float)reader["AIPersonValue"];
+                        ik.AIPersonValuePow = (float)reader["AIPersonValuePow"];
+                    }
+                    catch { }
                     this.AllInfluenceKinds.AddInfluenceKind(ik);
                 }
             }
@@ -283,6 +295,7 @@
             while (reader.Read())
             {
                 Influence influence = new Influence();
+                influence.Scenario = scen;
                 influence.ID = (short)reader["ID"];
                 influence.Name = reader["Name"].ToString();
                 influence.Description = reader["Description"].ToString();
@@ -303,6 +316,7 @@
                 ConditionKind ck = ConditionKindFactory.CreateConditionKindByID(num);
                 if (ck != null)
                 {
+                    ck.Scenario = scen;
                     ck.ID = num;
                     ck.Name = reader["Name"].ToString();
                     this.AllConditionKinds.AddConditionKind(ck);
@@ -314,6 +328,7 @@
             while (reader.Read())
             {
                 Condition condition = new Condition();
+                condition.Scenario = scen;
                 condition.ID = (short)reader["ID"];
                 condition.Name = reader["Name"].ToString();
                 condition.Parameter = reader["Parameter"].ToString();
@@ -335,6 +350,7 @@
                 if (e != null)
                 {
                     e.ID = num;
+                    e.Scenario = scen;
                     e.Name = reader["Name"].ToString();
                     this.AllTroopEventEffectKinds.AddEventEffectKind(e);
                 }
@@ -345,6 +361,7 @@
             while (reader.Read())
             {
                 GameObjects.TroopDetail.EventEffect.EventEffect effect = new GameObjects.TroopDetail.EventEffect.EventEffect();
+                effect.Scenario = scen;
                 effect.ID = (short)reader["ID"];
                 effect.Name = reader["Name"].ToString();
                 effect.Parameter = reader["Parameter"].ToString();
@@ -363,6 +380,7 @@
                 GameObjects.ArchitectureDetail.EventEffect.EventEffectKind e = GameObjects.ArchitectureDetail.EventEffect.EventEffectKindFactory.CreateEventEffectKindByID(num);
                 if (e != null)
                 {
+                    e.Scenario = scen;
                     e.ID = num;
                     e.Name = reader["Name"].ToString();
                     this.AllEventEffectKinds.AddEventEffectKind(e);
@@ -374,6 +392,7 @@
             while (reader.Read())
             {
                 GameObjects.ArchitectureDetail.EventEffect.EventEffect effect = new GameObjects.ArchitectureDetail.EventEffect.EventEffect();
+                effect.Scenario = scen;
                 effect.ID = (short)reader["ID"];
                 effect.Name = reader["Name"].ToString();
                 effect.Parameter = reader["Parameter"].ToString();
@@ -390,6 +409,7 @@
             while (reader.Read())
             {
                 FacilityKind facilityKind = new FacilityKind();
+                facilityKind.Scenario = scen;
                 facilityKind.ID = (short)reader["ID"];
                 facilityKind.Name = reader["Name"].ToString();
                 try
@@ -425,6 +445,7 @@
             {
                 zainanzhongleilei zainanzhonglei = new zainanzhongleilei();
 
+                zainanzhonglei.Scenario = scen;
                 zainanzhonglei.ID = (short)reader["ID"];
                 zainanzhonglei.Name = reader["名称"].ToString();
                 zainanzhonglei.shijianxiaxian = (short)reader["时间下限"];
@@ -452,6 +473,7 @@
             {
                 guanjuezhongleilei guanjuedezhonglei = new guanjuezhongleilei();
 
+                guanjuedezhonglei.Scenario = scen;
                 guanjuedezhonglei.ID = (short)reader["ID"];
                 guanjuedezhonglei.Name = reader["名称"].ToString();
                 guanjuedezhonglei.shengwangshangxian = (int)reader["声望上限"];
@@ -473,6 +495,7 @@
             while (reader.Read())
             {
                 Technique technique = new Technique();
+                technique.Scenario = scen;
                 technique.ID = (short)reader["ID"];
                 technique.Kind = (short)reader["Kind"];
                 technique.DisplayRow = (short)reader["DisplayRow"];
@@ -494,6 +517,7 @@
             while (reader.Read())
             {
                 Skill skill = new Skill();
+                skill.Scenario = scen;
                 skill.ID = (short)reader["ID"];
                 skill.DisplayRow = (short)reader["DisplayRow"];
                 skill.DisplayCol = (short)reader["DisplayCol"];
@@ -515,6 +539,7 @@
                 while (reader.Read())
                 {
                     TitleKind tk = new TitleKind();
+                    tk.Scenario = scen;
                     tk.ID = (short)reader["ID"];
                     tk.Name = reader["KName"].ToString();
                     tk.Combat = (bool)reader["Combat"];
@@ -526,12 +551,14 @@
             catch
             {
                 TitleKind tk = new TitleKind();
+                tk.Scenario = scen;
                 tk.ID = 1;
                 tk.Name = "个人称号";
                 tk.Combat = false;
                 tk.StudyDay = 90;
                 this.AllTitleKinds.AddTitleKind(tk);
                 tk = new TitleKind();
+                tk.Scenario = scen;
                 tk.ID = 2;
                 tk.Name = "战斗称号";
                 tk.Combat = true;
@@ -545,6 +572,7 @@
             while (reader.Read())
             {
                 Title title = new Title();
+                title.Scenario = scen;
                 title.ID = (short)reader["ID"];
                 title.Kind = this.AllTitleKinds.GetTitleKind((short)reader["Kind"] + titleKindShift);
                 title.Level = (short)reader["Level"];
@@ -560,6 +588,7 @@
             while (reader.Read())
             {
                 MilitaryKind militaryKind = new MilitaryKind();
+                militaryKind.Scenario = scen;
                 militaryKind.ID = (short)reader["ID"];
                 militaryKind.Type = (MilitaryType)((short)reader["Type"]);
                 militaryKind.Name = reader["Name"].ToString();
@@ -664,6 +693,7 @@
             while (reader.Read())
             {
                 InformationKind kind9 = new InformationKind();
+                kind9.Scenario = scen;
                 kind9.ID = (short)reader["ID"];
                 kind9.Level = (InformationLevel)((short)reader["iLevel"]);
                 kind9.Oblique = (bool)reader["Oblique"];
@@ -677,6 +707,7 @@
             while (reader.Read())
             {
                 AttackDefaultKind kind10 = new AttackDefaultKind();
+                kind10.Scenario = scen;
                 kind10.ID = (short)reader["ID"];
                 kind10.Name = reader["Name"].ToString();
                 this.AllAttackDefaultKinds.Add(kind10);
@@ -687,6 +718,7 @@
             while (reader.Read())
             {
                 AttackTargetKind kind11 = new AttackTargetKind();
+                kind11.Scenario = scen;
                 kind11.ID = (short)reader["ID"];
                 kind11.Name = reader["Name"].ToString();
                 this.AllAttackTargetKinds.Add(kind11);
@@ -697,6 +729,7 @@
             while (reader.Read())
             {
                 CombatMethod combatMethod = new CombatMethod();
+                combatMethod.Scenario = scen;
                 combatMethod.ID = (short)reader["ID"];
                 combatMethod.Name = reader["Name"].ToString();
                 combatMethod.Description = reader["Description"].ToString();
@@ -716,6 +749,7 @@
             while (reader.Read())
             {
                 Stunt stunt = new Stunt();
+                stunt.Scenario = scen;
                 stunt.ID = (short)reader["ID"];
                 stunt.Name = reader["Name"].ToString();
                 stunt.Combativity = (short)reader["Combativity"];
@@ -733,6 +767,7 @@
             while (reader.Read())
             {
                 CastDefaultKind kind12 = new CastDefaultKind();
+                kind12.Scenario = scen;
                 kind12.ID = (short)reader["ID"];
                 kind12.Name = reader["Name"].ToString();
                 this.AllCastDefaultKinds.Add(kind12);
@@ -743,6 +778,7 @@
             while (reader.Read())
             {
                 CastTargetKind kind13 = new CastTargetKind();
+                kind13.Scenario = scen;
                 kind13.ID = (short)reader["ID"];
                 kind13.Name = reader["Name"].ToString();
                 this.AllCastTargetKinds.Add(kind13);
@@ -753,6 +789,7 @@
             while (reader.Read())
             {
                 Stratagem stratagem = new Stratagem();
+                stratagem.Scenario = scen;
                 stratagem.ID = (short)reader["ID"];
                 stratagem.Name = reader["Name"].ToString();
                 stratagem.Description = reader["Description"].ToString();
@@ -775,6 +812,7 @@
             while (reader.Read())
             {
                 animation = new Animation();
+                animation.Scenario = scen;
                 animation.ID = (short)reader["ID"];
                 animation.Name = reader["Name"].ToString();
                 animation.FrameCount = (short)reader["FrameCount"];
@@ -787,6 +825,7 @@
             while (reader.Read())
             {
                 animation = new Animation();
+                animation.Scenario = scen;
                 animation.ID = (short)reader["ID"];
                 animation.Name = reader["Name"].ToString();
                 animation.FrameCount = (short)reader["FrameCount"];
@@ -800,6 +839,7 @@
             while (reader.Read())
             {
                 Biography biography = new Biography();
+                biography.Scenario = scen;
                 biography.ID = (short)reader["ID"];
                 biography.Brief = reader["Brief"].ToString();
                 biography.Romance = reader["Romance"].ToString();
@@ -925,6 +965,7 @@
                 {
                     int t;
                     BiographyAdjectives b = new BiographyAdjectives();
+                    b.Scenario = scen;
                     b.ID = (short)reader["ID"];
                     int.TryParse(reader["Strength"].ToString(), out t);
                     b.Strength = t;
@@ -1130,7 +1171,11 @@
                     row["FundMaxUnit"] = i.FundMaxUnit;
                     row["FoodMaxUnit"] = i.FoodMaxUnit;
                     row["CountToMerit"] = i.CountToMerit;
-                    row["Expandable"] = i.Expandable;
+                    try
+                    {
+                        row["Expandable"] = i.Expandable;
+                    }
+                    catch { }
                     row.EndEdit();
                     dataSet.Tables["ArchitectureKind"].Rows.Add(row);
                 }
@@ -1893,6 +1938,14 @@
                     row["Prerequisite"] = i.Prerequisite;
                     row["Influences"] = i.Influences.SaveToString();
                     row["Conditions"] = i.Conditions.SaveToString();
+                    try
+                    {
+                        row["AIPersonValue"] = i.AIPersonValue;
+                        row["AIPersonLevel"] = i.AIPersonLevel;
+                    }
+                    catch
+                    {
+                    }
                     row.EndEdit();
                     dataSet.Tables["Title"].Rows.Add(row);
                 }

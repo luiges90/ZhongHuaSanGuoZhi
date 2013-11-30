@@ -2287,7 +2287,7 @@
                 DataSource = path,
                 Provider = "Microsoft.Jet.OLEDB.4.0"
             };
-            this.GameCommonData.LoadFromDatabase(builder.ConnectionString);
+            this.GameCommonData.LoadFromDatabase(builder.ConnectionString, this);
         }
 
         private void LoadSettingsFromDatabase(string connectionString)
@@ -2369,7 +2369,7 @@
         {
             try
             {
-                this.GameCommonData.LoadFromDatabase(connectionString);
+                this.GameCommonData.LoadFromDatabase(connectionString, this);
                 UsingOwnCommonData = true;
             }
             catch (Exception)

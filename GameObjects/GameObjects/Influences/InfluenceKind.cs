@@ -11,6 +11,11 @@
         private InfluenceType type;
         private bool combat;
 
+        public float AIPersonValue { get; set; }
+        public float AIPersonValuePow { get; set; }
+
+        private float p1, p2;
+
         public bool Combat
         {
             get
@@ -287,6 +292,7 @@
                 this.type = value;
             }
         }
+
     }
 }
 
