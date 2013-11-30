@@ -13056,7 +13056,7 @@
         {
             get
             {
-                double num = Math.Round((double)(((((Parameters.DefaultPopulationDevelopingRate + this.PDRAgricultureFix) + this.PDRCommerceFix) + this.PDRDominationFix) + this.PDRMoraleFix) + this.RateIncrementOfPopulationDevelop), 5);
+                double num = Math.Round((double)(((((Parameters.DefaultPopulationDevelopingRate + this.PDRAgricultureFix) + this.PDRCommerceFix) + this.PDRDominationFix) + this.PDRMoraleFix) + this.RateIncrementOfPopulationDevelop), 6);
                 if (!((this.RecentlyAttacked <= 0) || this.DayAvoidInfluenceByBattle))
                 {
                     num += -0.00030000000000000003;
