@@ -17,11 +17,18 @@
         internal Image GetImage(int id)
         {
             Image portrait = null;
-            PlayerImage image2 = null;
-            if (this.PlayerImages.TryGetValue(id, out image2))
+            PlayerImage image = null;
+
+            this.PlayerImages.TryGetValue(id, out image);
+            if (image == null)
             {
-                portrait = image2.Portrait;
+                image = this.LoadImage(id);
+                this.PlayerImages.Add(id, image);
+                if (image == null) return null;
             }
+
+            portrait = image.Portrait;
+
             return portrait;
         }
 
@@ -33,7 +40,12 @@
             {
                 PlayerImage image = null;
                 this.PlayerImages.TryGetValue(id, out image);
-                if (image == null) return null;
+                if (image == null)
+                {
+                    image = this.LoadImage(id);
+                    this.PlayerImages.Add(id, image);
+                    if (image == null) return null;
+                }
                 item = new PortraitItem();
                 image.Portrait.Save(this.TempImageFileName);
                 item.PortraitTexture = Texture2D.FromFile(this.Device, this.TempImageFileName);
@@ -64,36 +76,30 @@
             return null;
         }
 
-        internal void LoadPlayerImages(string path)
+        private PlayerImage LoadImage(string path, int id)
         {
-            if (!Directory.Exists(path))
+            if (File.Exists(path + @"\" + id + "s.jpg"))
             {
-                Directory.CreateDirectory(path);
-            }
-            else
-            {
-                DirectoryInfo d = new DirectoryInfo(path);
-
-                foreach (var file in d.GetFiles("*.jpg"))
+                PlayerImage image = new PlayerImage
                 {
-                    int id;
-                    String name = file.Name.Substring(0, file.Name.Length - 4);
-                    if (int.TryParse(name, out id))
-                    {
-                        if (File.Exists(path + @"\" + name + "s.jpg"))
-                        {
-                            PlayerImage image = new PlayerImage
-                            {
-                                Portrait = Image.FromFile(path + @"\" + name + ".jpg"),
-                                SmallPortrait = Image.FromFile(path + @"\" + name + "s.jpg")
-                            };
-                            this.PlayerImages.Remove(id);
-                            this.PlayerImages.Add(id, image);
-                        }
-                    }
-                }
+                    Portrait = Image.FromFile(path + @"\" + id + ".jpg"),
+                    SmallPortrait = Image.FromFile(path + @"\" + id + "s.jpg")
+                };
+                return image;
             }
+            return null;
         }
+
+        private PlayerImage LoadImage(int id)
+        {
+            PlayerImage result = this.LoadImage(@"GameComponents\PersonPortrait\Images\Player", id);
+            if (result == null)
+            {
+                result = this.LoadImage(@"GameComponents\PersonPortrait\Images\Default", id);
+            }
+            return result;
+        }
+
     }
 }
 

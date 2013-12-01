@@ -40,8 +40,6 @@
         public void Initialize()
         {
             this.personPortrait.TempImageFileName = @"GameComponents\PersonPortrait\~tmp.image";
-            this.personPortrait.LoadPlayerImages(@"GameComponents\PersonPortrait\Images\Default");
-            this.personPortrait.LoadPlayerImages(@"GameComponents\PersonPortrait\Images\Player");
         }
 
         public void SetGraphicsDevice(GraphicsDevice device)
