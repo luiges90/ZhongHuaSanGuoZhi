@@ -187,6 +187,7 @@
         public bool HighLevelInformationOnScout;
         public HostileActionKind HostileAction = HostileActionKind.EvadeEffect;
         public bool ImmunityOfCaptive;
+        public bool ImmunityOfDieInBattle;
         public int IncrementDefencePerReputationUnit;
         public CombatNumberItemList IncrementNumberList = new CombatNumberItemList(CombatNumberDirection.上);
         public int IncrementOfAvoidSurroundedChance;
@@ -5982,7 +5983,7 @@
                     Challenge challeng = new Challenge();
                     challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
                 }
-                if (damage.OfficerDie)
+                if (damage.OfficerDie && !damage.DestinationTroop.ImmunityOfDieInBattle)
                 {
                     if (damage.DestinationTroop == damage.DestinationTroop.StartingArchitecture.RobberTroop)
                     {
@@ -5992,7 +5993,11 @@
                     else
                     {
                         int c = GameObject.Random(damage.DestinationTroop.Persons.Count);
-                        (damage.DestinationTroop.Persons[c] as Person).KilledInBattle(damage.SourceTroop);
+                        Person toDie = damage.DestinationTroop.Persons[c] as Person;
+                        if (!toDie.ImmunityOfDieInBattle)
+                        {
+                            toDie.KilledInBattle(damage.SourceTroop);
+                        }
                     }
                 }
 

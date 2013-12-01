@@ -64,6 +64,7 @@
         private int ideal;
         public IdealTendencyKind IdealTendency;
         public bool ImmunityOfCaptive;
+        public bool ImmunityOfDieInBattle;
         private float impactRateOfBadForm;
         private float impactRateOfGoodForm;
         public int IncrementOfAgricultureAbility;
