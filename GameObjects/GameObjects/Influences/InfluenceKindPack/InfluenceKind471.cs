@@ -8,12 +8,12 @@
     {
         public override void ApplyInfluenceKind(Person person)
         {
-            person.InevitableSuccessOfSpy = true;
+            person.InevitableSuccessOfJailBreak = true;
         }
 
         public override void PurifyInfluenceKind(Person person)
         {
-            person.InevitableSuccessOfSpy = false;
+            person.InevitableSuccessOfJailBreak = false;
         }
     }
 }
