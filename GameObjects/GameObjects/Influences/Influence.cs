@@ -411,7 +411,7 @@
                     default:
                         if (p1 == 0 && this.Kind.AIPersonValuePow <= 0)
                         {
-                            v = this.Kind.AIPersonValuePow > 0 ? this.Kind.AIPersonValue : this.Kind.AIPersonValue * 10;
+                            v = this.Kind.AIPersonValuePow >= 0 ? this.Kind.AIPersonValue : this.Kind.AIPersonValue * 10;
                         }
                         else
                         {
