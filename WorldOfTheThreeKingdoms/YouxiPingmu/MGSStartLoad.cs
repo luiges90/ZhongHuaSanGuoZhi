@@ -212,8 +212,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public void LoadGameFromDisk()
         {
+            this.LoadGameFromDisk("GameData/Save/" + this.LoadFileName);
+        }
+
+        public void LoadGameFromDisk(String fileName)
+        {
             base.Scenario.EnableLoadAndSave = false;
-            if (!File.Exists("GameData/Save/" + this.LoadFileName))
+            if (!File.Exists(fileName))
             {
                 base.Scenario.EnableLoadAndSave = true;
             }
@@ -224,35 +229,39 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.GameRecordPlugin.RemoveDisableRects();
                 this.Plugins.AirViewPlugin.RemoveDisableRects();
 
-                string realPath = this.LoadFileName.Substring(0, this.LoadFileName.Length - 4) + ".mdb";
+                string realPath = fileName.Substring(0, fileName.Length - 4) + ".mdb";
 
                 if (this.LoadFileName.EndsWith(".zhs"))
                 {
-                    FileEncryptor.DecryptFile("GameData/Save/" + this.LoadFileName, "GameData/Save/" + realPath, GlobalVariables.cryptKey);
+                    FileEncryptor.DecryptFile(fileName, realPath, GlobalVariables.cryptKey);
                 }
 
                 OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder
                 {
-                    DataSource = "GameData/Save/" + realPath,
+                    DataSource = realPath,
                     Provider = "Microsoft.Jet.OLEDB.4.0"
                 };
-                base.Scenario.LoadSaveFileFromDatabase(builder.ConnectionString, this.LoadFileName);
+                base.Scenario.LoadSaveFileFromDatabase(builder.ConnectionString, fileName);
 
                 if (GlobalVariables.EncryptSave)
                 {
-                    File.Delete("GameData/Save/" + realPath);
+                    File.Delete(realPath);
                 }
-                
-                //this.mainMapLayer.jiazaibeijingtupian();
 
-                this.chushihuajianzhubiaotiheqizi();
-                this.gengxinyoucelan();
+                this.ReloadScreenData();
 
                 base.Scenario.EnableLoadAndSave = true;
 
             }
         }
 
+        public override void ReloadScreenData()
+        {
+            //this.mainMapLayer.jiazaibeijingtupian();
+
+            this.chushihuajianzhubiaotiheqizi();
+            this.gengxinyoucelan();
+        }
 
         private void LoadGameFromAutoPosition()
         {

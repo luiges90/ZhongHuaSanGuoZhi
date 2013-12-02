@@ -873,6 +873,10 @@
         public virtual void NoFactionPersonArrivesAtArchitecture(Person p, Architecture a)
         {
         }
+
+        public virtual void ReloadScreenData()
+        {
+        }
     }
 }
 

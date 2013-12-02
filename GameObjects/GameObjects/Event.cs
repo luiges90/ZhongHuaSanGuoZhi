@@ -4,6 +4,7 @@
     using GameObjects.Conditions;
     using System;
     using System.Collections.Generic;
+    using System.Data.OleDb;
 
     public class PersonIdDialog
     {
@@ -42,13 +43,24 @@
             }
             if (nextScenario.Length > 0)
             {
+                base.Scenario.EnableLoadAndSave = false;
+
                 List<int> factionIds = new List<int>();
                 foreach (Faction f in this.Scenario.PlayerFactions) 
                 {
                     factionIds.Add(f.ID);
                 }
 
-                this.Scenario.LoadGameScenarioFromDatabase(nextScenario, factionIds);
+                OleDbConnectionStringBuilder builder = new OleDbConnectionStringBuilder
+                {
+                    DataSource = "GameData/Scenario/" + nextScenario,
+                    Provider = "Microsoft.Jet.OLEDB.4.0"
+                };
+                this.Scenario.LoadGameScenarioFromDatabase(builder.ConnectionString, factionIds);
+
+                this.Scenario.GameScreen.ReloadScreenData();
+
+                base.Scenario.EnableLoadAndSave = true;
             }
         }
 

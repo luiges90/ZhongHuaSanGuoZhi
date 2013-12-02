@@ -3423,14 +3423,29 @@
             dbConnection.Open();
             OleDbDataReader reader = command.ExecuteReader();
             reader.Read();
-            this.PlayerFactions.LoadFromString(this.Factions, reader["PlayerList"].ToString());
-            int iD = (short)reader["CurrentPlayer"];
-            if (iD >= 0)
+
+            if (playerFactions.Count > 0)
             {
-                this.CurrentPlayer = this.Factions.GetGameObject(iD) as Faction;
+                foreach (int i in playerFactions) 
+                {
+                    this.PlayerFactions.Add(this.Factions.GetGameObject(i));
+                }
+                this.CurrentPlayer = this.Factions.GetGameObject(playerFactions[0]) as Faction;
                 this.CurrentFaction = this.CurrentPlayer;
                 this.Factions.RunningFaction = this.CurrentPlayer;
             }
+            else
+            {
+                this.PlayerFactions.LoadFromString(this.Factions, reader["PlayerList"].ToString());
+                int iD = (short)reader["CurrentPlayer"];
+                if (iD >= 0)
+                {
+                    this.CurrentPlayer = this.Factions.GetGameObject(iD) as Faction;
+                    this.CurrentFaction = this.CurrentPlayer;
+                    this.Factions.RunningFaction = this.CurrentPlayer;
+                }
+            }
+
             this.Factions.LoadQueueFromString(reader["FactionQueue"].ToString());
             this.FireTable.LoadFromString(reader["FireTable"].ToString());
             this.NoFoodDictionary.LoadFromString(reader["NoFoodTable"].ToString());
