@@ -1258,6 +1258,8 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6935.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6945.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3157.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind263.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind262.cs" />
     <Compile Include="GameObjects\PersonDetail\BiographyAdjectives.cs" />
     <Compile Include="GameObjects\PersonDetail\TextMessageKind.cs" />
     <Compile Include="GameObjects\PersonDetail\TextMessageTable.cs" />
