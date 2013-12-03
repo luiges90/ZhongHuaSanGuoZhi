@@ -2963,7 +2963,7 @@
 
                 try
                 {
-                    architecture.SuspendTransfer = (bool)reader["SuspendTransfer"];
+                    architecture.SuspendTransfer = (int)reader["SuspendTransfer"];
                 }
                 catch { };
 

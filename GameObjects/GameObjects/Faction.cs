@@ -737,7 +737,7 @@
             foreach (Architecture a in destArch)
             {
                 if (a.Abandoned) continue;
-                if ((a.Fund < minFund[a] || a.Food < minFood[a]) && resource && !a.SuspendTransfer)
+                if ((a.Fund < minFund[a] || a.Food < minFood[a]) && resource && a.SuspendTransfer <= 0)
                 {
                     MilitaryKind transport = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(29);
                     int deficitFund = Math.Max(0, minFund[a] * 2 - a.Fund);
@@ -781,7 +781,6 @@
                     if (src != null)
                     {
                         a.CallResource(src, deficitFund, deficitFood);
-                        a.SuspendTransfer = true;
                     }
                 }
 
@@ -855,7 +854,7 @@
             foreach (Architecture a in destArch)
             {
                 if (a.Abandoned) continue;
-                if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource && !a.SuspendTransfer)
+                if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource && a.SuspendTransfer <= 0)
                 {
                     MilitaryKind transport = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(29);
                     int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund);
@@ -887,7 +886,6 @@
                     if (src != null)
                     {
                         a.CallResource(src, deficitFund, deficitFood);
-                        a.SuspendTransfer = true;
                     }
                 }
 

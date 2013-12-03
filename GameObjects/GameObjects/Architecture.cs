@@ -216,7 +216,7 @@
         public float enduranceDecreaseRateDrop;
         public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
         internal bool hostileTroopInViewLastDay = false;
-        public bool SuspendTransfer;
+        public int SuspendTransfer;
 
         public float ExperienceRate;
 
@@ -1409,7 +1409,7 @@
         {
             get
             {
-                int fundSupport = this.Fund / Parameters.RewardPersonCost / 5;
+                int fundSupport = this.Fund / (Parameters.RewardPersonCost * 5);
                 int develop = Math.Max((this.AgricultureCeiling - this.Agriculture) / 30,
                     Math.Max((this.CommerceCeiling - this.Commerce) / 30,
                     Math.Max((this.Technology - this.TechnologyCeiling) / 30,
@@ -1512,7 +1512,7 @@
 
         internal void CallResource(Architecture src, int fund, int food)
         {
-            if (this.PersonCount == 0)
+            if (src.PersonCount == 0)
             {
                 PersonList candidates = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Persons : this.BelongedFaction.Persons;
                 candidates.PropertyName = "Merit";
@@ -1528,7 +1528,7 @@
                     }
                 }
             }
-            if (this.PersonCount == 0)
+            if (src.PersonCount == 0)
             {
                 return;
             }
@@ -1564,6 +1564,8 @@
             fund -= actualTransferFund;
             food -= actualTransferFood;
             src.BuildTransportTroop(this, transportTeam, actualTransferFood, actualTransferFund);
+
+            this.SuspendTransfer = 30;
         }
 
         internal void CallTroop(Architecture src, int scale)
@@ -4571,6 +4573,7 @@
             this.JustAttacked = false;
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
+            this.SuspendTransfer--;
             this.remindedAboutAttack = false;
         }
 
@@ -9852,6 +9855,7 @@
             this.ResetAuto();
             this.PlanFacilityKind = null;
             this.PlanFacilityKindID = -1;
+            this.SuspendTransfer = 0;
             if ((faction != null) && base.Scenario.IsPlayer(faction))
             {
                 this.AutoHiring = true;
@@ -10659,7 +10663,7 @@
                 num += (int)(Math.Sqrt(this.Population) * 8.0);
                 num += this.BelongedFaction.Capital == this ? this.BelongedFaction.FundToAdvance : 0;
                 num += this.InformationDayCost * 15;
-                num += this.PersonCount * Parameters.RewardPersonCost * 5;
+                num += (this.PersonCount + this.MovingPersonCount) * Parameters.RewardPersonCost * 5;
                 return num;
             }
         }
@@ -11130,7 +11134,7 @@
             {
                 int num = this.FacilityMaintenanceCost * 30;
                 num += this.RoutewayActiveCost * 30;
-                num += this.PersonCount * Parameters.RewardPersonCost * 5;
+                num += (this.PersonCount + this.MovingPersonCount) * Parameters.RewardPersonCost * 5;
                 num += this.InformationDayCost * 15;
                 return num;
             }

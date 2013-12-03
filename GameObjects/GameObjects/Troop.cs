@@ -1549,6 +1549,10 @@
             }
             else
             {
+                if (this.IsTransport && this.WillArchitecture != null)
+                {
+                    this.WillArchitecture.SuspendTransfer = 0;
+                }
                 bool flag = false;
                 if ((this.BelongedFaction.Leader == this.Leader) && (this.BelongedFaction.ArchitectureCount == 0))
                 {
@@ -3445,7 +3449,7 @@
         {
             if (this.IsTransport)
             {
-                a.SuspendTransfer = false;
+                a.SuspendTransfer = 0;
             }
             if (doAsk && base.Scenario.CurrentPlayer != null && this.OnTransportArrived != null)
             {
