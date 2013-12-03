@@ -39,6 +39,24 @@
         {
         }
 
+        internal void AIIntraTransfer()
+        {
+            if (this.Architectures.Count > 1)
+            {
+                this.BelongedFaction.AITransferPlanning(this.Architectures);
+            }
+        }
+
+        internal void AIInterTransfer()
+        {
+            if (this.OrientationSection != null && 
+                (this.AIDetail.AllowFoodTransfer || this.AIDetail.AllowFundTransfer || this.AIDetail.AllowMilitaryTransfer)) 
+            {
+                this.BelongedFaction.AllocationTransfer(this.Architectures, this.OrientationSection.Architectures,
+                    (this.AIDetail.AllowFoodTransfer || this.AIDetail.AllowFundTransfer), false, this.AIDetail.AllowMilitaryTransfer);
+            }
+        }
+
         public int GetFrontScale()
         {
             if (this.ArchitectureCount == 0)

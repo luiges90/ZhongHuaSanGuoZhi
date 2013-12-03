@@ -2961,6 +2961,12 @@
                 {
                 }
 
+                try
+                {
+                    architecture.SuspendTransfer = (bool)reader["SuspendTransfer"];
+                }
+                catch { };
+
                 this.Architectures.AddArchitectureWithEvent(architecture);
                 this.AllArchitectures.Add(architecture.ID, architecture);
             }
@@ -4008,6 +4014,7 @@
                     row["Emperor"] = architecture.huangdisuozai;
                     row["MilitaryPopulation"] = architecture.MilitaryPopulation;
                     row["Informations"] = architecture.Informations.SaveToString();
+                    row["SuspendTransfer"] = architecture.SuspendTransfer;
                     row.EndEdit();
                     dataSet.Tables["Architecture"].Rows.Add(row);
                 }

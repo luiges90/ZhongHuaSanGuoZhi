@@ -6768,6 +6768,37 @@
             return this.Spouse == p || this.Brothers.GameObjects.Contains(p);
         }
 
+        public PersonList AvailableVeryClosePersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                if (this.Spouse != null && this.Spouse.Status == PersonStatus.Normal && this.Spouse.BelongedFaction == this.BelongedFaction && this.Spouse.BelongedArchitecture != null && this.BelongedArchitecture != null
+                            && (!base.Scenario.IsPlayer(this.BelongedFaction) || this.Spouse.BelongedArchitecture.BelongedSection == this.BelongedArchitecture.BelongedSection))
+                {
+                    result.Add(this.Spouse);
+                }
+                foreach (Person q in this.Brothers)
+                {
+                    if (q.Status == PersonStatus.Normal && q.BelongedFaction == this.BelongedFaction && this.BelongedArchitecture != null && q.BelongedArchitecture != null
+                        && (!base.Scenario.IsPlayer(this.BelongedFaction) || q.BelongedArchitecture.BelongedSection == this.BelongedArchitecture.BelongedSection))
+                    {
+                        result.Add(q);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public bool DontMoveMeUnlessIMust
+        {
+            get
+            {
+                return !this.HasFollowingArmy && !this.HasLeadingArmy && this.WaitForFeiZi == null &&
+                        (this != this.BelongedFaction.Leader || this.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0);
+            }
+        }
+
         public bool HasCloseStrainTo(Person b)
         {
             if (this.Father == b) return true;

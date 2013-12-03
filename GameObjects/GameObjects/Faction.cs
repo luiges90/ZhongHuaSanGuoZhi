@@ -616,8 +616,354 @@
             this.AITechniques();
             this.AIArchitectures();
             this.AILegions();
+            this.AITransfer();
             this.AIFinished = true;
             base.Scenario.Threading = false;
+        }
+
+        class DistanceComparer : IComparer<GameObject>
+        {
+            private Architecture target;
+            public DistanceComparer(Architecture target)
+            {
+                this.target = target;
+            }
+
+            public int Compare(GameObject x, GameObject y)
+            {
+                double a = target.Scenario.GetDistance(target.Position, ((Architecture) x).Position);
+                double b = target.Scenario.GetDistance(target.Position, ((Architecture) y).Position);
+                if (a > b)
+                {
+                    return 1;
+                }
+                else if (a < b)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+
+        private void WithdrwalTransfer(ArchitectureList architectures)
+        {
+            foreach (Architecture a in architectures)
+            {
+                if (a.Abandoned)
+                {
+                    a.WithdrawResources();
+                    a.WithdrawPerson();
+                }
+            }
+        }
+
+        internal void AllocationTransfer(ArchitectureList srcArch, ArchitectureList destArch, bool resource, bool person, bool military)
+        {
+            ArchitectureList scope = new ArchitectureList();
+
+            Dictionary<Architecture, int> minPerson = new Dictionary<Architecture, int>();
+            Dictionary<Architecture, int> minFund = new Dictionary<Architecture, int>();
+            Dictionary<Architecture, int> minFood = new Dictionary<Architecture, int>();
+            Dictionary<Architecture, int> minTroop = new Dictionary<Architecture, int>();
+            Dictionary<Architecture, int> goodPerson = new Dictionary<Architecture, int>();
+            Dictionary<Architecture, int> goodFund = new Dictionary<Architecture, int>();
+            Dictionary<Architecture, int> goodFood = new Dictionary<Architecture, int>();
+            Dictionary<Architecture, int> goodTroop = new Dictionary<Architecture, int>();
+
+            foreach (Architecture a in srcArch.GameObjects.Union(destArch.GameObjects))
+            {
+                if (!a.Abandoned)
+                {
+                    scope.Add(a);
+
+                    if (a.HasHostileTroopsInView() || a.RecentlyAttacked > 0)
+                    {
+                        minPerson.Add(a, a.EnoughPeople);
+                        minTroop.Add(a, a.TroopReserveScale); // defensiveCampaign will deal with this
+                    }
+                    else if (a.FrontLine || a.IsNetLosingPopulation)
+                    {
+                        minPerson.Add(a, Math.Min(3, a.EnoughPeople));
+                        minTroop.Add(a, a.TroopReserveScale);
+                    }
+                    else
+                    {
+                        minPerson.Add(a, 0);
+                        minTroop.Add(a, 0);
+                    }
+                    minFund.Add(a, a.EnoughFund);
+                    minFood.Add(a, a.EnoughFood);
+
+                    if (a.HostileLine || a.orientationFrontLine)
+                    {
+                        int troop = Math.Max(a.HostileScale, a.OrientationScale);
+                        goodTroop.Add(a, troop);
+                        if (a.PlanArchitecture != null)
+                        {
+                            goodPerson.Add(a, a.EnoughPeople);
+                        }
+                        else
+                        {
+                            goodPerson.Add(a, 3);
+                        }
+                        goodFood.Add(a, a.AbundantFood * 2);
+                        goodFund.Add(a, a.AbundantFund);
+                    }
+                    else if (!a.IsFull())
+                    {
+                        goodPerson.Add(a, a.EnoughPeople);
+                        goodTroop.Add(a, a.TroopReserveScale);
+                        goodFund.Add(a, a.AbundantFund);
+                        goodFood.Add(a, a.AbundantFood);
+                    }
+                    else
+                    {
+                        goodPerson.Add(a, 0);
+                        goodTroop.Add(a, a.TroopReserveScale);
+                        goodFund.Add(a, a.AbundantFund);
+                        goodFood.Add(a, a.AbundantFood);
+                    }
+                }
+            }
+
+            scope.PropertyName = "Population";
+            scope.SmallToBig = false;
+            scope.IsNumber = true;
+            scope.ReSort();
+
+            foreach (Architecture a in destArch)
+            {
+                if (a.Abandoned) continue;
+                if ((a.Fund < minFund[a] || a.Food < minFood[a]) && resource && !a.SuspendTransfer)
+                {
+                    MilitaryKind transport = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(29);
+                    int deficitFund = Math.Max(0, minFund[a] * 2 - a.Fund);
+                    int deficitFood = Math.Max(minFood[a] * 2 - a.Food, transport.FoodPerSoldier * transport.MaxScale * 90);
+                    Architecture src = null;
+                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                    candidates.Sort(new DistanceComparer(a));
+                    foreach (Architecture b in candidates)
+                    {
+                        if (b.Abandoned || b == a) continue;
+                        if (b.Fund - deficitFund > goodFund[b] && b.Food - deficitFood > goodFood[b] && !b.FrontLine && !b.HasHostileTroopsInView())
+                        {
+                            src = b;
+                            break;
+                        }
+                    }
+                    if (src == null)
+                    {
+                        foreach (Architecture b in candidates)
+                        {
+                            if (b.Abandoned || b == a) continue;
+                            if (b.Fund - deficitFund > goodFund[b] && b.Food - deficitFood > goodFood[b] && !b.HasHostileTroopsInView())
+                            {
+                                src = b;
+                                break;
+                            }
+                        }
+                    }
+                    if (src == null)
+                    {
+                        foreach (Architecture b in candidates)
+                        {
+                            if (b.Abandoned || b == a) continue;
+                            if (b.Fund - deficitFund > minFund[b] && b.Food - deficitFood > minFood[b] && !b.HasHostileTroopsInView())
+                            {
+                                src = b;
+                                break;
+                            }
+                        }
+                    }
+                    if (src != null)
+                    {
+                        a.CallResource(src, deficitFund, deficitFood);
+                        a.SuspendTransfer = true;
+                    }
+                }
+
+                if (a.PersonCount + a.MovingPersonCount < minPerson[a] && person)
+                {
+                    int deficit = minPerson[a] - a.PersonCount - a.MovingPersonCount;
+                    Architecture src = null;
+                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                    candidates.Sort(new DistanceComparer(a));
+                    foreach (Architecture b in scope)
+                    {
+                        if (b.Abandoned || b == a) continue;
+                        if (b.PersonCount + b.MovingPersonCount - deficit > goodPerson[b])
+                        {
+                            src = b;
+                            break;
+                        }
+                    }
+                    if (src == null)
+                    {
+                        foreach (Architecture b in scope)
+                        {
+                            if (b.Abandoned || b == a) continue;
+                            if (b.PersonCount + b.MovingPersonCount - deficit > minPerson[b])
+                            {
+                                src = b;
+                                break;
+                            }
+                        }
+                    }
+                    if (src != null)
+                    {
+                        a.CallPeople(src, deficit);
+                    }
+                }
+
+                if (a.ArmyScale < minTroop[a] && military)
+                {
+                    int deficit = minTroop[a] * 2 - a.ArmyScale;
+                    Architecture src = null;
+                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                    candidates.Sort(new DistanceComparer(a));
+                    foreach (Architecture b in scope)
+                    {
+                        if (b.Abandoned || b == a) continue;
+                        if (b.ArmyScale - deficit > goodTroop[b])
+                        {
+                            src = b;
+                            break;
+                        }
+                    }
+                    if (src == null)
+                    {
+                        foreach (Architecture b in scope)
+                        {
+                            if (b.Abandoned || b == a) continue;
+                            if (b.ArmyScale - deficit > goodTroop[b])
+                            {
+                                src = b;
+                                break;
+                            }
+                        }
+                    }
+                    if (src != null)
+                    {
+                        a.CallTroop(src, deficit);
+                    }
+                }
+            }
+
+            foreach (Architecture a in destArch)
+            {
+                if (a.Abandoned) continue;
+                if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource && !a.SuspendTransfer)
+                {
+                    MilitaryKind transport = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(29);
+                    int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund);
+                    int deficitFood = Math.Max(goodFood[a] * 2 - a.Food, transport.FoodPerSoldier * transport.MaxScale * 90);
+                    Architecture src = null;
+                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                    candidates.Sort(new DistanceComparer(a));
+                    foreach (Architecture b in candidates)
+                    {
+                        if (b.Abandoned || b == a) continue;
+                        if (b.Fund - deficitFund > goodFund[b] && b.Food - deficitFood > goodFood[b] && !b.FrontLine && !b.HasHostileTroopsInView())
+                        {
+                            src = b;
+                            break;
+                        }
+                    }
+                    if (src == null)
+                    {
+                        foreach (Architecture b in candidates)
+                        {
+                            if (b.Abandoned || b == a) continue;
+                            if (b.Fund - deficitFund > goodFund[b] && b.Food - deficitFood > goodFood[b] && !b.HasHostileTroopsInView())
+                            {
+                                src = b;
+                                break;
+                            }
+                        }
+                    }
+                    if (src != null)
+                    {
+                        a.CallResource(src, deficitFund, deficitFood);
+                        a.SuspendTransfer = true;
+                    }
+                }
+
+                if (a.PersonCount + a.MovingPersonCount < goodPerson[a] && person)
+                {
+                    int deficit = goodPerson[a] - a.PersonCount - a.MovingPersonCount;
+                    Architecture src = null;
+                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                    candidates.Sort(new DistanceComparer(a));
+                    foreach (Architecture b in scope)
+                    {
+                        if (b.Abandoned || b == a) continue;
+                        if (b.PersonCount + b.MovingPersonCount - deficit > goodPerson[b])
+                        {
+                            src = b;
+                            break;
+                        }
+                    }
+                    if (src != null)
+                    {
+                        a.CallPeople(src, deficit);
+                    }
+                }
+
+                if (a.ArmyScale < goodTroop[a] && military)
+                {
+                    int deficit = goodTroop[a] * 2 - a.ArmyScale;
+                    Architecture src = null;
+                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                    candidates.Sort(new DistanceComparer(a));
+                    foreach (Architecture b in scope)
+                    {
+                        if (b.Abandoned || b == a) continue;
+                        if (b.ArmyScale - deficit > goodTroop[b])
+                        {
+                            src = b;
+                            break;
+                        }
+                    }
+                    if (src != null)
+                    {
+                        a.CallTroop(src, deficit);
+                    }
+                }
+            }
+        }
+
+        internal void AITransferPlanning(ArchitectureList architectures)
+        {
+            WithdrwalTransfer(architectures);
+            AllocationTransfer(architectures, architectures, true, true, true);
+        }
+
+        private void AITransfer()
+        {
+            if (this.Architectures.Count > 1)
+            {
+                if (base.Scenario.IsPlayer(this))
+                {
+                    foreach (Section s in this.Sections)
+                    {
+                        if (s.AIDetail.AutoRun)
+                        {
+                            s.AIIntraTransfer();
+                            if (s.AIDetail.AllowFoodTransfer || s.AIDetail.AllowFundTransfer || s.AIDetail.AllowMilitaryTransfer)
+                            {
+                                s.AIInterTransfer();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    this.AITransferPlanning(this.Architectures);
+                }
+            }
         }
 
         private void AIArchitectures()

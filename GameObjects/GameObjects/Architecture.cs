@@ -216,6 +216,7 @@
         public float enduranceDecreaseRateDrop;
         public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
         internal bool hostileTroopInViewLastDay = false;
+        public bool SuspendTransfer;
 
         public float ExperienceRate;
 
@@ -738,7 +739,6 @@
             this.AICampaign();
             this.OutsideTacticsAI();
             this.AIWork(false);
-            this.AITransfer();
             this.InsideTacticsAI();
             this.AIExpand();
             ExtensionInterface.call("AIArchitecture", new Object[] { this.Scenario, this });
@@ -1409,7 +1409,7 @@
         {
             get
             {
-                int fundSupport = this.Fund / 1500;
+                int fundSupport = this.Fund / Parameters.RewardPersonCost / 5;
                 int develop = Math.Max((this.AgricultureCeiling - this.Agriculture) / 30,
                     Math.Max((this.CommerceCeiling - this.Commerce) / 30,
                     Math.Max((this.Technology - this.TechnologyCeiling) / 30,
@@ -1421,511 +1421,307 @@
             }
         }
 
-        private int idleDays = 0;
-        private void AIPersonTransfer()
+        public bool Abandoned
         {
-            int num2;
-            //if this city is falling, move people away
-            if ((((this.BelongedFaction.ArchitectureCount > 1) && (this.PersonCount > this.MilitaryCount)) && (this.RecentlyAttacked > 0)) && ((this.Endurance == 0) || ((this.Endurance < 30) && GameObject.Chance(0x21))))
+            get 
             {
-                int num = this.PersonCount - this.MilitaryCount;
-                GameObjectList list = this.Persons.GetList();
-                if (list.Count > 1)
+                return this.HasHostileTroopsInView() && this.Endurance < 30;
+            }
+        }
+
+        public int TroopReserveScale
+        {
+            get
+            {
+                Person leader = this.BelongedFaction.Leader;
+                int reserve = (int)(((leader.Calmness - leader.Braveness) * Parameters.AIBackendArmyReserveCalmBraveDifferenceMultiply +
+                    (5 - (int)leader.Ambition) * Parameters.AIBackendArmyReserveAmbitionMultiply)
+                    * Parameters.AIBackendArmyReserveMultiply + Parameters.AIBackendArmyReserveAdd);
+
+                return reserve;
+            }
+        }
+
+        public bool HasEnoughTroopReserve
+        {
+            get
+            {
+                return this.ArmyScale >= this.TroopReserveScale;
+            }
+        }
+
+        internal void WithdrawPerson()
+        {
+            int num = this.PersonCount - this.MilitaryCount;
+            GameObjectList list = this.Persons.GetList();
+            if (list.Count > 1)
+            {
+                list.IsNumber = true;
+                list.SmallToBig = true;
+                list.PropertyName = "FightingForce";
+                list.ReSort();
+            }
+            Architecture capital = this.BelongedFaction.Capital;
+            ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
+            if (capital == this)
+            {
+                if (otherArchitectureList.Count > 1)
                 {
-                    list.IsNumber = true;
-                    list.SmallToBig = true;
-                    list.PropertyName = "FightingForce";
-                    list.ReSort();
+                    otherArchitectureList.IsNumber = true;
+                    otherArchitectureList.PropertyName = "ArmyScaleWeighing";
+                    otherArchitectureList.ReSort();
                 }
-                Architecture capital = this.BelongedFaction.Capital;
-                ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
-                if (capital == this)
+                capital = otherArchitectureList[0] as Architecture;
+            }
+            ArchitectureList otherArch = this.GetOtherArchitectureList();
+            Architecture dest = (Architecture)otherArch[GameObject.Random(otherArch.Count)];
+            double minDist = double.MaxValue;
+            foreach (Architecture i in otherArchitectureList)
+            {
+                double distance = base.Scenario.GetDistance(this.Position, i.Position);
+                if (distance < minDist && !dest.Abandoned)
                 {
-                    if (otherArchitectureList.Count > 1)
+                    minDist = distance;
+                    dest = i;
+                }
+            }
+            int num2 = 0;
+            while (num2 < num)
+            {
+                Person p = list[num2] as Person;
+                if (!p.HasFollowingArmy && !p.HasLeadingArmy)
+                {
+                    p.WaitForFeiZi = null;
+                    p.MoveToArchitecture(dest);
+                    foreach (Person q in p.AvailableVeryClosePersons)
                     {
-                        otherArchitectureList.IsNumber = true;
-                        otherArchitectureList.PropertyName = "ArmyScaleWeighing";
-                        otherArchitectureList.ReSort();
+                        q.MoveToArchitecture(dest);
                     }
-                    capital = otherArchitectureList[0] as Architecture;
                 }
-                ArchitectureList otherArch = this.GetOtherArchitectureList();
-                Architecture dest = (Architecture)otherArch[GameObject.Random(otherArch.Count)];
-                double minDist = double.MaxValue;
-                foreach (Architecture i in otherArchitectureList)
+                num2++;
+            }
+        }
+
+        public bool HasEnoughPeople
+        {
+            get
+            {
+                return this.PersonCount + this.MovingPersonCount >= this.EnoughPeople;
+            }
+        }
+
+        internal void CallResource(Architecture src, int fund, int food)
+        {
+            if (this.PersonCount == 0)
+            {
+                PersonList candidates = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Persons : this.BelongedFaction.Persons;
+                candidates.PropertyName = "Merit";
+                candidates.IsNumber = true;
+                candidates.SmallToBig = true;
+                candidates.ReSort();
+                foreach (Person p in candidates)
                 {
-                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
-                    if (distance < minDist && !(((i.PersonCount > i.MilitaryCount)) && (i.RecentlyAttacked > 0)) && ((i.Endurance == 0) || ((i.Endurance < 30) && GameObject.Chance(0x21))))
+                    if (p.BelongedArchitecture != null && p.BelongedTroop == null && p.Status == PersonStatus.Normal && !p.DontMoveMeUnlessIMust)
                     {
-                        minDist = distance;
-                        dest = i;
+                        p.MoveToArchitecture(this);
+                        return;
                     }
                 }
-                num2 = 0;
-                while (num2 < num)
+            }
+            if (this.PersonCount == 0)
+            {
+                return;
+            }
+
+            MilitaryKind mk;
+            base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
+
+            Military transportTeam = null;
+            foreach (Military m in src.Militaries)
+            {
+                if (m.IsTransport)
+                {
+                    transportTeam = m;
+                    break;
+                }
+            }
+
+            if (transportTeam == null)
+            {
+                transportTeam = src.CreateMilitary(mk);
+            }
+
+            int actualTransferFood = food;
+            int actualTransferFund = fund;
+            if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < food)
+            {
+                actualTransferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
+            }
+            if (transportTeam.Kind.zijinshangxian < fund)
+            {
+                actualTransferFund = transportTeam.Kind.zijinshangxian;
+            }
+            fund -= actualTransferFund;
+            food -= actualTransferFood;
+            src.BuildTransportTroop(this, transportTeam, actualTransferFood, actualTransferFund);
+        }
+
+        internal void CallTroop(Architecture src, int scale)
+        {
+            MilitaryList leaderlessArmies = new MilitaryList();
+            int transferredScale = 0;
+
+            foreach (Military i in src.Militaries)
+            {
+                if ((i.FollowedLeader == null || i.Leader == null) && !i.IsTransport)
+                {
+                    leaderlessArmies.Add(i);
+                }
+            }
+
+            foreach (Military i in leaderlessArmies.GetRandomList())
+            {
+                transferredScale += i.Scales;
+                src.BuildTroopForTransfer(i, this);
+                if (transferredScale > i.Scales) return;
+            }
+
+            if (transferredScale < scale)
+            {
+                foreach (Military i in src.Militaries.GetRandomList())
+                {
+                    if (i.IsTransport) continue;
+                    if (src.Persons.HasGameObject(i.Leader) || src.Persons.HasGameObject(i.FollowedLeader))
+                    {
+                        transferredScale += i.Scales;
+                        src.BuildTroopForTransfer(i, this);
+                        if (transferredScale > i.Scales) return;
+                    }
+                    else
+                    {
+                        Person armyLeader = i.FollowedLeader != null ? i.FollowedLeader : i.Leader;
+                        if (!armyLeader.IsCaptive && armyLeader.LocationArchitecture != null && armyLeader.Status == PersonStatus.Normal && armyLeader.LocationArchitecture.BelongedSection == this.BelongedSection)
+                        {
+                            armyLeader.MoveToArchitecture(this);
+                        }
+                    }
+                }
+            }
+        }
+
+        internal void CallPeople(Architecture src, int cnt)
+        {
+            GameObjectList list = src.Persons.GetList();
+            if (list.Count > 1)
+            {
+                list.IsNumber = true;
+                list.SmallToBig = false;
+                list.PropertyName = "Merit";
+                list.ReSort();
+            }
+            if (src != null)
+            {
+                int num2 = 0;
+                while (num2 < cnt && num2 < list.Count)
                 {
                     Person p = list[num2] as Person;
-                    if (!p.HasFollowingArmy && !p.HasLeadingArmy)
+                    if (p.DontMoveMeUnlessIMust)
                     {
-                        p.WaitForFeiZi = null;
-                        p.MoveToArchitecture(dest);
-                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction && p.Spouse.BelongedArchitecture != null && p.BelongedArchitecture != null 
-                            && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
+                        p.MoveToArchitecture(this);
+                        foreach (Person q in p.AvailableVeryClosePersons)
                         {
-                            p.Spouse.MoveToArchitecture(dest);
-                        }
-                        foreach (Person q in p.Brothers)
-                        {
-                            if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction && p.BelongedArchitecture != null && q.BelongedArchitecture != null
-                                && (!base.Scenario.IsPlayer(p.BelongedFaction) || q.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
-                            {
-                                q.MoveToArchitecture(dest);
-                            }
+                            q.MoveToArchitecture(this);
                         }
                     }
                     num2++;
                 }
             }
-            else
-            {
-                if (this.HasHostileTroopsInView())
-                {
-                    idleDays = 0;
-                    ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
-                    do
-                    {
-                        Architecture src = null;
-                        foreach (Architecture i in otherArchitectureList)
-                        {
-                            if (i == this) continue;
-                            double minDist = double.MaxValue;
-                            double distance = base.Scenario.GetDistance(this.Position, i.Position);
-                            if (distance < minDist && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this && i.PersonCount > 0)
-                            {
-                                minDist = distance;
-                                src = i;
-                            }
-                        }
-                        if (src != null)
-                        {
-                            int num = src.FrontLine ? src.PersonCount - src.EffectiveMilitaryCount : src.PersonCount;
-                            if (src.HasHostileTroopsInView())
-                            {
-                                num /= 3;
-                            }
-                            GameObjectList list = src.Persons.GetList();
-                            if (list.Count > 1)
-                            {
-                                list.IsNumber = true;
-                                list.SmallToBig = false;
-                                list.PropertyName = "Merit";
-                                list.ReSort();
-                            }
-                            if (src != null)
-                            {
-                                num2 = 0;
-                                while (num2 < num && this.PersonCount < this.EffectiveMilitaryCount * 3 + 3)
-                                {
-                                    Person p = list[num2] as Person;
-                                    if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
-                                        (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
-                                    {
-                                        p.MoveToArchitecture(this);
-                                        if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction && p.Spouse.LocationTroop == null && p.BelongedArchitecture != null && p.Spouse.BelongedArchitecture != null 
-                                            && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
-                                        {
-                                            p.Spouse.MoveToArchitecture(this);
-                                        }
-                                        foreach (Person q in p.Brothers)
-                                        {
-                                            if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction && q.LocationTroop == null && q.BelongedArchitecture != null && p.BelongedArchitecture != null 
-                                                && (!base.Scenario.IsPlayer(p.BelongedFaction) || q.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
-                                            {
-                                                q.MoveToArchitecture(this);
-                                            }
-                                        }
-                                    }
-                                    num2++;
-                                }
-                            }
-                        }
-                        else break;
-                        otherArchitectureList.Remove(src);
-                    } while (otherArchitectureList.Count > 0 && this.PersonCount < this.EffectiveMilitaryCount * 3 + 3 &&
-                        this.PersonCount + this.MovingPersonCount < Math.Max(this.Fund / 1500, 6));
-                }
-                else
-                {
-                    if (this.IdlingPersonCount >= this.PersonCount / 2)
-                    {
-                        idleDays++;
-                        if (idleDays >= 2)
-                        {
-                            while (this.PersonCount + this.MovingPersonCount > this.EnoughPeople + 3)
-                            {
-                                bool everMoved = false;
-                                ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
-                                Architecture dest = null;
-                                int movingPersonCount = 0;
-                                foreach (Architecture i in otherArchitectureList)
-                                {
-                                    double minDist = double.MaxValue;
-                                    double distance = base.Scenario.GetDistance(this.Position, i.Position);
-                                    if (distance < minDist && (i.Endurance > 30 || !i.HasHostileTroopsInView()) && i != this
-                                        && (i.PersonCount + i.MovingPersonCount < i.EnoughPeople || i.Population * 1.2 > this.Population))
-                                    {
-                                        int num = Math.Min(this.PersonCount - this.EnoughPeople - 3, i.EnoughPeople - i.PersonCount - i.MovingPersonCount);
-                                        if (i.Population > this.Population)
-                                        {
-                                            num = Math.Max(num, (int)(this.PersonCount * (i.Population - this.Population) / (double)this.Population));
-                                        }
-                                        if (num > 0)
-                                        {
-                                            movingPersonCount = num;
-                                            minDist = distance;
-                                            dest = i;
-                                        }
-                                    }
-                                }
-                                if (dest != null)
-                                {
-                                    GameObjectList list = this.Persons.GetList();
-                                    if (this.FrontLine)
-                                    {
-                                        if (list.Count > 1)
-                                        {
-                                            list.IsNumber = true;
-                                            list.SmallToBig = true;
-                                            list.PropertyName = "FightingForce";
-                                            list.ReSort();
-                                        }
-                                    }
-                                    for (int i = 0, moved = 0; moved < movingPersonCount && i < list.Count; ++i)
-                                    {
-                                        Person p = list[i] as Person;
-                                        if (!p.HasFollowingArmy && !p.HasLeadingArmy && p.WaitForFeiZi == null &&
-                                            (p != this.BelongedFaction.Leader || p.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0))
-                                        {
-                                            p.MoveToArchitecture(dest);
-                                            moved++;
-                                            everMoved = true;
-                                            if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction && p.Spouse.LocationTroop == null && p.BelongedArchitecture != null
-                                                && (!base.Scenario.IsPlayer(p.BelongedFaction) || p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
-                                            {
-                                                p.Spouse.MoveToArchitecture(dest);
-                                            }
-                                            foreach (Person q in p.Brothers)
-                                            {
-                                                if (q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction && q.LocationTroop == null && p.BelongedArchitecture != null && q.BelongedArchitecture != null
-                                                    && (!base.Scenario.IsPlayer(p.BelongedFaction) || q.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection))
-                                                {
-                                                    q.MoveToArchitecture(dest);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                if (!everMoved) break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        idleDays = 0;
-                    }
-                }
-
-            }
         }
 
-        private int transferCountDown = 0;
-
-        private void AIResourceTransfer()
+        internal void WithdrawResources()
         {
-            /*this.AIFundTransfer();
-            this.AIFoodTransfer();*/
+            int transferFood = this.Food - this.EnoughFood;
+            int transferFund = this.Fund - this.EnoughFund;
 
-            if (this.PersonCount <= 0) return;
-
-            if (this.Endurance < 30 && this.HasHostileTroopsInView())
+            while ((transferFood > 0 || transferFund > 0) && this.PersonCount > 0)
             {
-                int transferFood = this.Food - this.EnoughFood;
-                int transferFund = this.Fund - this.EnoughFund;
-                if (transferFood >= 1000000 || transferFund >= 10000)
+                if (transferFund < 0)
                 {
-                    while ((transferFood > 0 || transferFund > 0) && this.PersonCount > 0)
-                    {
-                        if (transferFund < 0)
-                        {
-                            transferFund = 0;
-                        }
-                        if (transferFood < 0)
-                        {
-                            transferFood = 0;
-                        }
-
-                        // create transport
-                        MilitaryKind mk;
-                        base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
-                        this.CreateMilitary(mk);
-
-                        Military transportTeam = null;
-                        foreach (Military m in Militaries)
-                        {
-                            if (m.IsTransport && (transportTeam == null || transportTeam.Quantity <= m.Quantity))
-                            {
-                                transportTeam = m;
-                            }
-                        }
-
-                        // choose dest
-                        Architecture dest = null;
-                        foreach (LinkNode n in this.AIAllLinkNodes.Values)
-                        {
-                            if (n.A.BelongedFaction == this.BelongedFaction && !n.A.FrontLine)
-                            {
-                                dest = n.A;
-                                break;
-                            }
-                        }
-                        if (dest == null)
-                        {
-                            foreach (LinkNode n in this.AIAllLinkNodes.Values)
-                            {
-                                if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HostileLine && n.A.Fund < n.A.FundCeiling * 0.8 && n.A.Food < n.A.FoodCeiling * 0.8)
-                                {
-                                    dest = n.A;
-                                    break;
-                                }
-                            }
-                        }
-                        if (dest == null)
-                        {
-                            List<Architecture> candidates = new List<Architecture>();
-                            foreach (LinkNode n in this.AIAllLinkNodes.Values)
-                            {
-                                if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HasHostileTroopsInView() && n.A != this)
-                                {
-                                    candidates.Add(n.A);
-                                }
-                            }
-                            if (candidates.Count > 0)
-                            {
-                                dest = candidates[GameObject.Random(candidates.Count)];
-                            }
-                        }
-                        if (dest == null) break;
-
-                        // do transfer
-                        int actualTransferFood = transferFood;
-                        int actualTransferFund = transferFund;
-                        if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < transferFood)
-                        {
-                            actualTransferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
-                        }
-                        if (transportTeam.Kind.zijinshangxian < transferFund)
-                        {
-                            actualTransferFund = transportTeam.Kind.zijinshangxian;
-                        }
-                        transferFund -= actualTransferFund;
-                        transferFood -= actualTransferFood;
-                        this.BuildTransportTroop(dest, transportTeam, actualTransferFood, actualTransferFund);
-                    }
-
+                    transferFund = 0;
                 }
+                if (transferFood < 0)
+                {
+                    transferFood = 0;
+                }
+
+                // create transport
+                MilitaryKind mk;
+                base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
+                this.CreateMilitary(mk);
+
+                Military transportTeam = null;
+                foreach (Military m in Militaries)
+                {
+                    if (m.IsTransport && (transportTeam == null || transportTeam.Quantity <= m.Quantity))
+                    {
+                        transportTeam = m;
+                    }
+                }
+
+                // choose dest
+                Architecture dest = null;
+                foreach (LinkNode n in this.AIAllLinkNodes.Values)
+                {
+                    if (n.A.BelongedFaction == this.BelongedFaction && !n.A.FrontLine && n.A.Fund < n.A.FundCeiling * 0.8 && n.A.Food < n.A.FoodCeiling * 0.8)
+                    {
+                        dest = n.A;
+                        break;
+                    }
+                }
+                if (dest == null)
+                {
+                    foreach (LinkNode n in this.AIAllLinkNodes.Values)
+                    {
+                        if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HostileLine && n.A.Fund < n.A.FundCeiling * 0.8 && n.A.Food < n.A.FoodCeiling * 0.8)
+                        {
+                            dest = n.A;
+                            break;
+                        }
+                    }
+                }
+                if (dest == null)
+                {
+                    List<Architecture> candidates = new List<Architecture>();
+                    foreach (LinkNode n in this.AIAllLinkNodes.Values)
+                    {
+                        if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HasHostileTroopsInView() && n.A != this)
+                        {
+                            candidates.Add(n.A);
+                        }
+                    }
+                    if (candidates.Count > 0)
+                    {
+                        dest = candidates[GameObject.Random(candidates.Count)];
+                    }
+                }
+                if (dest == null) break;
+
+                // do transfer
+                int actualTransferFood = transferFood;
+                int actualTransferFund = transferFund;
+                if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < transferFood)
+                {
+                    actualTransferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
+                }
+                if (transportTeam.Kind.zijinshangxian < transferFund)
+                {
+                    actualTransferFund = transportTeam.Kind.zijinshangxian;
+                }
+                transferFund -= actualTransferFund;
+                transferFood -= actualTransferFood;
+                this.BuildTransportTroop(dest, transportTeam, actualTransferFood, actualTransferFund);
             }
-            else
-            {
 
-                transferCountDown--;
-                if (transferCountDown > 0) return;
-
-                if (this.IsFoodAbundant || this.IsFundAbundant)
-                {
-                    if (!this.HasPerson())
-                    {
-                        if (!this.HasAnyPerson())
-                        {
-                            int minMerit = int.MaxValue;
-                            Person personToMove = null;
-                            foreach (Person p in this.BelongedFaction.Persons)
-                            {
-                                if (!p.IsCaptive && p.LocationArchitecture != null && p.Status == PersonStatus.Normal && p.LocationArchitecture.BelongedSection == this.BelongedSection && p.Merit < minMerit && p.BelongedArchitecture.PersonCount + p.BelongedArchitecture.MovingPersons.Count > 1)
-                                {
-                                    personToMove = p;
-                                    minMerit = p.Merit;
-                                }
-                            }
-                            if (personToMove != null && personToMove.WaitForFeiZi == null)
-                            {
-
-                                personToMove.MoveToArchitecture(this);
-                                //personToMove.LocationArchitecture.RemovePerson(personToMove);
-                                //base.Scenario.detectDuplication();
-                            }
-                        }
-                    }
-                    else /*if (GameObject.Chance(20))*/
-                    {
-                        //look for arch to transfer to, select the most needy base
-                        LinkNode dest = null;
-                        int min = int.MaxValue;
-                        bool forceTransferIgnoreFrontline = false;
-                        foreach (LinkNode node in this.AIAllLinkNodes.Values)
-                        {
-                            Architecture architecture = node.A;
-                            if (!architecture.HostileLine && !architecture.FrontLine && !architecture.noFactionFrontline && architecture.ExpectedFund > 0 && architecture.ExpectedFood > 0)
-                            {
-                                continue;
-                            }
-
-                            //do not transport if the other has 2/3 full of food/fund, or the other side is falling
-                            if (((architecture.Food < architecture.FoodCeiling / 3 * 2) || (architecture.Fund < architecture.FundCeiling / 3 * 2)) && (architecture.Endurance >= 30 || architecture.RecentlyAttacked <= 0))
-                            {
-                                //transfer to same section or other section when permitted
-                                //and do not transport to empty base or even enemy bases, of course!
-                                if (architecture.BelongedSection != null && architecture.BelongedFaction == this.BelongedFaction &&
-                                    ((architecture.BelongedSection == this.BelongedSection) || (architecture.BelongedSection.AIDetail.AllowFundTransfer && ((architecture.BelongedSection.OrientationSection == this.BelongedSection) || (architecture.BelongedSection.OrientationSection == null)))))
-                                {
-                                    bool ok = true;
-                                    foreach (Architecture a in node.Path)
-                                    {
-                                        if (a.BelongedFaction != this.BelongedFaction && a.BelongedFaction != null)
-                                        {
-                                            ok = false;
-                                            break;
-                                        }
-                                    }
-                                    if (ok)
-                                    {
-                                        int need = (!architecture.BuyFoodAvail() && !architecture.SellFoodAvail() ? Math.Min(architecture.Food, architecture.Fund * 100) * 2 : architecture.Food + architecture.Fund * 100) + (int)node.Distance * 10000;
-
-                                        if (architecture.IsFoodAbundant || architecture.IsFundAbundant)
-                                        {
-                                            continue;
-                                        }
-                                        if (architecture.orientationFrontLine)
-                                        {
-                                            need /= 2;
-                                        }
-                                        if (architecture.FrontLine)
-                                        {
-                                            need /= 2;
-                                        }
-                                        if (architecture.HostileLine)
-                                        {
-                                            need /= 4;
-                                        }
-                                        if (!architecture.IsFoodEnough || !architecture.IsFundEnough)
-                                        {
-                                            need /= 2;
-                                        }
-                                        if ((architecture.ExpectedFood <= 50000 || architecture.ExpectedFund <= 500) &&
-                                            ((!architecture.IsFundEnough || !architecture.IsFoodEnough) || ((!architecture.IsFundAbundant || !architecture.IsFoodAbundant) && this.IsFoodAbundant && this.IsFundAbundant)))
-                                        {
-                                            forceTransferIgnoreFrontline = true;
-                                            need = 0; //force transfer if the target is incapable of getting any income and do not have enough food and fund
-                                        }
-                                        if (need < min)
-                                        {
-                                            min = need;
-                                            dest = node;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if (dest == null ||
-                            (this.ExpectedFood <= 50000 && this.ExpectedFund <= 500))
-                        {
-                            //no suitable candidates, forget about it.
-                            //and do not transfer if this is frontline and there is no urgent need (force transfer) to other bases
-                            //and do not transfer if there is no food or fund income (to prevent perpertual transport)
-                            this.TransferFoodArchitecture = null;
-                            return;
-                        }
-
-                        //compute food and fund needed to transfer
-                        int transferFood = Math.Max(Math.Min(!this.HostileLine && !this.FrontLine ? this.Food - (int)(this.EnoughFood * 1.2) : this.Food - this.AbundantFood * 2, dest.A.FoodCeiling / 10 * 9 - dest.A.Food), 0);
-                        int transferFund = Math.Max(Math.Min(!this.HostileLine && !this.FrontLine ? this.Fund - (int)(this.EnoughFund * 1.2) : this.Fund - this.AbundantFund * 2, dest.A.FundCeiling / 10 * 9 - dest.A.Fund), 0);
-                        if (forceTransferIgnoreFrontline)
-                        {
-                            transferFood = Math.Min(Math.Max(transferFood, this.Food - (int)(this.EnoughFood * 1.2)), dest.A.FoodCeiling / 10 * 9 - dest.A.Food);
-                            transferFund = Math.Min(Math.Max(transferFund, this.Fund - (int)(this.EnoughFund * 1.2)), dest.A.FundCeiling / 10 * 9 - dest.A.Fund);
-                        }
-
-                        if (transferFood < 1000000 && transferFund < 10000)
-                        {
-                            //do not attempt to transfer too little resources
-                            this.TransferFoodArchitecture = null;
-                            return;
-                        }
-
-                        //if there is transport team here, lets transport!
-                        if (GlobalVariables.AINoTeamTransfer)
-                        {
-                            //if no transfer, just let the fund and food magically arrives ;)
-                            this.Food -= transferFood;
-                            this.Fund -= transferFund;
-                            dest.A.Food += transferFood;
-                            dest.A.Fund += transferFund;
-                        }
-                        else
-                        {
-                            Military transportTeam = null;
-                            foreach (Military m in Militaries)
-                            {
-                                if (m.IsTransport && (transportTeam == null || transportTeam.Quantity <= m.Quantity))
-                                {
-                                    transportTeam = m;
-                                }
-                            }
-                            if (transportTeam != null)
-                            {
-                                //reduce amount of fund/food if it is not possible to transport that much of food at all
-                                if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < transferFood)
-                                {
-                                    transferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
-                                }
-                                if (transferFund > transportTeam.Kind.zijinshangxian)
-                                {
-                                    transferFund = transportTeam.Kind.zijinshangxian;
-                                }
-                                if ((transportTeam.Quantity > 0 && (this.RecentlyAttacked <= 0 || this.Endurance == 0 || transportTeam.Quantity >= transportTeam.Kind.MaxScale)) && transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays >= transferFood)
-                                {
-                                    //ensure enough crop for task
-                                    if (transferFood >= transportTeam.Quantity * transportTeam.Kind.FoodPerSoldier * (dest.Distance / (transportTeam.Kind.Movability / (transportTeam.Kind.PlainAdaptability * 2))))
-                                    {
-                                        //build the troop
-                                        this.BuildTransportTroop(dest.A, transportTeam, transferFood, transferFund);
-
-                                        //and don't transfer within 3 days.
-                                        transferCountDown = 3;
-                                    }
-                                    this.TransferFoodArchitecture = null;
-                                }
-                            }
-                            else
-                            {
-                                //otherwise, get a new one
-                                MilitaryKind mk;
-                                base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
-                                this.CreateMilitary(mk);
-
-                                //let AIWork to recruit this team
-
-                                //and mark that we are going to transfer
-                                this.TransferFoodArchitecture = dest.A;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    //condition failed, forget about transfering
-                    this.TransferFoodArchitecture = null;
-                }
-            }
         }
 
         public bool IsNetLosingPopulation
@@ -2694,6 +2490,51 @@
             }
         }
 
+        public bool IsArchitectureHostile(Architecture a)
+        {
+            if (a.BelongedFaction == null || this.BelongedFaction == null) return false;
+            int n = (base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, a.BelongedFaction.ID) + a.BelongedFaction.ArchitectureTotalSize) - this.BelongedFaction.ArchitectureTotalSize;
+            return n < 0;
+        }
+
+        public bool IsArchitectureCriticalHostile(Architecture a)
+        {
+            if (a.BelongedFaction == null || this.BelongedFaction == null) return false;
+            int n = (base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, a.BelongedFaction.ID) + a.BelongedFaction.ArchitectureTotalSize) - this.BelongedFaction.ArchitectureTotalSize;
+            return n < -200;
+        }
+
+        public int HostileScale
+        {
+            get
+            {
+                int result = 0;
+                foreach (LinkNode i in this.AIAllLinkNodes.Values)
+                {
+                    if (this.IsArchitectureHostile(i.A) && i.Level <= 1)
+                    {
+                        result += i.A.ArmyScale;
+                    }
+                }
+                return result;
+            }
+        }
+
+        public int OrientationScale
+        {
+            get
+            {
+                int result = 0;
+                foreach (LinkNode i in this.AIAllLinkNodes.Values)
+                {
+                    if (this.BelongedSection.OrientationFaction == i.A.BelongedFaction && i.Level <= 1)
+                    {
+                        result += i.A.ArmyScale;
+                    }
+                }
+                return result;
+            }
+        }
 
         private PersonList GetFirstHalfPersonList(string propertyName)
         {
@@ -2741,343 +2582,7 @@
             this.DefensiveCampaign();
             this.OffensiveCampaign();
         }
-        /*
-        private void AIFacility()
-        {
-            if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && (this.BuildingFacility < 0))
-            {
-                List<FacilityKind> list = new List<FacilityKind>();
-                List<FacilityKind> list2 = new List<FacilityKind>();
-                if (this.PlanFacilityKind != null)
-                {
-                    if (this.Technology >= this.PlanFacilityKind.TechnologyNeeded)
-                    {
-                        if ((this.Fund >= this.PlanFacilityKind.FundCost) && ((this.BelongedFaction.TechniquePoint + this.BelongedFaction.TechniquePointForFacility) >= this.PlanFacilityKind.PointCost))
-                        {
-                            this.BelongedFaction.DepositTechniquePointForFacility(this.PlanFacilityKind.PointCost);
-                            this.BeginToBuildAFacility(this.PlanFacilityKind);
-                            this.PlanFacilityKind = null;
-                        }
-                        else if (GameObject.Chance(0x21) && ((this.BelongedFaction.TechniquePoint + this.BelongedFaction.TechniquePointForFacility) < this.PlanFacilityKind.PointCost))
-                        {
-                            this.BelongedFaction.SaveTechniquePointForFacility(this.PlanFacilityKind.PointCost / this.PlanFacilityKind.Days);
-                        }
-                    }
-                    else
-                    {
-                        this.PlanFacilityKind = null;
-                    }
-                }
-                else
-                {
-                    List<FacilityKind> list3 = new List<FacilityKind>();
-                    int facilityPositionLeft = this.FacilityPositionLeft;
-                    if (facilityPositionLeft <= 0)
-                    {
-                        foreach (Facility facility in this.Facilities.GetList())
-                        {
-                            if (((((this.Technology > facility.TechnologyNeeded) && this.FacilityIsPossibleOverTechnology(facility.TechnologyNeeded)) && (this.Fund > (facility.FundCost * 10))) && (this.BelongedFaction.TechniquePoint > (facility.PointCost * 10))) && (GameObject.Random(facility.Days * facility.PositionOccupied) < 20))
-                            {
-                                list3.Add(facility.Kind);
-                                if (this.FacilityEnabled)
-                                {
-                                    facility.Influences.PurifyInfluence(this);
-                                }
-                                this.Facilities.Remove(facility);
-                                base.Scenario.Facilities.Remove(facility);
-                            }
-                        }
-                        if (list3.Count == 0)
-                        {
-                            return;
-                        }
-                        facilityPositionLeft = this.FacilityPositionLeft;
-                    }
-                    foreach (FacilityKind kind in base.Scenario.GameCommonData.AllFacilityKinds.FacilityKinds.Values)
-                    {
-                        if (list3.IndexOf(kind) >= 0)
-                        {
-                            continue;
-                        }
-                        if (kind.rongna > 0) continue;  //不造美女设施
-
-                        if (((((!kind.PopulationRelated || this.Kind.HasPopulation) && ((this.Technology >= kind.TechnologyNeeded) && (facilityPositionLeft >= kind.PositionOccupied))) && (!kind.UniqueInArchitecture || !this.ArchitectureHasFacilityKind(kind.ID))) && (!kind.UniqueInFaction || !this.FactionHasFacilityKind(kind.ID))) && ((kind.FrontLine && ((this.HostileLine || (this.FrontLine && GameObject.Chance(50))) || (!this.FrontLine && GameObject.Chance(10)))) || (!kind.FrontLine && ((!this.FrontLine || (!this.HostileLine && GameObject.Chance(50))) || (this.HostileLine && GameObject.Chance(5))))))
-                        {
-                            list.Add(kind);
-                            if ((this.Fund >= kind.FundCost) && ((this.BelongedFaction.TechniquePoint + this.BelongedFaction.TechniquePointForFacility) >= kind.PointCost))
-                            {
-                                list2.Add(kind);
-                            }
-                        }
-                    }
-                    if (list2.Count > 0)
-                    {
-                        FacilityKind facilityKind = list2[GameObject.Random(list2.Count)];
-                        this.BelongedFaction.DepositTechniquePointForFacility(facilityKind.PointCost);
-                        this.BeginToBuildAFacility(facilityKind);
-                    }
-                    else if (list.Count > 0)
-                    {
-                        this.PlanFacilityKind = list[GameObject.Random(list.Count)];
-                        if (GameObject.Chance(0x21) && ((this.BelongedFaction.TechniquePoint + this.BelongedFaction.TechniquePointForFacility) < this.PlanFacilityKind.PointCost))
-                        {
-                            this.BelongedFaction.SaveTechniquePointForFacility(this.PlanFacilityKind.PointCost / this.PlanFacilityKind.Days);
-                        }
-                    }
-                }// end if (this.PlanFacilityKind != null)
-            }
-        }
-        */
-
-        /*
-        private void AIFoodTransfer()
-        {
-            Routeway connectedRouteway;
-            int food;
-            if (this.IsFoodAbundant || ((!this.HostileLine && (!this.FrontLine || !GameObject.Chance(20))) && !GameObject.Chance(1)))
-            {
-                if (this.TransferFoodArchitecture != null)
-                {
-                    LinkNode node = null;
-                    this.AIAllLinkNodes.TryGetValue(this.TransferFoodArchitecture.ID, out node);
-                    if (node != null)
-                    {
-                        connectedRouteway = this.GetRouteway(node, true);
-                        if ((connectedRouteway != null) && (connectedRouteway.LastPoint != null))
-                        {
-                            if (this.BelongedFaction != this.TransferFoodArchitecture.BelongedFaction)
-                            {
-                                connectedRouteway.RemoveAfterClose = true;
-                                connectedRouteway.Close();
-                                this.TransferFoodArchitecture = null;
-                            }
-                            else
-                            {
-                                connectedRouteway.DestinationToEnd();
-                                if (connectedRouteway.EndArchitecture == this.TransferFoodArchitecture)
-                                {
-                                    food = this.Food - this.EnoughFood;
-                                    if ((food >= 0x186a0) || (food > this.TransferFoodArchitecture.FoodCostPerDayOfAllMilitaries))
-                                    {
-                                        if (connectedRouteway.IsActive)
-                                        {
-                                            int abundantFood = this.TransferFoodArchitecture.AbundantFood;
-                                            if (food > abundantFood)
-                                            {
-                                                food = abundantFood;
-                                            }
-                                            this.DecreaseFood(food);
-                                            this.TransferFoodArchitecture.IncreaseFood((int) (food * (1f - (connectedRouteway.LastPoint.ConsumptionRate * this.BelongedFaction.RateOfFoodTransportBetweenArchitectures))));
-                                            this.TransferFoodArchitecture = null;
-                                        }
-                                        else if ((connectedRouteway.LastPoint.BuildFundCost * 2) <= this.Fund)
-                                        {
-                                            connectedRouteway.Building = true;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        this.TransferFoodArchitecture = null;
-                                    }
-                                }
-                                else
-                                {
-                                    this.TransferFoodArchitecture = null;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            this.TransferFoodArchitecture = null;
-                        }
-                    }
-                    else
-                    {
-                        this.TransferFoodArchitecture = null;
-                    }
-                }
-            }
-            else
-            {
-                GameObjectList list = new GameObjectList();
-                foreach (LinkNode node in this.AIAllLinkNodes.Values)
-                {
-                    if (node.Level > 3)
-                    {
-                        break;
-                    }
-                    if (node.A.BelongedFaction == this.BelongedFaction)
-                    {
-                        if (node.A.BelongedSection == this.BelongedSection)
-                        {
-                            list.Add(node.A);
-                        }
-                        else if (node.A.BelongedSection.AIDetail.AllowFoodTransfer && ((node.A.BelongedSection.OrientationSection == this.BelongedSection) || (node.A.BelongedSection.OrientationSection == null)))
-                        {
-                            list.Add(node.A);
-                        }
-                    }
-                }
-                if (list.Count > 1)
-                {
-                    list.PropertyName = "Food";
-                    list.IsNumber = true;
-                    list.ReSort();
-                }
-                foreach (Architecture architecture in list)
-                {
-                    connectedRouteway = architecture.GetConnectedRouteway(this);
-                    if ((connectedRouteway == null) || (connectedRouteway.LastPoint == null))
-                    {
-                        connectedRouteway = this.GetConnectedRouteway(architecture);
-                    }
-                    if ((connectedRouteway != null) && (connectedRouteway.LastPoint != null))
-                    {
-                        food = 0;
-                        if (architecture.IsFoodTwiceAbundant && (architecture.RecentlyAttacked <= 0))
-                        {
-                            food = (architecture.FoodCostPerDayOfAllMilitaries * 80) / 5;
-                            if (architecture.BelongedSection.OrientationSection == this.BelongedSection)
-                            {
-                                food *= 2;
-                                if (food > architecture.Food)
-                                {
-                                    food = architecture.Food;
-                                }
-                            }
-                        }
-                        else if (architecture.IsFoodAbundant && !architecture.HostileLine)
-                        {
-                            food = (architecture.FoodCostPerDayOfAllMilitaries * 40) / 5;
-                            if (architecture.BelongedSection.OrientationSection == this.BelongedSection)
-                            {
-                                food *= 2;
-                                if (food > architecture.Food)
-                                {
-                                    food = architecture.Food;
-                                }
-                            }
-                        }
-                        if (food >= 0x186a0)
-                        {
-                            architecture.DecreaseFood(food);
-                            this.IncreaseFood((int) (food * (1f - (connectedRouteway.LastPoint.ConsumptionRate * this.BelongedFaction.RateOfFoodTransportBetweenArchitectures))));
-                        }
-                        else
-                        {
-                            architecture.TransferFoodArchitecture = null;
-                        }
-                    }
-                    else if (architecture.TransferFoodArchitecture == null)
-                    {
-                        if ((((architecture.RecentlyAttacked == 0) && (!architecture.HostileLine || GameObject.Chance(20))) && (architecture.Food >= ((architecture.EnoughFood + this.EnoughFood) + 0x186a0))) && ((this.TransferFoodArchitectureCount <= GameObject.Random(2)) && (architecture.Food >= 0x61a80)))
-                        {
-                            architecture.TransferFoodArchitecture = this;
-                        }
-                    }
-                    else if ((((architecture.BelongedFaction != this.BelongedFaction) || (this.BelongedFaction != architecture.TransferFoodArchitecture.BelongedFaction)) || ((architecture.RecentlyAttacked > 0) || architecture.TransferFoodArchitecture.IsFoodAbundant)) || ((architecture.Food < (architecture.EnoughFood + ((this.EnoughFood * 3) / 2))) && (architecture.Food < 0x61a80)))
-                    {
-                        architecture.TransferFoodArchitecture = null;
-                    }
-                }
-            }
-        }
-
-        private void AIFundTransfer()
-        {
-            int fund;
-            if (!this.IsFundEnough)
-            {
-                int num = this.EnoughFund - this.Fund;
-                int num2 = 0;
-                GameObjectList list = new GameObjectList();
-                foreach (Architecture architecture in this.GetOtherArchitectureList())
-                {
-                    if (architecture.BelongedSection == this.BelongedSection)
-                    {
-                        list.Add(architecture);
-                    }
-                    else if (architecture.BelongedSection.AIDetail.AllowFundTransfer && ((architecture.BelongedSection.OrientationSection == this.BelongedSection) || (architecture.BelongedSection.OrientationSection == null)))
-                    {
-                        list.Add(architecture);
-                    }
-                }
-                foreach (Architecture architecture in list)
-                {
-                    fund = 0;
-                    if (architecture.Fund > architecture.AbundantFund)
-                    {
-                        fund = 0x3e8;
-                        if (architecture.BelongedSection.OrientationSection == this.BelongedSection)
-                        {
-                            fund *= 2;
-                            if (fund > architecture.Fund)
-                            {
-                                fund = architecture.Fund;
-                            }
-                        }
-                    }
-                    else if (architecture.Fund > architecture.EnoughFund)
-                    {
-                        fund = 500;
-                        if (architecture.BelongedSection.OrientationSection == this.BelongedSection)
-                        {
-                            fund *= 2;
-                            if (fund > architecture.Fund)
-                            {
-                                fund = architecture.Fund;
-                            }
-                        }
-                    }
-                    if (fund > 0)
-                    {
-                        architecture.DecreaseFund(fund);
-                        this.AddFundPack(fund, base.Scenario.GetTranferFundDays(architecture, this));
-                        num2 += fund;
-                    }
-                    if (num2 > num)
-                    {
-                        break;
-                    }
-                }
-            }
-            else if (((this.TransferFundArchitecture != null) && (this.TransferFundArchitecture.BelongedFaction == this.BelongedFaction)) && (this.TransferFundArchitecture.Fund < this.TransferFundArchitecture.FundCeiling))
-            {
-                fund = this.Fund - this.EnoughFund;
-                if (fund > 500)
-                {
-                    this.DecreaseFund(fund);
-                    this.TransferFundArchitecture.AddFundPack(fund, base.Scenario.GetTranferFundDays(this, this.TransferFundArchitecture));
-                }
-            }
-            else if (this.BelongedSection != null && this.BelongedSection.AIDetail.AllowFundTransfer && this.IsFundAbundant)
-            {
-                foreach (Architecture architecture in this.GetOtherArchitectureList())
-                {
-                    if (!architecture.IsFundEnough)
-                    {
-                        fund = 0x3e8;
-                        if (fund > this.Fund)
-                        {
-                            fund = this.Fund;
-                        }
-                        if (fund > 0)
-                        {
-                            this.DecreaseFund(fund);
-                            architecture.AddFundPack(fund, base.Scenario.GetTranferFundDays(this, architecture));
-                        }
-                    }
-                    if (!this.IsFundAbundant)
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-
-
-        */
-
+        
         private Point? GetRandomStartingPosition(Troop troop)
         {
             GameArea allAvailableArea = this.GetAllAvailableArea(false);
@@ -3107,7 +2612,7 @@
             return allAvailableArea[GameObject.Random(allAvailableArea.Count)];
         }
 
-        private Troop BuildTransportTroop(Architecture destination, Military military, int food, int fund)
+        internal Troop BuildTransportTroop(Architecture destination, Military military, int food, int fund)
         {
             Troop troop;
             int min = int.MaxValue;
@@ -3151,159 +2656,8 @@
             }
         }
 
-        private void AIMilitaryTransfer()
+        private Troop BuildTroopForTransfer(Military military, Architecture destination)
         {
-            if (this.HasHostileTroopsInView() || this.RecentlyAttacked > 0 || this.DefensiveLegion != null || !this.HasCampaignableMilitary()) return;
-            if (this.HostileLine || this.FrontLine || this.noFactionFrontline) return;
-            if (!this.IsFoodEnough) return;
-            if (base.Scenario.Troops.Count > GlobalVariables.AIOffensiveTroopHardLimit) return;
-
-            Person leader = this.BelongedFaction.Leader;
-            int reserve = (int)(((leader.Calmness - leader.Braveness) * Parameters.AIBackendArmyReserveCalmBraveDifferenceMultiply +
-                (5 - (int)leader.Ambition) * Parameters.AIBackendArmyReserveAmbitionMultiply)
-                * Parameters.AIBackendArmyReserveMultiply + Parameters.AIBackendArmyReserveAdd);
-            if (this.ArmyScale < reserve) return;
-
-            if (!this.BelongedSection.AIDetail.AllowMilitaryTransfer && !this.BelongedSection.AIDetail.AllowOffensiveCampaign) return;
-
-            int leastTroop = int.MaxValue;
-            LinkNode target = null;
-            foreach (LinkNode i in this.AIAllLinkNodes.Values)
-            {
-                if (i.Level > 1)
-                {
-                    break;
-                }
-                if (i.A.BelongedFaction != this.BelongedFaction) continue;
-
-                if (this.BelongedSection.AIDetail.AllowOffensiveCampaign)
-                {
-                    if (!i.A.HostileLine && !i.A.FrontLine && !i.A.noFactionFrontline) continue;
-
-                    if (!this.BelongedSection.AIDetail.AllowMilitaryTransfer && i.A.BelongedSection != this.BelongedSection) continue;
-                }
-                else
-                {
-                    if (i.A.BelongedSection != this.BelongedSection.OrientationSection) continue;
-                }
-
-                if (!i.A.IsFoodEnough) continue;
-
-                int weight = i.A.ArmyScale;
-
-                if (i.A.orientationFrontLine)
-                {
-                    weight = (int)(weight * 0.5);
-                }
-
-                if (i.A.HostileLine)
-                {
-                    weight = (int)(weight * 0.75);
-                }
-
-                if (weight < leastTroop)
-                {
-                    target = i;
-                    leastTroop = i.A.ArmyScale;
-                }
-            }
-
-            if (target != null)
-            {
-                MilitaryList leaderlessArmies = new MilitaryList();
-
-                foreach (Military i in this.Militaries)
-                {
-                    if (i.FollowedLeader == null && (i.Leader == null || i.LeaderExperience < 10) && !i.IsTransport)
-                    {
-                        leaderlessArmies.Add(i);
-                    }
-                }
-
-                if (leaderlessArmies.Count > this.Persons.Count + this.MovingPersons.Count)
-                {
-                    int minMerit = int.MaxValue;
-                    Person personToMove = null;
-                    foreach (Person p in base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Persons : this.BelongedFaction.Persons)
-                    {
-                        if (!p.IsCaptive && p.LocationArchitecture != null && p.LocationArchitecture.BelongedSection == this.BelongedSection && p.Status == PersonStatus.Normal
-                            && p.Merit < minMerit && p.BelongedArchitecture.PersonCount + p.BelongedArchitecture.MovingPersons.Count > 1)
-                        {
-                            personToMove = p;
-                            minMerit = p.Merit;
-                        }
-                    }
-                    if (personToMove != null && personToMove.WaitForFeiZi == null)
-                    {
-                        personToMove.MoveToArchitecture(this);
-                    }
-                }
-                foreach (Military i in leaderlessArmies.GetRandomList())
-                {
-                    if (this.ArmyScale < reserve) break;
-                    if (i.IsTransport) continue;
-                    if (GlobalVariables.AINoTeamTransfer && !target.A.FrontLine)
-                    {
-                        i.BelongedArchitecture = target.A;
-                    }
-                    else
-                    {
-                        this.BuildTroopForTransfer(i, target.A, target.Kind);
-                    }
-                }
-
-                if (this.ArmyScale >= reserve)
-                {
-                    foreach (Military i in this.Militaries.GetRandomList())
-                    {
-                        if (this.ArmyScale < reserve) break;
-                        if (this.Persons.Count <= 0) break;
-                        if (i.IsTransport) continue;
-                        if (this.Persons.HasGameObject(i.Leader))
-                        {
-                            if (GlobalVariables.AINoTeamTransfer && !target.A.FrontLine)
-                            {
-                                i.BelongedArchitecture = target.A;
-                            }
-                            else
-                            {
-                                this.BuildTroopForTransfer(i, target.A, target.Kind);
-                            }
-                        }
-                        else
-                        {
-                            Person armyLeader = i.FollowedLeader != null ? i.FollowedLeader : i.Leader;
-                            if (armyLeader == null)
-                            {
-                                if (GlobalVariables.AINoTeamTransfer && !target.A.FrontLine)
-                                {
-                                    i.BelongedArchitecture = target.A;
-                                }
-                                else
-                                {
-                                    this.BuildTroopForTransfer(i, target.A, target.Kind);
-                                }
-                            }
-                            else if (!armyLeader.IsCaptive && armyLeader.LocationArchitecture != null && armyLeader.Status == PersonStatus.Normal && armyLeader.LocationArchitecture.BelongedSection == this.BelongedSection)
-                            {
-                                armyLeader.MoveToArchitecture(this);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private Troop BuildTroopForTransfer(Military military, Architecture destination, LinkKind linkkind)
-        {
-            if (linkkind == LinkKind.None)
-            {
-                return null;
-            }
-            if (!this.isArmyNavigableTo(linkkind, military))
-            {
-                return null;
-            }
             if (this.Persons.Count == 0) return null;
             TroopList list = new TroopList();
             this.Persons.ClearSelected();
@@ -3384,355 +2738,6 @@
             }
             return null;
         }
-
-
-        private void AIMilitaryTransfer_OLD()
-        {
-            List<LinkNode> list;
-            Routeway routeway;
-            //if 
-            //1. there is no person or 
-            //2. has no hostile troop in view or 
-            //3. is not recently attacked or
-            //4. (has no campaignable military and no defensive legion and this arch is not important)
-            //Then go on this branch for military transfer
-            if (((!this.HasPerson() || !this.HasHostileTroopsInView()) || (this.RecentlyAttacked <= 0)) || ((!this.HasCampaignableMilitary() && (this.DefensiveLegion == null)) && !this.IsImportant))
-            {
-                //if there are hostile troop in view, do not transfer
-                if (!this.HasHostileTroopsInView())
-                {
-                    LinkNode node;
-                    if (this.BelongedSection != null && this.BelongedSection.AIDetail.AllowOffensiveCampaign)
-                    {
-                        //forget about transfer if offensive campaign allowed but there is no person, or no campaignable military, or has no space for any military to appear
-                        if ((!this.HasPerson() || !this.HasCampaignableMilitary()) || (this.GetAllAvailableArea(false).Count == 0))
-                        {
-                            return;
-                        }
-                        foreach (Legion legion in this.BelongedFaction.Legions)
-                        {
-                            if ((((legion.WillArchitecture.BelongedFaction != null) && !this.BelongedFaction.IsFriendly(legion.WillArchitecture.BelongedFaction)) && this.BelongedFaction.IsArchitectureKnown(legion.WillArchitecture)) && (legion.Troops.Count < 30))
-                            {
-                                //if 
-                                //1. there is no hostile troop in view, and
-                                //2. allowed offensive campaign, and
-                                //3. the legion is moving to some other faction, and
-                                //4. the legion is moving to non-friendly faction, and
-                                //5. the legion is moving to known arch, and
-                                //6. the legion has less than 30 troops, and
-                                //7. the legion is moving to arch which route from this arch exists, and
-                                //8. the node is less than 2 cities away, and
-                                //9. the legion has enough self-help army, and
-                                //10. has less than double of hostile troop force, and
-                                //then, build routeway to node and move to willarch
-                                node = null;
-                                if (this.AIAllLinkNodes.TryGetValue(legion.WillArchitecture.ID, out node))
-                                {
-                                    if ((node.Level > 2) || !this.IsSelfHelpArmyEnough(node))
-                                    {
-                                        continue;
-                                    }
-                                    if (legion.HasTroopWillArchitectureIsWillArchitecture && (legion.GetLegionTroopFightingForce() < (legion.GetLegionHostileTroopFightingForceInView() * 2)))
-                                    {
-                                        routeway = this.GetRouteway(node, true);
-                                        if ((((routeway != null) && (routeway.LastPoint.ConsumptionRate <= 0.3f)) && (routeway.ByPassHostileArchitecture == null && (this.Fund >= (routeway.LastPoint.BuildFundCost * 2)))) && this.IsSelfFoodEnough(node, routeway))
-                                        {
-                                            routeway.Building = true;
-                                            this.BuildOffensiveTroop(legion.WillArchitecture, node.Kind, true);
-                                            if (!(this.HasCampaignableMilitary() && (this.GetAllAvailableArea(false).Count != 0)))
-                                            {
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if ((this.HasPerson() && this.HasCampaignableMilitary()) && (this.GetAllAvailableArea(false).Count != 0))
-                    {
-                        if ((((GameObject.Random(GameObject.Square(((int)this.BelongedFaction.Leader.StrategyTendency) + 1)) == 0) && ((this.IsFoodAbundant || (this.IsFoodEnough && GameObject.Chance(0x21))) || GameObject.Chance(5))) && (((base.Scenario.Date.Season != GameSeason.冬) || GameObject.Chance(5)) && (!this.HostileLine || GameObject.Chance(10)))) && ((GameObject.Chance(20) && this.BelongedSection != null && this.BelongedSection.AIDetail.AllowMilitaryTransfer) || (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueOffensiveCampaign && GameObject.Chance(50))))
-                        {
-                            //if
-                            //1. there is person
-                            //2. there is campaignable military
-                            //3. there are space for military to appear
-                            //4. 1/(stretagy tendency)^2 chance
-                            //5. food is abundant or enough food with 33% chance or 5% chance
-                            //6. season is not winter or 5% chance
-                            //7. not at hostile line or 10% chance
-                            //8. military transfer allowed and 20% chance, or offensive campaign allowed and 50% chance
-                            //then, move military
-                            GameObjectList list2 = null;
-                            if ((this.BelongedSection.AIDetail.AllowMilitaryTransfer && (this.BelongedSection.OrientationSection != null)) && (this.BelongedSection.OrientationSection.BelongedFaction == this.BelongedFaction))
-                            {
-                                list2 = this.BelongedSection.OrientationSection.Architectures.GetList();
-                            }
-                            else
-                            {
-                                list2 = this.BelongedSection.Architectures.GetList();
-                            }
-                            foreach (Architecture architecture in list2.GetList())
-                            {
-                                if (architecture != this)
-                                {
-                                    node = null;
-                                    this.AIAllLinkNodes.TryGetValue(architecture.ID, out node);
-                                    if ((node == null) || (node.Level > 3) || node.Kind == LinkKind.Both || node.Kind == LinkKind.None)
-                                    {
-                                        list2.Remove(architecture);
-                                    }
-                                }
-                            }
-                            if (list2.Count > 0)
-                            {
-                                if (list2.Count > 1)
-                                {
-                                    list2.PropertyName = "InverseArmyScaleWeighing";
-                                    list2.IsNumber = true;
-                                    list2.ReSort();
-                                }
-                                Architecture destination = list2[0] as Architecture;
-                                if (destination != this)
-                                {
-                                    node = null;
-                                    this.AIAllLinkNodes.TryGetValue(destination.ID, out node);
-                                    if ((node != null) && (destination.LandArmyScale < this.LandArmyScale || (destination.WaterArmyScale < this.WaterArmyScale && destination.Kind.HasHarbor)) && this.IsSelfMoveArmyEnough(node))
-                                    {
-                                        if (this.HasRouteway(node, true))
-                                        {
-                                            if ((this.BelongedSection.OrientationFaction == null) || (this.GetDistanceFromFaction(this.BelongedSection.OrientationFaction) > destination.GetDistanceFromFaction(this.BelongedSection.OrientationFaction)))
-                                            {
-                                                this.BuildOffensiveTroop(destination, node.Kind, false);
-                                            }
-                                            return;
-                                        }
-                                        if (list2.Count > 1)
-                                        {
-                                            list2.PropertyName = "Population";
-                                            list2.IsNumber = true;
-                                            list2.ReSort();
-                                            if (list2[0] != destination)
-                                            {
-                                                destination = list2[0] as Architecture;
-                                                this.AIAllLinkNodes.TryGetValue(destination.ID, out node);
-                                                if ((node != null) && this.HasRouteway(node, true))
-                                                {
-                                                    this.BuildOffensiveTroop(destination, node.Kind, false);
-                                                    return;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        /*if ((GameObject.Random(GameObject.Square(((int)this.BelongedFaction.Leader.StrategyTendency) + 1)) == 0)
-                            && (((this.Fund < (100 * this.AreaCount)) && (this.ExpectedFund < (100 * this.AreaCount)))
-                                || (
-                                (((this.Domination > (this.DominationCeiling * 0.8)) && (this.Morale >= Parameters.RecruitmentMorale)) && (this.Endurance >= (this.EnduranceCeiling * 0.2f)))
-                                && ((((((this.IsImportant && this.HostileLine) && (this.ArmyScale > this.LargeArmyScale)) || ((this.IsImportant && !this.HostileLine) && (this.ArmyScale > this.NormalArmyScale))) || (((!this.IsImportant && this.HostileLine) && (this.ArmyScale > this.NormalArmyScale)) || ((!this.IsImportant && !this.HostileLine) && (this.ArmyScale > this.FewArmyScale))))
-                                    || (this.Kind.HasPopulation && (this.ArmyQuantity > this.Population)))
-                                    || (this.Kind.HasPopulation && (this.ArmyScale > (this.Population / 0x3e8)))))))
-                        {
-                            list = new List<LinkNode>();
-                            foreach (LinkNode node_0a1 in this.AIAllLinkNodes.Values)
-                            {
-                                if (node_0a1.Level > 3)
-                                {
-                                    break;
-                                }
-                                if (((node_0a1.A.BelongedFaction == this.BelongedFaction)
-                                    && ((node_0a1.A.RecentlyAttacked > 0) || GameObject.Chance(5)))
-                                    && ((node_0a1.A.HasOffensiveMilitary()
-                                    && ((node_0a1.A.BelongedSection == this.BelongedSection) || (this.BelongedSection != null && this.BelongedSection.AIDetail.AllowMilitaryTransfer && ((this.BelongedSection.OrientationSection == node_0a1.A.BelongedSection) || (this.BelongedSection.OrientationSection == null)))))
-                                    && (node_0a1.A.IsFoodEnough
-                                    && (((((node_0a1.A.IsImportant && node_0a1.A.HostileLine) && (node_0a1.A.ArmyScale < node_0a1.A.LargeArmyScale)) || ((node_0a1.A.IsImportant && !node_0a1.A.HostileLine) && (node_0a1.A.ArmyScale < node_0a1.A.NormalArmyScale))) || ((!node_0a1.A.IsImportant && node_0a1.A.HostileLine) && (node_0a1.A.ArmyScale < node_0a1.A.NormalArmyScale))) || ((!node_0a1.A.IsImportant && !node_0a1.A.HostileLine) && (node_0a1.A.ArmyScale < node_0a1.A.FewArmyScale))))))
-                                {
-                                    this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.4f;
-                                    routeway = this.GetRouteway(node_0a1, true);
-                                    this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.7f;
-                                    if ((((routeway != null) && !routeway.ByPassHostileArchitecture) && (((routeway.LastPoint.BuildFundCost * 2) <= this.Fund) && (node_0a1.A.IsFoodAbundant || this.IsSelfFoodEnough(node_0a1, routeway)))) && ((node_0a1.A.Kind.HasPopulation && (node_0a1.A.HasHostileTroopsInView() || ((GameObject.Chance(10) && (node_0a1.A.ArmyQuantity < (node_0a1.A.Population / 2))) && (node_0a1.A.Population > (10000 * this.AreaCount))))) || (!node_0a1.A.Kind.HasPopulation && node_0a1.A.HasHostileTroopsInView())))
-                                    {
-                                        list.Add(node_0a1);
-                                    }
-                                }
-                            }
-                            if (list.Count > 0)
-                            {
-                                int num = -2147483648;
-                                LinkNode node3 = null;
-                                bool flag = false;
-                                foreach (LinkNode node_0a2 in list)
-                                {
-                                    int num2 = node_0a2.A.Population / 0x2710;
-                                    bool flag2 = node_0a2.A.RecentlyAttacked > 0;
-                                    if (flag2)
-                                    {
-                                        num2 *= 10;
-                                    }
-                                    if (num2 > num)
-                                    {
-                                        num = num2;
-                                        node3 = node_0a2;
-                                        flag = flag2;
-                                    }
-                                }
-                                if ((node3 != null) && (this.TargetingTroopCount(node3.A) < 4))
-                                {
-                                    this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.4f;
-                                    routeway = this.GetRouteway(node3, true);
-                                    this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.7f;
-                                    if (routeway != null)
-                                    {
-                                        if (!routeway.IsActive && flag)
-                                        {
-                                            routeway.Building = true;
-                                        }
-                                        if (flag || GameObject.Chance(10))
-                                        {
-                                            this.BuildOffensiveTroop(node3.A, node3.Kind, node3.A.RecentlyAttacked > 0);
-                                        }
-                                    }
-                                }
-                            }
-                        }*/
-                        //111203: tranfer military from non-frontline to other bases
-                        /*if ((GameObject.Random(GameObject.Square(((int)this.BelongedFaction.Leader.StrategyTendency) + 1)) == 0))
-                        {
-                            if (!this.FrontLine && this.ArmyScale > this.NormalArmyScale)
-                            {
-                                List<LinkNode> candidate = new List<LinkNode>();
-                                foreach (LinkNode i in this.AIAllLinkNodes.Values)
-                                {
-                                    //only do transfer to nearby bases
-                                    if (i.Level > 1)
-                                    {
-                                        break;
-                                    }
-                                    if ((i.A.BelongedFaction == this.BelongedFaction)
-                                        && ((i.A.BelongedSection == this.BelongedSection) || (this.BelongedSection.AIDetail.AllowMilitaryTransfer && ((this.BelongedSection.OrientationSection == i.A.BelongedSection) || (this.BelongedSection.OrientationSection == null))))
-                                        && (i.A.IsFoodEnough)
-                                        && (this.ArmyScale > i.A.ArmyScale)
-                                        && (i.A.FrontLine))
-                                    {
-                                        this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.4f;
-                                        routeway = this.GetRouteway(i, true);
-                                        this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.7f;
-                                        if ((routeway != null) && (!routeway.ByPassHostileArchitecture) && ((routeway.LastPoint.BuildFundCost * 2) <= this.Fund))
-                                        {
-                                            candidate.Add(i);
-                                        }
-                                    }
-                                }
-                                if (candidate.Count > 0)
-                                {
-                                    int num = -2147483648;
-                                    LinkNode node3 = null;
-                                    bool flag = false;
-                                    foreach (LinkNode node_0a2 in candidate)
-                                    {
-                                        int num2 = node_0a2.A.Population / 0x2710;
-                                        bool flag2 = node_0a2.A.RecentlyAttacked > 0;
-                                        if (flag2)
-                                        {
-                                            num2 *= 10;
-                                        }
-                                        if (num2 > num)
-                                        {
-                                            num = num2;
-                                            node3 = node_0a2;
-                                            flag = flag2;
-                                        }
-                                    }
-                                    if ((node3 != null) && (this.TargetingTroopCount(node3.A) < 4))
-                                    {
-                                        this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.4f;
-                                        routeway = this.GetRouteway(node3, true);
-                                        this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.7f;
-                                        if (routeway != null)
-                                        {
-                                            if (!routeway.IsActive && flag)
-                                            {
-                                                routeway.Building = true;
-                                            }
-                                            if (flag || GameObject.Chance(10))
-                                            {
-                                                //if it is trying to move across both land and water, consider only the first section and use that section!
-                                                if (node3.Kind == LinkKind.None)
-                                                {
-                                                    List<Architecture> firstSectionOfPath = new List<Architecture>();
-                                                    firstSectionOfPath.Add(node3.Path[0]);
-                                                    firstSectionOfPath.Add(node3.Path[1]);
-                                                    node3.Path = firstSectionOfPath;
-                                                    node3.A = node3.Path[1];
-                                                    node3.Level = 1;
-                                                    node3.Distance = base.Scenario.GetDistance(node3.Path[0].ArchitectureArea, node3.Path[1].ArchitectureArea);
-                                                    node3.Kind = this.CheckCampaignable(node3);
-                                                }
-                                                this.BuildOffensiveTroop(node3.A, node3.Kind, node3.A.RecentlyAttacked > 0);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }*/
-                    }
-                }
-            }
-            else if ((((GameObject.Chance(20) || this.HasRelationUnderZeroHostileTroopsInView()) && ((this.IsImportant && (this.ArmyScale < this.NormalArmyScale)) || (!this.IsImportant && (this.ArmyScale < this.FewArmyScale)))) && ((this.Endurance >= (0.1 * this.EnduranceCeiling)) && ((this.IsImportant || !this.Kind.HasPopulation) || (this.Population >= (this.RecruitmentPopulationBoundary / 2))))) && (this.TargetingTroopCount(this) < 10))
-            {
-                LinkNode node2;
-                list = new List<LinkNode>();
-                foreach (LinkNode node in this.AIAllLinkNodes.Values)
-                {
-                    if (node.Level > 2)
-                    {
-                        break;
-                    }
-                    if (((((this.IsFriendly(node.A.BelongedFaction) && (node.A.BelongedSection != null)) && (node.A.BelongedSection.AIDetail != null)) && node.A.BelongedSection.AIDetail.AutoRun) && ((!node.A.HostileLine || GameObject.Chance(10)) && !node.A.HasHostileTroopsInView())) && this.IsNodeHelpArmyEnough(node))
-                    {
-                        node2 = null;
-                        node.A.AIAllLinkNodes.TryGetValue(base.ID, out node2);
-                        if (node2 != null)
-                        {
-                            routeway = node.A.GetRouteway(node2, true);
-                            if ((((routeway != null) && routeway.ByPassHostileArchitecture == null) && ((routeway.LastPoint.BuildFundCost * 2) <= node.A.Fund)) && (this.IsFoodAbundant || this.IsNodeFoodEnough(node, routeway)))
-                            {
-                                list.Add(node);
-                            }
-                        }
-                    }
-                }
-                if (list.Count > 0)
-                {
-                    foreach (LinkNode node in list)
-                    {
-                        node2 = null;
-                        node.A.AIAllLinkNodes.TryGetValue(base.ID, out node2);
-                        if (node2 != null)
-                        {
-                            routeway = node.A.GetRouteway(node2, true);
-                            if (routeway != null)
-                            {
-                                if (!routeway.IsActive)
-                                {
-                                    routeway.Building = true;
-                                }
-                                node.A.BuildOffensiveTroop(this, node.Kind, true);
-                                if (GameObject.Chance(10))
-                                {
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-
-
 
         private void AIRecruitment(bool water, bool siege)
         {
@@ -3917,16 +2922,6 @@
                         this.SellFood(num / 10);
                     }
                 }*/
-            }
-        }
-
-        private void AITransfer()
-        {
-            if (this.BelongedFaction.ArchitectureCount > 1)
-            {
-                this.AIMilitaryTransfer();
-                this.AIPersonTransfer();
-                this.AIResourceTransfer();
             }
         }
 
@@ -5028,14 +4023,13 @@
                     continue;
                 }
                 this.FrontLine = true;
-                int num = (base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, architecture.BelongedFaction.ID) + architecture.BelongedFaction.ArchitectureTotalSize) - this.BelongedFaction.ArchitectureTotalSize;
-                if (num < 0)
+                if (this.IsArchitectureHostile(architecture))
                 {
                     this.HostileLine = true;
-                    if (num <= -200)
-                    {
-                        this.CriticalHostile = true;
-                    }
+                }
+                if (this.IsArchitectureCriticalHostile(architecture))
+                {
+                    this.CriticalHostile = true;
                 }
                 if (this.BelongedSection != null && this.BelongedSection.OrientationFaction == architecture.BelongedFaction)
                 {
@@ -5309,7 +4303,7 @@
             return message;
         }
 
-        public void CreateMilitary(MilitaryKind mk)
+        public Military CreateMilitary(MilitaryKind mk)
         {
             Military military = Military.Create(base.Scenario, this, mk);
             if (this.OnMilitaryCreate != null)
@@ -5320,6 +4314,7 @@
             {
                 this.AddMessageToTodayNewMilitarySpyMessage(military);
             }
+            return military;
         }
 
         private SpyMessage CreateMilitaryScaleSpyMessage(Military m)
@@ -9020,7 +8015,20 @@
 
         public bool IsOffensiveMilitary(Military m)
         {
-            return ((((m.Scales >= 3) && (m.Morale >= 80)) && (m.Combativity >= 80)) && (m.InjuryQuantity <= m.Kind.MinScale));
+            return ((((m.Scales >= 3) && (m.Morale >= 80)) && (m.Combativity >= 80)) && (m.InjuryQuantity <= m.Kind.MinScale) && (m.Scales >= m.RetreatScale * 1.5));
+        }
+
+        public int OffensiveMilitaryCount()
+        {
+            int r = 0;
+            foreach (Military m in this.Militaries)
+            {
+                if (this.IsOffensiveMilitary(m))
+                {
+                    r++;
+                }
+            }
+            return r;
         }
 
         public bool IsOK()
@@ -10023,21 +9031,6 @@
                 }
             }
         }
-
-        public int OffensiveMilitaryCount()
-        {
-            int num = 0;
-            foreach (Military military in this.Militaries)
-            {
-                if (this.IsOffensiveMilitary(military))
-                {
-                    num++;
-                }
-            }
-            return num;
-        }
-
-
 
         public bool PersonConveneAvail()
         {
@@ -11665,7 +10658,8 @@
                 num += this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0;
                 num += (int)(Math.Sqrt(this.Population) * 8.0);
                 num += this.BelongedFaction.Capital == this ? this.BelongedFaction.FundToAdvance : 0;
-                num += this.InformationDayCost;
+                num += this.InformationDayCost * 15;
+                num += this.PersonCount * Parameters.RewardPersonCost * 5;
                 return num;
             }
         }
@@ -12136,8 +11130,8 @@
             {
                 int num = this.FacilityMaintenanceCost * 30;
                 num += this.RoutewayActiveCost * 30;
-                num += this.PersonCount * Parameters.RewardPersonCost;
-                num += this.InformationDayCost;
+                num += this.PersonCount * Parameters.RewardPersonCost * 5;
+                num += this.InformationDayCost * 15;
                 return num;
             }
         }

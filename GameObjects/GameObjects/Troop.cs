@@ -3443,6 +3443,10 @@
 
         public void Enter(Architecture a, bool doAsk)
         {
+            if (this.IsTransport)
+            {
+                a.SuspendTransfer = false;
+            }
             if (doAsk && base.Scenario.CurrentPlayer != null && this.OnTransportArrived != null)
             {
                 this.OnTransportArrived(this, a);
@@ -3483,7 +3487,7 @@
                 {
                     a.IncreaseFood(this.Food);
                 }
-                if (this.zijin  > 0)
+                if (this.zijin > 0)
                 {
                     a.IncreaseFund(this.zijin);
                 }
