@@ -84,10 +84,6 @@
         public static int AIBuildHougongMaxSizeAdd = 0;
         public static int AIBuildHougongSkipSizeChance = 80;
         public static int AINafeiUncreultyProbAdd = -1;
-        public static int AILeaveFrontlineForHougongChance = 10;
-        public static int AIFrontlineHougongChance = 30;
-        public static int AILeaveHostilelineForHougongChance = 2;
-        public static int AIHostilelineHougongChance = 10;
         public static float AINafeiAbilityThresholdRate = 30000;
         public static float AINafeiStealSpouseThresholdRateAdd = 0.5f;
         public static float AINafeiStealSpouseThresholdRateMultiply = 1;
@@ -227,10 +223,6 @@
             AIBuildHougongMaxSizeAdd = int.Parse(nextSibling.Attributes.GetNamedItem("AIBuildHougongMaxSizeAdd").Value);
             AIBuildHougongSkipSizeChance = int.Parse(nextSibling.Attributes.GetNamedItem("AIBuildHougongSkipSizeChance").Value);
             AINafeiUncreultyProbAdd = int.Parse(nextSibling.Attributes.GetNamedItem("AINafeiUncreultyProbAdd").Value);
-            AILeaveFrontlineForHougongChance = int.Parse(nextSibling.Attributes.GetNamedItem("AILeaveFrontlineForHougongChance").Value);
-            AIFrontlineHougongChance = int.Parse(nextSibling.Attributes.GetNamedItem("AIFrontlineHougongChance").Value);
-            AILeaveHostilelineForHougongChance = int.Parse(nextSibling.Attributes.GetNamedItem("AILeaveHostilelineForHougongChance").Value);
-            AIHostilelineHougongChance = int.Parse(nextSibling.Attributes.GetNamedItem("AIHostilelineHougongChance").Value);
             AINafeiAbilityThresholdRate = float.Parse(nextSibling.Attributes.GetNamedItem("AINafeiAbilityThresholdRate").Value);
             AINafeiStealSpouseThresholdRateAdd = float.Parse(nextSibling.Attributes.GetNamedItem("AINafeiStealSpouseThresholdRateAdd").Value);
             AINafeiStealSpouseThresholdRateMultiply = float.Parse(nextSibling.Attributes.GetNamedItem("AINafeiStealSpouseThresholdRateMultiply").Value);

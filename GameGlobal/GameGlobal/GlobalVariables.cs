@@ -127,8 +127,6 @@
         
         public static int OfficerDieInBattleRate = 10;
 
-        public static int AIOffensiveTroopHardLimit = 100;
-
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()
@@ -700,15 +698,6 @@
             {
                 exception = exception24;
                 throw new Exception("OfficerDieInBattleRate:\n" + exception.ToString());
-            }
-            try
-            {
-                AIOffensiveTroopHardLimit = int.Parse(nextSibling.Attributes.GetNamedItem("AIOffensiveTroopHardLimit").Value);
-            }
-            catch (Exception exception24)
-            {
-                exception = exception24;
-                throw new Exception("AIOffensiveTroopHardLimit:\n" + exception.ToString());
             }
             return true;
         }

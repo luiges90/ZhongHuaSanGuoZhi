@@ -117,7 +117,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbAutosaveFrequency;
         private Label label59;
         private CheckBox cbShowChallengeAnimation;
-        private Label label61;
         private TabPage tabPageBasic;
         private Label label60;
         private TextBox tbOfficerDieInBattleRate;
@@ -208,7 +207,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbMilitaryPopulationCap;
         private Label label15;
         private TextBox tbJailBreakArchitectureCost;
-        private TextBox tbAIOffensiveTroopHardLimit;
 
         public formOptions()
         {
@@ -380,8 +378,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.label2 = new System.Windows.Forms.Label();
             this.tbInternalRate = new System.Windows.Forms.TextBox();
             this.tabPageAIParameter = new System.Windows.Forms.TabPage();
-            this.label61 = new System.Windows.Forms.Label();
-            this.tbAIOffensiveTroopHardLimit = new System.Windows.Forms.TextBox();
             this.label54 = new System.Windows.Forms.Label();
             this.tbMaxAITroopTime = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
@@ -1833,8 +1829,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageAIParameter
             // 
-            this.tabPageAIParameter.Controls.Add(this.label61);
-            this.tabPageAIParameter.Controls.Add(this.tbAIOffensiveTroopHardLimit);
             this.tabPageAIParameter.Controls.Add(this.label54);
             this.tabPageAIParameter.Controls.Add(this.tbMaxAITroopTime);
             this.tabPageAIParameter.Controls.Add(this.label50);
@@ -1873,22 +1867,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.TabIndex = 3;
             this.tabPageAIParameter.Text = "电脑";
             this.tabPageAIParameter.UseVisualStyleBackColor = true;
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Location = new System.Drawing.Point(238, 155);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(113, 12);
-            this.label61.TabIndex = 55;
-            this.label61.Text = "进攻时地图部队上限";
-            // 
-            // tbAIOffensiveTroopHardLimit
-            // 
-            this.tbAIOffensiveTroopHardLimit.Location = new System.Drawing.Point(357, 149);
-            this.tbAIOffensiveTroopHardLimit.Name = "tbAIOffensiveTroopHardLimit";
-            this.tbAIOffensiveTroopHardLimit.Size = new System.Drawing.Size(71, 22);
-            this.tbAIOffensiveTroopHardLimit.TabIndex = 56;
             // 
             // label54
             // 
@@ -2284,7 +2262,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbShowChallengeAnimation.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("ShowChallengeAnimation").Value);
             this.cbPersonDieInChallenge.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value);
             this.tbOfficerDieInBattleRate.Text = nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value;
-            this.tbAIOffensiveTroopHardLimit.Text = nextSibling.Attributes.GetNamedItem("AIOffensiveTroopHardLimit").Value;
             this.tbAutosaveFrequency.Text = nextSibling.Attributes.GetNamedItem("AutoSaveFrequency").Value;
         }
 
@@ -2401,7 +2378,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("ShowChallengeAnimation").Value = this.cbShowChallengeAnimation.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value = this.cbPersonDieInChallenge.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value = this.tbOfficerDieInBattleRate.Text;
-            nextSibling.Attributes.GetNamedItem("AIOffensiveTroopHardLimit").Value = this.tbAIOffensiveTroopHardLimit.Text;
             nextSibling.Attributes.GetNamedItem("AutoSaveFrequency").Value = this.tbAutosaveFrequency.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }

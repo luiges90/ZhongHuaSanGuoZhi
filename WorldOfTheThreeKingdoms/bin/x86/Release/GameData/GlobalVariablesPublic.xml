@@ -60,6 +60,5 @@ EncryptSave="False"
 AutoSaveFrequency="30"
 ShowChallengeAnimation="True"
 PersonDieInChallenge="True"
-OfficerDieInBattleRate="10"
-AIOffensiveTroopHardLimit="80">
+OfficerDieInBattleRate="10">
 </GlobalVariables>
