@@ -3,6 +3,7 @@
     using GameGlobal;
     using GameObjects;
     using System;
+    using GameObjects.TroopDetail;
 
     public class TerrainDetail : GameObject
     {
@@ -262,6 +263,61 @@
             set
             {
                 this.viewThrough = value;
+            }
+        }
+
+        private bool? troopPassable = null;
+        public bool TroopPassable
+        {
+            get
+            {
+                if (troopPassable == null)
+                {
+                    troopPassable = false;
+                    foreach (MilitaryKind mk in base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKindList())
+                    {
+                        bool passable = false;
+                        switch (this.ID)
+                        {
+                            case 1:
+                                passable = mk.PlainAdaptability <= mk.Movability;
+                                break;
+                            case 2:
+                                passable = mk.GrasslandAdaptability <= mk.Movability;
+                                break;
+                            case 3:
+                                passable = mk.ForrestAdaptability <= mk.Movability;
+                                break;
+                            case 4:
+                                passable = mk.MarshAdaptability <= mk.Movability;
+                                break;
+                            case 5:
+                                passable = mk.MountainAdaptability <= mk.Movability;
+                                break;
+                            case 6:
+                                passable = mk.WaterAdaptability <= mk.Movability;
+                                break;
+                            case 7:
+                                passable = mk.RidgeAdaptability <= mk.Movability;
+                                break;
+                            case 8:
+                                passable = mk.WastelandAdaptability <= mk.Movability;
+                                break;
+                            case 9:
+                                passable = mk.DesertAdaptability <= mk.Movability;
+                                break;
+                            case 10:
+                                passable = mk.CliffAdaptability <= mk.Movability;
+                                break;
+                        }
+                        if (passable)
+                        {
+                            troopPassable = true;
+                            break;
+                        }
+                    }
+                }
+                return troopPassable.Value;
             }
         }
     }

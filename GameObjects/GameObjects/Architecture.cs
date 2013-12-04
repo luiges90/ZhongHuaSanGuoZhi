@@ -7917,11 +7917,16 @@
                         {
                             return 1000;
                         }
+                        else if (!terrainDetailByPositionNoCheck.TroopPassable)
+                        {
+                            return 1000;
+                        }
                     }
+                    
                     return 1;
                 }
             }
-            return 0x3e8;
+            return 1000;
         }
 
         private int RoutewayPathBuilder_OnGetPenalizedCost(Point position)
