@@ -972,7 +972,7 @@
                         }
                         else
                         {
-                            goodPerson.Add(a, 3);
+                            goodPerson.Add(a, Math.Min(3, a.EnoughPeople));
                         }
                         goodFood.Add(a, a.AbundantFood * 2);
                         goodFund.Add(a, a.AbundantFund);

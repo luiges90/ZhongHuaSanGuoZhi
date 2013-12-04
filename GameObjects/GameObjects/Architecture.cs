@@ -1113,7 +1113,7 @@
         {
             get
             {
-                int fundSupport = this.Fund / (Parameters.RewardPersonCost * 5);
+                int fundSupport = this.Fund / (Parameters.RewardPersonCost * 3);
                 int develop = Math.Max((this.AgricultureCeiling - this.Agriculture) / 30,
                     Math.Max((this.CommerceCeiling - this.Commerce) / 30,
                     Math.Max((this.Technology - this.TechnologyCeiling) / 30,
@@ -8397,6 +8397,14 @@
             }
         }
 
+        private int getArmyScaleRequiredForAttack(LinkNode wayToTarget)
+        {
+            Person leader = this.BelongedFaction.Leader;
+            return (int)((wayToTarget.A.ArmyScale +
+                            (wayToTarget.A.DefensiveLegion == null || base.Scenario.IsPlayer(wayToTarget.A.BelongedFaction) ? 0 : wayToTarget.A.DefensiveLegion.ArmyScale * Parameters.AIOffendDefendingTroopRate)) *
+                            (Parameters.AIOffendDefendTroopAdd + (leader.Calmness - leader.Braveness + (3 - (int)leader.Ambition) * 2) * Parameters.AIOffendDefendTroopMultiply));
+        }
+
         private int getArmyReserveForOffensive(LinkNode target)
         {
             int totalThreat = 0;
@@ -8594,6 +8602,43 @@
                         {
                             continue;
                         }
+
+                        int reserve = this.getArmyReserveForOffensive(i);
+                        int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(i);
+                        int armyScaleHere = (i.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
+                        if (armyScaleHere < armyScaleRequiredForAttack + reserve && !ignoreReserve)
+                        {
+                            if ((GameObject.Random((5 - (int)leader.Ambition) * Parameters.AIOffendIgnoreReserveProbAmbitionMultiply - Parameters.AIOffendIgnoreReserveProbAmbitionAdd) == 0 &&
+                                (GameObject.Random((leader.Calmness - leader.Braveness) * Parameters.AIOffendIgnoreReserveProbBCDiffMultiply + Parameters.AIOffendIgnoreReserveProbBCDiffAdd)) == 0) &&
+                                (GameObject.Chance((int)(((double)armyScaleHere / i.A.ArmyScale - Parameters.AIOffendIgnoreReserveChanceTroopRatioAdd) * Parameters.AIOffendIgnoreReserveChanceTroopRatioMultiply))))
+                            {
+                                if (armyScaleHere >= armyScaleRequiredForAttack)
+                                {
+                                    ignoreReserve = true;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                            else if ((GlobalVariables.PopulationRecruitmentLimit && (this.ArmyQuantity > this.Population)) || this.Population <= 0 ||
+                                !this.Kind.HasPopulation || !this.Kind.HasMorale)
+                            {
+                                if (armyScaleHere >= armyScaleRequiredForAttack)
+                                {
+                                    ignoreReserve = true;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+
                         if (candidate == null) continue;
                         int weight = 1000 + (candidate.Kind == LinkKind.Land ? this.LandArmyScale : this.WaterArmyScale) - candidate.A.ArmyScale;
                         weight += weight / 10 * (candidate.A.connectedToFactionArchitectureCount(this.BelongedFaction) - candidate.A.connectedNotToFactionArchitectureCount(this.BelongedFaction));
@@ -8628,29 +8673,7 @@
                 if (wayToTarget != null)
                 {
                     int reserve = this.getArmyReserveForOffensive(wayToTarget);
-                    int armyScaleRequiredForAttack = (int)((wayToTarget.A.ArmyScale +
-                        (wayToTarget.A.DefensiveLegion == null || base.Scenario.IsPlayer(wayToTarget.A.BelongedFaction) ? 0 : wayToTarget.A.DefensiveLegion.ArmyScale * Parameters.AIOffendDefendingTroopRate)) *
-                        (Parameters.AIOffendDefendTroopAdd + (leader.Calmness - leader.Braveness + (3 - (int)leader.Ambition) * 2) * Parameters.AIOffendDefendTroopMultiply));
                     int armyScaleHere = (wayToTarget.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
-                    if (wayToTarget.A.BelongedFaction != null && (armyScaleHere < armyScaleRequiredForAttack + reserve) && !ignoreReserve)
-                    {
-                        if ((GameObject.Random((5 - (int)leader.Ambition) * Parameters.AIOffendIgnoreReserveProbAmbitionMultiply - Parameters.AIOffendIgnoreReserveProbAmbitionAdd) == 0 &&
-                            (GameObject.Random((leader.Calmness - leader.Braveness) * Parameters.AIOffendIgnoreReserveProbBCDiffMultiply + Parameters.AIOffendIgnoreReserveProbBCDiffAdd)) == 0) &&
-                            (GameObject.Chance((int)(((double)armyScaleHere / wayToTarget.A.ArmyScale - Parameters.AIOffendIgnoreReserveChanceTroopRatioAdd) * Parameters.AIOffendIgnoreReserveChanceTroopRatioMultiply))))
-                        {
-                            ignoreReserve = true;
-                        }
-                        else if ((GlobalVariables.PopulationRecruitmentLimit && (this.ArmyQuantity > this.Population)) || this.Population <= 0 ||
-                            !this.Kind.HasPopulation || !this.Kind.HasMorale)
-                        {
-                            ignoreReserve = true;
-                        }
-                        else
-                        {
-                            this.PlanArchitecture = null;
-                            return;
-                        }
-                    }
                     if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
                     {
                         Routeway routeway = this.GetRouteway(wayToTarget, true);
