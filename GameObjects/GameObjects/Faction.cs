@@ -847,7 +847,9 @@
                     {
                         foreach (Person p in a.meifaxianhuaiyundefeiziliebiao())
                         {
-                            if (target == null || p.Merit > target.Merit)
+                            int pval = p.NumberOfChildren > 0 ? p.Merit / p.NumberOfChildren : int.MaxValue;
+                            int tval = target == null ? 0 : (target.NumberOfChildren > 0 ? target.Merit / target.NumberOfChildren : int.MaxValue);
+                            if (target == null || pval > tval)
                             {
                                 target = p;
                                 location = a;
