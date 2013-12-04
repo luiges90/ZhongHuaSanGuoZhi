@@ -630,6 +630,11 @@
                         planned = true;
                         break;
                     }
+                    if (a.BuildingFacility >= 0 && base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKind(a.BuildingFacility).rongna > 0)
+                    {
+                        planned = true;
+                        break;
+                    }
 
                     if (buildAt == null || a.Population > buildAt.Population)
                     {
@@ -842,7 +847,7 @@
                     {
                         foreach (Person p in a.meifaxianhuaiyundefeiziliebiao())
                         {
-                            if (p.Merit > target.Merit)
+                            if (target == null || p.Merit > target.Merit)
                             {
                                 target = p;
                                 location = a;
