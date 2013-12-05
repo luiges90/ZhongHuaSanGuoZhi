@@ -648,15 +648,12 @@
                     FacilityKind hougong = null;
                     foreach (FacilityKind fk in base.Scenario.GameCommonData.AllFacilityKinds.FacilityKinds.Values)
                     {
-                        if ((((!fk.PopulationRelated || buildAt.Kind.HasPopulation) && ((buildAt.Technology >= fk.TechnologyNeeded)))
-                            && ((!fk.UniqueInArchitecture || !buildAt.ArchitectureHasFacilityKind(buildAt.Kind.ID)) && (!fk.UniqueInFaction || !buildAt.FactionHasFacilityKind(buildAt.Kind.ID)))))
+                        if (!fk.CanBuild(buildAt)) continue;
+                        if (fk.rongna > 0 && fk.rongna < maxHgSize && GameObject.Chance(Parameters.AIBuildHougongSkipSizeChance))
                         {
-                            if (fk.rongna > 0 && fk.rongna < maxHgSize && GameObject.Chance(Parameters.AIBuildHougongSkipSizeChance))
+                            if (hougong == null || hougong.rongna < fk.rongna)
                             {
-                                if (hougong == null || hougong.rongna < fk.rongna)
-                                {
-                                    hougong = fk;
-                                }
+                                hougong = fk;
                             }
                         }
                     }

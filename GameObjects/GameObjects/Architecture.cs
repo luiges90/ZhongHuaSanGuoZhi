@@ -799,43 +799,7 @@
                 {
                     if (kind.IsExtension)
                     {
-                        if (this.BuildingFacility >= 0)
-                        {
-                            continue;
-                        }
-                        if (!(!kind.PopulationRelated || this.Kind.HasPopulation))
-                        {
-                            continue;
-                        }
-                        if (((kind.PointCost > this.BelongedFaction.TotalTechniquePoint) || (kind.TechnologyNeeded > this.Technology)))
-                        {
-                            continue;
-                        }
-                        if (kind.UniqueInArchitecture && this.ArchitectureHasFacilityKind(kind.ID))
-                        {
-                            continue;
-                        }
-                        if (this.FacilityPositionLeft < kind.PositionOccupied)
-                        {
-                            continue;
-                        }
-                        if (kind.UniqueInFaction && this.FactionHasFacilityKind(kind.ID))
-                        {
-                            continue;
-                        }
-                        bool conditionSatisfied = true;
-                        foreach (Conditions.Condition j in kind.GetConditionList())
-                        {
-                            if (!j.CheckCondition(this))
-                            {
-                                conditionSatisfied = false;
-                                break;
-                            }
-                        }
-                        if (!conditionSatisfied)
-                        {
-                            continue;
-                        }
+                        if (!kind.CanBuild(this)) continue;
                         if (kind.FundCost <= this.Fund)
                         {
                             FacilityKind facilityKind = kind;
@@ -932,32 +896,7 @@
                     foreach (FacilityKind kind in base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKindList())
                     {
                         if (kind.IsExtension || kind.rongna > 0) continue;
-                        if (kind.PositionOccupied > 0 && this.FacilityPositionCount == 0) continue;
-                        if (!(!kind.PopulationRelated || this.Kind.HasPopulation))
-                        {
-                            continue;
-                        }
-                        if (kind.UniqueInArchitecture && this.ArchitectureHasFacilityKind(kind.ID))
-                        {
-                            continue;
-                        }
-                        if (kind.UniqueInFaction && this.FactionHasFacilityKind(kind.ID))
-                        {
-                            continue;
-                        }
-                        bool conditionSatisfied = true;
-                        foreach (Conditions.Condition i in kind.GetConditionList())
-                        {
-                            if (!i.CheckCondition(this))
-                            {
-                                conditionSatisfied = false;
-                            }
-                        }
-                        if (!conditionSatisfied) continue;
-                        if (kind.TechnologyNeeded > this.Technology)
-                        {
-                            continue;
-                        }
+                        if (!kind.CanBuild(this)) continue;
                         if ((kind.MaintenanceCost + this.FacilityMaintenanceCost) * 30 + 2000 > this.ExpectedFund && kind.NetFundIncrease <= 0)
                         {
                             continue;
@@ -8850,12 +8789,18 @@
             {
                 if (this.NoFactionPersons.Count > 0)
                 {
-                    ConvinceNoFactionAI();
+                    for (int i = 0; i < Math.Min(this.NoFactionPersonCount / 2, this.PersonCount / 2); ++i)
+                    {
+                        ConvinceNoFactionAI();
+                    }
                 }
                 
                 if (this.Captives.Count > 0)
                 {
-                    ConvinceCaptivesAI(this);
+                    for (int i = 0; i < Math.Min(this.Captives.Count / 2, this.PersonCount / 2); ++i)
+                    {
+                        ConvinceCaptivesAI(this);
+                    }
                 }
             }
         }

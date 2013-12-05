@@ -282,6 +282,35 @@
                 return isExtension;
             }
         }
+
+        public bool CanBuild(Architecture a)
+        {
+            if (this.PositionOccupied > 0 && a.FacilityPositionCount == 0) return false;
+            if (!(!this.PopulationRelated || a.Kind.HasPopulation))
+            {
+                return false;
+            }
+            if (this.UniqueInArchitecture && a.ArchitectureHasFacilityKind(this.ID))
+            {
+                return false;
+            }
+            if (this.UniqueInFaction && a.FactionHasFacilityKind(this.ID))
+            {
+                return false;
+            }
+            foreach (Conditions.Condition i in this.GetConditionList())
+            {
+                if (!i.CheckCondition(a))
+                {
+                    return false;
+                }
+            }
+            if (this.TechnologyNeeded > a.Technology)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
 
