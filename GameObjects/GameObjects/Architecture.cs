@@ -10367,7 +10367,7 @@
                 num += (int)(Math.Sqrt(this.Population) * 8.0);
                 num += this.BelongedFaction.Capital == this ? this.BelongedFaction.FundToAdvance : 0;
                 num += this.InformationDayCost * 15;
-                num += (this.PersonCount + this.MovingPersonCount) * Parameters.RewardPersonCost * 5;
+                num += (this.PersonCount + this.MovingPersonCount) * Parameters.RewardPersonCost * 3;
                 return num;
             }
         }
@@ -10838,7 +10838,7 @@
             {
                 int num = this.FacilityMaintenanceCost * 30;
                 num += this.RoutewayActiveCost * 30;
-                num += (this.PersonCount + this.MovingPersonCount) * Parameters.RewardPersonCost * 5;
+                num += (this.PersonCount + this.MovingPersonCount) * Parameters.RewardPersonCost;
                 num += this.InformationDayCost * 15;
                 return num;
             }
