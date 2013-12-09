@@ -4741,7 +4741,7 @@
                         int reserve;
                         if (this.Population > 0)
                         {
-                            reserve = (int)(i.A.getArmyReserveForOffensive(null) * Math.Pow(i.A.Population / (double)this.Population, 0.15));
+                            reserve = (int)(i.A.getArmyReserveForOffensive() * Math.Pow(i.A.Population / (double)this.Population, 0.15));
                         }
                         else
                         {
@@ -8371,7 +8371,7 @@
                             (Parameters.AIOffendDefendTroopAdd + (leader.Calmness - leader.Braveness + (3 - (int)leader.Ambition) * 2) * Parameters.AIOffendDefendTroopMultiply));
         }
 
-        private int getArmyReserveForOffensive(LinkNode target)
+        private int getArmyReserveForOffensive()
         {
             int totalThreat = 0;
             int maxThreat = 0;
@@ -8379,7 +8379,6 @@
             int playerTotalThreat = 0;
             foreach (LinkNode i in this.AIAllLinkNodes.Values)
             {
-                if (i == target) continue;
                 if (i.Level > 1) break;
                 if (i.A.BelongedFaction != null && !this.IsFriendly(i.A.BelongedFaction))
                 {
@@ -8442,6 +8441,7 @@
             DateTime beforeStart = DateTime.UtcNow;
 
             Person leader = this.BelongedFaction.Leader;
+            int reserveBase = this.getArmyReserveForOffensive();
 
             if (this.actuallyUnreachableArch.Contains(this.PlanArchitecture))
             {
@@ -8569,7 +8569,7 @@
                             continue;
                         }
 
-                        int reserve = this.getArmyReserveForOffensive(i);
+                        int reserve = reserveBase - i.A.ArmyScale;
                         int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(i);
                         int armyScaleHere = (i.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
                         if (armyScaleHere < armyScaleRequiredForAttack + reserve && !ignoreReserve)
@@ -8638,7 +8638,7 @@
                 }
                 if (wayToTarget != null)
                 {
-                    int reserve = this.getArmyReserveForOffensive(wayToTarget);
+                    int reserve = reserveBase - wayToTarget.A.ArmyScale;
                     int armyScaleHere = (wayToTarget.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
                     if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
                     {
