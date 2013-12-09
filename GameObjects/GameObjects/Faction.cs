@@ -957,7 +957,7 @@
                     }
                     else
                     {
-                        minPerson.Add(a, 0);
+                        minPerson.Add(a, 1);
                         minTroop.Add(a, 0);
                     }
                     minFund.Add(a, a.EnoughFund);
@@ -980,7 +980,7 @@
                     }
                     else
                     {
-                        goodPerson.Add(a, Math.Max(0, minPerson[a]));
+                        goodPerson.Add(a, Math.Max(1, minPerson[a]));
                         goodTroop.Add(a, Math.Max(a.TroopReserveScale, minTroop[a]));
                         goodFund.Add(a, Math.Max(a.AbundantFund, minFood[a]));
                         goodFood.Add(a, Math.Max(a.AbundantFood * 2, minFood[a]));
