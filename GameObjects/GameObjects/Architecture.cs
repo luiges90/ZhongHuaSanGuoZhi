@@ -217,6 +217,7 @@
         public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
         internal bool hostileTroopInViewLastDay = false;
         public int SuspendTransfer;
+        public int SuspendTroopTransfer;
 
         public float ExperienceRate;
 
@@ -1153,7 +1154,7 @@
             }
         }
 
-        internal void CallResource(Architecture src, int fund, int food)
+        internal bool CallResource(Architecture src, int fund, int food)
         {
             if (src.PersonCount == 0)
             {
@@ -1167,13 +1168,13 @@
                     if (p.BelongedArchitecture != null && p.BelongedTroop == null && p.Status == PersonStatus.Normal && !p.DontMoveMeUnlessIMust)
                     {
                         p.MoveToArchitecture(this);
-                        return;
+                        return false;
                     }
                 }
             }
             if (src.PersonCount == 0)
             {
-                return;
+                return false;
             }
 
             MilitaryKind mk;
@@ -1209,9 +1210,11 @@
             src.BuildTransportTroop(this, transportTeam, actualTransferFood, actualTransferFund);
 
             this.SuspendTransfer = 30;
+
+            return true;
         }
 
-        internal void CallTroop(Architecture src, int scale)
+        internal int CallTroop(Architecture src, int scale)
         {
             MilitaryList leaderlessArmies = new MilitaryList();
             int transferredScale = 0;
@@ -1226,9 +1229,12 @@
 
             foreach (Military i in leaderlessArmies.GetRandomList())
             {
-                transferredScale += i.Scales;
-                src.BuildTroopForTransfer(i, this);
-                if (transferredScale > i.Scales) return;
+                if (i.Scales <= scale)
+                {
+                    transferredScale += i.Scales;
+                    src.BuildTroopForTransfer(i, this);
+                    if (transferredScale >= scale) return transferredScale;
+                }
             }
 
             if (transferredScale < scale)
@@ -1236,25 +1242,35 @@
                 foreach (Military i in src.Militaries.GetRandomList())
                 {
                     if (i.IsTransport) continue;
-                    if (src.Persons.HasGameObject(i.Leader) || src.Persons.HasGameObject(i.FollowedLeader))
+                    if (i.Scales <= transferredScale)
                     {
-                        transferredScale += i.Scales;
-                        src.BuildTroopForTransfer(i, this);
-                        if (transferredScale > i.Scales) return;
-                    }
-                    else
-                    {
-                        Person armyLeader = i.FollowedLeader != null ? i.FollowedLeader : i.Leader;
-                        if (armyLeader != null && !armyLeader.IsCaptive && armyLeader.LocationArchitecture != null && armyLeader.Status == PersonStatus.Normal && armyLeader.LocationArchitecture.BelongedSection == this.BelongedSection)
+                        if (src.Persons.HasGameObject(i.Leader) || src.Persons.HasGameObject(i.FollowedLeader))
                         {
-                            armyLeader.MoveToArchitecture(this);
+                            transferredScale += i.Scales;
+                            src.BuildTroopForTransfer(i, this);
+                            if (transferredScale >= scale) return transferredScale;
+                        }
+                        else
+                        {
+                            Person armyLeader = i.FollowedLeader != null ? i.FollowedLeader : i.Leader;
+                            if (armyLeader != null && !armyLeader.IsCaptive && armyLeader.LocationArchitecture != null 
+                                && armyLeader.Status == PersonStatus.Normal 
+                                && 
+                                (!base.Scenario.IsPlayer(this.BelongedFaction) || armyLeader.LocationArchitecture.BelongedSection == this.BelongedSection))
+                            {
+                                armyLeader.MoveToArchitecture(this);
+                            }
                         }
                     }
                 }
             }
+
+            this.SuspendTroopTransfer = 30;
+
+            return transferredScale;
         }
 
-        internal void CallPeople(Architecture src, int cnt)
+        internal int CallPeople(Architecture src, int cnt)
         {
             GameObjectList list = src.Persons.GetList();
             if (list.Count > 1)
@@ -1280,7 +1296,9 @@
                     }
                     num2++;
                 }
+                return num2;
             }
+            return 0;
         }
 
         internal void WithdrawResources()
@@ -4217,6 +4235,7 @@
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
             this.SuspendTransfer--;
+            this.SuspendTroopTransfer--;
             this.remindedAboutAttack = false;
         }
 
@@ -7606,6 +7625,11 @@
             return (((((this.Agriculture >= (this.AgricultureCeiling * 0.6)) && (this.Commerce >= (this.CommerceCeiling * 0.6))) && ((this.Technology >= (this.TechnologyCeiling * 0.6)) && (this.Domination >= (this.DominationCeiling * 0.8)))) && (this.Morale >= (this.MoraleCeiling * 0.6))) && (this.Endurance >= (this.EnduranceCeiling * 0.6)));
         }
 
+        public bool IsVeryGood()
+        {
+            return (((((this.Agriculture >= (this.AgricultureCeiling * 0.95)) && (this.Commerce >= (this.CommerceCeiling * 0.95))) && ((this.Technology >= (this.TechnologyCeiling * 0.95)) && (this.Domination >= (this.DominationCeiling * 0.95)))) && (this.Morale >= (this.MoraleCeiling * 0.95))) && (this.Endurance >= (this.EnduranceCeiling * 0.95)));
+        }
+
         public bool IsHostile(Faction faction)
         {
             return ((this.BelongedFaction != null) && this.BelongedFaction.IsHostile(faction));
@@ -8789,7 +8813,7 @@
             {
                 if (this.NoFactionPersons.Count > 0)
                 {
-                    for (int i = 0; i < Math.Min(this.NoFactionPersonCount / 2, this.PersonCount / 2); ++i)
+                    for (int i = 0; i < this.NoFactionPersonCount / 2; ++i)
                     {
                         ConvinceNoFactionAI();
                     }
@@ -8797,7 +8821,7 @@
                 
                 if (this.Captives.Count > 0)
                 {
-                    for (int i = 0; i < Math.Min(this.Captives.Count / 2, this.PersonCount / 2); ++i)
+                    for (int i = 0; i < this.Captives.Count / 2; ++i)
                     {
                         ConvinceCaptivesAI(this);
                     }

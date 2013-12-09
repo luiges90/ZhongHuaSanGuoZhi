@@ -2964,6 +2964,7 @@
                 try
                 {
                     architecture.SuspendTransfer = (int)reader["SuspendTransfer"];
+                    architecture.SuspendTroopTransfer = (int)reader["SuspendTroopTransfer"];
                 }
                 catch { };
 
@@ -4015,6 +4016,7 @@
                     row["MilitaryPopulation"] = architecture.MilitaryPopulation;
                     row["Informations"] = architecture.Informations.SaveToString();
                     row["SuspendTransfer"] = architecture.SuspendTransfer;
+                    row["SuspendTroopTransfer"] = architecture.SuspendTroopTransfer;
                     row.EndEdit();
                     dataSet.Tables["Architecture"].Rows.Add(row);
                 }

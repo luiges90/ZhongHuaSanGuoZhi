@@ -3447,10 +3447,6 @@
 
         public void Enter(Architecture a, bool doAsk)
         {
-            if (this.IsTransport)
-            {
-                a.SuspendTransfer = 0;
-            }
             if (doAsk && base.Scenario.CurrentPlayer != null && this.OnTransportArrived != null)
             {
                 this.OnTransportArrived(this, a);
