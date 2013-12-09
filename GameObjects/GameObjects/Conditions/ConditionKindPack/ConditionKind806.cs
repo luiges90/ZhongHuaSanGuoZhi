@@ -8,14 +8,7 @@
     {
         public override bool CheckConditionKind(Person person)
         {
-            foreach (Architecture a in person.Scenario.Architectures)
-            {
-                if (a.Feiziliebiao.GameObjects.Contains(this))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return person.Status == GameObjects.PersonDetail.PersonStatus.Princess;
         }
     }
 }
