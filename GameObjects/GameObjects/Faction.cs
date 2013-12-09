@@ -966,31 +966,24 @@
                     if (a.HostileLine || a.orientationFrontLine)
                     {
                         int troop = Math.Max(a.HostileScale, a.OrientationScale);
-                        goodTroop.Add(a, troop);
-                        if (a.PlanArchitecture != null)
-                        {
-                            goodPerson.Add(a, a.EnoughPeople);
-                        }
-                        else
-                        {
-                            goodPerson.Add(a, Math.Min(3, a.EnoughPeople));
-                        }
-                        goodFood.Add(a, a.AbundantFood * 2);
-                        goodFund.Add(a, a.AbundantFund);
+                        goodTroop.Add(a, Math.Max(troop, minTroop[a]));
+                        goodPerson.Add(a, Math.Max(a.EnoughPeople, minPerson[a]));
+                        goodFood.Add(a, Math.Max(a.AbundantFood * 2, minFood[a]));
+                        goodFund.Add(a, Math.Max(a.AbundantFund, minFood[a]));
                     }
                     else if (!a.IsVeryGood())
                     {
-                        goodPerson.Add(a, a.EnoughPeople);
-                        goodTroop.Add(a, a.TroopReserveScale);
-                        goodFund.Add(a, a.AbundantFund);
-                        goodFood.Add(a, a.AbundantFood);
+                        goodPerson.Add(a, Math.Max(a.EnoughPeople, minPerson[a]));
+                        goodTroop.Add(a, Math.Max(a.TroopReserveScale, minTroop[a]));
+                        goodFund.Add(a, Math.Max(a.AbundantFund, minFood[a]));
+                        goodFood.Add(a, Math.Max(a.AbundantFood * 2, minFood[a]));
                     }
                     else
                     {
-                        goodPerson.Add(a, 0);
-                        goodTroop.Add(a, a.TroopReserveScale);
-                        goodFund.Add(a, a.AbundantFund);
-                        goodFood.Add(a, a.AbundantFood);
+                        goodPerson.Add(a, Math.Max(0, minPerson[a]));
+                        goodTroop.Add(a, Math.Max(a.TroopReserveScale, minTroop[a]));
+                        goodFund.Add(a, Math.Max(a.AbundantFund, minFood[a]));
+                        goodFood.Add(a, Math.Max(a.AbundantFood * 2, minFood[a]));
                     }
                 }
             }

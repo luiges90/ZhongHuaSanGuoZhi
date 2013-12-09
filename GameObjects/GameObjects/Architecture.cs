@@ -1283,20 +1283,23 @@
             if (src != null)
             {
                 int num2 = 0;
-                while (num2 < cnt && num2 < list.Count)
+                int called = 0;
+                while (called < cnt && num2 < list.Count)
                 {
                     Person p = list[num2] as Person;
                     if (!p.DontMoveMeUnlessIMust)
                     {
                         p.MoveToArchitecture(this);
+                        called++;
                         foreach (Person q in p.AvailableVeryClosePersons)
                         {
                             q.MoveToArchitecture(this);
+                            called++;
                         }
                     }
                     num2++;
                 }
-                return num2;
+                return called;
             }
             return 0;
         }

@@ -6794,8 +6794,8 @@
         {
             get
             {
-                return !this.HasFollowingArmy && !this.HasLeadingArmy && this.WaitForFeiZi == null &&
-                        (this != this.BelongedFaction.Leader || this.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count == 0);
+                return this.HasFollowingArmy || this.HasLeadingArmy || this.WaitForFeiZi != null ||
+                        (this == this.BelongedFaction.Leader && this.LocationArchitecture.meifaxianhuaiyundefeiziliebiao().Count > 0);
             }
         }
 
