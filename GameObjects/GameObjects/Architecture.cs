@@ -1229,7 +1229,7 @@
 
             foreach (Military i in leaderlessArmies.GetRandomList())
             {
-                if (i.Scales <= scale)
+                if (i.Scales + transferredScale <= scale)
                 {
                     transferredScale += i.Scales;
                     src.BuildTroopForTransfer(i, this);
@@ -1237,7 +1237,7 @@
                 }
             }
 
-            if (transferredScale < scale)
+            /*if (transferredScale < scale)
             {
                 foreach (Military i in src.Militaries.GetRandomList())
                 {
@@ -1263,7 +1263,7 @@
                         }
                     }
                 }
-            }
+            }*/
 
             this.SuspendTroopTransfer = 30;
 
@@ -1286,7 +1286,7 @@
                 while (num2 < cnt && num2 < list.Count)
                 {
                     Person p = list[num2] as Person;
-                    if (p.DontMoveMeUnlessIMust)
+                    if (!p.DontMoveMeUnlessIMust)
                     {
                         p.MoveToArchitecture(this);
                         foreach (Person q in p.AvailableVeryClosePersons)

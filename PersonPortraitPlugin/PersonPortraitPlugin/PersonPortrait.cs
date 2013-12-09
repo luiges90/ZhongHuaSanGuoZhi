@@ -23,7 +23,11 @@
             {
                 image = this.LoadImage(id);
                 this.PlayerImages.Add(id, image);
-                if (image == null) return null;
+                if (image == null)
+                {
+                    image = this.LoadImage(9999);
+                    this.PlayerImages.Add(id, image);
+                }
             }
 
             portrait = image.Portrait;
