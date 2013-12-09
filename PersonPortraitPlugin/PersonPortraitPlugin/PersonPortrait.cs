@@ -18,9 +18,8 @@
         {
             Image portrait = null;
             PlayerImage image = null;
-
-            this.PlayerImages.TryGetValue(id, out image);
-            if (image == null)
+            
+            if (!this.PlayerImages.TryGetValue(id, out image))
             {
                 image = this.LoadImage(id);
                 this.PlayerImages.Add(id, image);
