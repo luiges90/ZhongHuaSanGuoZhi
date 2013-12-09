@@ -29,6 +29,11 @@
             {
             }
         }
+
+        public override double AIFacilityValue(Architecture a)
+        {
+            return a.Meinvkongjian * (this.increment / 100.0) * 2;
+        }
     }
 }
 
