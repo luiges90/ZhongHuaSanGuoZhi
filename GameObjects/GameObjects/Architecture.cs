@@ -8569,10 +8569,10 @@
                             continue;
                         }
 
-                        int reserve = reserveBase - i.A.ArmyScale;
+                        int reserve = Math.Max(0, reserveBase - i.A.ArmyScale);
                         int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(i);
                         int armyScaleHere = (i.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
-                        if (armyScaleHere < armyScaleRequiredForAttack + reserve && !ignoreReserve)
+                        if ((armyScaleHere < armyScaleRequiredForAttack + reserve) && !ignoreReserve)
                         {
                             if ((GameObject.Random((5 - (int)leader.Ambition) * Parameters.AIOffendIgnoreReserveProbAmbitionMultiply - Parameters.AIOffendIgnoreReserveProbAmbitionAdd) == 0 &&
                                 (GameObject.Random((leader.Calmness - leader.Braveness) * Parameters.AIOffendIgnoreReserveProbBCDiffMultiply + Parameters.AIOffendIgnoreReserveProbBCDiffAdd)) == 0) &&
@@ -8638,8 +8638,16 @@
                 }
                 if (wayToTarget != null)
                 {
-                    int reserve = reserveBase - wayToTarget.A.ArmyScale;
+                    int reserve = Math.Max(0, reserveBase - wayToTarget.A.ArmyScale);
+                    int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(wayToTarget);
                     int armyScaleHere = (wayToTarget.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
+
+                    if (armyScaleHere < armyScaleRequiredForAttack)
+                    {
+                        this.PlanArchitecture = null;
+                        return;
+                    }
+
                     if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
                     {
                         Routeway routeway = this.GetRouteway(wayToTarget, true);
