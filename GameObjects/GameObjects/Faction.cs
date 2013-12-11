@@ -1013,7 +1013,7 @@
                             if (b.Fund >= goodFund[b] * 1.5 && b.Food - goodFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                             {
                                 int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
-                                int transferFood = Math.Min(deficitFood, b.Food - goodFood[b]);
+                                int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                 if (a.CallResource(b, transferFund, transferFood))
                                 {
                                     deficitFund -= transferFund;
@@ -1036,7 +1036,7 @@
                                 if (b.Fund >= goodFund[b] * 1.5 && b.Food - goodFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                                 {
                                     int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
-                                    int transferFood = Math.Min(deficitFood, b.Food - goodFood[b]);
+                                    int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                     if (a.CallResource(b, transferFund, transferFood))
                                     {
                                         deficitFund -= transferFund;
@@ -1060,7 +1060,7 @@
                                 if (b.Fund >= minFund[b] * 1.5 && b.Food - minFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                                 {
                                     int transferFund = Math.Min(deficitFund, b.Fund - minFund[b]);
-                                    int transferFood = Math.Min(deficitFood, b.Food - minFood[b]);
+                                    int transferFood = Math.Max(Math.Min(deficitFood, b.Food - minFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                     if (a.CallResource(b, transferFund, transferFood))
                                     {
                                         deficitFund -= transferFund;
@@ -1186,7 +1186,7 @@
                             if (b.Fund >= goodFund[b] * 1.5 && b.Food - goodFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                             {
                                 int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
-                                int transferFood = Math.Min(deficitFood, b.Food - goodFood[b]);
+                                int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                 if (a.CallResource(b, transferFund, transferFood))
                                 {
                                     deficitFund -= transferFund;
@@ -1209,7 +1209,7 @@
                                 if (b.Fund >= goodFund[b] * 1.5 && b.Food - goodFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                                 {
                                     int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
-                                    int transferFood = Math.Min(deficitFood, b.Food - goodFood[b]);
+                                    int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                     if (a.CallResource(b, transferFund, transferFood))
                                     {
                                         deficitFund -= transferFund;
