@@ -21,7 +21,7 @@
         {
             foreach (Point point in this.Area.Area)
             {
-                if (this.BelongedArchitecture != null)
+                if (this.BelongedArchitecture != null && this.BelongedArchitecture.BelongedFaction != null)
                 {
                     this.BelongedArchitecture.BelongedFaction.AddPositionInformation(point, this.Level);
                 }

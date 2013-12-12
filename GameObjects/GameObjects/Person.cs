@@ -407,8 +407,9 @@
                     this.ApplyTitles(true);
                     this.ApplyTreasures(true);
                     this.ApplyArchitectureInfluence(true);
-                    this.ApplyFactionInfluence(true);
+                    this.ApplyFactionInfluence(true); 
                 }
+                base.Scenario.ClearPersonWorkCache();
                 base.Scenario.ClearPersonStatusCache();
                 status = value;
             }
@@ -1225,6 +1226,7 @@
             dominationAbility = 0;
             enduranceAbility = 0;
             trainingAbility = 0;
+            higherLevelLearnableTitle = null;
         }
 
         private void createRelations()
@@ -4728,10 +4730,15 @@
             }
         }
 
+        private List<Title> higherLevelLearnableTitle = null;
         public List<Title> HigherLevelLearnableTitle
         {
             get
             {
+                if (higherLevelLearnableTitle != null)
+                {
+                    return higherLevelLearnableTitle;
+                }
                 List<Title> title = new List<Title>();
                 foreach (Title candidate in base.Scenario.GameCommonData.AllTitles.Titles.Values)
                 {
@@ -4749,6 +4756,7 @@
                         title.Add(candidate);
                     }
                 }
+                higherLevelLearnableTitle = title;
                 return title;
             }
         }
@@ -5854,7 +5862,7 @@
                     this.recruitmentMilitary.RecruitmentPerson = null;
                     this.recruitmentMilitary = null;
                 }
-                base.Scenario.ClearPersonStatusCache();
+                base.Scenario.ClearPersonWorkCache();
                 this.workKind = value;
             }
         }

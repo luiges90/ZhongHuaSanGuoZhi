@@ -171,7 +171,7 @@
         {
             if (ZhenzaiPLCache == null)
             {
-                CreatePersonStatusCache();
+                CreatePersonWorkCache();
             }
             if (!this.ZhenzaiPLCache.ContainsKey(a)) return emptyPersonList;
             return ZhenzaiPLCache[a];
@@ -181,7 +181,7 @@
         {
             if (AgriculturePLCache == null)
             {
-                CreatePersonStatusCache();
+                CreatePersonWorkCache();
             }
             if (!this.AgriculturePLCache.ContainsKey(a)) return emptyPersonList;
             return AgriculturePLCache[a];
@@ -191,7 +191,7 @@
         {
             if (CommercePLCache == null)
             {
-                CreatePersonStatusCache();
+                CreatePersonWorkCache();
             }
             if (!this.CommercePLCache.ContainsKey(a)) return emptyPersonList;
             return CommercePLCache[a];
@@ -201,7 +201,7 @@
         {
             if (TechnologyPLCache == null)
             {
-                CreatePersonStatusCache();
+                CreatePersonWorkCache();
             }
             if (!this.TechnologyPLCache.ContainsKey(a)) return emptyPersonList;
             return TechnologyPLCache[a];
@@ -211,7 +211,7 @@
         {
             if (DominationPLCache == null)
             {
-                CreatePersonStatusCache();
+                CreatePersonWorkCache();
             }
             if (!this.DominationPLCache.ContainsKey(a)) return emptyPersonList;
             return DominationPLCache[a];
@@ -221,7 +221,7 @@
         {
             if (MoralePLCache == null)
             {
-                CreatePersonStatusCache();
+                CreatePersonWorkCache();
             }
             if (!this.MoralePLCache.ContainsKey(a)) return emptyPersonList;
             return MoralePLCache[a];
@@ -231,7 +231,7 @@
         {
             if (EndurancePLCache == null)
             {
-                CreatePersonStatusCache();
+                CreatePersonWorkCache();
             }
             if (!this.EndurancePLCache.ContainsKey(a)) return emptyPersonList;
             return EndurancePLCache[a];
@@ -241,20 +241,14 @@
         {
             if (TrainingPLCache == null)
             {
-                CreatePersonStatusCache();
+                CreatePersonWorkCache();
             }
             if (!this.TrainingPLCache.ContainsKey(a)) return emptyPersonList;
             return TrainingPLCache[a];
         }
 
-
-        private void CreatePersonStatusCache()
+        private void CreatePersonWorkCache()
         {
-            NormalPLCache = new Dictionary<Architecture, PersonList>();
-            MovingPLCache = new Dictionary<Architecture, PersonList>();
-            NoFactionPLCache = new Dictionary<Architecture, PersonList>();
-            NoFactionMovingPLCache = new Dictionary<Architecture, PersonList>();
-            PrincessPLCache = new Dictionary<Architecture, PersonList>();
             ZhenzaiPLCache = new Dictionary<Architecture, PersonList>();
             AgriculturePLCache = new Dictionary<Architecture, PersonList>();
             CommercePLCache = new Dictionary<Architecture, PersonList>();
@@ -266,47 +260,6 @@
 
             foreach (Person i in this.AvailablePersons)
             {
-                if (i.Status == PersonStatus.Normal && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
-                {
-                    if (!this.NormalPLCache.ContainsKey(i.LocationArchitecture)) 
-                    {
-                        this.NormalPLCache[i.LocationArchitecture] = new PersonList();
-                    }
-                    NormalPLCache[i.LocationArchitecture].Add(i);
-                }
-                if (i.Status == PersonStatus.Moving && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
-                {
-                    if (!this.MovingPLCache.ContainsKey(i.LocationArchitecture))
-                    {
-                        this.MovingPLCache[i.LocationArchitecture] = new PersonList();
-                    }
-                    MovingPLCache[i.LocationArchitecture].Add(i);
-                }
-                if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
-                {
-                    if (!this.NoFactionPLCache.ContainsKey(i.LocationArchitecture))
-                    {
-                        this.NoFactionPLCache[i.LocationArchitecture] = new PersonList();
-                    }
-                    NoFactionPLCache[i.LocationArchitecture].Add(i);
-                }
-                if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
-                {
-                    if (!this.NoFactionMovingPLCache.ContainsKey(i.LocationArchitecture))
-                    {
-                        this.NoFactionMovingPLCache[i.LocationArchitecture] = new PersonList();
-                    }
-                    NoFactionMovingPLCache[i.LocationArchitecture].Add(i);
-                }
-                if (i.Status == PersonStatus.Princess && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
-                {
-                    if (!this.PrincessPLCache.ContainsKey(i.LocationArchitecture))
-                    {
-                        this.PrincessPLCache[i.LocationArchitecture] = new PersonList();
-                    }
-                    PrincessPLCache[i.LocationArchitecture].Add(i);
-                }
-
                 if (i.Status == PersonStatus.Normal && i.WorkKind == ArchitectureWorkKind.赈灾 && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
                     if (!this.ZhenzaiPLCache.ContainsKey(i.LocationArchitecture))
@@ -374,9 +327,66 @@
             }
         }
 
+        private void CreatePersonStatusCache()
+        {
+            NormalPLCache = new Dictionary<Architecture, PersonList>();
+            MovingPLCache = new Dictionary<Architecture, PersonList>();
+            NoFactionPLCache = new Dictionary<Architecture, PersonList>();
+            NoFactionMovingPLCache = new Dictionary<Architecture, PersonList>();
+            PrincessPLCache = new Dictionary<Architecture, PersonList>();
+
+            foreach (Person i in this.AvailablePersons)
+            {
+                if (i.Status == PersonStatus.Normal && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
+                {
+                    if (!this.NormalPLCache.ContainsKey(i.LocationArchitecture)) 
+                    {
+                        this.NormalPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    NormalPLCache[i.LocationArchitecture].Add(i);
+                }
+                if (i.Status == PersonStatus.Moving && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
+                {
+                    if (!this.MovingPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.MovingPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    MovingPLCache[i.LocationArchitecture].Add(i);
+                }
+                if (i.Status == PersonStatus.NoFaction && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
+                {
+                    if (!this.NoFactionPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.NoFactionPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    NoFactionPLCache[i.LocationArchitecture].Add(i);
+                }
+                if (i.Status == PersonStatus.NoFactionMoving && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
+                {
+                    if (!this.NoFactionMovingPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.NoFactionMovingPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    NoFactionMovingPLCache[i.LocationArchitecture].Add(i);
+                }
+                if (i.Status == PersonStatus.Princess && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
+                {
+                    if (!this.PrincessPLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.PrincessPLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    PrincessPLCache[i.LocationArchitecture].Add(i);
+                }
+            }
+        }
+
         public void ClearPersonStatusCache()
         {
-            NormalPLCache = MovingPLCache = NoFactionPLCache = NoFactionMovingPLCache = PrincessPLCache =
+            NormalPLCache = MovingPLCache = NoFactionPLCache = NoFactionMovingPLCache = PrincessPLCache = null;
+        }
+
+        public void ClearPersonWorkCache()
+        {
             ZhenzaiPLCache = AgriculturePLCache = CommercePLCache = TechnologyPLCache =
             DominationPLCache = MoralePLCache = EndurancePLCache = TrainingPLCache = null;
         }
@@ -919,6 +929,9 @@
 
             //this.GameProgressCaution.Text = "开始";
             Parameters.DayEvent(this.Date.Year);
+
+            /*this.ClearPersonStatusCache();
+            this.ClearPersonWorkCache();*/
 
             //clearupRepeatedOfficers();
 

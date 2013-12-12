@@ -2768,6 +2768,7 @@
                 if (p.LocationArchitecture != null)
                 {
                     p.LocationArchitecture = null;
+                    p.OldWorkKind = p.WorkKind;
                     p.WorkKind = ArchitectureWorkKind.无;
                 }
             }
@@ -2829,6 +2830,7 @@
             {
                 troop.OnTroopCreate(troop);
             }
+            troop.Scenario.ClearPersonStatusCache();
             //troop.Persons.ApplyInfluences();
             troop.RefreshAllData();
 			ExtensionInterface.call("CreateTroop", new Object[] { troop.Scenario, troop });
@@ -3497,6 +3499,7 @@
                 {
                     p.LocationTroop = null;
                     p.LocationArchitecture = a;
+                    p.WorkKind = p.OldWorkKind;
                 }
                 this.persons.ApplyInfluences();
                 this.persons.Clear();

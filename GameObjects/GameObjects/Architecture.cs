@@ -8436,6 +8436,7 @@
         }
 
         private bool ignoreReserve = false;
+        private Dictionary<LinkNode, Routeway> linkNodeRouteway = new Dictionary<LinkNode, Routeway>();
         private void OffensiveCampaign()
         {
             DateTime beforeStart = DateTime.UtcNow;
@@ -8543,31 +8544,6 @@
                                 }
                             }
                         }
-                        Routeway rw = this.GetRouteway(i, true);
-                        if (rw == null)
-                        {
-                            continue;
-                        }
-                        Architecture bypass = rw.ByPassHostileArchitecture;
-                        LinkNode candidate = i;
-                        if (bypass != null)
-                        {
-                            foreach (LinkNode j in this.AIAllLinkNodes.Values)
-                            {
-                                if (j.Level > maxLevel)
-                                {
-                                    break;
-                                }
-                                if (j.A == bypass)
-                                {
-                                    candidate = j;
-                                }
-                            }
-                        }
-                        if (!IsSelfFoodEnoughForOffensive(i, rw))
-                        {
-                            continue;
-                        }
 
                         int reserve = Math.Max(0, reserveBase - i.A.ArmyScale);
                         int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(i);
@@ -8605,7 +8581,41 @@
                             }
                         }
 
+                        Routeway rw;
+                        if (!linkNodeRouteway.TryGetValue(i, out rw))
+                        {
+                            rw = this.GetRouteway(i, true);
+                            linkNodeRouteway.Add(i, rw);
+                        }
+
+                        if (rw == null)
+                        {
+                            continue;
+                        }
+                        
+                        Architecture bypass = rw.ByPassHostileArchitecture;
+                        LinkNode candidate = i;
+                        if (bypass != null)
+                        {
+                            foreach (LinkNode j in this.AIAllLinkNodes.Values)
+                            {
+                                if (j.Level > maxLevel)
+                                {
+                                    break;
+                                }
+                                if (j.A == bypass)
+                                {
+                                    candidate = j;
+                                }
+                            }
+                        }
+                        if (!IsSelfFoodEnoughForOffensive(i, rw))
+                        {
+                            continue;
+                        }
+
                         if (candidate == null) continue;
+
                         int weight = 1000 + (candidate.Kind == LinkKind.Land ? this.LandArmyScale : this.WaterArmyScale) - candidate.A.ArmyScale;
                         weight += weight / 10 * (candidate.A.connectedToFactionArchitectureCount(this.BelongedFaction) - candidate.A.connectedNotToFactionArchitectureCount(this.BelongedFaction));
                         if (i.A.IsImportant)
