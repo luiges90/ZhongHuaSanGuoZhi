@@ -25,7 +25,7 @@
         public ArchitectureKindTable AllArchitectureKinds = new ArchitectureKindTable();
         public AttackDefaultKindList AllAttackDefaultKinds = new AttackDefaultKindList();
         public AttackTargetKindList AllAttackTargetKinds = new AttackTargetKindList();
-        public BiographyTable AllBiographies = new BiographyTable();
+        
         public CastDefaultKindList AllCastDefaultKinds = new CastDefaultKindList();
         public CastTargetKindList AllCastTargetKinds = new CastTargetKindList();
         public List<CharacterKind> AllCharacterKinds = new List<CharacterKind>();
@@ -66,7 +66,6 @@
             this.AllArchitectureKinds.Clear();
             this.AllAttackDefaultKinds.Clear();
             this.AllAttackTargetKinds.Clear();
-            this.AllBiographies.Clear();
             this.AllBiographyAdjectives.Clear();
             this.AllCastDefaultKinds.Clear();
             this.AllCastTargetKinds.Clear();
@@ -834,21 +833,6 @@
                 this.AllTileAnimations.AddAnimation(animation);
             }
             connection.Close();
-            connection.Open();
-            reader = new OleDbCommand("Select * From Biography", connection).ExecuteReader();
-            while (reader.Read())
-            {
-                Biography biography = new Biography();
-                biography.Scenario = scen;
-                biography.ID = (short)reader["ID"];
-                biography.Brief = reader["Brief"].ToString();
-                biography.Romance = reader["Romance"].ToString();
-                biography.History = reader["History"].ToString();
-                biography.FactionColor = (short)reader["FactionColor"];
-                biography.MilitaryKinds.LoadFromString(this.AllMilitaryKinds, reader["MilitaryKinds"].ToString());
-                this.AllBiographies.AddBiography(biography);
-            }
-            connection.Close();
 
             connection.Open();
             try
@@ -1016,27 +1000,7 @@
             OleDbCommandBuilder builder;
 
             selectConnection.Open();
-            new OleDbCommand("Delete from Biography", selectConnection).ExecuteNonQuery();
-            adapter = new OleDbDataAdapter("Select * from Biography", selectConnection);
-            builder = new OleDbCommandBuilder(adapter);
-            adapter.Fill(dataSet, "Biography");
-            dataSet.Tables["Biography"].Rows.Clear();
-            foreach (Biography i in this.AllBiographies.Biographys.Values)
-            {
-                DataRow row = dataSet.Tables["Biography"].NewRow();
-                row.BeginEdit();
-                row["ID"] = i.ID;
-                row["Brief"] = i.Brief;
-                row["Romance"] = i.Romance;
-                row["History"] = i.History;
-                row["FactionColor"] = i.FactionColor;
-                row["MilitaryKinds"] = i.MilitaryKinds.SaveToString();
-                row.EndEdit();
-                dataSet.Tables["Biography"].Rows.Add(row);
-            }
-            adapter.Update(dataSet, "Biography");
-            dataSet.Clear();
-
+            
             try
             {
                 new OleDbCommand("Delete from TextMessageMap", selectConnection).ExecuteNonQuery();
@@ -1073,7 +1037,7 @@
                 new OleDbCommand("drop table ArchitectureKind", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table AttackDefaultKind", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table AttackTargetKind", selectConnection).ExecuteNonQuery();
-                new OleDbCommand("drop table Biography", selectConnection).ExecuteNonQuery();
+                new OleDbCommand("drop table BiographyAdjectives", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table CastDefaultKind", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table CastTargetKind", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table CharacterKind", selectConnection).ExecuteNonQuery();

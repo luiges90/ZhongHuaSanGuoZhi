@@ -69,6 +69,8 @@
         public EventList AllEvents = new EventList();
         public String LoadedFileName;
         public bool UsingOwnCommonData;
+
+        public BiographyTable AllBiographies = new BiographyTable();
         
         // 缓存地图上有几支部队在埋伏
         private int numberOfAmbushTroop = -1;
@@ -2290,6 +2292,11 @@
 
         public void LoadCommonData()
         {
+            this.GameCommonData.LoadFromDatabase(GetCommonDataConnectionString(), this);
+        }
+
+        private String GetCommonDataConnectionString()
+        {
             string path = System.Windows.Forms.Application.StartupPath + "/GameData/Common/CommonData.mdb";
             if (!System.IO.File.Exists(path))
             {
@@ -2300,7 +2307,7 @@
                 DataSource = path,
                 Provider = "Microsoft.Jet.OLEDB.4.0"
             };
-            this.GameCommonData.LoadFromDatabase(builder.ConnectionString, this);
+            return builder.ConnectionString;
         }
 
         private void LoadSettingsFromDatabase(string connectionString)
@@ -2403,10 +2410,34 @@
             ExtensionInterface.loadCompiledTypes();
             
             this.scenarioJustLoaded = true;
+            OleDbDataReader reader;
+
+            try
+            {
+                DbConnection.Open();
+                reader = new OleDbCommand("Select * From Biography", DbConnection).ExecuteReader();
+                while (reader.Read())
+                {
+                    Biography biography = new Biography();
+                    biography.Scenario = this;
+                    biography.ID = (short)reader["ID"];
+                    biography.Brief = reader["Brief"].ToString();
+                    biography.Romance = reader["Romance"].ToString();
+                    biography.History = reader["History"].ToString();
+                    biography.FactionColor = (short)reader["FactionColor"];
+                    biography.MilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["MilitaryKinds"].ToString());
+                    this.AllBiographies.AddBiography(biography);
+                }
+                DbConnection.Close();
+            }
+            catch (Exception ex)
+            {
+            }
+
             OleDbCommand command = new OleDbCommand("Select * From Map", DbConnection);
             ////////////////////////////////////////////////////////////////////////////////////////////
             DbConnection.Open();
-            OleDbDataReader reader = command.ExecuteReader();
+            reader = command.ExecuteReader();
             reader.Read();
             this.ScenarioMap.MapName = reader["FileName"].ToString();
             this.ScenarioMap.TileWidth = (short)reader["TileWidth"];
@@ -2466,7 +2497,7 @@
                 Person person = new Person();
                 person.Scenario = this;
                 person.ID = (short)reader["ID"];
-                person.PersonBiography = this.GameCommonData.AllBiographies.GetBiography(person.ID);
+                person.PersonBiography = this.AllBiographies.GetBiography(person.ID);
                 person.Available = (bool)reader["Available"];
                 person.Alive = (bool)reader["Alive"];
                 person.SurName = reader["SurName"].ToString();
@@ -4640,7 +4671,7 @@
                 builder = new OleDbCommandBuilder(adapter);
                 adapter.Fill(dataSet, "Biography");
                 dataSet.Tables["Biography"].Rows.Clear();
-                foreach (Biography i in this.GameCommonData.AllBiographies.Biographys.Values)
+                foreach (Biography i in this.AllBiographies.Biographys.Values)
                 {
                     row = dataSet.Tables["Biography"].NewRow();
                     row.BeginEdit();

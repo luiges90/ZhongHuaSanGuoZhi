@@ -617,7 +617,7 @@
                     t.IdealTendency = this.MainForm.Scenario.GameCommonData.AllIdealTendencyKinds[0] as IdealTendencyKind;
                     t.Character = this.MainForm.Scenario.GameCommonData.AllCharacterKinds[0];
                     this.Persons.Add(t);
-                    Biography biography = this.MainForm.Scenario.GameCommonData.AllBiographies.GetBiography(t.ID);
+                    Biography biography = this.MainForm.Scenario.AllBiographies.GetBiography(t.ID);
                     if (biography == null)
                     {
                         biography = new Biography();
@@ -625,7 +625,7 @@
                         biography.Scenario = t.Scenario;
                         biography.FactionColor = 0;
                         biography.MilitaryKinds.AddBasicMilitaryKinds(this.MainForm.Scenario);
-                        t.Scenario.GameCommonData.AllBiographies.AddBiography(biography);
+                        t.Scenario.AllBiographies.AddBiography(biography);
                     }
                     t.PersonBiography = biography;
                     this.RebindDataSource();

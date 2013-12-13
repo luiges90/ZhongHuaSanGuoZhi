@@ -3037,7 +3037,7 @@
         {
             if (this.person != null)
             {
-                    Biography biography = this.MainForm.Scenario.GameCommonData.AllBiographies.GetBiography(this.person.ID);
+                    Biography biography = this.MainForm.Scenario.AllBiographies.GetBiography(this.person.ID);
                     if (biography == null)
                     {
                         biography = new Biography();
@@ -3047,7 +3047,7 @@
                         biography.MilitaryKinds.AddMilitaryKind(this.person.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(0));
                         biography.MilitaryKinds.AddMilitaryKind(this.person.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(1));
                         biography.MilitaryKinds.AddMilitaryKind(this.person.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(2));
-                        this.person.Scenario.GameCommonData.AllBiographies.AddBiography(biography);
+                        this.person.Scenario.AllBiographies.AddBiography(biography);
                     }
                     this.person.PersonBiography = biography;
                     this.tbSurName.Text = this.person.SurName;

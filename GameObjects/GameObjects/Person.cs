@@ -6696,7 +6696,7 @@
             Biography bio = new Biography();
             bio.Brief = biography;
             bio.ID = r.ID;
-            Biography fatherBio = father.Scenario.GameCommonData.AllBiographies.GetBiography(father.ID);
+            Biography fatherBio = father.Scenario.AllBiographies.GetBiography(father.ID);
             if (fatherBio != null)
             {
                 bio.FactionColor = fatherBio.FactionColor;
@@ -6707,7 +6707,7 @@
                 bio.FactionColor = 52;
                 bio.MilitaryKinds.AddBasicMilitaryKinds(father.Scenario);
             }
-            father.Scenario.GameCommonData.AllBiographies.AddBiography(bio);
+            father.Scenario.AllBiographies.AddBiography(bio);
             r.PersonBiography = bio;
 
             /*r.LocationArchitecture = father.BelongedArchitecture; //mother has no location arch!
