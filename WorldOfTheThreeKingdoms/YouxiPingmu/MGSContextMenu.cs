@@ -698,7 +698,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.CurrentArchitecture.AutoRecruiting = !this.CurrentArchitecture.AutoRecruiting;
                     if (this.CurrentArchitecture.AutoRecruiting)
                     {
-                        this.CurrentArchitecture.PlayerAIWork();
+                        this.CurrentArchitecture.PlayerAIRecruit();
                     }
                     break;
 

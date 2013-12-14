@@ -739,7 +739,7 @@
             this.DiplomaticRelationAI();
             this.AICampaign();
             this.OutsideTacticsAI();
-            this.AIWork(false, true);
+            this.AIWork(false);
             this.InsideTacticsAI();
             this.AIExpand();
             ExtensionInterface.call("AIArchitecture", new Object[] { this.Scenario, this });
@@ -1566,7 +1566,30 @@
             }
         }
 
-        private void AIWork(bool forPlayer, bool doRecruit)
+        private void AutoRecruit()
+        {
+            MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
+
+            recruitmentMilitaryList.PropertyName = "Merit";
+            recruitmentMilitaryList.IsNumber = true;
+            recruitmentMilitaryList.SmallToBig = false;
+            recruitmentMilitaryList.ReSort();
+
+            GameObjectList recruitmentPersonList = this.Persons.GetList();
+            recruitmentPersonList.PropertyName = "RecruitmentAbility";
+            recruitmentPersonList.IsNumber = true;
+            recruitmentPersonList.SmallToBig = false;
+            recruitmentPersonList.ReSort();
+
+            int recruitCount = Math.Min(recruitmentMilitaryList.Count, recruitmentPersonList.Count);
+
+            for (int i = 0; i < recruitCount; ++i)
+            {
+                (recruitmentPersonList[i] as Person).RecruitMilitary(recruitmentMilitaryList[i] as Military);
+            }
+        }
+
+        private void AIWork(bool forPlayer)
         {
             this.StopAllWork();
             if (!this.HasPerson()) return;
@@ -1666,9 +1689,8 @@
                 }
 
                 // 分配完工作后选择人物补充军队
-                if (doRecruit)
-                {
-                    MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
+                if (!forPlayer) {
+                    
                     bool needRecruit = false;
                     bool lotsOfPopulation = GameObject.Chance((int)((((float)this.Population / (float)this.PopulationCeiling) * 100f - 50f) * 2.5));
                     if ((recentlyAttacked || this.BelongedFaction.PlanTechniqueArchitecture != this) && this.Kind.HasPopulation && ((recentlyAttacked || GameObject.Random((int)this.BelongedFaction.Leader.StrategyTendency + 1) == 0) && this.RecruitmentAvail()))
@@ -1714,25 +1736,9 @@
                         }
                     }
                     needRecruit = needRecruit && (GameObject.Chance(this.Persons.Count * 25) || (!need[0] && !need[1] && !need[2])); // 太少武将在城内时就不要补充了，先搞好内政更重要
-                    if (needRecruit || forPlayer)
+                    if (needRecruit)
                     {
-                        recruitmentMilitaryList.PropertyName = "Merit";
-                        recruitmentMilitaryList.IsNumber = true;
-                        recruitmentMilitaryList.SmallToBig = false;
-                        recruitmentMilitaryList.ReSort();
-
-                        GameObjectList recruitmentPersonList = this.Persons.GetList();
-                        recruitmentPersonList.PropertyName = "RecruitmentAbility";
-                        recruitmentPersonList.IsNumber = true;
-                        recruitmentPersonList.SmallToBig = false;
-                        recruitmentPersonList.ReSort();
-
-                        int recruitCount = Math.Min(recruitmentMilitaryList.Count, recruitmentPersonList.Count);
-
-                        for (int i = 0; i < recruitCount; ++i)
-                        {
-                            (recruitmentPersonList[i] as Person).RecruitMilitary(recruitmentMilitaryList[i] as Military);
-                        }
+                        AutoRecruit();
                     }
                 }
 
@@ -8834,7 +8840,12 @@
 
         public void PlayerAIWork()
         {
-            this.AIWork(true, this.AutoRecruiting);
+            this.AIWork(true);
+        }
+
+        public void PlayerAIRecruit()
+        {
+            this.AutoRecruit();
         }
 
         public void PlayerAIHire()
@@ -8869,6 +8880,10 @@
             {
                 this.PlayerAIWork();
             }
+            if (this.AutoRecruiting)
+            {
+                this.PlayerAIRecruit();
+            }
             if (this.AutoHiring)
             {
                 this.PlayerAIHire();
@@ -8885,11 +8900,15 @@
             {
                 if (this.BelongedSection.AIDetail.AutoRun)
                 {
-                    this.AIWork(false, true);
+                    this.AIWork(false);
                 }
                 else
                 {
                     this.PlayerAIWork();
+                    if (this.AutoRecruiting)
+                    {
+                        this.PlayerAIRecruit();
+                    }
                 }
             }
             if (this.AutoSearching)
