@@ -1227,7 +1227,7 @@
                     }
                 }
 
-                if (a.PersonCount + a.MovingPersonCount < goodPerson[a] && person && a.SuspendTroopTransfer <= 0)
+                if (a.PersonCount + a.MovingPersonCount < goodPerson[a] && person)
                 {
                     int deficit = goodPerson[a] - a.PersonCount - a.MovingPersonCount;
 
@@ -1253,7 +1253,7 @@
                     }
                 }
 
-                if (a.ArmyScale < goodTroop[a] && military)
+                if (a.ArmyScale < goodTroop[a] && military && a.SuspendTroopTransfer <= 0)
                 {
                     int deficit = goodTroop[a] * 2 - a.ArmyScale;
 
