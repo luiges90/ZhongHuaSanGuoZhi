@@ -1568,24 +1568,34 @@
 
         private void AutoRecruit()
         {
-            MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
-
-            recruitmentMilitaryList.PropertyName = "Merit";
-            recruitmentMilitaryList.IsNumber = true;
-            recruitmentMilitaryList.SmallToBig = false;
-            recruitmentMilitaryList.ReSort();
-
-            GameObjectList recruitmentPersonList = this.Persons.GetList();
-            recruitmentPersonList.PropertyName = "RecruitmentAbility";
-            recruitmentPersonList.IsNumber = true;
-            recruitmentPersonList.SmallToBig = false;
-            recruitmentPersonList.ReSort();
-
-            int recruitCount = Math.Min(recruitmentMilitaryList.Count, recruitmentPersonList.Count);
-
-            for (int i = 0; i < recruitCount; ++i)
+            if (RecruitmentAvail())
             {
-                (recruitmentPersonList[i] as Person).RecruitMilitary(recruitmentMilitaryList[i] as Military);
+                MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
+
+                recruitmentMilitaryList.PropertyName = "Merit";
+                recruitmentMilitaryList.IsNumber = true;
+                recruitmentMilitaryList.SmallToBig = false;
+                recruitmentMilitaryList.ReSort();
+
+                GameObjectList recruitmentPersonList = this.Persons.GetList();
+                recruitmentPersonList.PropertyName = "RecruitmentAbility";
+                recruitmentPersonList.IsNumber = true;
+                recruitmentPersonList.SmallToBig = false;
+                recruitmentPersonList.ReSort();
+
+                int recruitCount = Math.Min(recruitmentMilitaryList.Count, recruitmentPersonList.Count);
+
+                for (int i = 0; i < recruitCount; ++i)
+                {
+                    (recruitmentPersonList[i] as Person).RecruitMilitary(recruitmentMilitaryList[i] as Military);
+                }
+            }
+            else
+            {
+                foreach (Military m in this.Militaries)
+                {
+                    m.StopRecruitment();
+                }
             }
         }
 
@@ -3207,7 +3217,7 @@
 
         public bool AutoRecruitingAvail()
         {
-            return ((this.BelongedSection.AIDetail == null) || !this.BelongedSection.AIDetail.AutoRun) && RecruitmentAvail();
+            return ((this.BelongedSection.AIDetail == null) || !this.BelongedSection.AIDetail.AutoRun);
         }
 
         public void BeginToBuildAFacility(FacilityKind facilityKind)
@@ -10414,6 +10424,8 @@
                 num += this.BelongedFaction.Capital == this ? this.BelongedFaction.FundToAdvance : 0;
                 num += this.InformationDayCost * 15;
                 num += (this.PersonCount + this.MovingPersonCount) * Parameters.RewardPersonCost * 3;
+                num += this.PlanFacilityKind == null ? 0 : this.PlanFacilityKind.FundCost;
+                num += this.BelongedFaction != null && this.BelongedFaction.PlanTechniqueArchitecture == this ? this.BelongedFaction.getTechniqueActualFundCost(this.BelongedFaction.PlanTechnique) : 0;
                 return num;
             }
         }
@@ -10898,6 +10910,8 @@
                 num += this.RoutewayActiveCost * 30;
                 num += (this.PersonCount + this.MovingPersonCount) * Parameters.RewardPersonCost;
                 num += this.InformationDayCost * 15;
+                num += this.PlanFacilityKind == null ? 0 : this.PlanFacilityKind.FundCost;
+                num += this.BelongedFaction != null && this.BelongedFaction.PlanTechniqueArchitecture == this ? this.BelongedFaction.getTechniqueActualFundCost(this.BelongedFaction.PlanTechnique) : 0;
                 return num;
             }
         }
@@ -11480,7 +11494,7 @@
         {
             get
             {
-                return ((this.Fund >= this.FundCeiling) || ((((this.Fund + this.FundInPack) - ((this.BelongedFaction != null && this.BelongedFaction.PlanTechniqueArchitecture == this) ? this.BelongedFaction.getTechniqueActualFundCost(this.BelongedFaction.PlanTechnique) : 0)) - ((this.PlanFacilityKind != null) ? this.PlanFacilityKind.FundCost : 0)) >= this.AbundantFund));
+                return (this.Fund >= this.FundCeiling) || (this.Fund + this.FundInPack >= this.AbundantFund);
             }
         }
 
@@ -11488,7 +11502,7 @@
         {
             get
             {
-                return ((this.Fund >= this.FundCeiling) || ((((this.Fund + this.FundInPack) - ((this.BelongedFaction != null && this.BelongedFaction.PlanTechniqueArchitecture == this) ? this.BelongedFaction.getTechniqueActualFundCost(this.BelongedFaction.PlanTechnique) : 0)) - ((this.PlanFacilityKind != null) ? this.PlanFacilityKind.FundCost : 0)) >= this.EnoughFund));
+                return (this.Fund >= this.FundCeiling) || (this.Fund + this.FundInPack >= this.EnoughFund);
             }
         }
 

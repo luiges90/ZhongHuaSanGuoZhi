@@ -968,8 +968,15 @@
                     if (a.HostileLine || a.orientationFrontLine)
                     {
                         int troop = Math.Max(a.HostileScale, a.OrientationScale);
+                        if (a.IsVeryGood())
+                        {
+                            goodPerson.Add(a, Math.Max(3, minPerson[a]));
+                        }
+                        else
+                        {
+                            goodPerson.Add(a, Math.Max(a.EnoughPeople, minPerson[a]));
+                        }
                         goodTroop.Add(a, Math.Max(troop, minTroop[a]));
-                        goodPerson.Add(a, Math.Max(a.EnoughPeople, minPerson[a]));
                         goodFood.Add(a, Math.Max(a.AbundantFood * 2, minFood[a]));
                         goodFund.Add(a, Math.Max(a.AbundantFund, minFood[a]));
                     }

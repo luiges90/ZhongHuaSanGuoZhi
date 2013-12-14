@@ -123,7 +123,7 @@
         {
             ApplyingArchitecture a = new ApplyingArchitecture(architecture, applier, applierID);
             if (!appliedArch.Contains(a)) return;
-            appliedArch.RemoveWhere((x) => { return x.Equals(a); });
+            appliedArch.Remove(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -139,7 +139,7 @@
         {
             ApplyingFaction a = new ApplyingFaction(faction, applier, applierID);
             if (!appliedFaction.Contains(a)) return;
-            appliedFaction.RemoveWhere((x) => { return x.Equals(a); });
+            appliedFaction.Remove(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -155,7 +155,7 @@
         {
             ApplyingPerson a = new ApplyingPerson(person, applier, applierID);
             if (!appliedPerson.Contains(a)) return;
-            appliedPerson.RemoveWhere((x) => { return x.Equals(a); });
+            appliedPerson.Remove(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -176,7 +176,7 @@
         {
             ApplyingTroop a = new ApplyingTroop(troop, applier, applierID);
             if (!appliedTroop.Contains(a)) return;
-            appliedTroop.RemoveWhere((x) => { return x.Equals(a) || x.troop.Destroyed; });
+            appliedTroop.Remove(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try

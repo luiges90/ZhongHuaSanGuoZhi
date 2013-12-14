@@ -113,7 +113,7 @@
         }
 
         private Dictionary<Architecture, PersonList>
-             NormalPLCache, MovingPLCache, NoFactionPLCache, NoFactionMovingPLCache, PrincessPLCache,
+             NormalPLCache, MovingPLCache, NoFactionPLCache, NoFactionMovingPLCache, PrincessPLCache, CaptivePLCache,
              ZhenzaiPLCache, AgriculturePLCache, CommercePLCache, TechnologyPLCache,
              DominationPLCache, MoralePLCache, EndurancePLCache, TrainingPLCache;
 
@@ -167,6 +167,16 @@
             }
             if (!this.PrincessPLCache.ContainsKey(a)) return emptyPersonList;
             return PrincessPLCache[a];
+        }
+
+        public PersonList GetCaptiveList(Architecture a)
+        {
+            if (CaptivePLCache == null)
+            {
+                CreatePersonStatusCache();
+            }
+            if (!this.CaptivePLCache.ContainsKey(a)) return emptyPersonList;
+            return CaptivePLCache[a];
         }
 
         public PersonList GetZhenzaiPersonList(Architecture a)
@@ -336,6 +346,7 @@
             NoFactionPLCache = new Dictionary<Architecture, PersonList>();
             NoFactionMovingPLCache = new Dictionary<Architecture, PersonList>();
             PrincessPLCache = new Dictionary<Architecture, PersonList>();
+            CaptivePLCache = new Dictionary<Architecture, PersonList>();
 
             foreach (Person i in this.AvailablePersons)
             {
@@ -379,12 +390,20 @@
                     }
                     PrincessPLCache[i.LocationArchitecture].Add(i);
                 }
+                if (i.Status == PersonStatus.Captive && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
+                {
+                    if (!this.CaptivePLCache.ContainsKey(i.LocationArchitecture))
+                    {
+                        this.CaptivePLCache[i.LocationArchitecture] = new PersonList();
+                    }
+                    CaptivePLCache[i.LocationArchitecture].Add(i);
+                }
             }
         }
 
         public void ClearPersonStatusCache()
         {
-            NormalPLCache = MovingPLCache = NoFactionPLCache = NoFactionMovingPLCache = PrincessPLCache = null;
+            NormalPLCache = MovingPLCache = NoFactionPLCache = NoFactionMovingPLCache = PrincessPLCache = CaptivePLCache = null;
         }
 
         public void ClearPersonWorkCache()
