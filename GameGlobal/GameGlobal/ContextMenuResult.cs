@@ -113,6 +113,7 @@
         Person_Hiring,
         Person_AutoReward,
         Internal_AutoWorking,
+        Military_AutoRecruiting,
         Tactics_AutoSearching,
         AllEnter,
         DateGo_1Day,

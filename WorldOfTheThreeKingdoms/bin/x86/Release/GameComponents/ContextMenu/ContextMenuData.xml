@@ -67,6 +67,7 @@
                 <MenuItem ID="13" Name="Merge" DisplayName="合并" DisplayIfTrue="MergeAvail" />
                 <MenuItem ID="14" Name="Disband" DisplayName="解散" DisplayIfTrue="DisbandAvail" />
                 <MenuItem ID="15" Name="LevelUp" DisplayName="升级" DisplayIfTrue="LevelUpAvail" />
+				<MenuItem ID="16" Name="AutoRecruiting" DisplayName="委任补充" OppositeName="手动补充" OppositeIfTrue="AutoRecruiting" DisplayIfTrue="AutoRecruitingAvail" />
             </MenuItem>
             <MenuItem ID="3" Name="Transport" DisplayName="运输" DisplayIfTrue="CaiyongLiangdaoXitong">
                 <MenuItem ID="1" Name="Routeway" DisplayName="粮道" DisplayIfTrue="RoutewayAvail">

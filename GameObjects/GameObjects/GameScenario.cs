@@ -2942,6 +2942,15 @@
                 architecture.AutoRewarding = (bool)reader["AutoRewarding"];
                 architecture.AutoWorking = (bool)reader["AutoWorking"];
                 architecture.AutoSearching = (bool)reader["AutoSearching"];
+
+                try
+                {
+                    architecture.AutoRecruiting = (bool)reader["AutoRecruiting"];
+                }
+                catch
+                {
+                }
+
                 architecture.HireFinished = (bool)reader["HireFinished"];
                 architecture.FacilityEnabled = (bool)reader["FacilityEnabled"];
 
@@ -4021,6 +4030,7 @@
                     row["AutoRewarding"] = architecture.AutoRewarding;
                     row["AutoWorking"] = architecture.AutoWorking;
                     row["AutoSearching"] = architecture.AutoSearching;
+                    row["AutoRecruiting"] = architecture.AutoRecruiting;
                     row["HireFinished"] = architecture.HireFinished;
                     row["FacilityEnabled"] = architecture.FacilityEnabled;
                     row["AgricultureWorkingPersons"] = architecture.AgricultureWorkingPersons.SaveToString();

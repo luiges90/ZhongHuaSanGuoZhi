@@ -694,6 +694,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     break;
 
+                case ContextMenuResult.Military_AutoRecruiting:
+                    this.CurrentArchitecture.AutoRecruiting = !this.CurrentArchitecture.AutoRecruiting;
+                    if (this.CurrentArchitecture.AutoRecruiting)
+                    {
+                        this.CurrentArchitecture.PlayerAIWork();
+                    }
+                    break;
+
                 case ContextMenuResult.Tactics_AutoSearching:
                     this.CurrentArchitecture.AutoSearching = !this.CurrentArchitecture.AutoSearching;
                     if (this.CurrentArchitecture.AutoSearching)

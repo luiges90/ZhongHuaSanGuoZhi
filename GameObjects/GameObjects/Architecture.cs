@@ -55,6 +55,7 @@
         private bool autoRewarding;
         private bool autoSearching;
         private bool autoWorking;
+        private bool autoRecruiting;
         private GameArea baseFoodSurplyArea;
         public Faction BelongedFaction = null;
         public Section BelongedSection = null;
@@ -738,7 +739,7 @@
             this.DiplomaticRelationAI();
             this.AICampaign();
             this.OutsideTacticsAI();
-            this.AIWork(false);
+            this.AIWork(false, true);
             this.InsideTacticsAI();
             this.AIExpand();
             ExtensionInterface.call("AIArchitecture", new Object[] { this.Scenario, this });
@@ -1565,7 +1566,7 @@
             }
         }
 
-        private void AIWork(bool forPlayer)
+        private void AIWork(bool forPlayer, bool doRecruit)
         {
             this.StopAllWork();
             if (!this.HasPerson()) return;
@@ -1665,70 +1666,73 @@
                 }
 
                 // 分配完工作后选择人物补充军队
-                MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
-                bool needRecruit = false;
-                bool lotsOfPopulation = GameObject.Chance((int)((((float)this.Population / (float)this.PopulationCeiling) * 100f - 50f) * 2.5));
-                if ((recentlyAttacked || this.BelongedFaction.PlanTechniqueArchitecture != this) && this.Kind.HasPopulation && ((recentlyAttacked || GameObject.Random((int)this.BelongedFaction.Leader.StrategyTendency + 1) == 0) && this.RecruitmentAvail()))
+                if (doRecruit)
                 {
-                    if (this.ArmyScale < this.FewArmyScale || lotsOfPopulation)
+                    MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
+                    bool needRecruit = false;
+                    bool lotsOfPopulation = GameObject.Chance((int)((((float)this.Population / (float)this.PopulationCeiling) * 100f - 50f) * 2.5));
+                    if ((recentlyAttacked || this.BelongedFaction.PlanTechniqueArchitecture != this) && this.Kind.HasPopulation && ((recentlyAttacked || GameObject.Random((int)this.BelongedFaction.Leader.StrategyTendency + 1) == 0) && this.RecruitmentAvail()))
                     {
-                        needRecruit = true;
-                    }
-                    else if (!this.IsFoodEnough)
-                    {
-                        needRecruit = false;
-                    }
-                    else if (GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length) < (int)this.BelongedFaction.Leader.StrategyTendency)
-                    {
-                        needRecruit = false;
-                    }
-                    else if (!GameObject.Chance(this.Domination * 4 - 300) || this.Morale < 100)
-                    {
-                        needRecruit = false;
-                    } 
-                    else
-                    {
-                        bool nearFrontline = this.FrontLine || this.HostileLine || this.noFactionFrontline;
-                        if (!nearFrontline)
+                        if (this.ArmyScale < this.FewArmyScale || lotsOfPopulation)
                         {
-                            foreach (LinkNode a in this.AIAllLinkNodes.Values)
+                            needRecruit = true;
+                        }
+                        else if (!this.IsFoodEnough)
+                        {
+                            needRecruit = false;
+                        }
+                        else if (GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length) < (int)this.BelongedFaction.Leader.StrategyTendency)
+                        {
+                            needRecruit = false;
+                        }
+                        else if (!GameObject.Chance(this.Domination * 4 - 300) || this.Morale < 100)
+                        {
+                            needRecruit = false;
+                        }
+                        else
+                        {
+                            bool nearFrontline = this.FrontLine || this.HostileLine || this.noFactionFrontline;
+                            if (!nearFrontline)
                             {
-                                if (a.Level <= 1 && (a.A.FrontLine || a.A.HostileLine || a.A.noFactionFrontline) && !a.A.Kind.HasPopulation)
+                                foreach (LinkNode a in this.AIAllLinkNodes.Values)
                                 {
-                                    nearFrontline = true;
-                                    break;
+                                    if (a.Level <= 1 && (a.A.FrontLine || a.A.HostileLine || a.A.noFactionFrontline) && !a.A.Kind.HasPopulation)
+                                    {
+                                        nearFrontline = true;
+                                        break;
+                                    }
                                 }
                             }
+
+                            needRecruit = this.ExpectedMilitaryPopulation - this.MilitaryPopulation <=
+                                this.PopulationDevelopingRate * this.PopulationCeiling * Parameters.AIRecruitPopulationCapMultiply *
+                                (nearFrontline ? 1.0 : Parameters.AIRecruitPopulationCapBackendMultiply) *
+                                (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment ? 1.5 : 1) *
+                                (((Enum.GetNames(typeof(PersonStrategyTendency)).Length - (int)this.BelongedFaction.Leader.StrategyTendency))
+                                * Parameters.AIRecruitPopulationCapStrategyTendencyMulitply + Parameters.AIRecruitPopulationCapStrategyTendencyAdd)
+                                * (this.HostileLine ? Parameters.AIRecruitPopulationCapHostilelineMultiply : 1);
                         }
-
-                        needRecruit = this.ExpectedMilitaryPopulation - this.MilitaryPopulation <= 
-                            this.PopulationDevelopingRate * this.PopulationCeiling * Parameters.AIRecruitPopulationCapMultiply *
-                            (nearFrontline ? 1.0 : Parameters.AIRecruitPopulationCapBackendMultiply) * 
-                            (this.BelongedSection != null && this.BelongedSection.AIDetail.ValueRecruitment ? 1.5 : 1) *
-                            (((Enum.GetNames(typeof(PersonStrategyTendency)).Length - (int)this.BelongedFaction.Leader.StrategyTendency)) 
-                            * Parameters.AIRecruitPopulationCapStrategyTendencyMulitply + Parameters.AIRecruitPopulationCapStrategyTendencyAdd)
-                            * (this.HostileLine ? Parameters.AIRecruitPopulationCapHostilelineMultiply : 1);
                     }
-                }
-                needRecruit = needRecruit && (GameObject.Chance(this.Persons.Count * 25) || (!need[0] && !need[1] && !need[2])); // 太少武将在城内时就不要补充了，先搞好内政更重要
-                if (needRecruit)
-                {
-                    recruitmentMilitaryList.PropertyName = "Merit";
-                    recruitmentMilitaryList.IsNumber = true;
-                    recruitmentMilitaryList.SmallToBig = false;
-                    recruitmentMilitaryList.ReSort();
-
-                    GameObjectList recruitmentPersonList = this.Persons.GetList();
-                    recruitmentPersonList.PropertyName = "RecruitmentAbility";
-                    recruitmentPersonList.IsNumber = true;
-                    recruitmentPersonList.SmallToBig = false;
-                    recruitmentPersonList.ReSort();
-
-                    int recruitCount = Math.Min(recruitmentMilitaryList.Count, recruitmentPersonList.Count);
-
-                    for (int i = 0; i < recruitCount; ++i)
+                    needRecruit = needRecruit && (GameObject.Chance(this.Persons.Count * 25) || (!need[0] && !need[1] && !need[2])); // 太少武将在城内时就不要补充了，先搞好内政更重要
+                    if (needRecruit || forPlayer)
                     {
-                        (recruitmentPersonList[i] as Person).RecruitMilitary(recruitmentMilitaryList[i] as Military);
+                        recruitmentMilitaryList.PropertyName = "Merit";
+                        recruitmentMilitaryList.IsNumber = true;
+                        recruitmentMilitaryList.SmallToBig = false;
+                        recruitmentMilitaryList.ReSort();
+
+                        GameObjectList recruitmentPersonList = this.Persons.GetList();
+                        recruitmentPersonList.PropertyName = "RecruitmentAbility";
+                        recruitmentPersonList.IsNumber = true;
+                        recruitmentPersonList.SmallToBig = false;
+                        recruitmentPersonList.ReSort();
+
+                        int recruitCount = Math.Min(recruitmentMilitaryList.Count, recruitmentPersonList.Count);
+
+                        for (int i = 0; i < recruitCount; ++i)
+                        {
+                            (recruitmentPersonList[i] as Person).RecruitMilitary(recruitmentMilitaryList[i] as Military);
+                        }
                     }
                 }
 
@@ -3193,6 +3197,11 @@
         public bool AutoWorkingAvail()
         {
             return ((this.BelongedSection.AIDetail == null) || !this.BelongedSection.AIDetail.AutoRun);
+        }
+
+        public bool AutoRecruitingAvail()
+        {
+            return ((this.BelongedSection.AIDetail == null) || !this.BelongedSection.AIDetail.AutoRun) && RecruitmentAvail();
         }
 
         public void BeginToBuildAFacility(FacilityKind facilityKind)
@@ -8825,7 +8834,7 @@
 
         public void PlayerAIWork()
         {
-            this.AIWork(true);
+            this.AIWork(true, this.AutoRecruiting);
         }
 
         public void PlayerAIHire()
@@ -8876,7 +8885,7 @@
             {
                 if (this.BelongedSection.AIDetail.AutoRun)
                 {
-                    this.AIWork(false);
+                    this.AIWork(false, true);
                 }
                 else
                 {
@@ -10556,6 +10565,18 @@
             set
             {
                 this.autoWorking = value;
+            }
+        }
+
+        public bool AutoRecruiting
+        {
+            get
+            {
+                return this.autoRecruiting;
+            }
+            set 
+            {
+                this.autoRecruiting = value;
             }
         }
 
