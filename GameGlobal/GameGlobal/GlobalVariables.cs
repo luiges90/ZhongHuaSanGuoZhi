@@ -126,6 +126,7 @@
         public static bool PersonDieInChallenge = true;
         
         public static int OfficerDieInBattleRate = 10;
+        public static int OfficerChildrenLimit = 20;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -698,6 +699,15 @@
             {
                 exception = exception24;
                 throw new Exception("OfficerDieInBattleRate:\n" + exception.ToString());
+            }
+            try
+            {
+                OfficerChildrenLimit = int.Parse(nextSibling.Attributes.GetNamedItem("OfficerChildrenLimit").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("OfficerChildrenLimit:\n" + exception.ToString());
             }
             return true;
         }

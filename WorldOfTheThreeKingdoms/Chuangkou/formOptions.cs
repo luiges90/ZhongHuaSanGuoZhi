@@ -206,6 +206,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label label18;
         private TextBox tbMilitaryPopulationCap;
         private Label label15;
+        private Label label23;
+        private TextBox tbOfficerChildrenLimit;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -411,6 +413,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
+            this.tbOfficerChildrenLimit = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -998,6 +1002,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.label23);
+            this.tabPagePerson.Controls.Add(this.tbOfficerChildrenLimit);
             this.tabPagePerson.Controls.Add(this.label58);
             this.tabPagePerson.Controls.Add(this.tbLearnTitleSuccessRate);
             this.tabPagePerson.Controls.Add(this.label57);
@@ -2170,6 +2176,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(13, 300);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(77, 12);
+            this.label23.TabIndex = 41;
+            this.label23.Text = "武將子女上限";
+            // 
+            // tbOfficerChildrenLimit
+            // 
+            this.tbOfficerChildrenLimit.Location = new System.Drawing.Point(94, 297);
+            this.tbOfficerChildrenLimit.Name = "tbOfficerChildrenLimit";
+            this.tbOfficerChildrenLimit.Size = new System.Drawing.Size(71, 22);
+            this.tbOfficerChildrenLimit.TabIndex = 40;
+            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -2263,6 +2285,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbPersonDieInChallenge.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value);
             this.tbOfficerDieInBattleRate.Text = nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value;
             this.tbAutosaveFrequency.Text = nextSibling.Attributes.GetNamedItem("AutoSaveFrequency").Value;
+            this.tbOfficerChildrenLimit.Text = nextSibling.Attributes.GetNamedItem("OfficerChildrenLimit").Value;
         }
 
         private void LoadParameterDoc()
@@ -2379,6 +2402,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("PersonDieInChallenge").Value = this.cbPersonDieInChallenge.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("OfficerDieInBattleRate").Value = this.tbOfficerDieInBattleRate.Text;
             nextSibling.Attributes.GetNamedItem("AutoSaveFrequency").Value = this.tbAutosaveFrequency.Text;
+            nextSibling.Attributes.GetNamedItem("OfficerChildrenLimit").Value = this.tbOfficerChildrenLimit.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 

@@ -611,6 +611,8 @@
             if (base.Scenario.IsPlayer(this)) return;
             if (GlobalVariables.getChildrenRate <= 0) return;
 
+            if (this.Leader.NumberOfChildren >= GlobalVariables.OfficerChildrenLimit) return;
+
             int uncruelty = this.Leader.Uncruelty;
             int unAmbition = Enum.GetNames(typeof(PersonAmbition)).Length - (int)this.Leader.Ambition;
 
