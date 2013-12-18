@@ -700,6 +700,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     {
                         this.CurrentArchitecture.PlayerAIRecruit();
                     }
+                    else if (this.CurrentArchitecture.AutoWorking)
+                    {
+                        this.CurrentArchitecture.PlayerAIWork();
+                    }
                     break;
 
                 case ContextMenuResult.Tactics_AutoSearching:
