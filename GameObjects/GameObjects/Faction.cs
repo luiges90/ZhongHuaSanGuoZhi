@@ -1295,28 +1295,26 @@
             AllocationTransfer(architectures, architectures, true, true, true);
         }
 
+        private void PlayerAITransfer()
+        {
+            foreach (Section s in this.Sections)
+            {
+                if (s.AIDetail.AutoRun)
+                {
+                    s.AIIntraTransfer();
+                    if (s.AIDetail.AllowFoodTransfer || s.AIDetail.AllowFundTransfer || s.AIDetail.AllowMilitaryTransfer)
+                    {
+                        s.AIInterTransfer();
+                    }
+                }
+            }
+        }
+
         private void AITransfer()
         {
             if (this.Architectures.Count > 1)
             {
-                if (base.Scenario.IsPlayer(this))
-                {
-                    foreach (Section s in this.Sections)
-                    {
-                        if (s.AIDetail.AutoRun)
-                        {
-                            s.AIIntraTransfer();
-                            if (s.AIDetail.AllowFoodTransfer || s.AIDetail.AllowFundTransfer || s.AIDetail.AllowMilitaryTransfer)
-                            {
-                                s.AIInterTransfer();
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    this.AITransferPlanning(this.Architectures);
-                }
+                this.AITransferPlanning(this.Architectures);
             }
         }
 
@@ -2834,6 +2832,7 @@
             base.Scenario.Threading = true;
             this.AIFinished = false;
             this.AIPrepare();
+            this.PlayerAITransfer();
             this.PlayerTechniqueAI();
             this.PlayerAIArchitectures();
             this.PlayerAILegions();
