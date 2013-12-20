@@ -10082,7 +10082,10 @@
                     Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
                     if (!((troopByPosition == null) || this.IsFriendly(troopByPosition.BelongedFaction)))
                     {
-                        num++;
+                        if (!troopByPosition.Army.IsTransport) 
+                        {
+                            num += troopByPosition.Army.Scales * troopByPosition.Morale / 2000;
+                        }
                     }
                 }
                 if (num > this.AreaCount)
