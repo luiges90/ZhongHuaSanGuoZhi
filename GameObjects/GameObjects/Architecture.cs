@@ -2336,9 +2336,23 @@
 
         private void AIMilitary()
         {
-            foreach (Military military in this.GetLevelUpMilitaryList())
+            if (this.Abandoned)
             {
-                this.LevelUpMilitary(military);
+                while (this.Militaries.Count > 0)
+                {
+                    Military m = this.Militaries[0] as Military;
+                    if (!m.IsTransport)
+                    {
+                        this.DisbandMilitary(m);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Military military in this.GetLevelUpMilitaryList())
+                {
+                    this.LevelUpMilitary(military);
+                }
             }
         }
 
