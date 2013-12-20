@@ -948,7 +948,7 @@
 
                     if (a.HasHostileTroopsInView() || a.RecentlyAttacked > 0)
                     {
-                        minPerson.Add(a, a.EnoughPeople);
+                        minPerson.Add(a, a.EnoughPeople + a.JianzhuGuimo * 3);
                         minTroop.Add(a, a.TroopReserveScale); // defensiveCampaign will deal with this
                         urgent = true;
                     }

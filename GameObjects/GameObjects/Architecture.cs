@@ -8634,7 +8634,7 @@
                                 }
                             }
                         }
-                        if (!IsSelfFoodEnoughForOffensive(i, rw))
+                        if (!IsSelfFoodEnoughForOffensive(i, rw) && !this.IsFoodTwiceAbundant)
                         {
                             continue;
                         }
