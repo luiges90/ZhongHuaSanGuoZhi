@@ -1071,7 +1071,8 @@
         {
             get 
             {
-                return this.HasHostileTroopsInView() && this.Endurance < 30 && !this.HasOwnFactionTroopsInView();
+                return this.HasHostileTroopsInView() && this.Endurance <= 0 && !this.HasOwnFactionTroopsInView()
+                    && this.BelongedFaction.ArchitectureCount > 1;
             }
         }
 
@@ -1099,14 +1100,6 @@
         internal void WithdrawPerson()
         {
             int num = this.PersonCount;
-            GameObjectList list = this.Persons.GetList();
-            if (list.Count > 1)
-            {
-                list.IsNumber = true;
-                list.SmallToBig = true;
-                list.PropertyName = "FightingForce";
-                list.ReSort();
-            }
             Architecture capital = this.BelongedFaction.Capital;
             ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
             if (capital == this)
@@ -1131,20 +1124,14 @@
                     dest = i;
                 }
             }
-            int num2 = 0;
-            while (num2 < num)
+            foreach (Person p in this.Persons.GetList())
             {
-                Person p = list[num2] as Person;
-                if (!p.HasFollowingArmy && !p.HasLeadingArmy)
+                p.WaitForFeiZi = null;
+                p.MoveToArchitecture(dest);
+                foreach (Person q in p.AvailableVeryClosePersons)
                 {
-                    p.WaitForFeiZi = null;
-                    p.MoveToArchitecture(dest);
-                    foreach (Person q in p.AvailableVeryClosePersons)
-                    {
-                        q.MoveToArchitecture(dest);
-                    }
+                    q.MoveToArchitecture(dest);
                 }
-                num2++;
             }
         }
 
