@@ -10090,7 +10090,7 @@
                     {
                         if (!troopByPosition.Army.IsTransport) 
                         {
-                            num += troopByPosition.Army.Scales * troopByPosition.Morale / 3000;
+                            num += (troopByPosition.Army.Scales * troopByPosition.Morale + 2000) / 3000;
                         }
                     }
                 }
