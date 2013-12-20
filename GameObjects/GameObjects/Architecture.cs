@@ -738,6 +738,7 @@
             this.AIFacility();
             this.DiplomaticRelationAI();
             this.AICampaign();
+            this.AIDisbandMilitary();
             this.OutsideTacticsAI();
             this.AIWork(false);
             this.InsideTacticsAI();
@@ -1070,7 +1071,7 @@
         {
             get 
             {
-                return this.HasHostileTroopsInView() && this.Endurance < 30;
+                return this.HasHostileTroopsInView() && this.Endurance < 30 && !this.HasOwnFactionTroopsInView();
             }
         }
 
@@ -1097,7 +1098,7 @@
 
         internal void WithdrawPerson()
         {
-            int num = this.PersonCount - this.MilitaryCount;
+            int num = this.PersonCount;
             GameObjectList list = this.Persons.GetList();
             if (list.Count > 1)
             {
@@ -2334,25 +2335,30 @@
             return troop;
         }
 
-        private void AIMilitary()
+        private void AIDisbandMilitary()
         {
             if (this.Abandoned)
             {
-                while (this.Militaries.Count > 0)
+                MilitaryList toDisband = new MilitaryList();
+                foreach (Military m in this.Militaries)
                 {
-                    Military m = this.Militaries[0] as Military;
                     if (!m.IsTransport)
                     {
-                        this.DisbandMilitary(m);
+                        toDisband.Add(m);
                     }
                 }
-            }
-            else
-            {
-                foreach (Military military in this.GetLevelUpMilitaryList())
+                foreach (Military m in toDisband)
                 {
-                    this.LevelUpMilitary(military);
+                    this.DisbandMilitary(m);
                 }
+            }
+        }
+
+        private void AIMilitary()
+        {
+            foreach (Military military in this.GetLevelUpMilitaryList())
+            {
+                this.LevelUpMilitary(military);
             }
         }
 
@@ -7113,7 +7119,7 @@
             foreach (Point point in viewArea.Area)
             {
                 Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
-                if (troopByPosition != null && troopByPosition.BelongedFaction == this.BelongedFaction)
+                if (troopByPosition != null && troopByPosition.BelongedFaction == this.BelongedFaction && !troopByPosition.Army.IsTransport)
                 {
                     return true;
                 }
@@ -10084,7 +10090,7 @@
                     {
                         if (!troopByPosition.Army.IsTransport) 
                         {
-                            num += troopByPosition.Army.Scales * troopByPosition.Morale / 2000;
+                            num += troopByPosition.Army.Scales * troopByPosition.Morale / 3000;
                         }
                     }
                 }
