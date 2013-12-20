@@ -7318,6 +7318,11 @@
                     }
                     p.Loyalty = 100;
                 }
+                while (currentArchitecture.Militaries.Count > 0)
+                {
+                    Military m = currentArchitecture.Militaries[0] as Military;
+                    currentArchitecture.DisbandMilitary(m);
+                }
                 currentArchitecture.BuildingFacility = -1;
                 currentArchitecture.BuildingDaysLeft = 0;
                 currentArchitecture.RemoveAllInformations();
