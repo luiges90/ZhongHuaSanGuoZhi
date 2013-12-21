@@ -738,7 +738,6 @@
             this.AIFacility();
             this.DiplomaticRelationAI();
             this.AICampaign();
-            this.AIDisbandMilitary();
             this.OutsideTacticsAI();
             this.AIWork(false);
             this.InsideTacticsAI();
@@ -1071,8 +1070,7 @@
         {
             get 
             {
-                return this.HasHostileTroopsInView() && this.Endurance <= 0 && !this.HasOwnFactionTroopsInView()
-                    && this.BelongedFaction.ArchitectureCount > 1;
+                return this.HasHostileTroopsInView() && this.Endurance < 30;
             }
         }
 
@@ -1099,7 +1097,15 @@
 
         internal void WithdrawPerson()
         {
-            int num = this.PersonCount;
+            int num = this.PersonCount - this.MilitaryCount;
+            GameObjectList list = this.Persons.GetList();
+            if (list.Count > 1)
+            {
+                list.IsNumber = true;
+                list.SmallToBig = true;
+                list.PropertyName = "FightingForce";
+                list.ReSort();
+            }
             Architecture capital = this.BelongedFaction.Capital;
             ArchitectureList otherArchitectureList = this.GetOtherArchitectureList();
             if (capital == this)
@@ -1124,14 +1130,20 @@
                     dest = i;
                 }
             }
-            foreach (Person p in this.Persons.GetList())
+            int num2 = 0;
+            while (num2 < num)
             {
-                p.WaitForFeiZi = null;
-                p.MoveToArchitecture(dest);
-                foreach (Person q in p.AvailableVeryClosePersons)
+                Person p = list[num2] as Person;
+                if (!p.HasFollowingArmy && !p.HasLeadingArmy)
                 {
-                    q.MoveToArchitecture(dest);
+                    p.WaitForFeiZi = null;
+                    p.MoveToArchitecture(dest);
+                    foreach (Person q in p.AvailableVeryClosePersons)
+                    {
+                        q.MoveToArchitecture(dest);
+                    }
                 }
+                num2++;
             }
         }
 
@@ -2320,25 +2332,6 @@
             legion.AddTroop(troop);
             this.PostCreateTroop(troop, false);
             return troop;
-        }
-
-        private void AIDisbandMilitary()
-        {
-            if (this.Abandoned)
-            {
-                MilitaryList toDisband = new MilitaryList();
-                foreach (Military m in this.Militaries)
-                {
-                    if (!m.IsTransport)
-                    {
-                        toDisband.Add(m);
-                    }
-                }
-                foreach (Military m in toDisband)
-                {
-                    this.DisbandMilitary(m);
-                }
-            }
         }
 
         private void AIMilitary()
@@ -7106,7 +7099,7 @@
             foreach (Point point in viewArea.Area)
             {
                 Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
-                if (troopByPosition != null && troopByPosition.BelongedFaction == this.BelongedFaction && !troopByPosition.Army.IsTransport)
+                if (troopByPosition != null && troopByPosition.BelongedFaction == this.BelongedFaction)
                 {
                     return true;
                 }
@@ -10075,10 +10068,7 @@
                     Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
                     if (!((troopByPosition == null) || this.IsFriendly(troopByPosition.BelongedFaction)))
                     {
-                        if (!troopByPosition.Army.IsTransport) 
-                        {
-                            num += (troopByPosition.Army.Scales * troopByPosition.Morale + 3000) / 4000;
-                        }
+                        num++;
                     }
                 }
                 if (num > this.AreaCount)
