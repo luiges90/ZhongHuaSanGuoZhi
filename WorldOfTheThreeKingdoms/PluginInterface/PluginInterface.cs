@@ -277,6 +277,7 @@ namespace PluginInterface
 
     public interface IPersonPortrait : IBasePlugin
     {
+        bool HasPortrait(int id);
         System.Drawing.Image GetImage(int id);
         Texture2D GetPortrait(int id);
         Texture2D GetSmallPortrait(int id);

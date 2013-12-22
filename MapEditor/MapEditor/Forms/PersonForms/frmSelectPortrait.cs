@@ -34,7 +34,7 @@
         {
             int num = 0;
             int num2 = this.OnlySelectFromNew ? 0x7d1 : 1;
-            for (int i = num2; i < 0x2710; i++)
+            for (int i = num2; i < 32767; i++)
             {
                 if (this.MainForm.GetPersonPortrait(i) != null)
                 {

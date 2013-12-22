@@ -14,6 +14,18 @@
         private Dictionary<int, PortraitItem> portraits = new Dictionary<int, PortraitItem>();
         internal string TempImageFileName;
 
+        private PlayerImage defaultImage;
+
+        public PersonPortrait()
+        {
+            defaultImage = LoadImage(9999);
+        }
+
+        public bool HasPortrait(int id) 
+        {
+            return GetImage(id) != defaultImage.Portrait;
+        }
+
         internal Image GetImage(int id)
         {
             Image portrait = null;
@@ -22,12 +34,12 @@
             if (!this.PlayerImages.TryGetValue(id, out image))
             {
                 image = this.LoadImage(id);
-                this.PlayerImages.Add(id, image);
                 if (image == null)
                 {
-                    image = this.LoadImage(9999);
-                    this.PlayerImages.Add(id, image);
+                    image = defaultImage;
+                    
                 }
+                this.PlayerImages.Add(id, image);
             }
 
             portrait = image.Portrait;
@@ -47,7 +59,10 @@
                 {
                     image = this.LoadImage(id);
                     this.PlayerImages.Add(id, image);
-                    if (image == null) return null;
+                    if (image == null)
+                    {
+                        image = defaultImage;
+                    }
                 }
                 item = new PortraitItem();
                 image.Portrait.Save(this.TempImageFileName);
