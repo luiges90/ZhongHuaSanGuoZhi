@@ -353,7 +353,10 @@
         {
             if (this.PersonPortraitPlugin != null)
             {
-                return this.PersonPortraitPlugin.GetImage(id);
+                if (this.PersonPortraitPlugin.HasPortrait(id))
+                {
+                    return this.PersonPortraitPlugin.GetImage(id);
+                }
             }
             return null;
         }

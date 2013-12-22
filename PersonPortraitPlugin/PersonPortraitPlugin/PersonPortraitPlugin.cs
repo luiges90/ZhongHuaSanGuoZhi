@@ -22,6 +22,11 @@
         {
         }
 
+        public bool HasPortrait(int id)
+        {
+            return this.personPortrait.HasPortrait(id);
+        }
+
         public Image GetImage(int id)
         {
             return this.personPortrait.GetImage(id);
