@@ -944,12 +944,28 @@
             }
         }
 
+        public int PlayerArchitectureCount
+        {
+            get
+            {
+                int r = 0;
+                foreach (Faction f in this.Factions)
+                {
+                    if (this.IsPlayer(f))
+                    {
+                        r += f.ArchitectureCount;
+                    }
+                }
+                return r;
+            }
+        }
+
         public void DayPassedEvent()
         {
             ExtensionInterface.call("DayEvent", new Object[] { this });
 
             //this.GameProgressCaution.Text = "开始";
-            Parameters.DayEvent(this.Date.Year);
+            Parameters.DayEvent(this.PlayerArchitectureCount);
 
             /*this.ClearPersonStatusCache();
             this.ClearPersonWorkCache();*/

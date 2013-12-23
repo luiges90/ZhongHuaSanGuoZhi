@@ -55,6 +55,8 @@
         public static float AITrainingSpeedYearIncreaseRate = 0f;
         public static float AITroopDefenceYearIncreaseRate = 0f;
         public static float AITroopOffenceYearIncreaseRate = 0f;
+        public static float AIArmyExperienceYearIncreaseRate = 0f;
+        public static float AIOfficerExperienceYearIncreaseRate = 0f;
 
         public static float AIOfficerExperienceRate = 1f;
         public static float AIArmyExperienceRate = 1f;
@@ -66,6 +68,8 @@
         private static float BasicAITrainingSpeedRate = 1f;
         private static float BasicAITroopDefenceRate = 1f;
         private static float BasicAITroopOffenceRate = 1f;
+        private static float BasicAIArmyExperienceRate = 1f;
+        private static float BasicAIOfficerExperienceRate = 1f;
 
         public static float AIBackendArmyReserveCalmBraveDifferenceMultiply = 5;
         public static float AIBackendArmyReserveAmbitionMultiply = 10;
@@ -205,6 +209,8 @@
             AIArchitectureDamageYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIArchitectureDamageYearIncreaseRate").Value);
             AITrainingSpeedYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AITrainingSpeedYearIncreaseRate").Value);
             AIRecruitmentSpeedYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedYearIncreaseRate").Value);
+            AIOfficerExperienceYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIOfficerExperienceYearIncreaseRate").Value);
+            AIArmyExperienceYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIArmyExperienceYearIncreaseRate").Value);
 
             AIBackendArmyReserveCalmBraveDifferenceMultiply = float.Parse(nextSibling.Attributes.GetNamedItem("AIBackendArmyReserveCalmBraveDifferenceMultiply").Value);
             AIBackendArmyReserveAmbitionMultiply = float.Parse(nextSibling.Attributes.GetNamedItem("AIBackendArmyReserveAmbitionMultiply").Value);
@@ -293,6 +299,8 @@
             BasicAIArchitectureDamageRate = AIArchitectureDamageRate;
             BasicAITrainingSpeedRate = AITrainingSpeedRate;
             BasicAIRecruitmentSpeedRate = AIRecruitmentSpeedRate;
+            BasicAIArmyExperienceRate = AIArmyExperienceRate;
+            BasicAIOfficerExperienceRate = AIOfficerExperienceRate;
         }
 
         public static void DayEvent(int year)
@@ -304,6 +312,8 @@
             AIArchitectureDamageRate = year * AIArchitectureDamageYearIncreaseRate + BasicAIArchitectureDamageRate;
             AITrainingSpeedRate = year * AITrainingSpeedYearIncreaseRate + BasicAITrainingSpeedRate;
             AIRecruitmentSpeedRate = year * AIRecruitmentSpeedYearIncreaseRate + BasicAIRecruitmentSpeedRate;
+            AIOfficerExperienceRate = year * AIOfficerExperienceYearIncreaseRate + BasicAIOfficerExperienceRate;
+            AIArmyExperienceRate = year * AIArmyExperienceYearIncreaseRate + BasicAIArmyExperienceRate;
         }
     }
 }

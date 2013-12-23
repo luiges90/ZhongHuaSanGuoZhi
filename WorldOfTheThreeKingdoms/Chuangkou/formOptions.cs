@@ -208,6 +208,17 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label label15;
         private Label label23;
         private TextBox tbOfficerChildrenLimit;
+        private Label label61;
+        private TextBox tbAIArmyExperienceIncreaseRate;
+        private TextBox tbAIOfficerExperienceIncreaseRate;
+        private TextBox tbAITrainingSpeedIncreaseRate;
+        private TextBox tbAIRecruitmentSpeedIncreaseRate;
+        private TextBox tbAITroopDefenceIncreaseRate;
+        private TextBox tbAIArchitectureDamageIncreaseRate;
+        private TextBox tbAITroopOffenceIncreaseRate;
+        private TextBox tbAIFoodIncreaseRate;
+        private TextBox tbAIFundIncreaseRate;
+        private Label label62;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -289,6 +300,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbRunWhileNotFocused = new System.Windows.Forms.CheckBox();
             this.cbDoAutoSave = new System.Windows.Forms.CheckBox();
             this.tabPagePerson = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.tbOfficerChildrenLimit = new System.Windows.Forms.TextBox();
             this.label58 = new System.Windows.Forms.Label();
             this.tbLearnTitleSuccessRate = new System.Windows.Forms.TextBox();
             this.label57 = new System.Windows.Forms.Label();
@@ -380,6 +393,17 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.label2 = new System.Windows.Forms.Label();
             this.tbInternalRate = new System.Windows.Forms.TextBox();
             this.tabPageAIParameter = new System.Windows.Forms.TabPage();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label61 = new System.Windows.Forms.Label();
+            this.tbAIArmyExperienceIncreaseRate = new System.Windows.Forms.TextBox();
+            this.tbAIOfficerExperienceIncreaseRate = new System.Windows.Forms.TextBox();
+            this.tbAITrainingSpeedIncreaseRate = new System.Windows.Forms.TextBox();
+            this.tbAIRecruitmentSpeedIncreaseRate = new System.Windows.Forms.TextBox();
+            this.tbAITroopDefenceIncreaseRate = new System.Windows.Forms.TextBox();
+            this.tbAIArchitectureDamageIncreaseRate = new System.Windows.Forms.TextBox();
+            this.tbAITroopOffenceIncreaseRate = new System.Windows.Forms.TextBox();
+            this.tbAIFoodIncreaseRate = new System.Windows.Forms.TextBox();
+            this.tbAIFundIncreaseRate = new System.Windows.Forms.TextBox();
             this.label54 = new System.Windows.Forms.Label();
             this.tbMaxAITroopTime = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
@@ -413,8 +437,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label23 = new System.Windows.Forms.Label();
-            this.tbOfficerChildrenLimit = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1042,6 +1064,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.TabIndex = 1;
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(13, 300);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(77, 12);
+            this.label23.TabIndex = 41;
+            this.label23.Text = "武將子女上限";
+            // 
+            // tbOfficerChildrenLimit
+            // 
+            this.tbOfficerChildrenLimit.Location = new System.Drawing.Point(94, 297);
+            this.tbOfficerChildrenLimit.Name = "tbOfficerChildrenLimit";
+            this.tbOfficerChildrenLimit.Size = new System.Drawing.Size(71, 22);
+            this.tbOfficerChildrenLimit.TabIndex = 40;
             // 
             // label58
             // 
@@ -1835,6 +1873,17 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageAIParameter
             // 
+            this.tabPageAIParameter.Controls.Add(this.label62);
+            this.tabPageAIParameter.Controls.Add(this.label61);
+            this.tabPageAIParameter.Controls.Add(this.tbAIArmyExperienceIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAIOfficerExperienceIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAITrainingSpeedIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAIRecruitmentSpeedIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAITroopDefenceIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAIArchitectureDamageIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAITroopOffenceIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAIFoodIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAIFundIncreaseRate);
             this.tabPageAIParameter.Controls.Add(this.label54);
             this.tabPageAIParameter.Controls.Add(this.tbMaxAITroopTime);
             this.tabPageAIParameter.Controls.Add(this.label50);
@@ -1874,10 +1923,91 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.Text = "电脑";
             this.tabPageAIParameter.UseVisualStyleBackColor = true;
             // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(205, 17);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(29, 12);
+            this.label62.TabIndex = 65;
+            this.label62.Text = "增量";
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Location = new System.Drawing.Point(142, 17);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(29, 12);
+            this.label61.TabIndex = 64;
+            this.label61.Text = "基值";
+            // 
+            // tbAIArmyExperienceIncreaseRate
+            // 
+            this.tbAIArmyExperienceIncreaseRate.Location = new System.Drawing.Point(189, 256);
+            this.tbAIArmyExperienceIncreaseRate.Name = "tbAIArmyExperienceIncreaseRate";
+            this.tbAIArmyExperienceIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIArmyExperienceIncreaseRate.TabIndex = 63;
+            // 
+            // tbAIOfficerExperienceIncreaseRate
+            // 
+            this.tbAIOfficerExperienceIncreaseRate.Location = new System.Drawing.Point(189, 228);
+            this.tbAIOfficerExperienceIncreaseRate.Name = "tbAIOfficerExperienceIncreaseRate";
+            this.tbAIOfficerExperienceIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIOfficerExperienceIncreaseRate.TabIndex = 62;
+            // 
+            // tbAITrainingSpeedIncreaseRate
+            // 
+            this.tbAITrainingSpeedIncreaseRate.Location = new System.Drawing.Point(189, 173);
+            this.tbAITrainingSpeedIncreaseRate.Name = "tbAITrainingSpeedIncreaseRate";
+            this.tbAITrainingSpeedIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAITrainingSpeedIncreaseRate.TabIndex = 60;
+            // 
+            // tbAIRecruitmentSpeedIncreaseRate
+            // 
+            this.tbAIRecruitmentSpeedIncreaseRate.Location = new System.Drawing.Point(189, 200);
+            this.tbAIRecruitmentSpeedIncreaseRate.Name = "tbAIRecruitmentSpeedIncreaseRate";
+            this.tbAIRecruitmentSpeedIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIRecruitmentSpeedIncreaseRate.TabIndex = 61;
+            // 
+            // tbAITroopDefenceIncreaseRate
+            // 
+            this.tbAITroopDefenceIncreaseRate.Location = new System.Drawing.Point(189, 118);
+            this.tbAITroopDefenceIncreaseRate.Name = "tbAITroopDefenceIncreaseRate";
+            this.tbAITroopDefenceIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAITroopDefenceIncreaseRate.TabIndex = 58;
+            // 
+            // tbAIArchitectureDamageIncreaseRate
+            // 
+            this.tbAIArchitectureDamageIncreaseRate.Location = new System.Drawing.Point(189, 145);
+            this.tbAIArchitectureDamageIncreaseRate.Name = "tbAIArchitectureDamageIncreaseRate";
+            this.tbAIArchitectureDamageIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIArchitectureDamageIncreaseRate.TabIndex = 59;
+            // 
+            // tbAITroopOffenceIncreaseRate
+            // 
+            this.tbAITroopOffenceIncreaseRate.Location = new System.Drawing.Point(189, 91);
+            this.tbAITroopOffenceIncreaseRate.Name = "tbAITroopOffenceIncreaseRate";
+            this.tbAITroopOffenceIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAITroopOffenceIncreaseRate.TabIndex = 57;
+            // 
+            // tbAIFoodIncreaseRate
+            // 
+            this.tbAIFoodIncreaseRate.Location = new System.Drawing.Point(189, 64);
+            this.tbAIFoodIncreaseRate.Name = "tbAIFoodIncreaseRate";
+            this.tbAIFoodIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIFoodIncreaseRate.TabIndex = 56;
+            // 
+            // tbAIFundIncreaseRate
+            // 
+            this.tbAIFundIncreaseRate.Location = new System.Drawing.Point(189, 37);
+            this.tbAIFundIncreaseRate.Name = "tbAIFundIncreaseRate";
+            this.tbAIFundIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIFundIncreaseRate.TabIndex = 55;
+            // 
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(250, 124);
+            this.label54.Location = new System.Drawing.Point(250, 203);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(101, 12);
             this.label54.TabIndex = 53;
@@ -1885,7 +2015,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbMaxAITroopTime
             // 
-            this.tbMaxAITroopTime.Location = new System.Drawing.Point(357, 121);
+            this.tbMaxAITroopTime.Location = new System.Drawing.Point(357, 200);
             this.tbMaxAITroopTime.Name = "tbMaxAITroopTime";
             this.tbMaxAITroopTime.Size = new System.Drawing.Size(71, 22);
             this.tbMaxAITroopTime.TabIndex = 54;
@@ -1893,7 +2023,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(13, 235);
+            this.label50.Location = new System.Drawing.Point(13, 259);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(113, 12);
             this.label50.TabIndex = 51;
@@ -1901,15 +2031,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAIArmyExperienceRate
             // 
-            this.tbAIArmyExperienceRate.Location = new System.Drawing.Point(130, 232);
+            this.tbAIArmyExperienceRate.Location = new System.Drawing.Point(130, 256);
             this.tbAIArmyExperienceRate.Name = "tbAIArmyExperienceRate";
-            this.tbAIArmyExperienceRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIArmyExperienceRate.Size = new System.Drawing.Size(57, 22);
             this.tbAIArmyExperienceRate.TabIndex = 52;
             // 
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(13, 207);
+            this.label49.Location = new System.Drawing.Point(13, 231);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(113, 12);
             this.label49.TabIndex = 49;
@@ -1917,15 +2047,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAIOfficerExperienceRate
             // 
-            this.tbAIOfficerExperienceRate.Location = new System.Drawing.Point(130, 204);
+            this.tbAIOfficerExperienceRate.Location = new System.Drawing.Point(130, 228);
             this.tbAIOfficerExperienceRate.Name = "tbAIOfficerExperienceRate";
-            this.tbAIOfficerExperienceRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIOfficerExperienceRate.Size = new System.Drawing.Size(57, 22);
             this.tbAIOfficerExperienceRate.TabIndex = 50;
             // 
             // cbAIAutoTakePlayerCaptiveOnlyUnfull
             // 
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull.AutoSize = true;
-            this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Location = new System.Drawing.Point(270, 97);
+            this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Location = new System.Drawing.Point(270, 93);
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Name = "cbAIAutoTakePlayerCaptiveOnlyUnfull";
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Size = new System.Drawing.Size(150, 16);
             this.cbAIAutoTakePlayerCaptiveOnlyUnfull.TabIndex = 48;
@@ -1936,7 +2066,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbAIAutoTakePlayerCaptives
             // 
             this.cbAIAutoTakePlayerCaptives.AutoSize = true;
-            this.cbAIAutoTakePlayerCaptives.Location = new System.Drawing.Point(252, 71);
+            this.cbAIAutoTakePlayerCaptives.Location = new System.Drawing.Point(252, 67);
             this.cbAIAutoTakePlayerCaptives.Name = "cbAIAutoTakePlayerCaptives";
             this.cbAIAutoTakePlayerCaptives.Size = new System.Drawing.Size(180, 16);
             this.cbAIAutoTakePlayerCaptives.TabIndex = 47;
@@ -1947,7 +2077,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbAIAutoTakeNoFactionPerson
             // 
             this.cbAIAutoTakeNoFactionPerson.AutoSize = true;
-            this.cbAIAutoTakeNoFactionPerson.Location = new System.Drawing.Point(252, 43);
+            this.cbAIAutoTakeNoFactionPerson.Location = new System.Drawing.Point(252, 39);
             this.cbAIAutoTakeNoFactionPerson.Name = "cbAIAutoTakeNoFactionPerson";
             this.cbAIAutoTakeNoFactionPerson.Size = new System.Drawing.Size(180, 16);
             this.cbAIAutoTakeNoFactionPerson.TabIndex = 46;
@@ -1958,7 +2088,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbAIAutoTakeNoFactionCaptives
             // 
             this.cbAIAutoTakeNoFactionCaptives.AutoSize = true;
-            this.cbAIAutoTakeNoFactionCaptives.Location = new System.Drawing.Point(252, 16);
+            this.cbAIAutoTakeNoFactionCaptives.Location = new System.Drawing.Point(252, 13);
             this.cbAIAutoTakeNoFactionCaptives.Name = "cbAIAutoTakeNoFactionCaptives";
             this.cbAIAutoTakeNoFactionCaptives.Size = new System.Drawing.Size(168, 16);
             this.cbAIAutoTakeNoFactionCaptives.TabIndex = 45;
@@ -1969,7 +2099,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbAIExecuteBetterOfficer
             // 
             this.cbAIExecuteBetterOfficer.AutoSize = true;
-            this.cbAIExecuteBetterOfficer.Location = new System.Drawing.Point(13, 393);
+            this.cbAIExecuteBetterOfficer.Location = new System.Drawing.Point(15, 393);
             this.cbAIExecuteBetterOfficer.Name = "cbAIExecuteBetterOfficer";
             this.cbAIExecuteBetterOfficer.Size = new System.Drawing.Size(144, 16);
             this.cbAIExecuteBetterOfficer.TabIndex = 44;
@@ -1995,7 +2125,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(13, 152);
+            this.label34.Location = new System.Drawing.Point(13, 176);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(77, 12);
             this.label34.TabIndex = 27;
@@ -2003,16 +2133,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAITrainingSpeedRate
             // 
-            this.tbAITrainingSpeedRate.Location = new System.Drawing.Point(130, 149);
+            this.tbAITrainingSpeedRate.Location = new System.Drawing.Point(130, 173);
             this.tbAITrainingSpeedRate.Name = "tbAITrainingSpeedRate";
-            this.tbAITrainingSpeedRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAITrainingSpeedRate.Size = new System.Drawing.Size(57, 22);
             this.tbAITrainingSpeedRate.TabIndex = 24;
             this.tbAITrainingSpeedRate.TextChanged += new System.EventHandler(this.setDifficultyToCustom);
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(13, 179);
+            this.label35.Location = new System.Drawing.Point(13, 203);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(77, 12);
             this.label35.TabIndex = 25;
@@ -2020,16 +2150,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAIRecruitmentSpeedRate
             // 
-            this.tbAIRecruitmentSpeedRate.Location = new System.Drawing.Point(130, 176);
+            this.tbAIRecruitmentSpeedRate.Location = new System.Drawing.Point(130, 200);
             this.tbAIRecruitmentSpeedRate.Name = "tbAIRecruitmentSpeedRate";
-            this.tbAIRecruitmentSpeedRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIRecruitmentSpeedRate.Size = new System.Drawing.Size(57, 22);
             this.tbAIRecruitmentSpeedRate.TabIndex = 26;
             this.tbAIRecruitmentSpeedRate.TextChanged += new System.EventHandler(this.setDifficultyToCustom);
             // 
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(13, 97);
+            this.label32.Location = new System.Drawing.Point(13, 121);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(113, 12);
             this.label32.TabIndex = 23;
@@ -2037,16 +2167,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAITroopDefenceRate
             // 
-            this.tbAITroopDefenceRate.Location = new System.Drawing.Point(130, 94);
+            this.tbAITroopDefenceRate.Location = new System.Drawing.Point(130, 118);
             this.tbAITroopDefenceRate.Name = "tbAITroopDefenceRate";
-            this.tbAITroopDefenceRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAITroopDefenceRate.Size = new System.Drawing.Size(57, 22);
             this.tbAITroopDefenceRate.TabIndex = 20;
             this.tbAITroopDefenceRate.TextChanged += new System.EventHandler(this.setDifficultyToCustom);
             // 
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(13, 124);
+            this.label28.Location = new System.Drawing.Point(13, 148);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(113, 12);
             this.label28.TabIndex = 21;
@@ -2054,16 +2184,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAIArchitectureDamageRate
             // 
-            this.tbAIArchitectureDamageRate.Location = new System.Drawing.Point(130, 121);
+            this.tbAIArchitectureDamageRate.Location = new System.Drawing.Point(130, 145);
             this.tbAIArchitectureDamageRate.Name = "tbAIArchitectureDamageRate";
-            this.tbAIArchitectureDamageRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIArchitectureDamageRate.Size = new System.Drawing.Size(57, 22);
             this.tbAIArchitectureDamageRate.TabIndex = 22;
             this.tbAIArchitectureDamageRate.TextChanged += new System.EventHandler(this.setDifficultyToCustom);
             // 
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(13, 70);
+            this.label29.Location = new System.Drawing.Point(13, 94);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(113, 12);
             this.label29.TabIndex = 19;
@@ -2071,16 +2201,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAITroopOffenceRate
             // 
-            this.tbAITroopOffenceRate.Location = new System.Drawing.Point(130, 67);
+            this.tbAITroopOffenceRate.Location = new System.Drawing.Point(130, 91);
             this.tbAITroopOffenceRate.Name = "tbAITroopOffenceRate";
-            this.tbAITroopOffenceRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAITroopOffenceRate.Size = new System.Drawing.Size(57, 22);
             this.tbAITroopOffenceRate.TabIndex = 18;
             this.tbAITroopOffenceRate.TextChanged += new System.EventHandler(this.setDifficultyToCustom);
             // 
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(13, 43);
+            this.label30.Location = new System.Drawing.Point(13, 67);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(89, 12);
             this.label30.TabIndex = 17;
@@ -2088,16 +2218,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAIFoodRate
             // 
-            this.tbAIFoodRate.Location = new System.Drawing.Point(130, 40);
+            this.tbAIFoodRate.Location = new System.Drawing.Point(130, 64);
             this.tbAIFoodRate.Name = "tbAIFoodRate";
-            this.tbAIFoodRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIFoodRate.Size = new System.Drawing.Size(57, 22);
             this.tbAIFoodRate.TabIndex = 16;
             this.tbAIFoodRate.TextChanged += new System.EventHandler(this.setDifficultyToCustom);
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(13, 16);
+            this.label31.Location = new System.Drawing.Point(13, 40);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(89, 12);
             this.label31.TabIndex = 15;
@@ -2105,16 +2235,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAIFundRate
             // 
-            this.tbAIFundRate.Location = new System.Drawing.Point(130, 13);
+            this.tbAIFundRate.Location = new System.Drawing.Point(130, 37);
             this.tbAIFundRate.Name = "tbAIFundRate";
-            this.tbAIFundRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIFundRate.Size = new System.Drawing.Size(57, 22);
             this.tbAIFundRate.TabIndex = 14;
             this.tbAIFundRate.TextChanged += new System.EventHandler(this.setDifficultyToCustom);
             // 
             // cbPinPointAtPlayer
             // 
             this.cbPinPointAtPlayer.AutoSize = true;
-            this.cbPinPointAtPlayer.Location = new System.Drawing.Point(15, 260);
+            this.cbPinPointAtPlayer.Location = new System.Drawing.Point(252, 120);
             this.cbPinPointAtPlayer.Name = "cbPinPointAtPlayer";
             this.cbPinPointAtPlayer.Size = new System.Drawing.Size(144, 16);
             this.cbPinPointAtPlayer.TabIndex = 40;
@@ -2125,7 +2255,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbIgnoreStrategyTendency
             // 
             this.cbIgnoreStrategyTendency.AutoSize = true;
-            this.cbIgnoreStrategyTendency.Location = new System.Drawing.Point(15, 326);
+            this.cbIgnoreStrategyTendency.Location = new System.Drawing.Point(15, 339);
             this.cbIgnoreStrategyTendency.Name = "cbIgnoreStrategyTendency";
             this.cbIgnoreStrategyTendency.Size = new System.Drawing.Size(156, 16);
             this.cbIgnoreStrategyTendency.TabIndex = 41;
@@ -2135,7 +2265,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbInternalSurplusRateForPlayer
             // 
             this.cbInternalSurplusRateForPlayer.AutoSize = true;
-            this.cbInternalSurplusRateForPlayer.Location = new System.Drawing.Point(15, 282);
+            this.cbInternalSurplusRateForPlayer.Location = new System.Drawing.Point(252, 148);
             this.cbInternalSurplusRateForPlayer.Name = "cbInternalSurplusRateForPlayer";
             this.cbInternalSurplusRateForPlayer.Size = new System.Drawing.Size(144, 16);
             this.cbInternalSurplusRateForPlayer.TabIndex = 41;
@@ -2145,7 +2275,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbInternalSurplusRateForAI
             // 
             this.cbInternalSurplusRateForAI.AutoSize = true;
-            this.cbInternalSurplusRateForAI.Location = new System.Drawing.Point(15, 304);
+            this.cbInternalSurplusRateForAI.Location = new System.Drawing.Point(252, 175);
             this.cbInternalSurplusRateForAI.Name = "cbInternalSurplusRateForAI";
             this.cbInternalSurplusRateForAI.Size = new System.Drawing.Size(144, 16);
             this.cbInternalSurplusRateForAI.TabIndex = 41;
@@ -2175,22 +2305,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(13, 300);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(77, 12);
-            this.label23.TabIndex = 41;
-            this.label23.Text = "武將子女上限";
-            // 
-            // tbOfficerChildrenLimit
-            // 
-            this.tbOfficerChildrenLimit.Location = new System.Drawing.Point(94, 297);
-            this.tbOfficerChildrenLimit.Name = "tbOfficerChildrenLimit";
-            this.tbOfficerChildrenLimit.Size = new System.Drawing.Size(71, 22);
-            this.tbOfficerChildrenLimit.TabIndex = 40;
             // 
             // formOptions
             // 
@@ -2332,6 +2446,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbAIRecruitmentSpeedRate.Text = nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedRate").Value;
             this.tbAIOfficerExperienceRate.Text = nextSibling.Attributes.GetNamedItem("AIOfficerExperienceRate").Value;
             this.tbAIArmyExperienceRate.Text = nextSibling.Attributes.GetNamedItem("AIArmyExperienceRate").Value;
+            this.tbAIFundIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIFundYearIncreaseRate").Value;
+            this.tbAIFoodIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIFoodYearIncreaseRate").Value;
+            this.tbAITroopOffenceIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AITroopOffenceYearIncreaseRate").Value;
+            this.tbAITroopDefenceIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AITroopDefenceYearIncreaseRate").Value;
+            this.tbAIArchitectureDamageIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIArchitectureDamageYearIncreaseRate").Value;
+            this.tbAITrainingSpeedIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AITrainingSpeedYearIncreaseRate").Value;
+            this.tbAIRecruitmentSpeedIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedYearIncreaseRate").Value;
+            this.tbAIOfficerExperienceIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIOfficerExperienceYearIncreaseRate").Value;
+            this.tbAIArmyExperienceIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIArmyExperienceYearIncreaseRate").Value;
             this.tbMaxAITroopTime.Text = nextSibling.Attributes.GetNamedItem("MaxAITroopTime").Value;
             this.tbLearnSkillSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value;
             this.tbLearnStuntSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value;
@@ -2448,6 +2571,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedRate").Value = this.tbAIRecruitmentSpeedRate.Text;
             nextSibling.Attributes.GetNamedItem("AIOfficerExperienceRate").Value = this.tbAIOfficerExperienceRate.Text;
             nextSibling.Attributes.GetNamedItem("AIArmyExperienceRate").Value = this.tbAIArmyExperienceRate.Text;
+            nextSibling.Attributes.GetNamedItem("AIFundYearIncreaseRate").Value = this.tbAIFundIncreaseRate.Text;
+            nextSibling.Attributes.GetNamedItem("AIFoodYearIncreaseRate").Value = this.tbAIFoodIncreaseRate.Text;
+            nextSibling.Attributes.GetNamedItem("AITroopOffenceYearIncreaseRate").Value = this.tbAITroopOffenceIncreaseRate.Text;
+            nextSibling.Attributes.GetNamedItem("AITroopDefenceYearIncreaseRate").Value = this.tbAITroopDefenceIncreaseRate.Text;
+            nextSibling.Attributes.GetNamedItem("AIArchitectureDamageYearIncreaseRate").Value = this.tbAIArchitectureDamageIncreaseRate.Text;
+            nextSibling.Attributes.GetNamedItem("AITrainingSpeedYearIncreaseRate").Value = this.tbAITrainingSpeedIncreaseRate.Text;
+            nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedYearIncreaseRate").Value = this.tbAIRecruitmentSpeedIncreaseRate.Text;
+            nextSibling.Attributes.GetNamedItem("AIOfficerExperienceYearIncreaseRate").Value = this.tbAIOfficerExperienceIncreaseRate.Text;
+            nextSibling.Attributes.GetNamedItem("AIArmyExperienceYearIncreaseRate").Value = this.tbAIArmyExperienceIncreaseRate.Text;
             nextSibling.Attributes.GetNamedItem("MaxAITroopTime").Value = this.tbMaxAITroopTime.Text;
             nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value = this.tbLearnSkillSuccessRate.Text;
             nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value = this.tbLearnStuntSuccessRate.Text;
@@ -2566,6 +2698,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedRate.Text = "0.7";
                     this.tbAIOfficerExperienceRate.Text = "0.7";
                     this.tbAIArmyExperienceRate.Text = "0.7";
+                    this.tbAIFundIncreaseRate.Text = "0.0";
+                    this.tbAIFoodIncreaseRate.Text = "0.0";
+                    this.tbAIArchitectureDamageIncreaseRate.Text = "0.0";
+                    this.tbAITroopOffenceIncreaseRate.Text = "0.0";
+                    this.tbAITroopDefenceIncreaseRate.Text = "0.0";
+                    this.tbAIRecruitmentSpeedIncreaseRate.Text = "0.0";
+                    this.tbAITrainingSpeedIncreaseRate.Text = "0.0";
+                    this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
+                    this.tbAIArmyExperienceIncreaseRate.Text = "0.0";
                     this.cbPinPointAtPlayer.Checked = false;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = true;
@@ -2584,6 +2725,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedRate.Text = "1.0";
                     this.tbAIOfficerExperienceRate.Text = "1.0";
                     this.tbAIArmyExperienceRate.Text = "1.0";
+                    this.tbAIFundIncreaseRate.Text = "0.0";
+                    this.tbAIFoodIncreaseRate.Text = "0.0";
+                    this.tbAIArchitectureDamageIncreaseRate.Text = "0.0";
+                    this.tbAITroopOffenceIncreaseRate.Text = "0.0";
+                    this.tbAITroopDefenceIncreaseRate.Text = "0.0";
+                    this.tbAIRecruitmentSpeedIncreaseRate.Text = "0.0";
+                    this.tbAITrainingSpeedIncreaseRate.Text = "0.0";
+                    this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
+                    this.tbAIArmyExperienceIncreaseRate.Text = "0.0";
                     this.cbPinPointAtPlayer.Checked = false;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = false;
@@ -2602,6 +2752,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedRate.Text = "1.2";
                     this.tbAIOfficerExperienceRate.Text = "1.0";
                     this.tbAIArmyExperienceRate.Text = "1.5";
+                    this.tbAIFundIncreaseRate.Text = "0.01";
+                    this.tbAIFoodIncreaseRate.Text = "0.01";
+                    this.tbAIArchitectureDamageIncreaseRate.Text = "0.0";
+                    this.tbAITroopOffenceIncreaseRate.Text = "0.0";
+                    this.tbAITroopDefenceIncreaseRate.Text = "0.0";
+                    this.tbAIRecruitmentSpeedIncreaseRate.Text = "0.01";
+                    this.tbAITrainingSpeedIncreaseRate.Text = "0.01";
+                    this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
+                    this.tbAIArmyExperienceIncreaseRate.Text = "0.01";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = false;
@@ -2620,6 +2779,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedRate.Text = "1.5";
                     this.tbAIOfficerExperienceRate.Text = "1.0";
                     this.tbAIArmyExperienceRate.Text = "2.0";
+                    this.tbAIFundIncreaseRate.Text = "0.02";
+                    this.tbAIFoodIncreaseRate.Text = "0.02";
+                    this.tbAIArchitectureDamageIncreaseRate.Text = "0.005";
+                    this.tbAITroopOffenceIncreaseRate.Text = "0.005";
+                    this.tbAITroopDefenceIncreaseRate.Text = "0.005";
+                    this.tbAIRecruitmentSpeedIncreaseRate.Text = "0.02";
+                    this.tbAITrainingSpeedIncreaseRate.Text = "0.02";
+                    this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
+                    this.tbAIArmyExperienceIncreaseRate.Text = "0.02";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = false;
@@ -2638,6 +2806,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedRate.Text = "2.0";
                     this.tbAIOfficerExperienceRate.Text = "1.0";
                     this.tbAIArmyExperienceRate.Text = "3.0";
+                    this.tbAIFundIncreaseRate.Text = "0.1";
+                    this.tbAIFoodIncreaseRate.Text = "0.1";
+                    this.tbAIArchitectureDamageIncreaseRate.Text = "0.02";
+                    this.tbAITroopOffenceIncreaseRate.Text = "0.02";
+                    this.tbAITroopDefenceIncreaseRate.Text = "0.02";
+                    this.tbAIRecruitmentSpeedIncreaseRate.Text = "0.1";
+                    this.tbAITrainingSpeedIncreaseRate.Text = "0.1";
+                    this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
+                    this.tbAIArmyExperienceIncreaseRate.Text = "0.1";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = true;
                     this.cbInternalSurplusRateForAI.Checked = false;
