@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "中华三国志"
-#define MyAppVersion "v.21"
+#define MyAppVersion "v.21a"
 #define MyAppPublisher "中华三国志"
 #define MyAppURL "http://tieba.baidu.com/f?kw=%D6%D0%BB%AA%C8%FD%B9%FA%D6%BE"
 #define MyAppExeName "WorldOfTheThreeKingdoms.exe"
