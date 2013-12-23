@@ -4523,6 +4523,22 @@
             }
         }
 
+        public int TitleInheritableMerit
+        {
+            get
+            {
+                int result = 0;
+                foreach (Title t in this.Titles)
+                {
+                    if (t.Kind.IsInheritable(base.Scenario.GameCommonData.AllTitles))
+                    {
+                        result += t.Merit;
+                    }
+                }
+                return result;
+            }
+        }
+
         public int FightingForce
         {
             get
@@ -4967,7 +4983,7 @@
             get
             {
                 return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + this.UntiredPolitics + this.UntiredGlamour) *
-                    (100 + this.TitleMerit + this.AllSkillMerit);
+                    (100 + this.TitleInheritableMerit + this.AllSkillMerit);
             }
         }
 

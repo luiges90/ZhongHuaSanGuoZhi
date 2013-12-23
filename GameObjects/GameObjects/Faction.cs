@@ -776,7 +776,7 @@
                             candidate.Add(p);
                         }
                     }
-                    candidate.PropertyName = "Merit";
+                    candidate.PropertyName = "UntiredMerit";
                     candidate.IsNumber = true;
                     candidate.SmallToBig = false;
                     candidate.ReSort();
@@ -847,7 +847,7 @@
                         foreach (Person p in a.meifaxianhuaiyundefeiziliebiao())
                         {
                             int pval = p.NumberOfChildren > 0 ? p.Merit / p.NumberOfChildren : int.MaxValue;
-                            int tval = target == null ? 0 : (target.NumberOfChildren > 0 ? target.Merit / target.NumberOfChildren : int.MaxValue);
+                            int tval = target == null ? 0 : (target.NumberOfChildren > 0 ? target.UntiredMerit / target.NumberOfChildren : int.MaxValue);
                             if (target == null || pval > tval)
                             {
                                 target = p;

@@ -85,7 +85,16 @@
             return true;
         }
 
-        public virtual bool CanBeBorn(Person person)
+        public bool CanBeBorn()
+        {
+            foreach (Condition condition in this.Conditions.Conditions.Values)
+            {
+                if (condition.Kind.ID == 901) return false;
+            }
+            return true;
+        }
+
+        public bool CanBeBorn(Person person)
         {
             foreach (Condition condition in this.Conditions.Conditions.Values)
             {

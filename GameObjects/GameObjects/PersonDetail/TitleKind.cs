@@ -11,6 +11,25 @@
         public string Name { get; set; }
         public int StudyDay { get; set; }
         public int SuccessRate { get; set; }
+
+        private bool? inheritable;
+        public bool IsInheritable(TitleTable allTitles)
+        {
+            if (inheritable.HasValue)
+            {
+                return inheritable.Value;
+            }
+            foreach (Title t in allTitles.GetTitleList())
+            {
+                if (t.Kind == this && t.CanBeBorn())
+                {
+                    inheritable = true;
+                    return true;
+                }
+            }
+            inheritable = false;
+            return false;
+        }
     }
 }
 
