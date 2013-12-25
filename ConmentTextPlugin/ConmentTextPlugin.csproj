@@ -60,7 +60,7 @@
     <Reference Include="System.Drawing" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Global.cs" />
-    <Compile Include="ConmentTextPlugin\ConmentTextPlugin.cs" />
-    <Compile Include="ConmentTextPlugin\ConmentText.cs" />
+    <Compile Include="CommentTextPlugin\CommentTextPlugin.cs" />
+    <Compile Include="CommentTextPlugin\CommentText.cs" />
   </ItemGroup>
 </Project>

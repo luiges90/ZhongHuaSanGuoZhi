@@ -1,11 +1,11 @@
-﻿namespace ConmentTextPlugin
+﻿namespace CommentTextPlugin
 {
     using GameFreeText;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using System;
 
-    internal class ConmentText
+    internal class CommentText
     {
         public bool DecorateFirst;
         public bool DecorateSecond;

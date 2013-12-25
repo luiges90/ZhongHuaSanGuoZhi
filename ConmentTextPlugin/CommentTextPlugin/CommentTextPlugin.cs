@@ -1,4 +1,4 @@
-﻿namespace ConmentTextPlugin
+﻿namespace CommentTextPlugin
 {
     using GameFreeText;
     using GameGlobal;
@@ -11,21 +11,21 @@
     using System.Drawing;
     using System.Xml;
 
-    public class ConmentTextPlugin : GameObject, IConmentText, IBasePlugin, IPluginXML, IPluginGraphics
+    public class CommentTextPlugin : GameObject, IConmentText, IBasePlugin, IPluginXML, IPluginGraphics
     {
         private string author = "clip_on";
-        private ConmentText conmentText = new ConmentText();
-        private const string DataPath = @"GameComponents\ConmentText\Data\";
+        private CommentText conmentText = new CommentText();
+        private const string DataPath = @"GameComponents\CommentText\Data\";
         private string description = "用来设置主界面注释的各个属性";
         private GraphicsDevice graphicsDevice;
-        private const string Path = @"GameComponents\ConmentText\";
-        private string pluginName = "ConmentTextPlugin";
+        private const string Path = @"GameComponents\CommentText\";
+        private string pluginName = "CommentTextPlugin";
         private float ScaleHeight;
         private float ScaleWidth;
         private float ScaleX;
         private float ScaleY;
         private string version = "1.0.0";
-        private const string XMLFilename = "ConmentTextData.xml";
+        private const string XMLFilename = "CommentTextData.xml";
 
         public string BuildFirstText(string text, bool decoration)
         {
@@ -93,7 +93,7 @@
         public void SetGraphicsDevice(GraphicsDevice device)
         {
             this.graphicsDevice = device;
-            this.LoadDataFromXMLDocument(@"GameComponents\ConmentText\ConmentTextData.xml");
+            this.LoadDataFromXMLDocument(@"GameComponents\ConmentText\CommentTextData.xml");
         }
 
         public void SetView(int width, int height)
