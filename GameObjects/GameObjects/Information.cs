@@ -89,7 +89,7 @@
 
         public void Purify()
         {
-            if (this.BelongedArchitecture != null)
+            if (this.BelongedArchitecture != null && this.BelongedArchitecture.BelongedFaction != null)
             {
                 foreach (Point point in this.Area.Area)
                 {

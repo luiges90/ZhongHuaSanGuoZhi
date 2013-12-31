@@ -31,7 +31,11 @@
         public override int GetCreditWithPosition(Troop source, out Point? position)
         {
             //position = 0;
-            position = new Point (0,0);
+            position = new Point(0, 0);
+
+            if (source == null || source.BelongedLegion == null || source.BelongedLegion.Troops == null
+                || source.BelongedLegion.WillArchitecture == null || source.BaseViewArea == null) return 0;
+            
             if (((source.BelongedLegion != null) && (GameObject.Random(source.BelongedLegion.Troops.Count) == 0)) && ((source.BelongedLegion.WillArchitecture.BelongedFaction != null) && !source.BelongedFaction.IsArchitectureKnown(source.BelongedLegion.WillArchitecture)))
             {
                 bool flag = false;
