@@ -610,6 +610,7 @@
         {
             if (base.Scenario.IsPlayer(this)) return;
             if (GlobalVariables.getChildrenRate <= 0) return;
+            if (this.Leader.LocationArchitecture == null || this.Leader.LocationArchitecture.HasHostileTroopsInView()) return;
 
             if (this.Leader.NumberOfChildren >= GlobalVariables.OfficerChildrenLimit) return;
 
@@ -1019,7 +1020,7 @@
                         if (b.Abandoned || b == a) continue;
                         if (!b.FrontLine && !b.HasHostileTroopsInView())
                         {
-                            if (b.Fund >= goodFund[b] * 1.5 && b.Food - goodFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                            if (b.Fund >= goodFund[b] * 2 && b.Food - goodFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                             {
                                 int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
                                 int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
@@ -1042,7 +1043,7 @@
                             if (b.Abandoned || b == a) continue;
                             if (!b.HasHostileTroopsInView())
                             {
-                                if (b.Fund >= goodFund[b] * 1.5 && b.Food - goodFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                                if (b.Fund >= goodFund[b] * 2 && b.Food - goodFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                                 {
                                     int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
                                     int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
@@ -1066,7 +1067,7 @@
                             if (b.Abandoned || b == a) continue;
                             if (!b.HasHostileTroopsInView())
                             {
-                                if (b.Fund >= minFund[b] * 1.5 && b.Food - minFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                                if (b.Fund >= minFund[b] * 2 && b.Food - minFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                                 {
                                     int transferFund = Math.Min(deficitFund, b.Fund - minFund[b]);
                                     int transferFood = Math.Max(Math.Min(deficitFood, b.Food - minFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
@@ -1192,7 +1193,7 @@
                         if (b.Abandoned || b == a) continue;
                         if (!b.FrontLine && !b.HasHostileTroopsInView())
                         {
-                            if (b.Fund >= goodFund[b] * 1.5 && b.Food - goodFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                            if (b.Fund >= goodFund[b] * 2 && b.Food - goodFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                             {
                                 int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
                                 int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
@@ -1215,7 +1216,7 @@
                             if (b.Abandoned || b == a) continue;
                             if (!b.HasHostileTroopsInView())
                             {
-                                if (b.Fund >= goodFund[b] * 1.5 && b.Food - goodFood[b] * 1.5 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                                if (b.Fund >= goodFund[b] * 2 && b.Food - goodFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
                                 {
                                     int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
                                     int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);

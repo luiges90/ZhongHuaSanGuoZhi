@@ -10421,6 +10421,10 @@
                 num += (this.BelongedFaction.BecomeEmperorLegallyAvail() || this.BelongedFaction.SelfBecomeEmperorAvail()) && this.BelongedFaction.Capital == this ? 100000 : 0;
                 num += this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0;
                 num += (int)(Math.Sqrt(this.Population) * 8.0);
+                if (this.FrontLine)
+                {
+                    num += this.Population / 50;
+                }
                 num += this.BelongedFaction.Capital == this ? this.BelongedFaction.FundToAdvance : 0;
                 num += this.InformationDayCost * 15;
                 num += (this.PersonCount + this.MovingPersonCount) * Parameters.RewardPersonCost * 3;
