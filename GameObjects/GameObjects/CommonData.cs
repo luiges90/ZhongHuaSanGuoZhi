@@ -279,12 +279,12 @@
                     {
                         ik.Combat = true;
                     }
-                    try
+                    /*try
                     {
                         ik.AIPersonValue = (float)reader["AIPersonValue"];
                         ik.AIPersonValuePow = (float)reader["AIPersonValuePow"];
                     }
-                    catch { }
+                    catch { }*/
                     this.AllInfluenceKinds.AddInfluenceKind(ik);
                 }
             }
@@ -1902,14 +1902,14 @@
                     row["Prerequisite"] = i.Prerequisite;
                     row["Influences"] = i.Influences.SaveToString();
                     row["Conditions"] = i.Conditions.SaveToString();
-                    try
+                    /*try
                     {
                         row["AIPersonValue"] = i.AIPersonValue;
                         row["AIPersonLevel"] = i.AIPersonLevel;
                     }
                     catch
                     {
-                    }
+                    }*/
                     row.EndEdit();
                     dataSet.Tables["Title"].Rows.Add(row);
                 }
