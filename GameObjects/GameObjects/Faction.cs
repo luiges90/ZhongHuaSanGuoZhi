@@ -4565,16 +4565,20 @@
             {
                 if (InternalSurplusRateCache >= 0)
                     return InternalSurplusRateCache;
+
                 if ((!base.Scenario.IsPlayer(this) && !GlobalVariables.internalSurplusRateForAI) || (base.Scenario.IsPlayer(this) && !GlobalVariables.internalSurplusRateForPlayer))
                 {
                     InternalSurplusRateCache = 1;
                     return 1;
                 }
-                float num = 1f - (0.001f * (((this.Population / 0x2710) + (this.armyScale / 5)) + this.PersonCount));
+
+                float num = 1f - (this.armyScale / 50.0f + this.PersonCount / 3.0f + this.Population / 80000.0f) / base.Scenario.Architectures.Count * 0.8f;
+
                 if (num < 0.2f)
                 {
                     num = 0.2f;
                 }
+
                 InternalSurplusRateCache = num;
                 return num;
             }
