@@ -26,6 +26,8 @@
                 troop.OnSetStratagem += new Troop.SetStratagem(this.troop_OnSetStratagem);
                 troop.OnStratagemSuccess += new Troop.StratagemSuccess(this.troop_OnStratagemSuccess);
                 troop.OnChaos += new Troop.Chaos(this.troop_OnChaos);
+                troop.OnRumour += new Troop.Rumour(this.troop_OnRumour);
+                troop.OnAttract += new Troop.Attract(this.troop_OnAttract);
                 troop.OnRecoverFromChaos += new Troop.RecoverFromChaos(this.troop_OnRecoverFromChaos);
                 troop.OnCastDeepChaos += new Troop.CastDeepChaos(this.troop_OnCastDeepChaos);
                 troop.OnResistStratagem += new Troop.ResistStratagem(this.troop_OnResistStratagem);

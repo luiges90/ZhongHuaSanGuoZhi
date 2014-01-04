@@ -33,6 +33,11 @@
             int pureFightingForce = source.PureFightingForce;
             foreach (Troop troop in source.GetAreaStratagemTroops(destination, false))
             {
+                if (troop.FightingForce > source.FightingForce)
+                {
+                    return -100;
+                }
+
                 int num3 = source.GetStratagemSuccessChanceCredit(troop,
                     source.InevitableAttractOnLowerIntelligence || source.InevitableStratagemOnLowerIntelligence, 
                     troop.InvincibleAttract, troop.InvincibleStratagemFromLowerIntelligence);

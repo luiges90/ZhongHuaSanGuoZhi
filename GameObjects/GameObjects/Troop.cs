@@ -12009,6 +12009,10 @@
                 {
                     return this.ForceTroopTarget;
                 }
+                else if (this.status == TroopStatus.伪报)
+                {
+                    return null;
+                }
                 if (this.targetTroop == null)
                 {
                     this.targetTroop = base.Scenario.Troops.GetGameObject(this.targetTroopID) as Troop;
@@ -12438,6 +12442,10 @@
                 if (this.Status == TroopStatus.挑衅)
                 {
                     return this.ForceTroopTarget;
+                }
+                else if (this.Status == TroopStatus.伪报)
+                {
+                    return null;
                 }
                 if (this.willTroop == null)
                 {

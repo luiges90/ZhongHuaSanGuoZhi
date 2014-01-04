@@ -72,7 +72,7 @@
         public void ApplyInfluence(Troop troop, Applier applier, int applierID)
         {
             ApplyingTroop a = new ApplyingTroop(troop, applier, applierID);
-            if (appliedTroop.Contains(a) && (this.ID < 390 || this.ID > 399)) return;
+            if (appliedTroop.Contains(a) && (this.ID < 390 || this.ID > 399 && (this.ID != 720 && this.ID != 721))) return;
             appliedTroop.Add(a);
             troop.InfluencesApplying.Add(this);
             this.Kind.InitializeParameter(this.Parameter);
