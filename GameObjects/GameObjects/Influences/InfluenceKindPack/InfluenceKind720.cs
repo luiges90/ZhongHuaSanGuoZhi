@@ -11,16 +11,18 @@
         public override void ApplyInfluenceKind(Troop troop)
         {
             if (troop.GetCurrentStratagemSuccess(troop.OrientationTroop, 
-                troop.InevitableRumourOnLowerIntelligence || troop.InevitableStratagemOnLowerIntelligence, 
-                troop.OrientationTroop.InvincibleRumour, troop.OrientationTroop.InvincibleStratagemFromLowerIntelligence))
+                troop.InevitableRumourOnLowerIntelligence || troop.InevitableStratagemOnLowerIntelligence,
+                (troop.OrientationTroop.NeverBeIntoChaos || troop.OrientationTroop.OutburstNeverBeIntoChaos) || troop.OrientationTroop.InvincibleRumour, 
+                troop.OrientationTroop.InvincibleStratagemFromLowerIntelligence))
             {
                 troop.OrientationTroop.SetRumour(troop.GenerateCastRumourDay(this.maxDays));
             }
             foreach (Troop troop2 in troop.AreaStratagemTroops)
             {
                 if (troop.GetCurrentStratagemSuccess(troop2,
-                    troop.InevitableRumourOnLowerIntelligence || troop.InevitableStratagemOnLowerIntelligence, 
-                    troop2.InvincibleRumour, troop2.InvincibleStratagemFromLowerIntelligence))
+                    troop.InevitableRumourOnLowerIntelligence || troop.InevitableStratagemOnLowerIntelligence,
+                    (troop2.NeverBeIntoChaos || troop2.OutburstNeverBeIntoChaos) || troop2.InvincibleRumour, 
+                    troop2.InvincibleStratagemFromLowerIntelligence))
                 {
                     troop2.SetRumour(troop.GenerateCastRumourDay(this.maxDays));
                 }
