@@ -6314,7 +6314,7 @@
             this.LevelUpMilitaryList.Clear();
             foreach (Military military in this.Militaries)
             {
-                if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience)
+                if (((military.InjuryQuantity == 0) && military.Kind != null && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience)
                     && (!military.BelongedFaction.IsMilitaryKindOverLimit(military.Kind.LevelUpKindID)))
                 {
                     this.LevelUpMilitaryList.AddMilitary(military);
