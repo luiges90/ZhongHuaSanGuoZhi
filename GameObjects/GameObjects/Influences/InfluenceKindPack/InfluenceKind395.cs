@@ -43,7 +43,7 @@
 
         public override bool IsVaild(Troop troop)
         {
-            return (troop.Status == TroopStatus.混乱);
+            return (troop.Status == TroopStatus.混乱 || troop.Status == TroopStatus.挑衅 || troop.Status == TroopStatus.伪报);
         }
     }
 }

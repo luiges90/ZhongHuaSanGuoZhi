@@ -191,6 +191,8 @@
         public int IncrementDefencePerReputationUnit;
         public CombatNumberItemList IncrementNumberList = new CombatNumberItemList(CombatNumberDirection.上);
         public int IncrementOfAvoidSurroundedChance;
+        public int IncrementOfRumourDay;
+        public int IncrementOfAttractDay;
         public int IncrementOfChaosAfterSurroundAttackChance;
         public int IncrementOfChaosDay;
         public int IncrementOffencePerReputationUnit;
@@ -200,12 +202,16 @@
         public int IncrementOfRationDays;
         public int IncrementOfStratagemRadius;
         public int IncrementPerDayOfCombativity;
+        public bool InevitableAttractOnLowerIntelligence;
+        public bool InevitableRumourOnLowerIntelligence;
         public bool InevitableChaosOnWaylay;
         public bool InevitableGongxinOnLowerIntelligence;
         public bool InevitableHuogongOnLowerIntelligence;
         public bool InevitableRaoluanOnLowerIntelligence;
         public bool InevitableStratagemOnLowerIntelligence;
         public float InjuryRecoveryPerDayRate;
+        public bool InvincibleAttract;
+        public bool InvincibleRumour;
         public bool InvincibleGongxin;
         public bool InvincibleHuogong;
         public bool InvincibleRaoluan;
@@ -396,6 +402,33 @@
 
         public float ExperienceRate;
 
+        private int forceTroopTargetId;
+
+        private Troop forceTroopTarget;
+        public Troop ForceTroopTarget
+        {
+            get
+            {
+                if (forceTroopTarget == null)
+                {
+                    forceTroopTarget = (Troop) base.Scenario.Troops.GetGameObject(forceTroopTargetId);
+                }
+                return forceTroopTarget;
+            }
+        }
+
+        public int ForceTroopTargetId
+        {
+            get
+            {
+                return forceTroopTargetId;
+            }
+            set
+            {
+                forceTroopTargetId = value;
+            }
+        }
+
         public bool ManualControl;
         private PersonList persons = new PersonList();
         public List<int> AllowedStrategems = new List<int>();
@@ -421,6 +454,10 @@
         public event CastStratagem OnCastStratagem;
 
         public event Chaos OnChaos;
+
+        public event Rumour OnRumour;
+
+        public event Attract OnAttract;
 
         public event CombatMethodAttack OnCombatMethodAttack;
 
@@ -2113,7 +2150,7 @@
             {
                 return false;
             }
-            if (!this.ControlAvail())
+            if (!this.CanMoveAndEnterAnyway())
             {
                 return false;
             }
@@ -2134,7 +2171,7 @@
             {
                 return false;
             }
-            if (!this.ControlAvail())
+            if (!this.CanMoveAndEnterAnyway())
             {
                 return false;
             }
@@ -2185,7 +2222,7 @@
             {
                 return false;
             }
-            if (!this.ControlAvail())
+            if (!this.CanMoveAndEnterAnyway())
             {
                 return false;
             }
@@ -2733,9 +2770,19 @@
             return (this.Status == TroopStatus.一般);
         }
 
+        public bool CanMoveAnyway()
+        {
+            return (this.Status != TroopStatus.混乱 && this.Controllable);
+        }
+
+        public bool CanMoveAndEnterAnyway()
+        {
+            return (this.Status != TroopStatus.混乱 && this.status != TroopStatus.挑衅 && this.Controllable);
+        }
+
         public bool ControlAvail()
         {
-            return ((this.Status != TroopStatus.混乱) && this.Controllable);
+            return (this.Status != TroopStatus.混乱 && this.Status != TroopStatus.挑衅 && this.status != TroopStatus.伪报 && this.Controllable);
         }
 
         public bool CounterAttackAvailFromAnyPosition(Troop troop)
@@ -3621,6 +3668,16 @@
         public int GenerateCastChaosDay(int maxDays)
         {
             return ((1 + this.IncrementOfChaosDay) + GameObject.Random(maxDays));
+        }
+
+        public int GenerateCastRumourDay(int maxDays)
+        {
+            return 1 + this.IncrementOfRumourDay + GameObject.Random(maxDays);
+        }
+
+        public int GenerateCastAttractDay(int maxDays)
+        {
+            return 1 + this.IncrementOfAttractDay + GameObject.Random(maxDays);
         }
 
         public float GenerateFireDamageScale(float baseScale, TerrainDetail td)
@@ -8920,7 +8977,7 @@
                 {
                     days = 1;
                 }
-                this.chaosDayLeft += days;
+                this.ChaosDayLeft += days;
                 this.OperationDone = true;
                 this.MovabilityLeft = -1;
                 this.RefreshOffence();
@@ -8930,6 +8987,41 @@
                 if (this.OnChaos != null)
                 {
                     this.OnChaos(this, deepChaos);
+                }
+            }
+        }
+
+        public void SetRumour(int days)
+        {
+            if (!this.Destroyed)
+            {
+                this.Status = TroopStatus.伪报;
+                this.ChaosDayLeft += days;
+                this.OperationDone = true;
+                this.MovabilityLeft = -1;
+                this.CutRoutewayDays = 0;
+                ExtensionInterface.call("GoIntoRumour", new Object[] { this.Scenario, this });
+                if (this.OnRumour != null)
+                {
+                    this.OnRumour(this);
+                }
+            }
+        }
+
+        public void SetAttract(Troop caster, int days)
+        {
+            if (!this.Destroyed)
+            {
+                this.Status = TroopStatus.挑衅;
+                this.ChaosDayLeft += days;
+                this.OperationDone = true;
+                this.MovabilityLeft = -1;
+                this.CutRoutewayDays = 0;
+                this.ForceTroopTargetId = caster.ID;
+                ExtensionInterface.call("GoIntoAttract", new Object[] { this.Scenario, this, caster });
+                if (this.OnAttract != null)
+                {
+                    this.OnAttract(this, caster);
                 }
             }
         }
@@ -9262,7 +9354,7 @@
         public void SetSimpleChaos(int days)
         {
             this.Status = TroopStatus.混乱;
-            this.chaosDayLeft += days;
+            this.ChaosDayLeft += days;
             this.OperationDone = true;
             this.MovabilityLeft = -1;
             this.RefreshOffence();
@@ -9285,6 +9377,14 @@
 
                 case TroopStatus.埋伏:
                     this.CurrentTileAnimationKind = TileAnimationKind.埋伏;
+                    break;
+
+                case TroopStatus.挑衅:
+                    this.CurrentTileAnimationKind = TileAnimationKind.挑衅;
+                    break;
+
+                case TroopStatus.伪报:
+                    this.CurrentTileAnimationKind = TileAnimationKind.伪报;
                     break;
             }
         }
@@ -11720,6 +11820,14 @@
                     case TroopStatus.埋伏:
                         this.CurrentTileAnimationKind = TileAnimationKind.埋伏;
                         break;
+
+                    case TroopStatus.伪报:
+                        this.CurrentTileAnimationKind = TileAnimationKind.伪报;
+                        break;
+
+                    case TroopStatus.挑衅:
+                        this.CurrentTileAnimationKind = TileAnimationKind.挑衅;
+                        break;
                 }
                 if (this.CurrentTileAnimationKind != TileAnimationKind.无)
                 {
@@ -11739,6 +11847,13 @@
 
                     case TroopStatus.埋伏:
                         return base.Scenario.GameCommonData.AllTileAnimations.GetAnimation(4);
+
+                    case TroopStatus.伪报:
+                        return base.Scenario.GameCommonData.AllTileAnimations.GetAnimation(27);
+
+                    case TroopStatus.挑衅:
+                        return base.Scenario.GameCommonData.AllTileAnimations.GetAnimation(28);
+
                 }
                 return null;
             }
@@ -11824,6 +11939,10 @@
         {
             get
             {
+                if (this.Status == TroopStatus.伪报 && this.StartingArchitecture != null)
+                {
+                    return this.StartingArchitecture;
+                }
                 if (this.targetArchitecture == null)
                 {
                     this.targetArchitecture = base.Scenario.Architectures.GetGameObject(this.targetArchitectureID) as Architecture;
@@ -11886,6 +12005,10 @@
         {
             get
             {
+                if (this.Status == TroopStatus.挑衅)
+                {
+                    return this.ForceTroopTarget;
+                }
                 if (this.targetTroop == null)
                 {
                     this.targetTroop = base.Scenario.Troops.GetGameObject(this.targetTroopID) as Troop;
@@ -12195,10 +12318,30 @@
             }
         }
 
+        public Architecture RealWillArchitecture
+        {
+            get
+            {
+                if (this.willArchitecture == null)
+                {
+                    this.willArchitecture = base.Scenario.Architectures.GetGameObject(this.willArchitectureID) as Architecture;
+                    if (this.willArchitecture == null)
+                    {
+                        this.WillArchitecture = this.StartingArchitecture;
+                    }
+                }
+                return this.willArchitecture;
+            }
+        }
+
         public Architecture WillArchitecture
         {
             get
             {
+                if (this.Status == TroopStatus.伪报 && this.StartingArchitecture != null)
+                {
+                    return this.StartingArchitecture;
+                }
                 if (this.willArchitecture == null)
                 {
                     this.willArchitecture = base.Scenario.Architectures.GetGameObject(this.willArchitectureID) as Architecture;
@@ -12271,10 +12414,31 @@
             }
         }
 
+        public Troop RealWillTroop
+        {
+            get
+            {
+                if (this.willTroop == null)
+                {
+                    this.willTroop = base.Scenario.Troops.GetGameObject(this.willTroopID) as Troop;
+                }
+                else if (this.willTroop.Destroyed)
+                {
+                    this.willTroopID = -1;
+                    this.willTroop = null;
+                }
+                return this.willTroop;
+            }
+        }
+
         public Troop WillTroop
         {
             get
             {
+                if (this.Status == TroopStatus.挑衅)
+                {
+                    return this.ForceTroopTarget;
+                }
                 if (this.willTroop == null)
                 {
                     this.willTroop = base.Scenario.Troops.GetGameObject(this.willTroopID) as Troop;
@@ -12341,6 +12505,10 @@
         public delegate void CastStratagem(Troop sending, Troop receiving, Stratagem stratagem);
 
         public delegate void Chaos(Troop troop, bool deepChaos);
+
+        public delegate void Rumour(Troop troop);
+
+        public delegate void Attract(Troop troop, Troop caster);
 
         public delegate void CombatMethodAttack(Troop sending, Troop receiving, CombatMethod combatMethod);
 

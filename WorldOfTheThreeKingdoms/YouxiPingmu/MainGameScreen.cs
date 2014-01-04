@@ -1795,7 +1795,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.CurrentTroop.Operated = true;
                         this.CurrentTroop.mingling = "——";
                     }
-
                 }
                 else if ((this.CurrentTroop.CastTargetKind == TroopCastTargetKind.特定默认) || (this.CurrentTroop.CastTargetKind == TroopCastTargetKind.特定))
                 {
@@ -2098,6 +2097,22 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, TextMessageKind.Chaos, "Chaos");
                 }
+            }
+        }
+
+        public override void TroopAttract(Troop troop, Troop caster)
+        {
+            if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye)
+            {
+                this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, TextMessageKind.Attract, "Attract");
+            }
+        }
+
+        public override void TroopRumour(Troop troop)
+        {
+            if (((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsPositionKnown(troop.Position)) || GlobalVariables.SkyEye)
+            {
+                this.Plugins.PersonBubblePlugin.AddPerson(troop.Leader, troop.Position, TextMessageKind.Rumour, "Rumour");
             }
         }
 

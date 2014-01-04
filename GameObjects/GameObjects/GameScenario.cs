@@ -3111,6 +3111,14 @@
                 troop.CurrentStratagemID = (short)reader["CurrentStratagemID"];
                 troop.SelfCastPosition = new Point((short)reader["SelfCastPositionX"], (short)reader["SelfCastPositionY"]);
                 troop.ChaosDayLeft = (short)reader["ChaosDayLeft"];
+                try
+                {
+                    troop.ForceTroopTargetId = (short)reader["ForceTroopTarget"];
+                }
+                catch 
+                {
+                    troop.ForceTroopTargetId = -1;
+                }
                 troop.CutRoutewayDays = (short)reader["CutRoutewayDays"];
                 troop.LoadCaptivesFromString(this.Captives, reader["Captives"].ToString());
                 troop.RecentlyFighting = (short)reader["RecentlyFighting"];
@@ -4170,8 +4178,8 @@
                     row["AttackTargetKind"] = troop.AttackTargetKind;
                     row["TargetTroopID"] = troop.TargetTroopID;
                     row["TargetArchitectureID"] = troop.TargetArchitectureID;
-                    row["WillTroopID"] = troop.WillTroopID;
-                    row["WillArchitectureID"] = troop.WillArchitectureID;
+                    row["WillTroopID"] = troop.RealWillTroop.ID;
+                    row["WillArchitectureID"] = troop.RealWillArchitecture.ID;
                     row["CurrentCombatMethodID"] = troop.CurrentCombatMethodID;
                     row["CurrentStratagemID"] = troop.CurrentStratagemID;
                     row["SelfCastPositionX"] = troop.SelfCastPosition.X;
@@ -4186,6 +4194,7 @@
                     row["StuntDayLeft"] = troop.StuntDayLeft;
                     row["mingling"] = troop.mingling;
                     row["ManualControl"] = troop.ManualControl;
+                    row["ForceTroopTarget"] = troop.ForceTroopTargetId;
                     row.EndEdit();
                     dataSet.Tables["Troop"].Rows.Add(row);
                 }

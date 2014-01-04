@@ -285,6 +285,8 @@
                 <MenuItem ID="8" Name="7" DisplayName="鼓舞" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="HasStratagem" Param="7" />
                 <MenuItem ID="9" Name="8" DisplayName="点火" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="SetFireAvail" Param="8" />
                 <MenuItem ID="10" Name="9" DisplayName="医治" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="HasStratagem" Param="9" />
+				<MenuItem ID="11" Name="10" DisplayName="伪报" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="HasStratagem" Param="10" />
+				<MenuItem ID="12" Name="11" DisplayName="挑衅" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="HasStratagem" Param="11" />
             </MenuItem>
             <MenuItem ID="6" Name="TroopStunt" DisplayName="特技" DisplayIfTrue="ControlAvail" DisplayAll="False">
                 <MenuItem ID="0" Name="0" DisplayName="遁走" ChangeDisplayName="GetStuntDisplayName" DisplayIfTrue="HasStunt" IsParamIDItem="true" Param="0" />

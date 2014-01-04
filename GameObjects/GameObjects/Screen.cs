@@ -590,6 +590,14 @@
         {
         }
 
+        public virtual void TroopRumour(Troop troop)
+        {
+        }
+
+        public virtual void TroopAttract(Troop troop, Troop caster)
+        {
+        }
+
         public virtual void TroopCombatMethodAttack(Troop sending, Troop receiving, CombatMethod combatMethod)
         {
         }

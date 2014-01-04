@@ -125,5 +125,7 @@
         ChangeLeaderChangeName, // 118
         EndWithUnite, // 119
         SelfRiseEmperorClass, // 120
+        Rumour, // 121
+        Attract, // 122
     }
 }

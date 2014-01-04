@@ -941,6 +941,43 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.SetTroopStratagem(9);
                     break;
 
+                case ContextMenuResult.TroopStratagem_10: 
+                    this.SetTroopStratagem(10);
+                    break;
+
+                case ContextMenuResult.TroopStratagem_11: 
+                    this.SetTroopStratagem(11);
+                    break;
+
+                case ContextMenuResult.TroopStratagem_12:
+                    this.SetTroopStratagem(12);
+                    break;
+
+                case ContextMenuResult.TroopStratagem_13:
+                    this.SetTroopStratagem(13);
+                    break;
+                case ContextMenuResult.TroopStratagem_14:
+                    this.SetTroopStratagem(14);
+                    break;
+
+                case ContextMenuResult.TroopStratagem_15:
+                    this.SetTroopStratagem(15);
+                    break;
+                case ContextMenuResult.TroopStratagem_16:
+                    this.SetTroopStratagem(16);
+                    break;
+
+                case ContextMenuResult.TroopStratagem_17:
+                    this.SetTroopStratagem(17);
+                    break;
+                case ContextMenuResult.TroopStratagem_18:
+                    this.SetTroopStratagem(18);
+                    break;
+
+                case ContextMenuResult.TroopStratagem_19:
+                    this.SetTroopStratagem(19);
+                    break;
+
                 case ContextMenuResult.TroopEnter:
 
                     this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.Trooprucheng));

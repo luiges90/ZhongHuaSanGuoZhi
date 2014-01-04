@@ -287,6 +287,16 @@
             troop.Scenario.GameScreen.TroopChaos(troop, deepChaos);
         }
 
+        private void troop_OnAttract(Troop troop, Troop caster)
+        {
+            troop.Scenario.GameScreen.TroopAttract(troop, caster);
+        }
+
+        private void troop_OnRumour(Troop troop)
+        {
+            troop.Scenario.GameScreen.TroopRumour(troop);
+        }
+
         private void troop_OnCombatMethodAttack(Troop sending, Troop receiving, CombatMethod combatMethod)
         {
             sending.Scenario.GameScreen.TroopCombatMethodAttack(sending, receiving, combatMethod);

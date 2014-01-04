@@ -3026,7 +3026,7 @@
             foreach (Point point in this.GetAllContactArea().Area)
             {
                 Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
-                if (((troopByPosition != null) && (troopByPosition.BelongedFaction == this.BelongedFaction)) && troopByPosition.ControlAvail())
+                if (((troopByPosition != null) && (troopByPosition.BelongedFaction == this.BelongedFaction)) && troopByPosition.CanMoveAndEnterAnyway())
                 {
                     troopByPosition.Enter(this);
                 }
@@ -3038,7 +3038,7 @@
             foreach (Point point in this.GetAllContactArea().Area)
             {
                 Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
-                if (((troopByPosition != null) && (troopByPosition.BelongedFaction == this.BelongedFaction)) && troopByPosition.ControlAvail())
+                if (((troopByPosition != null) && (troopByPosition.BelongedFaction == this.BelongedFaction)) && troopByPosition.CanMoveAndEnterAnyway())
                 {
                     return true;
                 }

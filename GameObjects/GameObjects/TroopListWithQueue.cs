@@ -31,8 +31,13 @@
             }
             foreach (Troop troop in randomList)
             {
-                if (troop.ControlAvail())
+                if (troop.CanMoveAnyway())
                 {
+                    if (troop.Status == TroopStatus.伪报)
+                    {
+                        int z = 0;
+                        z++;
+                    }
                     troop.InitializeInQueue();
                     if (troop.Status == TroopStatus.埋伏)
                     {
@@ -116,7 +121,8 @@
                             break;
                         }
 
-                        if (item.Destroyed || (item.Status != TroopStatus.一般))
+                        if (item.Destroyed || 
+                            (item.Status != TroopStatus.一般 && item.Status != TroopStatus.伪报 && item.Status != TroopStatus.挑衅))
                         {
                             item.MovabilityLeft = -1;
                             item.OperationDone = true;
@@ -174,7 +180,8 @@
                             }
                         }
 
-                        if (item.Destroyed || (item.Status != TroopStatus.一般))
+                        if (item.Destroyed ||
+                            (item.Status != TroopStatus.一般 && item.Status != TroopStatus.伪报 && item.Status != TroopStatus.挑衅))
                         {
                             item.MovabilityLeft = -1;
                             item.OperationDone = true;
