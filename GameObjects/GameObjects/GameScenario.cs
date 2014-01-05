@@ -4178,8 +4178,8 @@
                     row["AttackTargetKind"] = troop.AttackTargetKind;
                     row["TargetTroopID"] = troop.TargetTroopID;
                     row["TargetArchitectureID"] = troop.TargetArchitectureID;
-                    row["WillTroopID"] = troop.RealWillTroop.ID;
-                    row["WillArchitectureID"] = troop.RealWillArchitecture.ID;
+                    row["WillTroopID"] = troop.RealWillTroop == null ? -1 : troop.RealWillTroop.ID;
+                    row["WillArchitectureID"] = troop.RealWillArchitecture == null ? -1 : troop.RealWillArchitecture.ID;
                     row["CurrentCombatMethodID"] = troop.CurrentCombatMethodID;
                     row["CurrentStratagemID"] = troop.CurrentStratagemID;
                     row["SelfCastPositionX"] = troop.SelfCastPosition.X;
