@@ -4,7 +4,7 @@
     using GameObjects.Influences;
     using System;
 
-    internal class InfluenceKind591 : InfluenceKind
+    internal class InfluenceKind596 : InfluenceKind
     {
 
 

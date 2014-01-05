@@ -1262,11 +1262,19 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind262.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind720.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind721.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind585.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind586.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind595.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind596.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind458.cs" />
     <Compile Include="GameObjects\PersonDetail\BiographyAdjectives.cs" />
     <Compile Include="GameObjects\PersonDetail\TextMessageKind.cs" />
     <Compile Include="GameObjects\PersonDetail\TextMessageTable.cs" />
     <Compile Include="GameObjects\PersonDetail\TitleKindTable.cs" />
     <Compile Include="GameObjects\PersonDetail\TitleKind.cs" />
     <Compile Include="GameObjects\SortedBoundedSet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind457.cs" />
   </ItemGroup>
 </Project>
