@@ -131,6 +131,13 @@ public class ExtensionInterface
                     w = File.AppendText("Resources/Extensions/RuntimeError.txt");
                     w.WriteLine(">>> In extension " + t.Name + " invoking " + methodName);
                     w.WriteLine(ex.Message);
+
+                    Exception inner = ex.InnerException;
+                    while (inner != null)
+                    {
+                        w.WriteLine(inner.Message);
+                        inner = inner.InnerException;
+                    }
                 }
                 catch
                 {
