@@ -922,6 +922,7 @@
                 if (a.Abandoned)
                 {
                     a.WithdrawResources();
+                    a.WithdrawMilitaries();
                     a.WithdrawPerson();
                 }
             }

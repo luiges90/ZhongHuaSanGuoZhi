@@ -1772,18 +1772,17 @@
             }
         }
 
+        internal void WithdrawMilitaries()
+        {
+            GameObjectList list = this.Militaries.GetList();
+            foreach (Military m in list)
+            {
+                this.DisbandMilitary(m);
+            }
+        }
+
         private void AIRecruitMilitary()
         {
-            if (this.Abandoned)
-            {
-                MilitaryList list = (MilitaryList) this.Militaries.GetList();
-                foreach (Military m in list)
-                {
-                    this.DisbandMilitary(m);
-                }
-                return;
-            } 
-
             bool flag2 = this.RecentlyAttacked > 0;
             if ((this.Kind.HasPopulation && (flag2 || (this.BelongedFaction.PlanTechniqueArchitecture != this))) &&
                 (flag2 || (this.Population > ((this.RecruitmentPopulationBoundary * (1 + (int)this.BelongedFaction.Leader.StrategyTendency * 0.5f)) + GameObject.Random(this.RecruitmentPopulationBoundary)))))
