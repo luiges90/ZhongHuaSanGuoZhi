@@ -103,7 +103,7 @@ namespace WorldOfTheThreeKingdoms.GameLogic
                 this.TreasureDetailPlugin.SetScreen(screen);
                 screen.PluginList.Add(this.TreasureDetailPlugin.Instance as GameObject);
             }
-            plugin = Plugin.Plugins.AvailablePlugins.Find("ConmentTextPlugin");
+            plugin = Plugin.Plugins.AvailablePlugins.Find("CommentTextPlugin");
             if ((plugin != null) && (plugin.Instance is IConmentText))
             {
                 this.ConmentTextPlugin = plugin.Instance as IConmentText;

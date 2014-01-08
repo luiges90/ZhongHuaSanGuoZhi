@@ -93,7 +93,7 @@
         public void SetGraphicsDevice(GraphicsDevice device)
         {
             this.graphicsDevice = device;
-            this.LoadDataFromXMLDocument(@"GameComponents\ConmentText\CommentTextData.xml");
+            this.LoadDataFromXMLDocument(@"GameComponents\CommentText\CommentTextData.xml");
         }
 
         public void SetView(int width, int height)

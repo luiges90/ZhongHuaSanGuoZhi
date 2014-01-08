@@ -56,7 +56,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabListPlugin", "TabListPlu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfirmationDialogPlugin", "ConfirmationDialogPlugin\ConfirmationDialogPlugin.csproj", "{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConmentTextPlugin", "ConmentTextPlugin\ConmentTextPlugin.csproj", "{3581EBAE-3767-401F-B63B-B8C6B05DD979}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentTextPlugin", "ConmentTextPlugin\CommentTextPlugin.csproj", "{3581EBAE-3767-401F-B63B-B8C6B05DD979}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameRecordPlugin", "GameRecordPlugin\GameRecordPlugin.csproj", "{B50E06F2-86DB-4FB2-B8E5-E477AC119D2A}"
 EndProject
