@@ -177,11 +177,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
         {
             Rectangle? nullable;
             Color white = Color.White;
-            if ((this.screen.DrawingSelector && (troop.Status == TroopStatus.一般)) && this.screen.Scenario.IsCurrentPlayer(troop.BelongedFaction))
+            if ((this.screen.DrawingSelector && (troop.Status == TroopStatus.一般)) && 
+                this.screen.Scenario.IsCurrentPlayer(troop.BelongedFaction) && !troop.Operated)
             {
                 Point positionByPoint = this.screen.GetPositionByPoint(this.screen.SelectorStartPosition);
                 Point point2 = this.screen.GetPositionByPoint(this.screen.MousePosition);
-                if ((((troop.Position.X >= positionByPoint.X) && (troop.Position.X <= point2.X)) && (troop.Position.Y >= positionByPoint.Y)) && (troop.Position.Y <= point2.Y))
+                Rectangle r = new Rectangle(
+                    Math.Min(point2.X, positionByPoint.X), Math.Min(point2.Y, positionByPoint.Y), 
+                    Math.Abs(point2.X - positionByPoint.X), Math.Abs(point2.Y - positionByPoint.Y));
+                if (r.Contains(troop.Position))
                 {
                     white = Color.Blue;
                 }

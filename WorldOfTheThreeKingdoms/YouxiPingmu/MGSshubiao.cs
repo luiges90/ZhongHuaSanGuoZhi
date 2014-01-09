@@ -54,10 +54,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         public override void EarlyMouseMove()
         {
             base.EarlyMouseMove();
-            if (this.DrawingSelector && ((base.MousePosition.X < this.SelectorStartPosition.X) || (base.MousePosition.Y < this.SelectorStartPosition.Y)))
-            {
-                this.DrawingSelector = false;
-            }
         }
 
         public override void EarlyMouseRightDown()
@@ -106,14 +102,24 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void HandleLaterMouseLeftDown()
         {
-            if (this.editMode && ((this.previousMouseState.LeftButton == ButtonState.Released) && (this.mouseState.LeftButton == ButtonState.Pressed)) && (this.viewMove == ViewMove.Stop))
+            if (((this.previousMouseState.LeftButton == ButtonState.Released) && (this.mouseState.LeftButton == ButtonState.Pressed)) && (this.viewMove == ViewMove.Stop))
             {
+                if (this.editMode)
+                {
 
-                int x = (this.mouseState.X - this.mainMapLayer.LeftEdge) / base.Scenario.ScenarioMap.TileWidth;
-                int y = (this.mouseState.Y - this.mainMapLayer.TopEdge) / base.Scenario.ScenarioMap.TileHeight;
-                this.mainMapLayer.mainMap.MapData[x, y] = this.ditukuaidezhi;
-                this.mainMapLayer.chongsheditukuaitupian(x, y);
+                    int x = (this.mouseState.X - this.mainMapLayer.LeftEdge) / base.Scenario.ScenarioMap.TileWidth;
+                    int y = (this.mouseState.Y - this.mainMapLayer.TopEdge) / base.Scenario.ScenarioMap.TileHeight;
+                    this.mainMapLayer.mainMap.MapData[x, y] = this.ditukuaidezhi;
+                    this.mainMapLayer.chongsheditukuaitupian(x, y);
 
+                } 
+                else if (base.Scenario.CurrentPlayer != null && this.PeekUndoneWork().Kind == UndoneWorkKind.None && base.Scenario.CurrentPlayer == base.Scenario.CurrentFaction)
+                {
+                    if (this.CurrentArchitecture == null && this.CurrentTroop == null && this.CurrentRouteway == null)
+                    {
+                        this.DrawingSelector = !this.Plugins.ContextMenuPlugin.IsShowing && !this.Plugins.RoutewayEditorPlugin.IsShowing;
+                    }
+                }
             }
             /*
             if (base.Scenario.CurrentPlayer == null) return;
@@ -163,10 +169,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             this.CurrentArchitecture.Militaries, this.CurrentArchitecture.ZhengzaiBuchongDeBiandui(), "", "", this.CurrentArchitecture.MilitaryPopulation);
                         this.ShowArchitectureSurveyPlugin(this.CurrentArchitecture);
                     }
-                }
-                if (((base.Scenario.CurrentPlayer != null) && base.Scenario.LoadAndSaveAvail()) && (this.PeekUndoneWork().Kind == UndoneWorkKind.None))
-                {
-                    //this.DrawingSelector = !this.Plugins.ContextMenuPlugin.IsShowing && !this.Plugins.RoutewayEditorPlugin.IsShowing;
                 }
             }
             */

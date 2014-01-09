@@ -415,7 +415,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (this.DrawingSelector)
             {
-                base.spriteBatch.Draw(this.Textures.SelectorTexture, new Rectangle(this.SelectorStartPosition.X, this.SelectorStartPosition.Y, base.MousePosition.X - this.SelectorStartPosition.X, base.MousePosition.Y - this.SelectorStartPosition.Y), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.72f);
+                base.spriteBatch.Draw(this.Textures.SelectorTexture, 
+                    new Rectangle(Math.Min(base.MousePosition.X, this.SelectorStartPosition.X), Math.Min(base.MousePosition.Y, this.SelectorStartPosition.Y), 
+                        Math.Abs(base.MousePosition.X - this.SelectorStartPosition.X), Math.Abs(base.MousePosition.Y - this.SelectorStartPosition.Y)), 
+                    null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.72f);
             }
         }
 
@@ -3049,9 +3052,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         {
                             Point positionByPoint = this.GetPositionByPoint(this.SelectorStartPosition);
                             Point point2 = this.GetPositionByPoint(base.MousePosition);
+                            Rectangle r = new Rectangle(
+                                Math.Min(point2.X, positionByPoint.X), Math.Min(point2.Y, positionByPoint.Y),
+                                Math.Abs(point2.X - positionByPoint.X), Math.Abs(point2.Y - positionByPoint.Y));
                             foreach (Troop troop in base.Scenario.CurrentPlayer.Troops.GetList())
                             {
-                                if ((((!troop.Destroyed && (troop.Status == TroopStatus.一般)) && ((troop.Position.X >= positionByPoint.X) && (troop.Position.X <= point2.X))) && (troop.Position.Y >= positionByPoint.Y)) && (troop.Position.Y <= point2.Y))
+                                if (!troop.Destroyed && troop.Status == TroopStatus.一般 && 
+                                    r.Contains(troop.Position) &&
+                                    !troop.Operated)
                                 {
                                     this.SelectorTroops.Add(troop);
                                 }
