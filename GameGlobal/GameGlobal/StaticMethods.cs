@@ -300,6 +300,13 @@
             color.PackedValue = uint.Parse(node.Attributes.GetNamedItem("FontColor").Value);
         }
 
+        public static Microsoft.Xna.Framework.Graphics.Color LoadColor(String code)
+        {
+            Microsoft.Xna.Framework.Graphics.Color color = new Microsoft.Xna.Framework.Graphics.Color();
+            color.PackedValue = uint.Parse(code);
+            return color;
+        }
+
         public static Microsoft.Xna.Framework.Point? LoadFromString(string dataString)
         {
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };

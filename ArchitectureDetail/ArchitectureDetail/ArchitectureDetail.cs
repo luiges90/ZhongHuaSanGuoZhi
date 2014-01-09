@@ -86,15 +86,15 @@
             {
                 text.Text.Text = StaticMethods.GetPropertyValue(architecture, text.PropertyName).ToString();
             }
-            this.CharacteristicText.AddText("特色", Color.Yellow);
+            this.CharacteristicText.AddText("特色", this.CharacteristicText.TitleColor);
             this.CharacteristicText.AddNewLine();
             foreach (Influence influence in this.ShowingArchitecture.Characteristics.Influences.Values)
             {
-                this.CharacteristicText.AddText(influence.Description, Color.LightGreen);
+                this.CharacteristicText.AddText(influence.Description, this.CharacteristicText.SubTitleColor);
                 this.CharacteristicText.AddNewLine();
             }
             this.CharacteristicText.ResortTexts();
-            this.FacilityText.AddText("设施", Color.Yellow);
+            this.FacilityText.AddText("设施", this.FacilityText.TitleColor);
             this.FacilityText.AddNewLine();
             if (this.ShowingArchitecture.BuildingFacility >= 0)
             {
@@ -102,22 +102,22 @@
                 if (facilityKind != null)
                 {
                     this.FacilityText.AddText("建造中：");
-                    this.FacilityText.AddText(facilityKind.Name, Color.Red);
+                    this.FacilityText.AddText(facilityKind.Name, this.FacilityText.SubTitleColor);
                     this.FacilityText.AddText("，剩余时间：");
-                    this.FacilityText.AddText(this.ShowingArchitecture.BuildingDaysLeft.ToString(), Color.LightGreen);
+                    this.FacilityText.AddText(this.ShowingArchitecture.BuildingDaysLeft.ToString(), this.FacilityText.SubTitleColor2);
                     this.FacilityText.AddText("天");
                     this.FacilityText.AddNewLine();
                 }
             }
-            this.FacilityText.AddText("已有设施" + this.ShowingArchitecture.Facilities.Count + "个", Color.Lime);
+            this.FacilityText.AddText("已有设施" + this.ShowingArchitecture.Facilities.Count + "个", this.FacilityText.SubTitleColor3);
             this.FacilityText.AddNewLine();
             foreach (Facility facility in this.ShowingArchitecture.Facilities)
             {
-                this.FacilityText.AddText(facility.Name, Color.Red);
+                this.FacilityText.AddText(facility.Name, this.FacilityText.SubTitleColor);
                 this.FacilityText.AddText("，占用空间：");
-                this.FacilityText.AddText(facility.PositionOccupied.ToString(), Color.LightGreen);
+                this.FacilityText.AddText(facility.PositionOccupied.ToString(), this.FacilityText.SubTitleColor2);
                 this.FacilityText.AddText("，维持费用：");
-                this.FacilityText.AddText(facility.MaintenanceCost.ToString(), Color.LightGreen);
+                this.FacilityText.AddText(facility.MaintenanceCost.ToString(), this.FacilityText.SubTitleColor2);
                 this.FacilityText.AddNewLine();
             }
             this.FacilityText.ResortTexts();

@@ -75,6 +75,8 @@
             this.architectureDetail.CharacteristicText.ClientWidth = this.architectureDetail.CharacteristicClient.Width;
             this.architectureDetail.CharacteristicText.ClientHeight = this.architectureDetail.CharacteristicClient.Height;
             this.architectureDetail.CharacteristicText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.architectureDetail.CharacteristicText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.architectureDetail.CharacteristicText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.architectureDetail.CharacteristicText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.architectureDetail.CharacteristicText.DefaultColor = color;
@@ -83,6 +85,10 @@
             this.architectureDetail.FacilityText.ClientWidth = this.architectureDetail.FacilityClient.Width;
             this.architectureDetail.FacilityText.ClientHeight = this.architectureDetail.FacilityClient.Height;
             this.architectureDetail.FacilityText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.architectureDetail.FacilityText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.architectureDetail.FacilityText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.architectureDetail.FacilityText.SubTitleColor2 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor2").Value);
+            this.architectureDetail.FacilityText.SubTitleColor3 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor3").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.architectureDetail.FacilityText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.architectureDetail.FacilityText.DefaultColor = color;

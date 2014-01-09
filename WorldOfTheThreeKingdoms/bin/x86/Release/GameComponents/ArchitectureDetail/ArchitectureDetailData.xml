@@ -465,13 +465,14 @@
                 Align="Middle">
     </Text>
   </Labels>
-  <Characteristic X="20" Y="320" Width="360" Height="200" RowMargin="0"
+  <Characteristic X="20" Y="320" Width="360" Height="200" RowMargin="0" TitleColor="4294967040" SubTitleColor="4286644096"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </Characteristic>
-  <Facility X="420" Y="320" Width="360" Height="200" RowMargin="0"
+  <Facility X="420" Y="320" Width="360" Height="200" RowMargin="0" 
+			TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"

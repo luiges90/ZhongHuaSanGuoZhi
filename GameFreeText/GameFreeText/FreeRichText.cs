@@ -22,6 +22,11 @@
         public int RowMargin;
         public List<SimpleText> Texts;
 
+        public Color TitleColor;
+        public Color SubTitleColor;
+        public Color SubTitleColor2;
+        public Color SubTitleColor3;
+
         public FreeRichText()
         {
             this.Texts = new List<SimpleText>();
