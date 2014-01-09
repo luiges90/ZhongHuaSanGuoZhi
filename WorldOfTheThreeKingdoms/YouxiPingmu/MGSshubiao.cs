@@ -117,7 +117,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     if (this.CurrentArchitecture == null && this.CurrentTroop == null && this.CurrentRouteway == null)
                     {
-                        this.DrawingSelector = !this.Plugins.ContextMenuPlugin.IsShowing && !this.Plugins.RoutewayEditorPlugin.IsShowing;
+                        if (this.Plugins.youcelanPlugin.IsShowing && StaticMethods.PointInRectangle(this.MousePosition, this.Plugins.youcelanPlugin.FrameRectangle))
+                        {
+                        }
+                        else
+                        {
+                            this.DrawingSelector = !this.Plugins.ContextMenuPlugin.IsShowing && !this.Plugins.RoutewayEditorPlugin.IsShowing;
+                        }
                     }
                 }
             }
