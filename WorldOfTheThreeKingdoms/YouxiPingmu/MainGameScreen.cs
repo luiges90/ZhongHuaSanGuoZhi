@@ -332,6 +332,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.DrawCommentText();
                     this.selectingLayer.Draw(base.spriteBatch, base.viewportSize);
                     this.Plugins.ToolBarPlugin.DrawTools = true;
+                    this.Plugins.youcelanPlugin.Draw(base.spriteBatch); 
                     break;
 
                 case UndoneWorkKind.Inputer:
@@ -834,7 +835,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void HandleSelectingResult(Enum kind)
         {
-            Architecture architecture2;
+            Architecture targetArchitecture;
             Routeway routeway;
 
 
@@ -945,7 +946,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     {
                         return;
                     }
-                    architecture2 = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+                    targetArchitecture = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
                     this.CurrentTroop.RealDestination = this.selectingLayer.SelectedPoint;
                     this.CurrentTroop.TargetTroop = null;
                     this.CurrentTroop.TargetArchitecture  = null;
@@ -953,11 +954,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.CurrentTroop.mingling = "移动";
 
 
-                    if (architecture2 != null)
+                    if (targetArchitecture != null)
                     {
-                        this.CurrentTroop.WillArchitecture = architecture2;
-                        this.CurrentTroop.BelongedLegion.WillArchitecture = architecture2;
-                        if (this.CurrentTroop.BelongedFaction.IsFriendly(architecture2.BelongedFaction))
+                        this.CurrentTroop.WillArchitecture = targetArchitecture;
+                        this.CurrentTroop.BelongedLegion.WillArchitecture = targetArchitecture;
+                        if (this.CurrentTroop.BelongedFaction.IsFriendly(targetArchitecture.BelongedFaction))
                         {
                             this.CurrentTroop.BelongedLegion.Kind = LegionKind.Defensive;
                             break;
@@ -972,11 +973,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         return;
                     }
 
-                    architecture2 = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+                    targetArchitecture = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
 
-                    if (this.CurrentTroop.CanEnter() && this.CurrentTroop.EnterList.GameObjects.Contains(architecture2))
+                    if (this.CurrentTroop.CanEnter() && this.CurrentTroop.EnterList.GameObjects.Contains(targetArchitecture))
                     {
-                        this.CurrentTroop.Enter(architecture2);
+                        this.CurrentTroop.Enter(targetArchitecture);
                         this.CurrentTroop = null;
                         //this.Plugins.AirViewPlugin.ReloadTroopView();
                         this.Scenario.ClearPersonStatusCache();
@@ -989,9 +990,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.CurrentTroop.mingling = "入城";
                     this.CurrentTroop.minglingweizhi = this.selectingLayer.SelectedPoint;
                     this.CurrentTroop.Operated = true;
-                    if (architecture2 != null)
+                    if (targetArchitecture != null)
                     {
-                        this.CurrentTroop.TargetArchitecture = architecture2;
+                        this.CurrentTroop.TargetArchitecture = targetArchitecture;
 
                     }
                     break;
@@ -1000,17 +1001,30 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case SelectingUndoneWorkKind.SelectorTroopsDestination:
                     if (!this.selectingLayer.Canceled)
                     {
-                        architecture2 = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+                        targetArchitecture = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+                        Troop targetTroop = base.Scenario.GetTroopByPosition(this.selectingLayer.SelectedPoint);
                         foreach (Troop troop in this.SelectorTroops)
                         {
                             troop.Operated = true;
-                            if (architecture2 != null)
+                            if (targetArchitecture != null)
                             {
-                                troop.WillArchitecture = architecture2;
-                                troop.BelongedLegion.WillArchitecture = architecture2;
+                                if (targetTroop != null && troop.Army.Kind.AirOffence)
+                                {
+                                    troop.TargetTroop = targetTroop;
+                                }
+                                else
+                                {
+                                    troop.TargetArchitecture = targetArchitecture;
+                                }
+                                troop.WillArchitecture = targetArchitecture;
+                                troop.BelongedLegion.WillArchitecture = targetArchitecture;
+                            }
+                            else if (targetTroop != null)
+                            {
+                                troop.TargetTroop = targetTroop;
                             }
                             troop.RealDestination = this.selectingLayer.SelectedPoint;
-                            if (!((architecture2 == null) || troop.BelongedFaction.IsFriendly(architecture2.BelongedFaction)))
+                            if (!((targetArchitecture == null) || troop.BelongedFaction.IsFriendly(targetArchitecture.BelongedFaction)))
                             {
                                 troop.BelongedLegion.Kind = LegionKind.Offensive;
                             }
