@@ -345,7 +345,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.DrawCommentText();
                     }
                     this.DrawSelector();
-                    this.Plugins.ToolBarPlugin.DrawTools = false;
+
+                    this.Plugins.ToolBarPlugin.DrawTools = true;
+                    this.Plugins.youcelanPlugin.Draw(base.spriteBatch); 
+
                     break;
 
                 case UndoneWorkKind.MapViewSelector:
