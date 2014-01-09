@@ -1018,6 +1018,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                                 }
                                 troop.WillArchitecture = targetArchitecture;
                                 troop.BelongedLegion.WillArchitecture = targetArchitecture;
+                                if (targetArchitecture.BelongedFaction == troop.BelongedFaction)
+                                {
+                                    troop.mingling = "入城";
+                                    troop.minglingweizhi = this.selectingLayer.SelectedPoint;
+                                }
                             }
                             else if (targetTroop != null)
                             {
