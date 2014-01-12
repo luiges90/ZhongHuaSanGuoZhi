@@ -26,6 +26,8 @@
         public Color SubTitleColor;
         public Color SubTitleColor2;
         public Color SubTitleColor3;
+        public Color PositiveColor;
+        public Color NegativeColor;
 
         public FreeRichText()
         {

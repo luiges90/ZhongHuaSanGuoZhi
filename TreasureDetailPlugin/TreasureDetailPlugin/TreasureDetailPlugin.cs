@@ -77,6 +77,8 @@
             this.treasureDetail.DescriptionText.ClientWidth = this.treasureDetail.DescriptionClient.Width;
             this.treasureDetail.DescriptionText.ClientHeight = this.treasureDetail.DescriptionClient.Height;
             this.treasureDetail.DescriptionText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.treasureDetail.DescriptionText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.treasureDetail.DescriptionText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.treasureDetail.DescriptionText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.treasureDetail.DescriptionText.DefaultColor = color;

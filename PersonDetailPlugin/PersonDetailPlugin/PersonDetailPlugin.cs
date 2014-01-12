@@ -130,6 +130,10 @@
             this.personDetail.InfluenceText.ClientWidth = this.personDetail.InfluenceClient.Width;
             this.personDetail.InfluenceText.ClientHeight = this.personDetail.InfluenceClient.Height;
             this.personDetail.InfluenceText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.personDetail.InfluenceText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.personDetail.InfluenceText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.personDetail.InfluenceText.SubTitleColor2 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor2").Value);
+            this.personDetail.InfluenceText.SubTitleColor3 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor3").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.personDetail.InfluenceText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.personDetail.InfluenceText.DefaultColor = color;
@@ -138,6 +142,10 @@
             this.personDetail.ConditionText.ClientWidth = this.personDetail.ConditionClient.Width;
             this.personDetail.ConditionText.ClientHeight = this.personDetail.ConditionClient.Height;
             this.personDetail.ConditionText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.personDetail.ConditionText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.personDetail.ConditionText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.personDetail.ConditionText.PositiveColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("PositiveColor").Value);
+            this.personDetail.ConditionText.NegativeColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("NegativeColor").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.personDetail.ConditionText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.personDetail.ConditionText.DefaultColor = color;
@@ -146,6 +154,9 @@
             this.personDetail.BiographyText.ClientWidth = this.personDetail.BiographyClient.Width;
             this.personDetail.BiographyText.ClientHeight = this.personDetail.BiographyClient.Height;
             this.personDetail.BiographyText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.personDetail.BiographyText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.personDetail.BiographyText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.personDetail.BiographyText.SubTitleColor2 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor2").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.personDetail.BiographyText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.personDetail.BiographyText.DefaultColor = color;

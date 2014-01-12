@@ -116,93 +116,93 @@
                     if (this.current != item)
                     {
                         this.CommentsText.Clear();
-                        this.CommentsText.AddText(item.LinkedTechnique.Name, Microsoft.Xna.Framework.Graphics.Color.Yellow);
+                        this.CommentsText.AddText(item.LinkedTechnique.Name, this.CommentsText.TitleColor);
                         this.CommentsText.AddNewLine();
-                        this.CommentsText.AddText(item.LinkedTechnique.Description, Microsoft.Xna.Framework.Graphics.Color.White);
+                        this.CommentsText.AddText(item.LinkedTechnique.Description, this.CommentsText.DefaultColor);
                         this.CommentsText.AddNewLine();
                         if (this.Control)
                         {
                             this.CommentsText.AddNewLine();
                             if (this.ShowingFaction.IsTechniqueUpgrading(item.LinkedTechnique.ID))
                             {
-                                this.CommentsText.AddText("正在升级中……剩余", Microsoft.Xna.Framework.Graphics.Color.Pink);
+                                this.CommentsText.AddText("正在升级中……剩余", this.CommentsText.SubTitleColor);
                                 this.CommentsText.AddText(this.ShowingFaction.UpgradingDaysLeft.ToString(), Microsoft.Xna.Framework.Graphics.Color.Lime);
-                                this.CommentsText.AddText("天", Microsoft.Xna.Framework.Graphics.Color.Pink);
+                                this.CommentsText.AddText("天", this.CommentsText.SubTitleColor);
                             }
                             else if (this.ShowingFaction.HasTechnique(item.LinkedTechnique.ID))
                             {
-                                this.CommentsText.AddText("已拥有", Microsoft.Xna.Framework.Graphics.Color.LightBlue);
+                                this.CommentsText.AddText("已拥有", this.CommentsText.SubTitleColor2);
                             }
                             else if (this.ShowingFaction.MatchTechnique(item.LinkedTechnique, this.UpgradingArchitecture))
                             {
-                                this.CommentsText.AddText("可升级", Microsoft.Xna.Framework.Graphics.Color.Lime);
+                                this.CommentsText.AddText("可升级", this.CommentsText.PositiveColor);
                                 this.CommentsText.AddNewLine();
-                                this.CommentsText.AddText("升级时间", Microsoft.Xna.Framework.Graphics.Color.White);
-                                this.CommentsText.AddText(this.ShowingFaction == null ? item.LinkedTechnique.Days.ToString() : this.ShowingFaction.getTechniqueActualTime(item.LinkedTechnique).ToString(), Microsoft.Xna.Framework.Graphics.Color.Lime);
-                                this.CommentsText.AddText("天", Microsoft.Xna.Framework.Graphics.Color.White);
+                                this.CommentsText.AddText("升级时间", this.CommentsText.DefaultColor);
+                                this.CommentsText.AddText(this.ShowingFaction == null ? item.LinkedTechnique.Days.ToString() : this.ShowingFaction.getTechniqueActualTime(item.LinkedTechnique).ToString(), this.CommentsText.PositiveColor);
+                                this.CommentsText.AddText("天", this.CommentsText.DefaultColor);
                                 this.CommentsText.AddNewLine();
                                 this.CommentsText.AddText("势力声望：" + (this.ShowingFaction == null ? item.LinkedTechnique.Reputation.ToString() : this.ShowingFaction.getTechniqueActualReputation(item.LinkedTechnique).ToString()) + 
                                     "，技巧点数：" + (this.ShowingFaction == null ? item.LinkedTechnique.PointCost.ToString() : this.ShowingFaction.getTechniqueActualPointCost(item.LinkedTechnique).ToString()) + 
-                                    "，资金：" + (this.ShowingFaction == null ? item.LinkedTechnique.FundCost.ToString() : this.ShowingFaction.getTechniqueActualFundCost(item.LinkedTechnique).ToString()), 
-                                    Microsoft.Xna.Framework.Graphics.Color.White);
+                                    "，资金：" + (this.ShowingFaction == null ? item.LinkedTechnique.FundCost.ToString() : this.ShowingFaction.getTechniqueActualFundCost(item.LinkedTechnique).ToString()),
+                                    this.CommentsText.DefaultColor);
                                 if (item.LinkedTechnique.PreID >= 0)
                                 {
-                                    this.CommentsText.AddText("，前提条件：" + this.ShowingFaction.Scenario.GameCommonData.AllTechniques.GetTechnique(item.LinkedTechnique.PreID).Name, Microsoft.Xna.Framework.Graphics.Color.White);
+                                    this.CommentsText.AddText("，前提条件：" + this.ShowingFaction.Scenario.GameCommonData.AllTechniques.GetTechnique(item.LinkedTechnique.PreID).Name, this.CommentsText.DefaultColor);
                                 }
                                 this.CommentsText.AddNewLine();
-                                this.CommentsText.AddText("请单击鼠标左键开始升级", Microsoft.Xna.Framework.Graphics.Color.SkyBlue);
+                                this.CommentsText.AddText("请单击鼠标左键开始升级", this.CommentsText.SubTitleColor2);
                             }
                             else
                             {
-                                this.CommentsText.AddText("升级时间", Microsoft.Xna.Framework.Graphics.Color.White);
-                                this.CommentsText.AddText(this.ShowingFaction == null ? item.LinkedTechnique.Days.ToString() : this.ShowingFaction.getTechniqueActualTime(item.LinkedTechnique).ToString(), Microsoft.Xna.Framework.Graphics.Color.Lime);
-                                this.CommentsText.AddText("天", Microsoft.Xna.Framework.Graphics.Color.White);
+                                this.CommentsText.AddText("升级时间", this.CommentsText.DefaultColor);
+                                this.CommentsText.AddText(this.ShowingFaction == null ? item.LinkedTechnique.Days.ToString() : this.ShowingFaction.getTechniqueActualTime(item.LinkedTechnique).ToString(), this.CommentsText.PositiveColor);
+                                this.CommentsText.AddText("天", this.CommentsText.DefaultColor);
                                 this.CommentsText.AddNewLine();
                                 this.CommentsText.AddNewLine();
-                                this.CommentsText.AddText("未达到升级条件：", Microsoft.Xna.Framework.Graphics.Color.LightPink);
+                                this.CommentsText.AddText("未达到升级条件：", this.CommentsText.SubTitleColor);
                                 this.CommentsText.AddNewLine();
                                 if (this.ShowingFaction.Reputation >= (this.ShowingFaction == null ? item.LinkedTechnique.Reputation : this.ShowingFaction.getTechniqueActualReputation(item.LinkedTechnique)))
                                 {
-                                    this.CommentsText.AddText("势力声望：" + (this.ShowingFaction == null ? item.LinkedTechnique.Reputation.ToString() : this.ShowingFaction.getTechniqueActualReputation(item.LinkedTechnique).ToString()), Microsoft.Xna.Framework.Graphics.Color.Lime);
+                                    this.CommentsText.AddText("势力声望：" + (this.ShowingFaction == null ? item.LinkedTechnique.Reputation.ToString() : this.ShowingFaction.getTechniqueActualReputation(item.LinkedTechnique).ToString()), this.CommentsText.PositiveColor);
                                 }
                                 else
                                 {
-                                    this.CommentsText.AddText("势力声望：" + (this.ShowingFaction == null ? item.LinkedTechnique.Reputation.ToString() : this.ShowingFaction.getTechniqueActualReputation(item.LinkedTechnique).ToString()), Microsoft.Xna.Framework.Graphics.Color.Red);
+                                    this.CommentsText.AddText("势力声望：" + (this.ShowingFaction == null ? item.LinkedTechnique.Reputation.ToString() : this.ShowingFaction.getTechniqueActualReputation(item.LinkedTechnique).ToString()), this.CommentsText.NegativeColor);
                                 }
                                 this.CommentsText.AddNewLine();
                                 if (this.ShowingFaction.TotalTechniquePoint >= (this.ShowingFaction == null ? item.LinkedTechnique.PointCost : this.ShowingFaction.getTechniqueActualPointCost(item.LinkedTechnique)))
                                 {
-                                    this.CommentsText.AddText("技巧点数：" + (this.ShowingFaction == null ? item.LinkedTechnique.PointCost.ToString() : this.ShowingFaction.getTechniqueActualPointCost(item.LinkedTechnique).ToString()), Microsoft.Xna.Framework.Graphics.Color.Lime);
+                                    this.CommentsText.AddText("技巧点数：" + (this.ShowingFaction == null ? item.LinkedTechnique.PointCost.ToString() : this.ShowingFaction.getTechniqueActualPointCost(item.LinkedTechnique).ToString()), this.CommentsText.PositiveColor);
                                 }
                                 else
                                 {
-                                    this.CommentsText.AddText("技巧点数：" + (this.ShowingFaction == null ? item.LinkedTechnique.PointCost.ToString() : this.ShowingFaction.getTechniqueActualPointCost(item.LinkedTechnique).ToString()), Microsoft.Xna.Framework.Graphics.Color.Red);
+                                    this.CommentsText.AddText("技巧点数：" + (this.ShowingFaction == null ? item.LinkedTechnique.PointCost.ToString() : this.ShowingFaction.getTechniqueActualPointCost(item.LinkedTechnique).ToString()), this.CommentsText.NegativeColor);
                                 }
                                 this.CommentsText.AddNewLine();
                                 if (this.UpgradingArchitecture.Fund >= (this.ShowingFaction == null ? item.LinkedTechnique.FundCost : this.ShowingFaction.getTechniqueActualFundCost(item.LinkedTechnique)))
                                 {
-                                    this.CommentsText.AddText("资金：" + (this.ShowingFaction == null ? item.LinkedTechnique.FundCost.ToString() : this.ShowingFaction.getTechniqueActualFundCost(item.LinkedTechnique).ToString()), Microsoft.Xna.Framework.Graphics.Color.Lime);
+                                    this.CommentsText.AddText("资金：" + (this.ShowingFaction == null ? item.LinkedTechnique.FundCost.ToString() : this.ShowingFaction.getTechniqueActualFundCost(item.LinkedTechnique).ToString()), this.CommentsText.PositiveColor);
                                 }
                                 else
                                 {
-                                    this.CommentsText.AddText("资金：" + (this.ShowingFaction == null ? item.LinkedTechnique.FundCost.ToString() : this.ShowingFaction.getTechniqueActualFundCost(item.LinkedTechnique).ToString()), Microsoft.Xna.Framework.Graphics.Color.Red);
+                                    this.CommentsText.AddText("资金：" + (this.ShowingFaction == null ? item.LinkedTechnique.FundCost.ToString() : this.ShowingFaction.getTechniqueActualFundCost(item.LinkedTechnique).ToString()), this.CommentsText.NegativeColor);
                                 }
                                 if (item.LinkedTechnique.PreID >= 0)
                                 {
                                     this.CommentsText.AddNewLine();
                                     if (this.ShowingFaction.HasTechnique(item.LinkedTechnique.PreID))
                                     {
-                                        this.CommentsText.AddText("前提条件：" + this.ShowingFaction.Scenario.GameCommonData.AllTechniques.GetTechnique(item.LinkedTechnique.PreID).Name, Microsoft.Xna.Framework.Graphics.Color.Lime);
+                                        this.CommentsText.AddText("前提条件：" + this.ShowingFaction.Scenario.GameCommonData.AllTechniques.GetTechnique(item.LinkedTechnique.PreID).Name, this.CommentsText.PositiveColor);
                                     }
                                     else
                                     {
-                                        this.CommentsText.AddText("前提条件：" + this.ShowingFaction.Scenario.GameCommonData.AllTechniques.GetTechnique(item.LinkedTechnique.PreID).Name, Microsoft.Xna.Framework.Graphics.Color.Red);
+                                        this.CommentsText.AddText("前提条件：" + this.ShowingFaction.Scenario.GameCommonData.AllTechniques.GetTechnique(item.LinkedTechnique.PreID).Name, this.CommentsText.NegativeColor);
                                     }
                                 }
                                 if (this.ShowingFaction.UpgradingTechnique >= 0)
                                 {
                                     this.CommentsText.AddNewLine();
-                                    this.CommentsText.AddText("已经有技巧正在升级中", Microsoft.Xna.Framework.Graphics.Color.Red);
+                                    this.CommentsText.AddText("已经有技巧正在升级中", this.CommentsText.NegativeColor);
                                 }
                             }
                             this.CommentsText.AddNewLine();

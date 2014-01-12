@@ -46,7 +46,7 @@
                 Align="Middle">
     </Text>
   </Labels>
-  <Description X="300" Y="88" Width="280" Height="80" RowMargin="0"
+  <Description X="300" Y="88" Width="280" Height="80" RowMargin="0" TitleColor="4294967040" SubTitleColor="4286644096"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"

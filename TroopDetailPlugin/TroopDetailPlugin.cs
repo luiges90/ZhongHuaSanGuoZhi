@@ -166,6 +166,8 @@ namespace TroopDetailPlugin
 			this.troopDetail.OtherPersonText.ClientWidth = this.troopDetail.OtherPersonClient.Width;
 			this.troopDetail.OtherPersonText.ClientHeight = this.troopDetail.OtherPersonClient.Height;
 			this.troopDetail.OtherPersonText.RowMargin = int.Parse(xmlNodes.Attributes.GetNamedItem("RowMargin").Value);
+            this.troopDetail.OtherPersonText.TitleColor = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("TitleColor").Value);
+            this.troopDetail.OtherPersonText.SubTitleColor = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("SubTitleColor").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(xmlNodes, out font, out color);
 			this.troopDetail.OtherPersonText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
 			this.troopDetail.OtherPersonText.DefaultColor = color;
@@ -174,6 +176,9 @@ namespace TroopDetailPlugin
 			this.troopDetail.CombatMethodText.ClientWidth = this.troopDetail.CombatMethodClient.Width;
 			this.troopDetail.CombatMethodText.ClientHeight = this.troopDetail.CombatMethodClient.Height;
 			this.troopDetail.CombatMethodText.RowMargin = int.Parse(xmlNodes.Attributes.GetNamedItem("RowMargin").Value);
+            this.troopDetail.CombatMethodText.TitleColor = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("TitleColor").Value);
+            this.troopDetail.CombatMethodText.SubTitleColor = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.troopDetail.CombatMethodText.SubTitleColor2 = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("SubTitleColor2").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(xmlNodes, out font, out color);
 			this.troopDetail.CombatMethodText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
 			this.troopDetail.CombatMethodText.DefaultColor = color;
@@ -182,6 +187,10 @@ namespace TroopDetailPlugin
 			this.troopDetail.StuntText.ClientWidth = this.troopDetail.CombatMethodClient.Width;
 			this.troopDetail.StuntText.ClientHeight = this.troopDetail.CombatMethodClient.Height;
 			this.troopDetail.StuntText.RowMargin = int.Parse(xmlNodes.Attributes.GetNamedItem("RowMargin").Value);
+            this.troopDetail.StuntText.TitleColor = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("TitleColor").Value);
+            this.troopDetail.StuntText.SubTitleColor = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.troopDetail.StuntText.SubTitleColor2 = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("SubTitleColor2").Value);
+            this.troopDetail.StuntText.SubTitleColor3 = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("SubTitleColor3").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(xmlNodes, out font, out color);
 			this.troopDetail.StuntText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
 			this.troopDetail.StuntText.DefaultColor = color;
@@ -190,6 +199,10 @@ namespace TroopDetailPlugin
 			this.troopDetail.InfluenceText.ClientWidth = this.troopDetail.InfluenceClient.Width;
 			this.troopDetail.InfluenceText.ClientHeight = this.troopDetail.InfluenceClient.Height;
 			this.troopDetail.InfluenceText.RowMargin = int.Parse(xmlNodes.Attributes.GetNamedItem("RowMargin").Value);
+            this.troopDetail.InfluenceText.TitleColor = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("TitleColor").Value);
+            this.troopDetail.InfluenceText.SubTitleColor = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.troopDetail.InfluenceText.SubTitleColor2 = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("SubTitleColor2").Value);
+            this.troopDetail.InfluenceText.SubTitleColor3 = StaticMethods.LoadColor(xmlNodes.Attributes.GetNamedItem("SubTitleColor3").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(xmlNodes, out font, out color);
 			this.troopDetail.InfluenceText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
 			this.troopDetail.InfluenceText.DefaultColor = color;

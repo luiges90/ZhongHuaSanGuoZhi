@@ -410,12 +410,12 @@
                     text.Text.Text = StaticMethods.GetPropertyValue(this.CreatingTroop, text.PropertyName).ToString();
                 }
                 this.OtherPersonText.Clear();
-                this.OtherPersonText.AddText("其他人物", Color.Yellow);
+                this.OtherPersonText.AddText("其他人物", this.OtherPersonText.TitleColor);
                 this.OtherPersonText.AddNewLine();
                 if (this.CreatingTroop.PersonCount > 0)
                 {
                     int num = this.CreatingTroop.PersonCount - 1;
-                    this.OtherPersonText.AddText(num.ToString() + "人", Color.Lime);
+                    this.OtherPersonText.AddText(num.ToString() + "人", this.OtherPersonText.SubTitleColor);
                     this.OtherPersonText.AddNewLine();
                     foreach (Person person in this.CreatingTroop.Persons)
                     {
@@ -428,46 +428,46 @@
                 }
                 this.OtherPersonText.ResortTexts();
                 this.CombatMethodText.Clear();
-                this.CombatMethodText.AddText("部队战法", Color.Yellow);
+                this.CombatMethodText.AddText("部队战法", this.CombatMethodText.TitleColor);
                 this.CombatMethodText.AddNewLine();
                 if (this.CreatingTroop.PersonCount > 0)
                 {
-                    this.CombatMethodText.AddText(this.CreatingTroop.CombatMethods.Count.ToString() + "种", Color.Lime);
+                    this.CombatMethodText.AddText(this.CreatingTroop.CombatMethods.Count.ToString() + "种", this.CombatMethodText.SubTitleColor);
                     this.CombatMethodText.AddNewLine();
                     foreach (CombatMethod method in this.CreatingTroop.CombatMethods.CombatMethods.Values)
                     {
-                        this.CombatMethodText.AddText(method.Name, Color.Red);
+                        this.CombatMethodText.AddText(method.Name, this.CombatMethodText.SubTitleColor2);
                         this.CombatMethodText.AddText(" 战意消耗" + ((method.Combativity - this.CreatingTroop.DecrementOfCombatMethodCombativityConsuming)).ToString(), Color.LightGreen);
                         this.CombatMethodText.AddNewLine();
                     }
                 }
                 this.CombatMethodText.ResortTexts();
                 this.StuntText.Clear();
-                this.StuntText.AddText("战斗特技", Color.Yellow);
+                this.StuntText.AddText("战斗特技", this.StuntText.TitleColor);
                 this.StuntText.AddNewLine();
                 if (this.CreatingTroop.PersonCount > 0)
                 {
-                    this.StuntText.AddText(this.CreatingTroop.Stunts.Count.ToString() + "种", Color.Lime);
+                    this.StuntText.AddText(this.CreatingTroop.Stunts.Count.ToString() + "种", this.StuntText.SubTitleColor);
                     this.StuntText.AddNewLine();
                     foreach (Stunt stunt in this.CreatingTroop.Stunts.Stunts.Values)
                     {
-                        this.StuntText.AddText(stunt.Name, Color.Red);
-                        this.StuntText.AddText(" 战意消耗" + stunt.Combativity, Color.LightGreen);
+                        this.StuntText.AddText(stunt.Name, this.StuntText.SubTitleColor2);
+                        this.StuntText.AddText(" 战意消耗" + stunt.Combativity, this.StuntText.SubTitleColor3);
                         this.StuntText.AddNewLine();
                     }
                 }
                 this.StuntText.ResortTexts();
                 this.InfluenceText.Clear();
-                this.InfluenceText.AddText("部队特性", Color.Yellow);
+                this.InfluenceText.AddText("部队特性", this.InfluenceText.TitleColor);
                 this.InfluenceText.AddNewLine();
                 if (this.CreatingMilitary != null)
                 {
-                    this.InfluenceText.AddText(this.CreatingMilitary.Kind.Name, Color.Lime);
+                    this.InfluenceText.AddText(this.CreatingMilitary.Kind.Name, this.InfluenceText.SubTitleColor);
                     this.InfluenceText.AddNewLine();
                     foreach (Influence influence in this.CreatingMilitary.Kind.Influences.Influences.Values)
                     {
-                        this.InfluenceText.AddText(influence.Name, Color.Red);
-                        this.InfluenceText.AddText(influence.Description, Color.LightGreen);
+                        this.InfluenceText.AddText(influence.Name, this.InfluenceText.SubTitleColor2);
+                        this.InfluenceText.AddText(influence.Description, this.InfluenceText.SubTitleColor3);
                         this.InfluenceText.AddNewLine();
                     }
                 }

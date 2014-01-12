@@ -390,10 +390,10 @@ namespace TroopDetailPlugin
 			{
 				enumerator.Dispose();
 			}
-			this.OtherPersonText.AddText("其他人物", Color.Yellow);
+			this.OtherPersonText.AddText("其他人物", this.OtherPersonText.TitleColor);
 			this.OtherPersonText.AddNewLine();
 			int personCount = troop.PersonCount - 1;
-			this.OtherPersonText.AddText(string.Concat(personCount.ToString(), "人"), Color.Lime);
+			this.OtherPersonText.AddText(string.Concat(personCount.ToString(), "人"), this.OtherPersonText.SubTitleColor);
 			this.OtherPersonText.AddNewLine();
 			IEnumerator enumerator1 = troop.Persons.GetEnumerator();
 			try
@@ -424,10 +424,10 @@ namespace TroopDetailPlugin
 				}
 			}
 			this.OtherPersonText.ResortTexts();
-			this.CombatMethodText.AddText("部队战法", Color.Yellow);
+			this.CombatMethodText.AddText("部队战法", this.CombatMethodText.TitleColor);
 			this.CombatMethodText.AddNewLine();
 			personCount = troop.CombatMethods.Count;
-			this.CombatMethodText.AddText(string.Concat(personCount.ToString(), "种"), Color.Lime);
+			this.CombatMethodText.AddText(string.Concat(personCount.ToString(), "种"), this.CombatMethodText.SubTitleColor);
 			this.CombatMethodText.AddNewLine();
 			Dictionary<int, CombatMethod>.ValueCollection.Enumerator enumerator2 = troop.CombatMethods.CombatMethods.Values.GetEnumerator();
 			try
@@ -440,9 +440,9 @@ namespace TroopDetailPlugin
 						break;
 					}
 					CombatMethod combatMethod = enumerator2.Current;
-					this.CombatMethodText.AddText(combatMethod.Name, Color.Red);
+					this.CombatMethodText.AddText(combatMethod.Name, this.CombatMethodText.SubTitleColor2);
 					personCount = combatMethod.Combativity - troop.DecrementOfCombatMethodCombativityConsuming;
-					this.CombatMethodText.AddText(string.Concat(" 战意消耗", personCount.ToString()), Color.LightGreen);
+					this.CombatMethodText.AddText(string.Concat(" 战意消耗", personCount.ToString()), this.CombatMethodText.SubTitleColor3);
 					this.CombatMethodText.AddNewLine();
 				}
 			}
@@ -451,10 +451,10 @@ namespace TroopDetailPlugin
 				enumerator2.Dispose();
 			}
 			this.CombatMethodText.ResortTexts();
-			this.StuntText.AddText("部队特技", Color.Yellow);
+			this.StuntText.AddText("部队特技", this.StuntText.TitleColor);
 			this.StuntText.AddNewLine();
 			personCount = troop.Stunts.Count;
-			this.StuntText.AddText(string.Concat(personCount.ToString(), "种"), Color.Lime);
+			this.StuntText.AddText(string.Concat(personCount.ToString(), "种"), this.StuntText.SubTitleColor);
 			this.StuntText.AddNewLine();
 			Dictionary<int, Stunt>.ValueCollection.Enumerator enumerator3 = troop.Stunts.Stunts.Values.GetEnumerator();
 			try
@@ -467,9 +467,9 @@ namespace TroopDetailPlugin
 						break;
 					}
 					Stunt stunt = enumerator3.Current;
-					this.StuntText.AddText(stunt.Name, Color.Red);
+					this.StuntText.AddText(stunt.Name, this.StuntText.SubTitleColor2);
 					personCount = stunt.Combativity;
-					this.StuntText.AddText(string.Concat(" 战意消耗", personCount.ToString()), Color.LightGreen);
+					this.StuntText.AddText(string.Concat(" 战意消耗", personCount.ToString()), this.StuntText.SubTitleColor3);
 					this.StuntText.AddNewLine();
 				}
 			}
@@ -478,9 +478,9 @@ namespace TroopDetailPlugin
 				enumerator3.Dispose();
 			}
 			this.StuntText.ResortTexts();
-			this.InfluenceText.AddText("部队特性", Color.Yellow);
+			this.InfluenceText.AddText("部队特性", this.InfluenceText.TitleColor);
 			this.InfluenceText.AddNewLine();
-			this.InfluenceText.AddText(this.ShowingTroop.Army.Kind.Name, Color.Lime);
+			this.InfluenceText.AddText(this.ShowingTroop.Army.Kind.Name, this.InfluenceText.SubTitleColor);
 			this.InfluenceText.AddNewLine();
 			Dictionary<int, Influence>.ValueCollection.Enumerator enumerator4 = this.ShowingTroop.Army.Kind.Influences.Influences.Values.GetEnumerator();
 			try
@@ -493,8 +493,8 @@ namespace TroopDetailPlugin
 						break;
 					}
 					Influence influence = enumerator4.Current;
-					this.InfluenceText.AddText(influence.Name, Color.Red);
-					this.InfluenceText.AddText(influence.Description, Color.LightGreen);
+					this.InfluenceText.AddText(influence.Name, this.InfluenceText.SubTitleColor2);
+					this.InfluenceText.AddText(influence.Description, this.InfluenceText.SubTitleColor3);
 					this.InfluenceText.AddNewLine();
 				}
 			}

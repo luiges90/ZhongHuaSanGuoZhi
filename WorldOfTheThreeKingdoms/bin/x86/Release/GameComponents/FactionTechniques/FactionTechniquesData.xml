@@ -82,6 +82,8 @@
   </ButtonText>
   <ButtonTexture Width="80" Height="22" Basic="ButtonBasic.png" Available="ButtonAvailable.png" Upgrading="ButtonUpgrading.png" Upgraded="ButtonUpgraded.png"></ButtonTexture>
   <Comments X="810" Y="139" Width="170" Height="200" RowMargin="0"
+			TitleColor="4294967040" PositiveColor="4278255360" NegativeColor="4294901760" 
+			SubTitleColor="4294934783" SubTitleColor2="4286611711"
             FontName="宋体"
             FontSize="11"
             FontStyle="Regular"

@@ -434,11 +434,11 @@
                     }
                     this.commentDrawing = true;
                     this.Comment.Clear();
-                    this.Comment.AddText("延伸粮道", Color.Yellow);
+                    this.Comment.AddText("延伸粮道", this.Comment.TitleColor);
                     this.Comment.AddNewLine();
                     this.Comment.AddText("请根据实际情况设计粮道的路径。");
                     this.Comment.AddNewLine();
-                    this.Comment.AddText("提示", Color.Lime);
+                    this.Comment.AddText("提示", this.Comment.SubTitleColor);
                     this.Comment.AddText("：您可以在延伸点按下鼠标之后进行拖拽。");
                     this.Comment.ResortTexts();
                     this.Comment.DisplayOffset = new Point(this.ExtendButtonDisplayPosition.Right, this.ExtendButtonDisplayPosition.Top);
@@ -463,11 +463,11 @@
                     }
                     this.commentDrawing = true;
                     this.Comment.Clear();
-                    this.Comment.AddText("截断粮道", Color.Yellow);
+                    this.Comment.AddText("截断粮道", this.Comment.TitleColor);
                     this.Comment.AddNewLine();
                     this.Comment.AddText("用以删除某一点之后的粮道。");
                     this.Comment.AddNewLine();
-                    this.Comment.AddText("提示", Color.Lime);
+                    this.Comment.AddText("提示", this.Comment.SubTitleColor);
                     this.Comment.AddText("：如果选择粮道的起点则删除整条粮道。请小心操作。");
                     this.Comment.ResortTexts();
                     this.Comment.DisplayOffset = new Point(this.CutButtonDisplayPosition.Right, this.CutButtonDisplayPosition.Top);
@@ -492,11 +492,11 @@
                     }
                     this.commentDrawing = true;
                     this.Comment.Clear();
-                    this.Comment.AddText("转换方向", Color.Yellow);
+                    this.Comment.AddText("转换方向",this.Comment.TitleColor);
                     this.Comment.AddNewLine();
                     this.Comment.AddText("用以转换粮道的运输方向。");
                     this.Comment.AddNewLine();
-                    this.Comment.AddText("提示", Color.Lime);
+                    this.Comment.AddText("提示", this.Comment.SubTitleColor);
                     this.Comment.AddText("：仅在粮道两端都为我方建筑时有效。未完全疏通的粮道将被关闭。");
                     this.Comment.ResortTexts();
                     this.Comment.DisplayOffset = new Point(this.DirectionSwitchDisplayPosition.Right, this.DirectionSwitchDisplayPosition.Top);
@@ -532,7 +532,7 @@
                     }
                     this.commentDrawing = true;
                     this.Comment.Clear();
-                    this.Comment.AddText("疏通粮道", Color.Yellow);
+                    this.Comment.AddText("疏通粮道", this.Comment.TitleColor);
                     this.Comment.AddNewLine();
                     this.Comment.AddText("结束粮道的编辑工作并且开始疏通粮道。");
                     this.Comment.AddNewLine();
@@ -570,7 +570,7 @@
                     }
                     this.commentDrawing = true;
                     this.Comment.Clear();
-                    this.Comment.AddText("结束编辑", Color.Yellow);
+                    this.Comment.AddText("结束编辑", this.Comment.TitleColor);
                     this.Comment.AddNewLine();
                     this.Comment.AddText("结束粮道的编辑工作。");
                     this.Comment.AddNewLine();
@@ -640,8 +640,8 @@
                             }
                             this.commentDrawing = true;
                             this.Comment.Clear();
-                            this.Comment.AddText("连接到", Color.Yellow);
-                            this.Comment.AddText(this.CurrentPositionArchitectures[0].Name, Color.Lime);
+                            this.Comment.AddText("连接到", this.Comment.TitleColor);
+                            this.Comment.AddText(this.CurrentPositionArchitectures[0].Name, this.Comment.SubTitleColor);
                             this.Comment.ResortTexts();
                             this.Comment.DisplayOffset = new Point(this.screen.GetDestination(positionByPoint).Right, this.screen.GetDestination(positionByPoint).Top);
                         }
@@ -674,10 +674,10 @@
                     {
                         this.commentDrawing = true;
                         this.Comment.Clear();
-                        this.Comment.AddText("当前坐标粮道信息", Color.Yellow);
+                        this.Comment.AddText("当前坐标粮道信息", this.Comment.TitleColor);
                         this.Comment.AddNewLine();
                         this.Comment.AddText("消耗率：");
-                        this.Comment.AddText(StaticMethods.GetPercentString(point.ConsumptionRate, 1), Color.Red);
+                        this.Comment.AddText(StaticMethods.GetPercentString(point.ConsumptionRate, 1), this.Comment.SubTitleColor2);
                         this.Comment.AddNewLine();
                         this.Comment.AddText("开通费用：");
                         this.Comment.AddText(point.BuildFundCost.ToString());

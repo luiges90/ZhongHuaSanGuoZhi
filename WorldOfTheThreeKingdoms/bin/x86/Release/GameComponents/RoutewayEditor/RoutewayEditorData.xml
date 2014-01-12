@@ -2,7 +2,7 @@
 <Root>
   <Background FileName="Background.png" Width="100" Height="160"></Background>
   <CommentBackground FileName="CommentBackground.png" Width="120"></CommentBackground>
-  <Comment RowMargin="0"
+  <Comment RowMargin="0" TitleColor="4294967040" SubTitleColor="4278255360" SubTitleColor2="4294901760"
           FontName="宋体"
           FontSize="10"
           FontStyle="Regular"

@@ -89,6 +89,11 @@
             this.factionTechniques.CommentsText.ClientWidth = this.factionTechniques.CommentsClient.Width;
             this.factionTechniques.CommentsText.ClientHeight = this.factionTechniques.CommentsClient.Height;
             this.factionTechniques.CommentsText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.factionTechniques.CommentsText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.factionTechniques.CommentsText.PositiveColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("PositiveColor").Value);
+            this.factionTechniques.CommentsText.NegativeColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("NegativeColor").Value);
+            this.factionTechniques.CommentsText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.factionTechniques.CommentsText.SubTitleColor2 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor2").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.factionTechniques.CommentsText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.factionTechniques.CommentsText.DefaultColor = color;

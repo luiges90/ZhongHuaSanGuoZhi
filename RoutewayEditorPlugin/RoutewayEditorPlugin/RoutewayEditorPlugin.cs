@@ -60,6 +60,9 @@
             node = nextSibling.ChildNodes.Item(2);
             this.routewayEditor.Comment.ClientWidth = this.routewayEditor.CommentClientWidth;
             this.routewayEditor.Comment.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.routewayEditor.Comment.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.routewayEditor.Comment.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.routewayEditor.Comment.SubTitleColor2 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor2").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.routewayEditor.Comment.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.routewayEditor.Comment.DefaultColor = color;

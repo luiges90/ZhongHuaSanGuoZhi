@@ -418,25 +418,27 @@
                 Align="Middle">
     </Text>
   </Labels>
-  <OtherPerson X="10" Y="150" Width="80" Height="150" RowMargin="0"
+  <OtherPerson X="10" Y="150" Width="80" Height="150" RowMargin="0" TitleColor="4294967040" SubTitleColor="4278255360"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </OtherPerson>
-  <CombatMethod X="10" Y="310" Width="190" Height="230" RowMargin="0"
+  <CombatMethod X="10" Y="310" Width="190" Height="230" RowMargin="0" TitleColor="4294967040" SubTitleColor="4278255360" SubTitleColor2="4294901760"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </CombatMethod>
   <Stunt X="210" Y="310" Width="190" Height="230" RowMargin="0"
+			TitleColor="4294967040" SubTitleColor="4278255360" SubTitleColor2="4294901760" SubTitleColor3="4286644096"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"
             FontColor="4294967295">
   </Stunt>
   <Influence X="400" Y="310" Width="340" Height="230" RowMargin="0"
+			TitleColor="4294967040" SubTitleColor="4278255360" SubTitleColor2="4294901760" SubTitleColor3="4286644096"
             FontName="宋体"
             FontSize="10"
             FontStyle="Regular"

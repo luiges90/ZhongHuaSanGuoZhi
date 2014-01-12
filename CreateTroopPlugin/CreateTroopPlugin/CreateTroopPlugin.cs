@@ -87,11 +87,16 @@
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.createTroop.OtherPersonText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.createTroop.OtherPersonText.DefaultColor = color;
+            this.createTroop.OtherPersonText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.createTroop.OtherPersonText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
             node = nextSibling.ChildNodes.Item(5);
             this.createTroop.CombatMethodClient = StaticMethods.LoadRectangleFromXMLNode(node);
             this.createTroop.CombatMethodText.ClientWidth = this.createTroop.CombatMethodClient.Width;
             this.createTroop.CombatMethodText.ClientHeight = this.createTroop.CombatMethodClient.Height;
             this.createTroop.CombatMethodText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.createTroop.CombatMethodText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.createTroop.CombatMethodText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.createTroop.CombatMethodText.SubTitleColor2 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor2").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.createTroop.CombatMethodText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.createTroop.CombatMethodText.DefaultColor = color;
@@ -100,6 +105,10 @@
             this.createTroop.StuntText.ClientWidth = this.createTroop.StuntClient.Width;
             this.createTroop.StuntText.ClientHeight = this.createTroop.StuntClient.Height;
             this.createTroop.StuntText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.createTroop.StuntText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.createTroop.StuntText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.createTroop.StuntText.SubTitleColor2 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor2").Value);
+            this.createTroop.StuntText.SubTitleColor3 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor3").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.createTroop.StuntText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.createTroop.StuntText.DefaultColor = color;
@@ -108,6 +117,10 @@
             this.createTroop.InfluenceText.ClientWidth = this.createTroop.InfluenceClient.Width;
             this.createTroop.InfluenceText.ClientHeight = this.createTroop.InfluenceClient.Height;
             this.createTroop.InfluenceText.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
+            this.createTroop.InfluenceText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.createTroop.InfluenceText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
+            this.createTroop.InfluenceText.SubTitleColor2 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor2").Value);
+            this.createTroop.InfluenceText.SubTitleColor3 = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor3").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.createTroop.InfluenceText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.createTroop.InfluenceText.DefaultColor = color;
