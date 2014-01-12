@@ -757,6 +757,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     GlobalVariables.DrawMapVeil = !GlobalVariables.DrawMapVeil;
                     break;
 
+                case ContextMenuResult.Switch_StopOnAttack:
+                    GlobalVariables.StopToControlOnAttack = !GlobalVariables.StopToControlOnAttack;
+                    break;
+
                 case ContextMenuResult.Switch_TroopTitle:
                     this.Plugins.TroopTitlePlugin.IsShowing = !this.Plugins.TroopTitlePlugin.IsShowing;
                     break;

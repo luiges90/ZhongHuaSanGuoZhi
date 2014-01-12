@@ -10052,7 +10052,7 @@
             {
                 if (this.BelongedFaction != null)
                 {
-                    this.BelongedFaction.StopToControl = true;
+                    this.BelongedFaction.StopToControl = GlobalVariables.StopToControlOnAttack;
                 }
                 if (this.OnBeginRecentlyAttacked != null)
                 {

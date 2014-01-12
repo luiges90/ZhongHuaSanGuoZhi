@@ -1080,7 +1080,7 @@
                     if (!architecture.hostileTroopInViewLastDay)  //如果已经提醒过就不再提醒
                     {
                         //architecture.JustAttacked = true;
-                        architecture.BelongedFaction.StopToControl = true;
+                        architecture.BelongedFaction.StopToControl = GlobalVariables.StopToControlOnAttack;
                         architecture.RecentlyAttacked = 5;
                         this.GameScreen.ArchitectureBeginRecentlyAttacked(architecture);  //提示玩家建筑视野范围内出现敌军。
 

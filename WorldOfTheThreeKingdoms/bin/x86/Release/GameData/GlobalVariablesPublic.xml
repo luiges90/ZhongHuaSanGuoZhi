@@ -61,5 +61,6 @@ AutoSaveFrequency="30"
 ShowChallengeAnimation="True"
 PersonDieInChallenge="True"
 OfficerDieInBattleRate="10"
-OfficerChildrenLimit="20">
+OfficerChildrenLimit="20"
+StopToControlOnAttack="True">
 </GlobalVariables>

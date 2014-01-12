@@ -3155,6 +3155,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public bool IsStopOnAttack
+        {
+            get
+            {
+                return GlobalVariables.StopToControlOnAttack;
+            }
+        }
+
         public bool IsShowingTroopTitle
         {
             get

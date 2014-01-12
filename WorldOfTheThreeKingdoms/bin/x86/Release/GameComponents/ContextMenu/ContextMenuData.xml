@@ -165,8 +165,9 @@
                 <MenuItem ID="5" Name="BattleSound" DisplayName="播放战斗音效" OppositeName="关闭战斗音效" OppositeIfTrue="IsPlayingBattleSound" />
                 <MenuItem ID="6" Name="TroopAnimation" DisplayName="显示部队动画" OppositeName="省略部队动画" OppositeIfTrue="IsPlayingTroopAnimation" />
                 <MenuItem ID="7" Name="FullScreen" DisplayName="进入全屏显示" OppositeName="退出全屏显示" OppositeIfTrue="IsFullScreen" />
-                <MenuItem ID="8" Name="SkyEye" DisplayName="开启天眼*" OppositeName="关闭天眼" OppositeIfTrue="IsSkyEye" />
-                <MenuItem ID="9" Name="MultipleResource" DisplayName="资源收入加倍*" OppositeName="停止资源加倍" OppositeIfTrue="IsMultipleResource" />
+				<MenuItem ID="8" Name="StopOnAttack" DisplayName="被攻击时暂停" OppositeName="被攻击时继续" OppositeIfTrue="IsStopOnAttack" />
+                <MenuItem ID="9" Name="SkyEye" DisplayName="开启天眼*" OppositeName="关闭天眼" OppositeIfTrue="IsSkyEye" />
+                <MenuItem ID="10" Name="MultipleResource" DisplayName="资源收入加倍*" OppositeName="停止资源加倍" OppositeIfTrue="IsMultipleResource" />
             </MenuItem>
             <MenuItem ID="8" Name="YearTable" DisplayName="年表" />
             <MenuItem ID="4" Name="Information" DisplayName="信息">

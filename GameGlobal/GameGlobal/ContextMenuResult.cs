@@ -133,6 +133,7 @@
         Switch_FullScreen,
         Switch_SkyEye,
         Switch_MultipleResource,
+        Switch_StopOnAttack,
         Information_AllSkills,
         Information_AllTitles,
         Information_AllMilitaryKinds,

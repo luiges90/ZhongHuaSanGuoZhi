@@ -127,6 +127,7 @@
         
         public static int OfficerDieInBattleRate = 10;
         public static int OfficerChildrenLimit = 20;
+        public static bool StopToControlOnAttack = true;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -150,6 +151,7 @@
             s.Add("FastBattleSpeed");
             s.Add("AutoSaveFrequency");
             s.Add("ShowChallengeAnimation");
+            s.Add("StopToControlOnAttack");
 
             return s;
         }
@@ -708,6 +710,15 @@
             {
                 exception = exception24;
                 throw new Exception("OfficerChildrenLimit:\n" + exception.ToString());
+            }
+            try
+            {
+                StopToControlOnAttack = bool.Parse(nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("StopToControlOnAttack:\n" + exception.ToString());
             }
             return true;
         }
