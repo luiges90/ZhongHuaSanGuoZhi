@@ -220,6 +220,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbAIFundIncreaseRate;
         private Label label62;
         private CheckBox cbStopToControlOnAttack;
+        private Label label63;
+        private TextBox tbMaxMilitaryExperience;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -280,6 +282,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.zainanbiaoqian = new System.Windows.Forms.Label();
             this.zainanfashengjilv = new System.Windows.Forms.TextBox();
             this.tabPageEnvironment = new System.Windows.Forms.TabPage();
+            this.cbStopToControlOnAttack = new System.Windows.Forms.CheckBox();
             this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
             this.label59 = new System.Windows.Forms.Label();
             this.tbAutosaveFrequency = new System.Windows.Forms.TextBox();
@@ -438,7 +441,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.cbStopToControlOnAttack = new System.Windows.Forms.CheckBox();
+            this.label63 = new System.Windows.Forms.Label();
+            this.tbMaxMilitaryExperience = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -833,6 +837,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageEnvironment.Text = "环境";
             this.tabPageEnvironment.UseVisualStyleBackColor = true;
             // 
+            // cbStopToControlOnAttack
+            // 
+            this.cbStopToControlOnAttack.AutoSize = true;
+            this.cbStopToControlOnAttack.Location = new System.Drawing.Point(13, 145);
+            this.cbStopToControlOnAttack.Name = "cbStopToControlOnAttack";
+            this.cbStopToControlOnAttack.Size = new System.Drawing.Size(120, 16);
+            this.cbStopToControlOnAttack.TabIndex = 118;
+            this.cbStopToControlOnAttack.Text = "被攻击时暂停游戏";
+            this.cbStopToControlOnAttack.UseVisualStyleBackColor = true;
+            // 
             // cbShowChallengeAnimation
             // 
             this.cbShowChallengeAnimation.AutoSize = true;
@@ -1192,7 +1206,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(306, 16);
+            this.label44.Location = new System.Drawing.Point(306, 17);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(53, 12);
             this.label44.TabIndex = 25;
@@ -1344,6 +1358,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageParameter
             // 
+            this.tabPageParameter.Controls.Add(this.label63);
+            this.tabPageParameter.Controls.Add(this.tbMaxMilitaryExperience);
             this.tabPageParameter.Controls.Add(this.label22);
             this.tabPageParameter.Controls.Add(this.tbMilitaryPopulationReloadQuantity);
             this.tabPageParameter.Controls.Add(this.label18);
@@ -2309,15 +2325,21 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // cbStopToControlOnAttack
+            // label63
             // 
-            this.cbStopToControlOnAttack.AutoSize = true;
-            this.cbStopToControlOnAttack.Location = new System.Drawing.Point(13, 145);
-            this.cbStopToControlOnAttack.Name = "cbStopToControlOnAttack";
-            this.cbStopToControlOnAttack.Size = new System.Drawing.Size(120, 16);
-            this.cbStopToControlOnAttack.TabIndex = 118;
-            this.cbStopToControlOnAttack.Text = "被攻击时暂停游戏";
-            this.cbStopToControlOnAttack.UseVisualStyleBackColor = true;
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(278, 367);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(77, 12);
+            this.label63.TabIndex = 67;
+            this.label63.Text = "部队经验上限";
+            // 
+            // tbMaxMilitaryExperience
+            // 
+            this.tbMaxMilitaryExperience.Location = new System.Drawing.Point(361, 364);
+            this.tbMaxMilitaryExperience.Name = "tbMaxMilitaryExperience";
+            this.tbMaxMilitaryExperience.Size = new System.Drawing.Size(71, 22);
+            this.tbMaxMilitaryExperience.TabIndex = 66;
             // 
             // formOptions
             // 
@@ -2414,6 +2436,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbAutosaveFrequency.Text = nextSibling.Attributes.GetNamedItem("AutoSaveFrequency").Value;
             this.tbOfficerChildrenLimit.Text = nextSibling.Attributes.GetNamedItem("OfficerChildrenLimit").Value;
             this.cbStopToControlOnAttack.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value);
+            this.tbMaxMilitaryExperience.Text = nextSibling.Attributes.GetNamedItem("MaxMilitaryExperience").Value;
         }
 
         private void LoadParameterDoc()
@@ -2541,6 +2564,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("AutoSaveFrequency").Value = this.tbAutosaveFrequency.Text;
             nextSibling.Attributes.GetNamedItem("OfficerChildrenLimit").Value = this.tbOfficerChildrenLimit.Text;
             nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value = this.cbStopToControlOnAttack.Checked.ToString();
+            nextSibling.Attributes.GetNamedItem("MaxMilitaryExperience").Value = this.tbMaxMilitaryExperience.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 

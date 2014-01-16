@@ -129,6 +129,8 @@
         public static int OfficerChildrenLimit = 20;
         public static bool StopToControlOnAttack = true;
 
+        public static int MaxMilitaryExperience = 3000;
+
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()
@@ -719,6 +721,15 @@
             {
                 exception = exception24;
                 throw new Exception("StopToControlOnAttack:\n" + exception.ToString());
+            }
+            try
+            {
+                MaxMilitaryExperience = int.Parse(nextSibling.Attributes.GetNamedItem("MaxMilitaryExperience").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("MaxMilitaryExperience:\n" + exception.ToString());
             }
             return true;
         }

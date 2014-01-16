@@ -187,10 +187,18 @@
             if (this.ShelledMilitary == null)
             {
                 this.experience += increment * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIArmyExperienceRate);
+                if (this.experience > GlobalVariables.MaxMilitaryExperience)
+                {
+                    this.experience = GlobalVariables.MaxMilitaryExperience;
+                }
             }
             else
             {
                 this.ShelledMilitary.experience += increment * (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIArmyExperienceRate);
+                if (this.ShelledMilitary.experience > GlobalVariables.MaxMilitaryExperience)
+                {
+                    this.ShelledMilitary.experience = GlobalVariables.MaxMilitaryExperience;
+                }
             }
         }
 

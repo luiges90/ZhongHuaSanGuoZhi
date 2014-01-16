@@ -6418,7 +6418,7 @@
         public void IncreaseExperience(int increment)
         {
             Military army = this.Army;
-            army.Experience += (int) (increment * this.MultipleOfArmyExperience);
+            army.IncreaseExperience((int) (increment * this.MultipleOfArmyExperience));
         }
 
         public int IncreaseFood(int increment)
