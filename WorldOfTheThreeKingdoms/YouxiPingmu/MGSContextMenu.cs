@@ -418,31 +418,31 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Military, FrameFunction.GetLevelUpMilitaries, false, true, true, true, this.CurrentArchitecture.GetLevelUpMilitaryList(), null, "选择编队", "");
                     break;
 
-                case ContextMenuResult.Transport_Routeway_Design:  //粮道手动设计
+                case ContextMenuResult.Routeway_Design:  //粮道手动设计
                     this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.ArchitectureRoutewayStartPoint));
                     break;
 
-                case ContextMenuResult.Transport_Routeway_PointShortestNormal:
+                case ContextMenuResult.Routeway_PointShortestNormal:
                     this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.RoutewayPointShortestNormal));
                     break;
 
-                case ContextMenuResult.Transport_Routeway_PointShortestNoWater:
+                case ContextMenuResult.Routeway_PointShortestNoWater:
                     this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.RoutewayPointShortestNoWater));
                     break;
 
-                case ContextMenuResult.Transport_Routeway_ArchitectureShortestNormal:
+                case ContextMenuResult.Routeway_ArchitectureShortestNormal:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.SimpleArchitecture, FrameFunction.GetShortestRouteway, false, true, true, true, this.CurrentArchitecture.GetAILinks(2), null, "粮道", "");
                     break;
 
-                case ContextMenuResult.Transport_Routeway_ArchitectureShortestNoWater:
+                case ContextMenuResult.Routeway_ArchitectureShortestNoWater:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.SimpleArchitecture, FrameFunction.GetShortestNoWaterRouteway, false, true, true, true, this.CurrentArchitecture.GetAILinks(2), null, "粮道", "");
                     break;
 
-                case ContextMenuResult.Transport_Routeway_CloseAll:
+                case ContextMenuResult.Routeway_CloseAll:
                     this.CurrentArchitecture.CloseAllRouteways();
                     break;
 
-                case ContextMenuResult.Transport_Routeway_DemolishAll:
+                case ContextMenuResult.Routeway_DemolishAll:
                     this.CurrentArchitecture.DemolishAllRouteways();
                     break;
 

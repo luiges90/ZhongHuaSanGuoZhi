@@ -69,16 +69,14 @@
                 <MenuItem ID="15" Name="LevelUp" DisplayName="升级" DisplayIfTrue="LevelUpAvail" />
 				<MenuItem ID="16" Name="AutoRecruiting" DisplayName="委任补充" OppositeName="手动补充" OppositeIfTrue="AutoRecruiting" DisplayIfTrue="AutoRecruitingAvail" />
             </MenuItem>
-            <MenuItem ID="3" Name="Transport" DisplayName="运输" DisplayIfTrue="CaiyongLiangdaoXitong">
-                <MenuItem ID="1" Name="Routeway" DisplayName="粮道" DisplayIfTrue="RoutewayAvail">
-                    <MenuItem ID="1" Name="Design" DisplayName="手动设计" />
-                    <MenuItem ID="2" Name="PointShortestNormal" DisplayName="某点最短" />
-                    <MenuItem ID="3" Name="PointShortestNoWater" DisplayName="某点避水" />
-                    <MenuItem ID="4" Name="ArchitectureShortestNormal" DisplayName="建筑最短" />
-                    <MenuItem ID="5" Name="ArchitectureShortestNoWater" DisplayName="建筑避水" />
-                    <MenuItem ID="6" Name="CloseAll" DisplayName="关闭所有" />
-                    <MenuItem ID="7" Name="DemolishAll" DisplayName="废弃所有" />
-                </MenuItem>
+            <MenuItem ID="3" Name="Routeway" DisplayName="粮道" DisplayIfTrue="RoutewayAvail">
+				<MenuItem ID="1" Name="Design" DisplayName="手动设计" />
+				<MenuItem ID="2" Name="PointShortestNormal" DisplayName="某点最短" />
+				<MenuItem ID="3" Name="PointShortestNoWater" DisplayName="某点避水" />
+				<MenuItem ID="4" Name="ArchitectureShortestNormal" DisplayName="建筑最短" />
+				<MenuItem ID="5" Name="ArchitectureShortestNoWater" DisplayName="建筑避水" />
+				<MenuItem ID="6" Name="CloseAll" DisplayName="关闭所有" />
+				<MenuItem ID="7" Name="DemolishAll" DisplayName="废弃所有" />
             </MenuItem>
             <MenuItem ID="5" Name="Person" DisplayName="人事">
                 <MenuItem ID="1" Name="Transfer" DisplayName="调动" DisplayIfTrue="PersonTransferAvail" />

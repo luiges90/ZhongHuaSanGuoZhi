@@ -9946,7 +9946,7 @@
 
         public bool RoutewayAvail()
         {
-
+            if (!CaiyongLiangdaoXitong()) return false; 
             foreach (Point point in this.GetRoutewayStartArea().Area)
             {
                 if (this.IsRoutewayPossible(point))
