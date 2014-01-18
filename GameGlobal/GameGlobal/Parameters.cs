@@ -13,6 +13,9 @@
         public static float AITroopDefenceRate = 1f;
         public static float AITroopOffenceRate = 1f;
         public static float ArchitectureDamageRate = 1f;
+        public static int AIAntiStratagem = 0;
+        public static int AIAntiSurround = 0;
+
         public static int BuyFoodAgriculture = 500;
         public static int ChangeCapitalCost = 0x1388;
         public static int ClearFieldAgricultureCostUnit = 3;
@@ -57,6 +60,8 @@
         public static float AITroopOffenceYearIncreaseRate = 0f;
         public static float AIArmyExperienceYearIncreaseRate = 0f;
         public static float AIOfficerExperienceYearIncreaseRate = 0f;
+        public static float AIAntiStratagemIncreaseRate = 0f;
+        public static float AIAntiSurroundIncreaseRate = 0f;
 
         public static float AIOfficerExperienceRate = 1f;
         public static float AIArmyExperienceRate = 1f;
@@ -70,6 +75,8 @@
         private static float BasicAITroopOffenceRate = 1f;
         private static float BasicAIArmyExperienceRate = 1f;
         private static float BasicAIOfficerExperienceRate = 1f;
+        private static int BasicAIAntiStratagem = 0;
+        private static int BasicAIAntiSurround = 0;
 
         public static float AIBackendArmyReserveCalmBraveDifferenceMultiply = 5;
         public static float AIBackendArmyReserveAmbitionMultiply = 10;
@@ -201,6 +208,8 @@
             AIRecruitmentSpeedRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedRate").Value);
             AIOfficerExperienceRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIOfficerExperienceRate").Value);
             AIArmyExperienceRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIArmyExperienceRate").Value);
+            AIAntiStratagem = int.Parse(nextSibling.Attributes.GetNamedItem("AIAntiStratagem").Value);
+            AIAntiSurround = int.Parse(nextSibling.Attributes.GetNamedItem("AIAntiSurround").Value);
 
             AIFundYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIFundYearIncreaseRate").Value);
             AIFoodYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIFoodYearIncreaseRate").Value);
@@ -211,6 +220,8 @@
             AIRecruitmentSpeedYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedYearIncreaseRate").Value);
             AIOfficerExperienceYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIOfficerExperienceYearIncreaseRate").Value);
             AIArmyExperienceYearIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIArmyExperienceYearIncreaseRate").Value);
+            AIAntiStratagemIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIAntiStratagemIncreaseRate").Value);
+            AIAntiSurroundIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIAntiSurroundIncreaseRate").Value);
 
             AIBackendArmyReserveCalmBraveDifferenceMultiply = float.Parse(nextSibling.Attributes.GetNamedItem("AIBackendArmyReserveCalmBraveDifferenceMultiply").Value);
             AIBackendArmyReserveAmbitionMultiply = float.Parse(nextSibling.Attributes.GetNamedItem("AIBackendArmyReserveAmbitionMultiply").Value);
@@ -301,6 +312,8 @@
             BasicAIRecruitmentSpeedRate = AIRecruitmentSpeedRate;
             BasicAIArmyExperienceRate = AIArmyExperienceRate;
             BasicAIOfficerExperienceRate = AIOfficerExperienceRate;
+            BasicAIAntiStratagem = AIAntiStratagem;
+            BasicAIAntiSurround = AIAntiSurround;
         }
 
         public static void DayEvent(int year)
@@ -314,6 +327,8 @@
             AIRecruitmentSpeedRate = year * AIRecruitmentSpeedYearIncreaseRate + BasicAIRecruitmentSpeedRate;
             AIOfficerExperienceRate = year * AIOfficerExperienceYearIncreaseRate + BasicAIOfficerExperienceRate;
             AIArmyExperienceRate = year * AIArmyExperienceYearIncreaseRate + BasicAIArmyExperienceRate;
+            AIAntiSurround = (int) (year * AIAntiSurroundIncreaseRate + BasicAIAntiSurround);
+            AIAntiStratagem = (int) (year * AIAntiStratagemIncreaseRate + BasicAIAntiStratagem);
         }
     }
 }

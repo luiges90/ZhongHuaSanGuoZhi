@@ -1913,6 +1913,7 @@
 
         public void InitialGameData()
         {
+            Parameters.DayEvent(this.PlayerArchitectureCount);
             this.InitializeSectionData();
             this.InitializeRoutewayData();
             this.InitializeArchitectureData();

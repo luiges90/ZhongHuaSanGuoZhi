@@ -113,7 +113,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.mainMapLayer.chongsheditukuaitupian(x, y);
 
                 } 
-                else if (base.Scenario.CurrentPlayer != null && this.PeekUndoneWork().Kind == UndoneWorkKind.None && base.Scenario.CurrentPlayer == base.Scenario.CurrentFaction)
+                else if (base.Scenario.CurrentPlayer != null && 
+                    this.PeekUndoneWork().Kind == UndoneWorkKind.None && base.Scenario.CurrentPlayer == base.Scenario.CurrentFaction)
                 {
                     if (this.CurrentArchitecture == null && this.CurrentTroop == null && this.CurrentRouteway == null)
                     {

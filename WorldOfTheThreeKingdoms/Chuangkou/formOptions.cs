@@ -222,6 +222,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private CheckBox cbStopToControlOnAttack;
         private Label label63;
         private TextBox tbMaxMilitaryExperience;
+        private TextBox tbAIAntiSurroundIncreaseRate;
+        private Label label65;
+        private TextBox tbAIAntiSurround;
+        private TextBox tbAIAntiStratagemIncreaseRate;
+        private Label label64;
+        private TextBox tbAIAntiStratagem;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -338,6 +344,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbCommonPersonAvailable = new System.Windows.Forms.CheckBox();
             this.cbCreateChildrenIgnoreLimit = new System.Windows.Forms.CheckBox();
             this.tabPageParameter = new System.Windows.Forms.TabPage();
+            this.label63 = new System.Windows.Forms.Label();
+            this.tbMaxMilitaryExperience = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.tbMilitaryPopulationReloadQuantity = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -441,8 +449,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.label63 = new System.Windows.Forms.Label();
-            this.tbMaxMilitaryExperience = new System.Windows.Forms.TextBox();
+            this.tbAIAntiStratagemIncreaseRate = new System.Windows.Forms.TextBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.tbAIAntiStratagem = new System.Windows.Forms.TextBox();
+            this.tbAIAntiSurroundIncreaseRate = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.tbAIAntiSurround = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1426,6 +1438,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageParameter.Text = "参数";
             this.tabPageParameter.UseVisualStyleBackColor = true;
             // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(278, 367);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(77, 12);
+            this.label63.TabIndex = 67;
+            this.label63.Text = "部队经验上限";
+            // 
+            // tbMaxMilitaryExperience
+            // 
+            this.tbMaxMilitaryExperience.Location = new System.Drawing.Point(361, 364);
+            this.tbMaxMilitaryExperience.Name = "tbMaxMilitaryExperience";
+            this.tbMaxMilitaryExperience.Size = new System.Drawing.Size(71, 22);
+            this.tbMaxMilitaryExperience.TabIndex = 66;
+            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -1892,6 +1920,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageAIParameter
             // 
+            this.tabPageAIParameter.Controls.Add(this.tbAIAntiSurroundIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.label65);
+            this.tabPageAIParameter.Controls.Add(this.tbAIAntiSurround);
+            this.tabPageAIParameter.Controls.Add(this.tbAIAntiStratagemIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.label64);
+            this.tabPageAIParameter.Controls.Add(this.tbAIAntiStratagem);
             this.tabPageAIParameter.Controls.Add(this.label62);
             this.tabPageAIParameter.Controls.Add(this.label61);
             this.tabPageAIParameter.Controls.Add(this.tbAIArmyExperienceIncreaseRate);
@@ -2325,21 +2359,51 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // label63
+            // tbAIAntiStratagemIncreaseRate
             // 
-            this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(278, 367);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(77, 12);
-            this.label63.TabIndex = 67;
-            this.label63.Text = "部队经验上限";
+            this.tbAIAntiStratagemIncreaseRate.Location = new System.Drawing.Point(189, 284);
+            this.tbAIAntiStratagemIncreaseRate.Name = "tbAIAntiStratagemIncreaseRate";
+            this.tbAIAntiStratagemIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIAntiStratagemIncreaseRate.TabIndex = 68;
             // 
-            // tbMaxMilitaryExperience
+            // label64
             // 
-            this.tbMaxMilitaryExperience.Location = new System.Drawing.Point(361, 364);
-            this.tbMaxMilitaryExperience.Name = "tbMaxMilitaryExperience";
-            this.tbMaxMilitaryExperience.Size = new System.Drawing.Size(71, 22);
-            this.tbMaxMilitaryExperience.TabIndex = 66;
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(13, 287);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(89, 12);
+            this.label64.TabIndex = 66;
+            this.label64.Text = "电脑部队抗计率";
+            // 
+            // tbAIAntiStratagem
+            // 
+            this.tbAIAntiStratagem.Location = new System.Drawing.Point(130, 284);
+            this.tbAIAntiStratagem.Name = "tbAIAntiStratagem";
+            this.tbAIAntiStratagem.Size = new System.Drawing.Size(57, 22);
+            this.tbAIAntiStratagem.TabIndex = 67;
+            // 
+            // tbAIAntiSurroundIncreaseRate
+            // 
+            this.tbAIAntiSurroundIncreaseRate.Location = new System.Drawing.Point(189, 312);
+            this.tbAIAntiSurroundIncreaseRate.Name = "tbAIAntiSurroundIncreaseRate";
+            this.tbAIAntiSurroundIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIAntiSurroundIncreaseRate.TabIndex = 71;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(13, 315);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(89, 12);
+            this.label65.TabIndex = 69;
+            this.label65.Text = "电脑部队抗围率";
+            // 
+            // tbAIAntiSurround
+            // 
+            this.tbAIAntiSurround.Location = new System.Drawing.Point(130, 312);
+            this.tbAIAntiSurround.Name = "tbAIAntiSurround";
+            this.tbAIAntiSurround.Size = new System.Drawing.Size(57, 22);
+            this.tbAIAntiSurround.TabIndex = 70;
             // 
             // formOptions
             // 
@@ -2499,6 +2563,10 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbJailBreakArchitectureCost.Text = nextSibling.Attributes.GetNamedItem("JailBreakArchitectureCost").Value;
             this.tbMilitaryPopulationCap.Text = nextSibling.Attributes.GetNamedItem("MilitaryPopulationCap").Value;
             this.tbMilitaryPopulationReloadQuantity.Text = nextSibling.Attributes.GetNamedItem("MilitaryPopulationReloadQuantity").Value;
+            this.tbAIAntiStratagem.Text = nextSibling.Attributes.GetNamedItem("AIAntiStratagem").Value;
+            this.tbAIAntiStratagemIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIAntiStratagemIncreaseRate").Value;
+            this.tbAIAntiSurround.Text = nextSibling.Attributes.GetNamedItem("AIAntiSurround").Value;
+            this.tbAIAntiSurroundIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIAntiSurroundIncreaseRate").Value;
             doNotSetDifficultyToCustom = false;
         }
 
@@ -2626,6 +2694,10 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("JailBreakArchitectureCost").Value = this.tbJailBreakArchitectureCost.Text;
             nextSibling.Attributes.GetNamedItem("MilitaryPopulationCap").Value = this.tbMilitaryPopulationCap.Text;
             nextSibling.Attributes.GetNamedItem("MilitaryPopulationReloadQuantity").Value = this.tbMilitaryPopulationReloadQuantity.Text;
+            nextSibling.Attributes.GetNamedItem("AIAntiStratagem").Value = this.tbAIAntiStratagem.Text;
+            nextSibling.Attributes.GetNamedItem("AIAntiStratagemIncreaseRate").Value = this.tbAIAntiStratagemIncreaseRate.Text;
+            nextSibling.Attributes.GetNamedItem("AIAntiSurround").Value = this.tbAIAntiSurround.Text;
+            nextSibling.Attributes.GetNamedItem("AIAntiSurroundIncreaseRate").Value = this.tbAIAntiSurroundIncreaseRate.Text;
             this.parameterDoc.Save("GameData/GameParameters.xml");
         }
 
@@ -2737,6 +2809,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedRate.Text = "0.7";
                     this.tbAIOfficerExperienceRate.Text = "0.7";
                     this.tbAIArmyExperienceRate.Text = "0.7";
+                    this.tbAIAntiStratagem.Text = "0";
+                    this.tbAIAntiSurround.Text = "0";
                     this.tbAIFundIncreaseRate.Text = "0.0";
                     this.tbAIFoodIncreaseRate.Text = "0.0";
                     this.tbAIArchitectureDamageIncreaseRate.Text = "0.0";
@@ -2746,6 +2820,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedIncreaseRate.Text = "0.0";
                     this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
                     this.tbAIArmyExperienceIncreaseRate.Text = "0.0";
+                    this.tbAIAntiStratagemIncreaseRate.Text = "0.0";
+                    this.tbAIAntiSurroundIncreaseRate.Text = "0.0";
                     this.cbPinPointAtPlayer.Checked = false;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = true;
@@ -2764,6 +2840,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedRate.Text = "1.0";
                     this.tbAIOfficerExperienceRate.Text = "1.0";
                     this.tbAIArmyExperienceRate.Text = "1.0";
+                    this.tbAIAntiStratagem.Text = "0";
+                    this.tbAIAntiSurround.Text = "0";
                     this.tbAIFundIncreaseRate.Text = "0.0";
                     this.tbAIFoodIncreaseRate.Text = "0.0";
                     this.tbAIArchitectureDamageIncreaseRate.Text = "0.0";
@@ -2773,6 +2851,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedIncreaseRate.Text = "0.0";
                     this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
                     this.tbAIArmyExperienceIncreaseRate.Text = "0.0";
+                    this.tbAIAntiStratagemIncreaseRate.Text = "0.0";
+                    this.tbAIAntiSurroundIncreaseRate.Text = "0.0";
                     this.cbPinPointAtPlayer.Checked = false;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = false;
@@ -2791,6 +2871,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedRate.Text = "1.2";
                     this.tbAIOfficerExperienceRate.Text = "1.0";
                     this.tbAIArmyExperienceRate.Text = "1.5";
+                    this.tbAIAntiStratagem.Text = "0";
+                    this.tbAIAntiSurround.Text = "0";
                     this.tbAIFundIncreaseRate.Text = "0.01";
                     this.tbAIFoodIncreaseRate.Text = "0.01";
                     this.tbAIArchitectureDamageIncreaseRate.Text = "0.0";
@@ -2800,6 +2882,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAITrainingSpeedIncreaseRate.Text = "0.01";
                     this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
                     this.tbAIArmyExperienceIncreaseRate.Text = "0.01";
+                    this.tbAIAntiStratagemIncreaseRate.Text = "0.0";
+                    this.tbAIAntiSurroundIncreaseRate.Text = "0.0";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = false;
@@ -2813,20 +2897,24 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIFoodRate.Text = "2.0";
                     this.tbAIArchitectureDamageRate.Text = "1.0";
                     this.tbAITroopOffenceRate.Text = "1.0";
-                    this.tbAITroopDefenceRate.Text = "1.0";
+                    this.tbAITroopDefenceRate.Text = "1.1";
                     this.tbAIRecruitmentSpeedRate.Text = "1.5";
                     this.tbAITrainingSpeedRate.Text = "1.5";
                     this.tbAIOfficerExperienceRate.Text = "1.0";
                     this.tbAIArmyExperienceRate.Text = "2.0";
+                    this.tbAIAntiStratagem.Text = "0";
+                    this.tbAIAntiSurround.Text = "0";
                     this.tbAIFundIncreaseRate.Text = "0.02";
                     this.tbAIFoodIncreaseRate.Text = "0.02";
                     this.tbAIArchitectureDamageIncreaseRate.Text = "0.005";
-                    this.tbAITroopOffenceIncreaseRate.Text = "0.005";
-                    this.tbAITroopDefenceIncreaseRate.Text = "0.005";
+                    this.tbAITroopOffenceIncreaseRate.Text = "0.0";
+                    this.tbAITroopDefenceIncreaseRate.Text = "0.01";
                     this.tbAIRecruitmentSpeedIncreaseRate.Text = "0.02";
                     this.tbAITrainingSpeedIncreaseRate.Text = "0.02";
                     this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
                     this.tbAIArmyExperienceIncreaseRate.Text = "0.02";
+                    this.tbAIAntiStratagemIncreaseRate.Text = "0.5";
+                    this.tbAIAntiSurroundIncreaseRate.Text = "0.5";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = false;
                     this.cbInternalSurplusRateForAI.Checked = false;
@@ -2839,21 +2927,25 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIFundRate.Text = "5.0";
                     this.tbAIFoodRate.Text = "5.0";
                     this.tbAIArchitectureDamageRate.Text = "1.2";
-                    this.tbAITroopOffenceRate.Text = "1.2";
-                    this.tbAITroopDefenceRate.Text = "1.2";
+                    this.tbAITroopOffenceRate.Text = "1.0";
+                    this.tbAITroopDefenceRate.Text = "1.5";
                     this.tbAIRecruitmentSpeedRate.Text = "2.0";
                     this.tbAITrainingSpeedRate.Text = "2.0";
                     this.tbAIOfficerExperienceRate.Text = "1.0";
                     this.tbAIArmyExperienceRate.Text = "3.0";
+                    this.tbAIAntiStratagem.Text = "10";
+                    this.tbAIAntiSurround.Text = "10";
                     this.tbAIFundIncreaseRate.Text = "0.1";
                     this.tbAIFoodIncreaseRate.Text = "0.1";
                     this.tbAIArchitectureDamageIncreaseRate.Text = "0.02";
-                    this.tbAITroopOffenceIncreaseRate.Text = "0.02";
-                    this.tbAITroopDefenceIncreaseRate.Text = "0.02";
+                    this.tbAITroopOffenceIncreaseRate.Text = "0.0";
+                    this.tbAITroopDefenceIncreaseRate.Text = "0.05";
                     this.tbAIRecruitmentSpeedIncreaseRate.Text = "0.1";
                     this.tbAITrainingSpeedIncreaseRate.Text = "0.1";
                     this.tbAIOfficerExperienceIncreaseRate.Text = "0.0";
                     this.tbAIArmyExperienceIncreaseRate.Text = "0.1";
+                    this.tbAIAntiStratagemIncreaseRate.Text = "2.5";
+                    this.tbAIAntiSurroundIncreaseRate.Text = "2.5";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = true;
                     this.cbInternalSurplusRateForAI.Checked = false;

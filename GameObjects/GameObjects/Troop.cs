@@ -7921,12 +7921,20 @@
             {
                 this.antiStratagemChanceIncrement += this.BelongedFaction.IncrementOfResistStratagemChance;
                 this.antiStratagemChanceIncrement += this.BelongedFaction.AntiStratagemOfMillitaryType[(int)this.Army.Kind.Type];
+                if (!base.Scenario.IsPlayer(this.BelongedFaction))
+                {
+                    this.antiStratagemChanceIncrement += Parameters.AIAntiStratagem;
+                }
             }
         }
 
         private void RefreshAvoidSurroundedChance()
         {
             this.avoidSurroundedChance = this.IncrementOfAvoidSurroundedChance;
+            if (this.BelongedFaction != null && !base.Scenario.IsPlayer(this.BelongedFaction))
+            {
+                this.avoidSurroundedChance += Parameters.AIAntiSurround;
+            }
         }
 
         private void RefreshChaosAfterCriticalStrikeChance()
