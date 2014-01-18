@@ -22,7 +22,7 @@
             FontColor="4294967040"
             Align="Left">
   </CalledNameText>
-  <PortraitTexturePosition X="26" Y="-10" Width="210" Height="300" ></PortraitTexturePosition>
+  <PortraitTexturePosition X="26" Y="60" Width="210" Height="210" ></PortraitTexturePosition>
   <Labels>
     <Label X="350" Y="80" Width="40" Height="30" Label ="性别"
                 FontName="方正隶变_GBK"
