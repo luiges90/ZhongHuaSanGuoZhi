@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <Root>
-    <ContextMenuRightClick FileName="ContextMenuRightClick.png" SelectedFileName="ContextMenuRightClickSelected.png" FontName="宋体" FontSize="10" FontStyle="Bold" FontColor="4288070589" />
-    <ContextMenuLeftClick FileName="ContextMenuLeftClick.png" SelectedFileName="ContextMenuLeftClickSelected.png" FontName="宋体" FontSize="10" FontStyle="Regular" FontColor="4288070589" />
-    <ContextMenuLeftClick FileName="ContextMenuLeftDisabled.png" SelectedFileName="ContextMenuLeftDisabled.png" FontName="宋体" FontSize="10" FontStyle="Regular" FontColor="4286611584" />
-    <ContextMenuLeftClick FileName="ContextMenuRightDisabled.png" SelectedFileName="ContextMenuRightDisabled.png" FontName="宋体" FontSize="10" FontStyle="Bold" FontColor="4286611584" />
+    <ContextMenuRightClick FileName="ContextMenuRightClick.png" SelectedFileName="ContextMenuRightClickSelected.png" FontName="方正隶变_GBK" FontSize="13" FontStyle="Bold" FontColor="4288070589" />
+    <ContextMenuLeftClick FileName="ContextMenuLeftClick.png" SelectedFileName="ContextMenuLeftClickSelected.png" FontName="方正隶变_GBK" FontSize="13" FontStyle="Bold" FontColor="4288070589" />
+    <ContextMenuLeftClick FileName="ContextMenuLeftDisabled.png" SelectedFileName="ContextMenuLeftDisabled.png" FontName="方正隶变_GBK" FontSize="13" FontStyle="Bold" FontColor="4286611584" />
+    <ContextMenuLeftClick FileName="ContextMenuRightDisabled.png" SelectedFileName="ContextMenuRightDisabled.png" FontName="方正隶变_GBK" FontSize="13" FontStyle="Bold" FontColor="4286611584" />
     <HasChildTexture FileName="HasChild.png" />
     <SoundFile Click="Click.wav" Open="Open.wav" Fold="Fold.wav" />
     <MenuKindList>
@@ -69,14 +69,16 @@
                 <MenuItem ID="15" Name="LevelUp" DisplayName="升级" DisplayIfTrue="LevelUpAvail" />
 				<MenuItem ID="16" Name="AutoRecruiting" DisplayName="委任补充" OppositeName="手动补充" OppositeIfTrue="AutoRecruiting" DisplayIfTrue="AutoRecruitingAvail" />
             </MenuItem>
-            <MenuItem ID="3" Name="Routeway" DisplayName="粮道" DisplayIfTrue="RoutewayAvail">
-				<MenuItem ID="1" Name="Design" DisplayName="手动设计" />
-				<MenuItem ID="2" Name="PointShortestNormal" DisplayName="某点最短" />
-				<MenuItem ID="3" Name="PointShortestNoWater" DisplayName="某点避水" />
-				<MenuItem ID="4" Name="ArchitectureShortestNormal" DisplayName="建筑最短" />
-				<MenuItem ID="5" Name="ArchitectureShortestNoWater" DisplayName="建筑避水" />
-				<MenuItem ID="6" Name="CloseAll" DisplayName="关闭所有" />
-				<MenuItem ID="7" Name="DemolishAll" DisplayName="废弃所有" />
+            <MenuItem ID="3" Name="Transport" DisplayName="运输" DisplayIfTrue="CaiyongLiangdaoXitong">
+                <MenuItem ID="1" Name="Routeway" DisplayName="粮道" DisplayIfTrue="RoutewayAvail">
+                    <MenuItem ID="1" Name="Design" DisplayName="手动设计" />
+                    <MenuItem ID="2" Name="PointShortestNormal" DisplayName="某点最短" />
+                    <MenuItem ID="3" Name="PointShortestNoWater" DisplayName="某点避水" />
+                    <MenuItem ID="4" Name="ArchitectureShortestNormal" DisplayName="建筑最短" />
+                    <MenuItem ID="5" Name="ArchitectureShortestNoWater" DisplayName="建筑避水" />
+                    <MenuItem ID="6" Name="CloseAll" DisplayName="关闭所有" />
+                    <MenuItem ID="7" Name="DemolishAll" DisplayName="废弃所有" />
+                </MenuItem>
             </MenuItem>
             <MenuItem ID="5" Name="Person" DisplayName="人事">
                 <MenuItem ID="1" Name="Transfer" DisplayName="调动" DisplayIfTrue="PersonTransferAvail" />
@@ -163,9 +165,8 @@
                 <MenuItem ID="5" Name="BattleSound" DisplayName="播放战斗音效" OppositeName="关闭战斗音效" OppositeIfTrue="IsPlayingBattleSound" />
                 <MenuItem ID="6" Name="TroopAnimation" DisplayName="显示部队动画" OppositeName="省略部队动画" OppositeIfTrue="IsPlayingTroopAnimation" />
                 <MenuItem ID="7" Name="FullScreen" DisplayName="进入全屏显示" OppositeName="退出全屏显示" OppositeIfTrue="IsFullScreen" />
-				<MenuItem ID="8" Name="StopOnAttack" DisplayName="被攻击时暂停" OppositeName="被攻击时继续" OppositeIfTrue="IsStopOnAttack" />
-                <MenuItem ID="9" Name="SkyEye" DisplayName="开启天眼*" OppositeName="关闭天眼" OppositeIfTrue="IsSkyEye" />
-                <MenuItem ID="10" Name="MultipleResource" DisplayName="资源收入加倍*" OppositeName="停止资源加倍" OppositeIfTrue="IsMultipleResource" />
+                <MenuItem ID="8" Name="SkyEye" DisplayName="开启天眼*" OppositeName="关闭天眼" OppositeIfTrue="IsSkyEye" />
+                <MenuItem ID="9" Name="MultipleResource" DisplayName="资源收入加倍*" OppositeName="停止资源加倍" OppositeIfTrue="IsMultipleResource" />
             </MenuItem>
             <MenuItem ID="8" Name="YearTable" DisplayName="年表" />
             <MenuItem ID="4" Name="Information" DisplayName="信息">
@@ -284,8 +285,6 @@
                 <MenuItem ID="8" Name="7" DisplayName="鼓舞" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="HasStratagem" Param="7" />
                 <MenuItem ID="9" Name="8" DisplayName="点火" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="SetFireAvail" Param="8" />
                 <MenuItem ID="10" Name="9" DisplayName="医治" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="HasStratagem" Param="9" />
-				<MenuItem ID="11" Name="10" DisplayName="伪报" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="HasStratagem" Param="10" />
-				<MenuItem ID="12" Name="11" DisplayName="挑衅" ChangeDisplayName="GetStratagemDisplayName" DisplayIfTrue="HasStratagem" Param="11" />
             </MenuItem>
             <MenuItem ID="6" Name="TroopStunt" DisplayName="特技" DisplayIfTrue="ControlAvail" DisplayAll="False">
                 <MenuItem ID="0" Name="0" DisplayName="遁走" ChangeDisplayName="GetStuntDisplayName" DisplayIfTrue="HasStunt" IsParamIDItem="true" Param="0" />

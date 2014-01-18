@@ -51,6 +51,7 @@ Source: "C:\Windows\Fonts\FZBWKSFW.TTF"; DestDir: "{fonts}"; Flags: onlyifdoesnt
 Source: "C:\Windows\Fonts\HWKAITI.TTF"; DestDir: "{fonts}"; FontInstall: "STKaiti"; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "C:\Windows\Fonts\LISU.TTF"; DestDir: "{fonts}"; FontInstall: "LiSu"; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "C:\Windows\Fonts\simkai.ttf"; DestDir: "{fonts}"; FontInstall: "KaiTi"; Flags: onlyifdoesntexist uninsneveruninstall
+Source: "C:\Windows\Fonts\DISU.TTF"; DestDir: "{fonts}"; FontInstall: "FZLiBian-S02"; Flags: onlyifdoesntexist uninsneveruninstall
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
