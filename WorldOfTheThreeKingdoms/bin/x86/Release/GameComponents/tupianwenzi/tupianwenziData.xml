@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
   <Background FileName="Background.png" Width="710" Height="202"></Background>
-  <PortraitClient X="200" Y="-420" Width="310" Height="440"></PortraitClient>
+  <PortraitClient X="-164" Y="24" Width="164" Height="164"></PortraitClient>
   <RichText X="140" Y="85" Width="450" Height="84" RowMargin="1"
             FontName="方正隶变_GBK"
             FontSize="16"
