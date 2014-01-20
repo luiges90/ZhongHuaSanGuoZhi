@@ -6430,12 +6430,14 @@
             r.IdealTendency = scen.GameCommonData.AllIdealTendencyKinds.GetRandomList()[0] as IdealTendencyKind;
             r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
 
+            int characterId = 0;
             do
             {
-                r.Character = GameObject.Random(father.Scenario.GameCommonData.AllCharacterKinds.Count);
+                characterId = GameObject.Random(scen.GameCommonData.AllCharacterKinds.Count);
             } while (characterId == 0);
+            r.Character = scen.GameCommonData.AllCharacterKinds[characterId];
 
-
+            // TODO add skill, stunt and title
 
             return r;
         }
