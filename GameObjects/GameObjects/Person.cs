@@ -6138,6 +6138,38 @@
             return result;
         }
 
+        private static void setNewOfficerFace(Person r)
+        {
+            List<int> pictureList;
+            if (r.Sex)
+            {
+                if (r.BaseCommand + r.BaseStrength > r.BaseIntelligence + r.BasePolitics)
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/femalefaceM.txt");
+                }
+                else
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/femalefaceA.txt");
+                }
+            }
+            else
+            {
+                if (r.BaseCommand < 50 && r.BaseStrength < 50 && r.BaseIntelligence < 50 && r.BasePolitics < 50 && r.BaseGlamour < 50)
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceU.txt");
+                }
+                else if (r.BaseCommand + r.BaseStrength > r.BaseIntelligence + r.BasePolitics)
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceM.txt");
+                }
+                else
+                {
+                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceA.txt");
+                }
+            }
+            r.PictureIndex = pictureList[GameObject.Random(pictureList.Count)];
+        }
+
         private enum OfficerType { GENERAL, BRAVE, ADVISOR, POLITICIAN, INTEL_GENERAL, EMPEROR, ALL_ROUNDER, NORMAL, CHEAP };
 
         public static Person createPerson(GameScenario scen)
@@ -6252,7 +6284,7 @@
             {
                 type = OfficerType.BRAVE;
             }
-            else if (typeInt < 900)
+            else if (typeInt < 950)
             {
                 type = OfficerType.NORMAL;
             }
@@ -6270,6 +6302,10 @@
                         r.BaseIntelligence = GameObject.RandomGaussian(50, 20);
                         r.BasePolitics = GameObject.RandomGaussian(40, 20);
                         r.BaseGlamour = GameObject.RandomGaussian(60, 30);
+                        r.Braveness = GameObject.RandomGaussian(7, 2);
+                        r.Calmness = GameObject.RandomGaussian(5, 2);
+                        r.PersonalLoyalty = GameObject.RandomGaussian(3, 1);
+                        r.Ambition = GameObject.RandomGaussian(3, 1);
                         break;
                     }
                 case OfficerType.BRAVE:
@@ -6279,6 +6315,10 @@
                         r.Intelligence = GameObject.RandomGaussian(25, 15);
                         r.Politics = GameObject.RandomGaussian(15, 15);
                         r.Glamour = GameObject.RandomGaussian(30, 30);
+                        r.Braveness = GameObject.RandomGaussian(8, 2);
+                        r.Calmness = GameObject.RandomGaussian(2, 1);
+                        r.PersonalLoyalty = GameObject.Random(2) + 3;
+                        r.Ambition = GameObject.RandomGaussian(2, 1);
                         break;
                     }
                 case OfficerType.ADVISOR:
@@ -6288,6 +6328,10 @@
                         r.Intelligence = GameObject.RandomGaussian(90, 10);
                         r.Politics = GameObject.RandomGaussian(85, 15);
                         r.Glamour = GameObject.RandomGaussian(80, 20);
+                        r.Braveness = GameObject.RandomGaussian(3, 2);
+                        r.Calmness = GameObject.RandomGaussian(7, 2);
+                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
+                        r.Ambition = GameObject.RandomGaussian(2, 2);
                         break;
                     }
                 case OfficerType.POLITICIAN:
@@ -6297,6 +6341,10 @@
                         r.Intelligence = GameObject.RandomGaussian(85, 15);
                         r.Politics = GameObject.RandomGaussian(90, 10);
                         r.Glamour = GameObject.RandomGaussian(50, 50);
+                        r.Braveness = GameObject.RandomGaussian(2, 1);
+                        r.Calmness = GameObject.RandomGaussian(7, 2);
+                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
+                        r.Ambition = GameObject.RandomGaussian(2, 2);
                         break;
                     }
                 case OfficerType.INTEL_GENERAL:
@@ -6306,6 +6354,10 @@
                         r.Intelligence = GameObject.RandomGaussian(85, 15);
                         r.Politics = GameObject.RandomGaussian(25, 25);
                         r.Glamour = GameObject.RandomGaussian(60, 30);
+                        r.Braveness = GameObject.RandomGaussian(6, 3);
+                        r.Calmness = GameObject.RandomGaussian(6, 3);
+                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
+                        r.Ambition = GameObject.RandomGaussian(2, 2);
                         break;
                     }
                 case OfficerType.EMPEROR:
@@ -6315,6 +6367,10 @@
                         r.Intelligence = GameObject.RandomGaussian(80, 20);
                         r.Politics = GameObject.RandomGaussian(80, 20);
                         r.Glamour = GameObject.RandomGaussian(90, 10);
+                        r.Braveness = GameObject.RandomGaussian(6, 3);
+                        r.Calmness = GameObject.RandomGaussian(6, 3);
+                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
+                        r.Ambition = GameObject.Random(2) + 3;
                         break;
                     }
                 case OfficerType.ALL_ROUNDER:
@@ -6324,6 +6380,10 @@
                         r.Intelligence = GameObject.RandomGaussian(85, 15);
                         r.Politics = GameObject.RandomGaussian(85, 15);
                         r.Glamour = GameObject.RandomGaussian(85, 15);
+                        r.Braveness = GameObject.RandomGaussian(7, 2);
+                        r.Calmness = GameObject.RandomGaussian(7, 2);
+                        r.PersonalLoyalty = GameObject.RandomGaussian(3, 1);
+                        r.Ambition = GameObject.RandomGaussian(3, 1);
                         break;
                     }
                 case OfficerType.NORMAL:
@@ -6333,6 +6393,10 @@
                         r.Intelligence = GameObject.RandomGaussian(60, 15);
                         r.Politics = GameObject.RandomGaussian(60, 15);
                         r.Glamour = GameObject.RandomGaussian(60, 15);
+                        r.Braveness = GameObject.RandomGaussian(5, 4);
+                        r.Calmness = GameObject.RandomGaussian(5, 4);
+                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
+                        r.Ambition = GameObject.RandomGaussian(2, 2);
                         break;
                     }
                 case OfficerType.CHEAP:
@@ -6342,9 +6406,36 @@
                         r.Intelligence = GameObject.RandomGaussian(25, 25);
                         r.Politics = GameObject.RandomGaussian(25, 25);
                         r.Glamour = GameObject.RandomGaussian(25, 25);
+                        r.Braveness = GameObject.RandomGaussian(2, 1);
+                        r.Calmness = GameObject.RandomGaussian(2, 1);
+                        r.PersonalLoyalty = GameObject.RandomGaussian(1, 1);
+                        r.Ambition = GameObject.RandomGaussian(1, 1);
                         break;
                     }
             }
+
+            setNewOfficerFace(r);
+
+            r.Ideal = GameObject.Random(150);
+
+            r.YearBorn = scen.Date.Year - GameObject.Random(25) - 15;
+            r.YearAvailable = scen.Date.Year;
+            r.YearDead = Math.Max(r.YearBorn + GameObject.Random(69) + 30, scen.Date.Year + 5);
+
+            r.Reputation = GameObject.Random(101) * 100;
+
+            r.Qualification = (PersonQualification)GameObject.Random(Enum.GetNames(typeof(PersonQualification)).Length);
+            r.ValuationOnGovernment = (PersonValuationOnGovernment)GameObject.Random(Enum.GetNames(typeof(PersonValuationOnGovernment)).Length);
+            r.StrategyTendency = (PersonStrategyTendency)GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length);
+            r.IdealTendency = scen.GameCommonData.AllIdealTendencyKinds.GetRandomList()[0] as IdealTendencyKind;
+            r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
+
+            do
+            {
+                r.Character = GameObject.Random(father.Scenario.GameCommonData.AllCharacterKinds.Count);
+            } while (characterId == 0);
+
+
 
             return r;
         }
@@ -6420,34 +6511,7 @@
                 if (r.BaseGlamour < 0) r.BaseGlamour = 0;
             }
 
-            List<int> pictureList;
-            if (r.Sex)
-            {
-                if (r.BaseCommand + r.BaseStrength > r.BaseIntelligence + r.BasePolitics)
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/femalefaceM.txt");
-                }
-                else
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/femalefaceA.txt");
-                }
-            }
-            else
-            {
-                if (r.BaseCommand < 50 && r.BaseStrength < 50 && r.BaseIntelligence < 50 && r.BasePolitics < 50 && r.BaseGlamour < 50)
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceU.txt");
-                }
-                else if (r.BaseCommand + r.BaseStrength > r.BaseIntelligence + r.BasePolitics)
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceM.txt");
-                }
-                else
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceA.txt");
-                }
-            }
-            r.PictureIndex = pictureList[GameObject.Random(pictureList.Count)];
+            setNewOfficerFace(r);
 
             r.YearBorn = father.Scenario.Date.Year;
             r.YearAvailable = father.Scenario.Date.Year;
