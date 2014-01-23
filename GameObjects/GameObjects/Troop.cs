@@ -917,6 +917,16 @@
                         return false;
                     }
                 }
+                // retreat if anyone in the team is too tired
+                foreach (Person p in this.Persons)
+                {
+                    if (p.Tiredness > p.Braveness * 15 + 30 && GameObject.Chance(20))
+                    {
+                        this.AttackTargetKind = TroopAttackTargetKind.无反默认;
+                        this.GoBack();
+                        return false;
+                    }
+                }
                 //retreat if we were outnumbered, in an offensive
                 int friendlyFightingForce = 0;
                 int hostileFightingForce = 0;
