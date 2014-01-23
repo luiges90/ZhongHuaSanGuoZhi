@@ -72,7 +72,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void ArchitectureFacilityCompleted(Architecture architecture, Facility facility)
         {
-            if (((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(architecture.BelongedFaction)) || GlobalVariables.SkyEye)
+            if (base.Scenario.CurrentPlayer == null || 
+                (base.Scenario.IsCurrentPlayer(architecture.BelongedFaction) && !architecture.BelongedSection.AIDetail.AutoRun) || 
+                GlobalVariables.SkyEye)
             {
                 architecture.TextDestinationString = facility.Name;
                 if (base.Scenario.IsCurrentPlayer(architecture.BelongedFaction) && architecture.BelongedFaction != null)
