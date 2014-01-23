@@ -11222,6 +11222,19 @@
             }
         }
 
+        public int MaxSupportableTroop
+        {
+            get
+            {
+                int cost = this.FoodCostPerDayOfAllMilitaries * 60;
+                if (cost < this.FoodCeiling * 0.9)
+                {
+                    return int.MaxValue;
+                }
+                return (int) ((this.FoodCeiling / (double)cost) * this.ArmyScale);
+            }
+        }
+
         public int FoodCostPerDayOfLandMilitaries
         {
             get
