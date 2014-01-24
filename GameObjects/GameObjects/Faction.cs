@@ -969,7 +969,7 @@
 
                     if (a.HostileLine || a.orientationFrontLine)
                     {
-                        int troop = Math.Min(a.MaxSupportableTroop, Math.Max(a.HostileScale, a.OrientationScale));
+                        int troop = Math.Min(a.MaxSupportableTroopScale, Math.Max(a.HostileScale, a.OrientationScale));
                         if (a.IsVeryGood())
                         {
                             goodPerson.Add(a, Math.Max(3, minPerson[a]));

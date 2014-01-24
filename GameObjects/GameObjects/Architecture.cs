@@ -1062,7 +1062,7 @@
                     Math.Max((this.Morale - this.MoraleCeiling) / 30,
                     (this.Domination - this.DominationCeiling) / 30)))));
                 int frontLine = (this.FrontLine || this.noFactionFrontline) ? this.EffectiveMilitaryCount * 2 : 0;
-                return Math.Min(Math.Max(develop, frontLine), fundSupport);
+                return Math.Min(this.MaxSupportableTroop, Math.Min(Math.Max(develop, frontLine), fundSupport));
             }
         }
 
@@ -11222,7 +11222,7 @@
             }
         }
 
-        public int MaxSupportableTroop
+        public int MaxSupportableTroopScale
         {
             get
             {
@@ -11232,6 +11232,19 @@
                     return int.MaxValue;
                 }
                 return (int) ((this.FoodCeiling / (double)cost) * this.ArmyScale);
+            }
+        }
+
+        public int MaxSupportableTroop
+        {
+            get
+            {
+                int cost = this.FoodCostPerDayOfAllMilitaries * 60;
+                if (cost < this.FoodCeiling * 0.9)
+                {
+                    return int.MaxValue;
+                }
+                return (int)((this.FoodCeiling / (double)cost) * this.Militaries.Count);
             }
         }
 
