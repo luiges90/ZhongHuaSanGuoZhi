@@ -1466,7 +1466,7 @@
                             }
                         }
                     }
-                    if (this.InevitableSuccessOfJailBreak && !success)
+                    if (this.InevitableSuccessOfJailBreak && !success && architectureByPosition.Captives.Count > 0)
                     {
                         Captive c = (Captive) architectureByPosition.Captives[GameObject.Random(architectureByPosition.Captives.Count)];
                         attempted = true;
