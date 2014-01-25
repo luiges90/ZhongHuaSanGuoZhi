@@ -22,7 +22,7 @@
               Align="Middle">
   </ColumnText>
   <SoundFile Select="Select.wav"></SoundFile>
-  <TabList RowHeight="25" FrameWidth="1000" FrameHeight="550" ClientX="0" ClientY="0" ClientWidth="1000" ClientHeight="500" OKButtonX="700" OKButtonY="515" CancelButtonX="800" CancelButtonY="515" MapViewSelectorButtonX="10" MapViewSelectorButtonY="515">
+  <TabList RowHeight="25" FrameWidth="940" FrameHeight="550" ClientX="0" ClientY="0" ClientWidth="940" ClientHeight="500" OKButtonX="700" OKButtonY="515" CancelButtonX="800" CancelButtonY="515" MapViewSelectorButtonX="10" MapViewSelectorButtonY="515">
     <ListKind ID="1" Name="Person" DisplayName="人物列表" ShowPortrait ="true">
       <Columns>
         <Column ID="1" Name="Name" CountToDisplay="False" IsNumber="false" DisplayName="姓名" MinWidth="100" DetailLevel="1" 
