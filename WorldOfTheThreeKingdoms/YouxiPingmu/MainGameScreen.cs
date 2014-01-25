@@ -1022,6 +1022,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                                 {
                                     troop.mingling = "入城";
                                     troop.minglingweizhi = this.selectingLayer.SelectedPoint;
+                                    troop.TargetTroop = null;
                                 }
                             }
                             else if (targetTroop != null)
