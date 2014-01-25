@@ -156,7 +156,7 @@
                     column.ColumnTextList.DisplayOffset = new Point(0, yOffset);
                 }
                 this.SortTheKeyColumn();
-                this.tabList.FullLowerClient.Width = x - this.tabList.RealClient.X;
+                this.tabList.FullLowerClient.Width = x - this.tabList.RealClient.X + this.tabList.iGameFrame.LeftEdge + this.tabList.iGameFrame.RightEdge;
                 this.listKind.ResetScrollTracks();
                 if (this.Columns.Count > 0)
                 {

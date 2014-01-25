@@ -253,6 +253,38 @@
                 return this.version;
             }
         }
+
+        public int LeftEdge
+        {
+            get
+            {
+                return this.gameFrame.leftedgeWidth;
+            }
+        }
+
+        public int RightEdge
+        {
+            get
+            {
+                return this.gameFrame.rightedgeWidth;
+            }
+        }
+
+        public int TopEdge
+        {
+            get
+            {
+                return this.gameFrame.topedgeWidth;
+            }
+        }
+
+        public int BottomEdge
+        {
+            get
+            {
+                return this.gameFrame.bottomedgeWidth;
+            }
+        }
     }
 }
 

@@ -145,6 +145,10 @@ namespace PluginInterface
         FrameKind Kind { get; set; }
         bool OKButtonEnabled { get; set; }
         FrameResult Result { get; }
+        int LeftEdge { get; }
+        int RightEdge { get; }
+        int TopEdge { get; }
+        int BottomEdge { get; }
     }
 
     public interface IGameRecord : IBasePlugin, IPluginXML, IPluginGraphics, IScreenDisableRects
