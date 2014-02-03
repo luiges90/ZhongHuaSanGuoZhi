@@ -6564,7 +6564,7 @@
                 }
             }
 
-            String biography;
+            String biography = "";
             biography += "于" + scen.Date.Year + "年" + scen.Date.Month + "月在" + foundLocation.Name + "被" + finder + "发掘成才。";
 
             biography += Person.GenerateBiography(r, scen);
