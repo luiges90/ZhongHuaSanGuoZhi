@@ -6504,7 +6504,7 @@
                 if (s.CanBeChosenForGenerated())
                 {
                     int chance = s.GenerationChance[(int)type];
-                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 80) / 20.0 + 1);
+                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
                     if (GameObject.Chance(chance))
                     {
                         r.Skills.AddSkill(s);
@@ -6517,7 +6517,7 @@
                 if (s.CanBeChosenForGenerated())
                 {
                     int chance = s.GenerationChance[(int)type];
-                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 80) / 20.0 + 1);
+                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
                     if (GameObject.Chance(chance))
                     {
                         r.Stunts.AddStunt(s);
