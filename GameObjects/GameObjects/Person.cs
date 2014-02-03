@@ -6261,7 +6261,7 @@
                 if (p.ID == id)
                 {
                     id++;
-                    if (id >= 5000 && id < 10000)
+                    if (id >= 3000 && id < 10000)
                     {
                         id = 10000;
                     }
@@ -6297,62 +6297,33 @@
             }
             r.CalledName = "";
 
-            List<int> pictureList;
-            if (r.Sex)
-            {
-                if (r.BaseCommand + r.BaseStrength > r.BaseIntelligence + r.BasePolitics)
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/femalefaceM.txt");
-                }
-                else
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/femalefaceA.txt");
-                }
-            }
-            else
-            {
-                if (r.BaseCommand < 50 && r.BaseStrength < 50 && r.BaseIntelligence < 50 && r.BasePolitics < 50 && r.BaseGlamour < 50)
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceU.txt");
-                }
-                else if (r.BaseCommand + r.BaseStrength > r.BaseIntelligence + r.BasePolitics)
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceM.txt");
-                }
-                else
-                {
-                    pictureList = Person.readNumberList("CreateChildrenTextFile/malefaceA.txt");
-                }
-            }
-            r.PictureIndex = pictureList[GameObject.Random(pictureList.Count)];
-
             int typeInt = GameObject.Random(1000);
             OfficerType type;
             if (typeInt < 1)
             {
                 type = OfficerType.ALL_ROUNDER;
             }
-            else if (typeInt < 20)
+            else if (typeInt < 40)
             {
                 type = OfficerType.INTEL_GENERAL;
             }
-            else if (typeInt < 50)
+            else if (typeInt < 100)
             {
                 type = OfficerType.EMPEROR;
             }
-            else if (typeInt < 100)
+            else if (typeInt < 200)
             {
                 type = OfficerType.GENERAL;
             }
-            else if (typeInt < 150)
+            else if (typeInt < 300)
             {
                 type = OfficerType.ADVISOR;
             }
-            else if (typeInt < 200)
+            else if (typeInt < 400)
             {
                 type = OfficerType.POLITICIAN;
             }
-            else if (typeInt < 250)
+            else if (typeInt < 500)
             {
                 type = OfficerType.BRAVE;
             }
@@ -6502,14 +6473,33 @@
             r.IdealTendency = scen.GameCommonData.AllIdealTendencyKinds.GetRandomList()[0] as IdealTendencyKind;
             r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
 
-            int characterId = 0;
-            do
             {
-                characterId = GameObject.Random(scen.GameCommonData.AllCharacterKinds.Count);
-            } while (characterId == 0);
-            r.Character = scen.GameCommonData.AllCharacterKinds[characterId];
+                Dictionary<CharacterKind, int> chances = new Dictionary<CharacterKind, int>();
+                foreach (CharacterKind t in scen.GameCommonData.AllCharacterKinds)
+                {
+                    chances.Add(t, t.GenerationChance[(int)type]);
+                }
 
-            foreach (Skill s in scen.GameCommonData.AllSkills.Skills.Values) 
+                int sum = 0;
+                foreach (int i in chances.Values)
+                {
+                    sum += i;
+                }
+
+                int p = GameObject.Random(sum);
+                double pt = 0;
+                foreach (KeyValuePair<CharacterKind, int> td in chances)
+                {
+                    pt += td.Value;
+                    if (p < pt)
+                    {
+                        r.Character = td.Key;
+                        break;
+                    }
+                }
+            }
+
+            foreach (Skill s in scen.GameCommonData.AllSkills.Skills.Values)
             {
                 if (s.CanBeChosenForGenerated())
                 {
@@ -6543,29 +6533,32 @@
                 {
                     if (t.CanBeChosenForGenerated())
                     {
-                        chances.Add(t, t.GenerationChance[(int)type] / (t.Level * t.Level));
+                        chances.Add(t, t.GenerationChance[(int)type] / (double)(t.Level * t.Level));
                     }
                 }
 
                 int randMax = 10000;
                 double sum = 0;
-                foreach (double i in chances.Values){
+                foreach (double i in chances.Values)
+                {
                     sum += i;
                 }
 
                 int p = GameObject.Random(randMax);
                 double pt = 0;
-                foreach (KeyValuePair<Title, double> td in chances){
+                foreach (KeyValuePair<Title, double> td in chances)
+                {
                     pt += td.Value / sum * randMax;
-                    if (p < pt){
-                        r.Titles.Add(td.Key);
+                    if (p < pt)
+                    {
+                        r.RealTitles.Add(td.Key);
                         break;
                     }
                 }
             }
 
             String biography = "";
-            biography += "于" + scen.Date.Year + "年" + scen.Date.Month + "月在" + foundLocation.Name + "被" + finder + "发掘成才。";
+            biography += "于" + scen.Date.Year + "年" + scen.Date.Month + "月在" + foundLocation.Name + "被" + finder.Name + "发掘成才。";
 
             biography += Person.GenerateBiography(r, scen);
 
@@ -6578,6 +6571,9 @@
             r.PersonBiography = bio;
 
             r.Alive = true;
+            r.Available = true;
+            r.LocationArchitecture = foundLocation;
+            r.Status = PersonStatus.NoFaction;
 
             scen.Persons.Add(r);
 

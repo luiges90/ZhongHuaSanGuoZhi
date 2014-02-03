@@ -44,6 +44,15 @@
                 this.intelligenceRate = value;
             }
         }
+
+        private int[] generationChance = new int[9];
+        public int[] GenerationChance
+        {
+            get
+            {
+                return generationChance;
+            }
+        }
     }
 }
 

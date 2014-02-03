@@ -160,6 +160,15 @@
                 kind2.IntelligenceRate = (float)reader["IntelligenceRate"];
                 kind2.ChallengeChance = (short)reader["ChallengeChance"];
                 kind2.ControversyChance = (short)reader["ControversyChance"];
+                kind2.GenerationChance[0] = (int)reader["General"];
+                kind2.GenerationChance[1] = (int)reader["Brave"];
+                kind2.GenerationChance[2] = (int)reader["Advisor"];
+                kind2.GenerationChance[3] = (int)reader["Politician"];
+                kind2.GenerationChance[4] = (int)reader["IntelGeneral"];
+                kind2.GenerationChance[5] = (int)reader["Emperor"];
+                kind2.GenerationChance[6] = (int)reader["AllRounder"];
+                kind2.GenerationChance[7] = (int)reader["Normal"];
+                kind2.GenerationChance[8] = (int)reader["Cheap"];
                 this.AllCharacterKinds.Add(kind2);
             }
             connection.Close();
@@ -1273,6 +1282,15 @@
                     row["IntelligenceRate"] = i.IntelligenceRate;
                     row["ChallengeChance"] = i.ChallengeChance;
                     row["ControversyChance"] = i.ControversyChance;
+                    row["General"] = i.GenerationChance[0];
+                    row["Brave"] = i.GenerationChance[1];
+                    row["Advisor"] = i.GenerationChance[2];
+                    row["Politician"] = i.GenerationChance[3];
+                    row["IntelGeneral"] = i.GenerationChance[4];
+                    row["Emperor"] = i.GenerationChance[5];
+                    row["AllRounder"] = i.GenerationChance[6];
+                    row["Normal"] = i.GenerationChance[7];
+                    row["Cheap"] = i.GenerationChance[8];
                     row.EndEdit();
                     dataSet.Tables["CharacterKind"].Rows.Add(row);
                 }
