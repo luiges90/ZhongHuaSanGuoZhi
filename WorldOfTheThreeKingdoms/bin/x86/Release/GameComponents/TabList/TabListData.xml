@@ -2200,7 +2200,7 @@
                 Align="Left">
         </Column>
         <Column ID="2" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="300" DetailLevel="8"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="14"
                 FontStyle="Regular"
                 FontColor="4294967295"
@@ -2579,14 +2579,14 @@
                 Align="Middle">
         </Column>
         <Column ID="3" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="600" DetailLevel="3"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
         </Column>
         <Column ID="4" Name="Prerequisite" IsNumber="false" DisplayName="学习条件" MinWidth="600" DetailLevel="7"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="9"
                 FontStyle="Regular"
                 FontColor="4294967295"
@@ -2628,14 +2628,14 @@
                 Align="Middle">
         </Column>
         <Column ID="3" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="580" DetailLevel="3"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="9"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
         </Column>
         <Column ID="4" Name="Prerequisite" IsNumber="false" DisplayName="学习条件" MinWidth="660" DetailLevel="7"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="9"
                 FontStyle="Regular"
                 FontColor="4294967295"
@@ -2682,7 +2682,7 @@
                 Align="Middle">
         </Column>
         <Column ID="3" Name="Description" IsNumber="false" DisplayName="介绍" MinWidth="600" DetailLevel="3"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="9"
                 FontStyle="Regular"
                 FontColor="4294967295"
@@ -3024,7 +3024,7 @@
                 Align="Middle">
         </Column>
         <Column ID="3" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="400" DetailLevel="3"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
@@ -3868,21 +3868,21 @@
                 Align="Right">
         </Column>
         <Column ID="10" Name="InfluenceString" IsNumber="false" DisplayName="使用效果" MinWidth="600" DetailLevel="3"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="9"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
         </Column>
         <Column ID="11" Name="CastConditionString" IsNumber="false" DisplayName="使用条件" MinWidth="600" DetailLevel="4"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="9"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
         </Column>
         <Column ID="12" Name="LearnConditionString" IsNumber="false" DisplayName="修习条件" MinWidth="600" DetailLevel="7"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="9"
                 FontStyle="Regular"
                 FontColor="4294967295"
@@ -3937,14 +3937,14 @@
                 Align="Middle">
         </Column>
         <Column ID="4" Name="Description" IsNumber="false" DisplayName="简介" MinWidth="540" DetailLevel="3"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="9"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
         </Column>
         <Column ID="10" Name="InfluenceString" IsNumber="false" DisplayName="效果" MinWidth="710" DetailLevel="3"
-                FontName="宋体"
+                FontName="方正隶变_GBK"
                 FontSize="9"
                 FontStyle="Regular"
                 FontColor="4294967295"
