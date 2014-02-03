@@ -6570,14 +6570,14 @@
             scen.AllBiographies.AddBiography(bio);
             r.PersonBiography = bio;
 
+            r.Scenario = scen;
+
             r.Alive = true;
             r.Available = true;
             r.LocationArchitecture = foundLocation;
             r.Status = PersonStatus.NoFaction;
 
             scen.Persons.Add(r);
-
-            r.Scenario = scen;
 
             ExtensionInterface.call("CreatePerson", new Object[] { scen, r });
 
