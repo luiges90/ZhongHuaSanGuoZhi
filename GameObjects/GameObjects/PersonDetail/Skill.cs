@@ -17,6 +17,29 @@
         private int kind;
         private int level;
 
+        private int[] generationChance = new int[9];
+        public int[] GenerationChance
+        {
+            get
+            {
+                return generationChance;
+            }
+        }
+        public int RelatedAbility { get; set; }
+
+        public int GetRelatedAbility(Person p)
+        {
+            switch (RelatedAbility)
+            {
+                case 0: return p.Strength;
+                case 1: return p.Command;
+                case 2: return p.Intelligence;
+                case 3: return p.Politics;
+                case 4: return p.Glamour;
+            }
+            return 0;
+        }
+
         public MilitaryType MilitaryTypeOnly
         {
             get
@@ -200,6 +223,15 @@
                 }
                 return subOfficerMerit.Value;
             }
+        }
+
+        public bool CanBeChosenForGenerated()
+        {
+            foreach (Condition condition in this.Conditions.Conditions.Values)
+            {
+                if (condition.Kind.ID == 902) return false;
+            }
+            return true;
         }
     }
 }

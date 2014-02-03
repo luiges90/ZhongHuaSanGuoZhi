@@ -228,6 +228,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbAIAntiStratagemIncreaseRate;
         private Label label64;
         private TextBox tbAIAntiStratagem;
+        private TextBox tbCreateRandomOfficerChance;
+        private Label label66;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -405,6 +407,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.label2 = new System.Windows.Forms.Label();
             this.tbInternalRate = new System.Windows.Forms.TextBox();
             this.tabPageAIParameter = new System.Windows.Forms.TabPage();
+            this.tbAIAntiSurroundIncreaseRate = new System.Windows.Forms.TextBox();
+            this.label65 = new System.Windows.Forms.Label();
+            this.tbAIAntiSurround = new System.Windows.Forms.TextBox();
+            this.tbAIAntiStratagemIncreaseRate = new System.Windows.Forms.TextBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.tbAIAntiStratagem = new System.Windows.Forms.TextBox();
             this.label62 = new System.Windows.Forms.Label();
             this.label61 = new System.Windows.Forms.Label();
             this.tbAIArmyExperienceIncreaseRate = new System.Windows.Forms.TextBox();
@@ -449,12 +457,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.tbAIAntiStratagemIncreaseRate = new System.Windows.Forms.TextBox();
-            this.label64 = new System.Windows.Forms.Label();
-            this.tbAIAntiStratagem = new System.Windows.Forms.TextBox();
-            this.tbAIAntiSurroundIncreaseRate = new System.Windows.Forms.TextBox();
-            this.label65 = new System.Windows.Forms.Label();
-            this.tbAIAntiSurround = new System.Windows.Forms.TextBox();
+            this.tbCreateRandomOfficerChance = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -482,6 +486,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageBasic
             // 
+            this.tabPageBasic.Controls.Add(this.tbCreateRandomOfficerChance);
+            this.tabPageBasic.Controls.Add(this.label66);
             this.tabPageBasic.Controls.Add(this.label60);
             this.tabPageBasic.Controls.Add(this.tbOfficerDieInBattleRate);
             this.tabPageBasic.Controls.Add(this.cbCreateChildren);
@@ -1976,6 +1982,52 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.Text = "电脑";
             this.tabPageAIParameter.UseVisualStyleBackColor = true;
             // 
+            // tbAIAntiSurroundIncreaseRate
+            // 
+            this.tbAIAntiSurroundIncreaseRate.Location = new System.Drawing.Point(189, 312);
+            this.tbAIAntiSurroundIncreaseRate.Name = "tbAIAntiSurroundIncreaseRate";
+            this.tbAIAntiSurroundIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIAntiSurroundIncreaseRate.TabIndex = 71;
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(13, 315);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(89, 12);
+            this.label65.TabIndex = 69;
+            this.label65.Text = "电脑部队抗围率";
+            // 
+            // tbAIAntiSurround
+            // 
+            this.tbAIAntiSurround.Location = new System.Drawing.Point(130, 312);
+            this.tbAIAntiSurround.Name = "tbAIAntiSurround";
+            this.tbAIAntiSurround.Size = new System.Drawing.Size(57, 22);
+            this.tbAIAntiSurround.TabIndex = 70;
+            // 
+            // tbAIAntiStratagemIncreaseRate
+            // 
+            this.tbAIAntiStratagemIncreaseRate.Location = new System.Drawing.Point(189, 284);
+            this.tbAIAntiStratagemIncreaseRate.Name = "tbAIAntiStratagemIncreaseRate";
+            this.tbAIAntiStratagemIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIAntiStratagemIncreaseRate.TabIndex = 68;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(13, 287);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(89, 12);
+            this.label64.TabIndex = 66;
+            this.label64.Text = "电脑部队抗计率";
+            // 
+            // tbAIAntiStratagem
+            // 
+            this.tbAIAntiStratagem.Location = new System.Drawing.Point(130, 284);
+            this.tbAIAntiStratagem.Name = "tbAIAntiStratagem";
+            this.tbAIAntiStratagem.Size = new System.Drawing.Size(57, 22);
+            this.tbAIAntiStratagem.TabIndex = 67;
+            // 
             // label62
             // 
             this.label62.AutoSize = true;
@@ -2359,51 +2411,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // tbAIAntiStratagemIncreaseRate
+            // tbCreateRandomOfficerChance
             // 
-            this.tbAIAntiStratagemIncreaseRate.Location = new System.Drawing.Point(189, 284);
-            this.tbAIAntiStratagemIncreaseRate.Name = "tbAIAntiStratagemIncreaseRate";
-            this.tbAIAntiStratagemIncreaseRate.Size = new System.Drawing.Size(57, 22);
-            this.tbAIAntiStratagemIncreaseRate.TabIndex = 68;
+            this.tbCreateRandomOfficerChance.Location = new System.Drawing.Point(381, 255);
+            this.tbCreateRandomOfficerChance.Name = "tbCreateRandomOfficerChance";
+            this.tbCreateRandomOfficerChance.Size = new System.Drawing.Size(51, 22);
+            this.tbCreateRandomOfficerChance.TabIndex = 139;
+            this.tbCreateRandomOfficerChance.Text = "100";
             // 
-            // label64
+            // label66
             // 
-            this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(13, 287);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(89, 12);
-            this.label64.TabIndex = 66;
-            this.label64.Text = "电脑部队抗计率";
-            // 
-            // tbAIAntiStratagem
-            // 
-            this.tbAIAntiStratagem.Location = new System.Drawing.Point(130, 284);
-            this.tbAIAntiStratagem.Name = "tbAIAntiStratagem";
-            this.tbAIAntiStratagem.Size = new System.Drawing.Size(57, 22);
-            this.tbAIAntiStratagem.TabIndex = 67;
-            // 
-            // tbAIAntiSurroundIncreaseRate
-            // 
-            this.tbAIAntiSurroundIncreaseRate.Location = new System.Drawing.Point(189, 312);
-            this.tbAIAntiSurroundIncreaseRate.Name = "tbAIAntiSurroundIncreaseRate";
-            this.tbAIAntiSurroundIncreaseRate.Size = new System.Drawing.Size(57, 22);
-            this.tbAIAntiSurroundIncreaseRate.TabIndex = 71;
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Location = new System.Drawing.Point(13, 315);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(89, 12);
-            this.label65.TabIndex = 69;
-            this.label65.Text = "电脑部队抗围率";
-            // 
-            // tbAIAntiSurround
-            // 
-            this.tbAIAntiSurround.Location = new System.Drawing.Point(130, 312);
-            this.tbAIAntiSurround.Name = "tbAIAntiSurround";
-            this.tbAIAntiSurround.Size = new System.Drawing.Size(57, 22);
-            this.tbAIAntiSurround.TabIndex = 70;
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(250, 259);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(125, 12);
+            this.label66.TabIndex = 138;
+            this.label66.Text = "发现生成在野武将机率";
             // 
             // formOptions
             // 
@@ -2501,6 +2524,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbOfficerChildrenLimit.Text = nextSibling.Attributes.GetNamedItem("OfficerChildrenLimit").Value;
             this.cbStopToControlOnAttack.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value);
             this.tbMaxMilitaryExperience.Text = nextSibling.Attributes.GetNamedItem("MaxMilitaryExperience").Value;
+            this.tbCreateRandomOfficerChance.Text = nextSibling.Attributes.GetNamedItem("CreateRandomOfficerChance").Value;
         }
 
         private void LoadParameterDoc()
@@ -2633,6 +2657,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("OfficerChildrenLimit").Value = this.tbOfficerChildrenLimit.Text;
             nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value = this.cbStopToControlOnAttack.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("MaxMilitaryExperience").Value = this.tbMaxMilitaryExperience.Text;
+            nextSibling.Attributes.GetNamedItem("CreateRandomOfficerChance").Value = this.tbCreateRandomOfficerChance.Text;
             this.commonDoc.Save("GameData/GlobalVariables.xml");
         }
 

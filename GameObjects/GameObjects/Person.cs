@@ -2238,6 +2238,12 @@
                         return true;
                     }
                 }
+
+                if (GameObject.Random(10000 * this.BelongedFaction.PersonCount) > GlobalVariables.CreateRandomOfficerChance)
+                {
+                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
+                    return true;
+                }
             }
             return false;
         }
@@ -6170,11 +6176,77 @@
             r.PictureIndex = pictureList[GameObject.Random(pictureList.Count)];
         }
 
+        private static String GenerateBiography(Person r, GameScenario scen)
+        {
+            String biography = "";
+
+            List<String> adjectives = new List<String>();
+            List<String> suffixes = new List<String>();
+            int strength, command, intelligence, politics, glamour, braveness, calmness, personalLoyalty, ambition;
+            strength = command = intelligence = politics = glamour = braveness = calmness = personalLoyalty = ambition = 0;
+            foreach (BiographyAdjectives b in scen.GameCommonData.AllBiographyAdjectives)
+            {
+                if (b.Male && r.Sex)
+                {
+                    continue;
+                }
+                if (b.Female && !r.Sex)
+                {
+                    continue;
+                }
+
+                if ((b.Strength == 0 || (b.Strength > strength && r.BaseStrength >= b.Strength)) &&
+                    (b.Command == 0 || (b.Command > command && r.BaseCommand >= b.Command)) &&
+                    (b.Intelligence == 0 || (b.Intelligence > intelligence && r.BaseIntelligence >= b.Intelligence)) &&
+                    (b.Politics == 0 || (b.Politics > politics && r.BasePolitics >= b.Politics)) &&
+                    (b.Glamour == 0 || (b.Glamour > glamour && r.BaseGlamour >= b.Glamour)) &&
+                    (b.Braveness == 0 || (b.Braveness > braveness && r.BaseBraveness >= b.Braveness)) &&
+                    (b.Calmness == 0 || (b.Calmness > calmness && r.BaseCalmness >= b.Calmness)) &&
+                    (b.PersonalLoyalty == 0 || (b.PersonalLoyalty > personalLoyalty && r.PersonalLoyalty >= b.PersonalLoyalty)) &&
+                    (b.Ambition == 0 || (b.Ambition > ambition && r.Ambition >= b.Ambition))
+                    )
+                {
+                    strength = b.Strength;
+                    command = b.Command;
+                    intelligence = b.Intelligence;
+                    politics = b.Politics;
+                    glamour = b.Glamour;
+                    braveness = b.Braveness;
+                    calmness = b.Calmness;
+                    personalLoyalty = b.PersonalLoyalty;
+                    ambition = b.Ambition;
+
+                    if (b.Text.Count > 0)
+                    {
+                        adjectives.Add(b.Text[GameObject.Random(b.Text.Count)]);
+                    }
+                    if (b.SuffixText.Count > 0)
+                    {
+                        suffixes.Add(b.SuffixText[GameObject.Random(b.SuffixText.Count)]);
+                    }
+                }
+            }
+            if (adjectives.Count > 0)
+            {
+                foreach (String s in adjectives)
+                {
+                    biography += s + "，";
+                }
+                biography = biography.Substring(0, biography.Length - 1);
+                if (adjectives.Count > 0)
+                {
+                    biography += "的" + (suffixes.Count > 0 ? suffixes[GameObject.Random(suffixes.Count)] : "將領");
+                }
+                biography += "。";
+            }
+
+            return biography;
+        }
+
         private enum OfficerType { GENERAL, BRAVE, ADVISOR, POLITICIAN, INTEL_GENERAL, EMPEROR, ALL_ROUNDER, NORMAL, CHEAP };
 
-        public static Person createPerson(GameScenario scen)
+        public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder)
         {
-            throw new Exception("TODO");
             Person r = new Person();
 
             //look for empty id
@@ -6437,7 +6509,81 @@
             } while (characterId == 0);
             r.Character = scen.GameCommonData.AllCharacterKinds[characterId];
 
-            // TODO add skill, stunt and title
+            foreach (Skill s in scen.GameCommonData.AllSkills.Skills.Values) 
+            {
+                if (s.CanBeChosenForGenerated())
+                {
+                    int chance = s.GenerationChance[(int)type];
+                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 80) / 20.0 + 1);
+                    if (GameObject.Chance(chance))
+                    {
+                        r.Skills.AddSkill(s);
+                    }
+                }
+            }
+
+            foreach (Stunt s in scen.GameCommonData.AllStunts.Stunts.Values)
+            {
+                if (s.CanBeChosenForGenerated())
+                {
+                    int chance = s.GenerationChance[(int)type];
+                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 80) / 20.0 + 1);
+                    if (GameObject.Chance(chance))
+                    {
+                        r.Stunts.AddStunt(s);
+                    }
+                }
+            }
+
+            Dictionary<TitleKind, List<Title>> titles = Title.GetKindTitleDictionary(scen);
+            foreach (KeyValuePair<TitleKind, List<Title>> kv in titles)
+            {
+                Dictionary<Title, double> chances = new Dictionary<Title, double>();
+                foreach (Title t in kv.Value)
+                {
+                    if (t.CanBeChosenForGenerated())
+                    {
+                        chances.Add(t, t.GenerationChance[(int)type] / (t.Level * t.Level));
+                    }
+                }
+
+                int randMax = 10000;
+                double sum = 0;
+                foreach (double i in chances.Values){
+                    sum += i;
+                }
+
+                int p = GameObject.Random(randMax);
+                double pt = 0;
+                foreach (KeyValuePair<Title, double> td in chances){
+                    pt += td.Value / sum * randMax;
+                    if (p < pt){
+                        r.Titles.Add(td.Key);
+                        break;
+                    }
+                }
+            }
+
+            String biography;
+            biography += "于" + scen.Date.Year + "年" + scen.Date.Month + "月在" + foundLocation.Name + "被" + finder + "发掘成才。";
+
+            biography += Person.GenerateBiography(r, scen);
+
+            Biography bio = new Biography();
+            bio.Brief = biography;
+            bio.ID = r.ID;
+            bio.FactionColor = 52;
+            bio.MilitaryKinds.AddBasicMilitaryKinds(scen);
+            scen.AllBiographies.AddBiography(bio);
+            r.PersonBiography = bio;
+
+            r.Alive = true;
+
+            scen.Persons.Add(r);
+
+            r.Scenario = scen;
+
+            ExtensionInterface.call("CreatePerson", new Object[] { scen, r });
 
             return r;
         }
@@ -6644,16 +6790,7 @@
                 }
             }
 
-            GameObjectList rawTitles = father.Scenario.GameCommonData.AllTitles.GetTitleList().GetRandomList();
-            Dictionary<TitleKind, List<Title>> titles = new Dictionary<TitleKind, List<Title>>();
-            foreach (Title t in rawTitles)
-            {
-                if (!titles.ContainsKey(t.Kind))
-                {
-                    titles[t.Kind] = new List<Title>();
-                }
-                titles[t.Kind].Add(t);
-            }
+            Dictionary<TitleKind, List<Title>> titles = Title.GetKindTitleDictionary(father.Scenario);
             foreach (KeyValuePair<TitleKind, List<Title>> i in titles)
             {
                 Title ft = father.getTitleOfKind(i.Key);
@@ -6717,65 +6854,7 @@
                 r.Mother.Name + "之" + (motherChildCount > 7 ? "" : order[motherChildCount]) + (r.Sex ? "女" : "子") + "。" +
                 "在" + r.father.Scenario.Date.Year + "年" + r.Father.Scenario.Date.Month + "月於" + bornArch.Name + "出生。";
 
-            List<String> adjectives = new List<String>();
-            List<String> suffixes = new List<String>();
-            int strength, command, intelligence, politics, glamour, braveness, calmness, personalLoyalty, ambition;
-            strength = command = intelligence = politics = glamour = braveness = calmness = personalLoyalty = ambition = 0;
-            foreach (BiographyAdjectives b in father.Scenario.GameCommonData.AllBiographyAdjectives)
-            {
-                if (b.Male && r.Sex)
-                {
-                    continue;
-                }
-                if (b.Female && !r.Sex)
-                {
-                    continue;
-                }
-
-                if ((b.Strength == 0 || (b.Strength > strength && r.BaseStrength >= b.Strength)) &&
-                    (b.Command == 0 || (b.Command > command && r.BaseCommand >= b.Command)) &&
-                    (b.Intelligence == 0 || (b.Intelligence > intelligence && r.BaseIntelligence >= b.Intelligence)) &&
-                    (b.Politics == 0 || (b.Politics > politics && r.BasePolitics >= b.Politics)) &&
-                    (b.Glamour == 0 || (b.Glamour > glamour && r.BaseGlamour >= b.Glamour)) &&
-                    (b.Braveness == 0 || (b.Braveness > braveness && r.BaseBraveness >= b.Braveness)) &&
-                    (b.Calmness == 0 || (b.Calmness > calmness && r.BaseCalmness >= b.Calmness)) &&
-                    (b.PersonalLoyalty == 0 || (b.PersonalLoyalty > personalLoyalty && r.PersonalLoyalty >= b.PersonalLoyalty)) &&
-                    (b.Ambition == 0 || (b.Ambition > ambition && r.Ambition >= b.Ambition))
-                    ) 
-                {
-                    strength = b.Strength;
-                    command = b.Command;
-                    intelligence = b.Intelligence;
-                    politics = b.Politics;
-                    glamour = b.Glamour;
-                    braveness = b.Braveness;
-                    calmness = b.Calmness;
-                    personalLoyalty = b.PersonalLoyalty;
-                    ambition = b.Ambition;
-
-                    if (b.Text.Count > 0)
-                    {
-                        adjectives.Add(b.Text[GameObject.Random(b.Text.Count)]);
-                    }
-                    if (b.SuffixText.Count > 0)
-                    {
-                        suffixes.Add(b.SuffixText[GameObject.Random(b.SuffixText.Count)]);
-                    }
-                }
-            }
-            if (adjectives.Count > 0)
-            {
-                foreach (String s in adjectives)
-                {
-                    biography += s + "，";
-                }
-                biography = biography.Substring(0, biography.Length - 1);
-                if (adjectives.Count > 0)
-                {
-                    biography += "的" + (suffixes.Count > 0 ? suffixes[GameObject.Random(suffixes.Count)] : "將領");
-                }
-                biography += "。";
-            }
+            biography += Person.GenerateBiography(r, father.Scenario);
 
             Biography bio = new Biography();
             bio.Brief = biography;

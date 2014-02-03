@@ -1275,6 +1275,7 @@
     <Compile Include="GameObjects\SortedBoundedSet.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind902.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind457.cs" />
   </ItemGroup>
 </Project>

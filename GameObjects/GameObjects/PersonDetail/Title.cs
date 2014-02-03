@@ -15,6 +15,29 @@
         private TitleKind kind;
         private int level;
 
+        private int[] generationChance = new int[9];
+        public int[] GenerationChance
+        {
+            get
+            {
+                return generationChance;
+            }
+        }
+        public int RelatedAbility { get; set; }
+
+        public int GetRelatedAbility(Person p)
+        {
+            switch (RelatedAbility)
+            {
+                case 0: return p.Strength;
+                case 1: return p.Command;
+                case 2: return p.Intelligence;
+                case 3: return p.Politics;
+                case 4: return p.Glamour;
+            }
+            return 0;
+        }
+
         private bool? containsLeaderOnlyCache = null;
         public bool ContainsLeaderOnly
         {
@@ -81,6 +104,15 @@
                 {
                     return false;
                 }
+            }
+            return true;
+        }
+
+        public bool CanBeChosenForGenerated()
+        {
+            foreach (Condition condition in this.Conditions.Conditions.Values)
+            {
+                if (condition.Kind.ID == 902) return false;
             }
             return true;
         }
@@ -339,6 +371,21 @@
                 aiPersonLevel = (int)(Math.Sqrt(Math.Max(1, AIPersonValue - 15)) * 0.2828 + 1);
                 return aiPersonLevel.Value;
             }
+        }
+
+        public static Dictionary<TitleKind, List<Title>> GetKindTitleDictionary(GameScenario scen)
+        {
+            GameObjectList rawTitles = scen.GameCommonData.AllTitles.GetTitleList().GetRandomList();
+            Dictionary<TitleKind, List<Title>> titles = new Dictionary<TitleKind, List<Title>>();
+            foreach (Title t in rawTitles)
+            {
+                if (!titles.ContainsKey(t.Kind))
+                {
+                    titles[t.Kind] = new List<Title>();
+                }
+                titles[t.Kind].Add(t);
+            }
+            return titles;
         }
     }
 }

@@ -526,6 +526,16 @@
                 skill.Name = reader["Name"].ToString();
                 skill.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
                 skill.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString());
+                skill.GenerationChance[0] = (int)reader["General"];
+                skill.GenerationChance[1] = (int)reader["Brave"];
+                skill.GenerationChance[2] = (int)reader["Advisor"];
+                skill.GenerationChance[3] = (int)reader["Politician"];
+                skill.GenerationChance[4] = (int)reader["IntelGeneral"];
+                skill.GenerationChance[5] = (int)reader["Emperor"];
+                skill.GenerationChance[6] = (int)reader["AllRounder"];
+                skill.GenerationChance[7] = (int)reader["Normal"];
+                skill.GenerationChance[8] = (int)reader["Cheap"];
+                skill.RelatedAbility = (int)reader["Ability"];
                 this.AllSkills.AddSkill(skill);
             }
             connection.Close();
@@ -579,6 +589,16 @@
                 title.Name = reader["Name"].ToString();
                 title.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
                 title.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString());
+                title.GenerationChance[0] = (int)reader["General"];
+                title.GenerationChance[1] = (int)reader["Brave"];
+                title.GenerationChance[2] = (int)reader["Advisor"];
+                title.GenerationChance[3] = (int)reader["Politician"];
+                title.GenerationChance[4] = (int)reader["IntelGeneral"];
+                title.GenerationChance[5] = (int)reader["Emperor"];
+                title.GenerationChance[6] = (int)reader["AllRounder"];
+                title.GenerationChance[7] = (int)reader["Normal"];
+                title.GenerationChance[8] = (int)reader["Cheap"];
+                title.RelatedAbility = (int)reader["Ability"];
                 this.AllTitles.AddTitle(title);
             }
             connection.Close();
@@ -758,6 +778,16 @@
                 stunt.CastConditions.LoadFromString(this.AllConditions, reader["CastConditions"].ToString());
                 stunt.LearnConditions.LoadFromString(this.AllConditions, reader["LearnConditions"].ToString());
                 stunt.AIConditions.LoadFromString(this.AllConditions, reader["AIConditions"].ToString());
+                stunt.GenerationChance[0] = (int)reader["General"];
+                stunt.GenerationChance[1] = (int)reader["Brave"];
+                stunt.GenerationChance[2] = (int)reader["Advisor"];
+                stunt.GenerationChance[3] = (int)reader["Politician"];
+                stunt.GenerationChance[4] = (int)reader["IntelGeneral"];
+                stunt.GenerationChance[5] = (int)reader["Emperor"];
+                stunt.GenerationChance[6] = (int)reader["AllRounder"];
+                stunt.GenerationChance[7] = (int)reader["Normal"];
+                stunt.GenerationChance[8] = (int)reader["Cheap"];
+                stunt.RelatedAbility = (int)reader["Ability"];
                 this.AllStunts.AddStunt(stunt);
             }
             connection.Close();
@@ -1727,6 +1757,16 @@
                     row["Prerequisite"] = i.Prerequisite;
                     row["Influences"] = i.Influences.SaveToString();
                     row["Conditions"] = i.Conditions.SaveToString();
+                    row["General"] = i.GenerationChance[0];
+                    row["Brave"] = i.GenerationChance[1];
+                    row["Advisor"] = i.GenerationChance[2];
+                    row["Politician"] = i.GenerationChance[3];
+                    row["IntelGeneral"] = i.GenerationChance[4];
+                    row["Emperor"] = i.GenerationChance[5];
+                    row["AllRounder"] = i.GenerationChance[6];
+                    row["Normal"] = i.GenerationChance[7];
+                    row["Cheap"] = i.GenerationChance[8];
+                    row["Ability"] = i.RelatedAbility;
                     row.EndEdit();
                     dataSet.Tables["Skill"].Rows.Add(row);
                 }
@@ -1786,6 +1826,16 @@
                     row["CastConditions"] = i.CastConditions.SaveToString();
                     row["LearnConditions"] = i.LearnConditions.SaveToString();
                     row["AIConditions"] = i.AIConditions.SaveToString();
+                    row["General"] = i.GenerationChance[0];
+                    row["Brave"] = i.GenerationChance[1];
+                    row["Advisor"] = i.GenerationChance[2];
+                    row["Politician"] = i.GenerationChance[3];
+                    row["IntelGeneral"] = i.GenerationChance[4];
+                    row["Emperor"] = i.GenerationChance[5];
+                    row["AllRounder"] = i.GenerationChance[6];
+                    row["Normal"] = i.GenerationChance[7];
+                    row["Cheap"] = i.GenerationChance[8];
+                    row["Ability"] = i.RelatedAbility;
                     row.EndEdit();
                     dataSet.Tables["Stunt"].Rows.Add(row);
                 }
@@ -1902,6 +1952,16 @@
                     row["Prerequisite"] = i.Prerequisite;
                     row["Influences"] = i.Influences.SaveToString();
                     row["Conditions"] = i.Conditions.SaveToString();
+                    row["General"] = i.GenerationChance[0];
+                    row["Brave"] = i.GenerationChance[1];
+                    row["Advisor"] = i.GenerationChance[2];
+                    row["Politician"] = i.GenerationChance[3];
+                    row["IntelGeneral"] = i.GenerationChance[4];
+                    row["Emperor"] = i.GenerationChance[5];
+                    row["AllRounder"] = i.GenerationChance[6];
+                    row["Normal"] = i.GenerationChance[7];
+                    row["Cheap"] = i.GenerationChance[8];
+                    row["Ability"] = i.RelatedAbility;
                     /*try
                     {
                         row["AIPersonValue"] = i.AIPersonValue;
