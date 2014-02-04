@@ -1268,6 +1268,8 @@
                 new OleDbCommand("Delete from CharacterKind", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from CharacterKind", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
+                builder.QuotePrefix = "[";
+                builder.QuoteSuffix = "]";
                 adapter.Fill(dataSet, "CharacterKind");
                 dataSet.Tables["CharacterKind"].Rows.Clear();
                 storedIds.Clear();
@@ -1826,6 +1828,8 @@
                 new OleDbCommand("Delete from Stunt", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Stunt", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
+                builder.QuotePrefix = "[";
+                builder.QuoteSuffix = "]";
                 adapter.Fill(dataSet, "Stunt");
                 dataSet.Tables["Stunt"].Rows.Clear();
                 storedIds.Clear();
