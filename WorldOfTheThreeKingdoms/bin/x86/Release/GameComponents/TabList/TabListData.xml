@@ -3413,7 +3413,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="20" Name="ArchitectureLimit" IsNumber="true" DisplayName="建筑上限 MinWidth="80" DetailLevel="3"
+        <Column ID="20" Name="ArchitectureLimit" IsNumber="true" DisplayName="建筑上限" MinWidth="80" DetailLevel="3"
                 FontName="方正隶变_GBK"
                 FontSize="14"
                 FontStyle="Regular"
