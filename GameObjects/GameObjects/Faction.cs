@@ -652,6 +652,7 @@
                     foreach (FacilityKind fk in base.Scenario.GameCommonData.AllFacilityKinds.FacilityKinds.Values)
                     {
                         if (!fk.CanBuild(buildAt)) continue;
+                        if (fk.FundCost > buildAt.Fund) continue;
                         if (fk.rongna > 0 && fk.rongna < maxHgSize && GameObject.Chance(Parameters.AIBuildHougongSkipSizeChance))
                         {
                             if (hougong == null || hougong.rongna < fk.rongna)

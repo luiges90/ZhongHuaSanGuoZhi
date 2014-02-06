@@ -5327,7 +5327,7 @@
 
         public bool FacilityBuildable(FacilityKind facilityKind)
         {
-            return facilityKind.CanBuild(this);
+            return facilityKind.CanBuild(this) && this.Fund >= facilityKind.FundCost;
         }
 
         private void FacilityDoWork()
