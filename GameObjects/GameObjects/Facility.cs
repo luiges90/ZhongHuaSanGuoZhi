@@ -200,35 +200,19 @@
             }
         }
 
-        public bool UniqueInArchitecture
+        public int ArchitectureLimit
         {
             get
             {
-                return this.Kind.UniqueInArchitecture;
+                return this.Kind.ArchitectureLimit;
             }
         }
 
-        public string UniqueInArchitectureString
+        public int FactionLimit
         {
             get
             {
-                return this.Kind.UniqueInArchitectureString;
-            }
-        }
-
-        public bool UniqueInFaction
-        {
-            get
-            {
-                return this.Kind.UniqueInFaction;
-            }
-        }
-
-        public string UniqueInFactionString
-        {
-            get
-            {
-                return this.Kind.UniqueInFactionString;
+                return this.Kind.FactionLimit;
             }
         }
 

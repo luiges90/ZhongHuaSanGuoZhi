@@ -435,8 +435,16 @@
                 facilityKind.MaintenanceCost = (int)reader["MaintenanceCost"];
                 facilityKind.Days = (short)reader["Days"];
                 facilityKind.Endurance = (int)reader["Endurance"];
-                facilityKind.UniqueInArchitecture = (bool)reader["UniqueInArchitecture"];
-                facilityKind.UniqueInFaction = (bool)reader["UniqueInFaction"];
+                try
+                {
+                    facilityKind.ArchitectureLimit = (int)reader["ArchitectureLimit"];
+                    facilityKind.FactionLimit = (int)reader["FactionLimit"];
+                }
+                catch
+                {
+                    facilityKind.ArchitectureLimit = (bool)reader["UniqueInArchitecture"] ? 1 : 9999;
+                    facilityKind.FactionLimit = (bool)reader["UniqueInFaction"] ? 1 : 9999;
+                }
                 facilityKind.PopulationRelated = (bool)reader["PopulationRelated"];
                 facilityKind.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
                 facilityKind.rongna = (short)reader["rongna"];
@@ -1493,8 +1501,8 @@
                     row["PointCost"] = i.PointCost;
                     row["Days"] = i.Days;
                     row["Endurance"] = i.Endurance;
-                    row["UniqueInArchitecture"] = i.UniqueInArchitecture;
-                    row["UniqueInFaction"] = i.UniqueInFaction;
+                    row["ArchitectureLimit"] = i.ArchitectureLimit;
+                    row["FactionLimit"] = i.FactionLimit;
                     row["PopulationRelated"] = i.PopulationRelated;
                     row["Influences"] = i.Influences.SaveToString();
                     row["Conditions"] = i.Conditions.SaveToString();

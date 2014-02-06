@@ -4454,6 +4454,16 @@
             }
         }
 
+        public int GetFacilityKindCount(int id)
+        {
+            int cnt = 0;
+            foreach (Architecture a in this.Architectures)
+            {
+                cnt += a.GetFacilityKindCount(id);
+            }
+            return cnt;
+        }
+
         public Section FirstSection
         {
             get

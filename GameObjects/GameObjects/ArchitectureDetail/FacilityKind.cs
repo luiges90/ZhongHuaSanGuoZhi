@@ -17,8 +17,8 @@
         private bool populationRelated;
         private int positionOccupied;
         private int technologyNeeded;
-        private bool uniqueInArchitecture;
-        private bool uniqueInFaction;
+        private int architectureLimit;
+        private int factionLimit;
 
         public float AILevel
         {
@@ -203,46 +203,29 @@
             }
         }
 
-        public bool UniqueInArchitecture
+        public int ArchitectureLimit
         {
             get
             {
-                return this.uniqueInArchitecture;
+                return this.architectureLimit;
             }
             set
             {
-                this.uniqueInArchitecture = value;
+                this.architectureLimit = value;
             }
         }
 
-        public string UniqueInArchitectureString
+        public int FactionLimit
         {
             get
             {
-                return (this.UniqueInArchitecture ? "○" : "×");
-            }
-        }
-
-        public bool UniqueInFaction
-        {
-            get
-            {
-                return this.uniqueInFaction;
+                return this.factionLimit;
             }
             set
             {
-                this.uniqueInFaction = value;
+                this.factionLimit = value;
             }
         }
-
-        public string UniqueInFactionString
-        {
-            get
-            {
-                return (this.UniqueInFaction ? "○" : "×");
-            }
-        }
-
 
         public int NetFundIncrease
         {
@@ -290,11 +273,11 @@
             {
                 return false;
             }
-            if (this.UniqueInArchitecture && a.ArchitectureHasFacilityKind(this.ID))
+            if (a.GetFacilityKindCount(this.ID) >= this.ArchitectureLimit)
             {
                 return false;
             }
-            if (this.UniqueInFaction && a.FactionHasFacilityKind(this.ID))
+            if (a.BelongedFaction != null && a.BelongedFaction.GetFacilityKindCount(this.ID) >= this.FactionLimit)
             {
                 return false;
             }

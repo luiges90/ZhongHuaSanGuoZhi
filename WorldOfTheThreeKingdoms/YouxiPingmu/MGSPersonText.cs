@@ -86,7 +86,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.Plugins.GameRecordPlugin.AddBranch(architecture, "FacilityCompleted", architecture.Position);
                     }
                 }
-                else if (facility.UniqueInArchitecture && (facility.PositionOccupied > 4))
+                else if (facility.ArchitectureLimit <= 1 && (facility.PositionOccupied > 4))
                 {
                     this.Plugins.GameRecordPlugin.AddBranch(architecture, "FacilityCompleted", architecture.Position);
                 }

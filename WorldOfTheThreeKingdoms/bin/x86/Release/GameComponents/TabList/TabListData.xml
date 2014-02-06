@@ -3413,14 +3413,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="20" Name="UniqueInArchitectureString" IsNumber="false" DisplayName="建筑唯一" MinWidth="80" DetailLevel="3"
+        <Column ID="20" Name="ArchitectureLimit" IsNumber="true" DisplayName="建筑上限 MinWidth="80" DetailLevel="3"
                 FontName="方正隶变_GBK"
                 FontSize="14"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
-        <Column ID="21" Name="UniqueInFactionString" IsNumber="false" DisplayName="势力唯一" MinWidth="80" DetailLevel="3"
+        <Column ID="21" Name="FactionLimit" IsNumber="true" DisplayName="势力上限" MinWidth="80" DetailLevel="3"
                 FontName="方正隶变_GBK"
                 FontSize="14"
                 FontStyle="Regular"

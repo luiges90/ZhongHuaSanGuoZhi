@@ -3103,17 +3103,17 @@
             }
         }
 
-        public bool ArchitectureHasFacilityKind(int id)
+        public int GetFacilityKindCount(int id)
         {
-
+            int cnt = 0;
             foreach (Facility facility in this.Facilities)
             {
                 if (facility.KindID == id || this.BuildingFacility == id)
                 {
-                    return true;
+                    cnt++;
                 }
             }
-            return false;
+            return cnt;
         }
 
         public string ArmyQuantityInInformationLevel(InformationLevel level)
@@ -5327,38 +5327,7 @@
 
         public bool FacilityBuildable(FacilityKind facilityKind)
         {
-            if (this.BuildingFacility >= 0)
-            {
-                return false;
-            }
-            if (!(!facilityKind.PopulationRelated || this.Kind.HasPopulation))
-            {
-                return false;
-            }
-            if (((facilityKind.PointCost > this.BelongedFaction.TotalTechniquePoint) || (facilityKind.TechnologyNeeded > this.Technology)) || (facilityKind.FundCost > this.Fund))
-            {
-                return false;
-            }
-            if (facilityKind.UniqueInArchitecture && this.ArchitectureHasFacilityKind(facilityKind.ID))
-            {
-                return false;
-            }
-            if (this.FacilityPositionLeft < facilityKind.PositionOccupied)
-            {
-                return false;
-            }
-            if (facilityKind.UniqueInFaction && this.FactionHasFacilityKind(facilityKind.ID))
-            {
-                return false;
-            }
-            foreach (Conditions.Condition i in facilityKind.GetConditionList())
-            {
-                if (!i.CheckCondition(this))
-                {
-                    return false;
-                }
-            }
-            return true;
+            return facilityKind.CanBuild(this);
         }
 
         private void FacilityDoWork()
@@ -5370,18 +5339,6 @@
                     facility.DoWork(this);
                 }
             }
-        }
-
-        private bool FacilityIsPossibleOverTechnology(int tech)
-        {
-            foreach (FacilityKind kind in base.Scenario.GameCommonData.AllFacilityKinds.FacilityKinds.Values)
-            {
-                if ((((!kind.PopulationRelated || this.Kind.HasPopulation) && ((tech < kind.TechnologyNeeded) && (this.Technology >= kind.TechnologyNeeded))) && ((this.FacilityPositionCount >= kind.PositionOccupied) && (!kind.UniqueInArchitecture || !this.ArchitectureHasFacilityKind(kind.ID)))) && (!kind.UniqueInFaction || !this.FactionHasFacilityKind(kind.ID)))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         private void FacilityMaintenance()
@@ -5411,18 +5368,6 @@
         public bool FactionHasCaptive()
         {
             return ((this.BelongedFaction != null) ? this.BelongedFaction.HasCaptive() : false);
-        }
-
-        public bool FactionHasFacilityKind(int id)
-        {
-            foreach (Architecture architecture in this.BelongedFaction.Architectures)
-            {
-                if (architecture.ArchitectureHasFacilityKind(id) || architecture.BuildingFacility == id)
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         public bool FactionHasSelfCaptive()
