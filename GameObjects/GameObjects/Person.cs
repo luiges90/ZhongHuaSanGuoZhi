@@ -2239,7 +2239,7 @@
                     }
                 }
 
-                if (GameObject.Random(10000 * this.BelongedFaction.PersonCount) > GlobalVariables.CreateRandomOfficerChance)
+                if (GameObject.Random(10000 * this.BelongedFaction.PersonCount) < GlobalVariables.CreateRandomOfficerChance)
                 {
                     pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
                     return true;
