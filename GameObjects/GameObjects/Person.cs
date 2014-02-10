@@ -7393,11 +7393,21 @@
             if (this == p) return;
             if (this.relations.ContainsKey(p))
             {
-                this.relations[p] = val;
+                if (val == 0)
+                {
+                    this.relations.Remove(p);
+                }
+                else
+                {
+                    this.relations[p] = val;
+                }
             }
             else
             {
-                this.relations.Add(p, val);
+                if (val != 0)
+                {
+                    this.relations.Add(p, val);
+                }
             }
         }
 
@@ -7407,19 +7417,22 @@
             int val;
             if (factor > 0)
             {
-                val = (int)((75 - Person.GetIdealOffset(this, p)) * 75 / 30 * factor + adjust);
+                val = (int)((75 - Person.GetIdealOffset(this, p)) * 30 * factor / 75 + adjust);
             }
             else
             {
-                val = (int)(Person.GetIdealOffset(this, p) * 75 / 30 * factor + adjust);
+                val = (int)(Person.GetIdealOffset(this, p) * 30 * factor / 75 + adjust);
             }
-            if (this.relations.ContainsKey(p))
+            if (val != 0)
             {
-                this.relations[p] += val;
-            }
-            else
-            {
-                this.relations.Add(p, val);
+                if (this.relations.ContainsKey(p))
+                {
+                    this.relations[p] += val;
+                }
+                else
+                {
+                    this.relations.Add(p, val);
+                }
             }
             if (this.relations[p] <= Parameters.HateThreshold && !this.Hates(p))
             {

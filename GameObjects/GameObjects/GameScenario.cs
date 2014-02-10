@@ -1032,6 +1032,7 @@
             {
                 person.DayEvent();
             }
+            this.AdjustGlobalPersonRelation();
             this.AddPreparedAvailablePersons();
             foreach (SpyMessage message in this.SpyMessages.GetRandomList())
             {
@@ -3683,6 +3684,45 @@
                 if (flag)
                 {
                     kind.Textures.Dispose();
+                }
+            }
+        }
+
+        private void AdjustGlobalPersonRelation()
+        {
+            foreach (Person p in this.Persons)
+            {
+                if (p.Available && p.Alive && GameObject.Random(30) == 0)
+                {
+                    foreach (Person q in this.Persons)
+                    {
+                        if (p == q) continue;
+                        if (!q.Available || !q.Alive) continue;
+                        if (p.GetRelation(q) > 0)
+                        {
+                            if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
+                            {
+                                p.AdjustRelation(q, -0.3f, 1 + GameObject.Random(5));
+                            }
+                            p.AdjustRelation(q, 0, p.PersonalLoyalty - 3 + (GameObject.Random(5) - 2));
+                            if (p.GetRelation(q) < 0)
+                            {
+                                p.SetRelation(q, 0);
+                            }
+                        }
+                        else if (p.GetRelation(q) < 0)
+                        {
+                            if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
+                            {
+                                p.AdjustRelation(q, 0.3f, -1 - GameObject.Random(5));
+                            }
+                            p.AdjustRelation(q, 0, p.PersonalLoyalty - 1 + (GameObject.Random(5) - 2));
+                            if (p.GetRelation(q) > 0)
+                            {
+                                p.SetRelation(q, 0);
+                            }
+                        }
+                    }
                 }
             }
         }
