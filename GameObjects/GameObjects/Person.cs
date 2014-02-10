@@ -7404,7 +7404,7 @@
         public void AdjustRelation(Person p, float factor, int adjust)
         {
             if (this == p) return;
-            int val = (int) (Person.GetIdealOffset(this, p) * 75 / 30 * factor + adjust);
+            int val = (int) ((75 - Person.GetIdealOffset(this, p)) * 75 / 30 * factor + adjust);
             if (this.relations.ContainsKey(p))
             {
                 this.relations[p] += val;
