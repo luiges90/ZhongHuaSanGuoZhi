@@ -1005,6 +1005,8 @@
             scope.IsNumber = true;
             scope.ReSort();
 
+            int transported = 0;
+            const int TRANSPORT_MAX = 3;
             foreach (Architecture a in destArch)
             {
                 if (a.Abandoned) continue;
@@ -1028,8 +1030,13 @@
                                 int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                 if (a.CallResource(b, transferFund, transferFood))
                                 {
+                                    transported++;
                                     deficitFund -= transferFund;
                                     deficitFood -= transferFood;
+                                    if (transported > TRANSPORT_MAX)
+                                    {
+                                        break;
+                                    }
                                     if (deficitFood <= 0 && deficitFund <= 0)
                                     {
                                         break;
@@ -1038,7 +1045,7 @@
                             }
                         }
                     }
-                    if (deficitFood > 0 && deficitFund > 0)
+                    if (transported <= TRANSPORT_MAX && deficitFood > 0 && deficitFund > 0)
                     {
                         foreach (Architecture b in candidates)
                         {
@@ -1051,8 +1058,13 @@
                                     int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                     if (a.CallResource(b, transferFund, transferFood))
                                     {
+                                        transported++;
                                         deficitFund -= transferFund;
                                         deficitFood -= transferFood;
+                                        if (transported > TRANSPORT_MAX)
+                                        {
+                                            break;
+                                        }
                                         if (deficitFood <= 0 && deficitFund <= 0)
                                         {
                                             break;
@@ -1062,7 +1074,7 @@
                             }
                         }
                     }
-                    if (deficitFood > 0 && deficitFund > 0)
+                    if (transported <= TRANSPORT_MAX && deficitFood > 0 && deficitFund > 0)
                     {
                         foreach (Architecture b in candidates)
                         {
@@ -1075,8 +1087,13 @@
                                     int transferFood = Math.Max(Math.Min(deficitFood, b.Food - minFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                     if (a.CallResource(b, transferFund, transferFood))
                                     {
+                                        transported++;
                                         deficitFund -= transferFund;
                                         deficitFood -= transferFood;
+                                        if (transported > TRANSPORT_MAX)
+                                        {
+                                            break;
+                                        }
                                         if (deficitFood <= 0 && deficitFund <= 0)
                                         {
                                             break;
@@ -1181,7 +1198,7 @@
             foreach (Architecture a in destArch)
             {
                 if (a.Abandoned) continue;
-                if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource && a.SuspendTransfer <= 0)
+                if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource && a.SuspendTransfer <= 0 && transported <= TRANSPORT_MAX)
                 {
                     MilitaryKind transport = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(29);
                     int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund);
@@ -1201,8 +1218,13 @@
                                 int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                 if (a.CallResource(b, transferFund, transferFood))
                                 {
+                                    transported++;
                                     deficitFund -= transferFund;
                                     deficitFood -= transferFood;
+                                    if (transported > TRANSPORT_MAX)
+                                    {
+                                        break;
+                                    }
                                     if (deficitFood <= 0 && deficitFund <= 0)
                                     {
                                         break;
@@ -1211,7 +1233,7 @@
                             }
                         }
                     }
-                    if (deficitFood > 0 && deficitFund > 0)
+                    if (deficitFood > 0 && deficitFund > 0 && transported <= TRANSPORT_MAX)
                     {
                         foreach (Architecture b in candidates)
                         {
@@ -1224,8 +1246,13 @@
                                     int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
                                     if (a.CallResource(b, transferFund, transferFood))
                                     {
+                                        transported++;
                                         deficitFund -= transferFund;
                                         deficitFood -= transferFood;
+                                        if (transported > TRANSPORT_MAX)
+                                        {
+                                            break;
+                                        }
                                         if (deficitFood <= 0 && deficitFund <= 0)
                                         {
                                             break;
