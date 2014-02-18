@@ -89,6 +89,7 @@
         public bool FrontLine;
         private int fund;
         internal List<FundPack> FundPacks = new List<FundPack>();
+        internal List<FoodPack> FoodPacks = new List<FoodPack>();
         private bool hireFinished;
         public bool HostileLine;
         public CombatNumberItemList IncrementNumberList = new CombatNumberItemList(CombatNumberDirection.上);
@@ -562,6 +563,12 @@
         {
             FundPack item = new FundPack(number, days);
             this.FundPacks.Add(item);
+        }
+
+        public void AddFoodPack(int number, int days)
+        {
+            FoodPack item = new FoodPack(number, days);
+            this.FoodPacks.Add(item);
         }
 
         private void AddMessageToTodayMilitaryScaleSpyMessage(Military m)
@@ -3838,6 +3845,11 @@
             this.FundPacks.Clear();
         }
 
+        public void ClearFoodPacks()
+        {
+            this.FoodPacks.Clear();
+        }
+
         internal void ClearPopulationPacks()
         {
             this.PopulationPacks.Clear();
@@ -4250,6 +4262,7 @@
         public void DayEvent()
         {
             this.FundPacksDayEvent();
+            this.FoodPacksDayEvent();
             this.PopulationPacksDayEvent();
             this.SpyPacksDayEvent();
             this.characteristicsDoWork();
@@ -5427,6 +5440,20 @@
                 {
                     this.IncreaseFund(this.FundPacks[i].Fund);
                     this.FundPacks.RemoveAt(i);
+                }
+            }
+        }
+
+        public void FoodPacksDayEvent()
+        {
+            for (int i = this.FoodPacks.Count - 1; i >= 0; i--)
+            {
+                FoodPack local1 = this.FoodPacks[i];
+                local1.Days--;
+                if (this.FoodPacks[i].Days <= 0)
+                {
+                    this.IncreaseFood(this.FoodPacks[i].Food);
+                    this.FoodPacks.RemoveAt(i);
                 }
             }
         }
@@ -8083,6 +8110,17 @@
             }
         }
 
+        internal void LoadFoodPacksFromString(string dataString)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            this.FoodPacks.Clear();
+            for (int i = 0; i < strArray.Length; i += 2)
+            {
+                this.FoodPacks.Add(new FoodPack(int.Parse(strArray[i]), int.Parse(strArray[i + 1])));
+            }
+        }
+
         public void LoadMilitariesFromString(MilitaryList militaries, string dataString)
         {
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
@@ -9580,6 +9618,7 @@
             if (this.BelongedFaction != null && this.BelongedFaction != faction)
             {
                 this.ClearFundPacks();
+                this.ClearFoodPacks();
                 this.ClearRouteways();
                 this.ReleaseAllCaptive();
                 this.PurifyFactionInfluences();
@@ -9923,6 +9962,16 @@
             foreach (FundPack pack in this.FundPacks)
             {
                 builder.Append(string.Concat(new object[] { pack.Fund, " ", pack.Days, " " }));
+            }
+            return builder.ToString();
+        }
+
+        internal string SaveFoodPacksToString()
+        {
+            StringBuilder builder = new StringBuilder();
+            foreach (FoodPack pack in this.FoodPacks)
+            {
+                builder.Append(string.Concat(new object[] { pack.Food, " ", pack.Days, " " }));
             }
             return builder.ToString();
         }
@@ -11275,6 +11324,19 @@
             }
         }
 
+        public int FoodInPack
+        {
+            get
+            {
+                int num = 0;
+                foreach (FoodPack pack in this.FoodPacks)
+                {
+                    num += pack.Fund;
+                }
+                return num;
+            }
+        }
+
         public int GossipArchitectureFund
         {
             get
@@ -11455,7 +11517,7 @@
         {
             get
             {
-                return ((this.Food >= this.FoodCeiling) || (this.Food >= this.AbundantFood));
+                return ((this.Food >= this.FoodCeiling) || (this.Food + this.FoodInPack >= this.AbundantFood));
             }
         }
 
@@ -11463,7 +11525,7 @@
         {
             get
             {
-                return ((this.Food >= this.FoodCeiling) || (this.Food >= this.EnoughFood));
+                return ((this.Food >= this.FoodCeiling) || (this.Food + this.FoodInPack >= this.EnoughFood));
             }
         }
 
@@ -11471,7 +11533,7 @@
         {
             get
             {
-                return ((this.Food >= this.FoodCeiling) || (this.Food > (this.AbundantFood * 2)));
+                return ((this.Food >= this.FoodCeiling) || (this.Food + this.FoodInPack > (this.AbundantFood * 2)));
             }
         }
 
