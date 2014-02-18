@@ -1163,14 +1163,22 @@
 
         internal bool CallResource(Architecture src, int fund, int food)
         {
+            if (fund == 0 && food == 0) return false;
+
             int actualTransferFood = food;
             int actualTransferFund = fund;
 
             src.DecreaseFood(food);
             src.DecreaseFund(fund);
 
-            this.AddFoodPack(food, base.Scenario.GetTransferFundDays(src, this));
-            this.AddFundPack(fund, base.Scenario.GetTransferFundDays(src, this));
+            if (food >= 0)
+            {
+                this.AddFoodPack(food, base.Scenario.GetTransferFundDays(src, this));
+            }
+            if (fund >= 0)
+            {
+                this.AddFundPack(fund, base.Scenario.GetTransferFundDays(src, this));
+            }
 
             return true;
         }
@@ -1270,56 +1278,36 @@
             int transferFood = this.Food - this.EnoughFood;
             int transferFund = this.Fund - this.EnoughFund;
 
-            while ((transferFood > 0 || transferFund > 0) && this.PersonCount > 0)
+            foreach (LinkNode n in this.AIAllLinkNodes.Values)
             {
-                if (transferFund < 0)
-                {
-                    transferFund = 0;
-                }
-                if (transferFood < 0)
-                {
-                    transferFood = 0;
-                }
+                if (n.A.BelongedFaction != this.BelongedFaction) continue;
 
-                // choose dest
-                Architecture dest = null;
-                foreach (LinkNode n in this.AIAllLinkNodes.Values)
-                {
-                    if (n.A.BelongedFaction == this.BelongedFaction && !n.A.FrontLine && n.A.Fund < n.A.FundCeiling * 0.8 && n.A.Food < n.A.FoodCeiling * 0.8)
-                    {
-                        dest = n.A;
-                        break;
-                    }
-                }
-                if (dest == null)
-                {
-                    foreach (LinkNode n in this.AIAllLinkNodes.Values)
-                    {
-                        if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HostileLine && n.A.Fund < n.A.FundCeiling * 0.8 && n.A.Food < n.A.FoodCeiling * 0.8)
-                        {
-                            dest = n.A;
-                            break;
-                        }
-                    }
-                }
-                if (dest == null)
-                {
-                    List<Architecture> candidates = new List<Architecture>();
-                    foreach (LinkNode n in this.AIAllLinkNodes.Values)
-                    {
-                        if (n.A.BelongedFaction == this.BelongedFaction && !n.A.HasHostileTroopsInView() && n.A != this)
-                        {
-                            candidates.Add(n.A);
-                        }
-                    }
-                    if (candidates.Count > 0)
-                    {
-                        dest = candidates[GameObject.Random(candidates.Count)];
-                    }
-                }
-                if (dest == null) break;
+                int toTransferFood = Math.Min(transferFood, n.A.FoodCeiling * 4 / 5 - n.A.Food);
+                int toTransferFund = Math.Min(transferFund, n.A.FundCeiling * 4 / 5 - n.A.Fund);
 
-                dest.CallResource(this, transferFund, transferFood);
+                transferFood -= toTransferFood;
+                transferFund -= toTransferFund;
+                n.A.CallResource(this, toTransferFund, toTransferFood);
+
+                if (transferFund <= 0 && transferFood <= 0)
+                {
+                    return;
+                }
+            }
+
+            foreach (Architecture a in this.BelongedFaction.Architectures)
+            {
+                int toTransferFood = Math.Min(transferFood, a.FoodCeiling * 4 / 5 - a.Food);
+                int toTransferFund = Math.Min(transferFund, a.FundCeiling * 4 / 5 - a.Fund);
+
+                transferFood -= toTransferFood;
+                transferFund -= toTransferFund;
+                a.CallResource(this, toTransferFund, toTransferFood);
+
+                if (transferFund <= 0 && transferFood <= 0)
+                {
+                    return;
+                }
             }
 
         }
