@@ -1784,7 +1784,7 @@
             return this.GameCommonData.AllTerrainDetails.GetTerrainDetail(this.ScenarioMap.MapData[position.X, position.Y]).Name;
         }
 
-        public int GetTranferFundDays(Architecture from, Architecture to)
+        public int GetTransferFundDays(Architecture from, Architecture to)
         {
             return (int) Math.Ceiling((double) (this.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 5.0));
         }

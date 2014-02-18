@@ -89,7 +89,7 @@
             {
                 if (StaticMethods.PointInRectangle(position, this.DestinationButtonDisplayPosition))
                 {
-                    //this.ShowDestinationFrame();
+                    this.ShowDestinationFrame();
                 }
                 else if (StaticMethods.PointInRectangle(position, this.InputNumberButtonDisplayPosition))
                 {
@@ -212,7 +212,7 @@
             this.Kind = kind;
             switch (kind)
             {
-                case TransportKind.Fund:
+                case TransportKind.EmperorFund:
                     this.TitleText.Text = "进贡资金";
 
                     if (this.SourceArchitecture.jingongjianzhuliebiao()!=null )
@@ -221,13 +221,21 @@
                     }
                     break;
 
-                case TransportKind.Food:
+                case TransportKind.EmperorFood:
                     this.TitleText.Text = "进贡粮草";
                     if (this.SourceArchitecture.jingongjianzhuliebiao() != null)
                     {
                         this.DestinationArchitecture = this.SourceArchitecture.jingongjianzhuliebiao()[0] as Architecture;
 
                     }
+                    break;
+
+                case TransportKind.Fund:
+                    this.TitleText.Text = "运输资金";
+                    break;
+
+                case TransportKind.Food:
+                    this.TitleText.Text = "运输粮草";
                     break;
             }
         }
@@ -241,22 +249,23 @@
             }
         }
 
-        private void ShowDestinationFrame() //代码未用
+        private void ShowDestinationFrame() 
         {
             switch (this.Kind)
             {
                 case TransportKind.Fund:
-                    this.TabListPlugin.InitialValues(this.SourceArchitecture.jingongjianzhuliebiao(), null, 0, this.TitleText.Text);
+                case TransportKind.Food:
+                    this.TabListPlugin.InitialValues(this.SourceArchitecture.BelongedFaction.Architectures, null, 0, this.TitleText.Text);
                     break;
 
-                case TransportKind.Food:
-                    this.TabListPlugin.InitialValues(this.SourceArchitecture.RoutewayDestinationArchitectureList, null, 0, this.TitleText.Text);
-                    break;
+                case TransportKind.EmperorFood:
+                case TransportKind.EmperorFund:
+                    return;
             }
             this.TabListPlugin.SetListKindByName("Architecture", true, false);
             this.TabListPlugin.SetSelectedTab("");
             this.GameFramePlugin.Kind = FrameKind.Architecture;
-            this.GameFramePlugin.Function = FrameFunction.GetFacilityToBuild;  //???????可能有BUG。
+            this.GameFramePlugin.Function = FrameFunction.Transport;
             this.GameFramePlugin.SetFrameContent(this.TabListPlugin.TabList, this.screen.viewportSize);
             this.GameFramePlugin.OKButtonEnabled = false;
             this.GameFramePlugin.CancelButtonEnabled = true;
@@ -271,10 +280,12 @@
             switch (this.Kind)
             {
                 case TransportKind.Fund:
+                case TransportKind.EmperorFund:
                     this.NumberInputerPlugin.SetMax(this.SourceArchitecture.Fund);
                     break;
 
                 case TransportKind.Food:
+                case TransportKind.EmperorFood:
                     this.NumberInputerPlugin.SetMax(this.SourceArchitecture.Food);
                     break;
             }
@@ -291,16 +302,22 @@
             Faction faction = this.SourceArchitecture.BelongedFaction;
             switch (this.Kind)
             {
-                case TransportKind.Fund:
+                case TransportKind.EmperorFund:
                     this.SourceArchitecture.DecreaseFund(this.Number);
                     if (this.screen.Scenario.huangdisuozaijianzhu().BelongedFaction != this.SourceArchitecture.BelongedFaction)
                     {
                         this.DestinationArchitecture.AddFundPack(this.Number, this.Days);
                     }
                     this.SourceArchitecture.BelongedFaction.chaotinggongxiandu += this.Number;
+
+                    faction.TextResultString = this.Number.ToString();
+                    faction.TextDestinationString = "资金";
+
+                    this.GameRecordPlugin.AddBranch(faction, "shilijingong", faction.Capital.Position);
+
                     break;
 
-                case TransportKind.Food:
+                case TransportKind.EmperorFood:
                     this.SourceArchitecture.DecreaseFood(this.Number);
                     if (this.screen.Scenario.huangdisuozaijianzhu().BelongedFaction != this.SourceArchitecture.BelongedFaction)
                     {
@@ -308,14 +325,23 @@
                     }
                     this.SourceArchitecture.BelongedFaction.chaotinggongxiandu += this.Number/200;
 
+                    faction.TextResultString = this.Number.ToString();
+                    faction.TextDestinationString = "粮草";
+
+                    this.GameRecordPlugin.AddBranch(faction, "shilijingong", faction.Capital.Position);
+
+                    break;
+
+                case TransportKind.Fund:
+                    this.SourceArchitecture.DecreaseFund(this.Number);
+                    this.DestinationArchitecture.AddFundPack(this.Number, this.Days);
+                    break;
+
+                case TransportKind.Food:
+                    this.SourceArchitecture.DecreaseFood(this.Number);
+                    this.DestinationArchitecture.AddFoodPack(this.Number, this.Days);
                     break;
             }
-
-            faction.TextResultString = this.Number.ToString();
-            faction.TextDestinationString = (this.Kind==TransportKind.Fund)?"资金":"粮草";
-
-            this.GameRecordPlugin.AddBranch(faction, "shilijingong", faction.Capital.Position);
-
 
             this.IsShowing = false;
         }
@@ -346,18 +372,18 @@
                     this.DestinationText.Text = this.destinationArchitecture.Name;
                     switch (this.Kind)
                     {
-                        case TransportKind.Fund:
-                            //this.Days = this.screen.Scenario.GetTranferFundDays(this.SourceArchitecture, this.DestinationArchitecture);
+                        case TransportKind.EmperorFood:
+                        case TransportKind.EmperorFund:
                             this.Days = 1;
-                            //this.DestinationCommentText.Text = "运抵时间：" + this.Days.ToString() + "天";
                             this.DestinationCommentText.Text = "";
-                            break ;
-
+                            break;
+                            
+                        case TransportKind.Fund:
                         case TransportKind.Food:
-                            //this.SurplusRate = this.DestinationArchitecture.CurrentSurplusRate;
-                            //this.DestinationCommentText.Text = "粮草运抵剩余率：" + StaticMethods.GetPercentString(this.SurplusRate, 1);
-                            this.DestinationCommentText.Text = "";
-                            break ;
+                            this.Days = this.screen.Scenario.GetTransferFundDays(this.SourceArchitecture, this.DestinationArchitecture);
+                            this.DestinationCommentText.Text = "运抵时间：" + this.Days.ToString() + "天";
+                            break;
+
                     }
                 }
                 else

@@ -78,6 +78,10 @@
 				<MenuItem ID="6" Name="CloseAll" DisplayName="关闭所有" />
 				<MenuItem ID="7" Name="DemolishAll" DisplayName="废弃所有" />
 			</MenuItem>
+			<MenuItem ID="4" Name="Transport" DisplayName="运输" DisplayIfTrue="RoutewayAvail">
+				<MenuItem ID="1" Name="Fund" DisplayName="资金" />
+				<MenuItem ID="2" Name="Food" DisplayName="粮草" />
+			</MenuItem>
             <MenuItem ID="5" Name="Person" DisplayName="人事">
                 <MenuItem ID="1" Name="Transfer" DisplayName="调动" DisplayIfTrue="PersonTransferAvail" />
                 <MenuItem ID="2" Name="Convene" DisplayName="召集" DisplayIfTrue="PersonConveneAvail" />

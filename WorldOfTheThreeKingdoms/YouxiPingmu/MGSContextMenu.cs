@@ -578,7 +578,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case ContextMenuResult.Monarch_officePosition_jingongzijin:
                     this.Plugins.TransportDialogPlugin.SetSourceArchiecture(this.CurrentArchitecture);
-                    this.Plugins.TransportDialogPlugin.SetKind(TransportKind.Fund);
+                    this.Plugins.TransportDialogPlugin.SetKind(TransportKind.EmperorFund);
                     this.Plugins.TransportDialogPlugin.SetMapPosition(ShowPosition.Center);
                     this.Plugins.TransportDialogPlugin.SetGameRecord(this.Plugins.GameRecordPlugin);
                     this.Plugins.TransportDialogPlugin.IsShowing = true;
@@ -586,7 +586,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case ContextMenuResult.Monarch_officePosition_jingongliangcao:
                     this.Plugins.TransportDialogPlugin.SetSourceArchiecture(this.CurrentArchitecture);
-                    this.Plugins.TransportDialogPlugin.SetKind(TransportKind.Food );
+                    this.Plugins.TransportDialogPlugin.SetKind(TransportKind.EmperorFood);
                     this.Plugins.TransportDialogPlugin.SetMapPosition(ShowPosition.Center);
                     this.Plugins.TransportDialogPlugin.SetGameRecord(this.Plugins.GameRecordPlugin);
                     this.Plugins.TransportDialogPlugin.IsShowing = true;
