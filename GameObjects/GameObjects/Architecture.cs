@@ -218,7 +218,6 @@
         public float enduranceDecreaseRateDrop;
         public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
         internal bool hostileTroopInViewLastDay = false;
-        public int SuspendTransfer;
         public int SuspendTroopTransfer;
 
         public float ExperienceRate;
@@ -1164,60 +1163,14 @@
 
         internal bool CallResource(Architecture src, int fund, int food)
         {
-            if (src.PersonCount == 0)
-            {
-                PersonList candidates = base.Scenario.IsPlayer(this.BelongedFaction) ? this.BelongedSection.Persons : this.BelongedFaction.Persons;
-                candidates.PropertyName = "Merit";
-                candidates.IsNumber = true;
-                candidates.SmallToBig = true;
-                candidates.ReSort();
-                foreach (Person p in candidates)
-                {
-                    if (p.BelongedArchitecture != null && p.BelongedTroop == null && p.Status == PersonStatus.Normal && !p.DontMoveMeUnlessIMust)
-                    {
-                        p.MoveToArchitecture(this);
-                        return false;
-                    }
-                }
-            }
-            if (src.PersonCount == 0)
-            {
-                return false;
-            }
-
-            MilitaryKind mk;
-            base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
-
-            Military transportTeam = null;
-            foreach (Military m in src.Militaries)
-            {
-                if (m.IsTransport)
-                {
-                    transportTeam = m;
-                    break;
-                }
-            }
-
-            if (transportTeam == null)
-            {
-                transportTeam = src.CreateMilitary(mk);
-            }
-
             int actualTransferFood = food;
             int actualTransferFund = fund;
-            if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < food)
-            {
-                actualTransferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
-            }
-            if (transportTeam.Kind.zijinshangxian < fund)
-            {
-                actualTransferFund = transportTeam.Kind.zijinshangxian;
-            }
-            fund -= actualTransferFund;
-            food -= actualTransferFood;
-            src.BuildTransportTroop(this, transportTeam, actualTransferFood, actualTransferFund);
 
-            this.SuspendTransfer = 30;
+            src.DecreaseFood(food);
+            src.DecreaseFund(fund);
+
+            this.AddFoodPack(food, base.Scenario.GetTransferFundDays(src, this));
+            this.AddFundPack(fund, base.Scenario.GetTransferFundDays(src, this));
 
             return true;
         }
@@ -4284,7 +4237,6 @@
             this.JustAttacked = false;
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
-            this.SuspendTransfer--;
             this.SuspendTroopTransfer--;
             this.remindedAboutAttack = false;
         }
@@ -9608,7 +9560,7 @@
             this.ResetAuto();
             this.PlanFacilityKind = null;
             this.PlanFacilityKindID = -1;
-            this.SuspendTransfer = 0;
+            this.SuspendTroopTransfer = 0;
             if ((faction != null) && base.Scenario.IsPlayer(faction))
             {
                 this.AutoHiring = true;

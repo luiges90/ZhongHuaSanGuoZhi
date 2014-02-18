@@ -1008,11 +1008,10 @@
             foreach (Architecture a in destArch)
             {
                 if (a.Abandoned) continue;
-                if ((a.Fund < minFund[a] || a.Food < minFood[a]) && resource && a.SuspendTransfer <= 0)
+                if ((a.Fund < minFund[a] || a.Food < minFood[a]) && resource)
                 {
-                    MilitaryKind transport = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(29);
                     int deficitFund = Math.Max(0, minFund[a] * 2 - a.Fund);
-                    int deficitFood = Math.Max(minFood[a] * 2 - a.Food, transport.FoodPerSoldier * transport.MaxScale * 90);
+                    int deficitFood = Math.Max(0, minFood[a] * 2 - a.Food);
 
                     List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
                     candidates.Sort(new DistanceComparer(a));
@@ -1022,10 +1021,10 @@
                         if (b.Abandoned || b == a) continue;
                         if (!b.FrontLine && !b.HasHostileTroopsInView())
                         {
-                            if (b.Fund >= goodFund[b] * 2 && b.Food - goodFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                            if (b.Fund >= goodFund[b] * 2 && b.Food >= goodFood[b] * 2)
                             {
                                 int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
-                                int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
+                                int transferFood = Math.Min(deficitFood, b.Food - goodFood[b]);
                                 if (a.CallResource(b, transferFund, transferFood))
                                 {
                                     deficitFund -= transferFund;
@@ -1045,10 +1044,10 @@
                             if (b.Abandoned || b == a) continue;
                             if (!b.HasHostileTroopsInView())
                             {
-                                if (b.Fund >= goodFund[b] * 2 && b.Food - goodFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                                if (b.Fund >= goodFund[b] * 2 && b.Food >= goodFood[b] * 2)
                                 {
                                     int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
-                                    int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
+                                    int transferFood = Math.Min(deficitFood, b.Food - goodFood[b]);
                                     if (a.CallResource(b, transferFund, transferFood))
                                     {
                                         deficitFund -= transferFund;
@@ -1069,10 +1068,10 @@
                             if (b.Abandoned || b == a) continue;
                             if (!b.HasHostileTroopsInView())
                             {
-                                if (b.Fund >= minFund[b] * 2 && b.Food - minFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                                if (b.Fund >= goodFund[b] * 2 && b.Food >= goodFood[b] * 2)
                                 {
-                                    int transferFund = Math.Min(deficitFund, b.Fund - minFund[b]);
-                                    int transferFood = Math.Max(Math.Min(deficitFood, b.Food - minFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
+                                    int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
+                                    int transferFood = Math.Min(deficitFood, b.Food - goodFood[b]);
                                     if (a.CallResource(b, transferFund, transferFood))
                                     {
                                         deficitFund -= transferFund;
@@ -1181,11 +1180,10 @@
             foreach (Architecture a in destArch)
             {
                 if (a.Abandoned) continue;
-                if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource && a.SuspendTransfer <= 0)
+                if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource)
                 {
-                    MilitaryKind transport = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(29);
                     int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund);
-                    int deficitFood = Math.Max(goodFood[a] * 2 - a.Food, transport.FoodPerSoldier * transport.MaxScale * 90);
+                    int deficitFood = Math.Max(0, goodFood[a] * 2 - a.Food);
 
                     List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
                     candidates.Sort(new DistanceComparer(a));
@@ -1195,10 +1193,10 @@
                         if (b.Abandoned || b == a) continue;
                         if (!b.FrontLine && !b.HasHostileTroopsInView())
                         {
-                            if (b.Fund >= goodFund[b] * 2 && b.Food - goodFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                            if (b.Fund >= goodFund[b] * 2 && b.Food >= goodFood[b] * 2)
                             {
                                 int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
-                                int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
+                                int transferFood = Math.Min(deficitFood, b.Food - goodFood[b]);
                                 if (a.CallResource(b, transferFund, transferFood))
                                 {
                                     deficitFund -= transferFund;
@@ -1218,10 +1216,10 @@
                             if (b.Abandoned || b == a) continue;
                             if (!b.HasHostileTroopsInView())
                             {
-                                if (b.Fund >= goodFund[b] * 2 && b.Food - goodFood[b] * 2 >= transport.FoodPerSoldier * transport.MaxScale * 90)
+                                if (b.Fund >= goodFund[b] * 2 && b.Food >= goodFood[b] * 2)
                                 {
                                     int transferFund = Math.Min(deficitFund, b.Fund - goodFund[b]);
-                                    int transferFood = Math.Max(Math.Min(deficitFood, b.Food - goodFood[b]), transport.FoodPerSoldier * transport.MaxScale * 90);
+                                    int transferFood = Math.Min(deficitFood, b.Food - goodFood[b]);
                                     if (a.CallResource(b, transferFund, transferFood))
                                     {
                                         deficitFund -= transferFund;
