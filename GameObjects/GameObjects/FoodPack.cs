@@ -9,7 +9,7 @@
 
         internal FoodPack(int food, int days)
         {
-            this.Food = food,;
+            this.Food = food;
             this.Days = days;
         }
     }

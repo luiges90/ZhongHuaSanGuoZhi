@@ -11331,7 +11331,7 @@
                 int num = 0;
                 foreach (FoodPack pack in this.FoodPacks)
                 {
-                    num += pack.Fund;
+                    num += pack.Food;
                 }
                 return num;
             }
