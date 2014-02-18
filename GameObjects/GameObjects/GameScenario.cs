@@ -3005,6 +3005,11 @@
                 architecture.BuildingDaysLeft = (int)reader["BuildingDaysLeft"];
                 architecture.PlanFacilityKindID = (int)reader["PlanFacilityKind"];
                 architecture.LoadFundPacksFromString(reader["FundPacks"].ToString());
+                try
+                {
+                    architecture.LoadFoodPacksFromString(reader["FoodPacks"].ToString());
+                }
+                catch { }
                 architecture.LoadSpyPacksFromString(reader["SpyPacks"].ToString());
                 architecture.TodayNewMilitarySpyMessage = this.SpyMessages.GetGameObject((short)reader["TodayNewMilitarySpyMessage"]) as SpyMessage;
                 architecture.TodayNewTroopSpyMessage = this.SpyMessages.GetGameObject((short)reader["TodayNewTroopSpyMessage"]) as SpyMessage;
@@ -4133,6 +4138,7 @@
                     row["BuildingDaysLeft"] = architecture.BuildingDaysLeft;
                     row["PlanFacilityKind"] = (architecture.PlanFacilityKind != null) ? architecture.PlanFacilityKind.ID : -1;
                     row["FundPacks"] = architecture.SaveFundPacksToString();
+                    row["FoodPacks"] = architecture.SaveFoodPacksToString();
                     row["SpyPacks"] = architecture.SaveSpyPacksToString();
                     row["TodayNewMilitarySpyMessage"] = (architecture.TodayNewMilitarySpyMessage != null) ? architecture.TodayNewMilitarySpyMessage.ID : -1;
                     row["TodayNewTroopSpyMessage"] = (architecture.TodayNewTroopSpyMessage != null) ? architecture.TodayNewTroopSpyMessage.ID : -1;
