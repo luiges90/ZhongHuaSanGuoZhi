@@ -1598,7 +1598,7 @@
             {
                 if (this.IsTransport && this.WillArchitecture != null)
                 {
-                    this.WillArchitecture.SuspendTransfer = 0;
+                    this.WillArchitecture.SuspendTroopTransfer = 0;
                 }
                 bool flag = false;
                 if ((this.BelongedFaction.Leader == this.Leader) && (this.BelongedFaction.ArchitectureCount == 0))
