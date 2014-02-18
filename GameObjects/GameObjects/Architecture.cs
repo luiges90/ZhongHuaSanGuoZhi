@@ -8756,6 +8756,11 @@
             return ((this.BelongedFaction != null) && ((this.Persons.Count > 0) && (this.BelongedFaction.ArchitectureCount > 1)));
         }
 
+        public bool TransportAvailable()
+        {
+            return this.BelongedFaction != null && (this.Fund > 0 || this.Food > 0) && this.BelongedFaction.ArchitectureCount > 1;
+        }
+
         public void PlayerAIReward()
         {
             this.AIAutoReward();

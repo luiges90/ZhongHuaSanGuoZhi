@@ -78,7 +78,7 @@
 				<MenuItem ID="6" Name="CloseAll" DisplayName="关闭所有" />
 				<MenuItem ID="7" Name="DemolishAll" DisplayName="废弃所有" />
 			</MenuItem>
-			<MenuItem ID="4" Name="Transport" DisplayName="运输" DisplayIfTrue="RoutewayAvail">
+			<MenuItem ID="4" Name="Transport" DisplayName="运输" DisplayIfTrue="TransportAvailable">
 				<MenuItem ID="1" Name="Fund" DisplayName="资金" />
 				<MenuItem ID="2" Name="Food" DisplayName="粮草" />
 			</MenuItem>
