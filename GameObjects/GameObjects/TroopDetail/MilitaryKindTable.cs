@@ -73,7 +73,6 @@
             this.AddMilitaryKind(scen.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(0) as MilitaryKind);
             this.AddMilitaryKind(scen.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(1) as MilitaryKind);
             this.AddMilitaryKind(scen.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(2) as MilitaryKind);
-            this.AddMilitaryKind(scen.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(29) as MilitaryKind);
             this.AddMilitaryKind(scen.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(30) as MilitaryKind);
         }
 

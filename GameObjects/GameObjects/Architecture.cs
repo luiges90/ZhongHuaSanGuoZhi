@@ -1281,20 +1281,6 @@
                     transferFood = 0;
                 }
 
-                // create transport
-                MilitaryKind mk;
-                base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.TryGetValue(29, out mk);
-                this.CreateMilitary(mk);
-
-                Military transportTeam = null;
-                foreach (Military m in Militaries)
-                {
-                    if (m.IsTransport && (transportTeam == null || transportTeam.Quantity <= m.Quantity))
-                    {
-                        transportTeam = m;
-                    }
-                }
-
                 // choose dest
                 Architecture dest = null;
                 foreach (LinkNode n in this.AIAllLinkNodes.Values)
@@ -1333,20 +1319,7 @@
                 }
                 if (dest == null) break;
 
-                // do transfer
-                int actualTransferFood = transferFood;
-                int actualTransferFund = transferFund;
-                if (transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays < transferFood)
-                {
-                    actualTransferFood = transportTeam.Kind.MaxScale * transportTeam.Kind.FoodPerSoldier * transportTeam.Kind.RationDays;
-                }
-                if (transportTeam.Kind.zijinshangxian < transferFund)
-                {
-                    actualTransferFund = transportTeam.Kind.zijinshangxian;
-                }
-                transferFund -= actualTransferFund;
-                transferFood -= actualTransferFood;
-                this.BuildTransportTroop(dest, transportTeam, actualTransferFood, actualTransferFund);
+                dest.CallResource(this, transferFund, transferFood);
             }
 
         }
