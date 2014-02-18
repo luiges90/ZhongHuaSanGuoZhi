@@ -299,48 +299,51 @@
 
         private void StartTransport()
         {
-            Faction faction = this.SourceArchitecture.BelongedFaction;
-            switch (this.Kind)
+            if (this.Number > 0)
             {
-                case TransportKind.EmperorFund:
-                    this.SourceArchitecture.DecreaseFund(this.Number);
-                    if (this.screen.Scenario.huangdisuozaijianzhu().BelongedFaction != this.SourceArchitecture.BelongedFaction)
-                    {
+                Faction faction = this.SourceArchitecture.BelongedFaction;
+                switch (this.Kind)
+                {
+                    case TransportKind.EmperorFund:
+                        this.SourceArchitecture.DecreaseFund(this.Number);
+                        if (this.screen.Scenario.huangdisuozaijianzhu().BelongedFaction != this.SourceArchitecture.BelongedFaction)
+                        {
+                            this.DestinationArchitecture.AddFundPack(this.Number, this.Days);
+                        }
+                        this.SourceArchitecture.BelongedFaction.chaotinggongxiandu += this.Number;
+
+                        faction.TextResultString = this.Number.ToString();
+                        faction.TextDestinationString = "资金";
+
+                        this.GameRecordPlugin.AddBranch(faction, "shilijingong", faction.Capital.Position);
+
+                        break;
+
+                    case TransportKind.EmperorFood:
+                        this.SourceArchitecture.DecreaseFood(this.Number);
+                        if (this.screen.Scenario.huangdisuozaijianzhu().BelongedFaction != this.SourceArchitecture.BelongedFaction)
+                        {
+                            this.DestinationArchitecture.IncreaseFood(this.Number);
+                        }
+                        this.SourceArchitecture.BelongedFaction.chaotinggongxiandu += this.Number / 200;
+
+                        faction.TextResultString = this.Number.ToString();
+                        faction.TextDestinationString = "粮草";
+
+                        this.GameRecordPlugin.AddBranch(faction, "shilijingong", faction.Capital.Position);
+
+                        break;
+
+                    case TransportKind.Fund:
+                        this.SourceArchitecture.DecreaseFund(this.Number);
                         this.DestinationArchitecture.AddFundPack(this.Number, this.Days);
-                    }
-                    this.SourceArchitecture.BelongedFaction.chaotinggongxiandu += this.Number;
+                        break;
 
-                    faction.TextResultString = this.Number.ToString();
-                    faction.TextDestinationString = "资金";
-
-                    this.GameRecordPlugin.AddBranch(faction, "shilijingong", faction.Capital.Position);
-
-                    break;
-
-                case TransportKind.EmperorFood:
-                    this.SourceArchitecture.DecreaseFood(this.Number);
-                    if (this.screen.Scenario.huangdisuozaijianzhu().BelongedFaction != this.SourceArchitecture.BelongedFaction)
-                    {
-                        this.DestinationArchitecture.IncreaseFood(this.Number);
-                    }
-                    this.SourceArchitecture.BelongedFaction.chaotinggongxiandu += this.Number/200;
-
-                    faction.TextResultString = this.Number.ToString();
-                    faction.TextDestinationString = "粮草";
-
-                    this.GameRecordPlugin.AddBranch(faction, "shilijingong", faction.Capital.Position);
-
-                    break;
-
-                case TransportKind.Fund:
-                    this.SourceArchitecture.DecreaseFund(this.Number);
-                    this.DestinationArchitecture.AddFundPack(this.Number, this.Days);
-                    break;
-
-                case TransportKind.Food:
-                    this.SourceArchitecture.DecreaseFood(this.Number);
-                    this.DestinationArchitecture.AddFoodPack(this.Number, this.Days);
-                    break;
+                    case TransportKind.Food:
+                        this.SourceArchitecture.DecreaseFood(this.Number);
+                        this.DestinationArchitecture.AddFoodPack(this.Number, this.Days);
+                        break;
+                }
             }
 
             this.IsShowing = false;
