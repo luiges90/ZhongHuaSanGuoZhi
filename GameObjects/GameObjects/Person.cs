@@ -7099,11 +7099,7 @@
                         extraRate += 1.6f;
                     }
 
-                    float pregnantChance = GlobalVariables.getChildrenRate / 100.0f;
-                    if (GlobalVariables.PersonNaturalDeath)
-                    {
-                        pregnantChance /= this.NumberOfChildren;
-                    }
+                    float pregnantChance = GlobalVariables.getChildrenRate / 200.0f;
                     pregnantChance *= houGongDays * extraRate;
                     pregnantChance += this.pregnantChance + nvren.pregnantChance;
 
