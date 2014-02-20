@@ -1786,7 +1786,7 @@
 
         public int GetTransferFundDays(Architecture from, Architecture to)
         {
-            return (int) Math.Ceiling((double) (this.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 5.0));
+            return (int) Math.Ceiling(this.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 2.5);
         }
 
         public Troop GetTroopByPosition(Point position)
