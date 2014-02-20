@@ -46,31 +46,108 @@
         internal ITabList TabListPlugin;
         internal FreeText TitleText;
 
+        internal Texture2D EmperorDestinationButtonDisplayTexture;
+        internal Rectangle EmperorDestinationButtonPosition;
+        internal Texture2D EmperorDestinationButtonSelectedTexture;
+        internal Texture2D EmperorDestinationButtonTexture;
+        internal FreeText EmperorDestinationCommentText;
+        internal FreeText EmperorDestinationText;
+        internal Texture2D EmperorInputNumberButtonDisplayTexture;
+        internal Rectangle EmperorInputNumberButtonPosition;
+        internal Texture2D EmperorInputNumberButtonSelectedTexture;
+        internal Texture2D EmperorInputNumberButtonTexture;
+        internal FreeText EmperorInputNumberText;
+        internal Texture2D EmperorStartButtonDisabledTexture;
+        internal Texture2D EmperorStartButtonDisplayTexture;
+        internal Rectangle EmperorStartButtonPosition;
+        internal Texture2D EmperorStartButtonSelectedTexture;
+        internal Texture2D EmperorStartButtonTexture;
+
+        internal Texture2D FundDestinationButtonDisplayTexture;
+        internal Rectangle FundDestinationButtonPosition;
+        internal Texture2D FundDestinationButtonSelectedTexture;
+        internal Texture2D FundDestinationButtonTexture;
+        internal FreeText FundDestinationCommentText;
+        internal FreeText FundDestinationText;
+        internal Texture2D FundInputNumberButtonDisplayTexture;
+        internal Rectangle FundInputNumberButtonPosition;
+        internal Texture2D FundInputNumberButtonSelectedTexture;
+        internal Texture2D FundInputNumberButtonTexture;
+        internal FreeText FundInputNumberText;
+        internal Texture2D FundStartButtonDisabledTexture;
+        internal Texture2D FundStartButtonDisplayTexture;
+        internal Rectangle FundStartButtonPosition;
+        internal Texture2D FundStartButtonSelectedTexture;
+        internal Texture2D FundStartButtonTexture;
+
         internal void Draw(SpriteBatch spriteBatch)
         {
             Rectangle? sourceRectangle = null;
             spriteBatch.Draw(this.BackgroundTexture, this.BackgroundDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
             this.TitleText.Draw(spriteBatch, 0.1999f);
+            int index = 0;
             foreach (LabelText text in this.LabelTexts)
             {
+                index++;
+                if (index == 1 && (this.Kind == TransportKind.Food || this.Kind == TransportKind.Fund)) continue;
+                if (index == 2 && (this.Kind == TransportKind.EmperorFood || this.Kind == TransportKind.EmperorFund)) continue;
                 text.Label.Draw(spriteBatch, 0.1999f);
                 text.Text.Draw(spriteBatch, 0.1999f);
             }
-            sourceRectangle = null;
-            spriteBatch.Draw(this.DestinationButtonDisplayTexture, this.DestinationButtonDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
-            sourceRectangle = null;
-            spriteBatch.Draw(this.InputNumberButtonDisplayTexture, this.InputNumberButtonDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
+
+            Texture2D destinationTexture, inputNumberTexture, startTexture;
+            Rectangle destinationPosition, inputNumberPosition, startPosition;
+
+            switch (this.Kind)
+            {
+                case TransportKind.EmperorFood:
+                case TransportKind.EmperorFund:
+                    {
+                        destinationTexture = this.EmperorDestinationButtonTexture;
+                        destinationPosition = this.EmperorDestinationButtonPosition;
+                        inputNumberTexture = this.EmperorInputNumberButtonTexture;
+                        inputNumberPosition = this.EmperorInputNumberButtonPosition;
+                        startTexture = this.StartButtonEnabled ? this.EmperorStartButtonTexture : this.EmperorStartButtonDisabledTexture;
+                        startPosition = this.EmperorStartButtonPosition;
+                        break;
+                    }
+                case TransportKind.Food:
+                    {
+                        destinationTexture = this.DestinationButtonTexture;
+                        destinationPosition = this.DestinationButtonPosition;
+                        inputNumberTexture = this.InputNumberButtonTexture;
+                        inputNumberPosition = this.InputNumberButtonPosition;
+                        startTexture = this.StartButtonEnabled ? this.StartButtonTexture : this.StartButtonDisabledTexture;
+                        startPosition = this.StartButtonPosition;
+                        break;
+                    }
+                case TransportKind.Fund:
+                    {
+                        destinationTexture = this.FundDestinationButtonTexture;
+                        destinationPosition = this.FundDestinationButtonPosition;
+                        inputNumberTexture = this.FundInputNumberButtonTexture;
+                        inputNumberPosition = this.FundInputNumberButtonPosition;
+                        startTexture = this.StartButtonEnabled ? this.FundStartButtonTexture : this.FundStartButtonDisabledTexture;
+                        startPosition = this.FundStartButtonPosition;
+                        break;
+                    }
+                default:
+                    throw new Exception("should not happen");
+            }
+
+            destinationPosition = new Rectangle(destinationPosition.X + BackgroundDisplayPosition.X, destinationPosition.Y + BackgroundDisplayPosition.Y,
+                destinationPosition.Width, destinationPosition.Height);
+            inputNumberPosition = new Rectangle(inputNumberPosition.X + BackgroundDisplayPosition.X, inputNumberPosition.Y + BackgroundDisplayPosition.Y,
+                inputNumberPosition.Width, inputNumberPosition.Height);
+            startPosition = new Rectangle(startPosition.X + BackgroundDisplayPosition.X, startPosition.Y + BackgroundDisplayPosition.Y,
+                startPosition.Width, startPosition.Height);
+
+            spriteBatch.Draw(destinationTexture, destinationPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
+            spriteBatch.Draw(inputNumberTexture, inputNumberPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
             this.DestinationText.Draw(spriteBatch, 0.1999f);
             this.DestinationCommentText.Draw(spriteBatch, 0.1999f);
             this.InputNumberText.Draw(spriteBatch, 0.1999f);
-            if (this.StartButtonEnabled)
-            {
-                spriteBatch.Draw(this.StartButtonDisplayTexture, this.StartButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
-            }
-            else
-            {
-                spriteBatch.Draw(this.StartButtonDisabledTexture, this.StartButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
-            }
+            spriteBatch.Draw(startTexture, startPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
         }
 
         internal void Initialize(Screen screen)

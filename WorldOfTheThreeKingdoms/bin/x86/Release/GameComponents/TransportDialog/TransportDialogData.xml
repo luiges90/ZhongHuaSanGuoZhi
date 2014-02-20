@@ -23,6 +23,20 @@
                 FontColor="4294967295"
                 Align="Middle">
     </Text>
+	<Label X="60" Y="50" Width="80" Height="25" Label ="运输起点"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="60" Y="75" Width="80" Height="25" PropertyName="Name"
+                FontName="宋体"
+                FontSize="11"
+                FontStyle="Bold"
+                FontColor="4294967295"
+                Align="Middle">
+    </Text>
     <Label X="160" Y="50" Width="80" Height="25" Label ="资金"
                 FontName="宋体"
                 FontSize="11"
@@ -52,6 +66,7 @@
                 Align="Middle">
     </Text>
   </Labels>
+  
   <DestinationButton FileName="Destination.png" Selected="DestinationSelected.png" X="20" Y="118" Width="100" Height="30"></DestinationButton>
   <DestinationText X="130" Y="118" Width="80" Height="25"
             FontName="宋体"
@@ -61,6 +76,56 @@
             Align="Middle">
   </DestinationText>
   <InputNumberButton FileName="InputNumber.png" Selected="InputNumberSelected.png" X="20" Y="158" Width="100" Height="30"></InputNumberButton>
+  <InputNumberText X="130" Y="158" Width="80" Height="25"
+              FontName="宋体"
+              FontSize="12"
+              FontStyle="Bold"
+              FontColor="4294967040"
+              Align="Middle">
+  </InputNumberText>
+  <DestinationCommentText X="230" Y="118" Width="150" Height="25"
+            FontName="宋体"
+            FontSize="11"
+            FontStyle="Regular"
+            FontColor="4294967040"
+            Align="Middle">
+  </DestinationCommentText>
+  <StartButton FileName="Start.png" Selected="StartSelected.png" Disabled="StartDisabled.png" X="293" Y="199" Width="80" Height="30"></StartButton>
+  
+  <DestinationButton FileName="EmperorDestination.png" Selected="EmperorDestinationSelected.png" X="20" Y="118" Width="100" Height="30"></DestinationButton>
+  <DestinationText X="130" Y="118" Width="80" Height="25"
+            FontName="宋体"
+            FontSize="12"
+            FontStyle="Bold"
+            FontColor="4294967040"
+            Align="Middle">
+  </DestinationText>
+  <InputNumberButton FileName="EmperorInputNumber.png" Selected="EmperorInputNumberSelected.png" X="20" Y="158" Width="100" Height="30"></InputNumberButton>
+  <InputNumberText X="130" Y="158" Width="80" Height="25"
+              FontName="宋体"
+              FontSize="12"
+              FontStyle="Bold"
+              FontColor="4294967040"
+              Align="Middle">
+  </InputNumberText>
+  <DestinationCommentText X="230" Y="118" Width="150" Height="25"
+            FontName="宋体"
+            FontSize="11"
+            FontStyle="Regular"
+            FontColor="4294967040"
+            Align="Middle">
+  </DestinationCommentText>
+  <StartButton FileName="EmperorStart.png" Selected="EmperorStartSelected.png" Disabled="EmperorStartDisabled.png" X="293" Y="199" Width="80" Height="30"></StartButton>
+  
+  <DestinationButton FileName="Destination.png" Selected="DestinationSelected.png" X="20" Y="118" Width="100" Height="30"></DestinationButton>
+  <DestinationText X="130" Y="118" Width="80" Height="25"
+            FontName="宋体"
+            FontSize="12"
+            FontStyle="Bold"
+            FontColor="4294967040"
+            Align="Middle">
+  </DestinationText>
+  <InputNumberButton FileName="FundInputNumber.png" Selected="FundInputNumberSelected.png" X="20" Y="158" Width="100" Height="30"></InputNumberButton>
   <InputNumberText X="130" Y="158" Width="80" Height="25"
               FontName="宋体"
               FontSize="12"

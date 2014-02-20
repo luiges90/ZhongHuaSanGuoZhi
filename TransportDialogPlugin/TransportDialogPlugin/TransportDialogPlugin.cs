@@ -73,6 +73,7 @@
                 item.PropertyName = node3.Attributes.GetNamedItem("PropertyName").Value;
                 this.transportDialog.LabelTexts.Add(item);
             }
+
             node = nextSibling.ChildNodes.Item(3);
             this.transportDialog.DestinationButtonTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("FileName").Value);
             this.transportDialog.DestinationButtonSelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Selected").Value);
@@ -104,6 +105,70 @@
             this.transportDialog.StartButtonDisabledTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Disabled").Value);
             this.transportDialog.StartButtonPosition = StaticMethods.LoadRectangleFromXMLNode(node);
             this.transportDialog.StartButtonDisplayTexture = this.transportDialog.StartButtonDisabledTexture;
+
+            node = nextSibling.ChildNodes.Item(9);
+            this.transportDialog.EmperorDestinationButtonTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("FileName").Value);
+            this.transportDialog.EmperorDestinationButtonSelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Selected").Value);
+            this.transportDialog.EmperorDestinationButtonPosition = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.EmperorDestinationButtonDisplayTexture = this.transportDialog.EmperorDestinationButtonTexture;
+            node = nextSibling.ChildNodes.Item(10);
+            StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
+            this.transportDialog.EmperorDestinationText = new FreeText(this.graphicsDevice, font, color);
+            this.transportDialog.EmperorDestinationText.Position = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.EmperorDestinationText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
+            node = nextSibling.ChildNodes.Item(11);
+            this.transportDialog.EmperorInputNumberButtonTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("FileName").Value);
+            this.transportDialog.EmperorInputNumberButtonSelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Selected").Value);
+            this.transportDialog.EmperorInputNumberButtonPosition = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.EmperorInputNumberButtonDisplayTexture = this.transportDialog.EmperorInputNumberButtonTexture;
+            node = nextSibling.ChildNodes.Item(12);
+            StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
+            this.transportDialog.EmperorInputNumberText = new FreeText(this.graphicsDevice, font, color);
+            this.transportDialog.EmperorInputNumberText.Position = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.EmperorInputNumberText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
+            node = nextSibling.ChildNodes.Item(13);
+            StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
+            this.transportDialog.EmperorDestinationCommentText = new FreeText(this.graphicsDevice, font, color);
+            this.transportDialog.EmperorDestinationCommentText.Position = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.EmperorDestinationCommentText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
+            node = nextSibling.ChildNodes.Item(14);
+            this.transportDialog.EmperorStartButtonTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("FileName").Value);
+            this.transportDialog.EmperorStartButtonSelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Selected").Value);
+            this.transportDialog.EmperorStartButtonDisabledTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Disabled").Value);
+            this.transportDialog.EmperorStartButtonPosition = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.EmperorStartButtonDisplayTexture = this.transportDialog.EmperorStartButtonDisabledTexture;
+
+            node = nextSibling.ChildNodes.Item(15);
+            this.transportDialog.FundDestinationButtonTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("FileName").Value);
+            this.transportDialog.FundDestinationButtonSelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Selected").Value);
+            this.transportDialog.FundDestinationButtonPosition = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.FundDestinationButtonDisplayTexture = this.transportDialog.FundDestinationButtonTexture;
+            node = nextSibling.ChildNodes.Item(16);
+            StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
+            this.transportDialog.FundDestinationText = new FreeText(this.graphicsDevice, font, color);
+            this.transportDialog.FundDestinationText.Position = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.FundDestinationText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
+            node = nextSibling.ChildNodes.Item(17);
+            this.transportDialog.FundInputNumberButtonTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("FileName").Value);
+            this.transportDialog.FundInputNumberButtonSelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Selected").Value);
+            this.transportDialog.FundInputNumberButtonPosition = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.FundInputNumberButtonDisplayTexture = this.transportDialog.FundInputNumberButtonTexture;
+            node = nextSibling.ChildNodes.Item(18);
+            StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
+            this.transportDialog.FundInputNumberText = new FreeText(this.graphicsDevice, font, color);
+            this.transportDialog.FundInputNumberText.Position = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.FundInputNumberText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
+            node = nextSibling.ChildNodes.Item(19);
+            StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
+            this.transportDialog.FundDestinationCommentText = new FreeText(this.graphicsDevice, font, color);
+            this.transportDialog.FundDestinationCommentText.Position = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.FundDestinationCommentText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
+            node = nextSibling.ChildNodes.Item(20);
+            this.transportDialog.FundStartButtonTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("FileName").Value);
+            this.transportDialog.FundStartButtonSelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Selected").Value);
+            this.transportDialog.FundStartButtonDisabledTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\TransportDialog\Data\" + node.Attributes.GetNamedItem("Disabled").Value);
+            this.transportDialog.FundStartButtonPosition = StaticMethods.LoadRectangleFromXMLNode(node);
+            this.transportDialog.FundStartButtonDisplayTexture = this.transportDialog.FundStartButtonDisabledTexture;
         }
 
         public void SetGameFrame(IGameFrame iGameFrame)
