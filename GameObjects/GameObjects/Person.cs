@@ -7078,7 +7078,7 @@
                 {
                     houGongDays = GameObject.Random(10) + 60;
                 }
-                if (!nvren.Hates(this) && GlobalVariables.getChildrenRate > 0 && 
+                if (!nvren.Hates(this) && GlobalVariables.hougongGetChildrenRate > 0 && 
                     this.NumberOfChildren < GlobalVariables.OfficerChildrenLimit && nvren.NumberOfChildren < GlobalVariables.OfficerChildrenLimit)
                 {
                     float extraRate = 1;
@@ -7099,7 +7099,7 @@
                         extraRate += 1.6f;
                     }
 
-                    float pregnantChance = GlobalVariables.getChildrenRate / 200.0f;
+                    float pregnantChance = GlobalVariables.hougongGetChildrenRate / 100.0f;
                     pregnantChance *= houGongDays * extraRate;
                     pregnantChance += this.pregnantChance + nvren.pregnantChance;
 

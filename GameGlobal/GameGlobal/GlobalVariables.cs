@@ -83,6 +83,7 @@
         public static bool internalSurplusRateForAI = false;
 
         public static int getChildrenRate = 90;
+        public static int hougongGetChildrenRate = 90;
         public static int getRaisedSoliderRate = 90;
         public static int AIExecutionRate = 500;
 
@@ -435,6 +436,15 @@
             {
                 exception = exception24;
                 throw new Exception("getChildrenRate:\n" + exception.ToString());
+            }
+            try
+            {
+                hougongGetChildrenRate = int.Parse(nextSibling.Attributes.GetNamedItem("hougongGetChildrenRate").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("hougongGetChildrenRate:\n" + exception.ToString());
             }
             try
             {

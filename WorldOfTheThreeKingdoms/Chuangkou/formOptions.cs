@@ -230,6 +230,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbAIAntiStratagem;
         private TextBox tbCreateRandomOfficerChance;
         private Label label66;
+        private TextBox tbHougongGetChildrenRate;
+        private Label label67;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -259,6 +261,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
             this.tabPageBasic = new System.Windows.Forms.TabPage();
+            this.tbCreateRandomOfficerChance = new System.Windows.Forms.TextBox();
+            this.label66 = new System.Windows.Forms.Label();
             this.label60 = new System.Windows.Forms.Label();
             this.tbOfficerDieInBattleRate = new System.Windows.Forms.TextBox();
             this.cbCreateChildren = new System.Windows.Forms.CheckBox();
@@ -457,8 +461,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.tbCreateRandomOfficerChance = new System.Windows.Forms.TextBox();
-            this.label66 = new System.Windows.Forms.Label();
+            this.tbHougongGetChildrenRate = new System.Windows.Forms.TextBox();
+            this.label67 = new System.Windows.Forms.Label();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -486,6 +490,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageBasic
             // 
+            this.tabPageBasic.Controls.Add(this.tbHougongGetChildrenRate);
+            this.tabPageBasic.Controls.Add(this.label67);
             this.tabPageBasic.Controls.Add(this.tbCreateRandomOfficerChance);
             this.tabPageBasic.Controls.Add(this.label66);
             this.tabPageBasic.Controls.Add(this.label60);
@@ -519,6 +525,23 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageBasic.TabIndex = 4;
             this.tabPageBasic.Text = "基本";
             this.tabPageBasic.UseVisualStyleBackColor = true;
+            // 
+            // tbCreateRandomOfficerChance
+            // 
+            this.tbCreateRandomOfficerChance.Location = new System.Drawing.Point(381, 281);
+            this.tbCreateRandomOfficerChance.Name = "tbCreateRandomOfficerChance";
+            this.tbCreateRandomOfficerChance.Size = new System.Drawing.Size(51, 22);
+            this.tbCreateRandomOfficerChance.TabIndex = 139;
+            this.tbCreateRandomOfficerChance.Text = "100";
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(250, 285);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(125, 12);
+            this.label66.TabIndex = 138;
+            this.label66.Text = "发现生成在野武将机率";
             // 
             // label60
             // 
@@ -557,11 +580,11 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // getChildrenRateLabel
             // 
             this.getChildrenRateLabel.AutoSize = true;
-            this.getChildrenRateLabel.Location = new System.Drawing.Point(322, 229);
+            this.getChildrenRateLabel.Location = new System.Drawing.Point(298, 229);
             this.getChildrenRateLabel.Name = "getChildrenRateLabel";
-            this.getChildrenRateLabel.Size = new System.Drawing.Size(53, 12);
+            this.getChildrenRateLabel.Size = new System.Drawing.Size(77, 12);
             this.getChildrenRateLabel.TabIndex = 133;
-            this.getChildrenRateLabel.Text = "怀孕机率";
+            this.getChildrenRateLabel.Text = "武將怀孕机率";
             // 
             // cbEnableAgeAbilityFactor
             // 
@@ -2411,22 +2434,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // tbCreateRandomOfficerChance
+            // tbHougongGetChildrenRate
             // 
-            this.tbCreateRandomOfficerChance.Location = new System.Drawing.Point(381, 255);
-            this.tbCreateRandomOfficerChance.Name = "tbCreateRandomOfficerChance";
-            this.tbCreateRandomOfficerChance.Size = new System.Drawing.Size(51, 22);
-            this.tbCreateRandomOfficerChance.TabIndex = 139;
-            this.tbCreateRandomOfficerChance.Text = "100";
+            this.tbHougongGetChildrenRate.Location = new System.Drawing.Point(381, 253);
+            this.tbHougongGetChildrenRate.Name = "tbHougongGetChildrenRate";
+            this.tbHougongGetChildrenRate.Size = new System.Drawing.Size(51, 22);
+            this.tbHougongGetChildrenRate.TabIndex = 141;
+            this.tbHougongGetChildrenRate.Text = "100";
             // 
-            // label66
+            // label67
             // 
-            this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(250, 259);
-            this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(125, 12);
-            this.label66.TabIndex = 138;
-            this.label66.Text = "发现生成在野武将机率";
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(298, 256);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(77, 12);
+            this.label67.TabIndex = 140;
+            this.label67.Text = "妃子怀孕机率";
             // 
             // formOptions
             // 
@@ -2492,6 +2515,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForPlayer.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("internalSurplusRateForPlayer").Value);
             this.cbInternalSurplusRateForAI.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("internalSurplusRateForAI").Value);
             this.tbGetChildrenRate.Text = nextSibling.Attributes.GetNamedItem("getChildrenRate").Value;
+            this.tbHougongGetChildrenRate.Text = nextSibling.Attributes.GetNamedItem("hougongGetChildrenRate").Value;
             this.tbAIExecutionRate.Text = nextSibling.Attributes.GetNamedItem("AIExecutionRate").Value;
             this.cbAIExecuteBetterOfficer.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("AIExecuteBetterOfficer").Value);
             this.tbMaxExperience.Text = nextSibling.Attributes.GetNamedItem("maxExperience").Value;
@@ -2626,6 +2650,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("internalSurplusRateForPlayer").Value = this.cbInternalSurplusRateForPlayer.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("internalSurplusRateForAI").Value = this.cbInternalSurplusRateForAI.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("getChildrenRate").Value = this.tbGetChildrenRate.Text;
+            nextSibling.Attributes.GetNamedItem("hougongGetChildrenRate").Value = this.tbHougongGetChildrenRate.Text;
             nextSibling.Attributes.GetNamedItem("AIExecutionRate").Value = this.tbAIExecutionRate.Text;
             nextSibling.Attributes.GetNamedItem("AIExecuteBetterOfficer").Value = this.cbAIExecuteBetterOfficer.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("maxExperience").Value = this.tbMaxExperience.Text;

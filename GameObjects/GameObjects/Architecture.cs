@@ -12190,7 +12190,7 @@
 
         public bool kenafei()
         {
-            if (GlobalVariables.getChildrenRate <= 0) return false;
+            if (GlobalVariables.hougongGetChildrenRate <= 0) return false;
 
             if (this.nvxingwujiang().Count > 0 && this.Fund > 50000 && this.Meinvkongjian > this.Feiziliebiao.Count && this.Persons.GameObjects.Contains(this.BelongedFaction.Leader))
             {
