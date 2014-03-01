@@ -2449,28 +2449,6 @@
             this.scenarioJustLoaded = true;
             OleDbDataReader reader;
 
-            try
-            {
-                DbConnection.Open();
-                reader = new OleDbCommand("Select * From Biography", DbConnection).ExecuteReader();
-                while (reader.Read())
-                {
-                    Biography biography = new Biography();
-                    biography.Scenario = this;
-                    biography.ID = (short)reader["ID"];
-                    biography.Brief = reader["Brief"].ToString();
-                    biography.Romance = reader["Romance"].ToString();
-                    biography.History = reader["History"].ToString();
-                    biography.FactionColor = (short)reader["FactionColor"];
-                    biography.MilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["MilitaryKinds"].ToString());
-                    this.AllBiographies.AddBiography(biography);
-                }
-                DbConnection.Close();
-            }
-            catch (Exception ex)
-            {
-            }
-
             OleDbCommand command = new OleDbCommand("Select * From Map", DbConnection);
             ////////////////////////////////////////////////////////////////////////////////////////////
             DbConnection.Open();
@@ -2796,6 +2774,33 @@
                     p.AddHated(q);
                 }
             }
+
+            try
+            {
+                DbConnection.Open();
+                reader = new OleDbCommand("Select * From Biography", DbConnection).ExecuteReader();
+                while (reader.Read())
+                {
+                    Biography biography = new Biography();
+                    biography.Scenario = this;
+                    int id = (short)reader["ID"];
+                    if (this.Persons.GetGameObject(id) != null) {
+                        biography.ID = id;
+                        biography.Brief = reader["Brief"].ToString();
+                        biography.Romance = reader["Romance"].ToString();
+                        biography.History = reader["History"].ToString();
+                        biography.FactionColor = (short)reader["FactionColor"];
+                        biography.MilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["MilitaryKinds"].ToString());
+                        this.AllBiographies.AddBiography(biography);
+                    }
+                    
+                }
+                DbConnection.Close();
+            }
+            catch (Exception ex)
+            {
+            }
+
             DbConnection.Open();
             try
             {
