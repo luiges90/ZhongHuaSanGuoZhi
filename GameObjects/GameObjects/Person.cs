@@ -1793,6 +1793,7 @@
                 this.BelongedArchitecture.AddInformation(information);
 
                 information.Apply();
+                this.BelongedArchitecture.DecreaseFund(information.DayCost);
 
                 this.CurrentInformationKind = null;
                 this.OutsideTask = OutsideTaskKind.无;
