@@ -6273,6 +6273,8 @@
             }
             r.ID = id;
 
+            r.Scenario = scen;
+
             r.Father = null;
             r.Mother = null;
             r.Generation = 1;
@@ -6569,8 +6571,6 @@
             bio.MilitaryKinds.AddBasicMilitaryKinds(scen);
             scen.AllBiographies.AddBiography(bio);
             r.PersonBiography = bio;
-
-            r.Scenario = scen;
 
             r.Alive = true;
             r.Available = true;
