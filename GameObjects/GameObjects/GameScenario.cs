@@ -2512,7 +2512,6 @@
                 Person person = new Person();
                 person.Scenario = this;
                 person.ID = (short)reader["ID"];
-                person.PersonBiography = this.AllBiographies.GetBiography(person.ID);
                 person.Available = (bool)reader["Available"];
                 person.Alive = (bool)reader["Alive"];
                 person.SurName = reader["SurName"].ToString();
@@ -2784,7 +2783,8 @@
                     Biography biography = new Biography();
                     biography.Scenario = this;
                     int id = (short)reader["ID"];
-                    if (this.Persons.GetGameObject(id) != null) {
+                    Person p = (Person) this.Persons.GetGameObject(id);
+                    if (p != null) {
                         biography.ID = id;
                         biography.Brief = reader["Brief"].ToString();
                         biography.Romance = reader["Romance"].ToString();
@@ -2792,6 +2792,7 @@
                         biography.FactionColor = (short)reader["FactionColor"];
                         biography.MilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["MilitaryKinds"].ToString());
                         this.AllBiographies.AddBiography(biography);
+                        p.PersonBiography = biography;
                     }
                     
                 }
