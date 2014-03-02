@@ -12,6 +12,7 @@
         public override void ApplyEffectKind(Person person, Event e)
         {
             Title title = person.Scenario.GameCommonData.AllTitles.GetTitle(increment);
+            if (title == null) return;
 
             List<Title> oldTitles = new List<Title>(person.RealTitles);
             foreach (Title t in oldTitles)
