@@ -8,7 +8,7 @@
 
 ---
 
-**注意**：源碼需以VS2008 + [XNA3.0](http://www.microsoft.com/en-us/download/details.aspx?id=15300)才能開啟
+**注意**：源碼需以[VS2008](http://msdn.microsoft.com/zh-cn/express/future/bb421473) + [XNA3.0](http://www.microsoft.com/en-us/download/details.aspx?id=15300)才能開啟
 
 **注意**：資源檔中在WorldOfTheThreeKingdoms/bin/x86/Release中。
 
