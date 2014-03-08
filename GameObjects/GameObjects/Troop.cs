@@ -2279,7 +2279,7 @@
         {
             if ((faction != null) && (this.BelongedFaction != null))
             {
-                if (this.BelongedLegion.BelongedFaction != faction)
+                if (this.BelongedLegion != null && this.BelongedLegion.BelongedFaction != faction)
                 {
                     this.BelongedLegion.BelongedFaction.RemoveLegion(this.BelongedLegion);
                     faction.AddLegion(this.BelongedLegion);
