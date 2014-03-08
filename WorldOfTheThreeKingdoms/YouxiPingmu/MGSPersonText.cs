@@ -1231,7 +1231,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
             {
-                q.TextResultString = q.Name;
+                p.TextResultString = q.Name;
                 this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, TextMessageKind.CreateBrother, "CreateBrother", "CreateBrother.jpg", "");
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
@@ -1243,7 +1243,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
             {
-                q.TextResultString = q.Name;
+                p.TextResultString = q.Name;
                 this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, TextMessageKind.CreateSister, "CreateSister", "CreateSister.jpg", "");
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
@@ -1255,7 +1255,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
             {
-                q.TextResultString = q.Name;
+                p.TextResultString = q.Name;
                 this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, q, TextMessageKind.CreateSpouse, "CreateSpouse", "CreateSpouse.jpg", "");
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
