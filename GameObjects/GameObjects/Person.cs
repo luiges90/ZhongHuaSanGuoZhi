@@ -553,7 +553,7 @@
         public String SaveTitleToString()
         {
             String s = "";
-            foreach (Title t in this.Titles)
+            foreach (Title t in this.RealTitles)
             {
                 s += t.ID + " ";
             }
