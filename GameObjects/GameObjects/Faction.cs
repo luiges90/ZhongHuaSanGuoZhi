@@ -2845,8 +2845,12 @@
         {
             foreach (Architecture architecture in this.Architectures.GetRandomList())
             {
-                if (architecture.BelongedSection.AIDetail.AutoRun)
+                if (architecture.BelongedSection == null || architecture.BelongedSection.AIDetail.AutoRun)
                 {
+                    if (architecture.BelongedSection == null)
+                    {
+                        architecture.BelongedSection = architecture.BelongedFaction.FirstSection;
+                    }
                     architecture.AI();
                 }
                 else
