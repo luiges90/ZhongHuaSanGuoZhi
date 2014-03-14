@@ -160,7 +160,7 @@
             this.StartButtonEnabled = (this.DestinationArchitecture != null) && (this.Number > 0);
         }
 
-        private void screen_OnMouseLeftDown(Point position)
+        private void screen_OnMouseLeftup(Point position)
         {
             if (this.screen.PeekUndoneWork().Kind == UndoneWorkKind.Dialog)
             {
@@ -504,7 +504,7 @@
                 if (value)
                 {
                     this.screen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Dialog, UndoneWorkSubKind.None));
-                    this.screen.OnMouseLeftDown += new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
+                    this.screen.OnMouseLeftUp += new Screen.MouseLeftUp(this.screen_OnMouseLeftup);
                     this.screen.OnMouseMove += new Screen.MouseMove(this.screen_OnMouseMove);
                     this.screen.OnMouseRightDown += new Screen.MouseRightDown(this.screen_OnMouseRightDown);
                 }
@@ -514,7 +514,7 @@
                     {
                         throw new Exception("The UndoneWork is not a TransportDialog.");
                     }
-                    this.screen.OnMouseLeftDown -= new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
+                    this.screen.OnMouseLeftUp -= new Screen.MouseLeftUp(this.screen_OnMouseLeftup);
                     this.screen.OnMouseMove -= new Screen.MouseMove(this.screen_OnMouseMove);
                     this.screen.OnMouseRightDown -= new Screen.MouseRightDown(this.screen_OnMouseRightDown);
                     this.DestinationArchitecture = null;
