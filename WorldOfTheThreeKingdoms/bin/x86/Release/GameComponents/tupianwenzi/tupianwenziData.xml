@@ -9,7 +9,7 @@
             FontColor="4294967295">
   </RichText>
   <FirstPageButton FileName="FirstPage.png" Selected="FirstPageSelected.png" Disabled="FirstPageDisabled.png" X="648" Y="152" Width="20" Height="20"></FirstPageButton>
-  <NameText X="185" Y="-5" Width="120" Height="40"
+  <NameText X="172" Y="-2" Width="120" Height="40"
             FontName="方正隶变_GBK"
             FontSize="18"
             FontStyle="Bold"
