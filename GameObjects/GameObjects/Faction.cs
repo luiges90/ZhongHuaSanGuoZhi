@@ -2809,10 +2809,6 @@
             {
                 errorMsg.Add("建筑列表应为半型空格分隔的建筑ID");
             }
-            if (this.SectionCount == 0)
-            {
-                errorMsg.Add("没有军区");
-            }
             return errorMsg;
         }
 
