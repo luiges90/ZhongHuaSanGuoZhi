@@ -86,6 +86,7 @@
         private ToolStripMenuItem menuRegenArchitectureID;
         private ToolStripMenuItem menuReplaceTerrain;
         private ToolStripMenuItem menuSaveScenario;
+        private ToolStripMenuItem menuShowErrors;
         private ToolStripMenuItem menuScenarioInformation;
         private ToolStripMenuItem menuTerrainAll;
         private ToolStripMenuItem menuTerrainDesert;
@@ -414,6 +415,7 @@
             this.menuFile = new ToolStripMenuItem();
             this.menuOpenScenario = new ToolStripMenuItem();
             this.menuSaveScenario = new ToolStripMenuItem();
+            this.menuShowErrors = new ToolStripMenuItem();
             this.menuExit = new ToolStripMenuItem();
             this.menuDisplayTerrain = new ToolStripMenuItem();
             this.menuTerrainNone = new ToolStripMenuItem();
@@ -930,7 +932,7 @@
             this.mainMenu.Size = new Size(0x347, 0x18);
             this.mainMenu.TabIndex = 3;
             this.mainMenu.Text = "主菜单";
-            this.menuFile.DropDownItems.AddRange(new ToolStripItem[] { this.menuOpenScenario, this.menuSaveScenario, this.menuExit });
+            this.menuFile.DropDownItems.AddRange(new ToolStripItem[] { this.menuOpenScenario, this.menuSaveScenario, this.menuShowErrors, this.menuExit });
             this.menuFile.Name = "menuFile";
             this.menuFile.Size = new Size(0x34, 20);
             this.menuFile.Text = "文件";
@@ -941,7 +943,13 @@
             this.menuSaveScenario.Name = "menuSaveScenario";
             this.menuSaveScenario.Size = new Size(0x6c, 0x16);
             this.menuSaveScenario.Text = "保存";
+            this.menuSaveScenario.Enabled = false;
             this.menuSaveScenario.Click += new EventHandler(this.menuSaveScenario_Click);
+            this.menuShowErrors.Name = "menuShowErrors";
+            this.menuShowErrors.Size = new Size(0x6c, 0x16);
+            this.menuShowErrors.Text = "检查这剧本错误";
+            this.menuShowErrors.Enabled = false;
+            this.menuShowErrors.Click += new EventHandler(this.menuShowErrors_Click);
             this.menuExit.Name = "menuExit";
             this.menuExit.Size = new Size(0x6c, 0x16);
             this.menuExit.Text = "退出";
@@ -1077,6 +1085,7 @@
             this.menuEdit.Name = "menuEdit";
             this.menuEdit.Size = new Size(0x34, 20);
             this.menuEdit.Text = "编辑";
+            this.menuEdit.Enabled = false;
             this.menuEditPersons.Name = "menuEditPersons";
             this.menuEditPersons.Size = new Size(0xac, 0x16);
             this.menuEditPersons.Text = "编辑人物";
@@ -1295,6 +1304,9 @@
                 this.pnlMap.SetShowRegion(0, 0, this.pnlBase.Width, this.pnlBase.Height);
                 this.pnlMap.Invalidate();
                 this.CanSave = true;
+                this.menuSaveScenario.Enabled = true;
+                this.menuShowErrors.Enabled = true;
+                this.menuEdit.Enabled = true;
                 form.Close();
             }
         }
@@ -1373,6 +1385,36 @@
             information.Initialize(this);
             if (information.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+            }
+        }
+
+        private void menuShowErrors_Click(object sender, EventArgs e)
+        {
+            using (TextReader tr = new StreamReader(GameScenario.SCENARIO_ERROR_TEXT_FILE))
+            {
+                String errors = "";
+                int lines = 0;
+                while (tr.Peek() >= 0 && lines <= 15)
+                {
+                    String s = tr.ReadLine();
+                    if (s.Trim().Length > 0)
+                    {
+                        errors += tr.ReadLine() + "\n";
+                    }
+                    lines++;
+                }
+                if (errors.Length > 0)
+                {
+                    if (lines > 15)
+                    {
+                        errors += "...等错误，完整内容在GameData/ScenarioErrors.txt里。";
+                    }
+                    MessageBox.Show(errors, "检查剧本");
+                }
+                else
+                {
+                    MessageBox.Show("没有发现错误", "检查剧本");
+                }
             }
         }
 

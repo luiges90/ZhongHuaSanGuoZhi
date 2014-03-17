@@ -25,6 +25,8 @@
     {
         //public GameFreeText.FreeText GameProgressCaution;
 
+        public const string SCENARIO_ERROR_TEXT_FILE = "GameData/ScenarioErrors.txt";
+
         private Dictionary<int, Architecture> AllArchitectures = new Dictionary<int, Architecture>();
         private Dictionary<int, Person> AllPersons = new Dictionary<int, Person>();
         public ArchitectureList Architectures = new ArchitectureList();
@@ -3792,7 +3794,7 @@
             TextWriter tw = null;
             try
             {
-                tw = new StreamWriter("GameData/ScenarioErrors.txt");
+                tw = new StreamWriter(SCENARIO_ERROR_TEXT_FILE);
                 foreach (string s in errorMsg)
                 {
                     tw.WriteLine(s);
