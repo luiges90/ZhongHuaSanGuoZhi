@@ -2826,11 +2826,6 @@
                     if (section != null)
                     {
                         this.AddSection(section);
-                        foreach (Architecture a in section.Architectures)
-                        {
-                            this.AddArchitecture(a);
-                            this.AddArchitectureMilitaries(a);
-                        }
                     }
                     else
                     {
