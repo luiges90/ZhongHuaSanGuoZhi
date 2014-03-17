@@ -365,7 +365,7 @@
                 PersonList p = base.Scenario.GetMoralePersonList(this);
                 p.SetImmutable();
                 return p;
-                
+
             }
         }
 
@@ -376,7 +376,7 @@
                 PersonList p = base.Scenario.GetEndurancePersonList(this);
                 p.SetImmutable();
                 return p;
-              
+
             }
         }
 
@@ -629,8 +629,8 @@
                 foreach (Person person in this.Persons)
                 {
                     if (person.WaitForFeiZi != null) continue;
-                    if (!person.Selected && person.Strength >= 0x4b && !t.Persons.HasGameObject(person) && person.Closes(t.Leader) && 
-                        person.Strength - t.TroopStrength >= 10 && person.FightingForce < t.Leader.FightingForce && 
+                    if (!person.Selected && person.Strength >= 0x4b && !t.Persons.HasGameObject(person) && person.Closes(t.Leader) &&
+                        person.Strength - t.TroopStrength >= 10 && person.FightingForce < t.Leader.FightingForce &&
                         !person.HasLeaderValidTitle)
                     {
                         person.Selected = true;
@@ -645,8 +645,8 @@
                 foreach (Person person in this.Persons)
                 {
                     if (person.WaitForFeiZi != null) continue;
-                    if (!person.Selected && person.Command >= 0x4b && !t.Persons.HasGameObject(person) && person.Closes(t.Leader) && 
-                        person.Command - t.TroopCommand >= 10 && person.FightingForce < t.Leader.FightingForce && 
+                    if (!person.Selected && person.Command >= 0x4b && !t.Persons.HasGameObject(person) && person.Closes(t.Leader) &&
+                        person.Command - t.TroopCommand >= 10 && person.FightingForce < t.Leader.FightingForce &&
                         !person.HasLeaderValidTitle)
                     {
                         person.Selected = true;
@@ -1074,7 +1074,7 @@
 
         public bool Abandoned
         {
-            get 
+            get
             {
                 return this.HasHostileTroopsInView() && this.Endurance < 30;
             }
@@ -1555,7 +1555,7 @@
                 {
                     need[0] = need[1] = need[2] = false;
                     need[5] = true;
-                } 
+                }
                 else if ((!IsFundIncomeEnough && need[1])
                     || (!IsFoodIncomeEnough && need[0])
                     || (this.PopulationDevelopingRate <= 0 && (need[3] || need[4]))
@@ -1620,8 +1620,9 @@
                 }
 
                 // 分配完工作后选择人物补充军队
-                if (!forPlayer) {
-                    
+                if (!forPlayer)
+                {
+
                     bool needRecruit = false;
                     bool lotsOfPopulation = GameObject.Chance((int)((((float)this.Population / (float)this.PopulationCeiling) * 100f - 50f) * 2.5));
                     if ((recentlyAttacked || this.BelongedFaction.PlanTechniqueArchitecture != this) && this.Kind.HasPopulation && ((recentlyAttacked || GameObject.Random((int)this.BelongedFaction.Leader.StrategyTendency + 1) == 0) && this.RecruitmentAvail()))
@@ -1739,7 +1740,7 @@
                     else if (this.AILandLinks.Count <= 0)
                     {
                         this.AIRecruitment(true, false);
-                    } 
+                    }
                     else
                     {
                         int siegeCount = 0;
@@ -1807,9 +1808,9 @@
                     if (p.RecruitableBy(this.BelongedFaction, 0))
                     {
                         Person i = (Person)convincer[cnt];
-                        if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) || 
+                        if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) ||
                             (i != null && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33)) &&
-                            GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber) && 
+                            GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber) &&
                             GameObject.Random(i.FightingNumber) < 100 &&
                             GameObject.Random(i.ConvinceAbility) >= 200))
                         {
@@ -2198,7 +2199,7 @@
             this.DefensiveCampaign();
             this.OffensiveCampaign();
         }
-        
+
         private Point? GetRandomStartingPosition(Troop troop)
         {
             GameArea allAvailableArea = this.GetAllAvailableArea(false);
@@ -3290,7 +3291,7 @@
                     }
                     if (personAlreadyOut) continue;
                     if (militaryOut) continue;
-                    
+
                     Point? nullable = this.GetRandomStartingPosition(troop2);
                     if (!nullable.HasValue)
                     {
@@ -3819,7 +3820,7 @@
                     person.WorkKind = ArchitectureWorkKind.无;
                 }
             }
-           
+
             if (this.Domination >= this.DominationCeiling)
             {
                 foreach (Person person in this.DominationWorkingPersons)
@@ -3828,7 +3829,7 @@
                     person.WorkKind = ArchitectureWorkKind.无;
                 }
             }
-            
+
 
             if (this.Morale >= this.MoraleCeiling)
             {
@@ -4368,7 +4369,7 @@
             float rate = 1;
             if (disasterDamageRateDecrease.ContainsKey(this.zainan.ID))
             {
-                rate = (float) (rate - disasterDamageRateDecrease[this.zainan.ID] / 100.0);
+                rate = (float)(rate - disasterDamageRateDecrease[this.zainan.ID] / 100.0);
                 if (rate < 0) rate = 0;
             }
             this.DecreasePopulation((int)(this.zainan.zainanzhonglei.renkoushanghai * jianzaixishu() * rate));
@@ -4554,7 +4555,7 @@
                         else if (person.HasMilitaryTypeTitle(military.Kind.Type))
                         {
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
-                        } 
+                        }
                         else if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && military.Kind.RecruitLimit > 10) ||
                             person.FightingForce >= Parameters.AIUniqueTroopFightingForceThreshold || this.Endurance < 30)
                         {
@@ -4650,7 +4651,7 @@
                                 }
                             }
                             if (militaryOut) continue;
-                            
+
                             Point? nullable = this.GetCampaignPosition(troop, orientations, troop.Army.Scales > 0);
                             if (!nullable.HasValue)
                             {
@@ -4768,7 +4769,7 @@
                                     }
                                 }
                                 if (militaryOut) continue;
-                                
+
                                 Point? nullable = i.A.GetCampaignPosition(troop, orientations, troop.Army.Scales > 0);
                                 if (!nullable.HasValue)
                                 {
@@ -7808,7 +7809,7 @@
                             return 1000;
                         }
                     }
-                    
+
                     return 1;
                 }
             }
@@ -7981,165 +7982,189 @@
             }
         }
 
-        public void LoadCaptivesFromString(CaptiveList captives, string dataString)
+        public List<string> LoadCaptivesFromString(CaptiveList captives, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string str in strArray)
+            try
             {
-                Captive gameObject = captives.GetGameObject(int.Parse(str)) as Captive;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    gameObject.CaptivePerson.LocationArchitecture = this;
-                    gameObject.CaptivePerson.LocationTroop = null;
-                    gameObject.CaptivePerson.Status = PersonStatus.Captive;
+                    Captive gameObject = captives.GetGameObject(int.Parse(str)) as Captive;
+                    if (gameObject != null)
+                    {
+                        gameObject.CaptivePerson.LocationArchitecture = this;
+                        gameObject.CaptivePerson.LocationTroop = null;
+                        gameObject.CaptivePerson.Status = PersonStatus.Captive;
+                    }
+                    else
+                    {
+                        errorMsg.Add("俘虜ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("俘虜列表一栏应为半型空格分隔的俘虜ID");
+            }
+            return errorMsg;
         }
 
-        public void LoadFacilitiesFromString(FacilityList facilities, string dataString)
+        public List<string> LoadFacilitiesFromString(FacilityList facilities, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Facilities.Clear();
-            foreach (string str in strArray)
+            try
             {
-                Facility gameObject = facilities.GetGameObject(int.Parse(str)) as Facility;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.Facilities.AddFacility(gameObject);
+                    Facility gameObject = facilities.GetGameObject(int.Parse(str)) as Facility;
+                    if (gameObject != null)
+                    {
+                        this.Facilities.AddFacility(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("設施ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("設施列表一栏应为半型空格分隔的設施ID");
+            }
+            return errorMsg;
         }
 
-        internal void LoadFundPacksFromString(string dataString)
+        internal List<string> LoadFundPacksFromString(string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.FundPacks.Clear();
-            for (int i = 0; i < strArray.Length; i += 2)
+            try
             {
-                this.FundPacks.Add(new FundPack(int.Parse(strArray[i]), int.Parse(strArray[i + 1])));
+                for (int i = 0; i < strArray.Length; i += 2)
+                {
+                    this.FundPacks.Add(new FundPack(int.Parse(strArray[i]), int.Parse(strArray[i + 1])));
+                }
             }
+            catch
+            {
+                errorMsg.Add("資金包應為半型空格分隔的數字，資金、日數相間");
+            }
+            return errorMsg;
         }
 
-        internal void LoadFoodPacksFromString(string dataString)
+        internal List<string> LoadFoodPacksFromString(string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.FoodPacks.Clear();
-            for (int i = 0; i < strArray.Length; i += 2)
+            try
             {
-                this.FoodPacks.Add(new FoodPack(int.Parse(strArray[i]), int.Parse(strArray[i + 1])));
+                for (int i = 0; i < strArray.Length; i += 2)
+                {
+                    this.FoodPacks.Add(new FoodPack(int.Parse(strArray[i]), int.Parse(strArray[i + 1])));
+                }
             }
+            catch
+            {
+                errorMsg.Add("糧草包應為半型空格分隔的數字，糧草、日數相間");
+            }
+            return errorMsg;
         }
 
-        public void LoadMilitariesFromString(MilitaryList militaries, string dataString)
+        public List<string> LoadMilitariesFromString(MilitaryList militaries, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Militaries.Clear();
-            foreach (string str in strArray)
+            try
             {
-                Military gameObject = militaries.GetGameObject(int.Parse(str)) as Military;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.AddMilitary(gameObject);
+                    Military gameObject = militaries.GetGameObject(int.Parse(str)) as Military;
+                    if (gameObject != null)
+                    {
+                        this.AddMilitary(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("編隊ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("編隊列表一栏应为半型空格分隔的編隊ID");
+            }
+            return errorMsg;
         }
 
-        public void LoadMovingPersonsFromString(Dictionary<int, Person> persons, string dataString)
+        public List<string> LoadPersonsFromString(Dictionary<int, Person> persons, string dataString, PersonStatus status)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string str in strArray)
+            try
             {
-                Person t = persons[int.Parse(str)];
-                if (t != null)
+                foreach (string str in strArray)
                 {
-                    t.LocationArchitecture = this;
-                    t.LocationTroop = null;
-                    t.Status = PersonStatus.Moving;
-                    t.TargetArchitecture = this;
+                    Person t = persons[int.Parse(str)];
+                    if (t != null && !base.Scenario.isInCaptiveList(t.ID))
+                    {
+                        t.LocationArchitecture = this;
+                        t.LocationTroop = null;
+                        t.Status = status;
+                        if (status == PersonStatus.Moving || status == PersonStatus.NoFactionMoving)
+                        {
+                            t.TargetArchitecture = this;
+                        }
+                    }
+                    else
+                    {
+                        if (t == null)
+                        {
+                            errorMsg.Add("人物ID" + str + "不存在");
+                        }
+                        else
+                        {
+                            errorMsg.Add("人物ID" + str + "已成為俘虜，不能出現在城池武將列表中");
+                        }
+                    }
                 }
             }
-        }
-
-        public void LoadNoFactionMovingPersonsFromString(Dictionary<int, Person> persons, string dataString)
-        {
-            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
-            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string str in strArray)
+            catch
             {
-                Person t = persons[int.Parse(str)];
-                if (t != null)
-                {
-                    t.LocationArchitecture = this;
-                    t.LocationTroop = null;
-                    t.Status = PersonStatus.NoFactionMoving;
-                    t.TargetArchitecture = this;
-                }
+                errorMsg.Add("人物列表一栏应为半型空格分隔的人物ID");
             }
+            return errorMsg;
         }
 
-        public void LoadNoFactionPersonsFromString(Dictionary<int, Person> persons, string dataString)
+        internal List<string> LoadPopulationPacksFromString(string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
-            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string str in strArray)
-            {
-                Person person = persons[int.Parse(str)];
-                if (person != null && !base.Scenario.isInCaptiveList(person.ID))
-                {
-                    person.LocationArchitecture = this;
-                    person.LocationTroop = null;
-                    person.Status = PersonStatus.NoFaction;
-                }
-            }
-        }
-
-        public void LoadfeiziPersonsFromString(Dictionary<int, Person> persons, string dataString)
-        {
-            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
-            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string str in strArray)
-            {
-                Person person = persons[int.Parse(str)];
-                if (person != null)
-                {
-                    person.LocationArchitecture = this;
-                    person.LocationTroop = null;
-                    person.Status = PersonStatus.Princess;
-                }
-            }
-        }
-
-        public void LoadPersonsFromString(Dictionary<int, Person> persons, string dataString)
-        {
-            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
-            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string str in strArray)
-            {
-                Person t = persons[int.Parse(str)];
-                if (t != null && !base.Scenario.isInCaptiveList(t.ID))
-                {
-                    t.LocationArchitecture = this;
-                    t.LocationTroop = null;
-                    t.Status = PersonStatus.Normal;
-                }
-            }
-        }
-
-        internal void LoadPopulationPacksFromString(string dataString)
-        {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.PopulationPacks.Clear();
-            for (int i = 0; i < strArray.Length; i += 2)
+            try
             {
-                this.PopulationPacks.Add(new PopulationPack(int.Parse(strArray[i]), int.Parse(strArray[i + 1])));
+                for (int i = 0; i < strArray.Length; i += 2)
+                {
+                    this.PopulationPacks.Add(new PopulationPack(int.Parse(strArray[i]), int.Parse(strArray[i + 1])));
+                }
             }
+            catch
+            {
+                errorMsg.Add("人口包應為半型空格分隔的數字，糧草、日數相間");
+            }
+            return errorMsg;
         }
 
         internal void LoadSpyPacksFromString(string dataString)
@@ -8157,19 +8182,32 @@
             }
         }
 
-        public void LoadInformationsFromString(InformationList informations, string dataString)
+        public List<string> LoadInformationsFromString(InformationList informations, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Informations.Clear();
-            foreach (string str in strArray)
+            try
             {
-                Information gameObject = informations.GetGameObject(int.Parse(str)) as Information;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.AddInformation(gameObject);
+                    Information gameObject = informations.GetGameObject(int.Parse(str)) as Information;
+                    if (gameObject != null)
+                    {
+                        this.AddInformation(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("情報" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("情報一欄應為半型空格分隔的情報ID");
+            }
+            return errorMsg;
         }
 
         public bool MergeAvail()
@@ -8523,7 +8561,7 @@
                         {
                             continue;
                         }
-                        
+
                         Architecture bypass = rw.ByPassHostileArchitecture;
                         LinkNode candidate = i;
                         if (bypass != null)
@@ -8780,7 +8818,7 @@
                         ConvinceNoFactionAI();
                     }
                 }
-                
+
                 if (this.Captives.Count > 0)
                 {
                     for (int i = 0; i < this.Captives.Count / 2; ++i)
@@ -9849,7 +9887,7 @@
 
         public bool RoutewayAvail()
         {
-            if (!CaiyongLiangdaoXitong()) return false; 
+            if (!CaiyongLiangdaoXitong()) return false;
             foreach (Point point in this.GetRoutewayStartArea().Area)
             {
                 if (this.IsRoutewayPossible(point))
@@ -10531,7 +10569,7 @@
             {
                 return this.autoRecruiting;
             }
-            set 
+            set
             {
                 this.autoRecruiting = value;
             }
@@ -11144,7 +11182,7 @@
                 {
                     return int.MaxValue;
                 }
-                return (int) ((this.FoodCeiling / (double)cost) * this.ArmyScale);
+                return (int)((this.FoodCeiling / (double)cost) * this.ArmyScale);
             }
         }
 
@@ -12234,7 +12272,7 @@
             List<Point> xinjiadedian = new List<Point>();
             if (this.JianzhuGuimo == 1)
             {
-                
+
                 xinjiadedian.Add(new Point(zhongxindian.X - 1, zhongxindian.Y));
                 xinjiadedian.Add(new Point(zhongxindian.X + 1, zhongxindian.Y));
                 xinjiadedian.Add(new Point(zhongxindian.X, zhongxindian.Y - 1));
@@ -12244,7 +12282,7 @@
             }
             else if (this.JianzhuGuimo == 5)
             {
-                
+
                 xinjiadedian.Add(new Point(zhongxindian.X - 2, zhongxindian.Y));
                 xinjiadedian.Add(new Point(zhongxindian.X + 2, zhongxindian.Y));
                 xinjiadedian.Add(new Point(zhongxindian.X, zhongxindian.Y - 2));
@@ -12276,7 +12314,7 @@
                     return false;
                 }
                 terrainKindByPosition = base.Scenario.GetTerrainKindByPosition(point);
-                if (terrainKindByPosition==TerrainKind.峻岭||terrainKindByPosition==TerrainKind.湿地||terrainKindByPosition==TerrainKind.水域||terrainKindByPosition==TerrainKind.无)
+                if (terrainKindByPosition == TerrainKind.峻岭 || terrainKindByPosition == TerrainKind.湿地 || terrainKindByPosition == TerrainKind.水域 || terrainKindByPosition == TerrainKind.无)
                 {
                     return false;
                 }
@@ -12287,7 +12325,7 @@
             if (this.Agriculture <= this.AgricultureCeiling * 0.95) return false;
             if (this.Commerce <= this.CommerceCeiling * 0.95) return false;
             if (this.Technology <= this.TechnologyCeiling * 0.95) return false;
-            if (this.Endurance <= this.EnduranceCeiling  * 0.95) return false;
+            if (this.Endurance <= this.EnduranceCeiling * 0.95) return false;
             if (this.Morale <= this.MoraleCeiling * 0.95) return false;
             if (this.Domination <= this.DominationCeiling * 0.95) return false;
 
@@ -12572,7 +12610,7 @@
 
         public ArchitectureList ArchitectureListWithoutSelf()
         {
-            ArchitectureList architectureList=new ArchitectureList() ;
+            ArchitectureList architectureList = new ArchitectureList();
             foreach (Architecture architecture in base.Scenario.Architectures)
             {
                 architectureList.Add(architecture);

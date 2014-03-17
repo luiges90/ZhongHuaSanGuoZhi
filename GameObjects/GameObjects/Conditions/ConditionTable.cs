@@ -40,18 +40,32 @@
             return list;
         }
 
-        public void LoadFromString(ConditionTable allConditions, string conditionIDs)
+        public List<string> LoadFromString(ConditionTable allConditions, string conditionIDs)
         {
+            List<string> errorMsg = new List<string>();
+
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = conditionIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             Condition condition = null;
-            for (int i = 0; i < strArray.Length; i++)
+            try
             {
-                if (allConditions.Conditions.TryGetValue(int.Parse(strArray[i]), out condition))
+                for (int i = 0; i < strArray.Length; i++)
                 {
-                    this.AddCondition(condition);
+                    if (allConditions.Conditions.TryGetValue(int.Parse(strArray[i]), out condition))
+                    {
+                        this.AddCondition(condition);
+                    }
+                    else
+                    {
+                        errorMsg.Add("条件ID" + int.Parse(strArray[i]) + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("条件一栏应为半型空格分隔的条件ID");
+            }
+            return errorMsg;
         }
 
         public string SaveToString()

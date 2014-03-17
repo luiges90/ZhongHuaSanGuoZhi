@@ -25,7 +25,7 @@
         public ArchitectureKindTable AllArchitectureKinds = new ArchitectureKindTable();
         public AttackDefaultKindList AllAttackDefaultKinds = new AttackDefaultKindList();
         public AttackTargetKindList AllAttackTargetKinds = new AttackTargetKindList();
-        
+
         public CastDefaultKindList AllCastDefaultKinds = new CastDefaultKindList();
         public CastTargetKindList AllCastTargetKinds = new CastTargetKindList();
         public List<CharacterKind> AllCharacterKinds = new List<CharacterKind>();
@@ -99,8 +99,10 @@
             this.suoyouzainanzhonglei.Clear();
         }
 
-        public bool LoadFromDatabase(string connectionString, GameScenario scen)
+        public List<string> LoadFromDatabase(string connectionString, GameScenario scen)
         {
+            List<string> errorMsg = new List<string>();
+
             int num;
             Animation animation;
             OleDbConnection connection = new OleDbConnection(connectionString);
@@ -296,6 +298,10 @@
                     catch { }*/
                     this.AllInfluenceKinds.AddInfluenceKind(ik);
                 }
+                else
+                {
+                    errorMsg.Add("影响类型ID" + num + "不存在于游戏中。");
+                }
             }
             connection.Close();
             connection.Open();
@@ -314,6 +320,10 @@
                 {
                     this.AllInfluences.AddInfluence(influence);
                 }
+                else
+                {
+                    errorMsg.Add("影响ID" + influence.ID + "使用了不存在的影响类型" + (short)reader["Kind"]);
+                }
             }
             connection.Close();
             connection.Open();
@@ -329,6 +339,10 @@
                     ck.Name = reader["Name"].ToString();
                     this.AllConditionKinds.AddConditionKind(ck);
                 }
+                else
+                {
+                    errorMsg.Add("条件类型ID" + num + "不存在于游戏中。");
+                }
             }
             connection.Close();
             connection.Open();
@@ -342,7 +356,14 @@
                 condition.Parameter = reader["Parameter"].ToString();
                 condition.Parameter2 = reader["Parameter2"].ToString();
                 condition.Kind = this.AllConditionKinds.GetConditionKind((short)reader["Kind"]);
-                this.AllConditions.AddCondition(condition);
+                if (condition.Kind != null)
+                {
+                    this.AllConditions.AddCondition(condition);
+                }
+                else
+                {
+                    errorMsg.Add("条件ID" + condition.ID + "使用了不存在的条件类型" + (short)reader["Kind"]);
+                }
             }
             connection.Close();
 
@@ -362,6 +383,10 @@
                     e.Name = reader["Name"].ToString();
                     this.AllTroopEventEffectKinds.AddEventEffectKind(e);
                 }
+                else
+                {
+                    errorMsg.Add("部队事件效果种类ID" + num + "不存在于游戏中");
+                }
             }
             connection.Close();
             connection.Open();
@@ -374,7 +399,14 @@
                 effect.Name = reader["Name"].ToString();
                 effect.Parameter = reader["Parameter"].ToString();
                 effect.Kind = this.AllTroopEventEffectKinds.GetEventEffectKind((short)reader["Kind"]);
-                this.AllTroopEventEffects.AddEventEffect(effect);
+                if (effect.Kind != null)
+                {
+                    this.AllTroopEventEffects.AddEventEffect(effect);
+                }
+                else
+                {
+                    errorMsg.Add("部队事件效果ID" + effect.ID + "使用了不存在的部队事件效果类型" + (short)reader["Kind"]);
+                }
             }
             connection.Close();
 
@@ -393,6 +425,10 @@
                     e.Name = reader["Name"].ToString();
                     this.AllEventEffectKinds.AddEventEffectKind(e);
                 }
+                else
+                {
+                    errorMsg.Add("建筑事件效果种类ID" + num + "不存在于游戏中");
+                }
             }
             connection.Close();
             connection.Open();
@@ -406,7 +442,14 @@
                 effect.Parameter = reader["Parameter"].ToString();
                 effect.Parameter2 = reader["Parameter2"].ToString();
                 effect.Kind = this.AllEventEffectKinds.GetEventEffectKind((short)reader["Kind"]);
-                this.AllEventEffects.AddEventEffect(effect);
+                if (effect.Kind != null)
+                {
+                    this.AllEventEffects.AddEventEffect(effect);
+                }
+                else
+                {
+                    errorMsg.Add("建筑事件效果ID" + effect.ID + "使用了不存在的建筑事件效果类型" + (short)reader["Kind"]);
+                }
             }
             connection.Close();
 
@@ -446,10 +489,15 @@
                     facilityKind.FactionLimit = (bool)reader["UniqueInFaction"] ? 1 : 9999;
                 }
                 facilityKind.PopulationRelated = (bool)reader["PopulationRelated"];
-                facilityKind.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                List<string> e = facilityKind.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
                 facilityKind.rongna = (short)reader["rongna"];
                 facilityKind.bukechaichu = (bool)reader["bukechaichu"];
-                facilityKind.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString());
+                e.AddRange(facilityKind.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString()));
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("设施ID" + facilityKind.ID);
+                    errorMsg.AddRange(e);
+                }
                 this.AllFacilityKinds.AddFacilityKind(facilityKind);
             }
             connection.Close();
@@ -524,7 +572,12 @@
                 technique.FundCost = (int)reader["FundCost"];
                 technique.PointCost = (int)reader["PointCost"];
                 technique.Days = (short)reader["Days"];
-                technique.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                List<string> e = technique.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("技巧ID" + technique.ID);
+                    errorMsg.AddRange(e);
+                }
                 this.AllTechniques.AddTechnique(technique);
             }
             connection.Close();
@@ -541,8 +594,13 @@
                 skill.Level = (short)reader["Level"];
                 skill.Combat = (bool)reader["Combat"];
                 skill.Name = reader["Name"].ToString();
-                skill.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
-                skill.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString());
+                List<string> e = skill.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                e.AddRange(skill.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString()));
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("技能" + skill);
+                    errorMsg.AddRange(e);
+                }
                 skill.GenerationChance[0] = (int)reader["General"];
                 skill.GenerationChance[1] = (int)reader["Brave"];
                 skill.GenerationChance[2] = (int)reader["Advisor"];
@@ -601,11 +659,20 @@
                 title.Scenario = scen;
                 title.ID = (short)reader["ID"];
                 title.Kind = this.AllTitleKinds.GetTitleKind((short)reader["Kind"] + titleKindShift);
+                if (title.Kind == null)
+                {
+                    errorMsg.Add("称号ID" + title.ID + "使用了不存在的称号类型" + ((short)reader["Kind"] + titleKindShift));
+                }
                 title.Level = (short)reader["Level"];
                 title.Combat = (bool)reader["Combat"];
                 title.Name = reader["Name"].ToString();
-                title.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
-                title.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString());
+                List<string> e = title.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                e.AddRange(title.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString()));
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("称号ID" + title.ID);
+                    errorMsg.AddRange(e);
+                }
                 title.GenerationChance[0] = (int)reader["General"];
                 title.GenerationChance[1] = (int)reader["Brave"];
                 title.GenerationChance[2] = (int)reader["Advisor"];
@@ -709,7 +776,12 @@
                 militaryKind.AttackTargetKind = (TroopAttackTargetKind)((short)reader["AttackTargetKind"]);
                 militaryKind.CastDefaultKind = (TroopCastDefaultKind)((short)reader["CastDefaultKind"]);
                 militaryKind.CastTargetKind = (TroopCastTargetKind)((short)reader["CastTargetKind"]);
-                militaryKind.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                List<string> e = militaryKind.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("兵种ID" + militaryKind.ID);
+                    errorMsg.AddRange(e);
+                }
                 militaryKind.zijinshangxian = (int)reader["zijinshangxian"];
                 this.AllMilitaryKinds.AddMilitaryKind(militaryKind);
             }
@@ -720,7 +792,12 @@
             {
                 MilitaryKind current = this.AllMilitaryKinds.GetMilitaryKindList().GetGameObject((short)reader["ID"]) as MilitaryKind;
                 current.successor = new MilitaryKindTable();
-                current.successor.LoadFromString(this.AllMilitaryKinds, reader["Successor"].ToString());
+                List<string> e = current.successor.LoadFromString(this.AllMilitaryKinds, reader["Successor"].ToString());
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("兵种ID" + current.ID);
+                    errorMsg.AddRange(e);
+                }
             }
             connection.Close();
 
@@ -770,11 +847,16 @@
                 combatMethod.Name = reader["Name"].ToString();
                 combatMethod.Description = reader["Description"].ToString();
                 combatMethod.Combativity = (short)reader["Combativity"];
-                combatMethod.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                List<string> e = combatMethod.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
                 combatMethod.AttackDefault = this.AllAttackDefaultKinds.GetGameObject((short)reader["AttackDefault"]) as AttackDefaultKind;
                 combatMethod.AttackTarget = this.AllAttackTargetKinds.GetGameObject((short)reader["AttackTarget"]) as AttackTargetKind;
                 combatMethod.ArchitectureTarget = (bool)reader["ArchitectureTarget"];
-                combatMethod.CastConditions.LoadFromString(this.AllConditions, reader["CastConditions"].ToString());
+                e.AddRange(combatMethod.CastConditions.LoadFromString(this.AllConditions, reader["CastConditions"].ToString()));
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("战法ID" + combatMethod.ID);
+                    errorMsg.AddRange(e);
+                }
                 combatMethod.ViewingHostile = (bool)reader["ViewingHostile"];
                 combatMethod.AnimationKind = (TileAnimationKind)((short)reader["AnimationKind"]);
                 this.AllCombatMethods.AddCombatMethod(combatMethod);
@@ -791,10 +873,15 @@
                 stunt.Combativity = (short)reader["Combativity"];
                 stunt.Period = (short)reader["Period"];
                 stunt.Animation = (short)reader["Animation"];
-                stunt.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
-                stunt.CastConditions.LoadFromString(this.AllConditions, reader["CastConditions"].ToString());
-                stunt.LearnConditions.LoadFromString(this.AllConditions, reader["LearnConditions"].ToString());
-                stunt.AIConditions.LoadFromString(this.AllConditions, reader["AIConditions"].ToString());
+                List<string> e = stunt.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                e.AddRange(stunt.CastConditions.LoadFromString(this.AllConditions, reader["CastConditions"].ToString()));
+                e.AddRange(stunt.LearnConditions.LoadFromString(this.AllConditions, reader["LearnConditions"].ToString()));
+                e.AddRange(stunt.AIConditions.LoadFromString(this.AllConditions, reader["AIConditions"].ToString()));
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("特技ID" + stunt.ID);
+                    errorMsg.AddRange(e);
+                }
                 stunt.GenerationChance[0] = (int)reader["General"];
                 stunt.GenerationChance[1] = (int)reader["Brave"];
                 stunt.GenerationChance[2] = (int)reader["Advisor"];
@@ -845,12 +932,28 @@
                 stratagem.Friendly = (bool)reader["Friendly"];
                 stratagem.Self = (bool)reader["Self"];
                 stratagem.AnimationKind = (TileAnimationKind)((short)reader["AnimationKind"]);
-                stratagem.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                List<string> e = stratagem.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("计略ID" + stratagem.ID);
+                    errorMsg.AddRange(e);
+                }
                 stratagem.CastDefault = this.AllCastDefaultKinds.GetGameObject((short)reader["CastDefault"]) as CastDefaultKind;
                 stratagem.CastTarget = this.AllCastTargetKinds.GetGameObject((short)reader["CastTarget"]) as CastTargetKind;
                 stratagem.ArchitectureTarget = (bool)reader["ArchitectureTarget"];
                 stratagem.RequireInfluenceToUse = (bool)reader["RequireInfluneceToUse"];
-                this.AllStratagems.AddStratagem(stratagem);
+                if (stratagem.CastDefault == null)
+                {
+                    errorMsg.Add("计略ID" + stratagem.ID + "的发动预设种类不存在");
+                }
+                if (stratagem.CastTarget == null)
+                {
+                    errorMsg.Add("计略ID" + stratagem.ID + "的发动目标种类不存在");
+                }
+                if (stratagem.CastDefault != null && stratagem.CastTarget != null)
+                {
+                    this.AllStratagems.AddStratagem(stratagem);
+                }
             }
             connection.Close();
             connection.Open();
@@ -888,10 +991,17 @@
                 while (reader.Read())
                 {
                     int pid = (short)reader["Person"];
-                    TextMessageKind kind = (TextMessageKind) (short) reader["Kind"];
+                    TextMessageKind kind = (TextMessageKind)(short)reader["Kind"];
                     List<string> messages = new List<string>();
                     StaticMethods.LoadFromString(messages, reader["Messages"].ToString());
-                    this.AllTextMessages.AddTextMessages(pid, kind, messages);
+                    if (kind != null)
+                    {
+                        this.AllTextMessages.AddTextMessages(pid, kind, messages);
+                    }
+                    else
+                    {
+                        errorMsg.Add("人物特别对话中，武将ID" + pid + "的对话种类" + (short)reader["Kind"] + "不存在");
+                    }
                 }
             }
             catch
@@ -983,7 +1093,7 @@
 
                     messages.Clear();
                     StaticMethods.LoadFromString(messages, reader["OutburstQuiet"].ToString());
-                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.Calm, messages); 
+                    this.AllTextMessages.AddTextMessages(pid, TextMessageKind.Calm, messages);
                 }
             }
             connection.Close();
@@ -1036,7 +1146,7 @@
             }
             connection.Close();
 
-            return true;
+            return errorMsg;
         }
 
         public void SaveToDatabase(string connectionString)
@@ -1047,7 +1157,7 @@
             OleDbCommandBuilder builder;
 
             selectConnection.Open();
-            
+
             try
             {
                 new OleDbCommand("Delete from TextMessageMap", selectConnection).ExecuteNonQuery();
@@ -1112,7 +1222,8 @@
                 try
                 {
                     new OleDbCommand("drop table TextMessageMap", selectConnection).ExecuteNonQuery();
-                } catch {}
+                }
+                catch { }
                 new OleDbCommand("drop table TileAnimation", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table Title", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table TroopAnimation", selectConnection).ExecuteNonQuery();
@@ -1643,7 +1754,7 @@
                     row = dataSet.Tables["MilitaryKind"].NewRow();
                     row.BeginEdit();
                     row["ID"] = i.ID;
-                    row["Type"] = (int) i.Type;
+                    row["Type"] = (int)i.Type;
                     row["Name"] = i.Name;
                     row["Description"] = i.Description;
                     row["Merit"] = i.Merit;
@@ -1707,10 +1818,10 @@
                     row["LevelUpExperience"] = i.LevelUpExperience;
                     row["OffencePer100Experience"] = i.OffencePer100Experience;
                     row["DefencePer100Experience"] = i.DefencePer100Experience;
-                    row["AttackDefaultKind"] = (int) i.AttackDefaultKind;
-                    row["AttackTargetKind"] = (int) i.AttackTargetKind;
-                    row["CastDefaultKind"] = (int) i.CastDefaultKind;
-                    row["CastTargetKind"] = (int) i.CastTargetKind;
+                    row["AttackDefaultKind"] = (int)i.AttackDefaultKind;
+                    row["AttackTargetKind"] = (int)i.AttackTargetKind;
+                    row["CastDefaultKind"] = (int)i.CastDefaultKind;
+                    row["CastTargetKind"] = (int)i.CastTargetKind;
                     row["Influences"] = i.Influences.SaveToString();
                     row["zijinshangxian"] = i.zijinshangxian;
                     row.EndEdit();

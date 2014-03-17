@@ -122,18 +122,31 @@
             return false;
         }
 
-        public void LoadFromString(InfluenceTable allInfluences, string influenceIDs)
+        public List<string> LoadFromString(InfluenceTable allInfluences, string influenceIDs)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = influenceIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             Influence influence = null;
-            for (int i = 0; i < strArray.Length; i++)
+            try
             {
-                if (allInfluences.Influences.TryGetValue(int.Parse(strArray[i]), out influence))
+                for (int i = 0; i < strArray.Length; i++)
                 {
-                    this.AddInfluence(influence);
+                    if (allInfluences.Influences.TryGetValue(int.Parse(strArray[i]), out influence))
+                    {
+                        this.AddInfluence(influence);
+                    }
+                    else
+                    {
+                        errorMsg.Add("影响ID" + int.Parse(strArray[i]) + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("影响/特性一栏应为半型空格分隔的影响ID");
+            }
+            return errorMsg;
         }
 
         public void PurifyInfluence(Architecture architecture, Applier applier, int applierID)

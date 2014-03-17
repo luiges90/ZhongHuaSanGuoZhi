@@ -25,7 +25,7 @@
 
         public void Add(GameObject t)
         {
-            if (immutable) 
+            if (immutable)
                 throw new Exception("Trying to add things to an immutable list");
             this.gameObjects.Add(t);
         }
@@ -135,13 +135,13 @@
                     }
                     else if (conditions[i].LEG > 0)
                     {
-                        if (((int) StaticMethods.GetPropertyValue(obj2, conditions[i].PropertyName)) <= ((int) conditions[i].PropertyValue))
+                        if (((int)StaticMethods.GetPropertyValue(obj2, conditions[i].PropertyName)) <= ((int)conditions[i].PropertyValue))
                         {
                             flag = false;
                             break;
                         }
                     }
-                    else if ((conditions[i].LEG < 0) && (((int) StaticMethods.GetPropertyValue(obj2, conditions[i].PropertyName)) >= ((int) conditions[i].PropertyValue)))
+                    else if ((conditions[i].LEG < 0) && (((int)StaticMethods.GetPropertyValue(obj2, conditions[i].PropertyName)) >= ((int)conditions[i].PropertyValue)))
                     {
                         flag = false;
                         break;
@@ -286,19 +286,32 @@
             return this.gameObjects.IndexOf(t);
         }
 
-        public void LoadFromString(GameObjectList list, string dataString)
+        public List<string> LoadFromString(GameObjectList list, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Clear();
-            foreach (string str in strArray)
+            try
             {
-                GameObject gameObject = list.GetGameObject(int.Parse(str));
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.Add(gameObject);
+                    GameObject gameObject = list.GetGameObject(int.Parse(str));
+                    if (gameObject != null)
+                    {
+                        this.Add(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("人物ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("多项人物一栏应为半型空格分隔的称号ID");
+            }
+            return errorMsg;
         }
 
         public void Remove(GameObject gameObject)
@@ -306,9 +319,9 @@
             if (immutable)
                 throw new Exception("Trying to remove things to an immutable list");
             this.gameObjects.RemoveAll(delegate(GameObject o)
-                {
-                    return o == gameObject;
-                }
+            {
+                return o == gameObject;
+            }
             );
             //this.gameObjects.Remove(gameObject);
         }
@@ -353,7 +366,7 @@
             {
                 if (gameObjectList.HasGameObject(gameObject))
                 {
-                    gameObject.Selected=true;
+                    gameObject.Selected = true;
                 }
             }
         }
@@ -394,10 +407,10 @@
             {
                 this.gameObjects[index] = value;
             }
-        }       
-      
+        }
+
         /// <summary>
-       
+
         /// </summary>
         /*
         [CompilerGenerated]

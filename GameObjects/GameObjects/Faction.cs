@@ -25,7 +25,7 @@
         private int chaotinggongxiandudezhi = 0;
         internal bool AIFinished;
         private Thread AIThread;
-        public ZhandouZhuangtai BattleState = ZhandouZhuangtai.和平 ;
+        public ZhandouZhuangtai BattleState = ZhandouZhuangtai.和平;
         public bool AllowAttackAfterMoveOfBubing;
         public bool AllowAttackAfterMoveOfNubing;
         public bool AllowAttackAfterMoveOfQibing;
@@ -147,8 +147,8 @@
 
         public int[] CriticalOfMillitaryType = new int[5];
         public int[] AntiCriticalOfMillitaryType = new int[5];
-        public float[] ArchitectureDamageOfMillitaryType = {1f, 1f, 1f, 1f, 1f};
-        public float[] SpeedOfMillitaryType = {1f, 1f, 1f, 1f, 1f};
+        public float[] ArchitectureDamageOfMillitaryType = { 1f, 1f, 1f, 1f, 1f };
+        public float[] SpeedOfMillitaryType = { 1f, 1f, 1f, 1f, 1f };
         public int[] ViewAreaOfMillitaryType = new int[5];
         public int[] StratagemOfMillitaryType = new int[5];
         public int[] AntiStratagemOfMillitaryType = new int[5];
@@ -346,7 +346,7 @@
         public List<Point> GetAllKnownArea()
         {
             List<Point> result = new List<Point>();
-            foreach (Point p in this.knownAreaData.Keys) 
+            foreach (Point p in this.knownAreaData.Keys)
             {
                 if (this.GetKnownAreaData(p) != InformationLevel.无 && this.GetKnownAreaData(p) != InformationLevel.未知)
                 {
@@ -362,8 +362,8 @@
             if (visibleTroopsCache != null)
             {
                 return visibleTroopsCache;
-            } 
-            else 
+            }
+            else
             {
                 TroopList result = new TroopList();
                 foreach (Point p in this.GetAllKnownArea())
@@ -899,8 +899,8 @@
 
             public int Compare(GameObject x, GameObject y)
             {
-                double a = target.Scenario.GetDistance(target.Position, ((Architecture) x).Position);
-                double b = target.Scenario.GetDistance(target.Position, ((Architecture) y).Position);
+                double a = target.Scenario.GetDistance(target.Position, ((Architecture)x).Position);
+                double b = target.Scenario.GetDistance(target.Position, ((Architecture)y).Position);
                 if (a > b)
                 {
                     return 1;
@@ -1346,7 +1346,7 @@
                             {
                                 num2 = this.Capital.Fund - this.Capital.EnoughFund;
                                 this.Capital.DecreaseFund(num2);
-                                architecture.AddFundPack(num2, (int) (base.Scenario.GetDistance(this.Capital.ArchitectureArea, architecture.ArchitectureArea) / 5.0));
+                                architecture.AddFundPack(num2, (int)(base.Scenario.GetDistance(this.Capital.ArchitectureArea, architecture.ArchitectureArea) / 5.0));
                             }
                             this.ChangeCapital(architecture);
                         }
@@ -1362,7 +1362,7 @@
                         {
                             num2 = this.Capital.Fund - this.Capital.EnoughFund;
                             this.Capital.DecreaseFund(num2);
-                            architecture.AddFundPack(num2, (int) (base.Scenario.GetDistance(this.Capital.ArchitectureArea, architecture.ArchitectureArea) / 5.0));
+                            architecture.AddFundPack(num2, (int)(base.Scenario.GetDistance(this.Capital.ArchitectureArea, architecture.ArchitectureArea) / 5.0));
                         }
                         this.ChangeCapital(architecture);
                     }
@@ -1600,27 +1600,27 @@
                 {
                     //if ((((this.FirstSection.ArchitectureScale / 2) - (this.FirstSection.ArchitectureCount / 2)) + 1) * 20 <= this.ArmyScale)
                     //{
-                        //FactionList playerFactions = base.Scenario.PlayerFactions.GetRandomList() as FactionList;
-                        FactionList playerFactions = base.Scenario.PlayerFactions;
-                        bool assigned = false;
-                        foreach (Architecture j in i.Architectures)
+                    //FactionList playerFactions = base.Scenario.PlayerFactions.GetRandomList() as FactionList;
+                    FactionList playerFactions = base.Scenario.PlayerFactions;
+                    bool assigned = false;
+                    foreach (Architecture j in i.Architectures)
+                    {
+                        foreach (Faction k in playerFactions)
                         {
-                            foreach (Faction k in playerFactions)
+                            if (j.HasFactionInClose(k, 1))
                             {
-                                if (j.HasFactionInClose(k, 1))
+                                GameObjectList sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true);
+                                if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                 {
-                                    GameObjectList sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true);
-                                    if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
-                                    {
-                                        this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
-                                        this.FirstSection.OrientationFaction = k;
-                                        assigned = true;
-                                    }
-                                    break;
+                                    this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
+                                    this.FirstSection.OrientationFaction = k;
+                                    assigned = true;
                                 }
+                                break;
                             }
-                            if (assigned) break;
                         }
+                        if (assigned) break;
+                    }
                     //}
                 }
             }
@@ -1762,7 +1762,7 @@
                 {
                     this.OnInitiativeChangeCapital(this, capital, this.Capital);
                 }
-				ExtensionInterface.call("ChangeCapital", new Object[] { this.Scenario, this });
+                ExtensionInterface.call("ChangeCapital", new Object[] { this.Scenario, this });
             }
         }
 
@@ -1795,7 +1795,7 @@
             {
                 troop.RefreshViewArchitectureRelatedArea();
             }
-			ExtensionInterface.call("ChangeFaction", new Object[] { this.Scenario, this });
+            ExtensionInterface.call("ChangeFaction", new Object[] { this.Scenario, this });
         }
 
         public Faction ChangeLeaderAfterLeaderDeath()
@@ -1984,7 +1984,7 @@
                     leader.LoseTreasure(treasure);
                     this.Leader.ReceiveTreasure(treasure);
                 }
-				ExtensionInterface.call("ChangeKing", new Object[] { this.Scenario, this });
+                ExtensionInterface.call("ChangeKing", new Object[] { this.Scenario, this });
                 base.Scenario.YearTable.addChangeKingEntry(base.Scenario.Date, this.Leader, this);
                 return this;
             }
@@ -2034,7 +2034,7 @@
                 section.Scenario = base.Scenario;
                 section.ID = base.Scenario.Sections.GetFreeGameObjectID();
                 section.Name = this.Capital.Name + "军区";
-                section.AIDetail = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无 , true, false, true, true, false)[0] as SectionAIDetail;
+                section.AIDetail = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, true, true, false)[0] as SectionAIDetail;
                 foreach (Architecture architecture in this.Architectures)
                 {
                     section.AddArchitecture(architecture);
@@ -2068,7 +2068,7 @@
         {
             if (!base.Scenario.IsPlayer(this))
             {
-                if (GameObject.Random(100) == 0 && (this.Capital!=null)  && this.Capital.SelectPrinceAvail())
+                if (GameObject.Random(100) == 0 && (this.Capital != null) && this.Capital.SelectPrinceAvail())
                 {
                     Person person = this.Leader.ChildrenCanBeSelectedAsPrince()[0] as Person;
                     this.PrinceID = person.ID;
@@ -2081,7 +2081,7 @@
 
         private void AIchaotingshijian()
         {
-            if (base.Scenario.youhuangdi() && !base.Scenario.IsPlayer(this)&&!this.IsAlien
+            if (base.Scenario.youhuangdi() && !base.Scenario.IsPlayer(this) && !this.IsAlien
                 && (this.guanjue < this.Scenario.GameCommonData.suoyouguanjuezhonglei.Count - 1))
             {
                 if (base.Scenario.Date.Month == 3)
@@ -2261,7 +2261,7 @@
             base.Scenario.Factions.Remove(this);
             base.Scenario.PlayerFactions.Remove(this);
             this.Destroyed = true;
-			ExtensionInterface.call("FactionDestroyed", new Object[] { this.Scenario, this });
+            ExtensionInterface.call("FactionDestroyed", new Object[] { this.Scenario, this });
         }
 
         private void Develop()
@@ -2403,7 +2403,7 @@
             int terrainAdaptability = 0;
             if (base.Scenario.GetArchitectureByPositionNoCheck(position) == null)
             {
-                terrainAdaptability = troop.GetTerrainAdaptability((TerrainKind) this.mapData[position.X, position.Y]);
+                terrainAdaptability = troop.GetTerrainAdaptability((TerrainKind)this.mapData[position.X, position.Y]);
             }
             int waterPunishment = 0;
             if (this.mapData[position.X, position.Y] == 6 && kind.Type != MilitaryType.水军 && base.Scenario.GetArchitectureByPositionNoCheck(position) == null)
@@ -2456,7 +2456,7 @@
             }
             if (num2 > 0)
             {
-                return (((float) num) / ((float) num2));
+                return (((float)num) / ((float)num2));
             }
             return 0f;
         }
@@ -2568,7 +2568,7 @@
                     base.Scenario.YearTable.addChangeCapitalEntry(base.Scenario.Date, this, this.Capital);
                 }
             }
-			ExtensionInterface.call("ForceChangeCapital", new Object[] { this.Scenario, this });
+            ExtensionInterface.call("ForceChangeCapital", new Object[] { this.Scenario, this });
         }
 
         public bool HasArchitecture(Architecture architecture)
@@ -2593,7 +2593,7 @@
             }
             MilitaryKind mk = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(id);
             return count >= mk.RecruitLimit;
-       }
+        }
 
         public bool HasPerson(Person person)
         {
@@ -2619,7 +2619,7 @@
 
         public void IncreaseTechniquePoint(int increment)
         {
-            this.techniquePoint = (int) (this.techniquePoint + increment * GlobalVariables.TechniquePointMultiple);
+            this.techniquePoint = (int)(this.techniquePoint + increment * GlobalVariables.TechniquePointMultiple);
         }
 
         private void InformationDayEvent()
@@ -2699,102 +2699,193 @@
             return (id == this.UpgradingTechnique);
         }
 
-        public void LoadArchitecturesFromString(ArchitectureList architectures, string dataString)
+        public List<string> LoadInformationsFromString(InformationList informations, string dataString)
         {
-            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
-            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-            this.Architectures.Clear();
-            foreach (string str in strArray)
-            {
-                Architecture gameObject = architectures.GetGameObject(int.Parse(str)) as Architecture;
-                if (gameObject != null)
-                {
-                    this.AddArchitecture(gameObject);
-                    this.AddArchitectureMilitaries(gameObject);
-                }
-            }
-        }
-
-        public void LoadInformationsFromString(InformationList informations, string dataString)
-        {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Informations.Clear();
-            foreach (string str in strArray)
+            try
             {
-                Information gameObject = informations.GetGameObject(int.Parse(str)) as Information;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.AddInformation(gameObject);
+                    Information gameObject = informations.GetGameObject(int.Parse(str)) as Information;
+                    if (gameObject != null)
+                    {
+                        this.AddInformation(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("情报ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("情报列表应为半型空格分隔的情报ID");
+            }
+            return errorMsg;
         }
 
-        public void LoadLegionsFromString(LegionList legions, string dataString)
+        public List<string> LoadLegionsFromString(LegionList legions, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Legions.Clear();
-            foreach (string str in strArray)
+            try
             {
-                Legion gameObject = legions.GetGameObject(int.Parse(str)) as Legion;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.AddLegion(gameObject);
+                    Legion gameObject = legions.GetGameObject(int.Parse(str)) as Legion;
+                    if (gameObject != null)
+                    {
+                        this.AddLegion(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("LegionID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("Legion列表应为半型空格分隔的LegionID");
+            }
+            return errorMsg;
         }
 
-        public void LoadRoutewaysFromString(RoutewayList routeways, string dataString)
+        public List<string> LoadRoutewaysFromString(RoutewayList routeways, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Routeways.Clear();
-            foreach (string str in strArray)
+            try
             {
-                Routeway gameObject = routeways.GetGameObject(int.Parse(str)) as Routeway;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.AddRouteway(gameObject);
+                    Routeway gameObject = routeways.GetGameObject(int.Parse(str)) as Routeway;
+                    if (gameObject != null)
+                    {
+                        this.AddRouteway(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("粮道ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("粮道列表应为半型空格分隔的粮道ID");
+            }
+            return errorMsg;
         }
 
-        public void LoadSectionsFromString(SectionList sections, string dataString)
+        public List<string> LoadArchitecturesFromString(ArchitectureList architectures, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Sections.Clear();
-            foreach (string str in strArray)
+            try
             {
-                Section gameObject = sections.GetGameObject(int.Parse(str)) as Section;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.AddSection(gameObject);
+                    Architecture architecture = architectures.GetGameObject(int.Parse(str)) as Architecture;
+                    if (architecture != null)
+                    {
+                        this.AddArchitecture(architecture);
+                        this.AddArchitectureMilitaries(architecture);
+                    }
+                    else
+                    {
+                        errorMsg.Add("建筑ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("建筑列表应为半型空格分隔的建筑ID");
+            }
+            if (this.SectionCount == 0)
+            {
+                errorMsg.Add("没有军区");
+            }
+            return errorMsg;
         }
 
-        public void LoadTroopsFromString(TroopList troops, string dataString)
+        public List<string> LoadSectionsFromString(SectionList sections, string dataString)
         {
+            List<string> errorMsg = new List<string>();
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            this.Sections.Clear();
+            try
+            {
+                foreach (string str in strArray)
+                {
+                    Section section = sections.GetGameObject(int.Parse(str)) as Section;
+                    if (section != null)
+                    {
+                        this.AddSection(section);
+                        foreach (Architecture a in section.Architectures)
+                        {
+                            this.AddArchitecture(a);
+                            this.AddArchitectureMilitaries(a);
+                        }
+                    }
+                    else
+                    {
+                        errorMsg.Add("军区ID" + str + "不存在");
+                    }
+                }
+            }
+            catch
+            {
+                errorMsg.Add("军区列表应为半型空格分隔的军区ID");
+            }
+            if (this.SectionCount == 0)
+            {
+                // errorMsg.Add("没有军区");
+            }
+            return errorMsg;
+        }
+
+        public List<string> LoadTroopsFromString(TroopList troops, string dataString)
+        {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Troops.Clear();
-            foreach (string str in strArray)
+            try
             {
-                Troop gameObject = troops.GetGameObject(int.Parse(str)) as Troop;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.AddTroop(gameObject);
-                    this.AddTroopMilitary(gameObject);
+                    Troop gameObject = troops.GetGameObject(int.Parse(str)) as Troop;
+                    if (gameObject != null)
+                    {
+                        this.AddTroop(gameObject);
+                        this.AddTroopMilitary(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("部队ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("部队列表应为半型空格分隔的部队ID");
+            }
+            return errorMsg;
         }
 
         public int getTechniqueActualPointCost(Technique technique)
         {
             if (this.techniquePointCostRateDecrease.Count == 0) return technique.PointCost;
-            return (int) Math.Round(technique.PointCost * (1 - this.techniquePointCostRateDecrease.Max()));
+            return (int)Math.Round(technique.PointCost * (1 - this.techniquePointCostRateDecrease.Max()));
         }
 
         public int getTechniqueActualReputation(Technique technique)
@@ -2817,9 +2908,9 @@
 
         public bool MatchTechnique(Technique technique, Architecture architecture)
         {
-            return (((((this.TotalTechniquePoint >= this.getTechniqueActualPointCost(technique)) && 
-                (this.Reputation >= this.getTechniqueActualReputation(technique))) && 
-                (architecture.Fund >= this.getTechniqueActualFundCost(technique))) && 
+            return (((((this.TotalTechniquePoint >= this.getTechniqueActualPointCost(technique)) &&
+                (this.Reputation >= this.getTechniqueActualReputation(technique))) &&
+                (architecture.Fund >= this.getTechniqueActualFundCost(technique))) &&
                 (this.HasTechnique(technique.PreID) || (technique.PreID < 0))) && (this.UpgradingTechnique < 0));
         }
 
@@ -2998,7 +3089,7 @@
         {
             foreach (Point point in a.ArchitectureArea.Area)
             {
-               this.RemoveKnownAreaData(point, InformationLevel.全);
+                this.RemoveKnownAreaData(point, InformationLevel.全);
             }
             foreach (Point point in a.ViewArea.Area)
             {
@@ -3122,7 +3213,7 @@
                 {
                     foreach (Architecture j in i.AILandLinks)
                     {
-                        if (j.BelongedFaction==null) continue;
+                        if (j.BelongedFaction == null) continue;
                         if (j.BelongedFaction.ID == this.ID) continue;
                         if (base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, j.BelongedFaction.ID, this.ID).Relation < 300)
                         {
@@ -3149,7 +3240,7 @@
             int fc = 0;
             foreach (Faction f in base.Scenario.Factions)
             {
-                if ((f.Name != EncircleFactionName) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && ! f.IsAlien)
+                if ((f.Name != EncircleFactionName) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && !f.IsAlien)
                 {
                     fc++;
                     if (((base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, this.GetFactionByName(EncircleFactionName).ID, f.ID).Relation +
@@ -3191,7 +3282,8 @@
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
-                    if (i.Relation >= -300 && base.Scenario.IsPlayer(opposite)){
+                    if (i.Relation >= -300 && base.Scenario.IsPlayer(opposite))
+                    {
                         i.Relation -= 15; //focus到玩家的时候，每月降低15点友好度
                         relationBroken = true;
                     }
@@ -3216,7 +3308,7 @@
                         break;
                     }
                     //增加关系300以上，随机一个降低数值后主动解盟的情况
-                    if (GameObject.Chance((int)(Person.GetIdealOffset(this.Leader, opposite.Leader)/3)) && i.Relation >= 300)
+                    if (GameObject.Chance((int)(Person.GetIdealOffset(this.Leader, opposite.Leader) / 3)) && i.Relation >= 300)
                     {
                         i.Relation -= (7 + (int)Random(15));
                         relationBroken = true;
@@ -3418,7 +3510,7 @@
         }
 
 
-        internal bool  BecomeEmperorLegallyAvail()  //可以禅位
+        internal bool BecomeEmperorLegallyAvail()  //可以禅位
         {
             if (this.IsAlien || !base.Scenario.youhuangdi())
             {
@@ -3426,7 +3518,7 @@
             }
             if (this.guanjue != this.Scenario.GameCommonData.suoyouguanjuezhonglei.Count - 2)  //不是王
             {
-                return false ;
+                return false;
             }
             if (this.Capital.Fund < 100000)
             {
@@ -3445,7 +3537,7 @@
         {
             if (this.guanjue != this.Scenario.GameCommonData.suoyouguanjuezhonglei.Count - 2)  //不是王
             {
-                return false ;
+                return false;
             }
             if (this.Capital.Fund < 100000)
             {
@@ -3500,7 +3592,7 @@
             {
                 return;
             }
-            if (this.Capital==null||this.Capital.Fund < 100000)
+            if (this.Capital == null || this.Capital.Fund < 100000)
             {
                 return;
             }
@@ -3520,7 +3612,7 @@
                         {
                             if (f == this) continue;
                             if (f.guanjue == base.Scenario.GameCommonData.suoyouguanjuezhonglei.Count - 1) continue;
-                            if (GameObject.Random((int) (((int) this.Leader.Ambition + 1) * 2 * (this.ArchitectureCount / (double) f.ArchitectureCount))) == 0)
+                            if (GameObject.Random((int)(((int)this.Leader.Ambition + 1) * 2 * (this.ArchitectureCount / (double)f.ArchitectureCount))) == 0)
                             {
                                 return;
                             }
@@ -3539,7 +3631,7 @@
                                 break;
                             }
                         }*/
-                        if (GameObject.Random((int) ((5 - (int) this.Leader.Ambition) * 100 / (double) this.ArchitectureCount)) == 0)
+                        if (GameObject.Random((int)((5 - (int)this.Leader.Ambition) * 100 / (double)this.ArchitectureCount)) == 0)
                         {
                             this.SelfBecomeEmperor();
                         }
@@ -3552,7 +3644,7 @@
                 {
                     this.SelfBecomeEmperor();
                 }
-                else if (!this.IsAlien &&  this.chengchigeshu() >= shengjiguanjue.xuyaochengchi)
+                else if (!this.IsAlien && this.chengchigeshu() >= shengjiguanjue.xuyaochengchi)
                 {
                     this.SelfBecomeEmperor();
                 }
@@ -3560,7 +3652,7 @@
 
         }
 
-        public  void BecomeEmperorLegally()
+        public void BecomeEmperorLegally()
         {
             this.guanjue++;
             base.Scenario.YearTable.addBecomeEmperorLegallyEntry(base.Scenario.Date, this.Scenario.Persons.GetGameObject(7000) as Person, this);
@@ -3587,12 +3679,12 @@
 
         private void shizheshengguan()
         {
-            if (this.guanjue>= this.Scenario.GameCommonData.suoyouguanjuezhonglei.Count-2)  //已经是王或者皇帝
+            if (this.guanjue >= this.Scenario.GameCommonData.suoyouguanjuezhonglei.Count - 2)  //已经是王或者皇帝
             {
                 return;
             }
-            guanjuezhongleilei shengjiguanjue=new guanjuezhongleilei();
-            shengjiguanjue=this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue+1);
+            guanjuezhongleilei shengjiguanjue = new guanjuezhongleilei();
+            shengjiguanjue = this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue + 1);
             if (base.Scenario.youhuangdi())
             {
                 if (this.IsAlien && this.chengchigeshu() >= shengjiguanjue.xuyaochengchi)
@@ -3604,13 +3696,13 @@
                     this.Advancement();
                 }
             }
-            else 
+            else
             {
                 if (this.IsAlien && this.chengchigeshu() >= shengjiguanjue.xuyaochengchi)
                 {
                     this.SelfAdvancement();
                 }
-                else if (!this.IsAlien  && this.chengchigeshu() >= shengjiguanjue.xuyaochengchi)
+                else if (!this.IsAlien && this.chengchigeshu() >= shengjiguanjue.xuyaochengchi)
                 {
                     this.SelfAdvancement();
                 }
@@ -3620,7 +3712,7 @@
 
         }
 
-        public  void SelfBecomeEmperor()
+        public void SelfBecomeEmperor()
         {
             this.guanjue++;
             base.Scenario.YearTable.addSelfBecomeEmperorEntry(base.Scenario.Date, this);
@@ -3653,7 +3745,7 @@
                 {
                     continue;
                 }
-                
+
                 switch (person.ValuationOnGovernment)
                 {
                     case PersonValuationOnGovernment.无视:
@@ -3669,9 +3761,9 @@
                         continue;
 
                 }
-                person.Loyalty =(int) (person.Loyalty * loyaltyMultiplier);
+                person.Loyalty = (int)(person.Loyalty * loyaltyMultiplier);
             }
-            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, "", TextMessageKind.SelfBecomeInfluenceConsequence, "SelfBecomeEmperorInfluence", "","", true);
+            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, "", TextMessageKind.SelfBecomeInfluenceConsequence, "SelfBecomeEmperorInfluence", "", "", true);
         }
 
 
@@ -3683,7 +3775,7 @@
             this.Scenario.GameScreen.xiejinxingjilu("shengguan", this.LeaderName,
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
             base.Scenario.YearTable.addAdvanceGuanjueEntry(base.Scenario.Date, this, this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue));
-			ExtensionInterface.call("Advancement", new Object[] { this.Scenario, this });
+            ExtensionInterface.call("Advancement", new Object[] { this.Scenario, this });
         }
 
         private void SelfAdvancement()
@@ -3694,7 +3786,7 @@
             this.Scenario.GameScreen.xiejinxingjilu("Zili", this.LeaderName,
                 this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
             base.Scenario.YearTable.addSelfAdvanceGuanjueEntry(base.Scenario.Date, this, this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue));
-			ExtensionInterface.call("SelfAdvancement", new Object[] { this.Scenario, this });
+            ExtensionInterface.call("SelfAdvancement", new Object[] { this.Scenario, this });
         }
 
         public int CityCount
@@ -3738,7 +3830,7 @@
         {
             get
             {
-                if (this.IsAlien||!base.Scenario.youhuangdi())
+                if (this.IsAlien || !base.Scenario.youhuangdi())
                 {
                     return 0;
                 }
@@ -3758,7 +3850,6 @@
 
         }
         public int shengguanxuyaochengchi
-            
         {
             get
             {
@@ -4261,7 +4352,7 @@
                         {
                             this.OnTechniqueFinished(this, technique);
                         }
-						ExtensionInterface.call("TechniqueUpgradeComplete", new Object[] { this.Scenario, this, technique });
+                        ExtensionInterface.call("TechniqueUpgradeComplete", new Object[] { this.Scenario, this, technique });
                         base.Scenario.YearTable.addFactionTechniqueCompletedEntry(base.Scenario.Date, this, technique);
                     }
                     this.UpgradingTechnique = -1;
@@ -4288,7 +4379,7 @@
             }
             this.DecreaseTechniquePoint(this.getTechniqueActualPointCost(technique));
             architecture.DecreaseFund(this.getTechniqueActualFundCost(technique));
-			ExtensionInterface.call("UpgradeTechnique", new Object[] { this.Scenario, this });
+            ExtensionInterface.call("UpgradeTechnique", new Object[] { this.Scenario, this });
             if (this.OnUpgradeTechnique != null)
             {
                 this.OnUpgradeTechnique(this, technique, architecture);
@@ -4670,7 +4761,7 @@
                 Faction diplomaticFaction = null;
                 foreach (DiplomaticRelation relation in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
-                    if ((relation.Relation >= 300) && (num < relation.Relation) && 
+                    if ((relation.Relation >= 300) && (num < relation.Relation) &&
                         !relation.RelationFaction1.IsAlien && !relation.RelationFaction2.IsAlien)
                     {
                         num = relation.Relation;
@@ -4968,7 +5059,7 @@
             }
             set
             {
-                this.isAlien=value;
+                this.isAlien = value;
             }
         }
 

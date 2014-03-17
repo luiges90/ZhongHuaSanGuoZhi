@@ -12,6 +12,7 @@
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using System;
+    using System.IO;
     using System.Reflection;
     using System.Collections.Generic;
     using System.Data;
@@ -71,7 +72,7 @@
         public bool UsingOwnCommonData;
 
         public BiographyTable AllBiographies = new BiographyTable();
-        
+
         // 缓存地图上有几支部队在埋伏
         private int numberOfAmbushTroop = -1;
         public int NumberOfAmbushTroop
@@ -352,7 +353,7 @@
             {
                 if (i.Status == PersonStatus.Normal && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
                 {
-                    if (!this.NormalPLCache.ContainsKey(i.LocationArchitecture)) 
+                    if (!this.NormalPLCache.ContainsKey(i.LocationArchitecture))
                     {
                         this.NormalPLCache[i.LocationArchitecture] = new PersonList();
                     }
@@ -576,7 +577,7 @@
 
                 Person joinToPerson = person.Father;
 
-                if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive &&  joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
+                if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive && joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
                 {
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
@@ -768,7 +769,7 @@
 
             if (this.Factions.Count == 1)
             {
-                ExtensionInterface.call("GameEnd", new Object[]{this});
+                ExtensionInterface.call("GameEnd", new Object[] { this });
                 if (this.CurrentPlayer != null && !this.runScenarioEnd(this.CurrentPlayer.Capital))
                 {
                     this.GameScreen.GameEndWithUnite(this.Factions[0] as Faction);
@@ -909,7 +910,7 @@
             newFaction.PrepareData();
 
             newFactionCapital.ResetFaction(newFaction);
-            
+
             newFaction.AddArchitectureKnownData(newFactionCapital);
             newFaction.FirstSection.AddArchitecture(newFactionCapital);
 
@@ -935,8 +936,8 @@
                     }
                 }
             }
-			ExtensionInterface.call("CreateNewFaction", new Object[]{this, oldFaction, newFaction, newFactionCapital});
-			
+            ExtensionInterface.call("CreateNewFaction", new Object[] { this, oldFaction, newFaction, newFactionCapital });
+
             this.YearTable.addNewFactionEntry(this.Date, oldFaction, newFaction, newFactionCapital);
             if (this.OnNewFactionAppear != null)
             {
@@ -984,7 +985,7 @@
             {
                 if (display.Truce > 0)
                 {
-                    display.Truce --;
+                    display.Truce--;
                 }
             }
             //this.GameProgressCaution.Text = "运行势力";
@@ -1045,8 +1046,8 @@
             this.CheckGameEnd();
 
             this.DaySince++;
-			
-			ExtensionInterface.call("PostDayEvent", new Object[] { this });
+
+            ExtensionInterface.call("PostDayEvent", new Object[] { this });
 
             this.scenarioJustLoaded = false;
             this.GameScreen.LoadScenarioInInitialization = false;
@@ -1055,7 +1056,7 @@
             this.GameScreen.DisposeMapTileMemory();
         }
 
-        
+
         private void detectCurrentPlayerBattleState(Faction faction)
         {
 
@@ -1220,7 +1221,7 @@
                             chance = 6;
                             break;
                     }
-                    if (GameObject.Chance((int) (chance * Parameters.FireSpreadProbMultiply)))
+                    if (GameObject.Chance((int)(chance * Parameters.FireSpreadProbMultiply)))
                     {
                         this.SetPositionOnFire(point);
                         Troop troopByPosition = this.GetTroopByPosition(point);
@@ -1403,7 +1404,7 @@
 
             distance -= (1 + Math.Sqrt(2 * toArea.Count + 1)) / 2;
 
-            return distance;                
+            return distance;
         }
 
         public double GetDistance(Point fromPosition, Point toPosition)
@@ -1443,7 +1444,7 @@
                 reader.Read();
                 str = reader["PlayerInfo"].ToString() + "  ";
                 object obj2 = str;
-                str = string.Concat(new object[] { obj2, reader["Title"].ToString(), " ", (short) reader["GYear"], "年", (short) reader["GMonth"], "月", (short) reader["GDay"], "日  " });
+                str = string.Concat(new object[] { obj2, reader["Title"].ToString(), " ", (short)reader["GYear"], "年", (short)reader["GMonth"], "月", (short)reader["GDay"], "日  " });
                 str = str + reader["SaveTime"].ToString();
                 connection.Close();
             }
@@ -1483,8 +1484,8 @@
             while (reader.Read())
             {
                 Faction t = new Faction();
-                t.ID = (short) reader["ID"];
-                t.LeaderID = (short) reader["LeaderID"];
+                t.ID = (short)reader["ID"];
+                t.LeaderID = (short)reader["LeaderID"];
                 t.Name = reader["FName"].ToString();
                 try
                 {
@@ -1511,7 +1512,7 @@
                 DbConnection.Open();
                 OleDbDataReader reader = command.ExecuteReader();
                 reader.Read();
-                str = string.Concat(new object[] { reader["Title"].ToString(), " ", (short) reader["GYear"], "年", (short) reader["GMonth"], "月", (short) reader["GDay"], "日  " });
+                str = string.Concat(new object[] { reader["Title"].ToString(), " ", (short)reader["GYear"], "年", (short)reader["GMonth"], "月", (short)reader["GDay"], "日  " });
                 DbConnection.Close();
             }
             catch
@@ -1598,14 +1599,14 @@
             double distance = this.GetDistance(from, to);
             if (distance > 15.0)
             {
-                return new Point(from.X + ((int) (((double) ((to.X - from.X) * 15)) / distance)), from.Y + ((int) (((double) ((to.Y - from.Y) * 15)) / distance)));
+                return new Point(from.X + ((int)(((double)((to.X - from.X) * 15)) / distance)), from.Y + ((int)(((double)((to.Y - from.Y) * 15)) / distance)));
             }
             return to;
         }
 
         public int GetReturnDays(Point destination, GameArea fromArea)
         {
-            int num = (int) Math.Ceiling((double) (this.GetDistance(destination, this.GetClosestPoint(fromArea, destination)) / 10.0));
+            int num = (int)Math.Ceiling((double)(this.GetDistance(destination, this.GetClosestPoint(fromArea, destination)) / 10.0));
             num *= 2;
             if (num == 0)
             {
@@ -1693,7 +1694,7 @@
 
         public int GetSingleWayDays(Point destination, GameArea fromArea)
         {
-            int num = (int) Math.Ceiling((double) (this.GetDistance(destination, this.GetClosestPoint(fromArea, destination)) / 10.0));
+            int num = (int)Math.Ceiling((double)(this.GetDistance(destination, this.GetClosestPoint(fromArea, destination)) / 10.0));
             if (num == 0)
             {
                 num = 1;
@@ -1767,12 +1768,12 @@
             {
                 return TerrainKind.无;
             }
-            return (TerrainKind) this.ScenarioMap.MapData[position.X, position.Y];
+            return (TerrainKind)this.ScenarioMap.MapData[position.X, position.Y];
         }
 
         public TerrainKind GetTerrainKindByPositionNoCheck(Point position)
         {
-            return (TerrainKind) this.ScenarioMap.MapData[position.X, position.Y];
+            return (TerrainKind)this.ScenarioMap.MapData[position.X, position.Y];
         }
 
         public string GetTerrainNameByPosition(Point position)
@@ -1786,7 +1787,7 @@
 
         public int GetTransferFundDays(Architecture from, Architecture to)
         {
-            return (int) Math.Ceiling(this.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 2.5);
+            return (int)Math.Ceiling(this.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 2.5);
         }
 
         public Troop GetTroopByPosition(Point position)
@@ -2421,12 +2422,13 @@
             connection.Close();
         }
 
-
-        private void LoadGameDataFromDataBase(OleDbConnection DbConnection, string connectionString)  //读剧本和读存档都调用了此函数
+        private List<string> LoadGameDataFromDataBase(OleDbConnection DbConnection, string connectionString)  //读剧本和读存档都调用了此函数
         {
+            List<string> errorMsg = new List<string>();
+
             try
             {
-                this.GameCommonData.LoadFromDatabase(connectionString, this);
+                errorMsg.AddRange(this.GameCommonData.LoadFromDatabase(connectionString, this));
                 UsingOwnCommonData = true;
             }
             catch (Exception)
@@ -2445,7 +2447,7 @@
             }
 
             ExtensionInterface.loadCompiledTypes();
-            
+
             this.scenarioJustLoaded = true;
             OleDbDataReader reader;
 
@@ -2485,7 +2487,12 @@
             DbConnection.Close();
             foreach (State state in this.States)
             {
-                state.LoadContactStatesFromString(this.States, state.ContactStatesString);
+                List<string> e = state.LoadContactStatesFromString(this.States, state.ContactStatesString);
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("州域ID" + state.ID + "：");
+                    errorMsg.AddRange(e);
+                }
             }
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Region", DbConnection).ExecuteReader();
@@ -2494,7 +2501,12 @@
                 Region region = new Region();
                 region.ID = (short)reader["ID"];
                 region.Name = reader["Name"].ToString();
-                region.LoadStatesFromString(this.States, reader["States"].ToString());
+                List<string> e = region.LoadStatesFromString(this.States, reader["States"].ToString());
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("地区ID" + region.ID + "：");
+                    errorMsg.AddRange(e);
+                }
                 region.RegionCoreID = (short)reader["RegionCore"];
                 this.Regions.Add(region);
             }
@@ -2509,6 +2521,8 @@
             Dictionary<int, int[]> hatedIds = new Dictionary<int, int[]>();
             while (reader.Read())
             {
+                List<string> errors = new List<string>();
+
                 Person person = new Person();
                 person.Scenario = this;
                 person.ID = (short)reader["ID"];
@@ -2521,12 +2535,27 @@
                 person.PictureIndex = (short)reader["Pic"];
                 person.Ideal = (short)reader["Ideal"];
                 person.IdealTendency = this.GameCommonData.AllIdealTendencyKinds.GetGameObject((short)reader["IdealTendency"]) as IdealTendencyKind;
+                if (person.IdealTendency == null)
+                {
+                    errors.Add("出仕相性考虑ID" + (short)reader["IdealTendency"] + "不存在");
+                }
                 person.LeaderPossibility = (bool)reader["LeaderPossibility"];
                 person.Character = this.GameCommonData.AllCharacterKinds[(short)reader["PCharacter"]];
+                if (person.Character == null)
+                {
+                    errors.Add("性格ID" + (short)reader["PCharacter"] + "不存在");
+                }
                 person.YearAvailable = (short)reader["YearAvailable"];
                 person.YearBorn = (short)reader["YearBorn"];
                 person.YearDead = (short)reader["YearDead"];
-                person.DeadReason = (PersonDeadReason)((short)reader["DeadReason"]);
+                if ((short)reader["DeadReason"] >= Enum.GetNames(typeof(PersonDeadReason)).Length || (short)reader["DeadReason"] < 0)
+                {
+                    errors.Add("人物死亡原因必须在0至" + Enum.GetNames(typeof(PersonDeadReason)).Length + "之间");
+                }
+                else
+                {
+                    person.DeadReason = (PersonDeadReason)((short)reader["DeadReason"]);
+                }
                 person.BaseStrength = (short)reader["Strength"];
                 person.BaseCommand = (short)reader["Command"];
                 person.BaseIntelligence = (short)reader["Intelligence"];
@@ -2551,64 +2580,137 @@
                 person.Braveness = (short)reader["Braveness"];
                 person.Calmness = (short)reader["Calmness"];
                 person.Loyalty = (short)reader["Loyalty"];
-                person.BornRegion = (PersonBornRegion)((short)reader["BornRegion"]);
+                if ((short)reader["DeadReason"] >= Enum.GetNames(typeof(PersonBornRegion)).Length || (short)reader["BornRegion"] < 0)
+                {
+                    errors.Add("人物出生地点必须在0至" + Enum.GetNames(typeof(PersonBornRegion)).Length + "之间");
+                }
+                else
+                {
+                    person.BornRegion = (PersonBornRegion)((short)reader["BornRegion"]);
+                }
                 person.AvailableLocation = (short)reader["AvailableLocation"];
                 person.Strain = (short)reader["Strain"];
                 fatherIds[person.ID] = (short)reader["Father"];
                 motherIds[person.ID] = (short)reader["Mother"];
                 spouseIds[person.ID] = (short)reader["Spouse"];
 
-                String str = reader["Brother"].ToString();
-                char[] separator = new char[] { ' ', '\n', '\r', '\t' };
-                string[] strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-                int[] intArray = new int[strArray.Length];
-                for (int i = 0; i < strArray.Length; i++)
+                String str;
+                char[] separator = separator = new char[] { ' ', '\n', '\r', '\t' };
+                String[] strArray;
+                int[] intArray;
+                try
                 {
-                    intArray[i] = int.Parse(strArray[i]);
+                    str = reader["Brother"].ToString();
+                    strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                    intArray = new int[strArray.Length];
+                    for (int i = 0; i < strArray.Length; i++)
+                    {
+                        intArray[i] = int.Parse(strArray[i]);
+                    }
+                    brotherIds.Add(person.ID, intArray);
                 }
-                brotherIds.Add(person.ID, intArray);
+                catch
+                {
+                    errors.Add("义兄弟一栏应为半型空格分隔的人物ID");
+                }
 
                 person.Generation = (short)reader["Generation"];
                 person.PersonalLoyalty = ((short)reader["PersonalLoyalty"]);
                 person.Ambition = ((short)reader["Ambition"]);
-                person.Qualification = (PersonQualification)((short)reader["Qualification"]);
-                person.ValuationOnGovernment = (PersonValuationOnGovernment)((short)reader["ValuationOnGovernment"]);
-                person.StrategyTendency = (PersonStrategyTendency)((short)reader["StrategyTendency"]);
+                if ((short)reader["Qualification"] >= Enum.GetNames(typeof(PersonQualification)).Length || (short)reader["Qualification"] < 0)
+                {
+                    errors.Add("人才起用必须在0至" + Enum.GetNames(typeof(PersonQualification)).Length + "之间");
+                }
+                else
+                {
+                    person.Qualification = (PersonQualification)((short)reader["Qualification"]);
+                }
+                if ((short)reader["ValuationOnGovernment"] >= Enum.GetNames(typeof(PersonValuationOnGovernment)).Length || (short)reader["ValuationOnGovernment"] < 0)
+                {
+                    errors.Add("汉室重视度必须在0至" + Enum.GetNames(typeof(PersonValuationOnGovernment)).Length + "之间");
+                }
+                else
+                {
+                    person.ValuationOnGovernment = (PersonValuationOnGovernment)((short)reader["ValuationOnGovernment"]);
+                }
+                if ((short)reader["StrategyTendency"] >= Enum.GetNames(typeof(PersonStrategyTendency)).Length || (short)reader["StrategyTendency"] < 0)
+                {
+                    errors.Add("战略取向必须在0至" + Enum.GetNames(typeof(PersonStrategyTendency)).Length + "之间");
+                }
+                else
+                {
+                    person.StrategyTendency = (PersonStrategyTendency)((short)reader["StrategyTendency"]);
+                }
                 person.OldFactionID = (short)reader["OldFactionID"];
                 person.RewardFinished = (bool)reader["RewardFinished"];
-                person.WorkKind = (ArchitectureWorkKind)((short)reader["WorkKind"]);
-                person.OldWorkKind = (ArchitectureWorkKind)((short)reader["OldWorkKind"]);
+                if ((short)reader["WorkKind"] >= Enum.GetNames(typeof(ArchitectureWorkKind)).Length || (short)reader["WorkKind"] < 0)
+                {
+                    errors.Add("工作类型必须在0至" + Enum.GetNames(typeof(ArchitectureWorkKind)).Length + "之间");
+                }
+                else
+                {
+                    person.WorkKind = (ArchitectureWorkKind)((short)reader["WorkKind"]);
+                }
+                if ((short)reader["OldWorkKind"] >= Enum.GetNames(typeof(ArchitectureWorkKind)).Length || (short)reader["OldWorkKind"] < 0)
+                {
+                    errors.Add("人物旧工作类型必须在0至" + Enum.GetNames(typeof(ArchitectureWorkKind)).Length + "之间");
+                }
+                else
+                {
+                    person.OldWorkKind = (ArchitectureWorkKind)((short)reader["OldWorkKind"]);
+                }
                 person.RecruitmentMilitary = null;
                 person.ArrivingDays = (short)reader["ArrivingDays"];
                 person.TaskDays = (short)reader["TaskDays"];
-                person.OutsideTask = (OutsideTaskKind)((short)reader["OutsideTask"]);
+                if ((short)reader["OutsideTask"] >= Enum.GetNames(typeof(OutsideTaskKind)).Length || (short)reader["OutsideTask"] < 0)
+                {
+                    errors.Add("人物在外工作在0至" + Enum.GetNames(typeof(OutsideTaskKind)).Length + "之间");
+                }
+                else
+                {
+                    person.OutsideTask = (OutsideTaskKind)((short)reader["OutsideTask"]);
+                }
                 person.OutsideDestination = StaticMethods.LoadFromString(reader["OutsideDestination"].ToString());
                 person.ConvincingPersonID = (short)reader["ConvincingPerson"];
                 person.InformationKindID = (short)reader["InformationKind"];
 
-                str = reader["ClosePersons"].ToString();
-                strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-                intArray = new int[strArray.Length];
-                for (int i = 0; i < strArray.Length; i++)
+                try
                 {
-                    intArray[i] = int.Parse(strArray[i]);
+                    str = reader["ClosePersons"].ToString();
+                    strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                    intArray = new int[strArray.Length];
+                    for (int i = 0; i < strArray.Length; i++)
+                    {
+                        intArray[i] = int.Parse(strArray[i]);
+                    }
+                    closeIds.Add(person.ID, intArray);
                 }
-                closeIds.Add(person.ID, intArray);
+                catch
+                {
+                    errors.Add("亲爱武将一栏应为半型空格分隔的人物ID");
+                }
 
-                str = reader["HatedPersons"].ToString();
-                strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-                intArray = new int[strArray.Length];
-                for (int i = 0; i < strArray.Length; i++)
+                try
                 {
-                    intArray[i] = int.Parse(strArray[i]);
+                    str = reader["HatedPersons"].ToString();
+                    strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                    intArray = new int[strArray.Length];
+                    for (int i = 0; i < strArray.Length; i++)
+                    {
+                        intArray[i] = int.Parse(strArray[i]);
+                    }
+                    hatedIds.Add(person.ID, intArray);
                 }
-                hatedIds.Add(person.ID, intArray);
-               
+                catch
+                {
+                    errors.Add("厌恶武将一栏应为半型空格分隔的人物ID");
+                }
+
                 person.Skills.LoadFromString(this.GameCommonData.AllSkills, reader["Skills"].ToString());
 
                 try
                 {
-                    person.LoadTitleFromString(reader["Title"].ToString(), this.GameCommonData.AllTitles);
+                    errors.AddRange(person.LoadTitleFromString(reader["Title"].ToString(), this.GameCommonData.AllTitles));
                 }
                 catch
                 {
@@ -2628,7 +2730,7 @@
                 person.huaiyun = (bool)reader["huaiyun"];
                 person.faxianhuaiyun = (bool)reader["faxianhuaiyun"];
                 person.huaiyuntianshu = short.Parse(reader["huaiyuntianshu"].ToString());
-                
+
                 try
                 {
                     person.suoshurenwu = (short)reader["suoshurenwu"];
@@ -2703,6 +2805,12 @@
                 {
                 }
 
+                if (errors.Count > 0)
+                {
+                    errorMsg.Add("人物ID" + person.ID + "：");
+                    errorMsg.AddRange(errors);
+                }
+
                 this.Persons.AddPersonWithEvent(person);  //所有武将，并加载武将事件
                 this.AllPersons.Add(person.ID, person);   //武将字典
                 if (person.Available && person.Alive)
@@ -2714,7 +2822,12 @@
             foreach (Person p in this.Persons)
             {
                 p.WaitForFeiZi = this.Persons.GetGameObject(p.waitForFeiziId) as Person;
-                p.preferredTroopPersons.LoadFromString(this.Persons, p.preferredTroopPersonsString);
+                List<string> e = p.preferredTroopPersons.LoadFromString(this.Persons, p.preferredTroopPersonsString);
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("人物ID" + p.ID + "：副将一栏：");
+                    errorMsg.AddRange(e);
+                }
             }
             foreach (KeyValuePair<int, int> i in fatherIds)
             {
@@ -2752,6 +2865,10 @@
                         {
                             p.Brothers.Add(q);
                         }
+                        else
+                        {
+                            errorMsg.Add("人物ID" + p.ID + "：义兄弟ID" + j + "不存在");
+                        }
                     }
                 }
             }
@@ -2761,7 +2878,14 @@
                 foreach (int j in i.Value)
                 {
                     Person q = this.Persons.GetGameObject(j) as Person;
-                    p.AddClose(q);
+                    if (q != null)
+                    {
+                        p.AddClose(q);
+                    }
+                    else
+                    {
+                        errorMsg.Add("人物ID" + p.ID + "：亲爱武将ID" + j + "不存在");
+                    }
                 }
             }
             foreach (KeyValuePair<int, int[]> i in hatedIds)
@@ -2770,7 +2894,14 @@
                 foreach (int j in i.Value)
                 {
                     Person q = this.Persons.GetGameObject(j) as Person;
-                    p.AddHated(q);
+                    if (q != null)
+                    {
+                        p.AddHated(q);
+                    }
+                    else
+                    {
+                        errorMsg.Add("人物ID" + p.ID + "：厌恶武将ID" + j + "不存在");
+                    }
                 }
             }
 
@@ -2783,18 +2914,28 @@
                     Biography biography = new Biography();
                     biography.Scenario = this;
                     int id = (short)reader["ID"];
-                    Person p = (Person) this.Persons.GetGameObject(id);
-                    if (p != null) {
+                    Person p = (Person)this.Persons.GetGameObject(id);
+                    if (p != null)
+                    {
                         biography.ID = id;
                         biography.Brief = reader["Brief"].ToString();
                         biography.Romance = reader["Romance"].ToString();
                         biography.History = reader["History"].ToString();
                         biography.FactionColor = (short)reader["FactionColor"];
-                        biography.MilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["MilitaryKinds"].ToString());
+                        List<string> e = biography.MilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["MilitaryKinds"].ToString());
+                        if (e.Count > 0)
+                        {
+                            errorMsg.Add("列传人物ID" + biography.ID + "：");
+                            errorMsg.AddRange(e);
+                        }
+                        if (biography.MilitaryKinds.MilitaryKinds.Count == 0)
+                        {
+                            errorMsg.Add("列传人物ID" + biography.ID + "：没有基本兵种。");
+                        }
                         this.AllBiographies.AddBiography(biography);
                         p.PersonBiography = biography;
                     }
-                    
+
                 }
                 DbConnection.Close();
             }
@@ -2811,7 +2952,18 @@
                     Person person1 = this.Persons.GetGameObject((short)reader["Person1"]) as Person;
                     Person person2 = this.Persons.GetGameObject((short)reader["Person2"]) as Person;
                     int relation = (int)reader["Relation"];
-                    person1.SetRelation(person2, relation);
+                    if (person1 == null)
+                    {
+                        errorMsg.Add("人物关系：武将ID" + (short)reader["Person1"] + "不存在");
+                    }
+                    if (person2 == null)
+                    {
+                        errorMsg.Add("人物关系：武将ID" + (short)reader["Person2"] + "不存在");
+                    }
+                    if (person1 != null && person2 != null)
+                    {
+                        person1.SetRelation(person2, relation);
+                    }
                 }
             }
             catch (OleDbException)
@@ -2827,7 +2979,15 @@
                 captive.Scenario = this;
                 captive.ID = (short)reader["ID"];
                 captive.CaptivePerson = this.Persons.GetGameObject((short)reader["CaptivePerson"]) as Person;
-                captive.CaptivePerson.BelongedCaptive = captive;
+                if (captive.CaptivePerson == null)
+                {
+                    errorMsg.Add("俘虏ID" + captive.ID + "：武将ID" + (short)reader["CaptivePerson"] + "不存在");
+                    continue;
+                }
+                else
+                {
+                    captive.CaptivePerson.BelongedCaptive = captive;
+                }
                 captive.CaptiveFactionID = (short)reader["CaptiveFaction"];
                 captive.RansomArchitectureID = (short)reader["RansomArchitecture"];
                 captive.RansomFund = (int)reader["RansomFund"];
@@ -2848,6 +3008,11 @@
                 military.ID = (short)reader["ID"];
                 military.Name = reader["Name"].ToString();
                 military.KindID = (short)reader["KindID"];
+                if (this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(military.KindID) == null)
+                {
+                    errorMsg.Add("编队ID" + military.ID + "：兵种ID" + military.KindID + "不存在");
+                    continue;
+                }
                 military.Quantity = (int)reader["Quantity"];
                 military.Morale = (int)reader["Morale"];
                 military.Combativity = (int)reader["Combativity"];
@@ -2889,6 +3054,11 @@
                 facility.Scenario = this;
                 facility.ID = (short)reader["ID"];
                 facility.KindID = (short)reader["KindID"];
+                if (this.GameCommonData.AllFacilityKinds.GetFacilityKind(facility.KindID) == null)
+                {
+                    errorMsg.Add("设施ID" + facility.ID + "：设施种类ID" + facility.KindID + "不存在");
+                    continue;
+                }
                 facility.Endurance = (int)reader["Endurance"];
                 this.Facilities.AddFacility(facility);
             }
@@ -2916,29 +3086,31 @@
                 }
             }
             DbConnection.Close();
-            DbConnection.Open();
-            reader = new OleDbCommand("Select * From SpyMessage", DbConnection).ExecuteReader();
-            while (reader.Read())
-            {
-                SpyMessage message = new SpyMessage();
-                message.Scenario = this;
-                message.ID = (int)reader["ID"];
-                message.Kind = (SpyMessageKind)((short)reader["Kind"]);
-                message.MessageFactionID = (short)reader["MessageFaction"];
-                message.MessageArchitectureID = (short)reader["MessageArchitecture"];
-                message.LoadPersonPacksFromString(this.AllPersons, reader["PersonPacks"].ToString());
-                message.Message1 = reader["Message1"].ToString();
-                message.Message2 = reader["Message2"].ToString();
-                message.Message3 = reader["Message3"].ToString();
-                message.Message4 = reader["Message4"].ToString();
-                message.Message5 = reader["Message5"].ToString();
-                this.SpyMessages.AddMessageWithEvent(message);
-            }
-            DbConnection.Close();
+            //DbConnection.Open();
+            //reader = new OleDbCommand("Select * From SpyMessage", DbConnection).ExecuteReader();
+            //while (reader.Read())
+            //{
+            //    SpyMessage message = new SpyMessage();
+            //    message.Scenario = this;
+            //    message.ID = (int)reader["ID"];
+            //    message.Kind = (SpyMessageKind)((short)reader["Kind"]);
+            //    message.MessageFactionID = (short)reader["MessageFaction"];
+            //    message.MessageArchitectureID = (short)reader["MessageArchitecture"];
+            //    message.LoadPersonPacksFromString(this.AllPersons, reader["PersonPacks"].ToString());
+            //    message.Message1 = reader["Message1"].ToString();
+            //    message.Message2 = reader["Message2"].ToString();
+            //    message.Message3 = reader["Message3"].ToString();
+            //    message.Message4 = reader["Message4"].ToString();
+            //    message.Message5 = reader["Message5"].ToString();
+            //    this.SpyMessages.AddMessageWithEvent(message);
+            //}
+            //DbConnection.Close();
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Architecture", DbConnection).ExecuteReader();
             while (reader.Read())
             {
+                List<string> e = new List<string>();
+
                 Architecture architecture = new Architecture();
                 architecture.Scenario = this;
                 architecture.ID = (short)reader["ID"];
@@ -2953,25 +3125,36 @@
                 }
                 architecture.Name = reader["Name"].ToString();
                 architecture.Kind = this.GameCommonData.AllArchitectureKinds.GetArchitectureKind((short)reader["Kind"]);
+                if (architecture.Kind == null)
+                {
+                    e.Add("建筑种类ID" + reader["Kind"] + "不存在");
+                }
                 architecture.IsStrategicCenter = (bool)reader["IsStrategicCenter"];
                 architecture.LocationState = this.States.GetGameObject((short)reader["StateID"]) as State;
-                architecture.LocationState.Architectures.Add(architecture);
-                architecture.LocationState.LinkedRegion.Architectures.Add(architecture);
-                if (architecture.LocationState.StateAdminID == architecture.ID)
+                if (architecture.LocationState == null)
                 {
-                    architecture.LocationState.StateAdmin = architecture;
+                    e.Add("州域ID" + reader["Kind"] + "不存在");
                 }
-                if (architecture.LocationState.LinkedRegion.RegionCoreID == architecture.ID)
+                else
                 {
-                    architecture.LocationState.LinkedRegion.RegionCore = architecture;
+                    architecture.LocationState.Architectures.Add(architecture);
+                    architecture.LocationState.LinkedRegion.Architectures.Add(architecture);
+                    if (architecture.LocationState.StateAdminID == architecture.ID)
+                    {
+                        architecture.LocationState.StateAdmin = architecture;
+                    }
+                    if (architecture.LocationState.LinkedRegion.RegionCoreID == architecture.ID)
+                    {
+                        architecture.LocationState.LinkedRegion.RegionCore = architecture;
+                    }
                 }
-                architecture.Characteristics.LoadFromString(this.GameCommonData.AllInfluences, reader["Characteristics"].ToString());
+                e.AddRange(architecture.Characteristics.LoadFromString(this.GameCommonData.AllInfluences, reader["Characteristics"].ToString()));
                 architecture.LoadFromString(architecture.ArchitectureArea, reader["Area"].ToString());
-                architecture.LoadPersonsFromString(this.AllPersons, reader["Persons"].ToString());
-                architecture.LoadMovingPersonsFromString(this.AllPersons, reader["MovingPersons"].ToString());
-                architecture.LoadNoFactionPersonsFromString(this.AllPersons, reader["NoFactionPersons"].ToString());
-                architecture.LoadNoFactionMovingPersonsFromString(this.AllPersons, reader["NoFactionMovingPersons"].ToString());
-                architecture.LoadfeiziPersonsFromString(this.AllPersons, reader["feiziliebiao"].ToString());
+                e.AddRange(architecture.LoadPersonsFromString(this.AllPersons, reader["Persons"].ToString(), PersonStatus.Normal));
+                e.AddRange(architecture.LoadPersonsFromString(this.AllPersons, reader["MovingPersons"].ToString(), PersonStatus.Moving));
+                e.AddRange(architecture.LoadPersonsFromString(this.AllPersons, reader["NoFactionPersons"].ToString(), PersonStatus.NoFaction));
+                e.AddRange(architecture.LoadPersonsFromString(this.AllPersons, reader["NoFactionMovingPersons"].ToString(), PersonStatus.NoFactionMoving));
+                e.AddRange(architecture.LoadPersonsFromString(this.AllPersons, reader["feiziliebiao"].ToString(), PersonStatus.Princess));
                 architecture.Population = (int)reader["Population"];
                 architecture.Fund = (int)reader["Fund"];
                 architecture.Food = (int)reader["Food"];
@@ -3005,26 +3188,26 @@
                 {
                 }
 
-                architecture.LoadMilitariesFromString(this.Militaries, reader["Militaries"].ToString());
-                architecture.LoadFacilitiesFromString(this.Facilities, reader["Facilities"].ToString());
+                e.AddRange(architecture.LoadMilitariesFromString(this.Militaries, reader["Militaries"].ToString()));
+                e.AddRange(architecture.LoadFacilitiesFromString(this.Facilities, reader["Facilities"].ToString()));
                 architecture.BuildingFacility = (int)reader["BuildingFacility"];
                 architecture.BuildingDaysLeft = (int)reader["BuildingDaysLeft"];
                 architecture.PlanFacilityKindID = (int)reader["PlanFacilityKind"];
-                architecture.LoadFundPacksFromString(reader["FundPacks"].ToString());
+                e.AddRange(architecture.LoadFundPacksFromString(reader["FundPacks"].ToString()));
                 try
                 {
-                    architecture.LoadFoodPacksFromString(reader["FoodPacks"].ToString());
+                    e.AddRange(architecture.LoadFoodPacksFromString(reader["FoodPacks"].ToString()));
                 }
                 catch { }
-                architecture.LoadSpyPacksFromString(reader["SpyPacks"].ToString());
-                architecture.TodayNewMilitarySpyMessage = this.SpyMessages.GetGameObject((short)reader["TodayNewMilitarySpyMessage"]) as SpyMessage;
-                architecture.TodayNewTroopSpyMessage = this.SpyMessages.GetGameObject((short)reader["TodayNewTroopSpyMessage"]) as SpyMessage;
-                architecture.LoadPopulationPacksFromString(reader["PopulationPacks"].ToString());
+                // architecture.LoadSpyPacksFromString(reader["SpyPacks"].ToString());
+                // architecture.TodayNewMilitarySpyMessage = this.SpyMessages.GetGameObject((short)reader["TodayNewMilitarySpyMessage"]) as SpyMessage;
+                // architecture.TodayNewTroopSpyMessage = this.SpyMessages.GetGameObject((short)reader["TodayNewTroopSpyMessage"]) as SpyMessage;
+                e.AddRange(architecture.LoadPopulationPacksFromString(reader["PopulationPacks"].ToString()));
                 architecture.PlanArchitectureID = (int)reader["PlanArchitecture"];
                 architecture.TransferFundArchitectureID = (int)reader["TransferFundArchitecture"];
                 architecture.TransferFoodArchitectureID = (int)reader["TransferFoodArchitecture"];
                 architecture.DefensiveLegionID = (int)reader["DefensiveLegion"];
-                architecture.LoadCaptivesFromString(this.Captives, reader["Captives"].ToString());
+                e.AddRange(architecture.LoadCaptivesFromString(this.Captives, reader["Captives"].ToString()));
                 architecture.RobberTroopID = (short)reader["RobberTroop"];
                 architecture.RecentlyAttacked = (short)reader["RecentlyAttacked"];
                 architecture.RecentlyBreaked = (short)reader["RecentlyBreaked"];
@@ -3055,8 +3238,7 @@
 
                 try
                 {
-
-                    architecture.LoadInformationsFromString(this.Informations, (string)reader["Informations"]);
+                    e.AddRange(architecture.LoadInformationsFromString(this.Informations, (string)reader["Informations"]));
                 }
                 catch
                 {
@@ -3068,14 +3250,23 @@
                 }
                 catch { };
 
-                this.Architectures.AddArchitectureWithEvent(architecture);
-                this.AllArchitectures.Add(architecture.ID, architecture);
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("建筑ID" + architecture.ID + "：");
+                    errorMsg.AddRange(e);
+                }
+                else
+                {
+                    this.Architectures.AddArchitectureWithEvent(architecture);
+                    this.AllArchitectures.Add(architecture.ID, architecture);
+                }
             }
             DbConnection.Close();
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Routeway", DbConnection).ExecuteReader();
             while (reader.Read())
             {
+                List<string> e = new List<string>();
                 Routeway routeway = new Routeway();
                 routeway.Scenario = this;
                 routeway.ID = (short)reader["ID"];
@@ -3089,32 +3280,81 @@
                 {
                     routeway.StartArchitecture.Routeways.Add(routeway);
                 }
+                else
+                {
+                    e.Add("建筑ID" + (int)reader["StartArchitecture"] + "不存在");
+                }
                 routeway.EndArchitecture = this.Architectures.GetGameObject((int)reader["EndArchitecture"]) as Architecture;
                 routeway.DestinationArchitecture = this.Architectures.GetGameObject((int)reader["DestinationArchitecture"]) as Architecture;
                 routeway.LoadRoutePointsFromString(reader["Points"].ToString());
-                this.Routeways.AddRoutewayWithEvent(routeway);
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("粮道ID" + routeway.ID + "：");
+                    errorMsg.AddRange(e);
+                }
+                else
+                {
+                    this.Routeways.AddRoutewayWithEvent(routeway);
+                }
             }
             DbConnection.Close();
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Troop", DbConnection).ExecuteReader();
             while (reader.Read())
             {
+                List<string> errors = new List<string>();
                 Troop troop = new Troop();
                 troop.Scenario = this;
                 troop.ID = (short)reader["ID"];
                 troop.Controllable = (bool)reader["Controllable"];
-                troop.SetStatus((TroopStatus)((short)reader["Status"]));
-                troop.Direction = (TroopDirection)((short)reader["Direction"]);
+                if ((short)reader["Status"] >= Enum.GetNames(typeof(TroopStatus)).Length || (short)reader["Status"] < 0)
+                {
+                    errors.Add("部队状态在0至" + Enum.GetNames(typeof(TroopStatus)).Length + "之间");
+                }
+                else
+                {
+                    troop.SetStatus((TroopStatus)((short)reader["Status"]));
+                }
+                if ((short)reader["Direction"] >= Enum.GetNames(typeof(TroopDirection)).Length || (short)reader["Direction"] < 0)
+                {
+                    errors.Add("部队方向在0至" + Enum.GetNames(typeof(TroopDirection)).Length + "之间");
+                }
+                else
+                {
+                    troop.Direction = (TroopDirection)((short)reader["Direction"]);
+                }
                 troop.Auto = (bool)reader["Auto"];
                 troop.Operated = (bool)reader["Operated"];
                 troop.Food = (int)reader["Food"];
                 troop.zijin = (int)reader["zijin"];
                 troop.StartingArchitecture = this.Architectures.GetGameObject((short)reader["StartingArchitecture"]) as Architecture;
-                troop.LoadPersonsFromString(this.AllPersons, reader["Persons"].ToString(), (short)reader["LeaderID"]);
+                if (troop.StartingArchitecture == null)
+                {
+                    errors.Add("起始建筑ID" + (short)reader["StartingArchitecture"] + "不存在");
+                }
+                errors.AddRange(troop.LoadPersonsFromString(this.AllPersons, reader["Persons"].ToString(), (short)reader["LeaderID"]));
                 troop.LoadPathInformation((short)reader["PositionX"], (short)reader["PositionY"], (short)reader["DestinationX"], (short)reader["DestinationY"], (short)reader["RealDestinationX"], (short)reader["RealDestinationY"], reader["FirstTierPath"].ToString(), reader["SecondTierPath"].ToString(), reader["ThirdTierPath"].ToString(), (short)reader["FirstIndex"], (short)reader["SecondIndex"], (short)reader["ThirdIndex"]);
                 troop.MilitaryID = (short)reader["MilitaryID"];
-                troop.AttackDefaultKind = (TroopAttackDefaultKind)((short)reader["AttackDefaultKind"]);
-                troop.AttackTargetKind = (TroopAttackTargetKind)((short)reader["AttackTargetKind"]);
+                if (this.Militaries.GetGameObject(troop.MilitaryID) == null)
+                {
+                    errors.Add("编队ID" + troop.MilitaryID + "不存在");
+                }
+                if ((short)reader["AttackDefaultKind"] >= Enum.GetNames(typeof(TroopAttackTargetKind)).Length || (short)reader["AttackDefaultKind"] < 0)
+                {
+                    errors.Add("攻击预设模式在0至" + Enum.GetNames(typeof(TroopAttackTargetKind)).Length + "之间");
+                }
+                else
+                {
+                    troop.AttackDefaultKind = (TroopAttackDefaultKind)((short)reader["AttackDefaultKind"]);
+                }
+                if ((short)reader["AttackTargetKind"] >= Enum.GetNames(typeof(TroopAttackTargetKind)).Length || (short)reader["AttackTargetKind"] < 0)
+                {
+                    errors.Add("攻击目标模式在0至" + Enum.GetNames(typeof(TroopAttackTargetKind)).Length + "之间");
+                }
+                else
+                {
+                    troop.AttackTargetKind = (TroopAttackTargetKind)((short)reader["AttackTargetKind"]);
+                }
                 troop.TargetTroopID = (short)reader["TargetTroopID"];
                 troop.TargetArchitectureID = (short)reader["TargetArchitectureID"];
                 troop.WillTroopID = (short)reader["WillTroopID"];
@@ -3127,15 +3367,15 @@
                 {
                     troop.ForceTroopTargetId = (short)reader["ForceTroopTarget"];
                 }
-                catch 
+                catch
                 {
                     troop.ForceTroopTargetId = -1;
                 }
                 troop.CutRoutewayDays = (short)reader["CutRoutewayDays"];
-                troop.LoadCaptivesFromString(this.Captives, reader["Captives"].ToString());
+                errors.AddRange(troop.LoadCaptivesFromString(this.Captives, reader["Captives"].ToString()));
                 troop.RecentlyFighting = (short)reader["RecentlyFighting"];
                 troop.TechnologyIncrement = (short)reader["TechnologyIncrement"];
-                troop.EventInfluences.LoadFromString(this.GameCommonData.AllInfluences, reader["EventInfluences"].ToString());
+                errors.AddRange(troop.EventInfluences.LoadFromString(this.GameCommonData.AllInfluences, reader["EventInfluences"].ToString()));
                 try
                 {
                     troop.CurrentStunt = this.GameCommonData.AllStunts.GetStunt((short)reader["CurrentStunt"]);
@@ -3159,9 +3399,18 @@
                 {
                 }
                 troop.minglingweizhi = troop.RealDestination;
-                if (troop.Army != null)
+
+                if (errors.Count > 0)
                 {
-                    this.Troops.AddTroopWithEvent(troop);
+                    errors.Add("部队ID" + troop.ID + "：");
+                    errorMsg.AddRange(errors);
+                }
+                else
+                {
+                    if (troop.Army != null)
+                    {
+                        this.Troops.AddTroopWithEvent(troop);
+                    }
                 }
             }
             DbConnection.Close();
@@ -3186,11 +3435,17 @@
             reader = new OleDbCommand("Select * From Sections", DbConnection).ExecuteReader();
             while (reader.Read())
             {
+                List<string> e = new List<string>();
+
                 Section section = new Section();
                 section.Scenario = this;
                 section.ID = int.Parse(reader["ID"].ToString());
                 section.Name = reader["Name"].ToString();
                 section.AIDetail = this.GameCommonData.AllSectionAIDetails.GetSectionAIDetail((short)reader["AIDetail"]);
+                if (section.AIDetail == null)
+                {
+                    e.Add("军区委任类型" + (short)reader["AIDetail"] + "不存在");
+                }
                 section.OrientationFactionID = (short)reader["OrientationFaction"];
                 section.OrientationSectionID = (short)reader["OrientationSection"];
                 section.OrientationStateID = (short)reader["OrientationState"];
@@ -3201,14 +3456,23 @@
                 catch
                 {
                 }
-                section.LoadArchitecturesFromString(this.Architectures, reader["Architectures"].ToString());
-                this.Sections.AddSectionWithEvent(section);
+                e.AddRange(section.LoadArchitecturesFromString(this.Architectures, reader["Architectures"].ToString()));
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("军区ID" + section.ID + "：");
+                    errorMsg.AddRange(e);
+                }
+                else
+                {
+                    this.Sections.AddSectionWithEvent(section);
+                }
             }
             DbConnection.Close();
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Faction", DbConnection).ExecuteReader();
             while (reader.Read())
             {
+                List<string> e = new List<string>();
                 Faction faction = new Faction();
                 faction.Scenario = this;
                 faction.ID = (short)reader["ID"];
@@ -3217,23 +3481,30 @@
                 faction.Controlling = (bool)reader["Controlling"];
                 faction.LeaderID = (short)reader["LeaderID"];
                 faction.ColorIndex = (short)reader["ColorIndex"];
-                faction.FactionColor = this.GameCommonData.AllColors[faction.ColorIndex];
+                if (faction.ColorIndex >= this.GameCommonData.AllColors.Count)
+                {
+                    e.Add("颜色ID" + faction.ColorIndex + "不存在");
+                }
+                else
+                {
+                    faction.FactionColor = this.GameCommonData.AllColors[faction.ColorIndex];
+                }
                 faction.Name = reader["FName"].ToString();
                 faction.CapitalID = (short)reader["CapitalID"];
                 faction.Reputation = (int)reader["Reputation"];
                 faction.TechniquePoint = (int)reader["TechniquePoint"];
                 faction.TechniquePointForTechnique = (int)reader["TechniquePointForTechnique"];
                 faction.TechniquePointForFacility = (int)reader["TechniquePointForFacility"];
-                faction.LoadArchitecturesFromString(this.Architectures, reader["Architectures"].ToString());
-                faction.LoadTroopsFromString(this.Troops, reader["Troops"].ToString());
-                faction.LoadInformationsFromString(this.Informations, reader["Informations"].ToString());
-                faction.LoadRoutewaysFromString(this.Routeways, reader["Routeways"].ToString());
-                faction.LoadLegionsFromString(this.Legions, reader["Legions"].ToString());
-                faction.LoadSectionsFromString(this.Sections, reader["Sections"].ToString());
+                e.AddRange(faction.LoadArchitecturesFromString(this.Architectures, reader["Architectures"].ToString()));
+                e.AddRange(faction.LoadSectionsFromString(this.Sections, reader["Sections"].ToString()));
+                e.AddRange(faction.LoadTroopsFromString(this.Troops, reader["Troops"].ToString()));
+                e.AddRange(faction.LoadInformationsFromString(this.Informations, reader["Informations"].ToString()));
+                e.AddRange(faction.LoadRoutewaysFromString(this.Routeways, reader["Routeways"].ToString()));
+                e.AddRange(faction.LoadLegionsFromString(this.Legions, reader["Legions"].ToString()));
                 faction.BaseMilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["BaseMilitaryKinds"].ToString());
                 faction.UpgradingTechnique = (short)reader["UpgradingTechnique"];
                 faction.UpgradingDaysLeft = (short)reader["UpgradingDaysLeft"];
-                faction.AvailableTechniques.LoadFromString(this.GameCommonData.AllTechniques, reader["AvailableTechniques"].ToString());
+                e.AddRange(faction.AvailableTechniques.LoadFromString(this.GameCommonData.AllTechniques, reader["AvailableTechniques"].ToString()));
                 StaticMethods.LoadFromString(faction.PreferredTechniqueKinds, reader["PreferredTechniqueKinds"].ToString());
                 faction.PlanTechnique = this.GameCommonData.AllTechniques.GetTechnique((short)reader["PlanTechnique"]);
                 faction.AutoRefuse = (bool)reader["AutoRefuse"];
@@ -3268,6 +3539,11 @@
                     faction.AvailableMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(0));
                     faction.AvailableMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(1));
                     faction.AvailableMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(2));
+                }
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("势力ID" + faction.ID + "：");
+                    errorMsg.AddRange(e);
                 }
                 this.Factions.AddFactionWithEvent(faction);
             }
@@ -3372,7 +3648,7 @@
             {
                 DbConnection.Open();
                 reader = new OleDbCommand("Select * From Event", DbConnection).ExecuteReader();
-                
+
                 while (reader.Read())
                 {
                     try
@@ -3470,12 +3746,69 @@
             {
                 DbConnection.Close();
             }*/
+
+            foreach (Person p in this.Persons)
+            {
+                if (p.Status == PersonStatus.Normal || p.Status == PersonStatus.Moving)
+                {
+                    if (p.LocationArchitecture != null && p.LocationArchitecture.BelongedFaction == null)
+                    {
+                        errorMsg.Add("武将ID" + p.ID + "在一座没有势力的城池仕官");
+                        if (p.Status == PersonStatus.Normal)
+                        {
+                            p.Status = PersonStatus.NoFaction;
+                        }
+                        else
+                        {
+                            p.Status = PersonStatus.NoFactionMoving;
+                        }
+                    }
+                }
+                if (p.Status == PersonStatus.Moving || p.Status == PersonStatus.NoFactionMoving)
+                {
+                    if (p.ArrivingDays <= 0)
+                    {
+                        errorMsg.Add("武将ID" + p.ID + "正移动，但没有移动天数");
+                        p.ArrivingDays = 1;
+                    }
+                }
+                if (p.Available && p.Alive && p.LocationArchitecture == null && p.LocationTroop == null && (p.ID < 7000 || p.ID >= 8000))
+                {
+                    if (p.Status != PersonStatus.Princess)
+                    {
+                        errorMsg.Add("武将ID" + p.ID + "已登场，但没有所属建筑");
+                        p.Available = false;
+                        p.Alive = false;
+                        p.Status = PersonStatus.None;
+                    }
+                }
+            }
+
             this.AllPersons.Clear();
             this.AllArchitectures.Clear();
 
             this.alterTransportShipAdaptibility();
 
+            TextWriter tw = null;
+            try
+            {
+                tw = new StreamWriter("GameData/ScenarioErrors.txt");
+                foreach (string s in errorMsg)
+                {
+                    tw.WriteLine(s);
+                }
+            }
+            finally
+            {
+                if (tw != null)
+                {
+                    tw.Dispose();
+                }
+            }
+
             ExtensionInterface.call("Load", new Object[] { this });
+
+            return errorMsg;
         }
 
         private void alterTransportShipAdaptibility()
@@ -3541,7 +3874,7 @@
 
             if (playerFactions.Count > 0)
             {
-                foreach (int i in playerFactions) 
+                foreach (int i in playerFactions)
                 {
                     this.PlayerFactions.Add(this.Factions.GetGameObject(i));
                 }
@@ -3610,7 +3943,7 @@
             OleDbDataReader reader = command.ExecuteReader();
             reader.Read();
             this.PlayerFactions.LoadFromString(this.Factions, reader["PlayerList"].ToString());
-            this.CurrentPlayer = this.Factions.GetGameObject((short) reader["CurrentPlayer"]) as Faction;
+            this.CurrentPlayer = this.Factions.GetGameObject((short)reader["CurrentPlayer"]) as Faction;
             this.CurrentFaction = this.CurrentPlayer;
             this.Factions.RunningFaction = this.CurrentPlayer;
             this.Factions.LoadQueueFromString(reader["FactionQueue"].ToString());
@@ -3662,7 +3995,7 @@
 
         public void MonthPassedEvent()
         {
-			ExtensionInterface.call("MonthEvent", new Object[] { this });
+            ExtensionInterface.call("MonthEvent", new Object[] { this });
             foreach (Faction faction in this.Factions.GetRandomList())
             {
                 faction.MonthEvent();
@@ -3743,7 +4076,7 @@
 
         public void SeasonChangeEvent()
         {
-			ExtensionInterface.call("SeasonEvent", new Object[] { this });
+            ExtensionInterface.call("SeasonEvent", new Object[] { this });
             if ((this.Date.Month == 3 || this.Date.Month == 6 || this.Date.Month == 9 || this.Date.Month == 12) && this.Date.Day == 1)
             {
                 foreach (Faction faction in this.Factions.GetRandomList())
@@ -3784,7 +4117,7 @@
                                     (person3.LocationArchitecture != null) && !person3.IsCaptive
                                  ) &&
                                 (
-                                    (person3.LocationArchitecture.RecentlyAttacked <= 0) 
+                                    (person3.LocationArchitecture.RecentlyAttacked <= 0)
                                     && (person3.LocationArchitecture.Population > (0x2710 * person3.LocationArchitecture.AreaCount))
                                  )
                             ) &&
@@ -3792,7 +4125,7 @@
                         ) &&
                         (
                             (  //创建新势力
-                                (person3.LocationArchitecture.BelongedFaction == null) 
+                                (person3.LocationArchitecture.BelongedFaction == null)
                                 && (GameObject.Random(person3.Reputation) > GameObject.Random(0xc350 * person3.LocationArchitecture.AreaCount))
                             ) ||
                             (  //独立
@@ -3866,7 +4199,7 @@
 
         public string PositionString(Point position)
         {
-            
+
             if (this.PositionIsArchitecture(position))
             {
                 return this.GetArchitectureByPositionNoCheck(position).Name;
@@ -4810,7 +5143,7 @@
                 GC.Collect();
                 throw;
             }*/
-			ExtensionInterface.call("Save", new Object[] { this });
+            ExtensionInterface.call("Save", new Object[] { this });
             return true;
         }
 
@@ -5055,7 +5388,7 @@
 
         public void YearPassedEvent()
         {
-			ExtensionInterface.call("YearEvent", new Object[] { this });
+            ExtensionInterface.call("YearEvent", new Object[] { this });
             foreach (Architecture architecture in this.Architectures.GetRandomList())
             {
                 architecture.YearEvent();
@@ -5106,7 +5439,7 @@
         {
             foreach (Architecture a in this.Architectures)
             {
-                if (a.huangdisuozai) return a; 
+                if (a.huangdisuozai) return a;
             }
             return null;
         }
@@ -5115,9 +5448,9 @@
         {
             foreach (Architecture a in this.Architectures)
             {
-                if (a.huangdisuozai) return true; 
+                if (a.huangdisuozai) return true;
             }
-            return false ;
+            return false;
         }
 
         public delegate void AfterLoadScenario(GameScenario scenario);

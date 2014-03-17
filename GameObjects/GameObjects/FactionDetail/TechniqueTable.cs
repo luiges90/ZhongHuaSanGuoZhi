@@ -40,18 +40,31 @@
             return list;
         }
 
-        public void LoadFromString(TechniqueTable allTechniques, string techniqueIDs)
+        public List<string> LoadFromString(TechniqueTable allTechniques, string techniqueIDs)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = techniqueIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             Technique technique = null;
-            for (int i = 0; i < strArray.Length; i++)
+            try
             {
-                if (allTechniques.Techniques.TryGetValue(int.Parse(strArray[i]), out technique))
+                for (int i = 0; i < strArray.Length; i++)
                 {
-                    this.AddTechnique(technique);
+                    if (allTechniques.Techniques.TryGetValue(int.Parse(strArray[i]), out technique))
+                    {
+                        this.AddTechnique(technique);
+                    }
+                    else
+                    {
+                        errorMsg.Add("技巧ID" + strArray[i] + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("技巧列表应为半型空格分隔的技巧ID");
+            }
+            return errorMsg;
         }
 
         public bool RemoveTechniuqe(int id)

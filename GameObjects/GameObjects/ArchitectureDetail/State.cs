@@ -2,6 +2,7 @@
 {
     using GameObjects;
     using System;
+    using System.Collections.Generic;
 
     public class State : GameObject
     {
@@ -50,19 +51,32 @@
             return ((num * 100) / section.ArchitectureCount);
         }
 
-        public void LoadContactStatesFromString(StateList contactStates, string dataString)
+        public List<string> LoadContactStatesFromString(StateList contactStates, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.ContactStates.Clear();
-            foreach (string str in strArray)
+            try
             {
-                State gameObject = contactStates.GetGameObject(int.Parse(str)) as State;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.ContactStates.Add(gameObject);
+                    State gameObject = contactStates.GetGameObject(int.Parse(str)) as State;
+                    if (gameObject != null)
+                    {
+                        this.ContactStates.Add(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("州域ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("连接州域一栏应为半型空格分隔的州域ID");
+            }
+            return errorMsg;
         }
 
         public override string ToString()

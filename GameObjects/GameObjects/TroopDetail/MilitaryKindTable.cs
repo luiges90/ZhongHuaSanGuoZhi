@@ -76,18 +76,33 @@
             this.AddMilitaryKind(scen.GameCommonData.AllMilitaryKinds.GetMilitaryKindList().GetGameObject(30) as MilitaryKind);
         }
 
-        public void LoadFromString(MilitaryKindTable allMilitaryKinds, string militaryKindIDs)
+        public List<string> LoadFromString(MilitaryKindTable allMilitaryKinds, string militaryKindIDs)
         {
+            List<string> errorMsg = new List<string>();
+
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = militaryKindIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             MilitaryKind kind = null;
-            for (int i = 0; i < strArray.Length; i++)
+            try
             {
-                if (allMilitaryKinds.MilitaryKinds.TryGetValue(int.Parse(strArray[i]), out kind))
+                for (int i = 0; i < strArray.Length; i++)
                 {
-                    this.AddMilitaryKind(kind);
+                    if (allMilitaryKinds.MilitaryKinds.TryGetValue(int.Parse(strArray[i]), out kind))
+                    {
+                        this.AddMilitaryKind(kind);
+                    }
+                    else
+                    {
+                        errorMsg.Add("兵种ID" + int.Parse(strArray[i]) + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("兵种一栏应为半型空格分隔的影响ID");
+            }
+
+            return errorMsg;
         }
 
         public string SaveToString()

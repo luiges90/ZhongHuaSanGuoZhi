@@ -3,6 +3,7 @@
     using GameObjects.ArchitectureDetail;
     using GameObjects.SectionDetail;
     using System;
+    using System.Collections.Generic;
 
     public class Section : GameObject
     {
@@ -49,8 +50,8 @@
 
         internal void AIInterTransfer()
         {
-            if (this.OrientationSection != null && 
-                (this.AIDetail.AllowFoodTransfer || this.AIDetail.AllowFundTransfer || this.AIDetail.AllowMilitaryTransfer)) 
+            if (this.OrientationSection != null &&
+                (this.AIDetail.AllowFoodTransfer || this.AIDetail.AllowFundTransfer || this.AIDetail.AllowMilitaryTransfer))
             {
                 this.BelongedFaction.AllocationTransfer(this.Architectures, this.OrientationSection.Architectures,
                     (this.AIDetail.AllowFoodTransfer || this.AIDetail.AllowFundTransfer), false, this.AIDetail.AllowMilitaryTransfer);
@@ -109,19 +110,36 @@
             return this.Architectures.HasGameObject(a);
         }
 
-        public void LoadArchitecturesFromString(ArchitectureList architectures, string dataString)
+        public List<string> LoadArchitecturesFromString(ArchitectureList architectures, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.Architectures.Clear();
-            foreach (string str in strArray)
+            try
             {
-                Architecture gameObject = architectures.GetGameObject(int.Parse(str)) as Architecture;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.AddArchitecture(gameObject);
+                    Architecture gameObject = architectures.GetGameObject(int.Parse(str)) as Architecture;
+                    if (gameObject != null)
+                    {
+                        this.AddArchitecture(gameObject);
+                    }
+                    else
+                    {
+                        errorMsg.Add("建筑ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("建筑列表应为半型空格分隔的建筑ID");
+            }
+            if (this.ArchitectureCount == 0)
+            {
+                errorMsg.Add("没有建筑");
+            }
+            return errorMsg;
         }
 
         public void RefreshSectionName()

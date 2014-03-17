@@ -2,6 +2,7 @@
 {
     using GameObjects;
     using System;
+    using System.Collections.Generic;
 
     public class Region : GameObject
     {
@@ -48,20 +49,34 @@
             return ((num * 100) / section.ArchitectureCount);
         }
 
-        public void LoadStatesFromString(StateList states, string dataString)
+        public List<string> LoadStatesFromString(StateList states, string dataString)
         {
+            List<string> errorMsg = new List<string>();
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             this.States.Clear();
-            foreach (string str in strArray)
+            try
             {
-                State gameObject = states.GetGameObject(int.Parse(str)) as State;
-                if (gameObject != null)
+                foreach (string str in strArray)
                 {
-                    this.States.Add(gameObject);
-                    gameObject.LinkedRegion = this;
+                    State gameObject = states.GetGameObject(int.Parse(str)) as State;
+                    if (gameObject != null)
+                    {
+                        this.States.Add(gameObject);
+                        gameObject.LinkedRegion = this;
+                    }
+                    else
+                    {
+                        errorMsg.Add("州域ID" + str + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("州域一栏应为半型空格分隔的州域ID");
+            }
+            return errorMsg;
+
         }
 
         public string RegionCoreString
