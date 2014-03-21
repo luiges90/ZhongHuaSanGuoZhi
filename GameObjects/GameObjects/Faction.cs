@@ -3138,6 +3138,7 @@
         public void RemoveRouteway(Routeway routeway)
         {
             this.Routeways.Remove(routeway);
+            this.Scenario.Routeways.Remove(routeway);
             routeway.BelongedFaction = null;
         }
 
