@@ -230,11 +230,16 @@
             }
         }
 
+        private int? merit = null;
         public int Merit
         {
             get
             {
-                return (int) (Math.Pow(this.level, 1.5) * 15);
+                if (merit == null)
+                {
+                    merit = (int)(Math.Pow(Math.Max(1, AIPersonValue - 15) * 0.2828 + 1, 0.75) * 5);
+                }
+                return merit.Value;
             }
         }
 
@@ -245,15 +250,7 @@
             {
                 if (fightingMerit == null)
                 {
-                    int combatInfluences = 0;
-                    foreach (Influence i in this.Influences.Influences.Values)
-                    {
-                        if (i.Kind.Combat)
-                        {
-                            combatInfluences++;
-                        }
-                    }
-                    fightingMerit = (int) (this.Merit * ((double)combatInfluences / this.Influences.Count));
+                    fightingMerit = (int)(Math.Pow(Math.Max(1, AIFightingPersonValue - 15) * 0.2828 + 1, 0.75) * 5);
                 }
                 return fightingMerit.Value;
             }
@@ -266,16 +263,7 @@
             {
                 if (subOfficerMerit == null)
                 {
-                    int subofficerInfluences = 0;
-                    foreach (Influence i in this.Influences.Influences.Values)
-                    {
-                        if (i.Kind.ID == 281) break;
-                        if (i.Kind.Combat)
-                        {
-                            subofficerInfluences++;
-                        }
-                    }
-                    subOfficerMerit = (int)(this.Merit * ((double)subofficerInfluences / this.Influences.Count));
+                    subOfficerMerit = (int)(Math.Pow(Math.Max(1, AISubOfficerPersonValue - 15) * 0.2828 + 1, 0.75) * 5);
                 }
                 return subOfficerMerit.Value;
             }
@@ -312,50 +300,95 @@
                     return aiPersonValue.Value;
                 }
 
-                double d = 1;
-                bool hasKind = false;
-                bool hasType = false;
+                calculatePersonValues();
+                return aiPersonValue.Value;
+            }
+        }
 
-                double result = 0;
-                foreach (Influence i in this.Influences.GetInfluenceList())
+        private double? aiFightingPersonValue = null;
+        public double AIFightingPersonValue
+        {
+            get
+            {
+                if (aiFightingPersonValue != null)
                 {
-                    switch (i.Kind.ID)
-                    {
-                        case 281:
-                            d *= 0.8;
-                            break;
-                        case 290:
-                            if (hasKind)
-                            {
-                                d *= 1.2;
-                            }
-                            else
-                            {
-                                hasKind = true;
-                                d *= 0.4;
-                            }
-                            break;
-                        case 300:
-                            if (hasType)
-                            {
-                                d *= 1.1;
-                                if (d > 1)
-                                {
-                                    d = 1;
-                                }
-                            }
-                            else
-                            {
-                                hasKind = true;
-                                d *= 0.2;
-                            }
-                            break;
-                    }
-                    result += i.AIPersonValue * d;
+                    return aiFightingPersonValue.Value;
                 }
 
-                aiPersonValue = result;
-                return result;
+                calculatePersonValues();
+                return aiFightingPersonValue.Value;
+            }
+        }
+
+        private double? aiSubofficerPersonValue = null;
+        public double AISubOfficerPersonValue
+        {
+            get
+            {
+                if (aiSubofficerPersonValue != null)
+                {
+                    return aiSubofficerPersonValue.Value;
+                }
+
+                calculatePersonValues();
+                return aiSubofficerPersonValue.Value;
+            }
+        }
+
+        private void calculatePersonValues()
+        {
+            double d = 1;
+            bool hasKind = false;
+            bool hasType = false;
+
+            aiPersonValue = 0;
+            aiFightingPersonValue = 0;
+            aiSubofficerPersonValue = 0;
+            bool leaderEffective = false;
+            foreach (Influence i in this.Influences.GetInfluenceList())
+            {
+                switch (i.Kind.ID)
+                {
+                    case 281:
+                        d *= 0.8;
+                        leaderEffective = true;
+                        break;
+                    case 290:
+                        if (hasKind)
+                        {
+                            d *= 1.2;
+                        }
+                        else
+                        {
+                            hasKind = true;
+                            d *= 0.4;
+                        }
+                        break;
+                    case 300:
+                        if (hasType)
+                        {
+                            d *= 1.1;
+                            if (d > 1)
+                            {
+                                d = 1;
+                            }
+                        }
+                        else
+                        {
+                            hasKind = true;
+                            d *= 0.2;
+                        }
+                        break;
+                }
+                aiPersonValue += i.AIPersonValue * d;
+                if (i.Kind.Combat)
+                {
+                    aiFightingPersonValue += i.AIPersonValue * d;
+                }
+                if (!leaderEffective && i.Kind.Combat)
+                {
+                    aiSubofficerPersonValue += i.AIPersonValue * d;
+                }
             }
         }
 

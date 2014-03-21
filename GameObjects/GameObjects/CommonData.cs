@@ -290,12 +290,12 @@
                     {
                         ik.Combat = true;
                     }
-                    /*try
+                    try
                     {
                         ik.AIPersonValue = (float)reader["AIPersonValue"];
                         ik.AIPersonValuePow = (float)reader["AIPersonValuePow"];
                     }
-                    catch { }*/
+                    catch { }
                     this.AllInfluenceKinds.AddInfluenceKind(ik);
                 }
                 else
@@ -1710,6 +1710,8 @@
                     row["Name"] = i.Name;
                     row["Type"] = i.Type;
                     row["Combat"] = i.Combat;
+                    row["AIPersonValue"] = i.AIPersonValue;
+                    row["AIPersonValuePow"] = i.AIPersonValuePow;
                     row.EndEdit();
                     dataSet.Tables["InfluenceKind"].Rows.Add(row);
                 }
