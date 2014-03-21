@@ -193,6 +193,7 @@
         private int technology;
         public SpyMessage TodayNewMilitarySpyMessage;
         public SpyMessage TodayNewTroopSpyMessage;
+        public int TotalStoredForce;
         public int TotalFriendlyForce;
         public int TotalHostileForce;
         public MilitaryList TrainingMilitaryList = new MilitaryList();
@@ -1076,7 +1077,13 @@
         {
             get
             {
-                return this.HasHostileTroopsInView() && this.Endurance < 30;
+                if (!this.HasHostileTroopsInView()) return false;
+                if (this.Endurance >= 30) return false;
+                if (this.TotalHostileForce > (this.TotalFriendlyForce + this.TotalStoredForce) * 2)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
@@ -9002,6 +9009,29 @@
                 foreach (Troop i in this.DefensiveLegion.Troops)
                 {
                     this.TotalFriendlyForce += i.FightingForce;
+                }
+            }
+
+            this.TotalStoredForce = 0;
+            if (this.Persons.Count > 0) {
+                int fightingMerit = 0;
+
+                GameObjectList maxList = this.Persons.GetList();
+                maxList.PropertyName = "FightingForce";
+                maxList.IsNumber = true;
+                maxList.SmallToBig = false;
+                maxList.ReSort();
+                int cnt = 0;
+                foreach (Person p in maxList)
+                {
+                    cnt++;
+                    fightingMerit += p.FightingForce;
+                    if (cnt > 5 || cnt > this.MilitaryCount) break;
+                }
+                int avgFightingMerit = fightingMerit / cnt;
+                foreach (Military m in this.Militaries)
+                {
+                    this.TotalStoredForce += (int) (((m.Offence + m.Defence) * m.Morale / 100.0 + m.Combativity / 4) * fightingMerit / 100);
                 }
             }
         }

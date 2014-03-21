@@ -10932,7 +10932,19 @@
         {
             get
             {
-                return Math.Max(1, ((this.Offence + this.Defence) * (((((((((((((((((((((((((1 + (((this.CurrentArchitecture != null) && (this.CurrentArchitecture.Endurance > 0)) ? 10 : 0)) + (this.TroopIntelligence / 2)) + (this.Quantity / 500)) + (this.Combativity / 4)) + this.Leader.TitleFightingMerit) + (this.CombatMethods.Count * 5)) + (this.Stunts.Count * 20)) + this.CriticalStrikeChance) + this.AntiCriticalStrikeChance) + this.ChaosAfterCriticalStrikeChance) + (this.AvoidSurroundedChance / 2)) + this.ChaosAfterSurroundAttackChance) + this.StratagemChanceIncrement) + this.AntiStratagemChanceIncrement) + this.ChaosAfterStratagemSuccessChance) + (this.ChanceIncrementOfCriticalStrikeInViewArea * 4)) + (this.ChanceDecrementOfCriticalStrikeInViewArea * 4)) + (this.CombativityIncrementPerDayInViewArea * 4)) + (this.CombativityDecrementPerDayInViewArea * 4)) + (this.ChanceIncrementOfStratagemInViewArea * 4)) + (this.ChanceDecrementOfStratagemInViewArea * 4)) + ((int)(this.OffenceRateIncrementInViewArea * 100f))) + ((int)(this.OffenceRateDecrementInViewArea * 100f))) + ((int)(this.DefenceRateIncrementInViewArea * 100f))) + ((int)(this.DefenceRateDecrementInViewArea * 100f)))));
+                return Math.Max(1, (this.Offence + this.Defence) * 
+                    (1 
+                        + (this.CurrentArchitecture != null && this.CurrentArchitecture.Endurance > 0 ? 10 : 0) 
+                        + this.TroopIntelligence / 2 + this.Quantity / 500 + this.Combativity / 4 + this.Leader.TitleFightingMerit 
+                        + this.CombatMethods.Count * 5 + this.Stunts.Count * 20 
+                        + this.CriticalStrikeChance + this.AntiCriticalStrikeChance + this.ChaosAfterCriticalStrikeChance 
+                        + this.AvoidSurroundedChance / 2 + this.ChaosAfterSurroundAttackChance 
+                        + this.StratagemChanceIncrement + this.AntiStratagemChanceIncrement + this.ChaosAfterStratagemSuccessChance 
+                        + this.ChanceIncrementOfCriticalStrikeInViewArea * 4 + this.ChanceDecrementOfCriticalStrikeInViewArea * 4 
+                        + this.CombativityIncrementPerDayInViewArea * 4 + this.CombativityDecrementPerDayInViewArea * 4 + 
+                        this.ChanceIncrementOfStratagemInViewArea * 4 + this.ChanceDecrementOfStratagemInViewArea * 4 
+                        + (int)(this.OffenceRateIncrementInViewArea * 100f) + (int)(this.OffenceRateDecrementInViewArea * 100f) 
+                        + (int)(this.DefenceRateIncrementInViewArea * 100f) + (int)(this.DefenceRateDecrementInViewArea * 100f)));
             }
         }
 
