@@ -1086,7 +1086,10 @@
                         //architecture.JustAttacked = true;
                         architecture.BelongedFaction.StopToControl = GlobalVariables.StopToControlOnAttack;
                         architecture.RecentlyAttacked = 5;
-                        this.GameScreen.ArchitectureBeginRecentlyAttacked(architecture);  //提示玩家建筑视野范围内出现敌军。
+                        if (this.GameScreen != null)
+                        {
+                            this.GameScreen.ArchitectureBeginRecentlyAttacked(architecture);  //提示玩家建筑视野范围内出现敌军。
+                        }
 
                     }
                     architecture.hostileTroopInViewLastDay = true;
