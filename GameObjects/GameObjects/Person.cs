@@ -855,7 +855,10 @@
                     }
                 }
             }
-            ApplyTreasure(substitute, excludePersonal);
+            if (substitute != null)
+            {
+                ApplyTreasure(substitute, excludePersonal);
+            }
         }
 
         private void PurifyTreasureSkipSubstitute(Treasure treasure, bool excludePersonal)
@@ -5908,7 +5911,7 @@
             get
             {
                 int num = 0;
-                foreach (Treasure treasure in this.Treasures)
+                foreach (Treasure treasure in this.appliedTreasureGroups.Values)
                 {
                     num += treasure.Worth;
                 }
