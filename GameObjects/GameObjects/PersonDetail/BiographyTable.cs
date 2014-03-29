@@ -12,7 +12,7 @@
         {
             if (this.Biographys.ContainsKey(biography.ID))
             {
-                return false;
+                this.Biographys.Remove(biography.ID);
             }
             this.Biographys.Add(biography.ID, biography);
             return true;
