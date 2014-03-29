@@ -942,18 +942,7 @@
                 stratagem.CastTarget = this.AllCastTargetKinds.GetGameObject((short)reader["CastTarget"]) as CastTargetKind;
                 stratagem.ArchitectureTarget = (bool)reader["ArchitectureTarget"];
                 stratagem.RequireInfluenceToUse = (bool)reader["RequireInfluneceToUse"];
-                if (stratagem.CastDefault == null)
-                {
-                    errorMsg.Add("计略ID" + stratagem.ID + "的发动预设种类不存在");
-                }
-                if (stratagem.CastTarget == null)
-                {
-                    errorMsg.Add("计略ID" + stratagem.ID + "的发动目标种类不存在");
-                }
-                if (stratagem.CastDefault != null && stratagem.CastTarget != null)
-                {
-                    this.AllStratagems.AddStratagem(stratagem);
-                }
+                this.AllStratagems.AddStratagem(stratagem);
             }
             connection.Close();
             connection.Open();
