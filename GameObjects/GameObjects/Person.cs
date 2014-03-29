@@ -217,6 +217,8 @@
 
         public Architecture LocationArchitecture = null;
 
+        private Dictionary<int, Treasure> effectiveTreasures = new Dictionary<int, Treasure>();
+
         private int tiredness;
 
         public int Tiredness
@@ -834,8 +836,6 @@
             }
         }
 
-        private Dictionary<int, Treasure> appliedTreasureGroups = new Dictionary<int,Treasure>();
-
         public void PurifyTreasure(Treasure treasure, bool excludePersonal)
         {
             PurifyTreasureSkipSubstitute(treasure, excludePersonal);
@@ -864,7 +864,7 @@
         private void PurifyTreasureSkipSubstitute(Treasure treasure, bool excludePersonal)
         {
             treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, excludePersonal);
-            appliedTreasureGroups.Remove(treasure.TreasureGroup);
+            effectiveTreasures.Remove(treasure.TreasureGroup);
         }
 
         public void PurifyAllTreasures(bool excludePersonal)
@@ -873,18 +873,18 @@
             foreach (Treasure treasure in this.Treasures)
             {
                 treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, excludePersonal);
-                appliedTreasureGroups.Remove(treasure.TreasureGroup);
+                effectiveTreasures.Remove(treasure.TreasureGroup);
             }
         }
 
         public void ApplyTreasure(Treasure treasure, bool excludePersonal)
         {
-            if (appliedTreasureGroups.ContainsKey(treasure.TreasureGroup))
+            if (effectiveTreasures.ContainsKey(treasure.TreasureGroup))
             {
-                Treasure old = appliedTreasureGroups[treasure.TreasureGroup];
+                Treasure old = effectiveTreasures[treasure.TreasureGroup];
                 if (treasure.Worth > old.Worth || (treasure.Worth == old.Worth && treasure.ID < old.ID))
                 {
-                    this.PurifyTreasureSkipSubstitute(appliedTreasureGroups[treasure.TreasureGroup], excludePersonal);
+                    this.PurifyTreasureSkipSubstitute(effectiveTreasures[treasure.TreasureGroup], excludePersonal);
                 }
                 else
                 {
@@ -892,7 +892,7 @@
                 }
             }
             treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, excludePersonal);
-            appliedTreasureGroups.Add(treasure.TreasureGroup, treasure);
+            effectiveTreasures.Add(treasure.TreasureGroup, treasure);
         }
 
         public void ApplyAllTreasures(bool excludePersonal)
@@ -5911,7 +5911,7 @@
             get
             {
                 int num = 0;
-                foreach (Treasure treasure in this.appliedTreasureGroups.Values)
+                foreach (Treasure treasure in this.effectiveTreasures.Values)
                 {
                     num += treasure.Worth;
                 }
