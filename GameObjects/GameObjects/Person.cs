@@ -397,7 +397,7 @@
                 {
                     this.PurifySkills(true);
                     this.PurifyTitles(true);
-                    this.PurifyTreasures(true);
+                    this.PurifyAllTreasures(true);
                     this.PurifyArchitectureInfluence(true);
                     this.PurifyFactionInfluence(true);
                 }
@@ -405,7 +405,7 @@
                 {
                     this.ApplySkills(true);
                     this.ApplyTitles(true);
-                    this.ApplyTreasures(true);
+                    this.ApplyAllTreasures(true);
                     this.ApplyArchitectureInfluence(true);
                     this.ApplyFactionInfluence(true);
                 }
@@ -834,19 +834,69 @@
             }
         }
 
-        public void PurifyTreasures(bool excludePersonal)
+        private Dictionary<int, Treasure> appliedTreasureGroups = new Dictionary<int,Treasure>();
+
+        public void PurifyTreasure(Treasure treasure, bool excludePersonal)
         {
+            PurifyTreasureSkipSubstitute(treasure, excludePersonal);
+
+            Treasure substitute = null;
+            foreach (Treasure t in this.Treasures)
+            {
+                if (t.TreasureGroup == treasure.TreasureGroup)
+                {
+                    if (substitute == null)
+                    {
+                        substitute = t;
+                    } 
+                    else if (t.Worth > substitute.Worth || (t.Worth == substitute.Worth && t.ID < substitute.ID))
+                    {
+                        substitute = t;
+                    }
+                }
+            }
+            ApplyTreasure(substitute, excludePersonal);
+        }
+
+        private void PurifyTreasureSkipSubstitute(Treasure treasure, bool excludePersonal)
+        {
+            treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, excludePersonal);
+            appliedTreasureGroups.Remove(treasure.TreasureGroup);
+        }
+
+        public void PurifyAllTreasures(bool excludePersonal)
+        {
+            // removing all treasures, do not need to care about treasure group stacking
             foreach (Treasure treasure in this.Treasures)
             {
                 treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, excludePersonal);
+                appliedTreasureGroups.Remove(treasure.TreasureGroup);
             }
         }
 
-        public void ApplyTreasures(bool excludePersonal)
+        public void ApplyTreasure(Treasure treasure, bool excludePersonal)
+        {
+            if (appliedTreasureGroups.ContainsKey(treasure.TreasureGroup))
+            {
+                Treasure old = appliedTreasureGroups[treasure.TreasureGroup];
+                if (treasure.Worth > old.Worth || (treasure.Worth == old.Worth && treasure.ID < old.ID))
+                {
+                    this.PurifyTreasureSkipSubstitute(appliedTreasureGroups[treasure.TreasureGroup], excludePersonal);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, excludePersonal);
+            appliedTreasureGroups.Add(treasure.TreasureGroup, treasure);
+        }
+
+        public void ApplyAllTreasures(bool excludePersonal)
         {
             foreach (Treasure treasure in this.Treasures)
             {
-                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, excludePersonal);
+                ApplyTreasure(treasure, excludePersonal);
             }
         }
 
@@ -3195,7 +3245,7 @@
         public void LoseTreasure(Treasure t)
         {
             this.Treasures.Remove(t);
-            t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, t.TreasureGroup, false);
+            this.PurifyTreasure(t, false);
             t.BelongedPerson = null;
         }
 
@@ -3204,7 +3254,7 @@
             foreach (Treasure treasure in list)
             {
                 this.Treasures.Remove(treasure);
-                treasure.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, false);
+                this.PurifyTreasure(treasure, false);
                 treasure.BelongedPerson = null;
             }
         }
@@ -3744,7 +3794,7 @@
         {
             this.Treasures.Add(t);
             t.BelongedPerson = this;
-            t.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, t.TreasureGroup, false);
+            ApplyTreasure(t, false);
         }
 
         public void ReceiveTreasureList(TreasureList list)
@@ -3753,7 +3803,7 @@
             {
                 this.Treasures.Add(treasure);
                 treasure.BelongedPerson = this;
-                treasure.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Treasure, treasure.TreasureGroup, false);
+                ApplyTreasure(treasure, false);
             }
         }
 

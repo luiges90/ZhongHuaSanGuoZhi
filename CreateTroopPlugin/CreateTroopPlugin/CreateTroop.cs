@@ -321,10 +321,7 @@
                         {
                             s.Influences.PurifyInfluence(person, Applier.Stunt, 0, false);
                         }
-                        foreach (Treasure t in person.Treasures)
-                        {
-                            t.Influences.PurifyInfluence(person, Applier.Treasure, t.TreasureGroup, false);
-                        }
+                        person.PurifyAllTreasures(false);
                     }
                 }
                 this.CreatingTroop = Troop.CreateSimulateTroop(this.CreatingArchitecture, this.CreatingPersons, this.CreatingLeader, this.CreatingMilitary, this.RationDays, this.CreatingArchitecture.Position);

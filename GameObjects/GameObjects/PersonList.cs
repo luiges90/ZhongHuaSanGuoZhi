@@ -69,10 +69,7 @@
                     {
                         s.Influences.PurifyInfluence(person, Applier.Stunt, 0, false);
                     }
-                    foreach (Treasure t in person.Treasures)
-                    {
-                        t.Influences.PurifyInfluence(person, Applier.Treasure, t.TreasureGroup, false);
-                    }
+                    person.PurifyAllTreasures(false);
                 }
             }
         }
@@ -85,7 +82,7 @@
                 person.ApplyTitles(false);
                 person.ApplySkills(false);
                 person.ApplyStunts();
-                person.ApplyTreasures(false);
+                person.ApplyAllTreasures(false);
             }
         }
 
