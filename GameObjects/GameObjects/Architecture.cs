@@ -1079,7 +1079,7 @@
             {
                 if (!this.HasHostileTroopsInView()) return false;
                 if (this.Endurance >= 30) return false;
-                if (this.TotalHostileForce > (this.TotalFriendlyForce + this.TotalStoredForce) * 2)
+                if (this.TotalHostileForce > (this.TotalFriendlyForce + this.TotalStoredForce))
                 {
                     return true;
                 }
