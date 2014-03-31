@@ -73,15 +73,15 @@
                 Align="Right">
     </Text>
   </Labels>
-  <ButtonText StartX="40" StartY="129"
+  <ButtonText StartX="120" StartY="150"
                 FontName="方正隶变_GBK"
                 FontSize="13"
                 FontStyle="Bold"
                 FontColor="4278190080"
                 Align="Middle">
   </ButtonText>
-  <ButtonTexture Width="80" Height="22" Basic="ButtonBasic.png" Available="ButtonAvailable.png" Upgrading="ButtonUpgrading.png" Upgraded="ButtonUpgraded.png"></ButtonTexture>
-  <Comments X="810" Y="139" Width="170" Height="300" RowMargin="0"
+  <ButtonTexture Width="80" Height="36" Basic="ButtonBasic.png" Available="ButtonAvailable.png" Upgrading="ButtonUpgrading.png" Upgraded="ButtonUpgraded.png"></ButtonTexture>
+  <Comments X="810" Y="139" Width="170" Height="500" RowMargin="0"
 			TitleColor="4294967040" PositiveColor="4278255360" NegativeColor="4294901760" 
 			SubTitleColor="4294934783" SubTitleColor2="4286611711"
             FontName="方正隶变_GBK"

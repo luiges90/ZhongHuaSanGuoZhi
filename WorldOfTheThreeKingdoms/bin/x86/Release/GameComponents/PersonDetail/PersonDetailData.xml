@@ -243,8 +243,8 @@
   </Title>
   <SkillBlock Width="34" Height="20" OffsetX="24" OffsetY="278"
               FontName="方正隶变_GBK"
-              FontSize="10"
-              FontStyle="Bold"
+              FontSize="12"
+              FontStyle="Regular"
               FontColor="4278222848"
               SkillColor="4286643968"
               LearnableColor="4294967040"

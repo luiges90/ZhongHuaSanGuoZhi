@@ -65,5 +65,6 @@ OfficerDieInBattleRate="10"
 OfficerChildrenLimit="20"
 StopToControlOnAttack="True"
 MaxMilitaryExperience="3000"
-CreateRandomOfficerChance="500">
+CreateRandomOfficerChance="500"
+GeneratedOfficerFemaleChance="5">
 </GlobalVariables>
