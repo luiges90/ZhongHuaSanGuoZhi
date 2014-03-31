@@ -133,6 +133,7 @@
         public static int MaxMilitaryExperience = 3000;
 
         public static int CreateRandomOfficerChance = 5;
+        public static int GeneratedOfficerFemaleChance = 5;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -751,6 +752,15 @@
             {
                 exception = exception24;
                 throw new Exception("CreateRandomOfficerChance:\n" + exception.ToString());
+            }
+            try
+            {
+                GeneratedOfficerFemaleChance = int.Parse(nextSibling.Attributes.GetNamedItem("GeneratedOfficerFemaleChance").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("GeneratedOfficerFemaleChance:\n" + exception.ToString());
             }
             return true;
         }

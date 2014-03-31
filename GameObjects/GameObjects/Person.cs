@@ -6358,7 +6358,7 @@
             r.Generation = 1;
             r.Strain = r.ID;
 
-            r.Sex = GameObject.Chance(50) ? true : false;
+            r.Sex = GameObject.Chance(GlobalVariables.GeneratedOfficerFemaleChance) ? true : false;
 
             List<String> surnameList = Person.readTextList("CreateChildrenTextFile/surname.txt");
             r.SurName = surnameList[GameObject.Random(surnameList.Count)];
@@ -6695,7 +6695,7 @@
             r.Generation = father.Generation + 1;
             r.Strain = father.Strain;
 
-            r.Sex = GameObject.Chance(50) ? true : false;
+            r.Sex = GameObject.Chance(GlobalVariables.GeneratedOfficerFemaleChance) ? true : false;
 
             r.SurName = father.SurName;
             List<String> givenNameList = r.Sex ? Person.readTextList("CreateChildrenTextFile/femalegivenname.txt") : Person.readTextList("CreateChildrenTextFile/malegivenname.txt");

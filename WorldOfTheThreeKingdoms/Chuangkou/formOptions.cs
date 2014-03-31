@@ -232,6 +232,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label lblCreateRandomOfficerChance;
         private TextBox tbHougongGetChildrenRate;
         private Label lblHougongGetChildrenRate;
+        private TextBox tbGeneratedOfficerFemaleChance;
+        private Label lblGeneratedOfficerFemaleChance;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -463,6 +465,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.tbGeneratedOfficerFemaleChance = new System.Windows.Forms.TextBox();
+            this.lblGeneratedOfficerFemaleChance = new System.Windows.Forms.Label();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -490,6 +494,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageBasic
             // 
+            this.tabPageBasic.Controls.Add(this.tbGeneratedOfficerFemaleChance);
+            this.tabPageBasic.Controls.Add(this.lblGeneratedOfficerFemaleChance);
             this.tabPageBasic.Controls.Add(this.tbHougongGetChildrenRate);
             this.tabPageBasic.Controls.Add(this.lblHougongGetChildrenRate);
             this.tabPageBasic.Controls.Add(this.tbCreateRandomOfficerChance);
@@ -2451,6 +2457,23 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // tbGeneratedOfficerFemaleChance
+            // 
+            this.tbGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(382, 309);
+            this.tbGeneratedOfficerFemaleChance.Name = "tbGeneratedOfficerFemaleChance";
+            this.tbGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(51, 22);
+            this.tbGeneratedOfficerFemaleChance.TabIndex = 143;
+            this.tbGeneratedOfficerFemaleChance.Text = "50";
+            // 
+            // lblGeneratedOfficerFemaleChance
+            // 
+            this.lblGeneratedOfficerFemaleChance.AutoSize = true;
+            this.lblGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(262, 312);
+            this.lblGeneratedOfficerFemaleChance.Name = "lblGeneratedOfficerFemaleChance";
+            this.lblGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(113, 12);
+            this.lblGeneratedOfficerFemaleChance.TabIndex = 142;
+            this.lblGeneratedOfficerFemaleChance.Text = "生成武将为女性机率";
+            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -2549,6 +2572,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbStopToControlOnAttack.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value);
             this.tbMaxMilitaryExperience.Text = nextSibling.Attributes.GetNamedItem("MaxMilitaryExperience").Value;
             this.tbCreateRandomOfficerChance.Text = nextSibling.Attributes.GetNamedItem("CreateRandomOfficerChance").Value;
+            this.tbGeneratedOfficerFemaleChance.Text = nextSibling.Attributes.GetNamedItem("GeneratedOfficerFemaleChance").Value;
         }
 
         private void LoadParameterDoc()
@@ -2721,6 +2745,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value = this.cbStopToControlOnAttack.Checked.ToString();
             if (!checkIntSave(nextSibling, "MaxMilitaryExperience", this.lblMaxMilitaryExperience, this.tbMaxMilitaryExperience)) { return false; }
             if (!checkIntSave(nextSibling, "CreateRandomOfficerChance", this.lblCreateRandomOfficerChance, this.tbCreateRandomOfficerChance)) { return false; }
+            if (!checkIntSave(nextSibling, "GeneratedOfficerFemaleChance", this.lblGeneratedOfficerFemaleChance, this.tbGeneratedOfficerFemaleChance)) { return false; }
             this.commonDoc.Save("GameData/GlobalVariables.xml");
             return true;
         }
