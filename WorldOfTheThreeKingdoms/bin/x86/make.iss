@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "中华三国志"
-#define MyAppVersion "v.21a"
+#define MyAppVersion "v.22"
 #define MyAppPublisher "中华三国志"
 #define MyAppURL "http://tieba.baidu.com/f?kw=%D6%D0%BB%AA%C8%FD%B9%FA%D6%BE"
 #define MyAppExeName "WorldOfTheThreeKingdoms.exe"
@@ -34,19 +34,19 @@ Name: "chinesetraditional"; MessagesFile: "compiler:Languages\ChineseTraditional
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-;Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\WorldOfTheThreeKingdoms.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\*"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\Dantiao\*"; DestDir: "{app}\Dantiao"; Flags: ignoreversion createallsubdirs recursesubdirs
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameComponents\*"; DestDir: "{app}\GameComponents"; Flags: ignoreversion createallsubdirs recursesubdirs
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameData\*"; DestDir: "{app}\GameData"; Flags: ignoreversion createallsubdirs recursesubdirs
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameMusic\*"; DestDir: "{app}\GameMusic"; Flags: ignoreversion createallsubdirs recursesubdirs
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\GameSound\*"; DestDir: "{app}\GameSound"; Flags: ignoreversion createallsubdirs recursesubdirs
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\Resources\*"; DestDir: "{app}\Resources"; Flags: ignoreversion createallsubdirs recursesubdirs
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\Redist\*"; DestDir: "{app}\Redist"; Flags: ignoreversion createallsubdirs recursesubdirs
+;Source: "public\WorldOfTheThreeKingdoms.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "public\*"; DestDir: "{app}"; Flags: ignoreversion
+Source: "public\Dantiao\*"; DestDir: "{app}\Dantiao"; Flags: ignoreversion createallsubdirs recursesubdirs
+Source: "public\GameComponents\*"; DestDir: "{app}\GameComponents"; Flags: ignoreversion createallsubdirs recursesubdirs
+Source: "public\GameData\*"; DestDir: "{app}\GameData"; Flags: ignoreversion createallsubdirs recursesubdirs
+Source: "public\GameMusic\*"; DestDir: "{app}\GameMusic"; Flags: ignoreversion createallsubdirs recursesubdirs
+Source: "public\GameSound\*"; DestDir: "{app}\GameSound"; Flags: ignoreversion createallsubdirs recursesubdirs
+Source: "public\Resources\*"; DestDir: "{app}\Resources"; Flags: ignoreversion createallsubdirs recursesubdirs
+Source: "public\Redist\*"; DestDir: "{app}\Redist"; Flags: ignoreversion createallsubdirs recursesubdirs
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\Redist\dotnetfx35setup.exe"; DestDir: "{tmp}"; Check: FrameworkIsNotInstalled
-Source: "D:\CSAN-201208\yuandaima0803\ZhongHuaSanGuoZhi\WorldOfTheThreeKingdoms\bin\x86\public\Redist\xnafx30_redist.msi"; DestDir: "{tmp}"; Check: XNAIsNotInstalled
+Source: "public\Redist\dotnetfx35setup.exe"; DestDir: "{tmp}"; Check: FrameworkIsNotInstalled
+Source: "public\Redist\xnafx30_redist.msi"; DestDir: "{tmp}"; Check: XNAIsNotInstalled
 Source: "C:\Windows\Fonts\FZBWKSFW.TTF"; DestDir: "{fonts}"; Flags: onlyifdoesntexist uninsneveruninstall; FontInstall: "FZBeiWeiKaiShu-Z15T"
 Source: "C:\Windows\Fonts\HWKAITI.TTF"; DestDir: "{fonts}"; FontInstall: "STKaiti"; Flags: onlyifdoesntexist uninsneveruninstall
 Source: "C:\Windows\Fonts\LISU.TTF"; DestDir: "{fonts}"; FontInstall: "LiSu"; Flags: onlyifdoesntexist uninsneveruninstall
