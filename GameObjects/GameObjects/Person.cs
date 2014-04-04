@@ -1319,6 +1319,14 @@
                             }
                             if (legal && this.Brothers.Count <= 2 && i.Key.Brothers.Count <= 2)
                             {
+                                if (this.Brothers.Count == 0)
+                                {
+                                    this.Brothers.Add(this);
+                                }
+                                if (i.Key.Brothers.Count == 0)
+                                {
+                                    i.Key.Brothers.Add(i.Key);
+                                }
                                 this.Brothers.Add(i.Key);
                                 i.Key.Brothers.Add(this);
                                 if (this.Sex)
@@ -7372,9 +7380,21 @@
                     {
                         rate = 1.33f;
                     }
-                    if (this.HasCloseStrainTo(p) && !this.Hates(p) && !p.Hates(this) && rate < 1.15)
+                    if (!this.Hates(p) && !p.Hates(this) && rate < 1.15)
                     {
-                        rate = 1.15f;
+                        if (this.Father == p || this.Mother == p)
+                        {
+                            rate = 1.15f;
+                        }
+                        else if (this == p.Father || this == p.Mother)
+                        {
+                            rate = 1.15f;
+                        }
+                        else if (this.Father != null && this.Mother != null && p.Father != null && p.Mother != null &&
+                          this.Father == p.Father && this.Mother == p.Mother)
+                        {
+                            rate = 1.15f;
+                        }
                     }
                 }
                 return rate;

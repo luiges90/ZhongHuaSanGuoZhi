@@ -1282,8 +1282,8 @@
 
         internal void WithdrawResources()
         {
-            int transferFood = this.Food - this.EnoughFood;
-            int transferFund = this.Fund - this.EnoughFund;
+            int transferFood = Math.Max(0, this.Food - this.EnoughFood);
+            int transferFund = Math.Max(0, this.Fund - this.EnoughFund);
 
             foreach (LinkNode n in this.AIAllLinkNodes.Values)
             {
