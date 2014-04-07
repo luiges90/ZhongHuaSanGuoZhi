@@ -1812,7 +1812,8 @@
             {
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Father == person3.Father) || (person3.Father == this.Leader)))
+                    if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Father == person3.Father) || (person3.Father == this.Leader))
+                        && person3 != this.Leader)
                     {
                         list.Add(person3);
                     }
@@ -1834,7 +1835,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Strain >= 0) && (person3.Sex == this.Leader.Sex) && (this.Leader.Strain == person3.Strain))
+                    if ((person3.Strain >= 0) && (person3.Sex == this.Leader.Sex) && (this.Leader.Strain == person3.Strain) && person3 != this.Leader)
                     {
                         list.Add(person3);
                     }
@@ -1854,7 +1855,13 @@
             if (person2 == null)
             {
                 list.Clear();
-                list = this.Leader.Brothers;
+                foreach (Person person3 in this.Leader.Brothers)
+                {
+                    if (person3 != this.Leader)
+                    {
+                        list.Add(person3);
+                    }
+                }
                 if (list.Count > 0)
                 {
                     if (list.Count > 1)
@@ -1870,7 +1877,8 @@
             {
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((person3.Mother != null) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Mother == person3.Mother) || (person3.Mother == this.Leader)))
+                    if ((person3.Mother != null) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Mother == person3.Mother) || (person3.Mother == this.Leader))
+                        && person3 != this.Leader)
                     {
                         list.Add(person3);
                     }
@@ -1906,7 +1914,7 @@
             if (person2 == null)
             {
                 list.Clear();
-                if (this.Leader.Spouse != null)
+                if (this.Leader.Spouse != null && this.Leader != this.Leader.Spouse)
                 {
                     person2 = this.Leader.Spouse;
                 }
@@ -1916,7 +1924,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if ((this.Leader.Ideal == person3.Ideal) && (person3.Sex == this.Leader.Sex))
+                    if ((this.Leader.Ideal == person3.Ideal) && (person3.Sex == this.Leader.Sex) && person3 != this.Leader)
                     {
                         list.Add(person3);
                     }
@@ -1937,7 +1945,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    if (person3.Sex == this.Leader.Sex)
+                    if (person3.Sex == this.Leader.Sex && person3 != this.Leader)
                     {
                         list.Add(person3);
                     }
@@ -1958,7 +1966,10 @@
                 list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
-                    list.Add(person3);
+                    if (person3 != this.Leader)
+                    {
+                        list.Add(person3);
+                    }
                 }
                 if (list.Count > 0)
                 {
