@@ -1154,7 +1154,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbCreatedOfficerAbilityFactor
             // 
-            this.tbCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(122, 356);
+            this.tbCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(114, 353);
             this.tbCreatedOfficerAbilityFactor.Name = "tbCreatedOfficerAbilityFactor";
             this.tbCreatedOfficerAbilityFactor.Size = new System.Drawing.Size(51, 22);
             this.tbCreatedOfficerAbilityFactor.TabIndex = 147;
@@ -1163,7 +1163,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblCreatedOfficerAbilityFactor
             // 
             this.lblCreatedOfficerAbilityFactor.AutoSize = true;
-            this.lblCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(15, 359);
+            this.lblCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(11, 356);
             this.lblCreatedOfficerAbilityFactor.Name = "lblCreatedOfficerAbilityFactor";
             this.lblCreatedOfficerAbilityFactor.Size = new System.Drawing.Size(101, 12);
             this.lblCreatedOfficerAbilityFactor.TabIndex = 146;
@@ -1171,7 +1171,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbGeneratedOfficerFemaleChance
             // 
-            this.tbGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(134, 328);
+            this.tbGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(128, 325);
             this.tbGeneratedOfficerFemaleChance.Name = "tbGeneratedOfficerFemaleChance";
             this.tbGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(51, 22);
             this.tbGeneratedOfficerFemaleChance.TabIndex = 145;
@@ -1180,7 +1180,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblGeneratedOfficerFemaleChance
             // 
             this.lblGeneratedOfficerFemaleChance.AutoSize = true;
-            this.lblGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(15, 331);
+            this.lblGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(11, 328);
             this.lblGeneratedOfficerFemaleChance.Name = "lblGeneratedOfficerFemaleChance";
             this.lblGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(113, 12);
             this.lblGeneratedOfficerFemaleChance.TabIndex = 144;
@@ -1189,7 +1189,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblOfficerChildrenLimit
             // 
             this.lblOfficerChildrenLimit.AutoSize = true;
-            this.lblOfficerChildrenLimit.Location = new System.Drawing.Point(13, 300);
+            this.lblOfficerChildrenLimit.Location = new System.Drawing.Point(11, 300);
             this.lblOfficerChildrenLimit.Name = "lblOfficerChildrenLimit";
             this.lblOfficerChildrenLimit.Size = new System.Drawing.Size(77, 12);
             this.lblOfficerChildrenLimit.TabIndex = 41;
