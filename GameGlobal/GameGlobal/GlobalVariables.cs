@@ -766,7 +766,7 @@
             }
             try
             {
-                CreatedOfficerAbilityFactor = int.Parse(nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value);
+                CreatedOfficerAbilityFactor = float.Parse(nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value);
             }
             catch (Exception exception24)
             {
