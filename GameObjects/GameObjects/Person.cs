@@ -6722,11 +6722,11 @@
             r.CalledName = "";
 
             int var = 5; //variance / maximum divert from parent ability
-            r.BaseCommand = GameObject.Random(Math.Abs(father.BaseCommand - mother.BaseCommand) + 2 * var + 1) + Math.Min(father.BaseCommand, mother.BaseCommand) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BaseStrength = GameObject.Random(Math.Abs(father.BaseStrength - mother.BaseStrength) + 2 * var + 1) + Math.Min(father.BaseStrength, mother.BaseStrength) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BaseIntelligence = GameObject.Random(Math.Abs(father.BaseIntelligence - mother.BaseIntelligence) + 2 * var + 1) + Math.Min(father.BaseIntelligence, mother.BaseIntelligence) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BasePolitics = GameObject.Random(Math.Abs(father.BasePolitics - mother.BasePolitics) + 2 * var + 1) + Math.Min(father.BasePolitics, mother.BasePolitics) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BaseGlamour = GameObject.Random(Math.Abs(father.BaseGlamour - mother.BaseGlamour) + 2 * var + 1) + Math.Min(father.BaseGlamour, mother.BaseGlamour) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseCommand = GameObject.Random(Math.Abs(father.CommandIncludingExperience - mother.CommandIncludingExperience) + 2 * var + 1) + Math.Min(father.CommandIncludingExperience, mother.CommandIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseStrength = GameObject.Random(Math.Abs(father.StrengthIncludingExperience - mother.StrengthIncludingExperience) + 2 * var + 1) + Math.Min(father.StrengthIncludingExperience, mother.StrengthIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseIntelligence = GameObject.Random(Math.Abs(father.IntelligenceIncludingExperience - mother.IntelligenceIncludingExperience) + 2 * var + 1) + Math.Min(father.IntelligenceIncludingExperience, mother.IntelligenceIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BasePolitics = GameObject.Random(Math.Abs(father.PoliticsIncludingExperience - mother.PoliticsIncludingExperience) + 2 * var + 1) + Math.Min(father.PoliticsIncludingExperience, mother.PoliticsIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseGlamour = GameObject.Random(Math.Abs(father.GlamourIncludingExperience - mother.GlamourIncludingExperience) + 2 * var + 1) + Math.Min(father.GlamourIncludingExperience, mother.GlamourIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
             if (!GlobalVariables.createChildrenIgnoreLimit)
             {
                 if (r.BaseStrength > 100) r.BaseStrength = 100;
