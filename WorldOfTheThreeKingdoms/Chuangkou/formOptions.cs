@@ -234,6 +234,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label lblHougongGetChildrenRate;
         private TextBox tbGeneratedOfficerFemaleChance;
         private Label lblGeneratedOfficerFemaleChance;
+        private TextBox tbCreatedOfficerAbilityFactor;
+        private Label lblCreatedOfficerAbilityFactor;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -320,6 +322,10 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbRunWhileNotFocused = new System.Windows.Forms.CheckBox();
             this.cbDoAutoSave = new System.Windows.Forms.CheckBox();
             this.tabPagePerson = new System.Windows.Forms.TabPage();
+            this.tbCreatedOfficerAbilityFactor = new System.Windows.Forms.TextBox();
+            this.lblCreatedOfficerAbilityFactor = new System.Windows.Forms.Label();
+            this.tbGeneratedOfficerFemaleChance = new System.Windows.Forms.TextBox();
+            this.lblGeneratedOfficerFemaleChance = new System.Windows.Forms.Label();
             this.lblOfficerChildrenLimit = new System.Windows.Forms.Label();
             this.tbOfficerChildrenLimit = new System.Windows.Forms.TextBox();
             this.lblLearnTitleSuccessRate = new System.Windows.Forms.Label();
@@ -465,8 +471,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.tbGeneratedOfficerFemaleChance = new System.Windows.Forms.TextBox();
-            this.lblGeneratedOfficerFemaleChance = new System.Windows.Forms.Label();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -494,8 +498,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageBasic
             // 
-            this.tabPageBasic.Controls.Add(this.tbGeneratedOfficerFemaleChance);
-            this.tabPageBasic.Controls.Add(this.lblGeneratedOfficerFemaleChance);
             this.tabPageBasic.Controls.Add(this.tbHougongGetChildrenRate);
             this.tabPageBasic.Controls.Add(this.lblHougongGetChildrenRate);
             this.tabPageBasic.Controls.Add(this.tbCreateRandomOfficerChance);
@@ -1105,6 +1107,10 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.tbCreatedOfficerAbilityFactor);
+            this.tabPagePerson.Controls.Add(this.lblCreatedOfficerAbilityFactor);
+            this.tabPagePerson.Controls.Add(this.tbGeneratedOfficerFemaleChance);
+            this.tabPagePerson.Controls.Add(this.lblGeneratedOfficerFemaleChance);
             this.tabPagePerson.Controls.Add(this.lblOfficerChildrenLimit);
             this.tabPagePerson.Controls.Add(this.tbOfficerChildrenLimit);
             this.tabPagePerson.Controls.Add(this.lblLearnTitleSuccessRate);
@@ -1145,6 +1151,40 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.TabIndex = 1;
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
+            // 
+            // tbCreatedOfficerAbilityFactor
+            // 
+            this.tbCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(122, 356);
+            this.tbCreatedOfficerAbilityFactor.Name = "tbCreatedOfficerAbilityFactor";
+            this.tbCreatedOfficerAbilityFactor.Size = new System.Drawing.Size(51, 22);
+            this.tbCreatedOfficerAbilityFactor.TabIndex = 147;
+            this.tbCreatedOfficerAbilityFactor.Text = "0.8";
+            // 
+            // lblCreatedOfficerAbilityFactor
+            // 
+            this.lblCreatedOfficerAbilityFactor.AutoSize = true;
+            this.lblCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(15, 359);
+            this.lblCreatedOfficerAbilityFactor.Name = "lblCreatedOfficerAbilityFactor";
+            this.lblCreatedOfficerAbilityFactor.Size = new System.Drawing.Size(101, 12);
+            this.lblCreatedOfficerAbilityFactor.TabIndex = 146;
+            this.lblCreatedOfficerAbilityFactor.Text = "生成武将能力乘数";
+            // 
+            // tbGeneratedOfficerFemaleChance
+            // 
+            this.tbGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(134, 328);
+            this.tbGeneratedOfficerFemaleChance.Name = "tbGeneratedOfficerFemaleChance";
+            this.tbGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(51, 22);
+            this.tbGeneratedOfficerFemaleChance.TabIndex = 145;
+            this.tbGeneratedOfficerFemaleChance.Text = "50";
+            // 
+            // lblGeneratedOfficerFemaleChance
+            // 
+            this.lblGeneratedOfficerFemaleChance.AutoSize = true;
+            this.lblGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(15, 331);
+            this.lblGeneratedOfficerFemaleChance.Name = "lblGeneratedOfficerFemaleChance";
+            this.lblGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(113, 12);
+            this.lblGeneratedOfficerFemaleChance.TabIndex = 144;
+            this.lblGeneratedOfficerFemaleChance.Text = "生成武将为女性机率";
             // 
             // lblOfficerChildrenLimit
             // 
@@ -2457,23 +2497,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // tbGeneratedOfficerFemaleChance
-            // 
-            this.tbGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(382, 309);
-            this.tbGeneratedOfficerFemaleChance.Name = "tbGeneratedOfficerFemaleChance";
-            this.tbGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(51, 22);
-            this.tbGeneratedOfficerFemaleChance.TabIndex = 143;
-            this.tbGeneratedOfficerFemaleChance.Text = "50";
-            // 
-            // lblGeneratedOfficerFemaleChance
-            // 
-            this.lblGeneratedOfficerFemaleChance.AutoSize = true;
-            this.lblGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(262, 312);
-            this.lblGeneratedOfficerFemaleChance.Name = "lblGeneratedOfficerFemaleChance";
-            this.lblGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(113, 12);
-            this.lblGeneratedOfficerFemaleChance.TabIndex = 142;
-            this.lblGeneratedOfficerFemaleChance.Text = "生成武将为女性机率";
-            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -2573,6 +2596,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbMaxMilitaryExperience.Text = nextSibling.Attributes.GetNamedItem("MaxMilitaryExperience").Value;
             this.tbCreateRandomOfficerChance.Text = nextSibling.Attributes.GetNamedItem("CreateRandomOfficerChance").Value;
             this.tbGeneratedOfficerFemaleChance.Text = nextSibling.Attributes.GetNamedItem("GeneratedOfficerFemaleChance").Value;
+            this.tbCreatedOfficerAbilityFactor.Text = nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value;
         }
 
         private void LoadParameterDoc()
@@ -2746,6 +2770,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkIntSave(nextSibling, "MaxMilitaryExperience", this.lblMaxMilitaryExperience, this.tbMaxMilitaryExperience)) { return false; }
             if (!checkIntSave(nextSibling, "CreateRandomOfficerChance", this.lblCreateRandomOfficerChance, this.tbCreateRandomOfficerChance)) { return false; }
             if (!checkIntSave(nextSibling, "GeneratedOfficerFemaleChance", this.lblGeneratedOfficerFemaleChance, this.tbGeneratedOfficerFemaleChance)) { return false; }
+            if (!checkFloatSave(nextSibling, "CreatedOfficerAbilityFactor", this.lblCreatedOfficerAbilityFactor, this.tbCreatedOfficerAbilityFactor)) { return false; }
             this.commonDoc.Save("GameData/GlobalVariables.xml");
             return true;
         }

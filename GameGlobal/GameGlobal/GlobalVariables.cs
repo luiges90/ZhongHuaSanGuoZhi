@@ -135,6 +135,8 @@
         public static int CreateRandomOfficerChance = 5;
         public static int GeneratedOfficerFemaleChance = 5;
 
+        public static float CreatedOfficerAbilityFactor = 0.8f;
+
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()
@@ -761,6 +763,15 @@
             {
                 exception = exception24;
                 throw new Exception("GeneratedOfficerFemaleChance:\n" + exception.ToString());
+            }
+            try
+            {
+                CreatedOfficerAbilityFactor = int.Parse(nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("CreatedOfficerAbilityFactor:\n" + exception.ToString());
             }
             return true;
         }

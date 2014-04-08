@@ -6545,6 +6545,12 @@
                     }
             }
 
+            r.Command = (int)(r.Command * GlobalVariables.CreatedOfficerAbilityFactor);
+            r.Strength = (int)(r.Strength * GlobalVariables.CreatedOfficerAbilityFactor);
+            r.Intelligence = (int)(r.Intelligence * GlobalVariables.CreatedOfficerAbilityFactor);
+            r.Politics = (int)(r.Politics * GlobalVariables.CreatedOfficerAbilityFactor);
+            r.Glamour = (int)(r.Glamour * GlobalVariables.CreatedOfficerAbilityFactor);
+
             setNewOfficerFace(r);
 
             r.Ideal = GameObject.Random(150);
@@ -6553,7 +6559,7 @@
             r.YearAvailable = scen.Date.Year;
             r.YearDead = Math.Max(r.YearBorn + GameObject.Random(69) + 30, scen.Date.Year + 5);
 
-            r.Reputation = GameObject.Random(101) * 100;
+            r.Reputation = GameObject.Random(51) * 100;
 
             r.Qualification = (PersonQualification)GameObject.Random(Enum.GetNames(typeof(PersonQualification)).Length);
             r.ValuationOnGovernment = (PersonValuationOnGovernment)GameObject.Random(Enum.GetNames(typeof(PersonValuationOnGovernment)).Length);
