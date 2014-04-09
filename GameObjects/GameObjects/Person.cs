@@ -6545,11 +6545,14 @@
                     }
             }
 
-            r.Command = (int)(r.Command * GlobalVariables.CreatedOfficerAbilityFactor);
-            r.Strength = (int)(r.Strength * GlobalVariables.CreatedOfficerAbilityFactor);
-            r.Intelligence = (int)(r.Intelligence * GlobalVariables.CreatedOfficerAbilityFactor);
-            r.Politics = (int)(r.Politics * GlobalVariables.CreatedOfficerAbilityFactor);
-            r.Glamour = (int)(r.Glamour * GlobalVariables.CreatedOfficerAbilityFactor);
+            if (type != OfficerType.ALL_ROUNDER || GlobalVariables.CreateOfficerAbilityFactor > 1)
+            {
+                r.Command = (int)(r.Command * GlobalVariables.CreatedOfficerAbilityFactor);
+                r.Strength = (int)(r.Strength * GlobalVariables.CreatedOfficerAbilityFactor);
+                r.Intelligence = (int)(r.Intelligence * GlobalVariables.CreatedOfficerAbilityFactor);
+                r.Politics = (int)(r.Politics * GlobalVariables.CreatedOfficerAbilityFactor);
+                r.Glamour = (int)(r.Glamour * GlobalVariables.CreatedOfficerAbilityFactor);
+            }
 
             setNewOfficerFace(r);
 
@@ -6599,6 +6602,10 @@
                 {
                     int chance = s.GenerationChance[(int)type];
                     chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
+                    if (type == OfficerType.ALL_ROUNDER)
+                    {
+                        chance *= 2;
+                    }
                     if (GameObject.Chance(chance))
                     {
                         r.Skills.AddSkill(s);
@@ -6612,6 +6619,10 @@
                 {
                     int chance = s.GenerationChance[(int)type];
                     chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
+                    if (type == OfficerType.ALL_ROUNDER)
+                    {
+                        chance *= 2;
+                    }
                     if (GameObject.Chance(chance))
                     {
                         r.Stunts.AddStunt(s);
@@ -6627,7 +6638,14 @@
                 {
                     if (t.CanBeChosenForGenerated())
                     {
-                        chances.Add(t, t.GenerationChance[(int)type] / (double)(t.Level * t.Level));
+                        if (type == OfficerType.ALL_ROUNDER)
+                        {
+                            chances.Add(t, t.GenerationChance[(int)type] * t.Level);
+                        }
+                        else
+                        {
+                            chances.Add(t, t.GenerationChance[(int)type] / (double)(t.Level * t.Level));
+                        }
                     }
                 }
 
