@@ -6545,7 +6545,7 @@
                     }
             }
 
-            if (type != OfficerType.ALL_ROUNDER || GlobalVariables.CreateOfficerAbilityFactor > 1)
+            if (type != OfficerType.ALL_ROUNDER || GlobalVariables.CreatedOfficerAbilityFactor > 1)
             {
                 r.Command = (int)(r.Command * GlobalVariables.CreatedOfficerAbilityFactor);
                 r.Strength = (int)(r.Strength * GlobalVariables.CreatedOfficerAbilityFactor);
