@@ -12625,6 +12625,38 @@
             }
         }
 
+        public Person Advisor
+        {
+            get
+            {
+                GameObjectList sorted = this.Persons.GetList();
+
+                if (sorted.Count == 0) return null;
+
+                sorted.IsNumber = true;
+                sorted.PropertyName = "Intelligence";
+                sorted.SmallToBig = false;
+                sorted.ReSort();
+
+                PersonList cropped = new PersonList();
+                foreach (Person p in sorted)
+                {
+                    if (p.Intelligence >= 70)
+                    {
+                        cropped.Add(p);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+
+                if (cropped.Count == 0) return null;
+
+                return (Person) cropped[GameObject.Random(cropped.Count / 5)];
+            }
+        }
+
         private int MeiXunlianHaoDeBianduiShu()
         {
             int bianduiShu = 0;
