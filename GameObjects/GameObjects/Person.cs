@@ -3782,7 +3782,7 @@
             if (this.ArrivingDays > 0)
             {
                 this.ArrivingDays--;
-                if ((this.ArrivingDays == 0) && (this.TargetArchitecture != null))
+                if ((this.ArrivingDays == 0) && (this.TargetArchitecture != null) && this.Status != PersonStatus.Princess)
                 {
                     this.ReturnedDaySince = 0;
                     if (this.BelongedFaction != null)

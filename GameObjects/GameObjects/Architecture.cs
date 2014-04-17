@@ -5727,7 +5727,19 @@
 
         public bool CanMoveFeizi()
         {
-            return this.Feiziliebiao.Count > 0 && !this.HasHostileTroopsInView();
+            if (this.movableFeizis.Count <= 0) return false;
+            if (this.HasHostileTroopsInView()) return false;
+            if (this.BelongedFaction == null) return false;
+
+            foreach (Architecture a in this.BelongedFaction.Architectures)
+            {
+                if (a.Meinvkongjian > a.Feiziliebiao.Count)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public GameArea GetFeiziTransferArchitectureArea()
@@ -12427,6 +12439,21 @@
             }
             return meihuailiebiao;
         }
+
+        public PersonList movableFeizis
+        {
+            get
+            {
+                PersonList meihuailiebiao = new PersonList();
+                foreach (Person person in this.Feiziliebiao)
+                {
+                    if (person.ArrivingDays <= 0)
+                        meihuailiebiao.Add(person);
+                }
+                return meihuailiebiao;
+            }
+        }
+
         /*
         private bool younvxingwujiang()
         {
