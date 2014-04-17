@@ -7,7 +7,7 @@
     {
         public override void ApplyEffectKind(Person person, Event e)
         {
-            person.ToDeath();
+            person.ToDeath(null);
         }
 
     }

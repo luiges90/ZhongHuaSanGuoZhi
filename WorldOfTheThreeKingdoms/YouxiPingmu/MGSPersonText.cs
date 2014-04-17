@@ -385,6 +385,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
 
+                if (person.BelongedArchitecture != null)
+                {
+                    person.TextDestinationString = person.BelongedArchitecture.Name;
+                    this.Plugins.GameRecordPlugin.AddBranch(person, "PersonBorn", person.BelongedArchitecture.ArchitectureArea.Centre);
+                }
             }
 
         }
@@ -758,17 +763,35 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        public override void PersonDeath(Person person, Architecture location, Troop troopLocation)
+        public override void PersonDeath(Person person, Person killerInBattle, Architecture location, Troop troopLocation)
         {
             if (location != null)
             {
-                location.TextDestinationString = person.Name;
-                this.Plugins.GameRecordPlugin.AddBranch(location, "PersonDeath", location.Position);
+                if (killerInBattle == null)
+                {
+                    location.TextDestinationString = person.Name;
+                    this.Plugins.GameRecordPlugin.AddBranch(location, "PersonDeath", location.Position);
+                }
+                else
+                {
+                    location.TextResultString = killerInBattle.Name;
+                    location.TextDestinationString = person.Name;
+                    this.Plugins.GameRecordPlugin.AddBranch(location, "PersonKilledInBattle", location.Position);
+                }
             }
             else if (troopLocation != null)
             {
-                troopLocation.TextDestinationString = person.Name;
-                this.Plugins.GameRecordPlugin.AddBranch(troopLocation, "PersonDeath", troopLocation.Position);
+                if (killerInBattle == null)
+                {
+                    troopLocation.TextDestinationString = person.Name;
+                    this.Plugins.GameRecordPlugin.AddBranch(troopLocation, "PersonDeath", troopLocation.Position);
+                }
+                else
+                {
+                    troopLocation.TextResultString = killerInBattle.Name;
+                    troopLocation.TextDestinationString = person.Name;
+                    this.Plugins.GameRecordPlugin.AddBranch(troopLocation, "PersonKilledInBattle", troopLocation.Position);
+                }
             }
             else
             {
@@ -778,8 +801,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             Person neutralPerson;
             neutralPerson = this.getNeutralPerson();
 
-            this.xianshishijiantupian(neutralPerson, person.Name, TextMessageKind.Died, "renwusiwang", person.ID.ToString(), "renwusiwang.wav", 
-                location == null ? troopLocation.Name : location.Name, true);
+            this.xianshishijiantupian(neutralPerson, person.Name, TextMessageKind.Died, killerInBattle == null ? "renwusiwang" : "renwusiwangInBattle",
+                person.ID.ToString(), "renwusiwang.wav", location == null ? troopLocation.Name : location.Name, true);
         }
 
         public override void PersonDeathInChallenge(Person person, Troop troop)

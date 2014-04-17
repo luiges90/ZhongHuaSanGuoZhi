@@ -191,9 +191,9 @@
             source.Scenario.GameScreen.PersonConvinceSuccess(source, destination, oldFaction);
         }
 
-        private void person_OnDeath(Person person, Architecture location, Troop locationTroop)
+        private void person_OnDeath(Person person, Person killer, Architecture location, Troop locationTroop)
         {
-            person.Scenario.GameScreen.PersonDeath(person, location, locationTroop);
+            person.Scenario.GameScreen.PersonDeath(person, killer, location, locationTroop);
         }
 
         private void person_OnDeathChangeFaction(Person dead, Person leader, string oldName)

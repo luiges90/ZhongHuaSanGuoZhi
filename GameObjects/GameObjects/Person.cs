@@ -1027,7 +1027,7 @@
                 }
             }
 
-            this.ToDeath();
+            this.ToDeath(killer);
         }
 
         public void KilledInBattle(Troop killer)
@@ -1045,7 +1045,7 @@
             this.KilledInBattle(kill);
         }
 
-        public void ToDeath()
+        public void ToDeath(Person killerInBattle)
         {
             Architecture locationArchitecture;
             Troop locationTroop = null;
@@ -1082,11 +1082,11 @@
             this.Status = PersonStatus.None;
             if (this.OnDeath != null && locationArchitecture != null && deathLocation == 1)
             {
-                this.OnDeath(this, locationArchitecture, null);
+                this.OnDeath(this, killerInBattle, locationArchitecture, null);
             }
             else if (this.OnDeath != null && locationTroop != null && deathLocation == 2)
             {
-                this.OnDeath(this, null, locationTroop);
+                this.OnDeath(this, killerInBattle, null, locationTroop);
             }
 
             if (belongedFaction != null && this == belongedFaction.Leader)
@@ -1143,7 +1143,7 @@
         {
             if ((GlobalVariables.PersonNaturalDeath && ((this.LocationArchitecture != null) && !this.IsCaptive)) && (this.alive && ((((((this.DeadReason == PersonDeadReason.自然死亡) && (this.YearDead <= base.Scenario.Date.Year)) && (GameObject.Random(base.Scenario.Date.LeftDays * ((1 + this.YearDead) - base.Scenario.Date.Year)) == 0)) || (((this.DeadReason == PersonDeadReason.被杀死) && (this.Age >= 80)) && (GameObject.Random(90) == 0))) || ((((this.DeadReason == PersonDeadReason.郁郁而终) && (this.YearDead <= base.Scenario.Date.Year)) && (((this.Age >= 80) || (this.BelongedFaction == null)) || ((this.BelongedFaction.Leader != this) || (this.BelongedFaction.ArchitectureTotalSize < 8)))) && (GameObject.Random(90) == 0))) || ((((this.DeadReason == PersonDeadReason.操劳过度) && (this.YearDead <= base.Scenario.Date.Year)) && ((this.Age >= 80) || ((((((((this.InternalExperience + this.TacticsExperience) + this.StratagemExperience) + this.BubingExperience) + this.NubingExperience) + this.QibingExperience) + this.QibingExperience) + this.ShuijunExperience) > 0x7530))) && (GameObject.Random(90) == 0)))))
             {
-                this.ToDeath();
+                this.ToDeath(null);
             }
         }
 
@@ -3142,7 +3142,7 @@
             ExtensionInterface.call("Executed", new Object[] { this.Scenario, this, executingFaction });
 
             base.Scenario.YearTable.addExecuteEntry(base.Scenario.Date, executor, this);
-            this.ToDeath();
+            this.ToDeath(null);
         }
         /*
         private void LeaveFaction()
@@ -6106,7 +6106,7 @@
 
         public delegate void JailBreakSuccess(Person source, Captive destination);
 
-        public delegate void Death(Person person, Architecture location, Troop locationTroop);
+        public delegate void Death(Person person, Person killer, Architecture location, Troop locationTroop);
 
         public delegate void DeathChangeFaction(Person dead, Person leader, string oldName);
 

@@ -370,7 +370,7 @@
         {
         }
 
-        public virtual void PersonDeath(Person person, Architecture location, Troop troopLocation)
+        public virtual void PersonDeath(Person person, Person killerInBattle, Architecture location, Troop troopLocation)
         {
         }
 
