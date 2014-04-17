@@ -837,7 +837,7 @@
         {
         }
 
-        public virtual void coupleFoundPregnant(Person person)
+        public virtual void coupleFoundPregnant(Person person, Person reporter)
         {
         }
 

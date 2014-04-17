@@ -50,8 +50,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (base.Scenario.IsCurrentPlayer(architecture.BelongedFaction) && architecture.BelongedFaction != null)
             {
+                Person reporter = architecture.Advisor;
+                if (reporter == null)
+                {
+                    reporter = architecture.BelongedFaction.Leader;
+                }
+
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(architecture.BelongedFaction.Leader, architecture, TextMessageKind.ArchitectureUnderAttack, "ArchitectureBeginRecentlyAttacked", "zaoshougongji.jpg", "");
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(reporter, architecture, TextMessageKind.ArchitectureUnderAttack, "ArchitectureBeginRecentlyAttacked", "zaoshougongji.jpg", "");
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
                 /*architecture.BelongedFaction.Leader.TextResultString = architecture.Name;
                 architecture.BelongedFaction.TextResultString = architecture.Name;
@@ -347,13 +353,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        public override void coupleFoundPregnant(Person person)
+        public override void coupleFoundPregnant(Person person, Person reporter)
         {
             if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
                     base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 //person.TextResultString = t.Name;
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(person, person, TextMessageKind.CoupleFoundPregnant, "coupleFoundPregnant");
+                reporter.TextResultString = person.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(reporter, reporter, TextMessageKind.CoupleFoundPregnant, "coupleFoundPregnant");
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
 

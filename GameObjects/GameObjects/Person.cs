@@ -1384,7 +1384,16 @@
                         }
                         else
                         {
-                            this.Scenario.GameScreen.coupleFoundPregnant(this);
+                            Person reporter;
+                            if (this.BelongedArchitecture != null)
+                            {
+                                reporter = this.BelongedArchitecture.Advisor;
+                                if (reporter != null)
+                                {
+                                    this.Scenario.GameScreen.coupleFoundPregnant(this, reporter);
+                                }
+                            }
+                            
                         }
                     }
                 }
