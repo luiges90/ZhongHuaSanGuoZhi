@@ -71,6 +71,7 @@
         GetAwardTreasurePerson,
         xuanzemeinv,
         chongxingmeinv,
+        MoveFeizi,
         KillPerson,
         KillCaptive,
         ReleaseSelfPerson,
@@ -78,7 +79,7 @@
         SelectPrince,
         GetInformationToStop,
         SelectLandLink,
-        SelectWaterLink
+        SelectWaterLink,
     }
 }
 

@@ -23,7 +23,8 @@
         RoutewayPointShortestNormal,
         RoutewayPointShortestNoWater,
         Trooprucheng,
-        WujiangDiaodong
+        WujiangDiaodong,
+        MoveFeizi
     }
 }
 

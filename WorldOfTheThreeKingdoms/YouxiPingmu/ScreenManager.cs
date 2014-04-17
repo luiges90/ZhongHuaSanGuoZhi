@@ -727,6 +727,22 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        private void FrameFunction_Monarch_hougongTop_moveFeizi()
+        {
+            if (this.CurrentArchitecture != null)
+            {
+                this.CurrentGameObjects = this.CurrentArchitecture.Feiziliebiao.GetSelectedList();
+                if (this.CurrentGameObjects != null)
+                {
+                    //this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Architecture, FrameFunction.GetOneArchitecture, false, true, true, false, this.CurrentArchitecture.GetTransferArchitectureList(), null, "目标", "");
+                    //this.mainGameScreen.ShowMapViewSelector(false , this.CurrentArchitecture.GetTransferArchitectureList());
+                    this.CurrentPersons = this.CurrentGameObjects.GetList();
+                    this.mainGameScreen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.MoveFeizi));
+
+                }
+            }
+        }
+
         private void FrameFunction_Architecture_WorkingList()
         {
             if (this.CurrentArchitecture != null)
@@ -1031,6 +1047,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
                 case FrameFunction.SelectWaterLink:
                     this.FrameFunction_Architecture_SelectWaterLink();
+                    break;
+
+                case FrameFunction.MoveFeizi:
+                    this.FrameFunction_Monarch_hougongTop_moveFeizi();
                     break;
 
             }

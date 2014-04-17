@@ -677,6 +677,18 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
                     }
                     break;
+
+                case SelectingUndoneWorkKind.MoveFeizi:
+                    if (this.CurrentArchitecture != null)
+                    {
+                        this.selectingLayer.AreaFrameKind = SelectingUndoneWorkKind.MoveFeizi;
+                        this.selectingLayer.Area = this.CurrentArchitecture.GetFeiziTransferArchitectureArea();
+                        this.selectingLayer.ShowComment = true;
+                        this.selectingLayer.SingleWay = true;
+                        this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
+                    }
+                    break;
+
                 case SelectingUndoneWorkKind.InformationPosition:
                     if (this.CurrentArchitecture != null)
                     {
@@ -867,6 +879,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         }
                     }
                     return;
+
                 case SelectingUndoneWorkKind.WujiangDiaodong:
                     if (!this.selectingLayer.Canceled && (this.CurrentPersons.Count > 0))
                     {
@@ -878,6 +891,19 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                            }
                     }
                     return;
+
+                case SelectingUndoneWorkKind.MoveFeizi:
+                    if (!this.selectingLayer.Canceled && (this.CurrentPersons != null))
+                    {
+                        Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+                        if (architectureByPosition != null)
+                        {
+
+                            this.screenManager.FrameFunction_Architecture_AfterGetOneArchitectureBySelecting(architectureByPosition);
+                        }
+                    }
+                    return;
+
                 case SelectingUndoneWorkKind.InformationPosition:
                     if (!this.selectingLayer.Canceled)
                     {

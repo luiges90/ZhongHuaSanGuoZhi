@@ -5725,6 +5725,37 @@
             return result;
         }
 
+        public bool CanMoveFeizi()
+        {
+            return this.Feiziliebiao.Count > 0 && !this.HasHostileTroopsInView();
+        }
+
+        public GameArea GetFeiziTransferArchitectureArea()
+        {
+            GameArea area = new GameArea();
+
+            foreach (Architecture architecture in this.BelongedFaction.Architectures)
+            {
+
+                if (architecture == this)
+                {
+                    continue;
+                }
+
+                if (architecture.Meinvkongjian <= architecture.Feiziliebiao.Count)
+                {
+                    continue;
+                }
+
+                foreach (Point point in architecture.ArchitectureArea.Area)
+                {
+                    area.AddPoint(point);
+                }
+            }
+
+            return area;
+        }
+
         public GameArea GetPersonTransferArchitectureArea()
         {
 
@@ -12282,6 +12313,8 @@
             return false;
 
         }
+
+
         public int ExpandFund()
         {
             if (this.JianzhuGuimo == 1)
@@ -12389,7 +12422,7 @@
             PersonList meihuailiebiao = new PersonList();
             foreach (Person person in this.Feiziliebiao)
             {
-                if (!person.faxianhuaiyun && this.BelongedFaction.Leader.isLegalFeiZi(person))
+                if (!person.faxianhuaiyun && this.BelongedFaction.Leader.isLegalFeiZi(person) && person.ArrivingDays <= 0)
                     meihuailiebiao.Add(person);
             }
             return meihuailiebiao;

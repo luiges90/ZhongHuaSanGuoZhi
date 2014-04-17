@@ -3515,15 +3515,24 @@
             }
             if (this.TargetArchitecture != null)
             {
+
                 this.LocationArchitecture = this.TargetArchitecture;
-                this.WorkKind = ArchitectureWorkKind.无;
-                if (this.BelongedFaction != null)
+
+                if (this.Status != PersonStatus.Princess)
                 {
-                    this.Status = PersonStatus.Moving;
+                    this.WorkKind = ArchitectureWorkKind.无;
+                    if (this.BelongedFaction != null)
+                    {
+                        this.Status = PersonStatus.Moving;
+                    }
+                    else
+                    {
+                        this.Status = PersonStatus.NoFactionMoving;
+                    }
                 }
                 else
                 {
-                    this.Status = PersonStatus.NoFactionMoving;
+                    this.Scenario.ClearPersonStatusCache();
                 }
 
             }
