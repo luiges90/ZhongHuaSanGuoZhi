@@ -1453,7 +1453,6 @@
                 }
             }
             else if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun && GlobalVariables.getChildrenRate > 0 &&
-                GameObject.Random((int)(10000.0 / GlobalVariables.getChildrenRate * 20)) == 0 &&
                 (this.LocationArchitecture != null && this.Spouse.LocationArchitecture == this.LocationArchitecture ||
                     (this.LocationTroop != null && this.Spouse.LocationTroop == this.LocationTroop)) &&
                 this.Status == PersonStatus.Normal && this.Spouse.Status == PersonStatus.Normal &&
@@ -1461,17 +1460,22 @@
                 this.NumberOfChildren < GlobalVariables.OfficerChildrenLimit &&
                 this.Spouse.NumberOfChildren < GlobalVariables.OfficerChildrenLimit)
             {
-                this.suoshurenwu = this.Spouse.ID;
-                this.Spouse.suoshurenwu = this.ID;
-                if (this.Sex)
+                double relationFactor = 1 + this.GetRelation(this.Spouse) * 0.0001 + this.Spouse.GetRelation(this) * 0.0001;
+
+                if (relationFactor > 0 && GameObject.Random((int)(10000.0 / GlobalVariables.getChildrenRate * 20 / relationFactor)) == 0)
                 {
-                    this.huaiyun = true;
-                    this.huaiyuntianshu = 0;
-                }
-                else
-                {
-                    this.Spouse.huaiyun = true;
-                    this.Spouse.huaiyuntianshu = 0;
+                    this.suoshurenwu = this.Spouse.ID;
+                    this.Spouse.suoshurenwu = this.ID;
+                    if (this.Sex)
+                    {
+                        this.huaiyun = true;
+                        this.huaiyuntianshu = 0;
+                    }
+                    else
+                    {
+                        this.Spouse.huaiyun = true;
+                        this.Spouse.huaiyuntianshu = 0;
+                    }
                 }
             }
         }
@@ -7212,11 +7216,11 @@
                     float extraRate = 1;
                     if (this.Closes(nvren))
                     {
-                        extraRate += 0.2f;
+                        extraRate += 0.1f;
                     }
                     if (nvren.Closes(this))
                     {
-                        extraRate += 0.2f;
+                        extraRate += 0.1f;
                     }
                     if (nvren.Ideal == this.Ideal)
                     {
@@ -7226,6 +7230,7 @@
                     {
                         extraRate += 1.6f;
                     }
+                    extraRate += nvren.GetRelation(this) * 0.0001f + this.GetRelation(nvren) * 0.0001f;
 
                     float pregnantChance = GlobalVariables.hougongGetChildrenRate / 100.0f;
                     pregnantChance *= houGongDays * extraRate;
