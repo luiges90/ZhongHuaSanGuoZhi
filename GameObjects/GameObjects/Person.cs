@@ -7514,11 +7514,13 @@
 
         public Dictionary<Person, int> GetRelations()
         {
+            if (!GlobalVariables.EnablePersonRelations) return new Dictionary<Person, int>();
             return new Dictionary<Person, int>(relations);
         }
 
         public int GetRelation(Person p)
         {
+            if (!GlobalVariables.EnablePersonRelations) return 0;
             if (this.relations.ContainsKey(p))
             {
                 return this.relations[p];
@@ -7531,6 +7533,7 @@
 
         public void SetRelation(Person p, int val)
         {
+            if (!GlobalVariables.EnablePersonRelations) return;
             if (this == p) return;
             if (this.relations.ContainsKey(p))
             {
@@ -7554,6 +7557,7 @@
 
         public void AdjustRelation(Person p, float factor, int adjust)
         {
+            if (!GlobalVariables.EnablePersonRelations) return;
             if (this == p) return;
             int val;
             if (factor > 0)
@@ -7595,6 +7599,7 @@
 
         public void EnsureRelationAtMost(Person p, int val)
         {
+            if (!GlobalVariables.EnablePersonRelations) return;
             if (this.relations.ContainsKey(p))
             {
                 if (this.relations[p] > val)
@@ -7610,6 +7615,7 @@
 
         public void EnsureRelationAtLeast(Person p, int val)
         {
+            if (!GlobalVariables.EnablePersonRelations) return;
             if (this.relations.ContainsKey(p))
             {
                 if (this.relations[p] < val)

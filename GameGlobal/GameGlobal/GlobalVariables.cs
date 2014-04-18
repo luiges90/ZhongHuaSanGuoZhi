@@ -136,6 +136,7 @@
         public static int GeneratedOfficerFemaleChance = 5;
 
         public static float CreatedOfficerAbilityFactor = 0.8f;
+        public static bool EnablePersonRelations = true;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -772,6 +773,15 @@
             {
                 exception = exception24;
                 throw new Exception("CreatedOfficerAbilityFactor:\n" + exception.ToString());
+            }
+            try
+            {
+                EnablePersonRelations = bool.Parse(nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("EnablePersonRelations:\n" + exception.ToString());
             }
             return true;
         }

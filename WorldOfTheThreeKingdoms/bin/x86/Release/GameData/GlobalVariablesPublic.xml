@@ -67,5 +67,6 @@ StopToControlOnAttack="True"
 MaxMilitaryExperience="3000"
 CreateRandomOfficerChance="100"
 GeneratedOfficerFemaleChance="5"
-CreatedOfficerAbilityFactor="0.9">
+CreatedOfficerAbilityFactor="0.9"
+EnablePersonRelations="True">
 </GlobalVariables>

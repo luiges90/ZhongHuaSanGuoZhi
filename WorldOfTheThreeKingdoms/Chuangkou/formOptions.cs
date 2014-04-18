@@ -236,6 +236,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label lblGeneratedOfficerFemaleChance;
         private TextBox tbCreatedOfficerAbilityFactor;
         private Label lblCreatedOfficerAbilityFactor;
+        private CheckBox cbEnablePersonRelations;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -471,6 +472,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.cbEnablePersonRelations = new System.Windows.Forms.CheckBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1107,6 +1109,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.cbEnablePersonRelations);
             this.tabPagePerson.Controls.Add(this.tbCreatedOfficerAbilityFactor);
             this.tabPagePerson.Controls.Add(this.lblCreatedOfficerAbilityFactor);
             this.tabPagePerson.Controls.Add(this.tbGeneratedOfficerFemaleChance);
@@ -2497,6 +2500,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
+            // cbEnablePersonRelations
+            // 
+            this.cbEnablePersonRelations.AutoSize = true;
+            this.cbEnablePersonRelations.Location = new System.Drawing.Point(13, 381);
+            this.cbEnablePersonRelations.Name = "cbEnablePersonRelations";
+            this.cbEnablePersonRelations.Size = new System.Drawing.Size(144, 16);
+            this.cbEnablePersonRelations.TabIndex = 148;
+            this.cbEnablePersonRelations.Text = "武将关系会随游戏调整";
+            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -2597,6 +2609,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbCreateRandomOfficerChance.Text = nextSibling.Attributes.GetNamedItem("CreateRandomOfficerChance").Value;
             this.tbGeneratedOfficerFemaleChance.Text = nextSibling.Attributes.GetNamedItem("GeneratedOfficerFemaleChance").Value;
             this.tbCreatedOfficerAbilityFactor.Text = nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value;
+            this.cbEnablePersonRelations.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value);
         }
 
         private void LoadParameterDoc()
@@ -2771,6 +2784,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkIntSave(nextSibling, "CreateRandomOfficerChance", this.lblCreateRandomOfficerChance, this.tbCreateRandomOfficerChance)) { return false; }
             if (!checkIntSave(nextSibling, "GeneratedOfficerFemaleChance", this.lblGeneratedOfficerFemaleChance, this.tbGeneratedOfficerFemaleChance)) { return false; }
             if (!checkFloatSave(nextSibling, "CreatedOfficerAbilityFactor", this.lblCreatedOfficerAbilityFactor, this.tbCreatedOfficerAbilityFactor)) { return false; }
+            nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value = this.cbEnablePersonRelations.Checked.ToString();
             this.commonDoc.Save("GameData/GlobalVariables.xml");
             return true;
         }
