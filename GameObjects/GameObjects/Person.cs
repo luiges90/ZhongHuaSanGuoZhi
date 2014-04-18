@@ -1460,9 +1460,9 @@
                 this.NumberOfChildren < GlobalVariables.OfficerChildrenLimit &&
                 this.Spouse.NumberOfChildren < GlobalVariables.OfficerChildrenLimit)
             {
-                double relationFactor = 1 + this.GetRelation(this.Spouse) * 0.0001 + this.Spouse.GetRelation(this) * 0.0001;
+                float relationFactor = 1 + this.GetRelation(this.Spouse) * 0.0001f + this.Spouse.GetRelation(this) * 0.0001f;
 
-                if (relationFactor > 0 && GameObject.Random((int)(10000.0 / GlobalVariables.getChildrenRate * 20 / relationFactor)) == 0)
+                if (relationFactor > 0 && GameObject.Random((int)(10000.0f / GlobalVariables.getChildrenRate * 20 / relationFactor)) == 0)
                 {
                     this.suoshurenwu = this.Spouse.ID;
                     this.Spouse.suoshurenwu = this.ID;
