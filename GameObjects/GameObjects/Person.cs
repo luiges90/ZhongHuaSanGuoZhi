@@ -1388,7 +1388,7 @@
                             if (this.BelongedArchitecture != null)
                             {
                                 reporter = this.BelongedArchitecture.Advisor;
-                                if (reporter != null)
+                                if (reporter != null && reporter != this)
                                 {
                                     this.Scenario.GameScreen.coupleFoundPregnant(this, reporter);
                                 }
