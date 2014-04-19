@@ -671,6 +671,9 @@
             if (person.BaseIntelligence < 1) person.BaseIntelligence = 1;
             if (person.BasePolitics < 1) person.BasePolitics = 1;
             if (person.BaseGlamour < 1) person.BaseGlamour = 1;
+
+            ExtensionInterface.call("ChildrenJoinFaction", new Object[] { this, person });
+
             this.GameScreen.haizizhangdachengren(person, person);
         }
 
