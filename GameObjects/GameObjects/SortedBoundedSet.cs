@@ -75,7 +75,7 @@ namespace GameObjects
                 if (dict.Count > bound)
                 {
                     removed = dict.Keys.Last();
-                    dict.Remove(dict.Keys.Last());
+                    dict.Remove(removed);
                 }
                 else
                 {
