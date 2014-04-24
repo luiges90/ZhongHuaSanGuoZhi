@@ -2,7 +2,7 @@
 <Root>
   <Background Align="Right" Width ="70"></Background>
   <ToolTexture FileName="Tool.png" Selected="ToolSelected.png" X="-36" Y="10" Width="56" Height="32"></ToolTexture>
-  <Map Transparent="0.9" Position="BottomRight" MaxWidth ="400" MaxHeight="400" TileLength="1" TileLengthMax="8"></Map>
+  <Map Transparent="0.9" Position="BottomRight" MaxWidth ="600" MaxHeight="600" TileLength="1" TileLengthMax="8"></Map>
   <Frame FileName="Frame.png"></Frame>
   <Architecture FileName="Architecture.png"></Architecture>
   <Troop FileName="Troop.png" Friendly="TroopFriendly.png" Hostile="TroopHostile.png"></Troop>
