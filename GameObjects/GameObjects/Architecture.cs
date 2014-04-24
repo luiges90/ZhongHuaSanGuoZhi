@@ -1938,7 +1938,11 @@
                                     if (((diplomaticRelation >= 0) && (GameObject.Random(diplomaticRelation + 200) <= GameObject.Random(50))) || ((diplomaticRelation < 0) && (GameObject.Random(Math.Abs(diplomaticRelation) + 100) >= GameObject.Random(100))))
                                     {
                                         firstHalfPerson = this.GetFirstHalfPerson("GossipAbility");
-                                        if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)) && ((GameObject.Random(architecture2.GetGossipablePersonCount() + 4) >= 4) && (GameObject.Random(firstHalfPerson.GossipAbility) >= 200)))
+                                        if (firstHalfPerson != null && !firstHalfPerson.HasLeadingArmy && 
+                                            firstHalfPerson.NonFightingNumber > firstHalfPerson.FightingNumber && 
+                                            (firstHalfPerson != firstHalfPerson.BelongedFaction.Leader || firstHalfPerson.ImmunityOfCaptive) &&
+                                            GameObject.Random(architecture2.GetGossipablePersonCount() + 4) >= 4 
+                                            && GameObject.Random(firstHalfPerson.GossipAbility) >= 200)
                                         {
                                             firstHalfPerson.GoForGossip(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
                                         }
@@ -1980,7 +1984,10 @@
                                     if ((extremeLoyaltyPerson != null) && ((extremeLoyaltyPerson.Loyalty < 100) && (extremeLoyaltyPerson.BelongedFaction != null)) && (extremeLoyaltyPerson != extremeLoyaltyPerson.BelongedFaction.Leader))
                                     {
                                         firstHalfPerson = this.GetFirstHalfPerson("ConvinceAbility");
-                                        if ((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(20))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && ((GameObject.Random(firstHalfPerson.ConvinceAbility) >= 200) && (GameObject.Random(firstHalfPerson.ConvinceAbility) > GameObject.Random(extremeLoyaltyPerson.Loyalty * 5))))
+                                        if (firstHalfPerson != null && !firstHalfPerson.HasLeadingArmy &&
+                                            firstHalfPerson.NonFightingNumber > firstHalfPerson.FightingNumber &&
+                                            (firstHalfPerson != firstHalfPerson.BelongedFaction.Leader || firstHalfPerson.ImmunityOfCaptive) &&
+                                            GameObject.Random(firstHalfPerson.ConvinceAbility) > GameObject.Random(extremeLoyaltyPerson.Loyalty * 5)) 
                                         {
                                             firstHalfPerson.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
                                             firstHalfPerson.GoForConvince(extremeLoyaltyPerson);
@@ -2016,7 +2023,9 @@
                                 if (GameObject.Random(totalCaptiveValue) > GameObject.Random(100000))
                                 {
                                     firstHalfPerson = this.GetFirstHalfPerson("JailBreakAbility");
-                                    if (((((firstHalfPerson != null) && (!this.HasFollowedLeaderMilitary(firstHalfPerson) || GameObject.Chance(10))) && (GameObject.Random(firstHalfPerson.NonFightingNumber) > GameObject.Random(firstHalfPerson.FightingNumber))) && (GameObject.Random(firstHalfPerson.FightingNumber) < 100)))
+                                    if (firstHalfPerson != null && !firstHalfPerson.HasLeadingArmy &&
+                                            firstHalfPerson.NonFightingNumber > firstHalfPerson.FightingNumber &&
+                                            (firstHalfPerson != firstHalfPerson.BelongedFaction.Leader || firstHalfPerson.ImmunityOfCaptive))
                                     {
                                         firstHalfPerson.GoForJailBreak(base.Scenario.GetClosestPoint(target.ArchitectureArea, this.Position));
                                     }
