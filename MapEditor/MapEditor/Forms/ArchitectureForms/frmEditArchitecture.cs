@@ -181,6 +181,7 @@
             foreach (int num in list.IDList)
             {
                 Person gameObject = this.editingArchitecture.Scenario.Persons.GetGameObject(num) as Person;
+                gameObject.Alive = true;
                 gameObject.Available = true;
                 gameObject.LocationArchitecture = this.editingArchitecture;
                 gameObject.Status = GameObjects.PersonDetail.PersonStatus.Normal;
