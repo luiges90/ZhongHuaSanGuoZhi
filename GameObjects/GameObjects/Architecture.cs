@@ -4216,7 +4216,6 @@
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
             this.SuspendTroopTransfer--;
-            this.remindedAboutAttack = false;
         }
 
         private void RestEvent()
@@ -10076,23 +10075,6 @@
             }
             this.RecentlyAttacked = 10;
             //this.AttackedReminder();
-        }
-
-        private bool remindedAboutAttack = false;
-        public void AttackedReminder()
-        {
-            if (!remindedAboutAttack && !this.HasOwnFactionTroopsInView())
-            {
-                if (this.BelongedFaction != null)
-                {
-                    this.BelongedFaction.StopToControl = GlobalVariables.StopToControlOnAttack;
-                }
-                if (this.OnBeginRecentlyAttacked != null)
-                {
-                    this.OnBeginRecentlyAttacked(this);
-                }
-                remindedAboutAttack = true;
-            }
         }
 
         public void SetViewArea(GameArea area)

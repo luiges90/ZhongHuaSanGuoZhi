@@ -1072,13 +1072,9 @@
             int fightingArchitectureCount = 0;
             foreach (Architecture architecture in faction.Architectures)
             {
-
-                if (!architecture.FrontLine)
-                {
-                    continue;
-                }
-
                 if (architecture.BelongedFaction == null) continue;
+
+                if (architecture.BelongedSection == null || architecture.BelongedSection.AIDetail.AutoRun) continue;
 
                 if (architecture.FindHostileTroopInView())
                 {
