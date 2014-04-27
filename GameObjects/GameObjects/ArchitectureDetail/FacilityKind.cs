@@ -281,6 +281,11 @@
             {
                 return false;
             }
+            if (a.BelongedFaction != null && 
+                a.BelongedFaction.TechniquePoint + a.BelongedFaction.TechniquePointForFacility + a.BelongedFaction.TechniquePointForTechnique < this.PointCost)
+            {
+                return false;
+            }
             foreach (Conditions.Condition i in this.GetConditionList())
             {
                 if (!i.CheckCondition(a))
