@@ -10081,7 +10081,7 @@
         private bool remindedAboutAttack = false;
         public void AttackedReminder()
         {
-            if (!remindedAboutAttack && this.EffectiveMilitaryCount > 0 && !this.HasOwnFactionTroopsInView())
+            if (!remindedAboutAttack && !this.HasOwnFactionTroopsInView())
             {
                 if (this.BelongedFaction != null)
                 {
