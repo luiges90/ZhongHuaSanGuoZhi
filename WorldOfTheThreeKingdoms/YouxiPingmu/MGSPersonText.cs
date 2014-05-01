@@ -772,17 +772,20 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void PersonDeath(Person person, Person killerInBattle, Architecture location, Troop troopLocation)
         {
+            String personFaction, killerFaction;
+            personFaction = person.BelongedFaction == null ? "" : person.BelongedFaction.Name + "?š„";
+            killerFaction = killerInBattle.BelongedFaction == null ? "" : killerInBattle.BelongedFaction.Name + "?š„";
             if (location != null)
             {
                 if (killerInBattle == null)
                 {
-                    location.TextDestinationString = person.Name;
+                    location.TextDestinationString = personFaction + person.Name;
                     this.Plugins.GameRecordPlugin.AddBranch(location, "PersonDeath", location.Position);
                 }
                 else
                 {
-                    location.TextResultString = killerInBattle.Name;
-                    location.TextDestinationString = person.Name;
+                    location.TextResultString = killerFaction + killerInBattle.Name;
+                    location.TextDestinationString = personFaction + person.Name;
                     this.Plugins.GameRecordPlugin.AddBranch(location, "PersonKilledInBattle", location.Position);
                 }
             }
@@ -790,13 +793,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 if (killerInBattle == null)
                 {
-                    troopLocation.TextDestinationString = person.Name;
+                    troopLocation.TextDestinationString = personFaction + person.Name;
                     this.Plugins.GameRecordPlugin.AddBranch(troopLocation, "PersonDeath", troopLocation.Position);
                 }
                 else
                 {
-                    troopLocation.TextResultString = killerInBattle.Name;
-                    troopLocation.TextDestinationString = person.Name;
+                    troopLocation.TextResultString = killerFaction + killerInBattle.Name;
+                    troopLocation.TextDestinationString = personFaction + person.Name;
                     this.Plugins.GameRecordPlugin.AddBranch(troopLocation, "PersonKilledInBattle", troopLocation.Position);
                 }
             }
@@ -814,7 +817,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void PersonDeathInChallenge(Person person, Troop troop)
         {
-            troop.TextDestinationString = person.Name;
+            String personFaction = person.BelongedFaction == null ? "" : person.BelongedFaction.Name + "?š„";
+            troop.TextDestinationString = personFaction + person.Name;
             this.Plugins.GameRecordPlugin.AddBranch(troop, "PersonDeathInChallenge", troop.Position);
             Person neutralPerson;
             neutralPerson = this.getNeutralPerson();
