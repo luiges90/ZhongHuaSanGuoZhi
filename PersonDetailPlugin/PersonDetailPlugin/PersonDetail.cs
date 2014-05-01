@@ -362,6 +362,13 @@
                 this.BiographyText.AddText("历史", Color.Red);
                 this.BiographyText.AddText("：" + person.PersonBiography.History);
                 this.BiographyText.AddNewLine();
+                this.BiographyText.AddText("剧本", Color.Yellow);
+                String[] lineBrokenText = person.PersonBiography.InGame.Split('\n');
+                foreach (String s in lineBrokenText) 
+                {
+                    this.BiographyText.AddText(s);
+                    this.BiographyText.AddNewLine();
+                }
                 this.BiographyText.ResortTexts();
             }
         }
