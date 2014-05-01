@@ -1324,6 +1324,14 @@
                                     break;
                                 }
                             }
+                            foreach (Person p in this.Brothers)
+                            {
+                                if (i.Key.HasStrainTo(p) || i.Key.IsVeryCloseTo(p))
+                                {
+                                    legal = false;
+                                    break;
+                                }
+                            }
                             if (legal && this.Brothers.Count <= 2 && i.Key.Brothers.Count <= 2)
                             {
                                 if (this.Brothers.Count == 0)
@@ -1356,12 +1364,15 @@
                         }
                         else if (this.Spouse == null && i.Key.Spouse == null)
                         {
-                            this.Spouse = i.Key;
-                            i.Key.Spouse = this;
-                            base.Scenario.YearTable.addCreateSpouseEntry(base.Scenario.Date, this, i.Key);
-                            if (this.OnCreateSpouse != null)
+                            if (this.isLegalFeiZi(i.Key) && i.Key.isLegalFeiZi(this))
                             {
-                                this.OnCreateSpouse(this, i.Key);
+                                this.Spouse = i.Key;
+                                i.Key.Spouse = this;
+                                base.Scenario.YearTable.addCreateSpouseEntry(base.Scenario.Date, this, i.Key);
+                                if (this.OnCreateSpouse != null)
+                                {
+                                    this.OnCreateSpouse(this, i.Key);
+                                }
                             }
                         }
                     }
