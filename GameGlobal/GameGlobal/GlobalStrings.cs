@@ -287,8 +287,8 @@
         public const string River = "河流";
         public const string Ridge = "峻岭";
         public const string Wasteland = "荒原";
-        public const string Desert = "沙漠";
-        public const string Cliff = "雪地";
+        public const string Desert = "棧道";
+        public const string Cliff = "瘴气林";
         public const string etc = "等";
         public const string Computer = "电脑";
         public const string System = "系统选项";
