@@ -773,7 +773,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             String personFaction, killerFaction;
             personFaction = person.BelongedFaction == null ? "" : person.BelongedFaction.Name + "的";
-            killerFaction = killerInBattle.BelongedFaction == null ? "" : killerInBattle.BelongedFaction.Name + "的";
+            killerFaction = killerInBattle == null || killerInBattle.BelongedFaction == null ? "" : killerInBattle.BelongedFaction.Name + "的";
             if (location != null)
             {
                 if (killerInBattle == null)
