@@ -395,6 +395,10 @@
                     }
                     this.WorkKind = ArchitectureWorkKind.无;
                 }
+                if (value == PersonStatus.Normal && this.LocationArchitecture == null)
+                {
+                    throw new Exception("Noraml state, no architecture");
+                }
                 if (value != PersonStatus.Normal && status == PersonStatus.Normal)
                 {
                     this.PurifySkills(true);
@@ -6790,7 +6794,7 @@
             setNewOfficerFace(r);
 
             r.YearBorn = father.Scenario.Date.Year;
-            r.YearAvailable = father.Scenario.Date.Year;
+            r.YearAvailable = father.Scenario.Date.Year + 12;
             r.YearDead = r.YearBorn + GameObject.Random(69) + 30;
 
             r.Ideal = GameObject.Chance(50) ? father.Ideal + GameObject.Random(10) - 5 : mother.Ideal + GameObject.Random(10) - 5;
