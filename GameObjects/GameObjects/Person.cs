@@ -395,10 +395,6 @@
                     }
                     this.WorkKind = ArchitectureWorkKind.无;
                 }
-                if (value == PersonStatus.Normal && this.LocationArchitecture == null)
-                {
-                    throw new Exception("Noraml state, no architecture");
-                }
                 if (value != PersonStatus.Normal && status == PersonStatus.Normal)
                 {
                     this.PurifySkills(true);
