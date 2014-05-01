@@ -707,10 +707,7 @@
                 if (person == this.Leader)
                 {
                     person.RoutCount++;
-                }
-                else if (GameObject.Random(2) > 0)
-                {
-                    person.RoutCount++;
+                    this.Scenario.YearTable.addDefeatedManyTroopsEntry(this.Scenario.Date, person, person.RoutCount);
                 }
             }
         }
@@ -7407,6 +7404,7 @@
                 foreach (Person p in currentArchitecture.Feiziliebiao)
                 {
                     p.Status = PersonStatus.Normal;
+                    this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
                     Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
                     captive.CaptivePerson.LocationArchitecture = null;
                     captive.CaptivePerson.LocationTroop = this;

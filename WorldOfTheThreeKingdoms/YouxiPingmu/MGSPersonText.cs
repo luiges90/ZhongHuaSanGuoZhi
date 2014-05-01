@@ -649,7 +649,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 }
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
 
-                List<string> msg;
                 switch (win)
                 {
                     case 1: //P1æ­¦å°†èƒœåˆ©
@@ -773,8 +772,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         public override void PersonDeath(Person person, Person killerInBattle, Architecture location, Troop troopLocation)
         {
             String personFaction, killerFaction;
-            personFaction = person.BelongedFaction == null ? "" : person.BelongedFaction.Name + "?š„";
-            killerFaction = killerInBattle.BelongedFaction == null ? "" : killerInBattle.BelongedFaction.Name + "?š„";
+            personFaction = person.BelongedFaction == null ? "" : person.BelongedFaction.Name + "çš„";
+            killerFaction = killerInBattle.BelongedFaction == null ? "" : killerInBattle.BelongedFaction.Name + "çš„";
             if (location != null)
             {
                 if (killerInBattle == null)
@@ -817,7 +816,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void PersonDeathInChallenge(Person person, Troop troop)
         {
-            String personFaction = person.BelongedFaction == null ? "" : person.BelongedFaction.Name + "?š„";
+            String personFaction = person.BelongedFaction == null ? "" : person.BelongedFaction.Name + "çš„";
             troop.TextDestinationString = personFaction + person.Name;
             this.Plugins.GameRecordPlugin.AddBranch(troop, "PersonDeathInChallenge", troop.Position);
             Person neutralPerson;

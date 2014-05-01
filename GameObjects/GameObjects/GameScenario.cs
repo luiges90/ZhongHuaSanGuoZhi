@@ -590,6 +590,7 @@
                         this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, TextMessageKind.ChildJoinSelfTalk, "ChildJoinSelfTalk", "", "", false);
                     }
                     this.AvailablePersons.Add(person);
+                    this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
                     continue;
                 }
 
@@ -602,6 +603,7 @@
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, TextMessageKind.ChildJoin, "ChildJoin", "", "", person.Name, false);
                     this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, TextMessageKind.ChildJoinSelfTalk, "ChildJoinSelfTalk", "", "", false);
                     this.AvailablePersons.Add(person);
+                    this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
                     continue;
                 }
 
@@ -621,6 +623,7 @@
 
                     }
                     this.AvailablePersons.Add(person);
+                    this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
                     continue;
                 }
 

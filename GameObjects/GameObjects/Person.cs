@@ -1140,6 +1140,9 @@
                     baowu.HidePlace = locationArchitecture;
                 }
             }
+
+            this.Scenario.YearTable.addPersonDeathEntry(this.Scenario.Date, this);
+
             ExtensionInterface.call("PersonDie", new Object[] { this.Scenario, this });
         }
 
@@ -7215,6 +7218,9 @@
                     }
                 }
             }// end if (this.CurrentPerson.Spouse != -1)
+
+            this.Scenario.YearTable.addBecomePrincessEntry(this.Scenario.Date, nvren, this);
+
             ExtensionInterface.call("TakeToHouGong", new Object[] { this.Scenario, this, nvren });
 
             return tookSpouse;

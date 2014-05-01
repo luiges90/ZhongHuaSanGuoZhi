@@ -160,6 +160,21 @@
             }
         }
 
+        public void addPersonDeathEntry(GameDate date, Person p)
+        {
+            String location = "";
+            if (p.BelongedArchitecture != null)
+            {
+                location = p.BelongedArchitecture.Name;
+            }
+            else if (p.BelongedTroop != null)
+            {
+                location = p.BelongedTroop.Name;
+            }
+            this.addTableEntry(date, composeFactionList(p.BelongedFaction),
+                String.Format(yearTableStrings["personDeath"], p.Name, location), true);
+        }
+
         public void addGameEndWithUniteEntry(GameDate date, Faction f)
         {
             this.addTableEntry(date, composeFactionList(f),
@@ -194,6 +209,52 @@
         {
             this.addTableEntry(date, composeFactionList(p1.BelongedFaction, p2.BelongedFaction),
                 String.Format(yearTableStrings["createSister"], p1.Name, p2.Name), false);
+        }
+
+        public void addKilledInBattleEntry(GameDate date, Person killer, Person killed)
+        {
+            String killerFaction = killer.BelongedFaction == null ? "" : killer.BelongedFaction.Name;
+            String killedFaction = killed.BelongedFaction == null ? "" : killed.BelongedFaction.Name;
+            this.addTableEntry(date, composeFactionList(killer.BelongedFaction, killed.BelongedFaction),
+                String.Format(yearTableStrings["personKilledInBattle"], killedFaction, killed, killerFaction, killer), true);
+        }
+
+        public void addDefeatedManyTroopsEntry(GameDate date, Person p, int count)
+        {
+            if ((count < 100 && count % 10 == 0) || count % 50 == 0)
+            {
+                this.addTableEntry(date, composeFactionList(p.BelongedFaction),
+                    String.Format(yearTableStrings["defeatedManyTroops"], p.Name, count), false);
+            }
+        }
+
+        public void addGrownBecomeAvailableEntry(GameDate date, Person p)
+        {
+            if (p.LocationArchitecture != null)
+            {
+                if (p.BelongedFaction == null)
+                {
+                    this.addTableEntry(date, composeFactionList(),
+                        String.Format(yearTableStrings["grownBecomeAvailabeNoFaction"], p.Name, p.LocationArchitecture.Name), false);
+                }
+                else
+                {
+                    this.addTableEntry(date, composeFactionList(),
+                        String.Format(yearTableStrings["grownBecomeAvailable"], p.Name, p.LocationArchitecture.Name, p.BelongedFaction.Name), false);
+                }
+            }
+        }
+
+        public void addBecomePrincessEntry(GameDate date, Person p, Person leader)
+        {
+            this.addTableEntry(date, composeFactionList(p.BelongedFaction),
+                String.Format(yearTableStrings["becomePrincess"], p.Name, p.BelongedArchitecture.Name, leader.Name), false);
+        }
+
+        public void addOutOfPrincessEntry(GameDate date, Person p, Faction capturer)
+        {
+            this.addTableEntry(date, composeFactionList(p.BelongedFaction),
+                String.Format(yearTableStrings["becomePrincess"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "" : capturer.Name), false);
         }
     }
 }
