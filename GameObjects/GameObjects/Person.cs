@@ -1431,6 +1431,12 @@
                             if (origChildren.Count > 0)
                             {
                                 haizi = origChildren[0] as Person;
+
+                                int ageDeath = haizi.YearDead - haizi.YearBorn;
+                                haizi.YearBorn = haizifuqin.Scenario.Date.Year;
+                                haizi.YearAvailable = haizi.YearBorn + GlobalVariables.ChildrenAvailableAge;
+                                haizi.YearDead = haizi.YearBorn + ageDeath;
+
                                 haizi.father = this.Sex ? haizifuqin : this;
                                 haizi.mother = this.Sex ? this : haizifuqin;
                             }
@@ -1439,12 +1445,22 @@
                                 haizi = Person.createChildren(this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person, this);
                             }
 
+                            if (origChildren.Count > 0)
+                            {
+                                haizi.muqinyingxiangnengli(this);
+                            }
+                            if (haizi.BaseCommand < 1) haizi.BaseCommand = 1;
+                            if (haizi.BaseStrength < 1) haizi.BaseStrength = 1;
+                            if (haizi.BaseIntelligence < 1) haizi.BaseIntelligence = 1;
+                            if (haizi.BasePolitics < 1) haizi.BasePolitics = 1;
+                            if (haizi.BaseGlamour < 1) haizi.BaseGlamour = 1;
+
                             base.Scenario.YearTable.addChildrenBornEntry(base.Scenario.Date, haizifuqin, this, haizi);
 
                             haizifuqin.TextResultString = haizi.Name;
 
                             base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
-                            base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
+                            //base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
 
                             count++;
                         } while ((GameObject.Chance(haizifuqin.multipleChildrenRate) || GameObject.Chance(this.multipleChildrenRate)) && count < Math.Max(haizifuqin.maxChildren, this.maxChildren));
@@ -6794,7 +6810,7 @@
             setNewOfficerFace(r);
 
             r.YearBorn = father.Scenario.Date.Year;
-            r.YearAvailable = father.Scenario.Date.Year + 12;
+            r.YearAvailable = father.Scenario.Date.Year + GlobalVariables.ChildrenAvailableAge;
             r.YearDead = r.YearBorn + GameObject.Random(69) + 30;
 
             r.Ideal = GameObject.Chance(50) ? father.Ideal + GameObject.Random(10) - 5 : mother.Ideal + GameObject.Random(10) - 5;

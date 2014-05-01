@@ -134,6 +134,7 @@
 
         public static int CreateRandomOfficerChance = 5;
         public static int GeneratedOfficerFemaleChance = 5;
+        public static int ChildrenAvailableAge = 12;
 
         public static float CreatedOfficerAbilityFactor = 0.8f;
         public static bool EnablePersonRelations = true;
