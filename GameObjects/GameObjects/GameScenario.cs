@@ -2915,6 +2915,14 @@
                         biography.Brief = reader["Brief"].ToString();
                         biography.Romance = reader["Romance"].ToString();
                         biography.History = reader["History"].ToString();
+                        try
+                        {
+                            biography.InGame = reader["InGame"].ToString();
+                        }
+                        catch
+                        {
+
+                        }
                         biography.FactionColor = (short)reader["FactionColor"];
                         List<string> e = biography.MilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["MilitaryKinds"].ToString());
                         if (e.Count > 0)
@@ -5101,6 +5109,7 @@
                     row["Brief"] = i.Brief;
                     row["Romance"] = i.Romance;
                     row["History"] = i.History;
+                    row["InGame"] = i.InGame;
                     row["FactionColor"] = i.FactionColor;
                     row["MilitaryKinds"] = i.MilitaryKinds.SaveToString();
                     row.EndEdit();

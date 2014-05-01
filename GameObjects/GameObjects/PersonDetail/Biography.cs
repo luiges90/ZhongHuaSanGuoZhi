@@ -11,6 +11,7 @@
         private string history;
         public MilitaryKindTable MilitaryKinds = new MilitaryKindTable();
         private string romance;
+        private string ingame;
 
         public string Brief
         {
@@ -57,6 +58,18 @@
             set
             {
                 this.romance = value;
+            }
+        }
+
+        public string InGame
+        {
+            get
+            {
+                return this.ingame;
+            }
+            set
+            {
+                this.ingame = value;
             }
         }
     }
