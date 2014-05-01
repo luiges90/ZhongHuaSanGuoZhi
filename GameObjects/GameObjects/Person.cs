@@ -1458,6 +1458,7 @@
                             base.Scenario.YearTable.addChildrenBornEntry(base.Scenario.Date, haizifuqin, this, haizi);
 
                             haizifuqin.TextResultString = haizi.Name;
+                            haizi.AvailableLocation = this.BelongedTroop != null ? this.BelongedTroop.StartingArchitecture.ID : this.BelongedArchitecture.ID;
 
                             base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
                             //base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
