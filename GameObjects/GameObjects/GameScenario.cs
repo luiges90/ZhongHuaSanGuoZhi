@@ -2940,12 +2940,26 @@
                         this.AllBiographies.AddBiography(biography);
                         p.PersonBiography = biography;
                     }
-
                 }
                 DbConnection.Close();
             }
             catch (Exception ex)
             {
+            }
+
+            foreach (Person p in this.Persons)
+            {
+                if (p.PersonBiography == null)
+                {
+                    p.PersonBiography = new Biography();
+                    p.PersonBiography.FactionColor = 52;
+                    p.PersonBiography.MilitaryKinds.AddBasicMilitaryKinds(this);
+                    p.PersonBiography.Brief = "";
+                    p.PersonBiography.History = "";
+                    p.PersonBiography.Romance = "";
+                    p.PersonBiography.InGame = "";
+                    p.PersonBiography.ID = p.ID;
+                }
             }
 
             DbConnection.Open();
