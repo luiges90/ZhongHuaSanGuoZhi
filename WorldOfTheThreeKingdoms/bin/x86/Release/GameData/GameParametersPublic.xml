@@ -126,5 +126,7 @@ PopulationDevelopingRate="1.0"
 AIAntiStratagem="0" 
 AIAntiSurround="0" 
 AIAntiSurroundIncreaseRate="0" 
-AIAntiStratagemIncreaseRate="0">
+AIAntiStratagemIncreaseRate="0"
+CloseAbilityRate="1.1" 
+VeryCloseAbilityRate="1.2">
 </GameParameters>

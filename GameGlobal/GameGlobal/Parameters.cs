@@ -157,7 +157,10 @@
         public static int VeryCloseThreshold = 2000;
 
         public static int MaxAITroopCountCandidates = 1000;
-        public static double PopulationDevelopingRate = 1;
+        public static float PopulationDevelopingRate = 1;
+
+        public static float CloseAbilityRate = 1.1F;
+        public static float VeryCloseAbilityRate = 1.2F;
 
         public void InitializeGameParameters()
         {
@@ -301,7 +304,10 @@
             VeryCloseThreshold = int.Parse(nextSibling.Attributes.GetNamedItem("VeryCloseThreshold").Value);
 
             MaxAITroopCountCandidates = int.Parse(nextSibling.Attributes.GetNamedItem("MaxAITroopCountCandidates").Value);
-            PopulationDevelopingRate = double.Parse(nextSibling.Attributes.GetNamedItem("PopulationDevelopingRate").Value);
+            PopulationDevelopingRate = float.Parse(nextSibling.Attributes.GetNamedItem("PopulationDevelopingRate").Value);
+
+            CloseAbilityRate = float.Parse(nextSibling.Attributes.GetNamedItem("CloseAbilityRate").Value);
+            VeryCloseAbilityRate = float.Parse(nextSibling.Attributes.GetNamedItem("VeryCloseAbilityRate").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;
