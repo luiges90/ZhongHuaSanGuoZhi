@@ -772,8 +772,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         public override void PersonDeath(Person person, Person killerInBattle, Architecture location, Troop troopLocation)
         {
             String personFaction, killerFaction;
-            personFaction = person.BelongedFaction == null ? "" : person.BelongedFaction.Name + "的";
-            killerFaction = killerInBattle == null || killerInBattle.BelongedFaction == null ? "" : killerInBattle.BelongedFaction.Name + "的";
+            personFaction = person.BelongedFaction == null ? "" : person.BelongedFaction.Name + "军的";
+            killerFaction = killerInBattle == null || killerInBattle.BelongedFaction == null ? "" : killerInBattle.BelongedFaction.Name + "军的";
             if (location != null)
             {
                 if (killerInBattle == null)
