@@ -6657,7 +6657,7 @@
                     chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
                     if (type == OfficerType.ALL_ROUNDER)
                     {
-                        chance *= 2;
+                        chance *= 3;
                     }
                     if (GameObject.Chance(chance))
                     {
@@ -6674,9 +6674,9 @@
                     chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
                     if (type == OfficerType.ALL_ROUNDER)
                     {
-                        chance *= 2;
+                        chance *= 6;
                     }
-                    if (GameObject.Chance(chance))
+                    if (GameObject.Random(1000) <= chance)
                     {
                         r.Stunts.AddStunt(s);
                     }
