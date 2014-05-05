@@ -1471,7 +1471,11 @@
                             haizi.AvailableLocation = this.BelongedTroop != null ? this.BelongedTroop.StartingArchitecture.ID : this.BelongedArchitecture.ID;
 
                             base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
-                            //base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
+
+                            if (!GlobalVariables.PersonNaturalDeath)
+                            {
+                                base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
+                            }
 
                             count++;
                         } while ((GameObject.Chance(haizifuqin.multipleChildrenRate) || GameObject.Chance(this.multipleChildrenRate)) && count < Math.Max(haizifuqin.maxChildren, this.maxChildren));
