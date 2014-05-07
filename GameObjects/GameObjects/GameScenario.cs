@@ -2924,7 +2924,7 @@
                         }
                         catch
                         {
-
+                            biography.InGame = "";
                         }
                         biography.FactionColor = (short)reader["FactionColor"];
                         List<string> e = biography.MilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["MilitaryKinds"].ToString());
