@@ -6,12 +6,12 @@
 
     public class Biography : GameObject
     {
-        private string brief;
+        private string brief = "";
         private int factionColor;
-        private string history;
+        private string history = "";
         public MilitaryKindTable MilitaryKinds = new MilitaryKindTable();
-        private string romance;
-        private string ingame;
+        private string romance = "";
+        private string ingame = "";
 
         public string Brief
         {
