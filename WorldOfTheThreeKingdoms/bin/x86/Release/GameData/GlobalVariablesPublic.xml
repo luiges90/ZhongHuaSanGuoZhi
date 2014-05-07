@@ -68,5 +68,6 @@ MaxMilitaryExperience="3000"
 CreateRandomOfficerChance="100"
 GeneratedOfficerFemaleChance="5"
 CreatedOfficerAbilityFactor="0.9"
-EnablePersonRelations="True">
+EnablePersonRelations="True"
+ChildrenAvailableAge="12">
 </GlobalVariables>

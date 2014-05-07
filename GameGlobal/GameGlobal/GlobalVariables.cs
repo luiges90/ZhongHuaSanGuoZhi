@@ -784,6 +784,15 @@
                 exception = exception24;
                 throw new Exception("EnablePersonRelations:\n" + exception.ToString());
             }
+            try
+            {
+                ChildrenAvailableAge = int.Parse(nextSibling.Attributes.GetNamedItem("ChildrenAvailableAge").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("ChildrenAvailableAge:\n" + exception.ToString());
+            }
             return true;
         }
     }

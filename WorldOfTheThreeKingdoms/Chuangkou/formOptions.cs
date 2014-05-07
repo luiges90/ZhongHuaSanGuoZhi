@@ -237,6 +237,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbCreatedOfficerAbilityFactor;
         private Label lblCreatedOfficerAbilityFactor;
         private CheckBox cbEnablePersonRelations;
+        private Label lblChildrenAvailableAge;
+        private TextBox tbChildrenAvailableAge;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -323,6 +325,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbRunWhileNotFocused = new System.Windows.Forms.CheckBox();
             this.cbDoAutoSave = new System.Windows.Forms.CheckBox();
             this.tabPagePerson = new System.Windows.Forms.TabPage();
+            this.cbEnablePersonRelations = new System.Windows.Forms.CheckBox();
             this.tbCreatedOfficerAbilityFactor = new System.Windows.Forms.TextBox();
             this.lblCreatedOfficerAbilityFactor = new System.Windows.Forms.Label();
             this.tbGeneratedOfficerFemaleChance = new System.Windows.Forms.TextBox();
@@ -472,7 +475,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.cbEnablePersonRelations = new System.Windows.Forms.CheckBox();
+            this.lblChildrenAvailableAge = new System.Windows.Forms.Label();
+            this.tbChildrenAvailableAge = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1109,6 +1113,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.lblChildrenAvailableAge);
+            this.tabPagePerson.Controls.Add(this.tbChildrenAvailableAge);
             this.tabPagePerson.Controls.Add(this.cbEnablePersonRelations);
             this.tabPagePerson.Controls.Add(this.tbCreatedOfficerAbilityFactor);
             this.tabPagePerson.Controls.Add(this.lblCreatedOfficerAbilityFactor);
@@ -1154,6 +1160,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.TabIndex = 1;
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
+            // 
+            // cbEnablePersonRelations
+            // 
+            this.cbEnablePersonRelations.AutoSize = true;
+            this.cbEnablePersonRelations.Location = new System.Drawing.Point(13, 381);
+            this.cbEnablePersonRelations.Name = "cbEnablePersonRelations";
+            this.cbEnablePersonRelations.Size = new System.Drawing.Size(144, 16);
+            this.cbEnablePersonRelations.TabIndex = 148;
+            this.cbEnablePersonRelations.Text = "武将关系会随游戏调整";
             // 
             // tbCreatedOfficerAbilityFactor
             // 
@@ -2500,14 +2515,21 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // cbEnablePersonRelations
+            // lblChildrenAvailableAge
             // 
-            this.cbEnablePersonRelations.AutoSize = true;
-            this.cbEnablePersonRelations.Location = new System.Drawing.Point(13, 381);
-            this.cbEnablePersonRelations.Name = "cbEnablePersonRelations";
-            this.cbEnablePersonRelations.Size = new System.Drawing.Size(144, 16);
-            this.cbEnablePersonRelations.TabIndex = 148;
-            this.cbEnablePersonRelations.Text = "武将关系会随游戏调整";
+            this.lblChildrenAvailableAge.AutoSize = true;
+            this.lblChildrenAvailableAge.Location = new System.Drawing.Point(168, 300);
+            this.lblChildrenAvailableAge.Name = "lblChildrenAvailableAge";
+            this.lblChildrenAvailableAge.Size = new System.Drawing.Size(77, 12);
+            this.lblChildrenAvailableAge.TabIndex = 150;
+            this.lblChildrenAvailableAge.Text = "子女登场年龄";
+            // 
+            // tbChildrenAvailableAge
+            // 
+            this.tbChildrenAvailableAge.Location = new System.Drawing.Point(251, 297);
+            this.tbChildrenAvailableAge.Name = "tbChildrenAvailableAge";
+            this.tbChildrenAvailableAge.Size = new System.Drawing.Size(71, 22);
+            this.tbChildrenAvailableAge.TabIndex = 149;
             // 
             // formOptions
             // 
@@ -2610,6 +2632,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbGeneratedOfficerFemaleChance.Text = nextSibling.Attributes.GetNamedItem("GeneratedOfficerFemaleChance").Value;
             this.tbCreatedOfficerAbilityFactor.Text = nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value;
             this.cbEnablePersonRelations.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value);
+            this.tbChildrenAvailableAge.Text = nextSibling.Attributes.GetNamedItem("ChildrenAvailableAge").Value;
         }
 
         private void LoadParameterDoc()
@@ -2785,6 +2808,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkIntSave(nextSibling, "GeneratedOfficerFemaleChance", this.lblGeneratedOfficerFemaleChance, this.tbGeneratedOfficerFemaleChance)) { return false; }
             if (!checkFloatSave(nextSibling, "CreatedOfficerAbilityFactor", this.lblCreatedOfficerAbilityFactor, this.tbCreatedOfficerAbilityFactor)) { return false; }
             nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value = this.cbEnablePersonRelations.Checked.ToString();
+            if (!checkIntSave(nextSibling, "ChildrenAvailableAge", this.lblChildrenAvailableAge, this.tbChildrenAvailableAge)) { return false; }
             this.commonDoc.Save("GameData/GlobalVariables.xml");
             return true;
         }

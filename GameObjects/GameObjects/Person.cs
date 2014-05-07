@@ -1078,8 +1078,9 @@
 
             this.Alive = false;  //死亡
             this.BelongedCaptive = null;
-            this.LocationArchitecture = null;
             this.Status = PersonStatus.None;
+            this.LocationArchitecture = null;
+            
             if (this.OnDeath != null && locationArchitecture != null && deathLocation == 1)
             {
                 this.OnDeath(this, killerInBattle, locationArchitecture, null);
