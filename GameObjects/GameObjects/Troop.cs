@@ -1911,14 +1911,13 @@
                         this.BelongedFaction.ClosedRouteways.Add(key, null);
                     }
                 }
-                if (this.CanEnter())
+                if (this.CanEnter() && this.Army.Kind.Movability > 1)
                 {
                     if (base.Scenario.IsPlayer(this.BelongedFaction) && this.TargetArchitecture != null)
                     {
                         if (this.mingling == "入城" && this.Position == this.minglingweizhi)
                         {
                             this.Enter(this.TargetArchitecture);
-
                         }
                     }
                     else
