@@ -6481,7 +6481,7 @@
             this.RedeemCaptiveList.Clear();
             foreach (Captive captive in this.BelongedFaction.SelfCaptives)
             {
-                if ((captive.RansomArriveDays == 0) && (captive.Ransom <= this.Fund))
+                if ((captive.RansomArriveDays == 0) && (captive.Ransom <= this.Fund) && captive.BelongedFaction != null)
                 {
                     this.RedeemCaptiveList.Add(captive);
                 }
@@ -9423,13 +9423,7 @@
         {
             if (this.FactionHasSelfCaptive())
             {
-                foreach (Captive captive in this.BelongedFaction.SelfCaptives)
-                {
-                    if ((captive.RansomArriveDays == 0) && (captive.Ransom <= this.Fund))
-                    {
-                        return true;
-                    }
-                }
+                return this.GetRedeemCaptiveList().Count > 0;
             }
             return false;
         }
