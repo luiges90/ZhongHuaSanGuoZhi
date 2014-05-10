@@ -2959,6 +2959,7 @@
                     p.PersonBiography.Romance = "";
                     p.PersonBiography.InGame = "";
                     p.PersonBiography.ID = p.ID;
+                    this.AllBiographies.AddBiography(p.PersonBiography);
                 }
             }
 
