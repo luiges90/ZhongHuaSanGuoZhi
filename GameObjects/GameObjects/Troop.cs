@@ -7405,13 +7405,16 @@
                     p.Status = PersonStatus.Normal;
                     this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
                     Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
-                    captive.CaptivePerson.LocationArchitecture = null;
                     captive.CaptivePerson.LocationTroop = this;
+                    captive.CaptivePerson.LocationArchitecture = null;
                     if (captive != null)
                     {
                         this.AddCaptive(captive);
                     }
-                    p.Loyalty = 100;
+                    if (!p.IsVeryCloseTo(currentArchitecture.BelongedFaction.Leader))
+                    {
+                        p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
+                    }
                 }
                 currentArchitecture.BuildingFacility = -1;
                 currentArchitecture.BuildingDaysLeft = 0;
