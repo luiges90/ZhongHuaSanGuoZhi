@@ -322,9 +322,9 @@
         public void addOutOfPrincessEntry(GameDate date, Person p, Faction capturer)
         {
             this.addTableEntry(date, composeFactionList(p.BelongedFaction),
-                String.Format(yearTableStrings["becomePrincess"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "" : capturer.Name), false);
+                String.Format(yearTableStrings["outOfPrincess"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "" : capturer.Name), false);
             this.addPersonInGameBiography(p, date,
-                String.Format(yearTableStrings["becomePrincess_p"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "" : capturer.Name));
+                String.Format(yearTableStrings["outOfPrincess_p"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "" : capturer.Name));
         }
     }
 }

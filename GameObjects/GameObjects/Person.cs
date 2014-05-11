@@ -1147,7 +1147,10 @@
         {
             if ((GlobalVariables.PersonNaturalDeath && ((this.LocationArchitecture != null) && !this.IsCaptive)) && (this.alive && ((((((this.DeadReason == PersonDeadReason.自然死亡) && (this.YearDead <= base.Scenario.Date.Year)) && (GameObject.Random(base.Scenario.Date.LeftDays * ((1 + this.YearDead) - base.Scenario.Date.Year)) == 0)) || (((this.DeadReason == PersonDeadReason.被杀死) && (this.Age >= 80)) && (GameObject.Random(90) == 0))) || ((((this.DeadReason == PersonDeadReason.郁郁而终) && (this.YearDead <= base.Scenario.Date.Year)) && (((this.Age >= 80) || (this.BelongedFaction == null)) || ((this.BelongedFaction.Leader != this) || (this.BelongedFaction.ArchitectureTotalSize < 8)))) && (GameObject.Random(90) == 0))) || ((((this.DeadReason == PersonDeadReason.操劳过度) && (this.YearDead <= base.Scenario.Date.Year)) && ((this.Age >= 80) || ((((((((this.InternalExperience + this.TacticsExperience) + this.StratagemExperience) + this.BubingExperience) + this.NubingExperience) + this.QibingExperience) + this.QibingExperience) + this.ShuijunExperience) > 0x7530))) && (GameObject.Random(90) == 0)))))
             {
-                this.ToDeath(null);
+                if (this.Status != PersonStatus.Moving && this.Status != PersonStatus.NoFactionMoving)
+                {
+                    this.ToDeath(null);
+                }
             }
         }
 
