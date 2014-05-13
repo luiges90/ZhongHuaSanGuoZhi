@@ -162,6 +162,8 @@
         public static float CloseAbilityRate = 1.1F;
         public static float VeryCloseAbilityRate = 1.2F;
 
+        public static int RetainFeiziPersonalLoyalty = 0;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();
@@ -308,6 +310,8 @@
 
             CloseAbilityRate = float.Parse(nextSibling.Attributes.GetNamedItem("CloseAbilityRate").Value);
             VeryCloseAbilityRate = float.Parse(nextSibling.Attributes.GetNamedItem("VeryCloseAbilityRate").Value);
+
+            RetainFeiziPersonalLoyalty = int.Parse(nextSibling.Attributes.GetNamedItem("RetainFeiziPersonalLoyalty").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;

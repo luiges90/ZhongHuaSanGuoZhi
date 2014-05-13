@@ -7403,7 +7403,7 @@
                 foreach (Person p in currentArchitecture.Feiziliebiao)
                 {
                     if (this.BelongedFaction == null || this.BelongedFaction.IsAlien ||
-                        this.BelongedFaction.Leader.PersonalLoyalty <= 0)
+                        this.BelongedFaction.Leader.PersonalLoyalty <= Parameters.RetainFeiziPersonalLoyalty)
                     {
                         if (p.Spouse != null)
                         {
