@@ -6134,7 +6134,7 @@
             PersonList haiziliebiao = new PersonList();
             foreach (Person person in this.Scenario.Persons)
             {
-                if (person.Alive && !person.Available && person.Father == this)
+                if (person.Alive && !person.Available && person.Father == this && person.YearBorn > base.Scenario.Date.Year)
                 {
                     haiziliebiao.Add(person);
                 }
