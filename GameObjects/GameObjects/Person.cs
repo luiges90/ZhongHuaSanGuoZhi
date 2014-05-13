@@ -6637,6 +6637,11 @@
                 r.Politics = (int)(r.Politics * GlobalVariables.CreatedOfficerAbilityFactor);
                 r.Glamour = (int)(r.Glamour * GlobalVariables.CreatedOfficerAbilityFactor);
             }
+            if (r.Command < 1) r.Command = 1;
+            if (r.Strength < 1) r.Strength = 1;
+            if (r.Intelligence < 1) r.Intelligence = 1;
+            if (r.Politics < 1) r.Politics = 1;
+            if (r.Glamour < 1) r.Glamour = 1;
 
             setNewOfficerFace(r);
 
