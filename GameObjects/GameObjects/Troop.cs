@@ -7402,18 +7402,29 @@
 
                 foreach (Person p in currentArchitecture.Feiziliebiao)
                 {
-                    p.Status = PersonStatus.Normal;
-                    this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
-                    Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
-                    captive.CaptivePerson.LocationTroop = this;
-                    captive.CaptivePerson.LocationArchitecture = null;
-                    if (captive != null)
+                    if (this.BelongedFaction == null || this.BelongedFaction.IsAlien ||
+                        this.BelongedFaction.Leader.PersonalLoyalty <= 0)
                     {
-                        this.AddCaptive(captive);
+                        if (p.Spouse != null)
+                        {
+                            p.Spouse.AddHated(p.BelongedFaction.Leader);
+                        }
                     }
-                    if (!p.IsVeryCloseTo(currentArchitecture.BelongedFaction.Leader))
+                    else
                     {
-                        p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
+                        p.Status = PersonStatus.Normal;
+                        this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
+                        Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
+                        captive.CaptivePerson.LocationTroop = this;
+                        captive.CaptivePerson.LocationArchitecture = null;
+                        if (captive != null)
+                        {
+                            this.AddCaptive(captive);
+                        }
+                        if (!p.IsVeryCloseTo(currentArchitecture.BelongedFaction.Leader))
+                        {
+                            p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
+                        }
                     }
                 }
                 currentArchitecture.BuildingFacility = -1;
