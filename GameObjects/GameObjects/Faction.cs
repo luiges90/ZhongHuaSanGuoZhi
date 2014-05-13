@@ -617,6 +617,36 @@
             int uncruelty = this.Leader.Uncruelty;
             int unAmbition = Enum.GetNames(typeof(PersonAmbition)).Length - (int)this.Leader.Ambition;
 
+            // move feizis
+            if (GameObject.Random(10) == 0)
+            {
+                foreach (Architecture a in this.Architectures)
+                {
+                    if (a.Feiziliebiao.Count > 0)
+                    {
+                        foreach (Architecture b in this.Architectures)
+                        {
+                            if (!b.FrontLine && b.Meinvkongjian > b.Feiziliebiao.Count && (a.FrontLine || b.Meinvkongjian > a.Meinvkongjian))
+                            {
+                                int cnt = b.Meinvkongjian - b.Feiziliebiao.Count;
+                                GameObjectList list = a.Feiziliebiao.GetList();
+                                list.PropertyName = "Merit";
+                                list.IsNumber = true;
+                                list.SmallToBig = false;
+                                list.ReSort();
+                                int moved = 0;
+                                foreach (Person p in list)
+                                {
+                                    p.MoveToArchitecture(b);
+                                    moved++;
+                                    if (moved >= cnt) break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             // build hougong
             if (this.meinvkongjian() - this.feiziCount() <= 0 &&
                 GameObject.Random((int)(GameObject.Square(unAmbition) * Parameters.AIBuildHougongUnambitionProbWeight + GameObject.Square(this.meinvkongjian()) * unAmbition * Parameters.AIBuildHougongSpaceBuiltProbWeight)) == 0)
