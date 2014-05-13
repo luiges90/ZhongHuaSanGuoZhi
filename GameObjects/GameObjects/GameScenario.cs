@@ -4319,6 +4319,8 @@
 
         public bool SaveGameScenarioToDatabase(string connectionString, bool saveMap, bool saveCommonData)
         {
+            ClearPersonStatusCache();
+            ClearPersonWorkCache();
             //try
             //{
             //this.DisposeLotsOfMemory();

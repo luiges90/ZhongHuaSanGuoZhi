@@ -1615,7 +1615,6 @@
                 foreach (Person person in this.persons)
                 {
                     Point from = this.Position;
-                    person.LocationTroop = null;
                     if ((this.StartingArchitecture == null) || (f != this.StartingArchitecture.BelongedFaction))
                     {
                         if (f.Capital != null)
@@ -1628,6 +1627,7 @@
                         person.LocationArchitecture = this.StartingArchitecture;
                         person.MoveToArchitecture(this.StartingArchitecture, from);
                     }
+                    person.LocationTroop = null;
                 }
                 this.persons.Clear();
                 if (flag)
@@ -3512,8 +3512,8 @@
                 PersonList list = new PersonList();
                 foreach (Person person in this.Persons)
                 {
-                    person.LocationTroop = null;
                     person.LocationArchitecture = a;
+                    person.LocationTroop = null;
                     if (base.Scenario.IsPlayer(this.BelongedFaction) && this.StartingArchitecture != null && this.StartingArchitecture.BelongedFaction == this.BelongedFaction &&
                         this.StartingArchitecture.BelongedSection != a.BelongedSection && this.StartingArchitecture != transportReturningTo)
                     {
@@ -7188,8 +7188,8 @@
         {
             foreach (Captive captive in this.Captives.GetList())
             {
-                captive.CaptivePerson.LocationTroop = null;
                 captive.CaptivePerson.LocationArchitecture = des;
+                captive.CaptivePerson.LocationTroop = null;
             }
         }
 

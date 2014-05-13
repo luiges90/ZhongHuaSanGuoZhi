@@ -104,7 +104,6 @@
         private float internalExperience;
         public bool InternalNoFundNeeded;
         private bool leaderPossibility;
-        public Troop LocationTroop = null;
         private int loyalty;
         public int MonthIncrementOfFactionReputation = 0;
         public int MonthIncrementOfTechniquePoint = 0;
@@ -215,7 +214,31 @@
         public PersonList preferredTroopPersons = new PersonList();
         public string preferredTroopPersonsString;
 
-        public Architecture LocationArchitecture = null;
+        private Troop locationTroop = null;
+        public Troop LocationTroop
+        {
+            get
+            {
+                return locationTroop;
+            }
+            set
+            {
+                locationTroop = value;
+            }
+        }
+
+        private Architecture locationArchitecture = null;
+        public Architecture LocationArchitecture
+        {
+            get
+            {
+                return locationArchitecture;
+            }
+            set
+            {
+                locationArchitecture = value;
+            }
+        }
 
         private Dictionary<int, Treasure> effectiveTreasures = new Dictionary<int, Treasure>();
 
@@ -1050,6 +1073,7 @@
             Architecture locationArchitecture;
             Troop locationTroop = null;
             GameObjects.Faction belongedFaction = this.BelongedFaction;
+
             int deathLocation = 0;
             if (this.LocationTroop != null)
             {
@@ -1074,7 +1098,6 @@
                 deathLocation = 3;
                 throw new Exception("try to kill person onway");
             }
-
 
             this.Alive = false;  //死亡
             this.BelongedCaptive = null;
