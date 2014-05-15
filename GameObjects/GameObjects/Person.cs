@@ -2517,24 +2517,28 @@
         }
         public bool CheckCapturedByArchitecture(Architecture a)
         {
-            if (!(this.ImmunityOfCaptive || GameObject.Random((a.Domination * 10 + a.Morale)) + 200 <= GameObject.Random(this.CaptiveAbility) * 60) ||
-                (!this.ImmunityOfCaptive && GameObject.Chance(a.captureChance)))
+            if (a.BelongedFaction != null && a.BelongedFaction != this.BelongedFaction)
             {
-                this.ArrivingDays = 0;
-                this.TargetArchitecture = null;
-                this.TaskDays = 0;
-                this.OutsideTask = OutsideTaskKind.无;
-                Captive captive = Captive.Create(base.Scenario, this, a.BelongedFaction);
-                this.Status = PersonStatus.Captive;
-                this.LocationArchitecture = a;
-                ExtensionInterface.call("CapturedByArchitecture", new Object[] { this.Scenario, this, a });
-                if (this.OnCapturedByArchitecture != null)
+                if (!(this.ImmunityOfCaptive || GameObject.Random((a.Domination * 10 + a.Morale)) + 200 <= GameObject.Random(this.CaptiveAbility) * 60) ||
+                    (!this.ImmunityOfCaptive && GameObject.Chance(a.captureChance)))
                 {
-                    this.OnCapturedByArchitecture(this, a);
+                    this.ArrivingDays = 0;
+                    this.TargetArchitecture = null;
+                    this.TaskDays = 0;
+                    this.OutsideTask = OutsideTaskKind.无;
+                    Captive captive = Captive.Create(base.Scenario, this, a.BelongedFaction);
+                    this.Status = PersonStatus.Captive;
+                    this.LocationArchitecture = a;
+                    ExtensionInterface.call("CapturedByArchitecture", new Object[] { this.Scenario, this, a });
+                    if (this.OnCapturedByArchitecture != null)
+                    {
+                        this.OnCapturedByArchitecture(this, a);
+                    }
+                    return true;
                 }
-                return true;
             }
             return false;
+
         }
 
         public int StudyableSkillCount
