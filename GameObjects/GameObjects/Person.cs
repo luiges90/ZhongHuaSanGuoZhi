@@ -3421,14 +3421,7 @@
 
         private bool MeetAvailableCondition()
         {
-            foreach (Faction faction in this.Scenario.Factions)
-            {
-                if (this.Scenario.IsPlayer(faction) && this.Father == faction.Leader)
-                {
-                    return false;
-                }
-            }
-            return ((((this.Alive && !this.Available) && (this.YearAvailable <= base.Scenario.Date.Year)) && ((((GlobalVariables.CommonPersonAvailable && (base.ID >= 0)) && (base.ID <= 6999)) || ((GlobalVariables.AdditionalPersonAvailable && (base.ID >= 8000)) && (base.ID <= 8999))) || ((GlobalVariables.PlayerPersonAvailable && (base.ID >= 9000)) && (base.ID <= 9999)))) && !base.Scenario.PreparedAvailablePersons.HasGameObject(this));
+            return ((((this.Alive && !this.Available) && (this.YearAvailable <= base.Scenario.Date.Year)) && ((((GlobalVariables.CommonPersonAvailable && (base.ID >= 0)) && (base.ID <= 6999)) || ((GlobalVariables.AdditionalPersonAvailable && (base.ID >= 8000)) && (base.ID <= 8999))) || ((GlobalVariables.PlayerPersonAvailable && (base.ID >= 9000))))) && !base.Scenario.PreparedAvailablePersons.HasGameObject(this));
         }
 
         public void MonthEvent()
@@ -3979,7 +3972,6 @@
 
         public void TryToBeAvailable()
         {
-
             if (GameObject.Chance(10) && this.MeetAvailableCondition())
             {
                 this.BeAvailable();
