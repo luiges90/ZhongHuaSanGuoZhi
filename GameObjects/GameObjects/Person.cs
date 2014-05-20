@@ -1429,7 +1429,7 @@
                             if (this.BelongedArchitecture != null)
                             {
                                 reporter = this.BelongedArchitecture.Advisor;
-                                if (reporter != null && reporter != this)
+                                if (reporter != null && (reporter != this || (reporter == this && reporter.Spouse == reporter.BelongedFaction.Leader)))
                                 {
                                     this.Scenario.GameScreen.coupleFoundPregnant(this, reporter);
                                 }
