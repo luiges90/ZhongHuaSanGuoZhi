@@ -124,6 +124,7 @@ namespace WorldOfTheThreeKingdoms
                 this.graphics.PreferredBackBufferHeight = adapter.CurrentDisplayMode.Height;
             }
             this.graphics.ToggleFullScreen();
+            GlobalVariables.FullScreen = this.graphics.GraphicsDevice.PresentationParameters.IsFullScreen;
         }
 
         private void TryToExit()
@@ -141,6 +142,10 @@ namespace WorldOfTheThreeKingdoms
                     this.TryToExit();
                 }
                 if (AltComboPressed(this.mainGameScreen.KeyState, Microsoft.Xna.Framework.Input.Keys.Enter) && (this.mainGameScreen.PeekUndoneWork().Kind == UndoneWorkKind.None))
+                {
+                    this.mainGameScreen.ToggleFullScreen();
+                }
+                if ((GlobalVariables.FullScreen && !this.mainGameScreen.IsFullScreen) || (!GlobalVariables.FullScreen && this.mainGameScreen.IsFullScreen))
                 {
                     this.mainGameScreen.ToggleFullScreen();
                 }

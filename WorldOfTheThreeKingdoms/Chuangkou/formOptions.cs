@@ -239,6 +239,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private CheckBox cbEnablePersonRelations;
         private Label lblChildrenAvailableAge;
         private TextBox tbChildrenAvailableAge;
+        private CheckBox cbFullScreen;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -325,6 +326,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbRunWhileNotFocused = new System.Windows.Forms.CheckBox();
             this.cbDoAutoSave = new System.Windows.Forms.CheckBox();
             this.tabPagePerson = new System.Windows.Forms.TabPage();
+            this.lblChildrenAvailableAge = new System.Windows.Forms.Label();
+            this.tbChildrenAvailableAge = new System.Windows.Forms.TextBox();
             this.cbEnablePersonRelations = new System.Windows.Forms.CheckBox();
             this.tbCreatedOfficerAbilityFactor = new System.Windows.Forms.TextBox();
             this.lblCreatedOfficerAbilityFactor = new System.Windows.Forms.Label();
@@ -475,8 +478,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.lblChildrenAvailableAge = new System.Windows.Forms.Label();
-            this.tbChildrenAvailableAge = new System.Windows.Forms.TextBox();
+            this.cbFullScreen = new System.Windows.Forms.CheckBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -880,6 +882,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageEnvironment
             // 
+            this.tabPageEnvironment.Controls.Add(this.cbFullScreen);
             this.tabPageEnvironment.Controls.Add(this.cbStopToControlOnAttack);
             this.tabPageEnvironment.Controls.Add(this.cbShowChallengeAnimation);
             this.tabPageEnvironment.Controls.Add(this.label59);
@@ -912,7 +915,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbStopToControlOnAttack
             // 
             this.cbStopToControlOnAttack.AutoSize = true;
-            this.cbStopToControlOnAttack.Location = new System.Drawing.Point(13, 145);
+            this.cbStopToControlOnAttack.Location = new System.Drawing.Point(13, 167);
             this.cbStopToControlOnAttack.Name = "cbStopToControlOnAttack";
             this.cbStopToControlOnAttack.Size = new System.Drawing.Size(120, 16);
             this.cbStopToControlOnAttack.TabIndex = 118;
@@ -922,7 +925,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbShowChallengeAnimation
             // 
             this.cbShowChallengeAnimation.AutoSize = true;
-            this.cbShowChallengeAnimation.Location = new System.Drawing.Point(13, 277);
+            this.cbShowChallengeAnimation.Location = new System.Drawing.Point(13, 299);
             this.cbShowChallengeAnimation.Name = "cbShowChallengeAnimation";
             this.cbShowChallengeAnimation.Size = new System.Drawing.Size(72, 16);
             this.cbShowChallengeAnimation.TabIndex = 117;
@@ -932,7 +935,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(130, 256);
+            this.label59.Location = new System.Drawing.Point(130, 278);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(29, 12);
             this.label59.TabIndex = 115;
@@ -940,7 +943,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAutosaveFrequency
             // 
-            this.tbAutosaveFrequency.Location = new System.Drawing.Point(106, 253);
+            this.tbAutosaveFrequency.Location = new System.Drawing.Point(106, 275);
             this.tbAutosaveFrequency.MaxLength = 2;
             this.tbAutosaveFrequency.Name = "tbAutosaveFrequency";
             this.tbAutosaveFrequency.Size = new System.Drawing.Size(27, 22);
@@ -949,7 +952,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbBattleSpeed
             // 
-            this.tbBattleSpeed.Location = new System.Drawing.Point(69, 346);
+            this.tbBattleSpeed.Location = new System.Drawing.Point(69, 368);
             this.tbBattleSpeed.MaxLength = 2;
             this.tbBattleSpeed.Name = "tbBattleSpeed";
             this.tbBattleSpeed.Size = new System.Drawing.Size(27, 22);
@@ -959,7 +962,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblBattleSpeed
             // 
             this.lblBattleSpeed.AutoSize = true;
-            this.lblBattleSpeed.Location = new System.Drawing.Point(10, 349);
+            this.lblBattleSpeed.Location = new System.Drawing.Point(10, 371);
             this.lblBattleSpeed.Name = "lblBattleSpeed";
             this.lblBattleSpeed.Size = new System.Drawing.Size(53, 12);
             this.lblBattleSpeed.TabIndex = 107;
@@ -968,7 +971,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblDialogShowTime
             // 
             this.lblDialogShowTime.AutoSize = true;
-            this.lblDialogShowTime.Location = new System.Drawing.Point(11, 324);
+            this.lblDialogShowTime.Location = new System.Drawing.Point(11, 346);
             this.lblDialogShowTime.Name = "lblDialogShowTime";
             this.lblDialogShowTime.Size = new System.Drawing.Size(89, 12);
             this.lblDialogShowTime.TabIndex = 102;
@@ -976,7 +979,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbDialogShowTime
             // 
-            this.tbDialogShowTime.Location = new System.Drawing.Point(106, 321);
+            this.tbDialogShowTime.Location = new System.Drawing.Point(106, 343);
             this.tbDialogShowTime.MaxLength = 2;
             this.tbDialogShowTime.Name = "tbDialogShowTime";
             this.tbDialogShowTime.Size = new System.Drawing.Size(27, 22);
@@ -986,7 +989,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbHintPopulationUnder1000
             // 
             this.cbHintPopulationUnder1000.AutoSize = true;
-            this.cbHintPopulationUnder1000.Location = new System.Drawing.Point(13, 233);
+            this.cbHintPopulationUnder1000.Location = new System.Drawing.Point(13, 255);
             this.cbHintPopulationUnder1000.Name = "cbHintPopulationUnder1000";
             this.cbHintPopulationUnder1000.Size = new System.Drawing.Size(168, 16);
             this.cbHintPopulationUnder1000.TabIndex = 13;
@@ -996,7 +999,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbHintPopulation
             // 
             this.cbHintPopulation.AutoSize = true;
-            this.cbHintPopulation.Location = new System.Drawing.Point(13, 211);
+            this.cbHintPopulation.Location = new System.Drawing.Point(13, 233);
             this.cbHintPopulation.Name = "cbHintPopulation";
             this.cbHintPopulation.Size = new System.Drawing.Size(108, 16);
             this.cbHintPopulation.TabIndex = 12;
@@ -1006,7 +1009,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblTroopMoveSpeed
             // 
             this.lblTroopMoveSpeed.AutoSize = true;
-            this.lblTroopMoveSpeed.Location = new System.Drawing.Point(11, 301);
+            this.lblTroopMoveSpeed.Location = new System.Drawing.Point(11, 323);
             this.lblTroopMoveSpeed.Name = "lblTroopMoveSpeed";
             this.lblTroopMoveSpeed.Size = new System.Drawing.Size(185, 12);
             this.lblTroopMoveSpeed.TabIndex = 11;
@@ -1014,7 +1017,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbTroopMoveSpeed
             // 
-            this.tbTroopMoveSpeed.Location = new System.Drawing.Point(202, 298);
+            this.tbTroopMoveSpeed.Location = new System.Drawing.Point(202, 320);
             this.tbTroopMoveSpeed.MaxLength = 1;
             this.tbTroopMoveSpeed.Name = "tbTroopMoveSpeed";
             this.tbTroopMoveSpeed.Size = new System.Drawing.Size(27, 22);
@@ -1024,7 +1027,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbNoHintOnSmallFacility
             // 
             this.cbNoHintOnSmallFacility.AutoSize = true;
-            this.cbNoHintOnSmallFacility.Location = new System.Drawing.Point(13, 189);
+            this.cbNoHintOnSmallFacility.Location = new System.Drawing.Point(13, 211);
             this.cbNoHintOnSmallFacility.Name = "cbNoHintOnSmallFacility";
             this.cbNoHintOnSmallFacility.Size = new System.Drawing.Size(168, 16);
             this.cbNoHintOnSmallFacility.TabIndex = 9;
@@ -1034,7 +1037,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbSingleSelectionOneClick
             // 
             this.cbSingleSelectionOneClick.AutoSize = true;
-            this.cbSingleSelectionOneClick.Location = new System.Drawing.Point(13, 167);
+            this.cbSingleSelectionOneClick.Location = new System.Drawing.Point(13, 189);
             this.cbSingleSelectionOneClick.Name = "cbSingleSelectionOneClick";
             this.cbSingleSelectionOneClick.Size = new System.Drawing.Size(216, 16);
             this.cbSingleSelectionOneClick.TabIndex = 8;
@@ -1044,7 +1047,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbDrawTroopAnimation
             // 
             this.cbDrawTroopAnimation.AutoSize = true;
-            this.cbDrawTroopAnimation.Location = new System.Drawing.Point(13, 123);
+            this.cbDrawTroopAnimation.Location = new System.Drawing.Point(13, 145);
             this.cbDrawTroopAnimation.Name = "cbDrawTroopAnimation";
             this.cbDrawTroopAnimation.Size = new System.Drawing.Size(96, 16);
             this.cbDrawTroopAnimation.TabIndex = 5;
@@ -1054,7 +1057,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbDrawMapVeil
             // 
             this.cbDrawMapVeil.AutoSize = true;
-            this.cbDrawMapVeil.Location = new System.Drawing.Point(13, 101);
+            this.cbDrawMapVeil.Location = new System.Drawing.Point(13, 123);
             this.cbDrawMapVeil.Name = "cbDrawMapVeil";
             this.cbDrawMapVeil.Size = new System.Drawing.Size(96, 16);
             this.cbDrawMapVeil.TabIndex = 4;
@@ -1064,7 +1067,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbPlayBattleSound
             // 
             this.cbPlayBattleSound.AutoSize = true;
-            this.cbPlayBattleSound.Location = new System.Drawing.Point(13, 79);
+            this.cbPlayBattleSound.Location = new System.Drawing.Point(13, 101);
             this.cbPlayBattleSound.Name = "cbPlayBattleSound";
             this.cbPlayBattleSound.Size = new System.Drawing.Size(96, 16);
             this.cbPlayBattleSound.TabIndex = 3;
@@ -1074,7 +1077,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbPlayNormalSound
             // 
             this.cbPlayNormalSound.AutoSize = true;
-            this.cbPlayNormalSound.Location = new System.Drawing.Point(13, 57);
+            this.cbPlayNormalSound.Location = new System.Drawing.Point(13, 79);
             this.cbPlayNormalSound.Name = "cbPlayNormalSound";
             this.cbPlayNormalSound.Size = new System.Drawing.Size(96, 16);
             this.cbPlayNormalSound.TabIndex = 2;
@@ -1084,7 +1087,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbPlayMusic
             // 
             this.cbPlayMusic.AutoSize = true;
-            this.cbPlayMusic.Location = new System.Drawing.Point(13, 35);
+            this.cbPlayMusic.Location = new System.Drawing.Point(13, 57);
             this.cbPlayMusic.Name = "cbPlayMusic";
             this.cbPlayMusic.Size = new System.Drawing.Size(72, 16);
             this.cbPlayMusic.TabIndex = 1;
@@ -1104,7 +1107,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbDoAutoSave
             // 
             this.cbDoAutoSave.AutoSize = true;
-            this.cbDoAutoSave.Location = new System.Drawing.Point(13, 255);
+            this.cbDoAutoSave.Location = new System.Drawing.Point(13, 277);
             this.cbDoAutoSave.Name = "cbDoAutoSave";
             this.cbDoAutoSave.Size = new System.Drawing.Size(96, 16);
             this.cbDoAutoSave.TabIndex = 100;
@@ -1160,6 +1163,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.TabIndex = 1;
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
+            // 
+            // lblChildrenAvailableAge
+            // 
+            this.lblChildrenAvailableAge.AutoSize = true;
+            this.lblChildrenAvailableAge.Location = new System.Drawing.Point(168, 300);
+            this.lblChildrenAvailableAge.Name = "lblChildrenAvailableAge";
+            this.lblChildrenAvailableAge.Size = new System.Drawing.Size(77, 12);
+            this.lblChildrenAvailableAge.TabIndex = 150;
+            this.lblChildrenAvailableAge.Text = "子女登场年龄";
+            // 
+            // tbChildrenAvailableAge
+            // 
+            this.tbChildrenAvailableAge.Location = new System.Drawing.Point(251, 297);
+            this.tbChildrenAvailableAge.Name = "tbChildrenAvailableAge";
+            this.tbChildrenAvailableAge.Size = new System.Drawing.Size(71, 22);
+            this.tbChildrenAvailableAge.TabIndex = 149;
             // 
             // cbEnablePersonRelations
             // 
@@ -2515,21 +2534,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // lblChildrenAvailableAge
+            // cbFullScreen
             // 
-            this.lblChildrenAvailableAge.AutoSize = true;
-            this.lblChildrenAvailableAge.Location = new System.Drawing.Point(168, 300);
-            this.lblChildrenAvailableAge.Name = "lblChildrenAvailableAge";
-            this.lblChildrenAvailableAge.Size = new System.Drawing.Size(77, 12);
-            this.lblChildrenAvailableAge.TabIndex = 150;
-            this.lblChildrenAvailableAge.Text = "子女登场年龄";
-            // 
-            // tbChildrenAvailableAge
-            // 
-            this.tbChildrenAvailableAge.Location = new System.Drawing.Point(251, 297);
-            this.tbChildrenAvailableAge.Name = "tbChildrenAvailableAge";
-            this.tbChildrenAvailableAge.Size = new System.Drawing.Size(71, 22);
-            this.tbChildrenAvailableAge.TabIndex = 149;
+            this.cbFullScreen.AutoSize = true;
+            this.cbFullScreen.Location = new System.Drawing.Point(13, 35);
+            this.cbFullScreen.Name = "cbFullScreen";
+            this.cbFullScreen.Size = new System.Drawing.Size(48, 16);
+            this.cbFullScreen.TabIndex = 119;
+            this.cbFullScreen.Text = "全屏";
+            this.cbFullScreen.UseVisualStyleBackColor = true;
             // 
             // formOptions
             // 
@@ -2633,6 +2646,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbCreatedOfficerAbilityFactor.Text = nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value;
             this.cbEnablePersonRelations.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value);
             this.tbChildrenAvailableAge.Text = nextSibling.Attributes.GetNamedItem("ChildrenAvailableAge").Value;
+            this.cbFullScreen.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("FullScreen").Value);
         }
 
         private void LoadParameterDoc()
@@ -2809,6 +2823,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkFloatSave(nextSibling, "CreatedOfficerAbilityFactor", this.lblCreatedOfficerAbilityFactor, this.tbCreatedOfficerAbilityFactor)) { return false; }
             nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value = this.cbEnablePersonRelations.Checked.ToString();
             if (!checkIntSave(nextSibling, "ChildrenAvailableAge", this.lblChildrenAvailableAge, this.tbChildrenAvailableAge)) { return false; }
+            nextSibling.Attributes.GetNamedItem("FullScreen").Value = this.cbFullScreen.Checked.ToString();
             this.commonDoc.Save("GameData/GlobalVariables.xml");
             return true;
         }

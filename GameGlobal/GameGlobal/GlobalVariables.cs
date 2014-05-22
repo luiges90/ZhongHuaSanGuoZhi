@@ -139,6 +139,8 @@
         public static float CreatedOfficerAbilityFactor = 0.8f;
         public static bool EnablePersonRelations = true;
 
+        public static bool FullScreen = false;
+
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()
@@ -792,6 +794,15 @@
             {
                 exception = exception24;
                 throw new Exception("ChildrenAvailableAge:\n" + exception.ToString());
+            }
+            try
+            {
+                FullScreen = bool.Parse(nextSibling.Attributes.GetNamedItem("FullScreen").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("FullScreen:\n" + exception.ToString());
             }
             return true;
         }

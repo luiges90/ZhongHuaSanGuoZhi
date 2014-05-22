@@ -7645,6 +7645,7 @@
                     this.relations.Add(p, val);
                 }
             }
+
             if (this.relations[p] <= Parameters.HateThreshold && !this.Hates(p))
             {
                 this.AddHated(p);

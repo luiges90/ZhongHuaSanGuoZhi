@@ -69,5 +69,6 @@ CreateRandomOfficerChance="100"
 GeneratedOfficerFemaleChance="5"
 CreatedOfficerAbilityFactor="0.9"
 EnablePersonRelations="True"
-ChildrenAvailableAge="12">
+ChildrenAvailableAge="12"
+FullScreen="False">
 </GlobalVariables>
