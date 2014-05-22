@@ -322,9 +322,17 @@
         public void addOutOfPrincessEntry(GameDate date, Person p, Faction capturer)
         {
             this.addTableEntry(date, composeFactionList(p.BelongedFaction),
-                String.Format(yearTableStrings["outOfPrincess"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "" : capturer.Name), false);
+                String.Format(yearTableStrings["outOfPrincess"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name), false);
             this.addPersonInGameBiography(p, date,
-                String.Format(yearTableStrings["outOfPrincess_p"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "" : capturer.Name));
+                String.Format(yearTableStrings["outOfPrincess_p"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name));
+        }
+
+        public void addChangeFactionPrincessEntry(GameDate date, Person p, Faction capturer)
+        {
+            this.addTableEntry(date, composeFactionList(p.BelongedFaction),
+                String.Format(yearTableStrings["changeFactionPrincess"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name, capturer == null ? "贼军" : capturer.Leader.Name), false);
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["changeFactionPrincess_p"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name, capturer == null ? "贼军" : capturer.Leader.Name));
         }
     }
 }

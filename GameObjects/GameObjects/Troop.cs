@@ -7405,6 +7405,7 @@
                     if (this.BelongedFaction == null || this.BelongedFaction.IsAlien ||
                         this.BelongedFaction.Leader.PersonalLoyalty <= Parameters.RetainFeiziPersonalLoyalty)
                     {
+                        this.Scenario.YearTable.addChangeFactionPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
                         if (p.Spouse != null)
                         {
                             p.Spouse.AddHated(p.BelongedFaction.Leader);
