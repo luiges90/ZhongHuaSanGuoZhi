@@ -1523,7 +1523,7 @@
                 this.Spouse.NumberOfChildren < GlobalVariables.OfficerChildrenLimit)
             {
                 float relationFactor = (1 + this.GetRelation(this.Spouse) * 0.0001f + this.Spouse.GetRelation(this) * 0.0001f)
-                    * (1 + this.pregnantChance + this.Spouse.pregnantChance);
+                    * (1 + this.pregnantChance / 100.0f + this.Spouse.pregnantChance / 100.0f);
 
                 if (relationFactor > 0 && GameObject.Random((int)(10000.0f / GlobalVariables.getChildrenRate * 20 / relationFactor)) == 0)
                 {
