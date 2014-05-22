@@ -7403,7 +7403,7 @@
                 foreach (Person p in currentArchitecture.Feiziliebiao)
                 {
                     if (this.BelongedFaction == null || this.BelongedFaction.IsAlien ||
-                        this.BelongedFaction.Leader.PersonalLoyalty <= Parameters.RetainFeiziPersonalLoyalty)
+                        this.BelongedFaction.Leader.Uncruelty <= Parameters.RetainFeiziPersonalLoyalty)
                     {
                         this.Scenario.YearTable.addChangeFactionPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
                         if (p.Spouse != null)
