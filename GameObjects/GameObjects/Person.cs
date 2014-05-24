@@ -3083,6 +3083,34 @@
                 this.Loyalty = 0;
                 return;
             }
+
+            if (this.Father.childrenLoyalty > this.Mother.childrenLoyalty)
+            {
+                if (GameObject.Chance(this.Father.childrenLoyaltyRate))
+                {
+                    this.Loyalty = this.Father.childrenLoyalty;
+                    return;
+                }
+                if (GameObject.Chance(this.Mother.childrenLoyaltyRate))
+                {
+                    this.Loyalty = this.Mother.childrenLoyalty;
+                    return;
+                }
+            }
+            else
+            {
+                if (GameObject.Chance(this.Mother.childrenLoyaltyRate))
+                {
+                    this.Loyalty = this.Mother.childrenLoyalty;
+                    return;
+                }
+                if (GameObject.Chance(this.Father.childrenLoyaltyRate))
+                {
+                    this.Loyalty = this.Father.childrenLoyalty;
+                    return;
+                }
+            }
+
             int num = (60 + (10 * (int)this.PersonalLoyalty)) - (GetIdealOffset(this, this.BelongedFaction.Leader) / 5);
             if (this.Ideal == this.BelongedFaction.Leader.Ideal)
             {
