@@ -3084,7 +3084,7 @@
                 return;
             }
 
-            if (this.Father.childrenLoyalty > this.Mother.childrenLoyalty)
+            if (this.Father != null && this.Mother != null && this.Father.childrenLoyalty > this.Mother.childrenLoyalty)
             {
                 if (GameObject.Chance(this.Father.childrenLoyaltyRate))
                 {
@@ -3097,7 +3097,7 @@
                     return;
                 }
             }
-            else
+            else if (this.Father != null && this.Mother != null)
             {
                 if (GameObject.Chance(this.Mother.childrenLoyaltyRate))
                 {
