@@ -642,6 +642,7 @@
                                     if (moved >= cnt) break;
                                 }
                             }
+                            if (a.Feiziliebiao.Count <= 0) break;
                         }
                     }
                 }
