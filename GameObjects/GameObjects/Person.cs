@@ -1560,7 +1560,7 @@
                 int cnt = 0;
                 foreach (Person p in base.Scenario.Persons)
                 {
-                    if ((p.Father == this || p.Mother == this) && ((p.Available && p.YearBorn <= base.Scenario.Date.Year) || p.Alive))
+                    if ((p.Father == this || p.Mother == this) && (((p.Available || p.YearBorn <= base.Scenario.Date.Year) && p.Alive) || (p.Available && !p.Alive)))
                     {
                         cnt++;
                     }
