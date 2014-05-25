@@ -1074,6 +1074,8 @@
             Troop locationTroop = null;
             GameObjects.Faction belongedFaction = this.BelongedFaction;
 
+            this.Scenario.YearTable.addPersonDeathEntry(this.Scenario.Date, this);
+
             int deathLocation = 0;
             if (this.LocationTroop != null)
             {
@@ -1160,8 +1162,6 @@
                     baowu.HidePlace = locationArchitecture;
                 }
             }
-
-            this.Scenario.YearTable.addPersonDeathEntry(this.Scenario.Date, this);
 
             ExtensionInterface.call("PersonDie", new Object[] { this.Scenario, this });
         }
