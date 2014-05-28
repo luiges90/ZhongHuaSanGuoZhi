@@ -7426,6 +7426,10 @@
                         {
                             p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
                         }
+                        else
+                        {
+                            p.Loyalty = Math.Max(p.Loyalty, 150);
+                        }
                     }
                 }
                 currentArchitecture.BuildingFacility = -1;
