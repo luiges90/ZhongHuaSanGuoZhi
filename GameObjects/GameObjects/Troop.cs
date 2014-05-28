@@ -7428,7 +7428,7 @@
                         }
                         else
                         {
-                            p.Loyalty = Math.Max(p.Loyalty, 150);
+                            p.Loyalty = Math.Max(p.Loyalty, 150 + p.NumberOfChildren * 10);
                         }
                     }
                 }
