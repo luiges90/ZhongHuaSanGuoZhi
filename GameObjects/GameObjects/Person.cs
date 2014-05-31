@@ -6563,6 +6563,7 @@
                 type = OfficerType.CHEAP;
             }
 
+            int titleChance = 0;
             switch (type)
             {
                 case OfficerType.GENERAL:
@@ -6576,6 +6577,7 @@
                         r.Calmness = GameObject.RandomGaussian(5, 2);
                         r.PersonalLoyalty = GameObject.RandomGaussian(3, 1);
                         r.Ambition = GameObject.RandomGaussian(3, 1);
+                        titleChance = 98;
                         break;
                     }
                 case OfficerType.BRAVE:
@@ -6589,6 +6591,7 @@
                         r.Calmness = GameObject.RandomGaussian(2, 1);
                         r.PersonalLoyalty = GameObject.Random(2) + 3;
                         r.Ambition = GameObject.RandomGaussian(2, 1);
+                        titleChance = 98;
                         break;
                     }
                 case OfficerType.ADVISOR:
@@ -6602,6 +6605,7 @@
                         r.Calmness = GameObject.RandomGaussian(7, 2);
                         r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
                         r.Ambition = GameObject.RandomGaussian(2, 2);
+                        titleChance = 98;
                         break;
                     }
                 case OfficerType.POLITICIAN:
@@ -6615,6 +6619,7 @@
                         r.Calmness = GameObject.RandomGaussian(7, 2);
                         r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
                         r.Ambition = GameObject.RandomGaussian(2, 2);
+                        titleChance = 98;
                         break;
                     }
                 case OfficerType.INTEL_GENERAL:
@@ -6628,6 +6633,7 @@
                         r.Calmness = GameObject.RandomGaussian(6, 3);
                         r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
                         r.Ambition = GameObject.RandomGaussian(2, 2);
+                        titleChance = 98;
                         break;
                     }
                 case OfficerType.EMPEROR:
@@ -6641,6 +6647,7 @@
                         r.Calmness = GameObject.RandomGaussian(6, 3);
                         r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
                         r.Ambition = GameObject.Random(2) + 3;
+                        titleChance = 98;
                         break;
                     }
                 case OfficerType.ALL_ROUNDER:
@@ -6654,6 +6661,7 @@
                         r.Calmness = GameObject.RandomGaussian(7, 2);
                         r.PersonalLoyalty = GameObject.RandomGaussian(3, 1);
                         r.Ambition = GameObject.RandomGaussian(3, 1);
+                        titleChance = 100;
                         break;
                     }
                 case OfficerType.NORMAL:
@@ -6667,6 +6675,7 @@
                         r.Calmness = GameObject.RandomGaussian(5, 4);
                         r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
                         r.Ambition = GameObject.RandomGaussian(2, 2);
+                        titleChance = 33;
                         break;
                     }
                 case OfficerType.CHEAP:
@@ -6680,6 +6689,7 @@
                         r.Calmness = GameObject.RandomGaussian(2, 1);
                         r.PersonalLoyalty = GameObject.RandomGaussian(1, 1);
                         r.Ambition = GameObject.RandomGaussian(1, 1);
+                        titleChance = 0;
                         break;
                     }
             }
@@ -6774,41 +6784,44 @@
                 }
             }
 
-            Dictionary<TitleKind, List<Title>> titles = Title.GetKindTitleDictionary(scen);
-            foreach (KeyValuePair<TitleKind, List<Title>> kv in titles)
+            if (GameObject.Chance(titleChance))
             {
-                Dictionary<Title, double> chances = new Dictionary<Title, double>();
-                foreach (Title t in kv.Value)
+                Dictionary<TitleKind, List<Title>> titles = Title.GetKindTitleDictionary(scen);
+                foreach (KeyValuePair<TitleKind, List<Title>> kv in titles)
                 {
-                    if (t.CanBeChosenForGenerated())
+                    Dictionary<Title, double> chances = new Dictionary<Title, double>();
+                    foreach (Title t in kv.Value)
                     {
-                        if (type == OfficerType.ALL_ROUNDER)
+                        if (t.CanBeChosenForGenerated())
                         {
-                            chances.Add(t, t.GenerationChance[(int)type] * t.Level);
-                        }
-                        else
-                        {
-                            chances.Add(t, t.GenerationChance[(int)type] / (double)(t.Level * t.Level));
+                            if (type == OfficerType.ALL_ROUNDER)
+                            {
+                                chances.Add(t, t.GenerationChance[(int)type] * t.Level);
+                            }
+                            else
+                            {
+                                chances.Add(t, t.GenerationChance[(int)type] / (double)(t.Level * t.Level));
+                            }
                         }
                     }
-                }
 
-                int randMax = 10000;
-                double sum = 0;
-                foreach (double i in chances.Values)
-                {
-                    sum += i;
-                }
-
-                int p = GameObject.Random(randMax);
-                double pt = 0;
-                foreach (KeyValuePair<Title, double> td in chances)
-                {
-                    pt += td.Value / sum * randMax;
-                    if (p < pt)
+                    int randMax = 10000;
+                    double sum = 0;
+                    foreach (double i in chances.Values)
                     {
-                        r.RealTitles.Add(td.Key);
-                        break;
+                        sum += i;
+                    }
+
+                    int p = GameObject.Random(randMax);
+                    double pt = 0;
+                    foreach (KeyValuePair<Title, double> td in chances)
+                    {
+                        pt += td.Value / sum * randMax;
+                        if (p < pt)
+                        {
+                            r.RealTitles.Add(td.Key);
+                            break;
+                        }
                     }
                 }
             }
