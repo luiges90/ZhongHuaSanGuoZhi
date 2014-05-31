@@ -1079,7 +1079,7 @@
         {
             if (courier == null)
             {
-                courier = this.AllPersons[7200];
+                courier = (Person) this.Persons.GetGameObject(7200);
             }
             foreach (Title t in this.GameCommonData.AllTitles.Titles.Values)
             {
