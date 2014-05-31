@@ -2068,6 +2068,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void ObtainMilitaryKind(Faction f, Person giver, MilitaryKind m)
+        {
+            if (base.Scenario.CurrentPlayer == f || GlobalVariables.SkyEye) 
+            {
+                giver.TextResultString = m.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(giver, null, "SpyMessageNewFacility");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+            }
+        }
+
         public override void AutoLearnTitle(Person p, Title title)
         {
             if (base.Scenario.CurrentPlayer == null || base.Scenario.CurrentPlayer.IsPositionKnown(p.Position) || GlobalVariables.SkyEye)

@@ -40,18 +40,33 @@
             return list;
         }
 
-        public void LoadFromString(TitleTable allTitles, string titleIDs)
+        public List<string> LoadFromString(TitleTable allTitles, string titleIDs)
         {
+            List<string> errorMsg = new List<string>();
+
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };
             string[] strArray = titleIDs.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             Title title = null;
-            for (int i = 0; i < strArray.Length; i++)
+            try
             {
-                if (allTitles.Titles.TryGetValue(int.Parse(strArray[i]), out title))
+                for (int i = 0; i < strArray.Length; i++)
                 {
-                    this.AddTitle(title);
+                    if (allTitles.Titles.TryGetValue(int.Parse(strArray[i]), out title))
+                    {
+                        this.AddTitle(title);
+                    }
+                    else
+                    {
+                        errorMsg.Add("称号ID" + int.Parse(strArray[i]) + "不存在");
+                    }
                 }
             }
+            catch
+            {
+                errorMsg.Add("兵种一栏应为半型空格分隔的影响ID");
+            }
+
+            return errorMsg;
         }
 
         public string SaveToString()

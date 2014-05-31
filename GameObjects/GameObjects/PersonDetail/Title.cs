@@ -36,7 +36,7 @@
             set;
         }
 
-        public List<int> PersonIds = new List<int>();
+        public PersonList Persons = null;
 
         private int[] generationChance = new int[9];
         public int[] GenerationChance

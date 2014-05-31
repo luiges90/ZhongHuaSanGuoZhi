@@ -732,6 +732,10 @@
         {
         }
 
+        public virtual void ObtainMilitaryKind(Faction f, Person giver, MilitaryKind m)
+        {
+        }
+
         public virtual void AutoLearnTitle(Person p, Title title)
         {
         }

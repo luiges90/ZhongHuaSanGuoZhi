@@ -1019,6 +1019,7 @@
 
             this.detectCurrentPlayerBattleState(this.CurrentPlayer);
 
+            this.militaryKindEvent();
             this.titleDayEvent();
 
 
@@ -1054,6 +1055,25 @@
             this.GameScreen.DisposeMapTileMemory();
         }
 
+        private void militaryKindEvent()
+        {
+            foreach (MilitaryKind m in this.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values)
+            {
+                if (m.Persons.Count > 0 && m.ObtainProb > 0)
+                {
+                    foreach (Person p in m.Persons)
+                    {
+                        if (GameObject.Random(m.ObtainProb) == 0) {
+                            if (p.BelongedFaction != null && !p.BelongedFaction.BaseMilitaryKinds.MilitaryKinds.ContainsValue(m))
+                            {
+                                p.BelongedFaction.BaseMilitaryKinds.AddMilitaryKind(m);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void titleDayEvent()
         {
             foreach (Title t in this.GameCommonData.AllTitles.Titles.Values)
@@ -1061,11 +1081,10 @@
                 if (t.AutoLearn > 0 && GameObject.Random(t.AutoLearn) == 0)
                 {
                     PersonList candidates = new PersonList();
-                    if (t.PersonIds.Count > 0)
+                    if (t.Persons.Count > 0)
                     {
-                        foreach (int i in t.PersonIds)
+                        foreach (Person p in t.Persons)
                         {
-                            Person p = (Person) this.AvailablePersons.GetGameObject(i);
                             if (p.Available && p.Alive)
                             {
                                 candidates.Add(p);
@@ -1954,6 +1973,18 @@
             this.InitializeCaptiveData();
             this.InitializePersonData();
             this.InitializeSpyMessageData();
+
+            foreach (Person p in this.Persons)
+            {
+                foreach (Title t in p.UniqueTitles.Titles.Values)
+                {
+                    t.Persons.Add(p);
+                }
+                foreach (MilitaryKind m in p.UniqueMilitaryKinds.MilitaryKinds.Values)
+                {
+                    m.Persons.Add(p);
+                }
+            }
             /*
             this.GameProgressCaution = new GameFreeText.FreeText(this.GameScreen.spriteBatch.GraphicsDevice,new System.Drawing.Font("宋体", 16f), new Color(1f, 1f, 1f));
             this.GameProgressCaution.Text = "——";
@@ -2592,6 +2623,14 @@
                 person.BasePolitics = (short)reader["Politics"];
                 person.BaseGlamour = (short)reader["Glamour"];
                 person.Reputation = (int)reader["Reputation"];
+                try
+                {
+                    errors.AddRange(person.UniqueMilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["UniqueMulitaryKinds"].ToString()));
+                    errors.AddRange(person.UniqueTitles.LoadFromString(this.GameCommonData.AllTitles, reader["UniqueTitles"].ToString()));
+                }
+                catch
+                {
+                }
                 person.StrengthExperience = (int)reader["StrengthExperience"];
                 person.CommandExperience = (int)reader["CommandExperience"];
                 person.IntelligenceExperience = (int)reader["IntelligenceExperience"];

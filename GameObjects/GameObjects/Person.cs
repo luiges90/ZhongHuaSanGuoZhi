@@ -187,6 +187,9 @@
         private Dictionary<Person, int> relations = new Dictionary<Person, int>();
         public List<Title> RealTitles = new List<Title>();
 
+        public MilitaryKindTable UniqueMilitaryKinds = new MilitaryKindTable();
+        public TitleTable UniqueTitles = new TitleTable();
+
         private PersonStatus status;
 
         private Person waitForFeiZi = null;

@@ -686,16 +686,13 @@
                     title.AutoLearn = (int)reader["AutoLearn"];
                     title.AutoLearnText = reader["AutoLearnText"].ToString();
                     title.AutoLearnTextByCourier = reader["AutoLearnTextByCourier"].ToString();
-                    try
-                    {
-                        StaticMethods.LoadFromString(title.PersonIds, reader["PersonIds"].ToString());
-                    }
-                    catch (FormatException)
-                    {
-                        e.Add("武将一栏应为半型空格分隔的人物ID");
-                    }
                 }
-                catch { }
+                catch 
+                {
+                    title.AutoLearn = 0;
+                    title.AutoLearnText = "";
+                    title.AutoLearnTextByCourier = "";
+                }
 
                 title.GenerationChance[0] = (int)reader["General"];
                 title.GenerationChance[1] = (int)reader["Brave"];
@@ -714,6 +711,8 @@
             reader = new OleDbCommand("Select * From MilitaryKind", connection).ExecuteReader();
             while (reader.Read())
             {
+                List<string> e = new List<string>();
+
                 MilitaryKind militaryKind = new MilitaryKind();
                 militaryKind.Scenario = scen;
                 militaryKind.ID = (short)reader["ID"];
@@ -721,6 +720,15 @@
                 militaryKind.Name = reader["Name"].ToString();
                 militaryKind.Description = reader["Description"].ToString();
                 militaryKind.Merit = (short)reader["Merit"];
+
+                try
+                {
+                    militaryKind.ObtainProb = (int) reader["ObtainProb"];
+                }
+                catch
+                {
+                    militaryKind.ObtainProb = 0;
+                }
                 militaryKind.Speed = (short)reader["Speed"];
                 militaryKind.TitleInfluence = (short)reader["TitleInfluence"];
                 militaryKind.CreateCost = (int)reader["CreateCost"];
@@ -800,12 +808,14 @@
                 militaryKind.AttackTargetKind = (TroopAttackTargetKind)((short)reader["AttackTargetKind"]);
                 militaryKind.CastDefaultKind = (TroopCastDefaultKind)((short)reader["CastDefaultKind"]);
                 militaryKind.CastTargetKind = (TroopCastTargetKind)((short)reader["CastTargetKind"]);
-                List<string> e = militaryKind.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+
+                e.AddRange(militaryKind.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString()));
                 if (e.Count > 0)
                 {
                     errorMsg.Add("兵种ID" + militaryKind.ID);
                     errorMsg.AddRange(e);
                 }
+
                 militaryKind.zijinshangxian = (int)reader["zijinshangxian"];
                 this.AllMilitaryKinds.AddMilitaryKind(militaryKind);
             }

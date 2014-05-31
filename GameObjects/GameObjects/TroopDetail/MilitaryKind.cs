@@ -3,6 +3,7 @@
     using GameObjects;
     using GameObjects.Influences;
     using System;
+    using System.Collections.Generic;
 
     public class MilitaryKind : GameObject
     {
@@ -78,6 +79,13 @@
         public int zijinshangxian;
         public MilitaryKindTable successor;
         private bool findSuccessor_visited;
+
+        public PersonList Persons = null;
+        public int ObtainProb
+        {
+            get;
+            set;
+        }
 
         public bool CreateAvail(Architecture a)
         {
