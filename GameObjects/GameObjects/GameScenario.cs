@@ -995,22 +995,6 @@
             {
                 architecture.DayEvent();
             }
-            foreach (Faction faction in this.PlayerFactions)
-            {
-                foreach (Architecture architecutre in faction.Architectures)
-                {
-                    architecutre.CheckEvent();
-                }
-            }
-            foreach (Faction faction in this.Factions)
-            {
-                if (this.PlayerFactions.GameObjects.Contains(faction)) continue;
-                foreach (Architecture architecutre in faction.Architectures)
-                {
-                    architecutre.CheckEvent();
-                }
-            }
-
             foreach (Routeway routeway in this.Routeways.GetRandomList())
             {
                 routeway.DayEvent();
@@ -3806,6 +3790,11 @@
                         {
                             e.Image = reader["ShowImage"].ToString();
                             e.Sound = reader["ShowSound"].ToString();
+                            e.GloballyDisplayed = (bool)reader["GloballyDisplayed"];
+                            e.StartYear = (int)reader["StartYear"];
+                            e.StartMonth = (int)reader["StartMonth"];
+                            e.EndYear = (int)reader["EndYear"];
+                            e.EndMonth = (int)reader["EndMonth"];
                         }
                         catch
                         {
@@ -5166,6 +5155,11 @@
                         row["FactionEffect"] = e.SaveFactionEffectToString();
                         row["ShowImage"] = e.Image;
                         row["ShowSound"] = e.Sound;
+                        row["GloballyDisplayed"] = e.GloballyDisplayed;
+                        row["StartYear"] = e.StartYear;
+                        row["StartMonth"] = e.StartMonth;
+                        row["EndYear"] = e.EndYear;
+                        row["EndMonth"] = e.EndMonth;
                         row.EndEdit();
                         dataSet.Tables["Event"].Rows.Add(row);
                     }

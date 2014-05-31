@@ -33,6 +33,11 @@
         public List<EventEffect> factionEffect;
         public String Image = "";
         public String Sound = "";
+        public bool GloballyDisplayed = false;
+        public int StartYear = 0;
+        public int StartMonth = 1;
+        public int EndYear = 99999;
+        public int EndMonth = 12;
 
         public event ApplyEvent OnApplyEvent;
 
@@ -239,6 +244,18 @@
                 {
                     return false;
                 }
+            }
+
+            if (this.Scenario.Date.Year < this.StartYear || this.Scenario.Date.Year > this.EndYear) return false;
+
+            if (this.Scenario.Date.Year == this.StartYear)
+            {
+                if (this.Scenario.Date.Month < this.StartMonth) return false;
+            }
+
+            if (this.Scenario.Date.Year == this.EndYear)
+            {
+                if (this.Scenario.Date.Month > this.EndMonth) return false;
             }
 
             foreach (Condition i in this.architectureCond)
