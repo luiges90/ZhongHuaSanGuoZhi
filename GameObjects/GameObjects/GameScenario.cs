@@ -3740,8 +3740,8 @@
                 te.LoadEffectAreaFromString(this.GameCommonData.AllTroopEventEffects, reader["EffectAreas"].ToString());
                 try
                 {
-                    te.Image = reader["Image"].ToString();
-                    te.Sound = reader["Sound"].ToString();
+                    te.Image = reader["ShowImage"].ToString();
+                    te.Sound = reader["ShowSound"].ToString();
                 }
                 catch
                 {
@@ -3788,8 +3788,8 @@
                         }
                         try
                         {
-                            e.Image = reader["Image"].ToString();
-                            e.Sound = reader["Sound"].ToString();
+                            e.Image = reader["ShowImage"].ToString();
+                            e.Sound = reader["ShowSound"].ToString();
                         }
                         catch
                         {
@@ -4718,8 +4718,8 @@
                         row["EffectSelf"] = event2.SaveSelfEffectToString();
                         row["EffectPersons"] = event2.SaveEffectPersonToString();
                         row["EffectAreas"] = event2.SaveEffectAreaToString();
-                        row["Image"] = event2.Image;
-                        row["Sound"] = event2.Sound;
+                        row["ShowImage"] = event2.Image;
+                        row["ShowSound"] = event2.Sound;
                         row.EndEdit();
                         dataSet.Tables["TroopEvent"].Rows.Add(row);
                     }
@@ -5148,8 +5148,8 @@
                         row["Effect"] = e.SaveEventEffectToString();
                         row["ArchitectureEffect"] = e.SaveArchitectureEffectToString();
                         row["FactionEffect"] = e.SaveFactionEffectToString();
-                        row["Image"] = e.Image;
-                        row["Sound"] = e.Sound;
+                        row["ShowImage"] = e.Image;
+                        row["ShowSound"] = e.Sound;
                         row.EndEdit();
                         dataSet.Tables["Event"].Rows.Add(row);
                     }
