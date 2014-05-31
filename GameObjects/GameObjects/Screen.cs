@@ -732,6 +732,10 @@
         {
         }
 
+        public virtual void AutoLearnTitle(Person p, Title title)
+        {
+        }
+
         public virtual void ApplyEvent(Event e, Architecture a)
         {
         }

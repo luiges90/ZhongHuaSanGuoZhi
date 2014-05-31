@@ -14,16 +14,7 @@
             Title title = person.Scenario.GameCommonData.AllTitles.GetTitle(increment);
             if (title == null) return;
 
-            List<Title> oldTitles = new List<Title>(person.RealTitles);
-            foreach (Title t in oldTitles)
-            {
-                if (t.Kind == title.Kind)
-                {
-                    t.Influences.PurifyInfluence(person, GameObjects.Influences.Applier.Title, t.ID, false);
-                    person.RealTitles.Remove(t);
-                }
-            }
-            person.RealTitles.Add(title);
+            person.LearnTitle(title);
         }
 
         public override void InitializeParameter(string parameter)

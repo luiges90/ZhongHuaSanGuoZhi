@@ -2068,6 +2068,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void AutoLearnTitle(Person p, Title title)
+        {
+            if (base.Scenario.CurrentPlayer == null || base.Scenario.CurrentPlayer.IsPositionKnown(p.Position) || GlobalVariables.SkyEye)
+            {
+                if (title.AutoLearnText.Length > 0)
+                {
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, null, title.AutoLearnText);
+                    this.Plugins.tupianwenziPlugin.IsShowing = true;
+                }
+                else if (title.AutoLearnTextByCourier.Length > 0)
+                {
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, null, title.AutoLearnTextByCourier);
+                    this.Plugins.tupianwenziPlugin.IsShowing = true;
+                }
+            }
+        }
+
         public override void ApplyEvent(Event e, Architecture a)
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.CurrentPlayer.IsArchitectureKnown(a)) || GlobalVariables.SkyEye) && (e.matchedDialog != null && e.matchedDialog.Count > 0))

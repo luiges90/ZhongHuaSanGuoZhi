@@ -1019,7 +1019,7 @@
 
             this.detectCurrentPlayerBattleState(this.CurrentPlayer);
 
-
+            this.titleDayEvent();
 
 
             //this.GameProgressCaution.Text = "运行人物";
@@ -1054,6 +1054,39 @@
             this.GameScreen.DisposeMapTileMemory();
         }
 
+        private void titleDayEvent()
+        {
+            foreach (Title t in this.GameCommonData.AllTitles.Titles.Values)
+            {
+                if (t.AutoLearn > 0 && GameObject.Random(t.AutoLearn) == 0)
+                {
+                    PersonList candidates = new PersonList();
+                    if (t.PersonIds.Count > 0)
+                    {
+                        foreach (int i in t.PersonIds)
+                        {
+                            Person p = (Person) this.AvailablePersons.GetGameObject(i);
+                            if (p.Available && p.Alive)
+                            {
+                                candidates.Add(p);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        candidates = this.AvailablePersons;
+                    }
+                    foreach (Person p in candidates)
+                    {
+                        if (!p.HasHigherLevelTitle(t) && t.CanLearn(p, true))
+                        {
+                            p.LearnTitle(t);
+                            this.GameScreen.AutoLearnTitle(p, t);
+                        }
+                    }
+                }
+            }
+        }
 
         private void detectCurrentPlayerBattleState(Faction faction)
         {

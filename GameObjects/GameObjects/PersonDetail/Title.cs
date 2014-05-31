@@ -15,6 +15,29 @@
         private TitleKind kind;
         private int level;
 
+        public ConditionTable ArchitectureConditions = new ConditionTable();
+        public ConditionTable FactionConditions = new ConditionTable();
+
+        public int AutoLearn
+        {
+            get;
+            set;
+        }
+
+        public string AutoLearnText
+        {
+            get;
+            set;
+        }
+
+        public string AutoLearnTextByCourier
+        {
+            get;
+            set;
+        }
+
+        public List<int> PersonIds = new List<int>();
+
         private int[] generationChance = new int[9];
         public int[] GenerationChance
         {
@@ -96,14 +119,30 @@
             this.Influences.AddInfluence(influence);
         }
 
-        public virtual bool CanLearn(Person person)
+        public bool CanLearn(Person person)
         {
+            return CanLearn(person, false);
+        }
+
+        public bool CanLearn(Person person, bool ignoreAutoLearn)
+        {
+            if (AutoLearn > 0 && !ignoreAutoLearn) return false;
             foreach (Condition condition in this.Conditions.Conditions.Values)
             {
                 if (!condition.CheckCondition(person))
                 {
                     return false;
                 }
+            }
+            foreach (Condition condition in this.ArchitectureConditions.Conditions.Values)
+            {
+                if (person.LocationArchitecture == null) return false;
+                if (!condition.CheckCondition(person.LocationArchitecture)) return false;
+            }
+            foreach (Condition condition in this.FactionConditions.Conditions.Values)
+            {
+                if (person.BelongedFaction == null) return false;
+                if (!condition.CheckCondition(person.BelongedFaction)) return false;
             }
             return true;
         }

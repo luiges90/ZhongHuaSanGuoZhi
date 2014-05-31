@@ -666,13 +666,37 @@
                 title.Level = (short)reader["Level"];
                 title.Combat = (bool)reader["Combat"];
                 title.Name = reader["Name"].ToString();
+
                 List<string> e = title.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
                 e.AddRange(title.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString()));
+                try
+                {
+                    e.AddRange(title.ArchitectureConditions.LoadFromString(this.AllConditions, reader["ArchitectureConditions"].ToString()));
+                    e.AddRange(title.FactionConditions.LoadFromString(this.AllConditions, reader["FactionConditions"].ToString()));
+                }
+                catch { }
                 if (e.Count > 0)
                 {
                     errorMsg.Add("称号ID" + title.ID);
                     errorMsg.AddRange(e);
                 }
+
+                try
+                {
+                    title.AutoLearn = (int)reader["AutoLearn"];
+                    title.AutoLearnText = reader["AutoLearnText"].ToString();
+                    title.AutoLearnTextByCourier = reader["AutoLearnTextByCourier"].ToString();
+                    try
+                    {
+                        StaticMethods.LoadFromString(title.PersonIds, reader["PersonIds"].ToString());
+                    }
+                    catch (FormatException)
+                    {
+                        e.Add("武将一栏应为半型空格分隔的人物ID");
+                    }
+                }
+                catch { }
+
                 title.GenerationChance[0] = (int)reader["General"];
                 title.GenerationChance[1] = (int)reader["Brave"];
                 title.GenerationChance[2] = (int)reader["Advisor"];

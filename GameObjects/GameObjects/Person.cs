@@ -2712,6 +2712,33 @@
             this.ManualStudy = false;
         }
 
+        public bool HasHigherLevelTitle(Title title)
+        {
+            List<Title> oldTitles = new List<Title>(this.RealTitles);
+            foreach (Title t in oldTitles)
+            {
+                if (t.Kind == title.Kind && t.Level >= title.Level)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void LearnTitle(Title title)
+        {
+            List<Title> oldTitles = new List<Title>(this.RealTitles);
+            foreach (Title t in oldTitles)
+            {
+                if (t.Kind == title.Kind)
+                {
+                    t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Title, t.ID, false);
+                    this.RealTitles.Remove(t);
+                }
+            }
+            this.RealTitles.Add(title);
+        }
+
         public void DoStudyTitle()
         {
             this.OutsideTask = OutsideTaskKind.无;
