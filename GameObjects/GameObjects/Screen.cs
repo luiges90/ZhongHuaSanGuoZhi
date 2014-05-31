@@ -736,7 +736,7 @@
         {
         }
 
-        public virtual void AutoLearnTitle(Person p, Title title)
+        public virtual void AutoLearnTitle(Person p, Person courier, Title title)
         {
         }
 

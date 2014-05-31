@@ -1074,8 +1074,13 @@
             }
         }
 
+        private static Person courier = null;
         private void titleDayEvent()
         {
+            if (courier == null)
+            {
+                courier = this.AllPersons[7200];
+            }
             foreach (Title t in this.GameCommonData.AllTitles.Titles.Values)
             {
                 if (t.AutoLearn > 0 && GameObject.Random(t.AutoLearn) == 0)
@@ -1100,7 +1105,7 @@
                         if (!p.HasHigherLevelTitle(t) && t.CanLearn(p, true))
                         {
                             p.LearnTitle(t);
-                            this.GameScreen.AutoLearnTitle(p, t);
+                            this.GameScreen.AutoLearnTitle(p, courier, t);
                         }
                     }
                 }
@@ -4713,6 +4718,8 @@
                         row["EffectSelf"] = event2.SaveSelfEffectToString();
                         row["EffectPersons"] = event2.SaveEffectPersonToString();
                         row["EffectAreas"] = event2.SaveEffectAreaToString();
+                        row["Image"] = event2.Image;
+                        row["Sound"] = event2.Sound;
                         row.EndEdit();
                         dataSet.Tables["TroopEvent"].Rows.Add(row);
                     }
@@ -4890,6 +4897,8 @@
                     row["Politics"] = person.BasePolitics;
                     row["Glamour"] = person.BaseGlamour;
                     row["Reputation"] = person.BaseReputation;
+                    row["UniqueTitles"] = person.UniqueTitles.SaveToString();
+                    row["UniqueMilitaryKinds"] = person.UniqueMilitaryKinds.SaveToString();
                     row["StrengthExperience"] = person.StrengthExperience;
                     row["CommandExperience"] = person.CommandExperience;
                     row["IntelligenceExperience"] = person.IntelligenceExperience;
@@ -5139,6 +5148,8 @@
                         row["Effect"] = e.SaveEventEffectToString();
                         row["ArchitectureEffect"] = e.SaveArchitectureEffectToString();
                         row["FactionEffect"] = e.SaveFactionEffectToString();
+                        row["Image"] = e.Image;
+                        row["Sound"] = e.Sound;
                         row.EndEdit();
                         dataSet.Tables["Event"].Rows.Add(row);
                     }

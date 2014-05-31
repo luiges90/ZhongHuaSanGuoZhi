@@ -2079,7 +2079,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        public override void AutoLearnTitle(Person p, Title title)
+        public override void AutoLearnTitle(Person p, Person courier, Title title)
         {
             if (base.Scenario.CurrentPlayer == null || base.Scenario.CurrentPlayer.IsPositionKnown(p.Position) || GlobalVariables.SkyEye)
             {
@@ -2090,7 +2090,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 }
                 else if (title.AutoLearnTextByCourier.Length > 0)
                 {
-                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, null, title.AutoLearnTextByCourier);
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(courier, null, title.AutoLearnTextByCourier);
                     this.Plugins.tupianwenziPlugin.IsShowing = true;
                 }
             }

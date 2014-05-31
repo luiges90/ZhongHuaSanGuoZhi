@@ -1785,6 +1785,7 @@
                     row["Merit"] = i.Merit;
                     row["Successor"] = i.successor.SaveToString();
                     row["Speed"] = i.Speed;
+                    row["ObtainProb"] = i.ObtainProb;
                     row["TitleInfluence"] = i.TitleInfluence;
                     row["CreateCost"] = i.CreateCost;
                     row["CreateTechnology"] = i.CreateTechnology;
@@ -2118,6 +2119,11 @@
                     row["Prerequisite"] = i.Prerequisite;
                     row["Influences"] = i.Influences.SaveToString();
                     row["Conditions"] = i.Conditions.SaveToString();
+                    row["ArchitectureConditions"] = i.ArchitectureConditions.SaveToString();
+                    row["FactionConditions"] = i.FactionConditions.SaveToString();
+                    row["AutoLearn"] = i.AutoLearn;
+                    row["AutoLearnText"] = i.AutoLearnText;
+                    row["AutoLearnTextByCourier"] = i.AutoLearnTextByCourier;
                     row["General"] = i.GenerationChance[0];
                     row["Brave"] = i.GenerationChance[1];
                     row["Advisor"] = i.GenerationChance[2];
