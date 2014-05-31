@@ -87,6 +87,20 @@
 
         public bool matchEventPersons(Architecture a)
         {
+            GameObjectList allPersons = a.Persons.GetList();
+            foreach (Person p in a.NoFactionPersons)
+            {
+                allPersons.Add(p);
+            }
+            foreach (Captive p in a.Captives)
+            {
+                allPersons.Add(p.CaptivePerson);
+            }
+            foreach (Person p in a.Feiziliebiao)
+            {
+                allPersons.Add(p);
+            }
+
             HashSet<int> haveCond = new HashSet<int>();
             foreach (KeyValuePair<int, List<Condition>> i in this.personCond)
             {
@@ -108,7 +122,7 @@
                 candidates[i] = new List<Person>();
                 if (noCond.Contains(i))
                 {
-                    foreach (Person p in a.Persons.GetList())
+                    foreach (Person p in allPersons.GetList())
                     {
                         candidates[i].Add(p);
                     }
@@ -118,7 +132,7 @@
             // check person in the architecture
             foreach (KeyValuePair<int, List<Condition>> i in this.personCond)
             {
-                foreach (Person p in a.Persons)
+                foreach (Person p in allPersons)
                 {
                     bool ok = true;
                     foreach (Condition c in i.Value)
