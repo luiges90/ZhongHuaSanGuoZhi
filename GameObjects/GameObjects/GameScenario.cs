@@ -3733,6 +3733,16 @@
                 te.LoadSelfEffectFromString(this.GameCommonData.AllTroopEventEffects, reader["EffectSelf"].ToString());
                 te.LoadEffectPersonFromString(this.AllPersons, this.GameCommonData.AllTroopEventEffects, reader["EffectPersons"].ToString());
                 te.LoadEffectAreaFromString(this.GameCommonData.AllTroopEventEffects, reader["EffectAreas"].ToString());
+                try
+                {
+                    te.Image = reader["Image"].ToString();
+                    te.Sound = reader["Sound"].ToString();
+                }
+                catch
+                {
+                    te.Image = "";
+                    te.Sound = "";
+                }
                 this.TroopEvents.AddTroopEventWithEvent(te);
             }
             DbConnection.Close();

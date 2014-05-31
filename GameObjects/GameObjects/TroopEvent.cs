@@ -22,6 +22,8 @@
         private bool repeatable;
         public List<GameObjects.TroopDetail.EventEffect.EventEffect> SelfEffects = new List<GameObjects.TroopDetail.EventEffect.EventEffect>();
         public List<PersonRelation> TargetPersons = new List<PersonRelation>();
+        public String Image = "";
+        public String Sound = "";
 
         public event ApplyTroopEvent OnApplyTroopEvent;
 
