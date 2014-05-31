@@ -995,6 +995,22 @@
             {
                 architecture.DayEvent();
             }
+            foreach (Faction faction in this.PlayerFactions)
+            {
+                foreach (Architecture architecutre in faction.Architectures)
+                {
+                    architecutre.CheckEvent();
+                }
+            }
+            foreach (Faction faction in this.Factions)
+            {
+                if (this.PlayerFactions.GameObjects.Contains(faction)) continue;
+                foreach (Architecture architecutre in faction.Architectures)
+                {
+                    architecutre.CheckEvent();
+                }
+            }
+
             foreach (Routeway routeway in this.Routeways.GetRandomList())
             {
                 routeway.DayEvent();

@@ -4175,7 +4175,7 @@
             ExtensionInterface.call("GossipDamage", new Object[] { this.Scenario, this, damage });
         }
 
-        public void checkEvent()
+        public void CheckEvent()
         {
             foreach (Event e in base.Scenario.AllEvents.GetList())
             {
@@ -4211,7 +4211,6 @@
             this.RestEvent();
             this.zainanshijian();
             this.captiveEscape();
-            this.checkEvent();
             this.JustAttacked = false;
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
