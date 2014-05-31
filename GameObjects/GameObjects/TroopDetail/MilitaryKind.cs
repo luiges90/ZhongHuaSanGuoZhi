@@ -80,7 +80,7 @@
         public MilitaryKindTable successor;
         private bool findSuccessor_visited;
 
-        public PersonList Persons = null;
+        public PersonList Persons = new PersonList();
         public int ObtainProb
         {
             get;

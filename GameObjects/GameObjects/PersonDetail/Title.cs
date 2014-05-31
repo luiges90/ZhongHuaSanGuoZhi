@@ -36,7 +36,7 @@
             set;
         }
 
-        public PersonList Persons = null;
+        public PersonList Persons = new PersonList();
 
         private int[] generationChance = new int[9];
         public int[] GenerationChance

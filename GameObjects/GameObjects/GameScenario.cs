@@ -2625,10 +2625,10 @@
                 person.Reputation = (int)reader["Reputation"];
                 try
                 {
-                    errors.AddRange(person.UniqueMilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["UniqueMulitaryKinds"].ToString()));
+                    errors.AddRange(person.UniqueMilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["UniqueMilitaryKinds"].ToString()));
                     errors.AddRange(person.UniqueTitles.LoadFromString(this.GameCommonData.AllTitles, reader["UniqueTitles"].ToString()));
                 }
-                catch
+                catch 
                 {
                 }
                 person.StrengthExperience = (int)reader["StrengthExperience"];
