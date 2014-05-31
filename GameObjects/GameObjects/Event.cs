@@ -31,6 +31,8 @@
         public Dictionary<Person, List<EventEffect>> matchedEffect;
         public List<EventEffect> architectureEffect;
         public List<EventEffect> factionEffect;
+        public String Image = "";
+        public String Sound = "";
 
         public event ApplyEvent OnApplyEvent;
 

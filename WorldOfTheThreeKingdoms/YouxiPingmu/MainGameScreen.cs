@@ -2105,11 +2105,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     if (dialog.SpeakingPerson != null)
                     {
-                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(dialog.SpeakingPerson, null, dialog.Text);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(dialog.SpeakingPerson, null, dialog.Text, e.Image, e.Sound);
                     }
                     else
                     {
-                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(a.BelongedFaction.Leader, null, dialog.Text);
+                        this.Plugins.tupianwenziPlugin.SetGameObjectBranch(a.BelongedFaction.Leader, null, dialog.Text, e.Image, e.Sound);
                     }
                 }
                 if (GameGlobal.GlobalVariables.DialogShowTime > 0)

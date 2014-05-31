@@ -3771,6 +3771,16 @@
                         {
                             e.nextScenario = "";
                         }
+                        try
+                        {
+                            e.Image = reader["Image"].ToString();
+                            e.Sound = reader["Sound"].ToString();
+                        }
+                        catch
+                        {
+                            e.Image = "";
+                            e.Sound = "";
+                        }
                         this.AllEvents.AddEventWithEvent(e);
                     }
                     catch
