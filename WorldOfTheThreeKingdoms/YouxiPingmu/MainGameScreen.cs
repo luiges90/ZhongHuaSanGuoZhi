@@ -2083,14 +2083,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (base.Scenario.CurrentPlayer == null || base.Scenario.CurrentPlayer.IsPositionKnown(p.Position) || GlobalVariables.SkyEye)
             {
+                if (title.AutoLearnTextByCourier.Length > 0)
+                {
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(courier, null, title.AutoLearnTextByCourier.Replace("%0", p.Name));
+                    this.Plugins.tupianwenziPlugin.IsShowing = true;
+                }
                 if (title.AutoLearnText.Length > 0)
                 {
                     this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, null, title.AutoLearnText.Replace("%0", p.Name));
-                    this.Plugins.tupianwenziPlugin.IsShowing = true;
-                }
-                else if (title.AutoLearnTextByCourier.Length > 0)
-                {
-                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(courier, null, title.AutoLearnTextByCourier.Replace("%0", p.Name));
                     this.Plugins.tupianwenziPlugin.IsShowing = true;
                 }
             }
