@@ -2,9 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "中华三国志"
-#define MyAppVersion "v.22"
+#define MyAppVersion "v.23"
 #define MyAppPublisher "中华三国志"
-#define MyAppURL "http://tieba.baidu.com/f?kw=%D6%D0%BB%AA%C8%FD%B9%FA%D6%BE"
+#define MyAppURL "http://www.zhsan.com"
 #define MyAppExeName "WorldOfTheThreeKingdoms.exe"
 
 [Setup]
@@ -58,7 +58,8 @@ Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{group}\剧本编辑器"; Filename: "{app}\JubenBianjiqi.exe"
 Name: "{group}\MOD设置"; Filename: "{app}\JSGME.exe"
 Name: "{group}\游戏资料夹"; Filename: "{app}"
-Name: "{group}\百度贴吧"; Filename: "{#MyAppURL}"
+Name: "{group}\官方论坛"; Filename: "{#MyAppURL}"
+Name: "{group}\百度贴吧"; Filename: "http://tieba.baidu.com/f?kw=%D6%D0%BB%AA%C8%FD%B9%FA%D6%BE"
 Name: "{group}\游侠专区"; Filename: "http://game.ali213.net/forum-876-1.html"
 Name: "{group}\解除安装"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
