@@ -3631,6 +3631,13 @@
                 {
                     faction.IsAlien = false;
                 }
+                try
+                {
+                    faction.NotPlayerSelectable = (bool)reader["NotPlayerSelectable"];
+                }
+                catch
+                {
+                }
                 if (faction.AvailableMilitaryKinds.GetMilitaryKindList().Count == 0)
                 {
                     faction.AvailableMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(0));
@@ -4509,6 +4516,7 @@
                     row["chaotinggongxiandu"] = faction.chaotinggongxiandu;
                     row["guanjue"] = faction.guanjue;
                     row["IsAlien"] = faction.IsAlien;
+                    row["NotPlayerSelectable"] = faction.NotPlayerSelectable;
                     row.EndEdit();
                     dataSet.Tables["Faction"].Rows.Add(row);
                 }

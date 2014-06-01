@@ -145,6 +145,8 @@
         public List<float> techniqueTimeRateDecrease = new List<float>();
         public List<float> techniqueFundCostRateDecrease = new List<float>();
 
+        public bool NotPlayerSelectable = false;
+
         public int[] CriticalOfMillitaryType = new int[5];
         public int[] AntiCriticalOfMillitaryType = new int[5];
         public float[] ArchitectureDamageOfMillitaryType = { 1f, 1f, 1f, 1f, 1f };
