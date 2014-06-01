@@ -24,7 +24,7 @@
             if (!hold)
             {
                 stayIndex++;
-                if (stayIndex >= this.StayCount * GlobalVariables.TroopMoveSpeed / 2)
+                if (stayIndex >= this.StayCount * GlobalVariables.TroopMoveSpeed / 4)
                 {
                     stayIndex = 0;
                     frameIndex++;

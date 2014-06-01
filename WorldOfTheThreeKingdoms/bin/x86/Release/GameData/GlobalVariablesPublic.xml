@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <GlobalVariables
 MapScrollSpeed="0.8"
-TroopMoveSpeed="1"
+TroopMoveSpeed="2"
 RunWhileNotFocused="True"
 PlayMusic="True"
 PlayNormalSound="True"

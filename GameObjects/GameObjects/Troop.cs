@@ -4498,6 +4498,10 @@
                 {
                     this.moveStayCount = 0;
                     this.moveFrameIndex++;
+                    if (GlobalVariables.TroopMoveSpeed < 2)
+                    {
+                        this.moveFrameIndex += 2 - GlobalVariables.TroopMoveSpeed;
+                    }
                     if (this.moveFrameIndex >= this.MoveAnimationFrames.Count)
                     {
                         this.moveFrameIndex = 0;

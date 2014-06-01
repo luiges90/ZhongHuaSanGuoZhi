@@ -304,6 +304,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.zainanbiaoqian = new System.Windows.Forms.Label();
             this.zainanfashengjilv = new System.Windows.Forms.TextBox();
             this.tabPageEnvironment = new System.Windows.Forms.TabPage();
+            this.cbFullScreen = new System.Windows.Forms.CheckBox();
             this.cbStopToControlOnAttack = new System.Windows.Forms.CheckBox();
             this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
             this.label59 = new System.Windows.Forms.Label();
@@ -478,7 +479,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.cbFullScreen = new System.Windows.Forms.CheckBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -911,6 +911,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageEnvironment.TabIndex = 0;
             this.tabPageEnvironment.Text = "环境";
             this.tabPageEnvironment.UseVisualStyleBackColor = true;
+            // 
+            // cbFullScreen
+            // 
+            this.cbFullScreen.AutoSize = true;
+            this.cbFullScreen.Location = new System.Drawing.Point(13, 35);
+            this.cbFullScreen.Name = "cbFullScreen";
+            this.cbFullScreen.Size = new System.Drawing.Size(48, 16);
+            this.cbFullScreen.TabIndex = 119;
+            this.cbFullScreen.Text = "全屏";
+            this.cbFullScreen.UseVisualStyleBackColor = true;
             // 
             // cbStopToControlOnAttack
             // 
@@ -2534,16 +2544,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // cbFullScreen
-            // 
-            this.cbFullScreen.AutoSize = true;
-            this.cbFullScreen.Location = new System.Drawing.Point(13, 35);
-            this.cbFullScreen.Name = "cbFullScreen";
-            this.cbFullScreen.Size = new System.Drawing.Size(48, 16);
-            this.cbFullScreen.TabIndex = 119;
-            this.cbFullScreen.Text = "全屏";
-            this.cbFullScreen.UseVisualStyleBackColor = true;
-            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -3158,7 +3158,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
                 changeDifficultySelection(Difficulty.custom);
             }
         }
-
 
     }
 
