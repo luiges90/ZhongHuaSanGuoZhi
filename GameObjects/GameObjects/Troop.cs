@@ -4494,7 +4494,7 @@
             if (this.MoveAnimationFrames.Count > this.moveFrameIndex)
             {
                 this.moveStayCount++;
-                if (this.moveStayCount > GlobalVariables.TroopMoveSpeed / GlobalVariables.FastBattleSpeed)
+                if (this.moveStayCount >= GlobalVariables.TroopMoveSpeed)
                 {
                     this.moveStayCount = 0;
                     this.moveFrameIndex++;

@@ -23,7 +23,8 @@
             EndLoop = false;
             if (!hold)
             {
-                if ((stayIndex += 1) > this.StayCount)
+                stayIndex++;
+                if (stayIndex >= this.StayCount * GlobalVariables.TroopMoveSpeed / 2)
                 {
                     stayIndex = 0;
                     frameIndex++;
@@ -64,7 +65,7 @@
         {
             get
             {
-                return this.stayCount / GlobalVariables.FastBattleSpeed;
+                return this.stayCount;
             }
             set
             {

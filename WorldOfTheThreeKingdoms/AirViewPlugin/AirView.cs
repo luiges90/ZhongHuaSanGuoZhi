@@ -319,25 +319,22 @@ namespace AirViewPlugin
                 else if (StaticMethods.PointInRectangle(position, this.MapPosition))
                 {
                     this.isPreparedToJump = true;
-                    if (GlobalVariables.FastBattleSpeed <= 1)
+                    this.screen.ResetMouse();
+                    if (leftDown)
                     {
-                        this.screen.ResetMouse();
-                        if (leftDown)
+                        this.JumpTo(position);
+                    }
+                    else if (this.isPreparedToJump)
+                    {
+                        Architecture architectureByPosition = this.scenario.GetArchitectureByPosition(this.GetTranslatedPosition(position));
+                        if (architectureByPosition != null)
                         {
-                            this.JumpTo(position);
+                            this.Conment.DisplayOffset = position;
+                            this.Conment.Text = architectureByPosition.Name + " " + architectureByPosition.FactionString;
                         }
-                        else if (this.isPreparedToJump)
+                        else
                         {
-                            Architecture architectureByPosition = this.scenario.GetArchitectureByPosition(this.GetTranslatedPosition(position));
-                            if (architectureByPosition != null)
-                            {
-                                this.Conment.DisplayOffset = position;
-                                this.Conment.Text = architectureByPosition.Name + " " + architectureByPosition.FactionString;
-                            }
-                            else
-                            {
-                                this.Conment.Text = "";
-                            }
+                            this.Conment.Text = "";
                         }
                     }
                 }

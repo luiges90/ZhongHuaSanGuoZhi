@@ -84,7 +84,7 @@
                             }
                             break;
                     }
-                    if ((gameTime.TotalGameTime.TotalMilliseconds - this.currentTime) >= 1200.0 / GlobalVariables.FastBattleSpeed)
+                    if ((gameTime.TotalGameTime.TotalMilliseconds - this.currentTime) >= 600 * GlobalVariables.TroopMoveSpeed)
                     {
                         this.Clear();
                     }
