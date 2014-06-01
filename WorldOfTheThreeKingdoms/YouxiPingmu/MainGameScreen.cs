@@ -2085,12 +2085,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 if (title.AutoLearnText.Length > 0)
                 {
-                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, null, title.AutoLearnText);
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, null, title.AutoLearnText.Replace("%0", p.Name));
                     this.Plugins.tupianwenziPlugin.IsShowing = true;
                 }
                 else if (title.AutoLearnTextByCourier.Length > 0)
                 {
-                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(courier, null, title.AutoLearnTextByCourier);
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(courier, null, title.AutoLearnTextByCourier.Replace("%0", p.Name));
                     this.Plugins.tupianwenziPlugin.IsShowing = true;
                 }
             }
