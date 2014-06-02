@@ -250,27 +250,27 @@
               LearnableColor="4294967040"
               Align="Middle">
   </SkillBlock>
-  <Stunt X="280" Y="280" Width="160" Height="900" RowMargin="0"
+  <Stunt X="280" Y="280" Width="160" Height="512" RowMargin="0"
             FontName="方正隶变_GBK"
             FontSize="14"
             FontStyle="Bold"
             FontColor="4294967295">
   </Stunt>
-  <Influence X="680" Y="50" Width="300" Height="900" RowMargin="0" TitleColor="4294967040" 
+  <Influence X="680" Y="50" Width="300" Height="512" RowMargin="0" TitleColor="4294967040" 
 			SubTitleColor="4294901760" SubTitleColor2="4286611711" SubTitleColor3="4278255360"
             FontName="方正隶变_GBK"
             FontSize="14"
             FontStyle="Regular"
             FontColor="4294967295">
   </Influence>
-  <Condition X="680" Y="320" Width="300" Height="900" RowMargin="0" TitleColor="4294934783" SubTitleColor="4294934783"
+  <Condition X="680" Y="320" Width="300" Height="512" RowMargin="0" TitleColor="4294934783" SubTitleColor="4294934783"
 			PositiveColor="4278255360" NegativeColor="4294901760"
             FontName="方正隶变_GBK"
             FontSize="12"
             FontStyle="Regular"
             FontColor="4294967295">
   </Condition>
-  <Biography X="680" Y="50" Width="300" Height="900" RowMargin="0" TitleColor="4294967040" SubTitleColor="4278255360" SubTitleColor2="4294901760"
+  <Biography X="680" Y="50" Width="300" Height="512" RowMargin="0" TitleColor="4294967040" SubTitleColor="4278255360" SubTitleColor2="4294901760"
             FontName="方正隶变_GBK"
             FontSize="14"
             FontStyle="Regular"

@@ -267,31 +267,34 @@
             }
             if (!flag)
             {
-                this.current = null;
-                this.InfluenceText.Clear();
-                this.ConditionText.Clear();
-                if (this.ShowingPerson.PersonBiography != null)
+                if (this.current != null)
                 {
-                    this.BiographyText.Clear();
-                    this.BiographyText.AddText("列传", this.BiographyText.TitleColor);
-                    this.BiographyText.AddNewLine();
-                    this.BiographyText.AddText(this.ShowingPerson.PersonBiography.Brief);
-                    this.BiographyText.AddNewLine();
-                    this.BiographyText.AddText("演义", this.BiographyText.SubTitleColor);
-                    this.BiographyText.AddText("：" + this.ShowingPerson.PersonBiography.Romance);
-                    this.BiographyText.AddNewLine();
-                    this.BiographyText.AddText("历史", this.BiographyText.SubTitleColor2);
-                    this.BiographyText.AddText("：" + this.ShowingPerson.PersonBiography.History);
-                    this.BiographyText.AddNewLine();
-                    this.BiographyText.AddText("剧本", Color.Cyan);
-                    this.BiographyText.AddText("：");
-                    String[] lineBrokenText = ShowingPerson.PersonBiography.InGame.Split('\n');
-                    foreach (String s in lineBrokenText)
+                    this.current = null;
+                    this.InfluenceText.Clear();
+                    this.ConditionText.Clear();
+                    if (this.ShowingPerson.PersonBiography != null)
                     {
-                        this.BiographyText.AddText(s);
+                        this.BiographyText.Clear();
+                        this.BiographyText.AddText("列传", this.BiographyText.TitleColor);
                         this.BiographyText.AddNewLine();
+                        this.BiographyText.AddText(this.ShowingPerson.PersonBiography.Brief);
+                        this.BiographyText.AddNewLine();
+                        this.BiographyText.AddText("演义", this.BiographyText.SubTitleColor);
+                        this.BiographyText.AddText("：" + this.ShowingPerson.PersonBiography.Romance);
+                        this.BiographyText.AddNewLine();
+                        this.BiographyText.AddText("历史", this.BiographyText.SubTitleColor2);
+                        this.BiographyText.AddText("：" + this.ShowingPerson.PersonBiography.History);
+                        this.BiographyText.AddNewLine();
+                        this.BiographyText.AddText("剧本", Color.Cyan);
+                        this.BiographyText.AddText("：");
+                        String[] lineBrokenText = ShowingPerson.PersonBiography.InGame.Split('\n');
+                        foreach (String s in lineBrokenText)
+                        {
+                            this.BiographyText.AddText(s);
+                            this.BiographyText.AddNewLine();
+                        }
+                        this.BiographyText.ResortTexts();
                     }
-                    this.BiographyText.ResortTexts();
                 }
             }
         }
