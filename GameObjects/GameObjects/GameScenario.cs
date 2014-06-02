@@ -4897,6 +4897,8 @@
                     row["Sex"] = person.Sex;
                     row["Pic"] = person.PictureIndex;
                     row["Ideal"] = person.Ideal;
+                    row["UniqueTitles"] = person.UniqueTitles;
+                    row["UniqueMilitaryKinds"] = person.UniqueMilitaryKinds;
                     row["IdealTendency"] = (person.IdealTendency != null) ? person.IdealTendency.ID : -1;
                     row["LeaderPossibility"] = person.LeaderPossibility;
                     row["PCharacter"] = person.Character.ID;
