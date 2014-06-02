@@ -61,7 +61,23 @@
             {
                 try
                 {
-                    int longResult = (int)objX - (int)objY;
+                    int longResult;
+                    if (this.propertyName == "DisplayedAge")
+                    {
+                        if (objX.Equals("--") && objY.Equals("--"))
+                        {
+                            longResult = 1;
+                        }
+                        else
+                        {
+                            longResult = int.Parse(objX.ToString()) - int.Parse(objY.ToString());
+                        }
+                    }
+                    else
+                    {
+                        longResult = (int)objX - (int)objY;
+                    }
+                    
                     if (longResult > 0)
                     {
                         result = 1;
