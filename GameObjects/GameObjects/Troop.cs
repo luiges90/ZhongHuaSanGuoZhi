@@ -7412,7 +7412,7 @@
                         this.Scenario.YearTable.addChangeFactionPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
                         if (p.Spouse != null)
                         {
-                            p.Spouse.AddHated(p.BelongedFaction.Leader);
+                            p.Spouse.AddHated(this.BelongedFaction.Leader);
                         }
                     }
                     else

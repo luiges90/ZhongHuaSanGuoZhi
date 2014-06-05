@@ -185,15 +185,6 @@
                 this.addPersonInGameBiography(feizi, date,
                     String.Format(yearTableStrings["childrenBorn_q"], faction.Name, factionLeader.Name, feizi.Name, (born.Sex ? "女" : "子"), born.Name));
             }
-            else
-            {
-                this.addTableEntry(date, composeFactionList(faction),
-                    String.Format(yearTableStrings["childrenBornNoFaction"], factionLeader.Name, feizi.Name, (born.Sex ? "女" : "子"), born.Name), false);
-                this.addPersonInGameBiography(factionLeader, date,
-                    String.Format(yearTableStrings["childrenBornNoFaction_p"], faction.Name, factionLeader.Name, feizi.Name, (born.Sex ? "女" : "子"), born.Name));
-                this.addPersonInGameBiography(feizi, date,
-                    String.Format(yearTableStrings["childrenBornNoFaction_q"], faction.Name, factionLeader.Name, feizi.Name, (born.Sex ? "女" : "子"), born.Name));
-            }
         }
 
         public void addGameEndWithUniteEntry(GameDate date, Faction f)

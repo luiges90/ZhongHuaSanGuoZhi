@@ -55,8 +55,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                 }
                 if (this.allowToSelectOutsideArea || this.Area.HasPoint(this.SelectedPoint))
                 {
+                    int xpt = Math.Max(Math.Min(this.mainMapLayer.mainMap.MapDimensions.X - 1, this.SelectedPoint.X), 0);
+                    int ypt = Math.Max(Math.Min(this.mainMapLayer.mainMap.MapDimensions.Y - 1, this.SelectedPoint.Y), 0);
                     nullable = null;
-                    spriteBatch.Draw(this.currentPositionTexture, this.mainMapLayer.Tiles[this.SelectedPoint.X, this.SelectedPoint.Y].Destination, nullable, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4998f);
+                    spriteBatch.Draw(this.currentPositionTexture, this.mainMapLayer.Tiles[xpt, ypt].Destination, nullable, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4998f);
                     if (this.EffectingAreaRadius > 0)
                     {
                         foreach (Point point in this.EffectingArea.Area)
