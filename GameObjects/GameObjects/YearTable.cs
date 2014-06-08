@@ -263,11 +263,11 @@
             String killerFaction = killer.BelongedFaction == null ? "" : killer.BelongedFaction.Name;
             String killedFaction = killed.BelongedFaction == null ? "" : killed.BelongedFaction.Name;
             this.addTableEntry(date, composeFactionList(killer.BelongedFaction, killed.BelongedFaction),
-                String.Format(yearTableStrings["personKilledInBattle"], killedFaction, killed, killerFaction, killer, killed.Age), true);
+                String.Format(yearTableStrings["personKilledInBattle"], killedFaction, killed.Name, killerFaction, killer.Name, killed.Age), true);
             this.addPersonInGameBiography(killer, date,
-                String.Format(yearTableStrings["personKilledInBattle_p"], killedFaction, killed, killerFaction, killer, killed.Age));
+                String.Format(yearTableStrings["personKilledInBattle_p"], killedFaction, killed.Name, killerFaction, killer.Name, killed.Age));
             this.addPersonInGameBiography(killed, date,
-                String.Format(yearTableStrings["personKilledInBattle_q"], killedFaction, killed, killerFaction, killer, killed.Age));
+                String.Format(yearTableStrings["personKilledInBattle_q"], killedFaction, killed.Name, killerFaction, killer.Name, killed.Age));
         }
 
         public void addDefeatedManyTroopsEntry(GameDate date, Person p, int count)
