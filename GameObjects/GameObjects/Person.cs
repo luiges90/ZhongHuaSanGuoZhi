@@ -1033,6 +1033,7 @@
         public void KilledInBattle(Person killer)
         {
             killer.OfficerKillCount++;
+            this.Scenario.YearTable.addKilledInBattleEntry(this.Scenario.Date, killer, this);
 
             foreach (Person p in base.Scenario.Persons)
             {
