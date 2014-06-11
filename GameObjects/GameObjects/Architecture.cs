@@ -9671,6 +9671,7 @@
                     while (this.MovingPersons.Count > 0)
                     {
                         Person person2 = this.MovingPersons[0] as Person;
+                        base.Scenario.YearTable.addBecomeNoFactionDueToDestructionEntry(base.Scenario.Date, person2, this.BelongedFaction);
                         person2.OutsideTask = OutsideTaskKind.无;
                         person2.TaskDays = 0;
                         person2.Status = PersonStatus.NoFaction;

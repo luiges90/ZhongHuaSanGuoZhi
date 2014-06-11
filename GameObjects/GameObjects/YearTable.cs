@@ -332,5 +332,29 @@
                     String.Format(yearTableStrings["changeFactionPrincess_q"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name, capturer == null ? "贼军" : capturer.Leader.Name));
             }
         }
+
+        public void addBecomeNoFactionEntry(GameDate date, Person p, Faction f)
+        {
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["becomeNoFaction_p"], f.Name));
+        }
+
+        public void addBecomeNoFactionDueToDestructionEntry(GameDate date, Person p, Faction f)
+        {
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["becomeNoFactionDueToDestruction_p"], f.Name));
+        }
+
+        public void addJoinFactionEntry(GameDate date, Person p, Person convincer, Faction f)
+        {
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["joinFaction_p"], convincer.Name, f.Name));
+        }
+
+        public void addChangeFactionEntry(GameDate date, Person p, Person convincer, Faction oldFaction, Faction newFaction)
+        {
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["changeFaction_p"], convincer.Name, oldFaction.Name, newFaction.Name));
+        }
     }
 }

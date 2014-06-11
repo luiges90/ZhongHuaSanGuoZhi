@@ -1751,6 +1751,17 @@
                 }
                 person.RebelCount++;
             }
+            if (this.BelongedFaction != null)
+            {
+                if (person.BelongedFaction != null)
+                {
+                    base.Scenario.YearTable.addChangeFactionEntry(base.Scenario.Date, person, this, belongedFaction, this.BelongedFaction);
+                }
+                else
+                {
+                    base.Scenario.YearTable.addJoinFactionEntry(base.Scenario.Date, person, this, this.BelongedFaction);
+                }
+            }
 
             Architecture from = null;
             if (person.IsCaptive)
@@ -3379,6 +3390,7 @@
                 this.TaskDays = 0;
                 this.OutsideTask = OutsideTaskKind.无;
             }
+            base.Scenario.YearTable.addBecomeNoFactionEntry(base.Scenario.Date, this, this.BelongedFaction);
             this.Status = PersonStatus.NoFaction;
             if (this.OnLeave != null)
             {
