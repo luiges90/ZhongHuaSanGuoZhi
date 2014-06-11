@@ -188,14 +188,14 @@
         public HostileActionKind HostileAction = HostileActionKind.EvadeEffect;
         public bool ImmunityOfCaptive;
         public bool ImmunityOfDieInBattle;
-        public int IncrementDefencePerReputationUnit;
+        public float IncrementDefencePerReputationUnit;
         public CombatNumberItemList IncrementNumberList = new CombatNumberItemList(CombatNumberDirection.上);
         public int IncrementOfAvoidSurroundedChance;
         public int IncrementOfRumourDay;
         public int IncrementOfAttractDay;
         public int IncrementOfChaosAfterSurroundAttackChance;
         public int IncrementOfChaosDay;
-        public int IncrementOffencePerReputationUnit;
+        public float IncrementOffencePerReputationUnit;
         public int IncrementOfInjuryRate;
         public int IncrementOfInvestigateRadius;
         public int IncrementOfMovability;
@@ -8064,7 +8064,6 @@
         {
             this.defence = this.Army.Defence;
             this.defence += this.TechnologyIncrement;
-            this.defence += this.IncrementDefencePerReputationUnit * (this.Leader.Reputation / 0x3e8);
             this.defence = (this.defence * SquareChance(this.TroopCommand + this.Morale, 100)) / 400;
             this.defence = (int)(this.defence * ((this.RateOfDefence + this.DefenceRateIncrementByViewArea) + this.DefenceRateDecrementByViewArea));
             this.defence = (int)(this.defence * this.terrainRate);
@@ -8096,6 +8095,7 @@
                 this.defence = (int)(this.defence * 0.8f);
             }
             this.defence = (int)(this.defence * this.TempRateOfDefence);
+            this.defence = (int)(this.defence * (1 + (this.IncrementDefencePerReputationUnit * this.Leader.Reputation / 1000)));
             if (this.OutburstDefenceMultiple > 1)
             {
                 this.defence *= this.OutburstDefenceMultiple;
@@ -8184,7 +8184,6 @@
         {
             this.offence = this.Army.Offence;
             this.offence += this.TechnologyIncrement;
-            this.offence += this.IncrementOffencePerReputationUnit * (this.Leader.Reputation / 0x3e8);
             this.offence = (this.offence * SquareChance((int)(((1 - GlobalVariables.LeadershipOffenceRate) * this.TroopStrength + GlobalVariables.LeadershipOffenceRate * this.TroopCommand) + this.Morale), 100)) / 400;
             this.offence = (int)(this.offence * ((this.RateOfOffence + this.OffenceRateIncrementByViewArea) + this.OffenceRateDecrementByViewArea));
             this.offence = (int)(this.offence * this.terrainRate);
@@ -8208,6 +8207,7 @@
                 this.offence = (int)(this.offence * 0.5f);
             }
             this.offence = (int)(this.offence * this.TempRateOfOffence);
+            this.offence = (int)(this.offence * (1 + (this.IncrementOffencePerReputationUnit * this.Leader.Reputation / 1000)));
             if (this.OutburstOffenceMultiple > 1)
             {
                 this.offence *= this.OutburstOffenceMultiple;
