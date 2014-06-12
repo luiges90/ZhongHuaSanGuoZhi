@@ -1,6 +1,6 @@
 # 中華三國志 #
 
-**發佈貼：http://game.ali213.net/thread-5163611-1-1.html**
+**官方論壇：http://www.zhsan.com**
 
 **百度貼吧：http://tieba.baidu.com/f?kw=%D6%D0%BB%AA%C8%FD%B9%FA%D6%BE**
 
