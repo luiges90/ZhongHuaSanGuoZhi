@@ -998,8 +998,8 @@
                         minPerson.Add(a, 1);
                         minTroop.Add(a, 0);
                     }
-                    minFund.Add(a, a.EnoughFund);
-                    minFood.Add(a, a.EnoughFood);
+                    minFund.Add(a, Math.Min(a.FundCeiling, a.EnoughFund));
+                    minFood.Add(a, Math.Min(a.FoodCeiling, a.EnoughFood));
 
                     if (a.HostileLine || a.orientationFrontLine)
                     {
@@ -1013,22 +1013,22 @@
                             goodPerson.Add(a, Math.Max(a.EnoughPeople, minPerson[a]));
                         }
                         goodTroop.Add(a, Math.Max(troop, minTroop[a]));
-                        goodFood.Add(a, Math.Max(a.AbundantFood * 2, minFood[a]));
-                        goodFund.Add(a, Math.Max(a.AbundantFund, minFood[a]));
+                        goodFood.Add(a, Math.Min(a.FoodCeiling, Math.Max(a.AbundantFood * 2, minFood[a])));
+                        goodFund.Add(a, Math.Min(a.FundCeiling, Math.Max(a.AbundantFund, minFund[a])));
                     }
                     else if (!a.IsVeryGood())
                     {
                         goodPerson.Add(a, Math.Max(a.EnoughPeople, minPerson[a]));
                         goodTroop.Add(a, Math.Max(a.TroopReserveScale, minTroop[a]));
-                        goodFund.Add(a, Math.Max(a.AbundantFund, minFood[a]));
-                        goodFood.Add(a, Math.Max(a.AbundantFood * 2, minFood[a]));
+                        goodFund.Add(a, Math.Min(a.FundCeiling, Math.Max(a.AbundantFund, minFund[a])));
+                        goodFood.Add(a, Math.Min(a.FoodCeiling, Math.Max(a.AbundantFood * 2, minFood[a])));
                     }
                     else
                     {
                         goodPerson.Add(a, Math.Max(1, minPerson[a]));
                         goodTroop.Add(a, Math.Max(a.TroopReserveScale, minTroop[a]));
-                        goodFund.Add(a, Math.Max(a.AbundantFund, minFood[a]));
-                        goodFood.Add(a, Math.Max(a.AbundantFood * 2, minFood[a]));
+                        goodFund.Add(a, Math.Min(a.FundCeiling, Math.Max(a.AbundantFund, minFund[a])));
+                        goodFood.Add(a, Math.Min(a.FoodCeiling, Math.Max(a.AbundantFood * 2, minFood[a])));
                     }
                 }
             }
@@ -1043,8 +1043,8 @@
                 if (a.Abandoned) continue;
                 if ((a.Fund < minFund[a] || a.Food < minFood[a]) && resource)
                 {
-                    int deficitFund = Math.Max(0, minFund[a] * 2 - a.Fund);
-                    int deficitFood = Math.Max(0, minFood[a] * 2 - a.Food);
+                    int deficitFund = Math.Max(0, minFund[a] * 2 - a.Fund - a.FundInPack);
+                    int deficitFood = Math.Max(0, minFood[a] * 2 - a.Food - a.FoodInPack);
 
                     List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
                     candidates.Sort(new DistanceComparer(a));
@@ -1215,8 +1215,8 @@
                 if (a.Abandoned) continue;
                 if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource)
                 {
-                    int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund);
-                    int deficitFood = Math.Max(0, goodFood[a] * 2 - a.Food);
+                    int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund - a.FundInPack);
+                    int deficitFood = Math.Max(0, goodFood[a] * 2 - a.Food - a.FoodInPack);
 
                     List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
                     candidates.Sort(new DistanceComparer(a));
