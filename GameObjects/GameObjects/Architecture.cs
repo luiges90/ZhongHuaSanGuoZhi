@@ -2203,7 +2203,7 @@
             if (this.HasHostileTroopsInView()) return;
             foreach (Person person in this.Persons.GetList())
             {
-                if (person.WorkKind == ArchitectureWorkKind.无 && (this.Fund < Parameters.InternalFundCost || (person.Loyalty >= 100 && person.Tiredness <= 0)))
+                if (person.WorkKind == ArchitectureWorkKind.无 && person.Loyalty >= 100 && person.Tiredness <= 0)
                 {
                     person.GoForSearch();
                 }
@@ -7571,7 +7571,7 @@
                                     (!this.FrontLine || GameObject.Random(person.FightingNumber) < 100)
                                 ))
                             {
-                                if ((person.Loyalty >= 100 || !this.IsFundEnough) && person.Tiredness <= 0)
+                                if (person.Loyalty >= 100 && person.Tiredness <= 0)
                                 {
                                     person.GoForSearch();
                                 }
