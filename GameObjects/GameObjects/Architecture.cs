@@ -2149,7 +2149,7 @@
                         result += i.A.ArmyScale;
                     }
                 }
-                return result;
+                return result * 2;
             }
         }
 
@@ -2165,7 +2165,7 @@
                         result += i.A.ArmyScale;
                     }
                 }
-                return result;
+                return result * 2;
             }
         }
 
