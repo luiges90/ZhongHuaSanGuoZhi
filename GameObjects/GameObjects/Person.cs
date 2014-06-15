@@ -7338,7 +7338,7 @@
                     {
                         tookSpouse = p;
 
-                        p.Hates(this.BelongedFaction.Leader);
+                        p.AddHated(this.BelongedFaction.Leader);
                     }
                 }
             }// end if (this.CurrentPerson.Spouse != -1)
