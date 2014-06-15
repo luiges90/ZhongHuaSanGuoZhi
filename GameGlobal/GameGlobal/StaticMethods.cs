@@ -362,6 +362,17 @@
             }
         }
 
+        public static void LoadFromString(Dictionary<int, int> list, string dataString)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = dataString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            list.Clear();
+            for (int i = 0; i < strArray.Length; i += 2)
+            {
+                list.Add(int.Parse(strArray[i]), int.Parse(strArray[i + 1]));
+            }
+        }
+
         public static Microsoft.Xna.Framework.Rectangle LoadRectangleFromXMLNode(XmlNode node)
         {
             return new Microsoft.Xna.Framework.Rectangle(int.Parse(node.Attributes.GetNamedItem("X").Value), int.Parse(node.Attributes.GetNamedItem("Y").Value), int.Parse(node.Attributes.GetNamedItem("Width").Value), int.Parse(node.Attributes.GetNamedItem("Height").Value));
@@ -465,6 +476,20 @@
                 return (point.Value.X.ToString() + " " + point.Value.Y.ToString());
             }
             return string.Empty;
+        }
+
+        public static string SaveToString(Dictionary<int, int> intList) 
+        {
+            if (intList == null)
+            {
+                return "";
+            }
+            StringBuilder builder = new StringBuilder();
+            foreach (KeyValuePair<int, int> num in intList)
+            {
+                builder.Append(num.Key.ToString() + " " + num.Value.ToString() + " ");
+            }
+            return builder.ToString();
         }
     }
 }

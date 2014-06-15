@@ -577,6 +577,20 @@
                     treasure.Available = true;
                 }
 
+                foreach (int id in person.JoinFactionID)
+                {
+                    Faction f = (Faction) this.Factions.GetGameObject(id);
+                    if (f != null)
+                    {
+                        person.LocationArchitecture = f.Capital;
+                        person.Status = PersonStatus.Normal;
+                        person.InitialLoyalty();
+                        this.GameScreen.xianshishijiantupian(f.Leader, f.Capital.Name, TextMessageKind.PersonJoin, "PersonJoin", "", "", person.Name, false);
+                        this.AvailablePersons.Add(person);
+                        this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
+                    }
+                }
+
                 Person joinToPerson = person.Father;
 
                 if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive && joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
@@ -2715,7 +2729,23 @@
                 {
                     person.StrategyTendency = (PersonStrategyTendency)((short)reader["StrategyTendency"]);
                 }
-                person.OldFactionID = (short)reader["OldFactionID"];
+                try
+                {
+                    StaticMethods.LoadFromString(person.JoinFactionID, reader["OldFactionID"].ToString());
+                }
+                catch
+                {
+                    errors.Add("出仕势力为半型空隔的势力ID");
+                }
+                try
+                {
+                    StaticMethods.LoadFromString(person.ProhibitedFactionID, reader["ProhibitedFactionID"].ToString());
+                }
+                catch
+                {
+                    errors.Add("出仕势力为半型空隔，交错为的势力ID及禁止仕官的天数");
+                }
+ 
                 person.RewardFinished = (bool)reader["RewardFinished"];
                 if ((short)reader["WorkKind"] >= Enum.GetNames(typeof(ArchitectureWorkKind)).Length || (short)reader["WorkKind"] < 0)
                 {
@@ -4952,7 +4982,8 @@
                     row["Qualification"] = (int)person.Qualification;
                     row["ValuationOnGovernment"] = (int)person.ValuationOnGovernment;
                     row["StrategyTendency"] = (int)person.StrategyTendency;
-                    row["OldFactionID"] = person.OldFactionID;
+                    row["OldFactionID"] = StaticMethods.SaveToString(person.JoinFactionID);
+                    row["ProhibitedFactionID"] = StaticMethods.SaveToString(person.ProhibitedFactionID);
                     row["RewardFinished"] = person.RewardFinished;
                     row["WorkKind"] = person.WorkKind;
                     row["OldWorkKind"] = person.OldWorkKind;

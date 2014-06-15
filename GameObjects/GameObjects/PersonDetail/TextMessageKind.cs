@@ -127,5 +127,6 @@
         SelfRiseEmperorClass, // 120
         Rumour, // 121
         Attract, // 122
+        PersonJoin, // 123
     }
 }

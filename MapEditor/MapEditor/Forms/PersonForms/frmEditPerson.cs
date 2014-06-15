@@ -3153,7 +3153,7 @@
                         this.cbStrategyTendency.SelectedIndex = (int)this.person.StrategyTendency;
                     }
                     catch (ArgumentOutOfRangeException) { }
-                    this.tbOldFactionID.Text = this.person.OldFactionID.ToString();
+                    this.tbOldFactionID.Text = this.person.JoinFactionID.ToString();
                     try
                     {
                         foreach (Person num in this.person.GetClosePersons())
@@ -3307,7 +3307,13 @@
                 p.Qualification = (PersonQualification) this.cbQualification.SelectedIndex;
                 p.ValuationOnGovernment = (PersonValuationOnGovernment) this.cbValuationOnGovernment.SelectedIndex;
                 p.StrategyTendency = (PersonStrategyTendency) this.cbStrategyTendency.SelectedIndex;
-                p.OldFactionID = int.Parse(this.tbOldFactionID.Text);
+                try
+                {
+                    StaticMethods.LoadFromString(p.JoinFactionID, this.tbOldFactionID.Text);
+                }
+                catch
+                {
+                }
 
                 PersonList pl = p.GetClosePersons();
                 foreach (Person q in pl)

@@ -127,7 +127,8 @@
         public int MultipleOfTrainingReputation = 1;
         public int MultipleOfTrainingTechniquePoint = 1;
         private float nubingExperience;
-        private int oldFactionID = -1;
+        private List<int> joinFactionID = new List<int>();
+        private Dictionary<int, int> prohibitedFactionID = new Dictionary<int, int>();
         public ArchitectureWorkKind OldWorkKind = ArchitectureWorkKind.无;
         public ArchitectureWorkKind firstPreferred = ArchitectureWorkKind.无;
         private Point? outsideDestination;
@@ -1318,6 +1319,20 @@
                 this.huaiyunshijian();
                 this.updateDayCounters();
                 this.createRelations();
+
+                List<int> toRemove = new List<int>();
+                foreach (KeyValuePair<int, int> i in this.ProhibitedFactionID)
+                {
+                    this.ProhibitedFactionID[i.Key]--;
+                    if (this.ProhibitedFactionID[i.Key] <= 0)
+                    {
+                        toRemove.Add(i.Key);
+                    }
+                }
+                foreach (int i in toRemove) 
+                {
+                    this.ProhibitedFactionID.Remove(i);
+                }
             }
             agricultureAbility = 0;
             commerceAbility = 0;
@@ -1708,6 +1723,12 @@
                     //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
                     ConvinceSuccess |= this.ConvincingPerson.IsVeryCloseTo(this);
 
+                    // prohibitedFactionID overrides all.
+                    if (this.ConvincingPerson.ProhibitedFactionID.ContainsKey(this.BelongedFaction.ID))
+                    {
+                        ConvinceSuccess = false;
+                    }
+
                     if (ConvinceSuccess)
                     {
                         this.ConvincePersonSuccess(this.ConvincingPerson);
@@ -1739,6 +1760,7 @@
             GameObjects.Faction belongedFaction = null;
             if (person.BelongedFaction != null && this.BelongedFaction != null)
             {
+                person.ProhibitedFactionID.Add(person.BelongedFaction.ID, 90);
                 belongedFaction = person.BelongedFaction;
                 base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
                 if (person.BelongedFaction.Leader.HasStrainTo(person))
@@ -3382,6 +3404,7 @@
         public void LeaveToNoFaction() // 下野
         {
             Architecture locationArchitecture = this.LocationArchitecture;
+            this.ProhibitedFactionID.Add(this.BelongedFaction.ID, 90);
 
             if (TargetArchitecture != null)
             {
@@ -3401,6 +3424,7 @@
         public void BeLeaveToNoFaction() // 流放
         {
             Architecture locationArchitecture = this.LocationArchitecture;
+            this.ProhibitedFactionID.Add(this.BelongedFaction.ID, 360);
             this.Status = PersonStatus.NoFaction;
         }
 
@@ -5441,15 +5465,27 @@
             }
         }
 
-        public int OldFactionID
+        public List<int> JoinFactionID
         {
             get
             {
-                return this.oldFactionID;
+                return this.joinFactionID;
             }
             set
             {
-                this.oldFactionID = value;
+                this.joinFactionID = value;
+            }
+        }
+
+        public Dictionary<int, int> ProhibitedFactionID
+        {
+            get
+            {
+                return prohibitedFactionID;
+            }
+            set
+            {
+                prohibitedFactionID = value;
             }
         }
 
