@@ -1081,6 +1081,7 @@
                             if (p.BelongedFaction != null && !p.BelongedFaction.BaseMilitaryKinds.MilitaryKinds.ContainsValue(m))
                             {
                                 p.BelongedFaction.BaseMilitaryKinds.AddMilitaryKind(m);
+                                this.GameScreen.xianshishijiantupian(p, m.Name, TextMessageKind.ObtainMilitaryKind, "ObtainMilitaryKind", "", "", false);
                             }
                         }
                     }
@@ -4189,7 +4190,13 @@
                     foreach (Person q in this.Persons)
                     {
                         if (p == q) continue;
-                        if (!q.Available || !q.Alive) continue;
+                        if (!q.Alive)
+                        {
+                            p.SetRelation(q, 0);
+                            q.SetRelation(p, 0);
+                            continue;
+                        }
+                        if (!q.Available) continue;
                         if (p.GetRelation(q) > 0)
                         {
                             if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)

@@ -1321,7 +1321,7 @@
                 this.createRelations();
 
                 List<int> toRemove = new List<int>();
-                foreach (KeyValuePair<int, int> i in this.ProhibitedFactionID)
+                foreach (KeyValuePair<int, int> i in new Dictionary<int, int>(this.ProhibitedFactionID))
                 {
                     this.ProhibitedFactionID[i.Key]--;
                     if (this.ProhibitedFactionID[i.Key] <= 0)
@@ -7822,6 +7822,61 @@
         public delegate void CreateBrother(Person p, Person q);
 
         public delegate void CreateSister(Person p, Person q);
+
+        private class PersonSpecialRelationComparer : Comparer<KeyValuePair<int, Person>>
+        {
+            public override int Compare(KeyValuePair<int, Person> x, KeyValuePair<int, Person> y)
+            {
+                return Comparer<int>.Default.Compare(x.Key, y.Key);
+            }
+        }
+
+        public String PersonSpecialRelationString
+        {
+            get
+            {
+                String s = "";
+
+                List<KeyValuePair<int, Person>> reverseRel = new List<KeyValuePair<int, Person>>();
+                foreach (KeyValuePair<Person, int> pr in this.relations)
+                {
+                    reverseRel.Add(new KeyValuePair<int, Person>(pr.Value, pr.Key));
+                }
+                reverseRel.Sort(new PersonSpecialRelationComparer());
+
+                int shown = 0;
+                foreach (KeyValuePair<int, Person> pr in reverseRel)
+                {
+                    if (pr.Key < -100 && shown < 3)
+                    {
+                        if (pr.Value.Alive && pr.Value.Available)
+                        {
+                            s += pr.Value.Name + ":" + pr.Key + " ";
+                            shown++;
+                        }
+                    }
+                    else break;
+                }
+
+                shown = 0;
+                reverseRel.Reverse();
+
+                foreach (KeyValuePair<int, Person> pr in reverseRel)
+                {
+                    if (pr.Key > 100 && shown < 5)
+                    {
+                        if (pr.Value.Alive && pr.Value.Available)
+                        {
+                            s += pr.Value.Name + ":" + pr.Key + " ";
+                            shown++;
+                        }
+                    }
+                    else break;
+                }
+
+                return s;
+            }
+        }
 
     }
 }

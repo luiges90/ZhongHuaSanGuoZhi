@@ -128,5 +128,6 @@
         Rumour, // 121
         Attract, // 122
         PersonJoin, // 123
+        ObtainMilitaryKind, // 124
     }
 }
