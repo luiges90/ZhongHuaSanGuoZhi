@@ -585,6 +585,7 @@
                         person.LocationArchitecture = f.Capital;
                         person.Status = PersonStatus.Normal;
                         person.InitialLoyalty();
+                        person.YearJoin = this.Date.Year;
                         this.GameScreen.xianshishijiantupian(f.Leader, f.Capital.Name, TextMessageKind.PersonJoin, "PersonJoin", "", "", person.Name, false);
                         this.AvailablePersons.Add(person);
                         this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
@@ -598,6 +599,7 @@
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
+                    person.YearJoin = this.Date.Year;
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, TextMessageKind.ChildJoin, "ChildJoin", "", "", person.Name, false);
                     if (person.LocationArchitecture != null)
                     {
@@ -614,6 +616,7 @@
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
+                    person.YearJoin = this.Date.Year;
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, TextMessageKind.ChildJoin, "ChildJoin", "", "", person.Name, false);
                     this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, TextMessageKind.ChildJoinSelfTalk, "ChildJoinSelfTalk", "", "", false);
                     this.AvailablePersons.Add(person);
@@ -627,6 +630,7 @@
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
                     person.InitialLoyalty();
+                    person.YearJoin = this.Date.Year;
                     if (person.Sex) //女的
                     {
                         this.GameScreen.xianshishijiantupian(person, joinToPerson.Name, TextMessageKind.FemaleSpouseJoin, "FemaleSpouseJoin", "", "", false);
