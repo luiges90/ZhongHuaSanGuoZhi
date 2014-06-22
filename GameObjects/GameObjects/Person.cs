@@ -6815,7 +6815,7 @@
                     chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
                     if (type == OfficerType.ALL_ROUNDER)
                     {
-                        chance *= 3;
+                        chance *= 2;
                     }
                     if (GameObject.Chance(chance))
                     {
