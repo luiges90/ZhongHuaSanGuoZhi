@@ -1289,8 +1289,8 @@
             {
                 if (n.A.BelongedFaction != this.BelongedFaction) continue;
 
-                int toTransferFood = Math.Min(transferFood, n.A.FoodCeiling * 4 / 5 - n.A.Food);
-                int toTransferFund = Math.Min(transferFund, n.A.FundCeiling * 4 / 5 - n.A.Fund);
+                int toTransferFood = Math.Max(0, Math.Min(transferFood, n.A.FoodCeiling * 4 / 5 - n.A.Food));
+                int toTransferFund = Math.Max(0, Math.Min(transferFund, n.A.FundCeiling * 4 / 5 - n.A.Fund));
 
                 transferFood -= toTransferFood;
                 transferFund -= toTransferFund;
@@ -1304,8 +1304,8 @@
 
             foreach (Architecture a in this.BelongedFaction.Architectures)
             {
-                int toTransferFood = Math.Min(transferFood, a.FoodCeiling * 4 / 5 - a.Food);
-                int toTransferFund = Math.Min(transferFund, a.FundCeiling * 4 / 5 - a.Fund);
+                int toTransferFood = Math.Max(0,Math.Min(transferFood, a.FoodCeiling * 4 / 5 - a.Food));
+                int toTransferFund = Math.Max(0,Math.Min(transferFund, a.FundCeiling * 4 / 5 - a.Fund));
 
                 transferFood -= toTransferFood;
                 transferFund -= toTransferFund;
