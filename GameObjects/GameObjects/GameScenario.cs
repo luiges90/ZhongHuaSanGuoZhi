@@ -1894,19 +1894,20 @@
             return list;
         }
 
-        public int GetWaterPositionMapCost(MilitaryType militaryType, Point position)
+        public int GetWaterPositionMapCost(MilitaryKind kind, Point position)
         {
-            if (GlobalVariables.LandArmyCanGoDownWater)
-            {
-                return 0;
-            }
             if (this.ScenarioMap.MapData[position.X, position.Y] == 6)
             {
+                if (GlobalVariables.LandArmyCanGoDownWater)
+                {
+                    return 0;
+                }
+
                 if (this.GetArchitectureByPositionNoCheck(position) != null)
                 {
                     return 0;
                 }
-                if (militaryType == MilitaryType.水军)
+                if (kind.Type == MilitaryType.水军)
                 {
                     return 0;
                 }
@@ -1936,6 +1937,19 @@
                     num++;
                 }
                 if (num > 2)
+                {
+                    return 0xdac;
+                }
+            }
+            else
+            {
+                if (kind.Type != MilitaryType.水军 || kind.IsShell || kind.IsTransport)
+                {
+                    return 0;
+                }
+
+                Architecture a = this.GetArchitectureByPositionNoCheck(position);
+                if (a != null && !a.Kind.ShipCanEnter)
                 {
                     return 0xdac;
                 }

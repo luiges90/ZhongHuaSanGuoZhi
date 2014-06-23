@@ -268,16 +268,14 @@
             for (int i = area.Count - 1; i >= 0; i--)
             {
                 Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(area[i]);
-                if ((architectureByPosition == null) || (this.BelongedFaction != architectureByPosition.BelongedFaction))
+                if (((architectureByPosition == null) || (this.BelongedFaction != architectureByPosition.BelongedFaction))
+                    && this.GetTerrainAdaptability(base.Scenario.GetTerrainKindByPosition(area[i])) > this.Kind.Movability)
                 {
-                    if (this.GetTerrainAdaptability(base.Scenario.GetTerrainKindByPosition(area[i])) > this.Kind.Movability)
-                    {
                         area.Area.RemoveAt(i);
-                    }
-                    else if (base.Scenario.GetWaterPositionMapCost(this.Kind.Type, area[i]) >= 0xdac)
-                    {
-                        area.Area.RemoveAt(i);
-                    }
+                } 
+                else if (base.Scenario.GetWaterPositionMapCost(this.Kind, area[i]) >= 0xdac)
+                {
+                    area.Area.RemoveAt(i);
                 }
             }
         }

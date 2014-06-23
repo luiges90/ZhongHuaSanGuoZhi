@@ -2468,16 +2468,18 @@
                 return 0xdac;
             }
             int terrainAdaptability = 0;
-            if (base.Scenario.GetArchitectureByPositionNoCheck(position) == null)
+
+            Architecture onArch = base.Scenario.GetArchitectureByPositionNoCheck(position);
+            if (onArch == null)
             {
                 terrainAdaptability = troop.GetTerrainAdaptability((TerrainKind)this.mapData[position.X, position.Y]);
             }
             int waterPunishment = 0;
-            if (this.mapData[position.X, position.Y] == 6 && kind.Type != MilitaryType.水军 && base.Scenario.GetArchitectureByPositionNoCheck(position) == null)
+            if (this.mapData[position.X, position.Y] == 6 && kind.Type != MilitaryType.水军 && onArch == null)
             {
                 waterPunishment = 3;
             }
-            return ((terrainAdaptability + base.Scenario.GetWaterPositionMapCost(kind.Type, position)) + base.Scenario.GetPositionMapCost(this, position) + waterPunishment);
+            return ((terrainAdaptability + base.Scenario.GetWaterPositionMapCost(kind, position)) + base.Scenario.GetPositionMapCost(this, position) + waterPunishment);
         }
 
         public FactionList GetOtherFactions()

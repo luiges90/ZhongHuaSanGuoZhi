@@ -4975,7 +4975,7 @@
             {
                 return 0xdac;
             }
-            return ((this.GetTerrainAdaptability((TerrainKind)base.Scenario.ScenarioMap.MapData[position.X, position.Y]) + base.Scenario.GetWaterPositionMapCost(this.Army.Kind.Type, position)) + base.Scenario.GetPositionMapCost(null, position));
+            return ((this.GetTerrainAdaptability((TerrainKind)base.Scenario.ScenarioMap.MapData[position.X, position.Y]) + base.Scenario.GetWaterPositionMapCost(this.Army.Kind, position)) + base.Scenario.GetPositionMapCost(null, position));
         }
 
         private Architecture GetMovableBaseViewSelfArchitecture()

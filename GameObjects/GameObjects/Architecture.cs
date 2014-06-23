@@ -6746,14 +6746,14 @@
             GameArea area = new GameArea();
             foreach (Point point in this.ArchitectureArea.Area)
             {
-                if (base.Scenario.GetWaterPositionMapCost(troop.Army.Kind.Type, point) < 3500)
+                if (base.Scenario.GetWaterPositionMapCost(troop.Army.Kind, point) < 3500)
                 {
                     area.AddPoint(point);
                 }
             }
             foreach (Point point in this.ContactArea.Area)
             {
-                if (troop.IsMovableOnPosition(point) && (base.Scenario.GetWaterPositionMapCost(troop.Army.Kind.Type, point) < 3500))
+                if (troop.IsMovableOnPosition(point) && (base.Scenario.GetWaterPositionMapCost(troop.Army.Kind, point) < 3500))
                 {
                     area.AddPoint(point);
                 }

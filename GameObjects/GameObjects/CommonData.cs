@@ -235,6 +235,14 @@
                         architectureKind.Expandable = architectureKind.ID == 1 ? 99 : 0;
                     }
                 }
+                try
+                {
+                    architectureKind.ShipCanEnter = (bool)reader["ShipCanEnter"];
+                }
+                catch
+                {
+                    architectureKind.ShipCanEnter = true;
+                }
                 this.AllArchitectureKinds.AddArchitectureKind(architectureKind);
             }
             connection.Close();
@@ -1335,11 +1343,8 @@
                     row["FundMaxUnit"] = i.FundMaxUnit;
                     row["FoodMaxUnit"] = i.FoodMaxUnit;
                     row["CountToMerit"] = i.CountToMerit;
-                    try
-                    {
-                        row["Expandable"] = i.Expandable;
-                    }
-                    catch { }
+                    row["Expandable"] = i.Expandable;
+                    row["ShipCanEnter"] = i.ShipCanEnter;
                     row.EndEdit();
                     dataSet.Tables["ArchitectureKind"].Rows.Add(row);
                 }

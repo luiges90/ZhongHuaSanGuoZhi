@@ -41,6 +41,7 @@
         private int viewDistanceIncrementDivisor;
         private bool countToMerit;
         private int expandable;
+        private bool shipCanEnter;
 
         public Texture2D Texture
         {
@@ -535,6 +536,18 @@
             set
             {
                 this.expandable = value;
+            }
+        }
+
+        public bool ShipCanEnter
+        {
+            get
+            {
+                return this.shipCanEnter;
+            }
+            set
+            {
+                this.shipCanEnter = value;
             }
         }
     }
