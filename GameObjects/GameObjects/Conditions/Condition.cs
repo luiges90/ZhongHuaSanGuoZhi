@@ -54,7 +54,22 @@
             if (this.Kind == null) return false;
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
-            return this.Kind.CheckConditionKind(faction);
+
+            if (this.Kind.ID >= 2100 && this.Kind.ID < 3000)
+            {
+                foreach (Architecture a in faction.Architectures)
+                {
+                    if (this.Kind.CheckConditionKind(faction))
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            else
+            {
+                return this.Kind.CheckConditionKind(faction);
+            }
         }
 
         public bool CheckCondition(Person person)
