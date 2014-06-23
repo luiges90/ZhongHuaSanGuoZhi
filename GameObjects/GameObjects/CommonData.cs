@@ -222,11 +222,18 @@
                 }
                 try
                 {
-                    architectureKind.Expandable = (bool)reader["Expandable"];
+                    architectureKind.Expandable = (int)reader["Expandable"];
                 }
                 catch (Exception)
                 {
-                    architectureKind.Expandable = architectureKind.ID == 1 ? true : false;
+                    try
+                    {
+                        architectureKind.Expandable = (bool)reader["Expandable"] ? 99 : 0;
+                    }
+                    catch
+                    {
+                        architectureKind.Expandable = architectureKind.ID == 1 ? 99 : 0;
+                    }
                 }
                 this.AllArchitectureKinds.AddArchitectureKind(architectureKind);
             }

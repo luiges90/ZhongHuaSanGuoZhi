@@ -12362,10 +12362,11 @@
 
         public bool ExpandAvail()
         {
-            if (!this.Kind.Expandable) return false;
             if (this.Fund < this.ExpandFund()) return false;
             if (this.JianzhuGuimo != 1 && this.JianzhuGuimo != 5) return false;
             if (base.Scenario.ScenarioMap.UseSimpleArchImages) return false;
+
+            if (this.Kind.Expandable < this.JianzhuGuimo) return false;
 
             TerrainKind terrainKindByPosition;
             foreach (Point point in this.ExpandPoint())

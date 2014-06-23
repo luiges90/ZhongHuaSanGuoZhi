@@ -40,7 +40,7 @@
         private int viewDistance;
         private int viewDistanceIncrementDivisor;
         private bool countToMerit;
-        private bool expandable;
+        private int expandable;
 
         public Texture2D Texture
         {
@@ -526,7 +526,7 @@
             }
         }
 
-        public bool Expandable
+        public int Expandable
         {
             get
             {
