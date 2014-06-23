@@ -2,6 +2,7 @@
 {
     using GameObjects;
     using GameObjects.Influences;
+    using GameObjects.Conditions;
     using System;
 
     public class Technique : GameObject
@@ -12,6 +13,7 @@
         private int displayRow;
         private int fundCost;
         public InfluenceTable Influences = new InfluenceTable();
+        public ConditionTable Conditions = new ConditionTable();
         private int kind;
         private int pointCost;
         private int postID;
@@ -149,6 +151,18 @@
             {
                 this.reputation = value;
             }
+        }
+
+        public bool CanResearch(Faction f)
+        {
+            foreach (Condition condition in this.Conditions.Conditions.Values)
+            {
+                if (!condition.CheckCondition(f))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

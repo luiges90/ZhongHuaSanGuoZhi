@@ -578,6 +578,18 @@
                     errorMsg.Add("技巧ID" + technique.ID);
                     errorMsg.AddRange(e);
                 }
+                try
+                {
+                    List<string> f = technique.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString());
+                    if (f.Count > 0)
+                    {
+                        errorMsg.Add("技巧ID" + technique.ID);
+                        errorMsg.AddRange(f);
+                    }
+                }
+                catch
+                {
+                }
                 this.AllTechniques.AddTechnique(technique);
             }
             connection.Close();

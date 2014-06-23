@@ -2758,7 +2758,7 @@
 
         private bool IsTechniqueUpgradable(Technique t)
         {
-            return (!this.HasTechnique(t.ID) && ((t.PreID < 0) || this.HasTechnique(t.PreID)));
+            return (!this.HasTechnique(t.ID) && ((t.PreID < 0) || this.HasTechnique(t.PreID))) && t.CanResearch(this);
         }
 
         public bool IsTechniqueUpgrading(int id)
@@ -2969,7 +2969,7 @@
             return (((((this.TotalTechniquePoint >= this.getTechniqueActualPointCost(technique)) &&
                 (this.Reputation >= this.getTechniqueActualReputation(technique))) &&
                 (architecture.Fund >= this.getTechniqueActualFundCost(technique))) &&
-                (this.HasTechnique(technique.PreID) || (technique.PreID < 0))) && (this.UpgradingTechnique < 0));
+                (this.HasTechnique(technique.PreID) || (technique.PreID < 0))) && (this.UpgradingTechnique < 0)) && technique.CanResearch(this);
         }
 
         public void MonthEvent()
