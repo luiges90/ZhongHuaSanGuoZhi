@@ -294,6 +294,14 @@ namespace AirViewPlugin
             this.airView.Update();
         }
 
+        public Microsoft.Xna.Framework.Rectangle MapPosition
+        {
+            get
+            {
+                return this.airView.MapPosition;
+            }
+        }
+
         public string Author
         {
             get

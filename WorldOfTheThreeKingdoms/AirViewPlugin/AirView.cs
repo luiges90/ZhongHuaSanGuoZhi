@@ -305,7 +305,7 @@ namespace AirViewPlugin
 
         private void screen_OnMouseMove(Point position, bool leftDown)
         {
-            if (base.IsDrawing)
+            if (base.IsDrawing && !this.screen.DrawingSelector)
             {
                 if (!this.IsMapShowing)
                 {
@@ -398,7 +398,7 @@ namespace AirViewPlugin
                     rect = StaticMethods.GetBottomRightRectangle(rectDes, rect);
                     break;
             }
-            this.MapDisplayOffset = new Point(rect.X-30, rect.Y);
+            this.MapDisplayOffset = new Point(rect.X, rect.Y);
         }
 
         public override void Update()
@@ -471,7 +471,7 @@ namespace AirViewPlugin
             }
         }
 
-        private Rectangle MapPosition
+        internal Rectangle MapPosition
         {
             get
             {

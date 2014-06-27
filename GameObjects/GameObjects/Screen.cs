@@ -829,6 +829,12 @@
             }
         }
 
+        public virtual bool DrawingSelector
+        {
+            get;
+            set;
+        }
+
         public delegate void MouseLeftDown(Point position);
 
         public delegate void MouseLeftUp(Point position);

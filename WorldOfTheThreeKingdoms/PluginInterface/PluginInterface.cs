@@ -24,6 +24,7 @@ namespace PluginInterface
         void SetScreen(object screen);
 
         bool IsMapShowing { get; }
+        Rectangle MapPosition { get; }
         object ToolInstance { get; }
     }
 
