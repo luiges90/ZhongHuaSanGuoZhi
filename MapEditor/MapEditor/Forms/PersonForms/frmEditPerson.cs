@@ -419,6 +419,12 @@
         private void InitializeComponent()
         {
             this.tpSkill = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDeleteAllTitle = new System.Windows.Forms.Button();
+            this.btnDeleteSelectedTitle = new System.Windows.Forms.Button();
+            this.btnAddTitle = new System.Windows.Forms.Button();
+            this.cbAllTitle = new System.Windows.Forms.ComboBox();
+            this.lbTitle = new System.Windows.Forms.ListBox();
             this.gbStunt = new System.Windows.Forms.GroupBox();
             this.btnDeleteAllStunt = new System.Windows.Forms.Button();
             this.btnDeleteSelectedStunt = new System.Windows.Forms.Button();
@@ -596,13 +602,8 @@
             this.rtbCriticalStrikeOnArchitecture = new System.Windows.Forms.RichTextBox();
             this.label60 = new System.Windows.Forms.Label();
             this.rtbCriticalStrike = new System.Windows.Forms.RichTextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnDeleteAllTitle = new System.Windows.Forms.Button();
-            this.btnDeleteSelectedTitle = new System.Windows.Forms.Button();
-            this.btnAddTitle = new System.Windows.Forms.Button();
-            this.cbAllTitle = new System.Windows.Forms.ComboBox();
-            this.lbTitle = new System.Windows.Forms.ListBox();
             this.tpSkill.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.gbStunt.SuspendLayout();
             this.gbSkills.SuspendLayout();
             this.tpBasic.SuspendLayout();
@@ -612,7 +613,6 @@
             this.gbClosePersons.SuspendLayout();
             this.tabPerson.SuspendLayout();
             this.tpTextMessage.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tpSkill
@@ -628,6 +628,67 @@
             this.tpSkill.TabIndex = 1;
             this.tpSkill.Text = "技能";
             this.tpSkill.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnDeleteAllTitle);
+            this.groupBox1.Controls.Add(this.btnDeleteSelectedTitle);
+            this.groupBox1.Controls.Add(this.btnAddTitle);
+            this.groupBox1.Controls.Add(this.cbAllTitle);
+            this.groupBox1.Controls.Add(this.lbTitle);
+            this.groupBox1.Location = new System.Drawing.Point(625, 18);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(200, 244);
+            this.groupBox1.TabIndex = 161;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "称号列表";
+            // 
+            // btnDeleteAllTitle
+            // 
+            this.btnDeleteAllTitle.Location = new System.Drawing.Point(103, 207);
+            this.btnDeleteAllTitle.Name = "btnDeleteAllTitle";
+            this.btnDeleteAllTitle.Size = new System.Drawing.Size(91, 23);
+            this.btnDeleteAllTitle.TabIndex = 4;
+            this.btnDeleteAllTitle.Text = "删除全部";
+            this.btnDeleteAllTitle.UseVisualStyleBackColor = true;
+            this.btnDeleteAllTitle.Click += new System.EventHandler(this.btnDeleteAllTitle_Click);
+            // 
+            // btnDeleteSelectedTitle
+            // 
+            this.btnDeleteSelectedTitle.Location = new System.Drawing.Point(6, 207);
+            this.btnDeleteSelectedTitle.Name = "btnDeleteSelectedTitle";
+            this.btnDeleteSelectedTitle.Size = new System.Drawing.Size(91, 23);
+            this.btnDeleteSelectedTitle.TabIndex = 3;
+            this.btnDeleteSelectedTitle.Text = "删除选中";
+            this.btnDeleteSelectedTitle.UseVisualStyleBackColor = true;
+            this.btnDeleteSelectedTitle.Click += new System.EventHandler(this.btnDeleteSelectedTitle_Click);
+            // 
+            // btnAddTitle
+            // 
+            this.btnAddTitle.Location = new System.Drawing.Point(135, 169);
+            this.btnAddTitle.Name = "btnAddTitle";
+            this.btnAddTitle.Size = new System.Drawing.Size(55, 23);
+            this.btnAddTitle.TabIndex = 2;
+            this.btnAddTitle.Text = "添加";
+            this.btnAddTitle.UseVisualStyleBackColor = true;
+            this.btnAddTitle.Click += new System.EventHandler(this.btnAddTitle_Click);
+            // 
+            // cbAllTitle
+            // 
+            this.cbAllTitle.FormattingEnabled = true;
+            this.cbAllTitle.Location = new System.Drawing.Point(6, 171);
+            this.cbAllTitle.Name = "cbAllTitle";
+            this.cbAllTitle.Size = new System.Drawing.Size(121, 20);
+            this.cbAllTitle.TabIndex = 1;
+            // 
+            // lbTitle
+            // 
+            this.lbTitle.FormattingEnabled = true;
+            this.lbTitle.ItemHeight = 12;
+            this.lbTitle.Location = new System.Drawing.Point(6, 17);
+            this.lbTitle.Name = "lbTitle";
+            this.lbTitle.Size = new System.Drawing.Size(184, 148);
+            this.lbTitle.TabIndex = 0;
             // 
             // gbStunt
             // 
@@ -1285,7 +1346,7 @@
             // 
             // tbAvailableLocation
             // 
-            this.tbAvailableLocation.Location = new System.Drawing.Point(186, 262);
+            this.tbAvailableLocation.Location = new System.Drawing.Point(194, 262);
             this.tbAvailableLocation.MaxLength = 4;
             this.tbAvailableLocation.Name = "tbAvailableLocation";
             this.tbAvailableLocation.Size = new System.Drawing.Size(59, 22);
@@ -1295,7 +1356,7 @@
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(127, 265);
+            this.label45.Location = new System.Drawing.Point(135, 265);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(53, 12);
             this.label45.TabIndex = 154;
@@ -1448,7 +1509,7 @@
             // 
             // tbOldFactionID
             // 
-            this.tbOldFactionID.Location = new System.Drawing.Point(58, 262);
+            this.tbOldFactionID.Location = new System.Drawing.Point(66, 262);
             this.tbOldFactionID.MaxLength = 4;
             this.tbOldFactionID.Name = "tbOldFactionID";
             this.tbOldFactionID.Size = new System.Drawing.Size(59, 22);
@@ -1461,9 +1522,9 @@
             this.label37.AutoSize = true;
             this.label37.Location = new System.Drawing.Point(11, 265);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(41, 12);
+            this.label37.Size = new System.Drawing.Size(53, 12);
             this.label37.TabIndex = 147;
-            this.label37.Text = "旧势力";
+            this.label37.Text = "仕官势力";
             // 
             // label35
             // 
@@ -2597,67 +2658,6 @@
             this.rtbCriticalStrike.TabIndex = 20;
             this.rtbCriticalStrike.Text = "";
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnDeleteAllTitle);
-            this.groupBox1.Controls.Add(this.btnDeleteSelectedTitle);
-            this.groupBox1.Controls.Add(this.btnAddTitle);
-            this.groupBox1.Controls.Add(this.cbAllTitle);
-            this.groupBox1.Controls.Add(this.lbTitle);
-            this.groupBox1.Location = new System.Drawing.Point(625, 18);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 244);
-            this.groupBox1.TabIndex = 161;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "称号列表";
-            // 
-            // btnDeleteAllTitle
-            // 
-            this.btnDeleteAllTitle.Location = new System.Drawing.Point(103, 207);
-            this.btnDeleteAllTitle.Name = "btnDeleteAllTitle";
-            this.btnDeleteAllTitle.Size = new System.Drawing.Size(91, 23);
-            this.btnDeleteAllTitle.TabIndex = 4;
-            this.btnDeleteAllTitle.Text = "删除全部";
-            this.btnDeleteAllTitle.UseVisualStyleBackColor = true;
-            this.btnDeleteAllTitle.Click += new EventHandler(btnDeleteAllTitle_Click);
-            // 
-            // btnDeleteSelectedTitle
-            // 
-            this.btnDeleteSelectedTitle.Location = new System.Drawing.Point(6, 207);
-            this.btnDeleteSelectedTitle.Name = "btnDeleteSelectedTitle";
-            this.btnDeleteSelectedTitle.Size = new System.Drawing.Size(91, 23);
-            this.btnDeleteSelectedTitle.TabIndex = 3;
-            this.btnDeleteSelectedTitle.Text = "删除选中";
-            this.btnDeleteSelectedTitle.UseVisualStyleBackColor = true;
-            this.btnDeleteSelectedTitle.Click += new EventHandler(btnDeleteSelectedTitle_Click);
-            // 
-            // btnAddTitle
-            // 
-            this.btnAddTitle.Location = new System.Drawing.Point(135, 169);
-            this.btnAddTitle.Name = "btnAddTitle";
-            this.btnAddTitle.Size = new System.Drawing.Size(55, 23);
-            this.btnAddTitle.TabIndex = 2;
-            this.btnAddTitle.Text = "添加";
-            this.btnAddTitle.UseVisualStyleBackColor = true;
-            this.btnAddTitle.Click += new System.EventHandler(this.btnAddTitle_Click);
-            // 
-            // cbAllTitle
-            // 
-            this.cbAllTitle.FormattingEnabled = true;
-            this.cbAllTitle.Location = new System.Drawing.Point(6, 171);
-            this.cbAllTitle.Name = "cbAllTitle";
-            this.cbAllTitle.Size = new System.Drawing.Size(121, 20);
-            this.cbAllTitle.TabIndex = 1;
-            // 
-            // lbTitle
-            // 
-            this.lbTitle.FormattingEnabled = true;
-            this.lbTitle.ItemHeight = 12;
-            this.lbTitle.Location = new System.Drawing.Point(6, 17);
-            this.lbTitle.Name = "lbTitle";
-            this.lbTitle.Size = new System.Drawing.Size(184, 148);
-            this.lbTitle.TabIndex = 0;
-            // 
             // frmEditPerson
             // 
             this.ClientSize = new System.Drawing.Size(841, 605);
@@ -2672,6 +2672,7 @@
             this.Load += new System.EventHandler(this.frmEditPerson_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmEditPerson_FormClosed);
             this.tpSkill.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.gbStunt.ResumeLayout(false);
             this.gbSkills.ResumeLayout(false);
             this.gbSkills.PerformLayout();
@@ -2685,7 +2686,6 @@
             this.tabPerson.ResumeLayout(false);
             this.tpTextMessage.ResumeLayout(false);
             this.tpTextMessage.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -3153,7 +3153,7 @@
                         this.cbStrategyTendency.SelectedIndex = (int)this.person.StrategyTendency;
                     }
                     catch (ArgumentOutOfRangeException) { }
-                    this.tbOldFactionID.Text = this.person.JoinFactionID.ToString();
+                    this.tbOldFactionID.Text = StaticMethods.SaveToString(this.person.JoinFactionID);
                     try
                     {
                         foreach (Person num in this.person.GetClosePersons())
@@ -3450,7 +3450,7 @@
             {
                 try
                 {
-                    this.tsslIDtoName.Text = this.person.Name + "的上一个君主是：" + (this.AllPersons.GetGameObject(int.Parse(this.tbOldFactionID.Text)) as Person).Name;
+                    this.tsslIDtoName.Text = "填勢力ID，半型空格分隔";
                 }
                 catch
                 {
