@@ -2819,7 +2819,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private void UpdateViewMove()          //更新视野移动方向
         {
             this.ResetMouse();
-            
+
+            if (this.Plugins.AirViewPlugin.IsMapShowing)
+            {
+                if (StaticMethods.PointInRectangle(this.MousePosition, this.Plugins.AirViewPlugin.MapPosition))
+                {
+                    return;
+                }
+            }
             if (((base.Game.IsActive && base.EnableScroll) && (!this.DrawingSelector && (base.viewportSize != Point.Zero))) && ((((this.mouseState.X >= 0) && (this.mouseState.Y >= 0)) && (this.mouseState.X <= this.viewportSize.X)) && (this.mouseState.Y <= this.viewportSize.Y)))
             {
                 if (this.mouseState.X < 50)
@@ -3111,7 +3118,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        public bool DrawingSelector
+        public override bool DrawingSelector
         {
             get
             {
