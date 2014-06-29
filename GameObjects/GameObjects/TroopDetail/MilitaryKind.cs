@@ -174,6 +174,30 @@
             return 1f;
         }
 
+        public int[] Adaptabilities
+        {
+            get
+            {
+                return new int[]{this.PlainAdaptability, this.GrasslandAdaptability, this.ForrestAdaptability, this.WastelandAdaptability, this.MarshAdaptability,
+                    this.MountainAdaptability, this.CliffAdaptability, this.RidgeAdaptability, this.WaterAdaptability};
+            }
+        }
+
+        public bool Movable
+        {
+            get
+            {
+                foreach (int i in this.Adaptabilities) 
+                {
+                    if (this.Movability >= i)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
         public override string ToString()
         {
             return (base.Name + "  " + this.Type.ToString());

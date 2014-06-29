@@ -1208,7 +1208,8 @@
                 if (i.Scales + transferredScale <= scale)
                 {
                     transferredScale += i.Scales;
-                    src.BuildTroopForTransfer(i, this);
+                    Troop built = src.BuildTroopForTransfer(i, this);
+                    if (built == null) return transferredScale;
                     if (transferredScale >= scale) return transferredScale;
                 }
             }
@@ -2294,7 +2295,8 @@
             if (this.Persons.Count == 0) return null;
             TroopList list = new TroopList();
             this.Persons.ClearSelected();
-            if ((military.Scales > 5) && (military.Morale >= 80) && (military.Combativity >= 80) && (military.InjuryQuantity < military.Kind.MinScale) && !military.IsFewScaleNeedRetreat)
+            if ((military.Scales > 5) && (military.Morale >= 80) && (military.Combativity >= 80) && (military.InjuryQuantity < military.Kind.MinScale) 
+                && !military.IsFewScaleNeedRetreat && military.Kind.Movable)
             {
                 PersonList list2;
                 Military military2 = military;
@@ -3230,6 +3232,7 @@
             foreach (Military military in this.Militaries.GetRandomList())
             {
                 if (military.Scales < military.RetreatScale * 1.5) continue;
+                if (!military.Kind.Movable) continue;
                 if (military.IsTransport) continue; //never deal with transports in this function
                 switch (linkkind)
                 {
