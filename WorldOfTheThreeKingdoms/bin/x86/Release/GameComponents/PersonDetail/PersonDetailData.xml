@@ -26,35 +26,35 @@
   <Labels>
     <Label X="350" Y="80" Width="40" Height="30" Label ="性别"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
     <Text X="400" Y="80" Width="20" Height="30" PropertyName="SexString"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294934528"
                 Align="Middle">
     </Text>
     <Label X="450" Y="80" Width="40" Height="30" Label ="性格"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
     <Text X="500" Y="80" Width="40" Height="30" PropertyName="CharacterString"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294934720"
                 Align="Middle">
     </Text>
     <Label X="550" Y="80" Width="40" Height="30" Label ="年龄"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
@@ -68,7 +68,7 @@
     </Text>
     <Label X="450" Y="110" Width="40" Height="30" Label ="名声"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
@@ -82,49 +82,49 @@
     </Text>
     <Label X="350" Y="110" Width="40" Height="30" Label ="势力"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
     <Text X="380" Y="110" Width="80" Height="30" PropertyName="Faction"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Bold"
                 FontColor="4294967295"
                 Align="Middle">
     </Text>
     <Label X="350" Y="140" Width="40" Height="30" Label ="所在"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
     <Text X="400" Y="140" Width="80" Height="30" PropertyName="Location"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Bold"
                 FontColor="4294967295"
                 Align="Middle">
     </Text>
     <Label X="500" Y="140" Width="40" Height="30" Label ="工作"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
     </Label>
     <Text X="550" Y="140" Width="80" Height="30" PropertyName="WorkKindString"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Bold"
                 FontColor="4294967295"
                 Align="Middle">
     </Text>
     <Label X="550" Y="110" Width="40" Height="30" Label ="宝物"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
@@ -138,98 +138,98 @@
     </Text>
     <Label X="260" Y="80" Width="40" Height="30" Label ="武勇"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="300" Y="80" Width="40" Height="30" PropertyName="Strength"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="260" Y="105" Width="40" Height="30" Label ="统率"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="300" Y="105" Width="40" Height="30" PropertyName="Command"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="260" Y="130" Width="40" Height="30" Label ="智谋"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="300" Y="130" Width="40" Height="30" PropertyName="Intelligence"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="260" Y="155" Width="40" Height="30" Label ="政治"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="300" Y="155" Width="40" Height="30" PropertyName="Politics"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="260" Y="180" Width="40" Height="30" Label ="魅力"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="300" Y="180" Width="40" Height="30" PropertyName="Glamour"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="260" Y="205" Width="40" Height="30" Label ="勇猛"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="300" Y="205" Width="40" Height="30" PropertyName="Braveness"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="260" Y="230" Width="40" Height="30" Label ="冷静"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Middle">
     </Label>
     <Text X="300" Y="230" Width="40" Height="30" PropertyName="Calmness"
                 FontName="方正隶变_GBK"
-                FontSize="14"
+                FontSize="13"
                 FontStyle="Regular"
                 FontColor="4278255615"
                 Align="Middle">
@@ -237,7 +237,7 @@
   </Labels>
   <Title X="450" Y="220" Width="220" Height="360" RowMargin="1"
             FontName="方正隶变_GBK"
-            FontSize="14"
+            FontSize="13"
             FontStyle="Bold"
             FontColor="4286643968">
   </Title>
@@ -252,14 +252,14 @@
   </SkillBlock>
   <Stunt X="280" Y="280" Width="160" Height="512" RowMargin="0"
             FontName="方正隶变_GBK"
-            FontSize="14"
+            FontSize="13"
             FontStyle="Bold"
             FontColor="4294967295">
   </Stunt>
   <Influence X="680" Y="50" Width="300" Height="512" RowMargin="0" TitleColor="4294967040" 
 			SubTitleColor="4294901760" SubTitleColor2="4286611711" SubTitleColor3="4278255360"
             FontName="方正隶变_GBK"
-            FontSize="14"
+            FontSize="13"
             FontStyle="Regular"
             FontColor="4294967295">
   </Influence>
@@ -272,7 +272,7 @@
   </Condition>
   <Biography X="680" Y="50" Width="300" Height="512" RowMargin="0" TitleColor="4294967040" SubTitleColor="4278255360" SubTitleColor2="4294901760"
             FontName="方正隶变_GBK"
-            FontSize="14"
+            FontSize="13"
             FontStyle="Regular"
             FontColor="4294967295">
   </Biography>
