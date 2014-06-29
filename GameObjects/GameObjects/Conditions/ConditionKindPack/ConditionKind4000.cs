@@ -10,7 +10,7 @@
 
         public override bool CheckConditionKind(Person person)
         {
-            return (person.YearJoin >= this.number);
+            return (person.ServedYears >= this.number);
         }
 
         public override void InitializeParameter(string parameter)
