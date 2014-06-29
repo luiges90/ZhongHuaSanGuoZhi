@@ -909,7 +909,7 @@
         {
             foreach (Faction f in base.Scenario.PlayerFactions) 
             {
-                if (GameObject.Random(1000) < Parameters.AIEncirclePlayerRate && GameObject.Chance(f.ArchitectureCount))
+                if (GameObject.Random(1000 * (base.Scenario.Factions.Count - 1)) < Parameters.AIEncirclePlayerRate && GameObject.Chance(f.ArchitectureCount))
                 {
                     foreach (Architecture a in this.Architectures)
                     {
@@ -3334,7 +3334,7 @@
             }
             if ((encircleList.Count * 2 > fc) && fc > 3)
             {
-                this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, TextMessageKind.EncircleDiplomaticRelation, "EncircleDiplomaticRelation", "EncircleDiplomaticRelation.jpg", "EncircleDiplomaticRelation.wav", this.Name, true);
+                this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, TextMessageKind.EncircleDiplomaticRelation, "EncircleDiplomaticRelation", "EncircleDiplomaticRelation.jpg", "EncircleDiplomaticRelation.wav", target.Name, true);
                 foreach (Faction i in encircleList)
                 {
                     foreach (Faction j in encircleList)
