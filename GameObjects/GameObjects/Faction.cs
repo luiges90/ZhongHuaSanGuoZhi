@@ -909,7 +909,7 @@
         {
             foreach (Faction f in base.Scenario.PlayerFactions) 
             {
-                if (GameObject.Chance(Parameters.AIEncirclePlayerRate) && GameObject.Chance(f.ArchitectureCount))
+                if (GameObject.Random(1000) < Parameters.AIEncirclePlayerRate && GameObject.Chance(f.ArchitectureCount))
                 {
                     foreach (Architecture a in this.Architectures)
                     {
