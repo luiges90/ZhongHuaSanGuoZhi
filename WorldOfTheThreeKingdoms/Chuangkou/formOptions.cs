@@ -9,9 +9,6 @@ using		System.Windows.Forms;
 using System.Xml;
 using System.ComponentModel;
 
-
-
-
 namespace WorldOfTheThreeKingdoms.GameForms
 {
     internal enum Difficulty
@@ -3021,6 +3018,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = false;
                     this.cbAIAutoTakePlayerCaptives.Checked = false;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = false;
+                    GameGlobal.Parameters.AIEncirclePlayerRate = 0;
                     break;
                 case Difficulty.easy:
                     this.tbAIFundRate.Text = "1.0";
@@ -3052,6 +3050,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = false;
                     this.cbAIAutoTakePlayerCaptives.Checked = false;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = false;
+                    GameGlobal.Parameters.AIEncirclePlayerRate = 0;
                     break;
                 case Difficulty.normal:
                     this.tbAIFundRate.Text = "1.5";
@@ -3083,6 +3082,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = false;
                     this.cbAIAutoTakePlayerCaptives.Checked = false;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = false;
+                    GameGlobal.Parameters.AIEncirclePlayerRate = 5;
                     break;
                 case Difficulty.hard:
                     this.tbAIFundRate.Text = "2.0";
@@ -3114,6 +3114,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = true;
                     this.cbAIAutoTakePlayerCaptives.Checked = true;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = true;
+                    GameGlobal.Parameters.AIEncirclePlayerRate = 10;
                     break;
                 case Difficulty.veryhard:
                     this.tbAIFundRate.Text = "5.0";
@@ -3145,6 +3146,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = true;
                     this.cbAIAutoTakePlayerCaptives.Checked = true;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = false;
+                    GameGlobal.Parameters.AIEncirclePlayerRate = 100;
                     break;
             }
             doNotSetDifficultyToCustom = false;

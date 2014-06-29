@@ -129,5 +129,6 @@ AIAntiSurroundIncreaseRate="0"
 AIAntiStratagemIncreaseRate="0"
 CloseAbilityRate="1.1" 
 VeryCloseAbilityRate="1.2"
-RetainFeiziPersonalLoyalty="3">
+RetainFeiziPersonalLoyalty="3"
+AIEncirclePlayerRate="0">
 </GameParameters>

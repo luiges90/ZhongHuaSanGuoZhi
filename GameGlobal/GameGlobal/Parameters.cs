@@ -163,6 +163,7 @@
         public static float VeryCloseAbilityRate = 1.2F;
 
         public static int RetainFeiziPersonalLoyalty = 0;
+        public static int AIEncirclePlayerRate = 0;
 
         public void InitializeGameParameters()
         {
@@ -312,6 +313,8 @@
             VeryCloseAbilityRate = float.Parse(nextSibling.Attributes.GetNamedItem("VeryCloseAbilityRate").Value);
 
             RetainFeiziPersonalLoyalty = int.Parse(nextSibling.Attributes.GetNamedItem("RetainFeiziPersonalLoyalty").Value);
+
+            AIEncirclePlayerRate = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncirclePlayerRate").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;

@@ -905,11 +905,30 @@
             }
         }
 
+        private void AIDiplomacy()
+        {
+            foreach (Faction f in base.Scenario.PlayerFactions) 
+            {
+                if (GameObject.Chance(Parameters.AIEncirclePlayerRate) && GameObject.Chance(f.ArchitectureCount))
+                {
+                    foreach (Architecture a in this.Architectures)
+                    {
+                        if (a.Fund > 60000 + a.AbundantFund)
+                        {
+                            Encircle(a, f);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
         private void AI()
         {
             base.Scenario.Threading = true;
             this.AIFinished = false;
             this.AIPrepare();
+            this.AIDiplomacy();
             this.AISections();
             this.AICapital();
             this.AICaptives();
@@ -3295,17 +3314,17 @@
             }
         }
 
-        public void CheckEncircleDiplomaticByFactionName(string EncircleFactionName)
-        {
+        public void CheckEncircleDiplomatic(Faction target)
+        {          
             FactionList encircleList = new FactionList();
             int fc = 0;
             foreach (Faction f in base.Scenario.Factions)
             {
-                if ((f.Name != EncircleFactionName) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && !f.IsAlien)
+                if ((f != target) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && !f.IsAlien)
                 {
                     fc++;
-                    if (((base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, this.GetFactionByName(EncircleFactionName).ID, f.ID).Relation +
-                        Person.GetIdealOffset(this.GetFactionByName(EncircleFactionName).Leader, f.Leader) * 1.5) < 0
+                    if (((base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, target.ID, f.ID).Relation +
+                        Person.GetIdealOffset(target.Leader, f.Leader) * 1.5) < 0
                         && GameObject.Chance(60))
                         )
                     {
@@ -3315,7 +3334,7 @@
             }
             if ((encircleList.Count * 2 > fc) && fc > 3)
             {
-                this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, TextMessageKind.EncircleDiplomaticRelation, "EncircleDiplomaticRelation", "EncircleDiplomaticRelation.jpg", "EncircleDiplomaticRelation.wav", EncircleFactionName, true);
+                this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, TextMessageKind.EncircleDiplomaticRelation, "EncircleDiplomaticRelation", "EncircleDiplomaticRelation.jpg", "EncircleDiplomaticRelation.wav", this.Name, true);
                 foreach (Faction i in encircleList)
                 {
                     foreach (Faction j in encircleList)
@@ -3330,6 +3349,34 @@
                     }
                 }
             }
+        }
+
+        public void Encircle(Architecture encircler, Faction toEncircle)
+        {
+            this.Scenario.GameScreen.xianshishijiantupian(encircler.Scenario.NeutralPerson, encircler.BelongedFaction.Leader.Name, "DenounceDiplomaticRelation", "DenounceDiplomaticRelation.jpg", "DenounceDiplomaticRelation.wav", toEncircle.Name, true);
+
+            if (encircler.Fund < 60000) return;
+            encircler.Fund -= 60000;
+
+            DiplomaticRelation rel = base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, this.ID, toEncircle.ID);
+            if (rel.Relation > -300)
+            {
+                rel.Relation -= 100;
+            }
+            else
+            {
+                rel.Relation -= 50;
+            }
+            //处理所有势力和被声讨方的关系
+            foreach (DiplomaticRelation f in encircler.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(toEncircle.ID))
+            {
+                if (f.Relation < 160)
+                {
+                    f.Relation -= 20;
+                }
+            }
+            //加入包围圈判定
+            this.CheckEncircleDiplomatic(toEncircle);
         }
 
         private void ResetFriendlyDiplomaticRelations()
