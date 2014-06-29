@@ -1045,6 +1045,10 @@
                 if (p.IsCloseTo(killer)) continue;
                 if (p.Hates(killer)) continue;
                 if (p.Hates(this)) continue;
+                if (p.IsVeryCloseTo(this))
+                {
+                    p.AddHated(killer);
+                }
                 if (p.HasCloseStrainTo(this))
                 {
                     int hateChance = this.ClosePersonKilledReaction * 25;
