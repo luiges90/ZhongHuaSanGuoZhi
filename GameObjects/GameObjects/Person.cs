@@ -3290,6 +3290,10 @@
             {
                 if (p == this) continue;
                 if (p == executor) continue;
+                if (p.IsVeryCloseTo(this))
+                {
+                    p.AddHated(executor);
+                }
                 if (p.HasCloseStrainTo(this))
                 {
                     // person close to killed one hates executor
