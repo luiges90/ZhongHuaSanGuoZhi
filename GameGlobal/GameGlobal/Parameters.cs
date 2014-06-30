@@ -165,6 +165,8 @@
         public static int RetainFeiziPersonalLoyalty = 0;
         public static int AIEncirclePlayerRate = 0;
 
+        public static int InternalSurplusFactor = 4000000;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();

@@ -4818,7 +4818,7 @@
                     return 1;
                 }
 
-                float num = 1f - (this.armyScale / 50.0f + this.PersonCount / 3.0f + this.Population / 80000.0f) / base.Scenario.Architectures.Count * 0.8f;
+                float num = (Parameters.InternalSurplusFactor - this.Power) / (float) Parameters.InternalSurplusFactor;
 
                 if (num < 0.2f)
                 {
