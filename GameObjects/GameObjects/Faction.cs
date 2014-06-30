@@ -948,11 +948,16 @@
             }
         }
 
+        private int? powerCache = null;
         public int Power
         {
             get
             {
-                return this.ArchitectureCount * 10000 + this.TotalPersonMerit / 10 + this.Population / 10 + this.ArmyScale * 100;
+                if (powerCache == null)
+                {
+                    powerCache = this.ArchitectureCount * 10000 + this.TotalPersonMerit / 10 + this.Population / 10 + this.ArmyScale * 100;
+                }
+                return powerCache.Value;
             }
         }
 
@@ -3029,6 +3034,7 @@
         public void MonthEvent()
         {
             this.DiplomaticRelationAI();
+            powerCache = null;
         }
 
         private void PlayerAI()
