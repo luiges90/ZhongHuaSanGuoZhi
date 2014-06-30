@@ -315,7 +315,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 foreach (DiplomaticRelationDisplay display in selectedList)
                 {
-                    if (this.CurrentArchitecture.Fund >= 60000)
+                    if (this.CurrentArchitecture.Fund >= 120000)
                     {
                         Faction toEncircle = display.LinkedFaction1 == this.CurrentArchitecture.BelongedFaction ? display.LinkedFaction2 : display.LinkedFaction1;
                         this.CurrentArchitecture.BelongedFaction.Encircle(this.CurrentArchitecture, toEncircle);

@@ -913,13 +913,46 @@
                 {
                     foreach (Architecture a in this.Architectures)
                     {
-                        if (a.Fund > 60000 + a.AbundantFund)
+                        if (a.Fund > 120000 + a.AbundantFund)
                         {
                             Encircle(a, f);
                             return;
                         }
                     }
                 }
+            }
+
+            if (GameObject.Random(30 * (5 - this.Leader.Ambition)) == 0)
+            {
+                GameObjectList factions = base.Scenario.Factions.GetList();
+                factions.PropertyName = "Power";
+                factions.IsNumber = true;
+                factions.SmallToBig = false;
+
+                GameObject target = factions[GameObject.Random(Math.Min(3, factions.Count))];
+                int rel = base.Scenario.GetDiplomaticRelation(this.ID, target.ID);
+                if (target != this && rel < 0)
+                {
+                    if (GameObject.Chance(Math.Abs(rel) / 10))
+                    {
+                        foreach (Architecture a in this.Architectures)
+                        {
+                            if (a.Fund > 120000 + a.AbundantFund)
+                            {
+                                Encircle(a, (Faction) target);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public int Power
+        {
+            get
+            {
+                return this.ArchitectureCount * 10000 + this.TotalPersonMerit / 10 + this.Population / 10 + this.ArmyScale * 100;
             }
         }
 
@@ -3341,9 +3374,9 @@
                     {
                         if (i != j)
                         {
-                            if (this.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, i.ID, j.ID).Truce < 90)
+                            if (this.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, i.ID, j.ID).Truce < 180)
                             {
-                                this.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, i.ID, j.ID).Truce = 90;
+                                this.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, i.ID, j.ID).Truce = 180;
                             }
                         }
                     }
@@ -3355,8 +3388,8 @@
         {
             this.Scenario.GameScreen.xianshishijiantupian(encircler.Scenario.NeutralPerson, encircler.BelongedFaction.Leader.Name, "DenounceDiplomaticRelation", "DenounceDiplomaticRelation.jpg", "DenounceDiplomaticRelation.wav", toEncircle.Name, true);
 
-            if (encircler.Fund < 60000) return;
-            encircler.Fund -= 60000;
+            if (encircler.Fund < 120000) return;
+            encircler.Fund -= 120000;
 
             DiplomaticRelation rel = base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, this.ID, toEncircle.ID);
             if (rel.Relation > -300)
