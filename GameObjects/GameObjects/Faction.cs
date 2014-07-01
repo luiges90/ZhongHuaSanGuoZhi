@@ -911,9 +911,9 @@
             {
                 if (!this.adjacentTo(f)) continue;
                 if (this == f) continue;
-                if (GetEncircleFactionList(f, true) == null) continue;
                 if (GameObject.Random(2000) < Parameters.AIEncirclePlayerRate && GameObject.Chance(f.ArchitectureCount))
                 {
+                    if (GetEncircleFactionList(f, true) == null) continue;
                     foreach (Architecture a in this.Architectures)
                     {
                         if (a.Fund > 120000 + a.AbundantFund)
@@ -3391,7 +3391,6 @@
             int fc = 0;
             foreach (Faction f in base.Scenario.Factions)
             {
-                if (!f.adjacentTo(target)) continue;
                 if (base.Scenario.IsPlayer(f)) continue; // TODO let player choose whether to enter
                 if ((f != target) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && !f.IsAlien)
                 {
