@@ -909,7 +909,10 @@
         {
             foreach (Faction f in base.Scenario.PlayerFactions) 
             {
-                if (GameObject.Random(1000 * (base.Scenario.Factions.Count - 1)) < Parameters.AIEncirclePlayerRate && GameObject.Chance(f.ArchitectureCount))
+                if (!this.adjacentTo(f)) continue;
+                if (this == f) continue;
+                if (GetEncircleFactionList(f, true) == null) continue;
+                if (GameObject.Random(2000) < Parameters.AIEncirclePlayerRate && GameObject.Chance(f.ArchitectureCount))
                 {
                     foreach (Architecture a in this.Architectures)
                     {
@@ -922,16 +925,19 @@
                 }
             }
 
-            if (GameObject.Random(30 * (5 - this.Leader.Ambition)) == 0)
+            if (GameObject.Random(90 * (5 - this.Leader.Ambition)) == 0)
             {
-                GameObjectList factions = base.Scenario.Factions.GetList();
+                GameObjectList factions = this.GetAdjecentHostileFactions();
+                if (factions.Count == 0) return;
+
                 factions.PropertyName = "Power";
                 factions.IsNumber = true;
                 factions.SmallToBig = false;
+                factions.ReSort();
 
-                GameObject target = factions[GameObject.Random(Math.Min(3, factions.Count))];
+                Faction target = (Faction) factions[0];
                 int rel = base.Scenario.GetDiplomaticRelation(this.ID, target.ID);
-                if (target != this && rel < 0)
+                if (target != this && GetEncircleFactionList(target, true) != null)
                 {
                     if (GameObject.Chance(Math.Abs(rel) / 10))
                     {
@@ -939,7 +945,7 @@
                         {
                             if (a.Fund > 120000 + a.AbundantFund)
                             {
-                                Encircle(a, (Faction) target);
+                                Encircle(a, target);
                                 return;
                             }
                         }
@@ -3307,6 +3313,7 @@
 
         public bool adjacentTo(Faction f)
         {
+            if (this == f) return false;
             if (f != null)
             {
                 foreach (Architecture i in this.Architectures)
@@ -3323,6 +3330,31 @@
             return false;
         }
 
+        public FactionList GetAdjecentFactions()
+        {
+            FactionList result = new FactionList();
+            foreach (Faction f in base.Scenario.Factions)
+            {
+                if (this.adjacentTo(f))
+                {
+                    result.Add(f);
+                }
+            }
+            return result;
+        }
+
+        public FactionList GetAdjecentHostileFactions()
+        {
+            FactionList result = new FactionList();
+            foreach (Faction f in base.Scenario.Factions)
+            {
+                if (this.adjacentTo(f) && this.IsHostile(f))
+                {
+                    result.Add(f);
+                }
+            }
+            return result;
+        }
 
         private bool hasNonFriendlyFrontline
         {
@@ -3353,18 +3385,20 @@
             }
         }
 
-        public void CheckEncircleDiplomatic(Faction target)
-        {          
+        public FactionList GetEncircleFactionList(Faction target, bool simulate) 
+        {
             FactionList encircleList = new FactionList();
             int fc = 0;
             foreach (Faction f in base.Scenario.Factions)
             {
+                if (!f.adjacentTo(target)) continue;
+                if (base.Scenario.IsPlayer(f)) continue; // TODO let player choose whether to enter
                 if ((f != target) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && !f.IsAlien)
                 {
                     fc++;
                     if (((base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, target.ID, f.ID).Relation +
                         Person.GetIdealOffset(target.Leader, f.Leader) * 1.5) < 0
-                        && GameObject.Chance(60))
+                        && (GameObject.Chance(60) || simulate))
                         )
                     {
                         encircleList.Add(f);
@@ -3372,6 +3406,19 @@
                 }
             }
             if ((encircleList.Count * 2 > fc) && fc > 3)
+            {
+                return encircleList;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void CheckEncircleDiplomatic(Faction target)
+        {
+            FactionList encircleList = GetEncircleFactionList(target, false);
+            if (encircleList != null)
             {
                 this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, TextMessageKind.EncircleDiplomaticRelation, "EncircleDiplomaticRelation", "EncircleDiplomaticRelation.jpg", "EncircleDiplomaticRelation.wav", target.Name, true);
                 foreach (Faction i in encircleList)
