@@ -1104,6 +1104,96 @@
             foreach (Architecture a in destArch)
             {
                 if (a.Abandoned) continue;
+                
+                if (a.ArmyScale < minTroop[a] && military && (a.SuspendTroopTransfer <= 0 || urgent))
+                {
+                    int deficit = minTroop[a] * 2 - a.ArmyScale;
+
+                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                    candidates.Sort(new DistanceComparer(a));
+
+                    foreach (Architecture b in candidates)
+                    {
+                        if (b.Abandoned || b == a) continue;
+                        if (b.ArmyScale > goodTroop[b])
+                        {
+                            int send = Math.Min(deficit, b.ArmyScale - goodTroop[b]);
+                            send = a.CallTroop(b, send);
+                            if (send > 0)
+                            {
+                                deficit -= send;
+                                if (deficit <= 0)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (deficit > 0)
+                    {
+                        foreach (Architecture b in candidates)
+                        {
+                            if (b.Abandoned || b == a) continue;
+                            int send = Math.Min(deficit, b.ArmyScale - minTroop[b]);
+                            send = a.CallTroop(b, send);
+                            if (send > 0)
+                            {
+                                deficit -= send;
+                                if (deficit <= 0)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (a.PersonCount + a.MovingPersonCount < minPerson[a] && person)
+                {
+                    int deficit = minPerson[a] - a.PersonCount - a.MovingPersonCount;
+
+                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                    candidates.Sort(new DistanceComparer(a));
+
+                    foreach (Architecture b in candidates)
+                    {
+                        if (b.Abandoned || b == a) continue;
+                        if (b.PersonCount + b.MovingPersonCount > goodPerson[b])
+                        {
+                            int send = Math.Min(deficit, b.PersonCount + b.MovingPersonCount - goodPerson[b]);
+                            send = a.CallPeople(b, send);
+                            if (send > 0)
+                            {
+                                deficit -= send;
+                                if (deficit <= 0)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (deficit > 0)
+                    {
+                        foreach (Architecture b in candidates)
+                        {
+                            if (b.Abandoned || b == a) continue;
+                            if (b.PersonCount + b.MovingPersonCount > minPerson[b])
+                            {
+                                int send = Math.Min(deficit, b.PersonCount + b.MovingPersonCount - minPerson[b]);
+                                send = a.CallPeople(b, send);
+                                if (send > 0)
+                                {
+                                    deficit -= send;
+                                    if (deficit <= 0)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if ((a.Fund < minFund[a] || a.Food < minFood[a]) && resource)
                 {
                     int deficitFund = Math.Max(0, minFund[a] * 2 - a.Fund - a.FundInPack);
@@ -1182,56 +1272,15 @@
                         }
                     }
                 }
+            }
 
-                if (a.PersonCount + a.MovingPersonCount < minPerson[a] && person)
+            foreach (Architecture a in destArch)
+            {
+                if (a.Abandoned) continue;
+                
+                if (a.ArmyScale < goodTroop[a] && military && a.SuspendTroopTransfer <= 0)
                 {
-                    int deficit = minPerson[a] - a.PersonCount - a.MovingPersonCount;
-
-                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
-                    candidates.Sort(new DistanceComparer(a));
-
-                    foreach (Architecture b in candidates)
-                    {
-                        if (b.Abandoned || b == a) continue;
-                        if (b.PersonCount + b.MovingPersonCount > goodPerson[b])
-                        {
-                            int send = Math.Min(deficit, b.PersonCount + b.MovingPersonCount - goodPerson[b]);
-                            send = a.CallPeople(b, send);
-                            if (send > 0)
-                            {
-                                deficit -= send;
-                                if (deficit <= 0)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (deficit > 0)
-                    {
-                        foreach (Architecture b in candidates)
-                        {
-                            if (b.Abandoned || b == a) continue;
-                            if (b.PersonCount + b.MovingPersonCount > minPerson[b])
-                            {
-                                int send = Math.Min(deficit, b.PersonCount + b.MovingPersonCount - minPerson[b]);
-                                send = a.CallPeople(b, send);
-                                if (send > 0)
-                                {
-                                    deficit -= send;
-                                    if (deficit <= 0)
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (a.ArmyScale < minTroop[a] && military && (a.SuspendTroopTransfer <= 0 || urgent))
-                {
-                    int deficit = minTroop[a] * 2 - a.ArmyScale;
+                    int deficit = goodTroop[a] * 2 - a.ArmyScale;
 
                     List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
                     candidates.Sort(new DistanceComparer(a));
@@ -1253,13 +1302,23 @@
                             }
                         }
                     }
-                    if (deficit > 0)
+
+                }
+
+                if (a.PersonCount + a.MovingPersonCount < goodPerson[a] && person)
+                {
+                    int deficit = goodPerson[a] - a.PersonCount - a.MovingPersonCount;
+
+                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                    candidates.Sort(new DistanceComparer(a));
+
+                    foreach (Architecture b in candidates)
                     {
-                        foreach (Architecture b in candidates)
+                        if (b.Abandoned || b == a) continue;
+                        if (b.PersonCount + b.MovingPersonCount > goodPerson[b])
                         {
-                            if (b.Abandoned || b == a) continue;
-                            int send = Math.Min(deficit, b.ArmyScale - minTroop[b]);
-                            send = a.CallTroop(b, send);
+                            int send = Math.Min(deficit, b.PersonCount + b.MovingPersonCount - goodPerson[b]);
+                            send = a.CallPeople(b, send);
                             if (send > 0)
                             {
                                 deficit -= send;
@@ -1271,11 +1330,7 @@
                         }
                     }
                 }
-            }
 
-            foreach (Architecture a in destArch)
-            {
-                if (a.Abandoned) continue;
                 if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource)
                 {
                     int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund - a.FundInPack);
@@ -1331,58 +1386,6 @@
                     }
                 }
 
-                if (a.PersonCount + a.MovingPersonCount < goodPerson[a] && person)
-                {
-                    int deficit = goodPerson[a] - a.PersonCount - a.MovingPersonCount;
-
-                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
-                    candidates.Sort(new DistanceComparer(a));
-
-                    foreach (Architecture b in candidates)
-                    {
-                        if (b.Abandoned || b == a) continue;
-                        if (b.PersonCount + b.MovingPersonCount > goodPerson[b])
-                        {
-                            int send = Math.Min(deficit, b.PersonCount + b.MovingPersonCount - goodPerson[b]);
-                            send = a.CallPeople(b, send);
-                            if (send > 0)
-                            {
-                                deficit -= send;
-                                if (deficit <= 0)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if (a.ArmyScale < goodTroop[a] && military && a.SuspendTroopTransfer <= 0)
-                {
-                    int deficit = goodTroop[a] * 2 - a.ArmyScale;
-
-                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
-                    candidates.Sort(new DistanceComparer(a));
-
-                    foreach (Architecture b in candidates)
-                    {
-                        if (b.Abandoned || b == a) continue;
-                        if (b.ArmyScale > goodTroop[b])
-                        {
-                            int send = Math.Min(deficit, b.ArmyScale - goodTroop[b]);
-                            send = a.CallTroop(b, send);
-                            if (send > 0)
-                            {
-                                deficit -= send;
-                                if (deficit <= 0)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-
-                }
             }
         }
 
