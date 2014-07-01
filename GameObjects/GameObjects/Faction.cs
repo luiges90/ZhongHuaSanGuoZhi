@@ -911,7 +911,7 @@
             {
                 if (!this.adjacentTo(f)) continue;
                 if (this == f) continue;
-                if (GameObject.Random(2000) < Parameters.AIEncirclePlayerRate && GameObject.Chance(f.ArchitectureCount))
+                if (GameObject.Random(1000) < Parameters.AIEncirclePlayerRate && GameObject.Chance(f.ArchitectureCount))
                 {
                     if (GetEncircleFactionList(f, true) == null) continue;
                     foreach (Architecture a in this.Architectures)
@@ -925,7 +925,7 @@
                 }
             }
 
-            if (GameObject.Random(90 * (5 - this.Leader.Ambition)) == 0)
+            if (GameObject.Random(180 * (5 - this.Leader.Ambition)) == 0)
             {
                 GameObjectList factions = this.GetAdjecentHostileFactions();
                 if (factions.Count == 0) return;
@@ -937,7 +937,7 @@
 
                 Faction target = (Faction) factions[0];
                 int rel = base.Scenario.GetDiplomaticRelation(this.ID, target.ID);
-                if (target != this && GetEncircleFactionList(target, true) != null)
+                if (target != this && rel < 0 && GetEncircleFactionList(target, true) != null)
                 {
                     if (GameObject.Chance(Math.Abs(rel) / 10))
                     {
