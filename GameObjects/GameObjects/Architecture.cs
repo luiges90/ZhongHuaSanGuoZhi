@@ -2268,7 +2268,7 @@
             PersonList leader = new PersonList();
             foreach (Person p in this.Persons)
             {
-                if (p.Merit < min)
+                if (p.Merit < min && p.Tiredness < 30)
                 {
                     leader.Clear();
                     leader.Add(p);

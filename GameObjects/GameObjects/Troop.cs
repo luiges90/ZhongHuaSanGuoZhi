@@ -917,7 +917,7 @@
                 // retreat if anyone in the team is too tired
                 foreach (Person p in this.Persons)
                 {
-                    if (p.Tiredness > p.Braveness * 15 + 30 && GameObject.Chance(20))
+                    if (p.Tiredness > p.Braveness * 10 + 30 && GameObject.Chance(20))
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         this.GoBack();
