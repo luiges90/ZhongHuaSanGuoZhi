@@ -8510,8 +8510,13 @@
                 this.RemoveRoutewayToArchitecture(this.PlanArchitecture);
                 this.PlanArchitecture = null;
             }
+            else if (this.IsFriendly(this.PlanArchitecture.BelongedFaction))
+            {
+                this.RemoveRoutewayToArchitecture(this.PlanArchitecture);
+                this.PlanArchitecture = null;
+            }
             else if ((this.PlanArchitecture != null) || ((this.IsGood() || GameObject.Chance((int)(GameObject.Square((int)leader.Ambition) * Parameters.AIAttackChanceIfUnfull))) &&
-                (this.Domination >= this.DominationCeiling || this.Population <= this.Kind.PopulationBoundary / 2)))
+              (this.Domination >= this.DominationCeiling || this.Population <= this.Kind.PopulationBoundary / 2)))
             {
                 Architecture target = this.PlanArchitecture;
                 LinkNode wayToTarget = null;
