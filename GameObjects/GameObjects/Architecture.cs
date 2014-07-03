@@ -8510,7 +8510,7 @@
                 this.RemoveRoutewayToArchitecture(this.PlanArchitecture);
                 this.PlanArchitecture = null;
             }
-            else if (this.IsFriendly(this.PlanArchitecture.BelongedFaction))
+            else if (this.PlanArchitecture != null && this.IsFriendly(this.PlanArchitecture.BelongedFaction))
             {
                 this.RemoveRoutewayToArchitecture(this.PlanArchitecture);
                 this.PlanArchitecture = null;
