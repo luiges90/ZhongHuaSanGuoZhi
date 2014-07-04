@@ -8603,7 +8603,7 @@
                         int reserve = Math.Max(0, reserveBase - i.A.ArmyScale);
                         int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(i);
                         int armyScaleHere = (i.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
-                        if (this.IsTroopExceedsLimit)
+                        if ((this.IsTroopExceedsLimit || this.ArmyScale > this.MaxSupportableTroopScale) && GameObject.Random(20 * (5 - this.BelongedFaction.Leader.Ambition)) == 0)
                         {
                             ignoreReserve = true;
                         }
