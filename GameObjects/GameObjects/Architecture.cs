@@ -244,10 +244,15 @@
 
         public event RewardPersons OnRewardPersons;
 
+        private CaptiveList captivesCache;
         public CaptiveList Captives
         {
             get
             {
+                if (captivesCache != null)
+                {
+                    return captivesCache;
+                }
                 CaptiveList result = new CaptiveList();
                 foreach (Captive i in base.Scenario.Captives)
                 {
@@ -256,6 +261,7 @@
                         result.Add(i);
                     }
                 }
+                captivesCache = result;
                 return result;
             }
         }
@@ -4238,6 +4244,7 @@
             this.JustAttacked = false;
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
+            captivesCache = null;
             this.SuspendTroopTransfer--;
         }
 
