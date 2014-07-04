@@ -1103,6 +1103,8 @@
                     (5 - (int)leader.Ambition) * Parameters.AIBackendArmyReserveAmbitionMultiply)
                     * Parameters.AIBackendArmyReserveMultiply + Parameters.AIBackendArmyReserveAdd);
 
+                reserve = Math.Min(reserve, this.MaxSupportableTroopScale);
+
                 return reserve;
             }
         }
@@ -4743,16 +4745,6 @@
                     if (this.BelongedFaction == i.A.BelongedFaction && i.A.HasPerson()
                         && i.A.BelongedSection.AIDetail.AutoRun)
                     {
-
-                        int reserve;
-                        if (this.Population > 0)
-                        {
-                            reserve = (int)(i.A.getArmyReserveForOffensive() * Math.Pow(i.A.Population / (double)this.Population, 0.15));
-                        }
-                        else
-                        {
-                            reserve = int.MaxValue;
-                        }
 
                         SortedBoundedSet<Troop> supportList = new SortedBoundedSet<Troop>(Parameters.MaxAITroopCountCandidates, new FightingForceComparer());
                         Troop troop2;
@@ -8471,6 +8463,7 @@
             {
                 reserve = (int)(totalThreat / 2 * (0.8 + (leader.Calmness - leader.Braveness) * 0.1));
             }
+            
             return reserve;
         }
 
@@ -8610,6 +8603,10 @@
                         int reserve = Math.Max(0, reserveBase - i.A.ArmyScale);
                         int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(i);
                         int armyScaleHere = (i.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
+                        if (this.IsTroopExceedsLimit)
+                        {
+                            ignoreReserve = true;
+                        }
                         if ((armyScaleHere < armyScaleRequiredForAttack + reserve) && !ignoreReserve)
                         {
                             if ((GameObject.Random((5 - (int)leader.Ambition) * Parameters.AIOffendIgnoreReserveProbAmbitionMultiply - Parameters.AIOffendIgnoreReserveProbAmbitionAdd) == 0 &&
@@ -8714,7 +8711,7 @@
                     int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(wayToTarget);
                     int armyScaleHere = (wayToTarget.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
 
-                    if (armyScaleHere < armyScaleRequiredForAttack)
+                    if (armyScaleHere < armyScaleRequiredForAttack && !this.IsTroopExceedsLimit)
                     {
                         this.PlanArchitecture = null;
                         return;
@@ -11271,6 +11268,11 @@
         {
             get
             {
+                if (GlobalVariables.PopulationRecruitmentLimit)
+                {
+                    MilitaryKind b = base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds[0];
+                    return this.Population / (b.MaxScale / b.MinScale);
+                }
                 int cost = this.FoodCostPerDayOfAllMilitaries * 60;
                 if (cost < this.FoodCeiling * 0.9)
                 {
@@ -11280,10 +11282,26 @@
             }
         }
 
+        public bool IsTroopExceedsLimit
+        {
+            get
+            {
+                if (GlobalVariables.PopulationRecruitmentLimit)
+                {
+                    return this.Population < this.ArmyQuantity;
+                }
+                return false;
+            }
+        }
+
         public int MaxSupportableTroop
         {
             get
             {
+                if (GlobalVariables.PopulationRecruitmentLimit)
+                {
+                    return this.Population / base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds[0].MaxScale;
+                }
                 int cost = this.FoodCostPerDayOfAllMilitaries * 60;
                 if (cost < this.FoodCeiling * 0.9)
                 {
