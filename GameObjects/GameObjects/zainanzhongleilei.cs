@@ -22,6 +22,26 @@ namespace GameObjects
             get;
             set;
         }
+        public int TroopDamage
+        {
+            get;
+            set;
+        }
+        public int FundDamage
+        {
+            get;
+            set;
+        }
+        public int FoodDamage
+        {
+            get;
+            set;
+        }
+        public int OfficerDamage
+        {
+            get;
+            set;
+        }
         public int tongzhishanghai
         {
             get;

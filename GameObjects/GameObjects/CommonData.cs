@@ -527,16 +527,27 @@
                 zainanzhonglei.Scenario = scen;
                 zainanzhonglei.ID = (short)reader["ID"];
                 zainanzhonglei.Name = reader["名称"].ToString();
-                zainanzhonglei.shijianxiaxian = (short)reader["时间下限"];
-                zainanzhonglei.shijianshangxian = (short)reader["时间上限"];
+                zainanzhonglei.shijianxiaxian = (int)reader["时间下限"];
+                zainanzhonglei.shijianshangxian = (int)reader["时间上限"];
 
-                zainanzhonglei.renkoushanghai = (short)reader["人口伤害"];
-                zainanzhonglei.tongzhishanghai = (short)reader["统治伤害"];
-                zainanzhonglei.naijiushanghai = (short)reader["耐久伤害"];
-                zainanzhonglei.nongyeshanghai = (short)reader["农业伤害"];
-                zainanzhonglei.shangyeshanghai = (short)reader["商业伤害"];
-                zainanzhonglei.jishushanghai = (short)reader["技术伤害"];
-                zainanzhonglei.minxinshanghai = (short)reader["民心伤害"];
+                zainanzhonglei.renkoushanghai = (int)reader["人口伤害"];
+                zainanzhonglei.tongzhishanghai = (int)reader["统治伤害"];
+                zainanzhonglei.naijiushanghai = (int)reader["耐久伤害"];
+                zainanzhonglei.nongyeshanghai = (int)reader["农业伤害"];
+                zainanzhonglei.shangyeshanghai = (int)reader["商业伤害"];
+                zainanzhonglei.jishushanghai = (int)reader["技术伤害"];
+                zainanzhonglei.minxinshanghai = (int)reader["民心伤害"];
+
+                try
+                {
+                    zainanzhonglei.FoodDamage = (int)reader["军粮伤害"];
+                    zainanzhonglei.FundDamage = (int)reader["资金伤害"];
+                    zainanzhonglei.TroopDamage = (int)reader["军队伤害"];
+                    zainanzhonglei.OfficerDamage = (int)reader["武将伤害"];
+                }
+                catch
+                {
+                }
 
                 this.suoyouzainanzhonglei.Addzainanzhonglei(zainanzhonglei);
             }
@@ -1580,6 +1591,10 @@
                     row["商业伤害"] = i.shangyeshanghai;
                     row["技术伤害"] = i.jishushanghai;
                     row["民心伤害"] = i.minxinshanghai;
+                    row["军队伤害"] = i.TroopDamage;
+                    row["资金伤害"] = i.FundDamage;
+                    row["军粮伤害"] = i.FoodDamage;
+                    row["武将伤害"] = i.OfficerDamage;
                     row.EndEdit();
                     dataSet.Tables["DisasterKind"].Rows.Add(row);
                 }

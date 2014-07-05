@@ -4426,6 +4426,33 @@
             this.DecreaseCommerce((int)(this.zainan.zainanzhonglei.shangyeshanghai * rate));
             this.DecreaseTechnology((int)(this.zainan.zainanzhonglei.jishushanghai * rate));
             this.DecreaseMorale((int)(this.zainan.zainanzhonglei.minxinshanghai * jianzaixishu() * rate));
+            this.DecreaseFood((int)(this.zainan.zainanzhonglei.FoodDamage * jianzaixishu() * rate));
+            this.DecreaseFund((int)(this.zainan.zainanzhonglei.FundDamage * jianzaixishu() * rate));
+            if (this.zainan.zainanzhonglei.TroopDamage > 0)
+            {
+                foreach (Military m in this.Militaries)
+                {
+                    int loseTroop = Math.Max(m.Quantity, (int)(this.zainan.zainanzhonglei.TroopDamage * jianzaixishu() * rate));
+                    m.DecreaseQuantity(loseTroop);
+                    m.IncreaseInjuryQuantity(loseTroop * m.Kind.InjuryChance);
+                    m.DecreaseMorale(loseTroop / 100);
+                    m.DecreaseCombativity(loseTroop / 100);
+                }
+            }
+            if (this.zainan.zainanzhonglei.OfficerDamage > 0)
+            {
+                foreach (Person p in this.Persons)
+                {
+                    while (GameObject.Chance(this.zainan.zainanzhonglei.OfficerDamage))
+                    {
+                        p.InjureRate *= 0.85f;
+                        if (p.InjureRate < 0.05)
+                        {
+                            p.ToDeath(null);
+                        }
+                    }
+                }
+            }
         }
 
         public void DecreaseAgriculture(int decrement)

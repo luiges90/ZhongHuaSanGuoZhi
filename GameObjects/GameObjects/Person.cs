@@ -1325,11 +1325,24 @@
             return num;
         }
 
+        public void RecoverFromInjury()
+        {
+            if (this.injureRate < 1 && GameObject.Chance(this.Strength + 10))
+            {
+                this.injureRate += (GameObject.Random(5) + 1) / 100.0f;
+                if (this.injureRate > 1)
+                {
+                    this.injureRate = 1;
+                }
+            }
+        }
+
         public void DayEvent()
         {
             this.CheckDeath();
             if (this.Alive)
             {
+                this.RecoverFromInjury();
                 this.LeaveFaction();
                 this.NoFactionMove();
                 this.LoyaltyChange();
@@ -7905,6 +7918,29 @@
                 }
 
                 return s;
+            }
+        }
+
+        public String InjuryString
+        {
+            get
+            {
+                if (this.injureRate >= 1)
+                {
+                    return "健康";
+                }
+                else if (this.injureRate >= 0.7)
+                {
+                    return "轻伤";
+                }
+                else if (this.injureRate >= 0.3)
+                {
+                    return "重伤";
+                }
+                else
+                {
+                    return "濒危";
+                }
             }
         }
 
