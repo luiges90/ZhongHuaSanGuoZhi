@@ -9004,7 +9004,7 @@
                 dieChance *= (damage.SourceTroop.Leader.Strength + damage.SourceTroop.Leader.Braveness * 10
                     - damage.DestinationTroop.Leader.Strength - damage.DestinationTroop.Leader.Braveness * 10 + 100) / 100.0f;
                 double rand = GameObject.Random(100000) / 100000.0;
-                damage.OfficerInjury = dieChance / rand;
+                damage.OfficerInjury = (float) (dieChance / rand);
                 if (damage.OfficerInjury < 0.1)
                 {
                     damage.OfficerInjury = 0;

@@ -7634,7 +7634,7 @@
         {
             get
             {
-                return p.Tiredness > p.Braveness * 10 + 30 || p.InjureRate < Math.Max(0.3, 0.8 - p.Braveness * 0.05);
+                return this.Tiredness > this.Braveness * 10 + 30 || this.InjureRate < Math.Max(0.3, 0.8 - this.Braveness * 0.05);
             }
         }
 
