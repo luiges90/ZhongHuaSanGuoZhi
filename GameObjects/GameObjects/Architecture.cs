@@ -4432,9 +4432,9 @@
             {
                 foreach (Military m in this.Militaries)
                 {
-                    int loseTroop = Math.Max(m.Quantity, (int)(this.zainan.zainanzhonglei.TroopDamage * jianzaixishu() * rate));
+                    int loseTroop = Math.Min(m.Quantity, (int)(this.zainan.zainanzhonglei.TroopDamage * jianzaixishu() * rate));
                     m.DecreaseQuantity(loseTroop);
-                    m.IncreaseInjuryQuantity(loseTroop * m.Kind.InjuryChance);
+                    m.IncreaseInjuryQuantity(loseTroop * m.Kind.InjuryChance / 100);
                     m.DecreaseMorale(loseTroop / 100);
                     m.DecreaseCombativity(loseTroop / 100);
                 }
