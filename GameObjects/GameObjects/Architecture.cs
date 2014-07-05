@@ -6244,7 +6244,7 @@
             GameArea area = new GameArea();
             foreach (Architecture architecture in base.Scenario.Architectures)
             {
-                if (architecture.BelongedFaction != null && !this.IsFriendly(architecture.BelongedFaction) && architecture.HasPerson())
+                if (architecture.BelongedFaction != null && !this.IsFriendly(architecture.BelongedFaction) && architecture.HasPerson() && this.BelongedFaction.IsArchitectureKnown(architecture))
                 {
                     foreach (Point point in architecture.ArchitectureArea.Area)
                     {
