@@ -1710,7 +1710,7 @@
                     int diff = GameObject.Random(this.AssassinateAbility) - GameObject.Random(this.ConvincingPerson.AssassinateAbility) * 3;
                     if (diff > 0)
                     {
-                        this.ConvincingPerson.InjureRate -= diff / 100.0f;
+                        this.ConvincingPerson.InjureRate -= diff / 1000.0f;
                         if (this.ConvincingPerson.InjureRate < 0.05)
                         {
                             this.AddStrengthExperience(30);
@@ -1755,7 +1755,7 @@
                     {
                         if (diff < -200)
                         {
-                            this.InjureRate -= (-diff - 200) / 100.0f;
+                            this.InjureRate -= (-diff - 200) / 1000.0f;
                             if (this.InjureRate < 0.05)
                             {
                                 ExtensionInterface.call("Assassinated", new Object[] { this.Scenario, this, this.ConvincingPerson });
