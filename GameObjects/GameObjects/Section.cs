@@ -55,6 +55,8 @@
             {
                 this.BelongedFaction.AllocationTransfer(this.Architectures, this.OrientationSection.Architectures,
                     (this.AIDetail.AllowFoodTransfer || this.AIDetail.AllowFundTransfer), false, this.AIDetail.AllowMilitaryTransfer);
+                this.BelongedFaction.FullTransfer(this.Architectures, this.OrientationSection.Architectures,
+                    (this.AIDetail.AllowFoodTransfer || this.AIDetail.AllowFundTransfer), false, this.AIDetail.AllowMilitaryTransfer);
             }
         }
 

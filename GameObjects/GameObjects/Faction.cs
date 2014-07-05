@@ -1025,6 +1025,57 @@
             }
         }
 
+        internal void FullTransfer(ArchitectureList srcArch, ArchitectureList destArch, bool resource, bool person, bool military)
+        {
+            foreach (Architecture a in srcArch)
+            {
+                if (a.Abandoned) continue;
+
+                List<GameObject> candidates = new List<GameObject>(destArch.GameObjects);
+                candidates.Sort(new DistanceComparer(a));
+
+                if (a.Fund >= a.FundCeiling * 0.9 && resource)
+                {
+                    foreach (Architecture b in candidates)
+                    {
+                        if (b.Fund + b.FundInPack < b.FundCeiling * 0.8 && !b.Abandoned && b != a)
+                        {
+                            int toTransfer = (int) (Math.Min(a.Fund - a.FundCeiling * (a.FrontLine ? 0.7 : 0.5), b.FundCeiling * 0.8 - b.Fund - b.FundInPack));
+                            b.CallResource(a, toTransfer, 0);
+                            if (a.Fund < a.FundCeiling * 0.9) break;
+                        }
+                    }
+                }
+                if (a.Food >= a.FoodCeiling * 0.9 && resource)
+                {
+                    foreach (Architecture b in candidates)
+                    {
+                        if (b.Food + b.FoodInPack < b.FoodCeiling * 0.8 && !b.Abandoned && b != a)
+                        {
+                            int toTransfer = (int)(Math.Min(a.Food - a.FoodCeiling * (a.FrontLine ? 0.7 : 0.5), b.FoodCeiling * 0.8 - b.Food - b.FoodInPack));
+                            b.CallResource(a, 0, toTransfer);
+                            if (a.Food < a.FoodCeiling * 0.9) break;
+                        }
+                    }
+                }
+
+                if (a.IsTroopExceedsLimit && military && !a.FrontLine)
+                {
+                    int toSend = a.ArmyScale / 2;
+                    foreach (Architecture b in candidates)
+                    {
+                        if (!b.IsTroopExceedsLimit && b.IsFoodTwiceAbundant && !b.Abandoned & b != a)
+                        {
+                            int sent = b.CallTroop(a, toSend);
+                            if (sent == 0) break;
+                            toSend -= sent;
+                            if (toSend <= 0) break;
+                        }
+                    }
+                }
+            }
+        }
+
         internal void AllocationTransfer(ArchitectureList srcArch, ArchitectureList destArch, bool resource, bool person, bool military)
         {
             ArchitectureList scope = new ArchitectureList();
@@ -1393,6 +1444,7 @@
         {
             WithdrwalTransfer(architectures);
             AllocationTransfer(architectures, architectures, true, true, true);
+            FullTransfer(architectures, architectures, true, true, true);
         }
 
         private void PlayerAITransfer()
