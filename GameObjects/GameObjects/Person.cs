@@ -1329,7 +1329,7 @@
         {
             if (this.injureRate < 1 && GameObject.Chance(this.Strength + 10))
             {
-                this.injureRate += (GameObject.Random(5) + 1) / 100.0f;
+                this.injureRate += (GameObject.Random(30) + 1) / 1000.0f;
                 if (this.injureRate > 1)
                 {
                     this.injureRate = 1;
@@ -4430,7 +4430,7 @@
         {
             get
             {
-                return (int)((this.braveness + this.bravenessIncrease) * this.AbilityAgeFactor);
+                return (int)((this.braveness + this.bravenessIncrease) * this.AbilityAgeFactor * this.injureRate);
             }
             set
             {
@@ -4499,7 +4499,7 @@
         {
             get
             {
-                return (int)((this.calmness + this.calmnessIncrease) * this.AbilityAgeFactor);
+                return (int)((this.calmness + this.calmnessIncrease) * this.AbilityAgeFactor * this.injureRate);
             }
             set
             {
