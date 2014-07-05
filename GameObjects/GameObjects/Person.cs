@@ -211,10 +211,6 @@
             set
             {
                 injureRate = value;
-                if (injureRate < 0.05)
-                {
-                    this.ToDeath(null);
-                }
             }
         }
 
@@ -517,7 +513,7 @@
                 WaitForFeiZi = null;
             }
             ReturnedDaySince++;
-        }
+        } 
 
         public event BeAwardedTreasure OnBeAwardedTreasure;
 
@@ -1703,6 +1699,94 @@
             }
         }
 
+        public void DoAssassinate()
+        {
+            this.OutsideTask = OutsideTaskKind.无;
+            if (this.ConvincingPerson != null)
+            {
+                Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
+                if (architectureByPosition != null && this.ConvincingPerson.Status == PersonStatus.Normal)
+                {
+                    int diff = GameObject.Random(this.AssassinateAbility) - GameObject.Random(this.ConvincingPerson.AssassinateAbility) * 3;
+                    if (diff > 0)
+                    {
+                        this.ConvincingPerson.InjureRate -= diff / 100.0f;
+                        if (this.ConvincingPerson.InjureRate < 0.05)
+                        {
+                            this.AddStrengthExperience(30);
+                            this.AddIntelligenceExperience(30);
+                            this.AddTacticsExperience(180);
+                            this.BelongedFaction.IncreaseTechniquePoint(30 * this.MultipleOfTacticsTechniquePoint * 100);
+
+                            this.illegallyKilled(this.BelongedFaction, this);
+
+                            base.Scenario.GameScreen.PersonAssassinateSuccessKilled(this, this.ConvincingPerson, architectureByPosition);
+
+                            ExtensionInterface.call("Assassinated", new Object[] { this.Scenario, this, this.ConvincingPerson });
+
+                            base.Scenario.YearTable.addAssassinateEntry(base.Scenario.Date, this, this.ConvincingPerson);
+                            this.ConvincingPerson.ToDeath(this);
+                        }
+                        else
+                        {
+                            this.AddStrengthExperience(10);
+                            this.AddIntelligenceExperience(10);
+                            this.AddTacticsExperience(60);
+                            this.BelongedFaction.IncreaseTechniquePoint(10 * this.MultipleOfTacticsTechniquePoint * 100);
+
+                            this.LoseReputationBy(0.005f * this.ConvincingPerson.PersonalLoyalty);
+
+                            if (GameObject.Random(this.AssassinateAbility) > GameObject.Random(this.ConvincingPerson.AssassinateAbility) * 3 &&
+                                !this.ConvincingPerson.ImmunityOfCaptive)
+                            {
+                                Captive captive = Captive.Create(base.Scenario, this.ConvincingPerson, this.BelongedFaction);
+                                this.ConvincingPerson.Status = PersonStatus.Captive;
+                                this.ConvincingPerson.MoveToArchitecture(this.TargetArchitecture);
+
+                                base.Scenario.GameScreen.PersonAssassinateSuccessCaptured(this, this.ConvincingPerson, architectureByPosition);
+                            }
+                            else
+                            {
+                                base.Scenario.GameScreen.PersonAssassinateSuccess(this, this.ConvincingPerson, architectureByPosition);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (diff < -200)
+                        {
+                            this.InjureRate -= (-diff - 200) / 100.0f;
+                            if (this.InjureRate < 0.05)
+                            {
+                                ExtensionInterface.call("Assassinated", new Object[] { this.Scenario, this, this.ConvincingPerson });
+
+                                base.Scenario.YearTable.addReverseAssassinateEntry(base.Scenario.Date, this, this.ConvincingPerson);
+                                this.ToDeath(this);
+
+                                base.Scenario.GameScreen.PersonAssassinateFailedKilled(this, this.ConvincingPerson, architectureByPosition);
+                            }
+                        }
+
+                        this.LoseReputationBy(0.005f * this.ConvincingPerson.PersonalLoyalty);
+
+                        if (this.Alive)
+                        {
+                            base.Scenario.GameScreen.PersonAssassinateFailed(this, this.ConvincingPerson, architectureByPosition);
+                        }
+
+                        if (!CheckCapturedByArchitecture(architectureByPosition))
+                        {
+                            if (!CheckCapturedByArchitecture(architectureByPosition))
+                            {
+                                CheckCapturedByArchitecture(architectureByPosition);
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+
         public void DoConvince()
         {
             this.OutsideTask = OutsideTaskKind.无;
@@ -1767,12 +1851,6 @@
                     if (ConvinceSuccess)
                     {
                         this.ConvincePersonSuccess(this.ConvincingPerson);
-
-
-                        if (architectureByPosition.BelongedFaction != this.BelongedFaction)
-                        {
-                            CheckCapturedByArchitecture(architectureByPosition);
-                        }
                     }
                     else
                     {
@@ -1781,6 +1859,11 @@
                         {
                             this.OnConvinceFailed(this, this.ConvincingPerson);
                         }
+                    }
+
+                    if (architectureByPosition.BelongedFaction != this.BelongedFaction)
+                    {
+                        CheckCapturedByArchitecture(architectureByPosition);
                     }
                 }
             }
@@ -1913,8 +1996,6 @@
                         this.AddIntelligenceExperience(increment);
                         this.AddStrengthExperience(increment / 2);
                         this.AddCommandExperience(increment / 2);
-                        this.IncreaseReputation(increment * 2);
-                        this.BelongedFaction.IncreaseReputation(increment * this.MultipleOfTacticsReputation);
                         this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfTacticsTechniquePoint) * 100);
                         if (architectureByPosition.BelongedFaction != null)
                         {
@@ -1944,14 +2025,12 @@
                 }
             }
         }
+
         public void DoHouGong()
         {
             this.OutsideTask = OutsideTaskKind.无;
 
         }
-
-
-
 
         public void DoGossip()
         {
@@ -1967,8 +2046,6 @@
                         this.AddTacticsExperience(60);
                         this.AddPoliticsExperience(10);
                         this.AddGlamourExperience(10);
-                        this.IncreaseReputation(20);
-                        this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
                         this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
                         if (architectureByPosition.BelongedFaction != null)
                         {
@@ -2073,8 +2150,6 @@
                         this.AddTacticsExperience(increment * 6);
                         this.AddIntelligenceExperience(increment);
                         this.AddGlamourExperience(increment);
-                        this.IncreaseReputation(increment * 2);
-                        this.BelongedFaction.IncreaseReputation(increment * this.MultipleOfTacticsReputation);
                         this.BelongedFaction.IncreaseTechniquePoint((increment * this.MultipleOfTacticsTechniquePoint) * 100);
                         if (architectureByPosition.BelongedFaction != null)
                         {
@@ -2335,6 +2410,10 @@
 
                 case OutsideTaskKind.劫狱:
                     this.DoJailBreak();
+                    break;
+
+                case OutsideTaskKind.暗杀:
+                    this.DoAssassinate();
                     break;
             }
         }
@@ -3071,6 +3150,18 @@
             }
         }
 
+        public void GoForAssassinate(Person person)
+        {
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
+            {
+                this.OutsideTask = OutsideTaskKind.暗杀;
+                this.ConvincingPerson = person;
+                this.GoToDestinationAndReturn(this.OutsideDestination.Value);
+                this.TaskDays = (this.ArrivingDays + 1) / 2;
+                ExtensionInterface.call("GoForAssassinate", new Object[] { this.Scenario, this });
+            }
+        }
+
         public void shoudongjinxingsousuo()
         {
             this.shoudongsousuo = true;
@@ -3164,6 +3255,13 @@
         public bool IncreaseReputation(int increment)
         {
             this.reputation += increment;
+            return true;
+        }
+
+        public bool LoseReputationBy(float rate)
+        {
+            this.BelongedFaction.Reputation = (int)(this.reputation * (1 - rate));
+            this.reputation = (int)(this.reputation * (1 - rate));
             return true;
         }
 
@@ -3297,10 +3395,9 @@
             }
         }
 
-        public void execute(Faction executingFaction)
+        private void illegallyKilled(Faction executingFaction, Person killer)
         {
-            Person executor = executingFaction.Leader;
-            executor.ExecuteCount++;
+            killer.ExecuteCount++;
 
             if (this.BelongedCaptive != null && this.BelongedCaptive.CaptiveFaction != null && this.BelongedCaptive.CaptiveFaction != executingFaction) // 斩有势力的俘虏
             {
@@ -3324,22 +3421,22 @@
             foreach (Person p in base.Scenario.Persons)
             {
                 if (p == this) continue;
-                if (p == executor) continue;
+                if (p == killer) continue;
                 if (p.IsVeryCloseTo(this))
                 {
-                    p.AddHated(executor);
+                    p.AddHated(killer);
                 }
                 if (p.HasCloseStrainTo(this))
                 {
                     // person close to killed one hates executor
-                    p.AddHated(executor);
+                    p.AddHated(killer);
 
                     // person close to killed one may also hate executor's close persons
                     foreach (Person q in base.Scenario.Persons)
                     {
-                        if (p == q || q == this || q == executor) continue;
+                        if (p == q || q == this || q == killer) continue;
                         if (GameObject.Chance((4 - p.PersonalLoyalty) * 25)) continue;
-                        if (q.HasCloseStrainTo(executor))
+                        if (q.HasCloseStrainTo(killer))
                         {
                             p.AddHated(q);
                         }
@@ -3347,8 +3444,14 @@
                 }
             }
 
-            executingFaction.Reputation = (int)(executingFaction.Reputation * (1 - 0.005 * this.PersonalLoyalty));
-            executor.Reputation = (int)(executor.Reputation * (1 - 0.005 * this.PersonalLoyalty));
+            killer.LoseReputationBy(0.02f * this.PersonalLoyalty);
+        }
+
+        public void execute(Faction executingFaction)
+        {
+            Person executor = executingFaction.Leader;
+
+            this.illegallyKilled(executingFaction, executor);
 
             ExtensionInterface.call("Executed", new Object[] { this.Scenario, this, executingFaction });
 
@@ -3725,7 +3828,7 @@
 
                 this.LocationArchitecture = this.TargetArchitecture;
 
-                if (this.Status != PersonStatus.Princess)
+                if (this.Status != PersonStatus.Princess && this.Status != PersonStatus.Captive)
                 {
                     this.WorkKind = ArchitectureWorkKind.无;
                     if (this.BelongedFaction != null)
@@ -4212,6 +4315,14 @@
             set
             {
                 this.arrivingDays = value;
+            }
+        }
+
+        public int AssassinateAbility
+        {
+            get
+            {
+                return this.Strength * 2 + this.Intelligence * 2 + this.Calmness * 20 + this.Braveness * 20;
             }
         }
 
@@ -7420,6 +7531,7 @@
                     if (p.Alive)
                     {
                         tookSpouse = p;
+                        this.LoseReputationBy(0.05f);
 
                         p.AddHated(this.BelongedFaction.Leader);
                     }
@@ -7432,8 +7544,6 @@
 
             return tookSpouse;
         }
-
-
 
         public void GoForHouGong(Person nvren)
         {

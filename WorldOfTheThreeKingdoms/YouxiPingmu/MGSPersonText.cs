@@ -1228,6 +1228,51 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void PersonAssassinateSuccess(Person killer, Person killed, Architecture a)
+        {
+            if (base.Scenario.IsCurrentPlayer(killer.BelongedFaction) || base.Scenario.IsCurrentPlayer(killed.BelongedFaction))
+            {
+                killer.TextDestinationString = killed.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(killer, "PersonAssassinateSuccess", killed.Position);
+            }
+        }
+
+        public override void PersonAssassinateSuccessKilled(Person killer, Person killed, Architecture a)
+        {
+            if (base.Scenario.IsCurrentPlayer(killer.BelongedFaction) || base.Scenario.IsCurrentPlayer(killed.BelongedFaction))
+            {
+                killer.TextDestinationString = killed.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(killer, "PersonAssassinateSuccessKilled", killed.Position);
+            }
+        }
+
+        public override void PersonAssassinateSuccessCaptured(Person killer, Person killed, Architecture a)
+        {
+            if (base.Scenario.IsCurrentPlayer(killer.BelongedFaction) || base.Scenario.IsCurrentPlayer(killed.BelongedFaction))
+            {
+                killer.TextDestinationString = killed.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(killer, "PersonAssassinateSuccessCaptured", killed.Position);
+            }
+        }
+
+        public override void PersonAssassinateFailed(Person killer, Person killed, Architecture a)
+        {
+            if (base.Scenario.IsCurrentPlayer(killer.BelongedFaction) || base.Scenario.IsCurrentPlayer(killed.BelongedFaction))
+            {
+                killer.TextDestinationString = killed.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(killer, "PersonAssassinateFailed", killed.Position);
+            }
+        }
+
+        public override void PersonAssassinateFailedKilled(Person killer, Person killed, Architecture a)
+        {
+            if (base.Scenario.IsCurrentPlayer(killer.BelongedFaction) || base.Scenario.IsCurrentPlayer(killed.BelongedFaction))
+            {
+                killer.TextDestinationString = killed.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(killer, "PersonAssassinateFailedKilled", killed.Position);
+            }
+        }
+
         public override void SelfCaptiveRelease(Captive captive)
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(captive.BelongedFaction)) || base.Scenario.IsCurrentPlayer(captive.CaptiveFaction)) || GlobalVariables.SkyEye)

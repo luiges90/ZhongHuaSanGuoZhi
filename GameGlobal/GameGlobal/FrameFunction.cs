@@ -53,6 +53,8 @@
         GetGossipPerson,
         GetSearchPerson,
         GetJailBreakPerson,
+        GetAssassinatePerson,
+        GetAssassinatePersonTarget,
         GetFacilityToBuild,
         GetFacilityToDemolish,
         Transport,

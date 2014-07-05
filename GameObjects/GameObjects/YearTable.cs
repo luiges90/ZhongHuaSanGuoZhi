@@ -162,6 +162,26 @@
             }
         }
 
+        public void addAssassinateEntry(GameDate date, Person killer, Person killed)
+        {
+            this.addTableEntry(date, composeFactionList(killer.BelongedFaction, killed.BelongedFaction),
+                String.Format(yearTableStrings["assassinate"], killed.BelongedFaction.Name, killed.Name, killed.LocationArchitecture, killer.BelongedFaction.Name, killer.Name, killed.Age), true);
+            this.addPersonInGameBiography(killer, date,
+                String.Format(yearTableStrings["assassinate_p"], killed.BelongedFaction.Name, killed.Name, killed.LocationArchitecture, killer.BelongedFaction.Name, killer.Name, killed.Age));
+            this.addPersonInGameBiography(killed, date,
+                String.Format(yearTableStrings["assassinate_q"], killed.BelongedFaction.Name, killed.Name, killed.LocationArchitecture, killer.BelongedFaction.Name, killer.Name, killed.Age));
+        }
+
+        public void addReverseAssassinateEntry(GameDate date, Person killer, Person killed)
+        {
+            this.addTableEntry(date, composeFactionList(killer.BelongedFaction, killed.BelongedFaction),
+                String.Format(yearTableStrings["reverse_assassinate"], killed.BelongedFaction.Name, killed.Name, killed.LocationArchitecture, killer.BelongedFaction.Name, killer.Name, killed.Age), true);
+            this.addPersonInGameBiography(killer, date,
+                String.Format(yearTableStrings["reverse_assassinate_p"], killed.BelongedFaction.Name, killed.Name, killed.LocationArchitecture, killer.BelongedFaction.Name, killer.Name, killed.Age));
+            this.addPersonInGameBiography(killed, date,
+                String.Format(yearTableStrings["reverse_assassinate_q"], killed.BelongedFaction.Name, killed.Name, killed.LocationArchitecture, killer.BelongedFaction.Name, killer.Name, killed.Age));
+        }
+
         public void addChildrenBornEntry(GameDate date, Person factionLeader, Person feizi, Person born)
         {
             Faction faction = factionLeader.BelongedFaction;

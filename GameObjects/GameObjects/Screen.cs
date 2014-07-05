@@ -467,6 +467,26 @@
         {
         }
 
+        public virtual void PersonAssassinateSuccess(Person killer, Person killed, Architecture a)
+        {
+        }
+
+        public virtual void PersonAssassinateSuccessKilled(Person killer, Person killed, Architecture a)
+        {
+        }
+
+        public virtual void PersonAssassinateSuccessCaptured(Person killer, Person killed, Architecture a)
+        {
+        }
+
+        public virtual void PersonAssassinateFailed(Person killer, Person killed, Architecture a)
+        {
+        }
+
+        public virtual void PersonAssassinateFailedKilled(Person killer, Person killed, Architecture a)
+        {
+        }
+
         public void PlayImportantSound(string soundFileLocation)
         {
             if (GlobalVariables.PlayBattleSound && File.Exists(soundFileLocation))

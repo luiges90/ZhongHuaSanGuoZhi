@@ -667,6 +667,18 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
                     }
                     break;
+
+                case SelectingUndoneWorkKind.AssassinatePosition:
+                    if (this.CurrentArchitecture != null)
+                    {
+                        this.selectingLayer.AreaFrameKind = SelectingUndoneWorkKind.AssassinatePosition;
+                        this.selectingLayer.Area = this.CurrentArchitecture.GetAssassinateArchitectureArea();
+                        this.selectingLayer.ShowComment = true;
+                        this.selectingLayer.SingleWay = true;
+                        this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
+                    }
+                    break;
+
                 case SelectingUndoneWorkKind.WujiangDiaodong:
                     if (this.CurrentArchitecture != null)
                     {
@@ -876,6 +888,22 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                                 person.OutsideDestination = new Point?(this.selectingLayer.SelectedPoint);
                             }
                             this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetConvinceDestinationPerson, false, true, true, false, architectureByPosition.GetConvinceDestinationPersonList((this.CurrentPersons[0] as Person).BelongedFaction), null, "说服", "Personal");
+                        }
+                    }
+                    return;
+
+                case SelectingUndoneWorkKind.AssassinatePosition:
+                    if (!this.selectingLayer.Canceled && (this.CurrentPersons.Count > 0))
+                    {
+                        Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+                        if (architectureByPosition != null)
+                        {
+                            this.CurrentArchitecture = architectureByPosition;
+                            foreach (Person person in this.CurrentPersons)
+                            {
+                                person.OutsideDestination = new Point?(this.selectingLayer.SelectedPoint);
+                            }
+                            this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetAssassinatePersonTarget, false, true, true, false, architectureByPosition.Persons, null, "说服", "Personal");
                         }
                     }
                     return;

@@ -452,6 +452,13 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+		<Column ID="118" Name="AssassinateAbility" IsNumber="true" DisplayName="暗杀能力" MinWidth="80" DetailLevel="3"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
         <Column ID="120" Name="TreasureCount" IsNumber="true" DisplayName="宝物数量" MinWidth="80" DetailLevel="3"
                 FontName="方正隶变_GBK"
                 FontSize="15"
@@ -2526,7 +2533,7 @@
               FontColor="4294967295"
               Align="Right">
         </Column>
-		<Column ID="300" Name="ImmunityOfCaptive" IsNumber="False" DisplayName="不会被俘" MinWidth="80" DetailLevel="4"
+		<Column ID="300" Name="ImmunityOf" IsNumber="False" DisplayName="不会被俘" MinWidth="80" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"

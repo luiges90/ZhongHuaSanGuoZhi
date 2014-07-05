@@ -4446,6 +4446,10 @@
                     while (GameObject.Chance(this.zainan.zainanzhonglei.OfficerDamage))
                     {
                         p.InjureRate *= 0.85f;
+                        if (p.InjureRate < 0.05)
+                        {
+                            p.ToDeath(null);
+                        }
                     }
                 }
             }
@@ -6235,6 +6239,22 @@
             return area;
         }
 
+        public GameArea GetAssassinateArchitectureArea()
+        {
+            GameArea area = new GameArea();
+            foreach (Architecture architecture in base.Scenario.Architectures)
+            {
+                if (architecture.BelongedFaction != null && !this.IsFriendly(architecture.BelongedFaction) && architecture.HasPerson())
+                {
+                    foreach (Point point in architecture.ArchitectureArea.Area)
+                    {
+                        area.AddPoint(point);
+                    }
+                }
+            }
+            return area;
+        }
+
         public GameArea GetJailBreakArchitectureArea()
         {
             GameArea area = new GameArea();
@@ -6820,6 +6840,11 @@
         public bool JailBreakAvail()
         {
             return ((this.HasPerson() && (this.Fund >= this.JailBreakArchitectureFund)) && (this.GetJailBreakArchitectureArea().Count > 0));
+        }
+
+        public bool AssassinateAvail()
+        {
+            return this.HasPerson() && this.GetAssassinateArchitectureArea().Count > 0;
         }
 
         private void characteristicsDoWork()

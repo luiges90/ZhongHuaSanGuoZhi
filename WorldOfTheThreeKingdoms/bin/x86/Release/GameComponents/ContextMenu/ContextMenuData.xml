@@ -104,6 +104,7 @@
                 <MenuItem ID="4" Name="Instigate" DisplayName="煽动" DisplayIfTrue="InstigateAvail" />
                 <MenuItem ID="5" Name="Gossip" DisplayName="流言" DisplayIfTrue="GossipAvail" />
                 <MenuItem ID="6" Name="JailBreak" DisplayName="劫牢" DisplayIfTrue="JailBreakAvail" />
+				<MenuItem ID="6" Name="Assassinate" DisplayName="暗杀" DisplayIfTrue="AssassinateAvail" />
                 <MenuItem ID="7" Name="Search" DisplayName="搜索" DisplayIfTrue="SearchAvail" />
                 <MenuItem ID="8" Name="AutoSearching" DisplayName="委任搜索" OppositeName="手动搜索" OppositeIfTrue="AutoSearching" DisplayIfTrue="AutoSearchingAvail" />
             </MenuItem>

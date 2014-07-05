@@ -6058,29 +6058,28 @@
                     Challenge challeng = new Challenge();
                     challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
                 }
-                if (damage.OfficerInjury > 1 && !damage.DestinationTroop.ImmunityOfDieInBattle)
-                {
-                    if (damage.DestinationTroop == damage.DestinationTroop.StartingArchitecture.RobberTroop)
-                    {
-                        damage.DestinationTroop.Persons.Remove(damage.DestinationTroop.Leader);
-                        damage.DestinationTroop.Leader.LocationTroop = null;
-                    }
-                    else
-                    {
-                        int c = GameObject.Random(damage.DestinationTroop.Persons.Count);
-                        Person toDie = damage.DestinationTroop.Persons[c] as Person;
-                        if (!toDie.ImmunityOfDieInBattle)
-                        {
-                            toDie.KilledInBattle(damage.SourceTroop);
-                        }
-                    }
-                }
-                else if (damage.OfficerInjury > 0 && !damage.DestinationTroop.ImmunityOfDieInBattle)
+                if (damage.OfficerInjury > 0 && !damage.DestinationTroop.ImmunityOfDieInBattle)
                 {
                     int c = GameObject.Random(damage.DestinationTroop.Persons.Count);
                     Person toInjure = damage.DestinationTroop.Persons[c] as Person;
                     toInjure.InjureRate -= damage.OfficerInjury;
+                    if (toInjure.InjureRate < 0.05)
+                    {
+                        if (damage.DestinationTroop == damage.DestinationTroop.StartingArchitecture.RobberTroop)
+                        {
+                            damage.DestinationTroop.Persons.Remove(damage.DestinationTroop.Leader);
+                            damage.DestinationTroop.Leader.LocationTroop = null;
+                        }
+                        else
+                        {
+                            if (!toInjure.ImmunityOfDieInBattle)
+                            {
+                                toInjure.KilledInBattle(damage.SourceTroop);
+                            }
+                        }
+                    }
                 }
+
 
                 if (damage.OnFire && base.Scenario.IsFireVaild(damage.DestinationTroop.Position, false, MilitaryType.步兵))
                 {

@@ -85,6 +85,7 @@
         Tactics_Search,
         Tactics_ClearField,
         Tactics_JailBreak,
+        Tactics_Assassinate,
         Diplomacy,
         Monarch_Diplomatic_EnhanceDiplomaticRelation,
         Monarch_Diplomatic_AllyDiplomaticRelation,

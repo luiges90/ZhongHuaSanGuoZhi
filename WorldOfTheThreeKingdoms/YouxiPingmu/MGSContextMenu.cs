@@ -558,6 +558,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetGossipPerson, false, true, true, true, this.CurrentArchitecture.Persons, null, "流言", "流言");
                     break;
 
+                case ContextMenuResult.Tactics_Assassinate:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetAssassinatePerson, false, true, true, false, this.CurrentArchitecture.Persons, null, "暗杀", "暗杀");
+                    break;
+
                 case ContextMenuResult.Tactics_Search:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetSearchPerson, false, true, true, true, this.CurrentArchitecture.Persons, null, "搜索", "搜索");
                     break;

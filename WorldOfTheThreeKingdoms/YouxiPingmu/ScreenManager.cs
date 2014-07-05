@@ -344,6 +344,29 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        private void FrameFunction_Architecture_AfterGetAssassinatePerson()
+        {
+            this.CurrentGameObjects = this.CurrentArchitecture.Persons.GetSelectedList();
+            if (this.CurrentGameObjects != null)
+            {
+                this.CurrentPersons = this.CurrentGameObjects.GetList();
+                this.mainGameScreen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.AssassinatePosition));
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterGetAssassinatePersonTarget()
+        {
+            this.CurrentGameObjects = this.CurrentArchitecture.ConvinceDestinationPersonList.GetSelectedList();
+            if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
+            {
+                foreach (Person person in this.CurrentPersons)
+                {
+                    person.GoForAssassinate(this.CurrentGameObjects[0] as Person);
+                }
+                this.mainGameScreen.PlayNormalSound("GameSound/Tactics/Outside.wav");
+            }
+        }
+
         private void FrameFunction_Architecture_AfterGetInformationToStop()
         {
             this.CurrentGameObjects = this.CurrentArchitecture.Informations.GetSelectedList();
@@ -968,6 +991,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case FrameFunction.GetJailBreakPerson:
                     this.FrameFunction_Architecture_AfterGetJailBreakPerson();
+                    break;
+
+                case FrameFunction.GetAssassinatePerson:
+                    this.FrameFunction_Architecture_AfterGetAssassinatePerson();
+                    break;
+
+                case FrameFunction.GetAssassinatePersonTarget:
+                    this.FrameFunction_Architecture_AfterGetAssassinatePersonTarget();
                     break;
 
                 case FrameFunction.GetSearchPerson:

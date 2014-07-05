@@ -7,6 +7,7 @@
         None,
         ArchitectureAvailableContactArea,
         ConvincePersonPosition,
+        AssassinatePosition,
         InformationPosition,
         SpyPosition,
         DestroyPosition,
