@@ -1919,6 +1919,7 @@
                         }
                     }
                 }
+
                 if ((this.BelongedSection != null) && ((knownArch.Count > 0) && (this.PlanArchitecture == null)) && this.BelongedSection.AIDetail.AllowPersonTactics)
                 {
                     if (knownArch.Count > 1)
@@ -1948,10 +1949,10 @@
                                     if (((diplomaticRelation >= 0) && (GameObject.Random(diplomaticRelation + 200) <= GameObject.Random(50))) || ((diplomaticRelation < 0) && (GameObject.Random(Math.Abs(diplomaticRelation) + 100) >= GameObject.Random(100))))
                                     {
                                         firstHalfPerson = this.GetFirstHalfPerson("GossipAbility");
-                                        if (firstHalfPerson != null && !firstHalfPerson.HasLeadingArmy && 
-                                            firstHalfPerson.NonFightingNumber > firstHalfPerson.FightingNumber && 
+                                        if (firstHalfPerson != null && !firstHalfPerson.HasLeadingArmy &&
+                                            firstHalfPerson.NonFightingNumber > firstHalfPerson.FightingNumber &&
                                             (firstHalfPerson != firstHalfPerson.BelongedFaction.Leader || firstHalfPerson.ImmunityOfCaptive) &&
-                                            GameObject.Random(architecture2.GetGossipablePersonCount() + 4) >= 4 
+                                            GameObject.Random(architecture2.GetGossipablePersonCount() + 4) >= 4
                                             && GameObject.Random(firstHalfPerson.GossipAbility) >= 200)
                                         {
                                             firstHalfPerson.GoForGossip(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
@@ -1997,7 +1998,7 @@
                                         if (firstHalfPerson != null && !firstHalfPerson.HasLeadingArmy &&
                                             firstHalfPerson.NonFightingNumber > firstHalfPerson.FightingNumber &&
                                             (firstHalfPerson != firstHalfPerson.BelongedFaction.Leader || firstHalfPerson.ImmunityOfCaptive) &&
-                                            GameObject.Random(firstHalfPerson.ConvinceAbility) > GameObject.Random(extremeLoyaltyPerson.Loyalty * 5)) 
+                                            GameObject.Random(firstHalfPerson.ConvinceAbility) > GameObject.Random(extremeLoyaltyPerson.Loyalty * 5))
                                         {
                                             firstHalfPerson.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
                                             firstHalfPerson.GoForConvince(extremeLoyaltyPerson);
@@ -2043,6 +2044,54 @@
                             }
                         }
                     }
+                    if (this.HasPerson() && GameObject.Chance(50) && this.AssassinateAvail())
+                    {
+                        if (knownArch.Count > 0)
+                        {
+                            Architecture target = (Architecture)knownArch[GameObject.Random(knownArch.Count)];
+
+                            diplomaticRelation = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, target.BelongedFaction.ID);
+                            if (((diplomaticRelation >= 0) && (GameObject.Random(diplomaticRelation + 400) <= GameObject.Random(50))) || (diplomaticRelation < 0))
+                            {
+                                PersonList candidates = new PersonList();
+                                foreach (Person p in target.Persons)
+                                {
+                                    if ((double) (p.UntiredStrength + p.UntiredIntelligence) / (p.Strength + p.Intelligence) > 1.1)
+                                    {
+                                        candidates.Add(p);
+                                    }
+                                }
+                                if (candidates.Count > 0)
+                                {
+                                    candidates.SmallToBig = false;
+                                    candidates.PropertyName = "Merit";
+                                    candidates.IsNumber = true;
+                                    candidates.ReSort();
+
+                                    Person killer = null;
+                                    int max = 0;
+                                    foreach (Person p in this.Persons)
+                                    {
+                                        if (killer == null || killer.AssassinateAbility > max)
+                                        {
+                                            killer = p;
+                                            max = killer.AssassinateAbility;
+                                        }
+                                    }
+
+                                    foreach (Person p in candidates)
+                                    {
+                                        if (killer.AssassinateAbility > p.AssassinateAbility)
+                                        {
+                                            killer.GoForAssassinate(p);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
                 }
             }
 
