@@ -2081,7 +2081,7 @@
 
                                     foreach (Person p in candidates)
                                     {
-                                        if (killer.AssassinateAbility > p.AssassinateAbility)
+                                        if (killer.AssassinateAbility > p.AssassinateAbility && killer.UntiredMerit * 0.9 < p.UntiredMerit)
                                         {
                                             killer.GoForAssassinate(p);
                                             break;
