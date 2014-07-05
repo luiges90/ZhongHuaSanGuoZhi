@@ -2927,6 +2927,14 @@
                 catch
                 {
                 }
+                try
+                {
+                    person.InjureRate = (int)reader["InjureRate"];
+                }
+                catch 
+                {
+                    person.InjureRate = 1;
+                }
 
                 if (errors.Count > 0)
                 {
@@ -5061,6 +5069,7 @@
                     row["StratagemBeFailCount"] = person.StratagemBeFailCount;
                     row["Tiredness"] = person.Tiredness;
                     row["OfficerKillCount"] = person.OfficerKillCount;
+                    row["InjureRate"] = person.InjureRate;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
