@@ -917,7 +917,7 @@
                 // retreat if anyone in the team is too tired
                 foreach (Person p in this.Persons)
                 {
-                    if (p.Tiredness > p.Braveness * 10 + 30 && GameObject.Chance(20))
+                    if (p.TooTiredToBattle && GameObject.Chance(20))
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         this.GoBack();
@@ -6058,7 +6058,7 @@
                     Challenge challeng = new Challenge();
                     challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
                 }
-                if (damage.OfficerDie && !damage.DestinationTroop.ImmunityOfDieInBattle)
+                if (damage.OfficerInjury > 1 && !damage.DestinationTroop.ImmunityOfDieInBattle)
                 {
                     if (damage.DestinationTroop == damage.DestinationTroop.StartingArchitecture.RobberTroop)
                     {
@@ -6074,6 +6074,12 @@
                             toDie.KilledInBattle(damage.SourceTroop);
                         }
                     }
+                }
+                else if (damage.OfficerInjury > 0 && !damage.DestinationTroop.ImmunityOfDieInBattle)
+                {
+                    int c = GameObject.Random(damage.DestinationTroop.Persons.Count);
+                    Person toInjure = damage.DestinationTroop.Persons[c] as Person;
+                    toInjure.InjureRate -= damage.OfficerInjury;
                 }
 
                 if (damage.OnFire && base.Scenario.IsFireVaild(damage.DestinationTroop.Position, false, MilitaryType.步兵))
@@ -8979,7 +8985,7 @@
             damage.Damage = num4;
             damage.StealTroop = Math.Min(damage.DestinationTroop.Quantity, (int)(damage.Damage * this.StealTroop));
             damage.StealInjured = Math.Min(damage.DestinationTroop.InjuryQuantity, (int)(damage.Damage * this.StealInjured));
-            damage.OfficerDie = false;
+            damage.OfficerInjury = 0;
             if ((damage.Critical || troop.Quantity <= damage.Damage) && damage.Damage > 0 && GlobalVariables.OfficerDieInBattleRate > 0)
             {
                 float dieChance = GlobalVariables.OfficerDieInBattleRate / 10000.0f;
@@ -8997,9 +9003,11 @@
                 }
                 dieChance *= (damage.SourceTroop.Leader.Strength + damage.SourceTroop.Leader.Braveness * 10
                     - damage.DestinationTroop.Leader.Strength - damage.DestinationTroop.Leader.Braveness * 10 + 100) / 100.0f;
-                if (GameObject.Random(100000) < dieChance * 100000)
+                double rand = GameObject.Random(100000) / 100000.0;
+                damage.OfficerInjury = dieChance / rand;
+                if (damage.OfficerInjury < 0.1)
                 {
-                    damage.OfficerDie = true;
+                    damage.OfficerInjury = 0;
                 }
             }
             ExtensionInterface.call("TroopSendTroopDamage", new Object[] { this.Scenario, this, damage, troop, counter });

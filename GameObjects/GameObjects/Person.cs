@@ -211,6 +211,10 @@
             set
             {
                 injureRate = value;
+                if (injureRate < 0.05)
+                {
+                    this.ToDeath(null);
+                }
             }
         }
 
@@ -7623,6 +7627,14 @@
                     }
                 }
                 return false;
+            }
+        }
+
+        public bool TooTiredToBattle
+        {
+            get
+            {
+                return p.Tiredness > p.Braveness * 10 + 30 || p.InjureRate < Math.Max(0.3, 0.8 - p.Braveness * 0.05);
             }
         }
 

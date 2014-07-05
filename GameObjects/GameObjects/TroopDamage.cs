@@ -32,7 +32,7 @@
         public TroopList SurroudingList = new TroopList();
         public bool Surround;
         public bool Waylay;
-        public bool OfficerDie;
+        public float OfficerInjury;
 
         public int InjuredDamage;
         public int StealTroop;
