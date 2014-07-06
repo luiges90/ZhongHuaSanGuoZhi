@@ -116,11 +116,13 @@
         }
 
         private Dictionary<Architecture, PersonList>
-             NormalPLCache, MovingPLCache, NoFactionPLCache, NoFactionMovingPLCache, PrincessPLCache, CaptivePLCache,
+             NormalPLCache, MovingPLCache, NoFactionPLCache, NoFactionMovingPLCache, PrincessPLCache,
              ZhenzaiPLCache, AgriculturePLCache, CommercePLCache, TechnologyPLCache,
              DominationPLCache, MoralePLCache, EndurancePLCache, TrainingPLCache;
+        private Dictionary<Architecture, CaptiveList> CaptivePLCache;
 
         private PersonList emptyPersonList = new PersonList();
+        private CaptiveList emptyCaptiveList = new CaptiveList();
 
         public PersonList GetPersonList(Architecture a)
         {
@@ -172,13 +174,13 @@
             return PrincessPLCache[a];
         }
 
-        public PersonList GetCaptiveList(Architecture a)
+        public CaptiveList GetCaptiveList(Architecture a)
         {
             if (CaptivePLCache == null)
             {
                 CreatePersonStatusCache();
             }
-            if (!this.CaptivePLCache.ContainsKey(a)) return emptyPersonList;
+            if (!this.CaptivePLCache.ContainsKey(a)) return emptyCaptiveList;
             return CaptivePLCache[a];
         }
 
@@ -349,7 +351,7 @@
             NoFactionPLCache = new Dictionary<Architecture, PersonList>();
             NoFactionMovingPLCache = new Dictionary<Architecture, PersonList>();
             PrincessPLCache = new Dictionary<Architecture, PersonList>();
-            CaptivePLCache = new Dictionary<Architecture, PersonList>();
+            CaptivePLCache = new Dictionary<Architecture, CaptiveList>();
 
             foreach (Person i in this.AvailablePersons)
             {
@@ -393,11 +395,14 @@
                     }
                     PrincessPLCache[i.LocationArchitecture].Add(i);
                 }
-                if (i.Status == PersonStatus.Captive && i.LocationArchitecture != null && (i.LocationTroop == null || !this.Troops.GameObjects.Contains(i.LocationTroop)))
+            }
+            foreach (Captive i in this.Captives)
+            {
+                if (i.LocationArchitecture != null && i.CaptivePerson != null)
                 {
                     if (!this.CaptivePLCache.ContainsKey(i.LocationArchitecture))
                     {
-                        this.CaptivePLCache[i.LocationArchitecture] = new PersonList();
+                        this.CaptivePLCache[i.LocationArchitecture] = new CaptiveList();
                     }
                     CaptivePLCache[i.LocationArchitecture].Add(i);
                 }
@@ -406,7 +411,8 @@
 
         public void ClearPersonStatusCache()
         {
-            NormalPLCache = MovingPLCache = NoFactionPLCache = NoFactionMovingPLCache = PrincessPLCache = CaptivePLCache = null;
+            NormalPLCache = MovingPLCache = NoFactionPLCache = NoFactionMovingPLCache = PrincessPLCache = null;
+            CaptivePLCache = null;
         }
 
         public void ClearPersonWorkCache()
