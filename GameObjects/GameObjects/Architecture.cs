@@ -2071,6 +2071,7 @@
                                     {
                                         if (killer.AssassinateAbility > p.AssassinateAbility && killer.UntiredMerit * 0.9 < p.UntiredMerit)
                                         {
+                                            killer.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(p.BelongedArchitecture.ArchitectureArea, this.Position));
                                             killer.GoForAssassinate(p);
                                             break;
                                         }
@@ -2313,7 +2314,7 @@
             PersonList leader = new PersonList();
             foreach (Person p in this.Persons)
             {
-                if (p.Merit < min && p.Tiredness < 30 && p.InjureRate >= 1)
+                if (p.Merit < min && p.Tiredness < 30 && p.InjureRate >= 1 && p.Loyalty > 80)
                 {
                     leader.Clear();
                     leader.Add(p);
