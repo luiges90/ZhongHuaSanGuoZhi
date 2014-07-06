@@ -628,7 +628,7 @@
                     {
                         foreach (Architecture b in this.Architectures)
                         {
-                            if (!b.truceFrontline && b.Meinvkongjian > b.Feiziliebiao.Count && (a.truceFrontline || b.Meinvkongjian > a.Meinvkongjian))
+                            if (!b.withoutTruceFrontline && b.Meinvkongjian > b.Feiziliebiao.Count && (a.withoutTruceFrontline || b.Meinvkongjian > a.Meinvkongjian))
                             {
                                 int cnt = b.Meinvkongjian - b.Feiziliebiao.Count;
                                 GameObjectList list = a.Feiziliebiao.GetList();
@@ -1064,7 +1064,7 @@
                     int toSend = a.ArmyScale / 2;
                     foreach (Architecture b in candidates)
                     {
-                        if (!b.IsTroopExceedsLimit && b.IsFoodTwiceAbundant && !b.Abandoned & b != a)
+                        if ((!b.IsTroopExceedsLimit || b.FrontLine) && b.IsFoodTwiceAbundant && !b.Abandoned & b != a)
                         {
                             int sent = b.CallTroop(a, toSend);
                             toSend -= sent;
@@ -1102,7 +1102,7 @@
                         minTroop.Add(a, a.TroopReserveScale); // defensiveCampaign will deal with this
                         urgent = true;
                     }
-                    else if (a.truceFrontline || a.IsNetLosingPopulation)
+                    else if (a.withoutTruceFrontline || a.IsNetLosingPopulation)
                     {
                         minPerson.Add(a, Math.Min(3, a.EnoughPeople));
                         minTroop.Add(a, a.TroopReserveScale);
@@ -1256,7 +1256,7 @@
                     foreach (Architecture b in candidates)
                     {
                         if (b.Abandoned || b == a) continue;
-                        if (!b.truceFrontline && !b.HasHostileTroopsInView())
+                        if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
                         {
                             if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
                             {
@@ -1393,7 +1393,7 @@
                     foreach (Architecture b in candidates)
                     {
                         if (b.Abandoned || b == a) continue;
-                        if (!b.truceFrontline && !b.HasHostileTroopsInView())
+                        if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
                         {
                             if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
                             {

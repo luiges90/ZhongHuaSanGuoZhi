@@ -220,7 +220,7 @@
         public HashSet<Architecture> actuallyUnreachableArch = new HashSet<Architecture>();
         internal bool hostileTroopInViewLastDay = false;
         public int SuspendTroopTransfer;
-        public bool truceFrontline;
+        public bool withoutTruceFrontline;
 
         public float ExperienceRate;
 
@@ -1075,7 +1075,7 @@
                     Math.Max((this.Endurance - this.EnduranceCeiling) / 30,
                     Math.Max((this.Morale - this.MoraleCeiling) / 30,
                     (this.Domination - this.DominationCeiling) / 30)))));
-                int frontLine = (this.truceFrontline || this.noFactionFrontline) ? this.EffectiveMilitaryCount * 2 : 0;
+                int frontLine = (this.withoutTruceFrontline || this.noFactionFrontline) ? this.EffectiveMilitaryCount * 2 : 0;
                 return Math.Min(this.MaxSupportableTroop, Math.Min(Math.Max(develop, frontLine), fundSupport));
             }
         }
@@ -2183,7 +2183,7 @@
             }
         }
 
-        public bool IsArchitectureHostileWithTruce(Architecture a)
+        public bool IsArchitectureHostileWithoutTruce(Architecture a)
         {
             if (this.IsArchitectureHostile(a))
             {
@@ -2368,7 +2368,7 @@
             if (this.Persons.Count == 0) return null;
             TroopList list = new TroopList();
             this.Persons.ClearSelected();
-            if ((military.Scales > 5) && (military.Morale >= 80) && (military.Combativity >= 80) && (military.InjuryQuantity < military.Kind.MinScale) 
+            if ((military.Scales > 5) && (military.Morale >= 50) && (military.Combativity >= 50) && (military.InjuryQuantity < military.Kind.MinScale) 
                 && !military.IsFewScaleNeedRetreat && military.Kind.Movable)
             {
                 PersonList list2;
@@ -3724,7 +3724,7 @@
             this.CriticalHostile = false;
             this.noFactionFrontline = false;
             this.orientationFrontLine = false;
-            this.truceFrontline = false;
+            this.withoutTruceFrontline = false;
             this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.35f;
             foreach (Architecture architecture in this.GetAILinks())
             {
@@ -3738,9 +3738,9 @@
                     continue;
                 }
                 this.FrontLine = true;
-                if (this.IsArchitectureHostileWithTruce(architecture))
+                if (this.IsArchitectureHostileWithoutTruce(architecture))
                 {
-                    this.truceFrontline = true;
+                    this.withoutTruceFrontline = true;
                 }
                 if (this.IsArchitectureHostile(architecture))
                 {
@@ -7658,7 +7658,7 @@
                     //Label_0221:
                     foreach (Person person in this.Persons.GetList())
                     {
-                        if (((!this.truceFrontline || !GameObject.Chance(5)) && !GameObject.Chance(20)) || (GameObject.Random(base.Scenario.Date.Day) < GameObject.Random(30)))
+                        if (((!this.withoutTruceFrontline || !GameObject.Chance(5)) && !GameObject.Chance(20)) || (GameObject.Random(base.Scenario.Date.Day) < GameObject.Random(30)))
                         {
                             continue;
                         }
@@ -7694,7 +7694,7 @@
                             if (this.Fund < Parameters.InternalFundCost ||
                                     (person.WaitForFeiZi == null && person.WorkKind == ArchitectureWorkKind.无 &&
                                     !person.HasFollowingArmy && !person.HasEffectiveLeadingArmy &&
-                                    (!this.truceFrontline || GameObject.Random(person.FightingNumber) < 100)
+                                    (!this.withoutTruceFrontline || GameObject.Random(person.FightingNumber) < 100)
                                 ))
                             {
                                 if (person.Loyalty >= 100 && person.Tiredness <= 0)
@@ -7878,13 +7878,13 @@
                     return false;
 
                 case LinkKind.Land:
-                    return (((((this.IsImportant && (this.HostileLine || this.truceFrontline)) && (this.LandArmyScale > this.LargeArmyScale)) || (((this.IsImportant && !this.truceFrontline) && (this.LandArmyScale > this.NormalArmyScale)) || ((!this.IsImportant && this.HostileLine) && (this.LandArmyScale > this.LargeArmyScale)))) || ((!this.IsImportant && this.truceFrontline) && (this.LandArmyScale > this.NormalArmyScale))) || ((!this.IsImportant && !this.truceFrontline) && (this.LandArmyScale > this.FewArmyScale)));
+                    return (((((this.IsImportant && (this.HostileLine || this.withoutTruceFrontline)) && (this.LandArmyScale > this.LargeArmyScale)) || (((this.IsImportant && !this.withoutTruceFrontline) && (this.LandArmyScale > this.NormalArmyScale)) || ((!this.IsImportant && this.HostileLine) && (this.LandArmyScale > this.LargeArmyScale)))) || ((!this.IsImportant && this.withoutTruceFrontline) && (this.LandArmyScale > this.NormalArmyScale))) || ((!this.IsImportant && !this.withoutTruceFrontline) && (this.LandArmyScale > this.FewArmyScale)));
 
                 case LinkKind.Water:
-                    return (((((this.IsImportant && (this.HostileLine || this.truceFrontline)) && (this.WaterArmyScale > this.LargeArmyScale)) || (((this.IsImportant && !this.truceFrontline) && (this.WaterArmyScale > this.NormalArmyScale)) || ((!this.IsImportant && this.HostileLine) && (this.WaterArmyScale > this.LargeArmyScale)))) || ((!this.IsImportant && this.truceFrontline) && (this.WaterArmyScale > this.NormalArmyScale))) || ((!this.IsImportant && !this.truceFrontline) && (this.WaterArmyScale > this.FewArmyScale)));
+                    return (((((this.IsImportant && (this.HostileLine || this.withoutTruceFrontline)) && (this.WaterArmyScale > this.LargeArmyScale)) || (((this.IsImportant && !this.withoutTruceFrontline) && (this.WaterArmyScale > this.NormalArmyScale)) || ((!this.IsImportant && this.HostileLine) && (this.WaterArmyScale > this.LargeArmyScale)))) || ((!this.IsImportant && this.withoutTruceFrontline) && (this.WaterArmyScale > this.NormalArmyScale))) || ((!this.IsImportant && !this.withoutTruceFrontline) && (this.WaterArmyScale > this.FewArmyScale)));
 
                 case LinkKind.Both:
-                    return (((((this.IsImportant && (this.HostileLine || this.truceFrontline)) && (this.ArmyScale > this.LargeArmyScale)) || (((this.IsImportant && !this.truceFrontline) && (this.ArmyScale > this.NormalArmyScale)) || ((!this.IsImportant && this.HostileLine) && (this.ArmyScale > this.LargeArmyScale)))) || ((!this.IsImportant && this.truceFrontline) && (this.ArmyScale > this.NormalArmyScale))) || ((!this.IsImportant && !this.truceFrontline) && (this.ArmyScale > this.FewArmyScale)));
+                    return (((((this.IsImportant && (this.HostileLine || this.withoutTruceFrontline)) && (this.ArmyScale > this.LargeArmyScale)) || (((this.IsImportant && !this.withoutTruceFrontline) && (this.ArmyScale > this.NormalArmyScale)) || ((!this.IsImportant && this.HostileLine) && (this.ArmyScale > this.LargeArmyScale)))) || ((!this.IsImportant && this.withoutTruceFrontline) && (this.ArmyScale > this.NormalArmyScale))) || ((!this.IsImportant && !this.withoutTruceFrontline) && (this.ArmyScale > this.FewArmyScale)));
             }
             return false;
         }
@@ -10563,7 +10563,7 @@
                 {
                     num2 /= 2;
                 }
-                if (!this.truceFrontline)
+                if (!this.withoutTruceFrontline)
                 {
                     num2 /= 2;
                 }
@@ -10581,7 +10581,7 @@
                 num += (this.BelongedFaction.BecomeEmperorLegallyAvail() || this.BelongedFaction.SelfBecomeEmperorAvail()) && this.BelongedFaction.Capital == this ? 100000 : 0;
                 num += this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0;
                 num += (int)(Math.Sqrt(this.Population) * 8.0);
-                if (this.truceFrontline)
+                if (this.withoutTruceFrontline)
                 {
                     num += this.Population / 50;
                 }
@@ -10703,7 +10703,7 @@
         {
             get
             {
-                return (int)((10000.0 / this.ArmyScale) * (((((((this.IsCapital ? 2 : 1) + (this.IsStateAdmin ? 1 : 0)) + (this.IsRegionCore ? 1 : 0)) + (this.IsStrategicCenter ? 1 : 0)) + (this.truceFrontline ? 2 : 0)) + (this.HostileLine ? 2 : 0)) + (this.CriticalHostile ? 3 : 0)));
+                return (int)((10000.0 / this.ArmyScale) * (((((((this.IsCapital ? 2 : 1) + (this.IsStateAdmin ? 1 : 0)) + (this.IsRegionCore ? 1 : 0)) + (this.IsStrategicCenter ? 1 : 0)) + (this.withoutTruceFrontline ? 2 : 0)) + (this.HostileLine ? 2 : 0)) + (this.CriticalHostile ? 3 : 0)));
             }
         }
 
@@ -10711,7 +10711,7 @@
         {
             get
             {
-                return ((this.ArmyScale + 10) * (((((((this.IsCapital ? 2 : 1) + (this.IsStateAdmin ? 1 : 0)) + (this.IsRegionCore ? 1 : 0)) + (this.IsStrategicCenter ? 1 : 0)) + (this.truceFrontline ? 2 : 0)) + (this.HostileLine ? 2 : 0)) + (this.CriticalHostile ? 3 : 0)));
+                return ((this.ArmyScale + 10) * (((((((this.IsCapital ? 2 : 1) + (this.IsStateAdmin ? 1 : 0)) + (this.IsRegionCore ? 1 : 0)) + (this.IsStrategicCenter ? 1 : 0)) + (this.withoutTruceFrontline ? 2 : 0)) + (this.HostileLine ? 2 : 0)) + (this.CriticalHostile ? 3 : 0)));
             }
         }
 
