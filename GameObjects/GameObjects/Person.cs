@@ -3389,10 +3389,6 @@
         public void PlayerKillLeader()
         {
             this.execute(this.Scenario.CurrentPlayer);
-            if (this.BelongedCaptive != null)
-            {
-                this.BelongedCaptive.Clear();
-            }
         }
 
         private void illegallyKilled(Faction executingFaction, Person killer)
@@ -3449,6 +3445,11 @@
 
         public void execute(Faction executingFaction)
         {
+            if (this.BelongedCaptive != null)
+            {
+                this.BelongedCaptive.Clear();
+            }
+
             Person executor = executingFaction.Leader;
 
             this.illegallyKilled(executingFaction, executor);
