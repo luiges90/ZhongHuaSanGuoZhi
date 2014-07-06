@@ -426,7 +426,7 @@
                     {
                         if (i.BelongedCaptive == null)
                         {
-                            throw new Exception("Every captive must bear a BelongedCaptive Object!");
+                            continue;
                         }
                         result.Add(i.BelongedCaptive);
                     }
