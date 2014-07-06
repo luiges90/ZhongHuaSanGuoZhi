@@ -679,7 +679,7 @@
                     {
                         foreach (Architecture architecture in base.Scenario.GetHighViewingArchitecturesByPosition(point.Position))
                         {
-                            if (((architecture != this.DestinationArchitecture) && (architecture.BelongedFaction != null)) && !(this.BelongedFaction.IsFriendly(architecture.BelongedFaction) || (base.Scenario.GetDistance(this.StartArchitecture.ArchitectureArea, architecture.ArchitectureArea) >= base.Scenario.GetDistance(this.StartArchitecture.ArchitectureArea, this.DestinationArchitecture.ArchitectureArea))))
+                            if (((architecture != this.DestinationArchitecture) && (architecture.BelongedFaction != null)) && !(this.BelongedFaction.IsFriendlyWithoutTruce(architecture.BelongedFaction) || (base.Scenario.GetDistance(this.StartArchitecture.ArchitectureArea, architecture.ArchitectureArea) >= base.Scenario.GetDistance(this.StartArchitecture.ArchitectureArea, this.DestinationArchitecture.ArchitectureArea))))
                             {
                                 return architecture;
                             }
@@ -747,7 +747,7 @@
                 foreach (Point point in this.RouteArea.Keys)
                 {
                     Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
-                    if (((troopByPosition != null) && this.BelongedFaction.IsFriendly(troopByPosition.BelongedFaction)) && this.IsEnough(point, troopByPosition.FoodCostPerDay))
+                    if (((troopByPosition != null) && this.BelongedFaction.IsFriendlyWithoutTruce(troopByPosition.BelongedFaction)) && this.IsEnough(point, troopByPosition.FoodCostPerDay))
                     {
                         return true;
                     }

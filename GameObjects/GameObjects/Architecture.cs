@@ -1216,9 +1216,10 @@
             {
                 if (i.Scales + transferredScale <= scale)
                 {
-                    transferredScale += i.Scales;
                     Troop built = src.BuildTroopForTransfer(i, this);
                     if (built == null) return transferredScale;
+
+                    transferredScale += i.Scales;
                     if (transferredScale >= scale) return transferredScale;
                 }
             }
@@ -3727,7 +3728,7 @@
             this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.35f;
             foreach (Architecture architecture in this.GetAILinks())
             {
-                if (this.IsFriendly(architecture.BelongedFaction))
+                if (this.IsFriendlyWithoutTruce(architecture.BelongedFaction))
                 {
                     continue;
                 }
@@ -7078,7 +7079,7 @@
         {
             foreach (Architecture architecture in node.Path)
             {
-                if (((architecture != this) && (architecture != node.A)) && !((architecture.BelongedFaction == null) || this.IsFriendly(architecture.BelongedFaction)))
+                if (((architecture != this) && (architecture != node.A)) && !((architecture.BelongedFaction == null) || this.IsFriendlyWithoutTruce(architecture.BelongedFaction)))
                 {
                     return true;
                 }
@@ -7565,7 +7566,7 @@
                 foreach (Point point in this.ViewArea.Area)
                 {
                     Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
-                    if ((troopByPosition != null) && this.IsFriendly(troopByPosition.BelongedFaction))
+                    if ((troopByPosition != null) && this.IsFriendlyWithoutTruce(troopByPosition.BelongedFaction))
                     {
                         troopByPosition.IncreaseCombativity(this.IncrementOfCombativityInViewArea);
                     }
@@ -7720,6 +7721,11 @@
         public bool IsFriendly(Faction faction)
         {
             return ((this.BelongedFaction == faction) || ((this.BelongedFaction != null) && this.BelongedFaction.IsFriendly(faction)));
+        }
+
+        public bool IsFriendlyWithoutTruce(Faction faction)
+        {
+            return ((this.BelongedFaction == faction) || ((this.BelongedFaction != null) && this.BelongedFaction.IsFriendlyWithoutTruce(faction)));
         }
 
         public bool IsFull()
@@ -8532,7 +8538,7 @@
             foreach (LinkNode i in this.AIAllLinkNodes.Values)
             {
                 if (i.Level > 1) break;
-                if (i.A.BelongedFaction != null && !this.IsFriendly(i.A.BelongedFaction))
+                if (i.A.BelongedFaction != null && !this.IsFriendlyWithoutTruce(i.A.BelongedFaction))
                 {
                     int threat = (i.Kind == LinkKind.Land ? i.A.AttackableLandArmyScale : i.A.AttackableWaterArmyScale);
                     if (threat > maxThreat)
@@ -10220,7 +10226,7 @@
                 foreach (Point point in this.ContactArea.Area)
                 {
                     Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
-                    if (!((troopByPosition == null) || this.IsFriendly(troopByPosition.BelongedFaction)))
+                    if (!((troopByPosition == null) || this.IsFriendlyWithoutTruce(troopByPosition.BelongedFaction)))
                     {
                         num++;
                     }
@@ -10291,7 +10297,7 @@
                     Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
                     if (troopByPosition != null)
                     {
-                        if (this.IsFriendly(troopByPosition.BelongedFaction))
+                        if (this.IsFriendlyWithoutTruce(troopByPosition.BelongedFaction))
                         {
                             troopByPosition.IncreaseCombativity(5);
                         }
@@ -10307,7 +10313,7 @@
                     aILinks.Add(this);
                     foreach (Architecture architecture in aILinks)
                     {
-                        if (this.IsFriendly(architecture.BelongedFaction))
+                        if (this.IsFriendlyWithoutTruce(architecture.BelongedFaction))
                         {
                             if (architecture.Kind.HasDomination)
                             {
@@ -11105,7 +11111,7 @@
                 num = (int)(num * base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.Season));
                 if ((this.LocationState.StateAdmin != null) && this.LocationState.StateAdmin.StateAdminEffectAvail())
                 {
-                    if (this.IsFriendly(this.LocationState.StateAdmin.BelongedFaction))
+                    if (this.IsFriendlyWithoutTruce(this.LocationState.StateAdmin.BelongedFaction))
                     {
                         num += (int)(num * 0.2);
                     }
@@ -11155,7 +11161,7 @@
                 num += (int)(this.RateIncrementOfMonthFund * num);
                 if ((this.LocationState.StateAdmin != null) && this.LocationState.StateAdmin.StateAdminEffectAvail())
                 {
-                    if (this.IsFriendly(this.LocationState.StateAdmin.BelongedFaction))
+                    if (this.IsFriendlyWithoutTruce(this.LocationState.StateAdmin.BelongedFaction))
                     {
                         num += (int)(num * 0.2);
                     }
@@ -12089,7 +12095,7 @@
             {
                 if ((this.LocationState.LinkedRegion.RegionCore != null) && this.LocationState.LinkedRegion.RegionCore.RegionCoreEffectAvail())
                 {
-                    if (this.LocationState.LinkedRegion.RegionCore.IsFriendly(this.BelongedFaction))
+                    if (this.LocationState.LinkedRegion.RegionCore.IsFriendlyWithoutTruce(this.BelongedFaction))
                     {
                         return "正面";
                     }
@@ -12216,7 +12222,7 @@
             {
                 if ((this.LocationState.StateAdmin != null) && this.LocationState.StateAdmin.StateAdminEffectAvail())
                 {
-                    if (this.LocationState.StateAdmin.IsFriendly(this.BelongedFaction))
+                    if (this.LocationState.StateAdmin.IsFriendlyWithoutTruce(this.BelongedFaction))
                     {
                         return "正面";
                     }

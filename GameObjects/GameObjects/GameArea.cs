@@ -29,7 +29,7 @@
                     if (faction != null)
                     {
                         Architecture architectureByPosition = Scenario.GetArchitectureByPosition(point);
-                        if (!(architectureByPosition == null || architectureByPosition.Endurance <= 0 || faction.IsFriendly(architectureByPosition.BelongedFaction)))
+                        if (!(architectureByPosition == null || architectureByPosition.Endurance <= 0 || faction.IsFriendlyWithoutTruce(architectureByPosition.BelongedFaction)))
                         {
                             BlackAngles.Add(point);
                             return;

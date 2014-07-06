@@ -2049,7 +2049,7 @@
         private void CallRoutewayHelp()
         {
             if (this.BelongedFaction == null || this.BelongedLegion == null) return;
-            if (!this.IsFriendly(this.BelongedLegion.WillArchitecture.BelongedFaction) && ((this.BelongedLegion.PreferredRouteway != null) && (this.BelongedLegion.PreferredRouteway.BelongedFaction != null)))
+            if (!this.IsFriendlyWithoutTruce(this.BelongedLegion.WillArchitecture.BelongedFaction) && ((this.BelongedLegion.PreferredRouteway != null) && (this.BelongedLegion.PreferredRouteway.BelongedFaction != null)))
             {
                 Architecture destinationArchitecture = this.BelongedLegion.PreferredRouteway.DestinationArchitecture;
                 if (((destinationArchitecture != null) && (destinationArchitecture.BelongedFaction != this.BelongedFaction)) && this.IsBaseViewingArchitecture(destinationArchitecture))
@@ -2078,7 +2078,7 @@
         private void CallTacticsHelp()
         {
             if (this.BelongedFaction == null) return;
-            if (((this.WillArchitecture.BelongedFaction != null) && !this.IsFriendly(this.WillArchitecture.BelongedFaction)) && (base.Scenario.GetDistance(this.Position, this.WillArchitecture.Position) <= 10.0))
+            if (((this.WillArchitecture.BelongedFaction != null) && !this.IsFriendlyWithoutTruce(this.WillArchitecture.BelongedFaction)) && (base.Scenario.GetDistance(this.Position, this.WillArchitecture.Position) <= 10.0))
             {
                 if (this.BelongedFaction.IsArchitectureKnown(this.WillArchitecture) || GameObject.Chance(0x21))
                 {
@@ -2437,7 +2437,7 @@
         {
             foreach (Routeway routeway in base.Scenario.GetActiveRoutewayListByPosition(this.Position))
             {
-                if (!this.IsFriendly(routeway.BelongedFaction))
+                if (!this.IsFriendlyWithoutTruce(routeway.BelongedFaction))
                 {
                     return true;
                 }
@@ -5494,7 +5494,7 @@
                     continue;
                 }
                 Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
-                if ((troopByPosition != null) && ((troopByPosition == this) || ((this.IsFriendly(troopByPosition.BelongedFaction) && troopByPosition.SurroundAvail()) && troopByPosition.CanAttack(troop))))
+                if ((troopByPosition != null) && ((troopByPosition == this) || ((this.IsFriendlyWithoutTruce(troopByPosition.BelongedFaction) && troopByPosition.SurroundAvail()) && troopByPosition.CanAttack(troop))))
                 {
                     list.Add(troopByPosition);
                 }
@@ -6918,6 +6918,11 @@
             return ((this.BelongedFaction == faction) || ((this.BelongedFaction != null) && this.BelongedFaction.IsFriendly(faction)));
         }
 
+        public bool IsFriendlyWithoutTruce(Faction faction)
+        {
+            return ((this.BelongedFaction == faction) || ((this.BelongedFaction != null) && this.BelongedFaction.IsFriendlyWithoutTruce(faction)));
+        }
+
         public bool IsInHostileArchitectureHighView()
         {
             foreach (Architecture architecture in base.Scenario.GetHighViewingArchitecturesByPosition(this.Position))
@@ -8078,7 +8083,7 @@
             }
             if ((this.StartingArchitecture != null) && ((this.StartingArchitecture.LocationState.LinkedRegion.RegionCore != null) && this.StartingArchitecture.LocationState.LinkedRegion.RegionCore.RegionCoreEffectAvail()))
             {
-                if (this.StartingArchitecture.LocationState.LinkedRegion.RegionCore.IsFriendly(this.BelongedFaction))
+                if (this.StartingArchitecture.LocationState.LinkedRegion.RegionCore.IsFriendlyWithoutTruce(this.BelongedFaction))
                 {
                     this.defence += (int)(this.defence * 0.2);
                 }
@@ -8198,7 +8203,7 @@
             }
             if ((this.StartingArchitecture != null) && ((this.StartingArchitecture.LocationState.LinkedRegion.RegionCore != null) && this.StartingArchitecture.LocationState.LinkedRegion.RegionCore.RegionCoreEffectAvail()))
             {
-                if (this.StartingArchitecture.LocationState.LinkedRegion.RegionCore.IsFriendly(this.BelongedFaction))
+                if (this.StartingArchitecture.LocationState.LinkedRegion.RegionCore.IsFriendlyWithoutTruce(this.BelongedFaction))
                 {
                     this.offence += (int)(this.offence * 0.2);
                 }
@@ -11237,7 +11242,7 @@
             get
             {
                 Architecture architectureByPositionNoCheck = base.Scenario.GetArchitectureByPositionNoCheck(this.Position);
-                return (((architectureByPositionNoCheck != null) && (architectureByPositionNoCheck.Endurance > 0)) && architectureByPositionNoCheck.IsFriendly(this.BelongedFaction));
+                return (((architectureByPositionNoCheck != null) && (architectureByPositionNoCheck.Endurance > 0)) && architectureByPositionNoCheck.IsFriendlyWithoutTruce(this.BelongedFaction));
             }
         }
 

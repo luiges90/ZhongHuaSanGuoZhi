@@ -1059,7 +1059,7 @@
                     }
                 }
 
-                if (a.IsTroopExceedsLimit && military && !a.FrontLine)
+                if (a.IsTroopExceedsLimit && military && !a.FrontLine && a.HasPerson())
                 {
                     int toSend = a.ArmyScale / 2;
                     foreach (Architecture b in candidates)
@@ -1067,9 +1067,9 @@
                         if (!b.IsTroopExceedsLimit && b.IsFoodTwiceAbundant && !b.Abandoned & b != a)
                         {
                             int sent = b.CallTroop(a, toSend);
-                            if (sent == 0) break;
                             toSend -= sent;
                             if (toSend <= 0) break;
+                            if (!a.HasPerson()) break;
                         }
                     }
                 }
@@ -2852,6 +2852,15 @@
                 return false;
             }
             return ((faction == this) || (base.Scenario.GetDiplomaticRelation(base.ID, faction.ID) >= 300) || (base.Scenario.GetDiplomaticRelationTruce(base.ID, faction.ID) > 0));
+        }
+
+        public bool IsFriendlyWithoutTruce(Faction faction)
+        {
+            if (faction == null)
+            {
+                return false;
+            }
+            return (faction == this) || (base.Scenario.GetDiplomaticRelation(base.ID, faction.ID) >= 300);
         }
 
         public bool IsHostile(Faction faction)
