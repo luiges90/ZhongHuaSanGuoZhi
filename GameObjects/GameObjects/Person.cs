@@ -4400,7 +4400,7 @@
             {
                 if (this.huaiyun)
                 {
-                    return Math.Max(0.1f, Math.Min(1, (240 - this.huaiyuntianshu) / 240.0f + 0.3f));
+                    return Math.Min(1, (360 - this.huaiyuntianshu) / 180.0f);
                 }
 
                 return 1;
