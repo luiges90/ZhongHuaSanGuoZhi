@@ -1109,7 +1109,7 @@
                     }
                     else
                     {
-                        minPerson.Add(a, 1);
+                        minPerson.Add(a, 2);
                         minTroop.Add(a, 0);
                     }
                     minFund.Add(a, Math.Min(a.FundCeiling, a.EnoughFund));
