@@ -2976,7 +2976,13 @@
             }
             foreach (KeyValuePair<int, int> i in spouseIds)
             {
-                (this.Persons.GetGameObject(i.Key) as Person).Spouse = this.Persons.GetGameObject(i.Value) as Person;
+                Person p = (this.Persons.GetGameObject(i.Key) as Person);
+                Person q = this.Persons.GetGameObject(i.Value) as Person;
+                p.Spouse = q;
+                if (q != null)
+                {
+                    p.EnsureRelationAtLeast(q, Parameters.VeryCloseThreshold);
+                }
             }
             foreach (KeyValuePair<int, int[]> i in brotherIds)
             {
@@ -2989,6 +2995,10 @@
                             Person p = this.Persons.GetGameObject(i.Key) as Person;
                             Person q = this.Persons.GetGameObject(j.Key) as Person;
                             p.Brothers.Add(q);
+                            if (q != null)
+                            {
+                                p.EnsureRelationAtLeast(q, Parameters.VeryCloseThreshold);
+                            }
                         }
                     }
                 }
@@ -3001,6 +3011,10 @@
                         if (q != null)
                         {
                             p.Brothers.Add(q);
+                            if (q != null)
+                            {
+                                p.EnsureRelationAtLeast(q, Parameters.VeryCloseThreshold);
+                            }
                         }
                         else
                         {
