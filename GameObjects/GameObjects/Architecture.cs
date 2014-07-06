@@ -1091,8 +1091,6 @@
                     (5 - (int)leader.Ambition) * Parameters.AIBackendArmyReserveAmbitionMultiply)
                     * Parameters.AIBackendArmyReserveMultiply + Parameters.AIBackendArmyReserveAdd);
 
-                reserve = Math.Min(reserve, this.MaxSupportableTroopScale);
-
                 return reserve;
             }
         }
