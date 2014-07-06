@@ -1102,7 +1102,7 @@
                         minTroop.Add(a, a.TroopReserveScale); // defensiveCampaign will deal with this
                         urgent = true;
                     }
-                    else if (a.withoutTruceFrontline || a.IsNetLosingPopulation)
+                    else if (a.FrontLine || a.IsNetLosingPopulation)
                     {
                         minPerson.Add(a, Math.Min(3, a.EnoughPeople));
                         minTroop.Add(a, a.TroopReserveScale);
