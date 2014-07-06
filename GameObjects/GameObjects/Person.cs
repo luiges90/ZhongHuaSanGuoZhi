@@ -32,7 +32,6 @@
         private bool available;
         private int availableLocation;
         private float baseImpactRate;
-        public Captive BelongedCaptive;
         private PersonBornRegion bornRegion;
         private int braveness;
         private PersonList brothers = new PersonList();
@@ -199,6 +198,28 @@
         public int waitForFeiziId;
 
         public float ExperienceRate;
+
+        private Captive belongedCaptive;
+        public Captive BelongedCaptive
+        {
+            get
+            {
+                return belongedCaptive;
+            }
+        }
+
+        public void SetBelongedCaptive(Captive c, PersonStatus newState)
+        {
+            this.belongedCaptive = c;
+            if (c == null)
+            {
+                this.Status = newState;
+            }
+            else
+            {
+                this.Status = PersonStatus.Captive;
+            }
+        }
 
         private float injureRate = 1.0f;
 
@@ -1125,8 +1146,7 @@
             }
 
             this.Alive = false;  //死亡
-            this.BelongedCaptive = null;
-            this.Status = PersonStatus.None;
+            this.SetBelongedCaptive(null, PersonStatus.None);
             this.LocationArchitecture = null;
             
             if (this.OnDeath != null && locationArchitecture != null && deathLocation == 1)
@@ -1736,6 +1756,8 @@
 
                             this.LoseReputationBy(0.005f * this.ConvincingPerson.PersonalLoyalty);
 
+                            base.Scenario.GameScreen.PersonAssassinateSuccess(this, this.ConvincingPerson, architectureByPosition);
+                            /*
                             if (GameObject.Random(this.AssassinateAbility) > GameObject.Random(this.ConvincingPerson.AssassinateAbility) * 3 &&
                                 !this.ConvincingPerson.ImmunityOfCaptive)
                             {
@@ -1748,7 +1770,7 @@
                             else
                             {
                                 base.Scenario.GameScreen.PersonAssassinateSuccess(this, this.ConvincingPerson, architectureByPosition);
-                            }
+                            }*/
                         }
                     }
                     else
@@ -1907,8 +1929,7 @@
             if (person.IsCaptive)
             {
                 from = person.BelongedCaptive.LocationArchitecture;
-                person.Status = PersonStatus.Normal;
-                person.BelongedCaptive = null;
+                person.SetBelongedCaptive(null, PersonStatus.Normal);
             }
             else if (person.LocationTroop != null)
             {

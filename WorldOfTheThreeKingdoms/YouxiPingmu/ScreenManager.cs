@@ -1127,8 +1127,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 this.mainGameScreen.xianshishijiantupian(this.gameScenario.NeutralPerson, captive.BelongedFaction.Leader.Name, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", captive.CaptivePerson.Name, true);
                 Person leader = captive.BelongedFaction.Leader;
-                captive.CaptivePerson.execute(captive.BelongedFaction);
+                Person p = captive.CaptivePerson;
                 captive.Clear();
+                p.execute(captive.BelongedFaction);
             }
         }
 

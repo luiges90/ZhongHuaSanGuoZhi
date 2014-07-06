@@ -37,8 +37,7 @@
             captive.ID = scenario.Captives.GetFreeGameObjectID();
             captive.CaptivePerson = person;
             captive.CaptiveFaction = person.BelongedFaction;
-            person.BelongedCaptive = captive;
-            person.Status = GameObjects.PersonDetail.PersonStatus.Captive;
+            person.SetBelongedCaptive(captive, GameObjects.PersonDetail.PersonStatus.Captive);
             person.HeldCaptiveCount++;
             scenario.Captives.AddCaptiveWithEvent(captive);
             return captive;
@@ -157,7 +156,7 @@
 
         public void Clear()
         {
-            this.CaptivePerson.BelongedCaptive = null;
+            this.CaptivePerson.SetBelongedCaptive(null, GameObjects.PersonDetail.PersonStatus.Normal);
             this.RansomArchitecture = null;
             this.RansomFund = 0;
         }
@@ -282,7 +281,7 @@
                         this.CaptivePerson.MoveToArchitecture(base.Scenario.Architectures[GameObject.Random(base.Scenario.Architectures.Count)] as Architecture, this.CaptivePerson.LocationTroop.Position);
                     }
                 }
-                this.CaptivePerson.BelongedCaptive = null;
+                this.CaptivePerson.SetBelongedCaptive(null, GameObjects.PersonDetail.PersonStatus.NoFaction);
             }
         }
 

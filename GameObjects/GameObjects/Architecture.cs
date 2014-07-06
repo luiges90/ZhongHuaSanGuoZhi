@@ -777,9 +777,10 @@
 
                         this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.NeutralPerson, this.BelongedFaction.Leader.Name, TextMessageKind.KillCaptive, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", i.CaptivePerson.Name, true);
 
-                        i.CaptivePerson.execute(this.BelongedFaction);
-
+                        Person person = i.CaptivePerson;
                         i.Clear();
+                        person.execute(this.BelongedFaction);
+                        
                         break;
                     }
                 }
@@ -3631,8 +3632,7 @@
                 {
                     if (captive.CaptiveFaction == faction)
                     {
-                        captive.CaptivePerson.Status = PersonStatus.Normal;
-                        captive.CaptivePerson.BelongedCaptive = null;
+                        captive.CaptivePerson.SetBelongedCaptive(null, PersonStatus.Normal);
                     }
                 }
                 foreach (Military military in this.Militaries)
@@ -9613,8 +9613,7 @@
                         Architecture moveTo = captive.CaptiveFaction.Capital;
                         persons.Add(captive.CaptivePerson);
                         Person p = captive.CaptivePerson;
-                        captive.CaptivePerson.BelongedCaptive = null;
-                        p.Status = PersonStatus.Normal;
+                        captive.CaptivePerson.SetBelongedCaptive(null, PersonStatus.Normal);
                         p.MoveToArchitecture(moveTo);
                     }
                 }

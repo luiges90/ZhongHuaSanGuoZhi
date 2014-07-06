@@ -1557,12 +1557,12 @@
                 {
                     if (captive.BelongedFaction == null)
                     {
-                        captive.CaptivePerson.Status = GameObjects.PersonDetail.PersonStatus.Normal;
+                        captive.CaptivePerson.SetBelongedCaptive(null, PersonStatus.Normal);
                         if ((captive.CaptivePerson != null) && (captive.CaptiveFaction != null))
                         {
                             captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
                         }
-                        captive.CaptivePerson.BelongedCaptive = null;
+                        
                         continue;
                     }
                     if ((captive.BelongedFaction.Capital != null) && (captive.RansomArriveDays <= 0))

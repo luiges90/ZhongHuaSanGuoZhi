@@ -3146,7 +3146,7 @@
                 }
                 else
                 {
-                    captive.CaptivePerson.BelongedCaptive = captive;
+                    captive.CaptivePerson.SetBelongedCaptive(captive, PersonStatus.Captive);
                 }
                 captive.CaptiveFactionID = (short)reader["CaptiveFaction"];
                 captive.RansomArchitectureID = (short)reader["RansomArchitecture"];

@@ -2295,7 +2295,7 @@
                     if (captive.CaptiveFaction == faction)
                     {
                         captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
-                        captive.CaptivePerson.BelongedCaptive = null;
+                        captive.CaptivePerson.SetBelongedCaptive(null, PersonStatus.Normal);
                         base.Scenario.Captives.Remove(captive);
                     }
                 }
@@ -8450,10 +8450,10 @@
                     if (captive.CaptivePerson != null && captive.CaptiveFaction != null && captive.CaptiveFaction.Capital != null)
                     {
                         personlist.Add(captive.CaptivePerson);
-                        captive.CaptivePerson.Status = PersonStatus.Normal;
+                        captive.CaptivePerson.SetBelongedCaptive(null, PersonStatus.Normal);
                         captive.CaptivePerson.LocationArchitecture = captive.CaptiveFaction.Capital;
                         captive.CaptivePerson.MoveToArchitecture(captive.CaptiveFaction.Capital);
-                        captive.CaptivePerson.BelongedCaptive = null;
+                        
                     }
                     ExtensionInterface.call("TroopReleaseCaptive", new Object[] { this.Scenario, this, captive });
                 }

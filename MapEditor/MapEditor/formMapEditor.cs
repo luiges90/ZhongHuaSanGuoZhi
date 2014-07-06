@@ -1715,7 +1715,7 @@
                 foreach (Person person in this.Scenario.Persons)
                 {
                     person.Available = false;
-                    person.BelongedCaptive = null;
+                    person.SetBelongedCaptive(null, GameObjects.PersonDetail.PersonStatus.None);
                     person.LocationArchitecture = null;
                     person.LocationTroop = null;
                 }
@@ -1744,7 +1744,7 @@
                     if (person.LocationArchitecture != null)
                     {
                         person.Available = false;
-                        person.BelongedCaptive = null;
+                        person.SetBelongedCaptive(null, GameObjects.PersonDetail.PersonStatus.None);
                         person.LocationArchitecture = null;
                     }
                 }
