@@ -2037,43 +2037,45 @@
                         if (knownArch.Count > 0)
                         {
                             Architecture target = (Architecture)knownArch[GameObject.Random(knownArch.Count)];
-
-                            diplomaticRelation = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, target.BelongedFaction.ID);
-                            if (((diplomaticRelation >= 0) && (GameObject.Random(diplomaticRelation + 400) <= GameObject.Random(50))) || (diplomaticRelation < 0))
+                            if (target.BelongedFaction != null)
                             {
-                                PersonList candidates = new PersonList();
-                                foreach (Person p in target.Persons)
+                                diplomaticRelation = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, target.BelongedFaction.ID);
+                                if (((diplomaticRelation >= 0) && (GameObject.Random(diplomaticRelation + 400) <= GameObject.Random(50))) || (diplomaticRelation < 0))
                                 {
-                                    if ((double) (p.UntiredStrength + p.UntiredIntelligence) / (p.Strength + p.Intelligence) > 1.1)
+                                    PersonList candidates = new PersonList();
+                                    foreach (Person p in target.Persons)
                                     {
-                                        candidates.Add(p);
-                                    }
-                                }
-                                if (candidates.Count > 0)
-                                {
-                                    candidates.SmallToBig = false;
-                                    candidates.PropertyName = "Merit";
-                                    candidates.IsNumber = true;
-                                    candidates.ReSort();
-
-                                    Person killer = null;
-                                    int max = 0;
-                                    foreach (Person p in this.Persons)
-                                    {
-                                        if (killer == null || killer.AssassinateAbility > max)
+                                        if ((double)(p.UntiredStrength + p.UntiredIntelligence) / (p.Strength + p.Intelligence) > 1.1)
                                         {
-                                            killer = p;
-                                            max = killer.AssassinateAbility;
+                                            candidates.Add(p);
                                         }
                                     }
-
-                                    foreach (Person p in candidates)
+                                    if (candidates.Count > 0)
                                     {
-                                        if (killer.AssassinateAbility > p.AssassinateAbility && killer.UntiredMerit * 0.9 < p.UntiredMerit)
+                                        candidates.SmallToBig = false;
+                                        candidates.PropertyName = "Merit";
+                                        candidates.IsNumber = true;
+                                        candidates.ReSort();
+
+                                        Person killer = null;
+                                        int max = 0;
+                                        foreach (Person p in this.Persons)
                                         {
-                                            killer.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(p.BelongedArchitecture.ArchitectureArea, this.Position));
-                                            killer.GoForAssassinate(p);
-                                            break;
+                                            if (killer == null || killer.AssassinateAbility > max)
+                                            {
+                                                killer = p;
+                                                max = killer.AssassinateAbility;
+                                            }
+                                        }
+
+                                        foreach (Person p in candidates)
+                                        {
+                                            if (killer.AssassinateAbility > p.AssassinateAbility && killer.UntiredMerit * 0.9 < p.UntiredMerit)
+                                            {
+                                                killer.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(p.BelongedArchitecture.ArchitectureArea, this.Position));
+                                                killer.GoForAssassinate(p);
+                                                break;
+                                            }
                                         }
                                     }
                                 }

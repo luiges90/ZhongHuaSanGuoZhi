@@ -979,7 +979,7 @@
             bool hasTargetTroopFlag = false;
             bool hasUnAttackableTroop = false;
             GameArea dayArea = this.ViewArea;
-            if (this.BelongedLegion.Kind == LegionKind.Defensive)
+            if (this.BelongedLegion != null && this.BelongedLegion.Kind == LegionKind.Defensive)
             {
                 foreach (Point p in this.StartingArchitecture.LongViewArea.Area)
                 {
