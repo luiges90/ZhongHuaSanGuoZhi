@@ -1444,7 +1444,10 @@
         {
             WithdrwalTransfer(architectures);
             AllocationTransfer(architectures, architectures, true, true, true);
-            FullTransfer(architectures, architectures, true, true, true);
+            if (GameObject.Chance(10))
+            {
+                FullTransfer(architectures, architectures, true, true, true);
+            }
         }
 
         private void PlayerAITransfer()
