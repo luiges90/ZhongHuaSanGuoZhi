@@ -1707,7 +1707,7 @@
                 Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
                 if (architectureByPosition != null && this.ConvincingPerson.Status == PersonStatus.Normal)
                 {
-                    int diff = GameObject.Random(this.AssassinateAbility) - GameObject.Random(this.ConvincingPerson.AssassinateAbility) * 3;
+                    int diff = GameObject.Random(this.AssassinateAbility) - GameObject.Random(this.ConvincingPerson.AssassinateAbility) * 2;
                     if (diff > 0)
                     {
                         this.ConvincingPerson.InjureRate -= diff / 1000.0f;
