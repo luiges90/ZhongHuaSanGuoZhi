@@ -785,6 +785,7 @@
                         if (stuckedFor >= 5)
                         {
                             this.GoBack();
+                            this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                             return false;
                         }
                     }

@@ -234,14 +234,17 @@
         }
         private void TroopChangeRealDestination(Troop troop)
         {
-            if (troop.mingling == "攻击军队" && troop.TargetTroop != null)
+            if (troop.Scenario.IsPlayer(troop.BelongedFaction))
             {
-                troop.RealDestination = troop.TargetTroop.Position;
-            }
-            else if (troop.mingling == "攻击军队" && troop.TargetTroop == null)
-            {
-                troop.RealDestination = troop.Position;
-                troop.OperationDone = true;
+                if (troop.mingling == "攻击军队" && troop.TargetTroop != null)
+                {
+                    troop.RealDestination = troop.TargetTroop.Position;
+                }
+                else if (troop.mingling == "攻击军队" && troop.TargetTroop == null)
+                {
+                    troop.RealDestination = troop.Position;
+                    troop.OperationDone = true;
+                }
             }
             /*
             else if (troop.mingling == "入城")
