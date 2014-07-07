@@ -4938,6 +4938,7 @@
                 }
 
                 float num = (Parameters.InternalSurplusFactor - this.Power) / (float) Parameters.InternalSurplusFactor;
+                num = num * num;
 
                 if (num < 0.2f)
                 {
