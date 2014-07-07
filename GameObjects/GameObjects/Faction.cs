@@ -628,9 +628,11 @@
                     {
                         foreach (Architecture b in this.Architectures)
                         {
-                            if (!b.withoutTruceFrontline && b.Meinvkongjian > b.Feiziliebiao.Count && (a.withoutTruceFrontline || b.Meinvkongjian > a.Meinvkongjian))
+                            if (!b.withoutTruceFrontline && 
+                                (b.Meinvkongjian > b.Feiziliebiao.Count || b.BelongedFaction.IsAlien) && 
+                                (a.withoutTruceFrontline || b.Meinvkongjian > a.Meinvkongjian))
                             {
-                                int cnt = b.Meinvkongjian - b.Feiziliebiao.Count;
+                                int cnt = b.BelongedFaction.IsAlien ? 9999 : b.Meinvkongjian - b.Feiziliebiao.Count;
                                 GameObjectList list = a.Feiziliebiao.GetList();
                                 list.PropertyName = "Merit";
                                 list.IsNumber = true;
@@ -651,7 +653,7 @@
             }
 
             // build hougong
-            if (this.meinvkongjian() - this.feiziCount() <= 0 &&
+            if (this.meinvkongjian() - this.feiziCount() <= 0 && !this.isAlien && 
                 GameObject.Random((int)(GameObject.Square(unAmbition) * Parameters.AIBuildHougongUnambitionProbWeight + GameObject.Square(this.meinvkongjian()) * unAmbition * Parameters.AIBuildHougongSpaceBuiltProbWeight)) == 0)
             {
                 Architecture buildAt = null;
@@ -761,7 +763,7 @@
             if (leader.WaitForFeiZi != null && leader.Status == PersonStatus.Normal && leader.LocationArchitecture != null &&
                 this.Leader.LocationTroop == null)
             {
-                if (this.Leader.LocationArchitecture.Meinvkongjian - this.Leader.LocationArchitecture.Feiziliebiao.Count <= 0 ||
+                if ((this.Leader.LocationArchitecture.Meinvkongjian - this.Leader.LocationArchitecture.Feiziliebiao.Count <= 0 && ! this.IsAlien) ||
                     !this.Leader.isLegalFeiZi(leader.WaitForFeiZi) ||
                     this.Leader.WaitForFeiZi.BelongedFaction != this)
                 {
@@ -783,7 +785,7 @@
                 this.Leader.LocationTroop == null && this.Leader.WaitForFeiZi == null)
             {
                 Architecture dest = null;
-                if (this.Leader.LocationArchitecture.Meinvkongjian - this.Leader.LocationArchitecture.Feiziliebiao.Count > 0 && this.Fund >= 60000)
+                if ((this.Leader.LocationArchitecture.Meinvkongjian - this.Leader.LocationArchitecture.Feiziliebiao.Count > 0 || this.IsAlien) && this.Fund >= 60000)
                 {
                     dest = this.Leader.LocationArchitecture;
                 }
@@ -791,7 +793,7 @@
                 {
                     foreach (Architecture a in this.Architectures)
                     {
-                        if (a.Meinvkongjian - a.Feiziliebiao.Count > 0 && (dest == null || a.Population > dest.Population) && a.Fund >= 60000)
+                        if ((a.Meinvkongjian - a.Feiziliebiao.Count > 0 || this.IsAlien) && (dest == null || a.Population > dest.Population) && a.Fund >= 60000)
                         {
                             dest = a;
                         }

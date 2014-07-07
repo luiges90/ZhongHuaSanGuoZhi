@@ -32,7 +32,7 @@
 
         public override double AIFacilityValue(Architecture a)
         {
-            return a.Meinvkongjian * (this.increment / 100.0) * 2;
+            return Math.Max(a.Meinvkongjian, a.Feiziliebiao.Count) * (this.increment / 100.0) * 2;
         }
     }
 }

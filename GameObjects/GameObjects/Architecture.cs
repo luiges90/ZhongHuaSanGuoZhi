@@ -5834,7 +5834,7 @@
 
             foreach (Architecture a in this.BelongedFaction.Architectures)
             {
-                if (a.Meinvkongjian > a.Feiziliebiao.Count)
+                if (a.Meinvkongjian > a.Feiziliebiao.Count || a.BelongedFaction.IsAlien)
                 {
                     return true;
                 }
@@ -5855,7 +5855,7 @@
                     continue;
                 }
 
-                if (architecture.Meinvkongjian <= architecture.Feiziliebiao.Count)
+                if (architecture.Meinvkongjian <= architecture.Feiziliebiao.Count && !architecture.BelongedFaction.IsAlien)
                 {
                     continue;
                 }
@@ -12438,7 +12438,9 @@
         {
             if (GlobalVariables.hougongGetChildrenRate <= 0) return false;
 
-            if (this.nvxingwujiang().Count > 0 && this.Fund > 50000 && this.Meinvkongjian > this.Feiziliebiao.Count && this.Persons.GameObjects.Contains(this.BelongedFaction.Leader))
+            if (this.nvxingwujiang().Count > 0 && this.Fund > 50000 && 
+                (this.Meinvkongjian > this.Feiziliebiao.Count || this.BelongedFaction.IsAlien)
+                && this.Persons.GameObjects.Contains(this.BelongedFaction.Leader))
             {
                 return true;
             }
