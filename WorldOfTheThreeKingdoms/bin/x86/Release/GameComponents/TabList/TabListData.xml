@@ -2025,14 +2025,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="58" Name="DesertAdaptability" IsNumber="true" DisplayName="沙漠适性" MinWidth="70" DetailLevel="4"
+        <Column ID="58" Name="DesertAdaptability" IsNumber="true" DisplayName="栈道适性" MinWidth="70" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="59" Name="CliffAdaptability" IsNumber="true" DisplayName="栈道适性" MinWidth="70" DetailLevel="4"
+        <Column ID="59" Name="CliffAdaptability" IsNumber="true" DisplayName="瘴气林适性" MinWidth="70" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
@@ -2158,14 +2158,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="108" Name="DesertRate" IsNumber="false" DisplayName="沙漠乘数" MinWidth="70" DetailLevel="4"
+        <Column ID="108" Name="DesertRate" IsNumber="false" DisplayName="栈道乘数" MinWidth="70" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="109" Name="CliffRate" IsNumber="false" DisplayName="栈道乘数" MinWidth="70" DetailLevel="4"
+        <Column ID="109" Name="CliffRate" IsNumber="false" DisplayName="瘴气林乘数" MinWidth="70" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
@@ -2937,14 +2937,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="58" Name="DesertAdaptability" IsNumber="true" DisplayName="沙漠适性" MinWidth="80" DetailLevel="4"
+        <Column ID="58" Name="DesertAdaptability" IsNumber="true" DisplayName="栈道适性" MinWidth="80" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="59" Name="CliffAdaptability" IsNumber="true" DisplayName="栈道适性" MinWidth="80" DetailLevel="4"
+        <Column ID="59" Name="CliffAdaptability" IsNumber="true" DisplayName="瘴气林适性" MinWidth="80" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
@@ -3014,14 +3014,14 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="88" Name="DesertRate" IsNumber="false" DisplayName="沙漠乘数" MinWidth="80" DetailLevel="4"
+        <Column ID="88" Name="DesertRate" IsNumber="false" DisplayName="栈道乘数" MinWidth="80" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="89" Name="CliffRate" IsNumber="false" DisplayName="栈道乘数" MinWidth="80" DetailLevel="4"
+        <Column ID="89" Name="CliffRate" IsNumber="false" DisplayName="瘴气林乘数" MinWidth="80" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
