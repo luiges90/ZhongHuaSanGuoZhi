@@ -898,7 +898,7 @@
                     List<Facility> realToDestroy = new List<Facility>();
                     foreach (FacilityKind kind in base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKindList())
                     {
-                        if (kind.IsExtension || kind.rongna > 0) continue;
+                        if (kind.IsExtension) continue;
                         if (!kind.CanBuild(this)) continue;
                         if ((kind.MaintenanceCost + this.FacilityMaintenanceCost) * 30 + 2000 > this.ExpectedFund && kind.NetFundIncrease <= 0)
                         {
