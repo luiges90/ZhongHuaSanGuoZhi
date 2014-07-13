@@ -3466,10 +3466,11 @@
 
         public void execute(Faction executingFaction)
         {
-            Faction old = this.BelongedCaptive.CaptiveFaction;
+            Faction old = null;
 
             if (this.BelongedCaptive != null)
             {
+                old = this.BelongedCaptive.CaptiveFaction;
                 this.BelongedCaptive.Clear();
             }
 

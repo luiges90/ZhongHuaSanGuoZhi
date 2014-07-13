@@ -777,9 +777,7 @@
 
                         this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.NeutralPerson, this.BelongedFaction.Leader.Name, TextMessageKind.KillCaptive, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", i.CaptivePerson.Name, true);
 
-                        Person person = i.CaptivePerson;
-                        i.Clear();
-                        person.execute(this.BelongedFaction);
+                        i.CaptivePerson.execute(this.BelongedFaction);
                         
                         break;
                     }
