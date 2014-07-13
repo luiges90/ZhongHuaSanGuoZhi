@@ -612,7 +612,7 @@
         {
             if (base.Scenario.IsPlayer(this)) return;
             if (GlobalVariables.hougongGetChildrenRate <= 0) return;
-            if (this.Leader.LocationArchitecture == null || this.Leader.LocationArchitecture.HasHostileTroopsInView()) return;
+            // if (this.Leader.LocationArchitecture == null || this.Leader.LocationArchitecture.HasHostileTroopsInView()) return;
 
             if (this.Leader.NumberOfChildren >= GlobalVariables.OfficerChildrenLimit) return;
 
