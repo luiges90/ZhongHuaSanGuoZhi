@@ -3466,6 +3466,8 @@
 
         public void execute(Faction executingFaction)
         {
+            Faction old = this.BelongedCaptive.CaptiveFaction;
+
             if (this.BelongedCaptive != null)
             {
                 this.BelongedCaptive.Clear();
@@ -3477,7 +3479,7 @@
 
             ExtensionInterface.call("Executed", new Object[] { this.Scenario, this, executingFaction });
 
-            base.Scenario.YearTable.addExecuteEntry(base.Scenario.Date, executor, this);
+            base.Scenario.YearTable.addExecuteEntry(base.Scenario.Date, executor, this, old);
             this.ToDeath(null);
         }
         /*

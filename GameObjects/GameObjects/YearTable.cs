@@ -140,16 +140,16 @@
                 String.Format(yearTableStrings["becomeEmperorLegally_p"], oldEmperor.Name, f.Name, f.Leader.Name));
         }
 
-        public void addExecuteEntry(GameDate date, Person executor, Person executed)
+        public void addExecuteEntry(GameDate date, Person executor, Person executed, Faction oldFaction)
         {
             if (executed.BelongedFaction != null)
             {
-                this.addTableEntry(date, composeFactionList(executor.BelongedFaction, executed.BelongedFaction),
-                    String.Format(yearTableStrings["execute"], executor.Name, executed.BelongedFaction.Name, executed.Name, executed.Age), true);
+                this.addTableEntry(date, composeFactionList(executor.BelongedFaction, oldFaction),
+                    String.Format(yearTableStrings["execute"], executor.Name, oldFaction.Name, executed.Name, executed.Age), true);
                 this.addPersonInGameBiography(executor, date,
-                    String.Format(yearTableStrings["execute_p"], executor.Name, executed.BelongedFaction.Name, executed.Name, executed.Age));
+                    String.Format(yearTableStrings["execute_p"], executor.Name, oldFaction.Name, executed.Name, executed.Age));
                 this.addPersonInGameBiography(executed, date,
-                    String.Format(yearTableStrings["execute_q"], executor.Name, executed.BelongedFaction.Name, executed.Name, executed.Age));
+                    String.Format(yearTableStrings["execute_q"], executor.Name, oldFaction.Name, executed.Name, executed.Age));
             }
             else
             {
