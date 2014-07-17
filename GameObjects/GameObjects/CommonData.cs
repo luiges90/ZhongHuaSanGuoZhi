@@ -99,13 +99,8 @@
             this.suoyouzainanzhonglei.Clear();
         }
 
-        public List<string> LoadFromDatabase(string connectionString, GameScenario scen)
+        public List<string> LoadTerrainDetail(OleDbConnection connection, GameScenario scen)
         {
-            List<string> errorMsg = new List<string>();
-
-            int num;
-            Animation animation;
-            OleDbConnection connection = new OleDbConnection(connectionString);
             connection.Open();
             OleDbDataReader reader = new OleDbCommand("Select * From TerrainDetail", connection).ExecuteReader();
             while (reader.Read())
@@ -130,8 +125,14 @@
                 this.AllTerrainDetails.AddTerrainDetail(terrainDetail);
             }
             connection.Close();
+
+            return new List<string>();
+        }
+
+        public List<string> LoadColor(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From Color", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From Color", connection).ExecuteReader();
             while (reader.Read())
             {
                 Color item = new Color();
@@ -139,8 +140,14 @@
                 this.AllColors.Add(item);
             }
             connection.Close();
+
+            return new List<string>();
+        }
+
+        public List<string> LoadIdealTendencyKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From IdealTendencyKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From IdealTendencyKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 IdealTendencyKind t = new IdealTendencyKind();
@@ -151,8 +158,13 @@
                 this.AllIdealTendencyKinds.Add(t);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadCharacterKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From CharacterKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From CharacterKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 CharacterKind kind2 = new CharacterKind();
@@ -174,8 +186,14 @@
                 this.AllCharacterKinds.Add(kind2);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadArchitectureKind(OleDbConnection connection, GameScenario scen)
+        {
+
             connection.Open();
-            reader = new OleDbCommand("Select * From ArchitectureKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From ArchitectureKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 ArchitectureKind architectureKind = new ArchitectureKind();
@@ -246,8 +264,13 @@
                 this.AllArchitectureKinds.AddArchitectureKind(architectureKind);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadSectionAIDetail(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From SectionAIDetail", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From SectionAIDetail", connection).ExecuteReader();
             while (reader.Read())
             {
                 SectionAIDetail sectionAIDetail = new SectionAIDetail();
@@ -285,11 +308,17 @@
                 this.AllSectionAIDetails.AddSectionAIDetail(sectionAIDetail);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadInfluenceKind(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From InfluenceKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From InfluenceKind", connection).ExecuteReader();
             while (reader.Read())
             {
-                num = (short)reader["ID"];
+                int num = (short)reader["ID"];
                 InfluenceKind ik = InfluenceKindFactory.CreateInfluenceKindByID(num);
                 if (ik != null)
                 {
@@ -319,8 +348,14 @@
                 }
             }
             connection.Close();
+            return errorMsg;
+        }
+
+        public List<string> LoadInfluence(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From Influence", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From Influence", connection).ExecuteReader();
             while (reader.Read())
             {
                 Influence influence = new Influence();
@@ -341,11 +376,17 @@
                 }
             }
             connection.Close();
+            return errorMsg;
+        }
+
+        public List<string> LoadConditionKind(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From ConditionKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From ConditionKind", connection).ExecuteReader();
             while (reader.Read())
             {
-                num = (short)reader["ID"];
+                int num = (short)reader["ID"];
                 ConditionKind ck = ConditionKindFactory.CreateConditionKindByID(num);
                 if (ck != null)
                 {
@@ -360,8 +401,14 @@
                 }
             }
             connection.Close();
+            return errorMsg;
+        }
+
+        public List<string> LoadCondition(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From Condition", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From Condition", connection).ExecuteReader();
             while (reader.Read())
             {
                 Condition condition = new Condition();
@@ -381,15 +428,17 @@
                 }
             }
             connection.Close();
+            return errorMsg;
+        }
 
-            ///
-
-
+        public List<string> LoadTroopEventEffectKind(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From TroopEventEffectKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From TroopEventEffectKind", connection).ExecuteReader();
             while (reader.Read())
             {
-                num = (short)reader["ID"];
+                int num = (short)reader["ID"];
                 EventEffectKind e = EventEffectKindFactory.CreateEventEffectKindByID(num);
                 if (e != null)
                 {
@@ -404,8 +453,14 @@
                 }
             }
             connection.Close();
+            return errorMsg;
+        }
+
+        public List<string> LoadTroopEventEffect(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From TroopEventEffect", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From TroopEventEffect", connection).ExecuteReader();
             while (reader.Read())
             {
                 GameObjects.TroopDetail.EventEffect.EventEffect effect = new GameObjects.TroopDetail.EventEffect.EventEffect();
@@ -424,14 +479,17 @@
                 }
             }
             connection.Close();
+            return errorMsg;
+        }
 
-            //////////////////////////////////////////////////////////
-
+        public List<string> LoadEventEffectKind(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From EventEffectKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From EventEffectKind", connection).ExecuteReader();
             while (reader.Read())
             {
-                num = (short)reader["ID"];
+                int num = (short)reader["ID"];
                 GameObjects.ArchitectureDetail.EventEffect.EventEffectKind e = GameObjects.ArchitectureDetail.EventEffect.EventEffectKindFactory.CreateEventEffectKindByID(num);
                 if (e != null)
                 {
@@ -446,8 +504,14 @@
                 }
             }
             connection.Close();
+            return errorMsg;
+        }
+
+        public List<string> LoadEventEffect(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From EventEffect", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From EventEffect", connection).ExecuteReader();
             while (reader.Read())
             {
                 GameObjects.ArchitectureDetail.EventEffect.EventEffect effect = new GameObjects.ArchitectureDetail.EventEffect.EventEffect();
@@ -467,11 +531,14 @@
                 }
             }
             connection.Close();
+            return errorMsg;
+        }
 
-            //////
-
+        public List<string> LoadFacilityKind(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From FacilityKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From FacilityKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 FacilityKind facilityKind = new FacilityKind();
@@ -516,10 +583,13 @@
                 this.AllFacilityKinds.AddFacilityKind(facilityKind);
             }
             connection.Close();
+            return errorMsg;
+        }
 
-            ///////////////////////////////////////////////////////////////////////
+        public List<string> LoadDisasterKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From DisasterKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From DisasterKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 zainanzhongleilei zainanzhonglei = new zainanzhongleilei();
@@ -553,12 +623,13 @@
             }
 
             connection.Close();
+            return new List<string>();
+        }
 
-            ///////////////////////////////////////////////////////////////////////
-
-            ///////////////////////////////////////////////////////////////////////
+        public List<string> LoadOfficeKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From guanjuezhonglei", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From guanjuezhonglei", connection).ExecuteReader();
             while (reader.Read())
             {
                 guanjuezhongleilei guanjuedezhonglei = new guanjuezhongleilei();
@@ -577,11 +648,14 @@
 
             connection.Close();
 
-            ///////////////////////////////////////////////////////////////////////
+            return new List<string>();
+        }
 
-
+        public List<string> LoadTechnique(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From Technique", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From Technique", connection).ExecuteReader();
             while (reader.Read())
             {
                 Technique technique = new Technique();
@@ -619,8 +693,15 @@
                 this.AllTechniques.AddTechnique(technique);
             }
             connection.Close();
+
+            return errorMsg;
+        }
+
+        public List<string> LoadSkill(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From Skill", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From Skill", connection).ExecuteReader();
             while (reader.Read())
             {
                 Skill skill = new Skill();
@@ -653,11 +734,15 @@
             }
             connection.Close();
 
-            int titleKindShift = 0;
+            return errorMsg;
+        }
+
+        public List<string> LoadTitleKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
             try
             {
-                reader = new OleDbCommand("Select * From TitleKind", connection).ExecuteReader();
+                OleDbDataReader reader = new OleDbCommand("Select * From TitleKind", connection).ExecuteReader();
                 while (reader.Read())
                 {
                     TitleKind tk = new TitleKind();
@@ -686,20 +771,26 @@
                 tk.Combat = true;
                 tk.StudyDay = 90;
                 this.AllTitleKinds.AddTitleKind(tk);
-                titleKindShift = 1;
             }
             connection.Close();
+
+            return new List<string>();
+        }
+
+        public List<string> LoadTitle(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From Title", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From Title", connection).ExecuteReader();
             while (reader.Read())
             {
                 Title title = new Title();
                 title.Scenario = scen;
                 title.ID = (short)reader["ID"];
-                title.Kind = this.AllTitleKinds.GetTitleKind((short)reader["Kind"] + titleKindShift);
+                title.Kind = this.AllTitleKinds.GetTitleKind((short)reader["Kind"]);
                 if (title.Kind == null)
                 {
-                    errorMsg.Add("称号ID" + title.ID + "使用了不存在的称号类型" + ((short)reader["Kind"] + titleKindShift));
+                    errorMsg.Add("称号ID" + title.ID + "使用了不存在的称号类型" + ((short)reader["Kind"]));
                 }
                 title.Level = (short)reader["Level"];
                 title.Combat = (bool)reader["Combat"];
@@ -725,7 +816,7 @@
                     title.AutoLearnText = reader["AutoLearnText"].ToString();
                     title.AutoLearnTextByCourier = reader["AutoLearnTextByCourier"].ToString();
                 }
-                catch 
+                catch
                 {
                     title.AutoLearn = 0;
                     title.AutoLearnText = "";
@@ -745,8 +836,14 @@
                 this.AllTitles.AddTitle(title);
             }
             connection.Close();
+            return errorMsg;
+        }
+
+        public List<string> LoadMilitaryKind(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From MilitaryKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From MilitaryKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 List<string> e = new List<string>();
@@ -761,7 +858,7 @@
 
                 try
                 {
-                    militaryKind.ObtainProb = (int) reader["ObtainProb"];
+                    militaryKind.ObtainProb = (int)reader["ObtainProb"];
                 }
                 catch
                 {
@@ -872,9 +969,13 @@
                 }
             }
             connection.Close();
+            return errorMsg;
+        }
 
+        public List<string> LoadInformationKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From InformationKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From InformationKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 InformationKind kind9 = new InformationKind();
@@ -887,8 +988,13 @@
                 this.AllInformationKinds.Add(kind9);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadAttackDefaultKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From AttackDefaultKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From AttackDefaultKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 AttackDefaultKind kind10 = new AttackDefaultKind();
@@ -898,8 +1004,13 @@
                 this.AllAttackDefaultKinds.Add(kind10);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadAttackTargetKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From AttackTargetKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From AttackTargetKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 AttackTargetKind kind11 = new AttackTargetKind();
@@ -909,8 +1020,14 @@
                 this.AllAttackTargetKinds.Add(kind11);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadCombatMethodKind(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From CombatMethod", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From CombatMethod", connection).ExecuteReader();
             while (reader.Read())
             {
                 CombatMethod combatMethod = new CombatMethod();
@@ -934,8 +1051,14 @@
                 this.AllCombatMethods.AddCombatMethod(combatMethod);
             }
             connection.Close();
+            return errorMsg;
+        }
+
+        public List<string> LoadStunt(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From Stunt", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From Stunt", connection).ExecuteReader();
             while (reader.Read())
             {
                 Stunt stunt = new Stunt();
@@ -967,8 +1090,13 @@
                 this.AllStunts.AddStunt(stunt);
             }
             connection.Close();
+            return errorMsg;
+        }
+
+        public List<string> LoadCastDefaultKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From CastDefaultKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From CastDefaultKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 CastDefaultKind kind12 = new CastDefaultKind();
@@ -978,8 +1106,13 @@
                 this.AllCastDefaultKinds.Add(kind12);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadCastTargetKind(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From CastTargetKind", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From CastTargetKind", connection).ExecuteReader();
             while (reader.Read())
             {
                 CastTargetKind kind13 = new CastTargetKind();
@@ -989,8 +1122,14 @@
                 this.AllCastTargetKinds.Add(kind13);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadStratagem(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
-            reader = new OleDbCommand("Select * From Stratagem", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From Stratagem", connection).ExecuteReader();
             while (reader.Read())
             {
                 Stratagem stratagem = new Stratagem();
@@ -1017,11 +1156,16 @@
                 this.AllStratagems.AddStratagem(stratagem);
             }
             connection.Close();
+            return errorMsg;
+        }
+
+        public List<string> LoadTroopAnimation(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From TroopAnimation", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From TroopAnimation", connection).ExecuteReader();
             while (reader.Read())
             {
-                animation = new Animation();
+                Animation animation = new Animation();
                 animation.Scenario = scen;
                 animation.ID = (short)reader["ID"];
                 animation.Name = reader["Name"].ToString();
@@ -1030,11 +1174,16 @@
                 this.AllTroopAnimations.AddAnimation(animation);
             }
             connection.Close();
+            return new List<string>();
+        }
+
+        public List<string> LoadTileAnimation(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
-            reader = new OleDbCommand("Select * From TileAnimation", connection).ExecuteReader();
+            OleDbDataReader reader = new OleDbCommand("Select * From TileAnimation", connection).ExecuteReader();
             while (reader.Read())
             {
-                animation = new Animation();
+                Animation animation = new Animation();
                 animation.Scenario = scen;
                 animation.ID = (short)reader["ID"];
                 animation.Name = reader["Name"].ToString();
@@ -1044,11 +1193,16 @@
                 this.AllTileAnimations.AddAnimation(animation);
             }
             connection.Close();
+            return new List<string>();
+        }
 
+        public List<string> LoadTextMessage(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
             connection.Open();
             try
             {
-                reader = new OleDbCommand("Select * From TextMessageMap", connection).ExecuteReader();
+                OleDbDataReader reader = new OleDbCommand("Select * From TextMessageMap", connection).ExecuteReader();
                 while (reader.Read())
                 {
                     int pid = (short)reader["Person"];
@@ -1067,7 +1221,7 @@
             }
             catch
             {
-                reader = new OleDbCommand("Select * From TextMessage", connection).ExecuteReader();
+                OleDbDataReader reader = new OleDbCommand("Select * From TextMessage", connection).ExecuteReader();
                 while (reader.Read())
                 {
                     int pid = (short)reader["ID"];
@@ -1159,10 +1313,15 @@
             }
             connection.Close();
 
+            return errorMsg;
+        }
+
+        public List<string> LoadBiographyAdjectives(OleDbConnection connection, GameScenario scen)
+        {
             connection.Open();
             try
             {
-                reader = new OleDbCommand("Select * From BiographyAdjectives", connection).ExecuteReader();
+                OleDbDataReader reader = new OleDbCommand("Select * From BiographyAdjectives", connection).ExecuteReader();
                 while (reader.Read())
                 {
                     int t;
@@ -1206,6 +1365,51 @@
             {
             }
             connection.Close();
+
+            return new List<string>();
+        }
+
+        public List<string> LoadFromDatabase(string connectionString, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
+
+            int num;
+            OleDbConnection connection = new OleDbConnection(connectionString);
+
+            this.LoadTerrainDetail(connection, scen);
+            this.LoadColor(connection, scen);
+            this.LoadIdealTendencyKind(connection, scen);
+            this.LoadCharacterKind(connection, scen);
+            this.LoadArchitectureKind(connection, scen);
+            this.LoadSectionAIDetail(connection, scen);
+            this.LoadInfluenceKind(connection, scen);
+            this.LoadInfluence(connection, scen);
+            this.LoadConditionKind(connection, scen);
+            this.LoadCondition(connection, scen);
+            this.LoadTroopEventEffectKind(connection, scen);
+            this.LoadTroopEventEffect(connection, scen);
+            this.LoadEventEffectKind(connection, scen);
+            this.LoadEventEffect(connection, scen);
+            this.LoadFacilityKind(connection, scen);
+            this.LoadDisasterKind(connection, scen);
+            this.LoadOfficeKind(connection, scen);
+            this.LoadTechnique(connection, scen);
+            this.LoadSkill(connection, scen);
+            this.LoadTitleKind(connection, scen);
+            this.LoadTitle(connection, scen);
+            this.LoadMilitaryKind(connection, scen);
+            this.LoadInformationKind(connection, scen);
+            this.LoadAttackDefaultKind(connection, scen);
+            this.LoadAttackTargetKind(connection, scen);
+            this.LoadCombatMethodKind(connection, scen);
+            this.LoadStunt(connection, scen);
+            this.LoadCastDefaultKind(connection, scen);
+            this.LoadCastTargetKind(connection, scen);
+            this.LoadStratagem(connection, scen);
+            this.LoadTroopAnimation(connection, scen);
+            this.LoadTileAnimation(connection, scen);
+            this.LoadTextMessage(connection, scen);
+            this.LoadBiographyAdjectives(connection, scen);
 
             return errorMsg;
         }
