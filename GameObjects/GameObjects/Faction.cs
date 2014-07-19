@@ -5024,6 +5024,7 @@
                 Faction diplomaticFaction = null;
                 foreach (DiplomaticRelation relation in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
+                    if (relation.RelationFaction1 == null || relation.RelationFaction2 == null) continue;
                     if ((relation.Relation >= 300) && (num < relation.Relation) &&
                         !relation.RelationFaction1.IsAlien && !relation.RelationFaction2.IsAlien)
                     {

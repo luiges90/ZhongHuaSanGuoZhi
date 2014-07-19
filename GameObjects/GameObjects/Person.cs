@@ -7293,11 +7293,11 @@
                 int levelTendency = (((ft == null ? 0 : ft.Level) + (mt == null ? 0 : mt.Level)) / 2)
                     + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
 
-                if (GameObject.Chance(20) && ft != null && ft.CanBeBorn(r))
+                if (ft != null && GameObject.Chance(ft.InheritChance))
                 {
                     r.RealTitles.Add(ft);
                 }
-                else if (GameObject.Chance(25) && mt != null && mt.CanBeBorn(r)) //20% of remaining 80% = 25%
+                else if (mt != null && GameObject.Chance(mt.InheritChance)) 
                 {
                     r.RealTitles.Add(mt);
                 }

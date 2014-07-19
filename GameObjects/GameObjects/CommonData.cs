@@ -822,6 +822,18 @@
                     title.AutoLearnText = "";
                     title.AutoLearnTextByCourier = "";
                 }
+                try
+                {
+                    title.MapLimit = (int)reader["MapLimit"];
+                    title.FactionLimit = (int)reader["FactionLimit"];
+                    title.InheritChance = (int)reader["InheritChance"];
+                }
+                catch
+                {
+                    title.MapLimit = 9999;
+                    title.FactionLimit = 9999;
+                    title.InheritChance = 0;
+                }
 
                 title.GenerationChance[0] = (int)reader["General"];
                 title.GenerationChance[1] = (int)reader["Brave"];

@@ -61,6 +61,24 @@
             return 0;
         }
 
+        public int MapLimit
+        {
+            get;
+            set;
+        }
+
+        public int FactionLimit
+        {
+            get;
+            set;
+        }
+
+        public int InheritChance
+        {
+            get;
+            set;
+        }
+
         private bool? containsLeaderOnlyCache = null;
         public bool ContainsLeaderOnly
         {
@@ -143,6 +161,30 @@
             {
                 if (person.BelongedFaction == null) return false;
                 if (!condition.CheckCondition(person.BelongedFaction)) return false;
+            }
+            if (person.BelongedFaction != null && person.BelongedFaction.PersonCount > this.FactionLimit)
+            {
+                int cnt = 0;
+                foreach (Person p in person.BelongedFaction.Persons)
+                {
+                    if (p.Titles.Contains(this))
+                    {
+                        cnt++;
+                    }
+                }
+                if (cnt >= this.FactionLimit) return false;
+            }
+            if (base.Scenario.Persons.Count > this.MapLimit)
+            {
+                int cnt = 0;
+                foreach (Person p in base.Scenario.Persons)
+                {
+                    if (p.Titles.Contains(this))
+                    {
+                        cnt++;
+                    }
+                }
+                if (cnt >= this.MapLimit) return false;
             }
             return true;
         }
