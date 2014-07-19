@@ -2389,6 +2389,9 @@
                     row["Normal"] = i.GenerationChance[7];
                     row["Cheap"] = i.GenerationChance[8];
                     row["Ability"] = i.RelatedAbility;
+                    row["MapLimit"] = i.MapLimit;
+                    row["FactionLimit"] = i.FactionLimit;
+                    row["InheritChance"] = i.InheritChance;
                     /*try
                     {
                         row["AIPersonValue"] = i.AIPersonValue;

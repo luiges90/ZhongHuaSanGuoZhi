@@ -142,6 +142,35 @@
             return CanLearn(person, false);
         }
 
+        public bool CheckLimit(Person person)
+        {
+             if (person.BelongedFaction != null && person.BelongedFaction.PersonCount > this.FactionLimit)
+            {
+                int cnt = 0;
+                foreach (Person p in person.BelongedFaction.Persons)
+                {
+                    if (p.Titles.Contains(this))
+                    {
+                        cnt++;
+                    }
+                }
+                if (cnt >= this.FactionLimit) return false;
+            }
+            if (base.Scenario.Persons.Count > this.MapLimit)
+            {
+                int cnt = 0;
+                foreach (Person p in base.Scenario.Persons)
+                {
+                    if ((p.Alive || p.Available) && p.Titles.Contains(this))
+                    {
+                        cnt++;
+                    }
+                }
+                if (cnt >= this.MapLimit) return false;
+            }
+            return true;
+        }
+
         public bool CanLearn(Person person, bool ignoreAutoLearn)
         {
             if (AutoLearn > 0 && !ignoreAutoLearn) return false;
@@ -162,31 +191,8 @@
                 if (person.BelongedFaction == null) return false;
                 if (!condition.CheckCondition(person.BelongedFaction)) return false;
             }
-            if (person.BelongedFaction != null && person.BelongedFaction.PersonCount > this.FactionLimit)
-            {
-                int cnt = 0;
-                foreach (Person p in person.BelongedFaction.Persons)
-                {
-                    if (p.Titles.Contains(this))
-                    {
-                        cnt++;
-                    }
-                }
-                if (cnt >= this.FactionLimit) return false;
-            }
-            if (base.Scenario.Persons.Count > this.MapLimit)
-            {
-                int cnt = 0;
-                foreach (Person p in base.Scenario.Persons)
-                {
-                    if (p.Titles.Contains(this))
-                    {
-                        cnt++;
-                    }
-                }
-                if (cnt >= this.MapLimit) return false;
-            }
-            return true;
+           
+            return CheckLimit(person);
         }
 
         public bool CanBeChosenForGenerated()
