@@ -2531,17 +2531,318 @@
         {
             List<string> errorMsg = new List<string>();
 
+            String commonConnString = this.GetCommonDataConnectionString();
+            OleDbConnection commonConn = new OleDbConnection(commonConnString);
+
+            UsingOwnCommonData = true;
+
             try
             {
-                errorMsg.AddRange(this.GameCommonData.LoadFromDatabase(connectionString, this));
-                UsingOwnCommonData = true;
+                errorMsg.AddRange(this.GameCommonData.LoadTerrainDetail(DbConnection, this));
             }
-            catch (Exception)
+            catch
             {
-                this.GameCommonData.Clear();
-                this.LoadCommonData();
+                errorMsg.AddRange(this.GameCommonData.LoadTerrainDetail(commonConn, this));
                 UsingOwnCommonData = false;
             }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadColor(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadColor(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadIdealTendencyKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadIdealTendencyKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCharacterKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCharacterKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadArchitectureKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadArchitectureKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadSectionAIDetail(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadSectionAIDetail(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadInfluenceKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadInfluenceKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadInfluence(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadInfluence(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadConditionKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadConditionKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCondition(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCondition(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTroopEventEffectKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTroopEventEffectKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTroopEventEffect(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTroopEventEffect(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadEventEffectKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadEventEffectKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadEventEffect(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadEventEffect(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadFacilityKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadFacilityKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadDisasterKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadDisasterKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadOfficeKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadOfficeKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTechnique(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTechnique(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadSkill(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadSkill(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTitleKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTitleKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTitle(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTitle(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadMilitaryKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadMilitaryKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadInformationKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadInformationKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadAttackDefaultKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadAttackDefaultKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadAttackTargetKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadAttackTargetKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCombatMethodKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCombatMethodKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadStunt(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadStunt(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCastDefaultKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCastDefaultKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCastTargetKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadCastTargetKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadStratagem(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadStratagem(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTroopAnimation(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTroopAnimation(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTileAnimation(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTileAnimation(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTextMessage(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTextMessage(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadBiographyAdjectives(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadBiographyAdjectives(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+
             try
             {
                 this.LoadSettingsFromDatabase(connectionString);
