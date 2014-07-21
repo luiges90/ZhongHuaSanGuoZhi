@@ -32,7 +32,7 @@
 
         private void addPersonInGameBiography(Person p, GameDate date, string content)
         {
-            p.PersonBiography.InGame += date.Year + "年" + date.Month + "月：" + content + '\n';
+            p.PersonBiography.InGame = date.Year + "年" + date.Month + "月：" + content + '\n' + p.PersonBiography.InGame;
         }
 
         public static FactionList composeFactionList(params Faction[] f)
