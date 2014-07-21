@@ -2041,7 +2041,7 @@
                                 if (((diplomaticRelation >= 0) && (GameObject.Random(diplomaticRelation + 400) <= GameObject.Random(50))) || (diplomaticRelation < 0))
                                 {
                                     PersonList candidates = new PersonList();
-                                    foreach (Person p in target.Persons)
+                                    foreach (Person p in target.GetAssassinatePersonTarget())
                                     {
                                         if ((double)(p.UntiredStrength + p.UntiredIntelligence) / (p.Strength + p.Intelligence) > 1.1)
                                         {
@@ -6295,7 +6295,11 @@
 
         public PersonList GetAssassinatePersonTarget()
         {
-            PersonList list = (PersonList) this.Persons.GetList();
+            PersonList list = new PersonList();
+            foreach (Person p in this.Persons)
+            {
+                list.Add(p);
+            }
             foreach (Person p in this.Feiziliebiao)
             {
                 list.Add(p);
