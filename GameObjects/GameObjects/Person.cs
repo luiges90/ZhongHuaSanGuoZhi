@@ -2909,7 +2909,7 @@
                 }
             }
             this.RealTitles.Add(title);
-            base.Scenario.YearTable.addObtainedTitleEntry(base.Scenario.Date, this, this.StudyingTitle);
+            base.Scenario.YearTable.addObtainedTitleEntry(base.Scenario.Date, this, title);
         }
 
         public void DoStudyTitle()
