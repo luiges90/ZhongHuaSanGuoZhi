@@ -7523,6 +7523,10 @@
                             {
                                 currentArchitecture.Agriculture = 0;
                             }
+                            if (currentArchitecture.Agriculture > currentArchitecture.AgricultureCeiling)
+                            {
+                                currentArchitecture.Agriculture = currentArchitecture.AgricultureCeiling;
+                            }
                         }
                         if (currentArchitecture.Kind.HasCommerce)
                         {
@@ -7530,6 +7534,10 @@
                             if (currentArchitecture.Commerce < 0)
                             {
                                 currentArchitecture.Commerce = 0;
+                            }
+                            if (currentArchitecture.Commerce > currentArchitecture.CommerceCeiling)
+                            {
+                                currentArchitecture.Commerce = currentArchitecture.CommerceCeiling;
                             }
                         }
                         if (currentArchitecture.Kind.HasTechnology)
@@ -7539,6 +7547,10 @@
                             {
                                 currentArchitecture.Technology = 0;
                             }
+                            if (currentArchitecture.Technology > currentArchitecture.TechnologyCeiling)
+                            {
+                                currentArchitecture.Technology = currentArchitecture.TechnologyCeiling;
+                            }
                         }
                         if (currentArchitecture.Kind.HasMorale)
                         {
@@ -7546,6 +7558,10 @@
                             if (currentArchitecture.Morale < 0)
                             {
                                 currentArchitecture.Morale = 0;
+                            }
+                            if (currentArchitecture.Morale > currentArchitecture.MoraleCeiling)
+                            {
+                                currentArchitecture.Morale = currentArchitecture.MoraleCeiling;
                             }
                         }
                     }
@@ -7556,11 +7572,23 @@
                         {
                             currentArchitecture.Domination = 50;
                         }
+                        if (currentArchitecture.Domination > currentArchitecture.DominationCeiling)
+                        {
+                            currentArchitecture.Domination = currentArchitecture.DominationCeiling;
+                        }
                     }
                     else
                     {
                         currentArchitecture.Endurance = 50 * currentArchitecture.AreaCount;
+                        if (currentArchitecture.Endurance > currentArchitecture.EnduranceCeiling)
+                        {
+                            currentArchitecture.Endurance = currentArchitecture.EnduranceCeiling;
+                        }
                         currentArchitecture.Domination = currentArchitecture.DominationCeiling;
+                        if (currentArchitecture.Domination > currentArchitecture.DominationCeiling)
+                        {
+                            currentArchitecture.Domination = currentArchitecture.DominationCeiling;
+                        }
                     }
                     currentArchitecture.Fund /= 10;
                     currentArchitecture.Food /= 10;
