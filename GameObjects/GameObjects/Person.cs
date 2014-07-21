@@ -2909,6 +2909,7 @@
                 }
             }
             this.RealTitles.Add(title);
+            base.Scenario.YearTable.addObtainedTitleEntry(base.Scenario.Date, this, this.StudyingTitle);
         }
 
         public void DoStudyTitle()
@@ -2930,6 +2931,7 @@
 
                     }
                     this.RealTitles.Add(this.StudyingTitle);
+                    base.Scenario.YearTable.addObtainedTitleEntry(base.Scenario.Date, this, this.StudyingTitle);
 
                     this.ApplyTitles(false);
                     this.ApplySkills(false);

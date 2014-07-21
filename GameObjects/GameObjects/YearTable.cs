@@ -55,12 +55,16 @@
                 this.addTableEntry(date, composeFactionList(occupier.BelongedFaction, occupied.BelongedFaction),
                     String.Format(yearTableStrings["occupy"], occupier.BelongedFaction.Name, occupier.DisplayName, occupied.BelongedFaction.Name,
                         occupied.Name), true);
+                this.addPersonInGameBiography(occupier.Leader, date, String.Format(yearTableStrings["occupy_p"], occupier.BelongedFaction.Name, 
+                    occupier.DisplayName, occupied.BelongedFaction.Name, occupied.Name));
             }
             else
             {
                 this.addTableEntry(date, composeFactionList(occupier.BelongedFaction, occupied.BelongedFaction),
                     String.Format(yearTableStrings["occupyEmpty"], occupier.BelongedFaction.Name, occupier.DisplayName,
                         occupied.Name), true);
+                this.addPersonInGameBiography(occupier.Leader, date, String.Format(yearTableStrings["occupyEmpty_p"], occupier.BelongedFaction.Name,
+                    occupier.DisplayName, occupied.BelongedFaction.Name, occupied.Name));
             }
         }
 
@@ -376,5 +380,13 @@
             this.addPersonInGameBiography(p, date,
                 String.Format(yearTableStrings["changeFaction_p"], convincer.Name, oldFaction.Name, newFaction.Name));
         }
+
+        public void addObtainedTitleEntry(GameDate date, Person p, PersonDetail.Title title)
+        {
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["obtainTitle_p"], title.Name));
+        }
+
     }
+
 }
