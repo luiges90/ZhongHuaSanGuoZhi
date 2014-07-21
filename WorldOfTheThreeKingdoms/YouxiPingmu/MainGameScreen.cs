@@ -903,7 +903,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             {
                                 person.OutsideDestination = new Point?(this.selectingLayer.SelectedPoint);
                             }
-                            this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetAssassinatePersonTarget, false, true, true, false, architectureByPosition.Persons, null, "说服", "Personal");
+                            this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetAssassinatePersonTarget, false, true, true, false, architectureByPosition.GetAssassinatePersonTarget(), null, "暗杀", "Personal");
                         }
                     }
                     return;

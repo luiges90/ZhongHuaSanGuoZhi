@@ -2066,9 +2066,10 @@
                                             }
                                         }
 
+                                        int targetAbility = target.DefendAssassinateAbility;
                                         foreach (Person p in candidates)
                                         {
-                                            if (killer.AssassinateAbility > p.AssassinateAbility && killer.UntiredMerit * 0.9 < p.UntiredMerit)
+                                            if (killer.AssassinateAbility > targetAbility && killer.UntiredMerit * 0.9 < p.UntiredMerit)
                                             {
                                                 killer.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(p.BelongedArchitecture.ArchitectureArea, this.Position));
                                                 killer.GoForAssassinate(p);
@@ -6275,12 +6276,40 @@
             return area;
         }
 
+        public int DefendAssassinateAbility
+        {
+            get
+            {
+                int targetAbility = 0;
+                foreach (Person p in this.Persons)
+                {
+                    if (p.AssassinateAbility > targetAbility)
+                    {
+                        targetAbility = p.AssassinateAbility;
+                    }
+                }
+
+                return targetAbility;
+            }
+        }
+
+        public PersonList GetAssassinatePersonTarget()
+        {
+            PersonList list = (PersonList) this.Persons.GetList();
+            foreach (Person p in this.Feiziliebiao)
+            {
+                list.Add(p);
+            }
+            return list;
+        }
+
         public GameArea GetAssassinateArchitectureArea()
         {
             GameArea area = new GameArea();
             foreach (Architecture architecture in base.Scenario.Architectures)
             {
-                if (architecture.BelongedFaction != null && !this.IsFriendly(architecture.BelongedFaction) && architecture.HasPerson() && this.BelongedFaction.IsArchitectureKnown(architecture))
+                if (architecture.BelongedFaction != null && !this.IsFriendly(architecture.BelongedFaction) && 
+                    (architecture.HasPerson() || architecture.Feiziliebiao.Count > 0) && this.BelongedFaction.IsArchitectureKnown(architecture))
                 {
                     foreach (Point point in architecture.ArchitectureArea.Area)
                     {
