@@ -64,7 +64,7 @@
                     String.Format(yearTableStrings["occupyEmpty"], occupier.BelongedFaction.Name, occupier.DisplayName,
                         occupied.Name), true);
                 this.addPersonInGameBiography(occupier.Leader, date, String.Format(yearTableStrings["occupyEmpty_p"], occupier.BelongedFaction.Name,
-                    occupier.DisplayName, occupied.BelongedFaction.Name, occupied.Name));
+                    occupier.DisplayName, occupied.Name));
             }
         }
 
