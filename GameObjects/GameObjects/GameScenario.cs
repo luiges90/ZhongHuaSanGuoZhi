@@ -4602,12 +4602,17 @@
         {
             if (GlobalVariables.WujiangYoukenengDuli == false) return;
 
+            if (GameObject.Random(30) > 0) return;
+
             PersonList list = new PersonList();
             foreach (Person person in this.AvailablePersons)
             {
                 if (person.YoukenengChuangjianXinShili())   //里面包含武将有可能独立的参数
                 {
-                    list.Add(person);
+                    if (person.Ambition > 1 && GameObject.Random((5 - person.Ambition) * (5 - person.Ambition)) == 0)
+                    {
+                        list.Add(person);
+                    }
                 }
             }
             if (list.Count > 0)
@@ -4621,7 +4626,7 @@
                                  ) &&
                                 (
                                     (person3.LocationArchitecture.RecentlyAttacked <= 0)
-                                    && (person3.LocationArchitecture.Population > (0x2710 * person3.LocationArchitecture.AreaCount))
+                                    && (person3.LocationArchitecture.Population > (10000 * person3.LocationArchitecture.AreaCount))
                                  )
                             ) &&
                             !person3.LocationArchitecture.IsCapital
@@ -4629,7 +4634,7 @@
                         (
                             (  //创建新势力
                                 (person3.LocationArchitecture.BelongedFaction == null)
-                                && (GameObject.Random(person3.Reputation) > GameObject.Random(0xc350 * person3.LocationArchitecture.AreaCount))
+                                && (GameObject.Random(person3.Reputation) > GameObject.Random(30000 * person3.LocationArchitecture.AreaCount))
                             ) ||
                             (  //独立
                                 (
@@ -4639,7 +4644,7 @@
                                     GameObject.Random
                                     (
                                         (
-                                            (person3.LocationArchitecture.ArmyScale * 0x4e20)
+                                            (person3.LocationArchitecture.ArmyScale * 20000)
                                             + (person3.LocationArchitecture.Domination * person3.LocationArchitecture.Morale)
                                         ) *
                                         person3.LocationArchitecture.AreaCount
