@@ -144,18 +144,21 @@
             switch (result)
             {
                 case 1: //P1武将胜利
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson, "被打下馬");
                     damage.SourceMoraleChange += 20;
                     damage.DestinationMoraleChange -= 20;
                     damage.SourceCombativityChange += 20;
                     damage.DestinationCombativityChange -= 20;  //第2只军队战意下降
                     break;
                 case 2: //2：P2武将胜利
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, destinationPerson, sourcePerson, "被打下馬");
                     damage.SourceMoraleChange -= 20;
                     damage.DestinationMoraleChange += 20;
                     damage.SourceCombativityChange -= 20;
                     damage.DestinationCombativityChange += 20;
                     break;
                 case 3: //3：P1武将被杀
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, destinationPerson, sourcePerson, "被擊殺");
                     this.challengePersonDie(sourcePerson,sourceTroop);
                     damage.SourceMoraleChange -= 30;
                     damage.DestinationMoraleChange += 30;
@@ -163,6 +166,7 @@
                     damage.DestinationCombativityChange += 30;
                     break;
                 case 4: //4：P2武将被杀
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson, "被擊殺");
                     this.challengePersonDie(destinationPerson, destinationTroop);
                     damage.SourceMoraleChange += 30;
                     damage.DestinationMoraleChange -= 30;
@@ -170,14 +174,17 @@
                     damage.DestinationCombativityChange -= 30;
                     break;
                 case 5: //5：P1武将逃跑
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, destinationPerson, sourcePerson, "逃跑");
                     damage.SourceMoraleChange -= 20;
                     damage.DestinationMoraleChange += 20;
                     break;
                 case 6: //6：P2武将逃跑
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson, "逃跑");
                     damage.SourceMoraleChange += 20;
                     damage.DestinationMoraleChange -= 20;
                     break;
                 case 7: //7、P1武将被俘虏
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, destinationPerson, sourcePerson, "被俘虜");
                     destinationTroop.CatchCaptiveFromTroop(sourcePerson);
                     sourceTroop.RefreshAfterLosePerson();
                     damage.SourceMoraleChange -= 20;
@@ -186,6 +193,7 @@
                     damage.DestinationCombativityChange += 20;
                     break;
                 case 8: //8、P2武将被俘虏
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson, "被俘虜");
                     sourceTroop.CatchCaptiveFromTroop(destinationPerson);
                     destinationTroop.RefreshAfterLosePerson();
                     damage.SourceMoraleChange += 20;
@@ -194,25 +202,30 @@
                     damage.DestinationCombativityChange -= 20; 
                     break;
                 case 9: //9、P1武将被说服
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, destinationPerson, sourcePerson, "被說服");
                     destinationPerson.ConvincePersonSuccess(sourcePerson);
                     damage.SourceCombativityChange -= 30;
                     damage.DestinationCombativityChange += 30;
                     break;
                 case 10: //10、P2武将被说服
+                    sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson, "被說服");
                     sourcePerson.ConvincePersonSuccess(destinationPerson);
-
                     damage.SourceCombativityChange += 30;
                     damage.DestinationCombativityChange -= 30; 
                     break;
                 case -1: //-1：平局
+                    sourcePerson.Scenario.YearTable.addChallengeDrawEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson);
                     break;
                 case -2: //-2：平局：P1武将被杀
+                    sourcePerson.Scenario.YearTable.addChallengeDrawKilledEntry(sourcePerson.Scenario.Date, destinationPerson, sourcePerson);
                     this.challengePersonDie(sourcePerson, sourceTroop);
                     break;
                 case -3: //-3：平局：P2武将被杀
+                    sourcePerson.Scenario.YearTable.addChallengeDrawKilledEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson);
                     this.challengePersonDie(destinationPerson, destinationTroop);
                     break;
                 case -4: //-4：平局：双方武将被杀
+                    sourcePerson.Scenario.YearTable.addChallengeDrawBothKilledEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson);
                     this.challengePersonDie(sourcePerson, sourceTroop);
                     this.challengePersonDie(destinationPerson, destinationTroop);
                     break;

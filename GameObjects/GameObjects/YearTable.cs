@@ -387,6 +387,30 @@
                 String.Format(yearTableStrings["obtainTitle_p"], title.Name));
         }
 
+        public void addChallengeEntry(GameDate date, Person winner, Person loser, String loserState)
+        {
+            this.addPersonInGameBiography(winner, date, String.Format(yearTableStrings["challengeWin_p"], winner.Name, loser.Name, loserState));
+            this.addPersonInGameBiography(loser, date, String.Format(yearTableStrings["challengeLose_p"], winner.Name, loser.Name, loserState));
+        }
+
+        public void addChallengeDrawEntry(GameDate date, Person p, Person q)
+        {
+            this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["challengeDraw_p"], p.Name, q.Name));
+            this.addPersonInGameBiography(q, date, String.Format(yearTableStrings["challengeDraw_q"], p.Name, q.Name));
+        }
+
+        public void addChallengeDrawKilledEntry(GameDate date, Person p, Person killed)
+        {
+            this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["challengeDrawKilled_p"], p.Name, killed.Name));
+            this.addPersonInGameBiography(killed, date, String.Format(yearTableStrings["challengeDrawKilled_q"], p.Name, killed.Name));
+        }
+
+        public void addChallengeDrawBothKilledEntry(GameDate date, Person p, Person q)
+        {
+            this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["challengeDrawBothKilled_p"], p.Name, q.Name));
+            this.addPersonInGameBiography(q, date, String.Format(yearTableStrings["challengeDrawBothKilled_q"], p.Name, q.Name));
+        }
+        
     }
 
 }
