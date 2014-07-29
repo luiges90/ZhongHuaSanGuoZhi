@@ -4908,6 +4908,19 @@
             return r;
         }
 
+        public PersonList GetFeiziList()
+        {
+            PersonList result = new PersonList();
+            foreach (Architecture a in this.Architectures)
+            {
+                foreach (Person p in a.Feiziliebiao)
+                {
+                    result.Add(p);
+                }
+            }
+            return result;
+        }
+
         public int meinvkongjian()
         {
             int r = 0;

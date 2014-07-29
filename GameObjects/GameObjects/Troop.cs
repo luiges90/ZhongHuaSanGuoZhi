@@ -1620,7 +1620,7 @@
                     foreach (Person q in this.persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f, -3);
+                        p.AdjustRelation(q, -0.5f / (this.persons.Count - 1), -3);
                     }
                 }
                 foreach (Person person in this.persons)
@@ -2366,7 +2366,7 @@
 
                         foreach (Person q in this.Persons)
                         {
-                            person.AdjustRelation(q, -1, -3);
+                            person.AdjustRelation(q, -1f / (this.Persons.Count - 1), -3);
                         }
 
                         ExtensionInterface.call("CapturedByTroop", new Object[] { this.Scenario, this, person });
@@ -2381,7 +2381,7 @@
                     foreach (Person q in this.Persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, 1, 3);
+                        p.AdjustRelation(q, 1f / (this.Persons.Count - 1), 3);
                     }
                 }
             }
@@ -2573,7 +2573,7 @@
                         foreach (Person q in sending.persons)
                         {
                             if (p == q) continue;
-                            p.AdjustRelation(q, 1, 3);
+                            p.AdjustRelation(q, 1f / (sending.persons.Count - 1), 3);
                         }
                     }
                 }
@@ -2716,7 +2716,7 @@
                     foreach (Person q in sending.persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f, -3);
+                        p.AdjustRelation(q, -0.5f / (sending.persons.Count - 1), -3);
                     }
                 }
 

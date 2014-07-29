@@ -7625,6 +7625,14 @@
                         }
                     }
                 }
+
+                this.AdjustRelation(nvren, 0.5f, 2);
+                foreach (Person p in this.BelongedFaction.GetFeiziList())
+                {
+                    if (p == nvren) continue;
+                    this.AdjustRelation(p, -0.5f, -2);
+                }
+
                 this.OutsideTask = OutsideTaskKind.后宮;
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = houGongDays;
