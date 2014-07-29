@@ -2843,6 +2843,8 @@
                 UsingOwnCommonData = false;
             }
 
+            DbConnection.Close();
+
             try
             {
                 this.LoadSettingsFromDatabase(connectionString);
