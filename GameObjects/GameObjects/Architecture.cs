@@ -1554,7 +1554,7 @@
                 bool needOnlyOneMorale = this.Morale >= this.MoraleCeiling - 2;             // 因为补充导致的民心下降1或2点时，只需要选择1个武将进行民心就足够了
                 bool needOnlyOneTrain = false;
 
-                if (this.RecentlyAttacked > 0)
+                if (this.RecentlyAttacked > 0 && this.Endurance < this.EnduranceCeiling)
                 {
                     need[0] = need[1] = need[2] = false;
                     need[5] = true;
