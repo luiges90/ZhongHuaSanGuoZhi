@@ -7626,11 +7626,13 @@
                     }
                 }
 
-                this.AdjustRelation(nvren, 0.5f, 2);
+                this.AdjustRelation(nvren, 1, 1);
+                nvren.AdjustRelation(this, 1, 1);
                 foreach (Person p in this.BelongedFaction.GetFeiziList())
                 {
                     if (p == nvren) continue;
-                    this.AdjustRelation(p, -0.5f, -2);
+                    p.AdjustRelation(this, -1, -1);
+                    p.AdjustRelation(nvren, -1, -1);
                 }
 
                 this.OutsideTask = OutsideTaskKind.后宮;
