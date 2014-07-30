@@ -884,6 +884,12 @@
                         foreach (Person p in a.meifaxianhuaiyundefeiziliebiao())
                         {
                             if (p.Hates(this.Leader)) continue;
+                            if (p.GetRelation(this.leader) < -400)
+                            {
+                                target = p;
+                                location = a;
+                                break;
+                            }
                             int pval = p.NumberOfChildren > 0 ? p.Merit / p.NumberOfChildren : int.MaxValue;
                             int tval = target == null ? 0 : (target.NumberOfChildren > 0 ? target.UntiredMerit / target.NumberOfChildren : int.MaxValue);
                             if (target == null || pval > tval)
