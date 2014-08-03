@@ -1584,7 +1584,7 @@
 
                 }
             }
-            else if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun && GlobalVariables.getChildrenRate > 0 &&
+            else if (this.Spouse != null && this.Spouse.Spouse == this && !this.huaiyun && !this.Spouse.huaiyun && GlobalVariables.getChildrenRate > 0 &&
                 (this.LocationArchitecture != null && this.Spouse.LocationArchitecture == this.LocationArchitecture ||
                     (this.LocationTroop != null && this.Spouse.LocationTroop == this.LocationTroop)) &&
                 this.Status == PersonStatus.Normal && this.Spouse.Status == PersonStatus.Normal &&
@@ -7374,6 +7374,15 @@
             r.BelongedFaction = r.BelongedArchitecture.BelongedFaction;
             r.Available = true;*/
             r.Alive = true;
+            r.JoinFactionID = new List<int>();
+            if (father.BelongedFaction != null)
+            {
+                r.JoinFactionID.Add(father.BelongedFaction.ID);
+            }
+            if (mother.BelongedFaction != null)
+            {
+                r.JoinFactionID.Add(mother.BelongedFaction.ID);
+            }
 
             father.Scenario.Persons.Add(r);
 

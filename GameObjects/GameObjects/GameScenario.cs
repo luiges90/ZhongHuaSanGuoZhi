@@ -588,13 +588,14 @@
                     Faction f = (Faction) this.Factions.GetGameObject(id);
                     if (f != null)
                     {
+                        this.AvailablePersons.Add(person);
                         person.LocationArchitecture = f.Capital;
                         person.Status = PersonStatus.Normal;
                         person.InitialLoyalty();
                         person.YearJoin = this.Date.Year;
-                        this.GameScreen.xianshishijiantupian(f.Leader, f.Capital.Name, TextMessageKind.PersonJoin, "PersonJoin", "", "", person.Name, false);
-                        this.AvailablePersons.Add(person);
+                        this.GameScreen.xianshishijiantupian(person, f.Capital.Name, TextMessageKind.PersonJoin, "PersonJoin", "", "", f.Name, false);
                         this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
+                        continue;
                     }
                 }
 
