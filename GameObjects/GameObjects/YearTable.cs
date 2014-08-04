@@ -146,7 +146,7 @@
 
         public void addExecuteEntry(GameDate date, Person executor, Person executed, Faction oldFaction)
         {
-            if (executed.BelongedFaction != null)
+            if (executed.BelongedFaction != null && oldFaction != null)
             {
                 this.addTableEntry(date, composeFactionList(executor.BelongedFaction, oldFaction),
                     String.Format(yearTableStrings["execute"], executor.Name, oldFaction.Name, executed.Name, executed.Age), true);

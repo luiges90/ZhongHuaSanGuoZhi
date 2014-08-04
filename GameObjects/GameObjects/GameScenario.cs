@@ -583,6 +583,7 @@
                     treasure.Available = true;
                 }
 
+                bool joined = false;
                 foreach (int id in person.JoinFactionID)
                 {
                     Faction f = (Faction) this.Factions.GetGameObject(id);
@@ -595,9 +596,11 @@
                         person.YearJoin = this.Date.Year;
                         this.GameScreen.xianshishijiantupian(person, f.Capital.Name, TextMessageKind.PersonJoin, "PersonJoin", "", "", f.Name, false);
                         this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
-                        continue;
+                        joined = true;
+                        break;
                     }
                 }
+                if (joined) continue;
 
                 Person joinToPerson = person.Father;
 
