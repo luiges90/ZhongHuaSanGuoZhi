@@ -865,8 +865,7 @@
 
         private void CreateNewFaction(Person leader)
         {
-            if (leader.Status != PersonStatus.NoFaction) return;
-            if (leader.LocationArchitecture.BelongedFaction != null) return;
+            if (leader.Status != PersonStatus.Normal && leader.Status != PersonStatus.NoFaction) return;
 
             Faction newFaction = new Faction();
             newFaction.Scenario = this;
@@ -941,6 +940,8 @@
             newFaction.AddArchitectureKnownData(newFactionCapital);
             newFaction.FirstSection.AddArchitecture(newFactionCapital);
 
+            leader.MoveToArchitecture(newFactionCapital);
+
             if (oldFaction != null && !GameObject.Chance((int)oldFaction.Leader.PersonalLoyalty * 10))
             {
                 oldFaction.Leader.AddHated(leader);
@@ -949,16 +950,25 @@
             {
                 if ((p.BelongedFaction == null || p.BelongedFaction == oldFaction) && !p.IsCaptive && p.Status != PersonStatus.Princess && p != leader)
                 {
-                    if (p.HasCloseStrainTo(leader) || p.IsVeryCloseTo(leader) || (GameObject.Chance(100 - (Person.GetIdealOffset(leader, p)) * 20)))
+                    int offset = Person.GetIdealOffset(leader, p);
+                    if (p.HasCloseStrainTo(leader) || p.IsVeryCloseTo(leader) || (GameObject.Chance(100 - offset * 20)))
                     {
-                        if (p.BelongedFaction == null || (GameObject.Chance(100 - ((int)p.PersonalLoyalty) * 25) && GameObject.Chance(220 - p.Loyalty * 2)))
+                        if (p.BelongedFaction == null || p.IsVeryCloseTo(leader) || (GameObject.Chance(100 - ((int)p.PersonalLoyalty) * 25 + (5 - offset) * 10) 
+                            && GameObject.Chance(220 - p.Loyalty * 2 + (5 - offset) * 20)))
                         {
                             if (p.BelongedFaction != null)
                             {
                                 p.ChangeFaction(newFaction);
                             }
                             p.InitialLoyalty();
-                            p.MoveToArchitecture(newFactionCapital);
+                            if (p.LocationTroop == null)
+                            {
+                                p.MoveToArchitecture(newFactionCapital);
+                            }
+                            else
+                            {
+                                p.BelongedTroop.ChangeFaction(newFaction);
+                            }
                         }
                     }
                 }
