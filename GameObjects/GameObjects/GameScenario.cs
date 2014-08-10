@@ -886,7 +886,6 @@
             {
                 foreach (MilitaryKind kind in leader.PersonBiography.MilitaryKinds.MilitaryKinds.Values)
                 {
-                    if (kind.IsTransport) continue;
                     newFaction.BaseMilitaryKinds.AddMilitaryKind(kind);
                 }
                 newFaction.ColorIndex = leader.PersonBiography.FactionColor;
@@ -4665,7 +4664,7 @@
                                             + (person3.LocationArchitecture.Domination * person3.LocationArchitecture.Morale)
                                         ) *
                                         person3.LocationArchitecture.AreaCount
-                                    ) < GameObject.Random(person3.Reputation)
+                                    ) < GameObject.Random((int) (person3.Reputation * person3.BelongedFaction.ArchitectureCount / 20.0f))
                                 )
                             )
                          )
