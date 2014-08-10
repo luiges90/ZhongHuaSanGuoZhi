@@ -2043,7 +2043,7 @@
                 list.Clear();
                 foreach (Person person3 in this.Leader.Brothers)
                 {
-                    if (person3 != this.Leader)
+                    if (person3 != this.Leader && person3.BelongedFaction == this)
                     {
                         list.Add(person3);
                     }
@@ -2064,7 +2064,7 @@
                 foreach (Person person3 in this.Persons)
                 {
                     if ((person3.Mother != null) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Mother == person3.Mother) || (person3.Mother == this.Leader))
-                        && person3 != this.Leader)
+                        && person3 != this.Leader && person3.BelongedFaction == this)
                     {
                         list.Add(person3);
                     }
@@ -2100,7 +2100,7 @@
             if (person2 == null)
             {
                 list.Clear();
-                if (this.Leader.Spouse != null && this.Leader != this.Leader.Spouse)
+                if (this.Leader.Spouse != null && this.Leader != this.Leader.Spouse && person2.BelongedFaction == this)
                 {
                     person2 = this.Leader.Spouse;
                 }
