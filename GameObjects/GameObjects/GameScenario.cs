@@ -887,6 +887,7 @@
             {
                 foreach (MilitaryKind kind in leader.PersonBiography.MilitaryKinds.MilitaryKinds.Values)
                 {
+                    if (kind.IsTransport) continue;
                     newFaction.BaseMilitaryKinds.AddMilitaryKind(kind);
                 }
                 newFaction.ColorIndex = leader.PersonBiography.FactionColor;
