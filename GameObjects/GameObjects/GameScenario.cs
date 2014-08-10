@@ -583,25 +583,6 @@
                     treasure.Available = true;
                 }
 
-                bool joined = false;
-                foreach (int id in person.JoinFactionID)
-                {
-                    Faction f = (Faction) this.Factions.GetGameObject(id);
-                    if (f != null)
-                    {
-                        this.AvailablePersons.Add(person);
-                        person.LocationArchitecture = f.Capital;
-                        person.Status = PersonStatus.Normal;
-                        person.InitialLoyalty();
-                        person.YearJoin = this.Date.Year;
-                        this.GameScreen.xianshishijiantupian(person, f.Capital.Name, TextMessageKind.PersonJoin, "PersonJoin", "", "", f.Name, false);
-                        this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
-                        joined = true;
-                        break;
-                    }
-                }
-                if (joined) continue;
-
                 Person joinToPerson = person.Father;
 
                 if (joinToPerson != null && joinToPerson.Available && joinToPerson.Alive && joinToPerson.BelongedFaction != null && joinToPerson.BelongedCaptive == null)
@@ -654,6 +635,25 @@
                     this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
                     continue;
                 }
+
+                bool joined = false;
+                foreach (int id in person.JoinFactionID)
+                {
+                    Faction f = (Faction)this.Factions.GetGameObject(id);
+                    if (f != null)
+                    {
+                        this.AvailablePersons.Add(person);
+                        person.LocationArchitecture = f.Capital;
+                        person.Status = PersonStatus.Normal;
+                        person.InitialLoyalty();
+                        person.YearJoin = this.Date.Year;
+                        this.GameScreen.xianshishijiantupian(person, f.Capital.Name, TextMessageKind.PersonJoin, "PersonJoin", "", "", f.Name, false);
+                        this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
+                        joined = true;
+                        break;
+                    }
+                }
+                if (joined) continue;
 
                 person.LocationArchitecture = this.Architectures.GetGameObject(person.AvailableLocation) as Architecture;
                 person.Status = PersonStatus.NoFaction;
