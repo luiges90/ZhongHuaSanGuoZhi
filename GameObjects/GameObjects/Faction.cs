@@ -3187,6 +3187,10 @@
             this.PrepareThirdTierMapCost();
             this.PrepareKnownAreaData();
             this.PrepareInformations();
+            if (!this.Leader.Alive || !this.Leader.Available || this.Leader.BelongedFaction != this)
+            {
+                ChangeLeaderAfterLeaderDeath();
+            }
         }
 
         public void PrepareInformations()
