@@ -139,6 +139,8 @@
         public static float CreatedOfficerAbilityFactor = 0.8f;
         public static bool EnablePersonRelations = true;
 
+        public static int FriendlyDiplomacyThreshold = 300;
+
         public static bool FullScreen = false;
 
         public const string cryptKey = "A3g0c3%2";

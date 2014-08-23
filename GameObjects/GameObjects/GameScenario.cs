@@ -4745,7 +4745,7 @@
                 if ((theOtherFactionID != src) && (Math.Abs(relation.Relation) >= 100))
                 {
                     int num2 = this.DiplomaticRelations.GetDiplomaticRelation(this, src, theOtherFactionID).Relation;
-                    if ((num2 > -300) && (num2 < 300))
+                    if ((num2 > -GlobalVariables.FriendlyDiplomacyThreshold) && (num2 < GlobalVariables.FriendlyDiplomacyThreshold))
                     {
                         int num3 = relation.Relation;
                         if (num3 > 0x3e8)

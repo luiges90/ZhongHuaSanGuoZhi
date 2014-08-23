@@ -2867,7 +2867,7 @@
             {
                 return false;
             }
-            return ((faction == this) || (base.Scenario.GetDiplomaticRelation(base.ID, faction.ID) >= 300) || (base.Scenario.GetDiplomaticRelationTruce(base.ID, faction.ID) > 0));
+            return ((faction == this) || (base.Scenario.GetDiplomaticRelation(base.ID, faction.ID) >= GlobalVariables.FriendlyDiplomacyThreshold) || (base.Scenario.GetDiplomaticRelationTruce(base.ID, faction.ID) > 0));
         }
 
         public bool IsFriendlyWithoutTruce(Faction faction)
@@ -2876,7 +2876,7 @@
             {
                 return false;
             }
-            return (faction == this) || (base.Scenario.GetDiplomaticRelation(base.ID, faction.ID) >= 300);
+            return (faction == this) || (base.Scenario.GetDiplomaticRelation(base.ID, faction.ID) >= GlobalVariables.FriendlyDiplomacyThreshold);
         }
 
         public bool IsHostile(Faction faction)
@@ -3446,7 +3446,7 @@
                     {
                         if (j.BelongedFaction == null) continue;
                         if (j.BelongedFaction.ID == this.ID) continue;
-                        if (base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, j.BelongedFaction.ID, this.ID).Relation < 300)
+                        if (base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, j.BelongedFaction.ID, this.ID).Relation < GlobalVariables.FriendlyDiplomacyThreshold)
                         {
                             return true;
                         }
@@ -3455,7 +3455,7 @@
                     {
                         if (j.BelongedFaction == null) continue;
                         if (j.BelongedFaction.ID == this.ID) continue;
-                        if (base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, j.BelongedFaction.ID, this.ID).Relation < 300)
+                        if (base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, j.BelongedFaction.ID, this.ID).Relation < GlobalVariables.FriendlyDiplomacyThreshold)
                         {
                             return true;
                         }
@@ -3524,7 +3524,7 @@
             encircler.Fund -= 120000;
 
             DiplomaticRelation rel = base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, this.ID, toEncircle.ID);
-            if (rel.Relation > -300)
+            if (rel.Relation > -GlobalVariables.FriendlyDiplomacyThreshold)
             {
                 rel.Relation -= 100;
             }
@@ -3535,7 +3535,7 @@
             //处理所有势力和被声讨方的关系
             foreach (DiplomaticRelation f in encircler.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(toEncircle.ID))
             {
-                if (f.Relation < 160)
+                if (f.Relation < GlobalVariables.FriendlyDiplomacyThreshold / 2)
                 {
                     f.Relation -= 20;
                 }
@@ -3555,7 +3555,7 @@
                 foreach (DiplomaticRelation i in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     Faction opposite = i.GetDiplomaticFaction(this.ID);
-                    if (i.Relation >= -300 && base.Scenario.IsPlayer(opposite))
+                    if (i.Relation >= -GlobalVariables.FriendlyDiplomacyThreshold && base.Scenario.IsPlayer(opposite))
                     {
                         i.Relation -= 15; //focus到玩家的时候，每月降低15点友好度
                         relationBroken = true;
@@ -3574,7 +3574,7 @@
                     //if (i.Relation < 300) continue; 
                     if (!this.adjacentTo(opposite)) continue;    //不接壤的AI不主动改变关系值
                     if (GameObject.Chance((int)((double)this.armyScale / opposite.ArmyScale * ((int)this.Leader.Ambition + 1) * 20))
-                        && i.Relation < 300)
+                        && i.Relation < GlobalVariables.FriendlyDiplomacyThreshold)
                     {
                         i.Relation -= (7 + (int)Random(15)); //根据总兵力情况每月随机减少
                         i.Relation -= (Person.GetIdealOffset(this.Leader, opposite.Leader)) / 10;
@@ -3587,7 +3587,7 @@
                         i.Relation -= (7 + (int)Random(15));
                         i.Relation -= (Person.GetIdealOffset(this.Leader, opposite.Leader)) / 10;
                         relationBroken = true;
-                        if (i.Relation < 300)
+                        if (i.Relation < GlobalVariables.FriendlyDiplomacyThreshold)
                         {
                             //显示联盟破裂画面
                             this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.Leader.Name, TextMessageKind.BreakDiplomaticRelation, "BreakDiplomaticRelation", "BreakDiplomaticRelation.jpg", "BreakDiplomaticRelation.wav", opposite.Leader.Name, true);
@@ -4865,7 +4865,7 @@
                 int num = 0;
                 foreach (DiplomaticRelation relation in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
-                    if (relation.Relation >= 300)
+                    if (relation.Relation >= GlobalVariables.FriendlyDiplomacyThreshold)
                     {
                         num++;
                     }
@@ -4901,7 +4901,7 @@
             {
                 foreach (DiplomaticRelation relation in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
-                    if (relation.Relation >= 300)
+                    if (relation.Relation >= GlobalVariables.FriendlyDiplomacyThreshold)
                     {
                         return true;
                     }
@@ -5051,7 +5051,7 @@
                 foreach (DiplomaticRelation relation in base.Scenario.DiplomaticRelations.GetDiplomaticRelationListByFactionID(base.ID))
                 {
                     if (relation.RelationFaction1 == null || relation.RelationFaction2 == null) continue;
-                    if ((relation.Relation >= 300) && (num < relation.Relation) &&
+                    if ((relation.Relation >= GlobalVariables.FriendlyDiplomacyThreshold) && (num < relation.Relation) &&
                         !relation.RelationFaction1.IsAlien && !relation.RelationFaction2.IsAlien)
                     {
                         num = relation.Relation;

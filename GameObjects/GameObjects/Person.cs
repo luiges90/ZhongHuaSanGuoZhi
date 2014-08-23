@@ -2230,9 +2230,9 @@
                 }
                 int g = (((c * 10 + Math.Max((this.politics - GetIdealOffset(this, this.TargetArchitecture.BelongedFaction.Leader) / 2), 0)) + 100) / 10);
                 int cd = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID);
-                if (((cd + g) > 290) && cd < 300)
+                if (((cd + g) > GlobalVariables.FriendlyDiplomacyThreshold * 0.95) && cd < GlobalVariables.FriendlyDiplomacyThreshold)
                 {
-                    g = 290 - cd;
+                    g = GlobalVariables.FriendlyDiplomacyThreshold * 0.95 - cd;
                 }
                 base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, g);
                 this.TargetArchitecture.Fund += 10000;
