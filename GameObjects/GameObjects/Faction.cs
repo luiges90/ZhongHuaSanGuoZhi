@@ -3577,6 +3577,7 @@
                         && i.Relation < 300)
                     {
                         i.Relation -= (7 + (int)Random(15)); //根据总兵力情况每月随机减少
+                        i.Relation -= (Person.GetIdealOffset(this.Leader, opposite.Leader)) / 10;
                         relationBroken = true;
                         break;
                     }
@@ -3584,6 +3585,7 @@
                     if (GameObject.Chance((int)(Person.GetIdealOffset(this.Leader, opposite.Leader) / 3)) && i.Relation >= 300)
                     {
                         i.Relation -= (7 + (int)Random(15));
+                        i.Relation -= (Person.GetIdealOffset(this.Leader, opposite.Leader)) / 10;
                         relationBroken = true;
                         if (i.Relation < 300)
                         {
