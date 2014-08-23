@@ -8905,7 +8905,7 @@
                 {
                     int num3 = 0;
                     damage.Surround = true;
-                    damage.DestinationMoraleChange -= 5 * ((surroundAttackingTroop.Count - 3) + 1);
+                    damage.DestinationMoraleChange -= GlobalVariables.SurroundFactor * ((surroundAttackingTroop.Count - 3) + 1);
                     troop.Effect = TroopEffect.被包围;
                     foreach (Troop troop2 in surroundAttackingTroop)
                     {
@@ -8913,8 +8913,8 @@
                         {
                             damage.SurroudingList.Add(troop2);
                             troop2.Surrounding = true;
-                            damage.SourceOffence += StaticMethods.GetRandomValue(troop2.Offence, 4);
-                            num3 += StaticMethods.GetRandomValue(troop2.ChaosAfterSurroundAttackChance, 2);
+                            damage.SourceOffence += StaticMethods.GetRandomValue(troop2.Offence, GlobalVariables.SurroundFactor * 4 / 5);
+                            num3 += StaticMethods.GetRandomValue(troop2.ChaosAfterSurroundAttackChance, GlobalVariables.SurroundFactor * 2 / 5);
                         }
                     }
                     damage.Chaos = GameObject.Chance(this.ChaosAfterSurroundAttackChance + num3);

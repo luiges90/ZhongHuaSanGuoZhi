@@ -140,6 +140,7 @@
         public static bool EnablePersonRelations = true;
 
         public static int FriendlyDiplomacyThreshold = 300;
+        public static int SurroundFactor = 5;
 
         public static bool FullScreen = false;
 
@@ -805,6 +806,24 @@
             {
                 exception = exception24;
                 throw new Exception("FullScreen:\n" + exception.ToString());
+            }
+            try
+            {
+                FriendlyDiplomacyThreshold = int.Parse(nextSibling.Attributes.GetNamedItem("FriendlyDiplomacyThreshold").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("FriendlyDiplomacyThreshold:\n" + exception.ToString());
+            }
+            try
+            {
+                SurroundFactor = int.Parse(nextSibling.Attributes.GetNamedItem("SurroundFactor").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("SurroundFactor:\n" + exception.ToString());
             }
             return true;
         }
