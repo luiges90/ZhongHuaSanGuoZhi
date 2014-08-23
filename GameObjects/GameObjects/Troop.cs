@@ -2366,7 +2366,7 @@
 
                         foreach (Person q in this.Persons)
                         {
-                            person.AdjustRelation(q, -1f / (this.Persons.Count - 1), -3);
+                            person.AdjustRelation(q, -1f / Math.Max(1, this.Persons.Count - 1), -3);
                         }
 
                         ExtensionInterface.call("CapturedByTroop", new Object[] { this.Scenario, this, person });
@@ -2716,7 +2716,7 @@
                     foreach (Person q in sending.persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f / (sending.persons.Count - 1), -3);
+                        p.AdjustRelation(q, -0.5f / Math.Max(1, sending.persons.Count - 1), -3);
                     }
                 }
 

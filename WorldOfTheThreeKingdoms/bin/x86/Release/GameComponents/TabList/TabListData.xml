@@ -773,7 +773,7 @@
 				FontColor="4294967295"
 				Align="Middle">
         </Column>
-		<Column ID="236" Name="HasSkill" IsNumber="false" DisplayName="破甲" MinWidth="40" ItemID="36" DetailLevel="5"
+		<Column ID="236" Name="HasSkill" IsNumber="false" DisplayName="摧坚" MinWidth="40" ItemID="36" DetailLevel="5"
 				FontName="方正隶变_GBK"
 				FontSize="14"
 				FontStyle="Regular"
@@ -836,14 +836,14 @@
 				FontColor="4294967295"
 				Align="Middle">
         </Column>
-		<Column ID="251" Name="HasSkill" IsNumber="false" DisplayName="冲击" MinWidth="40" ItemID="51" DetailLevel="5"
+		<Column ID="251" Name="HasSkill" IsNumber="false" DisplayName="突击" MinWidth="40" ItemID="51" DetailLevel="5"
 				FontName="方正隶变_GBK"
 				FontSize="14"
 				FontStyle="Regular"
 				FontColor="4294967295"
 				Align="Middle">
         </Column>
-		<Column ID="252" Name="HasSkill" IsNumber="false" DisplayName="突击" MinWidth="40" ItemID="52" DetailLevel="5"
+		<Column ID="252" Name="HasSkill" IsNumber="false" DisplayName="风击" MinWidth="40" ItemID="52" DetailLevel="5"
 				FontName="方正隶变_GBK"
 				FontSize="14"
 				FontStyle="Regular"
@@ -1194,20 +1194,6 @@
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Right">
-		</Column>
-		<Column ID="110" Name="FundInPack" IsNumber="true" DisplayName="正送到资金" MinWidth="80" DetailLevel="2"
-                FontName="方正隶变_GBK"
-                FontSize="15"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Right">
-        </Column>
-        <Column ID="111" Name="FoodInPack" IsNumber="true" DisplayName="正送到军粮" MinWidth="80" DetailLevel="2"
-                FontName="方正隶变_GBK"
-                FontSize="15"
-                FontStyle="Regular"
-                FontColor="4294967295"
-                Align="Right">
         </Column>
         <Column ID="8" Name="ArmyScale" IsNumber="true" DisplayName="军队规模" MinWidth="80" DetailLevel="2"
                 FontName="方正隶变_GBK"
@@ -1542,9 +1528,7 @@
         </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 9 5 6 7 103 99 101 100">
-        </Tab>
-		<Tab ID="9"  Name="Basic" DisplayName="资源" Columns="1 2 5 6 7 110 111 16">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 9 5 6 7 16 103 99 101 100">
         </Tab>
         <Tab ID="2"  Name="Internal" DisplayName="内政" Columns="1 60 10 11 12 13 14 15 24 92 93">
         </Tab>
