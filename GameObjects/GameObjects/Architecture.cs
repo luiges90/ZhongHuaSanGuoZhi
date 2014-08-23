@@ -4690,6 +4690,8 @@
 
             List<Point> orientations = new List<Point>();
             TroopList hostileTroopsInView = this.GetHostileTroopsInView();
+            if (hostileTroopsInView.Count <= 0) return;
+
             foreach (Troop troop in hostileTroopsInView)
             {
                 orientations.Add(troop.Position);
@@ -6343,7 +6345,7 @@
         public TroopList GetHostileTroopsInView()
         {
             GameArea viewArea = this.ViewArea;
-            if ((this.RecentlyAttacked > 0) || (this.ArmyScale > this.LargeArmyScale))
+            if (this.Endurance < this.EnduranceCeiling / 2)
             {
                 viewArea = this.LongViewArea;
             }
