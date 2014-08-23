@@ -2232,7 +2232,7 @@
                 int cd = base.Scenario.GetDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID);
                 if (((cd + g) > GlobalVariables.FriendlyDiplomacyThreshold * 0.95) && cd < GlobalVariables.FriendlyDiplomacyThreshold)
                 {
-                    g = GlobalVariables.FriendlyDiplomacyThreshold * 0.95 - cd;
+                    g = (int) (GlobalVariables.FriendlyDiplomacyThreshold * 0.95 - cd);
                 }
                 base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, this.TargetArchitecture.BelongedFaction.ID, g);
                 this.TargetArchitecture.Fund += 10000;
