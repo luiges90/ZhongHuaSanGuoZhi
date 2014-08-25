@@ -6934,17 +6934,17 @@
 
             if (type != OfficerType.ALL_ROUNDER || GlobalVariables.CreatedOfficerAbilityFactor > 1)
             {
-                r.Command = (int)(r.Command * GlobalVariables.CreatedOfficerAbilityFactor);
-                r.Strength = (int)(r.Strength * GlobalVariables.CreatedOfficerAbilityFactor);
-                r.Intelligence = (int)(r.Intelligence * GlobalVariables.CreatedOfficerAbilityFactor);
-                r.Politics = (int)(r.Politics * GlobalVariables.CreatedOfficerAbilityFactor);
-                r.Glamour = (int)(r.Glamour * GlobalVariables.CreatedOfficerAbilityFactor);
+                r.BaseCommand = (int)(r.BaseCommand * GlobalVariables.CreatedOfficerAbilityFactor);
+                r.BaseStrength = (int)(r.BaseStrength * GlobalVariables.CreatedOfficerAbilityFactor);
+                r.BaseIntelligence = (int)(r.BaseIntelligence * GlobalVariables.CreatedOfficerAbilityFactor);
+                r.BasePolitics = (int)(r.BasePolitics * GlobalVariables.CreatedOfficerAbilityFactor);
+                r.BaseGlamour = (int)(r.BaseGlamour * GlobalVariables.CreatedOfficerAbilityFactor);
             }
-            if (r.Command < 1) r.Command = 1;
-            if (r.Strength < 1) r.Strength = 1;
-            if (r.Intelligence < 1) r.Intelligence = 1;
-            if (r.Politics < 1) r.Politics = 1;
-            if (r.Glamour < 1) r.Glamour = 1;
+            if (r.BaseCommand < 1) r.Command = 1;
+            if (r.BaseStrength < 1) r.Strength = 1;
+            if (r.BaseIntelligence < 1) r.Intelligence = 1;
+            if (r.BasePolitics < 1) r.Politics = 1;
+            if (r.BaseGlamour < 1) r.Glamour = 1;
 
             setNewOfficerFace(r);
 
