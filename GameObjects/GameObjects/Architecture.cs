@@ -794,7 +794,7 @@
             }*/
         }
 
-        private void AIExtension()
+        private bool AIExtension()
         {
             if (this.BuildingFacility < 0)
             {
@@ -808,7 +808,7 @@
                             FacilityKind facilityKind = kind;
                             this.BelongedFaction.DepositTechniquePointForFacility(facilityKind.PointCost);
                             this.BeginToBuildAFacility(facilityKind);
-                            return;
+                            return true;
                         }
                         else if ((kind.FundCost - (this.Fund - this.EnoughFund)) / this.ExpectedFund + 1 <= kind.Days / 15)
                         {
@@ -817,16 +817,16 @@
                             {
                                 this.BelongedFaction.SaveTechniquePointForFacility(this.PlanFacilityKind.PointCost / this.PlanFacilityKind.Days);
                             }
-                            return;
+                            return true;
                         }
                     }
                 }
             }
+            return false;
         }
 
         private void AIFacility()
         {
-            AIExtension();
             if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && (this.BuildingFacility < 0) && this.FacilityPositionCount > 0)
             {
                 if (this.PlanFacilityKind != null)
@@ -851,6 +851,8 @@
                 }
                 else
                 {
+                    if (AIExtension()) return;
+
                     //remove useless facilities
                     if (this.BelongedSection != null && this.BelongedSection.AIDetail.AllowFacilityRemoval)
                     {

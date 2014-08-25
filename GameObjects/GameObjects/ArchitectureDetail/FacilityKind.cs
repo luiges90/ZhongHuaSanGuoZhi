@@ -273,16 +273,12 @@
             {
                 return false;
             }
-            if (a.GetFacilityKindCount(this.ID) >= this.ArchitectureLimit)
-            {
-                return false;
-            }
-            if (a.BelongedFaction != null && a.BelongedFaction.GetFacilityKindCount(this.ID) >= this.FactionLimit)
-            {
-                return false;
-            }
-            if (a.BelongedFaction != null && 
+            if (a.BelongedFaction != null &&
                 a.BelongedFaction.TechniquePoint + a.BelongedFaction.TechniquePointForFacility + a.BelongedFaction.TechniquePointForTechnique < this.PointCost)
+            {
+                return false;
+            }
+            if (this.TechnologyNeeded > a.Technology)
             {
                 return false;
             }
@@ -293,10 +289,15 @@
                     return false;
                 }
             }
-            if (this.TechnologyNeeded > a.Technology)
+            if (this.ArchitectureLimit < 9999 && a.GetFacilityKindCount(this.ID) >= this.ArchitectureLimit)
             {
                 return false;
             }
+            if (a.BelongedFaction != null && this.FactionLimit < 9999 && a.BelongedFaction.GetFacilityKindCount(this.ID) >= this.FactionLimit)
+            {
+                return false;
+            }
+            
             return true;
         }
     }

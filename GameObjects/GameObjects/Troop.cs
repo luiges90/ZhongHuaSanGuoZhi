@@ -1026,11 +1026,18 @@
                 }
             }*/
             this.OffenceOnlyBeforeMoveFlag = false;
+
+            Dictionary<Point, CreditPack> positionCredits = new Dictionary<Point, CreditPack>();
+            foreach (Point point in dayArea.Area)
+            {
+                positionCredits.Add(point, this.GetCreditByPosition(point));
+            }
+
             foreach (Point point in dayArea.Area)
             {
                 if (this.BelongedLegion == null || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0))
                 {
-                    moveCreditByPosition = this.GetCreditByPosition(point);
+                    moveCreditByPosition = positionCredits[point];
                     if (!hasTargetTroopFlag)
                     {
                         hasTargetTroopFlag = moveCreditByPosition.TargetTroop != null;
@@ -1067,7 +1074,7 @@
                             {
                                 if (((!nullable.HasValue || hasTargetTroopFlag) || (nullable.Value == point)) && ((this.BelongedLegion == null) || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0)))
                                 {
-                                    moveCreditByPosition = this.GetCreditByPosition(point);
+                                    moveCreditByPosition = positionCredits[point];
                                     moveCreditByPosition.CurrentCombatMethod = method;
                                     moveCreditByPosition.Credit -= method.Combativity;
                                     if (moveCreditByPosition.Credit >= credit)
@@ -1143,7 +1150,7 @@
                 {
                     if ((this.BelongedLegion == null) || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0))
                     {
-                        moveCreditByPosition = this.GetCreditByPosition(point);
+                        moveCreditByPosition = positionCredits[point];
                         list.Add(moveCreditByPosition);
                         hasTargetTroopFlag = moveCreditByPosition.TargetTroop != null;
                         hasUnAttackableTroop = moveCreditByPosition.HasUnAttackableTroop;
