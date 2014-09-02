@@ -1507,6 +1507,13 @@
                             
                         }
                     }
+
+                    Person haizifuqin = this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person;
+                    if (haizifuqin != null)
+                    {
+                        this.AdjustRelation(haizifuqin, 1, 0);
+                        haizifuqin.AdjustRelation(this, 1, 0);
+                    }
                 }
                 else if (GameObject.Chance((this.huaiyuntianshu - 290) * 5))
                 {
@@ -1573,6 +1580,9 @@
                             {
                                 base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
                             }
+
+                            this.AdjustRelation(haizifuqin, 3, 0);
+                            haizifuqin.AdjustRelation(this, 3, 0);
 
                             count++;
                         } while ((GameObject.Chance(haizifuqin.multipleChildrenRate) || GameObject.Chance(this.multipleChildrenRate)) && count < Math.Max(haizifuqin.maxChildren, this.maxChildren));
@@ -1900,6 +1910,10 @@
             GameObjects.Faction belongedFaction = null;
             if (person.BelongedFaction != null && this.BelongedFaction != null)
             {
+                if (person.ProhibitedFactionID.ContainsKey(person.BelongedFaction.ID))
+                {
+                    person.ProhibitedFactionID.Remove(person.BelongedFaction.ID);
+                }
                 person.ProhibitedFactionID.Add(person.BelongedFaction.ID, 90);
                 belongedFaction = person.BelongedFaction;
                 base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
@@ -7639,13 +7653,13 @@
                     }
                 }
 
-                this.AdjustRelation(nvren, 1, 1);
-                nvren.AdjustRelation(this, 1, 1);
+                this.AdjustRelation(nvren, houGongDays / 30.0f, 1);
+                nvren.AdjustRelation(this, houGongDays / 30.0f, 1);
                 foreach (Person p in this.BelongedFaction.GetFeiziList())
                 {
                     if (p == nvren) continue;
-                    p.AdjustRelation(this, -1, -1);
-                    p.AdjustRelation(nvren, -1, -1);
+                    p.AdjustRelation(this, -houGongDays / 30.0f, -1);
+                    p.AdjustRelation(nvren, -houGongDays / 30.0f, -1);
                 }
 
                 this.OutsideTask = OutsideTaskKind.后宮;

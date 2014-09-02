@@ -2081,7 +2081,7 @@
                     person2 = list[0] as Person;
                 }
             }
-            if (GlobalVariables.PermitFactionMerge && !this.IsAlien)
+            if (person2 == null && GlobalVariables.PermitFactionMerge && !this.IsAlien)
             {
                 Faction maxFriendlyDiplomaticRelation = this.MaxFriendlyDiplomaticRelation;
                 if (maxFriendlyDiplomaticRelation != null)
@@ -3267,7 +3267,7 @@
 
         private void RebuildSections()
         {
-            if ((this.Capital != null) && (base.Scenario.GameScreen.LoadScenarioInInitialization || (base.Scenario.Date.Day == 1)))
+            if ((this.Capital != null) && (base.Scenario.GameScreen.LoadScenarioInInitialization || base.Scenario.Date.Day == 1 || this.SectionCount == 0))
             {
                 if (base.Scenario.GameScreen.LoadScenarioInInitialization || ((base.Scenario.Date.Month % 3) == 1))
                 {

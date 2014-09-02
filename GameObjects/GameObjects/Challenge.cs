@@ -159,7 +159,7 @@
                     break;
                 case 3: //3：P1武将被杀
                     sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, destinationPerson, sourcePerson, "被擊殺");
-                    this.challengePersonDie(sourcePerson,sourceTroop);
+                    this.challengePersonDie(sourcePerson,sourceTroop, destinationPerson);
                     damage.SourceMoraleChange -= 30;
                     damage.DestinationMoraleChange += 30;
                     damage.SourceCombativityChange -= 30;
@@ -167,7 +167,7 @@
                     break;
                 case 4: //4：P2武将被杀
                     sourcePerson.Scenario.YearTable.addChallengeEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson, "被擊殺");
-                    this.challengePersonDie(destinationPerson, destinationTroop);
+                    this.challengePersonDie(destinationPerson, destinationTroop, sourcePerson);
                     damage.SourceMoraleChange += 30;
                     damage.DestinationMoraleChange -= 30;
                     damage.SourceCombativityChange += 30;
@@ -218,16 +218,16 @@
                     break;
                 case -2: //-2：平局：P1武将被杀
                     sourcePerson.Scenario.YearTable.addChallengeDrawKilledEntry(sourcePerson.Scenario.Date, destinationPerson, sourcePerson);
-                    this.challengePersonDie(sourcePerson, sourceTroop);
+                    this.challengePersonDie(sourcePerson, sourceTroop, destinationPerson);
                     break;
                 case -3: //-3：平局：P2武将被杀
                     sourcePerson.Scenario.YearTable.addChallengeDrawKilledEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson);
-                    this.challengePersonDie(destinationPerson, destinationTroop);
+                    this.challengePersonDie(destinationPerson, destinationTroop, sourcePerson);
                     break;
                 case -4: //-4：平局：双方武将被杀
                     sourcePerson.Scenario.YearTable.addChallengeDrawBothKilledEntry(sourcePerson.Scenario.Date, sourcePerson, destinationPerson);
-                    this.challengePersonDie(sourcePerson, sourceTroop);
-                    this.challengePersonDie(destinationPerson, destinationTroop);
+                    this.challengePersonDie(sourcePerson, sourceTroop, destinationPerson);
+                    this.challengePersonDie(destinationPerson, destinationTroop, sourcePerson);
                     break;
             }
 
@@ -236,7 +236,7 @@
 
 
 
-        private void challengePersonDie(Person challengePerson,Troop troop)
+        private void challengePersonDie(Person challengePerson,Troop troop, Person killer)
         {
             if (GlobalVariables.PersonDieInChallenge)
             {
@@ -247,7 +247,7 @@
                 }
                 else
                 {
-                    challengePerson.KilledInBattle(challengePerson);
+                    challengePerson.KilledInBattle(killer);
                 }
             }
         }

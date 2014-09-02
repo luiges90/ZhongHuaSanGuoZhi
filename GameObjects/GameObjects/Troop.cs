@@ -737,6 +737,11 @@
 
         public void AI()
         {
+            if (this.BelongedLegion == null && this.BelongedFaction != null)
+            {
+                this.BelongedLegion = this.BelongedFaction.GetLegion(this.WillArchitecture == null ? this.StartingArchitecture : this.WillArchitecture);
+            }
+            
             if (this.ControlAvail() && !this.Destroyed && !this.ManualControl)
             {
                 if (!this.IsRobber && this.BelongedLegion != null)
