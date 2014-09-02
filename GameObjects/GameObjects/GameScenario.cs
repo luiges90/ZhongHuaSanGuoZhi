@@ -4566,7 +4566,14 @@
                             {
                                 p.AdjustRelation(q, -0.3f, 1 + GameObject.Random(5));
                             }
-                            p.AdjustRelation(q, 0, p.PersonalLoyalty - 3 + (GameObject.Random(5) - 2));
+
+                            int g = p.PersonalLoyalty - 3 + (GameObject.Random(5) - 2);
+                            if (p.Closes(q)) 
+                            {
+                                g = Math.Max(g, 0);
+                            }
+                            p.AdjustRelation(q, 0, g);
+
                             if (p.GetRelation(q) < 0)
                             {
                                 p.SetRelation(q, 0);
@@ -4578,7 +4585,14 @@
                             {
                                 p.AdjustRelation(q, 0.3f, -1 - GameObject.Random(5));
                             }
-                            p.AdjustRelation(q, 0, p.PersonalLoyalty - 1 + (GameObject.Random(5) - 2));
+
+                            int g = p.PersonalLoyalty - 1 + (GameObject.Random(5) - 2);
+                            if (p.Hates(q))
+                            {
+                                g = Math.Min(0, g);
+                            }
+                            p.AdjustRelation(q, 0, g);
+
                             if (p.GetRelation(q) > 0)
                             {
                                 p.SetRelation(q, 0);
