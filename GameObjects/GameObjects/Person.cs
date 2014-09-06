@@ -1509,10 +1509,18 @@
                     }
 
                     Person haizifuqin = this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person;
-                    if (haizifuqin != null)
+                    if (haizifuqin != null && !this.Hates(haizifuqin) && !haizifuqin.Hates(this))
                     {
                         this.AdjustRelation(haizifuqin, 1, 0);
                         haizifuqin.AdjustRelation(this, 1, 0);
+                    }
+                    if (this.Status == PersonStatus.Princess)
+                    {
+                        foreach (Person p in this.BelongedArchitecture.BelongedFaction.GetFeiziList())
+                        {
+                            if (p == this) continue;
+                            p.AdjustRelation(this, (4 - p.PersonalLoyalty) * -0.5f, 0);
+                        }
                     }
                 }
                 else if (GameObject.Chance((this.huaiyuntianshu - 290) * 5))
@@ -1581,8 +1589,8 @@
                                 base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
                             }
 
-                            this.AdjustRelation(haizifuqin, 3, 0);
-                            haizifuqin.AdjustRelation(this, 3, 0);
+                            this.AdjustRelation(haizifuqin, 3, -15);
+                            haizifuqin.AdjustRelation(this, 3, -15);
 
                             count++;
                         } while ((GameObject.Chance(haizifuqin.multipleChildrenRate) || GameObject.Chance(this.multipleChildrenRate)) && count < Math.Max(haizifuqin.maxChildren, this.maxChildren));
@@ -7653,13 +7661,14 @@
                     }
                 }
 
-                this.AdjustRelation(nvren, houGongDays / 30.0f, 1);
-                nvren.AdjustRelation(this, houGongDays / 30.0f, 1);
+                this.AdjustRelation(nvren, houGongDays / 30.0f, -5);
+                nvren.AdjustRelation(this, houGongDays / 30.0f, -5);
+
                 foreach (Person p in this.BelongedFaction.GetFeiziList())
                 {
                     if (p == nvren) continue;
-                    p.AdjustRelation(this, -houGongDays / 30.0f, -1);
-                    p.AdjustRelation(nvren, -houGongDays / 30.0f, -1);
+                    p.AdjustRelation(this, -houGongDays / 60.0f * (4 - p.PersonalLoyalty), -1);
+                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (4 - p.PersonalLoyalty), -1);
                 }
 
                 this.OutsideTask = OutsideTaskKind.后宮;
@@ -7995,6 +8004,10 @@
                 {
                     this.relations.Add(p, val);
                 }
+            }
+            else
+            {
+                return;
             }
 
             if (this.relations[p] <= Parameters.HateThreshold && !this.Hates(p))
