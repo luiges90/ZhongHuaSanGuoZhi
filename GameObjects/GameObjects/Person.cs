@@ -90,6 +90,7 @@
         public int InfluenceIncrementOfPolitics;
         public int InfluenceIncrementOfStrength;
         public int InfluenceIncrementOfReputation;
+        public int InfluenceIncrementOfLoyalty;
         public float InfluenceRateOfBadForm;
         public float InfluenceRateOfCommand = 1f;
         public float InfluenceRateOfGlamour = 1f;
@@ -5434,7 +5435,8 @@
             {
                 if (this.BelongedFaction != null)
                 {
-                    return this.loyalty;
+                    if (this == this.BelongedFaction.Leader) return 255;
+                    return this.loyalty + this.InfluenceIncrementOfLoyalty;
                 }
                 return 0;
             }
