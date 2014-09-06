@@ -30,7 +30,6 @@
 
         private static Regex dateMatcher = new Regex("^(\\d+)年(1?\\d)月([123]?\\d)日$", RegexOptions.Compiled);
         private static Regex slashMatcher = new Regex("^(\\d+)/(\\d+)$", RegexOptions.Compiled);
-        private static Regex slashStringMatcher = new Regex("^(\\d+)/(.*)$", RegexOptions.Compiled);
         private static Regex numberFirstMatcher = new Regex("^(\\d+).*$", RegexOptions.Compiled);
         public int Compare(GameObject x, GameObject y)
         {
@@ -141,56 +140,45 @@
                 }
                 else
                 {
-                    xMatch = slashStringMatcher.Match(xStr);
-                    yMatch = slashStringMatcher.Match(yStr);
+                    xMatch = dateMatcher.Match(xStr);
+                    yMatch = dateMatcher.Match(yStr);
                     if (xMatch.Success && yMatch.Success)
                     {
-                        int xv = int.Parse(xMatch.Groups[1].ToString());
-                        int yv = int.Parse(yMatch.Groups[1].ToString());
-                        result = xv - yv;
-                    }
-                    else
-                    {
-                        xMatch = dateMatcher.Match(xStr);
-                        yMatch = dateMatcher.Match(yStr);
-                        if (xMatch.Success && yMatch.Success)
+                        int xYear = int.Parse(xMatch.Groups[1].ToString());
+                        int xMonth = int.Parse(xMatch.Groups[2].ToString());
+                        int xDay = int.Parse(xMatch.Groups[3].ToString());
+                        int yYear = int.Parse(yMatch.Groups[1].ToString());
+                        int yMonth = int.Parse(yMatch.Groups[2].ToString());
+                        int yDay = int.Parse(yMatch.Groups[3].ToString());
+                        if (xYear == yYear)
                         {
-                            int xYear = int.Parse(xMatch.Groups[1].ToString());
-                            int xMonth = int.Parse(xMatch.Groups[2].ToString());
-                            int xDay = int.Parse(xMatch.Groups[3].ToString());
-                            int yYear = int.Parse(yMatch.Groups[1].ToString());
-                            int yMonth = int.Parse(yMatch.Groups[2].ToString());
-                            int yDay = int.Parse(yMatch.Groups[3].ToString());
-                            if (xYear == yYear)
+                            if (xMonth == yMonth)
                             {
-                                if (xMonth == yMonth)
-                                {
-                                    result = xDay - yDay;
-                                }
-                                else
-                                {
-                                    result = xMonth - yMonth;
-                                }
+                                result = xDay - yDay;
                             }
                             else
                             {
-                                result = xYear - yYear;
+                                result = xMonth - yMonth;
                             }
                         }
                         else
                         {
-                            xMatch = numberFirstMatcher.Match(xStr);
-                            yMatch = numberFirstMatcher.Match(yStr);
-                            if (xMatch.Success && yMatch.Success)
-                            {
-                                int xNum = int.Parse(xMatch.Groups[1].ToString());
-                                int yNum = int.Parse(yMatch.Groups[1].ToString());
-                                result = xNum - yNum;
-                            }
-                            else
-                            {
-                                result = xStr.CompareTo(yStr);
-                            }
+                            result = xYear - yYear;
+                        }
+                    }
+                    else
+                    {
+                        xMatch = numberFirstMatcher.Match(xStr);
+                        yMatch = numberFirstMatcher.Match(yStr);
+                        if (xMatch.Success && yMatch.Success)
+                        {
+                            int xNum = int.Parse(xMatch.Groups[1].ToString());
+                            int yNum = int.Parse(yMatch.Groups[1].ToString());
+                            result = xNum - yNum;
+                        }
+                        else
+                        {
+                            result = xStr.CompareTo(yStr);
                         }
                     }
                 }
