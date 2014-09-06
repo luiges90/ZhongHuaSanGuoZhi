@@ -1094,7 +1094,7 @@
                 }
             }
 
-            this.ToDeath(killer);
+            this.ToDeath(killer, this.BelongedFaction);
         }
 
         public void KilledInBattle(Troop killer)
@@ -1112,11 +1112,11 @@
             this.KilledInBattle(kill);
         }
 
-        public void ToDeath(Person killerInBattle)
+        public void ToDeath(Person killerInBattle, Faction oldFaction)
         {
             Architecture locationArchitecture;
             Troop locationTroop = null;
-            GameObjects.Faction belongedFaction = this.BelongedFaction;
+            GameObjects.Faction belongedFaction = oldFaction;
 
             this.Scenario.YearTable.addPersonDeathEntry(this.Scenario.Date, this);
 
@@ -1215,7 +1215,7 @@
             {
                 if (this.Status != PersonStatus.Moving && this.Status != PersonStatus.NoFactionMoving)
                 {
-                    this.ToDeath(null);
+                    this.ToDeath(null, this.BelongedFaction);
                 }
             }
         }
@@ -1763,7 +1763,7 @@
                             ExtensionInterface.call("Assassinated", new Object[] { this.Scenario, this, this.ConvincingPerson });
 
                             base.Scenario.YearTable.addAssassinateEntry(base.Scenario.Date, this, this.ConvincingPerson);
-                            this.ConvincingPerson.ToDeath(this);
+                            this.ConvincingPerson.ToDeath(this, this.BelongedFaction);
                         }
                         else
                         {
@@ -1801,7 +1801,7 @@
                                 ExtensionInterface.call("Assassinated", new Object[] { this.Scenario, this, this.ConvincingPerson });
 
                                 base.Scenario.YearTable.addReverseAssassinateEntry(base.Scenario.Date, this, this.ConvincingPerson);
-                                this.ToDeath(this);
+                                this.ToDeath(this, this.BelongedFaction);
 
                                 base.Scenario.GameScreen.PersonAssassinateFailedKilled(this, this.ConvincingPerson, architectureByPosition);
                             }
@@ -3505,7 +3505,7 @@
             ExtensionInterface.call("Executed", new Object[] { this.Scenario, this, executingFaction });
 
             base.Scenario.YearTable.addExecuteEntry(base.Scenario.Date, executor, this, old);
-            this.ToDeath(null);
+            this.ToDeath(null, old);
         }
         /*
         private void LeaveFaction()

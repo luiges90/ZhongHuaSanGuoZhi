@@ -4487,7 +4487,7 @@
                         p.InjureRate *= 0.85f;
                         if (p.InjureRate < 0.05)
                         {
-                            p.ToDeath(null);
+                            p.ToDeath(null, this.BelongedFaction);
                         }
                     }
                 }
