@@ -3545,7 +3545,7 @@
         }
         */
 
-        private void LeaveFaction()
+        public void LeaveFaction()
         {
             if (GameObject.Chance(20) && this.LocationArchitecture != null && this.Status == PersonStatus.Normal && this.BelongedFaction != null && this.BelongedFaction.Leader != this && !this.IsCaptive)
             {

@@ -4628,18 +4628,24 @@
             return (this.MapTileData[position.X, position.Y].TroopCount > 1);
         }
 
-        private void NewFaction()
+        internal void NewFaction()
+        {
+            if (GameObject.Random(30) == 0) {
+                this.NewFaction(this.AvailablePersons);
+            }
+        }
+
+        internal void NewFaction(PersonList candidates)
         {
             if (GlobalVariables.WujiangYoukenengDuli == false) return;
 
-            if (GameObject.Random(30) > 0) return;
-
             PersonList list = new PersonList();
-            foreach (Person person in this.AvailablePersons)
+            foreach (Person person in candidates)
             {
                 if (person.YoukenengChuangjianXinShili())   //里面包含武将有可能独立的参数
                 {
-                    if (person.Ambition > 1 && GameObject.Random((5 - person.Ambition) * (5 - person.Ambition)) == 0)
+                    if ((person.Ambition > 1 && GameObject.Random((5 - person.Ambition) * (5 - person.Ambition)) == 0) || 
+                        (person.BelongedFaction != null && person.Hates(person.BelongedFaction.Leader)))
                     {
                         list.Add(person);
                     }
@@ -4655,8 +4661,7 @@
                                     (person3.LocationArchitecture != null) && !person3.IsCaptive
                                  ) &&
                                 (
-                                    (person3.LocationArchitecture.RecentlyAttacked <= 0)
-                                    && (person3.LocationArchitecture.Population > (10000 * person3.LocationArchitecture.AreaCount))
+                                    person3.LocationArchitecture.Population > (10000 * person3.LocationArchitecture.JianzhuGuimo)
                                  )
                             ) &&
                             !person3.LocationArchitecture.IsCapital
@@ -4664,21 +4669,22 @@
                         (
                             (  //创建新势力
                                 (person3.LocationArchitecture.BelongedFaction == null)
-                                && (GameObject.Random(person3.Reputation) > GameObject.Random(30000 * person3.LocationArchitecture.AreaCount))
+                                && (GameObject.Random(person3.Reputation) > GameObject.Random(30000 * person3.LocationArchitecture.JianzhuGuimo))
                             ) ||
                             (  //独立
                                 (
-                                    (person3.BelongedFaction != null) && (Person.GetIdealOffset(person3, person3.BelongedFaction.Leader) > 10)
+                                    (person3.BelongedFaction != null) &&
+                                    (Person.GetIdealOffset(person3, person3.BelongedFaction.Leader) > 10 || person3.Hates(person3.BelongedFaction.Leader))
                                 ) &&
                                 (
                                     GameObject.Random
                                     (
                                         (
-                                            (person3.LocationArchitecture.ArmyScale * 20000)
+                                            (person3.LocationArchitecture.ArmyScale * 10000)
                                             + (person3.LocationArchitecture.Domination * person3.LocationArchitecture.Morale)
                                         ) *
-                                        person3.LocationArchitecture.AreaCount
-                                    ) < GameObject.Random((int) (person3.Reputation * person3.BelongedFaction.ArchitectureCount / 20.0f))
+                                        person3.LocationArchitecture.JianzhuGuimo
+                                    ) < GameObject.Random((int) (person3.Reputation * person3.BelongedFaction.ArchitectureCount / 15.0f))
                                 )
                             )
                          )

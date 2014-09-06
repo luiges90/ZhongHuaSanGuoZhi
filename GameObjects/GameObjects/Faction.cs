@@ -1961,6 +1961,27 @@
             ExtensionInterface.call("ChangeFaction", new Object[] { this.Scenario, this });
         }
 
+        public void AfterChangeLeader(Person oldLeader, Person newLeader)
+        {
+            foreach (Person p in this.Persons)
+            {
+                if (p.Loyalty < 110 || (!oldLeader.IsCloseTo(newLeader) && !oldLeader.HasStrainTo(newLeader)))
+                {
+                    p.Loyalty -= (int)Math.Max(0, (Person.GetIdealOffset(p, newLeader) / 75.0f - 5) * 20);
+                    if (!oldLeader.IsCloseTo(newLeader) && !oldLeader.HasStrainTo(newLeader))
+                    {
+                        p.Loyalty -= (int)Math.Max(0, (Person.GetIdealOffset(p, newLeader) / 75.0f - 5) * 30);
+                    }
+                    p.Loyalty -= GameObject.Random(10);
+                    p.LeaveFaction();
+                }
+            }
+            do
+            {
+                base.Scenario.NewFaction(this.Persons);
+            } while (GameObject.Chance(50));
+        }
+
         public Faction ChangeLeaderAfterLeaderDeath()
         {
             Person leader = this.Leader;
@@ -2094,6 +2115,7 @@
                         leader.LoseTreasure(treasure);
                         treasure.Available = false;
                     }
+                    this.AfterChangeLeader(leader, maxFriendlyDiplomaticRelation.Leader);
                     return maxFriendlyDiplomaticRelation;
                 }
             }
@@ -2183,6 +2205,7 @@
                 }
                 ExtensionInterface.call("ChangeKing", new Object[] { this.Scenario, this });
                 base.Scenario.YearTable.addChangeKingEntry(base.Scenario.Date, this.Leader, this, leader);
+                this.AfterChangeLeader(leader, this.Leader);
                 return this;
             }
             foreach (Treasure treasure in leader.Treasures.GetList())
@@ -2191,6 +2214,7 @@
                 leader.LoseTreasure(treasure);
                 treasure.Available = false;
             }
+            
             return null;
         }
 
