@@ -123,6 +123,10 @@
             {
                 return ((Person)this.tabList.gameObjectList[index]).HasStunt(this.ItemID) ? "○" : "×";
             }
+            if (this.Name.Equals("TitleName"))
+            {
+                return ((Person) this.tabList.gameObjectList[index]).TitleName(this.ItemID);
+            }
 
             object obj = StaticMethods.GetPropertyValue(this.tabList.gameObjectList[index], this.Name);
             String s;

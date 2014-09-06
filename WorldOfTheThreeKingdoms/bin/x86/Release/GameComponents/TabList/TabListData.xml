@@ -270,7 +270,63 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="60" Name="TitleDetailedNames" IsNumber="false" DisplayName="称号" MinWidth="750" DetailLevel="3"
+        <Column ID="60" Name="TitleName" IsNumber="false" DisplayName="称号" MinWidth="130" DetailLevel="3" ItemID="1"
+                FontName="方正隶变_GBK"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4278255360"
+                Align="Middle">
+        </Column>
+		<Column ID="61" Name="TitleName" IsNumber="false" DisplayName="合称1" MinWidth="130" DetailLevel="3" ItemID="2"
+                FontName="方正隶变_GBK"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4278255360"
+                Align="Middle">
+        </Column>
+		<Column ID="62" Name="TitleName" IsNumber="false" DisplayName="君主" MinWidth="130" DetailLevel="3" ItemID="3"
+                FontName="方正隶变_GBK"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4278255360"
+                Align="Middle">
+        </Column>
+		<Column ID="63" Name="TitleName" IsNumber="false" DisplayName="统领" MinWidth="130" DetailLevel="3" ItemID="4"
+                FontName="方正隶变_GBK"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4278255360"
+                Align="Middle">
+        </Column>
+		<Column ID="64" Name="TitleName" IsNumber="false" DisplayName="女官" MinWidth="130" DetailLevel="3" ItemID="5"
+                FontName="方正隶变_GBK"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4278255360"
+                Align="Middle">
+        </Column>
+		<Column ID="65" Name="TitleName" IsNumber="false" DisplayName="爵位" MinWidth="130" DetailLevel="3" ItemID="10"
+                FontName="方正隶变_GBK"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4278255360"
+                Align="Middle">
+        </Column>
+		<Column ID="66" Name="TitleName" IsNumber="false" DisplayName="武将" MinWidth="130" DetailLevel="3" ItemID="20"
+                FontName="方正隶变_GBK"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4278255360"
+                Align="Middle">
+        </Column>
+		<Column ID="67" Name="TitleName" IsNumber="false" DisplayName="文官" MinWidth="130" DetailLevel="3" ItemID="21"
+                FontName="方正隶变_GBK"
+                FontSize="12"
+                FontStyle="Regular"
+                FontColor="4278255360"
+                Align="Middle">
+        </Column>
+		<Column ID="68" Name="TitleName" IsNumber="false" DisplayName="合称2" MinWidth="130" DetailLevel="3" ItemID="102"
                 FontName="方正隶变_GBK"
                 FontSize="12"
                 FontStyle="Regular"
@@ -549,12 +605,12 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="139" Name="StuntCount" IsNumber="true" DisplayName="特技个数" MinWidth="80" DetailLevel="3"
+		<Column ID="139" Name="StuntList" IsNumber="false" DisplayName="特技" MinWidth="400" DetailLevel="3"
                 FontName="方正隶变_GBK"
-                FontSize="15"
+                FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
-                Align="Right">
+                Align="Middle">
         </Column>
 		<Column ID="140" Name="StudyableStuntCount" IsNumber="true" DisplayName="可习得特技" MinWidth="100" DetailLevel="7"
                 FontName="方正隶变_GBK"
@@ -1119,7 +1175,7 @@
         </Tab>
         <Tab ID="7"  Name="Skill" DisplayName="技能" Columns="1 50 136" ListKind="Skill" ListMethod="GetSkillList">
         </Tab>
-        <Tab ID="8"  Name="PersonalTitle" DisplayName="称号" Columns="1 60">
+        <Tab ID="8"  Name="PersonalTitle" DisplayName="称号" Columns="1 60 66 67 65 62 64 63 61 68">
         </Tab>
 		<Tab ID="10"  Name="Stunt" DisplayName="特技" Columns="1 139 140" ListKind="Stunt" ListMethod="GetStuntList">
         </Tab>

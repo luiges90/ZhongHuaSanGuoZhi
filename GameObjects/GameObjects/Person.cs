@@ -5184,6 +5184,31 @@
             return this.Stunts.GetStunt(id) != null;
         }
 
+        public String TitleName(int kind)
+        {
+            foreach (Title t in this.Titles)
+            {
+                if (t.Kind.ID == kind)
+                {
+                    return t.Level + "级「" + t.Name + "」";
+                }
+            }
+            return "";
+        }
+
+        public String StuntList
+        {
+            get
+            {
+                String result = "";
+                foreach (Stunt s in this.Stunts.Stunts.Values)
+                {
+                    result += s.Name + " ";
+                }
+                return result;
+            }
+        }
+
         public bool HasLearnableSkill
         {
             get

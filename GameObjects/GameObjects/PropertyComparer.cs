@@ -31,6 +31,7 @@
         private static Regex dateMatcher = new Regex("^(\\d+)年(1?\\d)月([123]?\\d)日$", RegexOptions.Compiled);
         private static Regex slashMatcher = new Regex("^(\\d+)/(\\d+)$", RegexOptions.Compiled);
         private static Regex slashStringMatcher = new Regex("^(\\d+)/(.*)$", RegexOptions.Compiled);
+        private static Regex numberFirstMatcher = new Regex("^(\\d+).*$", RegexOptions.Compiled);
         public int Compare(GameObject x, GameObject y)
         {
             if ((x == null) || (y == null))
@@ -178,7 +179,18 @@
                         }
                         else
                         {
-                            result = xStr.CompareTo(yStr);
+                            xMatch = numberFirstMatcher.Match(xStr);
+                            yMatch = numberFirstMatcher.Match(yStr);
+                            if (xMatch.Success && yMatch.Success)
+                            {
+                                int xNum = int.Parse(xMatch.Groups[1].ToString());
+                                int yNum = int.Parse(yMatch.Groups[1].ToString());
+                                result = xNum - yNum;
+                            }
+                            else
+                            {
+                                result = xStr.CompareTo(yStr);
+                            }
                         }
                     }
                 }
