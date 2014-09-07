@@ -1520,7 +1520,7 @@
                         foreach (Person p in this.BelongedArchitecture.BelongedFaction.GetFeiziList())
                         {
                             if (p == this) continue;
-                            p.AdjustRelation(this, (4 - p.PersonalLoyalty) * -0.5f, 0);
+                            p.AdjustRelation(this, (5 - p.PersonalLoyalty) * -0.5f, -1);
                         }
                     }
                 }
@@ -1590,8 +1590,11 @@
                                 base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
                             }
 
-                            this.AdjustRelation(haizifuqin, 3, -15);
-                            haizifuqin.AdjustRelation(this, 3, -15);
+                            if (!this.Hates(haizifuqin) && !haizifuqin.Hates(this))
+                            {
+                                this.AdjustRelation(haizifuqin, 3, -15);
+                                haizifuqin.AdjustRelation(this, 3, -15);
+                            }
 
                             count++;
                         } while ((GameObject.Chance(haizifuqin.multipleChildrenRate) || GameObject.Chance(this.multipleChildrenRate)) && count < Math.Max(haizifuqin.maxChildren, this.maxChildren));
@@ -1741,7 +1744,7 @@
         public void DoAssassinate()
         {
             this.OutsideTask = OutsideTaskKind.无;
-            if (this.ConvincingPerson != null)
+            if (this.ConvincingPerson != null && this.ConvincingPerson.BelongedArchitecture != null)
             {
                 Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
                 if (architectureByPosition != null && this.ConvincingPerson.Status == PersonStatus.Normal)
@@ -5209,6 +5212,19 @@
             }
         }
 
+        public String StudyableStuntList
+        {
+            get
+            {
+                String result = "";
+                foreach (Stunt s in this.GetStudyStuntList())
+                {
+                    result += s.Name + " ";
+                }
+                return result;
+            }
+        }
+
         public bool HasLearnableSkill
         {
             get
@@ -7688,14 +7704,17 @@
                     }
                 }
 
-                this.AdjustRelation(nvren, houGongDays / 30.0f, -5);
-                nvren.AdjustRelation(this, houGongDays / 30.0f, -5);
-
+                if (!nvren.Hates(this) && !this.Hates(nvren))
+                {
+                    this.AdjustRelation(nvren, houGongDays / 30.0f, -5);
+                    nvren.AdjustRelation(this, houGongDays / 30.0f, -5);
+                }
+               
                 foreach (Person p in this.BelongedFaction.GetFeiziList())
                 {
                     if (p == nvren) continue;
-                    p.AdjustRelation(this, -houGongDays / 60.0f * (4 - p.PersonalLoyalty), -1);
-                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (4 - p.PersonalLoyalty), -1);
+                    p.AdjustRelation(this, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -1);
+                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -1);
                 }
 
                 this.OutsideTask = OutsideTaskKind.后宮;
