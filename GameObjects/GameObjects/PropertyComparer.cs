@@ -91,14 +91,14 @@
                         result = 0;
                     }
                 }
-                catch (FormatException)
+                catch (InvalidCastException)
                 {
                     try
                     {
                         if (Math.Abs(double.Parse(objX.ToString()) - double.Parse(objY.ToString())) < 0.000001) return 0;
                         result = double.Parse(objX.ToString()) > double.Parse(objY.ToString()) ? 1 : -1;
                     }
-                    catch (FormatException)
+                    catch (InvalidCastException)
                     {
                         result = -1;
                     }
