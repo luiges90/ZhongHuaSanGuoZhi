@@ -61,7 +61,7 @@
             {
                 try
                 {
-                    long longResult;
+                    int longResult;
                     if (this.propertyName == "DisplayedAge")
                     {
                         if (objX.Equals("--") && objY.Equals("--"))
@@ -70,12 +70,12 @@
                         }
                         else
                         {
-                            longResult = long.Parse(objX.ToString()) - long.Parse(objY.ToString());
+                            longResult = int.Parse(objX.ToString()) - int.Parse(objY.ToString());
                         }
                     }
                     else
                     {
-                        longResult = long.Parse(objX.ToString()) - long.Parse(objY.ToString());
+                        longResult = (int)objX - (int)objY;
                     }
                     
                     if (longResult > 0)
@@ -95,12 +95,31 @@
                 {
                     try
                     {
-                        if (Math.Abs(double.Parse(objX.ToString()) - double.Parse(objY.ToString())) < 0.000001) return 0;
-                        result = double.Parse(objX.ToString()) > double.Parse(objY.ToString()) ? 1 : -1;
+                        long longResult = (long)objX - (long)objY;
+                        if (longResult > 0)
+                        {
+                            result = 1;
+                        }
+                        else if (longResult < 0)
+                        {
+                            result = -1;
+                        }
+                        else
+                        {
+                            result = 0;
+                        }
                     }
                     catch (InvalidCastException)
                     {
-                        result = -1;
+                        try
+                        {
+                            if (Math.Abs((double)objX - (double)objY) < 0.00001) return 0;
+                            result = (((double)objX) > ((double)objY)) ? 1 : -1;
+                        }
+                        catch (InvalidCastException)
+                        {
+                            result = -1;
+                        }
                     }
                 }
             }
