@@ -8030,7 +8030,7 @@
         public void AdjustRelation(Person p, float factor, int adjust)
         {
             if (!GlobalVariables.EnablePersonRelations) return;
-            if (this == p) return;
+            if (this == p || p == null) return;
             int val;
             if (factor > 0)
             {
