@@ -235,7 +235,9 @@
         {
             get
             {
-                return this.Kind.AIValue(this.location);
+                double val = this.Kind.AIValue(this.location);
+                if (val < 0) val = -1;
+                return val;
             }
         }
 
