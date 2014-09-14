@@ -5837,7 +5837,7 @@
 
             foreach (Architecture a in this.BelongedFaction.Architectures)
             {
-                if (a.Meinvkongjian > a.Feiziliebiao.Count || a.BelongedFaction.IsAlien)
+                if ((a.Meinvkongjian > a.Feiziliebiao.Count || a.BelongedFaction.IsAlien) && a != this && !a.HasHostileTroopsInView())
                 {
                     return true;
                 }
