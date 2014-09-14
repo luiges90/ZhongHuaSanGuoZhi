@@ -7402,17 +7402,7 @@
                 {
                     return false;
                 }
-                if (this.Persons.GetGameObject(this.BelongedFaction.Leader.ID) == null)
-                {
-                    return false;
-                }
-                foreach (Person person in this.Persons)
-                {
-                    if ((person == this.BelongedFaction.Leader) && (person.TreasureCount > 0))
-                    {
-                        return true;
-                    }
-                }
+                return this.BelongedFaction.Leader.TreasureCount > 0;
             }
             return false;
         }
@@ -7421,17 +7411,7 @@
         {
             if ((this.BelongedFaction != null) && (this.BelongedFaction.Leader != null))
             {
-                if (this.Persons.GetGameObject(this.BelongedFaction.Leader.ID) == null)
-                {
-                    return false;
-                }
-                foreach (Person person in this.Persons)
-                {
-                    if ((person != this.BelongedFaction.Leader) && (person.TreasureCount > 0))
-                    {
-                        return true;
-                    }
-                }
+                return this.BelongedFaction.AllTreasuresExceptLeader.Count > 0;
             }
             return false;
         }
