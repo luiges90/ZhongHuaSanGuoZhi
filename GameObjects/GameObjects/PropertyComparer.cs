@@ -156,6 +156,10 @@
                             int xNum = int.Parse(xMatch.Groups[1].ToString());
                             int yNum = int.Parse(yMatch.Groups[1].ToString());
                             result = xNum - yNum;
+                            if (result == 0)
+                            {
+                                result = xStr.CompareTo(yStr);
+                            }
                         }
                         else
                         {
