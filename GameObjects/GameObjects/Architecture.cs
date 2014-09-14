@@ -7398,7 +7398,7 @@
         {
             if ((this.BelongedFaction != null) && (this.BelongedFaction.Leader != null))
             {
-                if (this.PersonCount <= 1)
+                if (this.BelongedFaction.PersonCount <= 1)
                 {
                     return false;
                 }
