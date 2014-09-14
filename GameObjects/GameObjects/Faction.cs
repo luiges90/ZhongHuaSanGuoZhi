@@ -204,6 +204,22 @@
             }
         }
 
+        public TreasureList AllTreasuresExceptLeader
+        {
+            get
+            {
+                TreasureList list = new TreasureList();
+                foreach (Person person in this.Persons)
+                {
+                    if (person != this.Leader)
+                    {
+                        person.AddTreasureToList(list);
+                    }
+                }
+                return list;
+            }
+        }
+
         public CaptiveList Captives
         {
             get

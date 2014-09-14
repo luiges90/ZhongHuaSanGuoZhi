@@ -654,7 +654,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
 
                 case ContextMenuResult.Monarch_Treasure_Confiscate:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Treasure, FrameFunction.GetConfiscateTreasure, false, true, true, false, this.CurrentArchitecture.GetAllTreasureInArchitectureExceptLeader(), null, "", "");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Treasure, FrameFunction.GetConfiscateTreasure, false, true, true, false, this.CurrentArchitecture.BelongedFaction.AllTreasuresExceptLeader, null, "", "");
                     break;
 
                 case ContextMenuResult.Monarch_Treasure_Award:
