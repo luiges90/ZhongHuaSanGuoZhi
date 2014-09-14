@@ -220,6 +220,33 @@
             }
         }
 
+        public PersonList PersonsExceptLeader
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Architecture a in Architectures)
+                {
+                    foreach (Person p in a.Persons)
+                    {
+                        if (p != this.Leader)  result.Add(p);
+                    }
+                    foreach (Person p in a.MovingPersons)
+                    {
+                        if (p != this.Leader) result.Add(p);
+                    }
+                }
+                foreach (Troop t in Troops)
+                {
+                    foreach (Person p in t.Persons)
+                    {
+                        if (p != this.Leader) result.Add(p);
+                    }
+                }
+                return result;
+            }
+        }
+
         public CaptiveList Captives
         {
             get
