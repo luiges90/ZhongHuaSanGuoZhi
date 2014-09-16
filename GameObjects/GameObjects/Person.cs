@@ -8056,21 +8056,24 @@
                 return;
             }
 
-            if (this.relations[p] <= Parameters.HateThreshold && !this.Hates(p))
+            if (this.relations.ContainsKey(p))
             {
-                this.AddHated(p);
-            }
-            if (this.relations[p] >= Parameters.HateThreshold / 2 && this.Hates(p))
-            {
-                this.RemoveHated(p);
-            }
-            if (this.relations[p] <= Parameters.CloseThreshold / 2 && this.Closes(p))
-            {
-                this.RemoveClose(p);
-            }
-            if (this.relations[p] >= Parameters.CloseThreshold && !this.Closes(p))
-            {
-                this.AddClose(p);
+                if (this.relations[p] <= Parameters.HateThreshold && !this.Hates(p))
+                {
+                    this.AddHated(p);
+                }
+                if (this.relations[p] >= Parameters.HateThreshold / 2 && this.Hates(p))
+                {
+                    this.RemoveHated(p);
+                }
+                if (this.relations[p] <= Parameters.CloseThreshold / 2 && this.Closes(p))
+                {
+                    this.RemoveClose(p);
+                }
+                if (this.relations[p] >= Parameters.CloseThreshold && !this.Closes(p))
+                {
+                    this.AddClose(p);
+                }
             }
         }
 
