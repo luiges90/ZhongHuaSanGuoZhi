@@ -2019,6 +2019,12 @@
                     p.LeaveFaction();
                 }
             }
+
+            foreach (Architecture a in this.Architectures)
+            {
+                a.PrincessChangeLeader();
+            }
+
             do
             {
                 base.Scenario.NewFaction(this.Persons);

@@ -5776,7 +5776,7 @@
                 switch (this.Action)
                 {
                     case TroopAction.Stop:
-                        return base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(28).Textures.MoveTexture;
+                        return base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(28 ).Textures.MoveTexture;
 
                     case TroopAction.Move:
                         return base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(28).Textures.MoveTexture;
@@ -7437,21 +7437,11 @@
                     }
                 }
 
-                foreach (Person p in currentArchitecture.Feiziliebiao)
+                GameObjectList princesses = currentArchitecture.Feiziliebiao.GetList();
+                if (!currentArchitecture.PrincessChangeLeader())
                 {
-                    if (this.BelongedFaction == null || this.BelongedFaction.IsAlien ||
-                        this.BelongedFaction.Leader.Uncruelty <= Parameters.RetainFeiziPersonalLoyalty)
+                    foreach (Person p in princesses)
                     {
-                        this.Scenario.YearTable.addChangeFactionPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
-                        if (p.Spouse != null)
-                        {
-                            p.Spouse.AddHated(this.BelongedFaction.Leader);
-                        }
-                    }
-                    else
-                    {
-                        p.Status = PersonStatus.Normal;
-                        this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
                         Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
                         captive.CaptivePerson.LocationTroop = this;
                         captive.CaptivePerson.LocationArchitecture = null;
@@ -7459,16 +7449,9 @@
                         {
                             this.AddCaptive(captive);
                         }
-                        if (!p.IsVeryCloseTo(currentArchitecture.BelongedFaction.Leader))
-                        {
-                            p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
-                        }
-                        else
-                        {
-                            p.Loyalty = Math.Max(p.Loyalty, 150 + p.NumberOfChildren * 10);
-                        }
                     }
                 }
+
                 currentArchitecture.BuildingFacility = -1;
                 currentArchitecture.BuildingDaysLeft = 0;
                 currentArchitecture.RemoveAllInformations();

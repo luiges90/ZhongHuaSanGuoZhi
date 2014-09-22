@@ -12661,6 +12661,40 @@
             return personList;
         }
 
+        public bool PrincessChangeLeader()
+        {
+            if (this.BelongedFaction == null || this.BelongedFaction.IsAlien ||
+                this.BelongedFaction.Leader.Uncruelty <= Parameters.RetainFeiziPersonalLoyalty)
+            {
+                foreach (Person p in this.Feiziliebiao)
+                {
+                    this.Scenario.YearTable.addChangeFactionPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
+                    if (p.Spouse != null)
+                    {
+                        p.Spouse.AddHated(this.BelongedFaction.Leader);
+                    }
+                }
+                return true;
+            }
+            else
+            {
+                foreach (Person p in this.Feiziliebiao)
+                {
+                    p.Status = PersonStatus.Normal;
+                    this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
+                    if (!p.IsVeryCloseTo(this.BelongedFaction.Leader))
+                    {
+                        p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
+                    }
+                    else
+                    {
+                        p.Loyalty = Math.Max(p.Loyalty, 150 + p.NumberOfChildren * 10);
+                    }
+                }
+                return false;
+            }
+        }
+
         public int Meinvkongjian
         {
             get
