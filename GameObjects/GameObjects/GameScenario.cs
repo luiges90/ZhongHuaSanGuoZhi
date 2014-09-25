@@ -1477,6 +1477,16 @@
             return 0;
         }
 
+        public double GetResourceConsumptionRate(Architecture a, Troop b)
+        {
+            return this.GetDistance(b.Position, a.ArchitectureArea) / 30.0 + 1;
+        }
+
+        public double GetResourceConsumptionRate(Architecture a, Architecture b)
+        {
+            return this.GetDistance(a.ArchitectureArea, b.ArchitectureArea) / 50.0 + 1;
+        }
+
         public double GetDistance(GameArea fromArea, GameArea toArea)
         {
             // 上面这段浪费太多时间O(n^2)，下面仅需要O(1)，一个非常近似的值已经足够

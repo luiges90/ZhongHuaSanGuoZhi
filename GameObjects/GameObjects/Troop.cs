@@ -7871,10 +7871,10 @@
                 {
                     if (this.StartingArchitecture != null && this.StartingArchitecture.BelongedFaction == this.BelongedFaction)
                     {
-
                         Architecture architecture = this.StartingArchitecture;
                         if ((architecture.Food > 0) && ((architecture.Food + this.Food) >= this.FoodCostPerDay))
                         {
+                            double consumptionRate = base.Scenario.GetResourceConsumptionRate(architecture, this);
                             if (architecture.Food >= increment)
                             {
                                 this.IncreaseFood(increment);

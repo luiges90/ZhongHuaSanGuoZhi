@@ -1171,8 +1171,8 @@
             int actualTransferFood = food;
             int actualTransferFund = fund;
 
-            src.DecreaseFood(food);
-            src.DecreaseFund(fund);
+            src.DecreaseFood((int) (food * base.Scenario.GetResourceConsumptionRate(src, this)));
+            src.DecreaseFund((int) (fund * base.Scenario.GetResourceConsumptionRate(src, this)));
 
             if (food >= 0)
             {
