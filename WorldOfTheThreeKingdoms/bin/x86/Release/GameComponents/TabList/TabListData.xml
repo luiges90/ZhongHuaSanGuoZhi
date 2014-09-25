@@ -2612,7 +2612,7 @@
               FontColor="4294967295"
               Align="Right">
         </Column>
-		<Column ID="300" Name="ImmunityOf" IsNumber="False" DisplayName="不会被俘" MinWidth="80" DetailLevel="4"
+		<Column ID="300" Name="ImmunityOfCaptive" IsNumber="False" DisplayName="不会被俘" MinWidth="80" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
