@@ -2481,74 +2481,89 @@
         {
             OleDbConnection connection = new OleDbConnection(connectionString);
 
-            connection.Open();
-            OleDbDataReader reader = new OleDbCommand("Select * From GameParameters", connection).ExecuteReader();
-            while (reader.Read())
+            try
             {
-                String name = (String)reader["Name"];
-                String rawValue = (String)reader["Value"];
-
-                foreach (FieldInfo i in typeof(Parameters).GetFields(BindingFlags.Public | BindingFlags.Static))
+                connection.Open();
+                OleDbDataReader reader = new OleDbCommand("Select * From GameParameters", connection).ExecuteReader();
+                while (reader.Read())
                 {
-                    if (i.IsLiteral) continue;
+                    String name = (String)reader["Name"];
+                    String rawValue = (String)reader["Value"];
 
-                    if (GlobalVariables.getFieldsExcludedFromSave().Contains(i.Name)) continue;
-
-                    if (i.Name == name)
+                    foreach (FieldInfo i in typeof(Parameters).GetFields(BindingFlags.Public | BindingFlags.Static))
                     {
-                        int outInt;
-                        float outDouble;
-                        bool outBool;
-                        if (int.TryParse(rawValue, out outInt))
+                        if (i.IsLiteral) continue;
+
+                        if (GlobalVariables.getFieldsExcludedFromSave().Contains(i.Name)) continue;
+
+                        if (i.Name == name)
                         {
-                            i.SetValue(null, outInt);
+                            int outInt;
+                            float outDouble;
+                            bool outBool;
+                            if (int.TryParse(rawValue, out outInt))
+                            {
+                                i.SetValue(null, outInt);
+                            }
+                            else if (float.TryParse(rawValue, out outDouble))
+                            {
+                                i.SetValue(null, outDouble);
+                            }
+                            else if (bool.TryParse(rawValue, out outBool))
+                            {
+                                i.SetValue(null, outBool);
+                            }
+                            break;
                         }
-                        else if (float.TryParse(rawValue, out outDouble))
-                        {
-                            i.SetValue(null, outDouble);
-                        }
-                        else if (bool.TryParse(rawValue, out outBool))
-                        {
-                            i.SetValue(null, outBool);
-                        }
-                        break;
                     }
                 }
             }
-            connection.Close();
-
-            connection.Open();
-            reader = new OleDbCommand("Select * From GlobalVariables", connection).ExecuteReader();
-            while (reader.Read())
+            finally
             {
-                String name = (String)reader["Name"];
-                String rawValue = (String)reader["Value"];
+                connection.Close();
+            }
 
-                foreach (FieldInfo i in typeof(GlobalVariables).GetFields(BindingFlags.Public | BindingFlags.Static))
+            try
+            {
+                connection.Open();
+                OleDbDataReader reader = new OleDbCommand("Select * From GlobalVariables", connection).ExecuteReader();
+                while (reader.Read())
                 {
-                    if (i.IsLiteral) continue;
-                    if (i.Name == name)
+                    String name = (String)reader["Name"];
+                    String rawValue = (String)reader["Value"];
+
+                    foreach (FieldInfo i in typeof(GlobalVariables).GetFields(BindingFlags.Public | BindingFlags.Static))
                     {
-                        int outInt;
-                        float outDouble;
-                        bool outBool;
-                        if (int.TryParse(rawValue, out outInt))
+                        if (i.IsLiteral) continue;
+                        if (i.Name == name)
                         {
-                            i.SetValue(null, outInt);
+                            int outInt;
+                            float outDouble;
+                            bool outBool;
+                            if (int.TryParse(rawValue, out outInt))
+                            {
+                                i.SetValue(null, outInt);
+                            }
+                            else if (float.TryParse(rawValue, out outDouble))
+                            {
+                                i.SetValue(null, outDouble);
+                            }
+                            else if (bool.TryParse(rawValue, out outBool))
+                            {
+                                i.SetValue(null, outBool);
+                            }
+                            break;
                         }
-                        else if (float.TryParse(rawValue, out outDouble))
-                        {
-                            i.SetValue(null, outDouble);
-                        }
-                        else if (bool.TryParse(rawValue, out outBool))
-                        {
-                            i.SetValue(null, outBool);
-                        }
-                        break;
                     }
                 }
             }
-            connection.Close();
+            catch
+            {
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         private List<string> LoadGameDataFromDataBase(OleDbConnection DbConnection, string connectionString)  //读剧本和读存档都调用了此函数
