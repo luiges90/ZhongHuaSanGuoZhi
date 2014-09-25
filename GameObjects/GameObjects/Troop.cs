@@ -7878,13 +7878,13 @@
                             if (architecture.Food >= increment)
                             {
                                 this.IncreaseFood(increment);
-                                architecture.DecreaseFood(increment);
+                                architecture.DecreaseFood((int) (increment * consumptionRate));
                             }
                             else
                             {
                                 int num2 = (((architecture.Food + this.Food) / this.FoodCostPerDay) * this.FoodCostPerDay) - this.Food;
                                 this.IncreaseFood(num2);
-                                architecture.DecreaseFood(num2);
+                                architecture.DecreaseFood((int) (num2 * consumptionRate));
                             }
                         }
                     }
