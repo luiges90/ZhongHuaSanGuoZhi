@@ -6075,7 +6075,8 @@
                 {
                     int idealOffset = Person.GetIdealOffset(c, this.BelongedFaction.Leader);
                     if ((!GlobalVariables.IdealTendencyValid || (idealOffset <= c.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                        && (!c.Hates(this.BelongedFaction.Leader)) && (!this.BelongedFaction.IsAlien || c.PersonalLoyalty < 2) && (!c.ProhibitedFactionID.ContainsValue(this.BelongedFaction.ID)))
+                        && (!c.Hates(this.BelongedFaction.Leader)) && (!this.BelongedFaction.IsAlien || c.PersonalLoyalty < 2) && 
+                        (!c.ProhibitedFactionID.ContainsValue(this.BelongedFaction.ID)) && c.GetRelation(c.VeryClosePersonInArchitecture) < 500)
                     {
                         if (c.Loyalty < lowestLoyalty)
                         {

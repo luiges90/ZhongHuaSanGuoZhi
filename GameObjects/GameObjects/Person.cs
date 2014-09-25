@@ -1831,6 +1831,30 @@
             }
         }
 
+        public Person VeryClosePersonInArchitecture
+        {
+            get
+            {
+                int maxRel = int.MinValue;
+                Person closest = null;
+                if (this.BelongedArchitecture != null)
+                {
+                    foreach (Person p in this.BelongedArchitecture.Persons)
+                    {
+                        if (this.IsVeryCloseTo(p))
+                        {
+                            if (this.GetRelation(p) > maxRel)
+                            {
+                                maxRel = this.GetRelation(p);
+                                closest = p;
+                            }
+                        }
+                    }
+                }
+                return closest;
+            }
+        }
+
         public void DoConvince()
         {
             this.OutsideTask = OutsideTaskKind.无;
@@ -1885,6 +1909,9 @@
                     ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
                     //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
                     ConvinceSuccess |= this.ConvincingPerson.IsVeryCloseTo(this);
+
+                    Person closest = this.ConvincingPerson.VeryClosePersonInArchitecture;
+                    ConvinceSuccess &= closest == null || GameObject.Chance(1000 - this.ConvincingPerson.GetRelation(closest) / 10);
 
                     // prohibitedFactionID overrides all.
                     if (this.ConvincingPerson.ProhibitedFactionID.ContainsKey(this.BelongedFaction.ID))
@@ -7993,6 +8020,7 @@
         public int GetRelation(Person p)
         {
             if (!GlobalVariables.EnablePersonRelations) return 0;
+            if (p == null) return 0;
             if (this.relations.ContainsKey(p))
             {
                 return this.relations[p];
