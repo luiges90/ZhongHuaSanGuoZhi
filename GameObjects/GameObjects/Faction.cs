@@ -977,7 +977,7 @@
                 }
             }
 
-            if (GameObject.Random(180 * (5 - this.Leader.Ambition)) == 0)
+            if (GameObject.Random(180 * (5 - this.Leader.Ambition)) == 0 && GameObject.Chance(100 - Parameters.AIEncirclePlayerRate))
             {
                 GameObjectList factions = this.GetAdjecentHostileFactions();
                 if (factions.Count == 0) return;

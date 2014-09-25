@@ -3109,12 +3109,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIAntiSurroundIncreaseRate.Text = "0.2";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = true;
-                    this.cbInternalSurplusRateForAI.Checked = true;
+                    this.cbInternalSurplusRateForAI.Checked = false;
                     this.cbAIAutoTakeNoFactionCaptives.Checked = true;
                     this.cbAIAutoTakeNoFactionPerson.Checked = true;
                     this.cbAIAutoTakePlayerCaptives.Checked = true;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = true;
-                    GameGlobal.Parameters.AIEncirclePlayerRate = 10;
+                    GameGlobal.Parameters.AIEncirclePlayerRate = 20;
                     break;
                 case Difficulty.veryhard:
                     this.tbAIFundRate.Text = "6.0";
