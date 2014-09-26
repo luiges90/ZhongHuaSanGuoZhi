@@ -6,6 +6,8 @@
 
     internal class InfluenceKind121 : InfluenceKind
     {
+
+
         public override void ApplyInfluenceKind(Person person)
         {
             person.DayLocationLoyaltyNoChange = true;
@@ -17,7 +19,7 @@
                 }
                 if (person.LocationTroop != null)
                 {
-                    person.LocationTroop.DayLocationLoyaltyNoChange = true;
+                    person.LocationTroop.LoyaltyNoChange = true;
                 }
             }
         }
@@ -33,9 +35,19 @@
                 }
                 if (person.LocationTroop != null)
                 {
-                    person.LocationTroop.DayLocationLoyaltyNoChange = false;
+                    person.LocationTroop.LoyaltyNoChange = false;
                 }
             }
+        }
+
+        public override void ApplyInfluenceKind(Troop troop)
+        {
+            troop.LoyaltyNoChange = true;
+        }
+
+        public override void PurifyInfluenceKind(Troop troop)
+        {
+            troop.LoyaltyNoChange = false;
         }
     }
 }

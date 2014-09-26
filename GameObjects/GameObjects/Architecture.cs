@@ -224,6 +224,13 @@
 
         public float ExperienceRate;
 
+        public int CommandExperienceIncrease { get; set; }
+        public int StrengthExperienceIncrease { get; set; }
+        public int IntelligenceExperienceIncrease { get; set; }
+        public int PoliticsExperienceIncrease { get; set; }
+        public int GlamourExperienceIncrease { get; set; }
+        public int ReputationIncrease { get; set; }
+
         public float facilityConstructionTimeRateDecrease = 0;
 
         public event BeginRecentlyAttacked OnBeginRecentlyAttacked;
@@ -4261,6 +4268,19 @@
             }
         }
 
+        private void PersonExperienceIncrease()
+        {
+            foreach (Person p in this.Persons)
+            {
+                p.CommandExperience += this.CommandExperienceIncrease;
+                p.StrengthExperience += this.StrengthExperienceIncrease;
+                p.IntelligenceExperience += this.IntelligenceExperienceIncrease;
+                p.PoliticsExperience += this.PoliticsExperienceIncrease;
+                p.GlamourExperience += this.GlamourExperienceIncrease;
+                p.Reputation += this.ReputationIncrease;
+            }
+        }
+
         public void DayEvent()
         {
             this.FundPacksDayEvent();
@@ -4282,6 +4302,7 @@
             this.RestEvent();
             this.zainanshijian();
             this.captiveEscape();
+            this.PersonExperienceIncrease();
             this.checkEvent();
             this.JustAttacked = false;
             ExpectedFoodCache = -1;

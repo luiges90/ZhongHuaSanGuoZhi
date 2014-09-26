@@ -200,6 +200,13 @@
 
         public float ExperienceRate;
 
+        public int CommandExperienceIncrease { get; set; }
+        public int StrengthExperienceIncrease { get; set; }
+        public int IntelligenceExperienceIncrease { get; set; }
+        public int PoliticsExperienceIncrease { get; set; }
+        public int GlamourExperienceIncrease { get; set; }
+        public int ReputationDayIncrease { get; set; }
+
         private Captive belongedCaptive;
         public Captive BelongedCaptive
         {
@@ -1386,6 +1393,14 @@
                     this.ProhibitedFactionID.Remove(i);
                 }
             }
+
+            this.CommandExperience += this.CommandExperienceIncrease;
+            this.StrengthExperience += this.StrengthExperienceIncrease;
+            this.IntelligenceExperience += this.IntelligenceExperienceIncrease;
+            this.PoliticsExperience += this.PoliticsExperienceIncrease;
+            this.GlamourExperience += this.GlamourExperienceIncrease;
+            this.Reputation += this.ReputationDayIncrease;
+
             agricultureAbility = 0;
             commerceAbility = 0;
             technologyAbility = 0;
@@ -3691,7 +3706,7 @@
         private void LoyaltyChange()
         {
             if (((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange))
-                && (((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.DayLocationLoyaltyNoChange)
+                && (((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.LoyaltyNoChange)
                 && GameObject.Chance(100 - this.personalLoyalty * 25)
                 && (this.Loyalty <= 110) && GameObject.Chance(50))
             {
@@ -4242,7 +4257,7 @@
                     }
                     if (this.LocationTroop != null)
                     {
-                        this.LocationTroop.DayLocationLoyaltyNoChange = true;
+                        this.LocationTroop.LoyaltyNoChange = true;
                     }
                 }
                 if ((this.DayAvoidInfluenceByBattle && (this.BelongedFaction != null)) && (this.LocationArchitecture != null))

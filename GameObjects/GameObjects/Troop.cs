@@ -135,7 +135,7 @@
         private int currentTroopAnimationIndex;
         private int currentTroopStayIndex;
         private int cutRoutewayDays;
-        public bool DayLocationLoyaltyNoChange;
+        public bool LoyaltyNoChange;
         public CombatNumberItemList DecrementNumberList = new CombatNumberItemList(CombatNumberDirection.下);
         public int DecrementOfCliffAdaptability;
         public int DecrementOfCombatMethodCombativityConsuming;
@@ -422,6 +422,13 @@
         public int ChaosInViewArea;
 
         public float ExperienceRate;
+
+        public int CommandExperienceIncrease { get; set; }
+        public int StrengthExperienceIncrease { get; set; }
+        public int IntelligenceExperienceIncrease { get; set; }
+        public int PoliticsExperienceIncrease { get; set; }
+        public int GlamourExperienceIncrease { get; set; }
+        public int ReputationIncrease { get; set; }
 
         private int forceTroopTargetId;
 
@@ -3167,6 +3174,16 @@
                 }
             }
 
+            foreach (Person p in this.Persons)
+            {
+                p.CommandExperience += this.CommandExperienceIncrease;
+                p.StrengthExperience += this.StrengthExperienceIncrease;
+                p.IntelligenceExperience += this.IntelligenceExperienceIncrease;
+                p.PoliticsExperience += this.PoliticsExperienceIncrease;
+                p.GlamourExperience += this.GlamourExperienceIncrease;
+                p.Reputation += this.ReputationIncrease;
+            }
+
             if (this.BelongedFaction != null)
             {
                 this.ViewingWillArchitecture = this.IsViewingWillArchitecture();
@@ -3343,8 +3360,6 @@
                 this.mingling = "入城";
                 this.TargetArchitecture = this.StartingArchitecture;
             }
-
-            this.ResetDayInfluence();
         }
 
         private void RefillFood()
@@ -8624,11 +8639,6 @@
         {
             this.currentTroopAnimationIndex = 0;
             this.currentTroopStayIndex = 0;
-        }
-
-        private void ResetDayInfluence()
-        {
-            this.DayLocationLoyaltyNoChange = false;
         }
 
         private void ResetDirection(Point position)
