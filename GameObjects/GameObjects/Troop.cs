@@ -6182,7 +6182,7 @@
                     Challenge challeng = new Challenge();
                     challeng.HandleChallengeResult(damage, damage.ChallengeResult, damage.SourceTroop, damage.ChallengeSourcePerson, damage.DestinationTroop, damage.ChallengeDestinationPerson, base.Scenario);
                 }
-                if (damage.OfficerInjury > 0 && !damage.DestinationTroop.ImmunityOfDieInBattle)
+                if (damage.OfficerInjury > 0 && damage.DestinationTroop.Persons.Count > 0 && !damage.DestinationTroop.ImmunityOfDieInBattle)
                 {
                     int c = GameObject.Random(damage.DestinationTroop.Persons.Count);
                     Person toInjure = damage.DestinationTroop.Persons[c] as Person;
