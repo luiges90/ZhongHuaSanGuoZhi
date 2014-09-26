@@ -12562,7 +12562,40 @@
             }
         }
 
-
+        public int Weighing
+        {
+            get
+            {
+                int num = 1;
+                int num2 = 1;
+                if (this.ChanceIncrementOfCriticalStrikeInViewArea > 0 || this.ChanceDecrementOfCriticalStrikeInViewArea > 0 || 
+                    this.CombativityIncrementPerDayInViewArea > 0 || this.CombativityDecrementPerDayInViewArea > 0 || 
+                    this.ChanceIncrementOfStratagemInViewArea > 0 || this.ChanceDecrementOfStratagemInViewArea > 0 || 
+                    this.OffenceRateIncrementInViewArea > 0f || this.OffenceRateDecrementInViewArea > 0f || 
+                    this.DefenceRateIncrementInViewArea > 0f || this.DefenceRateDecrementInViewArea > 0f ||
+                    this.MoraleIncreaseInViewArea > 0 || this.MoraleDecreaseInViewArea > 0 ||
+                    this.TirednessDecreaseChanceInViewArea > 0 || this.TirednessIncreaseChanceInViewArea > 0 ||
+                    this.InjuryRecoverInViewArea > 0 || this.InjuryLostInViewArea > 0 || 
+                    this.TroopRecoverInViewArea > 0 || this.TroopLostInViewArea > 0 ||
+                    this.ChaosInViewArea > 0 || this.ChaosRecoverInViewArea > 0)
+                {
+                    num += 2;
+                }
+                foreach (Person person in this.Persons)
+                {
+                    if (person == this.BelongedFaction.Leader)
+                    {
+                        num++;
+                        break;
+                    }
+                }
+                if (!this.ControlAvail())
+                {
+                    num2++;
+                }
+                return ((num * this.FightingForce) / num2);
+            }
+        }
 
         public TroopWill Will
         {
