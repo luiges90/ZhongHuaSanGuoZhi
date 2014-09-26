@@ -3109,7 +3109,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIAntiSurroundIncreaseRate.Text = "0.2";
                     this.cbPinPointAtPlayer.Checked = true;
                     this.cbInternalSurplusRateForPlayer.Checked = true;
-                    this.cbInternalSurplusRateForAI.Checked = false;
+                    this.cbInternalSurplusRateForAI.Checked = true;
                     this.cbAIAutoTakeNoFactionCaptives.Checked = true;
                     this.cbAIAutoTakeNoFactionPerson.Checked = true;
                     this.cbAIAutoTakePlayerCaptives.Checked = true;
