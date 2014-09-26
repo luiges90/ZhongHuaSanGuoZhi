@@ -77,6 +77,10 @@
         private int waterAdaptability;
         private float waterRate;
         public int zijinshangxian;
+
+        private int morphToKindId = -1;
+        private bool needNoPerson;
+
         public MilitaryKindTable successor;
         private bool findSuccessor_visited;
 
@@ -1088,6 +1092,39 @@
             set
             {
                 this.waterRate = value;
+            }
+        }
+
+        public int MorphToKindId
+        {
+            get
+            {
+                return this.morphToKindId;
+            }
+            set
+            {
+                this.morphToKindId = value;
+            }
+        }
+
+        public MilitaryKind MorphTo
+        {
+            get
+            {
+                if (!base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.ContainsKey(morphToKindId)) return null;
+                return base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds[this.morphToKindId];
+            }
+        }
+
+        public bool NeedNoPerson
+        {
+            get
+            {
+                return needNoPerson;
+            }
+            set
+            {
+                needNoPerson = value;
             }
         }
     }

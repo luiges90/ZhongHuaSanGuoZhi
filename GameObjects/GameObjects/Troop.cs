@@ -400,6 +400,27 @@
         public int stratagemLoyaltyDecrease;
         public int stratagemStealFood;
 
+        public int TirednessDecreaseChanceByViewArea;
+        public int TirednessDecreaseChanceInViewArea;
+        public int TirednessIncreaseChanceByViewArea;
+        public int TirednessIncreaseChanceInViewArea;
+        public int InjuryRecoverByViewArea;
+        public int InjuryRecoverInViewArea;
+        public int InjuryLostByViewArea;
+        public int InjuryLostInViewArea;
+        public int TroopRecoverByViewArea;
+        public int TroopRecoverInViewArea;
+        public int TroopLostByViewArea;
+        public int TroopLostInViewArea;
+        public int MoraleIncreaseByViewArea;
+        public int MoraleIncreaseInViewArea;
+        public int MoraleDecreaseByViewArea;
+        public int MoraleDecreaseInViewArea;
+        public int ChaosRecoverByViewArea;
+        public int ChaosRecoverInViewArea;
+        public int ChaosByViewArea;
+        public int ChaosInViewArea;
+
         public float ExperienceRate;
 
         private int forceTroopTargetId;
@@ -621,6 +642,47 @@
             {
                 base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.敌军战意每天减少, this.CombativityDecrementPerDayInViewArea, 0f);
             }
+            if (this.TirednessIncreaseChanceInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.hostileTirednessIncrease, this.TirednessIncreaseChanceInViewArea, 0f);
+            }
+            if (this.TirednessDecreaseChanceInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.friendlyTirednessDecrease, this.TirednessIncreaseChanceInViewArea, 0f);
+            }
+            if (this.InjuryRecoverInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.friendlyRecoverInjury, this.InjuryRecoverInViewArea, 0f);
+            }
+            if (this.InjuryLostInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.hostileLoseInjury, this.InjuryLostInViewArea, 0f);
+            }
+            if (this.TroopRecoverInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.friendlyTroopIncrease, this.TroopRecoverInViewArea, 0f);
+            }
+            if (this.TroopLostInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.hostileTroopDecrease, this.TroopLostInViewArea, 0f);
+            }
+            if (this.MoraleIncreaseInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.friendlyMoraleIncrease, this.MoraleIncreaseInViewArea, 0f);
+            }
+            if (this.MoraleDecreaseInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.hostileMoraleDecrease, this.MoraleDecreaseInViewArea, 0f);
+            }
+            if (this.ChaosRecoverInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.friendlyRecoverChaos, this.ChaosRecoverInViewArea, 0f);
+            }
+            if (this.ChaosInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.hostileChaos, this.ChaosInViewArea, 0f);
+            }
+
             Troop troopByPositionNoCheck = base.Scenario.GetTroopByPositionNoCheck(p);
             if (troopByPositionNoCheck != null)
             {
@@ -3126,9 +3188,38 @@
             {
                 this.DecreaseCombativity(this.DecrementPerDayOfCombativity + this.CombativityDecrementPerDayByViewArea);
             }
-            if ((this.InjuryRecoveryPerDayRate > 0f) && (this.InjuryQuantity > 0))
+            if (GameObject.Chance(this.TirednessIncreaseChanceByViewArea))
             {
-                int number = this.Army.Recovery(this.InjuryRecoveryPerDayRate);
+                this.Army.Tiredness += 1;
+            }
+            if (GameObject.Chance(this.TirednessDecreaseChanceByViewArea))
+            {
+                this.Army.Tiredness -= 1;
+            }
+            if (this.InjuryLostByViewArea > 0)
+            {
+                this.DecreaseInjuryQuantity(this.InjuryLostByViewArea);
+            }
+            if (this.TroopRecoverByViewArea > 0)
+            {
+                this.IncreaseQuantity(this.TroopRecoverByViewArea);
+            }
+            if (this.TroopLostByViewArea > 0)
+            {
+                this.DecreaseQuantity(this.TroopRecoverByViewArea);
+            }
+            if (this.MoraleIncreaseByViewArea > 0)
+            {
+                this.IncreaseMorale(this.MoraleIncreaseByViewArea);
+            }
+            if (this.MoraleDecreaseByViewArea > 0)
+            {
+                this.DecreaseMorale(this.MoraleDecreaseByViewArea);
+            }
+
+            if ((this.InjuryRecoveryPerDayRate > 0f || this.InjuryRecoverByViewArea > 0) && (this.InjuryQuantity > 0))
+            {
+                int number = this.Army.Recovery(this.InjuryRecoveryPerDayRate + this.InjuryRecoverByViewArea);
                 if (number > 0)
                 {
                     this.RefreshOffence();
@@ -3145,6 +3236,16 @@
                     this.SetRecoverFromChaos();
                 }
             }
+
+            if (this.ChaosDayLeft > 0 && GameObject.Chance(this.ChaosRecoverByViewArea))
+            {
+                this.SetRecoverFromChaos();
+            }
+            if (GameObject.Chance(this.ChaosByViewArea))
+            {
+                this.SetChaos(1 + GameObject.Random(2));
+            }
+
             if (base.Scenario.FireTable.HasPosition(this.Position))
             {
                 this.SetOnFire(Parameters.FireDamageScale * base.Scenario.GetTerrainDetailByPositionNoCheck(this.Position).FireDamageRate);
@@ -7654,6 +7755,22 @@
             }
         }
 
+        public bool MorphAvail()
+        {
+            return this.ControlAvail() && this.Army.Kind.MorphTo != null;
+        }
+
+        public void Morph()
+        {
+            MilitaryKind target = this.Army.Kind.MorphTo;
+            if (target != null)
+            {
+                this.Operated = true;
+                this.Army.Kind = target;
+                this.RefreshAllData();
+            }
+        }
+
         private void PostActionAI()
         {
             if (((((!this.HasSupply || !GameObject.Chance(0x21)) && this.ControlAvail()) && ((this.RationDaysLeft == 0) || ((this.RationDaysLeft == 1) && GameObject.Chance(20)))) && this.LevyFoodAvail()) && (GameObject.Chance(50) || !this.HasHostileTroopInView()))
@@ -11007,10 +11124,28 @@
                         + this.AvoidSurroundedChance / 2 + this.ChaosAfterSurroundAttackChance 
                         + this.StratagemChanceIncrement + this.AntiStratagemChanceIncrement + this.ChaosAfterStratagemSuccessChance 
                         + this.ChanceIncrementOfCriticalStrikeInViewArea * 4 + this.ChanceDecrementOfCriticalStrikeInViewArea * 4 
-                        + this.CombativityIncrementPerDayInViewArea * 4 + this.CombativityDecrementPerDayInViewArea * 4 + 
-                        this.ChanceIncrementOfStratagemInViewArea * 4 + this.ChanceDecrementOfStratagemInViewArea * 4 
+                        + this.CombativityIncrementPerDayInViewArea * 4 + this.CombativityDecrementPerDayInViewArea * 4
+                        + this.ChanceIncrementOfStratagemInViewArea * 4 + this.ChanceDecrementOfStratagemInViewArea * 4
                         + (int)(this.OffenceRateIncrementInViewArea * 100f) + (int)(this.OffenceRateDecrementInViewArea * 100f) 
-                        + (int)(this.DefenceRateIncrementInViewArea * 100f) + (int)(this.DefenceRateDecrementInViewArea * 100f)));
+                        + (int)(this.DefenceRateIncrementInViewArea * 100f) + (int)(this.DefenceRateDecrementInViewArea * 100f)
+                        + this.chanceTirednessStopIncrease / 10
+                        + (int)(this.reduceInjuredOnAttack * 20f)
+                        + (int)(this.reduceInjuredOnCritical * 10f)
+                        + (int)(this.StealTroop * 200f) + (int)(this.StealInjured * 160f)
+                        + (int)(this.TirednessIncreaseOnAttack * 5)
+                        + stratagemTirednessIncrease * 5
+                        + stratagemStealTroop * 20
+                        + stratagemStealInjury * 10
+                        + stratagemMoraleDecrease * 8
+                        + stratagemCombativityDecrease * 3
+                        + stratagemTroopDecrease * 10
+                        + stratagemInjuryDecrease * 5
+                        + stratagemLoyaltyDecrease * 10
+                        + this.TirednessIncreaseChanceInViewArea / 4 + this.TirednessDecreaseChanceInViewArea / 4
+                        + this.InjuryRecoverInViewArea / 20 + this.InjuryLostInViewArea / 20
+                        + this.TroopRecoverInViewArea / 2 + this.TroopLostInViewArea / 2
+                        + this.MoraleIncreaseInViewArea + this.MoraleDecreaseInViewArea
+                        + this.ChaosRecoverInViewArea / 10 + this.ChaosInViewArea / 3));
             }
         }
 
@@ -11911,7 +12046,25 @@
         {
             get
             {
-                return (((1 + this.Offence) + this.Defence) * ((((((((((((((((((((((((((1 + (((this.CurrentArchitecture != null) && (this.CurrentArchitecture.Endurance > 0)) ? 10 : 0)) + (this.TroopIntelligence / 2)) + (this.Quantity / 500)) + (this.Combativity / 4)) + this.Leader.TitleMerit)) + (this.CombatMethods.Count * 5)) + (this.Stunts.Count * 20)) + this.CriticalStrikeChance) + this.AntiCriticalStrikeChance) + this.ChaosAfterCriticalStrikeChance) + (this.AvoidSurroundedChance / 2)) + this.ChaosAfterSurroundAttackChance) + this.StratagemChanceIncrement) + this.AntiStratagemChanceIncrement) + this.ChaosAfterStratagemSuccessChance) + (this.ChanceIncrementOfCriticalStrikeInViewArea * 4)) + (this.ChanceDecrementOfCriticalStrikeInViewArea * 4)) + (this.CombativityIncrementPerDayInViewArea * 4)) + (this.CombativityDecrementPerDayInViewArea * 4)) + (this.ChanceIncrementOfStratagemInViewArea * 4)) + (this.ChanceDecrementOfStratagemInViewArea * 4)) + ((int)(this.OffenceRateIncrementInViewArea * 100f))) + ((int)(this.OffenceRateDecrementInViewArea * 100f))) + ((int)(this.DefenceRateIncrementInViewArea * 100f))) + ((int)(this.DefenceRateDecrementInViewArea * 100f))));
+                return (((1 + this.Offence) + this.Defence) * ((((((((((((((((((((((((((1 + (((this.CurrentArchitecture != null) && (this.CurrentArchitecture.Endurance > 0)) ? 10 : 0)) + (this.TroopIntelligence / 2)) + (this.Quantity / 500)) + (this.Combativity / 4)) + this.Leader.TitleMerit)) + (this.CombatMethods.Count * 5)) + (this.Stunts.Count * 20)) + this.CriticalStrikeChance) + this.AntiCriticalStrikeChance) + this.ChaosAfterCriticalStrikeChance) + (this.AvoidSurroundedChance / 2)) + this.ChaosAfterSurroundAttackChance) + this.StratagemChanceIncrement) + this.AntiStratagemChanceIncrement) + this.ChaosAfterStratagemSuccessChance) + (this.ChanceIncrementOfCriticalStrikeInViewArea * 4)) + (this.ChanceDecrementOfCriticalStrikeInViewArea * 4)) + (this.CombativityIncrementPerDayInViewArea * 4)) + (this.CombativityDecrementPerDayInViewArea * 4)) + (this.ChanceIncrementOfStratagemInViewArea * 4)) + (this.ChanceDecrementOfStratagemInViewArea * 4)) + ((int)(this.OffenceRateIncrementInViewArea * 100f))) + ((int)(this.OffenceRateDecrementInViewArea * 100f))) + ((int)(this.DefenceRateIncrementInViewArea * 100f))) + ((int)(this.DefenceRateDecrementInViewArea * 100f))
+                        + this.chanceTirednessStopIncrease / 10
+                        + (int)(this.reduceInjuredOnAttack * 20f)
+                        + (int)(this.reduceInjuredOnCritical * 10f)
+                        + (int)(this.StealTroop * 200f) + (int)(this.StealInjured * 160f)
+                        + (int)(this.TirednessIncreaseOnAttack * 5)
+                        + stratagemTirednessIncrease * 5
+                        + stratagemStealTroop * 20
+                        + stratagemStealInjury * 10
+                        + stratagemMoraleDecrease * 8
+                        + stratagemCombativityDecrease * 3
+                        + stratagemTroopDecrease * 10
+                        + stratagemInjuryDecrease * 5
+                        + stratagemLoyaltyDecrease * 10
+                        + this.TirednessIncreaseChanceInViewArea / 4 + this.TirednessDecreaseChanceInViewArea / 4
+                        + this.InjuryRecoverInViewArea / 20 + this.InjuryLostInViewArea / 20
+                        + this.TroopRecoverInViewArea / 2 + this.TroopLostInViewArea / 2
+                        + this.MoraleIncreaseInViewArea + this.MoraleDecreaseInViewArea
+                        + this.ChaosRecoverInViewArea / 10 + this.ChaosInViewArea / 3));
             }
         }
 
@@ -12409,31 +12562,7 @@
             }
         }
 
-        public int Weighing
-        {
-            get
-            {
-                int num = 1;
-                int num2 = 1;
-                if ((((((this.ChanceIncrementOfCriticalStrikeInViewArea > 0) || (this.ChanceDecrementOfCriticalStrikeInViewArea > 0)) || ((this.CombativityIncrementPerDayInViewArea > 0) || (this.CombativityDecrementPerDayInViewArea > 0))) || (((this.ChanceIncrementOfStratagemInViewArea > 0) || (this.ChanceDecrementOfStratagemInViewArea > 0)) || ((this.OffenceRateIncrementInViewArea > 0f) || (this.OffenceRateDecrementInViewArea > 0f)))) || (this.DefenceRateIncrementInViewArea > 0f)) || (this.DefenceRateDecrementInViewArea > 0f))
-                {
-                    num += 2;
-                }
-                foreach (Person person in this.Persons)
-                {
-                    if (person == this.BelongedFaction.Leader)
-                    {
-                        num++;
-                        break;
-                    }
-                }
-                if (!this.ControlAvail())
-                {
-                    num2++;
-                }
-                return ((num * this.FightingForce) / num2);
-            }
-        }
+
 
         public TroopWill Will
         {

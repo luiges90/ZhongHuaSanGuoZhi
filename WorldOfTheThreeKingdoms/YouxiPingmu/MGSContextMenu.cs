@@ -992,14 +992,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
 
                 case ContextMenuResult.TroopEnter:
-
                     this.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.Trooprucheng));
+                    break;
 
+                case ContextMenuResult.TroopMorph:
+                    this.CurrentTroop.Morph();
                     break;
 
                 case ContextMenuResult.TroopOccupy:
-
-
                     this.CurrentTroop.Operated = true;
                     this.CurrentTroop.Occupy();
 

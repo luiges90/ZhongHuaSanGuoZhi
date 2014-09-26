@@ -13,7 +13,17 @@
         友军计略成功几率增加,
         友军计略抵抗几率增加,
         友军战意每天增加,
-        敌军战意每天减少
+        敌军战意每天减少,
+        friendlyTirednessDecrease,
+        hostileTirednessIncrease,
+        friendlyRecoverInjury,
+        hostileLoseInjury,
+        friendlyTroopIncrease,
+        hostileTroopDecrease,
+        friendlyMoraleIncrease,
+        hostileMoraleDecrease,
+        friendlyRecoverChaos,
+        hostileChaos
     }
 }
 

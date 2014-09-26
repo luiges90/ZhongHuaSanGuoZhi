@@ -955,6 +955,14 @@
                 militaryKind.AttackTargetKind = (TroopAttackTargetKind)((short)reader["AttackTargetKind"]);
                 militaryKind.CastDefaultKind = (TroopCastDefaultKind)((short)reader["CastDefaultKind"]);
                 militaryKind.CastTargetKind = (TroopCastTargetKind)((short)reader["CastTargetKind"]);
+                try
+                {
+                    militaryKind.MorphToKindId = (int)reader["MorphTo"];
+                    militaryKind.NeedNoPerson = (bool)reader["NeedNoPerson"];
+                }
+                catch
+                {
+                }
 
                 e.AddRange(militaryKind.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString()));
                 if (e.Count > 0)

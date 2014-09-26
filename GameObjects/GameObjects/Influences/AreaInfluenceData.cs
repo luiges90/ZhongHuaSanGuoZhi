@@ -84,6 +84,76 @@
                         troop.CombativityDecrementPerDayByViewArea += this.Offset;
                     }
                     break;
+
+                case AreaInfluenceKind.friendlyMoraleIncrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.MoraleIncreaseByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyRecoverChaos:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.ChaosRecoverByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyRecoverInjury:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.InjuryRecoverByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyTirednessDecrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.TirednessDecreaseChanceByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyTroopIncrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.TroopRecoverByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileChaos:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.ChaosByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileLoseInjury:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.InjuryLostByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileMoraleDecrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.MoraleDecreaseByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileTirednessIncrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.TirednessIncreaseChanceByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileTroopDecrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.TroopLostByViewArea += this.Offset;
+                    }
+                    break;
             }
         }
 
@@ -158,6 +228,76 @@
                     if (!this.Owner.IsFriendly(troop.BelongedFaction))
                     {
                         troop.CombativityDecrementPerDayByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyMoraleIncrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.MoraleIncreaseByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyRecoverChaos:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.ChaosRecoverByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyRecoverInjury:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.InjuryRecoverByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyTirednessDecrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.TirednessDecreaseChanceByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyTroopIncrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.TroopRecoverByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileChaos:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.ChaosByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileLoseInjury:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.InjuryLostByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileMoraleDecrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.MoraleDecreaseByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileTirednessIncrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.TirednessIncreaseChanceByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileTroopDecrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.TroopLostByViewArea -= this.Offset;
                     }
                     break;
             }

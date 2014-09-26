@@ -1280,7 +1280,17 @@
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1540.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1550.cs" />
     <Compile Include="GameObjects\FoodPack.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6560.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6565.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6990.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6995.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6555.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6550.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6545.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6540.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6520.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6090.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind457.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6525.cs" />
   </ItemGroup>
 </Project>

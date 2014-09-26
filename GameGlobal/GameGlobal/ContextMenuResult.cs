@@ -195,6 +195,7 @@
         TroopMilitary,
         TroopCaptive,
         TroopTreasure,
+        TroopMorph,
         Plugins,
         CurrentArchitectureLeftClick,
         CurrentTroopLeftClick,
