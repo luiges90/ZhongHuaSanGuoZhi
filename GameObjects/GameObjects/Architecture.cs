@@ -1178,16 +1178,16 @@
             int actualTransferFood = food;
             int actualTransferFund = fund;
 
-            src.DecreaseFood((int) (food * base.Scenario.GetResourceConsumptionRate(src, this)));
-            src.DecreaseFund((int) (fund * base.Scenario.GetResourceConsumptionRate(src, this)));
+            src.DecreaseFood(food);
+            src.DecreaseFund(fund);
 
             if (food >= 0)
             {
-                this.AddFoodPack(food, base.Scenario.GetTransferFundDays(src, this));
+                this.AddFoodPack((int) (food / base.Scenario.GetResourceConsumptionRate(src, this)), base.Scenario.GetTransferFundDays(src, this));
             }
             if (fund >= 0)
             {
-                this.AddFundPack(fund, base.Scenario.GetTransferFundDays(src, this));
+                this.AddFundPack((int) (fund / base.Scenario.GetResourceConsumptionRate(src, this)), base.Scenario.GetTransferFundDays(src, this));
             }
 
             return true;

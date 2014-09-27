@@ -412,15 +412,13 @@
                         break;
 
                     case TransportKind.Fund:
-                        this.SourceArchitecture.DecreaseFund(
-                            (int) (this.Number * this.SourceArchitecture.Scenario.GetResourceConsumptionRate(this.SourceArchitecture, this.destinationArchitecture)));
-                        this.DestinationArchitecture.AddFundPack(this.Number, this.Days);
+                        this.SourceArchitecture.DecreaseFund(this.Number);
+                        this.DestinationArchitecture.AddFundPack((int)(this.Number / this.SourceArchitecture.Scenario.GetResourceConsumptionRate(this.SourceArchitecture, this.destinationArchitecture)), this.Days);
                         break;
 
                     case TransportKind.Food:
-                        this.SourceArchitecture.DecreaseFood(
-                            (int) (this.Number * this.SourceArchitecture.Scenario.GetResourceConsumptionRate(this.SourceArchitecture, this.destinationArchitecture)));
-                        this.DestinationArchitecture.AddFoodPack(this.Number, this.Days);
+                        this.SourceArchitecture.DecreaseFood(this.Number);
+                        this.DestinationArchitecture.AddFoodPack((int)(this.Number / this.SourceArchitecture.Scenario.GetResourceConsumptionRate(this.SourceArchitecture, this.destinationArchitecture)), this.Days);
                         break;
                 }
             }

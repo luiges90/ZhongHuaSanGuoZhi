@@ -1484,7 +1484,7 @@
 
         public double GetResourceConsumptionRate(Architecture a, Architecture b)
         {
-            return this.GetDistance(a.ArchitectureArea, b.ArchitectureArea) / 50.0 + 1;
+            return this.GetDistance(a.ArchitectureArea, b.ArchitectureArea) / 75.0 + 1;
         }
 
         public double GetDistance(GameArea fromArea, GameArea toArea)
