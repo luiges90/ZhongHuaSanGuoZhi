@@ -10298,6 +10298,27 @@
             }
         }
 
+        private void MorphAI()
+        {
+            if (this.MorphAvail())
+            {
+                if (this.TargetArchitecture != null || this.TargetTroop != null)
+                {
+                    if (this.Army.Kind.Offence < this.Army.Kind.MorphTo.Offence || this.Army.Kind.Defence < this.Army.Kind.MorphTo.Defence)
+                    {
+                        this.Morph();
+                    }
+                }
+                else
+                {
+                    if (!this.Army.Kind.Movable && this.Army.Kind.MorphTo.Movable)
+                    {
+                        this.Morph();
+                    }
+                }
+            }
+        }
+
         private void WillAI()
         {
             if (this.Will == TroopWill.行军)
@@ -10377,6 +10398,7 @@
                     this.GoIntoArchitecture();
                 }
             }
+            this.MorphAI();
         }
 
         public void YearEvent()
