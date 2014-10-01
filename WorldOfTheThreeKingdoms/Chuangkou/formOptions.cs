@@ -237,6 +237,11 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label lblChildrenAvailableAge;
         private TextBox tbChildrenAvailableAge;
         private CheckBox cbFullScreen;
+        private TextBox tbAIExtraPersonIncreaseRate;
+        private Label lblAIExtraPerson;
+        private TextBox tbAIExtraPerson;
+        private Label lblAIEncirclePlayerRate;
+        private TextBox tbAIEncirclePlayerRate;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -476,6 +481,11 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.tbAIExtraPersonIncreaseRate = new System.Windows.Forms.TextBox();
+            this.lblAIExtraPerson = new System.Windows.Forms.Label();
+            this.tbAIExtraPerson = new System.Windows.Forms.TextBox();
+            this.lblAIEncirclePlayerRate = new System.Windows.Forms.Label();
+            this.tbAIEncirclePlayerRate = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -2056,6 +2066,11 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageAIParameter
             // 
+            this.tabPageAIParameter.Controls.Add(this.lblAIEncirclePlayerRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAIEncirclePlayerRate);
+            this.tabPageAIParameter.Controls.Add(this.tbAIExtraPersonIncreaseRate);
+            this.tabPageAIParameter.Controls.Add(this.lblAIExtraPerson);
+            this.tabPageAIParameter.Controls.Add(this.tbAIExtraPerson);
             this.tabPageAIParameter.Controls.Add(this.tbAIAntiSurroundIncreaseRate);
             this.tabPageAIParameter.Controls.Add(this.lblAIAntiSurround);
             this.tabPageAIParameter.Controls.Add(this.tbAIAntiSurround);
@@ -2334,7 +2349,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbAIExecuteBetterOfficer
             // 
             this.cbAIExecuteBetterOfficer.AutoSize = true;
-            this.cbAIExecuteBetterOfficer.Location = new System.Drawing.Point(15, 393);
+            this.cbAIExecuteBetterOfficer.Location = new System.Drawing.Point(293, 399);
             this.cbAIExecuteBetterOfficer.Name = "cbAIExecuteBetterOfficer";
             this.cbAIExecuteBetterOfficer.Size = new System.Drawing.Size(144, 16);
             this.cbAIExecuteBetterOfficer.TabIndex = 44;
@@ -2344,15 +2359,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblAIExecutionRate
             // 
             this.lblAIExecutionRate.AutoSize = true;
-            this.lblAIExecutionRate.Location = new System.Drawing.Point(13, 368);
+            this.lblAIExecutionRate.Location = new System.Drawing.Point(13, 400);
             this.lblAIExecutionRate.Name = "lblAIExecutionRate";
-            this.lblAIExecutionRate.Size = new System.Drawing.Size(221, 12);
+            this.lblAIExecutionRate.Size = new System.Drawing.Size(197, 12);
             this.lblAIExecutionRate.TabIndex = 43;
-            this.lblAIExecutionRate.Text = "电脑处斩机率（数值越大处斩几率越高）";
+            this.lblAIExecutionRate.Text = "电脑机率（数值越大处斩几率越高）";
             // 
             // tbAIExecutionRate
             // 
-            this.tbAIExecutionRate.Location = new System.Drawing.Point(240, 365);
+            this.tbAIExecutionRate.Location = new System.Drawing.Point(211, 397);
             this.tbAIExecutionRate.Name = "tbAIExecutionRate";
             this.tbAIExecutionRate.Size = new System.Drawing.Size(71, 22);
             this.tbAIExecutionRate.TabIndex = 42;
@@ -2490,7 +2505,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbIgnoreStrategyTendency
             // 
             this.cbIgnoreStrategyTendency.AutoSize = true;
-            this.cbIgnoreStrategyTendency.Location = new System.Drawing.Point(15, 339);
+            this.cbIgnoreStrategyTendency.Location = new System.Drawing.Point(15, 371);
             this.cbIgnoreStrategyTendency.Name = "cbIgnoreStrategyTendency";
             this.cbIgnoreStrategyTendency.Size = new System.Drawing.Size(156, 16);
             this.cbIgnoreStrategyTendency.TabIndex = 41;
@@ -2540,6 +2555,45 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // tbAIExtraPersonIncreaseRate
+            // 
+            this.tbAIExtraPersonIncreaseRate.Location = new System.Drawing.Point(189, 340);
+            this.tbAIExtraPersonIncreaseRate.Name = "tbAIExtraPersonIncreaseRate";
+            this.tbAIExtraPersonIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIExtraPersonIncreaseRate.TabIndex = 74;
+            // 
+            // lblAIExtraPerson
+            // 
+            this.lblAIExtraPerson.AutoSize = true;
+            this.lblAIExtraPerson.Location = new System.Drawing.Point(13, 343);
+            this.lblAIExtraPerson.Name = "lblAIExtraPerson";
+            this.lblAIExtraPerson.Size = new System.Drawing.Size(77, 12);
+            this.lblAIExtraPerson.TabIndex = 72;
+            this.lblAIExtraPerson.Text = "电脑额外人才";
+            // 
+            // tbAIExtraPerson
+            // 
+            this.tbAIExtraPerson.Location = new System.Drawing.Point(130, 340);
+            this.tbAIExtraPerson.Name = "tbAIExtraPerson";
+            this.tbAIExtraPerson.Size = new System.Drawing.Size(57, 22);
+            this.tbAIExtraPerson.TabIndex = 73;
+            // 
+            // lblAIEncirclePlayerRate
+            // 
+            this.lblAIEncirclePlayerRate.AutoSize = true;
+            this.lblAIEncirclePlayerRate.Location = new System.Drawing.Point(250, 231);
+            this.lblAIEncirclePlayerRate.Name = "lblAIEncirclePlayerRate";
+            this.lblAIEncirclePlayerRate.Size = new System.Drawing.Size(101, 12);
+            this.lblAIEncirclePlayerRate.TabIndex = 75;
+            this.lblAIEncirclePlayerRate.Text = "电脑声讨玩家参数";
+            // 
+            // tbAIEncirclePlayerRate
+            // 
+            this.tbAIEncirclePlayerRate.Location = new System.Drawing.Point(357, 228);
+            this.tbAIEncirclePlayerRate.Name = "tbAIEncirclePlayerRate";
+            this.tbAIEncirclePlayerRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIEncirclePlayerRate.TabIndex = 76;
             // 
             // formOptions
             // 
@@ -2710,6 +2764,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbAIAntiStratagemIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIAntiStratagemIncreaseRate").Value;
             this.tbAIAntiSurround.Text = nextSibling.Attributes.GetNamedItem("AIAntiSurround").Value;
             this.tbAIAntiSurroundIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIAntiSurroundIncreaseRate").Value;
+            this.tbAIEncirclePlayerRate.Text = nextSibling.Attributes.GetNamedItem("AIEncirclePlayerRate").Value;
+            this.tbAIExtraPerson.Text = nextSibling.Attributes.GetNamedItem("AIExtraPerson").Value;
+            this.tbAIExtraPersonIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIExtraPersonIncreaseRate").Value;
             doNotSetDifficultyToCustom = false;
         }
 
@@ -2887,6 +2944,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkFloatSave(nextSibling, "AIAntiStratagemIncreaseRate", this.lblAIAntiStratagem, this.tbAIAntiStratagemIncreaseRate)) { return false; }
             if (!checkIntSave(nextSibling, "AIAntiSurround", this.lblAIAntiSurround, this.tbAIAntiSurround)) { return false; }
             if (!checkFloatSave(nextSibling, "AIAntiSurroundIncreaseRate", this.lblAIAntiSurround, this.tbAIAntiSurroundIncreaseRate)) { return false; }
+            if (!checkIntSave(nextSibling, "AIEncirclePlayerRate", this.lblAIEncirclePlayerRate, this.tbAIEncirclePlayerRate)) { return false; }
+            if (!checkFloatSave(nextSibling, "AIExtraPerson", this.lblAIExtraPerson, this.tbAIExtraPerson)) { return false; }
+            if (!checkFloatSave(nextSibling, "AIExtraPersonIncreaseRate", this.lblAIExtraPerson, this.tbAIExtraPersonIncreaseRate)) { return false; }
             this.parameterDoc.Save("GameData/GameParameters.xml");
             return true;
         }
@@ -3018,7 +3078,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = false;
                     this.cbAIAutoTakePlayerCaptives.Checked = false;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = false;
-                    GameGlobal.Parameters.AIEncirclePlayerRate = 0;
+                    this.tbAIEncirclePlayerRate.Text = "0";
+                    this.tbAIExtraPerson.Text = "1.0";
+                    this.tbAIExtraPersonIncreaseRate.Text = "0.0";
                     break;
                 case Difficulty.easy:
                     this.tbAIFundRate.Text = "1.0";
@@ -3050,7 +3112,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = false;
                     this.cbAIAutoTakePlayerCaptives.Checked = false;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = false;
-                    GameGlobal.Parameters.AIEncirclePlayerRate = 0;
+                    this.tbAIEncirclePlayerRate.Text = "0";
+                    this.tbAIExtraPerson.Text = "1.0";
+                    this.tbAIExtraPersonIncreaseRate.Text = "0.0";
                     break;
                 case Difficulty.normal:
                     this.tbAIFundRate.Text = "2.0";
@@ -3082,7 +3146,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = false;
                     this.cbAIAutoTakePlayerCaptives.Checked = false;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = false;
-                    GameGlobal.Parameters.AIEncirclePlayerRate = 5;
+                    this.tbAIEncirclePlayerRate.Text = "5";
+                    this.tbAIExtraPerson.Text = "1.2";
+                    this.tbAIExtraPersonIncreaseRate.Text = "0.0";
                     break;
                 case Difficulty.hard:
                     this.tbAIFundRate.Text = "3.0";
@@ -3114,7 +3180,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = true;
                     this.cbAIAutoTakePlayerCaptives.Checked = true;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = true;
-                    GameGlobal.Parameters.AIEncirclePlayerRate = 20;
+                    this.tbAIEncirclePlayerRate.Text = "20";
+                    this.tbAIExtraPerson.Text = "1.5";
+                    this.tbAIExtraPersonIncreaseRate.Text = "0.01";
                     break;
                 case Difficulty.veryhard:
                     this.tbAIFundRate.Text = "6.0";
@@ -3146,7 +3214,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = true;
                     this.cbAIAutoTakePlayerCaptives.Checked = true;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = false;
-                    GameGlobal.Parameters.AIEncirclePlayerRate = 100;
+                    this.tbAIEncirclePlayerRate.Text = "100";
+                    this.tbAIExtraPerson.Text = "3.0";
+                    this.tbAIExtraPersonIncreaseRate.Text = "0.05";
                     break;
             }
             doNotSetDifficultyToCustom = false;

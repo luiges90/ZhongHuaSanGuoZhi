@@ -2430,11 +2430,13 @@
                 PersonList personlist = new PersonList();
                 foreach (Person person in troop.Persons)
                 {
-                    if (!(person.ImmunityOfCaptive || (GameObject.Chance(person.ChanceOfNoCapture) || (GameObject.Random(this.CaptiveAblility) <= GameObject.Random(person.CaptiveAbility + 200)))))
+                    if (!person.ImmunityOfCaptive && !GameObject.Chance(person.ChanceOfNoCapture) &&
+                        GameObject.Random(this.CaptiveAblility) > GameObject.Random(person.CaptiveAbility + 200))
                     {
                         personlist.Add(person);
                     }
-                    else if (!person.ImmunityOfCaptive && GameObject.Chance(this.captureChance))
+                    else if (!person.ImmunityOfCaptive && 
+                        GameObject.Chance(this.captureChance + ((int) (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIExtraPerson))))
                     {
                         personlist.Add(person);
                     }
@@ -2488,7 +2490,13 @@
                 PersonList personlist = new PersonList();
                 foreach (Person person in a.Persons)
                 {
-                    if (!(person.ImmunityOfCaptive || GameObject.Random(this.CaptiveAblility) <= GameObject.Random(person.CaptiveAbility + 200)))
+                    if (!person.ImmunityOfCaptive && !GameObject.Chance(person.ChanceOfNoCapture) &&
+                        GameObject.Random(this.CaptiveAblility) > GameObject.Random(person.CaptiveAbility + 200))
+                    {
+                        personlist.Add(person);
+                    }
+                    else if (!person.ImmunityOfCaptive &&
+                        GameObject.Chance(this.captureChance + ((int)(base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIExtraPerson))))
                     {
                         personlist.Add(person);
                     }

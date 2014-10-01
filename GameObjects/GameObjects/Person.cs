@@ -1632,7 +1632,8 @@
                 float relationFactor = (1 + this.GetRelation(this.Spouse) * 0.0001f + this.Spouse.GetRelation(this) * 0.0001f)
                     * (1 + this.pregnantChance / 100.0f + this.Spouse.pregnantChance / 100.0f);
 
-                if (relationFactor > 0 && GameObject.Random((int)(10000.0f / GlobalVariables.getChildrenRate * 20 / relationFactor)) == 0)
+                if (relationFactor > 0 && GameObject.Random((int)
+                    (10000.0f / GlobalVariables.getChildrenRate * 20 / relationFactor / (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIExtraPerson))) == 0)
                 {
                     this.suoshurenwu = this.Spouse.ID;
                     this.Spouse.suoshurenwu = this.ID;
@@ -2642,6 +2643,24 @@
                     pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
                     return true;
                 }
+                else if (!base.Scenario.IsPlayer(this.BelongedFaction) &&
+                    GameObject.Random(100 * this.BelongedFaction.PersonCount) < GlobalVariables.CreateRandomOfficerChance * (Parameters.AIExtraPerson - 1))
+                {
+                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
+                    pack.FoundPerson.Ideal = (this.BelongedFaction.Leader.Ideal + GameObject.Random(11) - 5) % 150;
+
+                    GameObjectList ideals = base.Scenario.GameCommonData.AllIdealTendencyKinds;
+                    IdealTendencyKind minIdeal = null;
+                    foreach (IdealTendencyKind itk in ideals)
+                    {
+                        if (itk.Offset < minIdeal.Offset)
+                        {
+                            minIdeal = itk;
+                        }
+                    }
+                    pack.FoundPerson.IdealTendency = minIdeal;
+                }
+                    
             }
             return false;
         }
@@ -2760,8 +2779,9 @@
         {
             if (a.BelongedFaction != null && a.BelongedFaction != this.BelongedFaction)
             {
-                if (!(this.ImmunityOfCaptive || GameObject.Random((a.Domination * 10 + a.Morale)) + 200 <= GameObject.Random(this.CaptiveAbility) * 60) ||
-                    (!this.ImmunityOfCaptive && GameObject.Chance(a.captureChance)))
+                if (!this.ImmunityOfCaptive && 
+                    (GameObject.Random(a.Domination * 10 + a.Morale) + 200 > GameObject.Random(this.CaptiveAbility) * 60 
+                    || GameObject.Chance((int) (a.captureChance * (base.Scenario.IsPlayer(a.BelongedFaction) ? 1 : Parameters.AIExtraPerson)))))
                 {
                     this.ArrivingDays = 0;
                     this.TargetArchitecture = null;
@@ -7722,6 +7742,10 @@
                         extraRate += 1.6f;
                     }
                     extraRate += nvren.GetRelation(this) * 0.0001f + this.GetRelation(nvren) * 0.0001f;
+                    if (!base.Scenario.IsPlayer(this.BelongedFaction))
+                    {
+                        extraRate += Parameters.AIExtraPerson - 1;
+                    }
 
                     float pregnantChance = GlobalVariables.hougongGetChildrenRate / 100.0f;
                     pregnantChance *= houGongDays * extraRate;

@@ -164,6 +164,10 @@
 
         public static int RetainFeiziPersonalLoyalty = 0;
         public static int AIEncirclePlayerRate = 0;
+        public static float BasicAIExtraPerson = 0;
+        public static float AIExtraPerson = 0;
+        public static float AIExtraPersonIncreaseRate = 0;
+        public static int AITirednessDecrease = 0;
 
         public static int InternalSurplusFactor = 10000000;
 
@@ -318,6 +322,10 @@
 
             AIEncirclePlayerRate = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncirclePlayerRate").Value);
 
+            InternalSurplusFactor = int.Parse(nextSibling.Attributes.GetNamedItem("InternalSurplusFactor").Value);
+            AIExtraPerson = float.Parse(nextSibling.Attributes.GetNamedItem("AIExtraPerson").Value);
+            AIExtraPersonIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIExtraPersonIncreaseRate").Value);
+
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;
             BasicAITroopOffenceRate = AITroopOffenceRate;
@@ -329,6 +337,7 @@
             BasicAIOfficerExperienceRate = AIOfficerExperienceRate;
             BasicAIAntiStratagem = AIAntiStratagem;
             BasicAIAntiSurround = AIAntiSurround;
+            BasicAIExtraPerson = AIExtraPerson;
         }
 
         public static void DayEvent(int year)
@@ -344,6 +353,7 @@
             AIArmyExperienceRate = year * AIArmyExperienceYearIncreaseRate + BasicAIArmyExperienceRate;
             AIAntiSurround = (int) (year * AIAntiSurroundIncreaseRate + BasicAIAntiSurround);
             AIAntiStratagem = (int) (year * AIAntiStratagemIncreaseRate + BasicAIAntiStratagem);
+            AIExtraPerson = year * AIExtraPersonIncreaseRate + BasicAIExtraPerson;
         }
     }
 }
