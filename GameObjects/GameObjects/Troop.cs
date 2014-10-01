@@ -827,8 +827,14 @@
             ExtensionInterface.call("TroopAI", new Object[] { this.Scenario, this });
         }
 
-        private bool AIRetreat()
+        private bool AIResetDestination()
         {
+            CreditPack moveCreditByPosition;
+            double num4;
+            double distance;
+
+            if (this.Destroyed) return false;
+
             if (this.willArchitectureID < 0)
             {
                 this.GoBack();
@@ -854,7 +860,7 @@
                         {
                             this.GoBack();
                             this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                            return true;
+                            return false;
                         }
                     }
                     else
@@ -868,7 +874,7 @@
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                    return true;
+                    return false;
                 }
                 //retreat if target has too much food/fund that further transfer will fill up there, for transport troop
                 if ((this.WillArchitecture.Food + this.Food > this.WillArchitecture.FoodCeiling ||
@@ -877,7 +883,7 @@
                 {
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                    return true;
+                    return false;
                 }
                 //retreat if morale < 45 or has more injured troop than working troops, with 80 + 2 x calmness chance
                 if (GameObject.Chance(80 + (this.Leader.Calmness * 2)) && ((this.InjuryQuantity > this.Quantity) || (this.Morale < 45)
@@ -892,7 +898,7 @@
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                     }
-                    return true;
+                    return false;
                 }
                 //retreat if the enemy base has > 30 endurance, morale <= 75, and routeway not started or don't have enough food
                 if (this.BelongedFaction != null)
@@ -912,7 +918,7 @@
                         {
                             this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         }
-                        return true;
+                        return false;
                     }
                 }
                 //retreat if run out of crop
@@ -927,7 +933,7 @@
                         this.WillTroop = null;
                         this.TargetTroop = null;
                         this.TargetArchitecture = null;
-                        return true;
+                        return false;
                     }
                 }
                 //earlier retreat if losing this troop is costly
@@ -937,7 +943,7 @@
                     this.GoBack();
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
 
-                    return true;
+                    return false;
                 }
                 //retreat if the other base become friendly and this legion is meant to be offensive
                 if (this.BelongedLegion != null)
@@ -946,7 +952,7 @@
                     {
                         this.GoBack();
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
-                        return true;
+                        return false;
                     }
                 }
                 //if
@@ -969,7 +975,7 @@
                 {
                     this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                     this.GoBack();
-                    return true;
+                    return false;
                 }
                 //retreat if the starting arch is under attack and cannot resist such attack, and enemy city does not seem to fall
                 if (this.BelongedLegion != null)
@@ -980,7 +986,7 @@
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         this.GoBack();
-                        return true;
+                        return false;
                     }
                 }
                 // retreat if anyone in the team is too tired
@@ -990,7 +996,7 @@
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         this.GoBack();
-                        return true;
+                        return false;
                     }
                 }
                 //retreat if we were outnumbered, in an offensive
@@ -1026,28 +1032,9 @@
                     {
                         this.AttackTargetKind = TroopAttackTargetKind.无反默认;
                         this.GoBack();
-                        return true;
+                        return false;
                     }
                 }
-            }
-            return false;
-        }
-
-        private bool AIResetDestination()
-        {
-            CreditPack moveCreditByPosition;
-            double num4;
-            double distance;
-
-            if (this.Destroyed) return false;
-
-            if (this.AIRetreat())
-            {
-                return false;
-            }
-
-            if (!this.IsRobber)
-            {
                 if (this.Army.KindID == 29 || (!this.ViewingWillArchitecture && !this.HasHostileTroopInView()))
                 {
                     Point newRealDestination = base.Scenario.GetClosestPoint(this.WillArchitecture.ArchitectureArea, this.Position);
@@ -1060,7 +1047,6 @@
                 this.CallTacticsHelp();
                 this.CallRoutewayHelp();
             }
-            
             List<CreditPack> list = new List<CreditPack>();
             int credit = 0;
             bool flag = false;
@@ -10312,27 +10298,6 @@
             }
         }
 
-        private void MorphAI()
-        {
-            if (this.MorphAvail())
-            {
-                if (this.TargetArchitecture != null || this.TargetTroop != null)
-                {
-                    if (this.Army.Kind.Offence < this.Army.Kind.MorphTo.Offence || this.Army.Kind.Defence < this.Army.Kind.MorphTo.Defence)
-                    {
-                        this.Morph();
-                    }
-                }
-                else
-                {
-                    if (!this.Army.Kind.Movable && this.Army.Kind.MorphTo.Movable)
-                    {
-                        this.Morph();
-                    }
-                }
-            }
-        }
-
         private void WillAI()
         {
             if (this.Will == TroopWill.行军)
@@ -10412,7 +10377,6 @@
                     this.GoIntoArchitecture();
                 }
             }
-            this.MorphAI();
         }
 
         public void YearEvent()
