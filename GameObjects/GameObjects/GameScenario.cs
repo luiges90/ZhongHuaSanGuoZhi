@@ -1479,12 +1479,12 @@
 
         public double GetResourceConsumptionRate(Architecture a, Troop b)
         {
-            return this.GetDistance(b.Position, a.ArchitectureArea) / 30.0 + 1;
+            return this.GetDistance(b.Position, a.ArchitectureArea) / 50.0 + 1;
         }
 
         public double GetResourceConsumptionRate(Architecture a, Architecture b)
         {
-            return this.GetDistance(a.ArchitectureArea, b.ArchitectureArea) / 75.0 + 1;
+            return this.GetDistance(a.ArchitectureArea, b.ArchitectureArea) / 150.0 + 1;
         }
 
         public double GetDistance(GameArea fromArea, GameArea toArea)
