@@ -2436,7 +2436,8 @@
                         personlist.Add(person);
                     }
                     else if (!person.ImmunityOfCaptive && 
-                        GameObject.Chance(this.captureChance + ((int) (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIExtraPerson))))
+                        GameObject.Chance(this.captureChance * 
+                        ((int) (!base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(troop.BelongedFaction) ? Parameters.AIExtraPerson : 1))))
                     {
                         personlist.Add(person);
                     }
@@ -2496,7 +2497,8 @@
                         personlist.Add(person);
                     }
                     else if (!person.ImmunityOfCaptive &&
-                        GameObject.Chance(this.captureChance + ((int)(base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIExtraPerson))))
+                        GameObject.Chance(this.captureChance * 
+                        ((int)(!base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(a.BelongedFaction) ? Parameters.AIExtraPerson : 1))))
                     {
                         personlist.Add(person);
                     }
