@@ -10151,19 +10151,60 @@
                 this.MovabilityLeft = -1;
                 return path;
             }
+
+            if (stuckedFor >= 5)
+            {
+                int x = this.RealDestination.X - this.Position.X;
+                int y = this.RealDestination.Y - this.Position.Y;
+                if (x >= 0 && y > 0)
+                {
+                    if (GameObject.Chance((int) ((double) x / y * 100.0)) )
+                    {
+                        this.Position = new Point(this.Position.X + 1, this.Position.Y);
+                    } 
+                    else 
+                    {
+                        this.Position = new Point(this.Position.X, this.Position.Y + 1);
+                    }
+                }
+                else if (x >= 0 && y < 0)
+                {
+                    if (GameObject.Chance((int)((double)x / Math.Abs(y) * 100.0)))
+                    {
+                        this.Position = new Point(this.Position.X + 1, this.Position.Y);
+                    }
+                    else
+                    {
+                        this.Position = new Point(this.Position.X, this.Position.Y - 1);
+                    }
+                }
+                else if (x < 0 && y >= 0)
+                {
+                    if (GameObject.Chance((int)((double)y / Math.Abs(x) * 100.0)))
+                    {
+                        this.Position = new Point(this.Position.X, this.Position.Y + 1);
+                    }
+                    else
+                    {
+                        this.Position = new Point(this.Position.X - 1, this.Position.Y);
+                    }
+                }
+                else
+                {
+                    if (GameObject.Chance((int)((double)Math.Abs(y) / Math.Abs(x) * 100.0)))
+                    {
+                        this.Position = new Point(this.Position.X, this.Position.Y - 1);
+                    }
+                    else
+                    {
+                        this.Position = new Point(this.Position.X - 1, this.Position.Y);
+                    }
+                }
+            }
+
             this.MovabilityLeft = -1;
             return path;
         }
-
-        /*private Person raisedSoldier()
-        {
-            if (GlobalVariables.getRaisedSoliderRate <= 0) return null;
-            if (GameObject.Chance((int)(0.1 * Math.Pow(this.reputationGained, 1.3) * GlobalVariables.getRaisedSoliderRate / 100.0 *
-                (40.0 / this.BelongedFaction.PersonCount))))
-            {
-                Person p = Person.createChildren(this.Leader, this.Leader, true);
-            }
-        }*/
 
         private void chongshemubiaoweizhi()
         {
