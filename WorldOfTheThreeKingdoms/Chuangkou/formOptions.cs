@@ -431,6 +431,11 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.lblInternalRate = new System.Windows.Forms.Label();
             this.tbInternalRate = new System.Windows.Forms.TextBox();
             this.tabPageAIParameter = new System.Windows.Forms.TabPage();
+            this.lblAIEncirclePlayerRate = new System.Windows.Forms.Label();
+            this.tbAIEncirclePlayerRate = new System.Windows.Forms.TextBox();
+            this.tbAIExtraPersonIncreaseRate = new System.Windows.Forms.TextBox();
+            this.lblAIExtraPerson = new System.Windows.Forms.Label();
+            this.tbAIExtraPerson = new System.Windows.Forms.TextBox();
             this.tbAIAntiSurroundIncreaseRate = new System.Windows.Forms.TextBox();
             this.lblAIAntiSurround = new System.Windows.Forms.Label();
             this.tbAIAntiSurround = new System.Windows.Forms.TextBox();
@@ -481,11 +486,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.tbAIExtraPersonIncreaseRate = new System.Windows.Forms.TextBox();
-            this.lblAIExtraPerson = new System.Windows.Forms.Label();
-            this.tbAIExtraPerson = new System.Windows.Forms.TextBox();
-            this.lblAIEncirclePlayerRate = new System.Windows.Forms.Label();
-            this.tbAIEncirclePlayerRate = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -2127,6 +2127,45 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.Text = "电脑";
             this.tabPageAIParameter.UseVisualStyleBackColor = true;
             // 
+            // lblAIEncirclePlayerRate
+            // 
+            this.lblAIEncirclePlayerRate.AutoSize = true;
+            this.lblAIEncirclePlayerRate.Location = new System.Drawing.Point(250, 231);
+            this.lblAIEncirclePlayerRate.Name = "lblAIEncirclePlayerRate";
+            this.lblAIEncirclePlayerRate.Size = new System.Drawing.Size(101, 12);
+            this.lblAIEncirclePlayerRate.TabIndex = 75;
+            this.lblAIEncirclePlayerRate.Text = "电脑声讨玩家参数";
+            // 
+            // tbAIEncirclePlayerRate
+            // 
+            this.tbAIEncirclePlayerRate.Location = new System.Drawing.Point(357, 228);
+            this.tbAIEncirclePlayerRate.Name = "tbAIEncirclePlayerRate";
+            this.tbAIEncirclePlayerRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAIEncirclePlayerRate.TabIndex = 76;
+            // 
+            // tbAIExtraPersonIncreaseRate
+            // 
+            this.tbAIExtraPersonIncreaseRate.Location = new System.Drawing.Point(189, 340);
+            this.tbAIExtraPersonIncreaseRate.Name = "tbAIExtraPersonIncreaseRate";
+            this.tbAIExtraPersonIncreaseRate.Size = new System.Drawing.Size(57, 22);
+            this.tbAIExtraPersonIncreaseRate.TabIndex = 74;
+            // 
+            // lblAIExtraPerson
+            // 
+            this.lblAIExtraPerson.AutoSize = true;
+            this.lblAIExtraPerson.Location = new System.Drawing.Point(13, 343);
+            this.lblAIExtraPerson.Name = "lblAIExtraPerson";
+            this.lblAIExtraPerson.Size = new System.Drawing.Size(77, 12);
+            this.lblAIExtraPerson.TabIndex = 72;
+            this.lblAIExtraPerson.Text = "电脑额外人才";
+            // 
+            // tbAIExtraPerson
+            // 
+            this.tbAIExtraPerson.Location = new System.Drawing.Point(130, 340);
+            this.tbAIExtraPerson.Name = "tbAIExtraPerson";
+            this.tbAIExtraPerson.Size = new System.Drawing.Size(57, 22);
+            this.tbAIExtraPerson.TabIndex = 73;
+            // 
             // tbAIAntiSurroundIncreaseRate
             // 
             this.tbAIAntiSurroundIncreaseRate.Location = new System.Drawing.Point(189, 312);
@@ -2349,7 +2388,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbAIExecuteBetterOfficer
             // 
             this.cbAIExecuteBetterOfficer.AutoSize = true;
-            this.cbAIExecuteBetterOfficer.Location = new System.Drawing.Point(293, 399);
+            this.cbAIExecuteBetterOfficer.Location = new System.Drawing.Point(293, 370);
             this.cbAIExecuteBetterOfficer.Name = "cbAIExecuteBetterOfficer";
             this.cbAIExecuteBetterOfficer.Size = new System.Drawing.Size(144, 16);
             this.cbAIExecuteBetterOfficer.TabIndex = 44;
@@ -2359,15 +2398,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblAIExecutionRate
             // 
             this.lblAIExecutionRate.AutoSize = true;
-            this.lblAIExecutionRate.Location = new System.Drawing.Point(13, 400);
+            this.lblAIExecutionRate.Location = new System.Drawing.Point(13, 371);
             this.lblAIExecutionRate.Name = "lblAIExecutionRate";
             this.lblAIExecutionRate.Size = new System.Drawing.Size(197, 12);
             this.lblAIExecutionRate.TabIndex = 43;
-            this.lblAIExecutionRate.Text = "电脑机率（数值越大处斩几率越高）";
+            this.lblAIExecutionRate.Text = "电脑处斩机率（数值越大几率越高）";
             // 
             // tbAIExecutionRate
             // 
-            this.tbAIExecutionRate.Location = new System.Drawing.Point(211, 397);
+            this.tbAIExecutionRate.Location = new System.Drawing.Point(216, 368);
             this.tbAIExecutionRate.Name = "tbAIExecutionRate";
             this.tbAIExecutionRate.Size = new System.Drawing.Size(71, 22);
             this.tbAIExecutionRate.TabIndex = 42;
@@ -2505,7 +2544,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbIgnoreStrategyTendency
             // 
             this.cbIgnoreStrategyTendency.AutoSize = true;
-            this.cbIgnoreStrategyTendency.Location = new System.Drawing.Point(15, 371);
+            this.cbIgnoreStrategyTendency.Location = new System.Drawing.Point(252, 258);
             this.cbIgnoreStrategyTendency.Name = "cbIgnoreStrategyTendency";
             this.cbIgnoreStrategyTendency.Size = new System.Drawing.Size(156, 16);
             this.cbIgnoreStrategyTendency.TabIndex = 41;
@@ -2555,45 +2594,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // tbAIExtraPersonIncreaseRate
-            // 
-            this.tbAIExtraPersonIncreaseRate.Location = new System.Drawing.Point(189, 340);
-            this.tbAIExtraPersonIncreaseRate.Name = "tbAIExtraPersonIncreaseRate";
-            this.tbAIExtraPersonIncreaseRate.Size = new System.Drawing.Size(57, 22);
-            this.tbAIExtraPersonIncreaseRate.TabIndex = 74;
-            // 
-            // lblAIExtraPerson
-            // 
-            this.lblAIExtraPerson.AutoSize = true;
-            this.lblAIExtraPerson.Location = new System.Drawing.Point(13, 343);
-            this.lblAIExtraPerson.Name = "lblAIExtraPerson";
-            this.lblAIExtraPerson.Size = new System.Drawing.Size(77, 12);
-            this.lblAIExtraPerson.TabIndex = 72;
-            this.lblAIExtraPerson.Text = "电脑额外人才";
-            // 
-            // tbAIExtraPerson
-            // 
-            this.tbAIExtraPerson.Location = new System.Drawing.Point(130, 340);
-            this.tbAIExtraPerson.Name = "tbAIExtraPerson";
-            this.tbAIExtraPerson.Size = new System.Drawing.Size(57, 22);
-            this.tbAIExtraPerson.TabIndex = 73;
-            // 
-            // lblAIEncirclePlayerRate
-            // 
-            this.lblAIEncirclePlayerRate.AutoSize = true;
-            this.lblAIEncirclePlayerRate.Location = new System.Drawing.Point(250, 231);
-            this.lblAIEncirclePlayerRate.Name = "lblAIEncirclePlayerRate";
-            this.lblAIEncirclePlayerRate.Size = new System.Drawing.Size(101, 12);
-            this.lblAIEncirclePlayerRate.TabIndex = 75;
-            this.lblAIEncirclePlayerRate.Text = "电脑声讨玩家参数";
-            // 
-            // tbAIEncirclePlayerRate
-            // 
-            this.tbAIEncirclePlayerRate.Location = new System.Drawing.Point(357, 228);
-            this.tbAIEncirclePlayerRate.Name = "tbAIEncirclePlayerRate";
-            this.tbAIEncirclePlayerRate.Size = new System.Drawing.Size(71, 22);
-            this.tbAIEncirclePlayerRate.TabIndex = 76;
             // 
             // formOptions
             // 
