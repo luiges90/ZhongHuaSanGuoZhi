@@ -2647,18 +2647,21 @@
                     GameObject.Random(100 * this.BelongedFaction.PersonCount) < GlobalVariables.CreateRandomOfficerChance * (Parameters.AIExtraPerson - 1))
                 {
                     pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
-                    pack.FoundPerson.Ideal = (this.BelongedFaction.Leader.Ideal + GameObject.Random(11) - 5) % 150;
-
+   
                     GameObjectList ideals = base.Scenario.GameCommonData.AllIdealTendencyKinds;
                     IdealTendencyKind minIdeal = null;
                     foreach (IdealTendencyKind itk in ideals)
                     {
-                        if (itk.Offset < minIdeal.Offset)
+                        if (minIdeal == null || itk.Offset < minIdeal.Offset)
                         {
                             minIdeal = itk;
                         }
                     }
+
                     pack.FoundPerson.IdealTendency = minIdeal;
+                    pack.FoundPerson.Ideal = (this.BelongedFaction.Leader.Ideal + GameObject.Random(minIdeal.Offset * 2 + 1) - minIdeal.Offset) % 150;
+
+                    return true;
                 }
                     
             }
