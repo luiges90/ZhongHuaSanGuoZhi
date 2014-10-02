@@ -2518,6 +2518,9 @@
                     }
                 }
             }
+            catch
+            {
+            }
             finally
             {
                 connection.Close();
@@ -2535,6 +2538,9 @@
                     foreach (FieldInfo i in typeof(GlobalVariables).GetFields(BindingFlags.Public | BindingFlags.Static))
                     {
                         if (i.IsLiteral) continue;
+
+                        if (GlobalVariables.getFieldsExcludedFromSave().Contains(i.Name)) continue;
+
                         if (i.Name == name)
                         {
                             int outInt;
@@ -2884,14 +2890,7 @@
 
             DbConnection.Close();
 
-            try
-            {
-                this.LoadSettingsFromDatabase(connectionString);
-            }
-            catch (Exception)
-            {
-                //ignore
-            }
+            this.LoadSettingsFromDatabase(connectionString);
 
             ExtensionInterface.loadCompiledTypes();
 

@@ -2171,7 +2171,7 @@
             if (person2 == null)
             {
                 list.Clear();
-                if (this.Leader.Spouse != null && this.Leader != this.Leader.Spouse && person2.BelongedFaction == this)
+                if (this.Leader.Spouse != null && this.Leader != this.Leader.Spouse && this.Leader.Spouse.BelongedFaction == this)
                 {
                     person2 = this.Leader.Spouse;
                 }
