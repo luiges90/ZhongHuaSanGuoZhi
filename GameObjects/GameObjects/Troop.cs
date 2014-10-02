@@ -3178,7 +3178,7 @@
             }
             foreach (Person p in this.Persons)
             {
-                if (!GameObject.Chance(p.chanceTirednessStopIncrease) && !GameObject.Chance(this.chanceTirednessStopIncrease))
+                if (!GameObject.Chance(p.chanceTirednessStopIncrease) && !GameObject.Chance(this.chanceTirednessStopIncrease) && !this.IsRobber)
                 {
                     p.Tiredness += GlobalVariables.TirednessIncrease;
                 }
