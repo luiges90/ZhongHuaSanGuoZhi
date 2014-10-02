@@ -958,7 +958,7 @@
                 try
                 {
                     militaryKind.MorphToKindId = (int)reader["MorphTo"];
-                    militaryKind.NeedNoPerson = (bool)reader["NeedNoPerson"];
+                    militaryKind.MinCommand = (int)reader["MinCommand"];
                 }
                 catch
                 {

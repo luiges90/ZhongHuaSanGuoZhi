@@ -3340,7 +3340,7 @@
                     (military.Merit > 0)
                     )) //do not use transport teams to attack
                 {
-                    TroopList candidates = this.AISelectPersonIntoTroop(this, military);
+                    TroopList candidates = this.AISelectPersonIntoTroop(this, military, true);
                     foreach (Troop t in candidates)
                     {
                         if (t.FightingForce < 10000 && offensive)
@@ -3357,7 +3357,7 @@
                     }
                 }
             }
-            if (list.Count > 0)
+            if (list.Count >= 3)
             {
                 foreach (Troop troop2 in list)
                 {
@@ -4659,7 +4659,7 @@
             return persons;
         }
 
-        private TroopList AISelectPersonIntoTroop(Architecture from, Military military)
+        private TroopList AISelectPersonIntoTroop(Architecture from, Military military, bool offensive)
         {
             TroopList result = new TroopList();
             if (military.FollowedLeader != null && from.Persons.HasGameObject(military.FollowedLeader) && military.FollowedLeader.LocationTroop == null)
@@ -4686,7 +4686,7 @@
                 pl.ReSort();
                 foreach (Person person in pl)
                 {
-                    if (!person.Selected && !person.TooTiredToBattle)
+                    if (!person.Selected && !person.TooTiredToBattle && person.Tiredness == 0 && (person.Command >= military.Kind.MinCommand || (this.Endurance < 30 && !offensive)))
                     {
                         if (person.HasMilitaryKindTitle(military.Kind))
                         {
@@ -4697,7 +4697,7 @@
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
                         }
                         else if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && military.Kind.RecruitLimit > 10) ||
-                            person.FightingForce >= Parameters.AIUniqueTroopFightingForceThreshold || this.Endurance < 30)
+                            person.FightingForce >= Parameters.AIUniqueTroopFightingForceThreshold || (this.Endurance < 30 && !offensive))
                         {
                             result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(person, from.Persons, false), military, from.Position));
                         }
@@ -4737,7 +4737,7 @@
                         if (military.IsFewScaleNeedRetreat && this.Endurance >= 30) continue;
                         if ((isBesideWater || (military.Kind.Type != MilitaryType.水军)) && (((((this.Endurance < 30) || military.Kind.AirOffence) || (military.Scales >= 2)) && (military.Morale > 0x2d)) && ((this.Endurance < 30) || (military.InjuryQuantity < military.Kind.MinScale))))
                         {
-                            TroopList candidates = this.AISelectPersonIntoTroop(this, military);
+                            TroopList candidates = this.AISelectPersonIntoTroop(this, military, false);
                             foreach (Troop t in candidates)
                             {
                                 if (t.FightingForce < 10000 && t.FightingForce < (this.TotalHostileForce * 5 - this.TotalFriendlyForce) / 25)
@@ -4850,7 +4850,7 @@
                             if (military.IsTransport) continue;
                             if (this.isArmyNavigableTo(i, military) && (military.Morale > 90) && (military.InjuryQuantity < military.Kind.MinScale))
                             {
-                                TroopList candidates = this.AISelectPersonIntoTroop(this, military);
+                                TroopList candidates = this.AISelectPersonIntoTroop(this, military, true);
                                 foreach (Troop t in candidates)
                                 {
                                     if ((t.FightingForce < 10000) && (t.Army.Scales < 10))

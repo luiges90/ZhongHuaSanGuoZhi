@@ -79,10 +79,11 @@
         public int zijinshangxian;
 
         private int morphToKindId = -1;
-        private bool needNoPerson;
 
         public MilitaryKindTable successor;
         private bool findSuccessor_visited;
+
+        public int MinCommand { get; set; }
 
         public PersonList Persons = new PersonList();
         public int ObtainProb
@@ -1116,17 +1117,6 @@
             }
         }
 
-        public bool NeedNoPerson
-        {
-            get
-            {
-                return needNoPerson;
-            }
-            set
-            {
-                needNoPerson = value;
-            }
-        }
     }
 }
 
