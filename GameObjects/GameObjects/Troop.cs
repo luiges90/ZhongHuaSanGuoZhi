@@ -10355,14 +10355,16 @@
             {
                 if (this.TargetArchitecture != null || this.TargetTroop != null)
                 {
-                    if (this.Army.Kind.Offence < this.Army.Kind.MorphTo.Offence || this.Army.Kind.Defence < this.Army.Kind.MorphTo.Defence)
+                    if (this.Army.Kind.Offence < this.Army.Kind.MorphTo.Offence || this.Army.Kind.Defence < this.Army.Kind.MorphTo.Defence ||
+                        this.HasHostileTroopInView() || this.HasHostileArchitectureInView())
                     {
                         this.Morph();
                     }
                 }
                 else
                 {
-                    if (!this.Army.Kind.Movable && this.Army.Kind.MorphTo.Movable)
+                    if (!this.Army.Kind.Movable && this.Army.Kind.MorphTo.Movable &&
+                        !this.HasHostileTroopInView() && !this.HasHostileArchitectureInView())
                     {
                         this.Morph();
                     }
