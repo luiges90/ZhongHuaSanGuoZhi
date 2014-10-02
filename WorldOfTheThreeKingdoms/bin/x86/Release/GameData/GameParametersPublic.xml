@@ -131,7 +131,7 @@ CloseAbilityRate="1.1"
 VeryCloseAbilityRate="1.2"
 RetainFeiziPersonalLoyalty="3"
 AIEncirclePlayerRate="0"
-InternalSurplusFactor="1000000"
+InternalSurplusFactor="10000000"
 AIExtraPerson="1.0"
 AIExtraPersonIncreaseRate="0.0">
 </GameParameters>
