@@ -2112,6 +2112,8 @@
                     row["CastTargetKind"] = (int)i.CastTargetKind;
                     row["Influences"] = i.Influences.SaveToString();
                     row["zijinshangxian"] = i.zijinshangxian;
+                    row["MorphTo"] = i.MorphToKindId;
+                    row["MinCommand"] = i.MinCommand;
                     row.EndEdit();
                     dataSet.Tables["MilitaryKind"].Rows.Add(row);
                 }
