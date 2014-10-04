@@ -2792,6 +2792,11 @@
                     this.OutsideTask = OutsideTaskKind.无;
                     Captive captive = Captive.Create(base.Scenario, this, a.BelongedFaction);
                     this.Status = PersonStatus.Captive;
+                    foreach (Treasure treasure in this.Treasures.GetList())
+                    {
+                        this.LoseTreasure(treasure);
+                        a.BelongedFaction.Leader.ReceiveTreasure(treasure);
+                    }
                     this.LocationArchitecture = a;
                     ExtensionInterface.call("CapturedByArchitecture", new Object[] { this.Scenario, this, a });
                     if (this.OnCapturedByArchitecture != null)
