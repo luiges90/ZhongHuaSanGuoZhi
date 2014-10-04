@@ -2383,6 +2383,8 @@
 
         private void AIjingong()
         {
+            if (this.IsAlien) return;
+
             int cashToGive = this.FundToAdvance;
 
             if (cashToGive > 0)
