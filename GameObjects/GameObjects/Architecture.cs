@@ -4659,12 +4659,17 @@
             return persons;
         }
 
+        private bool isPersonAllowedIntoTroop(Person person, Military military, bool offensive)
+        {
+            return !person.TooTiredToBattle && GameObject.Random(person.Tiredness) == 0 && (person.Command >= military.Kind.MinCommand || (this.Endurance < 30 && !offensive));
+        }
+
         private TroopList AISelectPersonIntoTroop(Architecture from, Military military, bool offensive)
         {
             TroopList result = new TroopList();
             if (military.FollowedLeader != null && from.Persons.HasGameObject(military.FollowedLeader) && military.FollowedLeader.LocationTroop == null)
             {
-                if (!military.FollowedLeader.TooTiredToBattle)
+                if (isPersonAllowedIntoTroop(military.FollowedLeader, military, offensive))
                 {
                     result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(military.FollowedLeader, from.Persons, true), military, from.Position));
                 }
@@ -4672,7 +4677,7 @@
             else if (military.Leader != null && military.LeaderExperience >= 10 && (military.Leader.Strength >= 80 || military.Leader.Command >= 80 || military.Leader.HasLeaderValidTitle)
                 && from.Persons.HasGameObject(military.Leader) && military.Leader.LocationTroop == null)
             {
-                if (!military.Leader.TooTiredToBattle)
+                if (isPersonAllowedIntoTroop(military.Leader, military, offensive))
                 {
                     result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoTroop_inner(military.Leader, from.Persons, true), military, from.Position));
                 }
@@ -4686,7 +4691,7 @@
                 pl.ReSort();
                 foreach (Person person in pl)
                 {
-                    if (!person.Selected && !person.TooTiredToBattle && person.Tiredness == 0 && (person.Command >= military.Kind.MinCommand || (this.Endurance < 30 && !offensive)))
+                    if (!person.Selected && isPersonAllowedIntoTroop(person, military, offensive))
                     {
                         if (person.HasMilitaryKindTitle(military.Kind))
                         {
