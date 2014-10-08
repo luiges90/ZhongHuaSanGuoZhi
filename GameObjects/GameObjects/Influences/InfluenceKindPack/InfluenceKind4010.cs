@@ -12,7 +12,7 @@
         {
             if (person.LocationTroop != null)
             {
-                person.LocationTroop.TempRateOfDefence = this.rate;
+                person.LocationTroop.TempRateOfDefence += this.rate;
             }
         }
 
@@ -31,7 +31,7 @@
         {
             if (person.LocationTroop != null)
             {
-                person.LocationTroop.TempRateOfDefence = 1f;
+                person.LocationTroop.TempRateOfDefence -= this.rate;
             }
         }
     }

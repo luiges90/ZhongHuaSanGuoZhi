@@ -12,7 +12,7 @@
         {
             if (person.LocationTroop != null)
             {
-                person.LocationTroop.StuntAttackRadius = this.radius;
+                person.LocationTroop.StuntAttackRadius += this.radius;
             }
         }
 
@@ -31,7 +31,7 @@
         {
             if (person.LocationTroop != null)
             {
-                person.LocationTroop.StuntAttackRadius = 0;
+                person.LocationTroop.StuntAttackRadius -= this.radius;
             }
         }
     }

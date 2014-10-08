@@ -12,7 +12,7 @@
         {
             if (person.LocationTroop != null)
             {
-                person.LocationTroop.StuntArchitectureDamageRate = this.rate;
+                person.LocationTroop.StuntArchitectureDamageRate += this.rate;
             }
         }
 
@@ -31,7 +31,7 @@
         {
             if (person.LocationTroop != null)
             {
-                person.LocationTroop.StuntArchitectureDamageRate = 1f;
+                person.LocationTroop.StuntArchitectureDamageRate -= this.rate;
             }
         }
     }
