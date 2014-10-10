@@ -7790,8 +7790,16 @@
             MilitaryKind target = this.Army.Kind.MorphTo;
             if (target != null)
             {
+                foreach (Influence i in this.Army.Kind.Influences.Influences.Values)
+                {
+                    i.PurifyInfluence(this, Applier.MilitaryKind, 0);
+                }
                 this.Operated = true;
                 this.Army.Kind = target;
+                foreach (Influence i in this.Army.Kind.Influences.Influences.Values)
+                {
+                    i.ApplyInfluence(this, Applier.MilitaryKind, 0);
+                }
                 this.RefreshAllData();
             }
         }
