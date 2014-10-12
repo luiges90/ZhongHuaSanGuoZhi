@@ -7804,6 +7804,8 @@
                     i.ApplyInfluence(this, Applier.MilitaryKind, 0);
                 }
                 this.RefreshAllData();
+                this.offenceArea = null;
+                this.viewArea = null;
             }
         }
 
