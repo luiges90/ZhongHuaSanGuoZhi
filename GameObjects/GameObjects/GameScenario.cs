@@ -4633,16 +4633,19 @@
 
         public void SeasonChangeEvent()
         {
-            ExtensionInterface.call("SeasonEvent", new Object[] { this });
-            if ((this.Date.Month == 3 || this.Date.Month == 6 || this.Date.Month == 9 || this.Date.Month == 12) && this.Date.Day == 1)
+            if (!this.scenarioJustLoaded)
             {
-                foreach (Faction faction in this.Factions.GetRandomList())
+                ExtensionInterface.call("SeasonEvent", new Object[] { this });
+                if ((this.Date.Month == 3 || this.Date.Month == 6 || this.Date.Month == 9 || this.Date.Month == 12) && this.Date.Day == 1)
                 {
-                    faction.SeasonEvent();
-                }
-                foreach (Architecture architecture in this.Architectures.GetRandomList())
-                {
-                    architecture.DevelopSeason();
+                    foreach (Faction faction in this.Factions.GetRandomList())
+                    {
+                        faction.SeasonEvent();
+                    }
+                    foreach (Architecture architecture in this.Architectures.GetRandomList())
+                    {
+                        architecture.DevelopSeason();
+                    }
                 }
             }
         }

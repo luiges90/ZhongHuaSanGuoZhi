@@ -3853,10 +3853,7 @@
 
         public void SeasonEvent()
         {
-            if (!base.Scenario.scenarioJustLoaded)
-            {
-                this.shizheshengguan();
-            }
+            this.shizheshengguan();
         }
 
 
