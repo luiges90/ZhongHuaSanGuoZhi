@@ -2324,7 +2324,8 @@
             PersonList leader = new PersonList();
             foreach (Person p in this.Persons)
             {
-                if (p.Merit < min && p.Tiredness < 30 && p.InjureRate >= 1 && p.Loyalty > 80)
+                if (p.Merit < min && p.Tiredness < 30 && p.InjureRate >= 1 && p.Loyalty > 80 &&
+                    (this.HasHostileTroopsInView() || isPersonAllowedIntoTroop(p, military, false)))
                 {
                     leader.Clear();
                     leader.Add(p);
@@ -2371,7 +2372,9 @@
             {
                 PersonList list2;
                 Military military2 = military;
-                if ((military2.FollowedLeader != null) && this.Persons.HasGameObject(military2.FollowedLeader) && military2.FollowedLeader.WaitForFeiZi == null && military2.FollowedLeader.LocationTroop == null)
+                if ((military2.FollowedLeader != null) && this.Persons.HasGameObject(military2.FollowedLeader) && 
+                    military2.FollowedLeader.WaitForFeiZi == null && military2.FollowedLeader.LocationTroop == null
+                     && (!this.HasHostileTroopsInView() || isPersonAllowedIntoTroop(military2.FollowedLeader, military, false)))
                 {
                     list2 = new PersonList();
                     list2.Add(military2.FollowedLeader);
@@ -2393,7 +2396,8 @@
                     return troop;
                 }
                 if ((((military2.Leader != null) && (military2.LeaderExperience >= 10)) && (((military2.Leader.Strength >= 80) || (military2.Leader.Command >= 80)) || military2.Leader.HasLeaderValidTitle))
-                    && this.Persons.HasGameObject(military2.Leader) && military2.Leader.WaitForFeiZi == null && military2.Leader.LocationTroop == null)
+                    && this.Persons.HasGameObject(military2.Leader) && military2.Leader.WaitForFeiZi == null && military2.Leader.LocationTroop == null
+                    && (!this.HasHostileTroopsInView() || isPersonAllowedIntoTroop(military2.Leader, military, false)))
                 {
                     list2 = new PersonList();
                     list2.Add(military2.Leader);
@@ -2413,7 +2417,22 @@
                     legion.AddTroop(troop);
                     return troop;
                 }
-                GameObjectList sortedList = this.Persons.GetList() as GameObjectList;
+                GameObjectList sortedList;
+                if (this.HasHostileTroopsInView())
+                {
+                    sortedList = new GameObjectList();
+                    foreach (Person p in this.Persons)
+                    {
+                        if (isPersonAllowedIntoTroop(p, military2, false))
+                        {
+                            sortedList.Add(p);
+                        }
+                    }
+                }
+                else
+                {
+                    sortedList = this.Persons.GetList() as GameObjectList;
+                }
                 sortedList.PropertyName = "FightingForce";
                 sortedList.IsNumber = true;
                 sortedList.SmallToBig = true;
@@ -4661,7 +4680,7 @@
 
         private bool isPersonAllowedIntoTroop(Person person, Military military, bool offensive)
         {
-            return !person.TooTiredToBattle && GameObject.Random(person.Tiredness) == 0 && (person.Command >= military.Kind.MinCommand || (this.Endurance < 30 && !offensive));
+            return person.LocationArchitecture == this && !person.TooTiredToBattle && GameObject.Random(person.Tiredness) == 0 && (person.Command >= military.Kind.MinCommand || (this.Endurance < 30 && !offensive));
         }
 
         private TroopList AISelectPersonIntoTroop(Architecture from, Military military, bool offensive)

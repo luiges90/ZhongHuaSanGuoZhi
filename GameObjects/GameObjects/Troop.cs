@@ -700,10 +700,13 @@
         public void AddCaptive(Captive captive)
         {
             captive.CaptivePerson.LocationTroop = this;
-            foreach (Treasure treasure in captive.CaptivePerson.Treasures.GetList())
+            if (this.BelongedFaction != null)
             {
-                captive.CaptivePerson.LoseTreasure(treasure);
-                this.BelongedFaction.Leader.ReceiveTreasure(treasure);
+                foreach (Treasure treasure in captive.CaptivePerson.Treasures.GetList())
+                {
+                    captive.CaptivePerson.LoseTreasure(treasure);
+                    this.BelongedFaction.Leader.ReceiveTreasure(treasure);
+                }
             }
         }
 

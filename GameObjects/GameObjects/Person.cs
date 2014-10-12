@@ -1100,6 +1100,14 @@
                         p.AddHated(killer);
                     }
                 }
+                if (killer.BelongedFaction != null)
+                {
+                    foreach (Treasure treasure in this.Treasures.GetList())
+                    {
+                        this.LoseTreasure(treasure);
+                        killer.BelongedFaction.Leader.ReceiveTreasure(treasure);
+                    }
+                }
             }
 
             this.ToDeath(killer, this.BelongedFaction);
