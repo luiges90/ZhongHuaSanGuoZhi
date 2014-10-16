@@ -1615,8 +1615,8 @@
 
                             if (!this.Hates(haizifuqin) && !haizifuqin.Hates(this))
                             {
-                                this.AdjustRelation(haizifuqin, 3, -15);
-                                haizifuqin.AdjustRelation(this, 3, -15);
+                                this.AdjustRelation(haizifuqin, 3, -5);
+                                haizifuqin.AdjustRelation(this, 3, -5);
                             }
 
                             count++;
