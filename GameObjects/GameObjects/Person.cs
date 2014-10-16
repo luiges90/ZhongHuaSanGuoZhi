@@ -7977,25 +7977,30 @@
                 foreach (Person p in this.LocationTroop.Persons)
                 {
                     if (p == this) continue;
-                    if (this.Brothers.GameObjects.Contains(p) & rate < Parameters.VeryCloseAbilityRate)
+                    float r = 1.0f;
+                    if (this.Brothers.GameObjects.Contains(p))
                     {
-                        rate = Parameters.VeryCloseAbilityRate;
+                        r = (Parameters.VeryCloseAbilityRate - 1) * (0.5f + ((float)this.GetRelation(p) / Parameters.VeryCloseThreshold - 1.0f)) + 1;
                     }
-                    if (!this.Hates(p) && !p.Hates(this) && rate < Parameters.CloseAbilityRate)
+                    if (!this.Hates(p) && !p.Hates(this))
                     {
                         if (this.Father == p || this.Mother == p)
                         {
-                            rate = Parameters.CloseAbilityRate;
+                            r = Parameters.CloseAbilityRate;
                         }
                         else if (this == p.Father || this == p.Mother)
                         {
-                            rate = Parameters.CloseAbilityRate;
+                            r = Parameters.CloseAbilityRate;
                         }
                         else if (this.Father != null && this.Mother != null && p.Father != null && p.Mother != null &&
                           this.Father == p.Father && this.Mother == p.Mother)
                         {
-                            rate = Parameters.CloseAbilityRate;
+                            r = Parameters.CloseAbilityRate;
                         }
+                    }
+                    if (r > rate)
+                    {
+                        rate = r;
                     }
                 }
                 return rate;
