@@ -7980,7 +7980,7 @@
                     float r = 1.0f;
                     if (this.Brothers.GameObjects.Contains(p))
                     {
-                        r = (Parameters.VeryCloseAbilityRate - 1) * (0.5f + ((float)this.GetRelation(p) / Parameters.VeryCloseThreshold - 1.0f)) + 1;
+                        r = (float) ((Parameters.VeryCloseAbilityRate - 1) * Math.Sqrt((float)this.GetRelation(p) / Parameters.VeryCloseThreshold) + 1);
                     }
                     if (!this.Hates(p) && !p.Hates(this))
                     {
