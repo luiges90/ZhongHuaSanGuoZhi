@@ -7788,15 +7788,15 @@
 
                 if (!nvren.Hates(this) && !this.Hates(nvren))
                 {
-                    this.AdjustRelation(nvren, houGongDays / 30.0f, -5);
-                    nvren.AdjustRelation(this, houGongDays / 30.0f, -5);
+                    this.AdjustRelation(nvren, houGongDays / 30.0f, 0);
+                    nvren.AdjustRelation(this, houGongDays / 30.0f, 0);
                 }
                
                 foreach (Person p in this.BelongedFaction.GetFeiziList())
                 {
                     if (p == nvren) continue;
-                    p.AdjustRelation(this, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -1);
-                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -1);
+                    p.AdjustRelation(this, -houGongDays / 90.0f * (5 - p.PersonalLoyalty), -1);
+                    p.AdjustRelation(nvren, -houGongDays / 90.0f * (5 - p.PersonalLoyalty), -1);
                 }
 
                 this.OutsideTask = OutsideTaskKind.后宮;
