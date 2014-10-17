@@ -15,7 +15,7 @@
             {
                 foreach (Facility facility in base.GameObjects)
                 {
-                    if (!facility.Kind.bukechaichu)
+                    if (facility.location.CanRemoveFacility(facility))
                     {
                         facility.DecreaseEndurance(decrement);
                     }

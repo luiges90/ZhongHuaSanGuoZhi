@@ -747,7 +747,7 @@
                             FacilityList fl = new FacilityList();
                             foreach (Facility f in buildAt.Facilities)
                             {
-                                if (!f.Kind.bukechaichu)
+                                if (f.location.CanRemoveFacility(f))
                                 {
                                     fl.Add(f);
                                 }

@@ -865,7 +865,7 @@
                     {
                         foreach (Facility i in this.Facilities)
                         {
-                            if (i.Kind.AIValue(this) < 0 && !i.Kind.bukechaichu)
+                            if (i.Kind.AIValue(this) < 0 && this.CanRemoveFacility(i))
                             {
                                 if (this.FacilityEnabled || i.MaintenanceCost <= 0)
                                 {
@@ -887,7 +887,7 @@
                         f.ReSort();
                         foreach (Facility i in f)
                         {
-                            if (!i.Kind.bukechaichu && i.Kind.NetFundIncrease <= 0)
+                            if (this.CanRemoveFacility(i) && i.Kind.NetFundIncrease <= 0)
                             {
                                 if (this.FacilityEnabled || i.MaintenanceCost <= 0)
                                 {
@@ -927,7 +927,7 @@
                                         toDestroy.Clear();
                                         foreach (Facility f in this.Facilities.GetRandomList())
                                         {
-                                            if (value > f.Kind.AIValue(this) * Parameters.AIFacilityDestroyValueRate && !f.Kind.bukechaichu)
+                                            if (value > f.Kind.AIValue(this) * Parameters.AIFacilityDestroyValueRate && this.CanRemoveFacility(f))
                                             {
                                                 toDestroy.Add(f);
                                                 fpl += f.Kind.PositionOccupied;
@@ -12762,13 +12762,19 @@
             }
         }
 
+        public bool CanRemoveFacility(Facility f)
+        {
+            if (f.Kind.bukechaichu) return false;
+            if (this.Meinvkongjian - this.Feiziliebiao.Count < f.Kind.rongna && this.BelongedFaction != null && !this.BelongedFaction.IsAlien) return false;
+            return true;
+        }
 
         public FacilityList kechaichudesheshi()
         {
             FacilityList kechaichu = new FacilityList();
             foreach (Facility facility in this.Facilities)
             {
-                if (!facility.Kind.bukechaichu)
+                if (!this.CanRemoveFacility(facility))
                 {
                     kechaichu.Add(facility);
                 }
