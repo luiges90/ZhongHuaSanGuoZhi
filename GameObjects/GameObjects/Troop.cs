@@ -4714,6 +4714,7 @@
             bool flag = false;
             if (!this.CurrentStratagem.Friendly)
             {
+                num = ((((this.TroopIntelligence + this.StratagemChanceIncrement) + this.Leader.Calmness) - troop.TroopIntelligence) - troop.ChanceDecrementOfStratagem) - troop.Leader.Calmness;
                 if (invincible)
                 {
                     flag = false;
@@ -4728,7 +4729,6 @@
                 }
                 else
                 {
-                    num = ((((this.TroopIntelligence + this.StratagemChanceIncrement) + this.Leader.Calmness) - troop.TroopIntelligence) - troop.ChanceDecrementOfStratagem) - troop.Leader.Calmness;
                     int chance = this.CurrentStratagem.Chance + num;
                     flag = GameObject.Chance(chance);
                 }
@@ -4743,7 +4743,8 @@
                 {
                     if (this.OrientationTroop == troop)
                     {
-                        this.WaitForDeepChaos = !troop.NeverBeIntoChaos && GameObject.Chance(this.ChaosAfterStratagemSuccessChance);
+                        this.WaitForDeepChaos = !troop.NeverBeIntoChaos && 
+                            (GameObject.Chance(this.ChaosAfterStratagemSuccessChance) || GameObject.Chance((this.TroopIntelligence - troop.TroopIntelligence) / 2));
                         this.WaitForDeepChaosFrameCount = 100;
                     }
                     if (this.OnStratagemSuccess != null)
