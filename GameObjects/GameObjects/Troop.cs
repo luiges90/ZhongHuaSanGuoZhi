@@ -6215,7 +6215,7 @@
                     int c = GameObject.Random(damage.DestinationTroop.Persons.Count);
                     Person toInjure = damage.DestinationTroop.Persons[c] as Person;
                     toInjure.InjureRate -= damage.OfficerInjury;
-                    if (toInjure.InjureRate < 0.05)
+                    if (toInjure.InjureRate < 0.05 && GlobalVariables.OfficerDieInBattleRate > 0)
                     {
                         if (damage.DestinationTroop == damage.DestinationTroop.StartingArchitecture.RobberTroop)
                         {

@@ -1777,7 +1777,7 @@
                     if (diff > 0)
                     {
                         this.ConvincingPerson.InjureRate -= diff / 1000.0f;
-                        if (this.ConvincingPerson.InjureRate < 0.05)
+                        if (this.ConvincingPerson.InjureRate < 0.05 && GlobalVariables.OfficerDieInBattleRate > 0)
                         {
                             this.AddStrengthExperience(30);
                             this.AddIntelligenceExperience(30);
@@ -1824,7 +1824,7 @@
                         if (diff < -200)
                         {
                             this.InjureRate -= (-diff - 200) / 1000.0f;
-                            if (this.InjureRate < 0.05)
+                            if (this.InjureRate < 0.05 && GlobalVariables.OfficerDieInBattleRate > 0)
                             {
                                 ExtensionInterface.call("Assassinated", new Object[] { this.Scenario, this, this.ConvincingPerson });
 

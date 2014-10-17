@@ -4525,7 +4525,7 @@
                     while (GameObject.Chance(this.zainan.zainanzhonglei.OfficerDamage))
                     {
                         p.InjureRate *= 0.85f;
-                        if (p.InjureRate < 0.05)
+                        if (p.InjureRate < 0.05 && GlobalVariables.OfficerDieInBattleRate > 0)
                         {
                             p.ToDeath(null, this.BelongedFaction);
                         }
