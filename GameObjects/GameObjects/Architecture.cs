@@ -12774,7 +12774,7 @@
             FacilityList kechaichu = new FacilityList();
             foreach (Facility facility in this.Facilities)
             {
-                if (!this.CanRemoveFacility(facility))
+                if (this.CanRemoveFacility(facility))
                 {
                     kechaichu.Add(facility);
                 }
