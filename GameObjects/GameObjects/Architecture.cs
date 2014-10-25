@@ -4783,15 +4783,7 @@
                                 {
                                     removed.Destroy(true, false);
                                 }
-                                if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
-                                {
-                                    break;
-                                }
                             }
-                        }
-                        if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
-                        {
-                            break;
                         }
                     }
 
@@ -4854,10 +4846,6 @@
             {
                 foreach (LinkNode i in this.AIAllLinkNodes.Values)
                 {
-                    if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
-                    {
-                        return;
-                    }
                     if (i.Level > 1) break;
                     if (i.A.actuallyUnreachableArch.Contains(this))
                     {
@@ -4891,15 +4879,7 @@
                                     {
                                         removed.Destroy(true, false);
                                     }
-                                    if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
-                                    {
-                                        break;
-                                    }
                                 }
-                            }
-                            if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
-                            {
-                                break;
                             }
                         }
 
@@ -8925,10 +8905,6 @@
                                         if (!(this.HasOffensiveMilitary() && this.HasPerson()))
                                         {
                                             break;
-                                        }
-                                        if (DateTime.UtcNow - beforeStart > new TimeSpan(0, 0, Parameters.MaxAITroopTime))
-                                        {
-                                            return;
                                         }
                                     }
                                     if (armyScaleHere <= reserve)
