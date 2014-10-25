@@ -2731,7 +2731,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbAIRecruitmentSpeedIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIRecruitmentSpeedYearIncreaseRate").Value;
             this.tbAIOfficerExperienceIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIOfficerExperienceYearIncreaseRate").Value;
             this.tbAIArmyExperienceIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIArmyExperienceYearIncreaseRate").Value;
-            this.tbMaxAITroopTime.Text = nextSibling.Attributes.GetNamedItem("MaxAITroopTime").Value;
             this.tbLearnSkillSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value;
             this.tbLearnStuntSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value;
             this.tbLearnTitleSuccessRate.Text = nextSibling.Attributes.GetNamedItem("LearnTitleSuccessRate").Value;
@@ -2911,7 +2910,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkFloatSave(nextSibling, "AIRecruitmentSpeedYearIncreaseRate", this.lblAIRecruitmentSpeedRate, this.tbAIRecruitmentSpeedIncreaseRate)) { return false; }
             if (!checkFloatSave(nextSibling, "AIOfficerExperienceYearIncreaseRate", this.lblAIOfficerExperienceRate, this.tbAIOfficerExperienceIncreaseRate)) { return false; }
             if (!checkFloatSave(nextSibling, "AIArmyExperienceYearIncreaseRate", this.lblAIArmyExperienceRate, this.tbAIArmyExperienceIncreaseRate)) { return false; }
-            if (!checkIntSave(nextSibling, "MaxAITroopTime", this.lblMaxAITroopTime, this.tbMaxAITroopTime)) { return false; }
             if (!checkIntSave(nextSibling, "LearnSkillSuccessRate", this.lblLearnSkillSuccessRate, this.tbLearnSkillSuccessRate)) { return false; }
             if (!checkIntSave(nextSibling, "LearnStuntSuccessRate", this.lblLearnStuntSuccessRate, this.tbLearnStuntSuccessRate)) { return false; }
             if (!checkIntSave(nextSibling, "LearnTitleSuccessRate", this.lblLearnTitleSuccessRate, this.tbLearnTitleSuccessRate)) { return false; }
