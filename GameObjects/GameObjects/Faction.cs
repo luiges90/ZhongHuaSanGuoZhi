@@ -2022,7 +2022,7 @@
 
             foreach (Architecture a in this.Architectures)
             {
-                a.PrincessChangeLeader();
+                a.PrincessChangeLeader(false, this);
             }
 
             do

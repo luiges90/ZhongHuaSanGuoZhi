@@ -345,10 +345,16 @@
 
         public void addOutOfPrincessEntry(GameDate date, Person p, Faction capturer)
         {
-            this.addTableEntry(date, composeFactionList(p.BelongedFaction, capturer),
-                String.Format(yearTableStrings["outOfPrincess"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name), false);
             this.addPersonInGameBiography(p, date,
-                String.Format(yearTableStrings["outOfPrincess_p"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name));
+                String.Format(yearTableStrings["outOfPrincess_p"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name, capturer.Leader.Name));
+        }
+
+        public void addOutOfPrincessByLeaderDeathEntry(GameDate date, Person p, Faction capturer)
+        {
+            this.addTableEntry(date, composeFactionList(p.BelongedFaction, capturer),
+                String.Format(yearTableStrings["outOfPrincessByLeaderDeath"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name, capturer.Leader.Name), false);
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["outOfPrincessByLeaderDeath_p"], p.Name, p.BelongedArchitecture.Name, capturer == null ? "贼军" : capturer.Name, capturer.Leader.Name));
         }
 
         public void addChangeFactionPrincessEntry(GameDate date, Person p, Faction capturer)

@@ -7568,7 +7568,7 @@
                 }
 
                 GameObjectList princesses = currentArchitecture.Feiziliebiao.GetList();
-                if (!currentArchitecture.PrincessChangeLeader())
+                if (!currentArchitecture.PrincessChangeLeader(true, this.BelongedFaction))
                 {
                     foreach (Person p in princesses)
                     {

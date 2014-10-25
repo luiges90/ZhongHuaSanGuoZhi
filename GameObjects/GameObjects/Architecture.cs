@@ -3380,6 +3380,8 @@
             {
                 foreach (Troop troop2 in list)
                 {
+                    if (this.Persons.Count == 0) break;
+                    if (this.Militaries.Count == 0) break;
                     bool personAlreadyOut = false;
                     foreach (Person p in troop2.Candidates)
                     {
@@ -3389,6 +3391,7 @@
                             break;
                         }
                     }
+                    if (personAlreadyOut) continue;
                     bool militaryOut = true;
                     foreach (Military m in this.Militaries)
                     {
@@ -3398,7 +3401,6 @@
                             break;
                         }
                     }
-                    if (personAlreadyOut) continue;
                     if (militaryOut) continue;
 
                     Point? nullable = this.GetRandomStartingPosition(troop2);
@@ -12707,27 +12709,38 @@
             return personList;
         }
 
-        public bool PrincessChangeLeader()
+        public bool PrincessChangeLeader(bool byOccupy, Faction capturer)
         {
-            if (this.BelongedFaction == null || this.BelongedFaction.IsAlien ||
-                this.BelongedFaction.Leader.Uncruelty <= Parameters.RetainFeiziPersonalLoyalty)
+            bool result = false;
+            foreach (Person p in this.Feiziliebiao)
             {
-                foreach (Person p in this.Feiziliebiao)
-                {
-                    this.Scenario.YearTable.addChangeFactionPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
-                    if (p.Spouse != null)
+                 if (this.BelongedFaction == null || 
+                        ((this.BelongedFaction.IsAlien ||
+                        p.Spouse == null || 
+                        this.BelongedFaction.Leader.Uncruelty <= Parameters.RetainFeiziPersonalLoyalty)
+                     && this.BelongedFaction.Leader.isLegalFeiZi(p)))
+                 {
+                    if (byOccupy)
+                    {
+                        this.Scenario.YearTable.addChangeFactionPrincessEntry(this.Scenario.Date, p, capturer);
+                    }
+                    if (p.Spouse != null && this.BelongedFaction != null)
                     {
                         p.Spouse.AddHated(this.BelongedFaction.Leader);
                     }
-                }
-                return true;
-            }
-            else
-            {
-                foreach (Person p in this.Feiziliebiao)
-                {
+                    result = true;
+                 } 
+                 else 
+                 {
                     p.Status = PersonStatus.Normal;
-                    this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, this.BelongedFaction);
+                    if (byOccupy)
+                    {
+                        this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, capturer);
+                    }
+                    else
+                    {
+                        this.Scenario.YearTable.addOutOfPrincessByLeaderDeathEntry(this.Scenario.Date, p, capturer);
+                    }
                     if (!p.IsVeryCloseTo(this.BelongedFaction.Leader))
                     {
                         p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
@@ -12737,8 +12750,8 @@
                         p.Loyalty = Math.Max(p.Loyalty, 150 + p.NumberOfChildren * 10);
                     }
                 }
-                return false;
             }
+            return result;
         }
 
         public int Meinvkongjian
