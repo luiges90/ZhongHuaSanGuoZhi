@@ -103,8 +103,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbTirednessIncrease;
         private Label lblTirednessDecrease;
         private TextBox tbTirednessDecrease;
-        private Label lblMaxAITroopTime;
-        private TextBox tbMaxAITroopTime;
         private Label lblLearnTitleSuccessRate;
         private TextBox tbLearnTitleSuccessRate;
         private Label lblLearnStuntSuccessRate;
@@ -453,8 +451,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbAITroopOffenceIncreaseRate = new System.Windows.Forms.TextBox();
             this.tbAIFoodIncreaseRate = new System.Windows.Forms.TextBox();
             this.tbAIFundIncreaseRate = new System.Windows.Forms.TextBox();
-            this.lblMaxAITroopTime = new System.Windows.Forms.Label();
-            this.tbMaxAITroopTime = new System.Windows.Forms.TextBox();
             this.lblAIArmyExperienceRate = new System.Windows.Forms.Label();
             this.tbAIArmyExperienceRate = new System.Windows.Forms.TextBox();
             this.lblAIOfficerExperienceRate = new System.Windows.Forms.Label();
@@ -2088,8 +2084,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.Controls.Add(this.tbAITroopOffenceIncreaseRate);
             this.tabPageAIParameter.Controls.Add(this.tbAIFoodIncreaseRate);
             this.tabPageAIParameter.Controls.Add(this.tbAIFundIncreaseRate);
-            this.tabPageAIParameter.Controls.Add(this.lblMaxAITroopTime);
-            this.tabPageAIParameter.Controls.Add(this.tbMaxAITroopTime);
             this.tabPageAIParameter.Controls.Add(this.lblAIArmyExperienceRate);
             this.tabPageAIParameter.Controls.Add(this.tbAIArmyExperienceRate);
             this.tabPageAIParameter.Controls.Add(this.lblAIOfficerExperienceRate);
@@ -2130,7 +2124,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblAIEncirclePlayerRate
             // 
             this.lblAIEncirclePlayerRate.AutoSize = true;
-            this.lblAIEncirclePlayerRate.Location = new System.Drawing.Point(250, 231);
+            this.lblAIEncirclePlayerRate.Location = new System.Drawing.Point(252, 203);
             this.lblAIEncirclePlayerRate.Name = "lblAIEncirclePlayerRate";
             this.lblAIEncirclePlayerRate.Size = new System.Drawing.Size(101, 12);
             this.lblAIEncirclePlayerRate.TabIndex = 75;
@@ -2138,7 +2132,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAIEncirclePlayerRate
             // 
-            this.tbAIEncirclePlayerRate.Location = new System.Drawing.Point(357, 228);
+            this.tbAIEncirclePlayerRate.Location = new System.Drawing.Point(359, 200);
             this.tbAIEncirclePlayerRate.Name = "tbAIEncirclePlayerRate";
             this.tbAIEncirclePlayerRate.Size = new System.Drawing.Size(71, 22);
             this.tbAIEncirclePlayerRate.TabIndex = 76;
@@ -2292,22 +2286,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbAIFundIncreaseRate.Name = "tbAIFundIncreaseRate";
             this.tbAIFundIncreaseRate.Size = new System.Drawing.Size(57, 22);
             this.tbAIFundIncreaseRate.TabIndex = 55;
-            // 
-            // lblMaxAITroopTime
-            // 
-            this.lblMaxAITroopTime.AutoSize = true;
-            this.lblMaxAITroopTime.Location = new System.Drawing.Point(250, 203);
-            this.lblMaxAITroopTime.Name = "lblMaxAITroopTime";
-            this.lblMaxAITroopTime.Size = new System.Drawing.Size(101, 12);
-            this.lblMaxAITroopTime.TabIndex = 53;
-            this.lblMaxAITroopTime.Text = "电脑最大出兵时间";
-            // 
-            // tbMaxAITroopTime
-            // 
-            this.tbMaxAITroopTime.Location = new System.Drawing.Point(357, 200);
-            this.tbMaxAITroopTime.Name = "tbMaxAITroopTime";
-            this.tbMaxAITroopTime.Size = new System.Drawing.Size(71, 22);
-            this.tbMaxAITroopTime.TabIndex = 54;
             // 
             // lblAIArmyExperienceRate
             // 
@@ -2544,7 +2522,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbIgnoreStrategyTendency
             // 
             this.cbIgnoreStrategyTendency.AutoSize = true;
-            this.cbIgnoreStrategyTendency.Location = new System.Drawing.Point(252, 258);
+            this.cbIgnoreStrategyTendency.Location = new System.Drawing.Point(254, 230);
             this.cbIgnoreStrategyTendency.Name = "cbIgnoreStrategyTendency";
             this.cbIgnoreStrategyTendency.Size = new System.Drawing.Size(156, 16);
             this.cbIgnoreStrategyTendency.TabIndex = 41;
