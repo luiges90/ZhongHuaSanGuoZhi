@@ -3315,12 +3315,12 @@
             public Point position;
         }
 
-        private void BuildOffensiveTroop(Architecture destination, LinkKind linkkind, bool offensive, int reserve)
+        private bool BuildOffensiveTroop(Architecture destination, LinkKind linkkind, bool offensive, int reserve)
         {
             Troop troop;
             if (linkkind == LinkKind.None)
             {
-                return;
+                return false;
             }
 
             SortedBoundedSet<Troop> list = new SortedBoundedSet<Troop>(Parameters.MaxAITroopCountCandidates, new SimulatingFightingForceComparer());
@@ -3386,49 +3386,56 @@
             }
 
             List<CreateTroopInfo> willCreate = new List<CreateTroopInfo>();
-            if (list.Count >= 3)
-            {
-                foreach (Troop troop2 in list)
-                {
-                    if (this.Persons.Count == 0) break;
-                    if (this.Militaries.Count == 0) break;
-                    if (this.ArmyScale < reserve) break;
-                    bool personAlreadyOut = false;
-                    foreach (Person p in troop2.Candidates)
-                    {
-                        if (p.LocationTroop != null)
-                        {
-                            personAlreadyOut = true;
-                            break;
-                        }
-                    }
-                    if (personAlreadyOut) continue;
-                    bool militaryOut = true;
-                    foreach (Military m in this.Militaries)
-                    {
-                        if (troop2.Army == m)
-                        {
-                            militaryOut = false;
-                            break;
-                        }
-                    }
-                    if (militaryOut) continue;
+            HashSet<Person> selectedPersons = new HashSet<Person>();
+            HashSet<Military> selectedMilitaries = new HashSet<Military>();
 
-                    Point? nullable = this.GetRandomStartingPosition(troop2);
-                    if (!nullable.HasValue)
+            foreach (Troop troop2 in list)
+            {
+                if (this.ArmyScale < reserve) break;
+                bool personAlreadyOut = false;
+                foreach (Person p in troop2.Candidates)
+                {
+                    if (selectedPersons.Contains(p))
                     {
+                        personAlreadyOut = true;
                         break;
                     }
-                    Person leader = troop2.Candidates[0] as Person;
-                    PersonList candidates = this.SelectSubOfficersToTroop(troop2);
+                }
+                if (personAlreadyOut) continue;
+                if (selectedMilitaries.Contains(troop2.Army)) continue;
 
-                    CreateTroopInfo info = new CreateTroopInfo();
-                    info.candidates = candidates;
-                    info.leader = leader;
-                    info.military = troop2.Army;
-                    info.position = nullable.Value;
-                    willCreate.Add(info);
+                Point? nullable = this.GetRandomStartingPosition(troop2);
+                if (!nullable.HasValue)
+                {
+                    break;
+                }
+                Person leader = troop2.Candidates[0] as Person;
+                PersonList candidates = this.SelectSubOfficersToTroop(troop2);
 
+                CreateTroopInfo info = new CreateTroopInfo();
+                info.candidates = candidates;
+                info.leader = leader;
+                info.military = troop2.Army;
+                info.position = nullable.Value;
+                willCreate.Add(info);
+
+                foreach (Person p in candidates)
+                {
+                    selectedPersons.Add(p);
+                }
+                selectedMilitaries.Add(troop2.Army);
+            }
+
+            int willCreateScale = 0;
+            foreach (CreateTroopInfo info in willCreate)
+            {
+                willCreateScale += info.military.Scales;
+            }
+            bool hasCreatedTroop = false;
+            if (willCreateScale > destination.ArmyScale)
+            {
+                foreach (CreateTroopInfo info in willCreate)
+                {
                     troop = this.CreateTroop(info.candidates, info.leader, info.military, -1, info.position);
                     troop.WillArchitecture = destination;
                     Legion legion = this.BelongedFaction.GetLegion(destination);
@@ -3438,12 +3445,14 @@
                     }
                     legion.AddTroop(troop);
                     this.PostCreateTroop(troop, false);
+                    hasCreatedTroop = true;
                 }
             }
             foreach (Troop t in list)
             {
                 t.Destroy(true, false);
             }
+            return hasCreatedTroop;
         }
 
         internal bool IsSelfFoodEnoughForOffensive(LinkNode node, Routeway routeway)
@@ -8914,8 +8923,8 @@
                                     {
                                         routeway.Building = true;
                                     }
-                                    this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true, ignoreReserve ? 0 : reserve);
-                                    if (armyScaleHere <= reserve)
+                                    bool hasCreatedTroop = this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true, ignoreReserve ? 0 : reserve);
+                                    if (armyScaleHere <= reserve || !hasCreatedTroop)
                                     {
                                         this.PlanArchitecture = null;
                                     }
