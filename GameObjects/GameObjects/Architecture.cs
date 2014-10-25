@@ -3426,26 +3426,42 @@
                 selectedMilitaries.Add(troop2.Army);
             }
 
-            int willCreateScale = 0;
-            foreach (CreateTroopInfo info in willCreate)
-            {
-                willCreateScale += info.military.Scales;
-            }
             bool hasCreatedTroop = false;
-            if (willCreateScale > destination.ArmyScale)
+            if (willCreate.Count > 0)
             {
+                int willCreateScale = 0;
+                int destScale = 0;
                 foreach (CreateTroopInfo info in willCreate)
                 {
-                    troop = this.CreateTroop(info.candidates, info.leader, info.military, -1, info.position);
-                    troop.WillArchitecture = destination;
-                    Legion legion = this.BelongedFaction.GetLegion(destination);
-                    if (legion == null)
+                    willCreateScale += info.military.FightingForce;
+                }
+                GameObjectList destMilitary = destination.Militaries.GetList();
+                destMilitary.PropertyName = "FightingForce";
+                destMilitary.IsNumber = true;
+                destMilitary.SmallToBig = false;
+                destMilitary.ReSort();
+                int cnt = 0;
+                foreach (Military m in destMilitary)
+                {
+                    if (cnt >= destination.Persons.Count) break;
+                    destScale += m.FightingForce;
+                }
+
+                if (willCreateScale > destScale)
+                {
+                    foreach (CreateTroopInfo info in willCreate)
                     {
-                        legion = this.CreateOffensiveLegion(destination);
+                        troop = this.CreateTroop(info.candidates, info.leader, info.military, -1, info.position);
+                        troop.WillArchitecture = destination;
+                        Legion legion = this.BelongedFaction.GetLegion(destination);
+                        if (legion == null)
+                        {
+                            legion = this.CreateOffensiveLegion(destination);
+                        }
+                        legion.AddTroop(troop);
+                        this.PostCreateTroop(troop, false);
+                        hasCreatedTroop = true;
                     }
-                    legion.AddTroop(troop);
-                    this.PostCreateTroop(troop, false);
-                    hasCreatedTroop = true;
                 }
             }
             foreach (Troop t in list)

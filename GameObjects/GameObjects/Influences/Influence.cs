@@ -283,6 +283,18 @@
                     case 860:
                         return this.Kind.AIPersonValue *
                             (base.Scenario.GameCommonData.AllStratagems.GetStratagem((int)p1).Combativity * this.Kind.AIPersonValuePow);
+                    case 800:
+                    case 802:
+                    case 804:
+                    case 824:
+                    case 832:
+                        return this.Kind.AIPersonValue * (p1 - 1);
+                    case 801:
+                    case 803:
+                    case 805:
+                    case 825:
+                    case 833:
+                        return this.Kind.AIPersonValue * (1 - p1);
                     case 200:
                     case 220:
                         try

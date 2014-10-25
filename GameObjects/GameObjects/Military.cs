@@ -1128,6 +1128,18 @@
             }
         }
 
+        public int FightingForce
+        {
+            get
+            {
+                double influenceValue = 0;
+                foreach (Influences.Influence i in this.Kind.Influences.Influences.Values)
+                {
+                    influenceValue += i.AIPersonValue;
+                }
+                return (int) (this.Offence + this.Defence + influenceValue * 2);
+            }
+        }
     }
 }
 
