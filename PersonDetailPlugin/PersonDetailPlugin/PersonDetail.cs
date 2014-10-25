@@ -135,6 +135,30 @@
                                     }
                                     this.ConditionText.AddNewLine();
                                 }
+                                foreach (Condition condition in title.ArchitectureConditions.Conditions.Values)
+                                {
+                                    if (this.ShowingPerson.LocationArchitecture != null && condition.CheckCondition(this.ShowingPerson.LocationArchitecture))
+                                    {
+                                        this.ConditionText.AddText(condition.Name, this.ConditionText.PositiveColor);
+                                    }
+                                    else
+                                    {
+                                        this.ConditionText.AddText(condition.Name, this.ConditionText.NegativeColor);
+                                    }
+                                    this.ConditionText.AddNewLine();
+                                }
+                                foreach (Condition condition in title.FactionConditions.Conditions.Values)
+                                {
+                                    if (this.ShowingPerson.BelongedFaction != null && condition.CheckCondition(this.ShowingPerson.BelongedFaction))
+                                    {
+                                        this.ConditionText.AddText(condition.Name, this.ConditionText.PositiveColor);
+                                    }
+                                    else
+                                    {
+                                        this.ConditionText.AddText(condition.Name, this.ConditionText.NegativeColor);
+                                    }
+                                    this.ConditionText.AddNewLine();
+                                }
                                 this.ConditionText.ResortTexts();
                                 this.current = title;
                             }

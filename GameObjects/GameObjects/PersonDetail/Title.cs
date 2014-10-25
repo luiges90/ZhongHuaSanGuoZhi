@@ -365,6 +365,14 @@
                 {
                     str = str + "•" + condition.Name;
                 }
+                foreach (Condition condition in this.ArchitectureConditions.Conditions.Values)
+                {
+                    str = str + "•" + condition.Name;
+                }
+                foreach (Condition condition in this.FactionConditions.Conditions.Values)
+                {
+                    str = str + "•" + condition.Name;
+                }
                 return str;
             }
         }
