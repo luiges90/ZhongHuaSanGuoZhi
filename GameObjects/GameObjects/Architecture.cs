@@ -3388,6 +3388,7 @@
             List<CreateTroopInfo> willCreate = new List<CreateTroopInfo>();
             HashSet<Person> selectedPersons = new HashSet<Person>();
             HashSet<Military> selectedMilitaries = new HashSet<Military>();
+            HashSet<Point> takenPosition = new HashSet<Point>();
 
             foreach (Troop troop2 in list)
             {
@@ -3404,11 +3405,21 @@
                 if (personAlreadyOut) continue;
                 if (selectedMilitaries.Contains(troop2.Army)) continue;
 
-                Point? nullable = this.GetRandomStartingPosition(troop2);
-                if (!nullable.HasValue)
+                GameArea allAvailableArea = this.GetAllAvailableArea(false);
+                GameArea sourceArea = new GameArea();
+                foreach (Point point in allAvailableArea.Area)
+                {
+                    if (!takenPosition.Contains(point) && troop2.IsMovableOnPosition(point))
+                    {
+                        sourceArea.Area.Add(point);
+                    }
+                }
+                if (sourceArea.Count == 0)
                 {
                     break;
                 }
+                Point position = sourceArea[GameObject.Random(sourceArea.Count)];
+
                 Person leader = troop2.Candidates[0] as Person;
                 PersonList candidates = this.SelectSubOfficersToTroop(troop2);
 
@@ -3416,7 +3427,7 @@
                 info.candidates = candidates;
                 info.leader = leader;
                 info.military = troop2.Army;
-                info.position = nullable.Value;
+                info.position = position;
                 willCreate.Add(info);
 
                 foreach (Person p in candidates)
@@ -3424,6 +3435,7 @@
                     selectedPersons.Add(p);
                 }
                 selectedMilitaries.Add(troop2.Army);
+                takenPosition.Add(position);
             }
 
             bool hasCreatedTroop = false;
