@@ -3431,23 +3431,26 @@
             {
                 int willCreateScale = 0;
                 int destScale = 0;
-                foreach (CreateTroopInfo info in willCreate)
+                if (!this.IsTroopExceedsLimit)
                 {
-                    willCreateScale += info.military.FightingForce;
-                }
-                GameObjectList destMilitary = destination.Militaries.GetList();
-                destMilitary.PropertyName = "FightingForce";
-                destMilitary.IsNumber = true;
-                destMilitary.SmallToBig = false;
-                destMilitary.ReSort();
-                int cnt = 0;
-                foreach (Military m in destMilitary)
-                {
-                    if (cnt >= destination.Persons.Count) break;
-                    destScale += m.FightingForce;
+                    foreach (CreateTroopInfo info in willCreate)
+                    {
+                        willCreateScale += info.military.FightingForce;
+                    }
+                    GameObjectList destMilitary = destination.Militaries.GetList();
+                    destMilitary.PropertyName = "FightingForce";
+                    destMilitary.IsNumber = true;
+                    destMilitary.SmallToBig = false;
+                    destMilitary.ReSort();
+                    int cnt = 0;
+                    foreach (Military m in destMilitary)
+                    {
+                        if (cnt >= destination.Persons.Count) break;
+                        destScale += m.FightingForce;
+                    }
                 }
 
-                if (willCreateScale > destScale)
+                if (willCreateScale > destScale || (this.IsTroopExceedsLimit && GameObject.Chance(10)))
                 {
                     foreach (CreateTroopInfo info in willCreate)
                     {
