@@ -3431,7 +3431,7 @@
             {
                 int willCreateScale = 0;
                 int destScale = 0;
-                if (!this.IsTroopExceedsLimit)
+                if (!this.IsTroopExceedsLimit || willCreate.Count == this.GetAllAvailableArea(false).Area.Count)
                 {
                     foreach (CreateTroopInfo info in willCreate)
                     {
@@ -3450,7 +3450,8 @@
                     }
                 }
 
-                if (willCreateScale > destScale || (this.IsTroopExceedsLimit && GameObject.Chance(10)))
+                if (willCreateScale > destScale || (this.IsTroopExceedsLimit && GameObject.Chance(10)) 
+                    || willCreate.Count == this.GetAllAvailableArea(false).Area.Count)
                 {
                     foreach (CreateTroopInfo info in willCreate)
                     {
