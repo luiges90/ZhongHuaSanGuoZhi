@@ -7317,8 +7317,8 @@
             }
             else if (this.Position != this.RealDestination)
             {
-                this.Destination = this.RealDestination;
                 flag = this.TryToStepForward();
+                this.Destination = this.RealDestination;
             }
             else
             {
@@ -10046,6 +10046,7 @@
         {
             bool path = false;
             MilitaryKind kind = this.Army.Kind;
+
             if (this.StepNotFinished)
             {
                 path = this.GetPath(kind);
