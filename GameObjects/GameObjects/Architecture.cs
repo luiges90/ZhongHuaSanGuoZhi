@@ -865,7 +865,7 @@
                     {
                         foreach (Facility i in this.Facilities)
                         {
-                            if (i.Kind.AIValue(this) < 0 && this.CanRemoveFacility(i))
+                            if (i.Kind.AIValue(this) < 0 && this.CanRemoveFacility(i) && i.Kind.rongna == 0)
                             {
                                 if (this.FacilityEnabled || i.MaintenanceCost <= 0)
                                 {
@@ -887,7 +887,7 @@
                         f.ReSort();
                         foreach (Facility i in f)
                         {
-                            if (this.CanRemoveFacility(i) && i.Kind.NetFundIncrease <= 0)
+                            if (this.CanRemoveFacility(i) && i.Kind.NetFundIncrease <= 0 && i.Kind.rongna == 0)
                             {
                                 if (this.FacilityEnabled || i.MaintenanceCost <= 0)
                                 {
@@ -909,6 +909,7 @@
                     {
                         if (kind.IsExtension) continue;
                         if (!kind.CanBuild(this)) continue;
+                        if (kind.rongna > 0) continue;
                         if ((kind.MaintenanceCost + this.FacilityMaintenanceCost) * 30 + 2000 > this.ExpectedFund && kind.NetFundIncrease <= 0)
                         {
                             continue;
@@ -927,7 +928,7 @@
                                         toDestroy.Clear();
                                         foreach (Facility f in this.Facilities.GetRandomList())
                                         {
-                                            if (value > f.Kind.AIValue(this) * Parameters.AIFacilityDestroyValueRate && this.CanRemoveFacility(f))
+                                            if (value > f.Kind.AIValue(this) * Parameters.AIFacilityDestroyValueRate && this.CanRemoveFacility(f) && f.Kind.rongna == 0)
                                             {
                                                 toDestroy.Add(f);
                                                 fpl += f.Kind.PositionOccupied;

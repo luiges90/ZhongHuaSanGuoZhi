@@ -236,11 +236,6 @@
             get
             {
                 double val = this.Kind.AIValue(this.location);
-                if (this.Kind.rongna > 0)
-                {
-                    if (val < 0) val = 0;
-                    return  val + this.Kind.rongna * 10;
-                }
                 if (val < 0) val = -1;
                 return val;
             }
