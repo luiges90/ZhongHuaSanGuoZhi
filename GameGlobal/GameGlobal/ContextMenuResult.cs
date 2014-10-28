@@ -151,6 +151,7 @@
         Information_AllRegions,
         Information_AllStates,
         Information_AllTreasures,
+        Information_AllGuanjues,
         Load,
         Save,
         System,

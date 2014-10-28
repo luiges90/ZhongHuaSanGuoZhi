@@ -185,10 +185,8 @@
                 <MenuItem ID="9" Name="AllMilitaries" DisplayName="所有编队*" />
                 <MenuItem ID="10" Name="AllSections" DisplayName="所有军区*" />
                 <MenuItem ID="11" Name="AllFacilities" DisplayName="所有设施" />
-                <MenuItem ID="12" Name="AllTerrainDetails" DisplayName="所有地形" />
-                <MenuItem ID="13" Name="AllRegions" DisplayName="所有地区" />
-                <MenuItem ID="14" Name="AllStates" DisplayName="所有州域" />
                 <MenuItem ID="15" Name="AllTreasures" DisplayName="所有宝物*" />
+				<MenuItem ID="16" Name="AllGuanjues" DisplayName="所有官爵" />
             </MenuItem>
             <MenuItem ID="5" Name="Save" DisplayName="存储进度" DisplayIfTrue="SaveAvail" />
             <MenuItem ID="6" Name="Load" DisplayName="读取进度" DisplayIfTrue="LoadAvail" />

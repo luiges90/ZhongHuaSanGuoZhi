@@ -33,7 +33,8 @@
         SimpleArchitecture,
         Treasure,
         YearTable,
-        Information
+        Information,
+        Guanjue
     }
 }
 

@@ -3462,6 +3462,12 @@
                     }
                 }
 
+                if (this.IsTroopExceedsLimit)
+                {
+                    int z = 0;
+                    z++;
+                }
+
                 if (willCreateScale > destScale || (this.IsTroopExceedsLimit && GameObject.Chance(10)) 
                     || willCreate.Count == this.GetAllAvailableArea(false).Area.Count)
                 {

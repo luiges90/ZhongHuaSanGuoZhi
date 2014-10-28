@@ -7318,7 +7318,7 @@
             else if (this.Position != this.RealDestination)
             {
                 flag = this.TryToStepForward();
-                this.Destination = this.RealDestination;
+                // this.Destination = this.RealDestination;
             }
             else
             {

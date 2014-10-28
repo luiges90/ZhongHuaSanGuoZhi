@@ -870,6 +870,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Treasure, FrameFunction.Browse, false, true, false, false, base.Scenario.Treasures, null, "", "");
                     break;
 
+                case ContextMenuResult.Information_AllGuanjues:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Guanjue, FrameFunction.Browse, false, true, false, false, base.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhongleiliebiao(), null, "", "");
+                    break;
+
                 case ContextMenuResult.Load:
                     this.LoadGame();
                     break;
