@@ -593,7 +593,14 @@
                                     {
                                         this.screen.JumpTo((gameObjectByPosition as Treasure).BelongedPerson.Position);
                                     }
-                                } 
+                                }
+                                else if (gameObjectByPosition is Information)
+                                {
+                                    if (base.Function != FrameFunction.Jump)
+                                    {
+                                        this.screen.JumpTo((gameObjectByPosition as Information).Position);
+                                    }
+                                }
                                 else if (this.listKindToDisplay.SelectedTab.ListMethod != null)
                                 {
                                     this.PushSubKindByName(this.listKindToDisplay.SelectedTab.ListKind, StaticMethods.GetListMethodValue(gameObjectByPosition, this.listKindToDisplay.SelectedTab.ListMethod) as GameObjectList);
@@ -684,6 +691,13 @@
                                     if ((gameObjectByPosition as Treasure).BelongedPerson != null)
                                     {
                                         this.screen.JumpTo((gameObjectByPosition as Treasure).BelongedPerson.Position);
+                                    }
+                                }
+                                else if (gameObjectByPosition is Information)
+                                {
+                                    if (base.Function != FrameFunction.Jump)
+                                    {
+                                        this.screen.JumpTo((gameObjectByPosition as Information).Position);
                                     }
                                 }
                                 if (gameObjectByPosition != null)
