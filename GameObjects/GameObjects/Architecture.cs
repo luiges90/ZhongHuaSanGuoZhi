@@ -3646,7 +3646,11 @@
 
         public bool BuyFoodAvail()
         {
-            return ((((this.Agriculture >= Parameters.BuyFoodAgriculture) && ((base.Scenario.Date.Season == GameSeason.夏) || (base.Scenario.Date.Season == GameSeason.秋))) && (this.Fund > 0)) && (this.Food < this.FoodCeiling));
+            return this.Agriculture >= Parameters.BuyFoodAgriculture && (base.Scenario.Date.Season == GameSeason.夏 || base.Scenario.Date.Season == GameSeason.秋) && this.Fund > 0 && this.Food < this.FoodCeiling
+                && (base.Scenario.Date.Month * 483 
+                + (this.Name.Length > 0 ? this.Name[0] : 735) * 203 
+                + (this.Name.Length > 1 ? this.Name[1] : 492) * 680
+                    + this.ID * 912) % 2 == 0;
         }
 
         public bool CampaignAvail()
@@ -10265,7 +10269,11 @@
 
         public bool SellFoodAvail()
         {
-            return ((((this.Commerce >= Parameters.SellFoodCommerce) && ((base.Scenario.Date.Season == GameSeason.冬) || (base.Scenario.Date.Season == GameSeason.春))) && (this.Food > 0)) && (this.Fund < this.FundCeiling));
+            return this.Commerce >= Parameters.SellFoodCommerce && (base.Scenario.Date.Season == GameSeason.冬 || base.Scenario.Date.Season == GameSeason.春) && this.Food > 0 && this.Fund < this.FundCeiling
+                && (base.Scenario.Date.Month * 671
+                + (this.Name.Length > 0 ? this.Name[0] : 321) * 864
+                + (this.Name.Length > 1 ? this.Name[1] : 384) * 259
+                    + this.ID * 513) % 2 == 0; 
         }
 
         public void SetLongViewArea(GameArea area)
