@@ -3276,7 +3276,7 @@
                 }
                 try
                 {
-                    person.InjureRate = (int)reader["InjureRate"];
+                    person.InjureRate = (float)reader["InjureRate"];
                 }
                 catch 
                 {
