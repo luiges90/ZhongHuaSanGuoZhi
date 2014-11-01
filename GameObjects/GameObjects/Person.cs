@@ -1385,6 +1385,10 @@
                     this.InjureRate = 1;
                 }
             }
+            if (this.Age > 60 && GameObject.Random((this.YearDead - base.Scenario.Date.Year) * 10 + 30) == 0 && this.InjureRate > 0.7)
+            {
+                this.InjureRate -= 0.1f;
+            }
         }
 
         public void DayEvent()
