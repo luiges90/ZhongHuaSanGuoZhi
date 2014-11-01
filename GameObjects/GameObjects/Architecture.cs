@@ -4753,7 +4753,7 @@
 
         private bool isPersonAllowedIntoTroop(Person person, Military military, bool offensive)
         {
-            return person.LocationArchitecture == this && !person.TooTiredToBattle && GameObject.Random(person.Tiredness) == 0 && (person.Command >= military.Kind.MinCommand || (this.Endurance < 30 && !offensive));
+            return person.LocationArchitecture == this && !person.TooTiredToBattle && GameObject.Random(person.Tiredness) == 0 && (person.Command >= military.Kind.MinCommand);
         }
 
         private TroopList AISelectPersonIntoTroop(Architecture from, Military military, bool offensive)
