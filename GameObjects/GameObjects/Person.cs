@@ -235,11 +235,18 @@
         {
             get
             {
-                return injureRate;
+                if (this.Identity() != 0)
+                {
+                    return injureRate;
+                }
+                return 1;
             }
             set
             {
-                injureRate = value;
+                if (this.Identity() != 0)
+                {
+                    injureRate = value;
+                }
             }
         }
 
@@ -295,11 +302,18 @@
         {
             get
             {
-                return tiredness;
+                if (this.Identity() != 0)
+                {
+                    return tiredness;
+                }
+                return 0;
             }
             set
             {
-                tiredness = value;
+                if (this.Identity() != 0)
+                {
+                    tiredness = value;
+                }
             }
         }
 
@@ -1363,12 +1377,12 @@
 
         public void RecoverFromInjury()
         {
-            if (this.injureRate < 1 && GameObject.Chance(this.Strength + 10))
+            if (this.InjureRate < 1 && GameObject.Chance(this.Strength + 10))
             {
-                this.injureRate += (GameObject.Random(30) + 1) / 1000.0f;
-                if (this.injureRate > 1)
+                this.InjureRate += (GameObject.Random(30) + 1) / 1000.0f;
+                if (this.InjureRate > 1)
                 {
-                    this.injureRate = 1;
+                    this.InjureRate = 1;
                 }
             }
         }
@@ -4680,7 +4694,7 @@
         {
             get
             {
-                return (int)((this.braveness + this.bravenessIncrease) * this.AbilityAgeFactor * this.injureRate);
+                return (int)((this.braveness + this.bravenessIncrease) * this.AbilityAgeFactor * this.InjureRate);
             }
             set
             {
@@ -4749,7 +4763,7 @@
         {
             get
             {
-                return (int)((this.calmness + this.calmnessIncrease) * this.AbilityAgeFactor * this.injureRate);
+                return (int)((this.calmness + this.calmnessIncrease) * this.AbilityAgeFactor * this.InjureRate);
             }
             set
             {
@@ -5645,7 +5659,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.injureRate);
+                return (int)(Math.Min((int)((this.CommandIncludingExperience + this.InfluenceIncrementOfCommand) * this.InfluenceRateOfCommand), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.InjureRate);
             }
         }
 
@@ -5685,7 +5699,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.injureRate);
+                return (int)(Math.Min((int)((this.GlamourIncludingExperience + this.InfluenceIncrementOfGlamour) * this.InfluenceRateOfGlamour), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.InjureRate);
             }
         }
 
@@ -5701,7 +5715,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.injureRate);
+                return (int)(Math.Min((int)((this.IntelligenceIncludingExperience + this.InfluenceIncrementOfIntelligence) * this.InfluenceRateOfIntelligence), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.InjureRate);
             }
         }
 
@@ -5733,7 +5747,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.injureRate);
+                return (int)(Math.Min((int)((this.PoliticsIncludingExperience + this.InfluenceIncrementOfPolitics) * this.InfluenceRateOfPolitics), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.InjureRate);
             }
         }
 
@@ -5757,7 +5771,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.injureRate);
+                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.InjureRate);
             }
         }
 
@@ -8262,15 +8276,15 @@
         {
             get
             {
-                if (this.injureRate >= 1)
+                if (this.InjureRate >= 1)
                 {
                     return "健康";
                 }
-                else if (this.injureRate >= 0.7)
+                else if (this.InjureRate >= 0.7)
                 {
                     return "轻伤";
                 }
-                else if (this.injureRate >= 0.3)
+                else if (this.InjureRate >= 0.3)
                 {
                     return "重伤";
                 }
