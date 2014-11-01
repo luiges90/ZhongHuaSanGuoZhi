@@ -12637,7 +12637,7 @@
             }
             if (this.HasHostileTroopsInView()) return false;
 
-            if (this.Population < 100000) return false;
+            if (this.Population < 200000) return false;
             if (this.Agriculture <= this.AgricultureCeiling * 0.95) return false;
             if (this.Commerce <= this.CommerceCeiling * 0.95) return false;
             if (this.Technology <= this.TechnologyCeiling * 0.95) return false;
