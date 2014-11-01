@@ -4759,7 +4759,8 @@
         private TroopList AISelectPersonIntoTroop(Architecture from, Military military, bool offensive)
         {
             TroopList result = new TroopList();
-            if (military.FollowedLeader != null && from.Persons.HasGameObject(military.FollowedLeader) && military.FollowedLeader.LocationTroop == null)
+            if (military.FollowedLeader != null && from.Persons.HasGameObject(military.FollowedLeader) && military.FollowedLeader.LocationTroop == null
+                && isPersonAllowedIntoTroop(military.FollowedLeader, military, offensive))
             {
                 if (isPersonAllowedIntoTroop(military.FollowedLeader, military, offensive))
                 {
@@ -4767,7 +4768,7 @@
                 }
             }
             else if (military.Leader != null && military.LeaderExperience >= 10 && (military.Leader.Strength >= 80 || military.Leader.Command >= 80 || military.Leader.HasLeaderValidTitle)
-                && from.Persons.HasGameObject(military.Leader) && military.Leader.LocationTroop == null)
+                && from.Persons.HasGameObject(military.Leader) && military.Leader.LocationTroop == null && isPersonAllowedIntoTroop(military.Leader, military, offensive))
             {
                 if (isPersonAllowedIntoTroop(military.Leader, military, offensive))
                 {
