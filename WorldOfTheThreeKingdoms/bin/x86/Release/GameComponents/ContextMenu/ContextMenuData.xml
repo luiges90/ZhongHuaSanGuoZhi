@@ -185,8 +185,10 @@
                 <MenuItem ID="9" Name="AllMilitaries" DisplayName="所有编队*" />
                 <MenuItem ID="10" Name="AllSections" DisplayName="所有军区*" />
                 <MenuItem ID="11" Name="AllFacilities" DisplayName="所有设施" />
+                <MenuItem ID="12" Name="AllTerrainDetails" DisplayName="所有地形" />
+                <MenuItem ID="13" Name="AllRegions" DisplayName="所有地区" />
+                <MenuItem ID="14" Name="AllStates" DisplayName="所有州域" />
                 <MenuItem ID="15" Name="AllTreasures" DisplayName="所有宝物*" />
-				<MenuItem ID="16" Name="AllGuanjues" DisplayName="所有官爵" />
             </MenuItem>
             <MenuItem ID="5" Name="Save" DisplayName="存储进度" DisplayIfTrue="SaveAvail" />
             <MenuItem ID="6" Name="Load" DisplayName="读取进度" DisplayIfTrue="LoadAvail" />
@@ -229,7 +231,7 @@
                 <MenuItem ID="41" Name="41" DisplayName="拖刀" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="41" />
                 <MenuItem ID="42" Name="42" DisplayName="义勇" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="42" />
                 <MenuItem ID="43" Name="43" DisplayName="炎枪" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="43" />
-                <MenuItem ID="44" Name="44" DisplayName="水龙" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="44" />
+                <MenuItem ID="44" Name="44" DisplayName="猛撞" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="44" />
                 <MenuItem ID="45" Name="45" DisplayName="龙漩" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="45" />
                 <MenuItem ID="46" Name="46" DisplayName="破军" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="46" />
                 <MenuItem ID="47" Name="47" DisplayName="神威" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="47" />
@@ -260,9 +262,13 @@
                 <MenuItem ID="85" Name="85" DisplayName="雷鸣" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="85" />
                 <MenuItem ID="86" Name="86" DisplayName="地裂" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="86" />
                 <MenuItem ID="87" Name="87" DisplayName="破门" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="87" />
-                <MenuItem ID="88" Name="88" DisplayName="箭雨" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="88" />
+                <MenuItem ID="88" Name="88" DisplayName="箭岚" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="88" />
                 <MenuItem ID="89" Name="89" DisplayName="投石" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="89" />
                 <MenuItem ID="90" Name="90" DisplayName="霹雳" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="90" />
+                <MenuItem ID="91" Name="91" DisplayName="箭矢" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="91" />
+                <MenuItem ID="92" Name="92" DisplayName="冲击" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="92" />
+
+
                 <MenuItem ID="100" Name="100" DisplayName="驰射" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="100" />
                 <MenuItem ID="101" Name="101" DisplayName="齐射" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="101" />
                 <MenuItem ID="102" Name="102" DisplayName="飞射" ChangeDisplayName="GetCombatMethodDisplayName" DisplayIfTrue="HasCombatMethod" IsParamIDItem="true" Param="102" />
