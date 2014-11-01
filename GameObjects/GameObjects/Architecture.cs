@@ -1114,6 +1114,7 @@
 
         internal void WithdrawPerson()
         {
+            if (this.BelongedFaction.ArchitectureCount <= 1) return;
             int num = this.PersonCount - this.MilitaryCount;
             GameObjectList list = this.Persons.GetList();
             if (list.Count > 1)
@@ -1132,8 +1133,8 @@
                     otherArchitectureList.IsNumber = true;
                     otherArchitectureList.PropertyName = "ArmyScaleWeighing";
                     otherArchitectureList.ReSort();
+                    capital = otherArchitectureList[0] as Architecture;
                 }
-                capital = otherArchitectureList[0] as Architecture;
             }
             ArchitectureList otherArch = this.GetOtherArchitectureList();
             Architecture dest = (Architecture)otherArch[GameObject.Random(otherArch.Count)];
@@ -6584,7 +6585,8 @@
                     }
                 }
             }
-            else
+
+            if (this.OtherArchitectureList.Count == 0)
             {
                 if (this.BelongedFaction != null)
                 {
@@ -6597,7 +6599,6 @@
                     }
                 }
             }
-
 
             return this.OtherArchitectureList;
         }
