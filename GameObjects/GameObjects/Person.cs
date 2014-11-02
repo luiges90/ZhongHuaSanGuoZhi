@@ -4516,9 +4516,9 @@
                 {
                     factor = AGE_FACTORS[this.Age];
                 }
-                else if (this.Age > 50)
+                else if (this.Age > 60)
                 {
-                    factor = Math.Max(0.2f, -0.016f * this.Age + 1.8f);
+                    factor = Math.Max(0.2f, -0.016f * this.Age + 1.96f);
                 }
 
                 return factor;
