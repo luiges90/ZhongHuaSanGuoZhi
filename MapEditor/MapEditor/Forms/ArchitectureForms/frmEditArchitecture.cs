@@ -286,7 +286,13 @@
             try
             {
                 this.editingArchitecture.Name = this.tbName.Text;
-                this.editingArchitecture.Kind = this.editingArchitecture.Scenario.GameCommonData.AllArchitectureKinds.GetArchitectureKind(this.tbKind.SelectedIndex + 1);
+                foreach (ArchitectureKind kind in this.editingArchitecture.Scenario.GameCommonData.AllArchitectureKinds.ArchitectureKinds.Values) 
+                {
+                    if (kind.Name == this.tbKind.SelectedItem)
+                    {
+                        this.editingArchitecture.Kind = kind;
+                    }
+                }
                 this.editingArchitecture.Population = int.Parse(this.tbPopulation.Text);
                 this.editingArchitecture.LocationState = this.cbState.SelectedItem as GameObjects.ArchitectureDetail.State;
                 this.editingArchitecture.IsStrategicCenter = this.cbIsStrategicCenter.Checked;
@@ -458,7 +464,7 @@
                 }
                 this.tbKind.Items.AddRange(allNames.ToArray());
                 this.tbName.Text = this.editingArchitecture.Name;
-                this.tbKind.SelectedIndex = this.editingArchitecture.Kind.ID - 1;
+                this.tbKind.SelectedItem = this.editingArchitecture.Kind.Name;
                 this.lblFaction.Text = this.editingArchitecture.FactionString;
                 this.lblSection.Text = this.editingArchitecture.SectionString;
                 this.tbPopulation.Text = this.editingArchitecture.Population.ToString();
