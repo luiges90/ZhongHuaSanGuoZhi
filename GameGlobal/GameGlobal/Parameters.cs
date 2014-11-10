@@ -171,6 +171,8 @@
         public static int InternalSurplusFactor = 10000000;
 
         public static int MakeMarrigeIdealLimit = 5;
+        public static int MakeMarriageCost = 80000;
+        public static int NafeiCost = 50000;
 
         public void InitializeGameParameters()
         {

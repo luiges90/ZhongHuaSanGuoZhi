@@ -813,7 +813,7 @@
                     leader.WaitForFeiZi.WaitForFeiZi = null;
                     leader.WaitForFeiZi = null;
                 }
-                else if (this.Leader.LocationArchitecture.Fund >= 50000)
+                else if (this.Leader.LocationArchitecture.Fund >= Parameters.NafeiCost)
                 {
                     if (this.Leader.WaitForFeiZi.LocationArchitecture == this.Leader.LocationArchitecture &&
                         this.Leader.WaitForFeiZi.Status == PersonStatus.Normal)
