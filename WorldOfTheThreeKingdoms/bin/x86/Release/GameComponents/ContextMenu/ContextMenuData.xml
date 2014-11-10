@@ -130,6 +130,7 @@
                     <MenuItem ID="3" Name="KillPerson" DisplayName="处斩下属" DisplayIfTrue="KillPersonAvail" />
                     <MenuItem ID="4" Name="KillCaptive" DisplayName="处斩俘虏" DisplayIfTrue="ReleaseCaptiveAvail" />
                 </MenuItem>
+				<MenuItem ID="9" Name="MakeMarriage" DisplayName="赐婚" DisplayIfTrue="HasMarriageToMake"/> 
                 <MenuItem ID="6" Name="hougongTop" DisplayName="后宫">
                     <MenuItem ID="1" Name="nafei" DisplayName="纳妃" DisplayIfTrue="kenafei" />
                     <MenuItem ID="2" Name="hougong" DisplayName="宠幸" DisplayIfTrue="kejinhougong" />

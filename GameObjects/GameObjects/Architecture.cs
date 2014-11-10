@@ -7516,6 +7516,11 @@
             return false;
         }
 
+        public bool HasMarriageToMake()
+        {
+            return this.makeMarryablePersons().Count > 0;
+        }
+
         public bool HasUnavailablePerson(PersonList personlist)
         {
             foreach (Person person in personlist)
@@ -10629,6 +10634,22 @@
         public void YearEvent()
         {
             this.YearEnd();
+        }
+
+        public PersonList makeMarryablePersons()
+        {
+            PersonList result = new PersonList();
+
+            if (this.Fund < 50000) return result;
+
+            foreach (Person p in this.Persons)
+            {
+                if (p.MakeMarryable().Count > 0)
+                {
+                    result.Add(p);
+                }
+            }
+            return result;
         }
 
         public int AbundantFood

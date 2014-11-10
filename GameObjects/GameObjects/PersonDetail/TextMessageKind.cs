@@ -129,5 +129,6 @@
         Attract, // 122
         PersonJoin, // 123
         ObtainMilitaryKind, // 124
+        MakeMarriage, // 125
     }
 }

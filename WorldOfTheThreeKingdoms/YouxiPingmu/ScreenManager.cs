@@ -429,6 +429,25 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        private void FrameFunction_Architecture_AfterSelectMarryablePerson()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.Persons.GetSelectedList();
+            if ((selectedList != null) && (selectedList.Count == 1))
+            {
+                this.CurrentPerson = selectedList[0] as Person;
+                this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.SelectMarryTo, false, true, true, false, this.CurrentPerson.MakeMarryable(), null, "选择对象", "");
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterSelectMarryTo()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.Persons.GetSelectedList();
+            if ((selectedList != null) && (selectedList.Count == 1))
+            {
+                this.CurrentPerson.Marry(selectedList[0] as Person);
+            }
+        }
+
         private void FrameFunction_Architecture_AfterGetNewCapital()
         {
             GameObjectList selectedList = this.CurrentArchitecture.ChangeCapitalArchitectureList.GetSelectedList();
@@ -907,6 +926,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case FrameFunction.GetLevelUpMilitaries:
                     this.FrameFunction_Architecture_AfterGetLevelUpMilitaries();
+                    break;
+
+                case FrameFunction.SelectMarryablePerson:
+                    this.FrameFunction_Architecture_AfterSelectMarryablePerson();
+                    break;
+
+                case FrameFunction.SelectMarryTo:
+                    this.FrameFunction_Architecture_AfterSelectMarryTo();
                     break;
 
                 case FrameFunction.GetNewCapital:

@@ -1437,6 +1437,34 @@
             higherLevelLearnableTitle = null;
         }
 
+        public PersonList MakeMarryable()
+        {
+            PersonList result = new PersonList();
+
+            if (this.LocationArchitecture == null) return result;
+            foreach (Person p in this.LocationArchitecture.Persons)
+            {
+                if (p == this) continue;
+                if (p.isLegalFeiZi(this) && this.isLegalFeiZi(p) && Person.GetIdealOffset(p, this) <= Parameters.MakeMarrigeIdealLimit
+                    && !p.Hates(this) && !this.Hates(p))
+                {
+                    result.Add(p);
+                }
+            }
+
+            return result;
+        }
+
+        public void Marry(Person p)
+        {
+            this.LocationArchitecture.DecreaseFund(50000);
+
+            this.Spouse = p;
+            p.Spouse = this;
+            base.Scenario.YearTable.addCreateSpouseEntry(base.Scenario.Date, this, p);
+            this.Scenario.GameScreen.MakeMarriage(this, p);
+        }
+
         private void createRelations()
         {
             if (this.LocationArchitecture != null && GameObject.Random(60) == 0)

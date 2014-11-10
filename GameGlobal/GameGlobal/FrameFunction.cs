@@ -82,6 +82,8 @@
         GetInformationToStop,
         SelectLandLink,
         SelectWaterLink,
+        SelectMarryablePerson,
+        SelectMarryTo
     }
 }
 

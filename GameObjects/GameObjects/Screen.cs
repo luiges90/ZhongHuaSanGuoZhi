@@ -774,6 +774,8 @@
 
         public virtual void CreateSister(Person p, Person q) { }
 
+        public virtual void MakeMarriage(Person p, Person q) { }
+
         public override void Update(GameTime gameTime)
         {
             if (this.EnableUpdate)

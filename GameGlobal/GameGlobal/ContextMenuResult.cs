@@ -99,6 +99,7 @@
         Monarch_ChangeCapital,
         Monarch_SelectPrince,
         Monarch_Techniques,
+        Monarch_MakeMarriage,
         Monarch_KillRelease_ReleaseSelfPerson,
         Monarch_KillRelease_ReleaseCaptive,
         Monarch_KillRelease_KillPerson,

@@ -596,6 +596,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.Plugins.TransportDialogPlugin.IsShowing = true;
                     break;
 
+                case ContextMenuResult.Monarch_MakeMarriage:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.SelectMarryablePerson, false, true, true, false, this.CurrentArchitecture.makeMarryablePersons(), null, "赐婚", "");
+                    break;
+
                 case ContextMenuResult.Monarch_ChangeCapital:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Architecture, FrameFunction.GetNewCapital, false, true, true, false, this.CurrentArchitecture.GetChangeCapitalArchitectureList(), null, "迁都", "");
                     break;

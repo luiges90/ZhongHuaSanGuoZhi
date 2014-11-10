@@ -1344,6 +1344,19 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void MakeMarriage(Person p, Person q)
+        {
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
+            {
+                p.TextResultString = p.Name;
+                p.TextDestinationString = q.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p.BelongedFaction.Leader, p, TextMessageKind.MakeMarriage, "MakeMarriage", "CreateSpouse.jpg", "");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "CreateSpouse", p.Position);
+            }
+        }
+
         public override void NoFactionPersonArrivesAtArchitecture(Person p, Architecture a)
         {
             if (a.BelongedFaction != null && base.Scenario.IsPlayer(a.BelongedFaction) && p.Status == PersonStatus.NoFaction)

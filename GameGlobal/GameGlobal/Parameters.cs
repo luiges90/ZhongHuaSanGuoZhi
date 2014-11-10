@@ -170,6 +170,8 @@
 
         public static int InternalSurplusFactor = 10000000;
 
+        public static int MakeMarrigeIdealLimit = 5;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();
