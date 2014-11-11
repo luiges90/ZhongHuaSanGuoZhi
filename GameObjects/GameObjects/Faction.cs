@@ -651,6 +651,67 @@
             this.AdjustByArchitectures();
         }
 
+        private void AIMakeMarriage()
+        {
+            if (base.Scenario.IsPlayer(this)) return;
+
+            foreach (Person p in this.Persons)
+            {
+                if (p.BelongedFaction != this || p.WaitForFeiZi == null || p.WaitForFeiZi.BelongedFaction != this)
+                {
+                    if (p.WaitForFeiZi != null)
+                    {
+                        p.WaitForFeiZi.WaitForFeiZi = null;
+                    }
+                    p.WaitForFeiZi = null;
+                }
+                else
+                {
+                    if (p.WaitForFeiZi != null && p.Status == PersonStatus.Normal && p.LocationArchitecture != null
+                        && p.LocationTroop == null)
+                    {
+                        if (p.LocationArchitecture.Fund >= Parameters.MakeMarriageCost)
+                        {
+                            p.Marry(p.WaitForFeiZi);
+                            if (p.WaitForFeiZi != null)
+                            {
+                                p.WaitForFeiZi.WaitForFeiZi = null;
+                            }
+                            p.WaitForFeiZi = null;
+                        }
+                    }
+                }
+            }
+
+            if (GameObject.Random(10) == 0)
+            {
+                GameObjectList pl = this.Persons.GetList();
+                pl.PropertyName = "Merit";
+                pl.IsNumber = true;
+                pl.SmallToBig = false;
+                pl.ReSort();
+                foreach (Person p in pl)
+                {
+                    PersonList candidates = p.MakeMarryable();
+                    if (candidates.Count > 0)
+                    {
+                        Person q = candidates.GetMaxMeritPerson();
+                        if (p.LocationArchitecture == q.LocationArchitecture && p.LocationArchitecture != null &&
+                            p.LocationArchitecture.Fund >= Parameters.MakeMarriageCost)
+                        {
+                            p.Marry(q);
+                        }
+                        else
+                        {
+                            p.WaitForFeiZi = q;
+                            q.WaitForFeiZi = p;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
         private void AIHouGong()
         {
             if (base.Scenario.IsPlayer(this)) return;
@@ -851,7 +912,8 @@
                         Person spousePerson = p.Spouse == null ? null : p.Spouse;
                         if (p.Merit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.Hates(this.Leader) &&
                             (spousePerson == null || spousePerson.ID == leader.ID || !spousePerson.Alive || (leader.PersonalLoyalty <= (int)PersonLoyalty.很低 || spousePerson.Merit < p.Merit * ((int)(4 - leader.PersonalLoyalty) * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd))) &&
-                            (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply)))
+                            (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply))
+                            && p.WaitForFeiZi == null)
                         {
                             candidate.Add(p);
                         }
@@ -1029,6 +1091,7 @@
             this.AICapital();
             this.AICaptives();
             this.AITechniques();
+            this.AIMakeMarriage();
             this.AIHouGong();
             this.AITransfer();
             this.AIArchitectures();
