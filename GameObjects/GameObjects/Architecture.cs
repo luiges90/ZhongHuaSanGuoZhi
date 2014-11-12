@@ -10640,7 +10640,7 @@
         {
             PersonList result = new PersonList();
 
-            if (this.Fund < 50000) return result;
+            if (this.Fund < Parameters.MakeMarriageCost) return result;
 
             foreach (Person p in this.Persons)
             {
@@ -10692,7 +10692,7 @@
                 num += this.RoutewayActiveCost * 60;
                 num += this.PersonCount * Parameters.InternalFundCost * 2;
                 num += (this.BelongedFaction.BecomeEmperorLegallyAvail() || this.BelongedFaction.SelfBecomeEmperorAvail()) && this.BelongedFaction.Capital == this ? 100000 : 0;
-                num += this.BelongedFaction.Leader.WaitForFeiZi != null ? 50000 : 0;
+                num += this.BelongedFaction.Leader.WaitForFeiZi != null ? Parameters.NafeiCost : 0;
                 num += (int)(Math.Sqrt(this.Population) * 8.0);
                 if (this.withoutTruceFrontline)
                 {
@@ -12564,7 +12564,7 @@
         {
             if (GlobalVariables.hougongGetChildrenRate <= 0) return false;
 
-            if (this.nvxingwujiang().Count > 0 && this.Fund > 50000 && 
+            if (this.nvxingwujiang().Count > 0 && this.Fund >= Parameters.NafeiCost && 
                 (this.Meinvkongjian > this.Feiziliebiao.Count || this.BelongedFaction.IsAlien)
                 && this.Persons.GameObjects.Contains(this.BelongedFaction.Leader))
             {

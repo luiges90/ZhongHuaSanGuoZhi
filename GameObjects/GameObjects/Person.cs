@@ -1457,7 +1457,7 @@
 
         public void Marry(Person p)
         {
-            this.LocationArchitecture.DecreaseFund(50000);
+            this.LocationArchitecture.DecreaseFund(Parameters.MakeMarriageCost);
 
             this.Spouse = p;
             p.Spouse = this;
@@ -7735,7 +7735,7 @@
         {
             Person tookSpouse = null;
 
-            nvren.LocationArchitecture.DecreaseFund(50000);
+            nvren.LocationArchitecture.DecreaseFund(Parameters.NafeiCost);
 
             nvren.Status = PersonStatus.Princess;
             nvren.workKind = ArchitectureWorkKind.无;
