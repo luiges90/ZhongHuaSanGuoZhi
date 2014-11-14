@@ -1442,11 +1442,14 @@
             PersonList result = new PersonList();
 
             if (this.LocationArchitecture == null) return result;
+
+            if (this.Spouse != null) return result;
+
             foreach (Person p in this.LocationArchitecture.Persons)
             {
                 if (p == this) continue;
                 if (p.isLegalFeiZi(this) && this.isLegalFeiZi(p) && Person.GetIdealOffset(p, this) <= Parameters.MakeMarrigeIdealLimit
-                    && !p.Hates(this) && !this.Hates(p))
+                    && !p.Hates(this) && !this.Hates(p) && p.Spouse == null)
                 {
                     result.Add(p);
                 }
