@@ -40,7 +40,7 @@
         private int injuryChance;
         private bool isShell;
         private int levelUpExperience;
-        private int levelUpKindID;
+        private List<int> levelUpKindID = new List<int>();
         private int marshAdaptability;
         private float marshRate;
         private int maxScale;
@@ -656,7 +656,7 @@
             }
         }
 
-        public int LevelUpKindID
+        public List<int> LevelUpKindID
         {
             get
             {
@@ -664,8 +664,18 @@
             }
             set
             {
-                this.levelUpKindID = value;
+                this.levelUpKindID.RemoveAll(i => i == -1);
             }
+        }
+
+        public List<MilitaryKind> GetLevelUpKinds()
+        {
+            List<MilitaryKind> result = new List<MilitaryKind>();
+            foreach (int id in LevelUpKindID) 
+            {
+                result.Add(base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(id));
+            }
+            return result;
         }
 
         public int MarshAdaptability

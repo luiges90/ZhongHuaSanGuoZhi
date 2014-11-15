@@ -415,7 +415,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
 
                 case ContextMenuResult.Military_LevelUp:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Military, FrameFunction.GetLevelUpMilitaries, false, true, true, true, this.CurrentArchitecture.GetLevelUpMilitaryList(), null, "选择编队", "");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Military, FrameFunction.GetLevelUpMilitaries, false, true, true, false, this.CurrentArchitecture.GetLevelUpMilitaryList(), null, "选择编队", "");
                     break;
 
                 case ContextMenuResult.Routeway_Design:  //粮道手动设计

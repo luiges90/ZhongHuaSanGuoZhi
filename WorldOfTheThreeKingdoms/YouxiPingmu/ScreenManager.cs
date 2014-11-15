@@ -407,14 +407,27 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        private void FrameFunction_Architecture_AfterGetLevelUpMilitaryKind()
+        {
+            if (this.CurrentArchitecture != null)
+            {
+                this.CurrentGameObjects = this.CurrentArchitecture.UpgradableMilitaryKindList.GetSelectedList();
+                if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
+                {
+                    this.CurrentArchitecture.CreateMilitary(this.CurrentGameObjects[0] as MilitaryKind);
+                }
+            }
+        }
+
         private void FrameFunction_Architecture_AfterGetLevelUpMilitaries()
         {
-            this.CurrentGameObjects = this.CurrentArchitecture.LevelUpMilitaryList.GetSelectedList();
-            if (this.CurrentGameObjects != null)
+            if (this.CurrentArchitecture != null)
             {
-                foreach (Military military in this.CurrentGameObjects)
+                this.CurrentGameObjects = this.CurrentArchitecture.LevelUpMilitaryList.GetSelectedList();
+                if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
                 {
-                    this.CurrentArchitecture.LevelUpMilitary(military);
+                    this.CurrentMilitary = (Military) this.CurrentGameObjects[0];
+                    this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.MilitaryKind, FrameFunction.GetLevelUpMiliaryKind, true, false, true, false, this.CurrentArchitecture.GetUpgradableMilitaryKindList(this.CurrentMilitary), null, "编队升级", "编队升级");
                 }
             }
         }
@@ -926,6 +939,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case FrameFunction.GetLevelUpMilitaries:
                     this.FrameFunction_Architecture_AfterGetLevelUpMilitaries();
+                    break;
+
+                case FrameFunction.GetLevelUpMiliaryKind:
+                    this.FrameFunction_Architecture_AfterGetLevelUpMilitaryKind();
                     break;
 
                 case FrameFunction.SelectMarryablePerson:
