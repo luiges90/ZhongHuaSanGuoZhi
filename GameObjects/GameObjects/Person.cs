@@ -6115,23 +6115,11 @@
             }
         }
 
-        public int BaseReputation
-        {
-            get
-            {
-                return this.reputation;
-            }
-            set
-            {
-                this.reputation = value;
-            }
-        }
-
         public int Reputation
         {
             get
             {
-                return this.reputation + this.InfluenceIncrementOfReputation;
+                return reputation;
             }
             set
             {
