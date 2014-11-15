@@ -5363,7 +5363,7 @@
                     row["Intelligence"] = person.BaseIntelligence;
                     row["Politics"] = person.BasePolitics;
                     row["Glamour"] = person.BaseGlamour;
-                    row["Reputation"] = person.BaseReputation;
+                    row["Reputation"] = person.Reputation;
                     row["UniqueTitles"] = person.UniqueTitles.SaveToString();
                     row["UniqueMilitaryKinds"] = person.UniqueMilitaryKinds.SaveToString();
                     row["StrengthExperience"] = person.StrengthExperience;

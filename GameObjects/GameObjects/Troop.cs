@@ -2745,7 +2745,7 @@
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            receiving.Leader.BaseReputation -= i.Value;
+                            receiving.Leader.Reputation -= i.Value;
                         }
                     }
                     foreach (KeyValuePair<int, int> i in p.LoseSkill)
@@ -2800,7 +2800,7 @@
                     {
                         if (GameObject.Chance(i.Key))
                         {
-                            p.BaseReputation += i.Value;
+                            p.Reputation += i.Value;
                         }
                     }
                 }
