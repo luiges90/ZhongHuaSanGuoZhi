@@ -123,6 +123,7 @@
         private GameArea longViewArea = null;
         public MilitaryList MergeMilitaryList = new MilitaryList();
         public MilitaryList Militaries = new MilitaryList();
+        public MilitaryKindList UpgradableMilitaryKindList = new MilitaryKindList();
         private int morale;
         public int MoraleOfRecruitment = 50;
         public float MultipleOfRecovery = 1;
@@ -2360,7 +2361,17 @@
         {
             foreach (Military military in this.GetLevelUpMilitaryList())
             {
-                this.LevelUpMilitary(military);
+                List<MilitaryKind> candidates = military.Kind.GetLevelUpKinds();
+                List<MilitaryKind> upgradable = new List<MilitaryKind>();
+                foreach (MilitaryKind mk in candidates)
+                {
+                    if (!this.BelongedFaction.IsMilitaryKindOverLimit(mk.ID))
+                    {
+                        upgradable.Add(mk);
+                    }
+                }
+                
+                this.LevelUpMilitary(military, upgradable[GameObject.Random(upgradable.Count)]);
             }
         }
 
@@ -6511,8 +6522,18 @@
             this.LevelUpMilitaryList.Clear();
             foreach (Military military in this.Militaries)
             {
+                bool hasLevelupable = false;
+                foreach (int id in military.Kind.LevelUpKindID)
+                {
+                    if (!this.BelongedFaction.IsMilitaryKindOverLimit(id)) 
+                    {
+                        hasLevelupable = true;
+                        break;
+                    }
+                }
+
                 if (((military.InjuryQuantity == 0) && military.Kind != null && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience)
-                    && (!this.BelongedFaction.IsMilitaryKindOverLimit(military.Kind.LevelUpKindID)))
+                    && hasLevelupable)
                 {
                     military.BelongedFaction = this.BelongedFaction;
                     this.LevelUpMilitaryList.AddMilitary(military);
@@ -6547,6 +6568,19 @@
             GameArea allAvailableArea = this.GetAllAvailableArea(false);
             military.ModifyAreaByTerrainAdaptablity(allAvailableArea);
             return allAvailableArea;
+        }
+
+        public MilitaryKindList GetUpgradableMilitaryKindList(Military m)
+        {
+            this.UpgradableMilitaryKindList.Clear();
+            foreach (MilitaryKind mk in m.Kind.GetLevelUpKinds())
+            {
+                if (!this.BelongedFaction.IsMilitaryKindOverLimit(mk.ID))
+                {
+                    this.UpgradableMilitaryKindList.Add(mk);
+                }
+            }
+            return this.UpgradableMilitaryKindList;
         }
 
         public MilitaryKindList GetNewMilitaryKindList()
@@ -8028,20 +8062,11 @@
 
         public bool LevelUpAvail()
         {
-            foreach (Military military in this.Militaries)
-            {
-                if (((military.InjuryQuantity == 0) && military.Kind.CanLevelUp) && (military.Experience >= military.Kind.LevelUpExperience)
-                     && (!military.BelongedFaction.IsMilitaryKindOverLimit(military.Kind.LevelUpKindID)))
-                {
-                    return true;
-                }
-            }
-            return false;
+            return GetLevelUpMilitaryList().Count > 0;
         }
 
-        public void LevelUpMilitary(Military m)
+        public void LevelUpMilitary(Military m, MilitaryKind militaryKind)
         {
-            MilitaryKind militaryKind = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(m.Kind.LevelUpKindID);
             if ((militaryKind != null) && (!m.BelongedFaction.IsMilitaryKindOverLimit(militaryKind.ID)))
             {
                 int num = (m.Quantity * militaryKind.MinScale) / m.Kind.MinScale;
@@ -9483,21 +9508,6 @@
                 {
                     current = enumerator.Current;
                     if (current == mk)
-                    {
-                        return true;
-                    }
-                }
-            }
-            foreach (MilitaryKind i in base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.Values)
-            {
-                if (i.LevelUpKindID == mk.ID)
-                {
-                    crlm_recurse_level++;
-                    if (crlm_recurse_level > 50)
-                    {
-                        return false;
-                    }
-                    if (CanRecruitLowerMilitary_r(i))
                     {
                         return true;
                     }

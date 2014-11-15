@@ -947,7 +947,8 @@
                 militaryKind.OffencePerScale = (short)reader["OffencePerScale"];
                 militaryKind.DefencePerScale = (short)reader["DefencePerScale"];
                 militaryKind.CanLevelUp = (bool)reader["CanLevelUp"];
-                militaryKind.LevelUpKindID = (short)reader["LevelUpKindID"];
+                StaticMethods.LoadFromString(militaryKind.LevelUpKindID, reader["LevelUpKindID"].ToString());
+                militaryKind.LevelUpKindID.RemoveAll(i => i == -1);
                 militaryKind.LevelUpExperience = (int)reader["LevelUpExperience"];
                 militaryKind.OffencePer100Experience = (short)reader["OffencePer100Experience"];
                 militaryKind.DefencePer100Experience = (short)reader["DefencePer100Experience"];
@@ -2102,7 +2103,7 @@
                     row["DefencePerScale"] = i.DefencePerScale;
                     row["MaxScale"] = i.MaxScale;
                     row["CanLevelUp"] = i.CanLevelUp;
-                    row["LevelUpKindID"] = i.LevelUpKindID;
+                    row["LevelUpKindID"] = StaticMethods.SaveToString(i.LevelUpKindID);
                     row["LevelUpExperience"] = i.LevelUpExperience;
                     row["OffencePer100Experience"] = i.OffencePer100Experience;
                     row["DefencePer100Experience"] = i.DefencePer100Experience;

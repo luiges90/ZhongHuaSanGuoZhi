@@ -32,6 +32,7 @@
         GetBeMergedMilitaries,
         GetBeDisbandedMilitaries,
         GetLevelUpMilitaries,
+        GetLevelUpMiliaryKind,
         GetNewCapital,
         GetFriendlyDiplomaticRelation,
         GetAllyDiplomaticRelation,

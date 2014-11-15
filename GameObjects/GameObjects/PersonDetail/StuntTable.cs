@@ -18,6 +18,16 @@
             return true;
         }
 
+        public bool RemoveStunt(Stunt stunt)
+        {
+            if (!this.Stunts.ContainsKey(stunt.ID))
+            {
+                return false;
+            }
+            this.Stunts.Remove(stunt.ID);
+            return true;
+        }
+
         public void Clear()
         {
             this.Stunts.Clear();

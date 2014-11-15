@@ -280,6 +280,9 @@
                     case 320:
                         return this.Kind.AIPersonValue *
                             (base.Scenario.GameCommonData.AllCombatMethods.GetCombatMethod((int)p1).Combativity * this.Kind.AIPersonValuePow);
+                    case 330:
+                        return this.Kind.AIPersonValue *
+                            (base.Scenario.GameCommonData.AllStunts.GetStunt((int)p1).Combativity * this.Kind.AIPersonValuePow);
                     case 860:
                         return this.Kind.AIPersonValue *
                             (base.Scenario.GameCommonData.AllStratagems.GetStratagem((int)p1).Combativity * this.Kind.AIPersonValuePow);
