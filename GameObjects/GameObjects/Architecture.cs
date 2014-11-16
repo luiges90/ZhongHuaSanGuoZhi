@@ -9,6 +9,7 @@
     using GameObjects.PersonDetail;
     using GameObjects.PersonDetail.PersonMessages;
     using GameObjects.TroopDetail;
+    using GameObjects.Conditions;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using System;
@@ -12670,13 +12671,17 @@
             }
             if (this.HasHostileTroopsInView()) return false;
 
-            if (this.Population < 200000) return false;
-            if (this.Agriculture <= this.AgricultureCeiling * 0.95) return false;
-            if (this.Commerce <= this.CommerceCeiling * 0.95) return false;
-            if (this.Technology <= this.TechnologyCeiling * 0.95) return false;
-            if (this.Endurance <= this.EnduranceCeiling * 0.95) return false;
-            if (this.Morale <= this.MoraleCeiling * 0.95) return false;
-            if (this.Domination <= this.DominationCeiling * 0.95) return false;
+            for (int i = 0; i < Parameters.ExpandConditions.Count; i++)
+            {
+                Condition c = base.Scenario.GameCommonData.AllConditions.GetCondition(Parameters.ExpandConditions[i]);
+                if (c != null)
+                {
+                    if (!c.CheckCondition(this))
+                    {
+                        return false;
+                    }
+                }
+            }
 
             return true;
         }

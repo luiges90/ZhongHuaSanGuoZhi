@@ -2,6 +2,7 @@
 {
     using System;
     using System.Xml;
+    using System.Collections.Generic;
 
     public class Parameters
     {
@@ -174,6 +175,8 @@
         public static int MakeMarriageCost = 80000;
         public static int NafeiCost = 50000;
 
+        public static List<int> ExpandConditions = new List<int>();
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();
@@ -327,6 +330,8 @@
             InternalSurplusFactor = int.Parse(nextSibling.Attributes.GetNamedItem("InternalSurplusFactor").Value);
             AIExtraPerson = float.Parse(nextSibling.Attributes.GetNamedItem("AIExtraPerson").Value);
             AIExtraPersonIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIExtraPersonIncreaseRate").Value);
+
+            StaticMethods.LoadFromString(ExpandConditions, nextSibling.Attributes.GetNamedItem("ExpandConditions").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;
