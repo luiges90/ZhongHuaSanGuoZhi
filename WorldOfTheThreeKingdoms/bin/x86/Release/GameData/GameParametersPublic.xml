@@ -132,5 +132,6 @@ RetainFeiziPersonalLoyalty="3"
 AIEncirclePlayerRate="0"
 InternalSurplusFactor="10000000"
 AIExtraPerson="1.0"
-AIExtraPersonIncreaseRate="0.0">
+AIExtraPersonIncreaseRate="0.0"
+ExpandConditions="2261 2100 2110 2120 2130 2140 2150">
 </GameParameters>
