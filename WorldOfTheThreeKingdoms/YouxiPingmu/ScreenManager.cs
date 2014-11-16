@@ -414,7 +414,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.CurrentGameObjects = this.CurrentArchitecture.UpgradableMilitaryKindList.GetSelectedList();
                 if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
                 {
-                    this.CurrentArchitecture.CreateMilitary(this.CurrentGameObjects[0] as MilitaryKind);
+                    this.CurrentArchitecture.LevelUpMilitary(this.CurrentMilitary, this.CurrentGameObjects[0] as MilitaryKind);
                 }
             }
         }
