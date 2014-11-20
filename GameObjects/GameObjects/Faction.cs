@@ -715,11 +715,7 @@
         private void AIHouGong()
         {
             if (base.Scenario.IsPlayer(this)) return;
-            if (GlobalVariables.hougongGetChildrenRate <= 0) return;
-            // if (this.Leader.LocationArchitecture == null || this.Leader.LocationArchitecture.HasHostileTroopsInView()) return;
-
-            if (this.Leader.NumberOfChildren >= GlobalVariables.OfficerChildrenLimit) return;
-
+           
             int uncruelty = this.Leader.Uncruelty;
             int unAmbition = Enum.GetNames(typeof(PersonAmbition)).Length - (int)this.Leader.Ambition;
 
@@ -755,6 +751,11 @@
                     }
                 }
             }
+
+            if (GlobalVariables.hougongGetChildrenRate <= 0) return;
+            // if (this.Leader.LocationArchitecture == null || this.Leader.LocationArchitecture.HasHostileTroopsInView()) return;
+
+            if (this.Leader.NumberOfChildren >= GlobalVariables.OfficerChildrenLimit) return;
 
             // build hougong
             if (this.meinvkongjian() - this.feiziCount() <= 0 && !this.isAlien && 
