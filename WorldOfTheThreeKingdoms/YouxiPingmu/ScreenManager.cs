@@ -455,9 +455,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private void FrameFunction_Architecture_AfterSelectMarryTo()
         {
             GameObjectList selectedList = this.CurrentArchitecture.Persons.GetSelectedList();
-            if ((selectedList != null) && (selectedList.Count == 1))
+            if ((selectedList != null) && (selectedList.Count == 2))
             {
-                this.CurrentPerson.Marry(selectedList[0] as Person);
+                this.CurrentPerson.Marry(selectedList[1] as Person);
             }
         }
 
