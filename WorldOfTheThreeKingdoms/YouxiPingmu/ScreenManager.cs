@@ -457,7 +457,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             GameObjectList selectedList = this.CurrentArchitecture.Persons.GetSelectedList();
             if ((selectedList != null) && (selectedList.Count == 2))
             {
-                this.CurrentPerson.Marry(selectedList[1] as Person);
+                if (this.CurrentPerson == selectedList[0])
+                {
+                    this.CurrentPerson.Marry(selectedList[1] as Person);
+                }
+                else
+                {
+                    this.CurrentPerson.Marry(selectedList[0] as Person);
+                }
             }
         }
 
