@@ -2496,22 +2496,31 @@
 
                         if (GlobalVariables.getFieldsExcludedFromSave().Contains(i.Name)) continue;
 
-                        if (i.Name == name)
+                        if (i.Name.Equals(name))
                         {
-                            int outInt;
-                            float outDouble;
-                            bool outBool;
-                            if (int.TryParse(rawValue, out outInt))
+                            if (name.Equals("ExpandConditions"))
                             {
-                                i.SetValue(null, outInt);
+                                List<int> result = new List<int>();
+                                StaticMethods.LoadFromString(result, rawValue);
+                                i.SetValue(null, result);
                             }
-                            else if (float.TryParse(rawValue, out outDouble))
+                            else
                             {
-                                i.SetValue(null, outDouble);
-                            }
-                            else if (bool.TryParse(rawValue, out outBool))
-                            {
-                                i.SetValue(null, outBool);
+                                int outInt;
+                                float outDouble;
+                                bool outBool;
+                                if (int.TryParse(rawValue, out outInt))
+                                {
+                                    i.SetValue(null, outInt);
+                                }
+                                else if (float.TryParse(rawValue, out outDouble))
+                                {
+                                    i.SetValue(null, outDouble);
+                                }
+                                else if (bool.TryParse(rawValue, out outBool))
+                                {
+                                    i.SetValue(null, outBool);
+                                }
                             }
                             break;
                         }
