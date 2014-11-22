@@ -2551,19 +2551,26 @@
                     row = dataSet.Tables["GameParameters"].NewRow();
                     row.BeginEdit();
                     row["Name"] = i.Name;
-                    try
+                    if (i.Name.Equals("ExpandConditions"))
                     {
-                        row["Value"] = (int)i.GetValue(null);
+                        row["Value"] = StaticMethods.SaveToString((List<int>) i.GetValue(null));
                     }
-                    catch (InvalidCastException)
+                    else
                     {
                         try
                         {
-                            row["Value"] = (double)i.GetValue(null);
+                            row["Value"] = (int)i.GetValue(null);
                         }
                         catch (InvalidCastException)
                         {
-                            row["Value"] = i.GetValue(null).ToString();
+                            try
+                            {
+                                row["Value"] = (double)i.GetValue(null);
+                            }
+                            catch (InvalidCastException)
+                            {
+                                row["Value"] = i.GetValue(null).ToString();
+                            }
                         }
                     }
                     row.EndEdit();

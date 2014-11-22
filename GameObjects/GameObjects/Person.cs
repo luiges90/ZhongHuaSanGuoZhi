@@ -7713,6 +7713,8 @@
 
         public bool isLegalFeiZi(Person b)
         {
+            if (this == b) return false;
+
             if (this.Sex == b.Sex) return false;
 
             if ((b.Age < 16 || b.Age > 50) && GlobalVariables.PersonNaturalDeath) return false;
