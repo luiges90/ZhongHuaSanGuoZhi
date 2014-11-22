@@ -5795,6 +5795,7 @@
             this.BuildableFacilityKindList.Clear();
             foreach (FacilityKind kind in base.Scenario.GameCommonData.AllFacilityKinds.FacilityKinds.Values)
             {
+                if (GlobalVariables.hougongGetChildrenRate <= 0 && kind.rongna > 0) continue;
                 if (this.FacilityBuildable(kind))
                 {
                     this.BuildableFacilityKindList.Add(kind);
