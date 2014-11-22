@@ -674,11 +674,13 @@
             get
             {
                 if (!GlobalVariables.EnableCheat && this.DisplayName.Contains("*")) return false;
+                if (GlobalVariables.hougongGetChildrenRate <= 0 && this.Name.Equals("hougongTop")) return false;
                 return this.visible;
             }
             set
             {
                 if (!GlobalVariables.EnableCheat && this.DisplayName.Contains("*")) return;
+                if (GlobalVariables.hougongGetChildrenRate <= 0 && this.Name.Equals("hougongTop")) return;
                 this.visible = value;
                 if (value)
                 {
