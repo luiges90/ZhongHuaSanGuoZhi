@@ -657,7 +657,8 @@
 
             foreach (Person p in this.Persons)
             {
-                if (p.BelongedFaction != this || (p.WaitForFeiZi != null && p.WaitForFeiZi.BelongedFaction != this))
+                if (p.BelongedFaction != this || p.Spouse != null 
+                    || p.WaitForFeiZi == null || p.WaitForFeiZi.BelongedFaction != this || p.WaitForFeiZi.Spouse != null)
                 {
                     if (p.WaitForFeiZi != null)
                     {
