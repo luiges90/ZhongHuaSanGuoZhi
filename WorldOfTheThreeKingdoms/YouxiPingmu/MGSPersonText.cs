@@ -1348,12 +1348,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
             {
-                p.TextResultString = q.Name;
-                p.TextDestinationString = p.BelongedFaction.Leader.Name;
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p.BelongedFaction.Leader, p, TextMessageKind.MakeMarriage, "MakeMarriage", "CreateSpouse.jpg", "");
+                p.BelongedFaction.Leader.TextResultString = p.Name;
+                p.BelongedFaction.Leader.TextDestinationString = q.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p.BelongedFaction.Leader, p.BelongedFaction.Leader, TextMessageKind.MakeMarriage, "MakeMarriage", "CreateSpouse.jpg", "");
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
-                this.Plugins.GameRecordPlugin.AddBranch(p, "CreateSpouse", p.Position);
+                this.Plugins.GameRecordPlugin.AddBranch(p.BelongedFaction.Leader, "MakeMarriage", p.Position);
             }
         }
 
