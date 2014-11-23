@@ -997,6 +997,7 @@
                     this.OnBeAwardedTreasure(this, t);
                 }
                 this.IncreaseLoyalty(t.Worth);
+                this.AdjustIdealToFactionLeader(-t.Worth / 50);
             }
         }
 
@@ -1347,6 +1348,7 @@
                     this.OnBeConfiscatedTreasure(this, t);
                 }
                 this.DecreaseLoyalty(t.Worth * 2);
+                this.AdjustIdealToFactionLeader(t.Worth / 10 + 1);
                 if (GameObject.Random(this.Loyalty) <= GameObject.Random(10))
                 {
                     if (this.LocationArchitecture != null)
@@ -3842,6 +3844,79 @@
             return ((((this.Alive && !this.Available) && (this.YearAvailable <= base.Scenario.Date.Year)) && ((((GlobalVariables.CommonPersonAvailable && (base.ID >= 0)) && (base.ID <= 6999)) || ((GlobalVariables.AdditionalPersonAvailable && (base.ID >= 8000)) && (base.ID <= 8999))) || ((GlobalVariables.PlayerPersonAvailable && (base.ID >= 9000))))) && !base.Scenario.PreparedAvailablePersons.HasGameObject(this));
         }
 
+        public void AdjustIdealToFactionLeader(int diff)
+        {
+            if (this.BelongedFaction == null) return;
+            if (diff == 0) return;
+
+            if (diff > 75)
+            {
+                diff = 75;
+            }
+
+            int oldDiff = Person.GetIdealOffset(this, this.BelongedFaction.Leader);
+
+            if (this.Ideal == this.BelongedFaction.Leader.Ideal)
+            {
+                if (diff < 0) return;
+                this.Ideal += diff * (GameObject.Chance(50) ? 1 : -1);
+            }
+            else if (this.Ideal > this.BelongedFaction.Leader.Ideal)
+            {
+                if (this.Ideal < this.BelongedFaction.Leader.Ideal + 75)
+                {
+                    this.Ideal += Math.Min(oldDiff, diff);
+                }
+                else if (this.Ideal > this.BelongedFaction.Leader.Ideal + 75)
+                {
+                    this.Ideal -= Math.Min(oldDiff, diff);
+                }
+                else
+                {
+                    this.Ideal += diff * (GameObject.Chance(50) ? 1 : -1);
+                }
+            }
+            else
+            {
+                if (this.Ideal > this.BelongedFaction.Leader.Ideal - 75)
+                {
+                    this.Ideal -= Math.Min(oldDiff, diff);
+                }
+                else if (this.Ideal < this.BelongedFaction.Leader.Ideal - 75)
+                {
+                    this.Ideal += Math.Min(oldDiff, diff);
+                }
+                else
+                {
+                    this.Ideal += diff * (GameObject.Chance(50) ? 1 : -1);
+                }
+            }
+
+            this.Ideal = this.Ideal % 150;
+        }
+
+        private void AdjustIdeal()
+        {
+            if (this.BelongedFaction != null)
+            {
+                if (this.Status == PersonStatus.Captive)
+                {
+                    if (GameObject.Chance((10 - this.Uncruelty) * 10))
+                    {
+                        this.AdjustIdealToFactionLeader(1);
+                    }
+                }
+                else
+                {
+                    if (GameObject.Chance(this.IdealTendency.Offset / 4))
+                    {
+                        this.AdjustIdealToFactionLeader(-1);
+                    }
+                }
+
+            }
+        }
+
         public void MonthEvent()
         {
             if ((this.MonthIncrementOfTechniquePoint > 0) && (this.BelongedFaction != null))
@@ -3852,6 +3927,7 @@
             {
                 this.BelongedFaction.IncreaseReputation(this.MonthIncrementOfFactionReputation);
             }
+            this.AdjustIdeal();
         }
 
         public void resetPreferredWorkkind(bool[] need)
