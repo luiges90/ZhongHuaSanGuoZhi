@@ -52,6 +52,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label lblLearnTitleDays;
         private Label lblLearnStuntDays;
         private Label lblLearnSkillDays;
+        private Label lblSearchDays;
         private Label lblFollowedLeaderOffenceRateIncrement;
         private Label lblFollowedLeaderDefenceRateIncrement;
         private XmlDocument parameterDoc = new XmlDocument();
@@ -71,6 +72,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbLearnSkillDays;
         private TextBox tbLearnStuntDays;
         private TextBox tbLearnTitleDays;
+        private TextBox tbSearchDays;
         private TextBox tbTroopMoveSpeed;
         private TabControl tcOptions;
         private CheckBox cbPinPointAtPlayer;
@@ -357,6 +359,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbFollowedLeaderOffenceRateIncrement = new System.Windows.Forms.TextBox();
             this.lblLearnTitleDays = new System.Windows.Forms.Label();
             this.tbLearnTitleDays = new System.Windows.Forms.TextBox();
+            this.lblSearchDays = new System.Windows.Forms.Label();
+            this.tbSearchDays = new System.Windows.Forms.TextBox();
             this.lblLearnStuntDays = new System.Windows.Forms.Label();
             this.tbLearnStuntDays = new System.Windows.Forms.TextBox();
             this.lblLearnSkillDays = new System.Windows.Forms.Label();
@@ -1163,6 +1167,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.Controls.Add(this.tbLearnStuntDays);
             this.tabPagePerson.Controls.Add(this.lblLearnSkillDays);
             this.tabPagePerson.Controls.Add(this.tbLearnSkillDays);
+            this.tabPagePerson.Controls.Add(this.lblSearchDays);
+            this.tabPagePerson.Controls.Add(this.tbSearchDays);
             this.tabPagePerson.Controls.Add(this.lblFindTreasureChance);
             this.tabPagePerson.Controls.Add(this.tbFindTreasureChance);
             this.tabPagePerson.Controls.Add(this.cbPlayerPersonAvailable);
@@ -1420,6 +1426,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbLearnTitleDays.Name = "tbLearnTitleDays";
             this.tbLearnTitleDays.Size = new System.Drawing.Size(71, 22);
             this.tbLearnTitleDays.TabIndex = 18;
+            // 
+            // lblSearchDays
+            // 
+            this.lblSearchDays.AutoSize = true;
+            this.lblSearchDays.Location = new System.Drawing.Point(220, 245);
+            this.lblSearchDays.Name = "lblSearchDays";
+            this.lblSearchDays.Size = new System.Drawing.Size(77, 12);
+            this.lblSearchDays.TabIndex = 51;
+            this.lblSearchDays.Text = "搜索时间";
+            //
+            // tbSearchDays
+            //
+            this.tbSearchDays.Location = new System.Drawing.Point(278, 242);
+            this.tbSearchDays.Name = "tbSearchDays";
+            this.tbSearchDays.Size = new System.Drawing.Size(71, 21);
+            this.tbSearchDays.TabIndex = 50;
             // 
             // lblLearnStuntDays
             // 
@@ -2687,6 +2709,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbLearnSkillDays.Text = nextSibling.Attributes.GetNamedItem("LearnSkillDays").Value;
             this.tbLearnStuntDays.Text = nextSibling.Attributes.GetNamedItem("LearnStuntDays").Value;
             this.tbLearnTitleDays.Text = nextSibling.Attributes.GetNamedItem("LearnTitleDays").Value;
+            this.tbSearchDays.Text = nextSibling.Attributes.GetNamedItem("SearchDays").Value;
             this.tbFollowedLeaderOffenceRateIncrement.Text = nextSibling.Attributes.GetNamedItem("FollowedLeaderOffenceRateIncrement").Value;
             this.tbFollowedLeaderDefenceRateIncrement.Text = nextSibling.Attributes.GetNamedItem("FollowedLeaderDefenceRateIncrement").Value;
             this.tbInternalRate.Text = nextSibling.Attributes.GetNamedItem("InternalRate").Value;
@@ -2866,6 +2889,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkIntSave(nextSibling, "LearnSkillDays", this.lblLearnSkillDays, this.tbLearnSkillDays)) { return false; }
             if (!checkIntSave(nextSibling, "LearnStuntDays", this.lblLearnStuntDays, this.tbLearnStuntDays)) { return false; }
             if (!checkIntSave(nextSibling, "LearnTitleDays", this.lblLearnTitleDays, this.tbLearnTitleDays)) { return false; }
+            if (!checkIntSave(nextSibling, "SearchDays", this.lblSearchDays, this.tbSearchDays)) { return false; }
             if (!checkFloatSave(nextSibling, "FollowedLeaderOffenceRateIncrement", this.lblFollowedLeaderOffenceRateIncrement, this.tbFollowedLeaderOffenceRateIncrement)) { return false; }
             if (!checkFloatSave(nextSibling, "FollowedLeaderDefenceRateIncrement", this.lblFollowedLeaderDefenceRateIncrement, this.tbFollowedLeaderDefenceRateIncrement)) { return false; }
             if (!checkFloatSave(nextSibling, "InternalRate", this.lblInternalRate, this.tbInternalRate)) { return false; }

@@ -56,12 +56,12 @@
   <ItemGroup>
     <Reference Include="GameFreeText, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Release\GameFreeText.dll</HintPath>
+      <HintPath>..\..\GameFreeText\obj\x86\Debug\GameFreeText.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GameObjects, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Release\GameObjects.dll</HintPath>
+      <HintPath>..\..\GameObjects\obj\x86\Debug\GameObjects.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
@@ -77,12 +77,12 @@
     </Reference>
     <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Release\PluginInterface.dll</HintPath>
+      <HintPath>..\PluginInterface\obj\x86\Debug\PluginInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PluginServices, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Release\PluginServices.dll</HintPath>
+      <HintPath>..\bin\x86\Debug\PluginServices.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System">
@@ -150,6 +150,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ConfirmationDialogPlugin\ConfirmationDialogPlugin.csproj">
+      <Project>{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}</Project>
+      <Name>ConfirmationDialogPlugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\GameGlobal\GameGlobal.csproj">
       <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
       <Name>GameGlobal</Name>
