@@ -56,7 +56,7 @@
   <ItemGroup>
     <Reference Include="GameFreeText, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Debug\GameFreeText.dll</HintPath>
+      <HintPath>..\yinyong\GameFreeText.DLL</HintPath>
     </Reference>
     <Reference Include="GameGlobal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

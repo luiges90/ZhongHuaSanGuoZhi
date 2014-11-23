@@ -1274,14 +1274,10 @@
     <Compile Include="GameObjects\SortedBoundedSet.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3041.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind902.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind505.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1540.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind1550.cs" />
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind961.cs" />
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind962.cs" />
-    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind963.cs" />
     <Compile Include="GameObjects\FoodPack.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind330.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6160.cs" />

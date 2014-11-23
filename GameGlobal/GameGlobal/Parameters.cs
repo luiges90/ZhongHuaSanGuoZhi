@@ -41,7 +41,6 @@
         public static int LearnSkillDays = 30;
         public static int LearnStuntDays = 60;
         public static int LearnTitleDays = 90;
-        public static int SearchDays = 10;
         public static int RecruitmentDomination = 50;
         public static int RecruitmentFundCost = 20;
         public static int RecruitmentMorale = 100;
@@ -187,7 +186,6 @@
             LearnSkillDays = int.Parse(nextSibling.Attributes.GetNamedItem("LearnSkillDays").Value);
             LearnStuntDays = int.Parse(nextSibling.Attributes.GetNamedItem("LearnStuntDays").Value);
             LearnTitleDays = int.Parse(nextSibling.Attributes.GetNamedItem("LearnTitleDays").Value);
-            SearchDays = int.Parse(nextSibling.Attributes.GetNamedItem("SearchDays").Value);
             FollowedLeaderOffenceRateIncrement = float.Parse(nextSibling.Attributes.GetNamedItem("FollowedLeaderOffenceRateIncrement").Value);
             FollowedLeaderDefenceRateIncrement = float.Parse(nextSibling.Attributes.GetNamedItem("FollowedLeaderDefenceRateIncrement").Value);
             InternalRate = float.Parse(nextSibling.Attributes.GetNamedItem("InternalRate").Value);

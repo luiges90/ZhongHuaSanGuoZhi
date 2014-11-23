@@ -3319,7 +3319,7 @@
             {
                 this.OutsideTask = OutsideTaskKind.搜索;
                 this.TargetArchitecture = this.LocationArchitecture;
-                this.ArrivingDays = Math.Max(1, Parameters.SearchDays);
+                this.ArrivingDays = 10;
                 this.TaskDays = this.ArrivingDays;
                 this.Status = PersonStatus.Moving;
                 ExtensionInterface.call("GoForSearch", new Object[] { this.Scenario, this });

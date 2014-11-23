@@ -33,19 +33,19 @@
   <ItemGroup>
     <Reference Include="GameFreeText, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameFreeText.dll</HintPath>
+      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\GameFreeText.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GameObjects, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameObjects.dll</HintPath>
+      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\GameObjects.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Game" />
     <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\PluginInterface.dll</HintPath>
+      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\PluginInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core">
@@ -59,10 +59,6 @@
     <Compile Include="DateRunnerPlugin\DateRunner.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConfirmationDialogPlugin\ConfirmationDialogPlugin.csproj">
-      <Project>{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}</Project>
-      <Name>ConfirmationDialogPlugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">
       <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
       <Name>GameGlobal</Name>
