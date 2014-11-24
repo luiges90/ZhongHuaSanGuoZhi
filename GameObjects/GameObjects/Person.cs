@@ -1659,7 +1659,7 @@
 
                             base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
 
-                            if (!GlobalVariables.PersonNaturalDeath)
+                            if (!GlobalVariables.PersonNaturalDeath || GlobalVariables.ChildrenAvailableAge <= 0)
                             {
                                 base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
                             }
