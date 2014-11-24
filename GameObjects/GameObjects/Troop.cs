@@ -1147,11 +1147,12 @@
                         {
                             this.SimulatingCombatMethod = method;
                             this.RefreshAllData();
-                            foreach (Point point in dayArea.Area)
+                            foreach (Troop troop in hostileTroopList)
                             {
+                                Point point = troop.Position;
                                 if (((!nullable.HasValue || hasTargetTroopFlag) || (nullable.Value == point)) && ((this.BelongedLegion == null) || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0)))
                                 {
-                                    moveCreditByPosition = positionCredits[point];
+                                    moveCreditByPosition = GetCreditByPosition(point);
                                     moveCreditByPosition.CurrentCombatMethod = method;
                                     moveCreditByPosition.Credit -= method.Combativity;
                                     if (moveCreditByPosition.Credit >= credit)
