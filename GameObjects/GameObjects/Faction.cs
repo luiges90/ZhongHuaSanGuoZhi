@@ -220,7 +220,7 @@
             }
         }
 
-        public PersonList PersonsExceptLeader
+        public PersonList PersonsInArchitecturesExceptLeader
         {
             get
             {
@@ -230,17 +230,6 @@
                     foreach (Person p in a.Persons)
                     {
                         if (p != this.Leader)  result.Add(p);
-                    }
-                    foreach (Person p in a.MovingPersons)
-                    {
-                        if (p != this.Leader) result.Add(p);
-                    }
-                }
-                foreach (Troop t in Troops)
-                {
-                    foreach (Person p in t.Persons)
-                    {
-                        if (p != this.Leader) result.Add(p);
                     }
                 }
                 return result;

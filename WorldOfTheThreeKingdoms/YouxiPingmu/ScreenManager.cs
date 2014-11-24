@@ -52,7 +52,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 Treasure currentGameObject = this.CurrentGameObject as Treasure;
                 if (currentGameObject.BelongedPerson != null)
                 {
-                    this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetAwardTreasurePerson, false, true, true, false, this.CurrentArchitecture.BelongedFaction.PersonsExceptLeader, null, "", "");
+                    this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetAwardTreasurePerson, false, true, true, false, this.CurrentArchitecture.BelongedFaction.PersonsInArchitecturesExceptLeader, null, "", "");
                 }
             }
         }
