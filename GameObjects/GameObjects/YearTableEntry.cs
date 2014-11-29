@@ -33,6 +33,25 @@
                 return factions;
             }
         }
+
+        public String FactionName1
+        {
+            get
+            {
+                if (factions.Count < 1) return "";
+                return factions[0].Name;
+            }
+        }
+
+        public String FactionName2
+        {
+            get
+            {
+                if (factions.Count < 2) return "";
+                return factions[1].Name;
+            }
+        }
+
         public bool IsGloballyKnown
         {
             get
