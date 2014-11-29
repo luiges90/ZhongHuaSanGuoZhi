@@ -4108,7 +4108,7 @@
         </Column>
       </Columns>
 	  <Tabs Margin="5">
-        <Tab ID="1"  Name="YearTable" DisplayName="年表" Columns="1 2">
+        <Tab ID="1"  Name="YearTable" DisplayName="年表" Columns="1 2 3 4">
         </Tab>
       </Tabs>
     </ListKind>
