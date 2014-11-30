@@ -689,10 +689,28 @@
                         if (p.LocationArchitecture == q.LocationArchitecture && p.LocationArchitecture != null &&
                             p.LocationArchitecture.Fund >= Parameters.MakeMarriageCost)
                         {
+                            if (p.WaitForFeiZi != null)
+                            {
+                                p.WaitForFeiZi.WaitForFeiZi = null;
+                            }
+                            if (q.WaitForFeiZi != null)
+                            {
+                                q.WaitForFeiZi.WaitForFeiZi = null;
+                            }
                             p.Marry(q);
+                            p.WaitForFeiZi = null;
+                            q.WaitForFeiZi = null;
                         }
                         else
                         {
+                            if (p.WaitForFeiZi != null)
+                            {
+                                p.WaitForFeiZi.WaitForFeiZi = null;
+                            }
+                            if (q.WaitForFeiZi != null)
+                            {
+                                q.WaitForFeiZi.WaitForFeiZi = null;
+                            }
                             p.WaitForFeiZi = q;
                             q.WaitForFeiZi = p;
                         }
