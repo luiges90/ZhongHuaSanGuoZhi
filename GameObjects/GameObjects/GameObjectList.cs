@@ -8,6 +8,7 @@
     using System.Reflection;
     using System.Runtime.CompilerServices;
     using System.Text;
+    using System.Linq;
 
     public class GameObjectList : IEnumerable
     {
@@ -374,6 +375,11 @@
         public void Sort(IComparer<GameObject> comparer)
         {
             this.gameObjects.Sort(comparer);
+        }
+
+        public void StableSort(IComparer<GameObject> comparer)
+        {
+            this.gameObjects = this.gameObjects.OrderBy<GameObject, GameObject>(x => x, comparer).ToList<GameObject>();
         }
 
         public override string ToString()
