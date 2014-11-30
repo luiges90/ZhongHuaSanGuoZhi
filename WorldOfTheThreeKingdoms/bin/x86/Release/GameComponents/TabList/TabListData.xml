@@ -4099,7 +4099,7 @@
                 FontColor="4294967295"
                 Align="Left">
         </Column>
-        <Column ID="4" Name="Content" IsNumber="false" DisplayName="内容" MinWidth="720" DetailLevel="1"
+        <Column ID="4" Name="Content" IsNumber="false" DisplayName="内容" MinWidth="560" DetailLevel="1"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
