@@ -846,6 +846,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.Browse, false, true, false, false, base.Scenario.AvailablePersons, null, "", "");
                     break;
 
+                case ContextMenuResult.Information_AllDeadPersons:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.Browse, false, true, false, false, base.Scenario.DeadPersons, null, "", "");
+                    break;
+
                 case ContextMenuResult.Information_AllMilitaries:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Military, FrameFunction.Browse, false, true, false, false, base.Scenario.Militaries, null, "", "");
                     break;

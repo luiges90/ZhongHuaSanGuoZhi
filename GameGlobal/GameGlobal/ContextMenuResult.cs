@@ -153,6 +153,7 @@
         Information_AllStates,
         Information_AllTreasures,
         Information_AllGuanjues,
+        Information_AllDeadPersons,
         Load,
         Save,
         System,

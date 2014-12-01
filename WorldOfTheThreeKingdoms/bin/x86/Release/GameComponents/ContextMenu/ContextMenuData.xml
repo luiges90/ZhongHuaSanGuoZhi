@@ -189,6 +189,7 @@
                 <MenuItem ID="12" Name="AllTerrainDetails" DisplayName="所有地形" />
 				<MenuItem ID="16" Name="AllGuanjues" DisplayName="所有官爵" />
                 <MenuItem ID="15" Name="AllTreasures" DisplayName="所有宝物*" />
+				<MenuItem ID="17" Name="AllDeadPersons" DisplayName="浪沙淘尽英雄" />
             </MenuItem>
             <MenuItem ID="5" Name="Save" DisplayName="存储进度" DisplayIfTrue="SaveAvail" />
             <MenuItem ID="6" Name="Load" DisplayName="读取进度" DisplayIfTrue="LoadAvail" />

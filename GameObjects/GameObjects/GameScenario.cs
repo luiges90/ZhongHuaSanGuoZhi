@@ -457,6 +457,22 @@
             }
         }
 
+        public PersonList DeadPersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person i in this.Persons)
+                {
+                    if (i.Status != PersonStatus.None && !i.Alive && i.Available)
+                    {
+                        result.Add(i);
+                    }
+                }
+                return result;
+            }
+        }
+
         public void AddPositionAreaInfluence(Troop troop, Point position, AreaInfluenceKind kind, int offset, float rate)
         {
             if (!this.PositionOutOfRange(position))

@@ -235,6 +235,10 @@
         {
             get
             {
+                if (!this.Alive)
+                {
+                    return 1;
+                }
                 if (this.Identity() != 0)
                 {
                     return injureRate;
@@ -4613,6 +4617,7 @@
             get
             {
                 if (!GlobalVariables.EnableAgeAbilityFactor) return 1;
+                if (!this.Alive) return 1;
 
                 float factor = 1;
                 if (this.Age < 0)
