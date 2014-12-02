@@ -1313,5 +1313,7 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6520.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind457.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6525.cs" />
+    <Compile Include="GameObjects\OngoingBattle.cs" />
+    <Compile Include="GameObjects\OngoingBattleList.cs" />
   </ItemGroup>
 </Project>
