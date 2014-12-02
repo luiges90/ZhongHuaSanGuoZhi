@@ -207,6 +207,9 @@
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationDayIncrease { get; set; }
 
+        public OngoingBattle Battle { get; set; }
+        public int BattleSelfDamage { get; set; }
+
         private Captive belongedCaptive;
         public Captive BelongedCaptive
         {
@@ -306,6 +309,10 @@
         {
             get
             {
+                if (!this.Alive)
+                {
+                    return 0;
+                }
                 if (this.Identity() != 0)
                 {
                     return tiredness;

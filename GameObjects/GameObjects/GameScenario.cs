@@ -29,6 +29,7 @@
 
         private Dictionary<int, Architecture> AllArchitectures = new Dictionary<int, Architecture>();
         private Dictionary<int, Person> AllPersons = new Dictionary<int, Person>();
+        public OngoingBattleList AllOngoingBattles = new OngoingBattleList();
         public ArchitectureList Architectures = new ArchitectureList();
         public Faction CurrentFaction;
         public Faction CurrentPlayer;
@@ -2982,6 +2983,28 @@
                 this.Regions.Add(region);
             }
             DbConnection.Close();
+            try
+            {
+                DbConnection.Open();
+                reader = new OleDbCommand("Select * From OngoingBattle", DbConnection).ExecuteReader();
+                while (reader.Read())
+                {
+                    OngoingBattle b = new OngoingBattle();
+                    b.Scenario = this;
+                    b.ID = (short)reader["ID"];
+                    b.StartDay = (int)reader["StartDay"];
+                    b.StartMonth = (int)reader["StartMonth"];
+                    b.StartYear = (int)reader["StartYear"];
+                    b.CalmDay = (int)reader["CalmDay"];
+                    b.Skirmish = (bool)reader["Skirmish"];
+                    AllOngoingBattles.Add(b);
+                }
+                DbConnection.Close();
+            }
+            catch (OleDbException)
+            {
+                //ignore
+            }
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Person", DbConnection).ExecuteReader();
             Dictionary<int, int> fatherIds = new Dictionary<int, int>();
@@ -3306,6 +3329,14 @@
                 catch 
                 {
                     person.InjureRate = 1;
+                }
+                try
+                {
+                    person.Battle = (OngoingBattle)this.AllOngoingBattles.GetGameObject((int)reader["Battle"]);
+                    person.BattleSelfDamage = (int)reader["BattleSelfDamage"];
+                }
+                catch
+                {
                 }
 
                 if (errors.Count > 0)
@@ -5484,6 +5515,8 @@
                     row["Tiredness"] = person.Tiredness;
                     row["OfficerKillCount"] = person.OfficerKillCount;
                     row["InjureRate"] = person.InjureRate;
+                    row["Battle"] = person.Battle == null ? -1 : person.Battle.ID;
+                    row["BattleSelfDamage"] = person.BattleSelfDamage;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
@@ -5515,6 +5548,33 @@
                 catch (OleDbException)
                 {
                     //ignore
+                }
+                try
+                {
+                    new OleDbCommand("Delete from OngoingBattle", selectConnection).ExecuteNonQuery();
+                    adapter = new OleDbDataAdapter("Select * from OngoingBattle", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    adapter.Fill(dataSet, "OngoingBattle");
+                    dataSet.Tables["OngoingBattle"].Rows.Clear();
+                    foreach (OngoingBattle b in this.AllOngoingBattles)
+                    {
+                        row = dataSet.Tables["OngoingBattle"].NewRow();
+                        row.BeginEdit();
+                        row["ID"] = b.ID;
+                        row["StartYear"] = b.StartYear;
+                        row["StartMonth"] = b.StartMonth;
+                        row["StartDay"] = b.StartDay;
+                        row["CalmDay"] = b.CalmDay;
+                        row["Skirmish"] = b.Skirmish;
+                        row.EndEdit();
+                        dataSet.Tables["OngoingBattle"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "PersonRelation");
+                    dataSet.Clear();
+                } 
+                catch (OleDbException)
+                {
+                    // ignore
                 }
                 if (saveMap)
                 {
