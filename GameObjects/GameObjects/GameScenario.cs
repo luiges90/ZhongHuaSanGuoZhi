@@ -2983,9 +2983,9 @@
                 this.Regions.Add(region);
             }
             DbConnection.Close();
+            DbConnection.Open();
             try
             {
-                DbConnection.Open();
                 reader = new OleDbCommand("Select * From OngoingBattle", DbConnection).ExecuteReader();
                 while (reader.Read())
                 {
@@ -2999,12 +2999,12 @@
                     b.Skirmish = (bool)reader["Skirmish"];
                     AllOngoingBattles.Add(b);
                 }
-                DbConnection.Close();
             }
             catch (OleDbException)
             {
                 //ignore
             }
+            DbConnection.Close();
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Person", DbConnection).ExecuteReader();
             Dictionary<int, int> fatherIds = new Dictionary<int, int>();
