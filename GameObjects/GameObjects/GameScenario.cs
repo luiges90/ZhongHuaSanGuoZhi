@@ -1014,6 +1014,53 @@
             }
         }
 
+        private void OngoingBattleDayEvent()
+        {
+            List<OngoingBattle> toRemove = new List<OngoingBattle>();
+            foreach (OngoingBattle ob in this.AllOngoingBattles)
+            {
+                ob.CalmDay++;
+                if (ob.CalmDay >= 5)
+                {
+                    Dictionary<Faction, int> factionDamages = new Dictionary<Faction, int>();
+                    List<Person> persons = new List<Person>();
+                    foreach (Person p in this.Persons)
+                    {
+                        if (p.Battle == ob) 
+                        {
+                            persons.Add(p);
+                            if (!factionDamages.ContainsKey(p.BelongedFaction))
+                            {
+                               factionDamages.Add(p.BelongedFaction, 0); 
+                            }
+                            factionDamages[p.BelongedFaction] += p.BattleSelfDamage;
+                        }
+                    }
+
+                    Architecture battleArch = ob.Architecture;
+
+                    bool first = true;
+                    foreach (Person p in persons)
+                    {
+                        this.YearTable.addBattleEntry(first, this.Date, ob, p, battleArch, factionDamages);
+                        p.Battle = null;
+                        first = false;
+                    }
+
+                    if (battleArch != null)
+                    {
+                        battleArch.Battle = null;
+                    }
+                    toRemove.Add(ob);
+                }
+            }
+
+            foreach (OngoingBattle i in toRemove)
+            {
+                this.AllOngoingBattles.Remove(i);
+            }
+        }
+
         public void DayPassedEvent()
         {
             ExtensionInterface.call("DayEvent", new Object[] { this });
@@ -1042,6 +1089,8 @@
                 }
             }
             //this.GameProgressCaution.Text = "运行势力";
+            this.OngoingBattleDayEvent();
+
             foreach (Faction faction in this.Factions.GetRandomList())
             {
                 faction.DayEvent();
@@ -2991,12 +3040,13 @@
                 {
                     OngoingBattle b = new OngoingBattle();
                     b.Scenario = this;
-                    b.ID = (short)reader["ID"];
-                    b.StartDay = (int)reader["StartDay"];
-                    b.StartMonth = (int)reader["StartMonth"];
+                    b.ID = (int)reader["ID"];
+                    b.StartDay = (short)reader["StartDay"];
+                    b.StartMonth = (short)reader["StartMonth"];
                     b.StartYear = (int)reader["StartYear"];
                     b.CalmDay = (int)reader["CalmDay"];
                     b.Skirmish = (bool)reader["Skirmish"];
+                    b.OriginalArchitectureFactionID = (int)reader["OriginalArchitectureFactionID"];
                     AllOngoingBattles.Add(b);
                 }
             }
@@ -3820,6 +3870,12 @@
                     architecture.SuspendTroopTransfer = (int)reader["SuspendTroopTransfer"];
                 }
                 catch { };
+
+                try
+                {
+                    architecture.Battle = (OngoingBattle) this.AllOngoingBattles.GetGameObject((int)reader["Battle"]);
+                }
+                catch { }
 
                 if (e.Count > 0)
                 {
@@ -5128,6 +5184,7 @@
                     row["MilitaryPopulation"] = architecture.MilitaryPopulation;
                     row["Informations"] = architecture.Informations.SaveToString();
                     row["SuspendTroopTransfer"] = architecture.SuspendTroopTransfer;
+                    row["Battle"] = architecture.Battle == null ? -1 : architecture.Battle.ID;
                     row.EndEdit();
                     dataSet.Tables["Architecture"].Rows.Add(row);
                 }
@@ -5566,10 +5623,11 @@
                         row["StartDay"] = b.StartDay;
                         row["CalmDay"] = b.CalmDay;
                         row["Skirmish"] = b.Skirmish;
+                        row["OriginalArchitectureFactionID"] = b.OriginalArchitectureFactionID;
                         row.EndEdit();
                         dataSet.Tables["OngoingBattle"].Rows.Add(row);
                     }
-                    adapter.Update(dataSet, "PersonRelation");
+                    adapter.Update(dataSet, "OngoingBattle");
                     dataSet.Clear();
                 } 
                 catch (OleDbException)

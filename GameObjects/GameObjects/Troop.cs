@@ -1471,15 +1471,146 @@
             }
         }
 
+        private void SetOngoingBattle(Troop other, int selfDamage)
+        {
+            OngoingBattle ob;
+            if (this.Leader.Battle != null && other.Leader.Battle != null) 
+            {
+                ob = this.Leader.Battle;
+
+                PersonList allOtherPersons = other.Leader.Battle.Persons;
+                foreach (Person p in allOtherPersons)
+                {
+                    p.Battle = ob;
+                }
+                other.Leader.Battle.Architecture.Battle = ob;
+            } 
+            else if (this.Leader.Battle != null)
+            {
+                ob = this.Leader.Battle;
+            }
+            else if (other.Leader.Battle != null)
+            {
+                ob = other.Leader.Battle;
+            }
+            else
+            {
+                ob = new OngoingBattle();
+                ob.ID = base.Scenario.AllOngoingBattles.GetFreeGameObjectID();
+                ob.StartYear = base.Scenario.Date.Year;
+                ob.StartMonth = base.Scenario.Date.Month;
+                ob.StartDay = base.Scenario.Date.Day;
+                ob.CalmDay = 0;
+                ob.Scenario = base.Scenario;
+
+                int distance = int.MaxValue;
+                Architecture nearest = null;
+                foreach (Architecture a in base.Scenario.Architectures)
+                {
+                    int d = base.Scenario.GetSimpleDistance(this.Position, a.ArchitectureArea.TopLeft);
+                    if (d < distance)
+                    {
+                        nearest = a;
+                        distance = d;
+                    }
+                }
+
+                ob.Skirmish = distance > 10;
+                ob.OriginalArchitectureFactionID = nearest.BelongedFaction.ID;
+
+                if (nearest.Battle != null)
+                {
+                    ob = nearest.Battle;
+                }
+                else
+                {
+                    nearest.Battle = ob;
+                    foreach (Person p in this.Persons)
+                    {
+                        p.Battle = ob;
+                        p.BattleSelfDamage = 0;
+                    }
+                    foreach (Person p in other.Persons)
+                    {
+                        p.Battle = ob;
+                        p.BattleSelfDamage = 0;
+                    }
+
+                    base.Scenario.AllOngoingBattles.Add(ob);
+                }
+            }
+
+            foreach (Person p in this.Persons)
+            {
+                p.BattleSelfDamage += selfDamage;
+            }
+            ob.CalmDay = 0;
+        }
+
+        private void SetOngoingBattle(Architecture other, int selfDamage)
+        {
+            OngoingBattle ob;
+            if (this.Leader.Battle != null && other.Battle != null)
+            {
+                ob = this.Leader.Battle;
+
+                PersonList allOtherPersons = other.Battle.Persons;
+                foreach (Person p in allOtherPersons)
+                {
+                    p.Battle = ob;
+                }
+                other.Battle = ob;
+            }
+            else if (this.Leader.Battle != null)
+            {
+                ob = this.Leader.Battle;
+            }
+            else if (other.Battle != null)
+            {
+                ob = other.Battle;
+            }
+            else
+            {
+                ob = new OngoingBattle();
+                ob.ID = base.Scenario.AllOngoingBattles.GetFreeGameObjectID();
+                ob.StartYear = base.Scenario.Date.Year;
+                ob.StartMonth = base.Scenario.Date.Month;
+                ob.StartDay = base.Scenario.Date.Day;
+                ob.CalmDay = 0;
+                ob.Skirmish = false;
+                ob.OriginalArchitectureFactionID = other.BelongedFaction.ID;
+                ob.Scenario = base.Scenario;
+
+                other.Battle = ob;
+                foreach (Person p in this.Persons)
+                {
+                    p.Battle = ob;
+                    p.BattleSelfDamage = 0;
+                }
+
+                base.Scenario.AllOngoingBattles.Add(ob);
+            }
+
+            foreach (Person p in this.Persons)
+            {
+                p.BattleSelfDamage += selfDamage;
+            }
+            ob.Skirmish = false;
+            ob.CalmDay = 0;
+        }
+
         private void ApplyDamageList()
         {
             foreach (TroopDamage damage in this.TroopDamageList)
             {
+                damage.SourceTroop.SetOngoingBattle(damage.DestinationTroop, damage.CounterDamage);
+                damage.DestinationTroop.SetOngoingBattle(damage.SourceTroop, damage.Damage);
                 this.HandleTroopDamage(damage);
             }
             this.TroopDamageList.Clear();
             foreach (ArchitectureDamage damage2 in this.ArchitectureDamageList)
             {
+                damage2.SourceTroop.SetOngoingBattle(damage2.DestinationArchitecture, damage2.CounterDamage);
                 this.HandleArchitectureDamage(damage2);
             }
             this.ArchitectureDamageList.Clear();
@@ -6170,8 +6301,6 @@
 
             damage.SourceTroop.Leader.TroopDamageDealt += damage.Damage;
             damage.DestinationTroop.Leader.TroopBeDamageDealt += damage.Damage;
-
-
 
             if (damage.AntiAttack)
             {

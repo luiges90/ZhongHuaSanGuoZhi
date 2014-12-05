@@ -233,6 +233,8 @@
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationIncrease { get; set; }
 
+        public OngoingBattle Battle { get; set; }
+
         public float facilityConstructionTimeRateDecrease = 0;
 
         public event BeginRecentlyAttacked OnBeginRecentlyAttacked;
