@@ -4316,8 +4316,15 @@
             Routeway routeway = new Routeway();
             routeway.Scenario = base.Scenario;
             routeway.ID = base.Scenario.Routeways.GetFreeGameObjectID();
-            routeway.Scenario.Routeways.AddRoutewayWithEvent(routeway);
-            this.BelongedFaction.AddRouteway(routeway);
+            if (GlobalVariables.LiangdaoXitong)
+            {
+                routeway.Scenario.Routeways.AddRoutewayWithEvent(routeway);
+                this.BelongedFaction.AddRouteway(routeway);
+            }
+            else
+            {
+                routeway.BelongedFaction = this.BelongedFaction;
+            }
             routeway.StartArchitecture = this;
             this.Routeways.Add(routeway);
             GameArea routewayStartPoints = this.GetRoutewayStartPoints();
