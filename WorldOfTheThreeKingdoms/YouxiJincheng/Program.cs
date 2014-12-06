@@ -25,6 +25,9 @@ namespace WorldOfTheThreeKingdoms
                 mutex.ReleaseMutex();
                 new MainProcessManager().Processing();
             }*/
+
+            string exeDir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            Directory.SetCurrentDirectory(exeDir);
             
             MainProcessManager mpm = new MainProcessManager();
             if (System.Diagnostics.Debugger.IsAttached)

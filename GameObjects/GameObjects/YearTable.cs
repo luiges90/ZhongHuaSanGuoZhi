@@ -428,7 +428,9 @@
         public void addBattleEntry(bool addYearTable, GameDate date, OngoingBattle ob, Person p, ArchitectureList architectures,
             Dictionary<Faction, int> factionDamages)
         {
-            if (factionDamages.Count < 2) return;
+            if (factionDamages.Count < 1) return;
+
+            if (p.BelongedFaction == null) return;
 
             String allFactionStrings = "";
             FactionList fl = new FactionList();
@@ -449,9 +451,7 @@
                 architectureStrings = architectureStrings.Substring(1);
             }
 
-            DateTime start = new DateTime(ob.StartYear, ob.StartMonth, ob.StartDay);
-            DateTime end = new DateTime(date.Year, date.Month, date.Day);
-            int dayDiff = (end - start).Days - 4;
+            int dayDiff = (date.Year - ob.StartYear) * 360 + (date.Month - ob.StartMonth) * 30 + (date.Day - ob.StartDay) - 5;
 
             Dictionary<Faction, int> totalDamages = new Dictionary<Faction, int>();
             foreach (Faction f in factionDamages.Keys)
@@ -558,14 +558,15 @@
             {
                 foreach (Architecture a in architectures)
                 {
-                    if (a.OldFactionName != a.BelongedFaction.Name)
+                    if ((a.BelongedFaction == null && a.OldFactionName.Equals(""))
+                        || (a.OldFactionName != a.BelongedFaction.Name))
                     {
                         if (addYearTable)
                         {
                             this.addTableEntry(date, fl, String.Format(yearTableStrings["battleOccupy"],
                                 p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                                 allFactionStrings + "之间",
-                                a.BelongedFaction.Name,
+                                a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                 a.Name,
                                 a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                 a.OldFactionName,
@@ -577,7 +578,7 @@
                             this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleOccupy_p"],
                                     p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                                     allFactionStrings + "之间",
-                                    a.BelongedFaction.Name,
+                                    a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                     a.Name,
                                     a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                     a.OldFactionName,
@@ -588,7 +589,7 @@
                             this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleOccupy_q"],
                                     p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                                     allFactionStrings + "之间",
-                                    a.BelongedFaction.Name,
+                                    a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                     a.Name,
                                     a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                     a.OldFactionName,
@@ -599,7 +600,7 @@
                             this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleOccupy_r"],
                                     p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                                     allFactionStrings + "之间",
-                                    a.BelongedFaction.Name,
+                                    a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                     a.Name,
                                     a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                     a.OldFactionName,
@@ -611,7 +612,10 @@
                         String offenderString = "";
                         foreach (Faction f in fl)
                         {
-                            offenderString += "、" + f.Name;
+                            if (f != a.BelongedFaction)
+                            {
+                                offenderString += "、" + f.Name;
+                            }
                         }
                         offenderString = offenderString.Substring(1);
 
@@ -620,7 +624,7 @@
                             this.addTableEntry(date, fl, String.Format(yearTableStrings["battleRetreat"],
                                 p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                                 allFactionStrings + "之间",
-                                a.BelongedFaction.Name,
+                                a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                 a.Name,
                                 offenderString,
                                 a.OldFactionName,
@@ -632,7 +636,7 @@
                             this.addTableEntry(date, fl, String.Format(yearTableStrings["battleRetreat_p"],
                                 p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                                 allFactionStrings + "之间",
-                                a.BelongedFaction.Name,
+                                a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                 a.Name,
                                 offenderString,
                                 a.OldFactionName,
@@ -643,7 +647,7 @@
                             this.addTableEntry(date, fl, String.Format(yearTableStrings["battleRetreat_q"],
                                 p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                                 allFactionStrings + "之间",
-                                a.BelongedFaction.Name,
+                                a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                 a.Name,
                                 offenderString,
                                 a.OldFactionName,

@@ -1026,7 +1026,7 @@
                     List<Person> persons = new List<Person>();
                     foreach (Person p in this.Persons)
                     {
-                        if (p.Battle == ob) 
+                        if (p.Battle == ob && p.BelongedFaction != null) 
                         {
                             persons.Add(p);
                             if (!factionDamages.ContainsKey(p.BelongedFaction))

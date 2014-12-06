@@ -16,3 +16,4 @@ MakePublic.bat
 publicExclude.txt
 JubenBianjiqi.vshost.exe
 JubenBianjiqi.vshost.exe.manifest
+ScenarioGenerator.exe
