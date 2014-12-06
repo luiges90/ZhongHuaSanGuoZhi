@@ -440,11 +440,14 @@
             allFactionStrings = allFactionStrings.Substring(1);
 
             String architectureStrings = "";
-            foreach (Architecture a in architectures)
+            if (architectures.Count > 0)
             {
-                architectureStrings += "、" + a.Name;
+                foreach (Architecture a in architectures)
+                {
+                    architectureStrings += "、" + a.Name;
+                }
+                architectureStrings = architectureStrings.Substring(1);
             }
-            architectureStrings = architectureStrings.Substring(1);
 
             DateTime start = new DateTime(ob.StartYear, ob.StartMonth, ob.StartDay);
             DateTime end = new DateTime(date.Year, date.Month, date.Day);

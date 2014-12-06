@@ -242,6 +242,10 @@
             {
                 if (oldFactionName == null || oldFactionName.Equals(""))
                 {
+                    if (this.BelongedFaction == null)
+                    {
+                        return "";
+                    }
                     return this.BelongedFaction.Name;
                 }
                 return oldFactionName;
