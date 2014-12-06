@@ -11,15 +11,6 @@ namespace GameObjects
         public int CalmDay { get; set; }
         public bool Skirmish { get; set; }
 
-        public int OriginalArchitectureFactionID { get; set; }
-        public Faction OriginalArchitectureFaction
-        {
-            get
-            {
-                return (Faction) base.Scenario.Factions.GetGameObject(OriginalArchitectureFactionID);
-            }
-        }
-
         public PersonList Persons
         {
             get
@@ -36,20 +27,19 @@ namespace GameObjects
             }
         }
 
-        public Architecture Architecture
+        public ArchitectureList Architectures
         {
             get
             {
-                Architecture battleArch = null;
+                ArchitectureList result = new ArchitectureList();
                 foreach (Architecture a in base.Scenario.Architectures)
                 {
                     if (a.Battle == this)
                     {
-                        battleArch = a;
-                        break;
+                        result.Add(a);
                     }
                 }
-                return battleArch;
+                return result;
             }
         }
 

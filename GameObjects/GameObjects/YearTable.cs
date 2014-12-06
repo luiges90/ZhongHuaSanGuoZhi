@@ -425,27 +425,30 @@
             this.addPersonInGameBiography(q, date, String.Format(yearTableStrings["challengeDrawBothKilled_q"], p.Name, q.Name));
         }
 
-        public void addBattleEntry(bool addYearTable, GameDate date, OngoingBattle ob, Person p, Architecture architecture,
+        public void addBattleEntry(bool addYearTable, GameDate date, OngoingBattle ob, Person p, ArchitectureList architectures,
             Dictionary<Faction, int> factionDamages)
         {
+            if (factionDamages.Count < 2) return;
+
             String allFactionStrings = "";
-            String offenderStrings = "";
             FactionList fl = new FactionList();
             foreach (Faction f in factionDamages.Keys)
             {
                 allFactionStrings += "、" + (f == null ? "贼军" : f.Name);
-                if (f != ob.OriginalArchitectureFaction)
-                {
-                    offenderStrings += "、" + (f == null ? "贼军" : f.Name);
-                }
                 fl.Add(f);
             }
             allFactionStrings = allFactionStrings.Substring(1);
-            offenderStrings = offenderStrings.Substring(1);
+
+            String architectureStrings = "";
+            foreach (Architecture a in architectures)
+            {
+                architectureStrings += "、" + a.Name;
+            }
+            architectureStrings = architectureStrings.Substring(1);
 
             DateTime start = new DateTime(ob.StartYear, ob.StartMonth, ob.StartDay);
             DateTime end = new DateTime(date.Year, date.Month, date.Day);
-            int dayDiff = (end - start).Days - 5;
+            int dayDiff = (end - start).Days - 4;
 
             Dictionary<Faction, int> totalDamages = new Dictionary<Faction, int>();
             foreach (Faction f in factionDamages.Keys)
@@ -531,107 +534,122 @@
                     this.addTableEntry(date, fl, String.Format(yearTableStrings["battleSkirmish"],
                         p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                         allFactionStrings + "之间",
-                        offenderStrings,
-                        architecture.Name,
-                        architecture.BelongedFaction == null ? "贼军" : architecture.BelongedFaction.Name,
-                        ob.OriginalArchitectureFaction == null ? "贼军" : ob.OriginalArchitectureFaction.Name,
+                        "",
+                        architectureStrings,
+                        "",
+                        "",
                         dayDiff + "天",
                         victorDescription), false);
                 }
                 this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleSkirmish_p"],
                     p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                     allFactionStrings + "之间",
-                    offenderStrings,
-                    architecture.Name,
-                    architecture.BelongedFaction == null ? "贼军" : architecture.BelongedFaction.Name,
-                    ob.OriginalArchitectureFaction == null ? "贼军" : ob.OriginalArchitectureFaction.Name,
+                    "",
+                    architectureStrings,
+                    "",
+                    "",
                     dayDiff + "天",
                     selfDescription));
             }
-            else if (architecture.BelongedFaction != ob.OriginalArchitectureFaction)
-            {
-                if (addYearTable)
-                {
-                    this.addTableEntry(date, fl, String.Format(yearTableStrings["battleOccupy"],
-                        p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
-                        allFactionStrings + "之间",
-                        offenderStrings,
-                        architecture.Name,
-                        architecture.BelongedFaction == null ? "贼军" : architecture.BelongedFaction.Name,
-                        ob.OriginalArchitectureFaction == null ? "贼军" : ob.OriginalArchitectureFaction.Name,
-                        dayDiff + "天"), false);
-                }
-                if (p.BelongedFaction == architecture.BelongedFaction)
-                {
-                    this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleOccupy_p"],
-                        p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
-                        allFactionStrings + "之间",
-                        offenderStrings,
-                        architecture.Name,
-                        architecture.BelongedFaction == null ? "贼军" : architecture.BelongedFaction.Name,
-                        ob.OriginalArchitectureFaction == null ? "贼军" : ob.OriginalArchitectureFaction.Name,
-                        dayDiff + "天"));
-                }
-                else if (p.BelongedFaction == ob.OriginalArchitectureFaction)
-                {
-                    this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleOccupy_q"],
-                       p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
-                       allFactionStrings + "之间",
-                       offenderStrings,
-                       architecture.Name,
-                       architecture.BelongedFaction == null ? "贼军" : architecture.BelongedFaction.Name,
-                       ob.OriginalArchitectureFaction == null ? "贼军" : ob.OriginalArchitectureFaction.Name,
-                        dayDiff + "天"));
-                }
-                else
-                {
-                    this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleOccupy_r"],
-                       p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
-                       allFactionStrings + "之间",
-                       offenderStrings,
-                       architecture.Name,
-                       architecture.BelongedFaction == null ? "贼军" : architecture.BelongedFaction.Name,
-                       ob.OriginalArchitectureFaction == null ? "贼军" : ob.OriginalArchitectureFaction.Name,
-                        dayDiff + "天"));
-                }
-
-            }
             else
             {
-                if (addYearTable)
+                foreach (Architecture a in architectures)
                 {
-                    this.addTableEntry(date, fl, String.Format(yearTableStrings["battleRetreat"],
-                        p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
-                        allFactionStrings + "之间",
-                        offenderStrings,
-                        architecture.Name,
-                        offenderStrings,
-                        ob.OriginalArchitectureFaction == null ? "贼军" : ob.OriginalArchitectureFaction.Name,
-                        dayDiff + "天"), false);
+                    if (a.OldFactionName != a.BelongedFaction.Name)
+                    {
+                        if (addYearTable)
+                        {
+                            this.addTableEntry(date, fl, String.Format(yearTableStrings["battleOccupy"],
+                                p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
+                                allFactionStrings + "之间",
+                                a.BelongedFaction.Name,
+                                a.Name,
+                                a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
+                                a.OldFactionName,
+                                dayDiff + "天"), false);
+                        }
+
+                        if (p.BelongedFaction == a.BelongedFaction)
+                        {
+                            this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleOccupy_p"],
+                                    p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
+                                    allFactionStrings + "之间",
+                                    a.BelongedFaction.Name,
+                                    a.Name,
+                                    a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
+                                    a.OldFactionName,
+                                    dayDiff + "天"));
+                        }
+                        else if (p.BelongedFaction.Name == a.OldFactionName)
+                        {
+                            this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleOccupy_q"],
+                                    p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
+                                    allFactionStrings + "之间",
+                                    a.BelongedFaction.Name,
+                                    a.Name,
+                                    a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
+                                    a.OldFactionName,
+                                    dayDiff + "天"));
+                        }
+                        else
+                        {
+                            this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleOccupy_r"],
+                                    p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
+                                    allFactionStrings + "之间",
+                                    a.BelongedFaction.Name,
+                                    a.Name,
+                                    a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
+                                    a.OldFactionName,
+                                    dayDiff + "天"));
+                        }
+                    }
+                    else
+                    {
+                        String offenderString = "";
+                        foreach (Faction f in fl)
+                        {
+                            offenderString += "、" + f.Name;
+                        }
+                        offenderString = offenderString.Substring(1);
+
+                        if (addYearTable)
+                        {
+                            this.addTableEntry(date, fl, String.Format(yearTableStrings["battleRetreat"],
+                                p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
+                                allFactionStrings + "之间",
+                                a.BelongedFaction.Name,
+                                a.Name,
+                                offenderString,
+                                a.OldFactionName,
+                                dayDiff + "天"), false);
+                        }
+
+                        if (a.BelongedFaction == p.BelongedFaction)
+                        {
+                            this.addTableEntry(date, fl, String.Format(yearTableStrings["battleRetreat_p"],
+                                p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
+                                allFactionStrings + "之间",
+                                a.BelongedFaction.Name,
+                                a.Name,
+                                offenderString,
+                                a.OldFactionName,
+                                dayDiff + "天"), false);
+                        }
+                        else
+                        {
+                            this.addTableEntry(date, fl, String.Format(yearTableStrings["battleRetreat_q"],
+                                p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
+                                allFactionStrings + "之间",
+                                a.BelongedFaction.Name,
+                                a.Name,
+                                offenderString,
+                                a.OldFactionName,
+                                dayDiff + "天"), false);
+                        }
+                    }
                 }
-                if (p.BelongedFaction == architecture.BelongedFaction)
-                {
-                    this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleRetreat_p"],
-                        p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
-                        allFactionStrings + "之间",
-                        offenderStrings,
-                        architecture.Name,
-                        offenderStrings,
-                        ob.OriginalArchitectureFaction == null ? "贼军" : ob.OriginalArchitectureFaction.Name,
-                        dayDiff + "天"));
-                }
-                else
-                {
-                    this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleRetreat_q"],
-                       p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
-                       allFactionStrings + "之间",
-                       offenderStrings,
-                       architecture.Name,
-                       offenderStrings,
-                       ob.OriginalArchitectureFaction == null ? "贼军" : ob.OriginalArchitectureFaction.Name,
-                        dayDiff + "天"));
-                }
-            }
+            } 
+            
 
         }
 

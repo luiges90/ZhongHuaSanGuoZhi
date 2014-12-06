@@ -1037,7 +1037,7 @@
                         }
                     }
 
-                    Architecture battleArch = ob.Architecture;
+                    ArchitectureList battleArch = ob.Architectures;
 
                     bool first = true;
                     foreach (Person p in persons)
@@ -1047,10 +1047,12 @@
                         first = false;
                     }
 
-                    if (battleArch != null)
+                    foreach (Architecture a in battleArch)
                     {
-                        battleArch.Battle = null;
+                        a.Battle = null;
                     }
+
+
                     toRemove.Add(ob);
                 }
             }
@@ -3046,7 +3048,6 @@
                     b.StartYear = (int)reader["StartYear"];
                     b.CalmDay = (int)reader["CalmDay"];
                     b.Skirmish = (bool)reader["Skirmish"];
-                    b.OriginalArchitectureFactionID = (int)reader["OriginalArchitectureFactionID"];
                     AllOngoingBattles.Add(b);
                 }
             }
@@ -3876,6 +3877,13 @@
                     architecture.Battle = (OngoingBattle) this.AllOngoingBattles.GetGameObject((int)reader["Battle"]);
                 }
                 catch { }
+
+                try
+                {
+                    architecture.OldFactionName = reader["OldFactionName"].ToString();
+                }
+                catch { }
+
 
                 if (e.Count > 0)
                 {
@@ -5185,6 +5193,7 @@
                     row["Informations"] = architecture.Informations.SaveToString();
                     row["SuspendTroopTransfer"] = architecture.SuspendTroopTransfer;
                     row["Battle"] = architecture.Battle == null ? -1 : architecture.Battle.ID;
+                    row["OldFactionName"] = architecture.OldFactionName;
                     row.EndEdit();
                     dataSet.Tables["Architecture"].Rows.Add(row);
                 }
@@ -5623,7 +5632,6 @@
                         row["StartDay"] = b.StartDay;
                         row["CalmDay"] = b.CalmDay;
                         row["Skirmish"] = b.Skirmish;
-                        row["OriginalArchitectureFactionID"] = b.OriginalArchitectureFactionID;
                         row.EndEdit();
                         dataSet.Tables["OngoingBattle"].Rows.Add(row);
                     }

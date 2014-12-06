@@ -235,6 +235,23 @@
 
         public OngoingBattle Battle { get; set; }
 
+        private String oldFactionName = "";
+        public String OldFactionName
+        {
+            get
+            {
+                if (oldFactionName == null || oldFactionName.Equals(""))
+                {
+                    return this.BelongedFaction.Name;
+                }
+                return oldFactionName;
+            }
+            set
+            {
+                oldFactionName = value;
+            }
+        }
+
         public float facilityConstructionTimeRateDecrease = 0;
 
         public event BeginRecentlyAttacked OnBeginRecentlyAttacked;

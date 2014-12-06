@@ -1483,7 +1483,6 @@
                 {
                     p.Battle = ob;
                 }
-                other.Leader.Battle.Architecture.Battle = ob;
             } 
             else if (this.Leader.Battle != null)
             {
@@ -1516,7 +1515,6 @@
                 }
 
                 ob.Skirmish = distance > 10;
-                ob.OriginalArchitectureFactionID = nearest.BelongedFaction.ID;
 
                 if (nearest.Battle != null)
                 {
@@ -1578,7 +1576,6 @@
                 ob.StartDay = base.Scenario.Date.Day;
                 ob.CalmDay = 0;
                 ob.Skirmish = false;
-                ob.OriginalArchitectureFactionID = other.BelongedFaction.ID;
                 ob.Scenario = base.Scenario;
 
                 other.Battle = ob;
@@ -7633,6 +7630,7 @@
             Architecture currentArchitecture = this.CurrentArchitecture;
             if (currentArchitecture != null)
             {
+                currentArchitecture.OldFactionName = currentArchitecture.BelongedFaction == null ? "贼军" : currentArchitecture.BelongedFaction.Name;
                 foreach (Point point in currentArchitecture.ArchitectureArea.Area)
                 {
                     Troop troopByPositionNoCheck = base.Scenario.GetTroopByPositionNoCheck(point);
