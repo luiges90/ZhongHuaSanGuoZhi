@@ -3903,7 +3903,7 @@
                 }
             }
 
-            this.Ideal = this.Ideal % 150;
+            this.Ideal = (this.Ideal + 150) % 150;
         }
 
         private void AdjustIdeal()
