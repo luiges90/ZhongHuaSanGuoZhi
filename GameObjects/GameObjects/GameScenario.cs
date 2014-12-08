@@ -2649,7 +2649,7 @@
             }
         }
 
-        private List<string> LoadGameDataFromDataBase(OleDbConnection DbConnection, string connectionString)  //读剧本和读存档都调用了此函数
+        private List<string> LoadGameDataFromDataBase(OleDbConnection DbConnection, string connectionString, bool fromScenario)  //读剧本和读存档都调用了此函数
         {
             List<string> errorMsg = new List<string>();
 
@@ -3427,7 +3427,7 @@
                 Person p = (this.Persons.GetGameObject(i.Key) as Person);
                 Person q = this.Persons.GetGameObject(i.Value) as Person;
                 p.Spouse = q;
-                if (q != null)
+                if (q != null && fromScenario)
                 {
                     p.EnsureRelationAtLeast(q, Parameters.VeryCloseThreshold);
                 }
@@ -3443,7 +3443,7 @@
                             Person p = this.Persons.GetGameObject(i.Key) as Person;
                             Person q = this.Persons.GetGameObject(j.Key) as Person;
                             p.Brothers.Add(q);
-                            if (q != null)
+                            if (q != null && fromScenario)
                             {
                                 p.EnsureRelationAtLeast(q, Parameters.VeryCloseThreshold);
                             }
@@ -3459,7 +3459,7 @@
                         if (q != null)
                         {
                             p.Brothers.Add(q);
-                            if (q != null)
+                            if (q != null && fromScenario)
                             {
                                 p.EnsureRelationAtLeast(q, Parameters.VeryCloseThreshold);
                             }
@@ -4523,7 +4523,7 @@
         {
             this.Clear();
             OleDbConnection dbConnection = new OleDbConnection(connectionString);
-            this.LoadGameDataFromDataBase(dbConnection, connectionString);
+            this.LoadGameDataFromDataBase(dbConnection, connectionString, true);
             OleDbCommand command = new OleDbCommand("Select * From GameData", dbConnection);
             dbConnection.Open();
             OleDbDataReader reader = command.ExecuteReader();
@@ -4594,7 +4594,7 @@
             this.Clear();
 
             OleDbConnection dbConnection = new OleDbConnection(connectionString);
-            this.LoadGameDataFromDataBase(dbConnection, connectionString);
+            this.LoadGameDataFromDataBase(dbConnection, connectionString, false);
             OleDbCommand command = new OleDbCommand("Select * From GameData", dbConnection);
             dbConnection.Open();
             OleDbDataReader reader = command.ExecuteReader();

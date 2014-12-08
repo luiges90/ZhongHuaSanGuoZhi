@@ -1477,6 +1477,10 @@
 
             this.Spouse = p;
             p.Spouse = this;
+
+            this.AdjustRelation(p, 1, 50);
+            p.AdjustRelation(this, 1, 50);
+
             base.Scenario.YearTable.addCreateSpouseEntry(base.Scenario.Date, this, p);
             this.Scenario.GameScreen.MakeMarriage(this, p);
         }
