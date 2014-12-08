@@ -298,11 +298,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void FactionUpgradeTechnique(Faction faction, Technique technique, Architecture architecture)
         {
+            /*
             if (!base.Scenario.IsCurrentPlayer(faction))
             {
                 faction.TextDestinationString = technique.Name;
                 this.Plugins.GameRecordPlugin.AddBranch(faction, "UpgradeTechnique", faction.Capital.Position);
             }
+             * */
         }
 
         public override void shilijingong(Faction faction,int jingongzijin,string jingongzhonglei)

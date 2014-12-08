@@ -71,8 +71,10 @@
 
         public void addFactionTechniqueCompletedEntry(GameDate date, Faction f, FactionDetail.Technique t)
         {
+            /*
             this.addTableEntry(date, composeFactionList(f),
                 String.Format(yearTableStrings["upgradeTechniqueCompleted"], f.Name, t.Name), false);
+             * */
         }
 
         public void addKingDeathEntry(GameDate date, Person p, Faction oldFaction)
