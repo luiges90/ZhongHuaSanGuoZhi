@@ -1487,10 +1487,18 @@
             else if (this.Leader.Battle != null)
             {
                 ob = this.Leader.Battle;
+                foreach (Person p in other.Persons)
+                {
+                    p.Battle = ob;
+                }
             }
             else if (other.Leader.Battle != null)
             {
                 ob = other.Leader.Battle;
+                foreach (Person p in this.Persons)
+                {
+                    p.Battle = ob;
+                }
             }
             else
             {
@@ -1562,10 +1570,15 @@
             else if (this.Leader.Battle != null)
             {
                 ob = this.Leader.Battle;
+                other.Battle = ob;
             }
             else if (other.Battle != null)
             {
                 ob = other.Battle;
+                foreach (Person p in this.Persons)
+                {
+                    p.Battle = ob;
+                }
             }
             else
             {
