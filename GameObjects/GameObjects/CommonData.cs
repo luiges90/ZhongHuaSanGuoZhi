@@ -183,6 +183,14 @@
                 kind2.GenerationChance[6] = (int)reader["AllRounder"];
                 kind2.GenerationChance[7] = (int)reader["Normal"];
                 kind2.GenerationChance[8] = (int)reader["Cheap"];
+                try
+                {
+                    kind2.GenerationChance[9] = (int)reader["Normal2"];
+                }
+                catch
+                {
+                    kind2.GenerationChance[9] = kind2.GenerationChance[7];
+                }
                 this.AllCharacterKinds.Add(kind2);
             }
             connection.Close();
@@ -729,6 +737,14 @@
                 skill.GenerationChance[6] = (int)reader["AllRounder"];
                 skill.GenerationChance[7] = (int)reader["Normal"];
                 skill.GenerationChance[8] = (int)reader["Cheap"];
+                try
+                {
+                    skill.GenerationChance[9] = (int)reader["Normal2"];
+                }
+                catch
+                {
+                    skill.GenerationChance[9] = skill.GenerationChance[7];
+                }
                 skill.RelatedAbility = (int)reader["Ability"];
                 this.AllSkills.AddSkill(skill);
             }
@@ -844,6 +860,14 @@
                 title.GenerationChance[6] = (int)reader["AllRounder"];
                 title.GenerationChance[7] = (int)reader["Normal"];
                 title.GenerationChance[8] = (int)reader["Cheap"];
+                try
+                {
+                    title.GenerationChance[9] = (int)reader["Normal2"];
+                }
+                catch
+                {
+                    title.GenerationChance[9] = title.GenerationChance[7];
+                }
                 title.RelatedAbility = (int)reader["Ability"];
                 this.AllTitles.AddTitle(title);
             }
@@ -1107,6 +1131,14 @@
                 stunt.GenerationChance[6] = (int)reader["AllRounder"];
                 stunt.GenerationChance[7] = (int)reader["Normal"];
                 stunt.GenerationChance[8] = (int)reader["Cheap"];
+                try
+                {
+                    stunt.GenerationChance[9] = (int)reader["Normal2"];
+                }
+                catch
+                {
+                    stunt.GenerationChance[9] = stunt.GenerationChance[7];
+                }
                 stunt.RelatedAbility = (int)reader["Ability"];
                 this.AllStunts.AddStunt(stunt);
             }
@@ -1694,6 +1726,7 @@
                     row["AllRounder"] = i.GenerationChance[6];
                     row["Normal"] = i.GenerationChance[7];
                     row["Cheap"] = i.GenerationChance[8];
+                    row["Normal2"] = i.GenerationChance[9];
                     row.EndEdit();
                     dataSet.Tables["CharacterKind"].Rows.Add(row);
                 }
@@ -2196,6 +2229,7 @@
                     row["AllRounder"] = i.GenerationChance[6];
                     row["Normal"] = i.GenerationChance[7];
                     row["Cheap"] = i.GenerationChance[8];
+                    row["Normal2"] = i.GenerationChance[9];
                     row["Ability"] = i.RelatedAbility;
                     row.EndEdit();
                     dataSet.Tables["Skill"].Rows.Add(row);
@@ -2267,6 +2301,7 @@
                     row["AllRounder"] = i.GenerationChance[6];
                     row["Normal"] = i.GenerationChance[7];
                     row["Cheap"] = i.GenerationChance[8];
+                    row["Normal2"] = i.GenerationChance[9];
                     row["Ability"] = i.RelatedAbility;
                     row.EndEdit();
                     dataSet.Tables["Stunt"].Rows.Add(row);
@@ -2398,6 +2433,7 @@
                     row["AllRounder"] = i.GenerationChance[6];
                     row["Normal"] = i.GenerationChance[7];
                     row["Cheap"] = i.GenerationChance[8];
+                    row["Normal2"] = i.GenerationChance[9];
                     row["Ability"] = i.RelatedAbility;
                     row["MapLimit"] = i.MapLimit;
                     row["FactionLimit"] = i.FactionLimit;

@@ -38,7 +38,7 @@
 
         public PersonList Persons = new PersonList();
 
-        private int[] generationChance = new int[9];
+        private int[] generationChance = new int[10];
         public int[] GenerationChance
         {
             get

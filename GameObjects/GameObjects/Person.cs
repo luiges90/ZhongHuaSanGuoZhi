@@ -6980,7 +6980,7 @@
             return biography;
         }
 
-        private enum OfficerType { GENERAL, BRAVE, ADVISOR, POLITICIAN, INTEL_GENERAL, EMPEROR, ALL_ROUNDER, NORMAL, CHEAP };
+        private enum OfficerType { GENERAL, BRAVE, ADVISOR, POLITICIAN, INTEL_GENERAL, EMPEROR, ALL_ROUNDER, NORMAL_ADVISOR, CHEAP, NORMAL_GENERAL };
 
         public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder)
         {
@@ -7066,9 +7066,13 @@
             {
                 type = OfficerType.BRAVE;
             }
-            else if (typeInt < 950)
+            else if (typeInt < 740)
             {
-                type = OfficerType.NORMAL;
+                type = OfficerType.NORMAL_ADVISOR;
+            }
+            else if (typeInt < 980)
+            {
+                type = OfficerType.NORMAL_GENERAL;
             }
             else
             {
@@ -7176,15 +7180,29 @@
                         titleChance = 100;
                         break;
                     }
-                case OfficerType.NORMAL:
+                case OfficerType.NORMAL_ADVISOR:
                     {
                         r.Command = GameObject.RandomGaussian(60, 15);
                         r.Strength = GameObject.RandomGaussian(60, 15);
+                        r.Intelligence = GameObject.RandomGaussian(30, 15);
+                        r.Politics = GameObject.RandomGaussian(30, 15);
+                        r.Glamour = GameObject.RandomGaussian(45, 30);
+                        r.Braveness = GameObject.RandomGaussian(3, 2);
+                        r.Calmness = GameObject.RandomGaussian(5, 4);
+                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
+                        r.Ambition = GameObject.RandomGaussian(2, 2);
+                        titleChance = 33;
+                        break;
+                    }
+                case OfficerType.NORMAL_GENERAL:
+                    {
+                        r.Command = GameObject.RandomGaussian(30, 15);
+                        r.Strength = GameObject.RandomGaussian(30, 15);
                         r.Intelligence = GameObject.RandomGaussian(60, 15);
                         r.Politics = GameObject.RandomGaussian(60, 15);
-                        r.Glamour = GameObject.RandomGaussian(60, 15);
+                        r.Glamour = GameObject.RandomGaussian(45, 30);
                         r.Braveness = GameObject.RandomGaussian(5, 4);
-                        r.Calmness = GameObject.RandomGaussian(5, 4);
+                        r.Calmness = GameObject.RandomGaussian(3, 2);
                         r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
                         r.Ambition = GameObject.RandomGaussian(2, 2);
                         titleChance = 33;
