@@ -5607,7 +5607,10 @@
             Point? position = null;
             if (stratagem.IsValid(this))
             {
-                creditWithPosition = stratagem.GetCreditWithPosition(this, out position);
+                if (!stratagem.Influences.HasInfluenceKind(398) || base.Scenario.Troops.Count < GameObject.Random(30) + 20)
+                {
+                    creditWithPosition = stratagem.GetCreditWithPosition(this, out position);
+                }
             }
             if (((creditWithPosition > 0) && base.Scenario.PositionIsOnFire(this.Position)) && (((this.BelongedFaction == null) && this.ViewArea.HasPoint(this.Position)) || ((this.BelongedFaction != null) && this.BelongedFaction.IsPositionKnown(this.Position))))
             {
