@@ -2712,13 +2712,15 @@
                     }
                 }
 
-                if (GameObject.Random(100 * this.BelongedFaction.PersonCount) < GlobalVariables.CreateRandomOfficerChance)
+                if (GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
+                    GlobalVariables.CreateRandomOfficerChance * 100)
                 {
                     pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
                     return true;
                 }
                 else if (!base.Scenario.IsPlayer(this.BelongedFaction) &&
-                    GameObject.Random(100 * this.BelongedFaction.PersonCount) < GlobalVariables.CreateRandomOfficerChance * (Parameters.AIExtraPerson - 1))
+                    GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
+                    GlobalVariables.CreateRandomOfficerChance * 100 * (Parameters.AIExtraPerson - 1))
                 {
                     pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
    

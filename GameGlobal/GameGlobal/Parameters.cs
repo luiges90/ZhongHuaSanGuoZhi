@@ -178,6 +178,8 @@
 
         public static List<int> ExpandConditions = new List<int>();
 
+        public static float SearchPersonArchitectureCountPower = 0;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();
@@ -334,6 +336,8 @@
             AIExtraPersonIncreaseRate = float.Parse(nextSibling.Attributes.GetNamedItem("AIExtraPersonIncreaseRate").Value);
 
             StaticMethods.LoadFromString(ExpandConditions, nextSibling.Attributes.GetNamedItem("ExpandConditions").Value);
+
+            SearchPersonArchitectureCountPower = float.Parse(nextSibling.Attributes.GetNamedItem("SearchPersonArchitectureCountPower").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;

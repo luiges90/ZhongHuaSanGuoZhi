@@ -132,7 +132,7 @@
 
         public static int MaxMilitaryExperience = 3000;
 
-        public static int CreateRandomOfficerChance = 5;
+        public static float CreateRandomOfficerChance = 5;
         public static int GeneratedOfficerFemaleChance = 5;
         public static int ChildrenAvailableAge = 12;
 
@@ -755,7 +755,7 @@
             }
             try
             {
-                CreateRandomOfficerChance = int.Parse(nextSibling.Attributes.GetNamedItem("CreateRandomOfficerChance").Value);
+                CreateRandomOfficerChance = float.Parse(nextSibling.Attributes.GetNamedItem("CreateRandomOfficerChance").Value);
             }
             catch (Exception exception24)
             {
