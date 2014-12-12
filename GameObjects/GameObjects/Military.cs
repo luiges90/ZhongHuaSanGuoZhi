@@ -678,11 +678,10 @@
             }
         }
 
-
-        private bool bushiShuijunBingqieChuyuShuiyu()
+        public bool bushiShuijunBingqieChuyuShuiyu(Point position)
         {
-            if (GlobalVariables.LandArmyCanGoDownWater && this.kind != null && this.kind.Type != MilitaryType.水军 && 
-                base.Scenario.GetTerrainKindByPosition(this.Position) == TerrainKind.水域)
+            if (GlobalVariables.LandArmyCanGoDownWater && kind != null && kind.Type != MilitaryType.水军 &&
+                base.Scenario.GetTerrainKindByPosition(position) == TerrainKind.水域)
             {
                 return true;
             }
@@ -690,6 +689,11 @@
             {
                 return false;
             }
+        }
+
+        public bool bushiShuijunBingqieChuyuShuiyu()
+        {
+            return bushiShuijunBingqieChuyuShuiyu(this.Position);
         }
 
         public string KindString

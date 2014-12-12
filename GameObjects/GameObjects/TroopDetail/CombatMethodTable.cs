@@ -20,7 +20,7 @@
 
         public bool RemoveCombatMethod(CombatMethod combatMethod)
         {
-            if (this.CombatMethods.ContainsKey(combatMethod.ID))
+            if (!this.CombatMethods.ContainsKey(combatMethod.ID))
             {
                 return false;
             }

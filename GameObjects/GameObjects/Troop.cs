@@ -7933,24 +7933,36 @@
             return this.ControlAvail() && this.Army.Kind.MorphTo != null;
         }
 
+        private void preResetArmyKindData() 
+        {
+            foreach (Influence i in this.Army.Kind.Influences.Influences.Values)
+            {
+                i.PurifyInfluence(this, Applier.MilitaryKind, 0);
+            }
+            this.Persons.PurifyInfluences();
+        }
+
+        private void postResetArmyKindData()
+        {
+            foreach (Influence i in this.Army.Kind.Influences.Influences.Values)
+            {
+                i.ApplyInfluence(this, Applier.MilitaryKind, 0);
+            }
+            this.Persons.ApplyInfluences();
+            this.RefreshAllData();
+            this.offenceArea = null;
+            this.viewArea = null;
+        }
+
         public void Morph()
         {
             MilitaryKind target = this.Army.Kind.MorphTo;
             if (target != null)
             {
-                foreach (Influence i in this.Army.Kind.Influences.Influences.Values)
-                {
-                    i.PurifyInfluence(this, Applier.MilitaryKind, 0);
-                }
+                preResetArmyKindData();
                 this.Operated = true;
                 this.Army.Kind = target;
-                foreach (Influence i in this.Army.Kind.Influences.Influences.Values)
-                {
-                    i.ApplyInfluence(this, Applier.MilitaryKind, 0);
-                }
-                this.RefreshAllData();
-                this.offenceArea = null;
-                this.viewArea = null;
+                postResetArmyKindData();   
             }
         }
 
@@ -12026,8 +12038,23 @@
             {
                 if (!this.Destroyed)
                 {
+                    bool oldInWater = this.Army.bushiShuijunBingqieChuyuShuiyu(this.position);
+                    bool newInWater = this.Army.bushiShuijunBingqieChuyuShuiyu(value);
+                    bool changeArmyKind = oldInWater != newInWater;
+
+                    if (changeArmyKind) 
+                    {
+                        this.preResetArmyKindData();
+                    }
+
                     this.PreviousPosition = this.position;
                     this.position = value;
+
+                    if (changeArmyKind)
+                    {
+                        this.postResetArmyKindData();
+                    }
+
                     if (this.position != this.PreviousPosition)
                     {
                         this.Action = TroopAction.Move;
