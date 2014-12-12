@@ -3615,13 +3615,11 @@
         public FactionList GetEncircleFactionList(Faction target, bool simulate) 
         {
             FactionList encircleList = new FactionList();
-            int fc = 0;
             foreach (Faction f in base.Scenario.Factions)
             {
                 if (base.Scenario.IsPlayer(f)) continue; // TODO let player choose whether to enter
-                if ((f != target) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状) && !f.IsAlien)
+                if ((f != target) && (f.Leader.StrategyTendency != PersonStrategyTendency.维持现状 || GlobalVariables.IgnoreStrategyTendency) && !f.IsAlien)
                 {
-                    fc++;
                     if (((base.Scenario.DiplomaticRelations.GetDiplomaticRelation(base.Scenario, target.ID, f.ID).Relation +
                         Person.GetIdealOffset(target.Leader, f.Leader) * 1.5) < 0
                         && (GameObject.Chance(60) || simulate) && !f.IsFriendly(target) && (f.adjacentTo(target) || GameObject.Chance(30) || simulate))
@@ -3631,7 +3629,7 @@
                     }
                 }
             }
-            if ((encircleList.Count * 2 > fc) && fc > 3)
+            if (encircleList.Count >= 3 && (!simulate || encircleList.Count >= 6))
             {
                 return encircleList;
             }
