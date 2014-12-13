@@ -2243,14 +2243,6 @@
             if (person2 == null)
             {
                 list.Clear();
-                if (this.Leader.Spouse != null && this.Leader != this.Leader.Spouse && this.Leader.Spouse.BelongedFaction == this)
-                {
-                    person2 = this.Leader.Spouse;
-                }
-            }
-            if (person2 == null)
-            {
-                list.Clear();
                 foreach (Person person3 in this.Persons)
                 {
                     if ((this.Leader.Ideal == person3.Ideal) && (person3.Sex == this.Leader.Sex) && person3 != this.Leader)
