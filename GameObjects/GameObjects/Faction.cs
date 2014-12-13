@@ -2391,7 +2391,7 @@
             this.InformationDayEvent();
             if (!base.Scenario.IsPlayer(this))
             {
-                //this.AISelectPrince();
+                this.AISelectPrince();
                 this.AIchaotingshijian();
                 this.AIBecomeEmperor();
             }
@@ -2411,7 +2411,8 @@
                     Person person = this.Leader.ChildrenCanBeSelectedAsPrince()[0] as Person;
                     this.PrinceID = person.ID;
                     this.Capital.DecreaseFund(50000);
-                    this.Scenario.GameScreen.xianshishijiantupian(this.Leader, person.Name, "SelectPrince", "", "", true);
+                    this.Capital.SelectPrince(person); //AI立储年表和报告
+                    //this.Scenario.GameScreen.xianshishijiantupian(this.Leader, person.Name, "SelectPrince", "", "", true);
 
                 }
             }
