@@ -3711,16 +3711,25 @@
 
         public bool SelectPrinceAvail()
         {
-            return false;
-
-            /*if (this.BelongedFaction != null && this.BelongedFaction.PrinceID==-1&& this.Fund>50000 && this.BelongedFaction.Leader.ChildrenCanBeSelectedAsPrince().Count > 0)
+            if (this.BelongedFaction != null && this.BelongedFaction.PrinceID == -1&& this.Fund > 50000 && this.BelongedFaction.Leader.ChildrenCanBeSelectedAsPrince().Count > 0)
             {
                 return true;
             }
             else
             {
                 return false;
-            }*/
+            }
+        }
+
+        public event Selectprince OnSelectprince; //立储
+        public delegate void Selectprince(Person p, Person q);
+        public void SelectPrince(Person Person)
+        {
+            base.Scenario.YearTable.addSelectPrinceEntry(base.Scenario.Date, Person, this.BelongedFaction.Leader);
+            if (this.OnSelectprince != null)
+            {
+                this.OnSelectprince(this.BelongedFaction.Leader, Person);
+            }
         }
 
         public bool BecomeEmperorLegallyAvail()

@@ -17,7 +17,13 @@
                 architecture.OnBeginRecentlyAttacked += new Architecture.BeginRecentlyAttacked(this.architecture_OnBeginRecentlyAttacked);
                 architecture.OnPopulationEnter += new Architecture.PopulationEnter(this.architecture_OnPopulationEnter);
                 architecture.OnPopulationEscape += new Architecture.PopulationEscape(this.architecture_OnPopulationEscape);
+                architecture.OnSelectprince += new Architecture.Selectprince(this.architecture_OnSelectprince);
             }
+        }
+
+        public void architecture_OnSelectprince(Person p, Person q)//立储
+        {
+            p.Scenario.GameScreen.Selectprince(p, q);
         }
 
         public void ApplyInfluences()

@@ -768,6 +768,8 @@
         {
         }
 
+        public virtual void Selectprince(Person p, Person q) { }
+
         public virtual void CreateSpouse(Person p, Person q) { }
 
         public virtual void CreateBrother(Person p, Person q) { }

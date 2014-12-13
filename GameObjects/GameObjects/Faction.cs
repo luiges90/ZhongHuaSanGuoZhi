@@ -19,7 +19,8 @@
 
     public class Faction : GameObject
     {
-        public int PrinceID = -1;
+        private Person prince = null;
+        private int princeID;
         private bool isAlien = false;
         private int guanjuedezhi = 0;
         private int chaotinggongxiandudezhi = 0;
@@ -2115,10 +2116,9 @@
             PersonList list = new PersonList();
             if (person2 == null)
             {
-                foreach (Person person3 in this.Persons)
+                foreach (Person person3 in this.Persons) //储君优先继承
                 {
-                    if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && (person3.Father == this.Leader)
-                        && person3 != this.Leader)
+                    if (this.Prince != null && person3 == this.Prince && person3 != this.Leader)
                     {
                         list.Add(person3);
                     }
@@ -5165,6 +5165,54 @@
             get
             {
                 return ((this.Leader != null) ? this.Leader.Name : "----");
+            }
+        }
+
+        public Person Prince
+        {
+            get
+            {
+                if (this.princeID == -1)
+                {
+                    // this.princeID = this.Persons.GetMaxMeritPerson().ID;  // 程序会自动找个储君
+                }
+                if (this.prince == null)
+                {
+                    this.prince = base.Scenario.Persons.GetGameObject(this.PrinceID) as Person;
+                }
+                return this.prince;
+            }
+            set
+            {
+                this.prince = value;
+                if (this.prince != null)
+                {
+                    this.PrinceID = this.prince.ID;
+                }
+                else
+                {
+                    this.PrinceID = -1;
+                }
+            }
+        }
+
+        public int PrinceID
+        {
+            get
+            {
+                return this.princeID;
+            }
+            set
+            {
+                this.princeID = value;
+            }
+        }
+
+        public string PrinceName
+        {
+            get
+            {
+                return ((this.Prince != null) ? this.Prince.Name : "----");
             }
         }
 

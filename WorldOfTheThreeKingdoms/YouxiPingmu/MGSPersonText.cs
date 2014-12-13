@@ -1359,6 +1359,19 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void Selectprince(Person p, Person q)  //立储
+        {
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) || GlobalVariables.SkyEye))
+            {
+                p.TextResultString = q.Name;
+                q.TextResultString = p.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, p, TextMessageKind.SelectPrince, "SelectPrince", "SelectPrince.jpg", "");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "SelectPrince", p.Position);
+            }
+        }
+
         public override void NoFactionPersonArrivesAtArchitecture(Person p, Architecture a)
         {
             if (a.BelongedFaction != null && base.Scenario.IsPlayer(a.BelongedFaction) && p.Status == PersonStatus.NoFaction)

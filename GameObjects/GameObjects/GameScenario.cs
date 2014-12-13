@@ -3061,6 +3061,7 @@
             Dictionary<int, int> fatherIds = new Dictionary<int, int>();
             Dictionary<int, int> motherIds = new Dictionary<int, int>();
             Dictionary<int, int> spouseIds = new Dictionary<int, int>();
+            Dictionary<int, int[]> princeIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> brotherIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> closeIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> hatedIds = new Dictionary<int, int[]>();
@@ -5065,6 +5066,7 @@
                     row["PreUserControlFinished"] = faction.PreUserControlFinished;
                     row["Controlling"] = faction.Controlling;
                     row["LeaderID"] = faction.LeaderID;
+                    row["PrinceID"] = faction.PrinceID;
                     row["ColorIndex"] = faction.ColorIndex;
                     row["FName"] = faction.Name;
                     row["CapitalID"] = faction.CapitalID;

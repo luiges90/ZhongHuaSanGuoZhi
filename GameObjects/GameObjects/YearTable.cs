@@ -346,6 +346,16 @@
                 String.Format(yearTableStrings["becomePrincess_q"], p.Name, p.BelongedArchitecture.Name, leader.Name));
         }
 
+        public void addSelectPrinceEntry(GameDate date, Person p, Person leader)//立储
+        {
+            this.addTableEntry(date, composeFactionList(p.BelongedFaction),
+                String.Format(yearTableStrings["selectPrince"], p.Name, p.BelongedArchitecture.Name, leader.Name), false);
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["selectPrince_p"], p.Name, leader.Name));
+            this.addPersonInGameBiography(leader, date,
+                String.Format(yearTableStrings["selectPrince_q"], p.Name, leader.Name));
+        }
+
         public void addOutOfPrincessEntry(GameDate date, Person p, Faction capturer)
         {
             this.addPersonInGameBiography(p, date,

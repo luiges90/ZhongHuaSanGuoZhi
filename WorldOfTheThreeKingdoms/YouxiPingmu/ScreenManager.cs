@@ -1148,14 +1148,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_SelectPrince()
+        private void FrameFunction_Architecture_SelectPrince() //立储的作用
         {
             this.CurrentPerson = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
             if (this.CurrentPerson != null)
             {
                 this.CurrentArchitecture.BelongedFaction.PrinceID = this.CurrentPerson.ID;
                 this.CurrentArchitecture.DecreaseFund(50000);
-                this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.BelongedFaction.Leader, this.CurrentPerson.Name, "SelectPrince", "", "", true );
+                this.CurrentArchitecture.SelectPrince(this.CurrentPerson);
+                //this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.BelongedFaction.Leader, this.CurrentPerson.Name, "SelectPrince", "", "", true );
                 
             }
         }
