@@ -2410,7 +2410,7 @@
                 {
                     Person person = this.Leader.ChildrenCanBeSelectedAsPrince()[0] as Person;
                     this.PrinceID = person.ID;
-                    this.Capital.DecreaseFund(50000);
+                    this.Capital.DecreaseFund(Parameters.SelectPrinceCost);
                     this.Capital.SelectPrince(person); //AI立储年表和报告
                     //this.Scenario.GameScreen.xianshishijiantupian(this.Leader, person.Name, "SelectPrince", "", "", true);
 
