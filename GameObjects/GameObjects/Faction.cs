@@ -2135,6 +2135,30 @@
                     person2 = list[0] as Person;
                 }
             }
+
+            if (person2 == null)
+            {
+                list.Clear();
+                foreach (Person person3 in this.Persons)
+                {
+                    if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && (this.Leader == person3.Father) && person3 != this.Leader)
+                    {
+                        list.Add(person3);
+                    }
+                }
+                if (list.Count > 0)
+                {
+                    if (list.Count > 1)
+                    {
+                        list.PropertyName = "YearBorn";
+                        list.IsNumber = true;
+                        list.SmallToBig = true;
+                        list.ReSort();
+                    }
+                    person2 = list[0] as Person;
+                }
+            }
+
             if (person2 == null)
             {
                 list.Clear();
