@@ -2331,6 +2331,10 @@
             {
                 this.Leader = person2;
                 this.Leader.Loyalty = 100;
+                if (this.Prince != null && this.Prince == this.Leader) //储君继位移除储君身份
+                {
+                    this.Prince = null;
+                }
                 if (!((this.Leader.LocationTroop == null) || this.Leader.IsCaptive))
                 {
                     this.Leader.LocationTroop.RefreshWithPersonList(this.Leader.LocationTroop.Persons.GetList());
