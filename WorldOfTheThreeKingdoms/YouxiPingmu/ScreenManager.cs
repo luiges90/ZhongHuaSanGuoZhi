@@ -1154,7 +1154,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if (this.CurrentPerson != null)
             {
                 this.CurrentArchitecture.BelongedFaction.PrinceID = this.CurrentPerson.ID;
-                this.CurrentArchitecture.DecreaseFund(50000);
+                this.CurrentArchitecture.DecreaseFund(Parameters.SelectPrinceCost);
                 this.CurrentArchitecture.SelectPrince(this.CurrentPerson);
                 //this.mainGameScreen.xianshishijiantupian(this.CurrentArchitecture.BelongedFaction.Leader, this.CurrentPerson.Name, "SelectPrince", "", "", true );
                 
