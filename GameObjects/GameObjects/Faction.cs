@@ -2426,6 +2426,7 @@
             this.armyScale = this.ArmyScale; // 小写的是每天的缓存，因为被InternalSurplusRate叫很多次，不想每次都全部重新计算，大写的才是真正的值
             this.InternalSurplusRateCache = -1;
             this.visibleTroopsCache = null;
+            this.RemovePrince();
         }
 
 
@@ -5242,6 +5243,14 @@
             get
             {
                 return ((this.Prince != null) ? this.Prince.Name : "----");
+            }
+        }
+
+        public void RemovePrince() //检查储君有效性
+        {
+            if (this.Prince != null && (!this.Prince.Alive || !this.Prince.Available || this.Prince.BelongedFaction != this || this.Prince.BelongedFaction == null))
+            {
+                this.Prince = null;
             }
         }
 
