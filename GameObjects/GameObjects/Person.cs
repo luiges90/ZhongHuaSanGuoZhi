@@ -7647,6 +7647,16 @@
                 r.Mother.Name + "之" + (motherChildCount > 7 ? "" : order[motherChildCount]) + (r.Sex ? "女" : "子") + "。" +
                 "在" + r.father.Scenario.Date.Year + "年" + r.Father.Scenario.Date.Month + "月於" + bornArch.Name + "出生。";
 
+            Person root = father;
+            while (root.Father != null)
+            {
+                root = root.Father;
+            }
+            if (root != father)
+            {
+                biography += "祖先為" + root.Name + "。";
+            }
+
             biography += Person.GenerateBiography(r, father.Scenario);
 
             Biography bio = new Biography();
