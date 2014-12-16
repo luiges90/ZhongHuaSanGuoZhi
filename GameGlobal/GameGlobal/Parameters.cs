@@ -176,6 +176,9 @@
         public static int MakeMarriageCost = 80000;
         public static int NafeiCost = 50000;
 
+        public static int AIEncircleRank = 0;
+        public static int AIEncircleVar = 0;
+
         public static List<int> ExpandConditions = new List<int>();
 
         public static float SearchPersonArchitectureCountPower = 0;
@@ -338,6 +341,8 @@
             StaticMethods.LoadFromString(ExpandConditions, nextSibling.Attributes.GetNamedItem("ExpandConditions").Value);
 
             SearchPersonArchitectureCountPower = float.Parse(nextSibling.Attributes.GetNamedItem("SearchPersonArchitectureCountPower").Value);
+            AIEncircleRank = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncircleRank").Value);
+            AIEncircleVar = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncircleVar").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;
