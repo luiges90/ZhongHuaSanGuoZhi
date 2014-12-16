@@ -6246,6 +6246,33 @@
             return result;
         }
 
+        public YearTable getFactionYearTableRecentYears(Faction f, int y)
+        {
+            YearTable result = new YearTable();
+            foreach (YearTableEntry i in this.YearTable)
+            {
+                if ((i.IsGloballyKnown || i.Factions.GameObjects.Contains(f) || GlobalVariables.SkyEye) &&
+                    i.Date.Year > this.Date.Year - y)
+                {
+                    result.Add(i);
+                }
+            }
+            return result;
+        }
+
+        public YearTable getOnlyFactionYearTable(Faction f)
+        {
+            YearTable result = new YearTable();
+            foreach (YearTableEntry i in this.YearTable)
+            {
+                if (i.Factions.GameObjects.Contains(f))
+                {
+                    result.Add(i);
+                }
+            }
+            return result;
+        }
+
         public bool runScenarioStart(Architecture triggerArch)
         {
             bool ran = false;

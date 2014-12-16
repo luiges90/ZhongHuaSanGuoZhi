@@ -173,7 +173,10 @@
                 <MenuItem ID="8" Name="SkyEye" DisplayName="开启天眼*" OppositeName="关闭天眼" OppositeIfTrue="IsSkyEye" />
                 <MenuItem ID="9" Name="MultipleResource" DisplayName="资源收入加倍*" OppositeName="停止资源加倍" OppositeIfTrue="IsMultipleResource" />
             </MenuItem>
-            <MenuItem ID="8" Name="YearTable" DisplayName="年表" />
+            <MenuItem ID="8" Name="YearTable" DisplayName="年表">
+				 <MenuItem ID="1" Name="Year5" DisplayName="最近五年" />
+				 <MenuItem ID="2" Name="OwnFaction" DisplayName="自势力" />
+			</MenuItem>
             <MenuItem ID="4" Name="Information" DisplayName="信息">
                 <MenuItem ID="1" Name="AllTitles" DisplayName="所有称号" />
                 <MenuItem ID="2" Name="AllSkills" DisplayName="所有技能" />

@@ -1162,8 +1162,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.bianduiLiebiaoBiaoji = "RoutewayRightClick";
                     }
                     break;
-                case ContextMenuResult.YearTable:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.YearTable, FrameFunction.Browse, false, true, false, false, base.Scenario.getFactionYearTable(base.Scenario.CurrentFaction), null, "年表", "");
+                case ContextMenuResult.YearTable_Year5:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.YearTable, FrameFunction.Browse, false, true, false, false, base.Scenario.getFactionYearTableRecentYears(base.Scenario.CurrentFaction, 5), null, "年表", "");
+                    break;
+                case ContextMenuResult.YearTable_OwnFaction:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.YearTable, FrameFunction.Browse, false, true, false, false, base.Scenario.getOnlyFactionYearTable(base.Scenario.CurrentFaction), null, "年表", "");
                     break;
                 case ContextMenuResult.ChangeFaction:
                     this.changeFaction();

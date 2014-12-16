@@ -205,7 +205,8 @@
         CurrentArchitectureRightClick,
         CurrentTroopRightClick,
         CurrentRoutewayRightClick,
-        YearTable,
+        YearTable_Year5,
+        YearTable_OwnFaction,
         ChangeFaction
     }
 }
