@@ -465,6 +465,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 {
                     this.CurrentPerson.Marry(selectedList[0] as Person);
                 }
+                this.CurrentArchitecture.Persons.ClearSelected();
             }
         }
 
