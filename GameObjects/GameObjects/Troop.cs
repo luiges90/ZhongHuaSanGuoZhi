@@ -7940,6 +7940,10 @@
                 i.PurifyInfluence(this, Applier.MilitaryKind, 0);
             }
             this.Persons.PurifyInfluences();
+            this.FinalizeContactArea();
+            this.FinalizeOffenceArea();
+            this.FinalizeStratagemArea();
+            this.FinalizeViewArea();
         }
 
         private void postResetArmyKindData()
@@ -7950,8 +7954,10 @@
             }
             this.Persons.ApplyInfluences();
             this.RefreshAllData();
-            this.offenceArea = null;
-            this.viewArea = null;
+            this.InitializeContactArea();
+            this.InitializeOffenceArea();
+            this.InitializeStratagemArea();
+            this.InitializeViewArea();
         }
 
         public void Morph()

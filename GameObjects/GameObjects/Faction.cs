@@ -1059,7 +1059,10 @@
                 factions.SmallToBig = false;
                 factions.ReSort();
 
-                Faction target = (Faction) factions[0];
+                int rank = Parameters.AIEncircleRank + GameObject.Random(Parameters.AIEncircleVar * 2) - Parameters.AIEncircleVar;
+                rank = Math.Min(rank, 100);
+                rank = Math.Max(rank, 0);
+                Faction target = (Faction) factions[(factions.Count - 1) * rank / 100];
                 int rel = base.Scenario.GetDiplomaticRelation(this.ID, target.ID);
                 if (target != this && rel < 0 && GetEncircleFactionList(target, true) != null)
                 {

@@ -7645,7 +7645,17 @@
             String[] order = new String[] { "长", "次", "三", "四", "五", "六", "七", "八" };
             biography += r.Father.Name + "之" + (fatherChildCount > 7 ? "" : order[fatherChildCount]) + (r.Sex ? "女" : "子") + "，" +
                 r.Mother.Name + "之" + (motherChildCount > 7 ? "" : order[motherChildCount]) + (r.Sex ? "女" : "子") + "。" +
-                "在" + r.father.Scenario.Date.Year + "年" + r.Father.Scenario.Date.Month + "月於" + bornArch.Name + "出生。";
+                "在" + r.father.Scenario.Date.Year + "年" + r.Father.Scenario.Date.Month + "月于" + bornArch.Name + "出生。";
+
+            Person root = father;
+            while (root.Father != null)
+            {
+                root = root.Father;
+            }
+            if (root != father)
+            {
+                biography += root.Name + "的后代。";
+            }
 
             biography += Person.GenerateBiography(r, father.Scenario);
 

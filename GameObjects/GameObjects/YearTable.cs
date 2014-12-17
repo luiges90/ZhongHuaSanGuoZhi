@@ -645,25 +645,25 @@
 
                         if (a.BelongedFaction == p.BelongedFaction)
                         {
-                            this.addTableEntry(date, fl, String.Format(yearTableStrings["battleRetreat_p"],
+                            this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleRetreat_p"],
                                 p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                                 allFactionStrings + "之间",
                                 a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                 a.Name,
                                 offenderString,
                                 a.OldFactionName,
-                                dayDiff + "天"), false);
+                                dayDiff + "天"));
                         }
                         else
                         {
-                            this.addTableEntry(date, fl, String.Format(yearTableStrings["battleRetreat_q"],
+                            this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["battleRetreat_q"],
                                 p.BelongedFaction == null ? "贼军" : p.BelongedFaction.Name,
                                 allFactionStrings + "之间",
                                 a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name,
                                 a.Name,
                                 offenderString,
                                 a.OldFactionName,
-                                dayDiff + "天"), false);
+                                dayDiff + "天"));
                         }
                     }
                 }
