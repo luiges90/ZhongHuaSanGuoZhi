@@ -1163,10 +1163,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     break;
                 case ContextMenuResult.YearTable_Year5:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.YearTable, FrameFunction.Browse, false, true, false, false, base.Scenario.getFactionYearTableRecentYears(base.Scenario.CurrentFaction, 5), null, "年表", "");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.YearTable, FrameFunction.Browse, false, true, false, false, base.Scenario.getFactionYearTableRecentYears(base.Scenario.CurrentPlayer, 5), null, "年表", "");
                     break;
                 case ContextMenuResult.YearTable_OwnFaction:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.YearTable, FrameFunction.Browse, false, true, false, false, base.Scenario.getOnlyFactionYearTable(base.Scenario.CurrentFaction), null, "年表", "");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.YearTable, FrameFunction.Browse, false, true, false, false, base.Scenario.getOnlyFactionYearTable(base.Scenario.CurrentPlayer), null, "年表", "");
                     break;
                 case ContextMenuResult.ChangeFaction:
                     this.changeFaction();
