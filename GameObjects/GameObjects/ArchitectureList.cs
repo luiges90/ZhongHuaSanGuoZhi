@@ -21,9 +21,9 @@
             }
         }
 
-        public void architecture_OnSelectprince(Person p, Person q)//立储
+        public void architecture_OnSelectprince(Person person, Person leader)//立储
         {
-            p.Scenario.GameScreen.Selectprince(p, q);
+            person.Scenario.GameScreen.Selectprince(person, leader);
         }
 
         public void ApplyInfluences()

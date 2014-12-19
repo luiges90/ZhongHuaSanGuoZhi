@@ -1149,7 +1149,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        private void FrameFunction_Architecture_SelectPrince() //立储的作用
+        private void FrameFunction_Architecture_SelectPrince() //立储
         {
             this.CurrentPerson = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Person;
             if (this.CurrentPerson != null)
