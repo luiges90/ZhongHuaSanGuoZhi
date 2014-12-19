@@ -757,7 +757,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 else
                 {
                     this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonControversySourceLose");
-                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, sourceTroop, TextMessageKind.ControversyPassiveWin, "TroopPersonControversyAfterSourceLose");
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, sourceTroop, TextMessageKind.ControversyPassiveWin, "TroopPersonControversyAfterSourceLose");
                 }
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
                 if (win)
