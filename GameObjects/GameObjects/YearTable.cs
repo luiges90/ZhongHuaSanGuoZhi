@@ -612,14 +612,18 @@
                     else
                     {
                         String offenderString = "";
-                        foreach (Faction f in fl)
+
+                        if (fl.Count >= 1)
                         {
-                            if (f != a.BelongedFaction)
+                            foreach (Faction f in fl)
                             {
-                                offenderString += "、" + f.Name;
+                                if (f != a.BelongedFaction)
+                                {
+                                    offenderString += "、" + f.Name;
+                                }
                             }
+                            offenderString = offenderString.Substring(1);
                         }
-                        offenderString = offenderString.Substring(1);
 
                         if (addYearTable)
                         {
