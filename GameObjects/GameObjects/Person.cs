@@ -3455,7 +3455,10 @@
 
         public bool LoseReputationBy(float rate)
         {
-            this.BelongedFaction.Reputation = (int)(this.BelongedFaction.Reputation * (1 - rate));
+            if (this.BelongedFaction != null)
+            {
+                this.BelongedFaction.Reputation = (int)(this.BelongedFaction.Reputation * (1 - rate));
+            }
             this.reputation = (int)(this.reputation * (1 - rate));
             return true;
         }
