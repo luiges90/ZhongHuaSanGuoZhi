@@ -6,6 +6,8 @@
             FontName="方正隶变_GBK"
             FontSize="14"
             FontStyle="Regular"
-            FontColor="4294967295">
+            FontColor="4294967295"
+			TitleColor="4278232306"
+			SubTitleColor="4278255360">
   </RichText>
 </Root>

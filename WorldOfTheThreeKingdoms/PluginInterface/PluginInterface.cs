@@ -174,7 +174,7 @@ namespace PluginInterface
     }
 
 
-    public interface IHelp : IBasePlugin, IPluginXML, IPluginGraphics
+    public interface IHelp : IBasePlugin, IPluginXML, IPluginGraphics, IScenarioAwarePlugin
     {
         void DrawButton(SpriteBatch spriteBatch, float depth);
         void SetButtonDisplayOffset(Point offset);

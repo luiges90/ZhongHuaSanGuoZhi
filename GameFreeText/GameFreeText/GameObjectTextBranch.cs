@@ -29,6 +29,14 @@
                 this.Leaves.Add(item);
             }
         }
+
+        public void AddLeaf(String text, uint color)
+        {
+            GameObjectTextLeaf item = new GameObjectTextLeaf();
+            item.Text = text;
+            item.TextColor.PackedValue = color;
+            this.Leaves.Add(item);
+        }
     }
 }
 

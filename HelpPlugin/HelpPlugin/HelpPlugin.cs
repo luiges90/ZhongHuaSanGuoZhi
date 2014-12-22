@@ -62,6 +62,8 @@
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.help.RichText.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.help.RichText.DefaultColor = color;
+            this.help.RichText.TitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("TitleColor").Value);
+            this.help.RichText.SubTitleColor = StaticMethods.LoadColor(node.Attributes.GetNamedItem("SubTitleColor").Value);
             this.help.RichText.Builder.SetCapacity(0x7fffffff);
             this.help.TextTree.LoadFromXmlFile(@"GameComponents\Help\Data\HelpTextTree.xml");
         }
@@ -86,6 +88,61 @@
         {
             this.graphicsDevice = device;
             this.LoadDataFromXMLDocument(@"GameComponents\Help\HelpData.xml");
+        }
+
+        public void SetScenario(GameScenario scen)
+        {
+            foreach (GameObjects.TroopDetail.CombatMethod m in scen.GameCommonData.AllCombatMethods.CombatMethods.Values)
+            {
+                if (!this.help.TextTree.HasItem("TroopCombatMethod_" + m.ID))
+                {
+                    GameObjectTextBranch branch = new GameObjectTextBranch();
+                    branch.AddLeaf("战法", this.help.RichText.DefaultColor.PackedValue);
+                    branch.AddLeaf(m.Name, this.help.RichText.TitleColor.PackedValue);
+                    branch.AddLeaf("\\n", this.help.RichText.DefaultColor.PackedValue);
+                    branch.AddLeaf("\\n", this.help.RichText.DefaultColor.PackedValue);
+                    foreach (GameObjects.Influences.Influence i in m.Influences.Influences.Values)
+                    {
+                        branch.AddLeaf(i.Description, this.help.RichText.SubTitleColor.PackedValue);
+                        branch.AddLeaf("\\n", this.help.RichText.DefaultColor.PackedValue);
+                    }
+                    this.help.TextTree.AddItem("TroopCombatMethod_" + m.ID, branch);
+                }
+            }
+            foreach (GameObjects.TroopDetail.Stratagem m in scen.GameCommonData.AllStratagems.Stratagems.Values)
+            {
+                if (!this.help.TextTree.HasItem("TroopStratagem_" + m.ID))
+                {
+                    GameObjectTextBranch branch = new GameObjectTextBranch();
+                    branch.AddLeaf("计略", this.help.RichText.DefaultColor.PackedValue);
+                    branch.AddLeaf(m.Name, this.help.RichText.TitleColor.PackedValue);
+                    branch.AddLeaf("\\n", this.help.RichText.DefaultColor.PackedValue);
+                    branch.AddLeaf("\\n", this.help.RichText.DefaultColor.PackedValue);
+                    foreach (GameObjects.Influences.Influence i in m.Influences.Influences.Values)
+                    {
+                        branch.AddLeaf(i.Description, this.help.RichText.SubTitleColor.PackedValue);
+                        branch.AddLeaf("\\n", this.help.RichText.DefaultColor.PackedValue);
+                    }
+                    this.help.TextTree.AddItem("TroopStratagem_" + m.ID, branch);
+                }
+            }
+            foreach (GameObjects.PersonDetail.Stunt m in scen.GameCommonData.AllStunts.Stunts.Values)
+            {
+                if (!this.help.TextTree.HasItem("TroopStunt_" + m.ID))
+                {
+                    GameObjectTextBranch branch = new GameObjectTextBranch();
+                    branch.AddLeaf("特技", this.help.RichText.DefaultColor.PackedValue);
+                    branch.AddLeaf(m.Name, this.help.RichText.TitleColor.PackedValue);
+                    branch.AddLeaf("\\n", this.help.RichText.DefaultColor.PackedValue);
+                    branch.AddLeaf("\\n", this.help.RichText.DefaultColor.PackedValue);
+                    foreach (GameObjects.Influences.Influence i in m.Influences.Influences.Values)
+                    {
+                        branch.AddLeaf(i.Description, this.help.RichText.SubTitleColor.PackedValue);
+                        branch.AddLeaf("\\n", this.help.RichText.DefaultColor.PackedValue);
+                    }
+                    this.help.TextTree.AddItem("TroopStunt_" + m.ID, branch);
+                }
+            }
         }
 
         public void SetMapPosition(ShowPosition showPosition)
