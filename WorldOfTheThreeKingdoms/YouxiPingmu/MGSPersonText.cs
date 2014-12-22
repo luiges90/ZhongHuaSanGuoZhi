@@ -412,7 +412,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
 
-
+                if (person.BelongedArchitecture != null && person.BelongedArchitecture.BelongedFaction != null)
+                {
+                    person.TextResultString = person.BelongedArchitecture.Name;
+                    person.TextDestinationString = person.BelongedArchitecture.BelongedFaction.Name;
+                    this.Plugins.GameRecordPlugin.AddBranch(person, "ChildrenJoin", person.Position);
+                }
             }
         }
 
