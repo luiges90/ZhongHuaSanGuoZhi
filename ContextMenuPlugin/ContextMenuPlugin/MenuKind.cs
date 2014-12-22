@@ -9,7 +9,7 @@
 
     internal class MenuKind
     {
-        private ContextMenu contextMenu;
+        internal ContextMenu contextMenu;
         internal string DisplayIfTrue;
         internal string DisplayName;
         internal int ID;

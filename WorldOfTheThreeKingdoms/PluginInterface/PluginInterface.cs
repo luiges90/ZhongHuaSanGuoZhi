@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GameFreeText;
 using GameGlobal;
+using GameObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PluginInterface.BaseInterface;
@@ -114,7 +115,7 @@ namespace PluginInterface
         bool IsShowing { get; set; }
     }
 
-    public interface IGameContextMenu : IBasePlugin, IPluginXML, IPluginGraphics
+    public interface IGameContextMenu : IBasePlugin, IPluginXML, IPluginGraphics, GameObjects.IScenarioAwarePlugin
     {
         void Prepare(int X, int Y, Point viewportSize);
         void SetCurrentGameObject(object gameObject);

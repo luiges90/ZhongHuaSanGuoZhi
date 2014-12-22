@@ -38,8 +38,6 @@ namespace PluginInterface.BaseInterface
         void LoadDataFromXMLDocument(string filename);
     }
 
-
-
     public interface IScreenDisableRects
     {
         void AddDisableRects();
