@@ -4153,6 +4153,14 @@
                     faction.chaotinggongxiandu = 0;
 
                 }
+
+                try
+                {
+                    faction.PrinceID = (short)reader["PrinceID"];
+                }
+                catch
+                {
+                }
                 try
                 {
                     faction.guanjue = (short)reader["guanjue"];

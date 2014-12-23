@@ -20,7 +20,7 @@
     public class Faction : GameObject
     {
         private Person prince = null;
-        private int princeID;
+        private int princeID = -1;
         private bool isAlien = false;
         private int guanjuedezhi = 0;
         private int chaotinggongxiandudezhi = 0;
@@ -2429,7 +2429,6 @@
             this.armyScale = this.ArmyScale; // 小写的是每天的缓存，因为被InternalSurplusRate叫很多次，不想每次都全部重新计算，大写的才是真正的值
             this.InternalSurplusRateCache = -1;
             this.visibleTroopsCache = null;
-            this.CheckPrince();
         }
 
 
@@ -5205,13 +5204,16 @@
         {
             get
             {
-                if (this.princeID == -1)
-                {
-                    // this.princeID = this.Persons.GetMaxMeritPerson().ID;  // 程序会自动找个储君
-                }
+                if (this.princeID == -1) return null;
+                
                 if (this.prince == null)
                 {
                     this.prince = base.Scenario.Persons.GetGameObject(this.PrinceID) as Person;
+                }
+                //检查储君有效性
+                if (this.prince != null && (!this.prince.Alive || !this.prince.Available || this.prince.BelongedFaction != this || this.prince.BelongedFaction == null))
+                {
+                    this.Prince = null;
                 }
                 return this.prince;
             }
@@ -5249,13 +5251,6 @@
             }
         }
 
-        public void CheckPrince() //检查储君有效性
-        {
-            if (this.Prince != null && (!this.Prince.Alive || !this.Prince.Available || this.Prince.BelongedFaction != this || this.Prince.BelongedFaction == null))
-            {
-                this.Prince = null;
-            }
-        }
 
         public int LegionCount
         {
