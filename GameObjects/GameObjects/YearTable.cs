@@ -489,56 +489,59 @@
 
             if (ob.Skirmish)
             {
-                if (damageList[0].Value > damageList[1].Value * 1.5)
+                if (damageList.Count > 1)
                 {
-                    victorDescription = (damageList[0].Key == null ? "贼军" : damageList[0].Key.Name) + "大胜";
-                }
-                else if (damageList[0].Value > damageList[1].Value * 1.2)
-                {
-                    victorDescription = (damageList[0].Key == null ? "贼军" : damageList[0].Key.Name) + "小胜";
-                }
-                else
-                {
-                    victorDescription = "互有胜负";
-                }
-
-                int rank = 0;
-                foreach (KeyValuePair<Faction, int> i in damageList)
-                {
-                    if (i.Key == p.BelongedFaction)
+                    if (damageList[0].Value > damageList[1].Value * 1.5)
                     {
-                        if (rank == 0)
-                        {
-                            if (damageList[0].Value > damageList[1].Value * 1.5)
-                            {
-                                selfDescription = "并大胜敌人";
-                            }
-                            else if (damageList[0].Value > damageList[1].Value * 1.2)
-                            {
-                                selfDescription = "并小胜敌人";
-                            }
-                            else
-                            {
-                                selfDescription = "互有胜负";
-                            }
-                        }
-                        else if (rank == damageList.Count - 1)
-                        {
-                            if (damageList[0].Value > damageList[rank].Value * 1.5)
-                            {
-                                selfDescription = "却遭到大败";
-                            }
-                            else if (damageList[0].Value > damageList[rank].Value * 1.2)
-                            {
-                                selfDescription = "却遭遇小败";
-                            }
-                            else
-                            {
-                                selfDescription = "互有胜负";
-                            }
-                        }
+                        victorDescription = (damageList[0].Key == null ? "贼军" : damageList[0].Key.Name) + "大胜";
                     }
-                    rank++;
+                    else if (damageList[0].Value > damageList[1].Value * 1.2)
+                    {
+                        victorDescription = (damageList[0].Key == null ? "贼军" : damageList[0].Key.Name) + "小胜";
+                    }
+                    else
+                    {
+                        victorDescription = "互有胜负";
+                    }
+
+                    int rank = 0;
+                    foreach (KeyValuePair<Faction, int> i in damageList)
+                    {
+                        if (i.Key == p.BelongedFaction)
+                        {
+                            if (rank == 0)
+                            {
+                                if (damageList[0].Value > damageList[1].Value * 1.5)
+                                {
+                                    selfDescription = "并大胜敌人";
+                                }
+                                else if (damageList[0].Value > damageList[1].Value * 1.2)
+                                {
+                                    selfDescription = "并小胜敌人";
+                                }
+                                else
+                                {
+                                    selfDescription = "互有胜负";
+                                }
+                            }
+                            else if (rank == damageList.Count - 1)
+                            {
+                                if (damageList[0].Value > damageList[rank].Value * 1.5)
+                                {
+                                    selfDescription = "却遭到大败";
+                                }
+                                else if (damageList[0].Value > damageList[rank].Value * 1.2)
+                                {
+                                    selfDescription = "却遭遇小败";
+                                }
+                                else
+                                {
+                                    selfDescription = "互有胜负";
+                                }
+                            }
+                        }
+                        rank++;
+                    }
                 }
             }
 
@@ -622,14 +625,18 @@
                     else
                     {
                         String offenderString = "";
-                        foreach (Faction f in fl)
+
+                        if (fl.Count >= 1)
                         {
-                            if (f != a.BelongedFaction)
+                            foreach (Faction f in fl)
                             {
-                                offenderString += "、" + f.Name;
+                                if (f != a.BelongedFaction)
+                                {
+                                    offenderString += "、" + f.Name;
+                                }
                             }
+                            offenderString = offenderString.Substring(1);
                         }
-                        offenderString = offenderString.Substring(1);
 
                         if (addYearTable)
                         {

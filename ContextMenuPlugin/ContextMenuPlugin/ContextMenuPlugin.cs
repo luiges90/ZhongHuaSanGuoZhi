@@ -92,6 +92,63 @@
             this.LoadDataFromXMLDocument(@"GameComponents\ContextMenu\ContextMenuData.xml");
         }
 
+        public void SetScenario(GameScenario scen)
+        {
+            foreach (MenuKind kind in this.contextMenu.MenuKinds)
+            {
+                if (kind.Name.Equals("TroopLeftClick"))
+                {
+                    foreach (MenuItem i in kind.MenuItems)
+                    {
+                        if (i.Name.Equals("TroopCombatMethod"))
+                        {
+                            foreach (GameObjects.TroopDetail.CombatMethod m in scen.GameCommonData.AllCombatMethods.CombatMethods.Values)
+                            {
+                                MenuItem item = new MenuItem(i, kind, kind.contextMenu);
+                                item.ID = m.ID;
+                                item.Name = m.ID.ToString();
+                                item.DisplayName = m.Name;
+                                item.ChangeDisplayName = "GetCombatMethodDisplayName";
+                                item.DisplayIfTrue = "HasCombatMethod";
+                                item.IsParamIDItem = true;
+                                item.Param = m.ID.ToString();
+                                i.MenuItems.Add(item);
+                            }
+                        }
+                        else if (i.Name.Equals("TroopStratagem"))
+                        {
+                            foreach (GameObjects.TroopDetail.Stratagem m in scen.GameCommonData.AllStratagems.Stratagems.Values)
+                            {
+                                MenuItem item = new MenuItem(i, kind, kind.contextMenu);
+                                item.ID = m.ID;
+                                item.Name = m.ID.ToString();
+                                item.DisplayName = m.Name;
+                                item.ChangeDisplayName = "GetStratagemDisplayName";
+                                item.DisplayIfTrue = "HasStratagem";
+                                item.Param = m.ID.ToString();
+                                i.MenuItems.Add(item);
+                            }
+                        }
+                        else if (i.Name.Equals("TroopStunt"))
+                        {
+                            foreach (GameObjects.PersonDetail.Stunt m in scen.GameCommonData.AllStunts.Stunts.Values)
+                            {
+                                MenuItem item = new MenuItem(i, kind, kind.contextMenu);
+                                item.ID = m.ID;
+                                item.Name = m.ID.ToString();
+                                item.DisplayName = m.Name;
+                                item.ChangeDisplayName = "GetStuntDisplayName";
+                                item.DisplayIfTrue = "HasStunt";
+                                item.IsParamIDItem = true;
+                                item.Param = m.ID.ToString();
+                                i.MenuItems.Add(item);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public void SetIHelp(IHelp iHelp)
         {
             this.contextMenu.HelpPlugin = iHelp;

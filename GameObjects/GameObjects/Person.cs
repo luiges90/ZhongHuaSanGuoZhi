@@ -3455,7 +3455,10 @@
 
         public bool LoseReputationBy(float rate)
         {
-            this.BelongedFaction.Reputation = (int)(this.BelongedFaction.Reputation * (1 - rate));
+            if (this.BelongedFaction != null)
+            {
+                this.BelongedFaction.Reputation = (int)(this.BelongedFaction.Reputation * (1 - rate));
+            }
             this.reputation = (int)(this.reputation * (1 - rate));
             return true;
         }
@@ -3765,6 +3768,10 @@
         public void BeLeaveToNoFaction() // 流放
         {
             Architecture locationArchitecture = this.LocationArchitecture;
+            if (this.ProhibitedFactionID.ContainsKey(this.BelongedFaction.ID))
+            {
+                this.ProhibitedFactionID.Remove(this.BelongedFaction.ID);
+            }
             this.ProhibitedFactionID.Add(this.BelongedFaction.ID, 360);
             this.Status = PersonStatus.NoFaction;
         }

@@ -36,6 +36,17 @@
                 this.Branches.Add(branch.BranchName, branch);
             }
         }
+
+        public Boolean HasItem(string branchName)
+        {
+            return Branches.ContainsKey(branchName);
+        }
+
+        public void AddItem(string branchName, GameObjectTextBranch content)
+        {
+            Branches.Add(branchName, content);
+        }
+
     }
 }
 

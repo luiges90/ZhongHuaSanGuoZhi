@@ -23,6 +23,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
 
     public class formOptions : Form
     {
+        private int AIEncircleRank = 0;
+        private int AIEncircleVar = 0;
+
         private Button btnCancel;
         private Button btnOK;
         private CheckBox cbAdditionalPersonAvailable;
@@ -2767,6 +2770,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbAIEncirclePlayerRate.Text = nextSibling.Attributes.GetNamedItem("AIEncirclePlayerRate").Value;
             this.tbAIExtraPerson.Text = nextSibling.Attributes.GetNamedItem("AIExtraPerson").Value;
             this.tbAIExtraPersonIncreaseRate.Text = nextSibling.Attributes.GetNamedItem("AIExtraPersonIncreaseRate").Value;
+            AIEncircleRank = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncircleRank").Value);
+            AIEncircleVar = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncircleVar").Value);
             doNotSetDifficultyToCustom = false;
         }
 
@@ -2872,7 +2877,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkIntSave(nextSibling, "OfficerChildrenLimit", this.lblOfficerChildrenLimit, this.tbOfficerChildrenLimit)) { return false; }
             nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value = this.cbStopToControlOnAttack.Checked.ToString();
             if (!checkIntSave(nextSibling, "MaxMilitaryExperience", this.lblMaxMilitaryExperience, this.tbMaxMilitaryExperience)) { return false; }
-            if (!checkIntSave(nextSibling, "CreateRandomOfficerChance", this.lblCreateRandomOfficerChance, this.tbCreateRandomOfficerChance)) { return false; }
+            if (!checkFloatSave(nextSibling, "CreateRandomOfficerChance", this.lblCreateRandomOfficerChance, this.tbCreateRandomOfficerChance)) { return false; }
             if (!checkIntSave(nextSibling, "GeneratedOfficerFemaleChance", this.lblGeneratedOfficerFemaleChance, this.tbGeneratedOfficerFemaleChance)) { return false; }
             if (!checkFloatSave(nextSibling, "CreatedOfficerAbilityFactor", this.lblCreatedOfficerAbilityFactor, this.tbCreatedOfficerAbilityFactor)) { return false; }
             nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value = this.cbEnablePersonRelations.Checked.ToString();
@@ -2947,6 +2952,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkIntSave(nextSibling, "AIEncirclePlayerRate", this.lblAIEncirclePlayerRate, this.tbAIEncirclePlayerRate)) { return false; }
             if (!checkFloatSave(nextSibling, "AIExtraPerson", this.lblAIExtraPerson, this.tbAIExtraPerson)) { return false; }
             if (!checkFloatSave(nextSibling, "AIExtraPersonIncreaseRate", this.lblAIExtraPerson, this.tbAIExtraPersonIncreaseRate)) { return false; }
+            nextSibling.Attributes.GetNamedItem("AIEncircleRank").Value = this.AIEncircleRank.ToString();
+            nextSibling.Attributes.GetNamedItem("AIEncircleVar").Value = this.AIEncircleVar.ToString();
             this.parameterDoc.Save("GameData/GameParameters.xml");
             return true;
         }
@@ -3081,6 +3088,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "0";
                     this.tbAIExtraPerson.Text = "1.0";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.0";
+                    this.AIEncircleRank = 0;
+                    this.AIEncircleVar = 0;
                     break;
                 case Difficulty.easy:
                     this.tbAIFundRate.Text = "1.0";
@@ -3115,6 +3124,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "0";
                     this.tbAIExtraPerson.Text = "1.0";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.0";
+                    this.AIEncircleRank = 15;
+                    this.AIEncircleVar = 15;
                     break;
                 case Difficulty.normal:
                     this.tbAIFundRate.Text = "2.0";
@@ -3149,6 +3160,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "5";
                     this.tbAIExtraPerson.Text = "1.2";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.0";
+                    this.AIEncircleRank = 30;
+                    this.AIEncircleVar = 30;
                     break;
                 case Difficulty.hard:
                     this.tbAIFundRate.Text = "3.0";
@@ -3183,6 +3196,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "20";
                     this.tbAIExtraPerson.Text = "1.5";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.01";
+                    this.AIEncircleRank = 70;
+                    this.AIEncircleVar = 30;
                     break;
                 case Difficulty.veryhard:
                     this.tbAIFundRate.Text = "6.0";
@@ -3217,6 +3232,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "100";
                     this.tbAIExtraPerson.Text = "3.0";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.05";
+                    this.AIEncircleRank = 100;
+                    this.AIEncircleVar = 0;
                     break;
             }
             doNotSetDifficultyToCustom = false;

@@ -4565,6 +4565,7 @@
             this.NoFoodDictionary.LoadFromString(reader["NoFoodTable"].ToString());
             dbConnection.Close();
 
+            this.InitPluginsWithScenario();
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
             this.ApplyFireTable();
@@ -4591,6 +4592,17 @@
 
             this.LoadedFileName = "";
             return true;
+        }
+
+        public void InitPluginsWithScenario()
+        {
+            foreach (GameObject plugin in this.GameScreen.PluginList)
+            {
+                if (plugin is IScenarioAwarePlugin)
+                {
+                    ((IScenarioAwarePlugin) plugin).SetScenario(this);
+                }
+            }
         }
 
         public bool LoadGameScenarioFromDatabase(string connectionString)  //读取剧本
@@ -4624,6 +4636,7 @@
             }
             dbConnection.Close();
 
+            this.InitPluginsWithScenario();
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
             this.ApplyFireTable();
