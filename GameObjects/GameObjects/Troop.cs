@@ -10538,14 +10538,12 @@
                         this.Morph();
                     }
                 }
-                else
+
+                if (!this.Army.Kind.Movable && this.Army.Kind.MorphTo.Movable &&
+                    !this.HasHostileTroopInView() && !this.HasHostileArchitectureInView())
                 {
-                    if (!this.Army.Kind.Movable && this.Army.Kind.MorphTo.Movable &&
-                        !this.HasHostileTroopInView() && !this.HasHostileArchitectureInView())
-                    {
-                        this.Morph();
-                    }
-                }
+                    this.Morph();
+                } 
             }
         }
 

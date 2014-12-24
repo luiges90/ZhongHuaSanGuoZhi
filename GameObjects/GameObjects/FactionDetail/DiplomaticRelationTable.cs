@@ -49,7 +49,8 @@
             }
             if (relation == null)
             {
-                relation = new DiplomaticRelation(scenario, faction1ID, faction2ID, 0);
+                this.AddDiplomaticRelation(scenario, faction1ID, faction2ID, 0);
+                this.DiplomaticRelations.TryGetValue(hashCode, out relation);
             }
             return relation;
         }
