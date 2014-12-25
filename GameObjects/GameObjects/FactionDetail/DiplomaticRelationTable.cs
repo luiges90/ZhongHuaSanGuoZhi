@@ -50,7 +50,7 @@
             if (relation == null)
             {
                 this.AddDiplomaticRelation(scenario, faction1ID, faction2ID, 0);
-                this.DiplomaticRelations.TryGetValue(hashCode, out relation);
+                this.DiplomaticRelations.TryGetValue(this.GetHashCode(faction1ID, faction2ID), out relation);
             }
             return relation;
         }
