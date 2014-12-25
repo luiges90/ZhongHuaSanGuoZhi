@@ -5732,8 +5732,17 @@
         {
             get
             {
-                return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + this.UntiredPolitics + this.UntiredGlamour) *
-                    (100 + this.TitleInheritableMerit + this.AllSkillMerit);
+                if (this.BelongedFaction != null && this == this.BelongedFaction.Prince) //储君身价公式
+                {
+                    return ((this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + this.UntiredPolitics + this.UntiredGlamour) *
+                    (100 + this.TitleInheritableMerit + this.AllSkillMerit)) * 2;
+                }
+                else
+                {
+
+                    return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + this.UntiredPolitics + this.UntiredGlamour) *
+                        (100 + this.TitleInheritableMerit + this.AllSkillMerit);
+                }
             }
         }
 
