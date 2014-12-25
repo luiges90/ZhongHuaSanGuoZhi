@@ -4596,11 +4596,14 @@
 
         public void InitPluginsWithScenario()
         {
-            foreach (GameObject plugin in this.GameScreen.PluginList)
+            if (this.GameScreen != null)
             {
-                if (plugin is IScenarioAwarePlugin)
+                foreach (GameObject plugin in this.GameScreen.PluginList)
                 {
-                    ((IScenarioAwarePlugin) plugin).SetScenario(this);
+                    if (plugin is IScenarioAwarePlugin)
+                    {
+                        ((IScenarioAwarePlugin)plugin).SetScenario(this);
+                    }
                 }
             }
         }
