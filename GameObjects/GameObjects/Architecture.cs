@@ -3722,7 +3722,7 @@
         }
 
         public event Selectprince OnSelectprince; //立储
-        public delegate void Selectprince(Person p, Person q);
+        public delegate void Selectprince(Person person, Person leader);
         public void SelectPrince(Person Person)
         {
             base.Scenario.YearTable.addSelectPrinceEntry(base.Scenario.Date, Person, this.BelongedFaction.Leader);
