@@ -1135,7 +1135,7 @@
             base.Scenario.GetClosestPointsBetweenTwoAreas(dayArea, this.WillArchitecture.ArchitectureArea, out nullable, out nullable2);
             if ((this.CurrentStunt != null) || (GameObject.Random(this.Stunts.Count + 3) < 3))
             {
-                if (hasTargetTroopFlag && ((credit < 500) || (GameObject.Chance(this.Combativity) && GameObject.Chance(80))))
+                if (hasTargetTroopFlag && ((credit < 500) || (GameObject.Chance(this.Combativity) && GameObject.Chance(90))))
                 { //Label_0712:
                     foreach (CombatMethod method in this.CombatMethods.CombatMethods.Values)
                     {
