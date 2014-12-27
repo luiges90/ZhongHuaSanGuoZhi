@@ -3061,7 +3061,7 @@
             Dictionary<int, int> fatherIds = new Dictionary<int, int>();
             Dictionary<int, int> motherIds = new Dictionary<int, int>();
             Dictionary<int, int> spouseIds = new Dictionary<int, int>();
-            Dictionary<int, int[]> princeIds = new Dictionary<int, int[]>();
+            //Dictionary<int, int[]> princeIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> brotherIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> closeIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> hatedIds = new Dictionary<int, int[]>();
