@@ -8607,7 +8607,7 @@
         {
             if (this.BelongedFaction != null)
             {
-                if (!this.Kind.HasPopulation)
+                if (!this.Kind.HasPopulation || this.BelongedFaction.Army >= GlobalVariables.ArmyLimit) //势力兵数达到上限，不能新编
                 {
                     return false;
                 }
@@ -9501,6 +9501,10 @@
                     return false;
                 }
                 if (GlobalVariables.PopulationRecruitmentLimit && (this.ArmyQuantity > this.Population))
+                {
+                    return false;
+                }
+                if (this.BelongedFaction != null && this.BelongedFaction.Army >= GlobalVariables.ArmyLimit) //势力兵数达到上限时，不能补充
                 {
                     return false;
                 }

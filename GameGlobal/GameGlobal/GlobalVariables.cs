@@ -131,6 +131,7 @@
         public static bool StopToControlOnAttack = true;
 
         public static int MaxMilitaryExperience = 3000;
+        public static int ArmyLimit = 2000000; 
 
         public static float CreateRandomOfficerChance = 5;
         public static int GeneratedOfficerFemaleChance = 5;
@@ -824,6 +825,15 @@
             {
                 exception = exception24;
                 throw new Exception("SurroundFactor:\n" + exception.ToString());
+            }
+            try
+            {
+                ArmyLimit = int.Parse(nextSibling.Attributes.GetNamedItem("ArmyLimit").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("ArmyLimit:\n" + exception.ToString());
             }
             return true;
         }
