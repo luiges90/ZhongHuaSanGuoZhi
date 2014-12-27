@@ -662,7 +662,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     break;
 
                 case ContextMenuResult.Monarch_Treasure_Award:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Treasure, FrameFunction.GetAwardTreasure, false, true, true, true, this.CurrentArchitecture.GetTreasureListOfLeader(), null, "", "");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Treasure, FrameFunction.GetAwardTreasure, false, true, true, false, this.CurrentArchitecture.GetTreasureListOfLeader(), null, "", "");
                     break;
                 case ContextMenuResult.Monarch_officePosition_SelfBecomeEmperor:
                     this.CurrentArchitecture.BelongedFaction.SelfBecomeEmperor();
