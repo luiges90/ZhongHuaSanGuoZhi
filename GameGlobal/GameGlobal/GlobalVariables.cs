@@ -131,7 +131,7 @@
         public static bool StopToControlOnAttack = true;
 
         public static int MaxMilitaryExperience = 3000;
-        public static int ArmyLimit = 2000000; 
+        public static float ArmyPopulationCap = 1.5f; //兵力上限 
 
         public static float CreateRandomOfficerChance = 5;
         public static int GeneratedOfficerFemaleChance = 5;
@@ -828,12 +828,12 @@
             }
             try
             {
-                ArmyLimit = int.Parse(nextSibling.Attributes.GetNamedItem("ArmyLimit").Value);
+                ArmyPopulationCap = float.Parse(nextSibling.Attributes.GetNamedItem("ArmyPopulationCap").Value);
             }
             catch (Exception exception24)
             {
                 exception = exception24;
-                throw new Exception("ArmyLimit:\n" + exception.ToString());
+                throw new Exception("ArmyPopulationCap:\n" + exception.ToString());
             }
             return true;
         }
