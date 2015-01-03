@@ -616,7 +616,7 @@
                     {
                         String offenderString = "";
 
-                        if (fl.Count >= 1)
+                        if (fl.Count > 1)
                         {
                             foreach (Faction f in fl)
                             {
