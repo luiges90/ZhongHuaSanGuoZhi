@@ -102,6 +102,7 @@
                     {
                         if (i.Name.Equals("TroopCombatMethod"))
                         {
+                            i.MenuItems.Clear();
                             foreach (GameObjects.TroopDetail.CombatMethod m in scen.GameCommonData.AllCombatMethods.CombatMethods.Values)
                             {
                                 MenuItem item = new MenuItem(i, kind, kind.contextMenu);
@@ -117,6 +118,7 @@
                         }
                         else if (i.Name.Equals("TroopStratagem"))
                         {
+                            i.MenuItems.Clear();
                             foreach (GameObjects.TroopDetail.Stratagem m in scen.GameCommonData.AllStratagems.Stratagems.Values)
                             {
                                 MenuItem item = new MenuItem(i, kind, kind.contextMenu);
@@ -131,6 +133,7 @@
                         }
                         else if (i.Name.Equals("TroopStunt"))
                         {
+                            i.MenuItems.Clear();
                             foreach (GameObjects.PersonDetail.Stunt m in scen.GameCommonData.AllStunts.Stunts.Values)
                             {
                                 MenuItem item = new MenuItem(i, kind, kind.contextMenu);

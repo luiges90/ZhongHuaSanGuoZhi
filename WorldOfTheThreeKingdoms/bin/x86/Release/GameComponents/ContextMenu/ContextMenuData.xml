@@ -204,10 +204,8 @@
             <MenuItem ID="2" Name="TroopOccupy" DisplayName="占领" DisplayIfTrue="CanOccupy" />
             <MenuItem ID="3" Name="TroopTarget" DisplayName="攻击" DisplayIfTrue="TargetAvail" />
             <MenuItem ID="4" Name="TroopCombatMethod" DisplayName="战法" DisplayIfTrue="CombatMethodAvail" DisplayAll="False">
-                <MenuItem ID="99" Name="Cancel" DisplayName="取消战法" DisplayIfTrue="CancelCombatMethodAvail" />  
             </MenuItem>
             <MenuItem ID="5" Name="TroopStratagem" DisplayName="计略" DisplayIfTrue="ControlAvail" DisplayAll="False">
-                <MenuItem ID="0" Name="Cancel" DisplayName="取消计略" DisplayIfTrue="CancelStratagemAvail" />
             </MenuItem>
             <MenuItem ID="6" Name="TroopStunt" DisplayName="特技" DisplayIfTrue="ControlAvail" DisplayAll="False">
             </MenuItem>
