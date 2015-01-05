@@ -430,6 +430,7 @@
         public void addBattleEntry(bool addYearTable, GameDate date, OngoingBattle ob, Person p, ArchitectureList architectures,
             Dictionary<Faction, int> factionDamages)
         {
+            /*
             if (factionDamages.Count < 1) return;
 
             if (p.BelongedFaction == null) return;
@@ -665,7 +666,7 @@
                     }
                 }
             } 
-            
+            */
 
         }
 
