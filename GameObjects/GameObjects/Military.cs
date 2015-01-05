@@ -1144,6 +1144,563 @@
                 return (int) (this.Offence + this.Defence + influenceValue * 2);
             }
         }
+
+        public float FireDamageRate
+        {
+            get
+            {
+                return this.Kind.FireDamageRate;
+            }
+        }
+
+        public bool AirOffence
+        {
+            get
+            {
+                return this.Kind.AirOffence;
+            }
+        }
+
+        public float ArchitectureCounterDamageRate
+        {
+            get
+            {
+                return this.Kind.ArchitectureCounterDamageRate;
+            }
+        }
+
+        public float ArchitectureDamageRate
+        {
+            get
+            {
+                return this.Kind.ArchitectureDamageRate;
+            }
+        }
+
+        public bool ArrowOffence
+        {
+            get
+            {
+                return this.Kind.ArrowOffence;
+            }
+        }
+
+        public string ArrowOffenceString
+        {
+            get
+            {
+                return (this.Kind.ArrowOffence ? "○" : "×");
+            }
+        }
+
+        public TroopAttackDefaultKind AttackDefaultKind
+        {
+            get
+            {
+                return this.Kind.AttackDefaultKind;
+            }
+        }
+
+        public TroopAttackTargetKind AttackTargetKind
+        {
+            get
+            {
+                return this.Kind.AttackTargetKind;
+            }
+        }
+
+        public bool BeCountered
+        {
+            get
+            {
+                return this.Kind.BeCountered;
+            }
+        }
+
+        public string BeCounteredString
+        {
+            get
+            {
+                return (this.Kind.BeCountered ? "○" : "×");
+            }
+        }
+
+        public bool CanLevelUp
+        {
+            get
+            {
+                return this.Kind.CanLevelUp;
+            }
+        }
+
+        public string CanLevelUpString
+        {
+            get
+            {
+                return (this.Kind.CanLevelUp ? "○" : "×");
+            }
+        }
+
+        public TroopCastDefaultKind CastDefaultKind
+        {
+            get
+            {
+                return this.Kind.CastDefaultKind;
+            }
+        }
+
+        public TroopCastTargetKind CastTargetKind
+        {
+            get
+            {
+                return this.Kind.CastTargetKind;
+            }
+        }
+
+        public int CliffAdaptability
+        {
+            get
+            {
+                return this.Kind.CliffAdaptability;
+            }
+        }
+
+        public float CliffRate
+        {
+            get
+            {
+                return this.Kind.CliffRate;
+            }
+        }
+
+        public bool ContactOffence
+        {
+            get
+            {
+                return this.Kind.ContactOffence;
+            }
+        }
+
+        public string ContactOffenceString
+        {
+            get
+            {
+                return (this.Kind.ContactOffence ? "○" : "×");
+            }
+        }
+
+        public bool CounterOffence
+        {
+            get
+            {
+                return this.Kind.CounterOffence;
+            }
+        }
+
+        public string CounterOffenceString
+        {
+            get
+            {
+                return (this.Kind.CounterOffence ? "○" : "×");
+            }
+        }
+
+        public bool CreateBesideWater
+        {
+            get
+            {
+                return this.Kind.CreateBesideWater;
+            }
+        }
+
+        public string CreateBesideWaterString
+        {
+            get
+            {
+                return (this.Kind.CreateBesideWater ? "○" : "×");
+            }
+        }
+
+        public int CreateCost
+        {
+            get
+            {
+                return this.Kind.CreateCost;
+            }
+        }
+
+        public int CreateTechnology
+        {
+            get
+            {
+                return this.Kind.CreateTechnology;
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                return this.Kind.Description;
+            }
+        }
+
+        public int DesertAdaptability
+        {
+            get
+            {
+                return this.Kind.DesertAdaptability;
+            }
+        }
+
+        public float DesertRate
+        {
+            get
+            {
+                return this.Kind.DesertRate;
+            }
+        }
+
+        public int FoodPerSoldier
+        {
+            get
+            {
+                return this.Kind.FoodPerSoldier;
+            }
+        }
+
+        public int ForrestAdaptability
+        {
+            get
+            {
+                return this.Kind.ForrestAdaptability;
+            }
+        }
+
+        public float ForrestRate
+        {
+            get
+            {
+                return this.Kind.ForrestRate;
+            }
+        }
+
+        public int GrasslandAdaptability
+        {
+            get
+            {
+                return this.Kind.GrasslandAdaptability;
+            }
+        }
+
+        public float GrasslandRate
+        {
+            get
+            {
+                return this.Kind.GrasslandRate;
+            }
+        }
+
+        public int InfluenceCount
+        {
+            get
+            {
+                return this.Kind.Influences.Count;
+            }
+        }
+
+        public bool IsShell
+        {
+            get
+            {
+                return this.Kind.IsShell;
+            }
+        }
+
+        public string IsShellString
+        {
+            get
+            {
+                return (this.Kind.IsShell ? "○" : "×");
+            }
+        }
+
+        public int LevelUpExperience
+        {
+            get
+            {
+                return this.Kind.LevelUpExperience;
+            }
+        }
+
+        public int MarshAdaptability
+        {
+            get
+            {
+                return this.Kind.MarshAdaptability;
+            }
+        }
+
+        public float MarshRate
+        {
+            get
+            {
+                return this.Kind.MarshRate;
+            }
+        }
+
+        public int MaxScale
+        {
+            get
+            {
+                return this.Kind.MaxScale;
+            }
+        }
+
+        public int MinScale
+        {
+            get
+            {
+                return this.Kind.MinScale;
+            }
+        }
+
+        public int MountainAdaptability
+        {
+            get
+            {
+                return this.Kind.MountainAdaptability;
+            }
+        }
+
+        public float MountainRate
+        {
+            get
+            {
+                return this.Kind.MountainRate;
+            }
+        }
+
+        public int Movability
+        {
+            get
+            {
+                return this.Kind.Movability;
+            }
+        }
+
+        public bool ObliqueOffence
+        {
+            get
+            {
+                return this.Kind.ObliqueOffence;
+            }
+        }
+
+        public string ObliqueOffenceString
+        {
+            get
+            {
+                return (this.Kind.ObliqueOffence ? "○" : "×");
+            }
+        }
+
+        public bool ObliqueStratagem
+        {
+            get
+            {
+                return this.Kind.ObliqueStratagem;
+            }
+        }
+
+        public string ObliqueStratagemString
+        {
+            get
+            {
+                return (this.Kind.ObliqueStratagem ? "○" : "×");
+            }
+        }
+
+        public bool ObliqueView
+        {
+            get
+            {
+                return this.Kind.ObliqueView;
+            }
+        }
+
+        public string ObliqueViewString
+        {
+            get
+            {
+                return (this.Kind.ObliqueView ? "○" : "×");
+            }
+        }
+
+        public bool OffenceOnlyBeforeMove
+        {
+            get
+            {
+                return this.Kind.OffenceOnlyBeforeMove;
+            }
+        }
+
+        public string OffenceOnlyBeforeMoveString
+        {
+            get
+            {
+                return (this.Kind.OffenceOnlyBeforeMove ? "○" : "×");
+            }
+        }
+
+        public int OffenceRadius
+        {
+            get
+            {
+                return this.Kind.OffenceRadius;
+            }
+        }
+
+        public int OneAdaptabilityKind
+        {
+            get
+            {
+                return this.Kind.OneAdaptabilityKind;
+            }
+        }
+
+        public int PlainAdaptability
+        {
+            get
+            {
+                return this.Kind.PlainAdaptability;
+            }
+        }
+
+        public float PlainRate
+        {
+            get
+            {
+                return this.Kind.PlainRate;
+            }
+        }
+
+        public int PointsPerSoldier
+        {
+            get
+            {
+                return this.Kind.PointsPerSoldier;
+            }
+        }
+
+        public int RidgeAdaptability
+        {
+            get
+            {
+                return this.Kind.RidgeAdaptability;
+            }
+        }
+
+        public float RidgeRate
+        {
+            get
+            {
+                return this.Kind.RidgeRate;
+            }
+        }
+
+        public int Speed
+        {
+            get
+            {
+                return this.Kind.Speed;
+            }
+        }
+
+        public int StratagemRadius
+        {
+            get
+            {
+                return this.Kind.StratagemRadius;
+            }
+        }
+
+        public int TitleInfluence
+        {
+            get
+            {
+                return this.Kind.TitleInfluence;
+            }
+        }
+
+        public MilitaryType Type
+        {
+            get
+            {
+                return this.Kind.Type;
+            }
+        }
+
+        public int RecruitLimit
+        {
+            get
+            {
+                return this.Kind.RecruitLimit;
+            }
+        }
+
+        public int ViewRadius
+        {
+            get
+            {
+                return this.Kind.ViewRadius;
+            }
+        }
+
+        public int WastelandAdaptability
+        {
+            get
+            {
+                return this.Kind.WastelandAdaptability;
+            }
+        }
+
+        public float WastelandRate
+        {
+            get
+            {
+                return this.Kind.WastelandRate;
+            }
+        }
+
+        public int WaterAdaptability
+        {
+            get
+            {
+                return this.Kind.WaterAdaptability;
+            }
+        }
+
+        public float WaterRate
+        {
+            get
+            {
+                return this.Kind.WaterRate;
+            }
+        }
+
+        public int MorphToKindId
+        {
+            get
+            {
+                return this.Kind.MorphToKindId;
+            }
+        }
+
+        public GameObjectList GetInfluenceList()
+        {
+            return this.Kind.Influences.GetInfluenceList();
+        }
     }
 }
 

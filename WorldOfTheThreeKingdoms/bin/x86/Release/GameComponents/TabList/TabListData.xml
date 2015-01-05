@@ -3117,7 +3117,7 @@
         </Tab>
         <Tab ID="4"  Name="Character" DisplayName="特色" Columns="1 18 19 20 21 40 41" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
-        <Tab ID="5"  Name="Move" DisplayName="适性" Columns="1 70 51 52 53 54 55 56 57 58 59" ListKind="Influence" ListMethod="GetInfluenceList">
+        <Tab ID="5"  Name="Move" DisplayName="适性" Columns="1 70 50 51 52 53 54 55 56 57 58 59" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
         <Tab ID="6"  Name="Rate" DisplayName="乘数" Columns="1 80 81 82 83 84 85 86 87 88 89" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
@@ -3303,14 +3303,218 @@
                FontColor="4294967295"
                Align="Right">
         </Column>
+		<Column ID="100" Name="ArchitectureDamageRate" IsNumber="true" DisplayName="建筑伤害率" MinWidth="100" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="101" Name="ArchitectureCounterDamageRate" IsNumber="true" DisplayName="建筑反击率" MinWidth="100" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="102" Name="ViewRadius" IsNumber="true" DisplayName="视野范围" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="103" Name="ObliqueViewString" IsNumber="false" DisplayName="斜向视野" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+        </Column>
+        <Column ID="104" Name="FireDamageRate" IsNumber="true" DisplayName="受火伤率" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+        </Column>
+        <Column ID="105" Name="RecruitLimit" IsNumber="true" DisplayName="编队上限" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+        </Column>
+        <Column ID="50" Name="PlainAdaptability" IsNumber="true" DisplayName="平原适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="51" Name="GrasslandAdaptability" IsNumber="true" DisplayName="草原适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="52" Name="ForrestAdaptability" IsNumber="true" DisplayName="森林适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="53" Name="MarshAdaptability" IsNumber="true" DisplayName="湿地适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="54" Name="MountainAdaptability" IsNumber="true" DisplayName="山地适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="55" Name="WaterAdaptability" IsNumber="true" DisplayName="水域适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="56" Name="RidgeAdaptability" IsNumber="true" DisplayName="峻岭适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="57" Name="WastelandAdaptability" IsNumber="true" DisplayName="荒地适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="58" Name="DesertAdaptability" IsNumber="true" DisplayName="栈道适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="59" Name="CliffAdaptability" IsNumber="true" DisplayName="瘴气林适性" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="70" Name="Movability" IsNumber="true" DisplayName="行动力" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294934528"
+                Align="Right">
+        </Column>
+        <Column ID="80" Name="PlainRate" IsNumber="true" DisplayName="平原乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="81" Name="GrasslandRate" IsNumber="true" DisplayName="草原乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="82" Name="ForrestRate" IsNumber="true" DisplayName="森林乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="83" Name="MarshRate" IsNumber="true" DisplayName="湿地乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="84" Name="MountainRate" IsNumber="true" DisplayName="山地乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="85" Name="WaterRate" IsNumber="true" DisplayName="水域乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="86" Name="RidgeRate" IsNumber="true" DisplayName="峻岭乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="87" Name="WastelandRate" IsNumber="true" DisplayName="荒地乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="88" Name="DesertRate" IsNumber="true" DisplayName="栈道乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="89" Name="CliffRate" IsNumber="true" DisplayName="瘴气林乘数" MinWidth="80" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="300" Name="Description" IsNumber="false" DisplayName="介绍" MinWidth="750" DetailLevel="3"
+                FontName="方正隶变_GBK"
+                FontSize="11"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Left">
+        </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 5 10 11 12 14 40">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 5 10 11 12 14 40" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
-        <Tab ID="2"  Name="Leader" DisplayName="将领" Columns="1 2 3 20 23 21 24 25 22">
+        <Tab ID="2"  Name="Leader" DisplayName="将领" Columns="1 2 3 20 23 21 24 25 22" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
-        <Tab ID="3"  Name="Combat" DisplayName="战斗" Columns="1 2 33 30 31 32 13">
+        <Tab ID="3"  Name="Combat" DisplayName="战斗" Columns="1 2 33 30 31 32 13" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
+		<Tab ID="4"  Name="Character" DisplayName="特色" Columns="1 100 101 102 103 104 105" ListKind="Influence" ListMethod="GetInfluenceList">
+        </Tab>
+        <Tab ID="5"  Name="Move" DisplayName="适性" Columns="1 70 50 51 52 53 54 55 56 57 58 59" ListKind="Influence" ListMethod="GetInfluenceList">
+        </Tab>
+        <Tab ID="6"  Name="Rate" DisplayName="乘数" Columns="1 80 81 82 83 84 85 86 87 88 89" ListKind="Influence" ListMethod="GetInfluenceList">
+        </Tab>
+        <Tab ID="7"  Name="Description" DisplayName="介绍" Columns="1 300" ListKind="Influence" ListMethod="GetInfluenceList">
+		</Tab>
       </Tabs>
     </ListKind>
     <ListKind ID="12" Name="AttackDefaultKind" DisplayName="攻击默认种类列表" ShowPortrait ="false">
