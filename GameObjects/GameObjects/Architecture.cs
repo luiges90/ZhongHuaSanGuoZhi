@@ -861,7 +861,7 @@
         {
             if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && (this.BuildingFacility < 0) && this.FacilityPositionCount > 0)
             {
-                if (this.PlanFacilityKind != null)
+                if (this.PlanFacilityKind != null && this.PlanFacilityKind.PositionOccupied <= this.FacilityPositionLeft)
                 {
                     if (this.Technology >= this.PlanFacilityKind.TechnologyNeeded)
                     {
@@ -883,6 +883,11 @@
                 }
                 else
                 {
+                    if (this.PlanFacilityKind.PositionOccupied > this.FacilityPositionLeft)
+                    {
+                        this.PlanFacilityKind = null;
+                    }
+
                     if (AIExtension()) return;
 
                     //remove useless facilities
