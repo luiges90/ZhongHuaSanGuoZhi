@@ -883,7 +883,7 @@
                 }
                 else
                 {
-                    if (this.PlanFacilityKind.PositionOccupied > this.FacilityPositionLeft)
+                    if (this.PlanFacilityKind != null && this.PlanFacilityKind.PositionOccupied > this.FacilityPositionLeft)
                     {
                         this.PlanFacilityKind = null;
                     }
