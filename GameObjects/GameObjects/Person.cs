@@ -7043,47 +7043,51 @@
             }
             r.CalledName = "";
 
-            int typeInt = GameObject.Random(1000);
-            OfficerType type;
-            if (typeInt < 1)
+            int[] weights = {
+                Parameters.GenerateAdvisorWeight,
+                Parameters.GenerateAllRounderWeight,
+                Parameters.GenerateBraveWeight,
+                Parameters.GenerateCheapWeight,
+                Parameters.GenerateEmperorWeight,
+                Parameters.GenerateGeneralWeight,
+                Parameters.GenerateIntelGeneralWeight,
+                Parameters.GenerateNormalAdvisorWeight,
+                Parameters.GenerateNormalGeneralWeight,
+                Parameters.GeneratePoliticianWeight
+            };
+            OfficerType[] types = {
+                OfficerType.ADVISOR,
+                OfficerType.ALL_ROUNDER,
+                OfficerType.BRAVE,
+                OfficerType.CHEAP,
+                OfficerType.EMPEROR,
+                OfficerType.GENERAL,
+                OfficerType.INTEL_GENERAL,
+                OfficerType.NORMAL_ADVISOR,
+                OfficerType.NORMAL_GENERAL,
+                OfficerType.POLITICIAN
+            };
+            OfficerType type = OfficerType.CHEAP;
+
+            int total = 0;
+            foreach (int i in weights) 
             {
-                type = OfficerType.ALL_ROUNDER;
+                total += i;
             }
-            else if (typeInt < 40)
+
+            int typeInt = GameObject.Random(total);
+            int typeSum = weights[0];
+            for (int i = 0; i < weights.Length; ++i)
             {
-                type = OfficerType.INTEL_GENERAL;
-            }
-            else if (typeInt < 100)
-            {
-                type = OfficerType.EMPEROR;
-            }
-            else if (typeInt < 200)
-            {
-                type = OfficerType.GENERAL;
-            }
-            else if (typeInt < 300)
-            {
-                type = OfficerType.ADVISOR;
-            }
-            else if (typeInt < 400)
-            {
-                type = OfficerType.POLITICIAN;
-            }
-            else if (typeInt < 500)
-            {
-                type = OfficerType.BRAVE;
-            }
-            else if (typeInt < 740)
-            {
-                type = OfficerType.NORMAL_ADVISOR;
-            }
-            else if (typeInt < 980)
-            {
-                type = OfficerType.NORMAL_GENERAL;
-            }
-            else
-            {
-                type = OfficerType.CHEAP;
+                if (typeInt < typeSum)
+                {
+                    type = types[i];
+                    break;
+                }
+                else
+                {
+                    typeSum += weights[i + 1];
+                }
             }
 
             int titleChance = 0;
