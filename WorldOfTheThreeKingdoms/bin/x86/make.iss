@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "中华三国志"
-#define MyAppVersion "v.25"
+#define MyAppVersion "v.26"
 #define MyAppPublisher "中华三国志"
 #define MyAppURL "http://www.zhsan.com"
 #define MyAppExeName "WorldOfTheThreeKingdoms.exe"
