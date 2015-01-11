@@ -180,6 +180,17 @@
         public static int AIEncircleRank = 0;
         public static int AIEncircleVar = 0;
 
+        public static int GenerateAllRounderWeight = 1; 
+        public static int GenerateIntelGeneralWeight = 39;
+        public static int GenerateEmperorWeight = 60;
+        public static int GenerateGeneralWeight = 100;
+        public static int GenerateAdvisorWeight = 100;
+        public static int GeneratePoliticianWeight = 100;
+        public static int GenerateBraveWeight = 100;
+        public static int GenerateNormalAdvisorWeight = 240;
+        public static int GenerateNormalGeneralWeight = 240;
+        public static int GenerateCheapWeight = 20;
+
         public static List<int> ExpandConditions = new List<int>();
 
         public static float SearchPersonArchitectureCountPower = 0;
@@ -345,6 +356,17 @@
             SearchPersonArchitectureCountPower = float.Parse(nextSibling.Attributes.GetNamedItem("SearchPersonArchitectureCountPower").Value);
             AIEncircleRank = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncircleRank").Value);
             AIEncircleVar = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncircleVar").Value);
+
+            GenerateAllRounderWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GenerateAllRounderWeight").Value);
+            GenerateIntelGeneralWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GenerateIntelGeneralWeight").Value);
+            GenerateEmperorWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GenerateEmperorWeight").Value);
+            GenerateGeneralWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GenerateGeneralWeight").Value);
+            GenerateAdvisorWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GenerateAdvisorWeight").Value);
+            GeneratePoliticianWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GeneratePoliticianWeight").Value);
+            GenerateBraveWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GenerateBraveWeight").Value);
+            GenerateNormalAdvisorWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GenerateNormalAdvisorWeight").Value);
+            GenerateNormalGeneralWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GenerateNormalGeneralWeight").Value);
+            GenerateCheapWeight = int.Parse(nextSibling.Attributes.GetNamedItem("GenerateCheapWeight").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;

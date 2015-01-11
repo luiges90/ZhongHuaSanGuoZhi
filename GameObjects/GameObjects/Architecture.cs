@@ -7598,7 +7598,7 @@
 
         public bool HasMarriageToMake()
         {
-            return this.makeMarryablePersons().Count > 0;
+            return this.makeMarryablePersons().Count > 0 && this.BelongedFaction.Leader.Status == PersonStatus.Normal;
         }
 
         public bool HasUnavailablePerson(PersonList personlist)
