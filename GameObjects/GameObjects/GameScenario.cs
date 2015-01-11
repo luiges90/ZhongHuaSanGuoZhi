@@ -1049,6 +1049,7 @@
 
                     foreach (Architecture a in battleArch)
                     {
+                        a.OldFactionName = a.BelongedFaction == null ? "贼军" : a.BelongedFaction.Name;
                         a.Battle = null;
                     }
 
