@@ -4264,36 +4264,43 @@
                 TroopEvent te = new TroopEvent();
                 te.Scenario = this;
                 te.ID = (short)reader["ID"];
-                te.Name = reader["Name"].ToString();
-                te.Happened = (bool)reader["Happened"];
-                te.Repeatable = (bool)reader["Repeatable"];
                 try
                 {
-                    te.AfterEventHappened = (short)reader["AfterEventHappened"];
+                    te.Name = reader["Name"].ToString();
+                    te.Happened = (bool)reader["Happened"];
+                    te.Repeatable = (bool)reader["Repeatable"];
+                    try
+                    {
+                        te.AfterEventHappened = (short)reader["AfterEventHappened"];
+                    }
+                    catch
+                    {
+                    }
+                    te.LaunchPerson = this.Persons.GetGameObject((short)reader["LaunchPerson"]) as Person;
+                    te.Conditions.LoadFromString(this.GameCommonData.AllConditions, reader["Conditions"].ToString());
+                    te.HappenChance = (short)reader["Chance"];
+                    te.CheckArea = (EventCheckAreaKind)((short)reader["CheckAreaKind"]);
+                    te.LoadTargetPersonFromString(this.AllPersons, reader["TargetPersons"].ToString());
+                    te.LoadDialogFromString(this.AllPersons, reader["Dialogs"].ToString());
+                    te.LoadSelfEffectFromString(this.GameCommonData.AllTroopEventEffects, reader["EffectSelf"].ToString());
+                    te.LoadEffectPersonFromString(this.AllPersons, this.GameCommonData.AllTroopEventEffects, reader["EffectPersons"].ToString());
+                    te.LoadEffectAreaFromString(this.GameCommonData.AllTroopEventEffects, reader["EffectAreas"].ToString());
+                    try
+                    {
+                        te.Image = reader["ShowImage"].ToString();
+                        te.Sound = reader["ShowSound"].ToString();
+                    }
+                    catch
+                    {
+                        te.Image = "";
+                        te.Sound = "";
+                    }
+                    this.TroopEvents.AddTroopEventWithEvent(te);
                 }
-                catch
+                catch (FormatException ex)
                 {
+                    errorMsg.Add("部队事件ID" + te.ID + "：读取字串转化成数字出错，请检查所有字串格式，对话里数字与字串以半型空格分隔");
                 }
-                te.LaunchPerson = this.Persons.GetGameObject((short)reader["LaunchPerson"]) as Person;
-                te.Conditions.LoadFromString(this.GameCommonData.AllConditions, reader["Conditions"].ToString());
-                te.HappenChance = (short)reader["Chance"];
-                te.CheckArea = (EventCheckAreaKind)((short)reader["CheckAreaKind"]);
-                te.LoadTargetPersonFromString(this.AllPersons, reader["TargetPersons"].ToString());
-                te.LoadDialogFromString(this.AllPersons, reader["Dialogs"].ToString());
-                te.LoadSelfEffectFromString(this.GameCommonData.AllTroopEventEffects, reader["EffectSelf"].ToString());
-                te.LoadEffectPersonFromString(this.AllPersons, this.GameCommonData.AllTroopEventEffects, reader["EffectPersons"].ToString());
-                te.LoadEffectAreaFromString(this.GameCommonData.AllTroopEventEffects, reader["EffectAreas"].ToString());
-                try
-                {
-                    te.Image = reader["ShowImage"].ToString();
-                    te.Sound = reader["ShowSound"].ToString();
-                }
-                catch
-                {
-                    te.Image = "";
-                    te.Sound = "";
-                }
-                this.TroopEvents.AddTroopEventWithEvent(te);
             }
             DbConnection.Close();
             try
@@ -4308,45 +4315,52 @@
                         Event e = new Event();
                         e.Scenario = this;
                         e.ID = (short)reader["ID"];
-                        e.Name = reader["Name"].ToString();
-                        e.happened = (bool)reader["Happened"];
-                        e.repeatable = (bool)reader["Repeatable"];
-                        e.AfterEventHappened = (short)reader["AfterEventHappened"];
-                        e.happenChance = (short)reader["Chance"];
-                        e.LoadPersonIdFromString(this.Persons, reader["PersonId"].ToString());
-                        e.LoadPersonCondFromString(this.GameCommonData.AllConditions, reader["PersonCond"].ToString());
-                        e.LoadArchitectureFromString(this.Architectures, reader["ArchitectureID"].ToString());
-                        e.LoadArchitctureCondFromString(this.GameCommonData.AllConditions, reader["ArchitectureCond"].ToString());
-                        e.LoadFactionFromString(this.Factions, reader["FactionID"].ToString());
-                        e.LoadFactionCondFromString(this.GameCommonData.AllConditions, reader["FactionCond"].ToString());
-                        e.LoadDialogFromString(reader["Dialog"].ToString());
-                        e.LoadEffectFromString(this.GameCommonData.AllEventEffects, reader["Effect"].ToString());
-                        e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
-                        e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
                         try
                         {
-                            e.nextScenario = reader["NextScenario"].ToString();
+                            e.Name = reader["Name"].ToString();
+                            e.happened = (bool)reader["Happened"];
+                            e.repeatable = (bool)reader["Repeatable"];
+                            e.AfterEventHappened = (short)reader["AfterEventHappened"];
+                            e.happenChance = (short)reader["Chance"];
+                            e.LoadPersonIdFromString(this.Persons, reader["PersonId"].ToString());
+                            e.LoadPersonCondFromString(this.GameCommonData.AllConditions, reader["PersonCond"].ToString());
+                            e.LoadArchitectureFromString(this.Architectures, reader["ArchitectureID"].ToString());
+                            e.LoadArchitctureCondFromString(this.GameCommonData.AllConditions, reader["ArchitectureCond"].ToString());
+                            e.LoadFactionFromString(this.Factions, reader["FactionID"].ToString());
+                            e.LoadFactionCondFromString(this.GameCommonData.AllConditions, reader["FactionCond"].ToString());
+                            e.LoadDialogFromString(reader["Dialog"].ToString());
+                            e.LoadEffectFromString(this.GameCommonData.AllEventEffects, reader["Effect"].ToString());
+                            e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
+                            e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
+                            try
+                            {
+                                e.nextScenario = reader["NextScenario"].ToString();
+                            }
+                            catch
+                            {
+                                e.nextScenario = "";
+                            }
+                            try
+                            {
+                                e.Image = reader["ShowImage"].ToString();
+                                e.Sound = reader["ShowSound"].ToString();
+                                e.GloballyDisplayed = (bool)reader["GloballyDisplayed"];
+                                e.StartYear = (int)reader["StartYear"];
+                                e.StartMonth = (int)reader["StartMonth"];
+                                e.EndYear = (int)reader["EndYear"];
+                                e.EndMonth = (int)reader["EndMonth"];
+                            }
+                            catch
+                            {
+                                e.Image = "";
+                                e.Sound = "";
+                            }
+                            this.AllEvents.AddEventWithEvent(e);
                         }
-                        catch
+                        catch (FormatException)
                         {
-                            e.nextScenario = "";
+                            errorMsg.Add("部队事件ID" + e.ID + "：读取字串转化成数字出错，请检查所有字串格式，对话里数字与字串以半型空格分隔");
                         }
-                        try
-                        {
-                            e.Image = reader["ShowImage"].ToString();
-                            e.Sound = reader["ShowSound"].ToString();
-                            e.GloballyDisplayed = (bool)reader["GloballyDisplayed"];
-                            e.StartYear = (int)reader["StartYear"];
-                            e.StartMonth = (int)reader["StartMonth"];
-                            e.EndYear = (int)reader["EndYear"];
-                            e.EndMonth = (int)reader["EndMonth"];
-                        }
-                        catch
-                        {
-                            e.Image = "";
-                            e.Sound = "";
-                        }
-                        this.AllEvents.AddEventWithEvent(e);
                     }
                     catch
                     {
