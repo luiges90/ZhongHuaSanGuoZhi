@@ -2394,8 +2394,11 @@
                         upgradable.Add(mk);
                     }
                 }
-                
-                this.LevelUpMilitary(military, upgradable[GameObject.Random(upgradable.Count)]);
+
+                if (upgradable.Count > 0)
+                {
+                    this.LevelUpMilitary(military, upgradable[GameObject.Random(upgradable.Count)]);
+                }
             }
         }
 
