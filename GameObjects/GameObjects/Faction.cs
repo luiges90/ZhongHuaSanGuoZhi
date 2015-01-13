@@ -2111,8 +2111,8 @@
             Person leader = this.Leader;
             Architecture locationArchitecture = this.Leader.LocationArchitecture;
             this.Leader.Status = GameObjects.PersonDetail.PersonStatus.None;
-            this.Leader.Available = false;
-            //base.Scenario.Persons.Remove(this.Leader);
+            // this.Leader.Available = false;
+            // base.Scenario.Persons.Remove(this.Leader);
             base.Scenario.AvailablePersons.Remove(this.Leader);
             Person person2 = null;
             PersonList list = new PersonList();
