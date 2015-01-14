@@ -25,6 +25,7 @@ namespace ScenarioGenerator
             this.commonDataFileName = Application.StartupPath + "/GameData/Common/CommonData.mdb";
             this.connectionStringBuilder.DataSource = this.commonDataFileName;
             new GlobalVariables().InitialGlobalVariables();
+            new Parameters().InitializeGameParameters();
             this.scen.GameCommonData.LoadFromDatabase(this.connectionStringBuilder.ConnectionString, this.scen);
         }
 
@@ -69,6 +70,34 @@ namespace ScenarioGenerator
 
         private void generateScenario()
         {
+            try
+            {
+                int count = GameObject.Random(int.Parse(tbAddPersonLo.Text), int.Parse(tbAddPersonHi.Text));
+                Person.CreatePersonOptionsBuilder builder = new Person.CreatePersonOptionsBuilder();
+                builder.setFemaleChance(int.Parse(tbFemaleChance.Text));
+                builder.setBornLo(int.Parse(tbBornYearLo.Text));
+                builder.setBornHi(int.Parse(tbBornYearHi.Text));
+                builder.setDebutLo(int.Parse(tbDebutAgeLo.Text));
+                builder.setDebutHi(int.Parse(tbDebutAgeHi.Text));
+                builder.setDieLo(int.Parse(tbAgeLo.Text));
+                builder.setDieHi(int.Parse(tbAgeHi.Text));
+                Person.CreatePersonOptions option = builder.build();
+
+                int joinChance = int.Parse(tbJoinedFactionChance.Text);
+                for (int i = 0; i < count; ++i)
+                {
+                    Architecture location = (Architecture) scen.Architectures[GameObject.Random(scen.Architectures.Count)];
+                    Person p = Person.createPerson(scen, location, null, option);
+                    if (GameObject.Chance(joinChance) && location.BelongedFaction != null)
+                    {
+                        p.ChangeFaction(location.BelongedFaction);
+                    }
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("無效輸入：" + ex.Message);
+            }
         }
 
     }

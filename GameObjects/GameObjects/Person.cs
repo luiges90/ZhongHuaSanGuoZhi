@@ -2715,14 +2715,14 @@
                 if (GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
                     GlobalVariables.CreateRandomOfficerChance * 100)
                 {
-                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
+                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this, new CreatePersonOptionsBuilder().build());
                     return true;
                 }
                 else if (!base.Scenario.IsPlayer(this.BelongedFaction) &&
                     GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
                     GlobalVariables.CreateRandomOfficerChance * 100 * (Parameters.AIExtraPerson - 1))
                 {
-                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
+                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this, new CreatePersonOptionsBuilder().build());
    
                     GameObjectList ideals = base.Scenario.GameCommonData.AllIdealTendencyKinds;
                     IdealTendencyKind minIdeal = null;
@@ -6996,9 +6996,91 @@
             return biography;
         }
 
+        public struct CreatePersonOptions
+        {
+            public readonly int femaleChance;
+            public readonly int bornLo, bornHi;
+            public readonly int debutLo, debutHi;
+            public readonly int dieLo, dieHi, debutAtLeast;
+
+            internal CreatePersonOptions(int femaleChance, int bornLo, int bornHi, int debutLo, int debutHi,
+                int dieLo, int dieHi, int debutAtLeast)
+            {
+                this.femaleChance = femaleChance;
+                this.bornLo = bornLo;
+                this.bornHi = bornHi;
+                this.debutLo = debutLo;
+                this.debutHi = debutHi;
+                this.dieLo = dieLo;
+                this.dieHi = dieHi;
+                this.debutAtLeast = debutAtLeast;
+            }
+        }
+
+        public class CreatePersonOptionsBuilder
+        {
+            private int femaleChance = GlobalVariables.GeneratedOfficerFemaleChance;
+            private int bornLo = 15, bornHi = 40;
+            private int debutLo = 0, debutHi = 0;
+            private int dieLo = 30, dieHi = 99, debutAtLeast = 5;
+
+            public CreatePersonOptionsBuilder setFemaleChance(int x)
+            {
+                femaleChance = x;
+                return this;
+            }
+
+            public CreatePersonOptionsBuilder setBornLo(int x)
+            {
+                bornLo = x;
+                return this;
+            }
+
+            public CreatePersonOptionsBuilder setBornHi(int x)
+            {
+                bornHi = x;
+                return this;
+            }
+
+            public CreatePersonOptionsBuilder setDebutLo(int x)
+            {
+                debutLo = x;
+                return this;
+            }
+
+            public CreatePersonOptionsBuilder setDebutHi(int x)
+            {
+                debutHi = x;
+                return this;
+            }
+
+            public CreatePersonOptionsBuilder setDieLo(int x)
+            {
+                dieLo = x;
+                return this;
+            }
+
+            public CreatePersonOptionsBuilder setDieHi(int x)
+            {
+                dieHi = x;
+                return this;
+            }
+
+            public CreatePersonOptionsBuilder setDebutAtLeast(int x)
+            {
+                debutAtLeast = x;
+                return this;
+            }
+
+            public CreatePersonOptions build()
+            {
+                return new CreatePersonOptions(femaleChance, bornLo, bornHi, debutLo, debutHi, dieLo, dieHi, debutAtLeast);
+            }
+        }
+
         private enum OfficerType { GENERAL, BRAVE, ADVISOR, POLITICIAN, INTEL_GENERAL, EMPEROR, ALL_ROUNDER, NORMAL_ADVISOR, CHEAP, NORMAL_GENERAL };
 
-        public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder)
+        public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder, CreatePersonOptions options)
         {
             Person r = new Person();
 
@@ -7033,7 +7115,7 @@
             r.Generation = 1;
             r.Strain = r.ID;
 
-            r.Sex = GameObject.Chance(GlobalVariables.GeneratedOfficerFemaleChance) ? true : false;
+            r.Sex = GameObject.Chance(options.femaleChance) ? true : false;
 
             List<String> surnameList = Person.readTextList("CreateChildrenTextFile/surname.txt");
             r.SurName = surnameList[GameObject.Random(surnameList.Count)];
@@ -7262,9 +7344,9 @@
 
             r.Ideal = GameObject.Random(150);
 
-            r.YearBorn = scen.Date.Year - GameObject.Random(25) - 15;
-            r.YearAvailable = scen.Date.Year;
-            r.YearDead = Math.Max(r.YearBorn + GameObject.Random(69) + 30, scen.Date.Year + 5);
+            r.YearBorn = scen.Date.Year - GameObject.Random(options.bornLo, options.bornHi);
+            r.YearAvailable = scen.Date.Year + GameObject.Random(options.debutLo, options.debutHi);
+            r.YearDead = Math.Max(r.YearBorn + GameObject.Random(options.dieLo, options.dieHi), scen.Date.Year + options.debutAtLeast);
 
             r.Reputation = GameObject.Random(51) * 100;
 
@@ -7377,7 +7459,10 @@
             }
 
             String biography = "";
-            biography += "于" + scen.Date.Year + "年" + scen.Date.Month + "月在" + foundLocation.Name + "被" + finder.Name + "发掘成才。";
+            if (foundLocation != null && finder != null)
+            {
+                biography += "于" + scen.Date.Year + "年" + scen.Date.Month + "月在" + foundLocation.Name + "被" + finder.Name + "发掘成才。";
+            }
 
             biography += Person.GenerateBiography(r, scen);
 

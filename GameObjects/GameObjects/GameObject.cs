@@ -43,6 +43,11 @@
             return StaticMethods.Random(maxValue);
         }
 
+        public static int Random(int min, int max)
+        {
+            return StaticMethods.Random(Math.Abs(max - min) + 1) + Math.Min(max, min);
+        }
+
         private static Random rand = new Random();
         public static int RandomGaussian(int mean, int var)
         {
