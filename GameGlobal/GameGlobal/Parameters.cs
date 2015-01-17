@@ -175,6 +175,7 @@
         public static int MakeMarrigeIdealLimit = 5;
         public static int MakeMarriageCost = 80000;
         public static int NafeiCost = 50000;
+        public static int SelectPrinceCost = 50000;
 
         public static int AIEncircleRank = 0;
         public static int AIEncircleVar = 0;
@@ -223,6 +224,7 @@
             RecruitmentDomination = int.Parse(nextSibling.Attributes.GetNamedItem("RecruitmentDomination").Value);
             RecruitmentMorale = int.Parse(nextSibling.Attributes.GetNamedItem("RecruitmentMorale").Value);
             ChangeCapitalCost = int.Parse(nextSibling.Attributes.GetNamedItem("ChangeCapitalCost").Value);
+            SelectPrinceCost = int.Parse(nextSibling.Attributes.GetNamedItem("SelectPrinceCost").Value);
             HireNoFactionPersonCost = int.Parse(nextSibling.Attributes.GetNamedItem("HireNoFactionPersonCost").Value);
             ConvincePersonCost = int.Parse(nextSibling.Attributes.GetNamedItem("ConvincePersonCost").Value);
             RewardPersonCost = int.Parse(nextSibling.Attributes.GetNamedItem("RewardPersonCost").Value);

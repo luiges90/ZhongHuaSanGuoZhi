@@ -116,6 +116,7 @@
                     <MenuItem ID="4" Name="BecomeEmperorLegally" DisplayName="禅位" DisplayIfTrue="BecomeEmperorLegallyAvail" />
                 </MenuItem>
                 <MenuItem ID="2" Name="ChangeCapital" DisplayName="迁都" DisplayIfTrue="ChangeCapitalAvail" />
+                <MenuItem ID="9" Name="SelectPrince"  DisplayName="立储" DisplayIfTrue="SelectPrinceAvail" />
                 <MenuItem ID="3" Name="Diplomatic" DisplayName="外交">
                     <MenuItem ID="1" Name="EnhanceDiplomaticRelation" DisplayName="亲善" DisplayIfTrue="EnhanceDiplomaticRelationAvail" />
                     <MenuItem ID="2" Name="AllyDiplomaticRelation" DisplayName="结盟" DisplayIfTrue="AllyDiplomaticRelationAvail" />

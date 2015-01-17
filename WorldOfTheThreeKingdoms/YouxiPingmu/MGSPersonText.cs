@@ -762,7 +762,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 else
                 {
                     this.Plugins.tupianwenziPlugin.SetGameObjectBranch(neutralPerson, sourceTroop, "TroopPersonControversySourceLose");
-                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(source, sourceTroop, TextMessageKind.ControversyPassiveWin, "TroopPersonControversyAfterSourceLose");
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(destination, sourceTroop, TextMessageKind.ControversyPassiveWin, "TroopPersonControversyAfterSourceLose");
                 }
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
                 if (win)
@@ -1361,6 +1361,19 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
                 this.Plugins.GameRecordPlugin.AddBranch(p, "CreateSpouse", p.Position);
+            }
+        }
+
+        public override void Selectprince(Person p, Person q)  //立储
+        {
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) || GlobalVariables.SkyEye))
+            {
+                p.TextResultString = q.Name;
+                q.TextResultString = p.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, p, TextMessageKind.SelectPrince, "SelectPrince", "SelectPrince.jpg", "");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "SelectPrince", p.Position);
             }
         }
 

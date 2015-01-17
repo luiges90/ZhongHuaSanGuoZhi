@@ -131,6 +131,7 @@
         public static bool StopToControlOnAttack = true;
 
         public static int MaxMilitaryExperience = 3000;
+        public static float ArmyPopulationCap = 1.5f; //兵力上限 
 
         public static float CreateRandomOfficerChance = 5;
         public static int GeneratedOfficerFemaleChance = 5;
@@ -824,6 +825,15 @@
             {
                 exception = exception24;
                 throw new Exception("SurroundFactor:\n" + exception.ToString());
+            }
+            try
+            {
+                ArmyPopulationCap = float.Parse(nextSibling.Attributes.GetNamedItem("ArmyPopulationCap").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("ArmyPopulationCap:\n" + exception.ToString());
             }
             return true;
         }

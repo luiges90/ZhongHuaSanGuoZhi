@@ -19,7 +19,8 @@
 
     public class Faction : GameObject
     {
-        public int PrinceID = -1;
+        private Person prince = null;
+        private int princeID = -1;
         private bool isAlien = false;
         private int guanjuedezhi = 0;
         private int chaotinggongxiandudezhi = 0;
@@ -2118,10 +2119,9 @@
             PersonList list = new PersonList();
             if (person2 == null)
             {
-                foreach (Person person3 in this.Persons)
+                foreach (Person person3 in this.Persons) //储君优先继承
                 {
-                    if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && (person3.Father == this.Leader)
-                        && person3 != this.Leader)
+                    if (this.Prince != null && person3 == this.Prince && person3 != this.Leader)
                     {
                         list.Add(person3);
                     }
@@ -2138,6 +2138,30 @@
                     person2 = list[0] as Person;
                 }
             }
+
+            if (person2 == null)
+            {
+                list.Clear();
+                foreach (Person person3 in this.Persons)
+                {
+                    if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && (person3.Father == this.Leader) && person3 != this.Leader)
+                    {
+                        list.Add(person3);
+                    }
+                }
+                if (list.Count > 0)
+                {
+                    if (list.Count > 1)
+                    {
+                        list.PropertyName = "YearBorn";
+                        list.IsNumber = true;
+                        list.SmallToBig = true;
+                        list.ReSort();
+                    }
+                    person2 = list[0] as Person;
+                }
+            }
+
             if (person2 == null)
             {
                 list.Clear();
@@ -2310,6 +2334,10 @@
             {
                 this.Leader = person2;
                 this.Leader.Loyalty = 100;
+                if (this.Prince != null && this.Prince == this.Leader) //储君继位移除储君身份
+                {
+                    this.Prince = null;
+                }
                 if (!((this.Leader.LocationTroop == null) || this.Leader.IsCaptive))
                 {
                     this.Leader.LocationTroop.RefreshWithPersonList(this.Leader.LocationTroop.Persons.GetList());
@@ -2394,7 +2422,7 @@
             this.InformationDayEvent();
             if (!base.Scenario.IsPlayer(this))
             {
-                //this.AISelectPrince();
+                this.AISelectPrince();
                 this.AIchaotingshijian();
                 this.AIBecomeEmperor();
             }
@@ -2413,8 +2441,9 @@
                 {
                     Person person = this.Leader.ChildrenCanBeSelectedAsPrince()[0] as Person;
                     this.PrinceID = person.ID;
-                    this.Capital.DecreaseFund(50000);
-                    this.Scenario.GameScreen.xianshishijiantupian(this.Leader, person.Name, "SelectPrince", "", "", true);
+                    this.Capital.DecreaseFund(Parameters.SelectPrinceCost);
+                    this.Capital.SelectPrince(person); //AI立储年表和报告
+                    //this.Scenario.GameScreen.xianshishijiantupian(this.Leader, person.Name, "SelectPrince", "", "", true);
 
                 }
             }
@@ -5170,6 +5199,58 @@
                 return ((this.Leader != null) ? this.Leader.Name : "----");
             }
         }
+
+        public Person Prince
+        {
+            get
+            {
+                if (this.princeID == -1) return null;
+                
+                if (this.prince == null)
+                {
+                    this.prince = base.Scenario.Persons.GetGameObject(this.PrinceID) as Person;
+                }
+                //检查储君有效性
+                if (this.prince != null && (!this.prince.Alive || !this.prince.Available || this.prince.BelongedFaction != this || this.prince.BelongedFaction == null))
+                {
+                    this.Prince = null;
+                }
+                return this.prince;
+            }
+            set
+            {
+                this.prince = value;
+                if (this.prince != null)
+                {
+                    this.PrinceID = this.prince.ID;
+                }
+                else
+                {
+                    this.PrinceID = -1;
+                }
+            }
+        }
+
+        public int PrinceID
+        {
+            get
+            {
+                return this.princeID;
+            }
+            set
+            {
+                this.princeID = value;
+            }
+        }
+
+        public string PrinceName
+        {
+            get
+            {
+                return ((this.Prince != null) ? this.Prince.Name : "----");
+            }
+        }
+
 
         public int LegionCount
         {
