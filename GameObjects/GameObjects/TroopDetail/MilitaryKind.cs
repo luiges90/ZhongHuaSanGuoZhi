@@ -2,6 +2,7 @@
 {
     using GameObjects;
     using GameObjects.Influences;
+    using GameObjects.Conditions;
     using System;
     using System.Collections.Generic;
 
@@ -80,6 +81,8 @@
 
         private int morphToKindId = -1;
 
+        public ConditionTable CreateConditions = new ConditionTable();
+
         public MilitaryKindTable successor;
         private bool findSuccessor_visited;
 
@@ -90,6 +93,11 @@
         {
             get;
             set;
+        }
+
+        public bool LevelUpAvail(Architecture a)
+        {
+            return !a.BelongedFaction.IsMilitaryKindOverLimit(base.ID) && this.CheckConditions(a);
         }
 
         public bool CreateAvail(Architecture a)
@@ -107,6 +115,10 @@
                 return false;
             }
             if (!(!this.CreateBesideWater || a.IsBesideWater))
+            {
+                return false;
+            }
+            if (!this.CheckConditions(a))
             {
                 return false;
             }
@@ -1125,6 +1137,18 @@
                 if (!base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds.ContainsKey(morphToKindId)) return null;
                 return base.Scenario.GameCommonData.AllMilitaryKinds.MilitaryKinds[this.morphToKindId];
             }
+        }
+
+        public bool CheckConditions(Architecture a)
+        {
+            foreach (Condition condition in this.CreateConditions.Conditions.Values)
+            {
+                if (!condition.CheckCondition(a))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
     }

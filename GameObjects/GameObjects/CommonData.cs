@@ -996,6 +996,18 @@
                     errorMsg.AddRange(e);
                 }
 
+                try
+                {
+                    e.AddRange(militaryKind.CreateConditions.LoadFromString(this.AllConditions, reader["CreateConditions"].ToString()));
+                }
+                catch { }
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("称号ID" + militaryKind.ID);
+                    errorMsg.AddRange(e);
+                }
+
+
                 militaryKind.zijinshangxian = (int)reader["zijinshangxian"];
                 this.AllMilitaryKinds.AddMilitaryKind(militaryKind);
             }
@@ -2148,6 +2160,7 @@
                     row["zijinshangxian"] = i.zijinshangxian;
                     row["MorphTo"] = i.MorphToKindId;
                     row["MinCommand"] = i.MinCommand;
+                    row["CreateConditions"] = i.CreateConditions;
                     row.EndEdit();
                     dataSet.Tables["MilitaryKind"].Rows.Add(row);
                 }

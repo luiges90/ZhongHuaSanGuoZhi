@@ -3219,7 +3219,7 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-        <Column ID="13" Name="ExperienceWithLimit" IsNumber="true" DisplayName="经验" MinWidth="100" DetailLevel="4"
+        <Column ID="13" Name="ExperienceWithLimit" IsNumber="false" DisplayName="经验" MinWidth="100" DetailLevel="4"
                 FontName="方正隶变_GBK"
                 FontSize="15"
                 FontStyle="Regular"
