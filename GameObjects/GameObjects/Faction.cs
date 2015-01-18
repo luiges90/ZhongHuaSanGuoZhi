@@ -1891,7 +1891,7 @@
                         {
                             if (j.HasFactionInClose(k, 1))
                             {
-                                GameObjectList sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true, true); //玩家委任军团可以不新编
+                                GameObjectList sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true);
                                 if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                 {
                                     this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -1921,7 +1921,7 @@
                     section.Scenario = base.Scenario;
                     this.AddSection(section);
                     base.Scenario.Sections.AddSectionWithEvent(section);
-                    list = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, true, true, false, false); //玩家委任军团可以不新编
+                    list = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, true, true, false);
                     if (list.Count > 0)
                     {
                         section.AIDetail = list[GameObject.Random(list.Count)] as SectionAIDetail;
@@ -1952,7 +1952,7 @@
                     section.Scenario = base.Scenario;
                     this.AddSection(section);
                     base.Scenario.Sections.AddSectionWithEvent(section);
-                    list = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, true, true, false, false); //玩家委任军团可以不新编
+                    list = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, true, true, false);
                     if (list.Count > 0)
                     {
                         section.AIDetail = list[GameObject.Random(list.Count)] as SectionAIDetail;
@@ -2399,7 +2399,7 @@
                 section.Scenario = base.Scenario;
                 section.ID = base.Scenario.Sections.GetFreeGameObjectID();
                 section.Name = this.Capital.Name + "军区";
-                section.AIDetail = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, true, true, false, false)[0] as SectionAIDetail; //玩家委任军团可以不新编
+                section.AIDetail = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, true, true, false)[0] as SectionAIDetail;
                 foreach (Architecture architecture in this.Architectures)
                 {
                     section.AddArchitecture(architecture);
@@ -4326,7 +4326,7 @@
         {
             foreach (Section s in this.Sections)
             {
-                GameObjectList candidates = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, false, false); //玩家委任军团可以不新编
+                GameObjectList candidates = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, false);
                 if (candidates.Count > 0)
                 {
                     s.AIDetail = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetail(candidates[GameObject.Random(candidates.Count)].ID);
@@ -4349,7 +4349,7 @@
                 {
                     if (!this.Capital.IsOK())
                     {
-                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, false, false, false, false); //玩家委任军团可以不新编
+                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, false, false, false);
                         if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                         {
                             this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4357,7 +4357,7 @@
                     }
                     else
                     {
-                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(false, true, false); //玩家委任军团可以不新编
+                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(false, true);
                         if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                         {
                             this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4369,7 +4369,7 @@
                 {
                     if (!this.Capital.IsOK())
                     {
-                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, false, false, false, false); //玩家委任军团可以不新编
+                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, false, false, false);
                         if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                         {
                             this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4377,8 +4377,8 @@
                     }
                     else
                     {
-                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(false, true, false); //玩家委任军团可以不新编
-                        if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0) 
+                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(false, true);
+                        if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                         {
                             this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
                         }
@@ -4389,7 +4389,7 @@
                 {
                     if (!this.Capital.IsOK())
                     {
-                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, false, false, false, false); //玩家委任军团可以不新编
+                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, true, false, false, false, false);
                         if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                         {
                             this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4397,7 +4397,7 @@
                     }
                     else
                     {
-                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, true, true); //玩家委任军团可以不新编
+                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, true);
                         if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                         {
                             this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4409,7 +4409,7 @@
                 {
                     if (!this.Capital.IsGood())
                     {
-                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, false, false); //玩家委任军团可以不新编
+                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, false);
                         if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                         {
                             this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4436,7 +4436,7 @@
                         {
                             if (architecture.HasFactionInClose(faction, 1))
                             {
-                                sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true, true); //玩家委任军团可以不新编
+                                sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true);
                                 if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                 {
                                     this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4446,7 +4446,7 @@
                             }
                         }
                     }
-                    list5 = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true, true); //玩家委任军团可以不新编
+                    list5 = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true);
                     if (list5.Count > 0)
                     {
                         this.FirstSection.AIDetail = list5[GameObject.Random(list5.Count)] as SectionAIDetail;
@@ -4463,7 +4463,7 @@
                 }
                 if (!this.Capital.IsGood())
                 {
-                    sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, false, false); //玩家委任军团可以不新编
+                    sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, false);
                     if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                     {
                         this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4487,8 +4487,8 @@
                     {
                         if (architecture.HasFactionInClose(faction, 1))
                         {
-                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true, true); //玩家委任军团可以不新编
-                            if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)  
+                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true);
+                            if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                             {
                                 this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
                                 this.FirstSection.OrientationFaction = faction;
@@ -4518,7 +4518,7 @@
                                         section2 = null;
                                         if (architecture.HasOffensiveSectionInClose(out section2, 1))
                                         {
-                                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.军区, true, false, false, true, true, true); //玩家委任军团可以不新编
+                                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.军区, true, false, false, true, true);
                                             if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                             {
                                                 section.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4529,7 +4529,7 @@
                                     }
                                     if (section.OrientationSection == null)
                                     {
-                                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, true, true); //玩家委任军团可以不新编
+                                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, true);
                                         if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                         {
                                             this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4538,7 +4538,7 @@
                                 }
                                 else
                                 {
-                                    sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(false, true, false); //玩家委任军团可以不新编
+                                    sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(false, true);
                                     if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                     {
                                         this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4547,7 +4547,7 @@
                             }
                             else if ((section.GetFrontScale() > 0) && (section.ArmyScale < (num5 * 6)))
                             {
-                                sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, false,false); //玩家委任军团可以不新编
+                                sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(true, false);
                                 if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                 {
                                     this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4560,7 +4560,7 @@
                                     section2 = null;
                                     if (architecture.HasOffensiveSectionInClose(out section2, 1))
                                     {
-                                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.军区, true, false, false, false, false, false); //玩家委任军团可以不新编
+                                        sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.军区, true, false, false, false, false);
                                         if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                         {
                                             section.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4571,7 +4571,7 @@
                                 }
                                 if (section.OrientationSection == null)
                                 {
-                                    sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(false, false, false); //玩家委任军团可以不新编
+                                    sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionNoOrientationAutoAIDetailsByConditions(false, false);
                                     if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                     {
                                         this.FirstSection.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4610,7 +4610,7 @@
                         {
                             if (architecture.HasFactionInClose(faction, 1))
                             {
-                                sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true, true); //玩家委任军团可以不新编
+                                sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.势力, true, true, true, false, true);
                                 if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                 {
                                     section.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4637,7 +4637,7 @@
                         }
                         if (this.Capital.LocationState.GetSectionScale(section) >= 60)
                         {
-                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true, true); //玩家委任军团可以不新编
+                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true);
                             if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                             {
                                 section.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4662,7 +4662,7 @@
                         }
                         if (this.Capital.LocationState.LinkedRegion.GetSectionScale(section) >= 60)
                         {
-                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true, true); //玩家委任军团可以不新编
+                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true);
                             if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                             {
                                 section.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4705,7 +4705,7 @@
                         }
                         if (this.Capital.LocationState.LinkedRegion.GetSectionScale(section) >= 60)
                         {
-                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true, true); //玩家委任军团可以不新编
+                            sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true);
                             if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                             {
                                 section.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4742,7 +4742,7 @@
                                 }
                                 if (list4.Count > 0)
                                 {
-                                    sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true, true); //玩家委任军团可以不新编
+                                    sectionNoOrientationAutoAIDetailsByConditions = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true);
                                     if (sectionNoOrientationAutoAIDetailsByConditions.Count > 0)
                                     {
                                         section.AIDetail = sectionNoOrientationAutoAIDetailsByConditions[GameObject.Random(sectionNoOrientationAutoAIDetailsByConditions.Count)] as SectionAIDetail;
@@ -4760,7 +4760,7 @@
                 }
                 return;
             }
-            list5 = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true, true); //玩家委任军团可以不新编
+            list5 = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.州域, true, true, true, false, true);
             if (list5.Count > 0)
             {
                 this.FirstSection.AIDetail = list5[GameObject.Random(list5.Count)] as SectionAIDetail;

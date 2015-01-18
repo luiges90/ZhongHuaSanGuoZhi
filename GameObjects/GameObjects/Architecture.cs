@@ -8619,10 +8619,6 @@
                 {
                     return false;
                 }
-                if (base.Scenario.IsPlayer(this.BelongedFaction) && this.BelongedSection != null && !this.BelongedSection.AIDetail.AllowNewMilitary) //玩家委任军团可以不新编
-                {
-                    return false;
-                }
                 if (this.BelongedFaction.Army > (int)(this.BelongedFaction.Population * GlobalVariables.ArmyPopulationCap)) //势力兵力超过上限时，不能新编
                 {
                     return false;
