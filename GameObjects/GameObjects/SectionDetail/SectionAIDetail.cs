@@ -12,6 +12,7 @@
         private bool allowOffensiveCampaign;
         private bool allowOffensiveTactics;
         private bool allowPersonTactics;
+        private bool allowNewMilitary; //允许新编
         private bool autoRun;
         private string description;
         private SectionOrientationKind orientationKind;
@@ -275,6 +276,19 @@
                 this.valueTraining = value;
             }
         }
+
+        public bool AllowNewMilitary //允许新编
+        {
+            get
+            {
+                return this.allowNewMilitary;
+            }
+            set
+            {
+                this.allowNewMilitary = value;
+            }
+        }
+
 
         public bool AllowFacilityRemoval
         {

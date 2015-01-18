@@ -40,12 +40,12 @@
             return list;
         }
 
-        public GameObjectList GetSectionAIDetailsByConditions(SectionOrientationKind orientationKind, bool autoRun, bool valueOffensiveCampaign, bool allowOffensiveCampaign, bool allowMilitaryTransfer, bool valueRecruitment)
+        public GameObjectList GetSectionAIDetailsByConditions(SectionOrientationKind orientationKind, bool autoRun, bool valueOffensiveCampaign, bool allowOffensiveCampaign, bool allowMilitaryTransfer, bool valueRecruitment, bool allowNewMilitary)
         {
             GameObjectList list = new GameObjectList();
             foreach (SectionAIDetail detail in this.SectionAIDetails.Values)
             {
-                if (((((detail.OrientationKind == orientationKind) && (detail.AutoRun == autoRun)) && ((detail.ValueOffensiveCampaign == valueOffensiveCampaign) && (detail.AllowOffensiveCampaign == allowOffensiveCampaign))) && (detail.AllowMilitaryTransfer == allowMilitaryTransfer)) && (detail.ValueRecruitment == valueRecruitment))
+                if (((((detail.OrientationKind == orientationKind) && (detail.AutoRun == autoRun)) && ((detail.ValueOffensiveCampaign == valueOffensiveCampaign) && (detail.AllowOffensiveCampaign == allowOffensiveCampaign))) && (detail.AllowMilitaryTransfer == allowMilitaryTransfer)) && (detail.ValueRecruitment == valueRecruitment && detail.AllowNewMilitary == allowNewMilitary))
                 {
                     list.Add(detail);
                 }
@@ -53,12 +53,12 @@
             return list;
         }
 
-        public GameObjectList GetSectionNoOrientationAutoAIDetailsByConditions(bool allowOffensiveCampaign, bool valueRecruitment)
+        public GameObjectList GetSectionNoOrientationAutoAIDetailsByConditions(bool allowOffensiveCampaign, bool valueRecruitment, bool allowNewMilitary)
         {
             GameObjectList list = new GameObjectList();
             foreach (SectionAIDetail detail in this.SectionAIDetails.Values)
             {
-                if ((((detail.OrientationKind == SectionOrientationKind.无) && detail.AutoRun) && (detail.AllowOffensiveCampaign == allowOffensiveCampaign)) && (detail.ValueRecruitment == valueRecruitment))
+                if ((((detail.OrientationKind == SectionOrientationKind.无) && detail.AutoRun) && (detail.AllowOffensiveCampaign == allowOffensiveCampaign)) && (detail.ValueRecruitment == valueRecruitment && detail.AllowNewMilitary == allowNewMilitary))
                 {
                     list.Add(detail);
                 }

@@ -69,7 +69,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         if (faction.FirstSection != null)
                         {
                             //faction.FirstSection.AIDetail = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(0, false, false, false, false, false)[0] as SectionAIDetail;
-                            faction.FirstSection.AIDetail = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, false, false, false, false, false)[0] as SectionAIDetail;
+                            faction.FirstSection.AIDetail = base.Scenario.GameCommonData.AllSectionAIDetails.GetSectionAIDetailsByConditions(SectionOrientationKind.无, false, false, false, false, false, false)[0] as SectionAIDetail; //玩家委任军团可以不新编
 
                         }
                     }
