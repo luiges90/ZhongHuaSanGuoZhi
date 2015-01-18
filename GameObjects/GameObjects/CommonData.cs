@@ -2334,6 +2334,7 @@
                     row["PointCost"] = i.PointCost;
                     row["Days"] = i.Days;
                     row["Influences"] = i.Influences.SaveToString();
+                    row["Conditions"] = i.Conditions.SaveToString();
                     row.EndEdit();
                     dataSet.Tables["Technique"].Rows.Add(row);
                 }
