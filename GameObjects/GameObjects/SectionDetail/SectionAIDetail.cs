@@ -9,6 +9,7 @@
         private bool allowFundTransfer;
         private bool allowInvestigateTactics;
         private bool allowMilitaryTransfer;
+        private bool allowNewMilitary;
         private bool allowOffensiveCampaign;
         private bool allowOffensiveTactics;
         private bool allowPersonTactics;
@@ -261,6 +262,18 @@
             set
             {
                 this.valueTechnology = value;
+            }
+        }
+
+        public bool AllowNewMilitary //允许新编
+        {
+            get
+            {
+                return this.allowNewMilitary;
+            }
+            set
+            {
+                this.allowNewMilitary = value;
             }
         }
 
