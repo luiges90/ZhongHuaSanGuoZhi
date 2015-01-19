@@ -13206,6 +13206,25 @@
                 }
             }
         }
+
+        public float InfluenceKindValue(int id)
+        {
+            float result = 0;
+            foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+            {
+                if (i.Kind.ID == id)
+                {
+                    foreach (ApplyingArchitecture j in i.appliedArch)
+                    {
+                        if (j.arch == this)
+                        {
+                            result += i.Value;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
 

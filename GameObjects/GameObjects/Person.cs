@@ -6,6 +6,7 @@
     using GameObjects.PersonDetail;
     using GameObjects.PersonDetail.PersonMessages;
     using GameObjects.TroopDetail;
+    using GameObjects.Influences;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
     using System;
@@ -8547,6 +8548,39 @@
             }
         }
 
+        public bool HasInfluenceKind(int id)
+        {
+            foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+            {
+                foreach (ApplyingPerson j in i.appliedPerson)
+                {
+                    if (j.person == this)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public float InfluenceKindValueByTreasure(int id)
+        {
+            float result = 0;
+            foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+            {
+                if (i.Kind.ID == id)
+                {
+                    foreach (ApplyingPerson j in i.appliedPerson)
+                    {
+                        if (j.person == this && j.applier == Applier.Treasure)
+                        {
+                            result += i.Value;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
 
