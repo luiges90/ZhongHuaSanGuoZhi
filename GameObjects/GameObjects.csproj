@@ -1316,5 +1316,6 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6525.cs" />
     <Compile Include="GameObjects\OngoingBattle.cs" />
     <Compile Include="GameObjects\OngoingBattleList.cs" />
+    <Compile Include="GameObjects\TroopDetail\EventEffect\EventEffectKindPack\EventEffectKind80.cs" />
   </ItemGroup>
 </Project>
