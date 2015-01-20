@@ -79,6 +79,7 @@ Thumbs.db
 Desktop.ini
 
 *.exe
+!FullScreen.exe
 *.dll
 *.url
 *.lnk
