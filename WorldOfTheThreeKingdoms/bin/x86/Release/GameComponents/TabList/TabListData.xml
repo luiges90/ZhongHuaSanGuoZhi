@@ -1215,11 +1215,9 @@
         </Tab>
         <Tab ID="6"  Name="Tactics" DisplayName="策略" Columns="1 70 71 110 111 112 113 114 115 116 117 118">
         </Tab>
-        <Tab ID="7"  Name="Skill" DisplayName="技能" Columns="1 50 136" ListKind="Skill" ListMethod="GetSkillList">
-        </Tab>
         <Tab ID="8"  Name="PersonalTitle" DisplayName="称号" Columns="1 60 66 67 65 62 64 63 61 68">
         </Tab>
-		<Tab ID="10"  Name="Stunt" DisplayName="特技" Columns="1 139 140" ListKind="Stunt" ListMethod="GetStuntList">
+		<Tab ID="10"  Name="Stunt" DisplayName="技能特技" Columns="1 136 139 140" ListKind="Stunt" ListMethod="GetStuntList">
         </Tab>
         <Tab ID="11"  Name="Experience" DisplayName="能力经验" Columns="1 80 100 101 102 103 104">
         </Tab>
