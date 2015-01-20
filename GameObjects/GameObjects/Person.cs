@@ -173,6 +173,7 @@
         private float strengthExperience;
         public Stunt StudyingStunt;
         public Title StudyingTitle;
+        public GameObjectList StudySkillList = new GameObjectList();
         public GameObjectList StudyStuntList = new GameObjectList();
         public GameObjectList StudyTitleList = new GameObjectList();
         public StuntTable Stunts = new StuntTable();
@@ -3181,6 +3182,19 @@
             return this.Skills.GetSkillList();
         }
 
+        public GameObjectList GetStudySkillList()
+        {
+            this.StudySkillList.Clear();
+            foreach (Skill skill in base.Scenario.GameCommonData.AllSkills.Skills.Values)
+            {
+                if ((this.Skills.GetSkill(skill.ID) == null) && skill.CanLearn(this))
+                {
+                    this.StudySkillList.Add(skill);
+                }
+            }
+            return StudySkillList;
+        }
+
         public GameObjectList GetStuntList()
         {
             return this.Stunts.GetStuntList();
@@ -5441,14 +5455,27 @@
             }
         }
 
+        public String StudyableSkillList
+        {
+            get
+            {
+                String result = this.GetStudySkillList().Count + "个：";
+                foreach (Skill s in this.StudySkillList)
+                {
+                    result += s.Name + "、";
+                }
+                return result;
+            }
+        }
+
         public String StudyableStuntList
         {
             get
             {
-                String result = "";
-                foreach (Stunt s in this.GetStudyStuntList())
+                String result = this.GetStudyStuntList().Count + "个：";
+                foreach (Stunt s in this.StudyStuntList)
                 {
-                    result += s.Name + " ";
+                    result += s.Name + "、";
                 }
                 return result;
             }

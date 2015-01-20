@@ -583,12 +583,12 @@
                     FontColor="4294967295"
                     Align="Right">
         </Column>
-		<Column ID="136" Name="StudyableSkillCount" IsNumber="true" DisplayName="可习得技能" MinWidth="100" DetailLevel="7"
+		<Column ID="136" Name="StudyableSkillList" IsNumber="false" DisplayName="可习得技能" MinWidth="250" DetailLevel="7"
                 FontName="方正隶变_GBK"
-                FontSize="15"
+                FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
-                Align="Right">
+                Align="Left">
         </Column>
 		
 		<Column ID="137" Name="HasFollowingArmy" IsNumber="false" DisplayName="有军队追随" MinWidth="100" DetailLevel="3"
@@ -605,19 +605,19 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
-		<Column ID="139" Name="StuntList" IsNumber="false" DisplayName="特技" MinWidth="300" DetailLevel="3"
+		<Column ID="139" Name="StuntList" IsNumber="false" DisplayName="特技" MinWidth="250" DetailLevel="3"
                 FontName="方正隶变_GBK"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
-                Align="Middle">
+                Align="Left">
         </Column>
-		<Column ID="140" Name="StudyableStuntList" IsNumber="true" DisplayName="可习得特技" MinWidth="300" DetailLevel="7"
+		<Column ID="140" Name="StudyableStuntList" IsNumber="false" DisplayName="可习得特技" MinWidth="250" DetailLevel="7"
                 FontName="方正隶变_GBK"
                 FontSize="12"
                 FontStyle="Regular"
                 FontColor="4294967295"
-                Align="Middle">
+                Align="Left">
         </Column>
 		<Column ID="142" Name="StudyableHigherLevelTitle" IsNumber="false" DisplayName="可习得较高级称号" MinWidth="180" DetailLevel="7"
                 FontName="方正隶变_GBK"
