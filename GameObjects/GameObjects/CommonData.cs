@@ -426,7 +426,7 @@
                 condition.Parameter = reader["Parameter"].ToString();
                 condition.Parameter2 = reader["Parameter2"].ToString();
                 condition.Kind = this.AllConditionKinds.GetConditionKind((short)reader["Kind"]);
-                if (condition.Kind != null)
+                if (condition.Kind != null || condition.ID == 9998 || condition.ID == 9999)
                 {
                     this.AllConditions.AddCondition(condition);
                 }
