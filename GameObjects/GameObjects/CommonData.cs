@@ -434,7 +434,7 @@
                 condition.Parameter = reader["Parameter"].ToString();
                 condition.Parameter2 = reader["Parameter2"].ToString();
                 condition.Kind = this.AllConditionKinds.GetConditionKind((short)reader["Kind"]);
-                if (condition.Kind != null)
+                if (condition.Kind != null || condition.ID == 9998 || condition.ID == 9999)
                 {
                     this.AllConditions.AddCondition(condition);
                 }
@@ -1003,6 +1003,18 @@
                     errorMsg.Add("兵种ID" + militaryKind.ID);
                     errorMsg.AddRange(e);
                 }
+
+                try
+                {
+                    e.AddRange(militaryKind.CreateConditions.LoadFromString(this.AllConditions, reader["CreateConditions"].ToString()));
+                }
+                catch { }
+                if (e.Count > 0)
+                {
+                    errorMsg.Add("称号ID" + militaryKind.ID);
+                    errorMsg.AddRange(e);
+                }
+
 
                 militaryKind.zijinshangxian = (int)reader["zijinshangxian"];
                 this.AllMilitaryKinds.AddMilitaryKind(militaryKind);
@@ -2156,6 +2168,7 @@
                     row["zijinshangxian"] = i.zijinshangxian;
                     row["MorphTo"] = i.MorphToKindId;
                     row["MinCommand"] = i.MinCommand;
+                    row["CreateConditions"] = i.CreateConditions;
                     row.EndEdit();
                     dataSet.Tables["MilitaryKind"].Rows.Add(row);
                 }
@@ -2343,6 +2356,7 @@
                     row["PointCost"] = i.PointCost;
                     row["Days"] = i.Days;
                     row["Influences"] = i.Influences.SaveToString();
+                    row["Conditions"] = i.Conditions.SaveToString();
                     row.EndEdit();
                     dataSet.Tables["Technique"].Rows.Add(row);
                 }

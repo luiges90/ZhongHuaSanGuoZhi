@@ -127,6 +127,10 @@
             {
                 return ((Person) this.tabList.gameObjectList[index]).TitleName(this.ItemID);
             }
+            if (this.Name.Equals("InfluenceKindValueByTreasure"))
+            {
+                return ((Person)this.tabList.gameObjectList[index]).InfluenceKindValueByTreasure(this.ItemID).ToString();
+            }
 
             object obj = StaticMethods.GetPropertyValue(this.tabList.gameObjectList[index], this.Name);
             String s;

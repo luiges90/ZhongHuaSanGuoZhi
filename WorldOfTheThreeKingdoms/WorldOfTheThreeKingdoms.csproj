@@ -111,6 +111,7 @@
     <Compile Include="Chuangkou\formAbout.Designer.cs">
       <DependentUpon>formAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="FullScreenHelper.cs" />
     <Compile Include="Qita\MapTile.cs" />
     <Compile Include="TiShiText.cs" />
     <Compile Include="TuCengHeTupian\ArchitectureLayer.cs">

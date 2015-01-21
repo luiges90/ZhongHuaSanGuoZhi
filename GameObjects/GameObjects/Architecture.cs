@@ -2394,7 +2394,7 @@
                 List<MilitaryKind> upgradable = new List<MilitaryKind>();
                 foreach (MilitaryKind mk in candidates)
                 {
-                    if (!this.BelongedFaction.IsMilitaryKindOverLimit(mk.ID))
+                    if (mk.LevelUpAvail(this))
                     {
                         upgradable.Add(mk);
                     }
@@ -6574,7 +6574,7 @@
                 bool hasLevelupable = false;
                 foreach (int id in military.Kind.LevelUpKindID)
                 {
-                    if (!this.BelongedFaction.IsMilitaryKindOverLimit(id)) 
+                    if (military.Kind.LevelUpAvail(this)) 
                     {
                         hasLevelupable = true;
                         break;
@@ -6624,7 +6624,7 @@
             this.UpgradableMilitaryKindList.Clear();
             foreach (MilitaryKind mk in m.Kind.GetLevelUpKinds())
             {
-                if (!this.BelongedFaction.IsMilitaryKindOverLimit(mk.ID))
+                if (mk.LevelUpAvail(this))
                 {
                     this.UpgradableMilitaryKindList.Add(mk);
                 }
@@ -8116,7 +8116,7 @@
 
         public void LevelUpMilitary(Military m, MilitaryKind militaryKind)
         {
-            if ((militaryKind != null) && (!m.BelongedFaction.IsMilitaryKindOverLimit(militaryKind.ID)))
+            if ((militaryKind != null) && (militaryKind.LevelUpAvail(this)))
             {
                 int num = (m.Quantity * militaryKind.MinScale) / m.Kind.MinScale;
                 int num2 = ((m.Experience - m.Kind.LevelUpExperience) * militaryKind.MinScale) / m.Kind.MinScale;
@@ -13210,6 +13210,25 @@
                     return this.RateList.Count;
                 }
             }
+        }
+
+        public float InfluenceKindValue(int id)
+        {
+            float result = 0;
+            foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+            {
+                if (i.Kind.ID == id)
+                {
+                    foreach (ApplyingArchitecture j in i.appliedArch)
+                    {
+                        if (j.arch == this)
+                        {
+                            result += i.Value;
+                        }
+                    }
+                }
+            }
+            return result;
         }
     }
 }

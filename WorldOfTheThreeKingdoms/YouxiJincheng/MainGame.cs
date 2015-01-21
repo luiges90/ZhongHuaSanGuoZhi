@@ -120,6 +120,7 @@ namespace WorldOfTheThreeKingdoms
                 this.previousWindowWidth = this.graphics.GraphicsDevice.Viewport.Width;
                 this.previousWindowHeight = this.graphics.GraphicsDevice.Viewport.Height;
                 GraphicsAdapter adapter = this.graphics.GraphicsDevice.CreationParameters.Adapter;
+                FullScreenHelper.FullScreen();
                 this.graphics.PreferredBackBufferWidth = adapter.CurrentDisplayMode.Width;
                 this.graphics.PreferredBackBufferHeight = adapter.CurrentDisplayMode.Height;
             }

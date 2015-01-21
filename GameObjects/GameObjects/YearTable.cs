@@ -573,7 +573,7 @@
             {
                 foreach (Architecture a in architectures)
                 {
-                    if ((a.BelongedFaction == null && a.OldFactionName.Equals(""))
+                    if (a.BelongedFaction == null
                         || (a.OldFactionName != a.BelongedFaction.Name))
                     {
                         if (addYearTable)

@@ -462,6 +462,21 @@
             }
         }
 
+        public String ExperienceWithLimit
+        {
+            get
+            {
+                if (this.CanLevelUp)
+                {
+                    return this.Experience + "/" + this.Kind.LevelUpExperience;
+                }
+                else
+                {
+                    return this.Experience + "/" + GlobalVariables.MaxMilitaryExperience;
+                }
+            }
+        }
+
         public Person FollowedLeader
         {
             get

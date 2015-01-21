@@ -5659,6 +5659,25 @@
                 return maxReputation;
             }
         }
+
+        public float InfluenceKindValue(int id)
+        {
+            float result = 0;
+            foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+            {
+                if (i.Kind.ID == id)
+                {
+                    foreach (ApplyingFaction j in i.appliedFaction)
+                    {
+                        if (j.faction == this)
+                        {
+                            result += i.Value;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
 

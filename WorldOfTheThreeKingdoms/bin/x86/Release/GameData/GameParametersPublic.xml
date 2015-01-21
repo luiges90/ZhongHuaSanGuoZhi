@@ -148,5 +148,6 @@ GeneratePoliticianWeight="100"
 GenerateBraveWeight="100" 
 GenerateNormalAdvisorWeight="240" 
 GenerateNormalGeneralWeight="240" 
-GenerateCheapWeight="20">
+GenerateCheapWeight="20"
+SelectPrinceCost="50000">
 </GameParameters>

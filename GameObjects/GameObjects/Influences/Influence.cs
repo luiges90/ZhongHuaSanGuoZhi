@@ -259,6 +259,14 @@
             }
         }
 
+        public float Value
+        {
+            get
+            {
+                return float.Parse(this.Parameter);
+            }
+        }
+
         public double AIPersonValue
         {
             get

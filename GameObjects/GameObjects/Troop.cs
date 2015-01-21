@@ -13167,6 +13167,25 @@
         public delegate void Waylay(Troop sending, Troop receiving);
 
         public delegate void TransportArrived(Troop troop, Architecture destination);
+
+        public float InfluenceKindValue(int id)
+        {
+            float result = 0;
+            foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
+            {
+                if (i.Kind.ID == id)
+                {
+                    foreach (ApplyingTroop j in i.appliedTroop)
+                    {
+                        if (j.troop == this)
+                        {
+                            result += i.Value;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
 
