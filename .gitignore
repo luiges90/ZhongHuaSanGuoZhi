@@ -91,8 +91,7 @@ WorldOfTheThreeKingdoms/bin/x86/Debug
 WorldOfTheThreeKingdoms/bin/x86/public
 WorldOfTheThreeKingdoms/bin/x86/*.zip
 WorldOfTheThreeKingdoms/bin/x86/v*
-WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/**/*
-!WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/**/*.xml
+WorldOfTheThreeKingdoms/bin/x86/Release/GameComponents/PersonPortrait
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GameParameters.xml
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/GlobalVariables.xml
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/archive
@@ -101,15 +100,27 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/generatedScen.mdb
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/archive
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/L*
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/ScenarioErrors.txt
-[Rr]esources
 WorldOfTheThreeKingdoms/bin/x86/Release/Dantiao
 WorldOfTheThreeKingdoms/bin/x86/Release/GameSound
 WorldOfTheThreeKingdoms/bin/x86/Release/GameMusic
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario
+WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common
+WorldOfTheThreeKingdoms/bin/x86/Release/Resources/Extensions
+
+WorldOfTheThreeKingdoms/bin/**/*.jpg
+WorldOfTheThreeKingdoms/bin/**/*.png
+WorldOfTheThreeKingdoms/bin/**/*.bmp
+WorldOfTheThreeKingdoms/bin/**/*.wav
+WorldOfTheThreeKingdoms/bin/**/*.mp3
+WorldOfTheThreeKingdoms/bin/**/*.wma
+WorldOfTheThreeKingdoms/bin/**/*.gif
+WorldOfTheThreeKingdoms/bin/**/*.psd
+
 ~*
 *.log
 *.ldb
 *.jsgme
+*.dll.config
 MODS
 JSGME.ini
 *.vshost.exe.manifest
@@ -122,3 +133,4 @@ JSGME.ini
 L*.mdb
 
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/ScenarioErrors.txt
+*.rar
