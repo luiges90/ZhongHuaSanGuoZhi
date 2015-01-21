@@ -104,17 +104,16 @@ WorldOfTheThreeKingdoms/bin/x86/Release/Dantiao
 WorldOfTheThreeKingdoms/bin/x86/Release/GameSound
 WorldOfTheThreeKingdoms/bin/x86/Release/GameMusic
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario
-WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common
 WorldOfTheThreeKingdoms/bin/x86/Release/Resources/Extensions
 
-WorldOfTheThreeKingdoms/bin/**/*.jpg
-WorldOfTheThreeKingdoms/bin/**/*.png
-WorldOfTheThreeKingdoms/bin/**/*.bmp
-WorldOfTheThreeKingdoms/bin/**/*.wav
-WorldOfTheThreeKingdoms/bin/**/*.mp3
-WorldOfTheThreeKingdoms/bin/**/*.wma
-WorldOfTheThreeKingdoms/bin/**/*.gif
-WorldOfTheThreeKingdoms/bin/**/*.psd
+*.jpg
+*.png
+*.bmp
+*.wav
+*.mp3
+*.wma
+*.gif
+*.psd
 
 ~*
 *.log
