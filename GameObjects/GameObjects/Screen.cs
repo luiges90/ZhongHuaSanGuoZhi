@@ -68,6 +68,8 @@
             this.UndoneWorks.Push(new UndoneWorkItem(UndoneWorkKind.None, UndoneWorkSubKind.None));
         }
 
+        public virtual void FullScreen() { }
+
         public virtual void DisposeMapTileMemory()
         {
         }
