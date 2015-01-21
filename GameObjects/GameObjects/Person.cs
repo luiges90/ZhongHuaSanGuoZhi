@@ -6697,7 +6697,9 @@
             PersonList haiziliebiao = new PersonList();
             foreach (Person person in this.Scenario.Persons)
             {
-                if (person.Alive && person.Available && person.Father == this && person.BelongedFaction == this.BelongedFaction && person.BelongedCaptive == null && person.sex == false && person.BelongedFaction != null && person.locationArchitecture != null && person.locationTroop == null)
+                if (person.Alive && person.Available && person.Father == this && person.BelongedFaction == this.BelongedFaction 
+                    && person.BelongedCaptive == null && person.sex == false && person.BelongedFaction != null && person.locationArchitecture != null 
+                    && person.locationTroop == null && this.Status == PersonStatus.Normal)
                 {
                     haiziliebiao.Add(person);
                 }
