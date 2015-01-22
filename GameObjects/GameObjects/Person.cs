@@ -8579,11 +8579,14 @@
         {
             foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
             {
-                foreach (ApplyingPerson j in i.appliedPerson)
+                if (i.Kind.ID == id)
                 {
-                    if (j.person == this)
+                    foreach (ApplyingPerson j in i.appliedPerson)
                     {
-                        return true;
+                        if (j.person == this)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
