@@ -125,11 +125,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.Player.PlayStateChange+=(new _WMPOCXEvents_PlayStateChangeEventHandler(this.Player_PlayStateChange));
         }
 
-        public void FullScreen()
-        {
-            FullScreenHelper.FullScreen();
-        }
-
         private string SaveFileExtension
         {
             get
