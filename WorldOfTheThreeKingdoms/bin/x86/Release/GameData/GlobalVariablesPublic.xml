@@ -2,7 +2,6 @@
 <GlobalVariables
 MapScrollSpeed="0.8"
 TroopMoveSpeed="2"
-ArmyPopulationCap="1.5"
 RunWhileNotFocused="True"
 PlayMusic="True"
 PlayNormalSound="True"
