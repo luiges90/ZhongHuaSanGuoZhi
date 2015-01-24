@@ -22,6 +22,10 @@ namespace GameObjects
             get;
             set;
         }
-        
+        public bool ShowDialog
+        {
+            get;
+            set;
+        }
 	}
 }

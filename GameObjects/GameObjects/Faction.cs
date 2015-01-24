@@ -4212,10 +4212,16 @@
         private void Advancement()
         {
             this.guanjue++;
-            this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.Persons.GetGameObject(7000) as Person, this.LeaderName, TextMessageKind.RiseEmperorClass, "shengguan", "shengguan.jpg", "",
-                this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
-            this.Scenario.GameScreen.xiejinxingjilu("shengguan", this.LeaderName,
-                this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
+            
+            guanjuezhongleilei gj = this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue);
+            if (base.Scenario.IsPlayer(this) || gj.ShowDialog)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.Persons.GetGameObject(7000) as Person, this.LeaderName, TextMessageKind.RiseEmperorClass, "shengguan", "shengguan.jpg", "",
+                   gj.Name, true);
+                this.Scenario.GameScreen.xiejinxingjilu("shengguan", this.LeaderName,
+                    gj.Name, this.Leader.Position);
+            }
+
             base.Scenario.YearTable.addAdvanceGuanjueEntry(base.Scenario.Date, this, this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue));
             ExtensionInterface.call("Advancement", new Object[] { this.Scenario, this });
         }
@@ -4223,10 +4229,16 @@
         private void SelfAdvancement()
         {
             this.guanjue++;
-            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, TextMessageKind.SelfRiseEmperorClass, "Zili", "", "",
-                this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
-            this.Scenario.GameScreen.xiejinxingjilu("Zili", this.LeaderName,
-                this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
+
+            guanjuezhongleilei gj = this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue);
+            if (base.Scenario.IsPlayer(this) || gj.ShowDialog)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, TextMessageKind.SelfRiseEmperorClass, "Zili", "", "",
+                    this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
+                this.Scenario.GameScreen.xiejinxingjilu("Zili", this.LeaderName,
+                    this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
+            }
+
             base.Scenario.YearTable.addSelfAdvanceGuanjueEntry(base.Scenario.Date, this, this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue));
             ExtensionInterface.call("SelfAdvancement", new Object[] { this.Scenario, this });
         }
