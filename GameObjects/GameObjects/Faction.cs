@@ -140,6 +140,7 @@
         public TroopList Troops = new TroopList();
         private int upgradingDaysLeft;
         private int upgradingTechnique = -1;
+        private Dictionary<MilitaryKind, int> militaryKindCounts = new Dictionary<MilitaryKind, int>();
 
         public List<float> techniqueReputationRateDecrease = new List<float>();
         public List<float> techniquePointCostRateDecrease = new List<float>();
@@ -504,6 +505,14 @@
         public void AddMilitary(Military military)
         {
             this.Militaries.AddMilitary(military);
+            if (this.militaryKindCounts.ContainsKey(military.Kind))
+            {
+                this.militaryKindCounts[military.Kind]++;
+            }
+            else
+            {
+                this.militaryKindCounts[military.Kind] = 1;
+            }
             military.BelongedFaction = this;
         }
 
@@ -2958,16 +2967,9 @@
 
         public bool IsMilitaryKindOverLimit(int id)
         {
-            int count = 0;
-            foreach (Military military in this.Militaries)
-            {
-                if (military.RealKindID == id)
-                {
-                    count++;
-                }
-            }
             MilitaryKind mk = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(id);
-            return count >= mk.RecruitLimit;
+            if (!this.militaryKindCounts.ContainsKey(mk)) return true;
+            return this.militaryKindCounts[mk] >= mk.RecruitLimit;
         }
 
         public bool HasPerson(Person person)
@@ -3509,6 +3511,7 @@
         public void RemoveMilitary(Military military)
         {
             this.Militaries.Remove(military);
+            this.militaryKindCounts[military.Kind]--;
             military.BelongedFaction = null;
         }
 
