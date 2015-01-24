@@ -9979,7 +9979,7 @@
 
                         person2.LocationArchitecture = this;
                         person2.TargetArchitecture = null;
-
+                        person2.Reputation = (int) (person2.Reputation * 0.95);
                     }
 
                     //if ((leader.LocationTroop == null) || leader.IsCaptive)

@@ -1865,6 +1865,14 @@
                         person.MoveToArchitecture(this.StartingArchitecture, from);
                     }
                     person.LocationTroop = null;
+                    if (this.Leader == person)
+                    {
+                        person.DecreaseReputation(50);
+                    }
+                    else
+                    {
+                        person.DecreaseReputation(30);
+                    }
                 }
                 this.persons.Clear();
                 if (flag)
@@ -2799,6 +2807,17 @@
                 {
                     sending.Scenario.ChangeDiplomaticRelation(sending.BelongedFaction.ID, receiving.BelongedFaction.ID, -10);
                     sending.Scenario.ReflectDiplomaticRelations(sending.BelongedFaction.ID, receiving.BelongedFaction.ID, -10);
+                }
+                foreach (Person p in sending.persons)
+                {
+                    if (sending.Leader == p)
+                    {
+                        p.IncreaseReputation(75);
+                    }
+                    else
+                    {
+                        p.IncreaseReputation(50);
+                    }
                 }
                 if (sending.BelongedFaction != null)
                 {

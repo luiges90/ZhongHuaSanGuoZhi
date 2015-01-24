@@ -4773,7 +4773,7 @@
                             int g = p.PersonalLoyalty - 1 + (GameObject.Random(5) - 2);
                             if (p.Hates(q))
                             {
-                                g = Math.Min(0, g);
+                                g = Math.Min(-5, g);
                             }
                             p.AdjustRelation(q, 0, g);
 
@@ -4844,7 +4844,11 @@
                 Architecture location = person3.BelongedArchitecture;
                 Faction faction = person3.BelongedFaction;
                 if (location == null) return;
-                if (faction != null && person3.Loyalty >= 100) return;
+                if (faction != null && !person3.Hates(faction.Leader)) 
+                {
+                    if (person3.Loyalty >= 100) return;
+                    if (person3.Loyalty >= 90 && !person3.LeaderPossibility) return;
+                }
                 if (Person.GetIdealOffset(faction.Leader, person3) <= 10 && !person3.Hates(faction.Leader)) return;
                 if (faction != null && location == faction.Capital) return;
                 if (GameObject.Random(30) != 0) return;
@@ -4852,7 +4856,7 @@
                         location.Domination * 200 + location.Morale * 10) >
                     GameObject.Random(person3.Reputation * 
                     (person3.LeaderPossibility ? 3 : 1) * 
-                    (faction != null && person3.Hates(faction.Leader) ? 10 : 1) /
+                    (faction != null && person3.Hates(faction.Leader) ? 10 : 1) *
                     (faction == null ? 2 : 1))) return;
                 this.CreateNewFaction(person3);
             }

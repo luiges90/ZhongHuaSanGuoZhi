@@ -2057,6 +2057,7 @@
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
                 }
                 person.RebelCount++;
+                person.Reputation = (int) (person.Reputation * 0.9);
             }
             if (this.BelongedFaction != null)
             {
@@ -3460,6 +3461,15 @@
                 return increment;
             }
             return 0;
+        }
+
+        public void DecreaseReputation(int v)
+        {
+            this.reputation -= v;
+            if (this.reputation == 0)
+            {
+                this.reputation = 0;
+            }
         }
 
         public bool IncreaseReputation(int increment)

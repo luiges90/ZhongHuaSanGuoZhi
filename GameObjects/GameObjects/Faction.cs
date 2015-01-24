@@ -2608,6 +2608,7 @@
         public void Destroy()
         {
             base.Scenario.YearTable.addFactionDestroyedEntry(base.Scenario.Date, this);
+            this.Leader.Reputation /= 2;
             if (this.OnFactionDestroy != null)
             {
                 this.OnFactionDestroy(this);
