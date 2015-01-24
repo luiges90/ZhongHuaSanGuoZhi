@@ -3515,6 +3515,19 @@
             military.BelongedFaction = null;
         }
 
+        public void MorphMilitary(MilitaryKind before, MilitaryKind after)
+        {
+            this.militaryKindCounts[before]--;
+            if (this.militaryKindCounts.ContainsKey(after))
+            {
+                this.militaryKindCounts[after]++;
+            }
+            else
+            {
+                this.militaryKindCounts[after] = 1;
+            }
+        }
+
         public void RemovePositionInformation(Point position, InformationLevel level)
         {
             if (!base.Scenario.PositionOutOfRange(position))
