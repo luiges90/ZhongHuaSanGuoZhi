@@ -8118,6 +8118,7 @@
         {
             if ((militaryKind != null) && (militaryKind.LevelUpAvail(this)))
             {
+                this.BelongedFaction.MorphMilitary(m.Kind, militaryKind);
                 int num = (m.Quantity * militaryKind.MinScale) / m.Kind.MinScale;
                 int num2 = ((m.Experience - m.Kind.LevelUpExperience) * militaryKind.MinScale) / m.Kind.MinScale;
                 this.IncreasePopulation(m.Quantity - num);
