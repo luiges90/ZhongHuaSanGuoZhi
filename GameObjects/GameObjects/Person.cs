@@ -5282,7 +5282,7 @@
                 return (int)((this.Character.IntelligenceRate * (this.Strength * (1 - GlobalVariables.LeadershipOffenceRate) + this.Command * (GlobalVariables.LeadershipOffenceRate + 1))
                     + (1 - this.Character.IntelligenceRate) * this.Intelligence * 0.5) *
                     (100 + this.TitleFightingMerit
-                    + this.TreasureMerit + this.CombatSkillMerit + this.StuntCount * 30));
+                    + this.TreasureMerit + this.CombatSkillMerit + Math.Sqrt(this.StuntCount) * 30));
             }
         }
 
@@ -5761,8 +5761,8 @@
         {
             get
             {
-                return (this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) *
-                    (100 + this.TitleMerit + this.AllSkillMerit + this.TreasureMerit);
+                return (int) ((this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) *
+                    (100 + this.TitleMerit + this.AllSkillMerit + this.TreasureMerit + Math.Sqrt(this.StuntCount) * 30));
             }
         }
 
