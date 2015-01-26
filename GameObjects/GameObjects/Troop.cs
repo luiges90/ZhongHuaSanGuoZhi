@@ -7982,7 +7982,7 @@
         public void Morph()
         {
             MilitaryKind target = this.Army.Kind.MorphTo;
-            if (target != null)
+            if (target != null && this.BelongedFaction != null)
             {
                 this.BelongedFaction.MorphMilitary(this.Army.Kind, target);
                 preResetArmyKindData();
@@ -10256,6 +10256,19 @@
                     }
                     int firstTierPathIndex = this.FirstIndex;
                     int movabilityLeft = this.MovabilityLeft;
+
+                    Architecture a = base.Scenario.GetArchitectureByPosition(position);
+                    if (a != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城" ||
+                        (this.StartingArchitecture.BelongedSection.AIDetail.AutoRun && !this.ManualControl)) && this.TargetArchitecture == a)
+                    {
+                        bool canEnter = this.CanEnter();
+                        if (canEnter)
+                        {
+                            this.Enter(a);
+                            return false;
+                        }
+                    }
+
                     while ((firstTierPathIndex + 1) < this.FirstTierPath.Count)
                     {
                         Point currentPosition = this.FirstTierPath[firstTierPathIndex];
@@ -10277,7 +10290,7 @@
                                 return path;
                             }
 
-                            Architecture a = base.Scenario.GetArchitectureByPosition(nextPosition);
+                            a = base.Scenario.GetArchitectureByPosition(nextPosition);
                             if (a != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城" ||
                                 (this.StartingArchitecture.BelongedSection.AIDetail.AutoRun && !this.ManualControl)) && this.TargetArchitecture == a)
                             {
