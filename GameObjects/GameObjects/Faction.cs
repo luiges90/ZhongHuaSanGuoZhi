@@ -1171,7 +1171,7 @@
                 List<GameObject> candidates = new List<GameObject>(destArch.GameObjects);
                 candidates.Sort(new DistanceComparer(a));
 
-                if (a.Fund >= a.FundCeiling * 0.9 && resource)
+                if (a.Fund >= a.FundCeiling * 0.9 && resource && a.IsFundAbundant)
                 {
                     foreach (Architecture b in candidates)
                     {
@@ -1183,7 +1183,7 @@
                         }
                     }
                 }
-                if (a.Food >= a.FoodCeiling * 0.9 && resource)
+                if (a.Food >= a.FoodCeiling * 0.9 && resource && a.IsFoodAbundant)
                 {
                     foreach (Architecture b in candidates)
                     {
@@ -1386,37 +1386,18 @@
                 {
                     int deficitFund = Math.Max(0, minFund[a] * 2 - a.Fund - a.FundInPack);
                     int deficitFood = Math.Max(0, minFood[a] * 2 - a.Food - a.FoodInPack);
+                    deficitFood = Math.Min(deficitFood, a.FoodCeiling - a.FoodInPack - a.Food);
+                    deficitFund = Math.Min(deficitFund, a.FundCeiling - a.FundInPack - a.Fund);
 
-                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
-                    candidates.Sort(new DistanceComparer(a));
+                    if (deficitFund > 0 || deficitFood > 0) 
+                    {
+                        List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                        candidates.Sort(new DistanceComparer(a));
 
-                    foreach (Architecture b in candidates)
-                    {
-                        if (b.Abandoned || b == a) continue;
-                        if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
-                        {
-                            if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
-                            {
-                                int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b] * 2));
-                                int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b] * 2));
-                                if (a.CallResource(b, transferFund, transferFood))
-                                {
-                                    deficitFund -= transferFund;
-                                    deficitFood -= transferFood;
-                                    if (deficitFood <= 0 && deficitFund <= 0)
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (deficitFood > 0 || deficitFund > 0)
-                    {
                         foreach (Architecture b in candidates)
                         {
                             if (b.Abandoned || b == a) continue;
-                            if (!b.HasHostileTroopsInView())
+                            if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
                             {
                                 if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
                                 {
@@ -1434,25 +1415,49 @@
                                 }
                             }
                         }
-                    }
-                    if (deficitFood > 0 || deficitFund > 0)
-                    {
-                        foreach (Architecture b in candidates)
+                        if (deficitFood > 0 || deficitFund > 0)
                         {
-                            if (b.Abandoned || b == a) continue;
-                            if (!b.HasHostileTroopsInView())
+                            foreach (Architecture b in candidates)
                             {
-                                if (b.Fund >= goodFund[b] || b.Food >= goodFood[b])
+                                if (b.Abandoned || b == a) continue;
+                                if (!b.HasHostileTroopsInView())
                                 {
-                                    int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b]));
-                                    int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b]));
-                                    if (a.CallResource(b, transferFund, transferFood))
+                                    if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
                                     {
-                                        deficitFund -= transferFund;
-                                        deficitFood -= transferFood;
-                                        if (deficitFood <= 0 && deficitFund <= 0)
+                                        int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b] * 2));
+                                        int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b] * 2));
+                                        if (a.CallResource(b, transferFund, transferFood))
                                         {
-                                            break;
+                                            deficitFund -= transferFund;
+                                            deficitFood -= transferFood;
+                                            if (deficitFood <= 0 && deficitFund <= 0)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (deficitFood > 0 || deficitFund > 0)
+                        {
+                            foreach (Architecture b in candidates)
+                            {
+                                if (b.Abandoned || b == a) continue;
+                                if (!b.HasHostileTroopsInView())
+                                {
+                                    if (b.Fund >= goodFund[b] || b.Food >= goodFood[b])
+                                    {
+                                        int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b]));
+                                        int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b]));
+                                        if (a.CallResource(b, transferFund, transferFood))
+                                        {
+                                            deficitFund -= transferFund;
+                                            deficitFood -= transferFood;
+                                            if (deficitFood <= 0 && deficitFund <= 0)
+                                            {
+                                                break;
+                                            }
                                         }
                                     }
                                 }
@@ -1523,37 +1528,18 @@
                 {
                     int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund - a.FundInPack);
                     int deficitFood = Math.Max(0, goodFood[a] * 2 - a.Food - a.FoodInPack);
+                    deficitFood = Math.Min(deficitFood, a.FoodCeiling - a.FoodInPack - a.Food);
+                    deficitFund = Math.Min(deficitFund, a.FundCeiling - a.FundInPack - a.Fund);
 
-                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
-                    candidates.Sort(new DistanceComparer(a));
+                    if (deficitFund > 0 || deficitFood > 0) 
+                    {
+                        List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                        candidates.Sort(new DistanceComparer(a));
 
-                    foreach (Architecture b in candidates)
-                    {
-                        if (b.Abandoned || b == a) continue;
-                        if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
-                        {
-                            if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
-                            {
-                                int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b] * 2));
-                                int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b] * 2));
-                                if (a.CallResource(b, transferFund, transferFood))
-                                {
-                                    deficitFund -= transferFund;
-                                    deficitFood -= transferFood;
-                                    if (deficitFood <= 0 && deficitFund <= 0)
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (deficitFood > 0 || deficitFund > 0)
-                    {
                         foreach (Architecture b in candidates)
                         {
                             if (b.Abandoned || b == a) continue;
-                            if (!b.HasHostileTroopsInView())
+                            if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
                             {
                                 if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
                                 {
@@ -1566,6 +1552,30 @@
                                         if (deficitFood <= 0 && deficitFund <= 0)
                                         {
                                             break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (deficitFood > 0 || deficitFund > 0)
+                        {
+                            foreach (Architecture b in candidates)
+                            {
+                                if (b.Abandoned || b == a) continue;
+                                if (!b.HasHostileTroopsInView())
+                                {
+                                    if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
+                                    {
+                                        int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b] * 2));
+                                        int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b] * 2));
+                                        if (a.CallResource(b, transferFund, transferFood))
+                                        {
+                                            deficitFund -= transferFund;
+                                            deficitFood -= transferFood;
+                                            if (deficitFood <= 0 && deficitFund <= 0)
+                                            {
+                                                break;
+                                            }
                                         }
                                     }
                                 }
