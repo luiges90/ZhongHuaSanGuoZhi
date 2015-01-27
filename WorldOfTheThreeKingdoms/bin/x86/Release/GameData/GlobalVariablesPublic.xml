@@ -73,5 +73,6 @@ ChildrenAvailableAge="12"
 FullScreen="False"
 FriendlyDiplomacyThreshold="300" 
 SurroundFactor="5"
+ArmyPopulationCap="1.5"
 >
 </GlobalVariables>
