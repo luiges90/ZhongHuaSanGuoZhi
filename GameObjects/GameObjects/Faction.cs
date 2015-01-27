@@ -3010,7 +3010,7 @@
         public bool IsMilitaryKindOverLimit(int id)
         {
             MilitaryKind mk = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(id);
-            if (!this.militaryKindCounts.ContainsKey(mk)) return true;
+            if (!this.militaryKindCounts.ContainsKey(mk)) return false;
             return this.militaryKindCounts[mk] >= mk.RecruitLimit;
         }
 
