@@ -17,7 +17,6 @@
         private int facilityPositionUnit;
         private int foodMaxUnit;
         private int fundMaxUnit;
-        private int militaryMaxUnit;
         private bool hasAgriculture;
         private bool hasCommerce;
         private bool hasDomination;
@@ -468,17 +467,6 @@
             }
         }
 
-        public int MilitaryMaxUnit
-        {
-            get
-            {
-                return this.militaryMaxUnit;
-            }
-            set
-            {
-                this.militaryMaxUnit = value;
-            }
-        }
 
         public int TechnologyBase
         {

@@ -3124,14 +3124,9 @@
                 Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
                 if (((troopByPosition != null) && (troopByPosition.BelongedFaction == this.BelongedFaction)) && troopByPosition.CanMoveAndEnterAnyway())
                 {
-                    if (this.BelongedFaction != null)
-                    {
-                        if (this.MilitaryCount < this.MilitaryCeiling)
-                        {
-                            return true;
-                        }
-                    }
+                    return true;
                 }
+      
             }
             return false;
         }
@@ -8625,8 +8620,6 @@
                 {
                     return false;
                 }
-
-                if (this.MilitaryCount >= this.MilitaryCeiling) return false; //一格单位只能养5支编队
 
                 if (base.Scenario.IsPlayer(this.BelongedFaction) && this.BelongedSection != null && !this.BelongedSection.AIDetail.AllowNewMilitary
                     && this.BelongedSection.AIDetail.AutoRun) //玩家委任军团可以不新编

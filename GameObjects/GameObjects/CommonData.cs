@@ -238,7 +238,6 @@
                 architectureKind.FacilityPositionUnit = (short)reader["FacilityPositionUnit"];
                 architectureKind.FundMaxUnit = (int)reader["FundMaxUnit"];
                 architectureKind.FoodMaxUnit = (int)reader["FoodMaxUnit"];
-                architectureKind.MilitaryMaxUnit = (int)reader["MilitaryMaxUnit"];
                 try
                 {
                     architectureKind.CountToMerit = (bool)reader["CountToMerit"];
@@ -1630,7 +1629,6 @@
                     row["FacilityPositionUnit"] = i.FacilityPositionUnit;
                     row["FundMaxUnit"] = i.FundMaxUnit;
                     row["FoodMaxUnit"] = i.FoodMaxUnit;
-                    row["MilitaryMaxUnit"] = i.MilitaryMaxUnit;
                     row["CountToMerit"] = i.CountToMerit;
                     row["Expandable"] = i.Expandable;
                     row["ShipCanEnter"] = i.ShipCanEnter;

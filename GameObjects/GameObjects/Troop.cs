@@ -2393,13 +2393,7 @@
             {
                 return false;
             }
-            foreach (Architecture a in base.Scenario.Architectures)
-            {
-                if (a.MilitaryCount >= a.MilitaryCeiling)  //城池编队达到上限不能进入该城
-                {
-                    return false;
-                }
-            }
+            
             if (!this.CanMoveAndEnterAnyway())
             {
                 return false;
