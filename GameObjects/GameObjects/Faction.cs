@@ -1587,9 +1587,41 @@
             }
         }
 
+        internal void AIVeryClosePersonTransfer()
+        {
+            if (GameObject.Chance(10))
+            {
+                foreach (Person p in this.Persons)
+                {
+                    if (p.LocationArchitecture != null && p.LocationTroop == null && p.Status == PersonStatus.Normal)
+                    {
+                        foreach (Person q in p.AvailableVeryClosePersons)
+                        {
+                            if (q.LocationArchitecture != null && q.LocationTroop == null && q.LocationArchitecture != p.LocationArchitecture && 
+                                q.Status == PersonStatus.Normal && !q.DontMoveMeUnlessIMust)
+                            {
+                                if (base.Scenario.IsPlayer(this))
+                                {
+                                    if (p.LocationArchitecture.BelongedSection.AIDetail.AutoRun && q.LocationArchitecture.BelongedSection.AIDetail.AutoRun)
+                                    {
+                                        q.MoveToArchitecture(p.LocationArchitecture);
+                                    }
+                                }
+                                else
+                                {
+                                    q.MoveToArchitecture(p.LocationArchitecture);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         internal void AITransferPlanning(ArchitectureList architectures)
         {
             WithdrwalTransfer(architectures);
+            AIVeryClosePersonTransfer();
             AllocationTransfer(architectures, architectures, true, true, true);
             if (GameObject.Chance(10))
             {

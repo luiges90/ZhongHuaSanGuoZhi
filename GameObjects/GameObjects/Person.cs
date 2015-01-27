@@ -1947,6 +1947,23 @@
             }
         }
 
+        public PersonList VeryClosePersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                if (this.Spouse != null)
+                {
+                    result.Add(this.Spouse);
+                }
+                foreach (Person p in this.Brothers)
+                {
+                    result.Add(p);
+                }
+                return result;
+            }
+        }
+
         public void DoConvince()
         {
             this.OutsideTask = OutsideTaskKind.无;
