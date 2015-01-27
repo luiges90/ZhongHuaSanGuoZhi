@@ -131,7 +131,7 @@
         public static bool StopToControlOnAttack = true;
 
         public static int MaxMilitaryExperience = 3000;
-        public static float ArmyPopulationCap = 1.5f; //兵力上限 
+        public static float ArmyPopulationCap = 1.0f; //兵力上限 
 
         public static float CreateRandomOfficerChance = 5;
         public static int GeneratedOfficerFemaleChance = 5;

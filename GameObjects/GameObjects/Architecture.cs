@@ -8626,10 +8626,7 @@
                 {
                     return false;
                 }
-                if (this.BelongedFaction.Army > (int)(this.BelongedFaction.Population * GlobalVariables.ArmyPopulationCap)) //势力兵力超过上限时，不能新编
-                {
-                    return false;
-                }
+                
                 foreach (MilitaryKind kind in this.BelongedFaction.AvailableMilitaryKinds.MilitaryKinds.Values)
                 {
                     if (kind.CreateAvail(this))
