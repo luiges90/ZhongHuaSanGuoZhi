@@ -8119,6 +8119,7 @@
         {
             if ((militaryKind != null) && (militaryKind.LevelUpAvail(this)))
             {
+                this.BelongedFaction.MorphMilitary(m.Kind, militaryKind);
                 int num = (m.Quantity * militaryKind.MinScale) / m.Kind.MinScale;
                 int num2 = ((m.Experience - m.Kind.LevelUpExperience) * militaryKind.MinScale) / m.Kind.MinScale;
                 this.IncreasePopulation(m.Quantity - num);
@@ -9983,7 +9984,7 @@
 
                         person2.LocationArchitecture = this;
                         person2.TargetArchitecture = null;
-
+                        person2.Reputation = (int) (person2.Reputation * 0.95);
                     }
 
                     //if ((leader.LocationTroop == null) || leader.IsCaptive)

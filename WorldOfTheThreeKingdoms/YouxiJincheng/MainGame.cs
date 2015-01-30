@@ -6,12 +6,12 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 
-using		GameGlobal;
-using		GameObjects;
+using GameGlobal;
+using GameObjects;
 
 
 
-using		PluginServices;
+using PluginServices;
 
 
 using Microsoft.Xna.Framework;
@@ -42,13 +42,22 @@ namespace WorldOfTheThreeKingdoms
         private int previousWindowWidth = 0x438;
         public jiazaitishichuangkou jiazaitishi = new jiazaitishichuangkou();
         internal WindowsMediaPlayerClass Player = new WindowsMediaPlayerClass();
+        //标识是否为全屏
+        private bool IsFullScreen = false;
         public MainGame()
         {
             base.Content.RootDirectory = "Content";
             Content = base.Content;
             this.graphics = new GraphicsDeviceManager(this);
+
+            //原本的分辨率默认值为720*1080，在其他大小的屏幕上会变形
+            //将当前屏幕的分辨率作为默认值……
+            this.previousWindowWidth = FullScreenHelper.GetSystemMetrics(FullScreenHelper.SM_CXSCREEN);
+            this.previousWindowHeight = FullScreenHelper.GetSystemMetrics(FullScreenHelper.SM_CYSCREEN);
+
             this.graphics.PreferredBackBufferWidth = this.previousWindowWidth;
             this.graphics.PreferredBackBufferHeight = this.previousWindowHeight;
+
             base.Window.AllowUserResizing = true;
             DateTime buildDate = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
             base.Window.Title = "中华三国志威力加强版(已命名修改版v.26 build-" + buildDate.Year + "-" + buildDate.Month + "-" + buildDate.Day + ")";
@@ -102,14 +111,21 @@ namespace WorldOfTheThreeKingdoms
         protected override void Initialize()
         {
             base.Initialize();
-            
+
             this.jiazaitishi.Close();
+            //全屏的判断放到初始化代码中
+            if (GlobalVariables.FullScreen)
+            {
+                this.ToggleFullScreen();
+            }
         }
 
         [DllImport("user32.dll")]
         internal static extern int RemoveMenu(IntPtr hMenu, int uPosition, int uFlags);
         public void ToggleFullScreen()
         {
+            //原来的代码会和单挑程序冲突
+            /*
             if (this.graphics.GraphicsDevice.PresentationParameters.IsFullScreen)
             {
                 this.graphics.PreferredBackBufferWidth = this.previousWindowWidth;
@@ -126,6 +142,19 @@ namespace WorldOfTheThreeKingdoms
             }
             this.graphics.ToggleFullScreen();
             GlobalVariables.FullScreen = this.graphics.GraphicsDevice.PresentationParameters.IsFullScreen;
+             */
+            //修改后的全屏代码
+            if (this.IsFullScreen)
+            {
+                FullScreenHelper.RestoreFullScreen(this.GameForm.Handle);//传入窗体句柄
+                this.IsFullScreen = false;
+
+            }
+            else
+            {
+                FullScreenHelper.FullScreen(this.GameForm.Handle);
+                this.IsFullScreen = true;
+            }
         }
 
         private void TryToExit()
@@ -146,13 +175,15 @@ namespace WorldOfTheThreeKingdoms
                 {
                     this.mainGameScreen.ToggleFullScreen();
                 }
-                if ((GlobalVariables.FullScreen && !this.mainGameScreen.IsFullScreen) || (!GlobalVariables.FullScreen && this.mainGameScreen.IsFullScreen))
+                //游戏设置中的全屏选项勾选后将多次调用这个方法，界面会闪来闪去
+                //只在初始化的时候全屏一次就好啦……
+                /*if ((GlobalVariables.FullScreen && !this.mainGameScreen.IsFullScreen) || (!GlobalVariables.FullScreen && this.mainGameScreen.IsFullScreen))
                 {
                     this.mainGameScreen.ToggleFullScreen();
-                }
+                }*/
             }
         }
-        
+
         public void SaveGameWhenCrash(String _savePath)
         {
             this.mainGameScreen.SaveGameWhenCrash(_savePath);
@@ -183,6 +214,6 @@ namespace WorldOfTheThreeKingdoms
         }
     }
 
- 
+
 
 }

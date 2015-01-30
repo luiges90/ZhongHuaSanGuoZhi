@@ -188,7 +188,7 @@
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
-        <Leaf Text="当建筑的农业值达到500后，即可在夏秋两季买入粮草。换算方式为1资金兑换50粮草。" Color="4294967295" />
+        <Leaf Text="当建筑的农业值达到500后，即有可能可以在夏秋两季买入粮草。换算方式为1资金兑换50粮草。" Color="4294967295" />
     </Branch>
     <Branch Name="Internal_Trade_SellFood">
         <Leaf Text="内政" Color="4294967295" />
@@ -196,7 +196,7 @@
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
-        <Leaf Text="当建筑的商业值达到500后，即可在冬春两季卖出粮草。换算方式为200粮草兑换1资金。" Color="4294967295" />
+        <Leaf Text="当建筑的商业值达到500后，即有可能可以在冬春两季卖出粮草。换算方式为200粮草兑换1资金。" Color="4294967295" />
     </Branch>
     <Branch Name="Internal_Expand">
         <Leaf Text="内政" Color="4294967295" />

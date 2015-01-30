@@ -1865,6 +1865,14 @@
                         person.MoveToArchitecture(this.StartingArchitecture, from);
                     }
                     person.LocationTroop = null;
+                    if (this.Leader == person)
+                    {
+                        person.DecreaseReputation(50);
+                    }
+                    else
+                    {
+                        person.DecreaseReputation(30);
+                    }
                 }
                 this.persons.Clear();
                 if (flag)
@@ -2800,6 +2808,17 @@
                 {
                     sending.Scenario.ChangeDiplomaticRelation(sending.BelongedFaction.ID, receiving.BelongedFaction.ID, -10);
                     sending.Scenario.ReflectDiplomaticRelations(sending.BelongedFaction.ID, receiving.BelongedFaction.ID, -10);
+                }
+                foreach (Person p in sending.persons)
+                {
+                    if (sending.Leader == p)
+                    {
+                        p.IncreaseReputation(75);
+                    }
+                    else
+                    {
+                        p.IncreaseReputation(50);
+                    }
                 }
                 if (sending.BelongedFaction != null)
                 {
@@ -7964,8 +7983,9 @@
         public void Morph()
         {
             MilitaryKind target = this.Army.Kind.MorphTo;
-            if (target != null)
+            if (target != null && this.BelongedFaction != null)
             {
+                this.BelongedFaction.MorphMilitary(this.Army.Kind, target);
                 preResetArmyKindData();
                 this.Operated = true;
                 this.Army.Kind = target;
@@ -10237,6 +10257,19 @@
                     }
                     int firstTierPathIndex = this.FirstIndex;
                     int movabilityLeft = this.MovabilityLeft;
+
+                    Architecture a = base.Scenario.GetArchitectureByPosition(position);
+                    if (a != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城" ||
+                        (this.StartingArchitecture.BelongedSection.AIDetail.AutoRun && !this.ManualControl)) && this.TargetArchitecture == a)
+                    {
+                        bool canEnter = this.CanEnter();
+                        if (canEnter)
+                        {
+                            this.Enter(a);
+                            return false;
+                        }
+                    }
+
                     while ((firstTierPathIndex + 1) < this.FirstTierPath.Count)
                     {
                         Point currentPosition = this.FirstTierPath[firstTierPathIndex];
@@ -10258,7 +10291,7 @@
                                 return path;
                             }
 
-                            Architecture a = base.Scenario.GetArchitectureByPosition(nextPosition);
+                            a = base.Scenario.GetArchitectureByPosition(nextPosition);
                             if (a != null && (!base.Scenario.IsPlayer(this.BelongedFaction) || this.mingling == "入城" ||
                                 (this.StartingArchitecture.BelongedSection.AIDetail.AutoRun && !this.ManualControl)) && this.TargetArchitecture == a)
                             {

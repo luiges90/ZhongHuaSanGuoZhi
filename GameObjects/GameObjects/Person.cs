@@ -1947,6 +1947,23 @@
             }
         }
 
+        public PersonList VeryClosePersons
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                if (this.Spouse != null)
+                {
+                    result.Add(this.Spouse);
+                }
+                foreach (Person p in this.Brothers)
+                {
+                    result.Add(p);
+                }
+                return result;
+            }
+        }
+
         public void DoConvince()
         {
             this.OutsideTask = OutsideTaskKind.无;
@@ -2057,6 +2074,7 @@
                     base.Scenario.ChangeDiplomaticRelation(this.BelongedFaction.ID, person.BelongedFaction.ID, -10);
                 }
                 person.RebelCount++;
+                person.Reputation = (int) (person.Reputation * 0.9);
             }
             if (this.BelongedFaction != null)
             {
@@ -3460,6 +3478,15 @@
                 return increment;
             }
             return 0;
+        }
+
+        public void DecreaseReputation(int v)
+        {
+            this.reputation -= v;
+            if (this.reputation == 0)
+            {
+                this.reputation = 0;
+            }
         }
 
         public bool IncreaseReputation(int increment)
@@ -5272,7 +5299,7 @@
                 return (int)((this.Character.IntelligenceRate * (this.Strength * (1 - GlobalVariables.LeadershipOffenceRate) + this.Command * (GlobalVariables.LeadershipOffenceRate + 1))
                     + (1 - this.Character.IntelligenceRate) * this.Intelligence * 0.5) *
                     (100 + this.TitleFightingMerit
-                    + this.TreasureMerit + this.CombatSkillMerit + this.StuntCount * 30));
+                    + this.TreasureMerit + this.CombatSkillMerit + Math.Sqrt(this.StuntCount) * 30));
             }
         }
 
@@ -5751,8 +5778,8 @@
         {
             get
             {
-                return (this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) *
-                    (100 + this.TitleMerit + this.AllSkillMerit + this.TreasureMerit);
+                return (int) ((this.Strength + this.Command + this.Intelligence + this.Politics + this.Glamour) *
+                    (100 + this.TitleMerit + this.AllSkillMerit + this.TreasureMerit + Math.Sqrt(this.StuntCount) * 30));
             }
         }
 
@@ -8581,11 +8608,14 @@
         {
             foreach (Influence i in base.Scenario.GameCommonData.AllInfluences.Influences.Values)
             {
-                foreach (ApplyingPerson j in i.appliedPerson)
+                if (i.Kind.ID == id)
                 {
-                    if (j.person == this)
+                    foreach (ApplyingPerson j in i.appliedPerson)
                     {
-                        return true;
+                        if (j.person == this)
+                        {
+                            return true;
+                        }
                     }
                 }
             }

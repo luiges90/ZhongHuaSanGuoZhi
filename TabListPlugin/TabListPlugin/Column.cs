@@ -127,6 +127,10 @@
             {
                 return ((Person) this.tabList.gameObjectList[index]).TitleName(this.ItemID);
             }
+            if (this.Name.Equals("HasInfluenceKind"))
+            {
+                return ((Person)this.tabList.gameObjectList[index]).HasInfluenceKind(this.ItemID) ? "○" : "×";
+            }
             if (this.Name.Equals("InfluenceKindValueByTreasure"))
             {
                 return ((Person)this.tabList.gameObjectList[index]).InfluenceKindValueByTreasure(this.ItemID).ToString();

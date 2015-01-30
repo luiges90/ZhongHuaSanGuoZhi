@@ -657,7 +657,7 @@
                 guanjuedezhonglei.xuyaogongxiandu = (int)reader["需要贡献度"];
 
                 guanjuedezhonglei.xuyaochengchi = (short)reader["需要城池"];
-
+                guanjuedezhonglei.ShowDialog = (bool)reader["ShowDialog"];
 
                 this.suoyouguanjuezhonglei.Addguanjuedezhonglei(guanjuedezhonglei);
             }
@@ -1981,6 +1981,7 @@
                     row["声望上限"] = i.shengwangshangxian;
                     row["需要贡献度"] = i.xuyaogongxiandu;
                     row["需要城池"] = i.xuyaochengchi;
+                    row["ShowDialog"] = i.ShowDialog;
                     row.EndEdit();
                     dataSet.Tables["guanjuezhonglei"].Rows.Add(row);
                 }

@@ -4773,7 +4773,7 @@
                             int g = p.PersonalLoyalty - 1 + (GameObject.Random(5) - 2);
                             if (p.Hates(q))
                             {
-                                g = Math.Min(0, g);
+                                g = Math.Min(-5, g);
                             }
                             p.AdjustRelation(q, 0, g);
 
@@ -4831,7 +4831,7 @@
             {
                 if (person.YoukenengChuangjianXinShili())   //里面包含武将有可能独立的参数
                 {
-                    if ((person.Ambition > 1 && GameObject.Random((5 - person.Ambition) * (5 - person.Ambition)) == 0) || 
+                    if ((person.Ambition > 1 && GameObject.Random((5 - person.Ambition) * (5 - person.Ambition) * (5 - person.Ambition)) == 0) || 
                         (person.BelongedFaction != null && person.Hates(person.BelongedFaction.Leader)))
                     {
                         list.Add(person);
@@ -4841,44 +4841,24 @@
             if (list.Count > 0)
             {
                 Person person3 = list[GameObject.Random(list.Count)] as Person;
-                if (
-                        (
-                            (
-                                (
-                                    (person3.LocationArchitecture != null) && !person3.IsCaptive
-                                 ) &&
-                                (
-                                    person3.LocationArchitecture.Population > (10000 * person3.LocationArchitecture.JianzhuGuimo)
-                                 )
-                            ) &&
-                            !person3.LocationArchitecture.IsCapital
-                        ) &&
-                        (
-                            (  //创建新势力
-                                (person3.LocationArchitecture.BelongedFaction == null)
-                                && (GameObject.Random(person3.Reputation) > GameObject.Random(30000 * person3.LocationArchitecture.JianzhuGuimo))
-                            ) ||
-                            (  //独立
-                                (
-                                    (person3.BelongedFaction != null) &&
-                                    (Person.GetIdealOffset(person3, person3.BelongedFaction.Leader) > 10 || person3.Hates(person3.BelongedFaction.Leader))
-                                ) &&
-                                (
-                                    GameObject.Random
-                                    (
-                                        (
-                                            (person3.LocationArchitecture.ArmyScale * 10000)
-                                            + (person3.LocationArchitecture.Domination * person3.LocationArchitecture.Morale)
-                                        ) *
-                                        person3.LocationArchitecture.JianzhuGuimo
-                                    ) < GameObject.Random((int) (person3.Reputation * person3.BelongedFaction.ArchitectureCount / 15.0f))
-                                )
-                            )
-                         )
-                    )
+                Architecture location = person3.BelongedArchitecture;
+                Faction faction = person3.BelongedFaction;
+                if (location == null) return;
+                if (faction != null && !person3.Hates(faction.Leader)) 
                 {
-                    this.CreateNewFaction(person3);
+                    if (person3.Loyalty >= 100) return;
+                    if (person3.Loyalty >= 90 && !person3.LeaderPossibility) return;
                 }
+                if (Person.GetIdealOffset(faction.Leader, person3) <= 10 && !person3.Hates(faction.Leader)) return;
+                if (faction != null && location == faction.Capital) return;
+                if (GameObject.Random(30) != 0) return;
+                if (GameObject.Random(location.Population + location.ArmyScale * 5000 + 
+                        location.Domination * 200 + location.Morale * 10) >
+                    GameObject.Random(person3.Reputation * 
+                    (person3.LeaderPossibility ? 3 : 1) * 
+                    (faction != null && person3.Hates(faction.Leader) ? 10 : 1) *
+                    (faction == null ? 2 : 1))) return;
+                this.CreateNewFaction(person3);
             }
         }
 

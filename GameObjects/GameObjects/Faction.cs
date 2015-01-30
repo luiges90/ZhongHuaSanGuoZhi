@@ -140,6 +140,7 @@
         public TroopList Troops = new TroopList();
         private int upgradingDaysLeft;
         private int upgradingTechnique = -1;
+        private Dictionary<MilitaryKind, int> militaryKindCounts = new Dictionary<MilitaryKind, int>();
 
         public List<float> techniqueReputationRateDecrease = new List<float>();
         public List<float> techniquePointCostRateDecrease = new List<float>();
@@ -504,6 +505,14 @@
         public void AddMilitary(Military military)
         {
             this.Militaries.AddMilitary(military);
+            if (this.militaryKindCounts.ContainsKey(military.Kind))
+            {
+                this.militaryKindCounts[military.Kind]++;
+            }
+            else
+            {
+                this.militaryKindCounts[military.Kind] = 1;
+            }
             military.BelongedFaction = this;
         }
 
@@ -1162,7 +1171,7 @@
                 List<GameObject> candidates = new List<GameObject>(destArch.GameObjects);
                 candidates.Sort(new DistanceComparer(a));
 
-                if (a.Fund >= a.FundCeiling * 0.9 && resource)
+                if (a.Fund >= a.FundCeiling * 0.9 && resource && a.IsFundAbundant)
                 {
                     foreach (Architecture b in candidates)
                     {
@@ -1174,7 +1183,7 @@
                         }
                     }
                 }
-                if (a.Food >= a.FoodCeiling * 0.9 && resource)
+                if (a.Food >= a.FoodCeiling * 0.9 && resource && a.IsFoodAbundant)
                 {
                     foreach (Architecture b in candidates)
                     {
@@ -1377,37 +1386,18 @@
                 {
                     int deficitFund = Math.Max(0, minFund[a] * 2 - a.Fund - a.FundInPack);
                     int deficitFood = Math.Max(0, minFood[a] * 2 - a.Food - a.FoodInPack);
+                    deficitFood = Math.Min(deficitFood, a.FoodCeiling - a.FoodInPack - a.Food);
+                    deficitFund = Math.Min(deficitFund, a.FundCeiling - a.FundInPack - a.Fund);
 
-                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
-                    candidates.Sort(new DistanceComparer(a));
+                    if (deficitFund > 0 || deficitFood > 0) 
+                    {
+                        List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                        candidates.Sort(new DistanceComparer(a));
 
-                    foreach (Architecture b in candidates)
-                    {
-                        if (b.Abandoned || b == a) continue;
-                        if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
-                        {
-                            if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
-                            {
-                                int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b] * 2));
-                                int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b] * 2));
-                                if (a.CallResource(b, transferFund, transferFood))
-                                {
-                                    deficitFund -= transferFund;
-                                    deficitFood -= transferFood;
-                                    if (deficitFood <= 0 && deficitFund <= 0)
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (deficitFood > 0 || deficitFund > 0)
-                    {
                         foreach (Architecture b in candidates)
                         {
                             if (b.Abandoned || b == a) continue;
-                            if (!b.HasHostileTroopsInView())
+                            if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
                             {
                                 if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
                                 {
@@ -1425,25 +1415,49 @@
                                 }
                             }
                         }
-                    }
-                    if (deficitFood > 0 || deficitFund > 0)
-                    {
-                        foreach (Architecture b in candidates)
+                        if (deficitFood > 0 || deficitFund > 0)
                         {
-                            if (b.Abandoned || b == a) continue;
-                            if (!b.HasHostileTroopsInView())
+                            foreach (Architecture b in candidates)
                             {
-                                if (b.Fund >= goodFund[b] || b.Food >= goodFood[b])
+                                if (b.Abandoned || b == a) continue;
+                                if (!b.HasHostileTroopsInView())
                                 {
-                                    int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b]));
-                                    int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b]));
-                                    if (a.CallResource(b, transferFund, transferFood))
+                                    if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
                                     {
-                                        deficitFund -= transferFund;
-                                        deficitFood -= transferFood;
-                                        if (deficitFood <= 0 && deficitFund <= 0)
+                                        int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b] * 2));
+                                        int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b] * 2));
+                                        if (a.CallResource(b, transferFund, transferFood))
                                         {
-                                            break;
+                                            deficitFund -= transferFund;
+                                            deficitFood -= transferFood;
+                                            if (deficitFood <= 0 && deficitFund <= 0)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (deficitFood > 0 || deficitFund > 0)
+                        {
+                            foreach (Architecture b in candidates)
+                            {
+                                if (b.Abandoned || b == a) continue;
+                                if (!b.HasHostileTroopsInView())
+                                {
+                                    if (b.Fund >= goodFund[b] || b.Food >= goodFood[b])
+                                    {
+                                        int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b]));
+                                        int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b]));
+                                        if (a.CallResource(b, transferFund, transferFood))
+                                        {
+                                            deficitFund -= transferFund;
+                                            deficitFood -= transferFood;
+                                            if (deficitFood <= 0 && deficitFund <= 0)
+                                            {
+                                                break;
+                                            }
                                         }
                                     }
                                 }
@@ -1514,37 +1528,18 @@
                 {
                     int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund - a.FundInPack);
                     int deficitFood = Math.Max(0, goodFood[a] * 2 - a.Food - a.FoodInPack);
+                    deficitFood = Math.Min(deficitFood, a.FoodCeiling - a.FoodInPack - a.Food);
+                    deficitFund = Math.Min(deficitFund, a.FundCeiling - a.FundInPack - a.Fund);
 
-                    List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
-                    candidates.Sort(new DistanceComparer(a));
+                    if (deficitFund > 0 || deficitFood > 0) 
+                    {
+                        List<GameObject> candidates = new List<GameObject>(srcArch.GameObjects);
+                        candidates.Sort(new DistanceComparer(a));
 
-                    foreach (Architecture b in candidates)
-                    {
-                        if (b.Abandoned || b == a) continue;
-                        if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
-                        {
-                            if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
-                            {
-                                int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b] * 2));
-                                int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b] * 2));
-                                if (a.CallResource(b, transferFund, transferFood))
-                                {
-                                    deficitFund -= transferFund;
-                                    deficitFood -= transferFood;
-                                    if (deficitFood <= 0 && deficitFund <= 0)
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (deficitFood > 0 || deficitFund > 0)
-                    {
                         foreach (Architecture b in candidates)
                         {
                             if (b.Abandoned || b == a) continue;
-                            if (!b.HasHostileTroopsInView())
+                            if (!b.withoutTruceFrontline && !b.HasHostileTroopsInView())
                             {
                                 if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
                                 {
@@ -1562,15 +1557,71 @@
                                 }
                             }
                         }
+                        if (deficitFood > 0 || deficitFund > 0)
+                        {
+                            foreach (Architecture b in candidates)
+                            {
+                                if (b.Abandoned || b == a) continue;
+                                if (!b.HasHostileTroopsInView())
+                                {
+                                    if (b.Fund >= goodFund[b] * 2 || b.Food >= goodFood[b] * 2)
+                                    {
+                                        int transferFund = Math.Max(0, Math.Min(deficitFund, b.Fund - goodFund[b] * 2));
+                                        int transferFood = Math.Max(0, Math.Min(deficitFood, b.Food - goodFood[b] * 2));
+                                        if (a.CallResource(b, transferFund, transferFood))
+                                        {
+                                            deficitFund -= transferFund;
+                                            deficitFood -= transferFood;
+                                            if (deficitFood <= 0 && deficitFund <= 0)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
             }
         }
 
+        internal void AIVeryClosePersonTransfer()
+        {
+            if (GameObject.Chance(10))
+            {
+                foreach (Person p in this.Persons)
+                {
+                    if (p.LocationArchitecture != null && p.LocationTroop == null && p.Status == PersonStatus.Normal)
+                    {
+                        foreach (Person q in p.AvailableVeryClosePersons)
+                        {
+                            if (q.LocationArchitecture != null && q.LocationTroop == null && q.LocationArchitecture != p.LocationArchitecture && 
+                                q.Status == PersonStatus.Normal && !q.DontMoveMeUnlessIMust)
+                            {
+                                if (base.Scenario.IsPlayer(this))
+                                {
+                                    if (p.LocationArchitecture.BelongedSection.AIDetail.AutoRun && q.LocationArchitecture.BelongedSection.AIDetail.AutoRun)
+                                    {
+                                        q.MoveToArchitecture(p.LocationArchitecture);
+                                    }
+                                }
+                                else
+                                {
+                                    q.MoveToArchitecture(p.LocationArchitecture);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         internal void AITransferPlanning(ArchitectureList architectures)
         {
             WithdrwalTransfer(architectures);
+            AIVeryClosePersonTransfer();
             AllocationTransfer(architectures, architectures, true, true, true);
             if (GameObject.Chance(10))
             {
@@ -2608,6 +2659,7 @@
         public void Destroy()
         {
             base.Scenario.YearTable.addFactionDestroyedEntry(base.Scenario.Date, this);
+            this.Leader.Reputation /= 2;
             if (this.OnFactionDestroy != null)
             {
                 this.OnFactionDestroy(this);
@@ -2957,16 +3009,9 @@
 
         public bool IsMilitaryKindOverLimit(int id)
         {
-            int count = 0;
-            foreach (Military military in this.Militaries)
-            {
-                if (military.RealKindID == id)
-                {
-                    count++;
-                }
-            }
             MilitaryKind mk = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(id);
-            return count >= mk.RecruitLimit;
+            if (!this.militaryKindCounts.ContainsKey(mk)) return false;
+            return this.militaryKindCounts[mk] >= mk.RecruitLimit;
         }
 
         public bool HasPerson(Person person)
@@ -3508,7 +3553,21 @@
         public void RemoveMilitary(Military military)
         {
             this.Militaries.Remove(military);
+            this.militaryKindCounts[military.Kind]--;
             military.BelongedFaction = null;
+        }
+
+        public void MorphMilitary(MilitaryKind before, MilitaryKind after)
+        {
+            this.militaryKindCounts[before]--;
+            if (this.militaryKindCounts.ContainsKey(after))
+            {
+                this.militaryKindCounts[after]++;
+            }
+            else
+            {
+                this.militaryKindCounts[after] = 1;
+            }
         }
 
         public void RemovePositionInformation(Point position, InformationLevel level)
@@ -4211,10 +4270,16 @@
         private void Advancement()
         {
             this.guanjue++;
-            this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.Persons.GetGameObject(7000) as Person, this.LeaderName, TextMessageKind.RiseEmperorClass, "shengguan", "shengguan.jpg", "",
-                this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
-            this.Scenario.GameScreen.xiejinxingjilu("shengguan", this.LeaderName,
-                this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
+            
+            guanjuezhongleilei gj = this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue);
+            if (base.Scenario.IsPlayer(this) || gj.ShowDialog)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.Persons.GetGameObject(7000) as Person, this.LeaderName, TextMessageKind.RiseEmperorClass, "shengguan", "shengguan.jpg", "",
+                   gj.Name, true);
+                this.Scenario.GameScreen.xiejinxingjilu("shengguan", this.LeaderName,
+                    gj.Name, this.Leader.Position);
+            }
+
             base.Scenario.YearTable.addAdvanceGuanjueEntry(base.Scenario.Date, this, this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue));
             ExtensionInterface.call("Advancement", new Object[] { this.Scenario, this });
         }
@@ -4222,10 +4287,16 @@
         private void SelfAdvancement()
         {
             this.guanjue++;
-            this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, TextMessageKind.SelfRiseEmperorClass, "Zili", "", "",
-                this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
-            this.Scenario.GameScreen.xiejinxingjilu("Zili", this.LeaderName,
-                this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
+
+            guanjuezhongleilei gj = this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue);
+            if (base.Scenario.IsPlayer(this) || gj.ShowDialog)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this.Leader, this.LeaderName, TextMessageKind.SelfRiseEmperorClass, "Zili", "", "",
+                    this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, true);
+                this.Scenario.GameScreen.xiejinxingjilu("Zili", this.LeaderName,
+                    this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue).Name, this.Leader.Position);
+            }
+
             base.Scenario.YearTable.addSelfAdvanceGuanjueEntry(base.Scenario.Date, this, this.Scenario.GameCommonData.suoyouguanjuezhonglei.Getguanjuedezhonglei(this.guanjue));
             ExtensionInterface.call("SelfAdvancement", new Object[] { this.Scenario, this });
         }

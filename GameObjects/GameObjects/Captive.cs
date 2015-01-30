@@ -36,6 +36,7 @@
             captive.Scenario = scenario;
             captive.ID = scenario.Captives.GetFreeGameObjectID();
             captive.CaptivePerson = person;
+            person.DecreaseReputation(50);
             captive.CaptiveFaction = person.BelongedFaction;
             person.SetBelongedCaptive(captive, GameObjects.PersonDetail.PersonStatus.Captive);
             person.HeldCaptiveCount++;
