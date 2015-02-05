@@ -11525,13 +11525,7 @@
             }
         }
 
-        public int MilitaryCeiling
-        {
-            get
-            {
-                return (this.Kind.MilitaryMaxUnit * this.JianzhuGuimo);
-            }
-        }
+       
 
         public int Food
         {
