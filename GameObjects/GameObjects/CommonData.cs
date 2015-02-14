@@ -310,6 +310,14 @@
                 sectionAIDetail.AllowMilitaryTransfer = (bool)reader["AllowMilitaryTransfer"];
                 try
                 {
+                    sectionAIDetail.AllowNewMilitary = (bool)reader["AllowNewMilitary"];
+                }
+                catch
+                {
+                    sectionAIDetail.AllowNewMilitary = true;
+                }
+                try
+                {
                     sectionAIDetail.AllowFacilityRemoval = (bool)reader["AllowFacilityRemoval"];
                 }
                 catch
@@ -2284,6 +2292,7 @@
                     row["AllowFundTransfer"] = i.AllowFundTransfer;
                     row["AllowFoodTransfer"] = i.AllowFoodTransfer;
                     row["AllowMilitaryTransfer"] = i.AllowMilitaryTransfer;
+                    row["AllowNewMilitary"] = i.AllowNewMilitary;
                     row["AllowFacilityRemoval"] = i.AllowFacilityRemoval;
                     row.EndEdit();
                     dataSet.Tables["SectionAIDetail"].Rows.Add(row);

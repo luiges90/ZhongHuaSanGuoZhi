@@ -2385,10 +2385,7 @@
             {
                 this.Leader = person2;
                 this.Leader.Loyalty = 100;
-                if (this.Prince != null && this.Prince == this.Leader) //储君继位移除储君身份
-                {
-                    this.Prince = null;
-                }
+                
                 if (!((this.Leader.LocationTroop == null) || this.Leader.IsCaptive))
                 {
                     this.Leader.LocationTroop.RefreshWithPersonList(this.Leader.LocationTroop.Persons.GetList());
@@ -2473,7 +2470,7 @@
             this.InformationDayEvent();
             if (!base.Scenario.IsPlayer(this))
             {
-                this.AISelectPrince();
+               // this.AISelectPrince();
                 this.AIchaotingshijian();
                 this.AIBecomeEmperor();
             }
@@ -2488,7 +2485,7 @@
         {
             if (!base.Scenario.IsPlayer(this))
             {
-                if (GameObject.Random(100) == 0 && (this.Capital != null) && this.Capital.SelectPrinceAvail())
+                if (GameObject.Random(10) == 0 && (this.Capital != null) && this.Capital.SelectPrinceAvail())
                 {
                     Person person = this.Leader.ChildrenCanBeSelectedAsPrince()[0] as Person;
                     this.PrinceID = person.ID;
@@ -5282,7 +5279,7 @@
                     this.prince = base.Scenario.Persons.GetGameObject(this.PrinceID) as Person;
                 }
                 //检查储君有效性
-                if (this.prince != null && (!this.prince.Alive || !this.prince.Available || this.prince.BelongedFaction != this || this.prince.BelongedFaction == null))
+                if (this.prince != null && (this.prince == this.Leader && !this.prince.Alive || !this.prince.Available || this.prince.BelongedFaction != this || this.prince.BelongedFaction == null))
                 {
                     this.Prince = null;
                 }

@@ -2401,6 +2401,7 @@
             {
                 return false;
             }
+            
             if (!this.CanMoveAndEnterAnyway())
             {
                 return false;

@@ -467,6 +467,7 @@
             }
         }
 
+
         public int TechnologyBase
         {
             get
@@ -550,6 +551,7 @@
                 this.shipCanEnter = value;
             }
         }
+
     }
 }
 
