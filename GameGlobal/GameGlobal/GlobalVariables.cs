@@ -134,7 +134,6 @@
         public static float ArmyPopulationCap = 1.5f; //兵力上限 
 
         public static float CreateRandomOfficerChance = 5;
-        public static int GeneratedOfficerFemaleChance = 5;
         public static int ChildrenAvailableAge = 12;
 
         public static float CreatedOfficerAbilityFactor = 0.8f;
@@ -762,15 +761,6 @@
             {
                 exception = exception24;
                 throw new Exception("CreateRandomOfficerChance:\n" + exception.ToString());
-            }
-            try
-            {
-                GeneratedOfficerFemaleChance = int.Parse(nextSibling.Attributes.GetNamedItem("GeneratedOfficerFemaleChance").Value);
-            }
-            catch (Exception exception24)
-            {
-                exception = exception24;
-                throw new Exception("GeneratedOfficerFemaleChance:\n" + exception.ToString());
             }
             try
             {

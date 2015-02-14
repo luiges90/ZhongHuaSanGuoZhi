@@ -232,8 +232,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label lblCreateRandomOfficerChance;
         private TextBox tbHougongGetChildrenRate;
         private Label lblHougongGetChildrenRate;
-        private TextBox tbGeneratedOfficerFemaleChance;
-        private Label lblGeneratedOfficerFemaleChance;
         private TextBox tbCreatedOfficerAbilityFactor;
         private Label lblCreatedOfficerAbilityFactor;
         private CheckBox cbEnablePersonRelations;
@@ -337,8 +335,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbEnablePersonRelations = new System.Windows.Forms.CheckBox();
             this.tbCreatedOfficerAbilityFactor = new System.Windows.Forms.TextBox();
             this.lblCreatedOfficerAbilityFactor = new System.Windows.Forms.Label();
-            this.tbGeneratedOfficerFemaleChance = new System.Windows.Forms.TextBox();
-            this.lblGeneratedOfficerFemaleChance = new System.Windows.Forms.Label();
             this.lblOfficerChildrenLimit = new System.Windows.Forms.Label();
             this.tbOfficerChildrenLimit = new System.Windows.Forms.TextBox();
             this.lblLearnTitleSuccessRate = new System.Windows.Forms.Label();
@@ -362,12 +358,12 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbFollowedLeaderOffenceRateIncrement = new System.Windows.Forms.TextBox();
             this.lblLearnTitleDays = new System.Windows.Forms.Label();
             this.tbLearnTitleDays = new System.Windows.Forms.TextBox();
-            this.lblSearchDays = new System.Windows.Forms.Label();
-            this.tbSearchDays = new System.Windows.Forms.TextBox();
             this.lblLearnStuntDays = new System.Windows.Forms.Label();
             this.tbLearnStuntDays = new System.Windows.Forms.TextBox();
             this.lblLearnSkillDays = new System.Windows.Forms.Label();
             this.tbLearnSkillDays = new System.Windows.Forms.TextBox();
+            this.lblSearchDays = new System.Windows.Forms.Label();
+            this.tbSearchDays = new System.Windows.Forms.TextBox();
             this.lblFindTreasureChance = new System.Windows.Forms.Label();
             this.tbFindTreasureChance = new System.Windows.Forms.TextBox();
             this.cbPlayerPersonAvailable = new System.Windows.Forms.CheckBox();
@@ -1141,8 +1137,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.Controls.Add(this.cbEnablePersonRelations);
             this.tabPagePerson.Controls.Add(this.tbCreatedOfficerAbilityFactor);
             this.tabPagePerson.Controls.Add(this.lblCreatedOfficerAbilityFactor);
-            this.tabPagePerson.Controls.Add(this.tbGeneratedOfficerFemaleChance);
-            this.tabPagePerson.Controls.Add(this.lblGeneratedOfficerFemaleChance);
             this.tabPagePerson.Controls.Add(this.lblOfficerChildrenLimit);
             this.tabPagePerson.Controls.Add(this.tbOfficerChildrenLimit);
             this.tabPagePerson.Controls.Add(this.lblLearnTitleSuccessRate);
@@ -1205,7 +1199,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbEnablePersonRelations
             // 
             this.cbEnablePersonRelations.AutoSize = true;
-            this.cbEnablePersonRelations.Location = new System.Drawing.Point(13, 381);
+            this.cbEnablePersonRelations.Location = new System.Drawing.Point(13, 353);
             this.cbEnablePersonRelations.Name = "cbEnablePersonRelations";
             this.cbEnablePersonRelations.Size = new System.Drawing.Size(144, 16);
             this.cbEnablePersonRelations.TabIndex = 148;
@@ -1213,7 +1207,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbCreatedOfficerAbilityFactor
             // 
-            this.tbCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(114, 353);
+            this.tbCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(114, 325);
             this.tbCreatedOfficerAbilityFactor.Name = "tbCreatedOfficerAbilityFactor";
             this.tbCreatedOfficerAbilityFactor.Size = new System.Drawing.Size(51, 22);
             this.tbCreatedOfficerAbilityFactor.TabIndex = 147;
@@ -1222,28 +1216,11 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblCreatedOfficerAbilityFactor
             // 
             this.lblCreatedOfficerAbilityFactor.AutoSize = true;
-            this.lblCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(11, 356);
+            this.lblCreatedOfficerAbilityFactor.Location = new System.Drawing.Point(11, 328);
             this.lblCreatedOfficerAbilityFactor.Name = "lblCreatedOfficerAbilityFactor";
             this.lblCreatedOfficerAbilityFactor.Size = new System.Drawing.Size(101, 12);
             this.lblCreatedOfficerAbilityFactor.TabIndex = 146;
             this.lblCreatedOfficerAbilityFactor.Text = "生成武将能力乘数";
-            // 
-            // tbGeneratedOfficerFemaleChance
-            // 
-            this.tbGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(128, 325);
-            this.tbGeneratedOfficerFemaleChance.Name = "tbGeneratedOfficerFemaleChance";
-            this.tbGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(51, 22);
-            this.tbGeneratedOfficerFemaleChance.TabIndex = 145;
-            this.tbGeneratedOfficerFemaleChance.Text = "50";
-            // 
-            // lblGeneratedOfficerFemaleChance
-            // 
-            this.lblGeneratedOfficerFemaleChance.AutoSize = true;
-            this.lblGeneratedOfficerFemaleChance.Location = new System.Drawing.Point(11, 328);
-            this.lblGeneratedOfficerFemaleChance.Name = "lblGeneratedOfficerFemaleChance";
-            this.lblGeneratedOfficerFemaleChance.Size = new System.Drawing.Size(113, 12);
-            this.lblGeneratedOfficerFemaleChance.TabIndex = 144;
-            this.lblGeneratedOfficerFemaleChance.Text = "生成武将为女性机率";
             // 
             // lblOfficerChildrenLimit
             // 
@@ -1430,22 +1407,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbLearnTitleDays.Size = new System.Drawing.Size(71, 22);
             this.tbLearnTitleDays.TabIndex = 18;
             // 
-            // lblSearchDays
-            // 
-            this.lblSearchDays.AutoSize = true;
-            this.lblSearchDays.Location = new System.Drawing.Point(220, 245);
-            this.lblSearchDays.Name = "lblSearchDays";
-            this.lblSearchDays.Size = new System.Drawing.Size(77, 12);
-            this.lblSearchDays.TabIndex = 51;
-            this.lblSearchDays.Text = "搜索时间";
-            //
-            // tbSearchDays
-            //
-            this.tbSearchDays.Location = new System.Drawing.Point(278, 242);
-            this.tbSearchDays.Name = "tbSearchDays";
-            this.tbSearchDays.Size = new System.Drawing.Size(71, 21);
-            this.tbSearchDays.TabIndex = 50;
-            // 
             // lblLearnStuntDays
             // 
             this.lblLearnStuntDays.AutoSize = true;
@@ -1477,6 +1438,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbLearnSkillDays.Name = "tbLearnSkillDays";
             this.tbLearnSkillDays.Size = new System.Drawing.Size(71, 22);
             this.tbLearnSkillDays.TabIndex = 14;
+            // 
+            // lblSearchDays
+            // 
+            this.lblSearchDays.AutoSize = true;
+            this.lblSearchDays.Location = new System.Drawing.Point(220, 245);
+            this.lblSearchDays.Name = "lblSearchDays";
+            this.lblSearchDays.Size = new System.Drawing.Size(53, 12);
+            this.lblSearchDays.TabIndex = 51;
+            this.lblSearchDays.Text = "搜索时间";
+            // 
+            // tbSearchDays
+            // 
+            this.tbSearchDays.Location = new System.Drawing.Point(278, 242);
+            this.tbSearchDays.Name = "tbSearchDays";
+            this.tbSearchDays.Size = new System.Drawing.Size(71, 22);
+            this.tbSearchDays.TabIndex = 50;
             // 
             // lblFindTreasureChance
             // 
@@ -2696,7 +2673,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbStopToControlOnAttack.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value);
             this.tbMaxMilitaryExperience.Text = nextSibling.Attributes.GetNamedItem("MaxMilitaryExperience").Value;
             this.tbCreateRandomOfficerChance.Text = nextSibling.Attributes.GetNamedItem("CreateRandomOfficerChance").Value;
-            this.tbGeneratedOfficerFemaleChance.Text = nextSibling.Attributes.GetNamedItem("GeneratedOfficerFemaleChance").Value;
             this.tbCreatedOfficerAbilityFactor.Text = nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value;
             this.cbEnablePersonRelations.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value);
             this.tbChildrenAvailableAge.Text = nextSibling.Attributes.GetNamedItem("ChildrenAvailableAge").Value;
@@ -2878,7 +2854,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("StopToControlOnAttack").Value = this.cbStopToControlOnAttack.Checked.ToString();
             if (!checkIntSave(nextSibling, "MaxMilitaryExperience", this.lblMaxMilitaryExperience, this.tbMaxMilitaryExperience)) { return false; }
             if (!checkFloatSave(nextSibling, "CreateRandomOfficerChance", this.lblCreateRandomOfficerChance, this.tbCreateRandomOfficerChance)) { return false; }
-            if (!checkIntSave(nextSibling, "GeneratedOfficerFemaleChance", this.lblGeneratedOfficerFemaleChance, this.tbGeneratedOfficerFemaleChance)) { return false; }
             if (!checkFloatSave(nextSibling, "CreatedOfficerAbilityFactor", this.lblCreatedOfficerAbilityFactor, this.tbCreatedOfficerAbilityFactor)) { return false; }
             nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value = this.cbEnablePersonRelations.Checked.ToString();
             if (!checkIntSave(nextSibling, "ChildrenAvailableAge", this.lblChildrenAvailableAge, this.tbChildrenAvailableAge)) { return false; }

@@ -6,7 +6,6 @@
 
     public class BiographyAdjectives : GameObject
     {
-        public int ID { get; set; }
         public int Strength { get; set; }
         public int Command { get; set; }
         public int Intelligence { get; set; }

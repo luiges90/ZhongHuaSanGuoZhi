@@ -2735,14 +2735,14 @@
                 if (GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
                     GlobalVariables.CreateRandomOfficerChance * 100)
                 {
-                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this, new CreatePersonOptionsBuilder().build());
+                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
                     return true;
                 }
                 else if (!base.Scenario.IsPlayer(this.BelongedFaction) &&
                     GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
                     GlobalVariables.CreateRandomOfficerChance * 100 * (Parameters.AIExtraPerson - 1))
                 {
-                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this, new CreatePersonOptionsBuilder().build());
+                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
    
                     GameObjectList ideals = base.Scenario.GameCommonData.AllIdealTendencyKinds;
                     IdealTendencyKind minIdeal = null;
@@ -7051,91 +7051,7 @@
             return biography;
         }
 
-        public struct CreatePersonOptions
-        {
-            public readonly int femaleChance;
-            public readonly int bornLo, bornHi;
-            public readonly int debutLo, debutHi;
-            public readonly int dieLo, dieHi, debutAtLeast;
-
-            internal CreatePersonOptions(int femaleChance, int bornLo, int bornHi, int debutLo, int debutHi,
-                int dieLo, int dieHi, int debutAtLeast)
-            {
-                this.femaleChance = femaleChance;
-                this.bornLo = bornLo;
-                this.bornHi = bornHi;
-                this.debutLo = debutLo;
-                this.debutHi = debutHi;
-                this.dieLo = dieLo;
-                this.dieHi = dieHi;
-                this.debutAtLeast = debutAtLeast;
-            }
-        }
-
-        public class CreatePersonOptionsBuilder
-        {
-            private int femaleChance = GlobalVariables.GeneratedOfficerFemaleChance;
-            private int bornLo = 15, bornHi = 40;
-            private int debutLo = 0, debutHi = 0;
-            private int dieLo = 30, dieHi = 99, debutAtLeast = 5;
-
-            public CreatePersonOptionsBuilder setFemaleChance(int x)
-            {
-                femaleChance = x;
-                return this;
-            }
-
-            public CreatePersonOptionsBuilder setBornLo(int x)
-            {
-                bornLo = x;
-                return this;
-            }
-
-            public CreatePersonOptionsBuilder setBornHi(int x)
-            {
-                bornHi = x;
-                return this;
-            }
-
-            public CreatePersonOptionsBuilder setDebutLo(int x)
-            {
-                debutLo = x;
-                return this;
-            }
-
-            public CreatePersonOptionsBuilder setDebutHi(int x)
-            {
-                debutHi = x;
-                return this;
-            }
-
-            public CreatePersonOptionsBuilder setDieLo(int x)
-            {
-                dieLo = x;
-                return this;
-            }
-
-            public CreatePersonOptionsBuilder setDieHi(int x)
-            {
-                dieHi = x;
-                return this;
-            }
-
-            public CreatePersonOptionsBuilder setDebutAtLeast(int x)
-            {
-                debutAtLeast = x;
-                return this;
-            }
-
-            public CreatePersonOptions build()
-            {
-                return new CreatePersonOptions(femaleChance, bornLo, bornHi, debutLo, debutHi, dieLo, dieHi, debutAtLeast);
-            }
-        }
-
-        private enum OfficerType { GENERAL, BRAVE, ADVISOR, POLITICIAN, INTEL_GENERAL, EMPEROR, ALL_ROUNDER, NORMAL_ADVISOR, CHEAP, NORMAL_GENERAL };
-
-        public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder, CreatePersonOptions options)
+        public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder)
         {
             Person r = new Person();
 
@@ -7170,6 +7086,8 @@
             r.Generation = 1;
             r.Strain = r.ID;
 
+            PersonGeneratorSetting options = scen.GameCommonData.PersonGeneratorSetting;
+
             r.Sex = GameObject.Chance(options.femaleChance) ? true : false;
 
             List<String> surnameList = Person.readTextList("CreateChildrenTextFile/surname.txt");
@@ -7189,199 +7107,49 @@
             }
             r.CalledName = "";
 
-            int[] weights = {
-                Parameters.GenerateAdvisorWeight,
-                Parameters.GenerateAllRounderWeight,
-                Parameters.GenerateBraveWeight,
-                Parameters.GenerateCheapWeight,
-                Parameters.GenerateEmperorWeight,
-                Parameters.GenerateGeneralWeight,
-                Parameters.GenerateIntelGeneralWeight,
-                Parameters.GenerateNormalAdvisorWeight,
-                Parameters.GenerateNormalGeneralWeight,
-                Parameters.GeneratePoliticianWeight
-            };
-            OfficerType[] types = {
-                OfficerType.ADVISOR,
-                OfficerType.ALL_ROUNDER,
-                OfficerType.BRAVE,
-                OfficerType.CHEAP,
-                OfficerType.EMPEROR,
-                OfficerType.GENERAL,
-                OfficerType.INTEL_GENERAL,
-                OfficerType.NORMAL_ADVISOR,
-                OfficerType.NORMAL_GENERAL,
-                OfficerType.POLITICIAN
-            };
-            OfficerType type = OfficerType.CHEAP;
+            Dictionary<int, int> weights = new Dictionary<int,int>();
+            foreach (PersonGeneratorType type in scen.GameCommonData.AllPersonGeneratorTypes) 
+            {
+                weights[type.ID] = type.generationChance;
+            }
 
             int total = 0;
-            foreach (int i in weights) 
+            foreach (int i in weights.Values) 
             {
                 total += i;
             }
 
+            int officerType = 9;
             int typeInt = GameObject.Random(total);
-            int typeSum = weights[0];
-            for (int i = 0; i < weights.Length; ++i)
+            int typeSum = 0;
+            foreach (KeyValuePair<int, int> i in weights)
             {
                 if (typeInt < typeSum)
                 {
-                    type = types[i];
+                    officerType = i.Key;
                     break;
                 }
                 else
                 {
-                    typeSum += weights[i + 1];
+                    typeSum += i.Value;
                 }
             }
 
             int titleChance = 0;
-            switch (type)
-            {
-                case OfficerType.GENERAL:
-                    {
-                        r.BaseCommand = GameObject.RandomGaussian(85, 15);
-                        r.BaseStrength = GameObject.RandomGaussian(85, 15);
-                        r.BaseIntelligence = GameObject.RandomGaussian(50, 20);
-                        r.BasePolitics = GameObject.RandomGaussian(40, 20);
-                        r.BaseGlamour = GameObject.RandomGaussian(60, 30);
-                        r.Braveness = GameObject.RandomGaussian(7, 2);
-                        r.Calmness = GameObject.RandomGaussian(5, 2);
-                        r.PersonalLoyalty = GameObject.RandomGaussian(3, 1);
-                        r.Ambition = GameObject.RandomGaussian(3, 1);
-                        titleChance = 98;
-                        break;
-                    }
-                case OfficerType.BRAVE:
-                    {
-                        r.Command = GameObject.RandomGaussian(55, 15);
-                        r.Strength = GameObject.RandomGaussian(90, 10);
-                        r.Intelligence = GameObject.RandomGaussian(25, 15);
-                        r.Politics = GameObject.RandomGaussian(15, 15);
-                        r.Glamour = GameObject.RandomGaussian(30, 30);
-                        r.Braveness = GameObject.RandomGaussian(8, 2);
-                        r.Calmness = GameObject.RandomGaussian(2, 1);
-                        r.PersonalLoyalty = GameObject.Random(2) + 3;
-                        r.Ambition = GameObject.RandomGaussian(2, 1);
-                        titleChance = 98;
-                        break;
-                    }
-                case OfficerType.ADVISOR:
-                    {
-                        r.Command = GameObject.RandomGaussian(80, 20);
-                        r.Strength = GameObject.RandomGaussian(35, 35);
-                        r.Intelligence = GameObject.RandomGaussian(90, 10);
-                        r.Politics = GameObject.RandomGaussian(85, 15);
-                        r.Glamour = GameObject.RandomGaussian(80, 20);
-                        r.Braveness = GameObject.RandomGaussian(3, 2);
-                        r.Calmness = GameObject.RandomGaussian(7, 2);
-                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
-                        r.Ambition = GameObject.RandomGaussian(2, 2);
-                        titleChance = 98;
-                        break;
-                    }
-                case OfficerType.POLITICIAN:
-                    {
-                        r.Command = GameObject.RandomGaussian(25, 25);
-                        r.Strength = GameObject.RandomGaussian(20, 20);
-                        r.Intelligence = GameObject.RandomGaussian(85, 15);
-                        r.Politics = GameObject.RandomGaussian(90, 10);
-                        r.Glamour = GameObject.RandomGaussian(50, 50);
-                        r.Braveness = GameObject.RandomGaussian(2, 1);
-                        r.Calmness = GameObject.RandomGaussian(7, 2);
-                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
-                        r.Ambition = GameObject.RandomGaussian(2, 2);
-                        titleChance = 98;
-                        break;
-                    }
-                case OfficerType.INTEL_GENERAL:
-                    {
-                        r.Command = GameObject.RandomGaussian(85, 15);
-                        r.Strength = GameObject.RandomGaussian(85, 15);
-                        r.Intelligence = GameObject.RandomGaussian(85, 15);
-                        r.Politics = GameObject.RandomGaussian(25, 25);
-                        r.Glamour = GameObject.RandomGaussian(60, 30);
-                        r.Braveness = GameObject.RandomGaussian(6, 3);
-                        r.Calmness = GameObject.RandomGaussian(6, 3);
-                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
-                        r.Ambition = GameObject.RandomGaussian(2, 2);
-                        titleChance = 98;
-                        break;
-                    }
-                case OfficerType.EMPEROR:
-                    {
-                        r.Command = GameObject.RandomGaussian(80, 20);
-                        r.Strength = GameObject.RandomGaussian(50, 20);
-                        r.Intelligence = GameObject.RandomGaussian(80, 20);
-                        r.Politics = GameObject.RandomGaussian(80, 20);
-                        r.Glamour = GameObject.RandomGaussian(90, 10);
-                        r.Braveness = GameObject.RandomGaussian(6, 3);
-                        r.Calmness = GameObject.RandomGaussian(6, 3);
-                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
-                        r.Ambition = GameObject.Random(2) + 3;
-                        titleChance = 98;
-                        break;
-                    }
-                case OfficerType.ALL_ROUNDER:
-                    {
-                        r.Command = GameObject.RandomGaussian(85, 15);
-                        r.Strength = GameObject.RandomGaussian(85, 15);
-                        r.Intelligence = GameObject.RandomGaussian(85, 15);
-                        r.Politics = GameObject.RandomGaussian(85, 15);
-                        r.Glamour = GameObject.RandomGaussian(85, 15);
-                        r.Braveness = GameObject.RandomGaussian(7, 2);
-                        r.Calmness = GameObject.RandomGaussian(7, 2);
-                        r.PersonalLoyalty = GameObject.RandomGaussian(3, 1);
-                        r.Ambition = GameObject.RandomGaussian(3, 1);
-                        titleChance = 100;
-                        break;
-                    }
-                case OfficerType.NORMAL_ADVISOR:
-                    {
-                        r.Command = GameObject.RandomGaussian(60, 15);
-                        r.Strength = GameObject.RandomGaussian(60, 15);
-                        r.Intelligence = GameObject.RandomGaussian(30, 15);
-                        r.Politics = GameObject.RandomGaussian(30, 15);
-                        r.Glamour = GameObject.RandomGaussian(45, 30);
-                        r.Braveness = GameObject.RandomGaussian(3, 2);
-                        r.Calmness = GameObject.RandomGaussian(5, 4);
-                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
-                        r.Ambition = GameObject.RandomGaussian(2, 2);
-                        titleChance = 33;
-                        break;
-                    }
-                case OfficerType.NORMAL_GENERAL:
-                    {
-                        r.Command = GameObject.RandomGaussian(30, 15);
-                        r.Strength = GameObject.RandomGaussian(30, 15);
-                        r.Intelligence = GameObject.RandomGaussian(60, 15);
-                        r.Politics = GameObject.RandomGaussian(60, 15);
-                        r.Glamour = GameObject.RandomGaussian(45, 30);
-                        r.Braveness = GameObject.RandomGaussian(5, 4);
-                        r.Calmness = GameObject.RandomGaussian(3, 2);
-                        r.PersonalLoyalty = GameObject.RandomGaussian(2, 2);
-                        r.Ambition = GameObject.RandomGaussian(2, 2);
-                        titleChance = 33;
-                        break;
-                    }
-                case OfficerType.CHEAP:
-                    {
-                        r.Command = GameObject.RandomGaussian(25, 25);
-                        r.Strength = GameObject.RandomGaussian(25, 25);
-                        r.Intelligence = GameObject.RandomGaussian(25, 25);
-                        r.Politics = GameObject.RandomGaussian(25, 25);
-                        r.Glamour = GameObject.RandomGaussian(25, 25);
-                        r.Braveness = GameObject.RandomGaussian(2, 1);
-                        r.Calmness = GameObject.RandomGaussian(2, 1);
-                        r.PersonalLoyalty = GameObject.RandomGaussian(1, 1);
-                        r.Ambition = GameObject.RandomGaussian(1, 1);
-                        titleChance = 0;
-                        break;
-                    }
-            }
 
-            if (type != OfficerType.ALL_ROUNDER || GlobalVariables.CreatedOfficerAbilityFactor > 1)
+            PersonGeneratorType typeParam = (PersonGeneratorType) scen.GameCommonData.AllPersonGeneratorTypes[officerType];
+            r.BaseCommand = GameObject.RandomGaussianRange(typeParam.commandLo, typeParam.commandHi);
+            r.BaseStrength = GameObject.RandomGaussianRange(typeParam.strengthLo, typeParam.strengthHi);
+            r.BaseIntelligence = GameObject.RandomGaussianRange(typeParam.intelligenceLo, typeParam.intelligenceHi);
+            r.BasePolitics = GameObject.RandomGaussianRange(typeParam.politicsLo, typeParam.politicsHi);
+            r.BaseGlamour = GameObject.RandomGaussianRange(typeParam.glamourLo, typeParam.glamourHi);
+            r.Braveness = GameObject.RandomGaussianRange(typeParam.braveLo, typeParam.braveHi);
+            r.Calmness = GameObject.RandomGaussianRange(typeParam.calmnessLo, typeParam.calmnessHi);
+            r.PersonalLoyalty = GameObject.RandomGaussianRange(typeParam.personalLoyaltyLo, typeParam.personalLoyaltyHi);
+            r.Ambition = GameObject.RandomGaussianRange(typeParam.ambitionLo, typeParam.ambitionHi);
+            titleChance = typeParam.titleChance;
+           
+            if (typeParam.affectedByRateParameter || GlobalVariables.CreatedOfficerAbilityFactor > 1)
             {
                 r.BaseCommand = (int)(r.BaseCommand * GlobalVariables.CreatedOfficerAbilityFactor);
                 r.BaseStrength = (int)(r.BaseStrength * GlobalVariables.CreatedOfficerAbilityFactor);
@@ -7415,7 +7183,7 @@
                 Dictionary<CharacterKind, int> chances = new Dictionary<CharacterKind, int>();
                 foreach (CharacterKind t in scen.GameCommonData.AllCharacterKinds)
                 {
-                    chances.Add(t, t.GenerationChance[(int)type]);
+                    chances.Add(t, t.GenerationChance[(int)officerType]);
                 }
 
                 int sum = 0;
@@ -7441,12 +7209,8 @@
             {
                 if (s.CanBeChosenForGenerated())
                 {
-                    int chance = s.GenerationChance[(int)type];
+                    int chance = s.GenerationChance[(int)officerType];
                     chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
-                    if (type == OfficerType.ALL_ROUNDER)
-                    {
-                        chance *= 2;
-                    }
                     if (GameObject.Chance(chance))
                     {
                         r.Skills.AddSkill(s);
@@ -7458,12 +7222,8 @@
             {
                 if (s.CanBeChosenForGenerated())
                 {
-                    int chance = s.GenerationChance[(int)type];
+                    int chance = s.GenerationChance[(int)officerType];
                     chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
-                    if (type == OfficerType.ALL_ROUNDER)
-                    {
-                        chance *= 6;
-                    }
                     if (GameObject.Random(1000) <= chance)
                     {
                         r.Stunts.AddStunt(s);
@@ -7481,14 +7241,7 @@
                     {
                         if (t.CanBeChosenForGenerated())
                         {
-                            if (type == OfficerType.ALL_ROUNDER)
-                            {
-                                chances.Add(t, t.GenerationChance[(int)type] * t.Level);
-                            }
-                            else
-                            {
-                                chances.Add(t, t.GenerationChance[(int)type] / (double)(t.Level * t.Level));
-                            }
+                            chances.Add(t, t.GenerationChance[(int)officerType]);
                         }
                     }
 
@@ -7574,7 +7327,7 @@
             r.Generation = father.Generation + 1;
             r.Strain = father.Strain;
 
-            r.Sex = GameObject.Chance(GlobalVariables.GeneratedOfficerFemaleChance) ? true : false;
+            r.Sex = GameObject.Chance(father.Scenario.GameCommonData.PersonGeneratorSetting.femaleChance) ? true : false;
 
             r.SurName = father.SurName;
             List<String> givenNameList = r.Sex ? Person.readTextList("CreateChildrenTextFile/femalegivenname.txt") : Person.readTextList("CreateChildrenTextFile/malegivenname.txt");

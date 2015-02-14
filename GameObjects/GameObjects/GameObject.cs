@@ -49,7 +49,7 @@
         }
 
         private static Random rand = new Random();
-        public static int RandomGaussian(int mean, int var)
+        public static int RandomGaussian(double mean, double var)
         {
             double u1 = rand.NextDouble();
             double u2 = rand.NextDouble();
@@ -57,6 +57,12 @@
                          Math.Sin(2.0 * Math.PI * u2);
             return (int) Math.Round(mean + (var / 3) * randStdNormal);
         }
+
+        public static int RandomGaussianRange(int lo, int hi)
+        {
+            return RandomGaussian((hi + lo) / 2.0, Math.Abs(hi - lo) / 2.0);
+        }
+
 
         public static int Square(int num)
         {

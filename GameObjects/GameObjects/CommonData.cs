@@ -61,6 +61,9 @@
         public TroopAnimation TroopAnimations = new TroopAnimation();
         public List<BiographyAdjectives> AllBiographyAdjectives = new List<BiographyAdjectives>();
 
+        public PersonGeneratorSetting PersonGeneratorSetting = new PersonGeneratorSetting();
+        public PersonGeneratorTypeList AllPersonGeneratorTypes = new PersonGeneratorTypeList();
+
         public void Clear()
         {
             this.AllArchitectureKinds.Clear();
@@ -1434,12 +1437,85 @@
             return new List<string>();
         }
 
+        public List<string> LoadPersonGeneratorSetting(OleDbConnection connection, GameScenario scen)
+        {
+            connection.Open();
+            try
+            {
+                OleDbDataReader reader = new OleDbCommand("Select * From PersonGenerator", connection).ExecuteReader();
+                while (reader.Read())
+                {
+                    this.PersonGeneratorSetting.bornLo = (int)reader["BornLo"];
+                    this.PersonGeneratorSetting.bornHi = (int)reader["BornHi"];
+                    this.PersonGeneratorSetting.debutLo = (int)reader["DebutLo"];
+                    this.PersonGeneratorSetting.debutHi = (int)reader["DebutHi"];
+                    this.PersonGeneratorSetting.dieLo = (int)reader["DieLo"];
+                    this.PersonGeneratorSetting.dieHi = (int)reader["DieHi"];
+                    this.PersonGeneratorSetting.femaleChance = (int)reader["FemaleChance"];
+                    this.PersonGeneratorSetting.debutAtLeast = (int)reader["DebutAtLeast"];
+                }
+                
+            }
+            catch
+            {
+            }
+            connection.Close();
+
+            return new List<string>();
+        }
+
+        public List<string> LoadPersonGeneratorTypes(OleDbConnection connection, GameScenario scen)
+        {
+            connection.Open();
+            try
+            {
+                OleDbDataReader reader = new OleDbCommand("Select * From PersonGenerator", connection).ExecuteReader();
+                while (reader.Read())
+                {
+                    PersonGeneratorType type = new PersonGeneratorType();
+                    type.ID = (int)reader["ID"];
+                    type.Name = reader["TypeName"].ToString();
+                    type.generationChance = (int)reader["GenerationChance"];
+                    type.commandLo = (int)reader["CommandLo"];
+                    type.commandHi = (int)reader["CommandHi"];
+                    type.strengthLo = (int)reader["StrengthLo"];
+                    type.strengthHi = (int)reader["StrengthHi"];
+                    type.intelligenceLo = (int)reader["IntelligenceLo"];
+                    type.intelligenceHi = (int)reader["IntelligenceHi"];
+                    type.politicsLo = (int)reader["PoliticsLo"];
+                    type.politicsHi = (int)reader["PoliticsHi"];
+                    type.glamourLo = (int)reader["GlamourLo"];
+                    type.glamourHi = (int)reader["GlamourHi"];
+                    type.braveLo = (int)reader["BraveLo"];
+                    type.braveHi = (int)reader["BraveHi"];
+                    type.calmnessLo = (int)reader["CalmnessLo"];
+                    type.calmnessHi = (int)reader["CalmnessHi"];
+                    type.personalLoyaltyLo = (int)reader["PersonalLoyaltyLo"];
+                    type.personalLoyaltyHi = (int)reader["PersonalLoyaltyHi"];
+                    type.ambitionLo = (int)reader["AmbitionLo"];
+                    type.ambitionHi = (int)reader["AmbitionHi"];
+                    type.titleChance = (int)reader["TitleChance"];
+                    type.affectedByRateParameter = (bool)reader["AffectByRateParameter"];
+                    this.AllPersonGeneratorTypes.Add(type);
+                }
+
+            }
+            catch
+            {
+            }
+            connection.Close();
+
+            return new List<string>();
+        }
+
         public List<string> LoadFromDatabase(string connectionString, GameScenario scen)
         {
             List<string> errorMsg = new List<string>();
 
             OleDbConnection connection = new OleDbConnection(connectionString);
 
+            errorMsg.AddRange(this.LoadPersonGeneratorSetting(connection, scen));
+            errorMsg.AddRange(this.LoadPersonGeneratorTypes(connection, scen));
             errorMsg.AddRange(this.LoadTerrainDetail(connection, scen));
             errorMsg.AddRange(this.LoadColor(connection, scen));
             errorMsg.AddRange(this.LoadIdealTendencyKind(connection, scen));
@@ -1560,6 +1636,12 @@
                 new OleDbCommand("drop table TroopEventEffectKind", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table GlobalVariables", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table GameParameters", selectConnection).ExecuteNonQuery();
+                try
+                {
+                    new OleDbCommand("drop table PersonGenerator", selectConnection).ExecuteNonQuery();
+                    new OleDbCommand("drop table PersonGeneratorType", selectConnection).ExecuteNonQuery();
+                }
+                catch { }
 
                 selectConnection.Close();
             }
@@ -2586,6 +2668,68 @@
                     dataSet.Tables["BiographyAdjectives"].Rows.Add(row);
                 }
                 adapter.Update(dataSet, "BiographyAdjectives");
+                dataSet.Clear();
+
+                new OleDbCommand("Delete from PersonGenerator", selectConnection).ExecuteNonQuery();
+                adapter = new OleDbDataAdapter("Select * from PersonGenerator", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "PersonGenerator");
+                dataSet.Tables["PersonGenerator"].Rows.Clear();
+                row = dataSet.Tables["PersonGenerator"].NewRow();
+                row.BeginEdit();
+                row["ID"] = 1;
+                row["BornLo"] = PersonGeneratorSetting.bornLo;
+                row["BornHi"] = PersonGeneratorSetting.bornHi;
+                row["DebutLo"] = PersonGeneratorSetting.debutLo;
+                row["Debuthi"] = PersonGeneratorSetting.debutHi;
+                row["DieLo"] = PersonGeneratorSetting.dieLo;
+                row["Diehi"] = PersonGeneratorSetting.dieHi;
+                row["FemaleChance"] = PersonGeneratorSetting.femaleChance;
+                row["DebutAtLeast"] = PersonGeneratorSetting.debutAtLeast;
+                row.EndEdit();
+                dataSet.Tables["PersonGenerator"].Rows.Add(row);
+                adapter.Update(dataSet, "PersonGenerator");
+                dataSet.Clear();
+
+                new OleDbCommand("Delete from PersonGeneratorType", selectConnection).ExecuteNonQuery();
+                adapter = new OleDbDataAdapter("Select * from PersonGeneratorType", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "PersonGeneratorType");
+                dataSet.Tables["PersonGeneratorType"].Rows.Clear();
+                storedIds.Clear();
+                foreach (PersonGeneratorType i in this.AllPersonGeneratorTypes)
+                {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
+                    row = dataSet.Tables["PersonGeneratorType"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["TypeName"] = i.Name;
+                    row["GenerationChance"] = i.generationChance;
+                    row["CommandLo"] = i.commandLo;
+                    row["CommandHi"] = i.commandHi;
+                    row["StrengthLo"] = i.strengthLo;
+                    row["StrengthHi"] = i.strengthHi;
+                    row["IntelligenceLo"] = i.intelligenceLo;
+                    row["IntelligenceHi"] = i.intelligenceHi;
+                    row["PoliticsLo"] = i.politicsLo;
+                    row["PoliticsHi"] = i.politicsHi;
+                    row["GlamourLo"] = i.glamourLo;
+                    row["GlamourHi"] = i.glamourHi;
+                    row["BraveLo"] = i.braveLo;
+                    row["BraveHi"] = i.braveHi;
+                    row["CalmnessLo"] = i.calmnessLo;
+                    row["CalmnessHi"] = i.calmnessHi;
+                    row["PersonalLoyaltyLo"] = i.personalLoyaltyLo;
+                    row["PersonalLoyaltyHi"] = i.personalLoyaltyHi;
+                    row["AmbitionLo"] = i.ambitionLo;
+                    row["AmbitionHi"] = i.ambitionHi;
+                    row["TitleChance"] = i.titleChance;
+                    row["AffectedByRateParameter"] = i.affectedByRateParameter;
+                    row.EndEdit();
+                    dataSet.Tables["PersonGeneratorType"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "PersonGeneratorType");
                 dataSet.Clear();
 
                 new OleDbCommand("Delete from GameParameters", selectConnection).ExecuteNonQuery();
