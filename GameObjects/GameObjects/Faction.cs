@@ -505,7 +505,7 @@
         public void AddMilitary(Military military)
         {
             this.Militaries.AddMilitary(military);
-            if (this.militaryKindCounts.ContainsKey(military.Kind))
+            if (this.militaryKindCounts.ContainsKey(military.RealMilitaryKind))
             {
                 this.militaryKindCounts[military.Kind]++;
             }

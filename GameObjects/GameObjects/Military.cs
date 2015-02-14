@@ -584,6 +584,10 @@
                 {
                     this.ShelledMilitary.InjuryQuantity = value;
                 }
+                if (this.injuryQuantity < 0)
+                {
+                    this.injuryQuantity = 0;
+                }
             }
         }
 

@@ -4849,7 +4849,7 @@
                     if (person3.Loyalty >= 100) return;
                     if (person3.Loyalty >= 90 && !person3.LeaderPossibility) return;
                 }
-                if (Person.GetIdealOffset(faction.Leader, person3) <= 10 && !person3.Hates(faction.Leader)) return;
+                if (faction != null && Person.GetIdealOffset(faction.Leader, person3) <= 10 && !person3.Hates(faction.Leader)) return;
                 if (faction != null && location == faction.Capital) return;
                 if (GameObject.Random(30) != 0) return;
                 if (GameObject.Random(location.Population + location.ArmyScale * 5000 + 

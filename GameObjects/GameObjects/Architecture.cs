@@ -9966,8 +9966,10 @@
                     while (this.Persons.Count > 0)
                     {
                         Person person2 = this.Persons[0] as Person;
+                        base.Scenario.YearTable.addBecomeNoFactionDueToDestructionEntry(base.Scenario.Date, person2, this.BelongedFaction);
                         person2.Status = PersonStatus.NoFaction;
                         person2.LocationArchitecture = this;
+                        person2.Reputation = (int)(person2.Reputation * 0.95);
                     }
                     //this.Persons.Clear();
                     while (this.MovingPersons.Count > 0)
@@ -9976,7 +9978,7 @@
                         base.Scenario.YearTable.addBecomeNoFactionDueToDestructionEntry(base.Scenario.Date, person2, this.BelongedFaction);
                         person2.OutsideTask = OutsideTaskKind.无;
                         person2.TaskDays = 0;
-                        person2.Status = PersonStatus.NoFaction;
+                        person2.Status = PersonStatus.NoFactionMoving;
 
                         person2.LocationArchitecture = this;
                         person2.TargetArchitecture = null;

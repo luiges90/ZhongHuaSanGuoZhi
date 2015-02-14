@@ -464,6 +464,7 @@
             }
 
             int dayDiff = (date.Year - ob.StartYear) * 360 + (date.Month - ob.StartMonth) * 30 + (date.Day - ob.StartDay) - 5;
+            if (dayDiff <= 0) return;
 
             Dictionary<Faction, int> totalDamages = new Dictionary<Faction, int>();
             foreach (Faction f in factionDamages.Keys)
