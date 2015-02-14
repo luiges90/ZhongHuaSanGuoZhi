@@ -78,7 +78,7 @@ namespace ScenarioGenerator
                 for (int i = 0; i < count; ++i)
                 {
                     Architecture location = (Architecture) scen.Architectures[GameObject.Random(scen.Architectures.Count)];
-                    Person p = Person.createPerson(scen, location, null);
+                    Person p = Person.createPerson(scen, location, null, false);
                     if (GameObject.Chance(joinChance) && location.BelongedFaction != null)
                     {
                         p.ChangeFaction(location.BelongedFaction);

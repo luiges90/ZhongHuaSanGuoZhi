@@ -2670,6 +2670,15 @@
             }
             try
             {
+                errorMsg.AddRange(this.GameCommonData.LoadPersonGeneratorTypes(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadPersonGeneratorTypes(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
                 errorMsg.AddRange(this.GameCommonData.LoadTerrainDetail(DbConnection, this));
             }
             catch
