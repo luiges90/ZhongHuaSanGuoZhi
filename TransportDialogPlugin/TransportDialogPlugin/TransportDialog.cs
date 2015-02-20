@@ -332,7 +332,7 @@
             {
                 case TransportKind.Fund:
                 case TransportKind.Food:
-                    this.TabListPlugin.InitialValues(this.SourceArchitecture.BelongedFaction.Architectures, null, 0, this.TitleText.Text);
+                    this.TabListPlugin.InitialValues(this.SourceArchitecture.BelongedFaction.ArchitecturesExcluding(this.SourceArchitecture), null, 0, this.TitleText.Text);
                     break;
 
                 case TransportKind.EmperorFood:

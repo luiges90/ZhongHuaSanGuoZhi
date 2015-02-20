@@ -270,6 +270,19 @@
             }
         }
 
+        public ArchitectureList ArchitecturesExcluding(Architecture a)
+        {
+            ArchitectureList result = new ArchitectureList();
+            foreach (Architecture i in this.Architectures)
+            {
+                if (i != a)
+                {
+                    result.Add(i);
+                }
+            }
+            return result;
+        }
+
         public int GetTechniqueUsefulness(Technique tech)
         {
             int result = 0;
