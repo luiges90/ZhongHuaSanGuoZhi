@@ -429,17 +429,7 @@
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationIncrease { get; set; }
 
-        public Faction BelongedFaction
-        {
-            get
-            {
-                if (this.BelongedLegion != null)
-                {
-                    return this.BelongedLegion.BelongedFaction;
-                }
-                return null;
-            }
-        }
+        public Faction BelongedFaction = null;
 
         private int forceTroopTargetId;
 
@@ -2532,20 +2522,18 @@
         {
             if ((faction != null) && (this.BelongedFaction != null))
             {
-                Legion oldLegion = this.BelongedLegion;
-
-                this.BelongedFaction.Troops.Remove(this);
-                this.BelongedFaction.RemoveTroopKnownAreaData(this);
-                this.BelongedFaction.RemoveMilitary(this.Army);
-                if (oldLegion != null && this.BelongedLegion.BelongedFaction != faction)
+                if (this.BelongedLegion != null && this.BelongedLegion.BelongedFaction != faction)
                 {
-                    oldLegion.BelongedFaction.RemoveLegion(oldLegion);
-                    faction.AddLegion(oldLegion);
+                    this.BelongedLegion.BelongedFaction.RemoveLegion(this.BelongedLegion);
+                    faction.AddLegion(this.BelongedLegion);
                     if ((this.BelongedLegion.Kind == LegionKind.Offensive) && (this.BelongedLegion.WillArchitecture.BelongedFaction == faction))
                     {
                         this.BelongedLegion.Kind = LegionKind.Defensive;
                     }
                 }
+                this.BelongedFaction.Troops.Remove(this);
+                this.BelongedFaction.RemoveTroopKnownAreaData(this);
+                this.BelongedFaction.RemoveMilitary(this.Army);
                 faction.AddTroop(this);
                 faction.AddTroopKnownAreaData(this);
                 foreach (Captive captive in this.Captives.GetList())
@@ -3204,6 +3192,7 @@
         {
             Troop troop = new Troop();
             troop.Scenario = architecture.Scenario;
+            troop.BelongedFaction = architecture.BelongedFaction;
             troop.Simulating = true;
             troop.TechnologyIncrement = architecture.Technology / 50;
             troop.StartingArchitecture = architecture;
@@ -3905,6 +3894,7 @@
                 person.TargetArchitecture = null;
             }
             this.Destroy(true, true);
+            this.BelongedFaction = null;
         }
 
         private void FinalizeContactArea()

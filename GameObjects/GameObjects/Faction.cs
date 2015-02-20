@@ -601,6 +601,7 @@
                 }
                 troop.BelongedFaction.RemoveTroop(troop);
             }
+            troop.BelongedFaction = this;
         }
 
         public void AddTroopKnownAreaData(Troop troop)
@@ -3603,6 +3604,7 @@
         public void RemoveTroop(Troop troop)
         {
             this.Troops.Remove(troop);
+            troop.BelongedFaction = null;
         }
 
         public void RemoveTroopKnownAreaData(Troop troop)
