@@ -1463,10 +1463,15 @@
         {
             connection.Open();
             OleDbDataReader reader = new OleDbCommand("Select * From PersonGeneratorType", connection).ExecuteReader();
+            bool hasZero = false;
             while (reader.Read())
             {
                 PersonGeneratorType type = new PersonGeneratorType();
                 type.ID = (int)reader["ID"];
+                if (type.ID == 0)
+                {
+                    hasZero = true;
+                }
                 type.Name = reader["TypeName"].ToString();
                 type.generationChance = (int)reader["GenerationChance"];
                 type.commandLo = (int)reader["CommandLo"];
@@ -1492,6 +1497,15 @@
                 this.AllPersonGeneratorTypes.Add(type);
             }
             connection.Close();
+
+            // for backward compatibility
+            if (!hasZero)
+            {
+                foreach (PersonGeneratorType type in this.AllPersonGeneratorTypes)
+                {
+                    type.ID--;
+                }
+            }
 
             return new List<string>();
         }

@@ -59,7 +59,6 @@
         public bool BasePierceAttack;
         public float BaseRateOfQibingDamage = 1f;
         private GameArea baseViewArea = null;
-        public Faction BelongedFaction = null;
         public Legion BelongedLegion;
         public bool CanAttackAfterRout;
         private TroopCastDefaultKind castDefaultKind;
@@ -429,6 +428,18 @@
         public int PoliticsExperienceIncrease { get; set; }
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationIncrease { get; set; }
+
+        public Faction BelongedFaction
+        {
+            get
+            {
+                if (this.BelongedLegion != null)
+                {
+                    return this.BelongedLegion.BelongedFaction;
+                }
+                return null;
+            }
+        }
 
         private int forceTroopTargetId;
 
@@ -2521,19 +2532,20 @@
         {
             if ((faction != null) && (this.BelongedFaction != null))
             {
-                if (this.BelongedLegion != null && this.BelongedLegion.BelongedFaction != faction)
+                Legion oldLegion = this.BelongedLegion;
+
+                this.BelongedFaction.Troops.Remove(this);
+                this.BelongedFaction.RemoveTroopKnownAreaData(this);
+                this.BelongedFaction.RemoveMilitary(this.Army);
+                if (oldLegion != null && this.BelongedLegion.BelongedFaction != faction)
                 {
-                    this.BelongedLegion.BelongedFaction.RemoveLegion(this.BelongedLegion);
-                    faction.AddLegion(this.BelongedLegion);
+                    oldLegion.BelongedFaction.RemoveLegion(oldLegion);
+                    faction.AddLegion(oldLegion);
                     if ((this.BelongedLegion.Kind == LegionKind.Offensive) && (this.BelongedLegion.WillArchitecture.BelongedFaction == faction))
                     {
                         this.BelongedLegion.Kind = LegionKind.Defensive;
                     }
                 }
-                this.BelongedFaction.Troops.Remove(this);
-                this.BelongedFaction.RemoveTroopKnownAreaData(this);
-                this.BelongedFaction.RemoveMilitary(this.Army);
-                this.BelongedFaction = null;
                 faction.AddTroop(this);
                 faction.AddTroopKnownAreaData(this);
                 foreach (Captive captive in this.Captives.GetList())
@@ -3192,7 +3204,6 @@
         {
             Troop troop = new Troop();
             troop.Scenario = architecture.Scenario;
-            troop.BelongedFaction = architecture.BelongedFaction;
             troop.Simulating = true;
             troop.TechnologyIncrement = architecture.Technology / 50;
             troop.StartingArchitecture = architecture;
@@ -3894,7 +3905,6 @@
                 person.TargetArchitecture = null;
             }
             this.Destroy(true, true);
-            this.BelongedFaction = null;
         }
 
         private void FinalizeContactArea()

@@ -7109,14 +7109,14 @@
             }
             r.CalledName = "";
 
-            Dictionary<int, int> weights = new Dictionary<int,int>();
+            int[] weights = new int[10];
             foreach (PersonGeneratorType type in scen.GameCommonData.AllPersonGeneratorTypes) 
             {
                 weights[type.ID] = type.generationChance;
             }
 
             int total = 0;
-            foreach (int i in weights.Values) 
+            foreach (int i in weights) 
             {
                 total += i;
             }
@@ -7124,12 +7124,12 @@
             int officerType = 9;
             int typeInt = GameObject.Random(total);
             int typeSum = 0;
-            foreach (KeyValuePair<int, int> i in weights)
+            for (int i = 0; i < weights.Length; ++i) 
             {
-                typeSum += i.Value;
+                typeSum += weights[i];
                 if (typeInt < typeSum)
                 {
-                    officerType = i.Key;
+                    officerType = i;
                     break;
                 }
             }
