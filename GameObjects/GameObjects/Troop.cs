@@ -7991,7 +7991,7 @@
             MilitaryKind target = this.Army.Kind.MorphTo;
             if (target != null && this.BelongedFaction != null)
             {
-                this.BelongedFaction.MorphMilitary(this.Army.Kind, target);
+                this.BelongedFaction.MorphMilitary(this.Army.RealMilitaryKind, target);
                 preResetArmyKindData();
                 this.Operated = true;
                 this.Army.Kind = target;

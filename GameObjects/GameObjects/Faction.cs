@@ -520,11 +520,11 @@
             this.Militaries.AddMilitary(military);
             if (this.militaryKindCounts.ContainsKey(military.RealMilitaryKind))
             {
-                this.militaryKindCounts[military.Kind]++;
+                this.militaryKindCounts[military.RealMilitaryKind]++;
             }
             else
             {
-                this.militaryKindCounts[military.Kind] = 1;
+                this.militaryKindCounts[military.RealMilitaryKind] = 1;
             }
             military.BelongedFaction = this;
         }
@@ -3563,7 +3563,7 @@
         public void RemoveMilitary(Military military)
         {
             this.Militaries.Remove(military);
-            this.militaryKindCounts[military.Kind]--;
+            this.militaryKindCounts[military.RealMilitaryKind]--;
             military.BelongedFaction = null;
         }
 
