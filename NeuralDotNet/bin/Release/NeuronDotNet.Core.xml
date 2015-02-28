@@ -1,0 +1,4087 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NeuronDotNet.Core</name>
+    </assembly>
+    <members>
+        <member name="T:NeuronDotNet.Core.SOM.NeighborhoodFunctions.GaussianFunction">
+            <summary>
+            Gaussian Neighborhood Function. It is a continuous bell shaped curve centered at winner neuron.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.SOM.INeighborhoodFunction">
+            <summary>
+            This interface represents a neighborhood function. A neighborhood function determines
+            the neighborhood of every neuron with respect to winner neuron. This function depends
+            on the the shape of the layer and also on the training progress.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.INeighborhoodFunction.EvaluateNeighborhood(NeuronDotNet.Core.SOM.KohonenLayer,System.Int32,System.Int32)">
+            <summary>
+            Determines the neighborhood of every neuron in the given Kohonen layer with respect
+            to winner neuron.
+            </summary>
+            <param name="layer">
+            The Kohonen Layer containing neurons
+            </param>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Training Epochs
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.NeighborhoodFunctions.GaussianFunction.#ctor(System.Int32)">
+            <summary>
+            Creates a new Gaussian Neighborhood Function
+            </summary>
+            <param name="learningRadius">
+            Initial Learning Radius
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.NeighborhoodFunctions.GaussianFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.NeighborhoodFunctions.GaussianFunction.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the neighborhood function
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.NeighborhoodFunctions.GaussianFunction.EvaluateNeighborhood(NeuronDotNet.Core.SOM.KohonenLayer,System.Int32,System.Int32)">
+            <summary>
+            Determines the neighborhood of every neuron in the given Kohonen layer with respect to
+            winner neuron using Gaussian function
+            </summary>
+            <param name="layer">
+            The Kohonen Layer containing neurons
+            </param>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>layer</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.NeighborhoodFunctions.GaussianFunction.Sigma">
+            <summary>
+            Gets the initial value of sigma
+            </summary>
+            <value>
+            Initial value of sigma
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.Initializers.RandomFunction">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.IInitializer"/> using random function
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.IInitializer">
+            <summary>
+            Initializer interface. An initializer should define initialization methods for all concrete
+            initializable layers and connectors.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.IInitializer.Initialize(NeuronDotNet.Core.Backpropagation.ActivationLayer)">
+            <summary>
+            Initializes bias values of activation neurons in an activation layer.
+            </summary>
+            <param name="activationLayer">
+            The activation layer to initialize
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>activationLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.IInitializer.Initialize(NeuronDotNet.Core.Backpropagation.BackpropagationConnector)">
+            <summary>
+            Initializes weights of all backpropagation synapses in a backpropagation connector.
+            </summary>
+            <param name="connector">
+            The backpropagation connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.IInitializer.Initialize(NeuronDotNet.Core.SOM.KohonenConnector)">
+            <summary>
+            Initializes weights of all spatial synapses in a Kohonen connector.
+            </summary>
+            <param name="connector">
+            The Kohonen connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.RandomFunction.#ctor">
+            <summary>
+            Creates a new random initialization function which uses random values from 0 to 1
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.RandomFunction.#ctor(System.Double,System.Double)">
+            <summary>
+            Creates a new random initialization function using random values between the specified
+            limits.
+            </summary>
+            <param name="minLimit">
+            The minimum limit
+            </param>
+            <param name="maxLimit">
+            The maximum limit
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.RandomFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.RandomFunction.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the initializer
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.RandomFunction.Initialize(NeuronDotNet.Core.Backpropagation.ActivationLayer)">
+            <summary>
+            Initializes bias values of activation neurons in the activation layer.
+            </summary>
+            <param name="activationLayer">
+            The activation layer to initialize
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>activationLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.RandomFunction.Initialize(NeuronDotNet.Core.Backpropagation.BackpropagationConnector)">
+            <summary>
+            Initializes weights of all backpropagation synapses in the backpropagation connector.
+            </summary>
+            <param name="connector">
+            The backpropagation connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.RandomFunction.Initialize(NeuronDotNet.Core.SOM.KohonenConnector)">
+            <summary>
+            Initializes weights of all spatial synapses in a Kohonen connector.
+            </summary>
+            <param name="connector">
+            The Kohonen connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.Initializers.RandomFunction.MinLimit">
+            <summary>
+            Gets the minimum random limit
+            </summary>
+            <value>
+            Minimum limit to the random initial values
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Initializers.RandomFunction.MaxLimit">
+            <summary>
+            Gets the maximum random limit
+            </summary>
+            <value>
+            Maximum limit to the random initial values
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.LearningRateFunctions.ExponentialFunction">
+            <summary>
+            Exponential Learning Rate Function. As training progresses, The learning rate exponentially
+            changes from its initial value to the final value.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.LearningRateFunctions.AbstractFunction">
+            <summary>
+            An abstract base class for a learning rate function.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.ILearningRateFunction">
+            <summary>
+            Learning Rate Function interface. This interface defines the way in which learning rate
+            changes from its initial value to its final value as the training progresses.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.ILearningRateFunction.GetLearningRate(System.Int32,System.Int32)">
+            <summary>
+            Gets effective learning rate for current training iteration. No validation is performed
+            on the arguments.
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <returns>
+            The effective learning rate for current training iteration
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILearningRateFunction.InitialLearningRate">
+            <summary>
+            Gets the initial value of learning rate
+            </summary>
+            <value>
+            Initial Learning Rate
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILearningRateFunction.FinalLearningRate">
+            <summary>
+            Gets the final value of learning rate
+            </summary>
+            <value>
+            Final Learning Rate
+            </value>
+        </member>
+        <member name="F:NeuronDotNet.Core.LearningRateFunctions.AbstractFunction.initialLearningRate">
+            <summary>
+            Initial Learning Rate
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.LearningRateFunctions.AbstractFunction.finalLearningRate">
+            <summary>
+            Final Learning Rate
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.AbstractFunction.#ctor(System.Double,System.Double)">
+            <summary>
+            Constructs a new instance with the specified initial and final values of learning rate.
+            </summary>
+            <param name="initialLearningRate">
+            Initial value learning rate
+            </param>
+            <param name="finalLearningRate">
+            Final value learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.AbstractFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            if <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.AbstractFunction.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the layer
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            if <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.AbstractFunction.GetLearningRate(System.Int32,System.Int32)">
+            <summary>
+            Gets effective learning rate for current training iteration.
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <returns>
+            The effective learning rate for current training iteration
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.LearningRateFunctions.AbstractFunction.InitialLearningRate">
+            <summary>
+            Gets the initial value of learning rate
+            </summary>
+            <value>
+            Initial Learning Rate
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.LearningRateFunctions.AbstractFunction.FinalLearningRate">
+            <summary>
+            Gets the final value of learning rate
+            </summary>
+            <value>
+            Final Learning Rate
+            </value>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.ExponentialFunction.#ctor(System.Double,System.Double)">
+            <summary>
+            Constructs a new instance of the exponential function with the specified initial and
+            final values of learning rate.
+            </summary>
+            <param name="initialLearningRate">
+            Initial value learning rate
+            </param>
+            <param name="finalLearningRate">
+            Final value learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.ExponentialFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            if <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.ExponentialFunction.GetLearningRate(System.Int32,System.Int32)">
+            <summary>
+            Gets effective learning rate for current training iteration. (As training progresses, The
+            learning rate exponentially changes from its initial value to the final value)
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <returns>
+            The effective learning rate for current training iteration
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.SOM.KohonenLayer">
+            <summary>
+            Kohonen Layer is a layer containing position neurons.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.Layer`1">
+            <summary>
+            Layer is an abstract container for similar neurons. No two neurons within a layer can be
+            connected to each other.
+            </summary>
+            <typeparam name="TNeuron">Type of Neurons in the layer</typeparam>
+        </member>
+        <member name="T:NeuronDotNet.Core.ILayer">
+            <summary>
+            This interface represents a Layer in a neural network. A layer is a container for similar
+            neurons. No two neurons within a layer can be connected to each other.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.ILayer.Initialize">
+            <summary>
+            Initializes all neurons and makes them ready to undergo training freshly.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.ILayer.SetLearningRate(System.Double)">
+            <summary>
+            Sets the learning rate to the given value. The layer will use this constant value
+            as learning rate throughout the learning process
+            </summary>
+            <param name="learningRate">
+            The learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.ILayer.SetLearningRate(System.Double,System.Double)">
+            <summary>
+            Sets the initial and final values for learning rate. During the learning process, the
+            effective learning rate uniformly changes from its initial value to final value
+            </summary>
+            <param name="initialLearningRate">
+            Initial value of learning rate
+            </param>
+            <param name="finalLearningRate">
+            Final value of learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.ILayer.SetLearningRate(NeuronDotNet.Core.ILearningRateFunction)">
+            <summary>
+            Sets the learning rate function.
+            </summary>
+            <param name="learningRateFunction">
+            Learning rate function to use.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>learningRateFunction</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.ILayer.SetInput(System.Double[])">
+            <summary>
+            Sets neuron inputs to the values specified by the given array
+            </summary>
+            <param name="input">
+            The input array
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>input</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If length of <c>input</c> array is different from number of neurons
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.ILayer.GetOutput">
+            <summary>
+            Gets the neuron outputs as an array
+            </summary>
+            <returns>
+            Array of double values representing neuron outputs
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.ILayer.Run">
+            <summary>
+            Runs all neurons in the layer.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.ILayer.Learn(System.Int32,System.Int32)">
+            <summary>
+            All neurons and their are source connectors are allowed to learn. This method assumes a
+            learning environment where inputs, outputs and other parameters (if any) are appropriate.
+            </summary>
+            <param name="currentIteration">
+            Current learning iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is greater than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILayer.NeuronCount">
+            <summary>
+            Gets the neuron count
+            </summary>
+            <value>
+            Number of neurons in the layer. It is always positive.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILayer.Neurons">
+            <summary>
+            Exposes an enumerator to iterate over all neurons in the layer
+            </summary>
+            <value>
+            Neurons Enumerator. No neuron enumerated can be <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILayer.Item(System.Int32)">
+            <summary>
+            Neuron Indexer
+            </summary>
+            <param name="index">
+            Index
+            </param>
+            <returns>
+            Neuron at the given index
+            </returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+            If index is out of range
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILayer.SourceConnectors">
+            <summary>
+            Gets the list of source connectors
+            </summary>
+            <value>
+            The list of source connectors associated with this layer. It is neither <c>null</c>,
+            nor contains <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILayer.TargetConnectors">
+            <summary>
+            Gets the list of target connectors
+            </summary>
+            <value>
+            The list of target connectors associated with this layer. It is neither <c>null</c>,
+            nor contains <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILayer.Initializer">
+            <summary>
+            Gets or sets the Initializer used to initialize the layer
+            </summary>
+            <value>
+            Initializer used to initialize the layer. If this value is <c>null</c>, initialization
+            is NOT performed.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILayer.LearningRate">
+            <summary>
+            Gets the initial value of learning rate
+            </summary>
+            <value>
+            Initial value of learning rate.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ILayer.LearningRateFunction">
+            <summary>
+            Gets the learning rate function
+            </summary>
+            <value>
+            Learning Rate Function used while training. It is never <c>null</c>
+            </value>
+        </member>
+        <member name="F:NeuronDotNet.Core.Layer`1.neurons">
+            <summary>
+            Array of neurons in the layer. This is never <c>null</c>.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Layer`1.sourceConnectors">
+            <summary>
+            List of source connectors. This read-only value is never <c>null</c>.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Layer`1.targetConnectors">
+            <summary>
+            List of target connectors. This read-only value is never <c>null</c>.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Layer`1.learningRateFunction">
+            <summary>
+            Learning Rate Function
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Layer`1.initializer">
+            <summary>
+            Initializer used to initialize the layer. If this value is <c>null</c>, neurons will have
+            default values for initializable parameters (usually zero)
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.#ctor(System.Int32)">
+            <summary>
+            Creates a new layer
+            </summary>
+            <param name="neuronCount">
+            Number of neurons in the layer
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>neuronCount</c> is not positive
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the layer
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.SetInput(System.Double[])">
+            <summary>
+            Sets neuron inputs to the values specified by the given array
+            </summary>
+            <param name="input">
+            the input array
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>input</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If length of <c>input</c> array is different from number of neurons
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.GetOutput">
+            <summary>
+            Gets the neuron outputs as an array
+            </summary>
+            <returns>
+            An Array of double values representing neuron outputs
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.SetLearningRate(System.Double)">
+            <summary>
+            Sets the learning rate to the given value. The layer will use this constant value
+            as learning rate throughout the learning process
+            </summary>
+            <param name="learningRate">
+            The learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.SetLearningRate(System.Double,System.Double)">
+            <summary>
+            Sets the initial and final values for learning rate. During the learning process, the
+            effective learning rate uniformly changes from its initial value to final value
+            </summary>
+            <param name="initialLearningRate">
+            Initial value of learning rate
+            </param>
+            <param name="finalLearningRate">
+            Final value of learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.SetLearningRate(NeuronDotNet.Core.ILearningRateFunction)">
+            <summary>
+            Sets the learning rate function.
+            </summary>
+            <param name="learningRateFunction">
+            Learning rate function to use.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>learningRateFunction</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.Initialize">
+            <summary>
+            Initializes all neurons and makes them ready to undergo training freshly.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.Run">
+            <summary>
+            Runs all neurons in the layer.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Layer`1.Learn(System.Int32,System.Int32)">
+            <summary>
+            All neurons and their are source connectors are allowed to learn. This method assumes a
+            learning environment where inputs, outputs and other parameters (if any) are appropriate.
+            </summary>
+            <param name="currentIteration">
+            Current learning iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is greater than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.Layer`1.NeuronCount">
+            <summary>
+            Gets the neuron count
+            </summary>
+            <value>
+            Number of neurons in the layer. It is always positive.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Layer`1.Neurons">
+            <summary>
+            Exposes an enumerator to iterate over all neurons in the layer
+            </summary>
+            <value>
+            Neurons Enumerator. No neuron enumerated can be <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Layer`1.Item(System.Int32)">
+            <summary>
+            Neuron Indexer
+            </summary>
+            <param name="index">
+            Index
+            </param>
+            <returns>
+            Neuron at the given index
+            </returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+            If index is out of range
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.Layer`1.SourceConnectors">
+            <summary>
+            Gets the list of source connectors
+            </summary>
+            <value>
+            The list of source connectors associated with this layer. It is neither <c>null</c>,
+            nor contains <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Layer`1.TargetConnectors">
+            <summary>
+            Gets the list of target connectors
+            </summary>
+            <value>
+            The list of target connectors associated with this layer. It is neither <c>null</c>,
+            nor contains <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Layer`1.Initializer">
+            <summary>
+            Gets or sets the Initializer used to initialize the layer
+            </summary>
+            <value>
+            Initializer used to initialize the layer. If this value is <c>null</c>, initialization
+            is NOT performed.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Layer`1.LearningRate">
+            <summary>
+            Gets the initial value of learning rate
+            </summary>
+            <value>
+            Initial value of learning rate.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Layer`1.LearningRateFunction">
+            <summary>
+            Gets the learning rate function
+            </summary>
+            <value>
+            Learning Rate Function used while training. It is never <c>null</c>
+            </value>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.#ctor(System.Int32)">
+            <summary>
+            Creates a linear Kohonen layer
+            </summary>
+            <param name="neuronCount">
+            Number of neurons in the layer
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>neuronCount</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.#ctor(System.Int32,NeuronDotNet.Core.SOM.INeighborhoodFunction)">
+            <summary>
+            Creates a linear Kohonen layer with the given neighborhood function.
+            </summary>
+            <param name="neuronCount">
+            Number of neurons in the layer
+            </param>
+            <param name="neighborhoodFunction">
+            The neighborhood function
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>neighborhoodFunction</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If <c>neuronCount</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.#ctor(System.Drawing.Size)">
+            <summary>
+            Creates a Kohonen Layer with the given size
+            </summary>
+            <param name="size">
+            Size of the layer
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If layer width or layer height is not positive
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.#ctor(System.Drawing.Size,NeuronDotNet.Core.SOM.INeighborhoodFunction)">
+            <summary>
+            Creates a Kohonen layer with the specified size and neighborhood function
+            </summary>
+            <param name="size">
+            Size of the layer
+            </param>
+            <param name="neighborhoodFunction">
+            Neighborhood function to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>neighborhoodFunction</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If layer width or layer height is not positive
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.#ctor(System.Drawing.Size,NeuronDotNet.Core.SOM.LatticeTopology)">
+            <summary>
+            Creates a Kohonen layer with the specified size and topology
+            </summary>
+            <param name="size">
+            Size of the layer
+            </param>
+            <param name="topology">
+            Lattice topology of neurons
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If layer width or layer height is not positive, or if <c>topology</c> is invalid
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.#ctor(System.Drawing.Size,NeuronDotNet.Core.SOM.INeighborhoodFunction,NeuronDotNet.Core.SOM.LatticeTopology)">
+            <summary>
+            Creates a Kohonen layer with the specified size, topology and neighborhood function
+            </summary>
+            <param name="size">
+            Size of the layer
+            </param>
+            <param name="neighborhoodFunction">
+            Neighborhood function to use
+            </param>
+            <param name="topology">
+            Lattice topology of neurons
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>neighborhoodFunction</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If layer width or layer height is not positive, or if <c>topology</c> is invalid
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the layer
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.Initialize">
+            <summary>
+            Initializes all neurons and makes them ready to undergo fresh training.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.Run">
+            <summary>
+            Runs all neurons in the layer and finds the winner
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenLayer.Learn(System.Int32,System.Int32)">
+            <summary>
+            All neurons and their are source connectors are allowed to learn. This method assumes a
+            learning environment where inputs, outputs and other parameters (if any) are appropriate.
+            </summary>
+            <param name="currentIteration">
+            Current learning iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenLayer.Size">
+            <summary>
+            Gets the layer size
+            </summary>
+            <value>
+            Size of the layer (Width is number of columns, and Height is number of rows) (In other
+            words, width is number of neurons in a row and height is number of neurons in a column)
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenLayer.Topology">
+            <summary>
+            Gets the lattice topology
+            </summary>
+            <value>
+            Lattice topology of neurons in the layer
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenLayer.IsRowCircular">
+            <summary>
+            Gets or sets a boolean representing whether the neuron rows are circular
+            </summary>
+            <value>
+            A boolean representing whether the neuron rows are circular
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenLayer.IsColumnCircular">
+            <summary>
+            Gets or sets a boolean representing whether the neuron columns are circular
+            </summary>
+            <value>
+            A boolean representing whether the neuron columns are circular
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenLayer.Winner">
+            <summary>
+            Gets the winner neuron of the layer
+            </summary>
+            <value>
+            Winner Neuron
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenLayer.NeighborhoodFunction">
+            <summary>
+            Gets or sets the neighborhood function
+            </summary>
+            <value>
+            Neighborhood Function
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenLayer.Item(System.Int32,System.Int32)">
+            <summary>
+            Position Neuron indexer
+            </summary>
+            <param name="x">
+            X-Coordinate of the neuron
+            </param>
+            <param name="y">
+            Y-Coordinate of the neuron
+            </param>
+            <returns>
+            The neuron at given co-ordinates
+            </returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+            If any of the indices are out of range
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.TrainingSampleEventHandler">
+            <summary>
+            Training Sample Event Handler. This is used by events associated with training samples.
+            </summary>
+            <param name="sender">
+            The sender invoking the event
+            </param>
+            <param name="e">
+            Event Arguments
+            </param>
+        </member>
+        <member name="T:NeuronDotNet.Core.TrainingSampleEventArgs">
+            <summary>
+            Training Sample Event Arguments. This class represents arguments for an event associated
+            with a training sample
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSampleEventArgs.#ctor(System.Int32,NeuronDotNet.Core.TrainingSample)">
+            <summary>
+            Creates a new instance of this class
+            </summary>
+            <param name="trainingIteration">
+            Current training iteration
+            </param>
+            <param name="trainingSample">
+            The training sample associated with the event
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSampleEventArgs.TrainingIteration">
+            <summary>
+            Gets the current training iteration
+            </summary>
+            <value>
+            Current Training Iteration.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSampleEventArgs.TrainingSample">
+            <summary>
+            Gets the training sample associated with the event
+            </summary>
+            <value>
+            Training sample associated with the event
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.SOM.KohonenSynapse">
+            <summary>
+            A Kohonen Synapse is used to connect a neuron to a Position Neuron. It propagates the data
+            from input neuron to an output position neuron and self-organizes its weights to match the
+            input.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.ISynapse">
+            <summary>
+            This interface represents a synapse in a network. A Synapse is responsible for communication
+            between neurons. A typical neural network consists of millions of synapses. The functioning
+            of a neural network significantly depends on the <c>Weight</c>s of these synpases.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.ISynapse.Propagate">
+            <summary>
+            Propagates the information from source neuron to the target neuron
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.ISynapse.OptimizeWeight(System.Double)">
+            <summary>
+            Optimizes weight of this synapse
+            </summary>
+            <param name="learningFactor">
+            Effective learning factor. This is mainly a function of training progress and learning
+            rate. It can also depend on other factors like neighborhood function in Kohonen networks.
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.ISynapse.Jitter(System.Double)">
+            <summary>
+            Adds small random noise to weight of this synapse so that the network deviates from
+            its local optimum position (a local equilibrium state where further learning is of
+            no use)
+            </summary>
+            <param name="jitterNoiseLimit">
+            Maximum absolute limit to the random noise added
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.ISynapse.Weight">
+            <summary>
+            Gets or sets the weight of the synapse
+            </summary>
+            <value>
+            Weight of the synapse
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ISynapse.Parent">
+            <summary>
+            Gets the parent connector
+            </summary>
+            <value>
+            Parent connector containing this synapse. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ISynapse.SourceNeuron">
+            <summary>
+            Gets the source neuron
+            </summary>
+            <value>
+            The source neuron of the synapse. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.ISynapse.TargetNeuron">
+            <summary>
+            Gets the target neuron
+            </summary>
+            <value>
+            The target neuron of the synapse. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenSynapse.#ctor(NeuronDotNet.Core.INeuron,NeuronDotNet.Core.SOM.PositionNeuron,NeuronDotNet.Core.SOM.KohonenConnector)">
+            <summary>
+            Creates a new Kohonen Synapse connecting the given neurons
+            </summary>
+            <param name="sourceNeuron">
+            The source neuron
+            </param>
+            <param name="targetNeuron">
+            The target neuron
+            </param>
+            <param name="parent">
+            Parent connector containing this synapse
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If any of the arguments is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenSynapse.Propagate">
+            <summary>
+            Propagates the data from source neuron to the target neuron
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenSynapse.OptimizeWeight(System.Double)">
+            <summary>
+            Optimizes the weight to match the input
+            </summary>
+            <param name="learningFactor">
+            Effective learning factor. This is a function of training progress, learning rate and
+            neighborhood value of target neuron.
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenSynapse.Jitter(System.Double)">
+            <summary>
+            Adds small random noise to weight of this synapse so that the network deviates from
+            its local optimum position (a local equilibrium state where further learning is of
+            no use)
+            </summary>
+            <param name="jitterNoiseLimit">
+            Maximum absolute limit to the random noise added
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenSynapse.Weight">
+            <summary>
+            Gets or sets the weight of the synapse
+            </summary>
+            <value>
+            Weight of the synapse
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenSynapse.Parent">
+            <summary>
+            Gets the parent connector
+            </summary>
+            <value>
+            Parent connector containing this synapse. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenSynapse.SourceNeuron">
+            <summary>
+            Gets the source neuron
+            </summary>
+            <value>
+            The source neuron of the synapse. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenSynapse.TargetNeuron">
+            <summary>
+            Gets the target neuron
+            </summary>
+            <value>
+            The target neuron of the synapse. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.LearningRateFunctions.HyperbolicFunction">
+            <summary>
+            Hyperbolic Learning Rate Function. As training progresses, The learning rate hyperbolically
+            changes from its initial value to the final value.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.HyperbolicFunction.#ctor(System.Double,System.Double)">
+            <summary>
+            Constructs a new instance of the hyperbolic function with the specified initial and
+            final values of learning rate.
+            </summary>
+            <param name="initialLearningRate">
+            Initial value learning rate
+            </param>
+            <param name="finalLearningRate">
+            Final value learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.HyperbolicFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            if <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.HyperbolicFunction.GetLearningRate(System.Int32,System.Int32)">
+            <summary>
+            Gets effective learning rate for current training iteration. (As training progresses, The
+            learning rate hyperbolically changes from its initial value to the final value)
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <returns>
+            The effective learning rate for current training iteration
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.ConnectionMode">
+            <summary>
+            Mode of connection between layers.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.ConnectionMode.Complete">
+            <summary>
+            A connection mode where all neurons of source layer are connected to all neurons of
+            target layer
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.ConnectionMode.OneOne">
+            <summary>
+            A connection mode where each neuron in source layer is connected to a single distinct
+            neuron in the target layer. The source and target layers should have same number of
+            neurons.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.TrainingSet">
+            <summary>
+            A Training Set represents a set of training samples used during 'batch training' process.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.#ctor(System.Int32)">
+            <summary>
+            Creates a new unsupervised training set
+            </summary>
+            <param name="vectorSize">
+            Expected size of the vectors in the training set.
+            (Note : This should be equal to number of input neurons.)
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If vectorSize is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new supervised training set
+            </summary>
+            <param name="inputVectorLength">
+            Length of input vector
+            </param>
+            <param name="outputVectorLength">
+            Length of expected output vector (zero for unsupervised training)
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If input vector length is zero or negative, or if output vector length is negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the training set
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.Add(NeuronDotNet.Core.TrainingSample)">
+            <summary>
+            Adds a new supervised training sample to the training set. If already exists, it will
+            be replaced.
+            </summary>
+            <param name="sample">
+            The sample to add
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>sample</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If sizes of input vector or output vector are different from their expected sizes
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.Remove(System.Double[])">
+            <summary>
+            Removes the training sample corresponding to the given vector
+            </summary>
+            <param name="inputVector">
+            The input vector of the sample to remove
+            </param>
+            <returns>
+            <c>true</c> if successful, <c>false</c> otherwise
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            If input vector is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.Remove(NeuronDotNet.Core.TrainingSample)">
+            <summary>
+            Removes the given training sample
+            </summary>
+            <param name="sample">
+            The sample to remove
+            </param>
+            <returns>
+            <c>true</c> if successful, <c>false</c> otherwise
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.Contains(System.Double[])">
+            <summary>
+            Determines whether the training set contains a training sample corresponding to given
+            vector
+            </summary>
+            <param name="inputVector">
+            The input vector of the sample to locate
+            </param>
+            <returns>
+            <c>true</c> if present, <c>false</c> otherwise
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            If input vector is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.Contains(NeuronDotNet.Core.TrainingSample)">
+            <summary>
+            Determines whether the training sample is present in the set
+            </summary>
+            <param name="sample">
+            The sample to locate
+            </param>
+            <returns>
+            <c>true</c> if present, <c>false</c> otherwise
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSet.Clear">
+            <summary>
+            Removes all training samples in the training set.
+            </summary>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSet.TrainingSampleCount">
+            <summary>
+            Gets the number of training samples in the set
+            </summary>
+            <value>
+            Number of training samples in the set. This value is never negative.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSet.InputVectorLength">
+            <summary>
+            Gets the length of input vector. 
+            </summary>
+            <value>
+            Input Vector Length. This is always positive and is equal to the number of input neurons
+            in the network to be trained.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSet.OutputVectorLength">
+            <summary>
+            Gets the length of expected output vector.
+            </summary>
+            <value>
+            Output Vector Length. This value is zero for unsupervised training sets. For a supervised
+            training set, this value is positive and is equal to the number of output neurons in the
+            network.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSet.TrainingSamples">
+            <summary>
+            Exposes an Enumerator to iterator over training samples in the set. 
+            </summary>
+            <value>
+            Training Samples Enumerator. No training sample returned is <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSet.Item(System.Int32)">
+            <summary>
+            Training Sample Indexer
+            </summary>
+            <param name="index">
+            Training sample index
+            </param>
+            <returns>
+            Training sample at the given index
+            </returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+            If the index is out of range
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.INetwork">
+            <summary>
+            <para>
+            This interface represents a neural network. A  A typical neural network consists of a set of
+            <see cref="T:NeuronDotNet.Core.ILayer"/>s acyclically interconnected by various <see cref="T:NeuronDotNet.Core.IConnector"/>s. Input
+            layer gets the input from the user and network output is obtained from the output layer.
+            </para>
+            <para>
+            To create a neural network, follow these steps
+            <list type="bullet">
+            <item>Create and customize layers</item>
+            <item>Establish connections between layers (No cycles should exist)</item>
+            <item>Construct Network specifying the desired input and output layers</item>
+            </list>
+            </para>
+            <para>
+            There are two modes in which a neural network can be trained. In 'Batch Training', the neural
+            network is allowed to learn by specifying a predefined training set containing various training
+            samples. In 'Online training mode', a random training sample is generated every time (usually
+            by another neural network, called 'teacher' network) and is used for training. Both modes are
+            supported by overloaded <c>Learn()</c> methods. <c>Run()</c> method is used to run a neural
+            network against a particular input.
+            </para>
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.INetwork.SetLearningRate(System.Double)">
+            <summary>
+            Sets the learning rate to the given value. All layers in the network will use this constant
+            value as learning rate during the learning process.
+            </summary>
+            <param name="learningRate">
+            The learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.INetwork.SetLearningRate(System.Double,System.Double)">
+            <summary>
+            Sets the initial and final values for learning rate. During the learning process, all
+            layers in the network will use an efeective learning rate which varies uniformly from
+            the initial value to the final value.
+            </summary>
+            <param name="initialLearningRate">
+            Initial value of learning rate
+            </param>
+            <param name="finalLearningRate">
+            Final value of learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.INetwork.SetLearningRate(NeuronDotNet.Core.ILearningRateFunction)">
+            <summary>
+            Sets the learning rate function.
+            </summary>
+            <param name="learningRateFunction">
+            Learning rate function to use.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>learningRateFunction</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.INetwork.Initialize">
+            <summary>
+            Initializes all layers and connectors and makes them ready to undergo fresh training.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.INetwork.Run(System.Double[])">
+            <summary>
+            Runs the neural network against the given input
+            </summary>
+            <param name="input">
+            Input to the network
+            </param>
+            <returns>
+            The output of the network
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            If input array is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.INetwork.Learn(NeuronDotNet.Core.TrainingSet,System.Int32)">
+            <summary>
+            Trains the neural network for the given training set (Batch Training)
+            </summary>
+            <param name="trainingSet">
+            The training set to use
+            </param>
+            <param name="trainingEpochs">
+            Number of training epochs. (All samples are trained in some random order, in every
+            training epoch)
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            if <c>trainingSet</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            if <c>trainingEpochs</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.INetwork.Learn(NeuronDotNet.Core.TrainingSample,System.Int32,System.Int32)">
+            <summary>
+            Trains the network for the given training sample (Online training mode). Note that this
+            method trains the sample only once, irrespective of what current epoch is. The arguments
+            are just used to evaluate training progress and adjust parameter values depending on it.
+            </summary>
+            <param name="trainingSample">
+            Training sample to use
+            </param>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Number of training epochs
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>trainingSample</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is not positive
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.INetwork.StopLearning">
+            <summary>
+            If the network is currently learning, this method stops the learning.
+            </summary>
+        </member>
+        <member name="P:NeuronDotNet.Core.INetwork.InputLayer">
+            <summary>
+            Gets the input layer of the network
+            </summary>
+            <value>
+            Input Layer of the network. This property is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INetwork.OutputLayer">
+            <summary>
+            Gets the output layer of the network
+            </summary>
+            <value>
+            Output Layer of the network. This property is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INetwork.LayerCount">
+            <summary>
+            Gets the number of layers in the network.
+            </summary>
+            <value>
+            Layer Count. This value is always positive.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INetwork.Layers">
+            <summary>
+            Exposes an enumerator to iterate over layers in the network.
+            </summary>
+            <value>
+            Layer Enumerator. No layer in the network can be <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INetwork.Item(System.Int32)">
+            <summary>
+            Layer Indexer
+            </summary>
+            <param name="index">
+            The index
+            </param>
+            <returns>
+            Layer at the given index
+            </returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+            If the index is out of range
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.INetwork.ConnectorCount">
+            <summary>
+            Gets the number of connectors in the network.
+            </summary>
+            <value>
+            Connector Count. This value is never negative.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INetwork.Connectors">
+            <summary>
+            Exposes an enumerator to iterate over connectors in the network. 
+            </summary>
+            <value>
+            Connector Enumerator. No connector in a network can be <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INetwork.JitterNoiseLimit">
+            <summary>
+            Gets or sets maximum absolute limit to the jitter noise
+            </summary>
+            <value>
+            Maximum absolute limit to the random noise added while <c>Jitter</c>
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INetwork.JitterEpoch">
+            <summary>
+            Gets or sets the jitter epoch
+            </summary>
+            <value>
+            The epoch (interval) at which jitter is performed. If this value is not positive, no
+            jitter is performed.
+            </value>
+        </member>
+        <member name="E:NeuronDotNet.Core.INetwork.BeginEpochEvent">
+            <summary>
+            This event is invoked during the commencement of a new training iteration during 'Batch
+            training' mode.
+            </summary>
+        </member>
+        <member name="E:NeuronDotNet.Core.INetwork.BeginSampleEvent">
+            <summary>
+            This event is invoked whenever the network is about to learn a training sample.
+            </summary>
+        </member>
+        <member name="E:NeuronDotNet.Core.INetwork.EndSampleEvent">
+            <summary>
+            This event is invoked whenever the network has successfully completed learning a training
+            sample.
+            </summary>
+        </member>
+        <member name="E:NeuronDotNet.Core.INetwork.EndEpochEvent">
+            <summary>
+            This event is invoked whenever a training iteration is successfully completed during 'Batch
+            training' mode.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.SineLayer">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.Backpropagation.ActivationLayer"/> using sine activation function
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.ActivationLayer">
+            <summary>
+            Activation Layer is a layer of activation neurons.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationLayer.#ctor(System.Int32)">
+            <summary>
+            Constructs an instance of activation Layer
+            </summary>
+            <param name="neuronCount">
+            The number of neurons in the layer
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>neuronCount</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationLayer.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationLayer.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the layer
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationLayer.Initialize">
+            <summary>
+            Initializes all neurons and makes them ready to undergo training freshly.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationLayer.SetErrors(System.Double[])">
+            <summary>
+            Sets neuron errors as the difference between actual and expected outputs
+            </summary>
+            <param name="expectedOutput">
+            Expected output vector
+            </param>
+            <returns>
+            Mean squared error
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>expectedOutput</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If length of <c>expectedOutput</c> is different from the number of neurons
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationLayer.EvaluateErrors">
+            <summary>
+            Evaluate errors at all neurons in the layer
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationLayer.Activate(System.Double,System.Double)">
+            <summary>
+            Activation function used by all neurons in this layer
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="previousOutput">
+            The previous output at the neuron
+            </param>
+            <returns>
+            The activated value
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationLayer.Derivative(System.Double,System.Double)">
+            <summary>
+            Derivative function used by all neurons in this layer
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="output">
+            Current output (activated) at the neuron
+            </param>
+            <returns>
+            The result of derivative of activation function
+            </returns>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.ActivationLayer.UseFixedBiasValues">
+            <summary>
+            Gets or sets a boolean representing whether to use fixed neuron bias values
+            </summary>
+            <value>
+            A boolean indicating whether bias values of activation neurons learn while training.
+            </value>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.SineLayer.#ctor(System.Int32)">
+            <summary>
+            Constructs a new SineLayer containing specified number of neurons
+            </summary>
+            <param name="neuronCount">
+            The number of neurons
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>neuronCount</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.SineLayer.Activate(System.Double,System.Double)">
+            <summary>
+            Sine activation function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="previousOutput">
+            The previous output at the neuron
+            </param>
+            <returns>
+            The activated value
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.SineLayer.Derivative(System.Double,System.Double)">
+            <summary>
+            Derivative of sine function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="output">
+            Current output (activated) at the neuron
+            </param>
+            <returns>
+            The result of derivative of activation function
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.SineLayer.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="info">
+            The info to deserialize
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.Helper">
+            <summary>
+            This static class contains all helper functions used in this project.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.ValidateNotNull(System.Object,System.String)">
+            <summary>
+            Validates that a value is not <c>null</c>.
+            </summary>
+            <param name="value">
+            The value to validate
+            </param>
+            <param name="name">
+            The name of the argument
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>value</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.ValidateEnum(System.Type,System.Object,System.String)">
+            <summary>
+            Validates that an enum instance is defined
+            </summary>
+            <param name="value">
+            The value to validate
+            </param>
+            <param name="enumType">
+            Type of the enum
+            </param>
+            <param name="name">
+            The name of the enum object
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If value is not defined
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.ValidateNotNegative(System.Double,System.String)">
+            <summary>
+            Validates that a numerical argument is not negative
+            </summary>
+            <param name="value">
+            The numerical value to validate
+            </param>
+            <param name="name">
+            The name of the argument
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If the value is negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.ValidatePositive(System.Double,System.String)">
+            <summary>
+            Validates that a numerical argument is positive
+            </summary>
+            <param name="value">
+            The numerical value to validate
+            </param>
+            <param name="name">
+            The name of the argument
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If value is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.ValidateWithinRange(System.Double,System.Double,System.Double,System.String)">
+            <summary>
+            Validates that a numerical argument is within the given range
+            </summary>
+            <param name="value">
+            The value to validate
+            </param>
+            <param name="min">
+            Minimum acceptable value
+            </param>
+            <param name="max">
+            Maximum acceptable value
+            </param>
+            <param name="name">
+            The name of the argument
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If the <c>value</c> does not lie within the specified range
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.GetRandom">
+            <summary>
+            Random Generator. Returns a random double between 0 and 1
+            </summary>
+            <returns>
+            A random double between 0 and 1
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.GetRandom(System.Double,System.Double)">
+            <summary>
+            Random Generator. Returns a random double between specified minimum and maximum values
+            </summary>
+            <returns>
+            A random double between <c>min</c> and <c>max</c>
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.GetRandomOrder(System.Int32)">
+            <summary>
+            Generates an array of given size containing integers from 0 to 'size - 1' in random order
+            </summary>
+            <param name="size">
+            Size of the array to generate.
+            </param>
+            <returns>
+            The generated array.
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.Normalize(System.Double[])">
+            <summary>
+            Normalizes a vector of doubles
+            </summary>
+            <param name="vector">
+            The vector to normalize. This array is not modified by the function.
+            </param>
+            <returns>
+            The normalized output
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.Normalize(System.Double[],System.Double)">
+            <summary>
+            Normalizes a vector of doubles
+            </summary>
+            <param name="vector">
+            The vector to normalize. This array is not modified by the function.
+            </param>
+            <param name="magnitude">
+            Magnitude
+            </param>
+            <returns>
+            The normalized output
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Helper.GetRandomVector(System.Int32,System.Double)">
+            <summary>
+            Helper to obtain random normal values
+            </summary>
+            <param name="count">
+            Number of values to get
+            </param>
+            <param name="magnitude">
+            Magnitude of the vector
+            </param>
+            <returns>
+            An array containing specified number of normalized random doubles
+            </returns>
+        </member>
+        <member name="T:NeuronDotNet.Core.TrainingMethod">
+            <summary>
+            Method of training used to train the network
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.TrainingMethod.Supervised">
+            <summary>
+            Supervised training method.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.TrainingMethod.Unsupervised">
+            <summary>
+            Unsupervised training method.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.SOM.KohonenConnector">
+            <summary>
+            A Kohonen Connector is an <see cref="T:NeuronDotNet.Core.IConnector"/> consisting of a collection of Kohonen
+            synapses connecting any layer to a Kohonen Layer.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.Connector`3">
+            <summary>
+            A connector represents a collection of synapses connecting two layers in a network.
+            </summary>
+            <typeparam name="TSourceLayer">Type of Source Layer</typeparam>
+            <typeparam name="TTargetLayer">Type of Target Layer</typeparam>
+            <typeparam name="TSynapse">Type of Synapse</typeparam>
+        </member>
+        <member name="T:NeuronDotNet.Core.IConnector">
+            <summary>
+            This interface represents a connector. A connector is a collection of synapses connecting
+            two layers in a network.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.IConnector.Initialize">
+            <summary>
+            Initializes all synapses in the connector and makes them ready to undergo training
+            freshly. (Adjusts the weights of synapses using the initializer)
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.IConnector.Jitter(System.Double)">
+            <summary>
+            Adds small random noise to weights of synapses so that the network deviates from its
+            local optimum position (a local equilibrium state where further learning is of no use)
+            </summary>
+            <param name="jitterNoiseLimit">
+            Maximum absolute limit to the random noise added
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.IConnector.SourceLayer">
+            <summary>
+            Gets the source layer
+            </summary>
+            <value>
+            The source layer. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.IConnector.TargetLayer">
+            <summary>
+            Gets the target layer
+            </summary>
+            <value>
+            The target layer. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.IConnector.SynapseCount">
+            <summary>
+            Gets the number of synapses in the connector. 
+            </summary>
+            <value>
+            Synapse Count. It is always positive.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.IConnector.Synapses">
+            <summary>
+            Exposes an enumerator to iterate over all synapses in the connector.
+            </summary>
+            <value>
+            Synapses Enumerator. No synapse enumerated can be <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.IConnector.ConnectionMode">
+            <summary>
+            Gets the connection mode
+            </summary>
+            <value>
+            Connection Mode
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.IConnector.Initializer">
+            <summary>
+            Gets or sets the Initializer used to initialize the connector
+            </summary>
+            <value>
+            Initializer used to initialize the connector. If this value is <c>null</c>, initialization
+            is NOT performed.
+            </value>
+        </member>
+        <member name="F:NeuronDotNet.Core.Connector`3.sourceLayer">
+            <summary>
+            The source layer. It is initialized in constructor and is never changed later. It is
+            never <c>null</c>.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Connector`3.targetLayer">
+            <summary>
+            The target layer. It is initialized in constructor and is never changed later. It is
+            never <c>null</c>.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Connector`3.synapses">
+            <summary>
+            Array of synapses in the connector. It is never <c>null</c>.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Connector`3.connectionMode">
+            <summary>
+            The mode of connection (One-one or Complete). It is initialized in the constructor and
+            is immutable.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Connector`3.initializer">
+            <summary>
+            Initializer used to initialize the connector
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Connector`3.#ctor(`0,`1,NeuronDotNet.Core.ConnectionMode)">
+            <summary>
+            Creates a new connector between given layers using the connection mode specified.
+            </summary>
+            <param name="sourceLayer">
+            the source layer
+            </param>
+            <param name="targetLayer">
+            the target layer
+            </param>
+            <param name="connectionMode">
+            connection mode to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>sourceLayer</c> or <c>targetLayer</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If <c>connectionMode</c> is invalid
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Connector`3.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Connector`3.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the connector
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Connector`3.Jitter(System.Double)">
+            <summary>
+            Adds small random noise to weights of synapses so that the network deviates from its
+            local optimum position (a local equilibrium state where further learning is of no use)
+            </summary>
+            <param name="jitterNoiseLimit">
+            Maximum absolute limit to the random noise added
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Connector`3.GetSourceSynapses(NeuronDotNet.Core.INeuron)">
+            <summary>
+            Gets a enumerator to a collection of source synapses of the neuron which belong to this
+            connector
+            </summary>
+            <param name="neuron">
+            Neuron
+            </param>
+            <returns>
+            An enumerator to a collection of source synapses of the neuron which belong to this
+            connector
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Connector`3.GetTargetSynapses(NeuronDotNet.Core.INeuron)">
+            <summary>
+            Gets a enumerator to a collection of target synapses of the neuron which belong to this
+            connector
+            </summary>
+            <param name="neuron">
+            Neuron
+            </param>
+            <returns>
+            An enumerator to a collection of target synapses of the neuron which belong to this
+            connector
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Connector`3.Initialize">
+            <summary>
+            Initializes all synapses in the connector and makes them ready to undergo training
+            freshly. (Adjusts the weights of synapses using the initializer)
+            </summary>
+        </member>
+        <member name="P:NeuronDotNet.Core.Connector`3.SourceLayer">
+            <summary>
+            Gets the source layer
+            </summary>
+            <value>
+            The source layer. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Connector`3.TargetLayer">
+            <summary>
+            Gets the target layer
+            </summary>
+            <value>
+            The target layer. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Connector`3.SynapseCount">
+            <summary>
+            Gets the number of synapses in the connector. 
+            </summary>
+            <value>
+            Synapse Count. It is always positive.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Connector`3.Synapses">
+            <summary>
+            Exposes an enumerator to iterate over all synapses in the connector.
+            </summary>
+            <value>
+            Synapses Enumerator. No synapse enumerated can be <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Connector`3.ConnectionMode">
+            <summary>
+            Gets the connection mode
+            </summary>
+            <value>
+            Connection Mode
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Connector`3.Initializer">
+            <summary>
+            Gets or sets the Initializer used to initialize the connector
+            </summary>
+            <value>
+            Initializer used to initialize the connector. If this value is <c>null</c>, initialization
+            is NOT performed.
+            </value>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenConnector.#ctor(NeuronDotNet.Core.ILayer,NeuronDotNet.Core.SOM.KohonenLayer)">
+            <summary>
+            Creates a new Kohonen connector between the given layers.
+            </summary>
+            <param name="sourceLayer">
+            The source layer
+            </param>
+            <param name="targetLayer">
+            The target layer
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>sourceLayer</c> or <c>targetLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenConnector.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenConnector.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the connector
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenConnector.Initialize">
+            <summary>
+            Initializes all synapses in the connector and makes them ready to undergo training
+            freshly. (Adjusts the weights of synapses using the initializer)
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.SOM.KohonenNetwork">
+            <summary>
+            This class extends a <see cref="T:NeuronDotNet.Core.Network"/> and represents a Kohonen Self-Organizing Map.
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.Network">
+            <summary>
+            <para>
+            An abstract base class to represent a neural network. A typical neural network consists of a
+            set of <see cref="T:NeuronDotNet.Core.ILayer"/>s acyclically interconnected by various <see cref="T:NeuronDotNet.Core.IConnector"/>s.
+            Input layer gets the input from the user and network output is obtained from the output layer.
+            </para>
+            <para>
+            To create a neural network, follow these steps
+            <list type="bullet">
+            <item>Create and customize layers</item>
+            <item>Establish connections between layers (No cycles should exist)</item>
+            <item>Construct Network specifying the desired input and output layers</item>
+            </list>
+            </para>
+            <para>
+            There are two modes in which a neural network can be trained. In 'Batch Training', the neural
+            network is allowed to learn by specifying a predefined training set containing various training
+            samples. In 'Online training mode', a random training sample is generated every time (usually
+            by another neural network, called 'teacher' network) and is used for training. Both modes are
+            supported by overloaded <c>Learn()</c> methods. <c>Run()</c> method is used to run a neural
+            network against a particular input.
+            </para>
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Network.inputLayer">
+            <summary>
+            The input layer
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Network.outputLayer">
+            <summary>
+            The output layer
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Network.layers">
+            <summary>
+            List of layers in the network, ordered acyclically (first layer being input layer and
+            last one being output layer)
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Network.connectors">
+            <summary>
+            A list of connectors between layers.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Network.trainingMethod">
+            <summary>
+            The method of training used to train the network
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Network.jitterEpoch">
+            <summary>
+            Epoch(interval) at which Jitter operation is performed. If this value is zero, not jitter is
+            performed.
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Network.jitterNoiseLimit">
+            <summary>
+            Maximum absolute limit to the random noise added during Jitter operation
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.Network.isStopping">
+            <summary>
+            This flag is set to true, whenever training needs to be stopped immmediately
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.#ctor(NeuronDotNet.Core.ILayer,NeuronDotNet.Core.ILayer,NeuronDotNet.Core.TrainingMethod)">
+            <summary>
+            Creates a new neural network
+            </summary>
+            <param name="inputLayer">
+            The input layer
+            </param>
+            <param name="outputLayer">
+            The output layer
+            </param>
+            <param name="trainingMethod">
+            Training method to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>inputLayer</c> or <c>outputLayer</c> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingMethod</c> is invalid
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor. It is assumed that the serialization info provided contains
+            valid data.
+            </summary>
+            <param name="info">
+            The serialization info to deserialize and obtain values
+            </param>
+            <param name="context">
+            Serialization context
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data necessary to serialize the network.
+            </summary>
+            <param name="info">
+            The info to populate serialization data with
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.OnBeginEpoch(System.Int32,NeuronDotNet.Core.TrainingSet)">
+            <summary>
+            Invokes BeginEpochEvent
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingSet">
+            Training set which is about to be trained
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.OnEndEpoch(System.Int32,NeuronDotNet.Core.TrainingSet)">
+            <summary>
+            Invokes EndEpochEvent
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingSet">
+            Training set which got trained successfully this epoch
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.OnBeginSample(System.Int32,NeuronDotNet.Core.TrainingSample)">
+            <summary>
+            Invokes BeginSampleEvent
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="currentSample">
+            Current sample which is about to be trained
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.OnEndSample(System.Int32,NeuronDotNet.Core.TrainingSample)">
+            <summary>
+            Invokes BeginSampleEvent
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="currentSample">
+            Current sample which got trained successfully
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.SetLearningRate(System.Double)">
+            <summary>
+            Sets the learning rate to the given value. All layers in the network will use this constant
+            value as learning rate during the learning process.
+            </summary>
+            <param name="learningRate">
+            The learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.SetLearningRate(System.Double,System.Double)">
+            <summary>
+            Sets the initial and final values for learning rate. During the learning process, all
+            layers in the network will use an efeective learning rate which varies uniformly from
+            the initial value to the final value.
+            </summary>
+            <param name="initialLearningRate">
+            Initial value of learning rate
+            </param>
+            <param name="finalLearningRate">
+            Final value of learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.SetLearningRate(NeuronDotNet.Core.ILearningRateFunction)">
+            <summary>
+            Sets the learning rate function.
+            </summary>
+            <param name="learningRateFunction">
+            Learning rate function to use.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>learningRateFunction</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.Initialize">
+            <summary>
+            Initializes all layers and connectors and makes them ready to undergo fresh training.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.Run(System.Double[])">
+            <summary>
+            Runs the neural network against the given input
+            </summary>
+            <param name="input">
+            Input to the network
+            </param>
+            <returns>
+            The output of the network
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>input</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.Learn(NeuronDotNet.Core.TrainingSet,System.Int32)">
+            <summary>
+            Trains the neural network for the given training set (Batch Training)
+            </summary>
+            <param name="trainingSet">
+            The training set to use
+            </param>
+            <param name="trainingEpochs">
+            Number of training epochs. (All samples are trained in some random order, in every
+            training epoch)
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            if <c>trainingSet</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            if <c>trainingEpochs</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.Learn(NeuronDotNet.Core.TrainingSample,System.Int32,System.Int32)">
+            <summary>
+            Trains the network for the given training sample (Online training mode). Note that this
+            method trains the sample only once, irrespective of what current epoch is. The arguments
+            are just used to find out training progress and adjust parameters depending on it.
+            </summary>
+            <param name="trainingSample">
+            Training sample to use
+            </param>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Number of training epochs
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>trainingSample</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is not positive
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.StopLearning">
+            <summary>
+            If the network is currently learning, this method stops the learning.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Network.LearnSample(NeuronDotNet.Core.TrainingSample,System.Int32,System.Int32)">
+            <summary>
+            A protected helper function used to train single learning sample
+            </summary>
+            <param name="trainingSample">
+            Training sample to use
+            </param>
+            <param name="currentIteration">
+            Current training epoch (Assumed to be positive and less than <c>trainingEpochs</c>)
+            </param>
+            <param name="trainingEpochs">
+            Number of training epochs (Assumed to be positive)
+            </param>
+        </member>
+        <member name="E:NeuronDotNet.Core.Network.BeginEpochEvent">
+            <summary>
+            This event is invoked during the commencement of a new training iteration during 'Batch
+            training' mode.
+            </summary>
+        </member>
+        <member name="E:NeuronDotNet.Core.Network.BeginSampleEvent">
+            <summary>
+            This event is invoked whenever the network is about to learn a training sample.
+            </summary>
+        </member>
+        <member name="E:NeuronDotNet.Core.Network.EndSampleEvent">
+            <summary>
+            This event is invoked whenever the network has successfully completed learning a training
+            sample.
+            </summary>
+        </member>
+        <member name="E:NeuronDotNet.Core.Network.EndEpochEvent">
+            <summary>
+            This event is invoked whenever a training iteration is successfully completed during 'Batch
+            training' mode.
+            </summary>
+        </member>
+        <member name="P:NeuronDotNet.Core.Network.InputLayer">
+            <summary>
+            Gets the input layer of the network
+            </summary>
+            <value>
+            Input Layer of the network. This property is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Network.OutputLayer">
+            <summary>
+            Gets the output layer of the network
+            </summary>
+            <value>
+            Output Layer of the network. This property is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Network.LayerCount">
+            <summary>
+            Gets the number of layers in the network.
+            </summary>
+            <value>
+            Layer Count. This value is always positive.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Network.Layers">
+            <summary>
+            Exposes an enumerator to iterate over layers in the network.
+            </summary>
+            <value>
+            Layer Enumerator. No layer in the network can be <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Network.Item(System.Int32)">
+            <summary>
+            Layer Indexer
+            </summary>
+            <param name="index">
+            The index
+            </param>
+            <returns>
+            Layer at the given index
+            </returns>
+            <exception cref="T:System.IndexOutOfRangeException">
+            If the index is out of range
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.Network.ConnectorCount">
+            <summary>
+            Gets the number of connectors in the network.
+            </summary>
+            <value>
+            Connector Count. This value is never negative.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Network.Connectors">
+            <summary>
+            Exposes an enumerator to iterate over connectors in the network. 
+            </summary>
+            <value>
+            Connector Enumerator. No connector in a network can be <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Network.JitterNoiseLimit">
+            <summary>
+            Gets or sets maximum absolute limit to the jitter noise
+            </summary>
+            <value>
+            Maximum absolute limit to the random noise added while <c>Jitter</c>
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Network.JitterEpoch">
+            <summary>
+            Gets or sets the jitter epoch
+            </summary>
+            <value>
+            The epoch (interval) at which jitter is performed. If this value is not positive, no
+            jitter is performed.
+            </value>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenNetwork.#ctor(NeuronDotNet.Core.ILayer,NeuronDotNet.Core.SOM.KohonenLayer)">
+            <summary>
+            Creates a new Kohonen SOM, with the specified input and output layers. (You are required
+            to connect all layers using appropriate synapses, before using the constructor. Any changes
+            made to the structure of the network here-after, may lead to complete malfunctioning of the
+            network)
+            </summary>
+            <param name="inputLayer">
+            The input layer
+            </param>
+            <param name="outputLayer">
+            The output layer
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>inputLayer</c> or <c>outputLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenNetwork.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.KohonenNetwork.LearnSample(NeuronDotNet.Core.TrainingSample,System.Int32,System.Int32)">
+            <summary>
+            A protected helper function used to train single learning sample
+            </summary>
+            <param name="trainingSample">
+            Training sample to use
+            </param>
+            <param name="currentIteration">
+            Current training epoch (Assumed to be positive and less than <c>trainingEpochs</c>)
+            </param>
+            <param name="trainingEpochs">
+            Number of training epochs (Assumed to be positive)
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.KohonenNetwork.Winner">
+            <summary>
+            Gets the winner neuron of the network
+            </summary>
+            <value>
+            Winner Neuron
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.INeuron">
+            <summary>
+            Interface representing a neuron. A neuron is a basic building block of a neural network.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.INeuron.Run">
+            <summary>
+            Runs the neuron. (Propagates the source synapses and update input and output values)
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.INeuron.Learn(System.Double)">
+            <summary>
+            Trains various parameters associated with this neuron and associated source synapses.
+            </summary>
+            <param name="learningRate">
+            The current learning rate (this depends on training progress as well)
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.INeuron.Input">
+            <summary>
+            Gets or sets the neuron input.
+            </summary>
+            <value>
+            Input to the neuron. For input neurons, this value is specified by user, whereas other
+            neurons will have their inputs updated when the source synapses propagate
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INeuron.Output">
+            <summary>
+            Gets the output of the neuron.
+            </summary>
+            <value>
+            Neuron Output
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INeuron.SourceSynapses">
+            <summary>
+            Gets the list of source synapses associated with this neuron
+            </summary>
+            <value>
+            A list of source synapses. It can neither be <c>null</c>, nor contain <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INeuron.TargetSynapses">
+            <summary>
+            Gets the list of target synapses associated with this neuron
+            </summary>
+            <value>
+            A list of target synapses. It can neither be <c>null</c>, nor contains <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.INeuron.Parent">
+            <summary>
+            Gets the parent layer containing this neuron
+            </summary>
+            <value>
+            The parent layer containing this neuron. It is never <c>null</c>
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.SOM.NeighborhoodFunctions.MexicanHatFunction">
+            <summary>
+            Mexican Hat Neighborhood Function is the normalized second derivative of a Gaussian function.
+            It is a continuous function with neighborhood value decreasing from unity at the winner to
+            a negative value at a certain point (forming an inhibitory influence) and then gradually
+            increasing to zero.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.NeighborhoodFunctions.MexicanHatFunction.#ctor(System.Int32)">
+            <summary>
+            Creates a new Mexican Hat Neighborhood Function
+            </summary>
+            <param name="learningRadius">
+            Initial Learning Radius
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.NeighborhoodFunctions.MexicanHatFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.NeighborhoodFunctions.MexicanHatFunction.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the neighborhood function
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.NeighborhoodFunctions.MexicanHatFunction.EvaluateNeighborhood(NeuronDotNet.Core.SOM.KohonenLayer,System.Int32,System.Int32)">
+            <summary>
+            Determines the neighborhood of every neuron in the given Kohonen layer with respect to
+            winner neuron using Mexican Hat function
+            </summary>
+            <param name="layer">
+            The Kohonen Layer containing neurons
+            </param>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>layer</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.NeighborhoodFunctions.MexicanHatFunction.Sigma">
+            <summary>
+            Gets the value of sigma
+            </summary>
+            <value>
+            Initial value of sigma
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.SOM.LatticeTopology">
+            <summary>
+            Lattice Topology of the position neurons in a Kohonen Layer
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.SOM.LatticeTopology.Rectangular">
+            <summary>
+            Each neuron has four immediate neighbors
+            </summary>
+        </member>
+        <member name="F:NeuronDotNet.Core.SOM.LatticeTopology.Hexagonal">
+            <summary>
+            Each neuron has six immediate neighbors
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.Initializers.NormalizedRandomFunction">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.IInitializer"/> using Normalized Random function.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NormalizedRandomFunction.#ctor">
+            <summary>
+            Creates a new normalized random function
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NormalizedRandomFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NormalizedRandomFunction.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the initializer
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NormalizedRandomFunction.Initialize(NeuronDotNet.Core.Backpropagation.ActivationLayer)">
+            <summary>
+            Initializes bias values of activation neurons in the activation layer.
+            </summary>
+            <param name="activationLayer">
+            The activation layer to initialize
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>activationLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NormalizedRandomFunction.Initialize(NeuronDotNet.Core.Backpropagation.BackpropagationConnector)">
+            <summary>
+            Initializes weights of all backpropagation synapses in the backpropagation connector.
+            </summary>
+            <param name="connector">
+            The backpropagation connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NormalizedRandomFunction.Initialize(NeuronDotNet.Core.SOM.KohonenConnector)">
+            <summary>
+            Initializes weights of all spatial synapses in a Kohonen connector.
+            </summary>
+            <param name="connector">
+            The Kohonen connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.SigmoidLayer">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.Backpropagation.ActivationLayer"/> using sigmoid activation function
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.SigmoidLayer.#ctor(System.Int32)">
+            <summary>
+            Constructs a new SigmoidLayer containing specified number of neurons
+            </summary>
+            <param name="neuronCount">
+            The number of neurons
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>neuronCount</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.SigmoidLayer.Activate(System.Double,System.Double)">
+            <summary>
+            Sigmoid activation function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="previousOutput">
+            The previous output at the neuron
+            </param>
+            <returns>
+            The activated value
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.SigmoidLayer.Derivative(System.Double,System.Double)">
+            <summary>
+            Derivative of sigmoid function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="output">
+            Current output (activated) at the neuron
+            </param>
+            <returns>
+            The result of derivative of activation function
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.SigmoidLayer.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="info">
+            The info to deserialize
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.LinearLayer">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.Backpropagation.ActivationLayer"/> using linear activation function
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.LinearLayer.#ctor(System.Int32)">
+            <summary>
+            Constructs a new LinearLayer containing specified number of neurons
+            </summary>
+            <param name="neuronCount">
+            The number of neurons
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>neuronCount</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.LinearLayer.Activate(System.Double,System.Double)">
+            <summary>
+            Linear activation function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="previousOutput">
+            The previous output at the neuron
+            </param>
+            <returns>
+            The activated value
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.LinearLayer.Derivative(System.Double,System.Double)">
+            <summary>
+            Derivative of linear function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="output">
+            Current output (activated) at the neuron
+            </param>
+            <returns>
+            The result of derivative of activation function
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.LinearLayer.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="info">
+            The info to deserialize
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.TanhLayer">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.Backpropagation.ActivationLayer"/> using tanh activation function
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.TanhLayer.#ctor(System.Int32)">
+            <summary>
+            Constructs a new TanhLayer containing specified number of neurons
+            </summary>
+            <param name="neuronCount">
+            The number of neurons
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>neuronCount</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.TanhLayer.Activate(System.Double,System.Double)">
+            <summary>
+            Tanh activation function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="previousOutput">
+            The previous output at the neuron
+            </param>
+            <returns>
+            The activated value
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.TanhLayer.Derivative(System.Double,System.Double)">
+            <summary>
+            Derivative of tanh function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="output">
+            Current output (activated) at the neuron
+            </param>
+            <returns>
+            The result of derivative of activation function
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.TanhLayer.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="info">
+            The info to deserialize
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.ActivationNeuron">
+            <summary>
+            Activation Neuron is a buiding block of a back-propagation neural network.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationNeuron.#ctor(NeuronDotNet.Core.Backpropagation.ActivationLayer)">
+            <summary>
+            Create a new activation neuron
+            </summary>
+            <param name="parent">
+            The parent layer containing this neuron
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>parent</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationNeuron.Run">
+            <summary>
+            Obtains input from source synapses and activates to update the output
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationNeuron.EvaluateError">
+            <summary>
+            Backpropagates the target synapses and evaluates the error
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.ActivationNeuron.Learn(System.Double)">
+            <summary>
+            Optimizes the bias value (if not <c>UseFixedBiasValues</c>) and the weights of all the
+            source synapses using back propagation algorithm
+            </summary>
+            <param name="learningRate">
+            The current learning rate (this depends on training progress as well)
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.ActivationNeuron.Input">
+            <summary>
+            Gets or sets the neuron input.
+            </summary>
+            <value>
+            Input to the neuron. For input neurons, this value is specified by user, whereas other
+            neurons will have their inputs updated when the source synapses propagate
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.ActivationNeuron.Output">
+            <summary>
+            Gets the output of the neuron.
+            </summary>
+            <value>
+            Neuron Output
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.ActivationNeuron.Error">
+            <summary>
+            Gets the neuron error
+            </summary>
+            <value>
+            Neuron Error
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.ActivationNeuron.Bias">
+            <summary>
+            Gets the neuron bias
+            </summary>
+            <value>
+            The current value of neuron bias
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.ActivationNeuron.SourceSynapses">
+            <summary>
+            Gets the list of source synapses associated with this neuron
+            </summary>
+            <value>
+            A list of source synapses. It can neither be <c>null</c>, nor contain <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.ActivationNeuron.TargetSynapses">
+            <summary>
+            Gets the list of target synapses associated with this neuron
+            </summary>
+            <value>
+            A list of target synapses. It can neither be <c>null</c>, nor contains <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.ActivationNeuron.Parent">
+            <summary>
+            Gets the parent layer containing this neuron
+            </summary>
+            <value>
+            The parent layer containing this neuron. It is never <c>null</c>
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.Initializers.ZeroFunction">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.IInitializer"/> using zero function
+            </summary>
+        </member>
+        <member name="T:NeuronDotNet.Core.Initializers.ConstantFunction">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.IInitializer"/> using constant function
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.ConstantFunction.#ctor(System.Double)">
+            <summary>
+            Creates a new constant function
+            </summary>
+            <param name="constant">
+            The constant to use
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.ConstantFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.ConstantFunction.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the initializer
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.ConstantFunction.Initialize(NeuronDotNet.Core.Backpropagation.ActivationLayer)">
+            <summary>
+            Initializes bias values of activation neurons in the activation layer.
+            </summary>
+            <param name="activationLayer">
+            The activation layer to initialize
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>activationLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.ConstantFunction.Initialize(NeuronDotNet.Core.Backpropagation.BackpropagationConnector)">
+            <summary>
+            Initializes weights of all backpropagation synapses in the backpropagation connector.
+            </summary>
+            <param name="connector">
+            The backpropagation connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.ConstantFunction.Initialize(NeuronDotNet.Core.SOM.KohonenConnector)">
+            <summary>
+            Initializes weights of all spatial synapses in a Kohonen connector.
+            </summary>
+            <param name="connector">
+            The Kohonen connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="P:NeuronDotNet.Core.Initializers.ConstantFunction.Constant">
+            <summary>
+            Gets the initializer Constant
+            </summary>
+            <value>
+            The constant with which each parameter (bias values and weights) is initialized
+            </value>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.ZeroFunction.#ctor">
+            <summary>
+            Creates a new zero initializer function
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.ZeroFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse">
+            <summary>
+            Backpropagation synapse connects two activation neurons. A typical backpropagation network
+            contains thousands of such synapses.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse.#ctor(NeuronDotNet.Core.Backpropagation.ActivationNeuron,NeuronDotNet.Core.Backpropagation.ActivationNeuron,NeuronDotNet.Core.Backpropagation.BackpropagationConnector)">
+            <summary>
+            Creates a new Backpropagation Synapse connecting the given neurons
+            </summary>
+            <param name="sourceNeuron">
+            The source neuron
+            </param>
+            <param name="targetNeuron">
+            The target neuron
+            </param>
+            <param name="parent">
+            Parent connector containing this syanpse
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If any of the arguments is <c>null</c>.
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse.Propagate">
+            <summary>
+            Propagates the information from source neuron to target neuron
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse.OptimizeWeight(System.Double)">
+            <summary>
+            Optimizes the weight using back propagation algorithm to minimize the error
+            </summary>
+            <param name="learningFactor">
+            Effective learning factor (A function of learning rate, training progress and other parameters)
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse.Backpropagate">
+            <summary>
+            Back-propagates the error from target neuron to source neuron
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse.Jitter(System.Double)">
+            <summary>
+            Adds small random noise to weight of this synapse so that the network deviates from
+            its local optimum position (a local equilibrium state where further learning is of
+            no use)
+            </summary>
+            <param name="jitterNoiseLimit">
+            Maximum absolute limit to the random noise added
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse.SourceNeuron">
+            <summary>
+            Gets the source neuron
+            </summary>
+            <value>
+            The source neuron of the synapse. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse.TargetNeuron">
+            <summary>
+            Gets the target neuron
+            </summary>
+            <value>
+            The target neuron of the synapse. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse.Weight">
+            <summary>
+            Gets or sets the weight of the synapse
+            </summary>
+            <value>
+            Weight of the synapse
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.BackpropagationSynapse.Parent">
+            <summary>
+            Gets the parent connector
+            </summary>
+            <value>
+            Parent connector containing this synapse. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.TrainingSample">
+            <summary>
+            This class represents a training sample used to train a neural network
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSample.#ctor(System.Double[])">
+            <summary>
+            Creates a new unsupervised training sample
+            </summary>
+            <param name="vector">
+            The vector representing the unsupervised training sample
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If vector is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSample.#ctor(System.Double[],System.Double[])">
+            <summary>
+            Creates a new training sample. The arguments are cloned into the training sample. So
+            any modifications to the arguments will NOT be reflected in the training sample.
+            </summary>
+            <param name="inputVector">
+            Input vector
+            </param>
+            <param name="outputVector">
+            Expected output vector
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If any of the arguments is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSample.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSample.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the training sample
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSample.Equals(System.Object)">
+            <summary>
+            Determine whether the given object is equal to this instance
+            </summary>
+            <param name="obj">
+            The object to compare with this instance
+            </param>
+            <returns>
+            <c>true</c> if the given object is equal to this instance, <c>false</c> otherwise
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingSample.GetHashCode">
+            <summary>
+            Serves as a hash function for a particular type
+            </summary>
+            <returns>
+            The hash code for the current object
+            </returns>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSample.InputVector">
+            <summary>
+            Gets the value of input vector.
+            </summary>
+            <value>
+            Input vector. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSample.OutputVector">
+            <summary>
+            Gets the value of expected output vector 
+            </summary>
+            <value>
+            Output Vector. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSample.NormalizedInputVector">
+            <summary>
+            Gets the value of input vector in normalized form
+            </summary>
+            <value>
+            Normalized Input Vector. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingSample.NormalizedOutputVector">
+            <summary>
+            Gets the value of output vector in normalized form.
+            </summary>
+            <value>
+            Normalized Output Vector. It is never <c>null</c>.
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.LearningRateFunctions.LinearFunction">
+            <summary>
+            Linear Learning Rate Function. As the training progresses, the learning rate uniformly
+            changes from its initial value to the final value.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.LinearFunction.#ctor(System.Double,System.Double)">
+            <summary>
+            Constructs a new instance with the specified initial and final values of learning rate.
+            </summary>
+            <param name="initialLearningRate">
+            Initial value learning rate
+            </param>
+            <param name="finalLearningRate">
+            Final value learning rate
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.LinearFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            if <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.LearningRateFunctions.LinearFunction.GetLearningRate(System.Int32,System.Int32)">
+            <summary>
+            Gets effective learning rate for current training iteration. (As the training progresses,
+            the learning rate uniformly changes from its initial value to the final value)
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingEpochs">
+            Total number of training epochs
+            </param>
+            <returns>
+            The effective learning rate for current training iteration
+            </returns>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is zero or negative
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            If <c>currentIteration</c> is negative or, if it is not less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.TrainingEpochEventHandler">
+            <summary>
+            Training Epoch Event Handler. This delegate handles events invoked whenever a training epoch
+            starts or ends
+            </summary>
+            <param name="sender">
+            The sender invoking the event
+            </param>
+            <param name="e">
+            Event Arguments
+            </param>
+        </member>
+        <member name="T:NeuronDotNet.Core.TrainingEpochEventArgs">
+            <summary>
+            Training Epoch Event Arguments
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.TrainingEpochEventArgs.#ctor(System.Int32,NeuronDotNet.Core.TrainingSet)">
+            <summary>
+            Creates a new instance of training epoch event arguments
+            </summary>
+            <param name="trainingIteration">
+            Current training iteration
+            </param>
+            <param name="trainingSet">
+            The training set associated with the event
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingEpochEventArgs.TrainingIteration">
+            <summary>
+            Gets the current training iteration
+            </summary>
+            <value>
+            Current Training Iteration.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.TrainingEpochEventArgs.TrainingSet">
+            <summary>
+            Gets the training set associated
+            </summary>
+            <value>
+            Training set associated with the event
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.LogarithmLayer">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.Backpropagation.ActivationLayer"/> using logarithmic activation function
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.LogarithmLayer.#ctor(System.Int32)">
+            <summary>
+            Constructs a new LogarithmLayer containing specified number of neurons
+            </summary>
+            <param name="neuronCount">
+            The number of neurons
+            </param>
+            <exception cref="T:System.ArgumentException">
+            If <c>neuronCount</c> is zero or negative
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.LogarithmLayer.Activate(System.Double,System.Double)">
+            <summary>
+            Logarithmic activation function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="previousOutput">
+            The previous output at the neuron
+            </param>
+            <returns>
+            The activated value
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.LogarithmLayer.Derivative(System.Double,System.Double)">
+            <summary>
+            Derivative of logarithmic function
+            </summary>
+            <param name="input">
+            Current input to the neuron
+            </param>
+            <param name="output">
+            Current output (activated) at the neuron
+            </param>
+            <returns>
+            The result of derivative of activation function
+            </returns>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.LogarithmLayer.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor
+            </summary>
+            <param name="info">
+            The info to deserialize
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.BackpropagationConnector">
+            <summary>
+            A Backpropagation Connector is an <see cref="T:NeuronDotNet.Core.IConnector"/> which consists of a collection of
+            backpropagation synapses connecting two activation layers.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationConnector.#ctor(NeuronDotNet.Core.Backpropagation.ActivationLayer,NeuronDotNet.Core.Backpropagation.ActivationLayer)">
+            <summary>
+            Creates a new complete backpropagation connector between given layers.
+            </summary>
+            <param name="sourceLayer">
+            The source layer
+            </param>
+            <param name="targetLayer">
+            The target layer
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>sourceLayer</c> or <c>targetLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationConnector.#ctor(NeuronDotNet.Core.Backpropagation.ActivationLayer,NeuronDotNet.Core.Backpropagation.ActivationLayer,NeuronDotNet.Core.ConnectionMode)">
+            <summary>
+            Creates a new Backpropagation connector between the given layers using the specified
+            connection mode.
+            </summary>
+            <param name="sourceLayer">
+            The source layer
+            </param>
+            <param name="targetLayer">
+            The target layer
+            </param>
+            <param name="connectionMode">
+            Connection mode to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>sourceLayer</c> or <c>targetLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationConnector.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationConnector.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the connector
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationConnector.Initialize">
+            <summary>
+            Initializes all synapses in the connector and makes them ready to undergo training
+            freshly. (Adjusts the weights of synapses using the initializer)
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationConnector.ConstructSynapses">
+            <summary>
+            Private helper to construct synapses between layers
+            </summary>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.BackpropagationConnector.Momentum">
+            <summary>
+            Gets or sets the momentum (the tendency of synapses to retain their previous deltas)
+            </summary>
+            <value>
+            The tendency of synapses to retain their previous weight change.
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.SOM.PositionNeuron">
+            <summary>
+            Position Neuron is a neuron in a two-dimensional space used in Kohonen networks.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.PositionNeuron.#ctor(System.Int32,System.Int32,NeuronDotNet.Core.SOM.KohonenLayer)">
+            <summary>
+            Creates new position neuron
+            </summary>
+            <param name="x">
+            X-Coordinate of the neuron positon
+            </param>
+            <param name="y">
+            Y-Coordinate of the neuron position
+            </param>
+            <param name="parent">
+            Parent layer containing this neuron
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>parent</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.PositionNeuron.#ctor(System.Drawing.Point,NeuronDotNet.Core.SOM.KohonenLayer)">
+            <summary>
+            Creates new positon neuron
+            </summary>
+            <param name="coordinate">
+            Neuron Position
+            </param>
+            <param name="parent">
+            Parent neuron containing this neuron
+            </param>
+            <value>
+            If <c>parent</c> is <c>null</c>
+            </value>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.PositionNeuron.Run">
+            <summary>
+            Runs the neuron. (Propagates the source synapses and update input and output values)
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.SOM.PositionNeuron.Learn(System.Double)">
+            <summary>
+            Trains weights of associated source synapses.
+            </summary>
+            <param name="learningRate">
+            The current learning rate (this depends on training progress as well)
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.PositionNeuron.Parent">
+            <summary>
+            Gets the parent layer containing this neuron
+            </summary>
+            <value>
+            The parent layer containing this neuron. It is never <c>null</c>
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.PositionNeuron.Value">
+            <summary>
+            Gets the neuron value
+            </summary>
+            <value>
+            Neuron Value
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.PositionNeuron.Coordinate">
+            <summary>
+            Gets the position of the neuron
+            </summary>
+            <value>
+            Neuron Co-ordinate
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.PositionNeuron.SourceSynapses">
+            <summary>
+            Gets the list of source synapses associated with this neuron
+            </summary>
+            <value>
+            A list of source synapses. It can neither be <c>null</c>, nor contain <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.PositionNeuron.TargetSynapses">
+            <summary>
+            Gets the list of target synapses associated with this neuron
+            </summary>
+            <value>
+            A list of target synapses. It can neither be <c>null</c>, nor contains <c>null</c> elements.
+            </value>
+        </member>
+        <member name="P:NeuronDotNet.Core.SOM.PositionNeuron.NeighborhoodValue">
+            <summary>
+            Gets the neighborhood of this neuron with respect to the winner neuron in this layer
+            </summary>
+            <value>
+            Neighborhood Value
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.Initializers.NguyenWidrowFunction">
+            <summary>
+            An <see cref="T:NeuronDotNet.Core.IInitializer"/> using Nguyen Widrow function.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NguyenWidrowFunction.#ctor">
+            <summary>
+            Creates a new NGuyen Widrow Initialization function
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NguyenWidrowFunction.#ctor(System.Double)">
+            <summary>
+            Creates a new NGuyen Widrow function using the given output range
+            </summary>
+            <param name="outputRange">
+            the range of values, that output of a neuron can take (i.e. maximum minus minimum)
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NguyenWidrowFunction.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NguyenWidrowFunction.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates the serialization info with the data needed to serialize the initializer
+            </summary>
+            <param name="info">
+            The serialization info to populate the data with
+            </param>
+            <param name="context">
+            The serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NguyenWidrowFunction.Initialize(NeuronDotNet.Core.Backpropagation.ActivationLayer)">
+            <summary>
+            Initializes bias values of activation neurons in the activation layer.
+            </summary>
+            <param name="activationLayer">
+            The activation layer to initialize
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>activationLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NguyenWidrowFunction.Initialize(NeuronDotNet.Core.Backpropagation.BackpropagationConnector)">
+            <summary>
+            Initializes weights of all backpropagation synapses in the backpropagation connector.
+            </summary>
+            <param name="connector">
+            The backpropagation connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NguyenWidrowFunction.Initialize(NeuronDotNet.Core.SOM.KohonenConnector)">
+            <summary>
+            Initializes weights of all spatial synapses in a Kohonen connector.
+            </summary>
+            <param name="connector">
+            The Kohonen connector to initialize.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>connector</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Initializers.NguyenWidrowFunction.NGuyenWidrowFactor(System.Int32,System.Int32)">
+            <summary>
+            Private helper method to calculate Nguyen-Widrow factor
+            </summary>
+            <param name="inputNeuronCount">
+            Number of input neurons
+            </param>
+            <param name="hiddenNeuronCount">
+            Number of hidden neurons
+            </param>
+            <returns>
+            The Nguyen-Widrow factor
+            </returns>
+        </member>
+        <member name="P:NeuronDotNet.Core.Initializers.NguyenWidrowFunction.OutputRange">
+            <summary>
+            Gets the output range
+            </summary>
+            <value>
+            The range of values, that network output takes
+            </value>
+        </member>
+        <member name="T:NeuronDotNet.Core.Backpropagation.BackpropagationNetwork">
+            <summary>
+            This class extends a <see cref="T:NeuronDotNet.Core.Network"/> and represents a Backpropagation neural network.
+            </summary>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationNetwork.#ctor(NeuronDotNet.Core.Backpropagation.ActivationLayer,NeuronDotNet.Core.Backpropagation.ActivationLayer)">
+            <summary>
+            Creates a new Back Propagation Network, with the specified input and output layers. (You
+            are required to connect all layers using appropriate synapses, before using the constructor.
+            Any changes made to the structure of the network after its creation may lead to complete
+            malfunctioning)
+            </summary>
+            <param name="inputLayer">
+            The input layer
+            </param>
+            <param name="outputLayer">
+            The output layer
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>inputLayer</c> or <c>outputLayer</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationNetwork.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization Constructor
+            </summary>
+            <param name="info">
+            Serialization information to deserialize and obtain the data
+            </param>
+            <param name="context">
+            Serialization context to use
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>info</c> is <c>null</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationNetwork.Learn(NeuronDotNet.Core.TrainingSample,System.Int32,System.Int32)">
+            <summary>
+            <para>
+            Trains the network for the given training sample (Online training mode). Note that this
+            method trains the sample only once irrespective of the values of <c>currentIteration</c>
+            and <c>trainingEpochs</c>. Those arguments are just used to adjust training parameters
+            which are dependent on training progress.
+            </para>
+            </summary>
+            <param name="trainingSample">
+            Training sample to use
+            </param>
+            <param name="currentIteration">
+            Current training epoch
+            </param>
+            <param name="trainingEpochs">
+            Number of training epochs
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <c>trainingSample</c> is <c>null</c>
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If <c>trainingEpochs</c> is not positive, or if <c>currentIteration</c> is negative or if
+            <c>currentIteration</c> is less than <c>trainingEpochs</c>
+            </exception>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationNetwork.OnBeginEpoch(System.Int32,NeuronDotNet.Core.TrainingSet)">
+            <summary>
+            Invokes BeginEpochEvent
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingSet">
+            Training set which is about to be trained
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationNetwork.OnEndEpoch(System.Int32,NeuronDotNet.Core.TrainingSet)">
+            <summary>
+            Invokes EndEpochEvent
+            </summary>
+            <param name="currentIteration">
+            Current training iteration
+            </param>
+            <param name="trainingSet">
+            Training set which got trained successfully this epoch
+            </param>
+        </member>
+        <member name="M:NeuronDotNet.Core.Backpropagation.BackpropagationNetwork.LearnSample(NeuronDotNet.Core.TrainingSample,System.Int32,System.Int32)">
+            <summary>
+            A protected helper function used to train single learning sample
+            </summary>
+            <param name="trainingSample">
+            Training sample to use
+            </param>
+            <param name="currentIteration">
+            Current training epoch (Assumed to be positive and less than <c>trainingEpochs</c>)
+            </param>
+            <param name="trainingEpochs">
+            Number of training epochs (Assumed to be positive)
+            </param>
+        </member>
+        <member name="P:NeuronDotNet.Core.Backpropagation.BackpropagationNetwork.MeanSquaredError">
+            <summary>
+            Gets the value of mean squared error
+            </summary>
+            <value>
+            Mean squared value of error in current training epoch
+            </value>
+        </member>
+    </members>
+</doc>
