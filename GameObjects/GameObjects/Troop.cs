@@ -1131,6 +1131,12 @@
                     }
                 }
             }
+
+            if (this.BelongedLegion != null && this.BelongedFaction == null)
+            {
+                this.BelongedFaction = this.BelongedLegion.BelongedFaction;
+            }
+
             Point? nullable = null;
             Point? nullable2 = null;
             base.Scenario.GetClosestPointsBetweenTwoAreas(dayArea, this.WillArchitecture.ArchitectureArea, out nullable, out nullable2);
