@@ -1395,50 +1395,44 @@
         public List<string> LoadBiographyAdjectives(OleDbConnection connection, GameScenario scen)
         {
             connection.Open();
-            try
+            OleDbDataReader reader = new OleDbCommand("Select * From BiographyAdjectives", connection).ExecuteReader();
+            while (reader.Read())
             {
-                OleDbDataReader reader = new OleDbCommand("Select * From BiographyAdjectives", connection).ExecuteReader();
-                while (reader.Read())
-                {
-                    int t;
-                    BiographyAdjectives b = new BiographyAdjectives();
-                    b.Scenario = scen;
-                    b.ID = (short)reader["ID"];
-                    int.TryParse(reader["Strength"].ToString(), out t);
-                    b.Strength = t;
-                    b.ID = (short)reader["ID"];
-                    int.TryParse(reader["Command"].ToString(), out t);
-                    b.Command = t;
-                    b.ID = (short)reader["ID"];
-                    int.TryParse(reader["Intelligence"].ToString(), out t);
-                    b.Intelligence = t;
-                    b.ID = (short)reader["ID"];
-                    int.TryParse(reader["Politics"].ToString(), out t);
-                    b.Politics = t;
-                    b.ID = (short)reader["ID"];
-                    int.TryParse(reader["Glamour"].ToString(), out t);
-                    b.Glamour = t;
-                    b.ID = (short)reader["ID"];
-                    int.TryParse(reader["Braveness"].ToString(), out t);
-                    b.Braveness = t;
-                    b.ID = (short)reader["ID"];
-                    int.TryParse(reader["Calmness"].ToString(), out t);
-                    b.Calmness = t;
-                    b.ID = (short)reader["ID"];
-                    int.TryParse(reader["PersonalLoyalty"].ToString(), out t);
-                    b.PersonalLoyalty = t;
-                    b.ID = (short)reader["ID"];
-                    int.TryParse(reader["Ambition"].ToString(), out t);
-                    b.Ambition = t;
-                    b.Male = (bool)reader["Male"];
-                    b.Female = (bool)reader["Female"];
-                    StaticMethods.LoadFromString(b.Text, reader["BioText"].ToString());
-                    StaticMethods.LoadFromString(b.SuffixText, reader["SuffixText"].ToString());
-                    this.AllBiographyAdjectives.Add(b);
-                }
-            }
-            catch
-            {
+                int t;
+                BiographyAdjectives b = new BiographyAdjectives();
+                b.Scenario = scen;
+                b.ID = (short)reader["ID"];
+                int.TryParse(reader["Strength"].ToString(), out t);
+                b.Strength = t;
+                b.ID = (short)reader["ID"];
+                int.TryParse(reader["Command"].ToString(), out t);
+                b.Command = t;
+                b.ID = (short)reader["ID"];
+                int.TryParse(reader["Intelligence"].ToString(), out t);
+                b.Intelligence = t;
+                b.ID = (short)reader["ID"];
+                int.TryParse(reader["Politics"].ToString(), out t);
+                b.Politics = t;
+                b.ID = (short)reader["ID"];
+                int.TryParse(reader["Glamour"].ToString(), out t);
+                b.Glamour = t;
+                b.ID = (short)reader["ID"];
+                int.TryParse(reader["Braveness"].ToString(), out t);
+                b.Braveness = t;
+                b.ID = (short)reader["ID"];
+                int.TryParse(reader["Calmness"].ToString(), out t);
+                b.Calmness = t;
+                b.ID = (short)reader["ID"];
+                int.TryParse(reader["PersonalLoyalty"].ToString(), out t);
+                b.PersonalLoyalty = t;
+                b.ID = (short)reader["ID"];
+                int.TryParse(reader["Ambition"].ToString(), out t);
+                b.Ambition = t;
+                b.Male = (bool)reader["Male"];
+                b.Female = (bool)reader["Female"];
+                StaticMethods.LoadFromString(b.Text, reader["BioText"].ToString());
+                StaticMethods.LoadFromString(b.SuffixText, reader["SuffixText"].ToString());
+                this.AllBiographyAdjectives.Add(b);
             }
             connection.Close();
 
@@ -1448,25 +1442,18 @@
         public List<string> LoadPersonGeneratorSetting(OleDbConnection connection, GameScenario scen)
         {
             connection.Open();
-            try
+            OleDbDataReader reader = new OleDbCommand("Select * From PersonGenerator", connection).ExecuteReader();
+            while (reader.Read())
             {
-                OleDbDataReader reader = new OleDbCommand("Select * From PersonGenerator", connection).ExecuteReader();
-                while (reader.Read())
-                {
-                    this.PersonGeneratorSetting.bornLo = (int)reader["BornLo"];
-                    this.PersonGeneratorSetting.bornHi = (int)reader["BornHi"];
-                    this.PersonGeneratorSetting.debutLo = (int)reader["DebutLo"];
-                    this.PersonGeneratorSetting.debutHi = (int)reader["DebutHi"];
-                    this.PersonGeneratorSetting.dieLo = (int)reader["DieLo"];
-                    this.PersonGeneratorSetting.dieHi = (int)reader["DieHi"];
-                    this.PersonGeneratorSetting.femaleChance = (int)reader["FemaleChance"];
-                    this.PersonGeneratorSetting.debutAtLeast = (int)reader["DebutAtLeast"];
-                }
-                
-            }
-            catch
-            {
-            }
+                this.PersonGeneratorSetting.bornLo = (int)reader["BornLo"];
+                this.PersonGeneratorSetting.bornHi = (int)reader["BornHi"];
+                this.PersonGeneratorSetting.debutLo = (int)reader["DebutLo"];
+                this.PersonGeneratorSetting.debutHi = (int)reader["DebutHi"];
+                this.PersonGeneratorSetting.dieLo = (int)reader["DieLo"];
+                this.PersonGeneratorSetting.dieHi = (int)reader["DieHi"];
+                this.PersonGeneratorSetting.femaleChance = (int)reader["FemaleChance"];
+                this.PersonGeneratorSetting.debutAtLeast = (int)reader["DebutAtLeast"];
+            }  
             connection.Close();
 
             return new List<string>();
@@ -1475,43 +1462,50 @@
         public List<string> LoadPersonGeneratorTypes(OleDbConnection connection, GameScenario scen)
         {
             connection.Open();
-            try
+            OleDbDataReader reader = new OleDbCommand("Select * From PersonGeneratorType", connection).ExecuteReader();
+            bool hasZero = false;
+            while (reader.Read())
             {
-                OleDbDataReader reader = new OleDbCommand("Select * From PersonGenerator", connection).ExecuteReader();
-                while (reader.Read())
+                PersonGeneratorType type = new PersonGeneratorType();
+                type.ID = (int)reader["ID"];
+                if (type.ID == 0)
                 {
-                    PersonGeneratorType type = new PersonGeneratorType();
-                    type.ID = (int)reader["ID"];
-                    type.Name = reader["TypeName"].ToString();
-                    type.generationChance = (int)reader["GenerationChance"];
-                    type.commandLo = (int)reader["CommandLo"];
-                    type.commandHi = (int)reader["CommandHi"];
-                    type.strengthLo = (int)reader["StrengthLo"];
-                    type.strengthHi = (int)reader["StrengthHi"];
-                    type.intelligenceLo = (int)reader["IntelligenceLo"];
-                    type.intelligenceHi = (int)reader["IntelligenceHi"];
-                    type.politicsLo = (int)reader["PoliticsLo"];
-                    type.politicsHi = (int)reader["PoliticsHi"];
-                    type.glamourLo = (int)reader["GlamourLo"];
-                    type.glamourHi = (int)reader["GlamourHi"];
-                    type.braveLo = (int)reader["BraveLo"];
-                    type.braveHi = (int)reader["BraveHi"];
-                    type.calmnessLo = (int)reader["CalmnessLo"];
-                    type.calmnessHi = (int)reader["CalmnessHi"];
-                    type.personalLoyaltyLo = (int)reader["PersonalLoyaltyLo"];
-                    type.personalLoyaltyHi = (int)reader["PersonalLoyaltyHi"];
-                    type.ambitionLo = (int)reader["AmbitionLo"];
-                    type.ambitionHi = (int)reader["AmbitionHi"];
-                    type.titleChance = (int)reader["TitleChance"];
-                    type.affectedByRateParameter = (bool)reader["AffectByRateParameter"];
-                    this.AllPersonGeneratorTypes.Add(type);
+                    hasZero = true;
                 }
-
-            }
-            catch
-            {
+                type.Name = reader["TypeName"].ToString();
+                type.generationChance = (int)reader["GenerationChance"];
+                type.commandLo = (int)reader["CommandLo"];
+                type.commandHi = (int)reader["CommandHi"];
+                type.strengthLo = (int)reader["StrengthLo"];
+                type.strengthHi = (int)reader["StrengthHi"];
+                type.intelligenceLo = (int)reader["IntelligenceLo"];
+                type.intelligenceHi = (int)reader["IntelligenceHi"];
+                type.politicsLo = (int)reader["PoliticsLo"];
+                type.politicsHi = (int)reader["PoliticsHi"];
+                type.glamourLo = (int)reader["GlamourLo"];
+                type.glamourHi = (int)reader["GlamourHi"];
+                type.braveLo = (int)reader["BraveLo"];
+                type.braveHi = (int)reader["BraveHi"];
+                type.calmnessLo = (int)reader["CalmnessLo"];
+                type.calmnessHi = (int)reader["CalmnessHi"];
+                type.personalLoyaltyLo = (int)reader["PersonalLoyaltyLo"];
+                type.personalLoyaltyHi = (int)reader["PersonalLoyaltyHi"];
+                type.ambitionLo = (int)reader["AmbitionLo"];
+                type.ambitionHi = (int)reader["AmbitionHi"];
+                type.titleChance = (int)reader["TitleChance"];
+                type.affectedByRateParameter = (bool)reader["AffectedByRateParameter"];
+                this.AllPersonGeneratorTypes.Add(type);
             }
             connection.Close();
+
+            // for backward compatibility
+            if (!hasZero)
+            {
+                foreach (PersonGeneratorType type in this.AllPersonGeneratorTypes)
+                {
+                    type.ID--;
+                }
+            }
 
             return new List<string>();
         }
@@ -1522,8 +1516,16 @@
 
             OleDbConnection connection = new OleDbConnection(connectionString);
 
-            errorMsg.AddRange(this.LoadPersonGeneratorSetting(connection, scen));
-            errorMsg.AddRange(this.LoadPersonGeneratorTypes(connection, scen));
+            try
+            {
+                errorMsg.AddRange(this.LoadPersonGeneratorSetting(connection, scen));
+            }
+            catch { }
+            try
+            {
+                errorMsg.AddRange(this.LoadPersonGeneratorTypes(connection, scen));
+            }
+            catch { }
             errorMsg.AddRange(this.LoadTerrainDetail(connection, scen));
             errorMsg.AddRange(this.LoadColor(connection, scen));
             errorMsg.AddRange(this.LoadIdealTendencyKind(connection, scen));
@@ -1557,7 +1559,11 @@
             errorMsg.AddRange(this.LoadTroopAnimation(connection, scen));
             errorMsg.AddRange(this.LoadTileAnimation(connection, scen));
             errorMsg.AddRange(this.LoadTextMessage(connection, scen));
-            errorMsg.AddRange(this.LoadBiographyAdjectives(connection, scen));
+            try
+            {
+                errorMsg.AddRange(this.LoadBiographyAdjectives(connection, scen));
+            }
+            catch { }
 
             return errorMsg;
         }

@@ -2735,14 +2735,14 @@
                 if (GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
                     GlobalVariables.CreateRandomOfficerChance * 100)
                 {
-                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
+                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this, true);
                     return true;
                 }
                 else if (!base.Scenario.IsPlayer(this.BelongedFaction) &&
                     GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
                     GlobalVariables.CreateRandomOfficerChance * 100 * (Parameters.AIExtraPerson - 1))
                 {
-                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this);
+                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this, true);
    
                     GameObjectList ideals = base.Scenario.GameCommonData.AllIdealTendencyKinds;
                     IdealTendencyKind minIdeal = null;
@@ -7053,7 +7053,7 @@
             return biography;
         }
 
-        public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder)
+        public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder, bool inGame)
         {
             Person r = new Person();
 
@@ -7109,14 +7109,14 @@
             }
             r.CalledName = "";
 
-            Dictionary<int, int> weights = new Dictionary<int,int>();
+            int[] weights = new int[10];
             foreach (PersonGeneratorType type in scen.GameCommonData.AllPersonGeneratorTypes) 
             {
                 weights[type.ID] = type.generationChance;
             }
 
             int total = 0;
-            foreach (int i in weights.Values) 
+            foreach (int i in weights) 
             {
                 total += i;
             }
@@ -7124,22 +7124,19 @@
             int officerType = 9;
             int typeInt = GameObject.Random(total);
             int typeSum = 0;
-            foreach (KeyValuePair<int, int> i in weights)
+            for (int i = 0; i < weights.Length; ++i) 
             {
+                typeSum += weights[i];
                 if (typeInt < typeSum)
                 {
-                    officerType = i.Key;
+                    officerType = i;
                     break;
-                }
-                else
-                {
-                    typeSum += i.Value;
                 }
             }
 
             int titleChance = 0;
 
-            PersonGeneratorType typeParam = (PersonGeneratorType) scen.GameCommonData.AllPersonGeneratorTypes[officerType];
+            PersonGeneratorType typeParam = (PersonGeneratorType) scen.GameCommonData.AllPersonGeneratorTypes.GetGameObject(officerType);
             r.BaseCommand = GameObject.RandomGaussianRange(typeParam.commandLo, typeParam.commandHi);
             r.BaseStrength = GameObject.RandomGaussianRange(typeParam.strengthLo, typeParam.strengthHi);
             r.BaseIntelligence = GameObject.RandomGaussianRange(typeParam.intelligenceLo, typeParam.intelligenceHi);
@@ -7169,8 +7166,8 @@
 
             r.Ideal = GameObject.Random(150);
 
-            r.YearBorn = scen.Date.Year - GameObject.Random(options.bornLo, options.bornHi);
-            r.YearAvailable = scen.Date.Year + GameObject.Random(options.debutLo, options.debutHi);
+            r.YearBorn = scen.Date.Year + GameObject.Random(options.bornLo, options.bornHi);
+            r.YearAvailable = scen.Date.Year + (inGame ? 0 : GameObject.Random(options.debutLo, options.debutHi));
             r.YearDead = Math.Max(r.YearBorn + GameObject.Random(options.dieLo, options.dieHi), scen.Date.Year + options.debutAtLeast);
 
             r.Reputation = GameObject.Random(51) * 100;

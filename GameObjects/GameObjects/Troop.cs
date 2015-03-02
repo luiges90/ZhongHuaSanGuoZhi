@@ -59,7 +59,6 @@
         public bool BasePierceAttack;
         public float BaseRateOfQibingDamage = 1f;
         private GameArea baseViewArea = null;
-        public Faction BelongedFaction = null;
         public Legion BelongedLegion;
         public bool CanAttackAfterRout;
         private TroopCastDefaultKind castDefaultKind;
@@ -429,6 +428,8 @@
         public int PoliticsExperienceIncrease { get; set; }
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationIncrease { get; set; }
+
+        public Faction BelongedFaction = null;
 
         private int forceTroopTargetId;
 
@@ -1130,6 +1131,12 @@
                     }
                 }
             }
+
+            if (this.BelongedLegion != null && this.BelongedFaction == null)
+            {
+                this.BelongedFaction = this.BelongedLegion.BelongedFaction;
+            }
+
             Point? nullable = null;
             Point? nullable2 = null;
             base.Scenario.GetClosestPointsBetweenTwoAreas(dayArea, this.WillArchitecture.ArchitectureArea, out nullable, out nullable2);
@@ -2533,7 +2540,6 @@
                 this.BelongedFaction.Troops.Remove(this);
                 this.BelongedFaction.RemoveTroopKnownAreaData(this);
                 this.BelongedFaction.RemoveMilitary(this.Army);
-                this.BelongedFaction = null;
                 faction.AddTroop(this);
                 faction.AddTroopKnownAreaData(this);
                 foreach (Captive captive in this.Captives.GetList())

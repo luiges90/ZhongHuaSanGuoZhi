@@ -1313,6 +1313,10 @@
             this.Factions.SetControlling(false);
             foreach (Troop troop in this.Troops.GetList())
             {
+                if (troop.BelongedFaction == null && troop.BelongedLegion != null)
+                {
+                    troop.BelongedFaction = troop.BelongedLegion.BelongedFaction;
+                }
                 if (troop.BelongedFaction == null || troop.BelongedLegion == null)
                 {
                     troop.AI();
@@ -2666,6 +2670,15 @@
             catch
             {
                 errorMsg.AddRange(this.GameCommonData.LoadPersonGeneratorSetting(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadPersonGeneratorTypes(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadPersonGeneratorTypes(commonConn, this));
                 UsingOwnCommonData = false;
             }
             try
