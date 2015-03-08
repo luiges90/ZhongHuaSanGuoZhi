@@ -1275,6 +1275,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind450.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind680.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind808.cs" />
     <Compile Include="GameObjects\IScenarioAwarePlugin.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3041.cs" />
