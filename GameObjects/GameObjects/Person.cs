@@ -5462,6 +5462,16 @@
             }
         }
 
+        public bool HasTitle()
+        {
+            if (this.Titles.Count > 0)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
         public bool HasSkill(int id)
         {
             return this.Skills.GetSkill(id) != null;
