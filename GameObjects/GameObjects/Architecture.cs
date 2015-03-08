@@ -282,6 +282,20 @@
             {
                 CaptiveList p = base.Scenario.GetCaptiveList(this);
                 p.SetImmutable();
+
+                foreach (Captive c in p) //禁止俘虏自势力武将
+                {
+                    if (c.CaptiveFaction == c.BelongedFaction)
+                    {
+                        c.CaptivePerson.SetBelongedCaptive(null, GameObjects.PersonDetail.PersonStatus.Normal);
+                        if (c.LocationArchitecture != c.CaptivePerson.BelongedFaction.Capital)
+                        {
+                            c.CaptivePerson.MoveToArchitecture(c.CaptivePerson.BelongedFaction.Capital);
+                        }
+
+                        
+                    }
+                }
                 return p;
             }
         }
