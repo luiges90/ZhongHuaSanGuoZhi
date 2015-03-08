@@ -3104,6 +3104,21 @@
             base.Scenario.YearTable.addObtainedTitleEntry(base.Scenario.Date, this, title);
         }
 
+        public void LoseTitle()
+        {
+            List<Title> temp = new List<Title>(this.RealTitles);
+            foreach (Title t in temp)
+            {
+                if (t.LoseConditions.Count > 0 && t.WillLose(this))
+                {
+                    t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Title, t.ID, false);
+
+                    this.RealTitles.Remove(t);
+                }
+
+            }
+        }
+
         public void DoStudyTitle()
         {
             this.OutsideTask = OutsideTaskKind.无;

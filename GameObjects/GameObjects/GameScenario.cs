@@ -1215,6 +1215,10 @@
                             p.LearnTitle(t);
                             this.GameScreen.AutoLearnTitle(p, courier, t);
                         }
+                        else if (p.HasTitle(t) && t.WillLose(p))
+                        {
+                            p.LoseTitle();
+                        }
                     }
                 }
             }

@@ -829,6 +829,7 @@
                 {
                     e.AddRange(title.ArchitectureConditions.LoadFromString(this.AllConditions, reader["ArchitectureConditions"].ToString()));
                     e.AddRange(title.FactionConditions.LoadFromString(this.AllConditions, reader["FactionConditions"].ToString()));
+                    e.AddRange(title.LoseConditions.LoadFromString(this.AllConditions, reader["LoseConditions"].ToString())); //失去条件
                 }
                 catch { }
                 if (e.Count > 0)
@@ -2531,6 +2532,7 @@
                     row["Prerequisite"] = i.Prerequisite;
                     row["Influences"] = i.Influences.SaveToString();
                     row["Conditions"] = i.Conditions.SaveToString();
+                    row["LoseConditions"] = i.LoseConditions.SaveToString(); //失去条件
                     row["ArchitectureConditions"] = i.ArchitectureConditions.SaveToString();
                     row["FactionConditions"] = i.FactionConditions.SaveToString();
                     row["AutoLearn"] = i.AutoLearn;

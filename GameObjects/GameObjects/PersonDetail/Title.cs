@@ -11,6 +11,7 @@
     {
         private bool combat;
         public ConditionTable Conditions = new ConditionTable();
+        public ConditionTable LoseConditions = new ConditionTable(); //失去条件
         public InfluenceTable Influences = new InfluenceTable();
         private TitleKind kind;
         private int level;
@@ -140,6 +141,18 @@
         public bool CanLearn(Person person)
         {
             return CanLearn(person, false);
+        }
+
+        public bool WillLose(Person person) //失去条件
+        {
+            foreach (Condition condition in this.LoseConditions.Conditions.Values)
+            {
+                if (!condition.CheckCondition(person))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public bool CheckLimit(Person person)
@@ -365,6 +378,11 @@
                 {
                     str = str + "•" + condition.Name;
                 }
+                foreach (Condition condition in this.LoseConditions.Conditions.Values)
+                {
+                    str = str + "•" + condition.Name;
+                }
+
                 foreach (Condition condition in this.ArchitectureConditions.Conditions.Values)
                 {
                     str = str + "•" + condition.Name;
