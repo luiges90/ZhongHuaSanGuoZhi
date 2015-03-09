@@ -11285,7 +11285,7 @@
         {
             get
             {
-                return this.ExpectedFood / base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.Season) - this.EnoughFood / 8 >= 0;
+                return this.ExpectedFood * base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.Season) - this.EnoughFood / 8 >= 0;
             }
         }
 
