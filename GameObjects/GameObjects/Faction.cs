@@ -3563,7 +3563,11 @@
         public void RemoveMilitary(Military military)
         {
             this.Militaries.Remove(military);
-            this.militaryKindCounts[military.Kind]--;
+            if (this.militaryKindCounts.ContainsKey(military.Kind))
+            {
+                this.militaryKindCounts[military.Kind]--;
+            }
+            
             military.BelongedFaction = null;
         }
 
