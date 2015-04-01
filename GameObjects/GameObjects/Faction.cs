@@ -3573,7 +3573,10 @@
 
         public void MorphMilitary(MilitaryKind before, MilitaryKind after)
         {
-            this.militaryKindCounts[before]--;
+            if (this.militaryKindCounts.ContainsKey(before))
+            {
+                this.militaryKindCounts[before]--;
+            }
             if (this.militaryKindCounts.ContainsKey(after))
             {
                 this.militaryKindCounts[after]++;

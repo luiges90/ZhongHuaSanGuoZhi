@@ -3395,7 +3395,7 @@
 
         public void GoForAssassinate(Person person)
         {
-            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal)
+            if (this.LocationArchitecture != null && this.Status == PersonStatus.Normal && person.BelongedFaction != this.BelongedFaction)
             {
                 this.OutsideTask = OutsideTaskKind.暗杀;
                 this.ConvincingPerson = person;
@@ -6777,9 +6777,8 @@
             PersonList haiziliebiao = new PersonList();
             foreach (Person person in this.Scenario.Persons)
             {
-                if (person.Alive && person.Available && person.Father == this && person.BelongedFaction == this.BelongedFaction 
-                    && person.BelongedCaptive == null && person.sex == false && person.BelongedFaction != null && person.locationArchitecture != null 
-                    && person.locationTroop == null && this.Status == PersonStatus.Normal)
+                if (person.Alive && person.Available && person.Father == this && person.BelongedFaction == this.BelongedFaction
+                    && person.BelongedCaptive == null && person.sex == false && person.BelongedFaction != null && this.BelongedCaptive == null)
                 {
                     haiziliebiao.Add(person);
                 }
@@ -7149,7 +7148,7 @@
             int officerType = 9;
             int typeInt = GameObject.Random(total);
             int typeSum = 0;
-            for (int i = 0; i <= weights.Length -1; ++i) 
+            for (int i = 0; i < weights.Length; i++) 
             {
                 typeSum += weights[i];
                 if (typeInt < typeSum)

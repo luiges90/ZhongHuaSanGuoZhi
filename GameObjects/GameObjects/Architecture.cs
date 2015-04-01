@@ -6936,7 +6936,7 @@
         public PersonList GetRewardPersons()
         {
             this.RewardPersonList.Clear();
-            foreach (Person person in this.Persons)
+            foreach (Person person in this.BelongedFaction.Persons)
             {
                 if ((!person.RewardFinished && (person.Loyalty < 100)) && (person != this.BelongedFaction.Leader))
                 {
@@ -8636,11 +8636,20 @@
                     return false;
                 }
 
-                if (base.Scenario.IsPlayer(this.BelongedFaction) && this.BelongedSection != null && !this.BelongedSection.AIDetail.AllowNewMilitary
-                    && this.BelongedSection.AIDetail.AutoRun) //玩家委任军团可以不新编
-                {
-                    return false;
+                if (base.Scenario.IsPlayer(this.BelongedFaction))  //玩家委任军团可以不新编
+               {
+                    
+                    
+                        if (this.BelongedSection != null && this.BelongedSection.AIDetail.AutoRun && !this.BelongedSection.AIDetail.AllowNewMilitary)
+                        {
+                            return false;
+                        }
+                    
+                    
+                    
+                   // return false;
                 }
+                    
                 
                 foreach (MilitaryKind kind in this.BelongedFaction.AvailableMilitaryKinds.MilitaryKinds.Values)
                 {
