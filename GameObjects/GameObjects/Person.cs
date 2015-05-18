@@ -7148,7 +7148,7 @@
             int officerType = 9;
             int typeInt = GameObject.Random(total);
             int typeSum = 0;
-            for (int i = 0; i < weights.Length; i++) 
+            for (int i = 0; i < weights.Length; ++i) 
             {
                 typeSum += weights[i];
                 if (typeInt < typeSum)

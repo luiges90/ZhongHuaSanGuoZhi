@@ -1317,7 +1317,7 @@
             this.Factions.SetControlling(false);
             foreach (Troop troop in this.Troops.GetList())
             {
-                if (troop.BelongedFaction == null && troop.BelongedLegion != null)
+               if (troop.BelongedFaction == null && troop.BelongedLegion != null )
                 {
                     troop.BelongedFaction = troop.BelongedLegion.BelongedFaction;
                 }
@@ -1326,6 +1326,9 @@
                     troop.AI();
                 }
             }
+
+            
+
             this.Troops.BuildQueue();
             foreach (Architecture architecture in this.Architectures.GetList())
             {
@@ -4075,6 +4078,7 @@
                         this.Troops.AddTroopWithEvent(troop);
                     }
                 }
+                
             }
             DbConnection.Close();
             DbConnection.Open();
@@ -4092,7 +4096,17 @@
                 legion.CoreTroop = this.Troops.GetGameObject((int)reader["CoreTroop"]) as Troop;
                 legion.LoadTroopsFromString(this.Troops, reader["Troops"].ToString());
                 this.Legions.AddLegionWithEvent(legion);
+                /*
+                foreach (Faction f in this.Factions)
+                {
+                    foreach (Troop t in f.Troops)
+                    {
+                        t.BelongedLegion.BelongedFaction = f;
+                        t.BelongedFaction = f;
+                    }
+                }*/
             }
+            
             DbConnection.Close();
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Sections", DbConnection).ExecuteReader();

@@ -2483,7 +2483,7 @@
             this.InformationDayEvent();
             if (!base.Scenario.IsPlayer(this))
             {
-               // this.AISelectPrince();
+                this.AISelectPrince();
                 this.AIchaotingshijian();
                 this.AIBecomeEmperor();
             }
@@ -5299,7 +5299,7 @@
                     this.prince = base.Scenario.Persons.GetGameObject(this.PrinceID) as Person;
                 }
                 //检查储君有效性
-                if (this.prince != null && (this.prince == this.Leader && !this.prince.Alive || !this.prince.Available || this.prince.BelongedFaction != this || this.prince.BelongedFaction == null))
+                if (this.prince != null && (this.prince == this.Leader || !this.prince.Alive || !this.prince.Available || this.prince.BelongedFaction != this || this.prince.BelongedFaction == null))
                 {
                     this.Prince = null;
                 }

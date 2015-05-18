@@ -1131,8 +1131,10 @@
                     }
                 }
             }
+            
+           
 
-            if (this.BelongedLegion != null && this.BelongedFaction == null)
+           if (this.BelongedLegion != null && this.BelongedFaction == null)
             {
                 this.BelongedFaction = this.BelongedLegion.BelongedFaction;
             }
