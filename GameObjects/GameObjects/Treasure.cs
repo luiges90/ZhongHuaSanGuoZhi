@@ -6,22 +6,27 @@
 
     public class Treasure : GameObject
     {
-        private int appearYear;
-        private bool available;
+        #region 字段
+        /// <summary>所属武将</summary>
         public Person BelongedPerson;
-        private string description;
-        public Architecture HidePlace;
-        public InfluenceTable Influences = new InfluenceTable();
-        private int pic;
-        private Texture2D picture;
-        private int worth;
 
+        /// <summary>隐藏地点</summary>
+        public Architecture HidePlace;
+
+        /// <summary>影响</summary>
+        public InfluenceTable Influences = new InfluenceTable();
+        #endregion
+
+        #region 属性
+
+        /// <value>??意义及用途不明??</value>
         public int TreasureGroup
         {
             get;
             set;
         }
 
+        /// <value>出现年代</value>
         public int AppearYear
         {
             get
@@ -33,7 +38,9 @@
                 this.appearYear = value;
             }
         }
+        private int appearYear;
 
+        /// <value>是否可用, 该属性的作用相当于是否被武将持有</value>
         public bool Available
         {
             get
@@ -45,7 +52,9 @@
                 this.available = value;
             }
         }
+        private bool available;
 
+        /// <value>所属武将的姓名, 无人持有时为"----"</value>
         public string BelongedPersonString
         {
             get
@@ -54,6 +63,7 @@
             }
         }
 
+        /// <value>对宝物本身的描述</value>
         public string Description
         {
             get
@@ -65,7 +75,9 @@
                 this.description = value;
             }
         }
+        private string description;
 
+        /// <value>隐藏地点的字符串</value>
         public string HidePlaceString
         {
             get
@@ -74,6 +86,7 @@
             }
         }
 
+        /// <value>描述效果的字符串</value>
         public string InfluenceString
         {
             get
@@ -87,6 +100,7 @@
             }
         }
 
+        /// <value>宝物图片的编号</value>
         public int Pic
         {
             get
@@ -98,16 +112,9 @@
                 this.pic = value;
             }
         }
+        private int pic;
 
-        public void disposeTexture()
-        {
-            if (this.picture != null)
-            {
-                this.picture.Dispose();
-                this.picture = null;
-            }
-        }
-
+        /// <value>宝物图片的二维纹理</value>
         public Texture2D Picture
         {
             get
@@ -126,7 +133,9 @@
                 return this.picture;
             }
         }
+        private Texture2D picture;
 
+        /// <value>价值</value>
         public int Worth
         {
             get
@@ -138,6 +147,21 @@
                 this.worth = value;
             }
         }
+        private int worth;
+
+        #endregion
+
+        #region 方法
+        /// <summary>释放宝物图片的二维纹理</summary>
+        public void disposeTexture()
+        {
+            if (this.picture != null)
+            {
+                this.picture.Dispose();
+                this.picture = null;
+            }
+        }
+        #endregion
     }
 }
 

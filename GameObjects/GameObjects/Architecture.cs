@@ -19,7 +19,7 @@
     using System.Text;
     //using GameFreeText;
 
-    public class Architecture : GameObject
+    public partial class Architecture : GameObject
     {
         class SimulatingFightingForceComparer : IComparer<Troop>
         {
@@ -5769,45 +5769,6 @@
             return list;
         }
 
-        public TreasureList GetAllTreasureInArchitecture()
-        {
-            TreasureList list = new TreasureList();
-            foreach (Person person in this.GetAllPersons())
-            {
-                person.AddTreasureToList(list);
-            }
-            return list;
-        }
-
-        public TreasureList GetAllTreasureInArchitectureExceptLeader()
-        {
-            TreasureList list = new TreasureList();
-            if (this.BelongedFaction != null)
-            {
-                foreach (Person person in this.Persons)
-                {
-                    if (person != this.BelongedFaction.Leader)
-                    {
-                        person.AddTreasureToList(list);
-                    }
-                }
-            }
-            return list;
-        }
-
-        public TreasureList GetAllTreasureInFaction()
-        {
-            TreasureList list = new TreasureList();
-            if (this.BelongedFaction != null)
-            {
-                foreach (Person person in this.BelongedFaction.Persons)
-                {
-                    person.AddTreasureToList(list);
-                }
-            }
-            return list;
-        }
-
         public GameArea GetAvailableContactArea(bool Square)
         {
             GameArea area = new GameArea();
@@ -7059,16 +7020,6 @@
             return this.TransferArchitectureList;
         }
 
-        public TreasureList GetTreasureListOfLeader()
-        {
-            TreasureList list = new TreasureList();
-            if (this.BelongedFaction != null)
-            {
-                this.BelongedFaction.Leader.AddTreasureToList(list);
-            }
-            return list;
-        }
-
         public GameArea GetTroopEnterableArea(Troop troop)
         {
             GameArea area = new GameArea();
@@ -7562,40 +7513,6 @@
                 {
                     return true;
                 }
-            }
-            return false;
-        }
-
-        public bool HasTreasure()
-        {
-            foreach (Person person in this.GetAllPersons())
-            {
-                if (person.TreasureCount > 0)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public bool HasTreasureToAward()
-        {
-            if ((this.BelongedFaction != null) && (this.BelongedFaction.Leader != null))
-            {
-                if (this.BelongedFaction.PersonCount <= 1)
-                {
-                    return false;
-                }
-                return this.BelongedFaction.Leader.TreasureCount > 0;
-            }
-            return false;
-        }
-
-        public bool HasTreasureToConfiscate()
-        {
-            if ((this.BelongedFaction != null) && (this.BelongedFaction.Leader != null))
-            {
-                return this.BelongedFaction.AllTreasuresExceptLeader.Count > 0;
             }
             return false;
         }

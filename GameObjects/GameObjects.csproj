@@ -1274,6 +1274,7 @@
     <Compile Include="GameObjects\SortedBoundedSet.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\ArchitectureTreasure.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind450.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind808.cs" />
     <Compile Include="GameObjects\IScenarioAwarePlugin.cs" />
