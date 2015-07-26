@@ -1119,6 +1119,7 @@
             this.AICaptives();
             this.AITechniques();
             this.AIMakeMarriage();
+            this.AISelectPrince();
             this.AIHouGong();
             this.AITransfer();
             this.AIArchitectures();
@@ -2475,7 +2476,7 @@
             this.InformationDayEvent();
             if (!base.Scenario.IsPlayer(this))
             {
-                this.AISelectPrince();
+                //this.AISelectPrince();
                 this.AIchaotingshijian();
                 this.AIBecomeEmperor();
             }
