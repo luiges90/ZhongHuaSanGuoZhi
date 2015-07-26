@@ -140,8 +140,7 @@
         public TroopList Troops = new TroopList();
         private int upgradingDaysLeft;
         private int upgradingTechnique = -1;
-        private Dictionary<MilitaryKind, int> militaryKindCounts = new Dictionary<MilitaryKind, int>();
-
+       
         public List<float> techniqueReputationRateDecrease = new List<float>();
         public List<float> techniquePointCostRateDecrease = new List<float>();
         public List<float> techniqueTimeRateDecrease = new List<float>();
@@ -518,14 +517,7 @@
         public void AddMilitary(Military military)
         {
             this.Militaries.AddMilitary(military);
-            if (this.militaryKindCounts.ContainsKey(military.RealMilitaryKind))
-            {
-                this.militaryKindCounts[military.Kind]++;
-            }
-            else
-            {
-                this.militaryKindCounts[military.Kind] = 1;
-            }
+            
             military.BelongedFaction = this;
         }
 
@@ -3019,9 +3011,17 @@
 
         public bool IsMilitaryKindOverLimit(int id)
         {
+            int count = 0;
+            foreach (Military military in this.Militaries)
+            {
+                if (military.RealKindID == id)
+                {
+                    count++;
+                }
+            }
             MilitaryKind mk = base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(id);
-            if (!this.militaryKindCounts.ContainsKey(mk)) return false;
-            return this.militaryKindCounts[mk] >= mk.RecruitLimit;
+            return count >= mk.RecruitLimit;
+            
         }
 
         public bool HasPerson(Person person)
@@ -3563,29 +3563,11 @@
         public void RemoveMilitary(Military military)
         {
             this.Militaries.Remove(military);
-            if (this.militaryKindCounts.ContainsKey(military.Kind))
-            {
-                this.militaryKindCounts[military.Kind]--;
-            }
             
             military.BelongedFaction = null;
         }
 
-        public void MorphMilitary(MilitaryKind before, MilitaryKind after)
-        {
-            if (this.militaryKindCounts.ContainsKey(before))
-            {
-                this.militaryKindCounts[before]--;
-            }
-            if (this.militaryKindCounts.ContainsKey(after))
-            {
-                this.militaryKindCounts[after]++;
-            }
-            else
-            {
-                this.militaryKindCounts[after] = 1;
-            }
-        }
+        
 
         public void RemovePositionInformation(Point position, InformationLevel level)
         {

@@ -1134,11 +1134,6 @@
             
            
 
-           if (this.BelongedLegion != null && this.BelongedFaction == null)
-            {
-                this.BelongedFaction = this.BelongedLegion.BelongedFaction;
-            }
-
             Point? nullable = null;
             Point? nullable2 = null;
             base.Scenario.GetClosestPointsBetweenTwoAreas(dayArea, this.WillArchitecture.ArchitectureArea, out nullable, out nullable2);
@@ -2542,6 +2537,7 @@
                 this.BelongedFaction.Troops.Remove(this);
                 this.BelongedFaction.RemoveTroopKnownAreaData(this);
                 this.BelongedFaction.RemoveMilitary(this.Army);
+                this.BelongedFaction = null;
                 faction.AddTroop(this);
                 faction.AddTroopKnownAreaData(this);
                 foreach (Captive captive in this.Captives.GetList())
@@ -7993,7 +7989,6 @@
             MilitaryKind target = this.Army.Kind.MorphTo;
             if (target != null && this.BelongedFaction != null)
             {
-                this.BelongedFaction.MorphMilitary(this.Army.Kind, target);
                 preResetArmyKindData();
                 this.Operated = true;
                 this.Army.Kind = target;
