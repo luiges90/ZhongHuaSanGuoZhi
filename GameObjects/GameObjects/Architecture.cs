@@ -2439,12 +2439,6 @@
                     }
                 }
             }
-                        }
-                        }
-                        }
-                    }
-                }
-            }
         }
 
         private Troop BuildTroopForTransfer(Military military, Architecture destination)
