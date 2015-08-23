@@ -8657,7 +8657,7 @@
                 {
                     return false;
                 }
-
+                /*
                 if (base.Scenario.IsPlayer(this.BelongedFaction))  //玩家委任军团可以不新编
                {
                     
@@ -8670,7 +8670,7 @@
                     
                     
                    // return false;
-                }
+                }*/
                     
                 
                 foreach (MilitaryKind kind in this.BelongedFaction.AvailableMilitaryKinds.MilitaryKinds.Values)
