@@ -1128,7 +1128,7 @@
 
             this.militaryKindEvent();
             this.titleDayEvent();
-
+            this.guanzhiDayEvent();
 
             //this.GameProgressCaution.Text = "运行人物";
             foreach (Person person in this.AvailablePersons.GetList())
@@ -1176,6 +1176,43 @@
                                 p.BelongedFaction.BaseMilitaryKinds.AddMilitaryKind(m);
                                 this.GameScreen.xianshishijiantupian(p, m.Name, TextMessageKind.ObtainMilitaryKind, "ObtainMilitaryKind", "", "", false);
                             }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void guanzhiDayEvent()
+        {
+            foreach (Guanzhi g in this.GameCommonData.AllGuanzhis.Guanzhis.Values)
+            {
+                if (GameObject.Random(10) == 0)
+                {
+                    PersonList candidates = new PersonList();
+                    if (g.Persons.Count > 0)
+                    {
+                        foreach (Person p in g.Persons)
+                        {
+                            if (p.Available && p.Alive)
+                            {
+                                candidates.Add(p);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        candidates = this.AvailablePersons;
+                    }
+                    foreach (Person p in candidates)
+                    {
+                        if (!p.HasHigherLevelGuazhi(g) && g.CanAward(p) && g.AutoAward)
+                        {
+                            p.AwardGuanzhi(g);
+                            this.GameScreen.AutoAwardGuanzhi(p, courier, g);
+                        }
+                        else if (p.HasGuanzhi() && g.WillLose(p))
+                        {
+                            p.LoseGuanzhi();
                         }
                     }
                 }
@@ -2666,7 +2703,24 @@
             OleDbConnection commonConn = new OleDbConnection(commonConnString);
 
             UsingOwnCommonData = true;
-
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadGuanzhi(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadGuanzhi(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadGuanzhiKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadGuanzhiKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
             try
             {
                 errorMsg.AddRange(this.GameCommonData.LoadPersonGeneratorSetting(DbConnection, this));
@@ -3304,7 +3358,25 @@
                 }
 
                 person.Skills.LoadFromString(this.GameCommonData.AllSkills, reader["Skills"].ToString());
+                try
+                {
+                    errors.AddRange(person.LoadGuanzhiFromString(reader["Guanzhi"].ToString(), this.GameCommonData.AllGuanzhis));
+                }
+                catch
+                {
 
+
+                    /* Guanzhi g = this.GameCommonData .AllGuanzhis.GetGuanzhi((short)reader ["GeneralGuanzhi"]);
+                     if (g != null)
+                     {
+                         person.RealGuanzhis.Add(g);
+                     }
+                     g = this.GameCommonData.AllGuanzhis.GetGuanzhi((short)reader["CombatGuanzhi"]);
+                     if (g != null)
+                     {
+                         person.RealGuanzhis.Add(g);
+                     }*/
+                }
                 try
                 {
                     errors.AddRange(person.LoadTitleFromString(reader["Title"].ToString(), this.GameCommonData.AllTitles));
@@ -5613,6 +5685,7 @@
 
                     row["Skills"] = person.Skills.SaveToString();
                     row["Title"] = person.SaveTitleToString();
+                    row["Guanzhi"] = person.SaveGuanzhiToString(); 
                     row["StudyingTitle"] = (person.StudyingTitle != null) ? person.StudyingTitle.ID : -1;
                     row["Stunts"] = person.Stunts.SaveToString();
                     row["StudyingStunt"] = (person.StudyingStunt != null) ? person.StudyingStunt.ID : -1;
