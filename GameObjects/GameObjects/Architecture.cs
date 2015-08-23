@@ -2419,10 +2419,12 @@
                     this.LevelUpMilitary(military, upgradable[GameObject.Random(upgradable.Count)]);
                 }
             }
-            
-            foreach (Military i in this.GetMergeMilitaryList()) {
+            /*
+            foreach (Military i in this.GetMergeMilitaryList()) 
+            {
                 if (i.Leader == null) continue;
-                foreach (Military j in this.GetBeMergedMilitaryList()) {
+                foreach (Military j in this.GetBeMergedMilitaryList(j))
+                {
                     if (i.Quantity + j.Quantity <= i.Kind.MaxScale) {
                         int increment = j.Quantity + i.Quantity - i.Kind.MaxScale;
                         if (increment > 0) {
@@ -2438,7 +2440,7 @@
                         this.Scenario.Militaries.Remove(j);
                     }
                 }
-            }
+            }*/
         }
 
         private Troop BuildTroopForTransfer(Military military, Architecture destination)
