@@ -46,6 +46,7 @@
         Military_Campaign,
         Military_Troopership,
         Military_Training,
+        Military_Transfer, //运兵
         Military_New,
         Military_Recruitment,
         Military_Merge,

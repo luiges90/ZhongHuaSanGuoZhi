@@ -402,6 +402,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.MilitaryKind, FrameFunction.GetNewMilitaryKind, false, true, true, false, this.CurrentArchitecture.GetNewMilitaryKindList(), null, "选择兵种", "");
                     break;
 
+                case ContextMenuResult.Military_Transfer://运输编队
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Military, FrameFunction.MilitaryTransfer, false, true, true, true, this.CurrentArchitecture.movableMilitaries, null, "选择编队", "");
+                    break;
+
                 case ContextMenuResult.Military_Recruitment:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Military, FrameFunction.GetRecruitmentMilitary, false, true, true, false, this.CurrentArchitecture.GetRecruitmentMilitaryList(), null, "选择编队", "");
                     break;

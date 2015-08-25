@@ -25,6 +25,7 @@
         RoutewayPointShortestNoWater,
         Trooprucheng,
         WujiangDiaodong,
+        MilitaryTransfer,
         MoveFeizi
     }
 }

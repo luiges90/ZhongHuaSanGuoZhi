@@ -6068,6 +6068,60 @@
             return area;
         }
 
+        public bool TransferMilitaryAvail()  //运输编队
+        {
+            if (this.BelongedFaction == null) return false;
+            if (this.movableMilitaries.Count <= 0) return false;
+
+            foreach (Architecture a in this.BelongedFaction.Architectures)
+            {
+                if (a != this)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public MilitaryList movableMilitaries
+        {
+            get
+            {
+                MilitaryList movableMilitaries = new MilitaryList();
+                foreach (Military i in this.Militaries)
+                {
+                    if (!i.Kind.IsTransport && i.Quantity > 0 && i.Kind.Movable)
+                    {
+                        movableMilitaries.Add(i);
+                    }
+                }
+                return movableMilitaries;
+            }
+        }
+
+        public GameArea GetMilitaryTransferArchitectureArea()
+        {
+            GameArea area = new GameArea();
+
+            foreach (Architecture architecture in this.BelongedFaction.Architectures)
+            {
+
+                if (architecture == this)
+                {
+                    continue;
+                }
+
+
+                foreach (Point point in architecture.ArchitectureArea.Area)
+                {
+                    area.AddPoint(point);
+                }
+
+
+            }
+            return area;
+        }
+
         public GameArea GetPersonTransferArchitectureArea()
         {
 

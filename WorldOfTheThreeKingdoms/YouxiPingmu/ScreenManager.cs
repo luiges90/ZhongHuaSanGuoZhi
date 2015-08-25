@@ -28,6 +28,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         public GameObject CurrentGameObject;
         public GameObjectList CurrentGameObjects;
         public Military CurrentMilitary;
+        public GameObjectList CurrentMilitaries;
         public int CurrentNumber;
         public int Currentzijin;
         public Person CurrentPerson;
@@ -519,6 +520,39 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }            
         }
 
+        internal void FrameFunction_Architecture_AfterGetTransferMilitaryArchitectureBySelecting(Architecture architecture) //运输编队
+        {
+            if (architecture != null && this.CurrentMilitaries.Count > 0)
+            {
+                foreach (Military military in this.CurrentMilitaries)
+                {
+                    //military.ArrivingDays = this.screen.Scenario.GetTransferFundDays(this.CurrentArchitecture, architecture);
+                    this.CurrentArchitecture.RemoveMilitary(military);
+                    architecture.AddMilitary(military);
+
+                }
+                this.mainGameScreen.PlayNormalSound("GameSound/Tactics/Outside.wav");
+            }
+        }
+
+        private void FrameFunction_Architecture_MilitaryTransfer() //运输编队
+        {
+            if (this.CurrentArchitecture != null)
+            {
+                this.CurrentGameObjects = this.CurrentArchitecture.movableMilitaries.GetSelectedList();
+                if (this.CurrentGameObjects != null)
+                {
+
+                    //this.CurrentArchitecture.RemoveMilitary(m);
+                    this.CurrentMilitaries = this.CurrentGameObjects.GetList();
+                    this.mainGameScreen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.Selecting, SelectingUndoneWorkKind.MilitaryTransfer));
+
+
+
+                }
+            }
+        }
+
         private void FrameFunction_Architecture_AfterGetRecruitmentMilitary() // 补充
         {
             GameObjectList selectedList = this.CurrentArchitecture.RecruitmentMilitaryList.GetSelectedList();
@@ -875,6 +909,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case FrameFunction.PersonTransfer:
                     this.FrameFunction_Architecture_PersonTransfer();
+                    break;
+
+                case FrameFunction.MilitaryTransfer://运输编队
+                    this.FrameFunction_Architecture_MilitaryTransfer();
                     break;
 
                 case FrameFunction.PersonConvene:

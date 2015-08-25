@@ -700,6 +700,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     break;
 
+                case SelectingUndoneWorkKind.MilitaryTransfer: //运输编队
+                    if (this.CurrentArchitecture != null)
+                    {
+                        this.selectingLayer.AreaFrameKind = SelectingUndoneWorkKind.MilitaryTransfer;
+                        this.selectingLayer.Area = this.CurrentArchitecture.GetMilitaryTransferArchitectureArea();
+                        this.selectingLayer.ShowComment = true;
+                        this.selectingLayer.SingleWay = true;
+                        this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
+                    }
+                    break;
+
                 case SelectingUndoneWorkKind.InformationPosition:
                     if (this.CurrentArchitecture != null)
                     {
@@ -927,6 +938,24 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         {
 
                             this.screenManager.FrameFunction_Architecture_AfterGetOneArchitectureBySelecting(architectureByPosition);
+                        }
+                    }
+                    return;
+
+                case SelectingUndoneWorkKind.MilitaryTransfer: //运输编队
+                    if (!this.selectingLayer.Canceled && (this.CurrentMilitaries != null))
+                    {
+                        Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+                        if (architectureByPosition != null)
+                        {
+
+                            this.screenManager.FrameFunction_Architecture_AfterGetTransferMilitaryArchitectureBySelecting(architectureByPosition);
+
+                            /*foreach (Military military in this.CurrentMilitaries)
+                            {
+                                architectureByPosition.AddMilitary(military);
+                                this.CurrentArchitecture.RemoveMilitary(military);
+                            }*/
                         }
                     }
                     return;
@@ -3194,6 +3223,18 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             get
             {
                 return base.GraphicsDevice.PresentationParameters.IsFullScreen;
+            }
+        }
+
+        public GameObjectList CurrentMilitaries
+        {
+            get
+            {
+                return this.screenManager.CurrentMilitaries;
+            }
+            set
+            {
+                this.screenManager.CurrentMilitaries = value;
             }
         }
 

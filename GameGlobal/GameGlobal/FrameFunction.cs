@@ -80,6 +80,8 @@
         ReleaseSelfPerson,
         PersonManualHire,
         SelectPrince,
+        MilitaryTransfer, //运输编队
+        GetTransferMilitary,//读取运输编队
         GetInformationToStop,
         SelectLandLink,
         SelectWaterLink,
