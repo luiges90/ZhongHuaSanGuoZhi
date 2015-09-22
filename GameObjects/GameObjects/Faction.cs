@@ -658,6 +658,8 @@
         private void AIMakeMarriage()
         {
             if (base.Scenario.IsPlayer(this)) return;
+            
+            if (GlobalVariables.hougongGetChildrenRate > 0) return;
 
             foreach (Person p in this.Persons)
             {
