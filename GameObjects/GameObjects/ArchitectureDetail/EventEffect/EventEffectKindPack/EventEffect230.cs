@@ -9,10 +9,10 @@ namespace GameObjects.ArchitectureDetail.EventEffect
 
         public override void ApplyEffectKind(Person person, Event e)
         {
-            if (person.BelongedFaction != null) 
-			{
-				person.AdjustRelation(person.BelongedFaction.Leader, 0, increment);
-			}
+            if (person.BelongedFactionWithPrincess != null) 
+            {
+                person.AdjustRelation(person.BelongedFactionWithPrincess.Leader, 0, increment);
+            }
         }
 
         public override void InitializeParameter(string parameter)
