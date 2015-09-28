@@ -11,7 +11,7 @@ namespace GameObjects.Conditions.ConditionKindPack
 
         public override bool CheckConditionKind(Person person)
         {
-            return person.BelongedFaction != null && person.GetRelation(person.BelongedFaction.Leader) >= this.number;
+            return person.BelongedFactionWithPrincess != null && person.GetRelation(person.BelongedFactionWithPrincess.Leader) >= this.number;
         }
 
         public override void InitializeParameter(string parameter)
