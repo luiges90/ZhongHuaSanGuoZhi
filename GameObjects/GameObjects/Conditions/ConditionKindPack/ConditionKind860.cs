@@ -1,16 +1,17 @@
-﻿namespace GameObjects.Conditions.ConditionKindPack
+namespace GameObjects.Conditions.ConditionKindPack
 {
     using GameObjects;
     using GameObjects.Conditions;
     using System;
+    using System.Collections.Generic;
 
-    internal class ConditionKind940 : ConditionKind
+    internal class ConditionKind860 : ConditionKind
     {
         private int number = 0;
 
         public override bool CheckConditionKind(Person person)
         {
-            return person.BelongedFactionWithPrincess != null && Person.GetIdealOffset(person, person.BelongedFactionWithPrincess.Leader) > number;
+            return person.BelongedFactionWithPrincess != null && person.BelongedFactionWithPrincess.Leader.GetRelation(person) >= this.number;
         }
 
         public override void InitializeParameter(string parameter)
