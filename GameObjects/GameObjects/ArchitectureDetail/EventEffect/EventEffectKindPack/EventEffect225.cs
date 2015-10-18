@@ -7,9 +7,9 @@
     {
         public override void ApplyEffectKind(Person person, Event e)
         {
-            if (person.BelongedFaction != null)
+            if (person.BelongedFactionWithPrincess != null)
             {
-                person.BelongedFaction.Leader.AddHated(person);
+                person.BelongedFactionWithPrincess.Leader.AddHated(person);
             }
         }
 
