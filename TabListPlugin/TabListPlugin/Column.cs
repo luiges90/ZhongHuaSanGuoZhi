@@ -135,7 +135,6 @@
             {
                 return ((Person)this.tabList.gameObjectList[index]).InfluenceKindValueByTreasure(this.ItemID).ToString();
             }
-
             object obj = StaticMethods.GetPropertyValue(this.tabList.gameObjectList[index], this.Name);
             String s;
             if (obj is bool)

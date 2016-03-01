@@ -18,6 +18,7 @@
         internal HashSet<ApplyingPerson> appliedPerson = new HashSet<ApplyingPerson>();
         internal HashSet<ApplyingFaction> appliedFaction = new HashSet<ApplyingFaction>();
         internal HashSet<ApplyingTroop> appliedTroop = new HashSet<ApplyingTroop>();
+        
 
         public void ApplyInfluence(Architecture architecture, Applier applier, int applierID)
         {
@@ -34,6 +35,8 @@
             {
             }
         }
+
+         
 
         public void ApplyInfluence(Faction faction, Applier applier, int applierID)
         {
@@ -112,6 +115,7 @@
             return this.Kind.IsVaild(person);
         }
 
+
         public bool IsVaild(Troop troop)
         {
             this.Kind.InitializeParameter(this.Parameter);
@@ -134,6 +138,8 @@
             {
             }
         }
+
+        
 
         public void PurifyInfluence(Faction faction, Applier applier, int applierID)
         {
@@ -250,6 +256,14 @@
                 return this.Kind.TroopLeaderValid;
             }
         }
+        /*
+        public bool ConditionValid
+        {
+            get
+            {
+                return this.Kind.ConditionValid;
+            }
+        }*/
 
         public InfluenceType Type
         {

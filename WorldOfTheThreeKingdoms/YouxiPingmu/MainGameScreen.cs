@@ -11,7 +11,7 @@ using GameObjects;
 
 using GameObjects.FactionDetail;
 using GameObjects.PersonDetail;
-using GameObjects.PersonDetail.PersonMessages;
+//using GameObjects.PersonDetail.PersonMessages;
 using GameObjects.SectionDetail;
 using GameObjects.TroopDetail;
 using Microsoft.Xna.Framework;
@@ -125,6 +125,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.Player.PlayStateChange+=(new _WMPOCXEvents_PlayStateChangeEventHandler(this.Player_PlayStateChange));
         }
 
+        
+
         private string SaveFileExtension
         {
             get
@@ -175,6 +177,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void Draw(GameTime gameTime)
         {
+            
             base.Draw(gameTime);
             base.spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
             this.Drawing(gameTime);
@@ -250,6 +253,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.GameFramePlugin.Draw(base.spriteBatch);
             }
         }
+        
 
         private void Drawing(GameTime gameTime)            //绘制游戏屏幕
         {
@@ -257,7 +261,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.architectureLayer.Draw(base.spriteBatch, base.viewportSize, gameTime);
             this.routewayLayer.Draw(base.spriteBatch, base.viewportSize);
             this.tileAnimationLayer.Draw(base.spriteBatch, base.viewportSize);
+            
             this.troopLayer.Draw(base.spriteBatch, base.viewportSize, gameTime);
+            
             this.mapVeilLayer.Draw(base.spriteBatch, base.viewportSize);
 
 
@@ -700,6 +706,30 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     break;
 
+                case SelectingUndoneWorkKind.MoveCaptive: //俘虏可移动
+                    if (this.CurrentArchitecture != null)
+                    {
+                        this.selectingLayer.AreaFrameKind = SelectingUndoneWorkKind.MoveCaptive;
+                        this.selectingLayer.Area = this.CurrentArchitecture.GetCaptiveTransferArchitectureArea();
+                        this.selectingLayer.ShowComment = true;
+                        this.selectingLayer.SingleWay = true;
+                        this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
+                    }
+                    break;
+                    /*
+                case SelectingUndoneWorkKind.MilitaryTransfer: //运输编队
+                    if (this.CurrentArchitecture != null)
+                    {
+                        this.selectingLayer.AreaFrameKind = SelectingUndoneWorkKind.MilitaryTransfer;
+                        this.selectingLayer.Area = this.CurrentArchitecture.GetMilitaryTransferArchitectureArea();
+                        this.selectingLayer.ShowComment = true;
+                        this.selectingLayer.SingleWay = true;
+                        this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
+                    }
+                    break;
+                    */
+                
+
                 case SelectingUndoneWorkKind.InformationPosition:
                     if (this.CurrentArchitecture != null)
                     {
@@ -711,7 +741,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
                     }
                     break;
-
+                    /*
                 case SelectingUndoneWorkKind.SpyPosition:
                     if (this.CurrentArchitecture != null)
                     {
@@ -722,6 +752,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.selectingLayer.FromArea = this.CurrentArchitecture.ArchitectureArea;
                     }
                     break;
+                    */
 
                 case SelectingUndoneWorkKind.DestroyPosition:
                     if (this.CurrentArchitecture != null)
@@ -931,6 +962,38 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     return;
 
+                case SelectingUndoneWorkKind.MoveCaptive: //移动俘虏
+                    if (!this.selectingLayer.Canceled && (this.CurrentPersons != null))
+                    {
+                        Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+                        if (architectureByPosition != null)
+                        {
+
+                            this.screenManager.FrameFunction_Architecture_AfterGetMoveCaptiveArchitectureBySelecting(architectureByPosition);
+                        }
+                    }
+                    return;
+                    /*
+                case SelectingUndoneWorkKind.MilitaryTransfer: //运输编队
+                    if (!this.selectingLayer.Canceled && (this.CurrentMilitaries != null))
+                    {
+                        Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.selectingLayer.SelectedPoint);
+                        if (architectureByPosition != null)
+                        {
+
+                            this.screenManager.FrameFunction_Architecture_AfterGetTransferMilitaryArchitectureBySelecting(architectureByPosition);
+
+                            /*foreach (Military military in this.CurrentMilitaries)
+                            {
+                                architectureByPosition.AddMilitary(military);
+                                this.CurrentArchitecture.RemoveMilitary(military);
+                            }
+                        }
+                    }
+                    return;
+                     */
+
+
                 case SelectingUndoneWorkKind.InformationPosition:
                     if (!this.selectingLayer.Canceled)
                     {
@@ -938,7 +1001,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         base.PlayNormalSound("GameSound/Tactics/Outside.wav");
                     }
                     return;
-
+                    /*
                 case SelectingUndoneWorkKind.SpyPosition:
                     if (!this.selectingLayer.Canceled)
                     {
@@ -949,7 +1012,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         base.PlayNormalSound("GameSound/Tactics/Outside.wav");
                     }
                     return;
-
+                    */
                 case SelectingUndoneWorkKind.DestroyPosition:
                     if (!this.selectingLayer.Canceled)
                     {
@@ -2105,17 +2168,34 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
             }
         }
+        /*
+        public override void AutoAwardGuanzhi(Person p, Person courier, Guanzhi guanzhi)
+        {
+            if (base.Scenario.CurrentPlayer == null || base.Scenario.CurrentPlayer.IsPositionKnown(p.Position) || GlobalVariables.SkyEye)
+            {
+                if (guanzhi.AutoLearnTextByCourier.Length > 0 && guanzhi.Level >= 6 )
+                {
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(courier, null, guanzhi.AutoLearnTextByCourier.Replace("%0", p.Name));
+                    this.Plugins.tupianwenziPlugin.IsShowing = true;
+                }
+                if (guanzhi.AutoLearnText.Length > 0 && guanzhi.Level >= 6 )
+                {
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, null, guanzhi.AutoLearnText.Replace("%0", p.Name));
+                    this.Plugins.tupianwenziPlugin.IsShowing = true;
+                }
+            }
+        }*/
 
         public override void AutoLearnTitle(Person p, Person courier, Title title)
         {
             if (base.Scenario.CurrentPlayer == null || base.Scenario.CurrentPlayer.IsPositionKnown(p.Position) || GlobalVariables.SkyEye)
             {
-                if (title.AutoLearnTextByCourier.Length > 0)
+                if (title.AutoLearnTextByCourier.Length > 0 && title.Level >= 6)
                 {
                     this.Plugins.tupianwenziPlugin.SetGameObjectBranch(courier, null, title.AutoLearnTextByCourier.Replace("%0", p.Name));
                     this.Plugins.tupianwenziPlugin.IsShowing = true;
                 }
-                if (title.AutoLearnText.Length > 0)
+                if (title.AutoLearnText.Length > 0 && title.Level >= 6)
                 {
                     this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, null, title.AutoLearnText.Replace("%0", p.Name));
                     this.Plugins.tupianwenziPlugin.IsShowing = true;
@@ -3194,6 +3274,18 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             get
             {
                 return base.GraphicsDevice.PresentationParameters.IsFullScreen;
+            }
+        }
+
+        public GameObjectList CurrentMilitaries
+        {
+            get
+            {
+                return this.screenManager.CurrentMilitaries;
+            }
+            set
+            {
+                this.screenManager.CurrentMilitaries = value;
             }
         }
 

@@ -31,7 +31,7 @@
             this.Add(new YearTableEntry(id, date, faction, content, global) as GameObject);
         }
 
-        private void addPersonInGameBiography(Person p, GameDate date, string content)
+        public void addPersonInGameBiography(Person p, GameDate date, string content)
         {
             p.PersonBiography.InGame = date.Year + "年" + date.Month + "月：" + content + '\n' + p.PersonBiography.InGame;
         }
@@ -356,6 +356,27 @@
                 String.Format(yearTableStrings["selectPrince_q"], p.Name, leader.Name));
         }
 
+        public void addAppointMayorEntry(GameDate date, Person p, Person leader)//太守
+        {
+            this.addTableEntry(date, composeFactionList(p.BelongedFaction),
+                String.Format(yearTableStrings["appointMayor"], p.Name, p.BelongedArchitecture.Name, leader.Name), false);
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["appointMayor_p"], p.Name, p.BelongedArchitecture.Name, leader.Name));
+            //this.addPersonInGameBiography(leader, date,
+            // String.Format(yearTableStrings["appointMayor_q"], p.Name, p.BelongedArchitecture.Name, leader.Name));
+        }
+
+        public void addZhaoXianEntry(GameDate date, Person p, Person leader)
+        {
+            this.addTableEntry(date, composeFactionList(p.BelongedFaction),
+                String.Format(yearTableStrings["zhaoXian"], p.Name, p.BelongedArchitecture.Name, leader.Name), false);
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["zhaoXian_p"], p.Name, p.BelongedArchitecture.Name, leader.Name));
+            // this.addPersonInGameBiography(leader, date,
+            // String.Format(yearTableStrings["dengYong_q"], p.Name, p.BelongedArchitecture.Name, leader.Name));
+        }
+
+
         public void addOutOfPrincessEntry(GameDate date, Person p, Faction capturer)
         {
             this.addPersonInGameBiography(p, date,
@@ -413,6 +434,12 @@
                 String.Format(yearTableStrings["obtainTitle_p"], title.Name));
         }
 
+        public void addAwardTitleEntry(GameDate date, Person p, PersonDetail.Title title)
+        {
+            this.addPersonInGameBiography(p, date,
+                String.Format(yearTableStrings["awardTitle_p"], title.Name));
+        }
+
         public void addChallengeEntry(GameDate date, Person winner, Person loser, String loserState)
         {
             this.addPersonInGameBiography(winner, date, String.Format(yearTableStrings["challengeWin_p"], winner.Name, loser.Name, loserState));
@@ -436,10 +463,11 @@
             this.addPersonInGameBiography(p, date, String.Format(yearTableStrings["challengeDrawBothKilled_p"], p.Name, q.Name));
             this.addPersonInGameBiography(q, date, String.Format(yearTableStrings["challengeDrawBothKilled_q"], p.Name, q.Name));
         }
-
+        /*
         public void addBattleEntry(bool addYearTable, GameDate date, OngoingBattle ob, Person p, ArchitectureList architectures,
             Dictionary<Faction, int> factionDamages)
         {
+            
             if (factionDamages.Count < 1) return;
 
             if (p.BelongedFaction == null) return;
@@ -464,7 +492,6 @@
             }
 
             int dayDiff = (date.Year - ob.StartYear) * 360 + (date.Month - ob.StartMonth) * 30 + (date.Day - ob.StartDay) - 5;
-            if (dayDiff <= 0) return;
 
             Dictionary<Faction, int> totalDamages = new Dictionary<Faction, int>();
             foreach (Faction f in factionDamages.Keys)
@@ -681,5 +708,6 @@
         }
 
     }
-
+    */
+    }
 }

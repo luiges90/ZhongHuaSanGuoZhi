@@ -28,6 +28,12 @@
         public Military ShellingMilitary;
         private int tiredness;
 
+        private int arrivingDays;
+        private Architecture startingArchitecture;
+        private Architecture targetArchitecture;
+        private int startingArchitectureID = -1;
+        private int targetArchitectureID = -1;
+
         public int Tiredness
         {
             get
@@ -1719,6 +1725,135 @@
         public GameObjectList GetInfluenceList()
         {
             return this.Kind.Influences.GetInfluenceList();
+        }
+
+        public Architecture TargetArchitecture
+        {
+            get
+            {
+                if (this.targetArchitectureID == -1) return null;
+                
+                if (this.targetArchitecture == null)
+                {
+                    this.targetArchitecture = base.Scenario.Architectures.GetGameObject(this.targetArchitectureID) as Architecture;
+                }
+                return this.targetArchitecture;
+            }
+            set
+            {
+                if (this.targetArchitecture == null && value == null) return;
+                this.targetArchitecture = value;
+                
+                if (value != null)
+                {
+                    this.targetArchitectureID = value.ID;
+                }
+                else
+                {
+                    this.targetArchitectureID = -1;
+                }
+            }
+        }
+
+        public int TargetArchitectureID
+        {
+            get
+            {
+                return this.targetArchitectureID;
+            }
+            set
+            {
+                this.targetArchitectureID = value;
+            }
+        }
+
+        public string TargetArchitectureString
+        {
+            get
+            {
+                if (this.targetArchitectureID < 0)
+                {
+                    return "----";
+                }
+                return this.TargetArchitecture.Name;
+            }
+        }
+
+        public Architecture StartingArchitecture
+        {
+            get
+            {
+                if (this.startingArchitectureID == -1) return null;
+
+                if (this.startingArchitecture == null)
+                {
+                    this.startingArchitecture = base.Scenario.Architectures.GetGameObject(this.startingArchitectureID) as Architecture;
+                }
+                return this.startingArchitecture;
+            }
+            set
+            {
+                if (this.startingArchitecture == null && value == null) return;
+                this.startingArchitecture = value;
+
+                if (value != null)
+                {
+                    this.startingArchitectureID = value.ID;
+                }
+                else
+                {
+                    this.startingArchitectureID = -1;
+                }
+            }
+        }
+
+        public int StartingArchitectureID
+        {
+            get
+            {
+                return this.startingArchitectureID;
+            }
+            set
+            {
+                this.startingArchitectureID = value;
+            }
+        }
+
+        public string StartingArchitectureString
+        {
+            get
+            {
+                if (this.startingArchitectureID < 0)
+                {
+                    return "----";
+                }
+                return this. StartingArchitecture.Name;
+            
+            }
+        }
+
+        public int ArrivingDays
+        {
+            get
+            {
+                return this.arrivingDays;
+            }
+            set
+            {
+                this.arrivingDays = value;
+            }
+        }
+
+        public string Travel
+        {
+            get
+            {
+                if (this.ArrivingDays > 0)
+                {
+                    return (this.ArrivingDays + "天");
+                }
+                return "----";
+            }
         }
     }
 }

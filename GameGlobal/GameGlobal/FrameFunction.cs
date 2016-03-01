@@ -41,6 +41,8 @@
         GetAllyDiplomaticRelationPerson,
         GetDenounceDiplomaticRelation,
         GetTruceDiplomaticRelation,
+        GetQuanXiangDiplomaticRelation,//劝降
+        GetQuanXiangDiplomaticRelationPerson,
         GetTruceDiplomaticRelationPerson,
         GetAttackDefaultKind,
         GetAttackTargetKind,
@@ -48,7 +50,7 @@
         GetCastTargetKind,
         GetInformationKind,
         GetInformationPerson,
-        GetSpyPerson,
+       // GetSpyPerson,
         GetDestroyPerson,
         GetInstigatePerson,
         GetGossipPerson,
@@ -77,9 +79,23 @@
         MoveFeizi,
         KillPerson,
         KillCaptive,
+        MoveCaptive,
         ReleaseSelfPerson,
         PersonManualHire,
         SelectPrince,
+        AutoCreatePerson,//自动生成野武将
+        GetOfficerType,
+       // DengYong,
+        AppointMayor, //任命太守
+        DismissOfficer, //遣散
+        //AppointOfficer,//任命官员
+        GetRecallablePerson,//罢免官员
+        GetRecallableTitle,
+        GetAppointableTitle,
+        GetAppointPerson,
+       // MilitaryTransfer, //运输编队
+        GetTransferMilitary,//读取运输编队
+        GetTransferArchitecture,
         GetInformationToStop,
         SelectLandLink,
         SelectWaterLink,

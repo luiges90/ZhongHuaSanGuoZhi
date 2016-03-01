@@ -37,33 +37,40 @@
   <BottomRight FileName="BottomRight.png"></BottomRight>
 
 
-  <TabList RowHeight="24" FrameWidth="200" FrameHeight="340" ClientX="0" ClientY="0" ClientWidth="200" ClientHeight="340" OKButtonX="20" OKButtonY="515" CancelButtonX="40" CancelButtonY="515" MapViewSelectorButtonX="10" MapViewSelectorButtonY="515">
+  <TabList RowHeight="24" FrameWidth="235" FrameHeight="335" ClientX="0" ClientY="0" ClientWidth="235" ClientHeight="335" OKButtonX="20" OKButtonY="515" CancelButtonX="40" CancelButtonY="515" MapViewSelectorButtonX="10" MapViewSelectorButtonY="515">
 	<ListKind ID="1" Name="Architecture" DisplayName="浮動窗" ShowPortrait ="false">
 		<Columns>
-			<Column ID="1" Name="KindString" IsNumber="false" DisplayName="种类" MinWidth="55"
+			<Column ID="1" Name="KindString" IsNumber="false" DisplayName="种类" MinWidth="50"
 					FontName="方正隶变_GBK"
 					FontSize="14"
 					FontStyle="Regular"
 					FontColor="4294967295"
 					Align="Middle">
 			</Column>
-			<Column ID="2" Name="Name" IsNumber="false" DisplayName="名称" MinWidth="55"
-					FontName="方正隶变_GBK"
-					FontSize="14"
-					FontStyle="Regular"
-					FontColor="4294967295"
-					Align="Middle">
-			</Column>
-			<Column ID="3" Name="yocelanPersonString" IsNumber="false" DisplayName="武将" MinWidth="65"
+			<Column ID="2" Name="Name" IsNumber="false" DisplayName="名称" MinWidth="50"
 					FontName="方正隶变_GBK"
 					FontSize="15"
 					FontStyle="Regular"
 					FontColor="4294967295"
 					Align="Middle">
 			</Column>
-		</Columns>
-		<Tabs Margin="5">
-			<Tab ID="1"  Name="Basic" DisplayName="建筑" Columns="1 2 3">
+			<Column ID="3" Name="yocelanPersonString" IsNumber="false" DisplayName="武将" MinWidth="60"
+					FontName="方正隶变_GBK"
+					FontSize="15"
+					FontStyle="Regular"
+					FontColor="4294967295"
+					Align="Middle">
+                        </Column>
+                        <Column ID="4" Name="NoFactionPersonCount" IsNumber="false" DisplayName="在野" MinWidth="15"
+                                        FontName="方正隶变_GBK"
+                                        FontSize="14"
+                                        FontStyle="Regular"
+                                        FontColor="4294967295"
+                                        Align="Middle">
+                        </Column>
+                </Columns>
+                <Tabs Margin="5">
+                        <Tab ID="1"  Name="Basic" DisplayName="建筑" Columns="1 2 3 4">
 			</Tab>
 		</Tabs>
 	</ListKind>

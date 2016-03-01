@@ -124,51 +124,10 @@ namespace ScenarioGenerator
         private void deletePerson()
         {
             int toDeleteCnt = GameObject.Random(int.Parse(tbDeletePersonLo.Text), int.Parse(tbDeletePersonHi.Text));
-            int toDeleteAbyLo = int.Parse(tbDeletePersonAbyLo.Text);
-            int toDeleteAbyHi = int.Parse(tbDeletePersonAbyHi.Text);
-            int toDeleteTotalAbyLo = int.Parse(tbDeletePersonTAbyLo.Text);
-            int toDeleteTotalAbyHi = int.Parse(tbDeletePersonTAbyHi.Text);
+            int toDeleteAby = GameObject.Random(int.Parse(tbDeletePersonAbyLo.Text), int.Parse(tbDeletePersonAbyHi.Text));
+            int toDeleteTotalAby = GameObject.Random(int.Parse(tbDeletePersonTAbyLo.Text), int.Parse(tbDeletePersonTAbyHi.Text));
+            bool allowDeleteKing = cbDeleteLeader.Checked;
 
-            PersonList candidate = new PersonList();
-            foreach (Person p in this.scen.Persons)
-            {
-                if (p == p.BelongedFaction.Leader) continue;
-                int total = (p.BaseCommand + p.BaseStrength + p.BaseIntelligence + p.BasePolitics + p.BaseGlamour);
-                if (toDeleteTotalAbyLo <= total && total <= toDeleteTotalAbyHi)
-                {
-                    candidate.Add(p);
-                }
-                else
-                {
-                    if (p.BaseCommand < toDeleteAbyLo || p.BaseCommand > toDeleteAbyHi)
-                    {
-                        continue;
-                    }
-                    if (p.BaseStrength < toDeleteAbyLo || p.BaseStrength > toDeleteAbyHi)
-                    {
-                        continue;
-                    }
-                    if (p.BaseIntelligence < toDeleteAbyLo || p.BaseIntelligence > toDeleteAbyHi)
-                    {
-                        continue;
-                    }
-                    if (p.BasePolitics < toDeleteAbyLo || p.BasePolitics > toDeleteAbyHi)
-                    {
-                        continue;
-                    }
-                    if (p.BaseGlamour < toDeleteAbyLo || p.BaseGlamour > toDeleteAbyHi)
-                    {
-                        continue;
-                    }
-                    candidate.Add(p);
-                }
-            }
-
-            PersonList toDelete = (PersonList) candidate.GetRandomList();
-            for (int i = 0; i < toDeleteCnt; ++i)
-            {
-                scen.Persons.GameObjects.Remove(toDelete[i]);
-            }
         }
 
         private void generatePerson()
@@ -231,6 +190,11 @@ namespace ScenarioGenerator
                     p.ChangeFaction(location.BelongedFaction);
                 }
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
 
     }

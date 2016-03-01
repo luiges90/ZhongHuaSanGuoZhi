@@ -134,6 +134,7 @@
         public static float ArmyPopulationCap = 1.0f; //兵力上限 
 
         public static float CreateRandomOfficerChance = 5;
+        
         public static int ChildrenAvailableAge = 12;
 
         public static float CreatedOfficerAbilityFactor = 0.8f;
@@ -143,6 +144,10 @@
         public static int SurroundFactor = 5;
 
         public static bool FullScreen = false;
+
+        public static bool PermitQuanXiang = true;
+
+        public static bool PermitManualAwardTitleAutoLearn = false;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -762,6 +767,7 @@
                 exception = exception24;
                 throw new Exception("CreateRandomOfficerChance:\n" + exception.ToString());
             }
+            
             try
             {
                 CreatedOfficerAbilityFactor = float.Parse(nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value);
@@ -824,6 +830,24 @@
             {
                 exception = exception24;
                 throw new Exception("ArmyPopulationCap:\n" + exception.ToString());
+            }
+            try 
+            {
+                PermitQuanXiang = bool.Parse(nextSibling.Attributes.GetNamedItem("PermitQuanXiang").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("PermitQuanXiang:\n" + exception.ToString());
+            }
+            try
+            {
+                PermitManualAwardTitleAutoLearn = bool.Parse(nextSibling.Attributes.GetNamedItem("PermitManualAwardTitleAutoLearn").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("PermitManualAwardTitleAutoLearn:\n" + exception.ToString());
             }
             return true;
         }

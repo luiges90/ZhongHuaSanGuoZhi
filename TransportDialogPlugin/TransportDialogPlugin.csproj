@@ -33,24 +33,14 @@
   <ItemGroup>
     <Reference Include="GameFreeText, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\GameFreeText.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GameGlobal, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\GameGlobal.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GameObjects, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\GameObjects.dll</HintPath>
+      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameFreeText.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Game" />
     <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\PluginInterface.dll</HintPath>
+      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\PluginInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core">
@@ -62,5 +52,19 @@
     <Compile Include="Global.cs" />
     <Compile Include="TransportDialogPlugin\TransportDialogPlugin.cs" />
     <Compile Include="TransportDialogPlugin\TransportDialog.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">
+      <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
+      <Name>GameGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameObjects\GameObjects.csproj">
+      <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
+      <Name>GameObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorldOfTheThreeKingdoms\AirViewPlugin\AirViewPlugin.csproj">
+      <Project>{F26B7073-978E-4B27-AA27-669D4F01C439}</Project>
+      <Name>AirViewPlugin</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

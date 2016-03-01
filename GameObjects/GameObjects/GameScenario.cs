@@ -7,7 +7,7 @@
     using GameObjects.Influences;
     using GameObjects.MapDetail;
     using GameObjects.PersonDetail;
-    using GameObjects.PersonDetail.PersonMessages;
+    //using GameObjects.PersonDetail.PersonMessages;
     using GameObjects.TroopDetail;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
@@ -29,7 +29,10 @@
 
         private Dictionary<int, Architecture> AllArchitectures = new Dictionary<int, Architecture>();
         private Dictionary<int, Person> AllPersons = new Dictionary<int, Person>();
-        public OngoingBattleList AllOngoingBattles = new OngoingBattleList();
+
+        
+
+       // public OngoingBattleList AllOngoingBattles = new OngoingBattleList();
         public ArchitectureList Architectures = new ArchitectureList();
         public Faction CurrentFaction;
         public Faction CurrentPlayer;
@@ -60,7 +63,7 @@
         public Map ScenarioMap = new Map();
         public string ScenarioTitle;
         public SectionList Sections = new SectionList();
-        public GameMessageList SpyMessages = new GameMessageList();
+        //public GameMessageList SpyMessages = new GameMessageList();
         public StateList States = new StateList();
         public int[] TerrainAdaptability;
         public bool Threading;
@@ -832,7 +835,7 @@
             this.Militaries.Clear();
             this.Treasures.Clear();
             this.Informations.Clear();
-            this.SpyMessages.Clear();
+            //this.SpyMessages.Clear();
             this.Routeways.Clear();
             GameObjectList t1 = this.Troops.GetList();
             foreach (Troop t in t1)
@@ -880,7 +883,7 @@
             this.GeneratorOfTileAnimation.RemoveTileAnimation(TileAnimationKind.火焰, position, true);
         }
 
-        private void CreateNewFaction(Person leader)
+        public void CreateNewFaction(Person leader)
         {
             if (leader.Status != PersonStatus.Normal && leader.Status != PersonStatus.NoFaction) return;
 
@@ -1013,7 +1016,7 @@
                 return r;
             }
         }
-
+        /*
         private void OngoingBattleDayEvent()
         {
             List<OngoingBattle> toRemove = new List<OngoingBattle>();
@@ -1063,7 +1066,7 @@
                 this.AllOngoingBattles.Remove(i);
             }
         }
-
+        */
         public void DayPassedEvent()
         {
             ExtensionInterface.call("DayEvent", new Object[] { this });
@@ -1076,6 +1079,7 @@
 
             //clearupRepeatedOfficers();
 
+            
             this.Troops.FinalizeQueue();
             this.Factions.BuildQueue(false);
             this.Architectures.NoFactionDevelop();
@@ -1092,7 +1096,7 @@
                 }
             }
             //this.GameProgressCaution.Text = "运行势力";
-            this.OngoingBattleDayEvent();
+            //this.OngoingBattleDayEvent();
 
             foreach (Faction faction in this.Factions.GetRandomList())
             {
@@ -1128,6 +1132,7 @@
 
             this.militaryKindEvent();
             this.titleDayEvent();
+            this.guanzhiDayEvent();
 
 
             //this.GameProgressCaution.Text = "运行人物";
@@ -1141,10 +1146,12 @@
             }
             this.AdjustGlobalPersonRelation();
             this.AddPreparedAvailablePersons();
+            /*
             foreach (SpyMessage message in this.SpyMessages.GetRandomList())
             {
                 message.DayEvent();
             }
+             */
             foreach (Captive captive in this.Captives.GetRandomList())
             {
                 captive.DayEvent();
@@ -1161,6 +1168,8 @@
 
             this.GameScreen.DisposeMapTileMemory();
         }
+        
+       
 
         private void militaryKindEvent()
         {
@@ -1181,6 +1190,48 @@
                 }
             }
         }
+        
+        private void guanzhiDayEvent()
+        {
+
+            List<Title> ManualAwardTitles = new List<Title>();
+            foreach (Title t in this.GameCommonData.AllTitles.Titles.Values)
+            {
+                if (t.ManualAward)
+                {
+                    ManualAwardTitles.Add(t);
+                }
+            }
+            foreach (Title t in ManualAwardTitles)
+            {
+                if (t.AutoLearn > 0 && GameObject.Random(t.AutoLearn) == 0)
+                {
+                    PersonList candidates = new PersonList();
+                    if (t.Persons.Count > 0)
+                    {
+                        foreach (Person p in t.Persons)
+                        {
+                            if (p.Available && p.Alive)
+                            {
+                                candidates.Add(p);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        candidates = this.AvailablePersons;
+                    }
+                    foreach (Person p in candidates)
+                    {
+                        if ((!this.IsPlayer(p.BelongedFaction ) || GlobalVariables.PermitManualAwardTitleAutoLearn) && !p.HasHigherLevelTitle(t) && t.CanLearn(p, true))
+                        {
+                            p.AwardTitle(t);
+                        }
+                    }
+                }
+            }
+        }
+        
 
         private static Person courier = null;
         private void titleDayEvent()
@@ -1210,10 +1261,14 @@
                     }
                     foreach (Person p in candidates)
                     {
-                        if (!p.HasHigherLevelTitle(t) && t.CanLearn(p, true))
+                        if (!p.HasHigherLevelTitle(t) && t.CanLearn(p, true) && !t.ManualAward)
                         {
                             p.LearnTitle(t);
                             this.GameScreen.AutoLearnTitle(p, courier, t);
+                        }
+                        else if (p.HasTitle() && t.WillLose(p))
+                        {
+                            p.LoseTitle();
                         }
                     }
                 }
@@ -1313,10 +1368,6 @@
             this.Factions.SetControlling(false);
             foreach (Troop troop in this.Troops.GetList())
             {
-                if (troop.BelongedFaction == null && troop.BelongedLegion != null)
-                {
-                    troop.BelongedFaction = troop.BelongedLegion.BelongedFaction;
-                }
                 if (troop.BelongedFaction == null || troop.BelongedLegion == null)
                 {
                     troop.AI();
@@ -1966,6 +2017,7 @@
             return (int)Math.Ceiling(this.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 2.5);
         }
 
+
         public Troop GetTroopByPosition(Point position)
         {
             if (this.PositionOutOfRange(position))
@@ -2113,7 +2165,7 @@
             this.InitializeTroopData();
             this.InitializeCaptiveData();
             this.InitializePersonData();
-            this.InitializeSpyMessageData();
+            //this.InitializeSpyMessageData();
 
             foreach (Person p in this.Persons)
             {
@@ -2266,6 +2318,8 @@
                 {
                     military.SetShelledMilitary(this.Militaries.GetGameObject(military.ShelledMilitaryID) as Military);
                 }
+
+
             }
         }
 
@@ -2316,6 +2370,7 @@
             }
         }
 
+        /*
         private void InitializeSpyMessageData()
         {
             foreach (SpyMessage message in this.SpyMessages)
@@ -2330,6 +2385,7 @@
                 }
             }
         }
+        */
 
         private void InitializeTroopData()
         {
@@ -2662,7 +2718,25 @@
             OleDbConnection commonConn = new OleDbConnection(commonConnString);
 
             UsingOwnCommonData = true;
-
+           /* try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadGuanzhiKind(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadGuanzhiKind(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadGuanzhi(DbConnection, this));
+            }
+            catch 
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadGuanzhi(commonConn, this));
+                UsingOwnCommonData = false;
+            }
+            */
             try
             {
                 errorMsg.AddRange(this.GameCommonData.LoadPersonGeneratorSetting(DbConnection, this));
@@ -3057,6 +3131,7 @@
                 this.Regions.Add(region);
             }
             DbConnection.Close();
+            /*
             DbConnection.Open();
             try
             {
@@ -3079,12 +3154,12 @@
                 //ignore
             }
             DbConnection.Close();
+             */
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Person", DbConnection).ExecuteReader();
             Dictionary<int, int> fatherIds = new Dictionary<int, int>();
             Dictionary<int, int> motherIds = new Dictionary<int, int>();
             Dictionary<int, int> spouseIds = new Dictionary<int, int>();
-            //Dictionary<int, int[]> princeIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> brotherIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> closeIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> hatedIds = new Dictionary<int, int[]>();
@@ -3135,6 +3210,7 @@
                 {
                     errors.AddRange(person.UniqueMilitaryKinds.LoadFromString(this.GameCommonData.AllMilitaryKinds, reader["UniqueMilitaryKinds"].ToString()));
                     errors.AddRange(person.UniqueTitles.LoadFromString(this.GameCommonData.AllTitles, reader["UniqueTitles"].ToString()));
+                    //errors.AddRange(person.Guanzhis.LoadFromString(this.GameCommonData.AllTitles, reader["Guanzhis"].ToString()));
                 }
                 catch 
                 {
@@ -3300,6 +3376,34 @@
                 }
 
                 person.Skills.LoadFromString(this.GameCommonData.AllSkills, reader["Skills"].ToString());
+               /* try
+                {
+
+                    errors.AddRange(person.LoadGuanzhiFromString(reader["Guanzhi"].ToString(), this.GameCommonData.AllTitles));
+                }
+                catch { }
+                
+                try
+                {
+                    errors.AddRange(person.LoadGuanzhiFromString(reader["Guanzhi"].ToString(), this.GameCommonData.AllGuanzhis));
+                    //Guanzhi g = this.GameCommonData.AllGuanzhis.GetGuanzhi((short)reader["GeneralGuanzhi"]);
+                    //g = this.GameCommonData.AllGuanzhis.GetGuanzhi((short)reader["CombatGuanzhi"]);
+                }
+                catch
+                {
+                   
+                    
+                   Guanzhi g = this.GameCommonData .AllGuanzhis.GetGuanzhi((short)reader ["Guanzhi"]);
+                    if (g != null)
+                    {
+                        person.RealGuanzhis.Add(g);
+                    }
+                     = this.GameCommonData.AllGuanzhis.GetGuanzhi((short)reader["CombatGuanzhi"]);
+                    if (g != null)
+                    {
+                        person.RealGuanzhis.Add(g);
+                    }
+                }*/
 
                 try
                 {
@@ -3407,8 +3511,22 @@
                 }
                 try
                 {
-                    person.Battle = (OngoingBattle)this.AllOngoingBattles.GetGameObject((int)reader["Battle"]);
+                   // person.Battle = (OngoingBattle)this.AllOngoingBattles.GetGameObject((int)reader["Battle"]);
                     person.BattleSelfDamage = (int)reader["BattleSelfDamage"];
+                }
+                catch
+                {
+                }
+                try
+                {
+                    person.NumberOfChildren = (int)reader["NumberOfChildren"];
+                }
+                catch
+                {
+                }
+                try 
+                {
+                    person.Tags = reader["Tags"].ToString();
                 }
                 catch
                 {
@@ -3422,6 +3540,9 @@
 
                 this.Persons.AddPersonWithEvent(person);  //所有武将，并加载武将事件
                 this.AllPersons.Add(person.ID, person);   //武将字典
+
+               // this.AllChildren.Add(person, person.NumberOfChildren);
+
                 if (person.Available && person.Alive)
                 {
                     this.AvailablePersons.Add(person);  //已出场武将
@@ -3684,6 +3805,28 @@
                 catch
                 {
                 }
+                try
+                {
+                    military.ArrivingDays = (short)reader["ArrivingDays"];
+                }
+                catch
+                {
+                }
+                try
+                {
+                    military.StartingArchitectureID = (short)reader["StartingArchitectureID"];
+                }
+                catch
+                {
+                }
+                try
+                {
+                    military.TargetArchitectureID = (short)reader["TargetArchitectureID"];
+                }
+                catch
+                {
+                }
+
                 if (military.Kind != null)
                 {
                     this.Militaries.AddMilitary(military);
@@ -3769,6 +3912,14 @@
                     architecture.CaptionID = 9999;
 
                 }
+                try
+                {
+                    architecture.MayorID = (short)reader["MayorID"];
+                }
+                catch
+                {
+                }
+
                 architecture.Name = reader["Name"].ToString();
                 architecture.Kind = this.GameCommonData.AllArchitectureKinds.GetArchitectureKind((short)reader["Kind"]);
                 if (architecture.Kind == null)
@@ -3814,7 +3965,15 @@
                 architecture.AutoRewarding = (bool)reader["AutoRewarding"];
                 architecture.AutoWorking = (bool)reader["AutoWorking"];
                 architecture.AutoSearching = (bool)reader["AutoSearching"];
-
+                /*
+                try
+                {
+                    architecture.AutoZhaoXian = (bool)reader["AutoZhaoXian"];
+                }
+                catch
+                {
+                }
+                */
                 try
                 {
                     architecture.AutoRecruiting = (bool)reader["AutoRecruiting"];
@@ -3895,13 +4054,13 @@
                     architecture.SuspendTroopTransfer = (int)reader["SuspendTroopTransfer"];
                 }
                 catch { };
-
+                /*
                 try
                 {
                     architecture.Battle = (OngoingBattle) this.AllOngoingBattles.GetGameObject((int)reader["Battle"]);
                 }
                 catch { }
-
+                */
                 try
                 {
                     architecture.OldFactionName = reader["OldFactionName"].ToString();
@@ -4167,6 +4326,7 @@
                 StaticMethods.LoadFromString(faction.PreferredTechniqueKinds, reader["PreferredTechniqueKinds"].ToString());
                 faction.PlanTechnique = this.GameCommonData.AllTechniques.GetTechnique((short)reader["PlanTechnique"]);
                 faction.AutoRefuse = (bool)reader["AutoRefuse"];
+                
                 try
                 {
                     faction.chaotinggongxiandu = (int)reader["chaotinggongxiandu"];
@@ -4176,7 +4336,78 @@
                     faction.chaotinggongxiandu = 0;
 
                 }
-
+                try
+                {
+                    e.AddRange(faction.LoadTransferingMilitariesFromString(this.Militaries, reader["TransferingMilitaries"].ToString()));
+                    e.AddRange(faction.LoadMilitariesFromString(this.Militaries, reader["Militaries"].ToString()));
+                }
+                catch
+                {
+                }
+                try
+                {
+                    faction.LoadGeneratorPersonCountFromString(reader["GetGeneratorPersonCount"].ToString());
+                    
+                }
+                catch { }
+                
+                try
+                {
+                    faction.MilitaryCount = (int)reader["MilitaryCount"];
+                }
+                catch
+                {
+                }
+                try
+                {
+                    faction.TransferingMilitaryCount = (int)reader["TransferingMilitaryCount"];
+                }
+                catch
+                {
+                }
+                try
+                {
+                    faction.CreatePersonTimes = (int)reader["CreatePersonTimes"];
+                }
+                catch
+                {
+                    faction.CreatePersonTimes = 0;
+                }
+                try
+                {
+                    faction.YearOfficialLimit = (int)reader["YearOfficialLimit"];
+                }
+                catch
+                {
+                    faction.YearOfficialLimit = 0;
+                }
+                /*
+                try
+                {
+                    faction.ZongShu[0] = (int)reader["General"];
+                    faction.ZongShu[1] = (int)reader["Brave"];
+                    faction.ZongShu[2] = (int)reader["Advisor"];
+                    faction.ZongShu[3] = (int)reader["Politician"];
+                    faction.ZongShu[4] = (int)reader["IntelGeneral"];
+                    faction.ZongShu[5] = (int)reader["Emperor"];
+                    faction.ZongShu[6] = (int)reader["AllRounder"];
+                    faction.ZongShu[7] = (int)reader["Normal"];
+                    faction.ZongShu[8] = (int)reader["Cheap"];
+                    faction.ZongShu[9] = (int)reader["Normal2"];
+                }
+                catch
+                {
+                    faction.ZongShu[0] = 0;
+                    faction.ZongShu[1] = 0;
+                    faction.ZongShu[2] = 0;
+                    faction.ZongShu[3] = 0;
+                    faction.ZongShu[4] = 0;
+                    faction.ZongShu[5] = 0;
+                    faction.ZongShu[6] = 0;
+                    faction.ZongShu[7] = 0;
+                    faction.ZongShu[8] = 0;
+                    faction.ZongShu[9] = 0;
+                }*/
                 try
                 {
                     faction.PrinceID = (short)reader["PrinceID"];
@@ -4184,6 +4415,7 @@
                 catch
                 {
                 }
+
                 try
                 {
                     faction.guanjue = (short)reader["guanjue"];
@@ -4314,6 +4546,7 @@
                     te.CheckArea = (EventCheckAreaKind)((short)reader["CheckAreaKind"]);
                     te.LoadTargetPersonFromString(this.AllPersons, reader["TargetPersons"].ToString());
                     te.LoadDialogFromString(this.AllPersons, reader["Dialogs"].ToString());
+                    
                     te.LoadSelfEffectFromString(this.GameCommonData.AllTroopEventEffects, reader["EffectSelf"].ToString());
                     te.LoadEffectPersonFromString(this.AllPersons, this.GameCommonData.AllTroopEventEffects, reader["EffectPersons"].ToString());
                     te.LoadEffectAreaFromString(this.GameCommonData.AllTroopEventEffects, reader["EffectAreas"].ToString());
@@ -4387,11 +4620,19 @@
                                 e.Image = "";
                                 e.Sound = "";
                             }
+                            try
+                            {
+                                e.LoadScenBiographyFromString(reader["ScenBiography"].ToString());
+                            }
+                            catch
+                            {
+
+                            }
                             this.AllEvents.AddEventWithEvent(e);
                         }
                         catch (FormatException)
                         {
-                            errorMsg.Add("部队事件ID" + e.ID + "：读取字串转化成数字出错，请检查所有字串格式，对话里数字与字串以半型空格分隔");
+                            errorMsg.Add("事件ID" + e.ID + "：读取字串转化成数字出错，请检查所有字串格式，对话里数字与字串以半型空格分隔");
                         }
                     }
                     catch
@@ -4402,6 +4643,7 @@
             }
             catch
             {
+                
                 //ignore, let there be empty event list
             }
             finally
@@ -4717,7 +4959,7 @@
             ExtensionInterface.call("MonthEvent", new Object[] { this });
             foreach (Faction faction in this.Factions.GetRandomList())
             {
-                faction.MonthEvent();
+                faction.MonthEvent();   
             }
             foreach (Person person in this.Persons)
             {
@@ -4839,7 +5081,8 @@
 
         internal void NewFaction()
         {
-            if (GameObject.Random(30) == 0) {
+            if (GameObject.Random(15) == 0) 
+            {
                 this.NewFaction(this.AvailablePersons);
             }
         }
@@ -4866,18 +5109,18 @@
                 Architecture location = person3.BelongedArchitecture;
                 Faction faction = person3.BelongedFaction;
                 if (location == null) return;
-                if (faction != null && !person3.Hates(faction.Leader)) 
+                if (faction != null && !person3.Hates(faction.Leader))
                 {
                     if (person3.Loyalty >= 100) return;
                     if (person3.Loyalty >= 90 && !person3.LeaderPossibility) return;
                 }
                 if (faction != null && Person.GetIdealOffset(faction.Leader, person3) <= 10 && !person3.Hates(faction.Leader)) return;
                 if (faction != null && location == faction.Capital) return;
-                if (GameObject.Random(30) != 0) return;
-                if (GameObject.Random(location.Population + location.ArmyScale * 5000 + 
+                //if (GameObject.Random(15) != 0) return;
+                if (GameObject.Random(location.Population + location.ArmyScale * 5000 +
                         location.Domination * 200 + location.Morale * 10) >
-                    GameObject.Random(person3.Reputation * 
-                    (person3.LeaderPossibility ? 3 : 1) * 
+                    GameObject.Random(person3.Reputation *
+                    (person3.LeaderPossibility ? 3 : 1) *
                     (faction != null && person3.Hates(faction.Leader) ? 10 : 1) *
                     (faction == null ? 2 : 1))) return;
                 this.CreateNewFaction(person3);
@@ -5132,6 +5375,13 @@
                     row["guanjue"] = faction.guanjue;
                     row["IsAlien"] = faction.IsAlien;
                     row["NotPlayerSelectable"] = faction.NotPlayerSelectable;
+                    row["CreatePersonTimes"] = faction.CreatePersonTimes;
+                    row["YearOfficialLimit"] = faction.YearOfficialLimit;
+                    row["MilitaryCount"] = faction.MilitaryCount;
+                    row["TransferingMilitaryCount"] = faction.TransferingMilitaryCount;
+                    row["GetGeneratorPersonCount"] = faction.SaveGeneratorPersonCountToString();
+                    row["TransferingMilitaries"] = faction.TransferingMilitaries.SaveToString();
+                    row["Militaries"] = faction.Militaries.SaveToString();
                     row.EndEdit();
                     dataSet.Tables["Faction"].Rows.Add(row);
                 }
@@ -5170,6 +5420,7 @@
                     row = dataSet.Tables["Architecture"].NewRow();
                     row.BeginEdit();
                     row["ID"] = architecture.ID;
+                    row["MayorID"] = architecture.MayorID; //太守
                     row["CaptionID"] = architecture.CaptionID;
                     row["Name"] = architecture.Name;
                     row["Kind"] = architecture.Kind.ID;
@@ -5195,6 +5446,7 @@
                     row["AutoWorking"] = architecture.AutoWorking;
                     row["AutoSearching"] = architecture.AutoSearching;
                     row["AutoRecruiting"] = architecture.AutoRecruiting;
+                    //row["AutoZhaoXian"] = architecture.AutoZhaoXian;
                     row["HireFinished"] = architecture.HireFinished;
                     row["FacilityEnabled"] = architecture.FacilityEnabled;
                     row["AgricultureWorkingPersons"] = architecture.AgricultureWorkingPersons.SaveToString();
@@ -5214,9 +5466,9 @@
                     row["PlanFacilityKind"] = (architecture.PlanFacilityKind != null) ? architecture.PlanFacilityKind.ID : -1;
                     row["FundPacks"] = architecture.SaveFundPacksToString();
                     row["FoodPacks"] = architecture.SaveFoodPacksToString();
-                    row["SpyPacks"] = architecture.SaveSpyPacksToString();
-                    row["TodayNewMilitarySpyMessage"] = (architecture.TodayNewMilitarySpyMessage != null) ? architecture.TodayNewMilitarySpyMessage.ID : -1;
-                    row["TodayNewTroopSpyMessage"] = (architecture.TodayNewTroopSpyMessage != null) ? architecture.TodayNewTroopSpyMessage.ID : -1;
+                   // row["SpyPacks"] = architecture.SaveSpyPacksToString();
+                  //  row["TodayNewMilitarySpyMessage"] = (architecture.TodayNewMilitarySpyMessage != null) ? architecture.TodayNewMilitarySpyMessage.ID : -1;
+                   // row["TodayNewTroopSpyMessage"] = (architecture.TodayNewTroopSpyMessage != null) ? architecture.TodayNewTroopSpyMessage.ID : -1;
                     row["PopulationPacks"] = architecture.SavePopulationPacksToString();
                     row["PlanArchitecture"] = (architecture.PlanArchitecture != null) ? architecture.PlanArchitecture.ID : -1;
                     row["TransferFundArchitecture"] = (architecture.TransferFundArchitecture != null) ? architecture.TransferFundArchitecture.ID : -1;
@@ -5235,7 +5487,7 @@
                     row["MilitaryPopulation"] = architecture.MilitaryPopulation;
                     row["Informations"] = architecture.Informations.SaveToString();
                     row["SuspendTroopTransfer"] = architecture.SuspendTroopTransfer;
-                    row["Battle"] = architecture.Battle == null ? -1 : architecture.Battle.ID;
+                    //row["Battle"] = architecture.Battle == null ? -1 : architecture.Battle.ID;
                     row["OldFactionName"] = architecture.OldFactionName;
                     row.EndEdit();
                     dataSet.Tables["Architecture"].Rows.Add(row);
@@ -5406,6 +5658,7 @@
                 }
                 adapter.Update(dataSet, "Information");
                 dataSet.Clear();
+                /*
                 new OleDbCommand("Delete from SpyMessage", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from SpyMessage", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
@@ -5430,6 +5683,7 @@
                 }
                 adapter.Update(dataSet, "SpyMessage");
                 dataSet.Clear();
+                 */
                 new OleDbCommand("Delete from Military", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Military", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
@@ -5454,6 +5708,9 @@
                     row["RecruitmentPersonID"] = military.RecruitmentPerson == null ? -1 : military.RecruitmentPerson.ID;
                     row["ShelledMilitary"] = (military.ShelledMilitary != null) ? military.ShelledMilitary.ID : -1;
                     row["Tiredness"] = military.Tiredness;
+                    row["ArrivingDays"] = military.ArrivingDays;
+                    row["StartingArchitectureID"] = military.StartingArchitectureID;
+                    row["TargetArchitectureID"] = military.TargetArchitectureID;
                     row.EndEdit();
                     dataSet.Tables["Military"].Rows.Add(row);
                 }
@@ -5598,12 +5855,14 @@
 
                     row["Skills"] = person.Skills.SaveToString();
                     row["Title"] = person.SaveTitleToString();
+                    //row["Guanzhi"] = person.SaveGuanzhiToString(); 
                     row["StudyingTitle"] = (person.StudyingTitle != null) ? person.StudyingTitle.ID : -1;
                     row["Stunts"] = person.Stunts.SaveToString();
                     row["StudyingStunt"] = (person.StudyingStunt != null) ? person.StudyingStunt.ID : -1;
                     row["huaiyun"] = person.huaiyun;
                     row["faxianhuaiyun"] = person.faxianhuaiyun;
                     row["huaiyuntianshu"] = person.huaiyuntianshu;
+                    row["NumberOfChildren"] = person.NumberOfChildren;
                     row["suoshurenwu"] = person.suoshurenwu;
                     row["WaitForFeizi"] = (person.WaitForFeiZi != null) ? person.WaitForFeiZi.ID : -1;
                     row["WaitForFeiziPeriod"] = person.WaitForFeiZiPeriod;
@@ -5624,8 +5883,10 @@
                     row["Tiredness"] = person.Tiredness;
                     row["OfficerKillCount"] = person.OfficerKillCount;
                     row["InjureRate"] = person.InjureRate;
-                    row["Battle"] = person.Battle == null ? -1 : person.Battle.ID;
+                   // row["Battle"] = person.Battle == null ? -1 : person.Battle.ID;
                     row["BattleSelfDamage"] = person.BattleSelfDamage;
+                    row["Tags"] = person.Tags;
+                   // row["Guanzhis"] = person.Guanzhis.SaveToString();
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
@@ -5658,6 +5919,7 @@
                 {
                     //ignore
                 }
+                /*
                 try
                 {
                     new OleDbCommand("Delete from OngoingBattle", selectConnection).ExecuteNonQuery();
@@ -5685,6 +5947,7 @@
                 {
                     // ignore
                 }
+                */
                 if (saveMap)
                 {
                     new OleDbCommand("Delete from Region", selectConnection).ExecuteNonQuery();
@@ -5808,6 +6071,7 @@
                         row["FactionID"] = e.faction.SaveToString();
                         row["FactionCond"] = e.SaveFactionCondToString();
                         row["Dialog"] = e.SaveDialogToString();
+                        row["ScenBiography"] = e.SaveScenBiographyToString();
                         row["Effect"] = e.SaveEventEffectToString();
                         row["ArchitectureEffect"] = e.SaveArchitectureEffectToString();
                         row["FactionEffect"] = e.SaveFactionEffectToString();
@@ -6177,6 +6441,15 @@
             {
                 architecture.YearEvent();
             }
+
+            foreach (Faction faction in this.Factions)
+            {
+
+               //faction.CreatePersonTimes = 0;
+               faction.YearOfficialLimit = 0;
+                 
+                
+            }
         }
 
         public void YearStartingEvent()
@@ -6328,7 +6601,9 @@
                         this.EventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
+                            
                     }
+
                 }
             }
             return ran;
@@ -6346,11 +6621,62 @@
                         this.EventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
+
                     }
+
                 }
             }
             return ran;
         }
+
+        public PersonList Officers() //野武将列表
+        {
+            PersonList result = new PersonList();
+            foreach (Person person in this.Persons)
+            {
+                if (person.Available && person.Alive)
+                {
+                    if (person.ID >= 25000)
+                    {
+                        result.Add(person);
+                    }
+                }
+  
+            }
+         
+            return result;
+        }
+
+
+        public int OfficerCount //野武将总数
+        {
+            get
+            {
+                return (this.Officers().Count);
+            }
+        }
+
+       public int OfficerLimit
+       {
+           get 
+           {
+
+               if (this.Factions.Count <= 50)  //剧本野武将上限为800
+               {
+                   return (this.Factions.Count * 10 + 500);
+               }
+               else if (this.Factions.Count > 50 && this.Factions .Count <= 100)
+               {
+                   return ( this.Factions.Count * 5 + 500);
+               }
+               else 
+               {
+                   return (this.Factions.Count * 3 + 100 );
+               }
+               
+           }
+       }
+
 
         public int GetAITroopCount()
         {

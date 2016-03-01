@@ -59,6 +59,16 @@
         private FrameButtonState OKButtonState;
         internal Texture2D okbuttonTexture;
         internal string OKSoundFile;
+        //全选
+        internal Texture2D selectallbuttonDisabledTexture;
+        private Point selectallbuttonPosition;
+        internal Texture2D selectallbuttonPressedTexture;
+        private Rectangle selectallbuttonRectangle;
+        internal Texture2D selectallbuttonSelectedTexture;
+        internal Point selectallbuttonSize;
+        private FrameButtonState SelectAllButtonState;
+        internal Texture2D selectallbuttonTexture;
+        internal string SelectAllSoundFile;
         internal Rectangle Position;
         internal FrameResult Result = FrameResult.Cancel;
         private Rectangle rightedgeRectangle;
@@ -95,6 +105,22 @@
                 this.IsShowing = false;
             }
         }
+        /*
+        internal void DoSelectAll()
+        {
+            if (this.SelectAllButtonEnabled)
+            {
+                this.screen.PlayNormalSound(this.SelectAllSoundFile);
+                this.Result = FrameResult.SelectAll;
+                if (this.frameContent.SelectAllFunction != null)
+                {
+                    this.frameContent.SelectAllFunction();
+                    this.frameContent.SelectAllFunction = null;
+                }
+                this.IsShowing = false;
+            }
+        }
+        */
 
         internal void Draw(SpriteBatch spriteBatch)
         {
@@ -143,6 +169,31 @@
                 spriteBatch.Draw(this.okbuttonDisabledTexture, this.okbuttonRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f + this.buttonDepthOffset);
             }
         //Label_024F:
+            /*if (this.SelectAllButtonEnabled)
+            {
+                switch (this.SelectAllButtonState)
+                {
+                    case FrameButtonState.Normal:
+                        sourceRectangle = null;
+                        spriteBatch.Draw(this.selectallbuttonTexture, this.selectallbuttonRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f + this.buttonDepthOffset);
+                        break;
+
+                    case FrameButtonState.Selected:
+                        sourceRectangle = null;
+                        spriteBatch.Draw(this.selectallbuttonSelectedTexture, this.selectallbuttonRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f + this.buttonDepthOffset);
+                        break;
+                    case FrameButtonState.Pressed:
+                        sourceRectangle = null;
+                        spriteBatch.Draw(this.selectallbuttonPressedTexture, this.selectallbuttonRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f + this.buttonDepthOffset);
+                        break;
+                }
+            }
+            else
+            {
+                sourceRectangle = null;
+                spriteBatch.Draw(this.selectallbuttonDisabledTexture, this.selectallbuttonRectangle, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4f + this.buttonDepthOffset);
+            }
+             */
             if (this.CancelButtonEnabled)
             {
                 switch (this.CancelButtonState)
@@ -244,6 +295,17 @@
                         this.CancelButtonState = FrameButtonState.Normal;
                     }
                 }
+               /* if (this.SelectAllButtonEnabled)
+                {
+                    if (StaticMethods.PointInRectangle(position, this.selectallbuttonRectangle))
+                    {
+                        this.SelectAllButtonState = FrameButtonState.Pressed;
+                    }
+                    else
+                    {
+                        this.SelectAllButtonState = FrameButtonState.Normal;
+                    }
+                }*/
             }
         }
 
@@ -275,6 +337,18 @@
                 {
                     this.frameContent.MapViewSelectorFunction();
                 }
+               /* if ((this.SelectAllButtonEnabled && (this.SelectAllButtonState == FrameButtonState.Pressed)) && StaticMethods.PointInRectangle(position, this.selectallbuttonRectangle))
+                {
+                    this.screen.PlayNormalSound(this.SelectAllSoundFile);
+                    this.SelectAllButtonState = FrameButtonState.Selected;
+                    this.Result = FrameResult.SelectAll;
+                    if (this.frameContent.SelectAllFunction != null)
+                    {
+                        this.frameContent.SelectAllFunction();
+                        this.frameContent.SelectAllFunction = null;
+                    }
+                    this.IsShowing = false;
+                }*/
             }
         }
 
@@ -318,6 +392,24 @@
                         this.CancelButtonState = FrameButtonState.Normal;
                     }
                 }
+               /* if (this.SelectAllButtonEnabled)
+                {
+                    if (StaticMethods.PointInRectangle(position, this.selectallbuttonRectangle))
+                    {
+                        if (leftDown)
+                        {
+                            this.SelectAllButtonState = FrameButtonState.Pressed;
+                        }
+                        else
+                        {
+                            this.SelectAllButtonState = FrameButtonState.Selected;
+                        }
+                    }
+                    else
+                    {
+                        this.SelectAllButtonState = FrameButtonState.Normal;
+                    }
+                }*/
                 if (this.frameContent.MapViewSelectorButtonEnabled)
                 {
                     if (StaticMethods.PointInRectangle(position, this.mapviewselectorButtonRectangle))
@@ -359,7 +451,12 @@
         {
             this.frameContent.CancelFunction = cancelfunction;
         }
-
+        /*
+        internal void SetSelectAllFunction(GameDelegates.VoidFunction selectallfunction)
+        {
+            this.frameContent.SelectAllFunction = selectallfunction;
+        }
+        */
         public void SetFrameContent(FrameContent frameContent, Point viewportSize)
         {
             this.Result = FrameResult.Cancel;
@@ -368,6 +465,7 @@
             this.TitleText.Text = frameContent.GetCurrentTitle();
             frameContent.FramePosition = StaticMethods.GetRectangleFitViewport(frameContent.DefaultFrameWidth, frameContent.DefaultFrameHeight, viewportSize);
             this.OKButtonPosition = frameContent.OKButtonPosition;
+            //this.SelectAllButtonPosition = frameContent.SelectAllButtonPosition;
             this.CancelButtonPosition = frameContent.CancelButtonPosition;
             this.MapViewSelectorButtonPosition = frameContent.MapViewSelectorButtonPosition;
             this.SetPosition(frameContent.FramePosition);
@@ -514,6 +612,38 @@
                 return "";
             }
         }
+        /*
+        public bool SelectAllButtonEnabled
+        {
+            get
+            {
+                if (this.frameContent != null)
+                {
+                    return this.frameContent.SelectAllButtonEnabled;
+                }
+                return true;
+            }
+            set
+            {
+                if (this.frameContent != null)
+                {
+                    this.frameContent.SelectAllButtonEnabled = value;
+                }
+            }
+        }
+
+        internal Point SelectAllButtonPosition
+        {
+            get
+            {
+                return this.selectallbuttonPosition;
+            }
+            set
+            {
+                this.selectallbuttonPosition = value;
+                this.selectallbuttonRectangle = new Rectangle(this.Position.X + this.selectallbuttonPosition.X, this.Position.Y + this.selectallbuttonPosition.Y, this.selectallbuttonSize.X, this.selectallbuttonSize.Y);
+            }
+        }*/
     }
 }
 

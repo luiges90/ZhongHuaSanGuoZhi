@@ -44,6 +44,7 @@ namespace WorldOfTheThreeKingdoms
         internal WindowsMediaPlayerClass Player = new WindowsMediaPlayerClass();
         //标识是否为全屏
         private bool IsFullScreen = false;
+
         public MainGame()
         {
             base.Content.RootDirectory = "Content";
@@ -57,10 +58,9 @@ namespace WorldOfTheThreeKingdoms
 
             this.graphics.PreferredBackBufferWidth = this.previousWindowWidth;
             this.graphics.PreferredBackBufferHeight = this.previousWindowHeight;
-
             base.Window.AllowUserResizing = true;
             DateTime buildDate = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
-            base.Window.Title = "中华三国志威力加强版(已命名修改版v.26 build-" + buildDate.Year + "-" + buildDate.Month + "-" + buildDate.Day + ")";
+            base.Window.Title = "中华三国志开发版(已命名修改版 更新补丁1.5 v.29 dev - build-" + buildDate.Year + "-" + buildDate.Month + "-" + buildDate.Day + ")"+ " 祝各位新年快乐！";
 
             //System.Windows.Forms.Control control = System.Windows.Forms.Control.FromHandle(base.Window.Handle);
             this.GameForm = (System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(this.Window.Handle);
@@ -111,8 +111,9 @@ namespace WorldOfTheThreeKingdoms
         protected override void Initialize()
         {
             base.Initialize();
-
+            
             this.jiazaitishi.Close();
+
             //全屏的判断放到初始化代码中
             if (GlobalVariables.FullScreen)
             {
@@ -183,7 +184,7 @@ namespace WorldOfTheThreeKingdoms
                 }*/
             }
         }
-
+        
         public void SaveGameWhenCrash(String _savePath)
         {
             this.mainGameScreen.SaveGameWhenCrash(_savePath);
@@ -214,6 +215,6 @@ namespace WorldOfTheThreeKingdoms
         }
     }
 
-
+ 
 
 }

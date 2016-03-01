@@ -11,7 +11,7 @@ using GameObjects;
 
 using GameObjects.FactionDetail;
 using GameObjects.PersonDetail;
-using GameObjects.PersonDetail.PersonMessages;
+//using GameObjects.PersonDetail.PersonMessages;
 using GameObjects.SectionDetail;
 using GameObjects.TroopDetail;
 using Microsoft.Xna.Framework;
@@ -211,6 +211,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     break;
 
+                case ContextMenuResult.Faction_TransferingMilitaries:
+                    if (this.CurrentArchitecture.BelongedFaction != null)
+                    {
+                        this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Military, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.BelongedFaction.TransferingMilitaries.GetList(), null, "", "");
+                    }
+                    break;
+
                 case ContextMenuResult.Faction_AvailableMilitaryKinds:
                     if (this.CurrentArchitecture.BelongedFaction != null)
                     {
@@ -398,6 +405,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                     break;
 
+                case ContextMenuResult.Military_Transfer://运输编队
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Military, FrameFunction.GetTransferMilitary, false, true, true, true, this.CurrentArchitecture.movableMilitaries, null, "选择编队", "");
+                    break;
+
+
                 case ContextMenuResult.Military_New:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.MilitaryKind, FrameFunction.GetNewMilitaryKind, false, true, true, false, this.CurrentArchitecture.GetNewMilitaryKindList(), null, "选择兵种", "");
                     break;
@@ -445,7 +457,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.Routeway_DemolishAll:
                     this.CurrentArchitecture.DemolishAllRouteways();
                     break;
-
+                    /*
+                case ContextMenuResult.Transport_Resource:
+                    this.Plugins.TransportDialogPlugin.SetSourceArchiecture(this.CurrentArchitecture);
+                    this.Plugins.TransportDialogPlugin.SetKind(TransportKind.Resource);
+                    this.Plugins.TransportDialogPlugin.SetMapPosition(ShowPosition.Center);
+                    this.Plugins.TransportDialogPlugin.IsShowing = true;
+                    break;
+                    */
+                    
                 case ContextMenuResult.Transport_Fund:
                     this.Plugins.TransportDialogPlugin.SetSourceArchiecture(this.CurrentArchitecture);
                     this.Plugins.TransportDialogPlugin.SetKind(TransportKind.Fund);
@@ -459,9 +479,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.Plugins.TransportDialogPlugin.SetMapPosition(ShowPosition.Center);
                     this.Plugins.TransportDialogPlugin.IsShowing = true;
                     break;
+                    
 
                 case ContextMenuResult.Person_Transfer:
-                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.PersonTransfer, false, true, true, true, this.CurrentArchitecture.Persons, null, "调动", "");
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.PersonTransfer, false, true, true, true, this.CurrentArchitecture.MovablePersons, null, "调动", "");
                     break;
 
                 case ContextMenuResult.Person_Convene:
@@ -472,6 +493,21 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.CurrentArchitecture.AutoHiring = !this.CurrentArchitecture.AutoHiring;
                     break;
 
+                case ContextMenuResult.Person_Appointment_AppointMayor: //任命县令
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.AppointMayor, false, true, true, false, this.CurrentArchitecture.MayorCandicate, null, "任命县令", "");
+                    break;
+
+                case ContextMenuResult.Person_Appointment_RecallMayor: //罢免县令
+                    this.CurrentArchitecture.RecallMayor();
+                    break;
+
+                case ContextMenuResult.Person_Appointment_AppointOfficer://手动封官
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetAppointPerson, false, true, true, false, this.CurrentArchitecture.Kerenmingdeguanyuan, null, "册封", "");
+                    break;
+
+                case ContextMenuResult.Person_Appointment_RecallOfficer://免除职位
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetRecallablePerson, false, true, true, false, this.CurrentArchitecture.RecallableOfficer, null, "罢免", "");
+                    break;
 
                 case ContextMenuResult.Person_Hire:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.PersonManualHire, false, true, true, false, this.CurrentArchitecture.NoFactionPersons, null, "录用", "");
@@ -537,12 +573,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.Tactics_StopInformation:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Information, FrameFunction.GetInformationToStop, false, true, true, true, this.CurrentArchitecture.Informations, null, "停止情报", "情报");
                     break;
-
+                    /*
                 case ContextMenuResult.Tactics_Spy:
                     this.Plugins.TabListPlugin.SetSelectedItemMaxCount(this.CurrentArchitecture.SpyPersonMaxCount);
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetSpyPerson, false, true, true, true, this.CurrentArchitecture.Persons, null, "间谍", "间谍");
                     break;
-
+                    */
                 case ContextMenuResult.Tactics_Destroy:
                     this.Plugins.TabListPlugin.SetSelectedItemMaxCount(this.CurrentArchitecture.DestroyPersonMaxCount);
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Work, FrameFunction.GetDestroyPerson, false, true, true, true, this.CurrentArchitecture.Persons, null, "破坏", "破坏");
@@ -606,6 +642,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.Monarch_SelectPrince :
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.SelectPrince, false, true, true, false, this.CurrentArchitecture.BelongedFaction.Leader.ChildrenCanBeSelectedAsPrince(), null, "立储", "");
                     break;
+                case ContextMenuResult.Monarch_Diplomatic_QuanXiangDiplomaticRelation: //劝降
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetQuanXiangDiplomaticRelation, false, true, true, false, this.CurrentArchitecture.GetQuanXiangDiplomaticRelationList() , null, "劝降", "");
+                    break;
                 case ContextMenuResult.Monarch_Diplomatic_EnhanceDiplomaticRelation:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.DiplomaticRelation, FrameFunction.GetEnhanceDiplomaticRelation, false, true, true, false, this.CurrentArchitecture.GetEnhanceDiplomaticRelationList(), null, "亲善", "");
                     break;
@@ -632,6 +671,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Captive, FrameFunction.GetReleaseCaptive, false, true, true, true, this.CurrentArchitecture.BelongedFaction.Captives, null, "释放俘虏", "");
                     break;
 
+                case ContextMenuResult.Monarch_KillRelease_MoveCaptive: //移动俘虏
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Captive, FrameFunction.MoveCaptive, false, true, true, true, this.CurrentArchitecture.Captives, null, "转移俘虏", "");
+                    break;
+
                 case ContextMenuResult.Monarch_KillRelease_KillPerson:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.KillPerson, false, true, true,false , this.CurrentArchitecture.CanKilledPersons(), null, "处斩下属", "");
                     break;
@@ -639,6 +682,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.Monarch_KillRelease_KillCaptive:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Captive, FrameFunction.KillCaptive, false, true, true, false, this.CurrentArchitecture.BelongedFaction.Captives, null, "处斩俘虏", "");
                     break;
+                    /*
+                case ContextMenuResult.Monarch_ZhaoXianBang_AutoCreatePerson: //招贤榜
+                    this.CurrentArchitecture.AutoCreatePerson();
+                    break;
+                    */
+                case ContextMenuResult.Monarch_ZhaoXianBang_GenerateOfficer:
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.PersonGeneratorType, FrameFunction.GetOfficerType, false, true, true, false, this.CurrentArchitecture.AvailGeneratorTypeList(), null, "武将类型", "");
+                    break;
+                    /*
+                case ContextMenuResult.Monarch_ZhaoXianBang_DengYong: //登用
+                    this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.DengYong, false, true, true, false, this.CurrentArchitecture.NoFactionOfficers, null, "登用", "");
+                    break;
+                    */
+                case ContextMenuResult.Monarch_ZhaoXianBang_DismissOfficer: //遣散
+                    this.CurrentArchitecture.DismissOfficer();
+                    break;
+                    
 
                 case ContextMenuResult.Monarch_hougongTop_nafei:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.xuanzemeinv, true, true, true, false, this.CurrentArchitecture.nvxingwujiang(), null, "纳妃", "");
@@ -726,7 +786,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.CurrentArchitecture.PlayerAISearch();
                     }
                     break;
-
+                    /*
+                case ContextMenuResult .Monarch_ZhaoXianBang_AutoZhaoXian:
+                    this.CurrentArchitecture.AutoZhaoXian = !this.CurrentArchitecture.AutoZhaoXian;
+                    if (this.CurrentArchitecture.AutoZhaoXian)
+                    {
+                        this.CurrentArchitecture.PlayAIZhaoXian();
+                    }
+                    break;
+                    */
                 case ContextMenuResult.AllEnter:
                     this.CurrentArchitecture.AllEnter();
                     //this.Plugins.AirViewPlugin.ReloadTroopView();

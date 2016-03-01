@@ -105,14 +105,32 @@
             node = nextSibling.ChildNodes.Item(13);
             //this.gameFrame.BottomRightWidth = int.Parse(node.Attributes.GetNamedItem("Width").Value);
             this.gameFrame.BottomRightTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\GameFrame\Data\" + node.Attributes.GetNamedItem("FileName").Value);
-
+            /*
+            node = nextSibling.ChildNodes.Item(14);
+            this.gameFrame.selectallbuttonSize.X = int.Parse(node.Attributes.GetNamedItem("Width").Value);
+            this.gameFrame.selectallbuttonSize.Y = int.Parse(node.Attributes.GetNamedItem("Height").Value);
+            this.gameFrame.selectallbuttonTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\GameFrame\Data\" + node.Attributes.GetNamedItem("FileName").Value);
+            this.gameFrame.selectallbuttonSelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\GameFrame\Data\" + node.Attributes.GetNamedItem("Selected").Value);
+            this.gameFrame.selectallbuttonPressedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\GameFrame\Data\" + node.Attributes.GetNamedItem("Pressed").Value);
+            this.gameFrame.selectallbuttonDisabledTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\GameFrame\Data\" + node.Attributes.GetNamedItem("Disabled").Value);
+             */
         }
 
         public void OK()
         {
             this.gameFrame.DoOK();
         }
-
+        /*
+        public void SelectAll()
+        {
+            this.gameFrame.DoSelectAll();
+        }
+        
+        public void SetSelectAllFunction(GameDelegates.VoidFunction function)
+        {
+            this.gameFrame.SetSelectAllFunction(function);
+        }
+        */
         public void SetCancelFunction(GameDelegates.VoidFunction function)
         {
             this.gameFrame.SetCancelFunction(function);
@@ -165,7 +183,19 @@
                 this.gameFrame.CancelButtonEnabled = value;
             }
         }
-
+        /*
+        public bool SelectAllButtonEnabled
+        {
+            get
+            {
+                return this.gameFrame.SelectAllButtonEnabled;
+            }
+            set
+            {
+                this.gameFrame.SelectAllButtonEnabled = value;
+            }
+        }
+        */
         public string Description
         {
             get

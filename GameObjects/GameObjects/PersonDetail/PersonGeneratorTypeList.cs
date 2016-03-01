@@ -5,7 +5,8 @@ using System.Text;
 
 namespace GameObjects.PersonDetail
 {
-	public class PersonGeneratorTypeList : GameObjectList
-	{
-	}
+    public class PersonGeneratorTypeList : GameObjectList
+    {
+     
+    }
 }

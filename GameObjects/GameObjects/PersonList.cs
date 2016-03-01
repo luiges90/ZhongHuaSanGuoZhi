@@ -22,8 +22,8 @@
                 person.OnConvinceFailed += new Person.ConvinceFailed(this.person_OnConvinceFailed);
                 person.OnInformationObtained += new Person.InformationObtained(this.person_OnInformationObtained);
                 person.qingbaoshibaishijian +=new Person.qingbaoshibai(this.person_qingbaoshibai);
-                person.OnSpySuccess += new Person.SpySuccess(this.person_OnSpySuccess);
-                person.OnSpyFailed += new Person.SpyFailed(this.person_OnSpyFailed);
+               // person.OnSpySuccess += new Person.SpySuccess(this.person_OnSpySuccess);
+               // person.OnSpyFailed += new Person.SpyFailed(this.person_OnSpyFailed);
                 person.OnDestroySuccess += new Person.DestroySuccess(this.person_OnDestroySuccess);
                 person.OnDestroyFailed += new Person.DestroyFailed(this.person_OnDestroyFailed);
                 person.OnInstigateSuccess += new Person.InstigateSuccess(this.person_OnInstigateSuccess);
@@ -31,9 +31,9 @@
                 person.OnGossipSuccess += new Person.GossipSuccess(this.person_OnGossipSuccess);
                 person.OnGossipFailed += new Person.GossipFailed(this.person_OnGossipFailed);
                 person.OnSearchFinished += new Person.SearchFinished(this.person_OnSearchFinished);
-                person.OnSpyFound += new Person.SpyFound(this.person_OnSpyFound);
-                person.OnTreasureFound += new Person.TreasureFound(this.person_OnTreasureFound);
-                person.OnShowMessage += new Person.ShowMessage(this.person_OnShowMessage);
+                //person.OnSpyFound += new Person.SpyFound(this.person_OnSpyFound);
+                //person.OnTreasureFound += new Person.TreasureFound(this.person_OnTreasureFound);
+               // person.OnShowMessage += new Person.ShowMessage(this.person_OnShowMessage);
                 person.OnDeath += new Person.Death(this.person_OnDeath);
                 person.OnLeave += new Person.Leave(this.person_OnLeave);
                 person.OnBeKilled += new Person.BeKilled(this.person_OnBeKilled);
@@ -180,7 +180,12 @@
         {
             faction.Scenario.GameScreen.PersonChangeLeader(faction, leader, changeName, oldName);
         }
-
+        /*
+        private void person_OnQuanXiangFailed(Person source, Faction targetFaction)
+        {
+            source.Scenario.GameScreen.QuanXiangFailed(source, targetFaction);
+        }
+        */
         private void person_OnConvinceFailed(Person source, Person destination)
         {
             source.Scenario.GameScreen.PersonConvinceFailed(source, destination);
@@ -251,12 +256,12 @@
         {
             person.Scenario.GameScreen.PersonSearchFinished(person, architecture, resultPack);
         }
-
+        /*
         private void person_OnShowMessage(Person person, PersonMessage personMessage)
         {
             person.Scenario.GameScreen.PersonShowMessage(person, personMessage);
         }
-
+        
         private void person_OnSpyFailed(Person person, Architecture architecture)
         {
             person.Scenario.GameScreen.PersonSpyFailed(person, architecture);
@@ -271,7 +276,7 @@
         {
             person.Scenario.GameScreen.PersonSpySuccess(person, architecture);
         }
-
+        */
         private void person_OnStudySkillFinished(Person person, string skillString, bool success)
         {
             person.Scenario.GameScreen.PersonStudySkillFinished(person, skillString, success);

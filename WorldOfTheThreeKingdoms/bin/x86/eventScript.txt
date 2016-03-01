@@ -107,16 +107,3 @@ P4 即是這樣
 
 P1 0 10
 P2 0 10
-
-// 以#effectRelation表示事件效果，可填入物件之間的關係條件。
-
-// 關係條件格式為
-// 字母P/A/F/T序號 關係 字母P/A/F/T序號
-// 字母P、A、F、T序號：在#condition部分定義的物件及其序號。
-// 關係：可為moveto。
-
-// moveto表示把物件一移至物件二裏，物件一只可是人物，物件二只可是人物或建築
-
-#effectRelation
-
-P1 moveto P2

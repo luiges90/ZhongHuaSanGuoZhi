@@ -22,7 +22,7 @@
               Align="Middle">
   </ColumnText>
   <SoundFile Select="Select.wav"></SoundFile>
-  <TabList RowHeight="25" FrameWidth="940" FrameHeight="550" ClientX="0" ClientY="0" ClientWidth="940" ClientHeight="500" OKButtonX="700" OKButtonY="515" CancelButtonX="800" CancelButtonY="515" MapViewSelectorButtonX="10" MapViewSelectorButtonY="515">
+  <TabList RowHeight="25" FrameWidth="956" FrameHeight="550" ClientX="0" ClientY="0" ClientWidth="956" ClientHeight="500" OKButtonX="700" OKButtonY="515" CancelButtonX="800" CancelButtonY="515" MapViewSelectorButtonX="10" MapViewSelectorButtonY="515">
     <ListKind ID="1" Name="Person" DisplayName="人物列表" ShowPortrait ="true">
       <Columns>
         <Column ID="1" Name="Name" CountToDisplay="False" IsNumber="false" DisplayName="姓名" MinWidth="100" DetailLevel="1" 
@@ -1228,13 +1228,20 @@
 				FontColor="4294967295"
 				Align="Middle">
         </Column>
+              <Column ID="510" Name="OfficerString" IsNumber="false" DisplayName="野武将" MinWidth="40" DetailLevel="2"
+                    FontName="方正隶变_GBK"
+                    FontSize="15"
+                    FontStyle="Regular"
+                    FontColor="4294967295"
+                    Align="Middle">
+        </Column>
       </Columns>
       <Tabs Margin="5">
         <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 8 17 3 4 5 30 70 71 170">
         </Tab>
         <Tab ID="2"  Name="Ability" DisplayName="能力" Columns="1 6 7 9 10 11 12 13 14 15 16">
         </Tab>
-        <Tab ID="3"  Name="Personal" DisplayName="个人" Columns="1 20 21 22 23 24 25 26 120 124 150">
+        <Tab ID="3"  Name="Personal" DisplayName="个人" Columns="1 20 21 22 23 24 25 26 120 124 150 510">
         </Tab>
         <Tab ID="4"  Name="Internal" DisplayName="内政" Columns="1 30 31 32 33 34 35 36 400">
         </Tab>
@@ -1242,7 +1249,7 @@
         </Tab>
         <Tab ID="6"  Name="Tactics" DisplayName="策略" Columns="1 70 71 110 111 112 113 114 115 116 117 118">
         </Tab>
-        <Tab ID="8"  Name="PersonalTitle" DisplayName="称号" Columns="1 60 66 67 65 62 64 63 61 68">
+        <Tab ID="8"  Name="PersonalTitle" DisplayName="称号" Columns="1 60 62 63 67 66 65 64 61 68">
         </Tab>
 		<Tab ID="10"  Name="Stunt" DisplayName="技能特技" Columns="1 136 139 140" ListKind="Stunt" ListMethod="GetStuntList">
         </Tab>
@@ -1266,7 +1273,7 @@
         </Tab>
 		<Tab ID="20"  Name="TeasureInfluences" DisplayName="宝物" Columns="1 500 501 502 503 504 505 506 507 508 509">
         </Tab>
-        
+               
       </Tabs>
     </ListKind>
     <ListKind ID="2" Name="Architecture" DisplayName="建筑列表" ShowPortrait ="false">
@@ -1665,9 +1672,23 @@
             FontColor="4294967295"
             Align="Right">
         </Column>
+              <Column ID="104" Name="MayorName" IsNumber="false" DisplayName="县令" MinWidth="100" DetailLevel="5"
+            FontName="方正隶变_GBK"
+            FontSize="15"
+            FontStyle="Regular"
+            FontColor="4294967295"
+            Align="Right">
+        </Column>
+       <Column ID="105" Name="ViewDistance" IsNumber="true" DisplayName="视野范围" MinWidth="70" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 9 5 6 7 103 99 101 100">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 9 5 6 7 103 99 101 100 104">
         </Tab>
 		<Tab ID="9"  Name="Basic" DisplayName="资源" Columns="1 2 5 6 7 110 111 16">
 		</Tab>
@@ -1675,7 +1696,7 @@
         </Tab>
         <Tab ID="3"  Name="Military" DisplayName="军备" Columns="1 8 20 21 70 71 80">
         </Tab>
-        <Tab ID="4"  Name="Normal" DisplayName="一般" Columns="1 30 31 3 4 34 35 90 102">
+        <Tab ID="4"  Name="Normal" DisplayName="一般" Columns="1 30 31 3 4 34 35 90 102 105">
         </Tab>
         <Tab ID="5"  Name="Ceiling" DisplayName="上限" Columns="1 50 40 41 42 43 44 45 51 52">
         </Tab>
@@ -1864,14 +1885,27 @@
             FontColor="4294967295"
             Align="Left">
         </Column>
-
+        <Column ID="37" Name="SelfOfficerCount" IsNumber="true" DisplayName="野武将数量" MinWidth="80" DetailLevel="3"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+<Column ID="38" Name="TransferingMilitaryCount" IsNumber="true" DisplayName="运输编队数量" MinWidth="80" DetailLevel="3"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
       </Columns>
       <Tabs Margin="5">
         <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 30 2 3 8 4 5 6 7 9">
         </Tab>
-        <Tab ID="2"  Name="Detail" DisplayName="细节" Columns="1 30 36 10 14 17 12 13 20">
+        <Tab ID="2"  Name="Detail" DisplayName="细节" Columns="1 30 36 10 14 17 12 38 13 20">
         </Tab>
-		<Tab ID="3"  Name="Person" DisplayName="人物" Columns="1 30 11 15 16">
+		<Tab ID="3"  Name="Person" DisplayName="人物" Columns="1 30 11 15 16 37">
         </Tab>
         <Tab ID="4"  Name="chaoting" DisplayName="官爵" Columns="1 30 32 31 33 34 35">
         </Tab>
@@ -2821,16 +2855,16 @@
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
-        <Column ID="3" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="580" DetailLevel="3"
+        <Column ID="3" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="600" DetailLevel="6"
                 FontName="方正隶变_GBK"
-                FontSize="9"
+                FontSize="14"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
         </Column>
-        <Column ID="4" Name="Prerequisite" IsNumber="false" DisplayName="学习条件" MinWidth="660" DetailLevel="7"
+        <Column ID="4" Name="Prerequisite" IsNumber="false" DisplayName="学习条件" MinWidth="700" DetailLevel="7"
                 FontName="方正隶变_GBK"
-                FontSize="9"
+                FontSize="14"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
@@ -3575,13 +3609,34 @@
                 FontColor="4294967295"
                 Align="Left">
         </Column>
-      </Columns>
+<Column ID="301" Name="Travel" IsNumber="false" DisplayName="途中" MinWidth="100" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+        </Column>
+<Column ID="302" Name="StartingArchitectureString" IsNumber="false" DisplayName="出发建筑" MinWidth="100" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+        </Column>
+<Column ID="303" Name="TargetArchitectureString" IsNumber="false" DisplayName="目标建筑" MinWidth="100" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+        </Column>
+   </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 5 10 11 12 14 40" ListKind="Influence" ListMethod="GetInfluenceList">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 13 21 3 4 5 10 11 12 14" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
         <Tab ID="2"  Name="Leader" DisplayName="将领" Columns="1 2 3 20 23 21 24 25 22" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
-        <Tab ID="3"  Name="Combat" DisplayName="战斗" Columns="1 2 33 30 31 32 13" ListKind="Influence" ListMethod="GetInfluenceList">
+        <Tab ID="3"  Name="Combat" DisplayName="战斗" Columns="1 2 33 30 31 32 40" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
 		<Tab ID="4"  Name="Character" DisplayName="特色" Columns="1 100 101 102 103 104 105" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
@@ -3590,6 +3645,8 @@
         <Tab ID="6"  Name="Rate" DisplayName="乘数" Columns="1 80 81 82 83 84 85 86 87 88 89" ListKind="Influence" ListMethod="GetInfluenceList">
         </Tab>
         <Tab ID="7"  Name="Description" DisplayName="介绍" Columns="1 300" ListKind="Influence" ListMethod="GetInfluenceList">
+		</Tab>
+        <Tab ID="8"  Name="Transport" DisplayName="运输" Columns="1 2 3  10 11 12 301 302 303" ListKind="Influence" ListMethod="GetInfluenceList">
 		</Tab>
       </Tabs>
     </ListKind>
@@ -3980,9 +4037,23 @@
                 FontColor="4294967295"
                 Align="Right">
         </Column>
+        <Column ID="7" Name="Travel" IsNumber="false" DisplayName="途中" MinWidth="60" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295" 
+                Align="Middle">
+        </Column>
+        <Column ID="8" Name="RansomArriveDaysString" IsNumber="false" DisplayName="赎金到达时间" MinWidth="60" DetailLevel="4"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295" 
+                Align="Middle">
+        </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 5 6">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 5 6 8 7">
         </Tab>
       </Tabs>
     </ListKind>
@@ -4475,6 +4546,35 @@
       </Columns>
       <Tabs Margin="5">
         <Tab ID="1"  Name="Information" DisplayName="官爵" Columns="1 2 3 4">
+        </Tab>
+      </Tabs>
+    </ListKind>
+        <ListKind ID="32" Name="PersonGeneratorType" DisplayName="武将类型" ShowPortrait ="false">
+      <Columns>
+        <Column ID="0" Name="ID" IsNumber="true" DisplayName="序号" MinWidth="50" DetailLevel="1"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+        <Column ID="1" Name="Name" IsNumber="false" DisplayName="类型" MinWidth="80" DetailLevel="2"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Bold"
+                FontColor="4278255360"
+                Align="Middle">
+        </Column>
+        <Column ID="2" Name="CostFund" IsNumber="true" DisplayName="资金" MinWidth="80" DetailLevel="2"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+      </Columns>
+      <Tabs Margin="5">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2">
         </Tab>
       </Tabs>
     </ListKind>

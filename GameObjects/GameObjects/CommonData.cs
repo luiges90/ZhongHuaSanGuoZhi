@@ -52,6 +52,10 @@
         public AnimationTable AllTileAnimations = new AnimationTable();
         public TitleTable AllTitles = new TitleTable();
         public TitleKindTable AllTitleKinds = new TitleKindTable();
+
+       // public GuanzhiTable AllGuanzhis = new GuanzhiTable();
+        //public GuanzhiKindTable AllGuanzhiKinds = new GuanzhiKindTable();
+
         public AnimationTable AllTroopAnimations = new AnimationTable();
         public EventEffectKindTable AllTroopEventEffectKinds = new EventEffectKindTable();
         public EventEffectTable AllTroopEventEffects = new EventEffectTable();
@@ -63,6 +67,23 @@
 
         public PersonGeneratorSetting PersonGeneratorSetting = new PersonGeneratorSetting();
         public PersonGeneratorTypeList AllPersonGeneratorTypes = new PersonGeneratorTypeList();
+
+        private PersonGeneratorTypeList playerGeneratorTypes = null;
+        public PersonGeneratorTypeList PlayerGeneratorTypes
+        {
+            get
+            {
+
+                if (playerGeneratorTypes == null)
+                {
+                    playerGeneratorTypes = Person.CreatePlayerPersonGeneratorTypeList(AllPersonGeneratorTypes);
+                }
+                
+                return playerGeneratorTypes;
+            }
+        }
+    
+    
 
         public void Clear()
         {
@@ -95,6 +116,8 @@
             this.AllTileAnimations.Clear();
             this.AllTitles.Clear();
             this.AllTitleKinds.Clear();
+            //this.AllGuanzhis.Clear();
+            //this.AllGuanzhiKinds.Clear();
             this.AllTroopAnimations.Clear();
             this.AllTroopEventEffectKinds.Clear();
             this.AllTroopEventEffects.Clear();
@@ -310,19 +333,19 @@
                 sectionAIDetail.AllowMilitaryTransfer = (bool)reader["AllowMilitaryTransfer"];
                 try
                 {
-                    sectionAIDetail.AllowNewMilitary = (bool)reader["AllowNewMilitary"];
-                }
-                catch
-                {
-                    sectionAIDetail.AllowNewMilitary = true;
-                }
-                try
-                {
                     sectionAIDetail.AllowFacilityRemoval = (bool)reader["AllowFacilityRemoval"];
                 }
                 catch
                 {
                     sectionAIDetail.AllowFacilityRemoval = true;
+                }
+                try
+                {
+                    sectionAIDetail.AllowNewMilitary = (bool)reader["AllowNewMilitary"];
+                }
+                catch
+                {
+                    sectionAIDetail.AllowNewMilitary = true;
                 }
                 this.AllSectionAIDetails.AddSectionAIDetail(sectionAIDetail);
             }
@@ -660,7 +683,9 @@
                 guanjuedezhonglei.xuyaogongxiandu = (int)reader["需要贡献度"];
 
                 guanjuedezhonglei.xuyaochengchi = (short)reader["需要城池"];
+
                 guanjuedezhonglei.ShowDialog = (bool)reader["ShowDialog"];
+
 
                 this.suoyouguanjuezhonglei.Addguanjuedezhonglei(guanjuedezhonglei);
             }
@@ -764,6 +789,93 @@
             return errorMsg;
         }
 
+        /*
+        public List<string> LoadGuanzhiKind(OleDbConnection connection, GameScenario scen)
+        {
+            connection.Open();
+            try
+            {
+                OleDbDataReader reader = new OleDbCommand("Select * From GuanzhiKind", connection).ExecuteReader();
+                while (reader.Read())
+                {
+                    GuanzhiKind gk = new GuanzhiKind();
+                    gk.Scenario = scen;
+                    gk.ID = (short)reader["ID"];
+                    gk.Name = reader["KName"].ToString();
+                    gk.StudyDay = (short)reader["StudyDay"];
+                    gk.SuccessRate = (short)reader["SuccessRate"];
+                    this.AllGuanzhiKinds.AddGuanzhiKind(gk);
+                }
+            }
+            catch
+            {
+                GuanzhiKind gk = new GuanzhiKind();
+                gk.Scenario = scen;
+                gk.ID = 1;
+                gk.StudyDay = 30;
+                this.AllGuanzhiKinds.AddGuanzhiKind(gk);
+            }
+            connection.Close();
+
+            return new List<string>();
+        }
+
+        public List<string> LoadGuanzhi(OleDbConnection connection, GameScenario scen)
+        {
+            List<string> errorMsg = new List<string>();
+            
+                connection.Open();
+                try
+                {
+
+                    OleDbDataReader reader = new OleDbCommand("Select * From Guanzhi", connection).ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Guanzhi guanzhi = new Guanzhi();
+                        guanzhi.Scenario = scen;
+                        guanzhi.ID = (short)reader["ID"];
+                        guanzhi.Kind = this.AllGuanzhiKinds.GetGuanzhiKind((short)reader["Kind"]);
+                        if (guanzhi.Kind == null)
+                        {
+                            errorMsg.Add("官职ID" + guanzhi.ID + "使用了不存在的官职类型" + ((short)reader["Kind"]));
+                        }
+                        guanzhi.Level = (short)reader["Level"];
+                        guanzhi.AutoAward = (bool)reader["AutoAward"];
+                        guanzhi.Name = reader["Name"].ToString();
+
+                        List<string> e = guanzhi.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                        e.AddRange(guanzhi.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString()));
+
+                        e.AddRange(guanzhi.FactionConditions.LoadFromString(this.AllConditions, reader["FactionConditions"].ToString()));
+                        e.AddRange(guanzhi.LoseConditions.LoadFromString(this.AllConditions, reader["LoseConditions"].ToString())); //失去条件
+
+                        if (e.Count > 0)
+                        {
+                            errorMsg.Add("官职ID" + guanzhi.ID);
+                            errorMsg.AddRange(e);
+                        }
+
+                        guanzhi.AutoLearnText = reader["AutoLearnText"].ToString();
+                        guanzhi.AutoLearnTextByCourier = reader["AutoLearnTextByCourier"].ToString();
+
+                        guanzhi.MapLimit = (int)reader["MapLimit"];
+                        guanzhi.FactionLimit = (int)reader["FactionLimit"];
+
+
+                        this.AllGuanzhis.AddGuanzhi(guanzhi);
+                    }
+                }
+                catch
+                {
+                    Guanzhi guanzhi = new Guanzhi();
+                    this.AllGuanzhis.AddGuanzhi(guanzhi);
+                }
+            
+            connection.Close();
+            return errorMsg;
+        }
+         */ 
+
         public List<string> LoadTitleKind(OleDbConnection connection, GameScenario scen)
         {
             connection.Open();
@@ -804,6 +916,8 @@
             return new List<string>();
         }
 
+        
+
         public List<string> LoadTitle(OleDbConnection connection, GameScenario scen)
         {
             List<string> errorMsg = new List<string>();
@@ -829,6 +943,9 @@
                 {
                     e.AddRange(title.ArchitectureConditions.LoadFromString(this.AllConditions, reader["ArchitectureConditions"].ToString()));
                     e.AddRange(title.FactionConditions.LoadFromString(this.AllConditions, reader["FactionConditions"].ToString()));
+                    e.AddRange(title.LoseConditions.LoadFromString(this.AllConditions, reader["LoseConditions"].ToString())); //失去条件
+                   // e.AddRange(title.LoseArchitectureConditions.LoadFromString(this.AllConditions, reader["LoseArchitectureConditions"].ToString())); //失去建筑条件
+                   // e.AddRange(title.LoseFactionConditions.LoadFromString(this.AllConditions, reader["LoseFactionConditions"].ToString())); //失去势力条件
                 }
                 catch { }
                 if (e.Count > 0)
@@ -879,6 +996,15 @@
                 {
                     title.GenerationChance[9] = title.GenerationChance[7];
                 }
+                try
+                {
+                    title.ManualAward = (bool)reader["ManualAward"];
+                }
+                catch
+                {
+                    title.ManualAward = ((title.Kind.ID == 5 || title.Kind.ID == 10 ) && title.Level >= 7) ? true : false;
+                }
+               
                 title.RelatedAbility = (int)reader["Ability"];
                 this.AllTitles.AddTitle(title);
             }
@@ -1017,7 +1143,6 @@
                     errorMsg.Add("称号ID" + militaryKind.ID);
                     errorMsg.AddRange(e);
                 }
-
 
                 militaryKind.zijinshangxian = (int)reader["zijinshangxian"];
                 this.AllMilitaryKinds.AddMilitaryKind(militaryKind);
@@ -1220,6 +1345,13 @@
                 stratagem.Self = (bool)reader["Self"];
                 stratagem.AnimationKind = (TileAnimationKind)((short)reader["AnimationKind"]);
                 List<string> e = stratagem.Influences.LoadFromString(this.AllInfluences, reader["Influences"].ToString());
+                try
+                {
+                    e.AddRange(stratagem.CastConditions.LoadFromString(this.AllConditions, reader["CastConditions"].ToString()));
+                }
+                catch
+                {
+                }
                 if (e.Count > 0)
                 {
                     errorMsg.Add("计略ID" + stratagem.ID);
@@ -1494,6 +1626,82 @@
                 type.ambitionHi = (int)reader["AmbitionHi"];
                 type.titleChance = (int)reader["TitleChance"];
                 type.affectedByRateParameter = (bool)reader["AffectedByRateParameter"];
+
+                try
+                {
+                    type.CostFund = (int)reader["CostFund"];
+                    
+                }
+                catch
+                {
+                    switch (type.ID)
+                    {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                            type.CostFund = 80000;
+                            break;
+
+                        case 4:
+                            type.CostFund = 120000;
+                            break;
+
+                        case 5:
+                            type.CostFund = 150000;
+                            break;
+
+                        case 6:
+                            type.CostFund = 250000;
+                            break;
+
+                        case 7:
+                        case 8:
+                        case 9:
+                            type.CostFund = 15000;
+                            break;
+                    }
+                }
+                try
+                {
+                    type.TypeCount = (int)reader["TypeCount"];
+                    
+                }
+                catch
+                {
+
+                    type.TypeCount = 0;
+                }
+
+                try
+                {
+                    type.FactionLimit = (int)reader["FactionLimit"];
+                }
+                catch 
+                {
+                    switch (type.ID)
+                    {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                            type.FactionLimit = 10;
+                            break;
+
+                        case 5:
+                        case 6:
+                            type.FactionLimit = 1;
+                            break;
+
+                        case 7:
+                        case 8:
+                        case 9:
+                            type.FactionLimit = 9;
+                            break;
+
+                    }
+                }
                 this.AllPersonGeneratorTypes.Add(type);
             }
             connection.Close();
@@ -1515,7 +1723,17 @@
             List<string> errorMsg = new List<string>();
 
             OleDbConnection connection = new OleDbConnection(connectionString);
-
+            /*try
+            {
+                errorMsg.AddRange(this.LoadGuanzhiKind(connection, scen));
+            }
+            catch { }
+            try
+            {
+                errorMsg.AddRange(this.LoadGuanzhi(connection, scen));
+            }
+            catch { }
+            */
             try
             {
                 errorMsg.AddRange(this.LoadPersonGeneratorSetting(connection, scen));
@@ -1526,6 +1744,10 @@
                 errorMsg.AddRange(this.LoadPersonGeneratorTypes(connection, scen));
             }
             catch { }
+
+            //errorMsg.AddRange(this.LoadGuanzhi(connection, scen));
+            //errorMsg.AddRange(this.LoadGuanzhiKind(connection, scen));
+
             errorMsg.AddRange(this.LoadTerrainDetail(connection, scen));
             errorMsg.AddRange(this.LoadColor(connection, scen));
             errorMsg.AddRange(this.LoadIdealTendencyKind(connection, scen));
@@ -1559,12 +1781,12 @@
             errorMsg.AddRange(this.LoadTroopAnimation(connection, scen));
             errorMsg.AddRange(this.LoadTileAnimation(connection, scen));
             errorMsg.AddRange(this.LoadTextMessage(connection, scen));
-            try
+           try
             {
                 errorMsg.AddRange(this.LoadBiographyAdjectives(connection, scen));
             }
-            catch { }
-
+           catch { }
+           
             return errorMsg;
         }
 
@@ -1600,6 +1822,7 @@
                 dataSet.Clear();
             }
             catch { }
+
 
             selectConnection.Close();
         }
@@ -1650,13 +1873,17 @@
                 new OleDbCommand("drop table TroopEventEffectKind", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table GlobalVariables", selectConnection).ExecuteNonQuery();
                 new OleDbCommand("drop table GameParameters", selectConnection).ExecuteNonQuery();
+
+               // new OleDbCommand("drop table Guanzhi", selectConnection).ExecuteNonQuery();
+               // new OleDbCommand("drop table GuanzhiKind", selectConnection).ExecuteNonQuery();
                 try
                 {
                     new OleDbCommand("drop table PersonGenerator", selectConnection).ExecuteNonQuery();
                     new OleDbCommand("drop table PersonGeneratorType", selectConnection).ExecuteNonQuery();
                 }
                 catch { }
-
+                
+                
                 selectConnection.Close();
             }
         }
@@ -2257,7 +2484,6 @@
                     row["zijinshangxian"] = i.zijinshangxian;
                     row["MorphTo"] = i.MorphToKindId;
                     row["MinCommand"] = i.MinCommand;
-                    row["CreateConditions"] = i.CreateConditions;
                     row.EndEdit();
                     dataSet.Tables["MilitaryKind"].Rows.Add(row);
                 }
@@ -2298,8 +2524,8 @@
                     row["AllowFundTransfer"] = i.AllowFundTransfer;
                     row["AllowFoodTransfer"] = i.AllowFoodTransfer;
                     row["AllowMilitaryTransfer"] = i.AllowMilitaryTransfer;
-                    row["AllowNewMilitary"] = i.AllowNewMilitary;
                     row["AllowFacilityRemoval"] = i.AllowFacilityRemoval;
+                    row["AllowNewMilitary"] = i.AllowNewMilitary;
                     row.EndEdit();
                     dataSet.Tables["SectionAIDetail"].Rows.Add(row);
                 }
@@ -2374,6 +2600,7 @@
                     row["CastTarget"] = i.CastTarget == null ? 1 : i.CastTarget.ID;
                     row["ArchitectureTarget"] = i.ArchitectureTarget;
                     row["RequireInfluneceToUse"] = i.RequireInfluenceToUse;
+                    row["CastConditions"] = i.CastConditions.SaveToString(); ;
                     row.EndEdit();
                     dataSet.Tables["Stratagem"].Rows.Add(row);
                 }
@@ -2508,6 +2735,7 @@
                 adapter.Update(dataSet, "TileAnimation");
                 dataSet.Clear();
 
+
                 new OleDbCommand("Delete from Title", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from Title", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
@@ -2531,6 +2759,9 @@
                     row["Prerequisite"] = i.Prerequisite;
                     row["Influences"] = i.Influences.SaveToString();
                     row["Conditions"] = i.Conditions.SaveToString();
+                    row["LoseConditions"] = i.LoseConditions.SaveToString(); //失去条件
+                    //row["LoseArchitectureConditions"] = i.LoseArchitectureConditions.SaveToString(); //失去建筑条件
+                    //row["LoseFactionConditions"] = i.LoseFactionConditions.SaveToString(); //失去势力条件
                     row["ArchitectureConditions"] = i.ArchitectureConditions.SaveToString();
                     row["FactionConditions"] = i.FactionConditions.SaveToString();
                     row["AutoLearn"] = i.AutoLearn;
@@ -2550,6 +2781,7 @@
                     row["MapLimit"] = i.MapLimit;
                     row["FactionLimit"] = i.FactionLimit;
                     row["InheritChance"] = i.InheritChance;
+                    row["ManualAward"] = i.ManualAward;
                     /*try
                     {
                         row["AIPersonValue"] = i.AIPersonValue;
@@ -2589,6 +2821,82 @@
                 adapter.Update(dataSet, "TitleKind");
                 dataSet.Clear();
 
+                /*
+                try
+                {
+                    new OleDbCommand("Delete from Guanzhi", selectConnection).ExecuteNonQuery();
+                    adapter = new OleDbDataAdapter("Select * from Guanzhi", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    builder.QuotePrefix = "[";
+                    builder.QuoteSuffix = "]";
+                    adapter.Fill(dataSet, "Guanzhi");
+                    dataSet.Tables["Guanzhi"].Rows.Clear();
+                    storedIds.Clear();
+                    foreach (Guanzhi i in this.AllGuanzhis.Guanzhis.Values)
+                    {
+                        if (storedIds.Contains(i.ID)) continue;
+                        storedIds.Add(i.ID);
+                        row = dataSet.Tables["Guanzhi"].NewRow();
+                        row.BeginEdit();
+                        row["ID"] = i.ID;
+                        row["Kind"] = i.Kind.ID;
+                        row["Level"] = i.Level;
+                        //row["Combat"] = i.Combat;
+                        row["Name"] = i.Name;
+                        row["Influences"] = i.Influences.SaveToString();
+                        row["Conditions"] = i.Conditions.SaveToString();
+                        row["LoseConditions"] = i.LoseConditions.SaveToString(); //失去条件
+                        row["FactionConditions"] = i.FactionConditions.SaveToString();
+                        row["AutoAward"] = i.AutoAward;
+                        row["AutoLearnText"] = i.AutoLearnText;
+                        row["AutoLearnTextByCourier"] = i.AutoLearnTextByCourier;
+                        row["MapLimit"] = i.MapLimit;
+                        row["FactionLimit"] = i.FactionLimit;
+                        row.EndEdit();
+                        dataSet.Tables["Guanzhi"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "Guanzhi");
+                    dataSet.Clear();
+                }
+                catch
+                {
+                }
+                
+
+
+                try
+                {
+                    new OleDbCommand("Delete from GuanzhiKind", selectConnection).ExecuteNonQuery();
+                    adapter = new OleDbDataAdapter("Select * from GuanzhiKind", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    builder.QuotePrefix = "[";
+                    builder.QuoteSuffix = "]";
+                    adapter.Fill(dataSet, "GuanzhiKind");
+                    dataSet.Tables["GuanzhiKind"].Rows.Clear();
+                    storedIds.Clear();
+                    foreach (GuanzhiKind i in this.AllGuanzhiKinds.GuanzhiKinds.Values)
+                    {
+                        if (storedIds.Contains(i.ID)) continue;
+                        storedIds.Add(i.ID);
+                        row = dataSet.Tables["GuanzhiKind"].NewRow();
+                        row.BeginEdit();
+                        row["ID"] = i.ID;
+                        row["KName"] = i.Name;
+                        //row["Combat"] = i.Combat;
+                        row["StudyDay"] = i.StudyDay;
+                        row["SuccessRate"] = i.SuccessRate;
+                        row.EndEdit();
+                        dataSet.Tables["GuanzhiKind"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "GuanzhiKind");
+                    dataSet.Clear();
+                }
+                
+                catch 
+                {
+                    // ignore
+                }
+                */
                 new OleDbCommand("Delete from TroopAnimation", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from TroopAnimation", selectConnection);
                 builder = new OleDbCommandBuilder(adapter);
@@ -2741,11 +3049,15 @@
                     row["AmbitionHi"] = i.ambitionHi;
                     row["TitleChance"] = i.titleChance;
                     row["AffectedByRateParameter"] = i.affectedByRateParameter;
+                    row["CostFund"] = i.CostFund;
+                    row["TypeCount"] = i.TypeCount;
+                    row["FactionLimit"] = i.FactionLimit;
                     row.EndEdit();
                     dataSet.Tables["PersonGeneratorType"].Rows.Add(row);
                 }
                 adapter.Update(dataSet, "PersonGeneratorType");
                 dataSet.Clear();
+
 
                 new OleDbCommand("Delete from GameParameters", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from GameParameters", selectConnection);

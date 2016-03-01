@@ -8,7 +8,7 @@
 
     public class PersonIdDialog
     {
-        public int id; public string dialog;
+        public int id; public string dialog; public string scenBiography;
     }
 
     public class Event : GameObject
@@ -31,6 +31,8 @@
         public Dictionary<Person, List<EventEffect>> matchedEffect;
         public List<EventEffect> architectureEffect;
         public List<EventEffect> factionEffect;
+        public List<PersonIdDialog> scenBiography = new List<PersonIdDialog>() ;
+        public List<PersonDialog> matchedScenBiography = new List<PersonDialog> () ;
         public String Image = "";
         public String Sound = "";
         public bool GloballyDisplayed = false;
@@ -47,6 +49,10 @@
             if (this.OnApplyEvent != null)
             {
                 this.OnApplyEvent(this, a);
+            }
+            foreach (PersonDialog i in matchedScenBiography) 
+            {
+                this.Scenario.YearTable.addPersonInGameBiography(i.SpeakingPerson, this.Scenario.Date, i.Text);
             }
             if (nextScenario.Length > 0)
             {
@@ -73,22 +79,29 @@
 
         public void DoApplyEvent(Architecture a)
         {
-            foreach (KeyValuePair<Person, List<EventEffect>> i in matchedEffect)
+            if (matchedEffect != null)
             {
-                foreach (EventEffect j in i.Value)
+                foreach (KeyValuePair<Person, List<EventEffect>> i in matchedEffect)
                 {
-                    j.ApplyEffect(i.Key, this);
+                    foreach (EventEffect j in i.Value)
+                    {
+                        j.ApplyEffect(i.Key, this);
+                    }
                 }
             }
-
-            foreach (EventEffect i in architectureEffect)
+            if (architectureEffect != null)
             {
-                i.ApplyEffect(a, this);
+                foreach (EventEffect i in architectureEffect)
+                {
+                    i.ApplyEffect(a, this);
+                }
             }
-
-            foreach (EventEffect i in factionEffect)
+            if (factionEffect != null)
             {
-                i.ApplyEffect(a.BelongedFaction, this);
+                foreach (EventEffect i in factionEffect)
+                {
+                    i.ApplyEffect(a.BelongedFaction, this);
+                }
             }
         }
 
@@ -164,7 +177,7 @@
             {
                 foreach (Person p in i.Value)
                 {
-                    if (p != null && p.ID >= 7000 && p.ID < 8000)
+                    if (p != null /*&& p.ID >= 7000 && p.ID < 8000*/)
                     {
                         bool ok = true;
                         if (this.personCond.ContainsKey(i.Key))
@@ -220,6 +233,21 @@
                 }
                 matchedDialog.Add(pd);
             }
+            
+            matchedScenBiography = new List<PersonDialog>();
+            foreach (PersonIdDialog i in this.scenBiography)
+            {
+                if (!matchedPersons.ContainsKey(i.id)) return false;
+
+                PersonDialog pd = new PersonDialog();
+                pd.SpeakingPerson = matchedPersons[i.id];
+                pd.Text = i.dialog;
+                for (int j = 0; j < matchedPersons.Count; ++j)
+                {
+                    pd.Text = pd.Text.Replace("%" + j, matchedPersons[j].Name);
+                }
+                matchedScenBiography.Add(pd);
+            }
 
             matchedEffect = new Dictionary<Person, List<EventEffect>>();
             foreach (KeyValuePair<int, List<EventEffect>> i in this.effect)
@@ -274,6 +302,45 @@
                 }
             }
 
+            if (architecture != null || faction != null)
+            {
+                bool contains = false;
+                if (architecture != null)
+                {
+                    foreach (Architecture archi in this.architecture)
+                    {
+                        if (archi.ID == a.ID)
+                        {
+                            contains = true;
+                        }
+                    }
+                }
+
+                if (faction != null)
+                {
+                    foreach (Faction f in faction)
+                    {
+                        if (a.BelongedFaction != null)
+                        {
+                            if (f.ID == a.BelongedFaction.ID)
+                            {
+                                contains = true;
+                            }
+                        }
+                    }
+
+                }
+                if (contains)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            
+           
             return this.matchEventPersons(a);
         }
 
@@ -445,6 +512,21 @@
                 this.dialog.Add(d);
             }
         }
+        
+        public void LoadScenBiographyFromString(string data)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.scenBiography = new List<PersonIdDialog>();
+            for (int i = 0; i < strArray.Length; i += 2)
+            {
+                PersonIdDialog d = new PersonIdDialog();
+                d.id = int.Parse(strArray[i]);
+                d.dialog = strArray[i + 1];
+                this.scenBiography.Add(d);
+            }
+        }
 
         public string SaveDialogToString()
         {
@@ -452,6 +534,16 @@
             foreach (PersonIdDialog i in this.dialog)
             {
                 result += i.id + " " + i.dialog + " ";
+            }
+            return result;
+        }
+        
+        public string SaveScenBiographyToString()
+        {
+            string result = "";
+            foreach (PersonIdDialog i in this.scenBiography)
+            {
+                result += i.id + " " + i.scenBiography + " ";
             }
             return result;
         }
@@ -533,7 +625,17 @@
             }
             return result;
         }
-
+        
+       /*
+        public bool CheckFactionEvent(Architecture a)
+        {
+           if (this.faction != null && this.faction.GameObjects.Contains(a.BelongedFaction) && checkConditions(a))
+            {
+                return true ;
+            }
+            return false ;
+        }
+        */
         public delegate void ApplyEvent(Event te, Architecture a);
 
     }

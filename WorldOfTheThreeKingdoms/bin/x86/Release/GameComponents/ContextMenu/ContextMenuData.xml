@@ -35,6 +35,7 @@
                 <MenuItem ID="10" Name="Techniques" DisplayName="势力技巧" />
                 <MenuItem ID="11" Name="Sections" DisplayName="军区列表" />
                 <MenuItem ID="12" Name="Treasure" DisplayName="相关宝物" DisplayIfTrue="FactionHasTreasure" />
+                <MenuItem ID="14" Name="TransferingMilitaries" DisplayName="编队运输列表" />
             </MenuItem>
         </MenuKind>
         <MenuKind ID="2" Name="ArchitectureLeftClick" DisplayName="建筑左键菜单" IsLeft="true" Width="100" Height="25">
@@ -61,6 +62,7 @@
             <MenuItem ID="2" Name="Military" DisplayName="军事">
                 <MenuItem ID="1" Name="Campaign" DisplayName="出征" DisplayIfTrue="CampaignAvail" />
                 <MenuItem ID="2" Name="Troopership" DisplayName="运兵船" DisplayIfTrue="TroopershipAvail" />
+                <MenuItem ID="3" Name="Transfer" DisplayName="运兵" DisplayIfTrue="TransferMilitaryAvail" />
                 <MenuItem ID="10" Name="Training" DisplayName="训练" DisplayIfTrue="TrainingAvail" />
                 <MenuItem ID="11" Name="Recruitment" DisplayName="补充" DisplayIfTrue="RecruitmentAvail" />
                 <MenuItem ID="12" Name="New" DisplayName="新编" DisplayIfTrue="NewMilitaryAvail" />
@@ -80,7 +82,7 @@
 			</MenuItem>
 			<MenuItem ID="4" Name="Transport" DisplayName="运输" DisplayIfTrue="TransportAvailable">
 				<MenuItem ID="1" Name="Fund" DisplayName="资金" />
-				<MenuItem ID="2" Name="Food" DisplayName="粮草" />
+                                <MenuItem ID="2" Name="Food" DisplayName="粮草" />
 			</MenuItem>
             <MenuItem ID="5" Name="Person" DisplayName="人事">
                 <MenuItem ID="1" Name="Transfer" DisplayName="调动" DisplayIfTrue="PersonTransferAvail" />
@@ -96,6 +98,12 @@
                     <MenuItem ID="2" Name="Title" DisplayName="称号" DisplayIfTrue="PersonStudyTitleAvail" />
                     <MenuItem ID="3" Name="Stunt" DisplayName="特技" DisplayIfTrue="PersonStudyStuntAvail" />
                 </MenuItem>
+                <MenuItem ID="10" Name="Appointment" DisplayName="任免">
+                    <MenuItem ID="1" Name="AppointMayor" DisplayName="任命县令" DisplayIfTrue="AppointMayorAvail" />
+                    <MenuItem ID="2" Name="RecallMayor" DisplayName="罢免县令" DisplayIfTrue="RecallMayorAvail" />
+                    <MenuItem ID="3" Name="AppointOfficer" DisplayName="授予官职" DisplayIfTrue="CanAppoint" /> 
+                    <MenuItem ID="4" Name="RecallOfficer" DisplayName="免除官职" DisplayIfTrue="RecallOfficerAvail" /> 
+               </MenuItem> 
             </MenuItem>
             <MenuItem ID="6" Name="Tactics" DisplayName="策略">
                 <MenuItem ID="1" Name="Information" DisplayName="情报" DisplayIfTrue="InformationAvail" />
@@ -117,12 +125,17 @@
                 </MenuItem>
                 <MenuItem ID="2" Name="ChangeCapital" DisplayName="迁都" DisplayIfTrue="ChangeCapitalAvail" />
                 <MenuItem ID="9" Name="SelectPrince"  DisplayName="立储" DisplayIfTrue="SelectPrinceAvail" />
+                <MenuItem ID="11" Name="ZhaoXianBang"  DisplayName="招贤榜">                
+                    <MenuItem ID="1" Name="GenerateOfficer" DisplayName="招贤" DisplayIfTrue="CanZhaoXian" />
+                    <MenuItem ID="2" Name="DismissOfficer" DisplayName="遣散" DisplayIfTrue="DismissOfficerAvail" />               
+                </MenuItem>
                 <MenuItem ID="3" Name="Diplomatic" DisplayName="外交">
                     <MenuItem ID="1" Name="EnhanceDiplomaticRelation" DisplayName="亲善" DisplayIfTrue="EnhanceDiplomaticRelationAvail" />
                     <MenuItem ID="2" Name="AllyDiplomaticRelation" DisplayName="结盟" DisplayIfTrue="AllyDiplomaticRelationAvail" />
                     <MenuItem ID="3" Name="ResetDiplomaticRelation" DisplayName="断交" DisplayIfTrue="ResetDiplomaticRelationAvail" />
                     <MenuItem ID="4" Name="DenounceDiplomaticRelation" DisplayName="声讨" DisplayIfTrue="DenounceDiplomaticRelationAvail" />
                     <MenuItem ID="5" Name="TruceDiplomaticRelation" DisplayName="停战" DisplayIfTrue="TruceDiplomaticRelationAvail" />
+                    <MenuItem ID="6" Name="QuanXiangDiplomaticRelation" DisplayName="劝降" DisplayIfTrue="QuanXiangDiplomaticRelationAvail" />
                 </MenuItem>
                 <MenuItem ID="4" Name="Techniques" DisplayName="技巧" />
                 <MenuItem ID="5" Name="KillRelease" DisplayName="处置">
@@ -130,6 +143,7 @@
                     <MenuItem ID="2" Name="ReleaseCaptive" DisplayName="释放俘虏" DisplayIfTrue="ReleaseCaptiveAvail" />
                     <MenuItem ID="3" Name="KillPerson" DisplayName="处斩下属" DisplayIfTrue="KillPersonAvail" />
                     <MenuItem ID="4" Name="KillCaptive" DisplayName="处斩俘虏" DisplayIfTrue="ReleaseCaptiveAvail" />
+                   <MenuItem ID="5" Name="MoveCaptive" DisplayName="转移俘虏" DisplayIfTrue="MoveCaptiveAvail" />
                 </MenuItem>
 				<MenuItem ID="9" Name="MakeMarriage" DisplayName="赐婚" DisplayIfTrue="HasMarriageToMake"/> 
                 <MenuItem ID="6" Name="hougongTop" DisplayName="后宫">

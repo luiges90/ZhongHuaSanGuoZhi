@@ -131,5 +131,9 @@
         ObtainMilitaryKind, // 124
         MakeMarriage, // 125
         SelectPrince, // 126
+        ZhaoXian, // 127
+        AppointMayor, // 128
+        QuanXiang, //129
+        QuanXiangFailed, // 130
     }
 }

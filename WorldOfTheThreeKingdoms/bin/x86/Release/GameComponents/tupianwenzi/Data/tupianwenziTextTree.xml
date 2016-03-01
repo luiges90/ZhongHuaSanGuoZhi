@@ -544,6 +544,11 @@
     <Leaf Property="TextDestinationString" Color="4278255360"></Leaf>
     <Leaf Text="。我们齐心协力，共创大业！" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="AppointMayor">
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+    <Leaf Text="爱民如子，今任命为县令，望汝再接再厉，替孤扫平天下！"
+Color="4294967295"></Leaf>
+   </Branch>
 
   <Branch Name="BecomeEmperorLegally">
     <Leaf Property="TextResultString" Color="4286644223"></Leaf>
@@ -718,5 +723,33 @@
 	<Leaf Text="与我们的理念不同，难以说服..." Color="4294967295"></Leaf>
   </Branch>
   
+<Branch Name="QuanXiangDiplomaticRelation">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="对" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="的劝降成功了，距离大一统又迈进了一步！" Color="4294967295"></Leaf>
+  </Branch>      
+  
+  <Branch Name="QuanXiangDiplomaticRelationFailed">
+    <Leaf Property="TextResultString" Text="" Color="4278255360"></Leaf>
+    <Leaf Property="" Text="派人试图向" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Text="" Color="4286644223"></Leaf>
+    <Leaf Property="" Text="发起劝降，但是很不幸失败了！" Color="4294967295"></Leaf>
+  </Branch>
+    
+ <Branch Name="ZhaoXian">
+    <Leaf Text="成功登庸了" Color="4294967295"></Leaf>
+    <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+   </Branch>
+ <Branch Name="ZhaoXianFailed">
+     <Leaf Text="此次在" Color="4294967295"></Leaf> 
+     <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+     <Leaf Text="的招贤又失败了，真是贤者难求啊" Color="4294967295"></Leaf>
+     </Branch>
+ <Branch Name="AwardTitle"> 
+     <Leaf Property="TextResultString" Color="4286644223"></Leaf>
+     <Leaf Text="被封为" Color="4294967295"></Leaf> 
+     <Leaf Property="TextDestinationString" Color="4286644223"></Leaf>
+  </Branch>
 </Root>
 

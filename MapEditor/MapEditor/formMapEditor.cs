@@ -1697,7 +1697,7 @@
                 this.Scenario.Captives.Clear();
                 this.Scenario.Facilities.Clear();
                 this.Scenario.Informations.Clear();
-                this.Scenario.SpyMessages.Clear();
+                //this.Scenario.SpyMessages.Clear();
                 this.Scenario.Routeways.Clear();
                 this.Scenario.PlayerFactions.Clear();
                 this.Scenario.FireTable.Clear();

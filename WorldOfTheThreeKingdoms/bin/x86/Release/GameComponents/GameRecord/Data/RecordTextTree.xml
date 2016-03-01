@@ -621,5 +621,28 @@
       <Leaf Text="军的储君了。" Color="4294967295"></Leaf>
       <Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
+  <Branch Name="AppointMayor">
+  <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+  <Leaf Text="被" Color="4294967295"></Leaf>
+  <Leaf Property="Name" Color="4278255360"></Leaf>
+  <Leaf Text="任命为" Color="4294967295"></Leaf>
+  <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+  <Leaf Text="县令了。" Color="4294967295"></Leaf>
+  <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="ZhaoXian">
+  <Leaf Property="TextResultString" Color="4278255360"></Leaf>
+  <Leaf Text="被" Color="4294967295"></Leaf>
+  <Leaf Property="Name" Color="4278255360"></Leaf>
+  <Leaf Text="登庸了。" Color="4294967295"></Leaf>
+  <Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TransferMilitaryArrivesAtArchitecture">
+    <Leaf Text="运输编队" Color="4294967295"></Leaf>
+    <Leaf Property="Name" Color="4278255360"></Leaf>
+    <Leaf Text="已运达" Color="4294967295"></Leaf>
+    <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+	<Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
 </Root>
 

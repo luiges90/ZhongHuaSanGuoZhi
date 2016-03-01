@@ -16,7 +16,7 @@ using GameObjects.FactionDetail;
 using GameObjects.Influences;
 using GameObjects.MapDetail;
 using GameObjects.PersonDetail;
-using GameObjects.PersonDetail.PersonMessages;
+//using GameObjects.PersonDetail.PersonMessages;
 using GameObjects.TroopDetail;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

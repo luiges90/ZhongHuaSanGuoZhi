@@ -17,15 +17,17 @@ namespace GameObjects
             get;
             set;
         }
-        public int xuyaochengchi
-        {
-            get;
-            set;
-        }
+
         public bool ShowDialog
         {
             get;
             set;
         }
+        public int xuyaochengchi
+        {
+            get;
+            set;
+        }
+        
 	}
 }

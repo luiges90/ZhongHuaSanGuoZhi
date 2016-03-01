@@ -11,7 +11,7 @@ using GameObjects;
 
 using GameObjects.FactionDetail;
 using GameObjects.PersonDetail;
-using GameObjects.PersonDetail.PersonMessages;
+//using GameObjects.PersonDetail.PersonMessages;
 using GameObjects.SectionDetail;
 using GameObjects.TroopDetail;
 using Microsoft.Xna.Framework;
@@ -616,7 +616,17 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.GameRecordPlugin.AddBranch(source, "PersonConvinceFailed", source.OutsideDestination.Value);
             }
         }
-
+        
+        /*
+        public override void QuanXiangFailed(Person source, Faction targetFaction) //劝降失败
+        {
+            if (((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(source.BelongedFaction)) || base.Scenario.IsCurrentPlayer(targetFaction))
+            {
+                source.TextResultString = targetFaction.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(source, "QuanXiangFailed", source.OutsideDestination.Value);
+            }
+        }
+        */
         public override void PersonConvinceSuccess(Person source, Person destination, Faction oldFaction)
         {
             if ((((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(source.BelongedFaction)) || base.Scenario.IsCurrentPlayer(oldFaction)) || GlobalVariables.SkyEye)
@@ -1004,7 +1014,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             this.xianshishijiantupian(person, person.TextResultString, TextMessageKind.SearchTechniqueFound, "SearchTechniqueFound", "", "", architecture.Name,false );
 
                             break;
-
+                            /*
                         case SearchResult.间谍:
                             person.TextResultString = resultPack.FoundPerson.Name;
                             //this.Plugins.PersonBubblePlugin.AddPerson(person, architecture.Position, "SearchSpyFound");
@@ -1012,7 +1022,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                             this.Plugins.GameRecordPlugin.AddBranch(person, "SearchSpyFound", person.Position);
                             break;
-
+                            */
                         case SearchResult.隐士:
                             person.TextResultString = resultPack.FoundPerson.Name;
                             //this.Plugins.PersonBubblePlugin.AddPerson(person, architecture.Position, "SearchPersonFound");
@@ -1049,14 +1059,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             this.Plugins.PersonBubblePlugin.AddPerson(person, architecture.Position, TextMessageKind.SearchTechniqueFound, "SearchTechniqueFound");
 
                             break;
-
+                            /*
                         case SearchResult.间谍:
                             person.TextResultString = resultPack.FoundPerson.Name;
                             this.Plugins.PersonBubblePlugin.AddPerson(person, architecture.Position, TextMessageKind.SearchSpyFound, "SearchSpyFound");
 
                             this.Plugins.GameRecordPlugin.AddBranch(person, "SearchSpyFound", person.Position);
                             break;
-
+                            */
                         case SearchResult.隐士:
                             person.TextResultString = resultPack.FoundPerson.Name;
                             this.Plugins.PersonBubblePlugin.AddPerson(person, architecture.Position, TextMessageKind.SearchPersonFound, "SearchPersonFound");
@@ -1069,6 +1079,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        /*
         public override void PersonShowMessage(Person person, PersonMessage message)
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(person.BelongedFaction)) && (message is SpyMessage))
@@ -1138,6 +1149,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.GameRecordPlugin.AddBranch(person, "PersonSpySuccess", person.OutsideDestination.Value);
             }
         }
+        */
 
         public override void PersonStudySkillFinished(Person person, string skillString, bool success)
         {
@@ -1353,7 +1365,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void MakeMarriage(Person p, Person q)
         {
-            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)) || GlobalVariables.SkyEye)
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)))
             {
                 p.TextResultString = q.Name;
                 p.TextDestinationString = p.BelongedFaction.Leader.Name;
@@ -1364,9 +1376,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+
         public override void Selectprince(Person p, Person q)  //立储
         {
-            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) || GlobalVariables.SkyEye))
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)))
             {
                 p.TextResultString = q.Name;
                 q.TextResultString = p.Name;
@@ -1377,6 +1390,35 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void Appointmayor(Person p, Person q)  //太守
+        {
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction)) && base.Scenario.IsCurrentPlayer(q.BelongedFaction))
+            {
+                p.TextResultString = q.Name;
+                q.TextResultString = p.Name;
+                p.TextDestinationString = q.LocationArchitecture.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, p, TextMessageKind.AppointMayor, "AppointMayor", "AppointMayor.jpg", "");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "AppointMayor", p.Position);
+            }
+        }
+
+        public override void Zhaoxian(Person p, Person q)
+        {
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction) && base.Scenario.IsCurrentPlayer(q.BelongedFaction)))
+            {
+                p.TextResultString = q.Name;
+                q.TextResultString = p.Name;
+                //p.TextDestinationString = q.LocationArchitecture.Name;
+                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(p, p, TextMessageKind.ZhaoXian, "ZhaoXian", "ZhaoXian.jpg", "");
+                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "ZhaoXian", p.Position);
+            }
+        }
+
+
         public override void NoFactionPersonArrivesAtArchitecture(Person p, Architecture a)
         {
             if (a.BelongedFaction != null && base.Scenario.IsPlayer(a.BelongedFaction) && p.Status == PersonStatus.NoFaction)
@@ -1386,5 +1428,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void TransferMilitaryArrivesAtArchitecture(Military m, Architecture a)
+        {
+            if (base.Scenario.IsCurrentPlayer(a.BelongedFaction) && m.ArrivingDays == 0)
+            {
+                m.TextDestinationString = a.Name;
+                this.Plugins.GameRecordPlugin.AddBranch(m, "TransferMilitaryArrivesAtArchitecture", a.Position);
+            }
+        }
     }
 }

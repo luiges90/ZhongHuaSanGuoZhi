@@ -70,6 +70,7 @@
 
         public virtual void FullScreen() { }
 
+
         public virtual void DisposeMapTileMemory()
         {
         }
@@ -359,7 +360,11 @@
         public virtual void PersonBeKilled(Person person, Architecture location)
         {
         }
-
+        /*
+        public virtual void QuanXiangFailed(Person source, Faction targetFaction)
+        {
+        }
+        */
         public virtual void PersonChangeLeader(Faction faction, Person leader, bool changeName, string oldName)
         {
         }
@@ -424,11 +429,11 @@
         public virtual void PersonSearchFinished(Person person, Architecture architecture, SearchResultPack resultPack)
         {
         }
-
+        /*
         public virtual void PersonShowMessage(Person person, PersonMessage message)
         {
         }
-
+        
         public virtual void PersonSpyFailed(Person person, Architecture architecture)
         {
         }
@@ -440,7 +445,7 @@
         public virtual void PersonSpySuccess(Person person, Architecture architecture)
         {
         }
-
+        */
         public virtual void PersonStudySkillFinished(Person person, string skillString, bool success)
         {
         }
@@ -761,7 +766,11 @@
         public virtual void AutoLearnTitle(Person p, Person courier, Title title)
         {
         }
-
+        /*
+        public virtual void AutoAwardGuanzhi(Person p, Person courier, Guanzhi guanzhi)
+        {
+        }
+        */
         public virtual void ApplyEvent(Event e, Architecture a)
         {
         }
@@ -769,6 +778,10 @@
         public virtual void TryToExit()
         {
         }
+
+        public virtual void Zhaoxian(Person p, Person q) { }
+
+        public virtual void Appointmayor(Person p, Person q) { }
 
         public virtual void Selectprince(Person p, Person q) { }
 
@@ -919,6 +932,10 @@
         }
 
         public virtual void NoFactionPersonArrivesAtArchitecture(Person p, Architecture a)
+        {
+        }
+
+        public virtual void TransferMilitaryArrivesAtArchitecture(Military m, Architecture a)
         {
         }
 

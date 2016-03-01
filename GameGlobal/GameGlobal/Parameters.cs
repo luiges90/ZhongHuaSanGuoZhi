@@ -150,6 +150,9 @@
         public static int LearnStuntSuccessRate = 75;
         public static int LearnTitleSuccessRate = 0;
 
+        public static int AutoLearnSkillSuccessRate = 0;
+        public static int AutoLearnStuntSuccessRate = 0;
+
         public static float MilitaryPopulationCap = 0.1f;
         public static float MilitaryPopulationReloadQuantity = 1.0f;
 
@@ -176,6 +179,9 @@
         public static int MakeMarriageCost = 80000;
         public static int NafeiCost = 50000;
         public static int SelectPrinceCost = 50000;
+
+        public static int TransferCostPerMilitary = 2000;
+        public static int TransferFoodPerMilitary = 2000;
 
         public static int AIEncircleRank = 0;
         public static int AIEncircleVar = 0;
@@ -214,6 +220,8 @@
             RecruitmentMorale = int.Parse(nextSibling.Attributes.GetNamedItem("RecruitmentMorale").Value);
             ChangeCapitalCost = int.Parse(nextSibling.Attributes.GetNamedItem("ChangeCapitalCost").Value);
             SelectPrinceCost = int.Parse(nextSibling.Attributes.GetNamedItem("SelectPrinceCost").Value);
+            TransferCostPerMilitary = int.Parse(nextSibling.Attributes.GetNamedItem("TransferCostPerMilitary").Value); //运兵耗钱
+            TransferFoodPerMilitary = int.Parse(nextSibling.Attributes.GetNamedItem("TransferFoodPerMilitary").Value);  //运兵耗粮
             HireNoFactionPersonCost = int.Parse(nextSibling.Attributes.GetNamedItem("HireNoFactionPersonCost").Value);
             ConvincePersonCost = int.Parse(nextSibling.Attributes.GetNamedItem("ConvincePersonCost").Value);
             RewardPersonCost = int.Parse(nextSibling.Attributes.GetNamedItem("RewardPersonCost").Value);
@@ -318,6 +326,9 @@
             LearnSkillSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("LearnSkillSuccessRate").Value);
             LearnStuntSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("LearnStuntSuccessRate").Value);
             LearnTitleSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("LearnTitleSuccessRate").Value);
+
+            AutoLearnSkillSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("AutoLearnSkillSuccessRate").Value);
+            AutoLearnStuntSuccessRate = int.Parse(nextSibling.Attributes.GetNamedItem("AutoLearnStuntSuccessRate").Value);
 
             MilitaryPopulationCap = float.Parse(nextSibling.Attributes.GetNamedItem("MilitaryPopulationCap").Value);
             MilitaryPopulationReloadQuantity = float.Parse(nextSibling.Attributes.GetNamedItem("MilitaryPopulationReloadQuantity").Value);

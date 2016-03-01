@@ -3,7 +3,7 @@
     using GameObjects;
     using GameObjects.Influences;
     using System;
-
+    
     internal class InfluenceKind640 : InfluenceKind
     {
         private float increment;
@@ -11,7 +11,7 @@
 
         public override void ApplyInfluenceKind(Troop troop)
         {
-            troop.IncrementDefencePerReputationUnit += this.increment;
+            troop.IncrementDefenceRate += this.increment;
         }
 
         public override void InitializeParameter(string parameter)
@@ -27,7 +27,7 @@
 
         public override void PurifyInfluenceKind(Troop troop)
         {
-            troop.IncrementDefencePerReputationUnit -= this.increment;
+            troop.IncrementDefenceRate -= this.increment;
         }
 
     }

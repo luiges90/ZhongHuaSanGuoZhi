@@ -22,6 +22,7 @@
         Faction_Troops,
         Faction_Persons,
         Faction_Militaries,
+        Faction_TransferingMilitaries,
         Faction_AvailableMilitaryKinds,
         Faction_Captive,
         Faction_SelfCaptive,
@@ -44,6 +45,7 @@
         Internal_Trade_SellFood,
         Internal_Expand,
         Military_Campaign,
+        Military_Transfer, //运兵
         Military_Troopership,
         Military_Training,
         Military_New,
@@ -58,10 +60,15 @@
         Routeway_ArchitectureShortestNoWater,
         Routeway_CloseAll,
         Routeway_DemolishAll,
+        //Transport_Resource,
         Transport_Fund,
         Transport_Food,
         Person_Transfer,
         Person_Convene,
+        Person_Appointment_AppointMayor, //任命县令
+        Person_Appointment_RecallMayor,  //罢免县令
+        Person_Appointment_AppointOfficer,//任命官员
+        Person_Appointment_RecallOfficer,//罢免官员
         Person_Hire,
         Person_Convince,
         Person_AutoHire,
@@ -78,7 +85,7 @@
         RoutewayDemolish,
         Tactics_Information,
         Tactics_StopInformation,
-        Tactics_Spy,
+        //Tactics_Spy,
         Tactics_Destroy,
         Tactics_Instigate,
         Tactics_Gossip,
@@ -92,15 +99,22 @@
         Monarch_Diplomatic_ResetDiplomaticRelation,
         Monarch_Diplomatic_DenounceDiplomaticRelation,
         Monarch_Diplomatic_TruceDiplomaticRelation,
+        Monarch_Diplomatic_QuanXiangDiplomaticRelation,//劝降
         Monarch_officePosition_jingongzijin,
         Monarch_officePosition_jingongliangcao,
         Monarch_officePosition_SelfBecomeEmperor,
         Monarch_officePosition_BecomeEmperorLegally,
         Monarch_ChangeCapital,
         Monarch_SelectPrince,
+      //  Monarch_ZhaoXianBang_AutoCreatePerson, //招贤榜
+       // Monarch_ZhaoXianBang_AutoZhaoXian,
+        Monarch_ZhaoXianBang_GenerateOfficer,
+      //  Monarch_ZhaoXianBang_DengYong,  //登用
+        Monarch_ZhaoXianBang_DismissOfficer, //遣散
         Monarch_Techniques,
         Monarch_MakeMarriage,
         Monarch_KillRelease_ReleaseSelfPerson,
+        Monarch_KillRelease_MoveCaptive, //转移俘虏
         Monarch_KillRelease_ReleaseCaptive,
         Monarch_KillRelease_KillPerson,
         Monarch_KillRelease_KillCaptive,

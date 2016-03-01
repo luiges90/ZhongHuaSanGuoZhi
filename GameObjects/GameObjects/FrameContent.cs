@@ -26,7 +26,11 @@
         public Point OKButtonPosition;
         public GameDelegates.VoidFunction OKFunction;
         private Rectangle realClient;
-
+       /* private bool selectallButtonEnabled;
+        public Point SelectAllButtonPosition;
+        public GameDelegates.VoidFunction SelectAllFunction;
+        protected Point defaultSelectAllButtonPosition;
+        */
         public event ItemClick OnItemClick;
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -70,7 +74,19 @@
                 this.cancelButtonEnabled = value;
             }
         }
-
+        /*
+        public bool SelectAllButtonEnabled
+        {
+            get
+            {
+                return this.selectallButtonEnabled;
+            }
+            set
+            {
+                this.selectallButtonEnabled = value;
+            }
+        }
+        */
         public virtual bool CanClose
         {
             get
@@ -102,6 +118,19 @@
                 this.defaultCancelButtonPosition = value;
             }
         }
+        /*
+        public Point DefaultSelectAllButtonPosition
+        {
+            get
+            {
+                return this.defaultSelectAllButtonPosition;
+            }
+            set
+            {
+                this.defaultSelectAllButtonPosition = value;
+            }
+        }
+        */
 
         public int DefaultFrameHeight
         {
@@ -162,6 +191,7 @@
                 Rectangle client = this.client;
                 this.framePosition = new Rectangle(value.X, value.Y, this.defaultFrameWidth, this.defaultFrameHeight);
                 this.OKButtonPosition = this.defaultOKButtonPosition;
+               // this.SelectAllButtonPosition = this.defaultSelectAllButtonPosition;
                 this.CancelButtonPosition = this.defaultCancelButtonPosition;
                 this.MapViewSelectorButtonPosition = this.defaultMapViewSelectorButtonPosition;
                 int num = value.Width - this.defaultFrameWidth;
@@ -171,6 +201,7 @@
                     this.framePosition.Width += num;
                     client.Width += num;
                     this.OKButtonPosition.X += num;
+                   // this.SelectAllButtonPosition.X += num;
                     this.CancelButtonPosition.X += num;
                     this.MapViewSelectorButtonPosition.X += num;
                 }
@@ -179,6 +210,7 @@
                     this.framePosition.Height += num2;
                     client.Height += num2;
                     this.OKButtonPosition.Y += num2;
+                   // this.SelectAllButtonPosition.Y += num2;
                     this.CancelButtonPosition.Y += num2;
                     this.MapViewSelectorButtonPosition.Y += num2;
                 }

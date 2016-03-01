@@ -5,7 +5,8 @@
     public enum FrameResult
     {
         OK,
-        Cancel
+        Cancel,
+        SelectAll
     }
 }
 

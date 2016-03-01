@@ -66,12 +66,12 @@ OfficerChildrenLimit="30"
 StopToControlOnAttack="True"
 MaxMilitaryExperience="3000"
 CreateRandomOfficerChance="1.0"
+GeneratedOfficerFemaleChance="10"
 CreatedOfficerAbilityFactor="0.9"
 EnablePersonRelations="True"
 ChildrenAvailableAge="12"
 FullScreen="False"
 FriendlyDiplomacyThreshold="300" 
 SurroundFactor="5"
-ArmyPopulationCap="1.0"
 >
-</GlobalVariables>
+ArmyPopulationCap="1.0" PermitQuanXiang="True" PermitManualAwardTitleAutoLearn ="false"></GlobalVariables>

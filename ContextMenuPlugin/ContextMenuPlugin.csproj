@@ -33,18 +33,18 @@
   <ItemGroup>
     <Reference Include="GameFreeText, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\GameFreeText.dll</HintPath>
+      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameFreeText.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="GameObjects, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\GameObjects.dll</HintPath>
+      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameObjects.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Release\PluginInterface.dll</HintPath>
+      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\PluginInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core">
@@ -61,6 +61,10 @@
     <Compile Include="ContextMenuPlugin\ContextMenuPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CreateTroopPlugin\CreateTroopPlugin.csproj">
+      <Project>{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}</Project>
+      <Name>CreateTroopPlugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">
       <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
       <Name>GameGlobal</Name>

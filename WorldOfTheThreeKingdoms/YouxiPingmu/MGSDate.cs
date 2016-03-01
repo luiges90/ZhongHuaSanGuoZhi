@@ -11,7 +11,7 @@ using GameObjects;
 
 using GameObjects.FactionDetail;
 using GameObjects.PersonDetail;
-using GameObjects.PersonDetail.PersonMessages;
+//using GameObjects.PersonDetail.PersonMessages;
 using GameObjects.SectionDetail;
 using GameObjects.TroopDetail;
 using Microsoft.Xna.Framework;

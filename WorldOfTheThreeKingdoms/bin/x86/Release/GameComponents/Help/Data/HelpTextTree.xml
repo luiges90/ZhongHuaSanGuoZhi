@@ -223,7 +223,7 @@
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="农业、商业、技术、民心、耐久、统治均超过上限的95%" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
-        <Leaf Text="人口超过200000。" Color="4294967295" />
+        <Leaf Text="人口超过150000。" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
@@ -321,6 +321,32 @@
         <Leaf Text="和" Color="4294967295" />
         <Leaf Text="训练" Color="4278232306" />
         <Leaf Text="命令增加部队的战斗力。" Color="4294967295" />
+    </Branch>
+    <Branch Name="Military_Transfer">
+        <Leaf Text="军事" Color="4294967295" />
+        <Leaf Text="运兵" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="选择本建筑一支或多支编队进行运输，运输时间到后编队会到达" Color="4294967295" />
+        <Leaf Text="选定好的建筑。" Color="4278255360" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="视野范围内有敌军将无法运兵。" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="守城弩车" Color="4278255360" />
+        <Leaf Text="和" Color="4294967295" />
+        <Leaf Text="水军" Color="4278255360" />
+        <Leaf Text="不能运输。" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="势力灭亡运输的编队将会从势力编队列表消失" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="运兵需要" Color="4294967295" />
+        <Leaf Text="消耗钱粮" Color="4278255360" />
+        <Leaf Text="，当建筑资金粮草不足时，无法运兵。" Color="4294967295" />
     </Branch>
     <Branch Name="Military_Merge">
         <Leaf Text="军事" Color="4294967295" />
@@ -793,6 +819,18 @@
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="" Color="4294967295" />
     </Branch>
+    <Branch Name="Monarch_Diplomatic_QuanXiangDiplomaticRelation">
+        <Leaf Text="君主" Color="4294967295" />
+        <Leaf Text="劝降" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="花费5万资金，劝降比己方势力弱的势力。"
+Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="只能在双方的关系值小于300并且有外交人员的情况下执行。" Color="4294967295" />
+    </Branch>
     <Branch Name="Monarch_Diplomatic_ResetDiplomaticRelation">
         <Leaf Text="君主" Color="4294967295" />
         <Leaf Text="解盟" Color="4278232306" />
@@ -1012,11 +1050,41 @@
 		<Leaf Text="储君候选人必须为君主的儿子，已出场，不为俘虏，不为在野，且和君主在同一个势力。" Color="4294967295" />
 		<Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
-        <Leaf Text="立储需要资金50000，而且君主和储君候选人需要在城里。" Color="4294967295" />
+        <Leaf Text="立储需要资金50000，而且君主需要在己方城池。" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="一个势力只有一个储君。" Color="4294967295" />
 	</Branch>
+        <Branch Name="Monarch_ZhaoXianBang_AutoCreatePerson">
+        <Leaf Text="君主" Color="4294967295" />
+        <Leaf Text="招贤" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="花费一定资金广纳贤才，当游戏内野武将数量低于系统预设上限时，招贤有效。"
+Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="需要注意的是，生成野武将机率为0时，无法招贤。当游戏内野武将数量到达上限时，系统将会自动关闭野武将生成，无法再生成野武将，不管生成机率为多少。"
+Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="招贤机率默认为10，玩家可自行调整参数。"
+Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="招贤仅在每年3月和9月举行，且每季最多有五次机会招贤。每年最多招10个野武将。"
+Color="4294967295" />
+    </Branch>
+    <Branch Name="Monarch_ZhaoXianBang_DismissOfficer">
+    <Leaf Text="君主" Color="4294967295" />
+        <Leaf Text="遣散" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="遣散当前建筑在野野武将。遣散后，野武将将会从游戏消失，同时存档也会移除该野武将。"
+Color="4294967295" /> 
+    </Branch>
     <Branch Name="Monarch_hougongTop_nafei">
         <Leaf Text="君主" Color="4294967295" />
         <Leaf Text="纳妃" Color="4278232306" />
@@ -1103,6 +1171,64 @@
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="若选择委任方式，则将采用与电脑相同的方法进行录用。在野人物数量越高则越有可能发动录用。" Color="4294967295" />
     </Branch>
+    <Branch Name="Person_Appointment_AppointMayor">
+    <Leaf Text="人物" Color="4294967295" />
+        <Leaf Text="任免" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="任命县令" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="县令可提高本建筑的内政效率，县令的政治和智谋越高，内政效率提高的幅度越大。" Color="4294967295" />
+       <Leaf Text="任命县令后 " Color="4294967295" />
+       <Leaf Text="县令的" Color="4294967295" />
+       <Leaf Text="忠诚" Color="4278232306" />
+       <Leaf Text="将会提高(10,20)。" Color="4294967295" />
+       <Leaf Text="\n" Color="4294967295" />
+       <Leaf Text="\n" Color="4294967295" />
+       <Leaf Text="另外，县令出战，部队可获得攻防加成。加成只在部队处于出发建筑视野范围内有效。" Color="4294967295" />
+       <Leaf Text="县令" Color="4294967295" />
+       <Leaf Text="武勇" Color="4278232306" />
+       <Leaf Text="和" Color="4294967295" />
+       <Leaf Text="勇猛度" Color="4278232306" />
+       <Leaf Text="越高，部队攻击力加成越多。" Color="4294967295" />
+       <Leaf Text="县令" Color="4294967295" />
+       <Leaf Text="统帅" Color="4278232306" />
+       <Leaf Text="和" Color="4294967295" />
+       <Leaf Text="冷静度" Color="4278232306" />
+       <Leaf Text="越高，部队防御力加成越多。" Color="4294967295" />
+       <Leaf Text="\n" Color="4294967295" />
+       <Leaf Text="\n" Color="4294967295" />
+       <Leaf Text="玩家不可调走县令。注意：玩家如果通过部队出征让县令离开所属城池，将无法调回所属城池，除非罢免县令。" Color="4294967295" />
+    </Branch>
+    <Branch Name="Person_Appointment_RecallMayor">
+    <Leaf Text="人物" Color="4294967295" />
+        <Leaf Text="任免" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="罢免县令" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="罢免当前建筑县令，武将忠诚下降(5,10)。" Color="4294967295" />
+    </Branch>
+    <Branch Name="Person_Appointment_AppointOfficer">
+        <Leaf Text="人物" Color="4294967295" />
+        <Leaf Text="授予官职" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="授予武将官职。" Color="4294967295" /> 
+    </Branch>
+<Branch Name="Person_Appointment_RecallOfficer">
+        <Leaf Text="人物" Color="4294967295" />
+        <Leaf Text="免除官职" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="免除武将官职。" Color="4294967295" /> 
+    </Branch>
     <Branch Name="Person_AutoReward">
         <Leaf Text="人物" Color="4294967295" />
         <Leaf Text="委任褒奖" Color="4278232306" />
@@ -1124,6 +1250,17 @@
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="若选择委任方式，则将采用与电脑相同的方法进行工作分配。只包括六项内政工作以及训练工作。" Color="4294967295" />
+    </Branch>
+    <Branch Name="Monarch_ZhaoXianBang_AutoZhaoXian">
+        <Leaf Text="君主" Color="4294967295" />
+        <Leaf Text="招贤" Color="4278232306" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="设置本建筑的招贤方式为手动或委任。" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="若选择委任方式，则将采用与电脑相同的方法进行招贤。电脑只在建筑不够武将的情况下才会招贤。" Color="4294967295" />
     </Branch>
     <Branch Name="Tactics_AutoSearching">
         <Leaf Text="策略" Color="4294967295" />

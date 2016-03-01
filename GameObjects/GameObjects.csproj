@@ -67,11 +67,7 @@
     <Compile Include="GameObjects\TroopDetail\EventEffect\EventEffectKindFactory.cs" />
     <Compile Include="GameObjects\TroopDetail\CastDefaultKindList.cs" />
     <Compile Include="GameObjects\TroopDetail\CastDefaultKind.cs" />
-    <Compile Include="GameObjects\PersonDetail\PersonMessages\SpyMessageKind.cs" />
     <Compile Include="GameObjects\GameMessage.cs" />
-    <Compile Include="GameObjects\PersonDetail\PersonMessage.cs" />
-    <Compile Include="GameObjects\PersonDetail\PersonMessages\SpyMessage.cs" />
-    <Compile Include="GameObjects\PersonDetail\PersonMessages\SpyMessagePersonPack.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKind.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3000.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3010.cs" />
@@ -89,7 +85,6 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3120.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3130.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3140.cs" />
-    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3151.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3152.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3153.cs" />
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind3154.cs" />
@@ -485,7 +480,6 @@
     <Compile Include="GameObjects\FactionDetail\TechniqueTable.cs" />
     <Compile Include="GameObjects\ArchitectureList.cs" />
     <Compile Include="GameObjects\FundPack.cs" />
-    <Compile Include="GameObjects\SpyPack.cs" />
     <Compile Include="GameObjects\PopulationPack.cs" />
     <Compile Include="GameObjects\LinkKind.cs" />
     <Compile Include="GameObjects\LinkNode.cs" />
@@ -1274,8 +1268,27 @@
     <Compile Include="GameObjects\SortedBoundedSet.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect230.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect235.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect250.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect280.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect290.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind450.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind520.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind530.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind680.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind808.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind809.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind818.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind850.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind855.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind860.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind865.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind965.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind975.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind285.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind7000.cs" />
+    <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind920.cs" />
     <Compile Include="GameObjects\IScenarioAwarePlugin.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind3041.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind902.cs" />
@@ -1315,6 +1328,11 @@
     <Compile Include="GameObjects\Influences\InfluenceKindPack\InfluenceKind6525.cs" />
     <Compile Include="GameObjects\OngoingBattle.cs" />
     <Compile Include="GameObjects\OngoingBattleList.cs" />
+    <Compile Include="GameObjects\PersonDetail\Guanzhi.cs" />
+    <Compile Include="GameObjects\PersonDetail\GuanzhiKind.cs" />
+    <Compile Include="GameObjects\PersonDetail\GuanzhiKindTable.cs" />
+    <Compile Include="GameObjects\PersonDetail\GuanzhiTable.cs" />
+    <Compile Include="GameObjects\PersonDetail\PersonGenerateParam.cs" />
     <Compile Include="GameObjects\PersonDetail\PersonGeneratorSetting.cs" />
     <Compile Include="GameObjects\PersonDetail\PersonGeneratorType.cs" />
     <Compile Include="GameObjects\PersonDetail\PersonGeneratorTypeList.cs" />

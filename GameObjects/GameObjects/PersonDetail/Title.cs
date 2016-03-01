@@ -10,13 +10,25 @@
     public class Title : GameObject
     {
         private bool combat;
+
         public ConditionTable Conditions = new ConditionTable();
+        public ConditionTable LoseConditions = new ConditionTable(); //失去条件
+
+        //public ConditionTable LoseArchitectureConditions = new ConditionTable(); //失去建筑条件
+       // public ConditionTable LoseFactionConditions = new ConditionTable(); //失去势力条件
+
         public InfluenceTable Influences = new InfluenceTable();
         private TitleKind kind;
         private int level;
 
         public ConditionTable ArchitectureConditions = new ConditionTable();
         public ConditionTable FactionConditions = new ConditionTable();
+
+        public bool ManualAward
+        {
+            get;
+            set;
+        }
 
         public int AutoLearn
         {
@@ -142,6 +154,19 @@
             return CanLearn(person, false);
         }
 
+        public bool WillLose(Person person) //失去条件
+        {
+            foreach (Condition condition in this.LoseConditions.Conditions.Values)
+            {
+                if (!condition.CheckCondition(person))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public bool CheckLimit(Person person)
         {
              if (person.BelongedFaction != null && person.BelongedFaction.PersonCount > this.FactionLimit)
@@ -173,7 +198,7 @@
 
         public bool CanLearn(Person person, bool ignoreAutoLearn)
         {
-            if (AutoLearn > 0 && !ignoreAutoLearn) return false;
+            if (AutoLearn > 0 && !ignoreAutoLearn) return false; 
             foreach (Condition condition in this.Conditions.Conditions.Values)
             {
                 if (!condition.CheckCondition(person))
@@ -373,6 +398,13 @@
                 {
                     str = str + "•" + condition.Name;
                 }
+                /*
+                foreach (Condition condition in this.LoseConditions.Conditions.Values)
+                {
+                    str = str + "•" + condition.Name;
+                }
+                */
+              
                 return str;
             }
         }

@@ -18,12 +18,24 @@
                 architecture.OnPopulationEnter += new Architecture.PopulationEnter(this.architecture_OnPopulationEnter);
                 architecture.OnPopulationEscape += new Architecture.PopulationEscape(this.architecture_OnPopulationEscape);
                 architecture.OnSelectprince += new Architecture.Selectprince(this.architecture_OnSelectprince);
+                architecture.OnAppointmayor += new Architecture.Appointmayor(this.architecture_OnAppointmayor);
+                architecture.OnZhaoxian += new Architecture.Zhaoxian(this.architecture_OnZhaoxian);
             }
+        }
+
+        public void architecture_OnZhaoxian(Person person, Person leader)
+        {
+            person.Scenario.GameScreen.Zhaoxian(person, leader);
         }
 
         public void architecture_OnSelectprince(Person person, Person leader)//立储
         {
             person.Scenario.GameScreen.Selectprince(person, leader);
+        }
+
+        public void architecture_OnAppointmayor(Person person, Person leader) //太守
+        {
+            person.Scenario.GameScreen.Appointmayor(person, leader);
         }
 
         public void ApplyInfluences()

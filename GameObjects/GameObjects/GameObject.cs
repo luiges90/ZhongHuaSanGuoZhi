@@ -58,11 +58,11 @@
             return (int) Math.Round(mean + (var / 3) * randStdNormal);
         }
 
+
         public static int RandomGaussianRange(int lo, int hi)
         {
             return RandomGaussian((hi + lo) / 2.0, Math.Abs(hi - lo) / 2.0);
         }
-
 
         public static int Square(int num)
         {

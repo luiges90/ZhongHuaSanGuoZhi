@@ -1,3 +1,0 @@
-WorldOfTheThreeKingdoms\bin\
-publicExclude.txt
-makePublic.bat

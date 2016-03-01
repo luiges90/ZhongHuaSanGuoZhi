@@ -110,7 +110,7 @@
                                 //if (((diplomaticRelation >= 0) || (GameObject.Random(this.RansomFund) > GameObject.Random(this.RansomFund + this.BelongedFaction.Capital.Fund))) || (GameObject.Random(Math.Abs(diplomaticRelation) + 100) < GameObject.Random(100)))
                                 if (diplomaticRelation >= 0 || ((!this.CaptivePerson.RecruitableBy(this.BelongedFaction, 0) || (this.CaptivePerson.Loyalty >= 100 && GameObject.Chance(80 - this.CaptivePerson.PersonalLoyalty * 20))) 
                                     && (!this.BelongedFaction.Capital.IsFundEnough || GameObject.Random(this.RansomFund) > GameObject.Random(this.RansomFund + this.BelongedFaction.Capital.Fund)))
-                                    && (!GameGlobal.GlobalVariables.AIAutoTakePlayerCaptives || !base.Scenario.IsPlayer(this.CaptiveFaction)))
+                                    && (!GameGlobal.GlobalVariables.AIAutoTakePlayerCaptives))
                                 {
                                     this.ReleaseCaptive();
                                 }
@@ -141,10 +141,20 @@
         private void DoRelease()
         {
             
-            if ((this.CaptivePerson.BelongedFaction!=null) && this.CaptivePerson.BelongedFaction.Capital != null)
+            if (this.CaptivePerson.BelongedFaction != null && this.CaptivePerson.BelongedFaction.Capital != null)
             {
-                this.CaptivePerson.MoveToArchitecture(this.CaptivePerson.BelongedFaction.Capital);
+                if (this.CaptivePerson.LocationArchitecture == null)
+                {
+                    this.CaptivePerson.LocationArchitecture = this.CaptivePerson.BelongedFaction.Capital;
+                    this.CaptivePerson.Status = GameObjects.PersonDetail.PersonStatus.Normal;
+                    this.CaptivePerson.MoveToArchitecture(this.CaptivePerson.BelongedFaction.Capital, null );
+                }
+                else
+                {
+                    this.CaptivePerson.MoveToArchitecture(this.CaptivePerson.BelongedFaction.Capital);
+                }
             }
+            
             else
             {
 
@@ -344,6 +354,38 @@
                         return "----";
                     }
                     return this.CaptivePerson.Loyalty.ToString();
+                }
+                return "----";
+            }
+        }
+
+        public string Travel
+        {
+            get
+            {
+                if (this.CaptivePerson != null && this.CaptivePerson.LocationTroop == null)
+                {
+                    if (this.CaptivePerson.ArrivingDays > 0)
+                    {
+                        return (this.CaptivePerson.ArrivingDays + "天");
+                    }
+                    
+                }
+                
+                return "----";
+            }
+        }
+
+        public string RansomArriveDaysString
+        {
+            get
+            {
+                if (this.CaptivePerson != null)
+                {
+                    if (this.RansomArriveDays > 0)
+                    {
+                        return (this.RansomArriveDays + "天");
+                    }
                 }
                 return "----";
             }
