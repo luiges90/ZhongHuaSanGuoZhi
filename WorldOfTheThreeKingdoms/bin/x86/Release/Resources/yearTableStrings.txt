@@ -1,4 +1,4 @@
-occupy {0}军的{1}占领了{2}的{3}！！
+﻿occupy {0}军的{1}占领了{2}的{3}！！
 occupy_p 领军占领了{2}的{3}。
 occupyEmpty {0}军的{1}占领了{2}！！
 occupyEmpty_p 领军占领了{2}
@@ -79,6 +79,7 @@ reverse_assassinate {0}军的{1}在{2}对{3}军的{4}的暗杀行动失败了，
 reverse_assassinate_p 在{2}对{3}军的{4}的暗杀行动中，反被杀害了，终年{5}岁。
 reverse_assassinate_q 在{2}被{0}军的{1}试图暗杀，但使对方反被杀害。
 obtainTitle_p 获得了{0}称号。
+awardTitle_p 被封为{0}。
 challengeWin_p 在对{1}的单挑中胜出，对方{2}了。
 challengeLose_p 在对{0}的单挑中败北，而{2}了。
 challengeDraw_p 在对{1}的单挑中打成平手了。
@@ -99,3 +100,7 @@ battleRetreat_q 以{0}军将领身份，带领部队准备攻占{5}军的{3}，�
 selectPrince {0}在{1}被{2}立为储君了。
 selectPrince_p 被立为{1}军的储君了。
 selectPrince_q 在位君主时，立{0}为储君了。
+appointMayor {0}在{1}被{2}任命为县令了。
+appointMayor_p 在{1}被{2}任命为县令了。
+zhaoXian {0}在{1}被{2}登庸了。
+zhaoXian_p 在{1}被{2}登庸了。
