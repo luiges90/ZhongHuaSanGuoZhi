@@ -27,6 +27,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,7 +47,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\bin\x86\Release\GameComponents\ArchitectureSurvey\</OutputPath>
-    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>true</NoStdLib>
@@ -54,21 +56,6 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GameFreeText, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Debug\GameFreeText.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GameGlobal, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Debug\GameGlobal.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GameObjects, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Debug\GameObjects.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
       <Private>False</Private>
       <SpecificVersion>True</SpecificVersion>
@@ -78,11 +65,6 @@
       <SpecificVersion>True</SpecificVersion>
     </Reference>
     <Reference Include="mscorlib">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\x86\Debug\PluginInterface.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System">
@@ -107,12 +89,6 @@
     <Compile Include="ArchitectureSurveyPlugin.cs" />
     <Compile Include="LabelText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <NestedContentProject Include="Content\Content.contentproj">
-      <Project>10aae9be-4935-4187-80b1-2a226e476706</Project>
-      <Visible>False</Visible>
-    </NestedContentProject>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -152,9 +128,25 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\GameFreeText\GameFreeText.csproj">
+      <Project>{E13A763D-DC5B-447F-AF3F-392343B8875B}</Project>
+      <Name>GameFreeText</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GameGlobal\GameGlobal.csproj">
+      <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
+      <Name>GameGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GameObjects\GameObjects.csproj">
+      <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
+      <Name>GameObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AirViewPlugin\AirViewPlugin.csproj">
       <Project>{F26B7073-978E-4B27-AA27-669D4F01C439}</Project>
       <Name>AirViewPlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PluginInterface\PluginInterface.csproj">
+      <Project>{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}</Project>
+      <Name>PluginInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\PluginServices\PluginServices.csproj">
       <Project>{ADC4D535-C7CA-415A-8F0B-81AF3525EBD5}</Project>
