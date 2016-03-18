@@ -4092,8 +4092,7 @@
 
         public void GenerateOfficer(PersonGeneratorType preferredType)
         {
-            this.BelongedFaction.CreatePersonTimes ++;
-
+            
             bool isAI = !base.Scenario.IsPlayer(this.BelongedFaction);
 
             if (!IsChanceOfGeneratingOfficer(this.BelongedFaction.PersonCount,isAI,preferredType))
@@ -4102,6 +4101,7 @@
                 {
                     base.Scenario.GameScreen.xianshishijiantupian(this.BelongedFaction.Leader, this.Name, "ZhaoXianFailed", "ZhaoXianFailed.jpg", "ZhaoXianFailed.wav", true);
                 }
+                this.BelongedFaction.CreatePersonTimes++;
                 return ;
             }
 
