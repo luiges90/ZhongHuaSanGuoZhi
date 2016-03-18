@@ -7662,27 +7662,6 @@
             return createPerson(param.Scenario, param.FoundLocation, param.Finder, param.InGame, param.PreferredType);
         }
 
-        private static readonly List<int> playerGeneratorTypeIds = new List<int>() {0,1,2,3,4,5,7, 8, 9 };
-
-        public static PersonGeneratorTypeList CreatePlayerPersonGeneratorTypeList(PersonGeneratorTypeList allTypes)
-        {
-            PersonGeneratorTypeList list = new PersonGeneratorTypeList();
-            foreach (PersonGeneratorType type in allTypes)
-            {
-                if (playerGeneratorTypeIds.Contains(type.ID))
-                {
-                    list.Add(type);
-                }
-
-                if (list.Count == playerGeneratorTypeIds.Count)
-                {
-                    break;
-                }
-                
-            }
-            return list;
-        }
-
         private static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder, bool inGame, PersonGeneratorType preferredType)
         {
             

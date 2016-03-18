@@ -68,23 +68,6 @@
         public PersonGeneratorSetting PersonGeneratorSetting = new PersonGeneratorSetting();
         public PersonGeneratorTypeList AllPersonGeneratorTypes = new PersonGeneratorTypeList();
 
-        private PersonGeneratorTypeList playerGeneratorTypes = null;
-        public PersonGeneratorTypeList PlayerGeneratorTypes
-        {
-            get
-            {
-
-                if (playerGeneratorTypes == null)
-                {
-                    playerGeneratorTypes = Person.CreatePlayerPersonGeneratorTypeList(AllPersonGeneratorTypes);
-                }
-                
-                return playerGeneratorTypes;
-            }
-        }
-    
-    
-
         public void Clear()
         {
             this.AllArchitectureKinds.Clear();

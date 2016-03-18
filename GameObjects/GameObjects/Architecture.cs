@@ -4065,7 +4065,7 @@
             
             
                 PersonGeneratorTypeList list = new PersonGeneratorTypeList();
-                foreach (PersonGeneratorType type in base.Scenario.GameCommonData.PlayerGeneratorTypes)
+                foreach (PersonGeneratorType type in base.Scenario.GameCommonData.AllPersonGeneratorTypes)
                 {
                     if (this.Fund >= type.CostFund && this.BelongedFaction.GetGeneratorPersonCount(type) < type.FactionLimit)
                     {
