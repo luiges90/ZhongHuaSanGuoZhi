@@ -149,6 +149,8 @@
 
         public static bool PermitManualAwardTitleAutoLearn = false;
 
+        public static int zhaoxianOfficerMax = 500;
+
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()

@@ -6660,20 +6660,7 @@
        {
            get 
            {
-
-               if (this.Factions.Count <= 50)  //剧本野武将上限为800
-               {
-                   return (this.Factions.Count * 10 + 500);
-               }
-               else if (this.Factions.Count > 50 && this.Factions .Count <= 100)
-               {
-                   return ( this.Factions.Count * 5 + 500);
-               }
-               else 
-               {
-                   return (this.Factions.Count * 3 + 100 );
-               }
-               
+               return GlobalVariables.zhaoxianOfficerMax;
            }
        }
 

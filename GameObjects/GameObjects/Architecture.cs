@@ -4048,16 +4048,10 @@
         public bool CanZhaoXian()
         {
             if (this.BelongedFaction != null && GlobalVariables.CreateRandomOfficerChance > 0 && (base.Scenario.Date.Month == 3 || base.Scenario.Date.Month == 9)
-
-              && this.BelongedFaction.CreatePersonTimes < 5 && this.BelongedFaction.YearOfficialLimit < 10 && base.Scenario.OfficerCount < base.Scenario.OfficerLimit)
+              && this.BelongedFaction.CreatePersonTimes < 1 && base.Scenario.OfficerCount < base.Scenario.OfficerLimit)
                 
             {
-                if (base.Scenario.IsPlayer(this.BelongedFaction) && this.AvailGeneratorTypeList().Count > 0 )
-                {
-                    return true;
-                }
-
-                if (!base.Scenario.IsPlayer(this.BelongedFaction) && this.BelongedFaction.AIAvailPersonGeneratorTypeList().Count > 0)
+                if (this.AvailGeneratorTypeList().Count > 0 )
                 {
                     return true;
                 }
