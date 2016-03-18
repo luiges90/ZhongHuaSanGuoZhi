@@ -2457,7 +2457,7 @@
         {
             foreach (Military military in this.GetLevelUpMilitaryList())
             {
-                List<MilitaryKind> candidates = military.Kind.GetLevelUpKinds();
+                List<MilitaryKind> candidates = military.Kind.GetLevelUpKinds(this);
                 List<MilitaryKind> upgradable = new List<MilitaryKind>();
                 foreach (MilitaryKind mk in candidates)
                 {
@@ -7399,7 +7399,7 @@
         public MilitaryKindList GetUpgradableMilitaryKindList(Military m)
         {
             this.UpgradableMilitaryKindList.Clear();
-            foreach (MilitaryKind mk in m.Kind.GetLevelUpKinds())
+            foreach (MilitaryKind mk in m.Kind.GetLevelUpKinds(this))
             {
                 if (mk.LevelUpAvail(this))
                 {

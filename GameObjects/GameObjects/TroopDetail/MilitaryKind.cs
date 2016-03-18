@@ -97,7 +97,7 @@
 
         public bool LevelUpAvail(Architecture a)
         {
-            return !a.BelongedFaction.IsMilitaryKindOverLimit(base.ID) && this.CheckConditions(a);
+            return this.CheckConditions(a) && this.GetLevelUpKinds(a).Count > 0;
         }
 
         public bool CreateAvail(Architecture a)
@@ -680,12 +680,15 @@
             }
         }
 
-        public List<MilitaryKind> GetLevelUpKinds()
+        public List<MilitaryKind> GetLevelUpKinds(Architecture a)
         {
             List<MilitaryKind> result = new List<MilitaryKind>();
             foreach (int id in LevelUpKindID) 
             {
-                result.Add(base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(id));
+                if (!a.BelongedFaction.IsMilitaryKindOverLimit(id))
+                {
+                    result.Add(base.Scenario.GameCommonData.AllMilitaryKinds.GetMilitaryKind(id));
+                }
             }
             return result;
         }
