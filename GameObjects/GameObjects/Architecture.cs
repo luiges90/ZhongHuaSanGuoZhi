@@ -4047,8 +4047,8 @@
 
         public bool CanZhaoXian()
         {
-            if (this.BelongedFaction != null && GlobalVariables.CreateRandomOfficerChance > 0 && (base.Scenario.Date.Month == 3 || base.Scenario.Date.Month == 9)
-              && this.BelongedFaction.CreatePersonTimes < 1 && base.Scenario.OfficerCount < base.Scenario.OfficerLimit)
+            if (this.BelongedFaction != null && GlobalVariables.CreateRandomOfficerChance > 0 && base.Scenario.Date.Month == 3
+              && this.BelongedFaction.ZhaoxianFailureCount < 1 && base.Scenario.OfficerCount < base.Scenario.OfficerLimit)
                 
             {
                 if (this.AvailGeneratorTypeList().Count > 0 )
@@ -4101,7 +4101,7 @@
                 {
                     base.Scenario.GameScreen.xianshishijiantupian(this.BelongedFaction.Leader, this.Name, "ZhaoXianFailed", "ZhaoXianFailed.jpg", "ZhaoXianFailed.wav", true);
                 }
-                this.BelongedFaction.CreatePersonTimes++;
+                this.BelongedFaction.ZhaoxianFailureCount++;
                 return ;
             }
 

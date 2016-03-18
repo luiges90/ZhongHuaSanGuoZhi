@@ -25,7 +25,7 @@
         //public int AllRoundOfficerCount;
         private int militarycount;
         private int transferingmilitarycount;
-        public int CreatePersonTimes = 0;
+        public int ZhaoxianFailureCount = 0;
         public int YearOfficialLimit = 0;
         private Person prince = null;
         private int princeID = -1;
@@ -2894,13 +2894,11 @@
 
             if (base.Scenario.IsPlayer(this)) return;
 
-            if (base.Scenario.Date.Month != 3 && base.Scenario.Date.Month != 9) return;
-
             if (GameObject.Random(10) != 0) return;
 
             foreach (Architecture a in this.Architectures)
             {
-                if (a.CanZhaoXian() && !a.HasEnoughPeople)
+                while (a.CanZhaoXian() && !a.HasEnoughPeople)
                 {
                     PersonGeneratorType type = this.AIAvailPersonGeneratorTypeList()[GameObject.Random(this.AIAvailPersonGeneratorTypeList().Count)] as PersonGeneratorType;
                     a.GenerateOfficer(type);
@@ -4528,9 +4526,9 @@
 
         private void RefrehCreatePersonTimes()
         {
-            if ((base.Scenario.Date.Month == 3 || base.Scenario.Date.Month == 9) && base.Scenario.Date.Day == 1)
+            if (base.Scenario.Date.Day == 1)
             {
-                this.CreatePersonTimes = 0;
+                this.ZhaoxianFailureCount = 0;
             }
         }
 

@@ -4367,11 +4367,11 @@
                 }
                 try
                 {
-                    faction.CreatePersonTimes = (int)reader["CreatePersonTimes"];
+                    faction.ZhaoxianFailureCount = (int)reader["CreatePersonTimes"];
                 }
                 catch
                 {
-                    faction.CreatePersonTimes = 0;
+                    faction.ZhaoxianFailureCount = 0;
                 }
                 try
                 {
@@ -5375,7 +5375,7 @@
                     row["guanjue"] = faction.guanjue;
                     row["IsAlien"] = faction.IsAlien;
                     row["NotPlayerSelectable"] = faction.NotPlayerSelectable;
-                    row["CreatePersonTimes"] = faction.CreatePersonTimes;
+                    row["CreatePersonTimes"] = faction.ZhaoxianFailureCount;
                     row["YearOfficialLimit"] = faction.YearOfficialLimit;
                     row["MilitaryCount"] = faction.MilitaryCount;
                     row["TransferingMilitaryCount"] = faction.TransferingMilitaryCount;
