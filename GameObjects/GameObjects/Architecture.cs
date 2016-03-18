@@ -4079,24 +4079,6 @@
 
         private bool IsChanceOfGeneratingOfficer(int factionPersonCount, bool isAI, PersonGeneratorType preferredType)
         {
-            if (factionPersonCount < 5)
-            {
-                return true ;
-            }
-
-            if (factionPersonCount >= 100 && GameObject.Random(factionPersonCount) != 0)
-            {
-                return false;
-            }
-
-            
-            int chance = (factionPersonCount >= 50 && factionPersonCount < 100) ? 25 : 80;
-            if (!GameObject .Chance(chance))
-            {
-                return false ;
-            }
-            
-
             float coef = isAI ? Parameters.AIExtraPerson + 1 : 1;
             if (coef <= 0)
             {
