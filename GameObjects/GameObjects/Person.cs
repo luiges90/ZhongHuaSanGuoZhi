@@ -7897,6 +7897,7 @@
             r.Available = true;
             r.LocationArchitecture = foundLocation;
             r.Status = PersonStatus.Normal;
+            r.YearJoin = scen.Date.Year;
 
             r.Loyalty = 100;
 
