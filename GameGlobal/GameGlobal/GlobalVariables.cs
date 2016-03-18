@@ -150,6 +150,8 @@
         public static bool PermitManualAwardTitleAutoLearn = false;
 
         public static int zhaoxianOfficerMax = 500;
+        public static bool AIZhaoxianFixIdeal = true;
+        public static bool PlayerZhaoxianFixIdeal = true;
 
         public const string cryptKey = "A3g0c3%2";
 

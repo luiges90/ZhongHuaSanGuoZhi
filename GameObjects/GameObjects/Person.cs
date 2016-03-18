@@ -7764,7 +7764,8 @@
             r.StrategyTendency = (PersonStrategyTendency)GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length);
             r.IdealTendency = scen.GameCommonData.AllIdealTendencyKinds.GetRandomList()[0] as IdealTendencyKind;
 
-            if (!scen.IsPlayer(foundLocation.BelongedFaction))
+            if ((scen.IsPlayer(foundLocation.BelongedFaction) && GlobalVariables.PlayerZhaoxianFixIdeal) ||
+                (!scen.IsPlayer(foundLocation.BelongedFaction) && GlobalVariables.AIZhaoxianFixIdeal))
             {
                 GameObjectList ideals = scen.GameCommonData.AllIdealTendencyKinds;
                 IdealTendencyKind minIdeal = null;
