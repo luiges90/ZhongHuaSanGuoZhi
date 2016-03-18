@@ -2779,28 +2779,6 @@
         }
 
 
-
-        private readonly List<int> aiGeneratorTypeIds = new List<int>() { 0, 1, 2, 3, 4, 5, 6 };
-
-        public PersonGeneratorTypeList CreateAIPersonGeneratorTypeList()
-        {
-            PersonGeneratorTypeList list = new PersonGeneratorTypeList();
-            foreach (PersonGeneratorType type in base.Scenario.GameCommonData.AllPersonGeneratorTypes)
-            {
-                if (aiGeneratorTypeIds.Contains(type.ID))
-                {
-                    list.Add(type);
-                }
-
-                if (list.Count == aiGeneratorTypeIds.Count)
-                {
-                    break;
-                }
-
-            }
-            return list;
-        }
-        
         private Dictionary<PersonGeneratorType, int> count = new Dictionary<PersonGeneratorType, int>();
 
         public void IncrementGeneratorCount(PersonGeneratorType type)
@@ -2868,25 +2846,6 @@
             return null;
         }
 
-        
-        
-        public PersonGeneratorTypeList AIAvailPersonGeneratorTypeList()
-        {
-            PersonGeneratorTypeList list = new PersonGeneratorTypeList();
-            foreach (PersonGeneratorType type in this.CreateAIPersonGeneratorTypeList())
-            {
-                foreach (Architecture a in this.Architectures)
-                {
-
-                    if (a.Fund >= type.CostFund && GetGeneratorPersonCount(type) < type.FactionLimit)
-                    {
-                        list.Add(type);
-                    }
-                }
-            }
-            return list;
-
-        }
 
         private void AIZhaoXian()
         {
@@ -2900,13 +2859,23 @@
             {
                 while (a.CanZhaoXian() && !a.HasEnoughPeople)
                 {
-                    PersonGeneratorType type = this.AIAvailPersonGeneratorTypeList()[GameObject.Random(this.AIAvailPersonGeneratorTypeList().Count)] as PersonGeneratorType;
+                    PersonGeneratorTypeList list = a.AvailGeneratorTypeList();
+                    int max = 0;
+                    PersonGeneratorType type = null;
+                    foreach (PersonGeneratorType t in list) {
+                        if (t.CostFund > max)
+                        {
+                            type = t;
+                            max = t.CostFund;
+                        }
+                    }
                     a.GenerateOfficer(type);
 
                 }
             }     
             
         }
+
 
         private void AIReward()
         {

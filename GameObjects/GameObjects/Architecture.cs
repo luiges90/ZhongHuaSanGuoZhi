@@ -4060,22 +4060,20 @@
             return false;
         }
 
+
         public PersonGeneratorTypeList AvailGeneratorTypeList()
         {
-            
-            
-                PersonGeneratorTypeList list = new PersonGeneratorTypeList();
-                foreach (PersonGeneratorType type in base.Scenario.GameCommonData.AllPersonGeneratorTypes)
+            PersonGeneratorTypeList list = new PersonGeneratorTypeList();
+            foreach (PersonGeneratorType type in base.Scenario.GameCommonData.AllPersonGeneratorTypes)
+            {
+                if (this.Fund >= type.CostFund && this.BelongedFaction.GetGeneratorPersonCount(type) < type.FactionLimit)
                 {
-                    if (this.Fund >= type.CostFund && this.BelongedFaction.GetGeneratorPersonCount(type) < type.FactionLimit)
-                    {
-                        list.Add(type);
-                    }
+                    list.Add(type);
                 }
-                return list;
-            
-        }
+            }
+            return list;
 
+        }
 
         private bool IsChanceOfGeneratingOfficer(int factionPersonCount, bool isAI, PersonGeneratorType preferredType)
         {
