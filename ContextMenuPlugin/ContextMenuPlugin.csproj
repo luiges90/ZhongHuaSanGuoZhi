@@ -61,10 +61,6 @@
     <Compile Include="ContextMenuPlugin\ContextMenuPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CreateTroopPlugin\CreateTroopPlugin.csproj">
-      <Project>{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}</Project>
-      <Name>CreateTroopPlugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">
       <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
       <Name>GameGlobal</Name>

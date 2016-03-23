@@ -12,12 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterface", "WorldOfT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenuPlugin", "ContextMenuPlugin\ContextMenuPlugin.csproj", "{A20F04A4-5271-4DBA-8B78-916A67D75720}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFormFramePlugin", "GameFormFramePlugin\GameFormFramePlugin.csproj", "{8246AB8C-A500-4228-A12F-74D16E7AE4E2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateTroopPlugin", "CreateTroopPlugin\CreateTroopPlugin.csproj", "{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarshalSectionDialogPlugin", "MarshalSectionDialogPlugin\MarshalSectionDialogPlugin.csproj", "{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldOfTheThreeKingdoms", "WorldOfTheThreeKingdoms\WorldOfTheThreeKingdoms.csproj", "{2E2F316D-58E4-4D37-A6D5-2918AF7CBEBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEditor", "MapEditor\MapEditor.csproj", "{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}"
@@ -65,8 +59,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTextDialogPlugin", "SimpleTextDialogPlugin\SimpleTextDialogPlugin.csproj", "{7B551D6E-EF58-41AC-B349-5763C89C2A85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolBarPlugin", "ToolBarPlugin\ToolBarPlugin.csproj", "{1437D7DB-44C4-4679-A518-AF4E13E939B3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransportDialogPlugin", "TransportDialogPlugin\TransportDialogPlugin.csproj", "{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TroopSurveyPlugin", "TroopSurveyPlugin\TroopSurveyPlugin.csproj", "{AEABD0D2-C120-4504-BF79-CBDB499869BC}"
 EndProject
@@ -122,36 +114,6 @@ Global
 		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|x86.ActiveCfg = Release|x86
 		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|x86.Build.0 = Release|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Debug|x86.ActiveCfg = Debug|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Debug|x86.Build.0 = Debug|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Release|Any CPU.ActiveCfg = Release|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Release|Mixed Platforms.Build.0 = Release|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Release|x86.ActiveCfg = Release|x86
-		{8246AB8C-A500-4228-A12F-74D16E7AE4E2}.Release|x86.Build.0 = Release|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Debug|x86.ActiveCfg = Debug|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Debug|x86.Build.0 = Debug|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Release|Any CPU.ActiveCfg = Release|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Release|Mixed Platforms.Build.0 = Release|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Release|x86.ActiveCfg = Release|x86
-		{FC697DF4-40A3-41C2-9A8C-2A9DAFEA09CB}.Release|x86.Build.0 = Release|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Debug|x86.ActiveCfg = Debug|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Debug|x86.Build.0 = Debug|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Release|Any CPU.ActiveCfg = Release|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Release|Mixed Platforms.Build.0 = Release|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Release|x86.ActiveCfg = Release|x86
-		{7DAAF016-1FC0-4C6E-9DD1-986BA243A921}.Release|x86.Build.0 = Release|x86
 		{2E2F316D-58E4-4D37-A6D5-2918AF7CBEBB}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{2E2F316D-58E4-4D37-A6D5-2918AF7CBEBB}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{2E2F316D-58E4-4D37-A6D5-2918AF7CBEBB}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -392,16 +354,6 @@ Global
 		{1437D7DB-44C4-4679-A518-AF4E13E939B3}.Release|Mixed Platforms.Build.0 = Release|x86
 		{1437D7DB-44C4-4679-A518-AF4E13E939B3}.Release|x86.ActiveCfg = Release|x86
 		{1437D7DB-44C4-4679-A518-AF4E13E939B3}.Release|x86.Build.0 = Release|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Debug|x86.ActiveCfg = Debug|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Debug|x86.Build.0 = Debug|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Release|Any CPU.ActiveCfg = Release|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Release|Mixed Platforms.Build.0 = Release|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Release|x86.ActiveCfg = Release|x86
-		{DA4E77EC-E3B8-49F7-BDA7-3F66EC839349}.Release|x86.Build.0 = Release|x86
 		{AEABD0D2-C120-4504-BF79-CBDB499869BC}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{AEABD0D2-C120-4504-BF79-CBDB499869BC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{AEABD0D2-C120-4504-BF79-CBDB499869BC}.Debug|Mixed Platforms.Build.0 = Debug|x86
