@@ -7375,10 +7375,7 @@
             this.UpgradableMilitaryKindList.Clear();
             foreach (MilitaryKind mk in m.Kind.GetLevelUpKinds(this))
             {
-                if (mk.LevelUpAvail(this))
-                {
-                    this.UpgradableMilitaryKindList.Add(mk);
-                }
+                this.UpgradableMilitaryKindList.Add(mk);
             }
             return this.UpgradableMilitaryKindList;
         }
@@ -8925,7 +8922,7 @@
 
         public void LevelUpMilitary(Military m, MilitaryKind militaryKind)
         {
-            if ((militaryKind != null) && (militaryKind.LevelUpAvail(this)))
+            if ((militaryKind != null) && (m.Kind.LevelUpAvail(this)))
             {
                 //this.BelongedFaction.MorphMilitary(m.Kind, militaryKind);
                 int num = (m.Quantity * militaryKind.MinScale) / m.Kind.MinScale;
