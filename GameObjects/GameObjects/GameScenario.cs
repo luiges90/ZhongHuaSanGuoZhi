@@ -78,6 +78,8 @@
         public bool UsingOwnCommonData;
 
         public BiographyTable AllBiographies = new BiographyTable();
+        public int GameTime;
+        private DateTime sessionStartTime;
 
         // 缓存地图上有几支部队在埋伏
         private int numberOfAmbushTroop = -1;
@@ -1673,6 +1675,13 @@
                 object obj2 = str;
                 str = string.Concat(new object[] { obj2, reader["Title"].ToString(), " ", (short)reader["GYear"], "年", (short)reader["GMonth"], "月", (short)reader["GDay"], "日  " });
                 str = str + reader["SaveTime"].ToString();
+                int gametime = 0;
+                try
+                {
+                    gametime = (int)reader["GameTime"];
+                }
+                catch { }
+                str += " (" + (gametime / 60 / 60) + ":" + (gametime / 60 % 60) + ")";
                 connection.Close();
             }
             catch
@@ -1739,7 +1748,8 @@
                 DbConnection.Open();
                 OleDbDataReader reader = command.ExecuteReader();
                 reader.Read();
-                str = string.Concat(new object[] { reader["Title"].ToString(), " ", (short)reader["GYear"], "年", (short)reader["GMonth"], "月", (short)reader["GDay"], "日  " });
+                str = string.Concat(new object[] { reader["Title"].ToString(), " ", 
+                    (short)reader["GYear"], "年", (short)reader["GMonth"], "月", (short)reader["GDay"], "日  "});
                 DbConnection.Close();
             }
             catch
@@ -4870,6 +4880,9 @@
             }
 
             this.LoadedFileName = "";
+
+            this.sessionStartTime = DateTime.Now;
+
             return true;
         }
 
@@ -4918,6 +4931,20 @@
             }
             dbConnection.Close();
 
+            command = new OleDbCommand("Select * From GameSurvey", dbConnection);
+            dbConnection.Open();
+            reader = command.ExecuteReader();
+            reader.Read();
+            try
+            {
+                this.GameTime = (int)reader["GameTime"];
+            }
+            catch
+            {
+            }
+            dbConnection.Close();
+
+
             this.InitPluginsWithScenario();
             this.InitializeMapData();
             this.TroopAnimations.UpdateDirectionAnimations(this.ScenarioMap.TileWidth);
@@ -4950,6 +4977,9 @@
             }
             this.ForceOptionsOnAutoplay();
             this.LoadedFileName = LoadedFileName;
+
+            this.sessionStartTime = DateTime.Now;
+
             return true;
         }
         private int oldDialogShowTime = -1;
@@ -5285,6 +5315,8 @@
 
         public bool SaveGameScenarioToDatabase(string connectionString, bool saveMap, bool saveCommonData)
         {
+            this.GameTime += (int) DateTime.Now.Subtract(sessionStartTime).TotalSeconds;
+
             ClearPersonStatusCache();
             ClearPersonWorkCache();
             //try
@@ -6142,6 +6174,7 @@
                 row["SaveTime"] = string.Concat(new object[] { now.Year, "/", now.Month, "/", now.Day, " ", now.ToLongTimeString() });
                 row["PlayerInfo"] = this.GetPlayerInfo();
                 row["JumpPosition"] = StaticMethods.SaveToString(new Point?(this.ScenarioMap.JumpPosition));
+                row["GameTime"] = this.GameTime;
                 row.EndEdit();
                 dataSet.Tables["GameSurvey"].Rows.Add(row);
                 adapter.Update(dataSet, "GameSurvey");
