@@ -991,11 +991,11 @@
                                             realToDestroy = toDestroy;
                                         }
                                     }
-                                }
-                                else
-                                {
-                                    maxValue = value;
-                                    toBuild = kind;
+                                    else
+                                    {
+                                        maxValue = value;
+                                        toBuild = kind;
+                                    }
                                 }
                             }
                         }
