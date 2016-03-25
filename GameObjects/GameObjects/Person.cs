@@ -266,6 +266,10 @@
                 {
                     injureRate = value;
                 }
+                if (injureRate < 0)
+                {
+                    injureRate = 0;
+                }
             }
         }
 
