@@ -8227,21 +8227,13 @@
 
             r.Scenario = father.Scenario;
 
-            foreach (Person p in father.GetClosePersons())
+            foreach (Person p in mother.GetClosePersons())
             {
                 if (!GameObject.Chance((int)r.personalLoyalty * 25))
                 {
                     r.AddClose(p);
                 }
             }
-            foreach (Person p in father.GetClosePersons())
-            {
-                if (!GameObject.Chance((int)r.personalLoyalty * 25))
-                {
-                    r.AddClose(p);
-                }
-            }
-
             foreach (Person p in mother.GetHatedPersons())
             {
                 if (!GameObject.Chance((int)r.personalLoyalty * 25))
@@ -8249,7 +8241,14 @@
                     r.AddHated(p);
                 }
             }
-            foreach (Person p in mother.GetHatedPersons())
+            foreach (Person p in father.GetClosePersons())
+            {
+                if (!GameObject.Chance((int)r.personalLoyalty * 25))
+                {
+                    r.AddClose(p);
+                }
+            }
+            foreach (Person p in father.GetHatedPersons())
             {
                 if (!GameObject.Chance((int)r.personalLoyalty * 25))
                 {
