@@ -2260,7 +2260,10 @@
 
             foreach (Architecture a in this.Architectures)
             {
-                a.PrincessChangeLeader(false, this);
+                foreach (Person p in a.Persons)
+                {
+                    a.PrincessChangeLeader(false, a.BelongedFaction, p);
+                }
             }
 
             do

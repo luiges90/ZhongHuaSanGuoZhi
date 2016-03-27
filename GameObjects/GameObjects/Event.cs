@@ -8,7 +8,7 @@
 
     public class PersonIdDialog
     {
-        public int id; public string dialog; public string scenBiography;
+        public int id; public string dialog;
     }
 
     public class Event : GameObject
@@ -548,7 +548,7 @@
             string result = "";
             foreach (PersonIdDialog i in this.scenBiography)
             {
-                result += i.id + " " + i.scenBiography + " ";
+                result += i.id + " " + i.dialog + " ";
             }
             return result;
         }

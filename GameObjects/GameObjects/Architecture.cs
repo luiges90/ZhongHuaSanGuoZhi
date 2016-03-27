@@ -13764,42 +13764,39 @@
             return personList;
         }
 
-        public bool PrincessChangeLeader(bool byOccupy, Faction capturer)
+        public bool PrincessChangeLeader(bool byOccupy, Faction capturer, Person p)
         {
             bool result = false;
-            foreach (Person p in this.Feiziliebiao)
-            {
-                 if (this.BelongedFaction != null && this.BelongedFaction.IsAlien && this.BelongedFaction.Leader.isLegalFeiZi(p))
-                 {
-                    if (byOccupy)
-                    {
-                        this.Scenario.YearTable.addChangeFactionPrincessEntry(this.Scenario.Date, p, capturer);
-                    }
-                    if (p.Spouse != null && this.BelongedFaction != null)
-                    {
-                        p.Spouse.AddHated(this.BelongedFaction.Leader);
-                    }
-                    result = true;
-                 } 
-                 else 
-                 {
-                    p.Status = PersonStatus.Normal;
-                    if (byOccupy)
-                    {
-                        this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, capturer);
-                    }
-                    else
-                    {
-                        this.Scenario.YearTable.addOutOfPrincessByLeaderDeathEntry(this.Scenario.Date, p, capturer);
-                    }
-                    if (!p.IsVeryCloseTo(this.BelongedFaction.Leader))
-                    {
-                        p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
-                    }
-                    else
-                    {
-                        p.Loyalty = Math.Max(p.Loyalty, 150 + p.NumberOfChildren * 10);
-                    }
+             if (this.BelongedFaction != null && this.BelongedFaction.IsAlien && this.BelongedFaction.Leader.isLegalFeiZi(p))
+             {
+                if (byOccupy)
+                {
+                    this.Scenario.YearTable.addChangeFactionPrincessEntry(this.Scenario.Date, p, capturer);
+                }
+                if (p.Spouse != null && this.BelongedFaction != null)
+                {
+                    p.Spouse.AddHated(this.BelongedFaction.Leader);
+                }
+                result = true;
+             } 
+             else 
+             {
+                p.Status = PersonStatus.Normal;
+                if (byOccupy)
+                {
+                    this.Scenario.YearTable.addOutOfPrincessEntry(this.Scenario.Date, p, capturer);
+                }
+                else
+                {
+                    this.Scenario.YearTable.addOutOfPrincessByLeaderDeathEntry(this.Scenario.Date, p, capturer);
+                }
+                if (!p.IsVeryCloseTo(this.BelongedFaction.Leader))
+                {
+                    p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
+                }
+                else
+                {
+                    p.Loyalty = Math.Max(p.Loyalty, 150 + p.NumberOfChildren * 10);
                 }
             }
             return result;

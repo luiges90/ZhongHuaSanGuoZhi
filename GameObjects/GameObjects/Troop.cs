@@ -7762,9 +7762,9 @@
                 }
 
                 GameObjectList princesses = currentArchitecture.Feiziliebiao.GetList();
-                if (!currentArchitecture.PrincessChangeLeader(true, this.BelongedFaction))
+                foreach (Person p in princesses)
                 {
-                    foreach (Person p in princesses)
+                    if (!currentArchitecture.PrincessChangeLeader(true, this.BelongedFaction, p))
                     {
                         Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
                         captive.CaptivePerson.LocationTroop = this;
