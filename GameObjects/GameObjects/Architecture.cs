@@ -1259,7 +1259,7 @@
                 if (i.Scales + transferredScale <= scale)
                 {
                     src.TransferMilitary(i, this);
-                     transferredScale += i.Scales;
+                    transferredScale += i.Scales;
                     if (transferredScale >= scale) return transferredScale;
                 }
             }
@@ -8659,7 +8659,7 @@
                         {
                             continue;
                         }
-                        if (GameObject.Chance(50) && person.HasLearnableSkill)
+                        if (GameObject.Chance(100 - Parameters.AutoLearnSkillSuccessRate * Parameters.LearnSkillDays) && person.HasLearnableSkill)
                         {
                             person.GoForStudySkill();
                         }
@@ -8675,7 +8675,8 @@
                         {
                             foreach (Stunt stunt in base.Scenario.GameCommonData.AllStunts.GetStuntList().GetRandomList())
                             {
-                                if ((person.Stunts.GetStunt(stunt.ID) == null) && stunt.IsLearnable(person))
+                                if ((person.Stunts.GetStunt(stunt.ID) == null) && stunt.IsLearnable(person) &&
+                                    GameObject.Chance(100 - Parameters.AutoLearnStuntSuccessRate * Parameters.LearnStuntDays))
                                 {
                                     person.GoForStudyStunt(stunt);
                                     break;
