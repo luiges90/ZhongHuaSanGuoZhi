@@ -9158,10 +9158,9 @@
             damage.DestinationArchitecture = architecture;
             damage.Critical = GameObject.Chance(this.CriticalStrikeChance - (architecture.ChanceDecrementOfCriticalStrike));
             damage.Position = this.OrientationPosition;
-            if (architecture.Domination > 0)
-            {
+
                 //int num = (int) (((((this.Offence * 10) * Parameters.ArchitectureDamageRate) * this.ArchitectureDamageRate) * this.StuntArchitectureDamageRate) / ((float) architecture.Domination));
-                int num = (int)(Math.Pow(this.Offence * this.ArchitectureDamageRate * this.StuntArchitectureDamageRate / (float)architecture.Domination, 0.62) * 1.16 * 10 * Parameters.ArchitectureDamageRate);
+                int num = (int)(Math.Pow(this.Offence * this.ArchitectureDamageRate * this.StuntArchitectureDamageRate / ((float)architecture.Domination + 10), 0.62) * 1.16 * 10 * Parameters.ArchitectureDamageRate);
                 if (!base.Scenario.IsPlayer(this.BelongedFaction))
                 {
                     num = (int)(num * Parameters.AIArchitectureDamageRate);
@@ -9196,11 +9195,7 @@
                 {
                     damage.Damage = architecture.Endurance;
                 }
-            }
-            else
-            {
-                damage.Damage = architecture.Endurance;
-            }
+
             if ((architecture.BelongedFaction != null) && !this.AirOffence)
             {
                 damage.CounterDamage = (int)((((architecture.Endurance + architecture.Morale) * this.Army.Kind.ArchitectureCounterDamageRate) * 15f) / ((float)this.Defence));
