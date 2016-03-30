@@ -1616,13 +1616,19 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 }
 
                 using (FileStream fs = File.Create(tempFilePath)) { }
-                File.Copy(path, tempFilePath, true);
+                if (File.Exists(path))
+                {
+                    File.Copy(path, tempFilePath, true);
+                }
                 saveMap = false;
             }
             else
             {
                 using (FileStream fs = File.Create(tempFilePath)) { }
-                File.Copy(path, tempFilePath, true);
+                if (File.Exists(path))
+                {
+                    File.Copy(path, tempFilePath, true);
+                }
                 File.Copy("GameData/Common/SaveTemplate.mdb", path, true);
                 saveMap = true;
             }
