@@ -2269,7 +2269,7 @@
 
             foreach (Architecture a in this.Architectures)
             {
-                foreach (Person p in a.Persons)
+                foreach (Person p in a.Feiziliebiao)
                 {
                     a.PrincessChangeLeader(false, a.BelongedFaction, p);
                 }
