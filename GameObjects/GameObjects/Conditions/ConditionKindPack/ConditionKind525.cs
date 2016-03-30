@@ -4,14 +4,14 @@
     using GameObjects.Conditions;
     using System;
 
-    internal class ConditionKind530 : ConditionKind
+    internal class ConditionKind525 : ConditionKind
     {
         private int personID;
 
         public override bool CheckConditionKind(Person person)
         {
             Person p1 = person.Scenario.Persons.GetGameObject(personID) as Person;
-            return (person.BelongedFactionWithPrincess != null && p1.BelongedFactionWithPrincess != null && person.BelongedFactionWithPrincess == p1.BelongedFactionWithPrincess);
+            return !( person.LocationArchitecture != null && p1.LocationArchitecture  != null && person.LocationArchitecture == p1.LocationArchitecture );
         }
 
         public override void InitializeParameter(string parameter)
