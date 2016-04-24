@@ -430,6 +430,9 @@
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationIncrease { get; set; }
 
+        private TroopList friendlyTroopsInView;
+        private TroopList hostileTroopsInView;
+
         private int forceTroopTargetId;
 
         private Troop forceTroopTarget;
@@ -2823,12 +2826,43 @@
                 {
                     sending.IncreaseRoutExperience(true);
                     sending.AddRoutCount();
+                    foreach (Troop t in sending.friendlyTroopsInView)
+                    {
+                        if (t == sending) continue;
+                        foreach (Person p in t.persons)
+                        {
+                            foreach (Person q in sending.persons)
+                            {
+                                if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
+                                {
+                                    p.AdjustRelation(q, 0.2f, 0);
+                                }
+                            }
+                        }
+                    }
+                    foreach (Troop t in sending.hostileTroopsInView)
+                    {
+                        if (t == sending) continue;
+                        foreach (Person p in t.persons)
+                        {
+                            foreach (Person q in sending.persons)
+                            {
+                                if (GameObject.Chance(((5 - p.PersonalLoyalty) * 10 - q.Glamour / 2) / 2))
+                                {
+                                    p.AdjustRelation(q, -0.2f, 0);
+                                }
+                            }
+                        }
+                    }
                     foreach (Person p in sending.persons)
                     {
                         foreach (Person q in sending.persons)
                         {
                             if (p == q) continue;
-                            p.AdjustRelation(q, 1f / (sending.persons.Count - 1), 3);
+                            if (GameObject.Chance(p.Uncruelty * 5 + q.Glamour / 2))
+                            {
+                                p.AdjustRelation(q, 1f / (sending.persons.Count - 1), 3);
+                            }
                         }
                     }
                 }
@@ -2966,12 +3000,44 @@
                     }
                 }
 
-                foreach (Person p in receiving.persons)
+                if (receiving.BelongedFaction != null)
                 {
-                    foreach (Person q in sending.persons)
+                    foreach (Troop t in receiving.friendlyTroopsInView)
                     {
-                        if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f / Math.Max(1, sending.persons.Count - 1), -3);
+                        if (t == receiving) continue;
+                        foreach (Person p in t.persons)
+                        {
+                            foreach (Person q in receiving.persons)
+                            {
+                                if (GameObject.Chance(((5 - p.PersonalLoyalty) * 10 - q.Glamour / 2) / 2))
+                                {
+                                    p.AdjustRelation(q, -0.2f, 0);
+                                }
+                            }
+                        }
+                    }
+                    foreach (Person p in receiving.persons)
+                    {
+                        foreach (Person q in receiving.persons)
+                        {
+                            if (p == q) continue;
+                            if (GameObject.Chance(((5 - p.PersonalLoyalty) * 10 - q.Glamour / 2)))
+                            {
+                                p.AdjustRelation(q, -0.5f / Math.Max(1, sending.persons.Count - 1), -3);
+                            }
+
+                        }
+                    }
+                    foreach (Person p in receiving.persons)
+                    {
+                        foreach (Person q in sending.persons)
+                        {
+                            if (p == q) continue;
+                            if (GameObject.Chance(((5 - p.PersonalLoyalty) * 10 - q.Glamour / 2)))
+                            {
+                                p.AdjustRelation(q, -0.5f / Math.Max(1, sending.persons.Count - 1), -3);
+                            }
+                        }
                     }
                 }
 
@@ -9659,6 +9725,7 @@
                 Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
                 if ((troopByPosition != null) && this.IsFriendly(troopByPosition.BelongedFaction))
                 {
+                    friendlyTroopsInView.Add(troopByPosition);
                     switch (base.Scenario.GetTerrainKindByPositionNoCheck(point))
                     {
                         case TerrainKind.平原:
@@ -9724,6 +9791,7 @@
                 Troop troopByPosition = base.Scenario.GetTroopByPosition(point);
                 if ((troopByPosition != null) && !this.IsFriendly(troopByPosition.BelongedFaction))
                 {
+                    hostileTroopsInView.Add(troopByPosition);
                     switch (base.Scenario.GetTerrainKindByPositionNoCheck(point))
                     {
                         case TerrainKind.平原:
