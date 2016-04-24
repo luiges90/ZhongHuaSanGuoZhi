@@ -8248,6 +8248,7 @@
 
             r.Scenario = father.Scenario;
 
+
             foreach (Person p in mother.GetClosePersons())
             {
                 if (!GameObject.Chance((int)r.personalLoyalty * 25))
@@ -8275,6 +8276,15 @@
                 {
                     r.AddHated(p);
                 }
+            }
+
+            if (!GameObject.Chance((int)r.personalLoyalty * 50))
+            {
+                r.AddClose(p.Father);
+            }
+            if (!GameObject.Chance((int)r.personalLoyalty * 50))
+            {
+                r.AddClose(p.Mother);
             }
 
             ExtensionInterface.call("CreateChildren", new Object[] { father.Scenario, r });
