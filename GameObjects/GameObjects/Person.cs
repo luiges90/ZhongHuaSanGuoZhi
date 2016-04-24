@@ -8251,7 +8251,7 @@
 
             foreach (Person p in mother.GetClosePersons())
             {
-                if (!GameObject.Chance((int)r.personalLoyalty * 25))
+                if (GameObject.Chance((int)r.personalLoyalty * 25))
                 {
                     r.AddClose(p);
                 }
@@ -8265,7 +8265,7 @@
             }
             foreach (Person p in father.GetClosePersons())
             {
-                if (!GameObject.Chance((int)r.personalLoyalty * 25))
+                if (GameObject.Chance((int)r.personalLoyalty * 25))
                 {
                     r.AddClose(p);
                 }
@@ -8278,13 +8278,27 @@
                 }
             }
 
-            if (!GameObject.Chance((int)r.personalLoyalty * 50))
+            if (GameObject.Chance((int)r.personalLoyalty * 50))
             {
-                r.AddClose(p.Father);
+                r.AddClose(r.Father);
             }
-            if (!GameObject.Chance((int)r.personalLoyalty * 50))
+            if (GameObject.Chance((int)r.personalLoyalty * 50))
             {
-                r.AddClose(p.Mother);
+                r.AddClose(r.Mother);
+            }
+            foreach (Person p in father.ChildrenList)
+            {
+                if (GameObject.Chance((int)r.personalLoyalty * 20))
+                {
+                    r.AddClose(p);
+                }
+            }
+            foreach (Person p in mother.ChildrenList)
+            {
+                if (GameObject.Chance((int)r.personalLoyalty * 20))
+                {
+                    r.AddClose(p);
+                }
             }
 
             ExtensionInterface.call("CreateChildren", new Object[] { father.Scenario, r });
