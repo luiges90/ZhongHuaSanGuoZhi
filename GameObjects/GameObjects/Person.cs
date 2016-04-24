@@ -8515,8 +8515,8 @@
                 foreach (Person p in this.BelongedFaction.GetFeiziList())
                 {
                     if (p == nvren) continue;
-                    p.AdjustRelation(this, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -1);
-                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -1);
+                    p.AdjustRelation(this, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -5);
+                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -5);
                 }
 
                 this.OutsideTask = OutsideTaskKind.后宮;
@@ -8851,7 +8851,7 @@
         {
             if (!GlobalVariables.EnablePersonRelations) return;
             if (this == p || p == null) return;
-            int val;
+            float val;
             if (factor > 0)
             {
                 val = (int)(Math.Max(0, 75 - Person.GetIdealOffset(this, p)) * 30 * factor / 75 + adjust);
@@ -8862,13 +8862,16 @@
             }
             if (val != 0)
             {
-                if (this.relations.ContainsKey(p))
+                if (val > 1 || GameObject.Chance((int) (val * 100)))
                 {
-                    this.relations[p] += val;
-                }
-                else
-                {
-                    this.relations.Add(p, val);
+                    if (this.relations.ContainsKey(p))
+                    {
+                        this.relations[p] = (int) (this.relations[p] + val);
+                    }
+                    else
+                    {
+                        this.relations.Add(p, (int) val);
+                    }
                 }
             }
             else
