@@ -8491,8 +8491,8 @@
                 foreach (Person p in this.BelongedFaction.GetFeiziList())
                 {
                     if (p == nvren) continue;
-                    p.AdjustRelation(this, -houGongDays / 90.0f * (5 - p.PersonalLoyalty), -1);
-                    p.AdjustRelation(nvren, -houGongDays / 90.0f * (5 - p.PersonalLoyalty), -1);
+                    p.AdjustRelation(this, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -1);
+                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -1);
                 }
 
                 this.OutsideTask = OutsideTaskKind.后宮;
