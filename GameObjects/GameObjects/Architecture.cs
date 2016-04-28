@@ -9808,6 +9808,8 @@
                 }
                 if (wayToTarget != null)
                 {
+                    // Quick AI battle? compare person, troop, endurance and resolve battle result after estimated days, if player don't see it
+                    // if player enter during estimated days, abort 
                     int reserve = Math.Max(0, reserveBase - wayToTarget.A.ArmyScale);
                     int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(wayToTarget);
                     int armyScaleHere = (wayToTarget.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));

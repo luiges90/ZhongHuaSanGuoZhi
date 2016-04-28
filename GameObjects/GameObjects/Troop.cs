@@ -430,8 +430,8 @@
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationIncrease { get; set; }
 
-        private TroopList friendlyTroopsInView;
-        private TroopList hostileTroopsInView;
+        private TroopList friendlyTroopsInView = new TroopList();
+        private TroopList hostileTroopsInView = new TroopList();
 
         private int forceTroopTargetId;
 

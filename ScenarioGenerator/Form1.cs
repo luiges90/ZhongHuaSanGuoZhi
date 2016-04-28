@@ -113,6 +113,9 @@ namespace ScenarioGenerator
         {
             try
             {
+                deletePerson();
+                deleteArchitecture();
+
                 generatePerson();
             }
             catch (FormatException ex)
@@ -121,13 +124,106 @@ namespace ScenarioGenerator
             }
         }
 
+        private void deleteArchitecture()
+        {
+            int toDeleteCnt = GameObject.Random(int.Parse(tbDeleteArchitectureLo.Text), int.Parse(tbDeleteArchitectureHi.Text));
+            int toDeletePopulationLo = int.Parse(tbDeleteArchitecturePopulationLo.Text);
+            int toDeletePopulationHi = int.Parse(tbDeleteArchitecturePopulationHi.Text);
+
+            if (toDeleteCnt == 0) return;
+
+            ArchitectureList candidates = new ArchitectureList();
+            foreach (Architecture a in this.scen.Architectures)
+            {
+                if (a.PopulationCeiling >= toDeletePopulationLo && a.PopulationCeiling <= toDeletePopulationHi)
+                {
+                    candidates.Add(a);
+                }
+            }
+
+            GameObjectList toDelete = candidates.GetRandomList();
+            GameObjectList list = this.scen.Architectures.GetList();
+            int deleted = 0;
+            foreach (Architecture a in list)
+            {
+                if (toDelete.GameObjects.Contains(a))
+                {
+                    if (a.BelongedFaction != null)
+                    {
+                        Architecture moveTo = a.BelongedFaction.Capital;
+                        if (a == moveTo) continue;
+                        foreach (Person p in a.Persons)
+                        {
+                            p.MoveToArchitecture(a);
+                            p.ArrivingDays = 0;
+                        }
+                    }
+                    this.scen.Architectures.Remove(a);
+                    deleted++;
+                    if (toDeleteCnt <= deleted) break;
+
+                    this.scen.ClearPersonStatusCache();
+                }
+            }
+
+            this.scen.ClearPersonStatusCache();
+
+            foreach (Architecture architecture2 in this.scen.Architectures)
+            {
+                architecture2.AILandLinks.Clear();
+                architecture2.AIWaterLinks.Clear();
+            }
+            foreach (Architecture architecture2 in this.scen.Architectures)
+            {
+                architecture2.FindLinks(this.scen.Architectures);
+            }
+        }
+
         private void deletePerson()
         {
             int toDeleteCnt = GameObject.Random(int.Parse(tbDeletePersonLo.Text), int.Parse(tbDeletePersonHi.Text));
-            int toDeleteAby = GameObject.Random(int.Parse(tbDeletePersonAbyLo.Text), int.Parse(tbDeletePersonAbyHi.Text));
-            int toDeleteTotalAby = GameObject.Random(int.Parse(tbDeletePersonTAbyLo.Text), int.Parse(tbDeletePersonTAbyHi.Text));
+            int toDeleteAbyLo = int.Parse(tbDeletePersonAbyLo.Text);
+            int toDeleteAbyHi = int.Parse(tbDeletePersonAbyHi.Text);
+            int toDeleteTotalAbyLo = int.Parse(tbDeletePersonTAbyLo.Text);
+            int toDeleteTotalAbyHi = int.Parse(tbDeletePersonTAbyHi.Text);
+
+            if (toDeleteCnt == 0) return;
+
             bool allowDeleteKing = cbDeleteLeader.Checked;
 
+            PersonList candidates = new PersonList();
+            foreach (Person p in this.scen.Persons)
+            {
+                if (p.BelongedFaction != null && p.BelongedFaction.Leader == p) continue;
+                if (p.Command <= toDeleteAbyHi && p.Strength <= toDeleteAbyHi && p.Intelligence <= toDeleteAbyHi && p.Politics <= toDeleteAbyHi && p.Glamour <= toDeleteAbyHi &&
+                    p.Command >= toDeleteAbyLo && p.Strength >= toDeleteAbyLo && p.Intelligence >= toDeleteAbyLo && p.Politics >= toDeleteAbyLo && p.Glamour >= toDeleteAbyLo)
+                {
+                    candidates.Add(p);
+                }
+                if (p.Strength + p.Command + p.Intelligence + p.Politics + p.Glamour <= toDeleteTotalAbyHi &&
+                    p.Strength + p.Command + p.Intelligence + p.Politics + p.Glamour >= toDeleteTotalAbyLo)
+                {
+                    candidates.Add(p);
+                }
+            }
+
+            GameObjectList toDelete = candidates.GetRandomList();
+            GameObjectList list = this.scen.Persons.GetList();
+            int deleted = 0;
+            foreach (Person p in list)
+            {
+                if (p.BelongedFaction != null && p.BelongedFaction.PersonCount > 1)
+                {
+                    if (toDelete.GameObjects.Contains(p))
+                    {
+                        this.scen.Persons.Remove(p);
+                        deleted++;
+                        if (toDeleteCnt <= deleted) break;
+                    }
+                }
+            }
+
+            this.scen.ClearPersonStatusCache();
         }
 
         private void generatePerson()
