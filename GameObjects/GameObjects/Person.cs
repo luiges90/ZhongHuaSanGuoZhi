@@ -8485,7 +8485,7 @@
 
                     float pregnantChance = GlobalVariables.hougongGetChildrenRate / 100.0f;
                     pregnantChance *= houGongDays * extraRate;
-                    pregnantChance += this.pregnantChance + nvren.pregnantChance;
+                    pregnantChance *= (1 + this.pregnantChance / 100.0f) + (1 + nvren.pregnantChance / 100.0f);
 
                     if (GameObject.Chance(Math.Max((int)pregnantChance, Parameters.MinPregnantProb))
                         && !nvren.huaiyun && !this.huaiyun && this.isLegalFeiZi(nvren) &&
