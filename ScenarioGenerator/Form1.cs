@@ -94,7 +94,7 @@ namespace ScenarioGenerator
 
             lblFilename.Text = "正保存劇本...";
 
-            String date = DateTime.Now.ToString("yyyy-MM-dd HHmmss");
+            String date = DateTime.Now.ToString("yyyy-MM-dd");
             this.scen.ScenarioTitle += "﹝生成於" + date + "﹞";
 
             String generatedFileName = this.openedFileName.Substring(0, this.openedFileName.Length - 4) + "-" + date + ".mdb";
