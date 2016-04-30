@@ -4729,7 +4729,7 @@
                         {
                             flag = true;
                             attackArchitecutreCredit = this.GetAttackArchitecutreCredit(architectureByPositionNoCheck);
-                            if ((this.ViewingHostileTroopCount > 0) || GameObject.Chance(0x21))
+                            if ((this.ViewingHostileTroopCount > 0) || GameObject.Chance(33))
                             {
                                 attackArchitecutreCredit += num2;
                             }
@@ -4858,6 +4858,15 @@
                 num += this.GetLegionCredit(position);
                 num += this.GetHostileRoutewayCredit(position);
                 num += this.GetTerrainCredit(position);
+
+                foreach (Point p in this.WillArchitecture.ArchitectureArea.Area) 
+                {
+                    if (base.Scenario.GetSimpleDistance(position, p) <= 1)
+                    {
+                        num *= 2;
+                    }
+                }
+
                 pack.Credit = num;
                 pack.TargetTroop = troop;
                 pack.TargetArchitecture = architecture;
