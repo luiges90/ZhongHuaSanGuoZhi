@@ -1741,177 +1741,184 @@
 
         private void huaiyunshijian()
         {
-            if (this.huaiyun)
+            if (this.huaiyuntianshu < -1)
             {
                 this.huaiyuntianshu++;
-                //if (this.huaiyuntianshu == 30)
-                if (GameObject.Chance((this.huaiyuntianshu - 20) * 5) && !this.faxianhuaiyun)
+            }
+            else
+            {
+                if (this.huaiyun)
                 {
-                    ExtensionInterface.call("FoundPregnant", new Object[] { this.Scenario, this });
-                    this.faxianhuaiyun = true;
-                    if (this.BelongedFaction != null && this == this.BelongedFaction.Leader)  //女君主自己怀孕
+                    this.huaiyuntianshu++;
+                    //if (this.huaiyuntianshu == 30)
+                    if (GameObject.Chance((this.huaiyuntianshu - 20) * 5) && !this.faxianhuaiyun)
                     {
-                        this.Scenario.GameScreen.selfFoundPregnant(this);
-                    }
-                    else
-                    {
+                        ExtensionInterface.call("FoundPregnant", new Object[] { this.Scenario, this });
+                        this.faxianhuaiyun = true;
+                        if (this.BelongedFaction != null && this == this.BelongedFaction.Leader)  //女君主自己怀孕
+                        {
+                            this.Scenario.GameScreen.selfFoundPregnant(this);
+                        }
+                        else
+                        {
+                            if (this.Status == PersonStatus.Princess)
+                            {
+                                this.Scenario.GameScreen.faxianhuaiyun(this);
+                            }
+                            else
+                            {
+                                Person reporter;
+                                if (this.BelongedArchitecture != null)
+                                {
+                                    reporter = this.BelongedArchitecture.Advisor;
+                                    if (reporter != null && (reporter != this || (reporter == this && reporter.Spouse == reporter.BelongedFaction.Leader)))
+                                    {
+                                        this.Scenario.GameScreen.coupleFoundPregnant(this, reporter);
+                                    }
+                                }
+
+                            }
+                        }
+
+                        Person haizifuqin = this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person;
+                        if (haizifuqin != null && !this.Hates(haizifuqin) && !haizifuqin.Hates(this))
+                        {
+                            this.AdjustRelation(haizifuqin, 1, 0);
+                            haizifuqin.AdjustRelation(this, 1, 0);
+                        }
                         if (this.Status == PersonStatus.Princess)
                         {
-                            this.Scenario.GameScreen.faxianhuaiyun(this);
-                        }
-                        else
-                        {
-                            Person reporter;
-                            if (this.BelongedArchitecture != null)
+                            foreach (Person p in this.BelongedArchitecture.BelongedFaction.GetFeiziList())
                             {
-                                reporter = this.BelongedArchitecture.Advisor;
-                                if (reporter != null && (reporter != this || (reporter == this && reporter.Spouse == reporter.BelongedFaction.Leader)))
-                                {
-                                    this.Scenario.GameScreen.coupleFoundPregnant(this, reporter);
-                                }
+                                if (p == this) continue;
+                                p.AdjustRelation(this, (5 - p.PersonalLoyalty) * -0.5f, -1);
                             }
-                            
                         }
                     }
-
-                    Person haizifuqin = this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person;
-                    if (haizifuqin != null && !this.Hates(haizifuqin) && !haizifuqin.Hates(this))
+                    else if (GameObject.Chance((this.huaiyuntianshu - 290) * 5))
                     {
-                        this.AdjustRelation(haizifuqin, 1, 0);
-                        haizifuqin.AdjustRelation(this, 1, 0);
-                    }
-                    if (this.Status == PersonStatus.Princess)
-                    {
-                        foreach (Person p in this.BelongedArchitecture.BelongedFaction.GetFeiziList())
+                        Person haizifuqin = new Person();
+                        Person haizi = new Person();
+                        this.huaiyun = false;
+                        this.faxianhuaiyun = false;
+                        this.huaiyuntianshu = -GameObject.Random(20) - 50;
+
+                        if (this.suoshurenwu == -1)
                         {
-                            if (p == this) continue;
-                            p.AdjustRelation(this, (5 - p.PersonalLoyalty) * -0.5f, -1);
-                        }
-                    }
-                }
-                else if (GameObject.Chance((this.huaiyuntianshu - 290) * 5))
-                {
-                    Person haizifuqin = new Person();
-                    Person haizi = new Person();
-                    this.huaiyun = false;
-                    this.faxianhuaiyun = false;
-                    this.huaiyuntianshu = -1;
-
-                    if (this.suoshurenwu == -1)
-                    {
-                        if (this.BelongedFaction != null)
-                        {
-                            this.suoshurenwu = this.BelongedFaction.LeaderID;
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                    haizifuqin = this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person;
-
-                    if (haizifuqin != null)
-                    {
-                        int count = 0;
-                        do
-                        {
-                            PersonList origChildren = haizifuqin.meichushengdehaiziliebiao();
-                            if (origChildren.Count > 0)
-                            {
-                                haizi = origChildren[0] as Person;
-
-                                int ageDeath = haizi.YearDead - haizi.YearBorn;
-                                haizi.YearBorn = haizifuqin.Scenario.Date.Year;
-                                haizi.YearAvailable = haizi.YearBorn + GlobalVariables.ChildrenAvailableAge;
-                                haizi.YearDead = haizi.YearBorn + ageDeath;
-
-                                haizi.father = this.Sex ? haizifuqin : this;
-                                haizi.mother = this.Sex ? this : haizifuqin;
-                            }
-                            else
-                            {
-                                haizi = Person.createChildren(this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person, this);
-                            }
-
-                            if (origChildren.Count > 0)
-                            {
-                                haizi.muqinyingxiangnengli(this);
-                            }
-                            if (haizi.BaseCommand < 1) haizi.BaseCommand = 1;
-                            if (haizi.BaseStrength < 1) haizi.BaseStrength = 1;
-                            if (haizi.BaseIntelligence < 1) haizi.BaseIntelligence = 1;
-                            if (haizi.BasePolitics < 1) haizi.BasePolitics = 1;
-                            if (haizi.BaseGlamour < 1) haizi.BaseGlamour = 1;
-
-                            base.Scenario.YearTable.addChildrenBornEntry(base.Scenario.Date, haizifuqin, this, haizi);
-
-                            haizifuqin.TextResultString = haizi.Name;
-                            //haizi.AvailableLocation = this.BelongedTroop != null ? this.BelongedTroop.StartingArchitecture.ID : this.BelongedArchitecture.ID;
                             if (this.BelongedFaction != null)
                             {
-                                haizi.AvailableLocation = this.BelongedFaction.Capital.ID;
-
-                            }
-                            else if (this.BelongedTroop != null)
-                            {
-                                haizi.AvailableLocation = this.BelongedTroop.StartingArchitecture.ID;
+                                this.suoshurenwu = this.BelongedFaction.LeaderID;
                             }
                             else
                             {
-                                haizi.AvailableLocation = this.BelongedArchitecture.ID;
+                                return;
                             }
+                        }
+                        haizifuqin = this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person;
 
-                            base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
-
-                            haizifuqin.NumberOfChildren++;
-                            this.NumberOfChildren++;
-
-                            if (!GlobalVariables.PersonNaturalDeath || GlobalVariables.ChildrenAvailableAge <= 0)
+                        if (haizifuqin != null)
+                        {
+                            int count = 0;
+                            do
                             {
-                                base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
-                            }
+                                PersonList origChildren = haizifuqin.meichushengdehaiziliebiao();
+                                if (origChildren.Count > 0)
+                                {
+                                    haizi = origChildren[0] as Person;
 
-                            if (!this.Hates(haizifuqin) && !haizifuqin.Hates(this))
-                            {
-                                this.AdjustRelation(haizifuqin, 3, -5);
-                                haizifuqin.AdjustRelation(this, 3, -5);
-                            }
+                                    int ageDeath = haizi.YearDead - haizi.YearBorn;
+                                    haizi.YearBorn = haizifuqin.Scenario.Date.Year;
+                                    haizi.YearAvailable = haizi.YearBorn + GlobalVariables.ChildrenAvailableAge;
+                                    haizi.YearDead = haizi.YearBorn + ageDeath;
 
-                            count++;
-                        } while ((GameObject.Chance(haizifuqin.multipleChildrenRate) || GameObject.Chance(this.multipleChildrenRate)) && count < Math.Max(haizifuqin.maxChildren, this.maxChildren));
+                                    haizi.father = this.Sex ? haizifuqin : this;
+                                    haizi.mother = this.Sex ? this : haizifuqin;
+                                }
+                                else
+                                {
+                                    haizi = Person.createChildren(this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person, this);
+                                }
 
-                        haizifuqin.suoshurenwu = -1;
+                                if (origChildren.Count > 0)
+                                {
+                                    haizi.muqinyingxiangnengli(this);
+                                }
+                                if (haizi.BaseCommand < 1) haizi.BaseCommand = 1;
+                                if (haizi.BaseStrength < 1) haizi.BaseStrength = 1;
+                                if (haizi.BaseIntelligence < 1) haizi.BaseIntelligence = 1;
+                                if (haizi.BasePolitics < 1) haizi.BasePolitics = 1;
+                                if (haizi.BaseGlamour < 1) haizi.BaseGlamour = 1;
+
+                                base.Scenario.YearTable.addChildrenBornEntry(base.Scenario.Date, haizifuqin, this, haizi);
+
+                                haizifuqin.TextResultString = haizi.Name;
+                                //haizi.AvailableLocation = this.BelongedTroop != null ? this.BelongedTroop.StartingArchitecture.ID : this.BelongedArchitecture.ID;
+                                if (this.BelongedFaction != null)
+                                {
+                                    haizi.AvailableLocation = this.BelongedFaction.Capital.ID;
+
+                                }
+                                else if (this.BelongedTroop != null)
+                                {
+                                    haizi.AvailableLocation = this.BelongedTroop.StartingArchitecture.ID;
+                                }
+                                else
+                                {
+                                    haizi.AvailableLocation = this.BelongedArchitecture.ID;
+                                }
+
+                                base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
+
+                                haizifuqin.NumberOfChildren++;
+                                this.NumberOfChildren++;
+
+                                if (!GlobalVariables.PersonNaturalDeath || GlobalVariables.ChildrenAvailableAge <= 0)
+                                {
+                                    base.Scenario.haizichusheng(haizi, haizifuqin, this, origChildren.Count > 0);
+                                }
+
+                                if (!this.Hates(haizifuqin) && !haizifuqin.Hates(this))
+                                {
+                                    this.AdjustRelation(haizifuqin, 3, -5);
+                                    haizifuqin.AdjustRelation(this, 3, -5);
+                                }
+
+                                count++;
+                            } while ((GameObject.Chance(haizifuqin.multipleChildrenRate) || GameObject.Chance(this.multipleChildrenRate)) && count < Math.Max(haizifuqin.maxChildren, this.maxChildren));
+
+                            haizifuqin.suoshurenwu = -1;
+                        }
+
+                        this.suoshurenwu = -1;
+
                     }
-
-                    this.suoshurenwu = -1;
-
                 }
-            }
-            else if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun && GlobalVariables.getChildrenRate > 0 &&
-                (this.LocationArchitecture != null && this.Spouse.LocationArchitecture == this.LocationArchitecture ||
-                    (this.LocationTroop != null && this.Spouse.LocationTroop == this.LocationTroop)) &&
-                this.Status == PersonStatus.Normal && this.Spouse.Status == PersonStatus.Normal &&
-                this.isLegalFeiZi(this.Spouse) && this.Spouse.isLegalFeiZi(this) &&
-                this.NumberOfChildren < GlobalVariables.OfficerChildrenLimit &&
-                this.Spouse.NumberOfChildren < GlobalVariables.OfficerChildrenLimit)
-            {
-                float relationFactor = (1 + this.GetRelation(this.Spouse) * 0.0001f + this.Spouse.GetRelation(this) * 0.0001f)
-                    * (1 + this.pregnantChance / 100.0f + this.Spouse.pregnantChance / 100.0f);
-
-                if (relationFactor > 0 && GameObject.Random((int)
-                    (10000.0f / GlobalVariables.getChildrenRate * 20 / relationFactor / (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIExtraPerson))) == 0)
+                else if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun && GlobalVariables.getChildrenRate > 0 &&
+                    (this.LocationArchitecture != null && this.Spouse.LocationArchitecture == this.LocationArchitecture ||
+                        (this.LocationTroop != null && this.Spouse.LocationTroop == this.LocationTroop)) &&
+                    this.Status == PersonStatus.Normal && this.Spouse.Status == PersonStatus.Normal &&
+                    this.isLegalFeiZi(this.Spouse) && this.Spouse.isLegalFeiZi(this) &&
+                    this.NumberOfChildren < GlobalVariables.OfficerChildrenLimit &&
+                    this.Spouse.NumberOfChildren < GlobalVariables.OfficerChildrenLimit)
                 {
-                    this.suoshurenwu = this.Spouse.ID;
-                    this.Spouse.suoshurenwu = this.ID;
-                    if (this.Sex)
+                    float relationFactor = (1 + this.GetRelation(this.Spouse) * 0.0001f + this.Spouse.GetRelation(this) * 0.0001f)
+                        * (1 + this.pregnantChance / 100.0f + this.Spouse.pregnantChance / 100.0f);
+
+                    if (relationFactor > 0 && GameObject.Random((int)
+                        (10000.0f / GlobalVariables.getChildrenRate * 20 / relationFactor / (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIExtraPerson))) == 0)
                     {
-                        this.huaiyun = true;
-                        this.huaiyuntianshu = 0;
-                    }
-                    else
-                    {
-                        this.Spouse.huaiyun = true;
-                        this.Spouse.huaiyuntianshu = 0;
+                        this.suoshurenwu = this.Spouse.ID;
+                        this.Spouse.suoshurenwu = this.ID;
+                        if (this.Sex)
+                        {
+                            this.huaiyun = true;
+                            this.huaiyuntianshu = 0;
+                        }
+                        else
+                        {
+                            this.Spouse.huaiyun = true;
+                            this.Spouse.huaiyuntianshu = 0;
+                        }
                     }
                 }
             }
@@ -5254,6 +5261,10 @@
                 {
                     return Math.Min(1, (360 - this.huaiyuntianshu) / 180.0f);
                 }
+                if (this.huaiyuntianshu < -1)
+                {
+                    return Math.Min(1, 1 + this.huaiyuntianshu / 90.0f);
+                }
 
                 return 1;
             }
@@ -8458,6 +8469,7 @@
                     houGongDays = GameObject.Random(10) + 60;
                 }
                 if (!nvren.Hates(this) && GlobalVariables.hougongGetChildrenRate > 0 &&
+                    ((nvren.Sex && nvren.huaiyuntianshu >= -1) || (this.Sex && this.huaiyuntianshu >= -1)) &&
                     this.NumberOfChildren < GlobalVariables.OfficerChildrenLimit && nvren.NumberOfChildren < GlobalVariables.OfficerChildrenLimit)
                 {
                     float extraRate = 1;
