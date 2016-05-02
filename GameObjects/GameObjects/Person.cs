@@ -1906,13 +1906,13 @@
                     float ageRate = 1;
                     if (this.Age > 40)
                     {
-                        ageRate -= (this.Age - 40) / 5.0f;
+                        ageRate -= (this.Age - 40) / 10.0f;
                     }
                     if (this.Spouse.Age > 40)
                     {
-                        ageRate -= (this.Spouse.Age - 40) / 5.0f;
+                        ageRate -= (this.Spouse.Age - 40) / 10.0f;
                     }
-                    relationFactor *= ageRate;
+                    relationFactor *= ageRate; 
 
                     if (relationFactor > 0 && GameObject.Random((int)
                         (10000.0f / GlobalVariables.getChildrenRate * 20 / relationFactor / (base.Scenario.IsPlayer(this.BelongedFaction) ? 1 : Parameters.AIExtraPerson))) == 0)
@@ -8506,11 +8506,11 @@
                     }
                     if (this.Age > 40)
                     {
-                        extraRate -= (this.Age - 40) / 5.0f;
+                        extraRate -= (this.Age - 40) / 10.0f;
                     }
                     if (nvren.Age > 40)
                     {
-                        extraRate -= (nvren.Age - 40) / 5.0f;
+                        extraRate -= (nvren.Age - 40) / 10.0f;
                     }
 
                     float pregnantChance = GlobalVariables.hougongGetChildrenRate / 100.0f;
