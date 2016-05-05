@@ -10,7 +10,12 @@
 
         public void BuildQueue(bool preUserControlFinished)
         {
-            foreach (Faction faction in base.GetRandomList())
+            GameObjectList list = base.GetList();
+            list.PropertyName = "Power";
+            list.IsNumber = true;
+            list.SmallToBig = true;
+            list.ReSort();
+            foreach (Faction faction in list)
             {
                 this.SetFactionInQueue(faction, preUserControlFinished);
             }
