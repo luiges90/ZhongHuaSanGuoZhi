@@ -12495,13 +12495,43 @@
             }
         }
 
+        public MilitaryList TransferingMilitaries
+        {
+            get
+            {
+                MilitaryList result = new MilitaryList();
+                if (this.BelongedFaction == null) return result;
+                foreach (Military m in this.BelongedFaction.TransferingMilitaries)
+                {
+                    if (m.TargetArchitecture == this)
+                    {
+                        result.Add(m);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public int TransferingMilitariesScale
+        {
+            get
+            {
+                int s = 0;
+                foreach (Military m in this.TransferingMilitaries)
+                {
+                    s += m.Scales;
+                }
+                return s;
+            }
+        }
+
         public bool IsTroopExceedsLimit
         {
             get
             {
                 if (GlobalVariables.PopulationRecruitmentLimit)
                 {
-                    return this.Population < this.ArmyQuantity;
+                    return this.Population < this.ArmyQuantity + this.TransferingMilitariesScale;
                 }
                 return false;
             }
