@@ -1256,6 +1256,10 @@
 
             foreach (Military i in leaderlessArmies.GetRandomList())
             {
+                if (i.Scales < i.MaxScale && this.IsTroopExceedsLimit)
+                {
+                    continue;
+                }
                 if (i.Scales + transferredScale <= scale)
                 {
                     src.TransferMilitary(i, this);
