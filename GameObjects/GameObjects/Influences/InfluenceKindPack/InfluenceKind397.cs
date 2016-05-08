@@ -70,7 +70,7 @@
 
         public override bool IsVaild(Troop troop)
         {
-            return (troop.Morale < troop.Army.MoraleCeiling);
+            return (troop.Morale < troop.Army.EncourageMoraleCeiling);
         }
     }
 }

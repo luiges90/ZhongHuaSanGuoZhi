@@ -888,6 +888,14 @@
             }
         }
 
+        public int EncourageMoraleCeiling
+        {
+            get
+            {
+                return 100;
+            }
+        }
+
         public int MoraleCeiling
         {
             get
