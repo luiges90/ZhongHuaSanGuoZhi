@@ -419,7 +419,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 //this.CurrentGameObject = this.gameScenario.GameCommonData.PlayerGeneratorTypes.GetSelectedList()[0] as PersonGeneratorType;
                 PersonGeneratorType preferredType = this.CurrentArchitecture.AvailGeneratorTypeList().GetSelectedList()[0] as PersonGeneratorType;
-                this.CurrentArchitecture.GenerateOfficer(preferredType);
+                this.CurrentArchitecture.DoZhaoXian(preferredType);
                 //this.CurrentArchitecture.DecreaseFund(preferredType.CostFund);
             }
         }

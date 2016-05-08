@@ -3090,7 +3090,7 @@
                         return true;
                     }
                 }
-                /*
+                
                 if (GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
                     GlobalVariables.CreateRandomOfficerChance * 100)
                 {
@@ -3117,7 +3117,7 @@
                     pack.FoundPerson.Ideal = (this.BelongedFaction.Leader.Ideal + GameObject.Random(minIdeal.Offset * 2 + 1) - minIdeal.Offset) % 150;
 
                     return true;
-                }*/
+                }
                     
             }
             return false;

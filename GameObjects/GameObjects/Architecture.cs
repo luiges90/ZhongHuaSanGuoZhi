@@ -4051,7 +4051,7 @@
 
         public bool CanZhaoXian()
         {
-            if (this.BelongedFaction != null && GlobalVariables.CreateRandomOfficerChance > 0 && base.Scenario.Date.Month == 3
+            if (this.BelongedFaction != null && GlobalVariables.ZhaoXianSuccessRate > 0 && base.Scenario.Date.Month == 3
               && this.BelongedFaction.ZhaoxianFailureCount < 1 && base.Scenario.OfficerCount < base.Scenario.OfficerLimit)
                 
             {
@@ -4088,11 +4088,11 @@
             }
 
             float result = GameObject.Random((int)(10000 * Math.Pow(factionPersonCount, Parameters.SearchPersonArchitectureCountPower)));
-            float target = GlobalVariables.CreateRandomOfficerChance * 100 * coef ;
+            float target = GlobalVariables.ZhaoXianSuccessRate * 100 * coef;
             return result < target;
         }
 
-        public void GenerateOfficer(PersonGeneratorType preferredType)
+        public void DoZhaoXian(PersonGeneratorType preferredType)
         {
             
             bool isAI = !base.Scenario.IsPlayer(this.BelongedFaction);

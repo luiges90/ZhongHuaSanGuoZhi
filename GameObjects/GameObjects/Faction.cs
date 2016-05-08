@@ -2865,7 +2865,7 @@
 
         private void AIZhaoXian()
         {
-            if (GlobalVariables.CreateRandomOfficerChance <= 0) return;
+            if (GlobalVariables.ZhaoXianSuccessRate <= 0) return;
 
             if (base.Scenario.IsPlayer(this)) return;
 
@@ -2885,7 +2885,7 @@
                             max = t.CostFund;
                         }
                     }
-                    a.GenerateOfficer(type);
+                    a.DoZhaoXian(type);
 
                 }
             }     

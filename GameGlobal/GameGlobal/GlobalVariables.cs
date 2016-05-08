@@ -133,6 +133,7 @@
         public static int MaxMilitaryExperience = 3000;
         public static float ArmyPopulationCap = 1.0f; //兵力上限 
 
+        public static float ZhaoXianSuccessRate = 30;
         public static float CreateRandomOfficerChance = 5;
         
         public static int ChildrenAvailableAge = 12;
@@ -770,6 +771,15 @@
             {
                 exception = exception24;
                 throw new Exception("CreateRandomOfficerChance:\n" + exception.ToString());
+            }
+            try
+            {
+                ZhaoXianSuccessRate = float.Parse(nextSibling.Attributes.GetNamedItem("ZhaoXianSuccessRate").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("ZhaoXianSuccessRate:\n" + exception.ToString());
             }
             
             try
