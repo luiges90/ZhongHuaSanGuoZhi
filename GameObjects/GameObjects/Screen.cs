@@ -106,7 +106,7 @@
         {
         }
 
-        public virtual void haizizhangdachengren(Person father, Person person)
+        public virtual void haizizhangdachengren(Person father, Person person, bool showChildTalk)
         {
         }
 

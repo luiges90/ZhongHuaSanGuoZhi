@@ -614,12 +614,12 @@
                     person.InitialLoyalty();
                     person.YearJoin = this.Date.Year;
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, TextMessageKind.ChildJoin, "ChildJoin", "", "", person.Name, false);
-                    /*if (person.LocationArchitecture != null)
+                    if (person.LocationArchitecture != null)
                     {
                         this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, TextMessageKind.ChildJoinSelfTalk, "ChildJoinSelfTalk", "", "", false);
-                    }*/
+                    }
                     this.AvailablePersons.Add(person);
-                    this.GameScreen.haizizhangdachengren(joinToPerson, person);
+                    this.GameScreen.haizizhangdachengren(joinToPerson, person, false);
                     this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
                     continue;
                 }
@@ -632,9 +632,9 @@
                     person.InitialLoyalty();
                     person.YearJoin = this.Date.Year;
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, TextMessageKind.ChildJoin, "ChildJoin", "", "", person.Name, false);
-                    /*this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, TextMessageKind.ChildJoinSelfTalk, "ChildJoinSelfTalk", "", "", false);*/
+                    this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, TextMessageKind.ChildJoinSelfTalk, "ChildJoinSelfTalk", "", "", false);
                     this.AvailablePersons.Add(person);
-                    this.GameScreen.haizizhangdachengren(joinToPerson, person);
+                    this.GameScreen.haizizhangdachengren(joinToPerson, person, false);
                     this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
                     continue;
                 }
@@ -656,7 +656,7 @@
 
                     }
                     this.AvailablePersons.Add(person);
-                    this.GameScreen.haizizhangdachengren(joinToPerson, person);
+                    this.GameScreen.haizizhangdachengren(joinToPerson, person, false);
                     this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
                     continue;
                 }
@@ -674,7 +674,7 @@
                         person.YearJoin = this.Date.Year;
                         this.GameScreen.xianshishijiantupian(person, f.Capital.Name, TextMessageKind.PersonJoin, "PersonJoin", "", "", f.Name, false);
                         this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
-                        this.GameScreen.haizizhangdachengren(joinToPerson, person);
+                        this.GameScreen.haizizhangdachengren(joinToPerson, person, false);
                         joined = true;
                         break;
                     }
@@ -721,7 +721,7 @@
 
             ExtensionInterface.call("ChildrenJoinFaction", new Object[] { this, person });
 
-            this.GameScreen.haizizhangdachengren(person, person);
+            this.GameScreen.haizizhangdachengren(person, person, true);
         }
 
 

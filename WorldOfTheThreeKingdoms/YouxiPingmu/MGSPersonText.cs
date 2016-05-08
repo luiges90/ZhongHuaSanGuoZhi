@@ -402,15 +402,18 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
 
         }
-        public override void haizizhangdachengren(Person father, Person person)
+        public override void haizizhangdachengren(Person father, Person person, bool showChildTalk)
         {
             if (((base.Scenario.CurrentPlayer != null) && person.BelongedArchitecture != null &&
                     base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 //person.TextResultString = t.Name;
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(person, person, TextMessageKind.BeChildrenBorn, "haizizhangdachengren");
-                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                if (showChildTalk)
+                {
+                    this.Plugins.tupianwenziPlugin.SetGameObjectBranch(person, person, TextMessageKind.BeChildrenBorn, "haizizhangdachengren");
+                    this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                    this.Plugins.tupianwenziPlugin.IsShowing = true;
+                }
 
                 if (person.BelongedArchitecture != null && person.BelongedArchitecture.BelongedFaction != null)
                 {
