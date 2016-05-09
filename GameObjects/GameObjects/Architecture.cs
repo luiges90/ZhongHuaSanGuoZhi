@@ -4441,7 +4441,7 @@
             ExtensionInterface.call("GossipDamage", new Object[] { this.Scenario, this, damage });
         }
 
-        public void checkEvent()
+        public void checkEvent() 
         {
             foreach (Event e in base.Scenario.AllEvents.GetList())
             {
@@ -8209,7 +8209,11 @@
         {
             if ((militaryKind != null) && (militaryKind.LevelUpAvail(this)))
             {
+
                 //this.BelongedFaction.MorphMilitary(m.Kind, militaryKind);
+
+                //this.BelongedFaction.MorphMilitary(m.RealMilitaryKind, militaryKind);
+
                 int num = (m.Quantity * militaryKind.MinScale) / m.Kind.MinScale;
                 int num2 = ((m.Experience - m.Kind.LevelUpExperience) * militaryKind.MinScale) / m.Kind.MinScale;
                 this.IncreasePopulation(m.Quantity - num);

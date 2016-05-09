@@ -73,22 +73,29 @@
 
         public void DoApplyEvent(Architecture a)
         {
-            foreach (KeyValuePair<Person, List<EventEffect>> i in matchedEffect)
+            if (matchedEffect != null)
             {
-                foreach (EventEffect j in i.Value)
+                foreach (KeyValuePair<Person, List<EventEffect>> i in matchedEffect)
                 {
-                    j.ApplyEffect(i.Key, this);
+                    foreach (EventEffect j in i.Value)
+                    {
+                        j.ApplyEffect(i.Key, this);
+                    }
                 }
             }
-
-            foreach (EventEffect i in architectureEffect)
+         if (architectureEffect != null)
+          {
+                foreach (EventEffect i in architectureEffect)
+                {
+                    i.ApplyEffect(a, this);
+                }
+           }
+            if (factionEffect != null)
             {
-                i.ApplyEffect(a, this);
-            }
-
-            foreach (EventEffect i in factionEffect)
-            {
-                i.ApplyEffect(a.BelongedFaction, this);
+                foreach (EventEffect i in factionEffect)
+                {
+                    i.ApplyEffect(a.BelongedFaction, this);
+                }
             }
         }
 
@@ -164,7 +171,7 @@
             {
                 foreach (Person p in i.Value)
                 {
-                    if (p != null && p.ID >= 7000 && p.ID < 8000)
+                    if (p != null/* && p.ID >= 7000 && p.ID < 8000*/)
                     {
                         bool ok = true;
                         if (this.personCond.ContainsKey(i.Key))
@@ -273,10 +280,96 @@
                     return false;
                 }
             }
+            /*
+            if (this.architecture != null || this. faction != null)
+            {
+                bool contains = false;
+                if (this.architecture != null)
+                {
+                    foreach (Architecture archi in this.architecture)
+                    {
+                        if (archi.ID == a.ID)
+                        {
+                            contains = true;
+                        }
+                    }
+                }
 
+                if (this.faction != null)
+                {
+                    foreach (Faction f in this.faction)
+                    {
+                        if (a.BelongedFaction != null)
+                        {
+                            if (f.ID == a.BelongedFaction.ID)
+                            {
+                                contains = true;
+                            }
+                        }
+                    }
+
+                }
+                if (contains)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+             
+             if (!this.CheckEventID(a))
+             {
+                 return false ;
+             }
+            */
             return this.matchEventPersons(a);
+     
+             
         }
+        /*
+        public bool CheckEventID(Architecture check)
+        {
+            if (this.architecture != null || this.faction != null)
+            {
 
+
+                bool contains = false;
+                if (this.architecture != null)
+                {
+                    foreach (Architecture archi in this.architecture)
+                    {
+                        if (archi.ID == check.ID)
+                        {
+                            contains = true;
+                        }
+                    }
+                }
+
+                if (this.faction != null)
+                {
+                    foreach (Faction f in this.faction)
+                    {
+                        if (check.BelongedFaction != null)
+                        {
+                            if (f.ID == check.BelongedFaction.ID)
+                            {
+                                contains = true;
+                            }
+                        }
+                    }
+
+                }
+                if (contains)
+                {
+                    return true;
+                }
+       
+            }
+            return false;
+        }
+        */
         public bool IsStart(GameScenario scenario)
         {
             Condition cstart = scenario.GameCommonData.AllConditions.GetCondition(9998);

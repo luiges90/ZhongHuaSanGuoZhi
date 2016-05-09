@@ -6,6 +6,8 @@ http://www.zhsan.com/forum.php?mod=viewthread&tid=8265
 
 這方案很可能不會再更新了，很抱歉
 
+後續開發現由 @kpxp 進行，源碼可以在 https://github.com/kpxp/ZhongHuaSanGuoZhi-New-Code 這裡找到
+
 **官方論壇：http://www.zhsan.com**
 
 **百度貼吧：http://tieba.baidu.com/f?kw=%D6%D0%BB%AA%C8%FD%B9%FA%D6%BE**

@@ -517,7 +517,11 @@
         public void AddMilitary(Military military)
         {
             this.Militaries.AddMilitary(military);
+
             
+
+           
+
             military.BelongedFaction = this;
         }
 
@@ -3586,7 +3590,11 @@
         public void RemoveMilitary(Military military)
         {
             this.Militaries.Remove(military);
+
             
+
+            
+
             military.BelongedFaction = null;
         }
 
