@@ -8877,7 +8877,7 @@
             }
         }
 
-        public void AdjustRelation(Person p, float factor, int adjust)
+        public void AdjustRelation(Person p, float factor, float adjust)
         {
             if (!GlobalVariables.EnablePersonRelations) return;
             if (this == p || p == null) return;

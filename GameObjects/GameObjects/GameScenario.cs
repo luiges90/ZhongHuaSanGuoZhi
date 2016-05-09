@@ -5042,6 +5042,20 @@
                             continue;
                         }
                         if (!q.Available) continue;
+
+                        if (this.Date.Day == 1)
+                        {
+                            if (p.BelongedArchitecture == q.BelongedArchitecture && p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
+                                ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||
+                                ((p.OutsideTask == q.OutsideTask) && (p.OutsideTask != OutsideTaskKind.无)))
+                            {
+                                if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
+                                {
+                                    p.AdjustRelation(q, 0.2f / (p.BelongedArchitecture.Persons.Count - 1), 2);
+                                }
+                            }
+                        }
+
                         if (p.GetRelation(q) > 0)
                         {
                             if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
