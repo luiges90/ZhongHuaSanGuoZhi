@@ -8600,7 +8600,10 @@
         {
             foreach (Person i in p.suoshurenwuList)
             {
-                if (i != p && i != q && i != causer)
+                if (i != p && i != q && i != causer
+                    && !i.VeryClosePersons.HasGameObject(p)
+                     && !i.VeryClosePersons.HasGameObject(q)
+                     && !i.VeryClosePersons.HasGameObject(causer))
                 {
                     i.AddHated(p);
                     i.AddHated(q);
@@ -8609,7 +8612,10 @@
             }
             foreach (Person i in q.suoshurenwuList)
             {
-                if (i != p && i != q && i != causer)
+                if (i != p && i != q && i != causer
+                    && !i.VeryClosePersons.HasGameObject(p)
+                     && !i.VeryClosePersons.HasGameObject(q)
+                     && !i.VeryClosePersons.HasGameObject(causer))
                 {
                     i.AddHated(p);
                     i.AddHated(q);
