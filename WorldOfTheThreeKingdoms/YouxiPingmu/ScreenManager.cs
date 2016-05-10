@@ -502,11 +502,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 if (this.CurrentPerson == selectedList[0])
                 {
-                    this.CurrentPerson.Marry(selectedList[1] as Person);
+                    this.CurrentPerson.Marry(selectedList[1] as Person, this.CurrentArchitecture.BelongedFaction.Leader);
                 }
                 else
                 {
-                    this.CurrentPerson.Marry(selectedList[0] as Person);
+                    this.CurrentPerson.Marry(selectedList[0] as Person, this.CurrentArchitecture.BelongedFaction.Leader);
                 }
             }
             this.CurrentArchitecture.Persons.ClearSelected();

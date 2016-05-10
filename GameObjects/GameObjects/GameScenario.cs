@@ -3705,7 +3705,7 @@
             }
             foreach (Person p in this.Persons) 
             {
-                if (!p.suoshurenwuList.HasGameObject(p.Spouse))
+                if (p.Spouse != null && !p.suoshurenwuList.HasGameObject(p.Spouse))
                 {
                     p.suoshurenwuList.Add(p.Spouse);
                     p.Spouse.suoshurenwuList.Add(p);

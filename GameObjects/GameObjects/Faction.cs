@@ -727,15 +727,24 @@
 
         private bool IsPersonForHouGong(Person p)
         {
-            Person spousePerson = p.Spouse == null ? null : p.Spouse;
-            return IsPersonForHouGong(p, spousePerson);
+            return IsPersonForHouGong(p, p.suoshurenwuList);
         }
 
-        private bool IsPersonForHouGong(Person p, Person spousePerson)
+        private bool IsPersonForHouGong(Person p, GameObjectList haters)
         {
             int unAmbition = Enum.GetNames(typeof(PersonAmbition)).Length - (int)this.Leader.Ambition;
+            Person spousePerson = null;
+            int maxMerit = 0;
+            foreach (Person i in haters)
+            {
+                if (i.Alive && i != p && i != this.Leader && i.UntiredMerit > maxMerit)
+                {
+                    spousePerson = i;
+                    maxMerit = i.UntiredMerit;
+                }
+            }
             return p.UntiredMerit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.Hates(this.Leader) &&
-                            (spousePerson == null || spousePerson.ID == leader.ID || !spousePerson.Alive || (leader.PersonalLoyalty <= (int)PersonLoyalty.普通 && spousePerson.UntiredMerit * (leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd) < p.UntiredMerit)) &&
+                            (spousePerson == null || (leader.PersonalLoyalty <= (int)PersonLoyalty.普通 && spousePerson.UntiredMerit * (leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd) < p.UntiredMerit)) &&
                             (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply));
         }
 
@@ -761,7 +770,7 @@
                     {
                         if (p.LocationArchitecture.Fund >= Parameters.MakeMarriageCost)
                         {
-                            p.Marry(p.WaitForFeiZi);
+                            p.Marry(p.WaitForFeiZi, this.Leader);
                             if (p.WaitForFeiZi != null)
                             {
                                 p.WaitForFeiZi.WaitForFeiZi = null;
@@ -788,7 +797,12 @@
                         Person q = candidates.GetMaxUntiredMeritPerson();
                         if (q.WaitForFeiZi == null)
                         {
-                            if (IsPersonForHouGong(p, q)) continue;
+                            Person t = p.Sex != Leader.Sex ? p : q;
+                            GameObjectList haters = t.suoshurenwuList.GetList();
+                            haters.Add(p);
+                            haters.Add(q);
+                            if (IsPersonForHouGong(t, haters)) continue;
+
                             if (p.LocationArchitecture == q.LocationArchitecture && p.LocationArchitecture != null &&
                                 p.LocationArchitecture.Fund >= Parameters.MakeMarriageCost)
                             {
@@ -800,7 +814,7 @@
                                 {
                                     q.WaitForFeiZi.WaitForFeiZi = null;
                                 }
-                                p.Marry(q);
+                                p.Marry(q, this.Leader);
                                 p.WaitForFeiZi = null;
                                 q.WaitForFeiZi = null;
                             }

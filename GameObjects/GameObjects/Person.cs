@@ -1648,7 +1648,7 @@
             return result;
         }
 
-        public void Marry(Person p)
+        public void Marry(Person p, Person maker)
         {
             this.LocationArchitecture.DecreaseFund(Parameters.MakeMarriageCost);
 
@@ -1658,7 +1658,7 @@
             this.AdjustRelation(p, 1, 50);
             p.AdjustRelation(this, 1, 50);
 
-            makeHateCausedByAffair(this, p);
+            makeHateCausedByAffair(this, p, maker);
 
             base.Scenario.YearTable.addCreateSpouseEntry(base.Scenario.Date, this, p);
             this.Scenario.GameScreen.MakeMarriage(this, p);
@@ -8456,7 +8456,7 @@
             nvren.LocationTroop = null;
             nvren.TargetArchitecture = null;
 
-            makeHateCausedByAffair(leader, nvren);
+            makeHateCausedByAffair(leader, nvren, leader);
 
             if (nvren.Spouse != null)
             {
@@ -8569,7 +8569,7 @@
                     p.AdjustRelation(nvren, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -5);
                 }
 
-                makeHateCausedByAffair(this, nvren);
+                makeHateCausedByAffair(this, nvren, this);
 
                 this.OutsideTask = OutsideTaskKind.后宮;
                 this.TargetArchitecture = this.LocationArchitecture;
@@ -8580,22 +8580,24 @@
             }
         }
 
-        public void makeHateCausedByAffair(Person p, Person q)
+        public void makeHateCausedByAffair(Person p, Person q, Person causer)
         {
             foreach (Person i in p.suoshurenwuList)
             {
-                if (i != p && i != q)
+                if (i != p && i != q && i != causer)
                 {
                     i.AddHated(p);
                     i.AddHated(q);
+                    i.AddHated(causer);
                 }
             }
             foreach (Person i in q.suoshurenwuList)
             {
-                if (i != p && i != q)
+                if (i != p && i != q && i != causer)
                 {
                     i.AddHated(p);
                     i.AddHated(q);
+                    i.AddHated(causer);
                 }
             }
             if (!p.suoshurenwuList.HasGameObject(q))
