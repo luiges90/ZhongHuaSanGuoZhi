@@ -146,6 +146,21 @@
             return person;
         }
 
+        public Person GetMaxUntiredMeritPerson()
+        {
+            int merit = -1;
+            Person person = null;
+            foreach (Person person2 in base.GameObjects)
+            {
+                if (person2.UntiredMerit > merit)
+                {
+                    merit = person2.Merit;
+                    person = person2;
+                }
+            }
+            return person;
+        }
+
         public Person GetMaxStrengthPerson()
         {
             int strength = -1;
