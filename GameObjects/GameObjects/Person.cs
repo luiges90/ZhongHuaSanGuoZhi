@@ -3090,33 +3090,36 @@
                         return true;
                     }
                 }
-                
-                if (GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
-                    GlobalVariables.CreateRandomOfficerChance * 100)
+
+                if (base.Scenario.OfficerCount < base.Scenario.OfficerLimit)
                 {
-                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this,true);
-                    return true;
-                }
-                else if (!base.Scenario.IsPlayer(this.BelongedFaction) &&
-                    GameObject.Random((int) (10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) < 
-                    GlobalVariables.CreateRandomOfficerChance * 100 * (Parameters.AIExtraPerson - 1))
-                {
-                    pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this,true);
-   
-                    GameObjectList ideals = base.Scenario.GameCommonData.AllIdealTendencyKinds;
-                    IdealTendencyKind minIdeal = null;
-                    foreach (IdealTendencyKind itk in ideals)
+                    if (GameObject.Random((int)(10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) <
+                        GlobalVariables.CreateRandomOfficerChance * 100)
                     {
-                        if (minIdeal == null || itk.Offset < minIdeal.Offset)
-                        {
-                            minIdeal = itk;
-                        }
+                        pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this, true, false);
+                        return true;
                     }
+                    else if (!base.Scenario.IsPlayer(this.BelongedFaction) &&
+                        GameObject.Random((int)(10000 * Math.Pow(this.BelongedFaction.PersonCount, Parameters.SearchPersonArchitectureCountPower))) <
+                        GlobalVariables.CreateRandomOfficerChance * 100 * (Parameters.AIExtraPerson - 1))
+                    {
+                        pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this, true, true);
 
-                    pack.FoundPerson.IdealTendency = minIdeal;
-                    pack.FoundPerson.Ideal = (this.BelongedFaction.Leader.Ideal + GameObject.Random(minIdeal.Offset * 2 + 1) - minIdeal.Offset) % 150;
+                        GameObjectList ideals = base.Scenario.GameCommonData.AllIdealTendencyKinds;
+                        IdealTendencyKind minIdeal = null;
+                        foreach (IdealTendencyKind itk in ideals)
+                        {
+                            if (minIdeal == null || itk.Offset < minIdeal.Offset)
+                            {
+                                minIdeal = itk;
+                            }
+                        }
 
-                    return true;
+                        pack.FoundPerson.IdealTendency = minIdeal;
+                        pack.FoundPerson.Ideal = (this.BelongedFaction.Leader.Ideal + GameObject.Random(minIdeal.Offset * 2 + 1) - minIdeal.Offset) % 150;
+
+                        return true;
+                    }
                 }
                     
             }
@@ -7697,18 +7700,18 @@
 
             return gernrateType;
         }
-        
-        public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder, bool inGame)
+
+        public static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder, bool inGame, bool autoJoin)
         {
-            return createPerson(scen, foundLocation, finder, inGame, generatePersonType(scen));
-        }
-        
-        public static Person createPerson(PersonGenerateParam param)
-        {
-            return createPerson(param.Scenario, param.FoundLocation, param.Finder, param.InGame, param.PreferredType);
+            return createPerson(scen, foundLocation, finder, inGame, generatePersonType(scen), autoJoin);
         }
 
-        private static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder, bool inGame, PersonGeneratorType preferredType)
+        public static Person createPerson(PersonGenerateParam param, bool autoJoin)
+        {
+            return createPerson(param.Scenario, param.FoundLocation, param.Finder, param.InGame, param.PreferredType, autoJoin);
+        }
+
+        private static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder, bool inGame, PersonGeneratorType preferredType, bool autoJoin)
         {
             
             Person r = new Person();
@@ -7942,10 +7945,17 @@
             r.Alive = true;
             r.Available = true;
             r.LocationArchitecture = foundLocation;
-            r.Status = PersonStatus.Normal;
+            if (autoJoin)
+            {
+                r.Status = PersonStatus.Normal;
+                r.Loyalty = 100;
+            }
+            else
+            {
+                r.Status = PersonStatus.NoFaction;
+                r.Loyalty = 0;
+            }
             r.YearJoin = scen.Date.Year;
-
-            r.Loyalty = 100;
 
             scen.Persons.Add(r);
 

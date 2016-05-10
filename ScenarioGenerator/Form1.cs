@@ -280,7 +280,7 @@ namespace ScenarioGenerator
                     location = (Architecture)scen.Architectures.GetRandomObject();
                 }
 
-                Person p = Person.createPerson(scen, location, null, false);
+                Person p = Person.createPerson(scen, location, null, false, false);
                 if (joined && location.BelongedFaction != null)
                 {
                     p.ChangeFaction(location.BelongedFaction);

@@ -4110,7 +4110,7 @@
            // PersonGeneratorType type = new PersonGeneratorType();
             //type.ID = preferredType; 
             PersonGenerateParam param = new PersonGenerateParam(Scenario,this,this.BelongedFaction.Leader ,true,preferredType ,isAI);
-            Person r = Person.createPerson(param);
+            Person r = Person.createPerson(param, true);
             this.ZhaoXian(r);
             this.BelongedFaction.YearOfficialLimit++;
             preferredType.TypeCount++;
