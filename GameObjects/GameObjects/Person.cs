@@ -28,6 +28,7 @@
         public bool faxianhuaiyun = false;
 
         public int suoshurenwu = -1;
+        public PersonList suoshurenwuList = new PersonList();
 
         private bool alive;
         private int ambition;
@@ -1656,6 +1657,8 @@
 
             this.AdjustRelation(p, 1, 50);
             p.AdjustRelation(this, 1, 50);
+
+            makeHateCausedByAffair(this, p);
 
             base.Scenario.YearTable.addCreateSpouseEntry(base.Scenario.Date, this, p);
             this.Scenario.GameScreen.MakeMarriage(this, p);
@@ -8439,6 +8442,7 @@
         public Person XuanZeMeiNv(Person nvren)
         {
             Person tookSpouse = null;
+            Person leader = this.LocationArchitecture.BelongedFaction.Leader;
 
             nvren.LocationArchitecture.DecreaseFund(Parameters.NafeiCost);
 
@@ -8447,6 +8451,8 @@
 
             nvren.LocationTroop = null;
             nvren.TargetArchitecture = null;
+
+            makeHateCausedByAffair(leader, nvren);
 
             if (nvren.Spouse != null)
             {
@@ -8559,12 +8565,42 @@
                     p.AdjustRelation(nvren, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -5);
                 }
 
+                makeHateCausedByAffair(this, nvren);
+
                 this.OutsideTask = OutsideTaskKind.后宮;
                 this.TargetArchitecture = this.LocationArchitecture;
                 this.ArrivingDays = houGongDays;
                 this.Status = PersonStatus.Moving;
                 this.TaskDays = this.ArrivingDays;
                 ExtensionInterface.call("GoForHouGong", new Object[] { this.Scenario, this, nvren });
+            }
+        }
+
+        public void makeHateCausedByAffair(Person p, Person q)
+        {
+            foreach (Person i in p.suoshurenwuList)
+            {
+                if (i != p && i != q)
+                {
+                    i.Hates(p);
+                    i.Hates(q);
+                }
+            }
+            foreach (Person i in q.suoshurenwuList)
+            {
+                if (i != p && i != q)
+                {
+                    i.Hates(p);
+                    i.Hates(q);
+                }
+            }
+            if (!p.suoshurenwuList.HasGameObject(q))
+            {
+                p.suoshurenwuList.Add(q);
+            }
+            if (!q.suoshurenwuList.HasGameObject(p))
+            {
+                q.suoshurenwuList.Add(p);
             }
         }
 

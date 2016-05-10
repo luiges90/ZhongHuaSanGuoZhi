@@ -3175,6 +3175,7 @@
             Dictionary<int, int> motherIds = new Dictionary<int, int>();
             Dictionary<int, int> spouseIds = new Dictionary<int, int>();
             Dictionary<int, int[]> brotherIds = new Dictionary<int, int[]>();
+            Dictionary<int, int[]> suoshuIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> closeIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> hatedIds = new Dictionary<int, int[]>();
             while (reader.Read())
@@ -3279,6 +3280,30 @@
                 catch
                 {
                     errors.Add("义兄弟一栏应为半型空格分隔的人物ID");
+                }
+
+                string str2 = null;
+                try
+                {
+                    str2 = reader["suoshurenwuList"].ToString();
+                } catch {
+                }
+                if (str2 != null)
+                {
+                    try
+                    {
+                        strArray = str2.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                        intArray = new int[strArray.Length];
+                        for (int i = 0; i < strArray.Length; i++)
+                        {
+                            intArray[i] = int.Parse(strArray[i]);
+                        }
+                        suoshuIds.Add(person.ID, intArray);
+                    }
+                    catch
+                    {
+                        errors.Add("所属人物表一栏应为半型空格分隔的人物ID");
+                    }
                 }
 
                 person.Generation = (short)reader["Generation"];
@@ -3660,6 +3685,30 @@
                     {
                         errorMsg.Add("人物ID" + p.ID + "：厌恶武将ID" + j + "不存在");
                     }
+                }
+            }
+            foreach (KeyValuePair<int, int[]> i in suoshuIds)
+            {
+                Person p = this.Persons.GetGameObject(i.Key) as Person;
+                foreach (int j in i.Value)
+                {
+                    Person q = this.Persons.GetGameObject(j) as Person;
+                    if (q != null)
+                    {
+                        p.suoshurenwuList.Add(q);
+                    }
+                    else
+                    {
+                        errorMsg.Add("人物ID" + p.ID + "：所属人物表ID" + j + "不存在");
+                    }
+                }
+            }
+            foreach (Person p in this.Persons) 
+            {
+                if (!p.suoshurenwuList.HasGameObject(p.Spouse))
+                {
+                    p.suoshurenwuList.Add(p.Spouse);
+                    p.Spouse.suoshurenwuList.Add(p);
                 }
             }
 
@@ -5902,6 +5951,13 @@
                     }
                     row["ClosePersons"] = closeStr;
                     row["HatedPersons"] = hatedStr;
+
+                    String suoshuStr = "";
+                    foreach (Person p in person.suoshurenwuList)
+                    {
+                        suoshuStr += p.ID + " ";
+                    }
+                    row["suoshurenwuList"] = suoshuStr;
 
                     row["Skills"] = person.Skills.SaveToString();
                     row["Title"] = person.SaveTitleToString();
