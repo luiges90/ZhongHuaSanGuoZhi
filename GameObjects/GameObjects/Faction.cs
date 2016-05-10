@@ -734,7 +734,7 @@
             foreach (Person p in this.Persons)
             {
                 if (p.BelongedFaction != this || p.Spouse != null 
-                    || p.WaitForFeiZi == null || p.WaitForFeiZi.BelongedFaction != this || p.WaitForFeiZi.Spouse != null)
+                    || (p.WaitForFeiZi != null && p.WaitForFeiZi.BelongedFaction != this && p.WaitForFeiZi.Spouse != null))
                 {
                     if (p.WaitForFeiZi != null)
                     {
@@ -774,7 +774,7 @@
                     if (candidates.Count > 0)
                     {
                         Person q = candidates.GetMaxMeritPerson();
-                        if (q.WaitForFeiZi != null)
+                        if (q.WaitForFeiZi == null)
                         {
                             if (p.LocationArchitecture == q.LocationArchitecture && p.LocationArchitecture != null &&
                                 p.LocationArchitecture.Fund >= Parameters.MakeMarriageCost)
