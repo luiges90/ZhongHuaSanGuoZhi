@@ -1730,6 +1730,17 @@
                             {
                                 this.Spouse = i.Key;
                                 i.Key.Spouse = this;
+
+                                if (!this.Spouse.suoshurenwuList.HasGameObject(i.Key))
+                                {
+                                    this.Spouse.suoshurenwuList.Add(i.Key);
+                                }
+                                if (!i.Key.suoshurenwuList.HasGameObject(this.Spouse))
+                                {
+                                    i.Key.suoshurenwuList.Add(this.Spouse);
+                                }
+
+
                                 base.Scenario.YearTable.addCreateSpouseEntry(base.Scenario.Date, this, i.Key);
                                 if (this.OnCreateSpouse != null)
                                 {
