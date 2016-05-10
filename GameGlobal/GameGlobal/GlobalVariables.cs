@@ -863,6 +863,15 @@
                 exception = exception24;
                 throw new Exception("PermitManualAwardTitleAutoLearn:\n" + exception.ToString());
             }
+            try
+            {
+                zhaoxianOfficerMax = int.Parse(nextSibling.Attributes.GetNamedItem("zhaoxianOfficerMax").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("zhaoxianOfficerMax:\n" + exception.ToString());
+            }
             return true;
         }
     }
