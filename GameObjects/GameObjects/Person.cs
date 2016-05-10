@@ -4402,6 +4402,10 @@
                     }
                 }
             }
+            if (this.BelongedFaction != null && this.Hates(this.BelongedFaction.Leader))
+            {
+                this.Loyalty = (int) (this.Loyalty * 0.9);
+            }
         }
 
         private bool MeetAvailableCondition()
