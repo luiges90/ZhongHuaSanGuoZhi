@@ -4402,7 +4402,7 @@
                     }
                 }
             }
-            if (this.BelongedFaction != null && this.Hates(this.BelongedFaction.Leader))
+            if (this.BelongedFaction != null && this.Loyalty <= 110 && this.Hates(this.BelongedFaction.Leader))
             {
                 this.Loyalty = (int) (this.Loyalty * 0.9);
             }
@@ -8586,16 +8586,16 @@
             {
                 if (i != p && i != q)
                 {
-                    i.Hates(p);
-                    i.Hates(q);
+                    i.AddHated(p);
+                    i.AddHated(q);
                 }
             }
             foreach (Person i in q.suoshurenwuList)
             {
                 if (i != p && i != q)
                 {
-                    i.Hates(p);
-                    i.Hates(q);
+                    i.AddHated(p);
+                    i.AddHated(q);
                 }
             }
             if (!p.suoshurenwuList.HasGameObject(q))
