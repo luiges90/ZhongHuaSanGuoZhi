@@ -6396,10 +6396,15 @@
         {
             get
             {
-                if (this.BelongedFaction != null && this == this.BelongedFaction.Prince) //储君身价公式
+                if (this.BelongedFaction != null && this == this.BelongedFaction.Leader) //君身价公式
                 {
                     return ((this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + this.UntiredPolitics + this.UntiredGlamour) *
                     (100 + this.TitleInheritableMerit + this.AllSkillMerit)) * 2;
+                }
+                else if (this.BelongedFaction != null && this == this.BelongedFaction.Prince) //储君身价公式
+                {
+                    return ((this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + this.UntiredPolitics + this.UntiredGlamour) *
+                    (100 + this.TitleInheritableMerit + this.AllSkillMerit)) * 3 / 2;
                 }
                 else
                 {
