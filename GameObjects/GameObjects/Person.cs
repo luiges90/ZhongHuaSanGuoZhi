@@ -8596,32 +8596,37 @@
             }
         }
 
+        public PersonList willHateCausedByAffair(Person p, Person q, Person causer, PersonList suoshurenwuList)
+        {
+            PersonList result = new PersonList();
+            foreach (Person i in suoshurenwuList)
+            {
+                if (i != p && i != q && i != causer
+                    && !i.IsCloseTo(p) && !i.HasCloseStrainTo(p)
+                    && !i.IsCloseTo(q) && !i.HasCloseStrainTo(q)
+                    && !i.IsCloseTo(causer) && !i.HasCloseStrainTo(causer))
+                {
+                    result.Add(p);
+                    result.Add(q);
+                    result.Add(causer);
+                }
+            }
+            return result;
+        }
+
         public void makeHateCausedByAffair(Person p, Person q, Person causer)
         {
-            foreach (Person i in p.suoshurenwuList)
+            PersonList t = willHateCausedByAffair(p, q, causer, p.suoshurenwuList);
+            foreach (Person i in t)
             {
-                if (i != p && i != q && i != causer
-                    && !i.VeryClosePersons.HasGameObject(p)
-                     && !i.VeryClosePersons.HasGameObject(q)
-                     && !i.VeryClosePersons.HasGameObject(causer))
-                {
-                    i.AddHated(p);
-                    i.AddHated(q);
-                    i.AddHated(causer);
-                }
+                p.AddHated(i);
             }
-            foreach (Person i in q.suoshurenwuList)
+            t = willHateCausedByAffair(q, p, causer, q.suoshurenwuList);
+            foreach (Person i in t)
             {
-                if (i != p && i != q && i != causer
-                    && !i.VeryClosePersons.HasGameObject(p)
-                     && !i.VeryClosePersons.HasGameObject(q)
-                     && !i.VeryClosePersons.HasGameObject(causer))
-                {
-                    i.AddHated(p);
-                    i.AddHated(q);
-                    i.AddHated(causer);
-                }
+                q.AddHated(i);
             }
+
             if (!p.suoshurenwuList.HasGameObject(q))
             {
                 p.suoshurenwuList.Add(q);

@@ -727,7 +727,7 @@
 
         private bool IsPersonForHouGong(Person p)
         {
-            return IsPersonForHouGong(p, p.suoshurenwuList);
+            return IsPersonForHouGong(p, p.willHateCausedByAffair(p, this.Leader, this.Leader, p.suoshurenwuList));
         }
 
         private bool IsPersonForHouGong(Person p, GameObjectList haters)
@@ -797,11 +797,17 @@
                         Person q = candidates.GetMaxUntiredMeritPerson();
                         if (q.WaitForFeiZi == null)
                         {
-                            Person t = p.Sex != Leader.Sex ? p : q;
-                            GameObjectList haters = t.suoshurenwuList.GetList();
-                            haters.Add(p);
-                            haters.Add(q);
-                            if (IsPersonForHouGong(t, haters)) continue;
+                            if (GlobalVariables.hougongGetChildrenRate > 0)
+                            {
+                                Person t = p.Sex != Leader.Sex ? p : q;
+                                GameObjectList haters = p.willHateCausedByAffair(p, q, this.Leader, p.suoshurenwuList);
+                                PersonList u = q.willHateCausedByAffair(q, p, this.Leader, q.suoshurenwuList);
+                                foreach (Person i in u)
+                                {
+                                    haters.Add(i);
+                                }
+                                if (IsPersonForHouGong(t, haters)) continue;
+                            }
 
                             if (p.LocationArchitecture == q.LocationArchitecture && p.LocationArchitecture != null &&
                                 p.LocationArchitecture.Fund >= Parameters.MakeMarriageCost)
