@@ -727,15 +727,25 @@
 
         private bool IsPersonForHouGong(Person p)
         {
-            return IsPersonForHouGong(p, p.willHateCausedByAffair(p, this.Leader, this.Leader, p.suoshurenwuList));
+            return IsPersonForHouGong(p, p.suoshurenwuList.GetList());
         }
 
-        private bool IsPersonForHouGong(Person p, GameObjectList haters)
+        private bool IsPersonForHouGong(Person p, GameObjectList suoshu)
         {
+            Dictionary<Person, PersonList> haters = p.willHateCausedByAffair(p, this.Leader, this.Leader, suoshu);
+            PersonList leaderHaters = new PersonList();
+            foreach (KeyValuePair<Person, PersonList> i in haters)
+            {
+                if (i.Value.HasGameObject(this.Leader))
+                {
+                    leaderHaters.Add(i.Key);
+                }
+            }
+
             int unAmbition = Enum.GetNames(typeof(PersonAmbition)).Length - (int)this.Leader.Ambition;
             Person spousePerson = null;
             int maxMerit = 0;
-            foreach (Person i in haters)
+            foreach (Person i in leaderHaters)
             {
                 if (i.Alive && i != p && i != this.Leader && i.UntiredMerit > maxMerit)
                 {
@@ -754,8 +764,8 @@
 
             foreach (Person p in this.Persons)
             {
-                if (p.BelongedFaction != this || p.Spouse != null 
-                    || (p.WaitForFeiZi != null && p.WaitForFeiZi.BelongedFaction != this && p.WaitForFeiZi.Spouse != null))
+                if (p.WaitForFeiZi != null && (p.BelongedFaction != this || p.Spouse != null 
+                    || (p.WaitForFeiZi.BelongedFaction != this && p.WaitForFeiZi.Spouse != null)))
                 {
                     if (p.WaitForFeiZi != null)
                     {
@@ -800,13 +810,11 @@
                             if (GlobalVariables.hougongGetChildrenRate > 0)
                             {
                                 Person t = p.Sex != Leader.Sex ? p : q;
-                                GameObjectList haters = p.willHateCausedByAffair(p, q, this.Leader, p.suoshurenwuList);
-                                PersonList u = q.willHateCausedByAffair(q, p, this.Leader, q.suoshurenwuList);
-                                foreach (Person i in u)
-                                {
-                                    haters.Add(i);
-                                }
-                                if (IsPersonForHouGong(t, haters)) continue;
+                                Person u = p.Sex != Leader.Sex ? q : p;
+                                GameObjectList simulatSuoshu = t.suoshurenwuList.GetList();
+                                simulatSuoshu.Add(u);
+
+                                if (IsPersonForHouGong(t, simulatSuoshu)) continue;
                             }
 
                             if (p.LocationArchitecture == q.LocationArchitecture && p.LocationArchitecture != null &&
@@ -836,6 +844,17 @@
                                 }
                                 p.WaitForFeiZi = q;
                                 q.WaitForFeiZi = p;
+                                if (p.LocationArchitecture != q.LocationArchitecture)
+                                {
+                                    if (q.Status == PersonStatus.Normal && q.LocationArchitecture != null && q.LocationTroop == null)
+                                    {
+                                        q.MoveToArchitecture(p.BelongedArchitecture);
+                                    }
+                                    else if (p.Status == PersonStatus.Normal && p.LocationArchitecture != null && p.LocationTroop == null)
+                                    {
+                                        p.MoveToArchitecture(q.BelongedArchitecture);
+                                    }
+                                }
                             }
                             break;
                         }

@@ -31,6 +31,13 @@
             this.gameObjects.Add(t);
         }
 
+        public void AddRange(GameObjectList t)
+        {
+            if (immutable)
+                throw new Exception("Trying to add things to an immutable list");
+            this.gameObjects.AddRange(t.GameObjects);
+        }
+
         public void Clear()
         {
             if (immutable)

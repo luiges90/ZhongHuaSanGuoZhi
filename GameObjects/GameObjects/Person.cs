@@ -1631,8 +1631,6 @@
         {
             PersonList result = new PersonList();
 
-            if (this.LocationArchitecture == null) return result;
-
             if (this.Spouse != null) return result;
 
             foreach (Person p in this.BelongedFaction.Persons)
@@ -8596,9 +8594,9 @@
             }
         }
 
-        public PersonList willHateCausedByAffair(Person p, Person q, Person causer, PersonList suoshurenwuList)
+        public Dictionary<Person, PersonList> willHateCausedByAffair(Person p, Person q, Person causer, GameObjectList suoshurenwuList)
         {
-            PersonList result = new PersonList();
+            Dictionary<Person, PersonList> result = new Dictionary<Person, PersonList>();
             foreach (Person i in suoshurenwuList)
             {
                 if (i != p && i != q && i != causer
@@ -8606,9 +8604,11 @@
                     && !i.IsCloseTo(q) && !i.HasCloseStrainTo(q)
                     && !i.IsCloseTo(causer) && !i.HasCloseStrainTo(causer))
                 {
-                    result.Add(p);
-                    result.Add(q);
-                    result.Add(causer);
+                    PersonList t = new PersonList();
+                    t.Add(p);
+                    t.Add(q);
+                    t.Add(causer);
+                    result.Add(i, t);
                 }
             }
             return result;
@@ -8616,15 +8616,15 @@
 
         public void makeHateCausedByAffair(Person p, Person q, Person causer)
         {
-            PersonList t = willHateCausedByAffair(p, q, causer, p.suoshurenwuList);
-            foreach (Person i in t)
+            GameObjectList list = p.suoshurenwuList.GetList();
+            list.AddRange(q.suoshurenwuList);
+            Dictionary<Person, PersonList> t = willHateCausedByAffair(p, q, causer, list);
+            foreach (KeyValuePair<Person, PersonList> i in t)
             {
-                p.AddHated(i);
-            }
-            t = willHateCausedByAffair(q, p, causer, q.suoshurenwuList);
-            foreach (Person i in t)
-            {
-                q.AddHated(i);
+                foreach (Person j in i.Value)
+                {
+                    i.Key.AddHated(j);
+                }
             }
 
             if (!p.suoshurenwuList.HasGameObject(q))
