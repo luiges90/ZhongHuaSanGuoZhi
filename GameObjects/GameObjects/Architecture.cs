@@ -1930,7 +1930,7 @@
 
             Captive extremeLoyaltyCaptive = architecture2.GetLowestLoyaltyCaptiveRecruitable();
             if (extremeLoyaltyCaptive != null && extremeLoyaltyCaptive.CaptivePerson != null &&
-                (extremeLoyaltyCaptive.Loyalty < 100 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction)))
+                (extremeLoyaltyCaptive.Loyalty < 95 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction)))
                 && (extremeLoyaltyCaptive.CaptiveFaction == null || extremeLoyaltyCaptive.CaptivePerson != extremeLoyaltyCaptive.CaptiveFaction.Leader))
             {
                 PersonList firstHalfPersonList = this.GetFirstHalfPersonList("ConvinceAbility");
