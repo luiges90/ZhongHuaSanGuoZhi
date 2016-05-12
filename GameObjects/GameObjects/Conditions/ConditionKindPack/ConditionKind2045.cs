@@ -4,7 +4,7 @@
     using GameObjects.Conditions;
     using System;
 
-    internal class ConditionKind205 : ConditionKind
+    internal class ConditionKind2045 : ConditionKind
     {
         private int cnt = 0;
         private int val = 0;
