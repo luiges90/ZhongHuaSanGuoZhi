@@ -3178,6 +3178,7 @@
             Dictionary<int, int[]> suoshuIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> closeIds = new Dictionary<int, int[]>();
             Dictionary<int, int[]> hatedIds = new Dictionary<int, int[]>();
+            Dictionary<int, int> marriageGranterId = new Dictionary<int,int>();
             while (reader.Read())
             {
                 List<string> errors = new List<string>();
@@ -3571,6 +3572,12 @@
                 {
                 }
 
+                try
+                {
+                    marriageGranterId.Add(person.ID, (int) reader["MarriageGranter"]);
+                }
+                catch { }
+
                 if (errors.Count > 0)
                 {
                     errorMsg.Add("人物ID" + person.ID + "：");
@@ -3702,6 +3709,10 @@
                         errorMsg.Add("人物ID" + p.ID + "：所属人物表ID" + j + "不存在");
                     }
                 }
+            }
+            foreach (KeyValuePair<int, int> i in marriageGranterId)
+            {
+                (this.Persons.GetGameObject(i.Key) as Person).marriageGranter = this.Persons.GetGameObject(i.Value) as Person;
             }
             foreach (Person p in this.Persons) 
             {

@@ -181,6 +181,7 @@
         public GameObjectList StudyTitleList = new GameObjectList();
 
         public GameObjectList AppointableTitleList = new GameObjectList();//封官列表
+        public Person marriageGranter;
 
         public StuntTable Stunts = new StuntTable();
         private string surName;
@@ -1655,6 +1656,8 @@
 
             this.AdjustRelation(p, 1, 50);
             p.AdjustRelation(this, 1, 50);
+
+            this.marriageGranter = maker;
 
             makeHateCausedByAffair(this, p, maker);
 
