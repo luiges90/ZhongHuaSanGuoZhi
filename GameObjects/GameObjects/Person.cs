@@ -1651,6 +1651,8 @@
         {
             this.LocationArchitecture.DecreaseFund(Parameters.MakeMarriageCost);
 
+            makeHateCausedByAffair(this, p, maker);
+
             this.Spouse = p;
             p.Spouse = this;
 
@@ -1658,8 +1660,6 @@
             p.AdjustRelation(this, 1, 50);
 
             this.marriageGranter = maker;
-
-            makeHateCausedByAffair(this, p, maker);
 
             base.Scenario.YearTable.addCreateSpouseEntry(base.Scenario.Date, this, p);
             this.Scenario.GameScreen.MakeMarriage(this, p);
