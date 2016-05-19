@@ -6004,6 +6004,7 @@
                     row["BattleSelfDamage"] = person.BattleSelfDamage;
                     row["Tags"] = person.Tags;
                    // row["Guanzhis"] = person.Guanzhis.SaveToString();
+                    row["marriageGranter"] = person.marriageGranter != null ? person.marriageGranter.ID : -1;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
