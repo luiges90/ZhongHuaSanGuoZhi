@@ -802,6 +802,7 @@
                 foreach (Person p in pl)
                 {
                     if (p.WaitForFeiZi != null) continue;
+                    if (p.Spouse != null) continue;
                     PersonList candidates = p.MakeMarryableInFaction();
                     if (candidates.Count > 0)
                     {
