@@ -29,16 +29,8 @@
         public Dictionary<int, List<EventEffect>> effect;
         public List<PersonDialog> matchedDialog;
         public Dictionary<Person, List<EventEffect>> matchedEffect;
-
-        public Dictionary<Person, List<EventEffect>> matchedYesEffect;//
-        public Dictionary<Person, List<EventEffect>> matchedNoEffect;
-
         public List<EventEffect> architectureEffect;
         public List<EventEffect> factionEffect;
-
-        public Dictionary<int, List<EventEffect>> yesEffect;
-        public Dictionary<int, List<EventEffect>> noEffect;
-
         public String Image = "";
         public String Sound = "";
         public bool GloballyDisplayed = false;
@@ -103,35 +95,6 @@
                 foreach (EventEffect i in factionEffect)
                 {
                     i.ApplyEffect(a.BelongedFaction, this);
-                }
-            }
-        }
-
-        public void DoYesApplyEvent(Architecture a)
-        {
-            if (this.yesEffect != null)
-            {
-
-                foreach (KeyValuePair<Person, List<EventEffect>> i in matchedYesEffect)
-                {
-                    foreach (EventEffect j in i.Value)
-                    {
-                        j.ApplyEffect(i.Key, this);
-                    }
-                }
-            }
-        }
-
-        public void DoNoApplyEvent(Architecture a)
-        {
-            if (this.noEffect != null)
-            {
-                foreach (KeyValuePair<Person, List<EventEffect>> i in matchedNoEffect)
-                {
-                    foreach (EventEffect j in i.Value)
-                    {
-                        j.ApplyEffect(i.Key, this);
-                    }
                 }
             }
         }
@@ -270,16 +233,7 @@
             {
                 matchedEffect.Add(matchedPersons[i.Key], i.Value);
             }
-            matchedYesEffect = new Dictionary<Person, List<EventEffect>>();
-            foreach (KeyValuePair<int, List<EventEffect>> i in this.yesEffect)
-            {
-                matchedYesEffect.Add(matchedPersons[i.Key], i.Value);
-            }
-            matchedNoEffect = new Dictionary<Person, List<EventEffect>>();
-            foreach (KeyValuePair<int, List<EventEffect>> i in this.noEffect)
-            {
-                matchedNoEffect.Add(matchedPersons[i.Key], i.Value);
-            }
+
             return true;
         }
 
@@ -672,69 +626,7 @@
             }
             return result;
         }
-        public void LoadYesEffectFromString(EventEffectTable allEffect, string data)
-        {
-            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
-            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
-            this.yesEffect = new Dictionary<int, List<EventEffect>>();
-            for (int i = 0; i < strArray.Length; i += 2)
-            {
-                int n = int.Parse(strArray[i]);
-                int id = int.Parse(strArray[i + 1]);
-                if (!allEffect.EventEffects.ContainsKey(id)) continue;
-                if (!this.yesEffect.ContainsKey(n))
-                {
-                    this.yesEffect[n] = new List<EventEffect>();
-                }
-                this.yesEffect[n].Add(allEffect.EventEffects[id]);
-            }
-        }
-
-        public string SaveYesEffectToString()
-        {
-            string result = "";
-            foreach (KeyValuePair<int, List<EventEffect>> i in this.yesEffect)
-            {
-                foreach (EventEffect j in i.Value)
-                {
-                    result += i.Key + " " + j.ID + " ";
-                }
-            }
-            return result;
-        }
-
-        public void LoadNoEffectFromString(EventEffectTable allEffect, string data)
-        {
-            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
-            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
-
-            this.noEffect = new Dictionary<int, List<EventEffect>>();
-            for (int i = 0; i < strArray.Length; i += 2)
-            {
-                int n = int.Parse(strArray[i]);
-                int id = int.Parse(strArray[i + 1]);
-                if (!allEffect.EventEffects.ContainsKey(id)) continue;
-                if (!this.noEffect.ContainsKey(n))
-                {
-                    this.noEffect[n] = new List<EventEffect>();
-                }
-                this.noEffect[n].Add(allEffect.EventEffects[id]);
-            }
-        }
-
-        public string SaveNoEffectToString()
-        {
-            string result = "";
-            foreach (KeyValuePair<int, List<EventEffect>> i in this.noEffect)
-            {
-                foreach (EventEffect j in i.Value)
-                {
-                    result += i.Key + " " + j.ID + " ";
-                }
-            }
-            return result;
-        }
         public delegate void ApplyEvent(Event te, Architecture a);
 
     }
