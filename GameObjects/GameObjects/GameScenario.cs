@@ -70,10 +70,6 @@
         public TroopListWithQueue Troops = new TroopListWithQueue();
         public YearTable YearTable = new YearTable();
         public Dictionary<Event, Architecture> EventsToApply = new Dictionary<Event, Architecture>();
-
-        public Dictionary<Event, Architecture> YesEventsToApply = new Dictionary<Event, Architecture>();
-        public Dictionary<Event, Architecture> NoEventsToApply = new Dictionary<Event, Architecture>();
-
         public EventList AllEvents = new EventList();
         public String LoadedFileName;
         public bool UsingOwnCommonData;
@@ -748,27 +744,6 @@
                 this.TroopEventsToApply.Clear();
             }
         }
-
-        public void ApplyYesEvents()
-        {
-            foreach (KeyValuePair<Event, Architecture> i in this.YesEventsToApply)
-            {
-                i.Key.DoYesApplyEvent(i.Value);
-                i.Key.happened = true;
-            }
-            this.YesEventsToApply.Clear();
-        }
-
-        public void ApplyNoEvents()
-        {
-            foreach (KeyValuePair<Event, Architecture> i in this.NoEventsToApply)
-            {
-                i.Key.DoNoApplyEvent(i.Value);
-                i.Key.happened = true;
-            }
-            this.NoEventsToApply.Clear();
-        }
-
 
         public void ApplyEvents()
         {
@@ -4404,8 +4379,6 @@
                             e.LoadEffectFromString(this.GameCommonData.AllEventEffects, reader["Effect"].ToString());
                             e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
                             e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
-                            e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
-                            e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
                             try
                             {
                                 e.nextScenario = reader["NextScenario"].ToString();
@@ -5860,8 +5833,6 @@
                         row["StartMonth"] = e.StartMonth;
                         row["EndYear"] = e.EndYear;
                         row["EndMonth"] = e.EndMonth;
-                        row["YesEffect"] = e.SaveYesEffectToString();
-                        row["NoEffect"] = e.SaveNoEffectToString();
                         row.EndEdit();
                         dataSet.Tables["Event"].Rows.Add(row);
                     }
