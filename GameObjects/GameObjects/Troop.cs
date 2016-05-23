@@ -2833,6 +2833,7 @@
                         {
                             foreach (Person q in sending.persons)
                             {
+                                if (p.Hates(q)) continue;
                                 if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
                                 {
                                     p.AdjustRelation(q, 0.2f / (sending.persons.Count - 1), 2);
@@ -2859,6 +2860,7 @@
                         foreach (Person q in sending.persons)
                         {
                             if (p == q) continue;
+                            if (p.Hates(q)) continue;
                             if (GameObject.Chance(p.Uncruelty * 5 + q.Glamour / 2))
                             {
                                 p.AdjustRelation(q, 1f / (sending.persons.Count - 1), 3);

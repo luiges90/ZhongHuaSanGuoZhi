@@ -5111,7 +5111,10 @@
                             {
                                 if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
                                 {
-                                    p.AdjustRelation(q, 0.2f / (p.BelongedArchitecture.Persons.Count - 1), 2);
+                                    if (!p.Hates(q))
+                                    {
+                                        p.AdjustRelation(q, 0.2f / (p.BelongedArchitecture.Persons.Count - 1), 2);
+                                    }
                                 }
                             }
                         }
