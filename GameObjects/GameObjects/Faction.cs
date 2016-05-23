@@ -765,28 +765,39 @@
 
             foreach (Person p in this.Persons)
             {
-                if (p.WaitForFeiZi != null && (p.BelongedFaction != this || p.Spouse != null 
-                    || (p.WaitForFeiZi.BelongedFaction != this && p.WaitForFeiZi.Spouse != null)))
+                if (p.WaitForFeiZi != null)
                 {
-                    if (p.WaitForFeiZi != null)
+                    if ((p.BelongedFaction != this || p.Spouse != null
+                        || (p.WaitForFeiZi.BelongedFaction != this && p.WaitForFeiZi.Spouse != null)))
                     {
-                        p.WaitForFeiZi.WaitForFeiZi = null;
-                    }
-                    p.WaitForFeiZi = null;
-                }
-                else
-                {
-                    if (p.WaitForFeiZi != null && p.Status == PersonStatus.Normal && p.LocationArchitecture != null
-                        && p.LocationTroop == null)
-                    {
-                        if (p.LocationArchitecture.Fund >= Parameters.MakeMarriageCost)
+                        if (p.WaitForFeiZi != null)
                         {
-                            p.Marry(p.WaitForFeiZi, this.Leader);
-                            if (p.WaitForFeiZi != null)
+                            p.WaitForFeiZi.WaitForFeiZi = null;
+                        }
+                        p.WaitForFeiZi = null;
+                    }
+                    else if (!p.isLegalFeiZi(p.WaitForFeiZi) || p.WaitForFeiZi.isLegalFeiZi(p))
+                    {
+                        if (p.WaitForFeiZi != null)
+                        {
+                            p.WaitForFeiZi.WaitForFeiZi = null;
+                        }
+                        p.WaitForFeiZi = null;
+                    }
+                    else
+                    {
+                        if (p.Status == PersonStatus.Normal && p.LocationArchitecture != null
+                            && p.LocationTroop == null)
+                        {
+                            if (p.LocationArchitecture.Fund >= Parameters.MakeMarriageCost)
                             {
-                                p.WaitForFeiZi.WaitForFeiZi = null;
+                                p.Marry(p.WaitForFeiZi, this.Leader);
+                                if (p.WaitForFeiZi != null)
+                                {
+                                    p.WaitForFeiZi.WaitForFeiZi = null;
+                                }
+                                p.WaitForFeiZi = null;
                             }
-                            p.WaitForFeiZi = null;
                         }
                     }
                 }
