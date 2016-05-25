@@ -29,6 +29,13 @@
         public Dictionary<int, List<EventEffect>> effect;
         public List<PersonDialog> matchedDialog;
         public Dictionary<Person, List<EventEffect>> matchedEffect;
+
+        public Dictionary<Person, List<EventEffect>> matchedYesEffect;//
+        public Dictionary<Person, List<EventEffect>> matchedNoEffect;
+
+        public Dictionary<int, List<EventEffect>> yesEffect;
+        public Dictionary<int, List<EventEffect>> noEffect;
+
         public List<EventEffect> architectureEffect;
         public List<EventEffect> factionEffect;
         public List<PersonIdDialog> scenBiography = new List<PersonIdDialog>() ;
@@ -253,6 +260,16 @@
             foreach (KeyValuePair<int, List<EventEffect>> i in this.effect)
             {
                 matchedEffect.Add(matchedPersons[i.Key], i.Value);
+            }
+            matchedYesEffect = new Dictionary<Person, List<EventEffect>>();
+            foreach (KeyValuePair<int, List<EventEffect>> i in this.yesEffect)
+            {
+                matchedYesEffect.Add(matchedPersons[i.Key], i.Value);
+            }
+            matchedNoEffect = new Dictionary<Person, List<EventEffect>>();
+            foreach (KeyValuePair<int, List<EventEffect>> i in this.noEffect)
+            {
+                matchedNoEffect.Add(matchedPersons[i.Key], i.Value);
             }
 
             return true;
