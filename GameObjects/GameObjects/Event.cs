@@ -84,6 +84,36 @@
             }
         }
 
+        public void DoYesApplyEvent(Architecture a)
+        {
+            if (this.yesEffect != null)
+            {
+
+                foreach (KeyValuePair<Person, List<EventEffect>> i in matchedYesEffect)
+                {
+                    foreach (EventEffect j in i.Value)
+                    {
+                        j.ApplyEffect(i.Key, this);
+                    }
+                }
+            }
+        }
+
+        public void DoNoApplyEvent(Architecture a)
+        {
+            if (this.noEffect != null)
+            {
+                foreach (KeyValuePair<Person, List<EventEffect>> i in matchedNoEffect)
+                {
+                    foreach (EventEffect j in i.Value)
+                    {
+                        j.ApplyEffect(i.Key, this);
+                    }
+                }
+            }
+        }
+        
+
         public void DoApplyEvent(Architecture a)
         {
             if (matchedEffect != null)
