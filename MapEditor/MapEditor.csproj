@@ -37,11 +37,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework.Game, Version=3.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=MSIL" />
-    <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\PluginInterface.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -178,6 +173,14 @@
     <ProjectReference Include="..\GameObjects\GameObjects.csproj">
       <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
       <Name>GameObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorldOfTheThreeKingdoms\AirViewPlugin\AirViewPlugin.csproj">
+      <Project>{F26B7073-978E-4B27-AA27-669D4F01C439}</Project>
+      <Name>AirViewPlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorldOfTheThreeKingdoms\PluginInterface\PluginInterface.csproj">
+      <Project>{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}</Project>
+      <Name>PluginInterface</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

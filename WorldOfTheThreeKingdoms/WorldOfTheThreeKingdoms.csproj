@@ -57,11 +57,6 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GameFreeText, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\x86\Debug\GameFreeText.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="GameGlobal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>yinyong\GameGlobal.DLL</HintPath>
@@ -82,9 +77,6 @@
     </Reference>
     <Reference Include="mscorlib">
       <Private>False</Private>
-    </Reference>
-    <Reference Include="PluginServices, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>PluginServices\obj\x86\Debug\PluginServices.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
@@ -256,6 +248,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GameFreeText\GameFreeText.csproj">
+      <Project>{E13A763D-DC5B-447F-AF3F-392343B8875B}</Project>
+      <Name>GameFreeText</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GameObjects\GameObjects.csproj">
       <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
       <Name>GameObjects</Name>
@@ -263,6 +259,10 @@
     <ProjectReference Include="PluginInterface\PluginInterface.csproj">
       <Project>{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}</Project>
       <Name>PluginInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="PluginServices\PluginServices.csproj">
+      <Project>{ADC4D535-C7CA-415A-8F0B-81AF3525EBD5}</Project>
+      <Name>PluginServices</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
