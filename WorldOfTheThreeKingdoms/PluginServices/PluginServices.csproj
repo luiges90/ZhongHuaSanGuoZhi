@@ -41,11 +41,11 @@
   <ItemGroup>
     <Reference Include="GameGlobal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\yinyong\GameGlobal.DLL</HintPath>
+      <HintPath>..\bin\x86\Debug\GameGlobal.dll</HintPath>
     </Reference>
     <Reference Include="GameObjects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\yinyong\GameObjects.DLL</HintPath>
+      <HintPath>..\bin\x86\Debug\GameObjects.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=6d5c3888ef60e27d, processorArchitecture=x86">
       <Private>False</Private>
@@ -58,7 +58,6 @@
     <Reference Include="mscorlib">
       <Private>False</Private>
     </Reference>
-    <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86" />
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
@@ -86,6 +85,12 @@
       <Project>f1438e32-40ba-420f-b601-8c9a4698b2fe</Project>
       <Visible>False</Visible>
     </NestedContentProject>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PluginInterface\PluginInterface.csproj">
+      <Project>{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}</Project>
+      <Name>PluginInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

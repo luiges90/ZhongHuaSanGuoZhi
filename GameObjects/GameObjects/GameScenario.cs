@@ -73,6 +73,10 @@
         public TroopListWithQueue Troops = new TroopListWithQueue();
         public YearTable YearTable = new YearTable();
         public Dictionary<Event, Architecture> EventsToApply = new Dictionary<Event, Architecture>();
+
+        public Dictionary<Event, Architecture> YesEventsToApply = new Dictionary<Event, Architecture>();
+        public Dictionary<Event, Architecture> NoEventsToApply = new Dictionary<Event, Architecture>();
+
         public EventList AllEvents = new EventList();
         public String LoadedFileName;
         public bool UsingOwnCommonData;
@@ -752,6 +756,26 @@
                 }
                 this.TroopEventsToApply.Clear();
             }
+        }
+
+        public void ApplyYesEvents()
+        {
+            foreach (KeyValuePair<Event, Architecture> i in this.YesEventsToApply)
+            {
+                i.Key.DoYesApplyEvent(i.Value);
+                i.Key.happened = true;
+            }
+            this.YesEventsToApply.Clear();
+        }
+
+        public void ApplyNoEvents()
+        {
+            foreach (KeyValuePair<Event, Architecture> i in this.NoEventsToApply)
+            {
+                i.Key.DoNoApplyEvent(i.Value);
+                i.Key.happened = true;
+            }
+            this.NoEventsToApply.Clear();
         }
 
         public void ApplyEvents()
@@ -6710,7 +6734,6 @@
             }
             return result;
         }
-
         public bool runScenarioStart(Architecture triggerArch)
         {
             bool ran = false;
@@ -6723,9 +6746,21 @@
                         this.EventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
-                            
-                    }
 
+                    }
+                    if (!this.YesEventsToApply.ContainsKey(e))
+                    {
+                        this.YesEventsToApply.Add(e, triggerArch);
+
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }
+                    if (!this.NoEventsToApply.ContainsKey(e))
+                    {
+                        this.NoEventsToApply.Add(e, triggerArch);
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }
                 }
             }
             return ran;
@@ -6745,7 +6780,19 @@
                         ran = true;
 
                     }
+                    if (!this.YesEventsToApply.ContainsKey(e))
+                    {
+                        this.YesEventsToApply.Add(e, triggerArch);
 
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }
+                    if (!this.NoEventsToApply.ContainsKey(e))
+                    {
+                        this.NoEventsToApply.Add(e, triggerArch);
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }
                 }
             }
             return ran;
