@@ -1114,7 +1114,7 @@
                     this.OnBeAwardedTreasure(this, t);
                 }
                 this.IncreaseLoyalty(t.Worth);
-                this.AdjustIdealToFactionLeader(-t.Worth / 50);
+                // this.AdjustIdealToFactionLeader(-t.Worth / 50);
             }
         }
 
@@ -1480,7 +1480,7 @@
                     this.OnBeConfiscatedTreasure(this, t);
                 }
                 this.DecreaseLoyalty(t.Worth * 2);
-                this.AdjustIdealToFactionLeader(t.Worth / 10 + 1);
+                // this.AdjustIdealToFactionLeader(t.Worth / 10 + 1);
                 if (GameObject.Random(this.Loyalty) <= GameObject.Random(10))
                 {
                     if (this.LocationArchitecture != null)
