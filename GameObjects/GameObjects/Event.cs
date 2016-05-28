@@ -632,6 +632,70 @@
             return result;
         }
 
+        public void LoadYesEffectFromString(EventEffectTable allEffect, string data)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.yesEffect = new Dictionary<int, List<EventEffect>>();
+            for (int i = 0; i < strArray.Length; i += 2)
+            {
+                int n = int.Parse(strArray[i]);
+                int id = int.Parse(strArray[i + 1]);
+                if (!allEffect.EventEffects.ContainsKey(id)) continue;
+                if (!this.yesEffect.ContainsKey(n))
+                {
+                    this.yesEffect[n] = new List<EventEffect>();
+                }
+                this.yesEffect[n].Add(allEffect.EventEffects[id]);
+            }
+        }
+
+        public string SaveYesEffectToString()
+        {
+            string result = "";
+            foreach (KeyValuePair<int, List<EventEffect>> i in this.yesEffect)
+            {
+                foreach (EventEffect j in i.Value)
+                {
+                    result += i.Key + " " + j.ID + " ";
+                }
+            }
+            return result;
+        }
+
+        public void LoadNoEffectFromString(EventEffectTable allEffect, string data)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.noEffect = new Dictionary<int, List<EventEffect>>();
+            for (int i = 0; i < strArray.Length; i += 2)
+            {
+                int n = int.Parse(strArray[i]);
+                int id = int.Parse(strArray[i + 1]);
+                if (!allEffect.EventEffects.ContainsKey(id)) continue;
+                if (!this.noEffect.ContainsKey(n))
+                {
+                    this.noEffect[n] = new List<EventEffect>();
+                }
+                this.noEffect[n].Add(allEffect.EventEffects[id]);
+            }
+        }
+
+        public string SaveNoEffectToString()
+        {
+            string result = "";
+            foreach (KeyValuePair<int, List<EventEffect>> i in this.noEffect)
+            {
+                foreach (EventEffect j in i.Value)
+                {
+                    result += i.Key + " " + j.ID + " ";
+                }
+            }
+            return result;
+        }
+
         public void LoadArchitectureEffectFromString(EventEffectTable allEffect, string data)
         {
             char[] separator = new char[] { ' ', '\n', '\r', '\t' };

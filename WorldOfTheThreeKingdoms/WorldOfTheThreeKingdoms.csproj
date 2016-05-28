@@ -57,11 +57,6 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GameGlobal, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>yinyong\GameGlobal.DLL</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Interop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Interop.WMPLib.DLL</HintPath>
@@ -251,6 +246,10 @@
     <ProjectReference Include="..\GameFreeText\GameFreeText.csproj">
       <Project>{E13A763D-DC5B-447F-AF3F-392343B8875B}</Project>
       <Name>GameFreeText</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">
+      <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
+      <Name>GameGlobal</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameObjects\GameObjects.csproj">
       <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
