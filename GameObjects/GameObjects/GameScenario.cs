@@ -4544,6 +4544,11 @@
                     faction.AvailableMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(1));
                     faction.AvailableMilitaryKinds.AddMilitaryKind(this.GameCommonData.AllMilitaryKinds.GetMilitaryKind(2));
                 }
+                try
+                {
+                    faction.ZhaoxianFailureCount = (int)reader["ZhaoxianFailureCount"];
+                }
+                catch { }
                 if (e.Count > 0)
                 {
                     errorMsg.Add("势力ID" + faction.ID + "：");
@@ -5522,6 +5527,7 @@
                     row["GetGeneratorPersonCount"] = faction.SaveGeneratorPersonCountToString();
                     row["TransferingMilitaries"] = faction.TransferingMilitaries.SaveToString();
                     row["Militaries"] = faction.Militaries.SaveToString();
+                    row["ZhaoxianFailureCount"] = faction.ZhaoxianFailureCount.ToString();
                     row.EndEdit();
                     dataSet.Tables["Faction"].Rows.Add(row);
                 }
