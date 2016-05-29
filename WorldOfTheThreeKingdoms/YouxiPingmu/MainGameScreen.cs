@@ -2247,6 +2247,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                 }
 
+                if (e.yesArchitectureEffect.Count > 0 && e.noArchitectureEffect.Count > 0)
                 {
                     
 
