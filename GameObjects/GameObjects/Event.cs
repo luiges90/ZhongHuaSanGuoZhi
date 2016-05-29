@@ -38,6 +38,10 @@
 
         public List<EventEffect> architectureEffect;
         public List<EventEffect> factionEffect;
+
+        public List<EventEffect> yesArchitectureEffect;
+        public List<EventEffect> noArchitectureEffect;
+
         public List<PersonIdDialog> scenBiography = new List<PersonIdDialog>() ;
         public List<PersonDialog> matchedScenBiography = new List<PersonDialog> () ;
         public String Image = "";
@@ -112,7 +116,30 @@
                 }
             }
         }
-        
+
+        public void DoYesArchiApplyEvent(Architecture a)
+        {
+            if (this.yesArchitectureEffect != null)
+            {
+                foreach (EventEffect i in yesArchitectureEffect)
+                {
+                        i.ApplyEffect(a, this);
+                }
+                
+            }
+        }
+
+        public void DoNoArchiApplyEvent(Architecture a)
+        {
+            if (this.noArchitectureEffect != null)
+            {
+                foreach (EventEffect j in noArchitectureEffect)
+                {
+                   j.ApplyEffect(a, this);
+                }
+                
+            }
+        }
 
         public void DoApplyEvent(Architecture a)
         {
@@ -713,6 +740,52 @@
         {
             string result = "";
             foreach (EventEffect i in this.architectureEffect)
+            {
+                result += i.ID + " ";
+            }
+            return result;
+        }
+
+        public void LoadYesArchitectureEffectFromString(EventEffectTable allEffect, string data)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.yesArchitectureEffect = new List<EventEffect>();
+            foreach (string i in strArray)
+            {
+                if (!allEffect.EventEffects.ContainsKey(int.Parse(i))) continue;
+                this.yesArchitectureEffect.Add(allEffect.EventEffects[int.Parse(i)]);
+            }
+        }
+
+        public string SaveYesArchitectureEffectToString()
+        {
+            string result = "";
+            foreach (EventEffect i in this.yesArchitectureEffect)
+            {
+                result += i.ID + " ";
+            }
+            return result;
+        }
+
+        public void LoadNoArchitectureEffectFromString(EventEffectTable allEffect, string data)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.noArchitectureEffect = new List<EventEffect>();
+            foreach (string i in strArray)
+            {
+                if (!allEffect.EventEffects.ContainsKey(int.Parse(i))) continue;
+                this.noArchitectureEffect.Add(allEffect.EventEffects[int.Parse(i)]);
+            }
+        }
+
+        public string SaveNoArchitectureEffectToString()
+        {
+            string result = "";
+            foreach (EventEffect i in this.noArchitectureEffect)
             {
                 result += i.ID + " ";
             }

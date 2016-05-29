@@ -2246,6 +2246,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.Plugins.ConfirmationDialogPlugin.IsShowing = true;
                     }
                 }
+
+                {
+                    
+
+                    if (!this.Plugins.ConfirmationDialogPlugin.IsShowing)
+                    {
+                        //this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(base.Scenario.ApplyEvents(true), new GameDelegates.VoidFunction(base.Scenario.ApplyEvents(false)));
+                        this.Plugins.ConfirmationDialogPlugin.ClearFunctions();
+                        this.Plugins.ConfirmationDialogPlugin.AddYesFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyYesArchiEvents));
+                        this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
+                        this.Plugins.ConfirmationDialogPlugin.AddNoFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyNoArchiEvents));
+
+
+
+                        this.Plugins.ConfirmationDialogPlugin.IsShowing = true;
+                    }
+                }
                 if (GameGlobal.GlobalVariables.DialogShowTime > 0)
                 {
                     this.Plugins.tupianwenziPlugin.SetCloseFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyEvents));

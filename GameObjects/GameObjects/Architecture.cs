@@ -4962,6 +4962,16 @@
                         base.Scenario.NoEventsToApply.Add(e, this);
                         e.ApplyEventDialogs(this);
                     }
+                    if (!base.Scenario.YesArchiEventsToApply.ContainsKey(e))
+                    {
+                        base.Scenario.YesArchiEventsToApply.Add(e, this);
+                        e.ApplyEventDialogs(this);
+                    }
+                    if (!base.Scenario.NoArchiEventsToApply.ContainsKey(e))
+                    {
+                        base.Scenario.NoArchiEventsToApply.Add(e, this);
+                        e.ApplyEventDialogs(this);
+                    }
                 }
             }
         }
