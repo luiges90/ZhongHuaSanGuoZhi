@@ -9487,6 +9487,10 @@
                         return true;
                     }
                 }
+                if (this.BelongedFaction.MilitaryCount > this.BelongedFaction.CityTotalSize * GlobalVariables.FactionMilitaryLimt + 1)
+                {
+                    return false;
+                }
             }
             return false;
         }

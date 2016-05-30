@@ -6310,6 +6310,22 @@
             }
         }
 
+        public int CityTotalSize
+        {
+            get
+            {
+                int num = 0;
+                foreach (Architecture architecture in this.Architectures)
+                {
+                    if (architecture.Kind.ID != 2 || architecture.Kind.ID != 4)
+                    {
+                        num += architecture.JianzhuGuimo;
+                    }
+                }
+                return num;
+            }
+        }
+
         public InformationList GetAllInformationList()
         {
             InformationList result = new InformationList();
