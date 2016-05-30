@@ -101,6 +101,14 @@
                     }
                 }
             }
+            if (this.yesArchitectureEffect != null)
+            {
+                foreach (EventEffect i in yesArchitectureEffect)
+                {
+                    i.ApplyEffect(a, this);
+                }
+
+            }
         }
 
         public void DoNoApplyEvent(Architecture a)
@@ -115,29 +123,13 @@
                     }
                 }
             }
-        }
-
-        public void DoYesArchiApplyEvent(Architecture a)
-        {
-            if (this.yesArchitectureEffect != null)
-            {
-                foreach (EventEffect i in yesArchitectureEffect)
-                {
-                        i.ApplyEffect(a, this);
-                }
-                
-            }
-        }
-
-        public void DoNoArchiApplyEvent(Architecture a)
-        {
             if (this.noArchitectureEffect != null)
             {
                 foreach (EventEffect j in noArchitectureEffect)
                 {
-                   j.ApplyEffect(a, this);
+                    j.ApplyEffect(a, this);
                 }
-                
+
             }
         }
 

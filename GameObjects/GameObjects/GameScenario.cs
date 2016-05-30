@@ -769,6 +769,13 @@
                 i.Key.happened = true;
             }
             this.YesEventsToApply.Clear();
+
+            foreach (KeyValuePair<Event, Architecture> i in this.YesArchiEventsToApply)
+            {
+                i.Key.DoYesApplyEvent(i.Value);
+                i.Key.happened = true;
+            }
+            this.YesArchiEventsToApply.Clear();
         }
 
         public void ApplyNoEvents()
@@ -779,8 +786,15 @@
                 i.Key.happened = true;
             }
             this.NoEventsToApply.Clear();
-        }
 
+            foreach (KeyValuePair<Event, Architecture> i in this.NoArchiEventsToApply)
+            {
+                i.Key.DoNoApplyEvent(i.Value);
+                i.Key.happened = true;
+            }
+            this.NoArchiEventsToApply.Clear();
+        }
+        /*
         public void ApplyYesArchiEvents()
         {
             foreach (KeyValuePair<Event, Architecture> i in this.YesArchiEventsToApply)
@@ -799,7 +813,7 @@
                 i.Key.happened = true;
             }
             this.NoArchiEventsToApply.Clear();
-        }
+        }*/
 
         public void ApplyEvents()
         {
