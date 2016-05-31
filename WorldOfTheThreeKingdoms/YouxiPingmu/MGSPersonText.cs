@@ -1435,6 +1435,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         {
             if (base.Scenario.IsCurrentPlayer(a.BelongedFaction) && m.ArrivingDays == 0)
             {
+                m.TextResultString = m.StartingArchitecture.Name;
                 m.TextDestinationString = a.Name;
                 this.Plugins.GameRecordPlugin.AddBranch(m, "TransferMilitaryArrivesAtArchitecture", a.Position);
             }

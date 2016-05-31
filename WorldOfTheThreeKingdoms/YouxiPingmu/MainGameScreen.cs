@@ -2229,7 +2229,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                 }
 
-                if (e.yesEffect.Count > 0 && e.noEffect.Count > 0 || (e.yesArchitectureEffect.Count > 0 && e.noArchitectureEffect.Count > 0))
+                if (e.yesEffect.Count > 0 || e.noEffect.Count > 0 || e.yesArchitectureEffect.Count > 0 || e.noArchitectureEffect.Count > 0)
                 {
                     //throw new Exception("yesEffect != null " + ev.yesEffect);
 
