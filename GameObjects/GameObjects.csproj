@@ -1268,6 +1268,7 @@
     <Compile Include="GameObjects\SortedBoundedSet.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect2300.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect600.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect650.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect700.cs" />

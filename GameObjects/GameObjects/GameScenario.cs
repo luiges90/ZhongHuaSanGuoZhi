@@ -77,8 +77,8 @@
         public Dictionary<Event, Architecture> YesEventsToApply = new Dictionary<Event, Architecture>();
         public Dictionary<Event, Architecture> NoEventsToApply = new Dictionary<Event, Architecture>();
 
-        public Dictionary<Event, Architecture> YesArchiEventsToApply = new Dictionary<Event, Architecture>();
-        public Dictionary<Event, Architecture> NoArchiEventsToApply = new Dictionary<Event, Architecture>();
+       // public Dictionary<Event, Architecture> YesArchiEventsToApply = new Dictionary<Event, Architecture>();
+        //public Dictionary<Event, Architecture> NoArchiEventsToApply = new Dictionary<Event, Architecture>();
 
         public EventList AllEvents = new EventList();
         public String LoadedFileName;
@@ -769,13 +769,14 @@
                 i.Key.happened = true;
             }
             this.YesEventsToApply.Clear();
-
+            /*
             foreach (KeyValuePair<Event, Architecture> i in this.YesArchiEventsToApply)
             {
                 i.Key.DoYesApplyEvent(i.Value);
                 i.Key.happened = true;
             }
             this.YesArchiEventsToApply.Clear();
+             */
         }
 
         public void ApplyNoEvents()
@@ -786,13 +787,14 @@
                 i.Key.happened = true;
             }
             this.NoEventsToApply.Clear();
-
+            /*
             foreach (KeyValuePair<Event, Architecture> i in this.NoArchiEventsToApply)
             {
                 i.Key.DoNoApplyEvent(i.Value);
                 i.Key.happened = true;
             }
             this.NoArchiEventsToApply.Clear();
+             */
         }
         /*
         public void ApplyYesArchiEvents()
@@ -6813,6 +6815,7 @@
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
+                    /*
                     if (!this.YesArchiEventsToApply.ContainsKey(e))
                     {
                         this.YesArchiEventsToApply.Add(e, triggerArch);
@@ -6826,7 +6829,7 @@
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
-
+                    */
                 }
             }
             return ran;
@@ -6859,6 +6862,7 @@
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
+                    /*
                     if (!this.YesArchiEventsToApply.ContainsKey(e))
                     {
                         this.YesArchiEventsToApply.Add(e, triggerArch);
@@ -6871,7 +6875,7 @@
                         this.NoArchiEventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
-                    }
+                    }*/
                 }
             }
             return ran;
