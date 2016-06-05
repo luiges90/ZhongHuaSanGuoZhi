@@ -6208,6 +6208,10 @@
         {
             get
             {
+                if (this.ideal < 0) return 0;
+
+                if (this.ideal > 150) return 150;
+
                 return this.ideal;
             }
             set

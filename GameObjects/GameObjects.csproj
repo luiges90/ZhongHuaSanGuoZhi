@@ -1269,6 +1269,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect2300.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect240.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect350.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect355.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect465.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect466.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect600.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect650.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect700.cs" />
