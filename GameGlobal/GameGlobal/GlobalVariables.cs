@@ -893,7 +893,7 @@
 			}
             catch (Exception exception24)
             {
-                throw new Exception("TroopTirednessDecrease:\n" + exception.ToString());
+                throw new Exception("TroopTirednessDecrease:\n" + exception24.ToString());
             }
             return true;
         }
