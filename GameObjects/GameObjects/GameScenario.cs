@@ -780,11 +780,13 @@
 
         public void ApplyEvents()
         {
+
             foreach (KeyValuePair<Event, Architecture> i in this.EventsToApply)
             {
                 i.Key.DoApplyEvent(i.Value);
                 i.Key.happened = true;
             }
+            
             this.EventsToApply.Clear();
         }
 
@@ -4734,6 +4736,14 @@
                             {
 
                             }
+                           /* try
+                            {
+                                e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
+                                e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
+                            }
+                            catch
+                            {
+                            }*/
                             this.AllEvents.AddEventWithEvent(e);
                         }
                         catch (FormatException)
@@ -6791,6 +6801,7 @@
                         ran = true;
 
                     }
+
                     if (!this.YesEventsToApply.ContainsKey(e))
                     {
                         this.YesEventsToApply.Add(e, triggerArch);

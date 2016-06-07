@@ -7949,7 +7949,8 @@
                     }
                 }
             }
-
+            
+            
             String biography = "";
             if (foundLocation != null && finder != null)
             {
@@ -7964,8 +7965,9 @@
             bio.FactionColor = 52;
             bio.MilitaryKinds.AddBasicMilitaryKinds(scen);
             scen.AllBiographies.AddBiography(bio);
-            r.PersonBiography = bio;
 
+            r.PersonBiography = bio;
+            
             r.Alive = true;
             r.Available = true;
             r.LocationArchitecture = foundLocation;
@@ -7989,7 +7991,6 @@
         }
 
         
-
         public static Person createChildren(Person father, Person mother)
         {
             Person r = new Person();
@@ -8303,7 +8304,6 @@
 
             r.Scenario = father.Scenario;
 
-
             foreach (Person p in mother.GetClosePersons())
             {
                 if (GameObject.Chance((int)r.personalLoyalty * 25))
@@ -8318,7 +8318,7 @@
                     r.AddHated(p);
                 }
             }
-            foreach (Person p in father.GetClosePersons())
+            foreach (Person p in mother.GetClosePersons())
             {
                 if (GameObject.Chance((int)r.personalLoyalty * 25))
                 {
@@ -8348,6 +8348,7 @@
                     r.AddClose(p);
                 }
             }
+
             foreach (Person p in mother.ChildrenList)
             {
                 if (GameObject.Chance((int)r.personalLoyalty * 20))
@@ -8355,6 +8356,7 @@
                     r.AddClose(p);
                 }
             }
+
 
             ExtensionInterface.call("CreateChildren", new Object[] { father.Scenario, r });
 

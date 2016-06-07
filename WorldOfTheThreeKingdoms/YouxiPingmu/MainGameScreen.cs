@@ -2217,6 +2217,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 && (e.matchedDialog != null && e.matchedDialog.Count > 0))
             {
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                
                 foreach (PersonDialog dialog in e.matchedDialog)
                 {
                     if (dialog.SpeakingPerson != null)
@@ -2246,11 +2247,15 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         this.Plugins.ConfirmationDialogPlugin.IsShowing = true;
                     }
                 }
+
                 if (GameGlobal.GlobalVariables.DialogShowTime > 0)
                 {
+                    
                     this.Plugins.tupianwenziPlugin.SetCloseFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyEvents));
                     this.Plugins.tupianwenziPlugin.IsShowing = true;
                 }
+                
+
                 else
                 {
                     base.Scenario.ApplyEvents();
@@ -2258,6 +2263,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
             else
             {
+               
                 base.Scenario.ApplyEvents();
             }
         }

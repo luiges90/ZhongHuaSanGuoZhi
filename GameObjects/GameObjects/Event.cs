@@ -38,6 +38,12 @@
 
         public List<EventEffect> architectureEffect;
         public List<EventEffect> factionEffect;
+
+        public Dictionary<int, List<EventEffect>> yesEffect;
+        public Dictionary<int, List<EventEffect>> noEffect;
+
+        public Dictionary<int, Person> matchedPersons = new Dictionary<int, Person>();
+
         public List<PersonIdDialog> scenBiography = new List<PersonIdDialog>() ;
         public List<PersonDialog> matchedScenBiography = new List<PersonDialog> () ;
         public String Image = "";
@@ -57,6 +63,7 @@
             {
                 this.OnApplyEvent(this, a);
             }
+            
             foreach (PersonDialog i in matchedScenBiography) 
             {
                 this.Scenario.YearTable.addPersonInGameBiography(i.SpeakingPerson, this.Scenario.Date, i.Text);
@@ -112,7 +119,6 @@
                 }
             }
         }
-        
 
         public void DoApplyEvent(Architecture a)
         {
@@ -244,7 +250,7 @@
                 if (i.Count == 0) return false;
             }
 
-            Dictionary<int, Person> matchedPersons = new Dictionary<int, Person>();
+            //Dictionary<int, Person> matchedPersons = new Dictionary<int, Person>();
             foreach (KeyValuePair<int, List<Person>> i in candidates)
             {
                 if (i.Value.Count <= 0) return false;
@@ -307,11 +313,6 @@
 
         public bool checkConditions(Architecture a)
         {
-            if (a.ID == 139)
-            {
-                int zz = 0;
-                zz++;
-            }
             if (this.happened && !this.repeatable) return false;
             if (GameObject.Random(this.happenChance) != 0)
             {
@@ -357,7 +358,7 @@
             if (architecture.Count > 0 || faction.Count > 0)
             {
                 bool contains = false;
-                if (architecture != null)
+                if (this.architecture != null)
                 {
                     foreach (Architecture archi in this.architecture)
                     {
@@ -368,9 +369,9 @@
                     }
                 }
 
-                if (faction != null)
+                if (this.faction != null)
                 {
-                    foreach (Faction f in faction)
+                    foreach (Faction f in this.faction)
                     {
                         if (a.BelongedFaction != null)
                         {
@@ -380,22 +381,60 @@
                             }
                         }
                     }
+                }
 
-                }
-                if (contains)
-                {
-                    return true;
-                }
-                else
+                if (!contains)
                 {
                     return false;
                 }
             }
             
-           
             return this.matchEventPersons(a);
+            
         }
+        /*
+        public bool CheckEventID(Architecture check)
+        {
 
+            if ((this.architecture.Count > 0 || this.faction.Count > 0))
+            {
+                bool contains = false;
+                if (this.architecture != null)
+                {
+                    foreach (Architecture archi in this.architecture)
+                    {
+                        if (archi.ID == check.ID)
+                        {
+                            contains = true;
+                        }
+                    }
+                }
+
+                if (this.faction != null)
+                {
+                    foreach (Faction f in this.faction)
+                    {
+                        if (check.BelongedFaction != null)
+                        {
+                            if (f.ID == check.BelongedFaction.ID)
+                            {
+                                contains = true;
+                            }
+                        }
+                    }
+                }
+
+
+
+
+                if (contains)
+                {
+                    return true;
+                }
+            }
+               return false;   
+        }*/
+        
         public bool IsStart(GameScenario scenario)
         {
             Condition cstart = scenario.GameCommonData.AllConditions.GetCondition(9998);
