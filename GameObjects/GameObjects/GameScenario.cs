@@ -5444,7 +5444,7 @@
             ClearPersonWorkCache();
             //try
             //{
-            //this.DisposeLotsOfMemory();
+            this.DisposeLotsOfMemory();
             using (OleDbConnection selectConnection = new OleDbConnection(connectionString))
             {
                 selectConnection.Open();

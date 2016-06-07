@@ -887,14 +887,6 @@
                 exception = exception24;
                 throw new Exception("FactionMilitaryLimt:\n" + exception.ToString());
             }
-            try
-            {
-                TroopTirednessDecrease = int.Parse(nextSibling.Attributes.GetNamedItem("TroopTirednessDecrease").Value);
-			}
-            catch (Exception exception24)
-            {
-                throw new Exception("TroopTirednessDecrease:\n" + exception24.ToString());
-            }
             return true;
         }
     }
