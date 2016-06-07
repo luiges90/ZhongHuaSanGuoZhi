@@ -4125,7 +4125,7 @@
         public void GenerateOfficer(PersonGeneratorType preferredType, bool success) //事件专用
         {
             PersonGenerateParam param = new PersonGenerateParam(Scenario, this, this.BelongedFaction.Leader, true, preferredType, false);
-            Person r = Person.createPerson(param);
+            Person r = Person.createPerson(param, true);
             //this.ZhaoXian(r);
             this.DecreaseFund(preferredType.CostFund);
         }

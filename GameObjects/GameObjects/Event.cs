@@ -39,9 +39,6 @@
         public List<EventEffect> architectureEffect;
         public List<EventEffect> factionEffect;
 
-        public Dictionary<int, List<EventEffect>> yesEffect;
-        public Dictionary<int, List<EventEffect>> noEffect;
-
         public Dictionary<int, Person> matchedPersons = new Dictionary<int, Person>();
 
         public List<PersonIdDialog> scenBiography = new List<PersonIdDialog>() ;
