@@ -3745,6 +3745,16 @@
             return list;
         }
 
+        public PersonRelationValueList GetPersonRelationList()
+        {
+            PersonRelationValueList list = new PersonRelationValueList();
+            foreach (KeyValuePair<Person, int> i in relations) 
+            {
+                list.Add(new PersonRelationValue(this, i.Key, i.Value));
+            }
+            return list;
+        }
+
         public int GetWorkAbility(ArchitectureWorkKind workKind)
         {
             switch (workKind)
