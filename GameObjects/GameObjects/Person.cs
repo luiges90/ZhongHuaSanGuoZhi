@@ -1374,13 +1374,50 @@
 
         private void CheckDeath()
         {
-            if ((GlobalVariables.PersonNaturalDeath && ((this.LocationArchitecture != null) && !this.IsCaptive)) && (this.alive && ((((((this.DeadReason == PersonDeadReason.自然死亡) && (this.YearDead <= base.Scenario.Date.Year)) && (GameObject.Random(base.Scenario.Date.LeftDays * ((1 + this.YearDead) - base.Scenario.Date.Year)) == 0)) || (((this.DeadReason == PersonDeadReason.被杀死) && (this.Age >= 80)) && (GameObject.Random(90) == 0))) || ((((this.DeadReason == PersonDeadReason.郁郁而终) && (this.YearDead <= base.Scenario.Date.Year)) && (((this.Age >= 80) || (this.BelongedFaction == null)) || ((this.BelongedFaction.Leader != this) || (this.BelongedFaction.ArchitectureTotalSize < 8)))) && (GameObject.Random(90) == 0))) || ((((this.DeadReason == PersonDeadReason.操劳过度) && (this.YearDead <= base.Scenario.Date.Year)) && ((this.Age >= 80) || ((((((((this.InternalExperience + this.TacticsExperience) + this.StratagemExperience) + this.BubingExperience) + this.NubingExperience) + this.QibingExperience) + this.QibingExperience) + this.ShuijunExperience) > 0x7530))) && (GameObject.Random(90) == 0)))))
+            if (GlobalVariables.PersonNaturalDeath && this.LocationArchitecture != null && this.Alive)
             {
-                if (this.Status != PersonStatus.Moving && this.Status != PersonStatus.NoFactionMoving)
+                int yearDead;
+                if (this.DeadReason == PersonDeadReason.自然死亡)
                 {
-                    this.ToDeath(null, this.BelongedFaction);
+                    yearDead = this.YearDead;
                 }
+                else
+                {
+                    //yearDead = Math.Max(this.YearDead, this.YearBorn + 18 + this.PersonalLoyalty * 8 - this.Ambition * 8 + this.Intelligence / 4 + this.Strength / 4);
+                    yearDead = this.YearDead + 80;
+                }
+
+                if (yearDead - 5 <= base.Scenario.Date.Year && base.Scenario.Date.Year < this.YearDead &&
+                     GameObject.Random(60) == 0 && GameObject.Chance((6 - (yearDead - base.Scenario.Date.Year)) * 18))
+                {
+                    this.InjureRate -= 0.1f;
+                }
+                else if (base.Scenario.Date.Year >= yearDead)
+                {
+                    if (this.DeadReason == PersonDeadReason.被杀死 && GameObject.Chance(10))
+                    {
+                        this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
+                    }
+                    else if (this.DeadReason == PersonDeadReason.郁郁而终 && GameObject.Chance(10) &&
+                        (this.BelongedFaction == null || this.Status == PersonStatus.Captive || this.BelongedFaction.ArchitectureTotalSize <= 8))
+                    {
+                        this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
+                    }
+                    else if (this.DeadReason == PersonDeadReason.操劳过度 && GameObject.Chance(10) &&
+                        this.InternalExperience + this.StratagemExperience + this.TacticsExperience 
+                        + this.BubingExperience + this.QibingExperience + this.NubingExperience + this.ShuijunExperience + this.QixieExperience >= 30000)
+                    {
+                        this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
+                    }
+
+                    if (this.InjureRate <= 0)
+                    {
+                        this.ToDeath(null, this.BelongedFaction);
+                    }
+                }
+                
             }
+
         }
 
         public Troop BelongedTroop
@@ -1518,10 +1555,6 @@
                 {
                     this.InjureRate = 1;
                 }
-            }
-            if (this.Age > 60 && GameObject.Random(Math.Max((this.YearDead - base.Scenario.Date.Year) * 10 + 130, 30)) == 0 && this.InjureRate > 0.7)
-            {
-                this.InjureRate -= 0.1f;
             }
         }
 
