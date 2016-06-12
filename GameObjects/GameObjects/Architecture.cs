@@ -4087,7 +4087,7 @@
                 return false ;
             }
 
-            float result = GameObject.Random((int)(10000 * Math.Pow(factionPersonCount, Parameters.SearchPersonArchitectureCountPower)));
+            float result = GameObject.Random((int)(10000 * Math.Pow(factionPersonCount, Parameters.SearchPersonArchitectureCountPower))) * preferredType.generationChance / 100;
             float target = GlobalVariables.ZhaoXianSuccessRate * 100 * coef;
             return result < target;
         }
