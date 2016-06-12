@@ -5632,7 +5632,7 @@
                     totalHostilePersonCount += troop.PersonCount;
                 }
                 int send = totalHostilePersonCount / 2;
-                foreach (Architecture a in this.BelongedFaction.Architectures)
+                foreach (Architecture a in this.BelongedSection.Architectures)
                 {
                     if (a == this) continue;
                     if (a.HasHostileTroopsInView()) continue;
@@ -5652,7 +5652,7 @@
                     totalHostilePersonCount += troop.PersonCount;
                 }
                 int send = totalHostilePersonCount / 2;
-                foreach (Architecture a in this.BelongedFaction.Architectures)
+                foreach (Architecture a in this.BelongedSection.Architectures)
                 {
                     if (a == this) continue;
                     if (a.HasHostileTroopsInView()) continue;
