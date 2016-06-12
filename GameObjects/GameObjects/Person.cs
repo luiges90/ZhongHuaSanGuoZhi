@@ -3768,9 +3768,9 @@
         public GameObjectList RecallableTitleList()
         {
             GameObjectList list = new GameObjectList();
-            foreach (Title title in this.RealTitles)
+            foreach (Title title in this.Titles)
             {
-                if ((title.Kind.ID == 5 || title.Kind.ID == 10 || title.Kind.ID == 20 || title.Kind.ID == 21) && title.AutoLearn > 0)
+                if (title.Kind.Recallable && title.AutoLearn > 0)
                 {
                     list.Add(title);
                 }

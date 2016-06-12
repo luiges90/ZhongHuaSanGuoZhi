@@ -875,6 +875,14 @@
                     tk.Combat = (bool)reader["Combat"];
                     tk.StudyDay = (short)reader["StudyDay"];
                     tk.SuccessRate = (short)reader["SuccessRate"];
+                    try
+                    {
+                        tk.Recallable = (bool)reader["Recallable"];
+                    }
+                    catch
+                    {
+                        tk.Recallable = (tk.ID == 5) || (tk.ID == 10) || (tk.ID == 20) || (tk.ID == 21);
+                    }
                     this.AllTitleKinds.AddTitleKind(tk);
                 }
             }
@@ -2799,6 +2807,7 @@
                     row["Combat"] = i.Combat;
                     row["StudyDay"] = i.StudyDay;
                     row["SuccessRate"] = i.SuccessRate;
+                    row["Recallable"] = i.Recallable;
                     row.EndEdit();
                     dataSet.Tables["TitleKind"].Rows.Add(row);
                 }
