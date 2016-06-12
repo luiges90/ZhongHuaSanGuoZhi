@@ -4081,7 +4081,7 @@
 
         private bool IsChanceOfGeneratingOfficer(int factionPersonCount, bool isAI, PersonGeneratorType preferredType)
         {
-            float coef = isAI ? Parameters.AIExtraPerson + 1 : 1;
+            float coef = isAI ? Parameters.AIExtraPerson : 1;
             if (coef <= 0)
             {
                 return false ;
