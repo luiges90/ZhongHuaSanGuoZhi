@@ -7791,7 +7791,6 @@
 
             HandleName(r);
 
-
             int officerType;
             int titleChance;
 
@@ -8100,317 +8099,44 @@
         
         public static Person createChildren(Person father, Person mother)
         {
-            Person r = new Person();
+            Person r = HandleChildrenId(father);
 
-            //look for empty id
-            int id = 5000;
-            PersonList pl = father.Scenario.Persons as PersonList;
-            pl.SmallToBig = true;
-            pl.IsNumber = true;
-            pl.PropertyName = "ID";
-            pl.ReSort();
-            foreach (Person p in pl)
-            {
-                if (p.ID == id)
-                {
-                    id++;
-                    if (id >= 7000 && id < 10000)
-                    {
-                        id = 10000;
-                    }
-                }
-                else if (p.ID > id)
-                {
-                    break;
-                }
-            }
-            r.ID = id;
+            HandleChildrenRelation(father, mother, r);
 
-            r.Father = father;
-            r.Mother = mother;
-            r.Generation = father.Generation + 1;
-            r.Strain = father.Strain;
+            HandleChildrenName(father, r);
 
-            r.Sex = GameObject.Chance(father.Scenario.GameCommonData.PersonGeneratorSetting.femaleChance) ? true : false;
+            HandleChildrenType(father, mother, r);
 
-            r.SurName = father.SurName;
-            List<String> givenNameList = r.Sex ? Person.readTextList("CreateChildrenTextFile/femalegivenname.txt") : Person.readTextList("CreateChildrenTextFile/malegivenname.txt");
-            r.GivenName = givenNameList[GameObject.Random(givenNameList.Count)];
-            if (r.GivenName.Length <= 1 && GameObject.Chance(r.Sex ? 90 : 10))
-            {
-                String s;
-                int tries = 0;
-                do
-                {
-                    s = givenNameList[GameObject.Random(givenNameList.Count)];
-                    tries++;
-                } while (s.Length > 1 && tries < 100);
-                r.GivenName += s;
-            }
-            r.CalledName = "";
+            HandleChildrenStatus(father, r);
 
-            int var = 5; //variance / maximum divert from parent ability
-            r.BaseCommand = GameObject.Random(Math.Abs(father.CommandIncludingExperience - mother.CommandIncludingExperience) + 2 * var + 1) + Math.Min(father.CommandIncludingExperience, mother.CommandIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BaseStrength = GameObject.Random(Math.Abs(father.StrengthIncludingExperience - mother.StrengthIncludingExperience) + 2 * var + 1) + Math.Min(father.StrengthIncludingExperience, mother.StrengthIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BaseIntelligence = GameObject.Random(Math.Abs(father.IntelligenceIncludingExperience - mother.IntelligenceIncludingExperience) + 2 * var + 1) + Math.Min(father.IntelligenceIncludingExperience, mother.IntelligenceIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BasePolitics = GameObject.Random(Math.Abs(father.PoliticsIncludingExperience - mother.PoliticsIncludingExperience) + 2 * var + 1) + Math.Min(father.PoliticsIncludingExperience, mother.PoliticsIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BaseGlamour = GameObject.Random(Math.Abs(father.GlamourIncludingExperience - mother.GlamourIncludingExperience) + 2 * var + 1) + Math.Min(father.GlamourIncludingExperience, mother.GlamourIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            if (!GlobalVariables.createChildrenIgnoreLimit)
-            {
-                if (r.BaseStrength > 100) r.BaseStrength = 100;
-                if (r.BaseStrength < 0) r.BaseStrength = 0;
-                if (r.BaseCommand > 100) r.BaseCommand = 100;
-                if (r.BaseCommand < 0) r.BaseCommand = 0;
-                if (r.BaseIntelligence > 100) r.BaseIntelligence = 100;
-                if (r.BaseIntelligence < 0) r.BaseIntelligence = 0;
-                if (r.BasePolitics > 100) r.BasePolitics = 100;
-                if (r.BasePolitics < 0) r.BasePolitics = 0;
-                if (r.BaseGlamour > 100) r.BaseGlamour = 100;
-                if (r.BaseGlamour < 0) r.BaseGlamour = 0;
-            }
+            HandleChildrenProperty(father, mother, r);
 
-            setNewOfficerFace(r);
+            AdjustChildrenIdeal(father, mother, r);
 
-            r.YearBorn = father.Scenario.Date.Year;
-            r.YearAvailable = father.Scenario.Date.Year + GlobalVariables.ChildrenAvailableAge;
-            r.YearDead = r.YearBorn + GameObject.Random(69) + 30;
+            Architecture bornArch = HandleChildrenRegion(father, mother, r);
 
-            r.Ideal = GameObject.Chance(50) ? father.Ideal + GameObject.Random(10) - 5 : mother.Ideal + GameObject.Random(10) - 5;
-            r.Ideal = (r.Ideal + 150) % 150;
+            HandleChildrenCharacter(father, mother, r);
 
-            r.Reputation = (int)((father.Reputation + mother.Reputation) * (GameObject.Random(100) / 100.0 * 0.1 + 0.05)) + father.childrenReputationIncrease + mother.childrenReputationIncrease;
+            HandleChildrenSkill(father, mother, r);
 
-            r.PersonalLoyalty = (GameObject.Chance(50) ? father.PersonalLoyalty : mother.PersonalLoyalty) + GameObject.Random(3) - 1;
-            if (r.PersonalLoyalty < 0) r.PersonalLoyalty = 0;
-            if ((int)r.PersonalLoyalty > Enum.GetNames(typeof(PersonLoyalty)).Length) r.PersonalLoyalty = Enum.GetNames(typeof(PersonLoyalty)).Length;
+            HandleChildrenStunt(father, mother, r);
 
-            r.Ambition = (GameObject.Chance(50) ? father.Ambition : mother.Ambition) + GameObject.Random(3) - 1;
-            if (r.Ambition < 0) r.Ambition = 0;
-            if ((int)r.Ambition > Enum.GetNames(typeof(PersonAmbition)).Length) r.Ambition = Enum.GetNames(typeof(PersonAmbition)).Length;
+            HandleChildrenTitle(father, mother, r);
 
-            r.Qualification = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.Qualification : mother.Qualification) : (PersonQualification)GameObject.Random(Enum.GetNames(typeof(PersonQualification)).Length);
-
-            r.Braveness = (GameObject.Chance(50) ? father.BaseBraveness : mother.BaseBraveness) + GameObject.Random(5) - 2;
-            if (r.BaseBraveness < 1) r.Braveness = 1;
-            if (r.BaseBraveness > 10 && !GlobalVariables.createChildrenIgnoreLimit) r.Braveness = 10;
-
-            r.Calmness = (GameObject.Chance(50) ? father.BaseCalmness : mother.BaseCalmness) + GameObject.Random(5) - 2;
-            if (r.BaseCalmness < 1) r.Calmness = 1;
-            if (r.BaseCalmness > 10 && !GlobalVariables.createChildrenIgnoreLimit) r.Calmness = 10;
-
-            r.ValuationOnGovernment = (GameObject.Chance(50) ? father.ValuationOnGovernment : mother.ValuationOnGovernment);
-
-            r.StrategyTendency = (GameObject.Chance(50) ? father.StrategyTendency : mother.StrategyTendency);
-
-            r.IdealTendency = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.IdealTendency : mother.IdealTendency) : father.Scenario.GameCommonData.AllIdealTendencyKinds.GetRandomList()[0] as IdealTendencyKind;
-            if (father.BelongedFaction != null || mother.BelongedFaction != null)
-            {
-                Person leader = father.BelongedFaction == null ? mother.BelongedFaction.Leader : father.BelongedFaction.Leader;
-                if (r.IdealTendency.Offset < Person.GetIdealOffset(r, leader))
-                {
-                    if (leader.IdealTendency.Offset >= 0)
-                    {
-                        r.Ideal = leader.Ideal + GameObject.Random(r.IdealTendency.Offset * 2 + 1) - r.IdealTendency.Offset;
-                        r.Ideal = (r.Ideal + 150) % 150;
-                    }
-                    else
-                    {
-                        r.Ideal = leader.Ideal;
-                    }
-                }
-            }
-
-            Architecture bornArch = mother.BelongedArchitecture != null ? mother.BelongedArchitecture : father.BelongedArchitecture;
-
-            try //best-effort approach for getting PersonBornRegion
-            {
-                r.BornRegion = (PersonBornRegion)Enum.Parse(typeof(PersonBornRegion), bornArch.LocationState.Name); //mother has no locationarch...
-            }
-            catch (Exception)
-            {
-                r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
-            }
-
-            int characterId = 0;
-            do
-            {
-                characterId = GameObject.Random(father.Scenario.GameCommonData.AllCharacterKinds.Count);
-            } while (characterId == 0);
-            r.Character = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.Character : mother.Character) : father.Scenario.GameCommonData.AllCharacterKinds[characterId];
-
-            foreach (Skill i in father.Skills.GetSkillList())
-            {
-                if (GameObject.Chance(50 + father.childrenSkillChanceIncrease) && i.CanBeBorn(r))
-                {
-                    r.Skills.AddSkill(i);
-                }
-            }
-            foreach (Skill i in mother.Skills.GetSkillList())
-            {
-                if (GameObject.Chance(50 + mother.childrenSkillChanceIncrease) && i.CanBeBorn(r))
-                {
-                    r.Skills.AddSkill(i);
-                }
-            }
-            foreach (Skill i in father.Scenario.GameCommonData.AllSkills.GetSkillList())
-            {
-                if (((GameObject.Random(father.Scenario.GameCommonData.AllSkills.GetSkillList().Count / 2) == 0 && GameObject.Random(i.Level * i.Level / 2 + i.Level) == 0)
-                    ||
-                    GameObject.Chance(father.childrenSkillChanceIncrease + mother.childrenSkillChanceIncrease)) && i.CanBeBorn(r))
-                {
-                    r.Skills.AddSkill(i);
-                }
-            }
-
-            foreach (Stunt i in father.Stunts.GetStuntList())
-            {
-                if (GameObject.Chance(50 + father.childrenStuntChanceIncrease) && i.CanBeBorn(r))
-                {
-                    r.Stunts.AddStunt(i);
-                }
-            }
-            foreach (Stunt i in mother.Stunts.GetStuntList())
-            {
-                if (GameObject.Chance(50 + mother.childrenStuntChanceIncrease) && i.CanBeBorn(r))
-                {
-                    r.Stunts.AddStunt(i);
-                }
-            }
-            foreach (Stunt i in father.Scenario.GameCommonData.AllStunts.GetStuntList())
-            {
-                if ((GameObject.Random(father.Scenario.GameCommonData.AllStunts.GetStuntList().Count * 2) == 0 ||
-                    GameObject.Chance(father.childrenStuntChanceIncrease + mother.childrenStuntChanceIncrease)) && i.CanBeBorn(r))
-                {
-                    bool ok = true;
-                    foreach (Condition j in i.LearnConditions.Conditions.Values)
-                    {
-                        if (j.Kind.ID == 600 || j.Kind.ID == 610) //check personality kind only
-                        {
-                            if (!j.CheckCondition(r))
-                            {
-                                ok = false;
-                                break;
-                            }
-                        }
-                    }
-                    if (ok)
-                    {
-                        r.Stunts.AddStunt(i);
-                    }
-                }
-            }
-
-            Dictionary<TitleKind, List<Title>> titles = Title.GetKindTitleDictionary(father.Scenario);
-            foreach (KeyValuePair<TitleKind, List<Title>> i in titles)
-            {
-                Title ft = father.getTitleOfKind(i.Key);
-                Title mt = mother.getTitleOfKind(i.Key);
-                int levelTendency = (((ft == null ? 0 : ft.Level) + (mt == null ? 0 : mt.Level)) / 2)
-                    + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
-
-                if (ft != null && GameObject.Chance(ft.InheritChance) && ft.CheckLimit(father))
-                {
-                    r.RealTitles.Add(ft);
-                }
-                else if (mt != null && GameObject.Chance(mt.InheritChance) && mt.CheckLimit(mother)) 
-                {
-                    r.RealTitles.Add(mt);
-                }
-                else
-                {
-                    int targetLevel = levelTendency + GameObject.Random(3) - 1;
-                    if (targetLevel <= 0) continue;
-
-                    List<Title> candidates = new List<Title>();
-                    List<Title> lesserCandidates = new List<Title>();
-                    List<Title> leastCandidates = new List<Title>();
-
-                    foreach (Title t in i.Value)
-                    {
-                        if (t.Level == targetLevel && t.CanBeBorn(r))
-                        {
-                            candidates.Add(t);
-                        }
-                        else if ((t.Level + 1 == targetLevel || t.Level - 1 == targetLevel) && t.CanBeBorn(r))
-                        {
-                            lesserCandidates.Add(t);
-                        }
-                        else if (t.Level < targetLevel && t.CanBeBorn(r))
-                        {
-                            leastCandidates.Add(t);
-                        }
-                    }
-
-                    if (candidates.Count > 0)
-                    {
-                        r.RealTitles.Add(candidates[GameObject.Random(candidates.Count)]);
-                    }
-                    else if (lesserCandidates.Count > 0)
-                    {
-                        r.RealTitles.Add(lesserCandidates[GameObject.Random(lesserCandidates.Count)]);
-                    }
-                    else if (leastCandidates.Count > 0)
-                    {
-                        r.RealTitles.Add(leastCandidates[GameObject.Random(lesserCandidates.Count)]);
-                    }
-                }
-            }
-
-            String biography = "";
-            int fatherChildCount = father.NumberOfChildren;
-            int motherChildCount = mother.NumberOfChildren;
-            String[] order = new String[] { "长", "次", "三", "四", "五", "六", "七", "八" };
-            biography += r.Father.Name + "之" + (fatherChildCount > 7 ? "" : order[fatherChildCount]) + (r.Sex ? "女" : "子") + "，" +
-                r.Mother.Name + "之" + (motherChildCount > 7 ? "" : order[motherChildCount]) + (r.Sex ? "女" : "子") + "。" +
-                "在" + r.father.Scenario.Date.Year + "年" + r.Father.Scenario.Date.Month + "月于" + bornArch.Name + "出生。";
-
-            Person root = father;
-            while (root.Father != null)
-            {
-                root = root.Father;
-            }
-            if (root != father)
-            {
-                biography += root.Name + "的后代。";
-            }
-
-            biography += Person.GenerateBiography(r, father.Scenario);
-
-            Biography bio = new Biography();
-            bio.Brief = biography;
-            bio.ID = r.ID;
-            Biography fatherBio = father.Scenario.AllBiographies.GetBiography(father.ID);
-            if (fatherBio != null)
-            {
-                bio.FactionColor = fatherBio.FactionColor;
-                bio.MilitaryKinds = fatherBio.MilitaryKinds;
-            }
-            else
-            {
-                bio.FactionColor = 52;
-                bio.MilitaryKinds.AddBasicMilitaryKinds(father.Scenario);
-            }
-            father.Scenario.AllBiographies.AddBiography(bio);
-            r.PersonBiography = bio;
+            HandleChildrenBiography(father, mother, r, bornArch);
 
             /*r.LocationArchitecture = father.BelongedArchitecture; //mother has no location arch!
             r.BelongedFaction = r.BelongedArchitecture.BelongedFaction;
             r.Available = true;*/
-            r.Alive = true;
-            r.JoinFactionID = new List<int>();
-            if (father.BelongedFaction != null)
-            {
-                r.JoinFactionID.Add(father.BelongedFaction.ID);
-            }
-            if (mother.BelongedFaction != null)
-            {
-                r.JoinFactionID.Add(mother.BelongedFaction.ID);
-            }
+            HandleChildrenFaction(father, mother, r);
 
-            father.Scenario.Persons.Add(r);
+            AdjustChildrenRelation(father, mother, r);
 
-            r.Scenario = father.Scenario;
+            return r;
+        }
 
+        private static void AdjustChildrenRelation(Person father, Person mother, Person r)
+        {
             foreach (Person p in mother.GetClosePersons())
             {
                 if (GameObject.Chance((int)r.personalLoyalty * 25))
@@ -8466,7 +8192,357 @@
 
 
             ExtensionInterface.call("CreateChildren", new Object[] { father.Scenario, r });
+        }
 
+        private static void HandleChildrenFaction(Person father, Person mother, Person r)
+        {
+            r.Alive = true;
+            r.JoinFactionID = new List<int>();
+            if (father.BelongedFaction != null)
+            {
+                r.JoinFactionID.Add(father.BelongedFaction.ID);
+            }
+            if (mother.BelongedFaction != null)
+            {
+                r.JoinFactionID.Add(mother.BelongedFaction.ID);
+            }
+
+            father.Scenario.Persons.Add(r);
+
+            r.Scenario = father.Scenario;
+        }
+
+        private static void HandleChildrenBiography(Person father, Person mother, Person r, Architecture bornArch)
+        {
+            String biography = "";
+            int fatherChildCount = father.NumberOfChildren;
+            int motherChildCount = mother.NumberOfChildren;
+            String[] order = new String[] { "长", "次", "三", "四", "五", "六", "七", "八" };
+            biography += r.Father.Name + "之" + (fatherChildCount > 7 ? "" : order[fatherChildCount]) + (r.Sex ? "女" : "子") + "，" +
+                r.Mother.Name + "之" + (motherChildCount > 7 ? "" : order[motherChildCount]) + (r.Sex ? "女" : "子") + "。" +
+                "在" + r.father.Scenario.Date.Year + "年" + r.Father.Scenario.Date.Month + "月于" + bornArch.Name + "出生。";
+
+            Person root = father;
+            while (root.Father != null)
+            {
+                root = root.Father;
+            }
+            if (root != father)
+            {
+                biography += root.Name + "的后代。";
+            }
+
+            biography += Person.GenerateBiography(r, father.Scenario);
+
+            Biography bio = new Biography();
+            bio.Brief = biography;
+            bio.ID = r.ID;
+            Biography fatherBio = father.Scenario.AllBiographies.GetBiography(father.ID);
+            if (fatherBio != null)
+            {
+                bio.FactionColor = fatherBio.FactionColor;
+                bio.MilitaryKinds = fatherBio.MilitaryKinds;
+            }
+            else
+            {
+                bio.FactionColor = 52;
+                bio.MilitaryKinds.AddBasicMilitaryKinds(father.Scenario);
+            }
+            father.Scenario.AllBiographies.AddBiography(bio);
+            r.PersonBiography = bio;
+        }
+
+        private static void HandleChildrenTitle(Person father, Person mother, Person r)
+        {
+            Dictionary<TitleKind, List<Title>> titles = Title.GetKindTitleDictionary(father.Scenario);
+            foreach (KeyValuePair<TitleKind, List<Title>> i in titles)
+            {
+                Title ft = father.getTitleOfKind(i.Key);
+                Title mt = mother.getTitleOfKind(i.Key);
+                int levelTendency = (((ft == null ? 0 : ft.Level) + (mt == null ? 0 : mt.Level)) / 2)
+                    + father.childrenTitleChanceIncrease + mother.childrenTitleChanceIncrease;
+
+                if (ft != null && GameObject.Chance(ft.InheritChance) && ft.CheckLimit(father))
+                {
+                    r.RealTitles.Add(ft);
+                }
+                else if (mt != null && GameObject.Chance(mt.InheritChance) && mt.CheckLimit(mother))
+                {
+                    r.RealTitles.Add(mt);
+                }
+                else
+                {
+                    int targetLevel = levelTendency + GameObject.Random(3) - 1;
+                    if (targetLevel <= 0) continue;
+
+                    List<Title> candidates = new List<Title>();
+                    List<Title> lesserCandidates = new List<Title>();
+                    List<Title> leastCandidates = new List<Title>();
+
+                    foreach (Title t in i.Value)
+                    {
+                        if (t.Level == targetLevel && t.CanBeBorn(r))
+                        {
+                            candidates.Add(t);
+                        }
+                        else if ((t.Level + 1 == targetLevel || t.Level - 1 == targetLevel) && t.CanBeBorn(r))
+                        {
+                            lesserCandidates.Add(t);
+                        }
+                        else if (t.Level < targetLevel && t.CanBeBorn(r))
+                        {
+                            leastCandidates.Add(t);
+                        }
+                    }
+
+                    if (candidates.Count > 0)
+                    {
+                        r.RealTitles.Add(candidates[GameObject.Random(candidates.Count)]);
+                    }
+                    else if (lesserCandidates.Count > 0)
+                    {
+                        r.RealTitles.Add(lesserCandidates[GameObject.Random(lesserCandidates.Count)]);
+                    }
+                    else if (leastCandidates.Count > 0)
+                    {
+                        r.RealTitles.Add(leastCandidates[GameObject.Random(lesserCandidates.Count)]);
+                    }
+                }
+            }
+        }
+
+        private static void HandleChildrenStunt(Person father, Person mother, Person r)
+        {
+            foreach (Stunt i in father.Stunts.GetStuntList())
+            {
+                if (GameObject.Chance(50 + father.childrenStuntChanceIncrease) && i.CanBeBorn(r))
+                {
+                    r.Stunts.AddStunt(i);
+                }
+            }
+            foreach (Stunt i in mother.Stunts.GetStuntList())
+            {
+                if (GameObject.Chance(50 + mother.childrenStuntChanceIncrease) && i.CanBeBorn(r))
+                {
+                    r.Stunts.AddStunt(i);
+                }
+            }
+            foreach (Stunt i in father.Scenario.GameCommonData.AllStunts.GetStuntList())
+            {
+                if ((GameObject.Random(father.Scenario.GameCommonData.AllStunts.GetStuntList().Count * 2) == 0 ||
+                    GameObject.Chance(father.childrenStuntChanceIncrease + mother.childrenStuntChanceIncrease)) && i.CanBeBorn(r))
+                {
+                    bool ok = true;
+                    foreach (Condition j in i.LearnConditions.Conditions.Values)
+                    {
+                        if (j.Kind.ID == 600 || j.Kind.ID == 610) //check personality kind only
+                        {
+                            if (!j.CheckCondition(r))
+                            {
+                                ok = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (ok)
+                    {
+                        r.Stunts.AddStunt(i);
+                    }
+                }
+            }
+        }
+
+        private static void HandleChildrenSkill(Person father, Person mother, Person r)
+        {
+            foreach (Skill i in father.Skills.GetSkillList())
+            {
+                if (GameObject.Chance(50 + father.childrenSkillChanceIncrease) && i.CanBeBorn(r))
+                {
+                    r.Skills.AddSkill(i);
+                }
+            }
+            foreach (Skill i in mother.Skills.GetSkillList())
+            {
+                if (GameObject.Chance(50 + mother.childrenSkillChanceIncrease) && i.CanBeBorn(r))
+                {
+                    r.Skills.AddSkill(i);
+                }
+            }
+            foreach (Skill i in father.Scenario.GameCommonData.AllSkills.GetSkillList())
+            {
+                if (((GameObject.Random(father.Scenario.GameCommonData.AllSkills.GetSkillList().Count / 2) == 0 && GameObject.Random(i.Level * i.Level / 2 + i.Level) == 0)
+                    ||
+                    GameObject.Chance(father.childrenSkillChanceIncrease + mother.childrenSkillChanceIncrease)) && i.CanBeBorn(r))
+                {
+                    r.Skills.AddSkill(i);
+                }
+            }
+        }
+
+        private static void HandleChildrenCharacter(Person father, Person mother, Person r)
+        {
+            int characterId = 0;
+            do
+            {
+                characterId = GameObject.Random(father.Scenario.GameCommonData.AllCharacterKinds.Count);
+            } while (characterId == 0);
+            r.Character = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.Character : mother.Character) : father.Scenario.GameCommonData.AllCharacterKinds[characterId];
+        }
+
+        private static Architecture HandleChildrenRegion(Person father, Person mother, Person r)
+        {
+            Architecture bornArch = mother.BelongedArchitecture != null ? mother.BelongedArchitecture : father.BelongedArchitecture;
+
+            try //best-effort approach for getting PersonBornRegion
+            {
+                r.BornRegion = (PersonBornRegion)Enum.Parse(typeof(PersonBornRegion), bornArch.LocationState.Name); //mother has no locationarch...
+            }
+            catch (Exception)
+            {
+                r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
+            }
+            return bornArch;
+        }
+
+        private static void AdjustChildrenIdeal(Person father, Person mother, Person r)
+        {
+            r.IdealTendency = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.IdealTendency : mother.IdealTendency) : father.Scenario.GameCommonData.AllIdealTendencyKinds.GetRandomList()[0] as IdealTendencyKind;
+            if (father.BelongedFaction != null || mother.BelongedFaction != null)
+            {
+                Person leader = father.BelongedFaction == null ? mother.BelongedFaction.Leader : father.BelongedFaction.Leader;
+                if (r.IdealTendency.Offset < Person.GetIdealOffset(r, leader))
+                {
+                    if (leader.IdealTendency.Offset >= 0)
+                    {
+                        r.Ideal = leader.Ideal + GameObject.Random(r.IdealTendency.Offset * 2 + 1) - r.IdealTendency.Offset;
+                        r.Ideal = (r.Ideal + 150) % 150;
+                    }
+                    else
+                    {
+                        r.Ideal = leader.Ideal;
+                    }
+                }
+            }
+        }
+
+        private static void HandleChildrenProperty(Person father, Person mother, Person r)
+        {
+            r.Ideal = GameObject.Chance(50) ? father.Ideal + GameObject.Random(10) - 5 : mother.Ideal + GameObject.Random(10) - 5;
+            r.Ideal = (r.Ideal + 150) % 150;
+
+            r.Reputation = (int)((father.Reputation + mother.Reputation) * (GameObject.Random(100) / 100.0 * 0.1 + 0.05)) + father.childrenReputationIncrease + mother.childrenReputationIncrease;
+
+            r.PersonalLoyalty = (GameObject.Chance(50) ? father.PersonalLoyalty : mother.PersonalLoyalty) + GameObject.Random(3) - 1;
+            if (r.PersonalLoyalty < 0) r.PersonalLoyalty = 0;
+            if ((int)r.PersonalLoyalty > Enum.GetNames(typeof(PersonLoyalty)).Length) r.PersonalLoyalty = Enum.GetNames(typeof(PersonLoyalty)).Length;
+
+            r.Ambition = (GameObject.Chance(50) ? father.Ambition : mother.Ambition) + GameObject.Random(3) - 1;
+            if (r.Ambition < 0) r.Ambition = 0;
+            if ((int)r.Ambition > Enum.GetNames(typeof(PersonAmbition)).Length) r.Ambition = Enum.GetNames(typeof(PersonAmbition)).Length;
+
+            r.Qualification = GameObject.Chance(84) ? (GameObject.Chance(50) ? father.Qualification : mother.Qualification) : (PersonQualification)GameObject.Random(Enum.GetNames(typeof(PersonQualification)).Length);
+
+            r.Braveness = (GameObject.Chance(50) ? father.BaseBraveness : mother.BaseBraveness) + GameObject.Random(5) - 2;
+            if (r.BaseBraveness < 1) r.Braveness = 1;
+            if (r.BaseBraveness > 10 && !GlobalVariables.createChildrenIgnoreLimit) r.Braveness = 10;
+
+            r.Calmness = (GameObject.Chance(50) ? father.BaseCalmness : mother.BaseCalmness) + GameObject.Random(5) - 2;
+            if (r.BaseCalmness < 1) r.Calmness = 1;
+            if (r.BaseCalmness > 10 && !GlobalVariables.createChildrenIgnoreLimit) r.Calmness = 10;
+
+            r.ValuationOnGovernment = (GameObject.Chance(50) ? father.ValuationOnGovernment : mother.ValuationOnGovernment);
+
+            r.StrategyTendency = (GameObject.Chance(50) ? father.StrategyTendency : mother.StrategyTendency);
+        }
+
+        private static void HandleChildrenStatus(Person father, Person r)
+        {
+            r.YearBorn = father.Scenario.Date.Year;
+            r.YearAvailable = father.Scenario.Date.Year + GlobalVariables.ChildrenAvailableAge;
+            r.YearDead = r.YearBorn + GameObject.Random(69) + 30;
+        }
+
+        private static void HandleChildrenType(Person father, Person mother, Person r)
+        {
+            int var = 5; //variance / maximum divert from parent ability
+            r.BaseCommand = GameObject.Random(Math.Abs(father.CommandIncludingExperience - mother.CommandIncludingExperience) + 2 * var + 1) + Math.Min(father.CommandIncludingExperience, mother.CommandIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseStrength = GameObject.Random(Math.Abs(father.StrengthIncludingExperience - mother.StrengthIncludingExperience) + 2 * var + 1) + Math.Min(father.StrengthIncludingExperience, mother.StrengthIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseIntelligence = GameObject.Random(Math.Abs(father.IntelligenceIncludingExperience - mother.IntelligenceIncludingExperience) + 2 * var + 1) + Math.Min(father.IntelligenceIncludingExperience, mother.IntelligenceIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BasePolitics = GameObject.Random(Math.Abs(father.PoliticsIncludingExperience - mother.PoliticsIncludingExperience) + 2 * var + 1) + Math.Min(father.PoliticsIncludingExperience, mother.PoliticsIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseGlamour = GameObject.Random(Math.Abs(father.GlamourIncludingExperience - mother.GlamourIncludingExperience) + 2 * var + 1) + Math.Min(father.GlamourIncludingExperience, mother.GlamourIncludingExperience) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            if (!GlobalVariables.createChildrenIgnoreLimit)
+            {
+                if (r.BaseStrength > 100) r.BaseStrength = 100;
+                if (r.BaseStrength < 0) r.BaseStrength = 0;
+                if (r.BaseCommand > 100) r.BaseCommand = 100;
+                if (r.BaseCommand < 0) r.BaseCommand = 0;
+                if (r.BaseIntelligence > 100) r.BaseIntelligence = 100;
+                if (r.BaseIntelligence < 0) r.BaseIntelligence = 0;
+                if (r.BasePolitics > 100) r.BasePolitics = 100;
+                if (r.BasePolitics < 0) r.BasePolitics = 0;
+                if (r.BaseGlamour > 100) r.BaseGlamour = 100;
+                if (r.BaseGlamour < 0) r.BaseGlamour = 0;
+            }
+
+            setNewOfficerFace(r);
+        }
+
+        private static void HandleChildrenName(Person father, Person r)
+        {
+            r.SurName = father.SurName;
+            List<String> givenNameList = r.Sex ? Person.readTextList("CreateChildrenTextFile/femalegivenname.txt") : Person.readTextList("CreateChildrenTextFile/malegivenname.txt");
+            r.GivenName = givenNameList[GameObject.Random(givenNameList.Count)];
+            if (r.GivenName.Length <= 1 && GameObject.Chance(r.Sex ? 90 : 10))
+            {
+                String s;
+                int tries = 0;
+                do
+                {
+                    s = givenNameList[GameObject.Random(givenNameList.Count)];
+                    tries++;
+                } while (s.Length > 1 && tries < 100);
+                r.GivenName += s;
+            }
+            r.CalledName = "";
+        }
+
+        private static void HandleChildrenRelation(Person father, Person mother, Person r)
+        {
+            r.Father = father;
+            r.Mother = mother;
+            r.Generation = father.Generation + 1;
+            r.Strain = father.Strain;
+
+            r.Sex = GameObject.Chance(father.Scenario.GameCommonData.PersonGeneratorSetting.femaleChance) ? true : false;
+        }
+
+        private static Person HandleChildrenId(Person father)
+        {
+            Person r = new Person();
+
+            //look for empty id
+            int id = 5000;
+            PersonList pl = father.Scenario.Persons as PersonList;
+            pl.SmallToBig = true;
+            pl.IsNumber = true;
+            pl.PropertyName = "ID";
+            pl.ReSort();
+            foreach (Person p in pl)
+            {
+                if (p.ID == id)
+                {
+                    id++;
+                    if (id >= 7000 && id < 10000)
+                    {
+                        id = 10000;
+                    }
+                }
+                else if (p.ID > id)
+                {
+                    break;
+                }
+            }
+            r.ID = id;
             return r;
         }
 
