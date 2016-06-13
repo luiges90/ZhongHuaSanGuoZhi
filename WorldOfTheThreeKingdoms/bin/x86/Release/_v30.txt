@@ -1,5 +1,3 @@
-- 事件可選是否
-
 - 納妃可能會拒絕
 
 - 忠誠重製(類似信長14那種)
@@ -13,3 +11,11 @@
 - 戰法/影響算法整理，先計算公式再使用影響力，調整AI
 
 - 軍史
+
+- stunt remake
+
+- lower zhaoxian prob, increase search prob
+
+- remove cheap officers?
+
+- checkDeath apply new age calc

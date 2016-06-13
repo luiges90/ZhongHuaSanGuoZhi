@@ -4081,13 +4081,13 @@
 
         private bool IsChanceOfGeneratingOfficer(int factionPersonCount, bool isAI, PersonGeneratorType preferredType)
         {
-            float coef = isAI ? Parameters.AIExtraPerson + 1 : 1;
+            float coef = isAI ? Parameters.AIExtraPerson : 1;
             if (coef <= 0)
             {
                 return false ;
             }
 
-            float result = GameObject.Random((int)(10000 * Math.Pow(factionPersonCount, Parameters.SearchPersonArchitectureCountPower)));
+            float result = GameObject.Random((int)(10000 * Math.Pow(factionPersonCount, Parameters.SearchPersonArchitectureCountPower))) * preferredType.generationChance / 100;
             float target = GlobalVariables.ZhaoXianSuccessRate * 100 * coef;
             return result < target;
         }
@@ -5643,7 +5643,7 @@
                     totalHostilePersonCount += troop.PersonCount;
                 }
                 int send = totalHostilePersonCount / 2;
-                foreach (Architecture a in this.BelongedFaction.Architectures)
+                foreach (Architecture a in this.BelongedSection.Architectures)
                 {
                     if (a == this) continue;
                     if (a.HasHostileTroopsInView()) continue;
@@ -5663,7 +5663,7 @@
                     totalHostilePersonCount += troop.PersonCount;
                 }
                 int send = totalHostilePersonCount / 2;
-                foreach (Architecture a in this.BelongedFaction.Architectures)
+                foreach (Architecture a in this.BelongedSection.Architectures)
                 {
                     if (a == this) continue;
                     if (a.HasHostileTroopsInView()) continue;
@@ -10945,7 +10945,20 @@
                         base.Scenario.YearTable.addBecomeNoFactionDueToDestructionEntry(base.Scenario.Date, person2, this.BelongedFaction);
                         person2.Status = PersonStatus.NoFaction;
                         person2.LocationArchitecture = this;
-                        person2.Reputation = (int)(person2.Reputation * 0.95);
+                        if (leader == person2)
+                        {
+                            person2.Reputation = (int)(person2.Reputation * 0.6);
+                        }
+                        else
+                        {
+                            person2.Reputation = (int)(person2.Reputation * 0.95);
+                        }
+
+                        int hateDays = (int) (Math.Pow(5, person2.PersonalLoyalty - 2) * 10 + GameObject.Random(20) - 10);
+                        if (hateDays > 0)
+                        {
+                            person2.ProhibitedFactionID.Add(faction.ID, hateDays);
+                        }
                     }
                     //this.Persons.Clear();
                     while (this.MovingPersons.Count > 0)
@@ -10959,7 +10972,20 @@
                         person2.LocationArchitecture = this;
                         person2.TargetArchitecture = null;
 
-                        person2.Reputation = (int)(person2.Reputation * 0.95);
+                        if (leader == person2)
+                        {
+                            person2.Reputation = (int)(person2.Reputation * 0.6);
+                        }
+                        else
+                        {
+                            person2.Reputation = (int)(person2.Reputation * 0.95);
+                        }
+
+                        int hateDays = (int)(Math.Pow(5, person2.PersonalLoyalty - 2) * 10 + GameObject.Random(20) - 10);
+                        if (hateDays > 0)
+                        {
+                            person2.ProhibitedFactionID.Add(faction.ID, hateDays);
+                        }
                     }
 
                     //if ((leader.LocationTroop == null) || leader.IsCaptive)
