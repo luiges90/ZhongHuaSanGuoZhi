@@ -137,8 +137,6 @@
 
         public static float ZhaoXianSuccessRate = 30;
 
-        public static int FactionMilitaryLimt = 5;
-
         public static int TroopTirednessDecrease = 10;
 
         public static float CreateRandomOfficerChance = 5;
