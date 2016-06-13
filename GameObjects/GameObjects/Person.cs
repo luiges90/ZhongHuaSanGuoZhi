@@ -7784,64 +7784,101 @@
 
         private static Person createPerson(GameScenario scen, Architecture foundLocation, Person finder, bool inGame, PersonGeneratorType preferredType, bool autoJoin)
         {
-            
-            Person r = new Person();
 
-            //look for empty id
-            int id = 25000;
-            PersonList pl = scen.Persons as PersonList;
-            pl.SmallToBig = true;
-            pl.IsNumber = true;
-            pl.PropertyName = "ID";
-            pl.ReSort();
-            foreach (Person p in pl)
+            Person r = HandleID(scen);
+
+            PersonGeneratorSetting options = HandlePersonRelation(scen, foundLocation, ref finder, r);
+
+            HandleName(r);
+
+
+            int officerType;
+            int titleChance;
+
+            HandlePersonGeneratorType(scen, inGame, preferredType, r, options, out officerType, out titleChance);
+
+            HandleIdeal(scen, foundLocation, r);
+
+
+            HandlePersonCharacter(scen, r, officerType);
+
+            HandleSkill(scen, r, officerType);
+
+            HandleStunt(scen, r, officerType);
+
+            HandleTitle(scen, r, officerType, titleChance);
+
+
+            HandleBiography(scen, foundLocation, finder, r);
+
+            HandleStatus(scen, foundLocation, autoJoin, r);
+
+            return r;
+        }
+
+        private static void HandlePersonCharacter(GameScenario scen, Person r, int officerType)
+        {
+            r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
+
             {
-                if (p.ID == id)
+                Dictionary<CharacterKind, int> chances = new Dictionary<CharacterKind, int>();
+                foreach (CharacterKind t in scen.GameCommonData.AllCharacterKinds)
                 {
-                    id++;
-                    
+                    chances.Add(t, t.GenerationChance[(int)officerType]);
                 }
-                else if (p.ID > id)
+
+                int sum = 0;
+                foreach (int i in chances.Values)
                 {
-                    break;
+                    sum += i;
+                }
+
+                int p = GameObject.Random(sum);
+                double pt = 0;
+                foreach (KeyValuePair<CharacterKind, int> td in chances)
+                {
+                    pt += td.Value;
+                    if (p < pt)
+                    {
+                        r.Character = td.Key;
+                        break;
+                    }
                 }
             }
-            r.ID = id;
+        }
 
-            r.Scenario = scen;
-
-            r.Father = null;
-            r.Mother = null;
-            r.Generation = 1;
-            r.Strain = r.ID;
-            finder = foundLocation.BelongedFaction.Leader;
-
-            PersonGeneratorSetting options = scen.GameCommonData.PersonGeneratorSetting;
-
-            r.Sex = GameObject.Chance(options.femaleChance) ? true : false;
-
-            List<String> surnameList = Person.readTextList("CreateChildrenTextFile/surname.txt");
-            r.SurName = surnameList[GameObject.Random(surnameList.Count)];
-            List<String> givenNameList = r.Sex ? Person.readTextList("CreateChildrenTextFile/femalegivenname.txt") : Person.readTextList("CreateChildrenTextFile/malegivenname.txt");
-            r.GivenName = givenNameList[GameObject.Random(givenNameList.Count)];
-            if (r.GivenName.Length <= 1 && GameObject.Chance(r.Sex ? 90 : 10))
+        private static void HandleIdeal(GameScenario scen, Architecture foundLocation, Person r)
+        {
+            if ((scen.IsPlayer(foundLocation.BelongedFaction) && GlobalVariables.PlayerZhaoxianFixIdeal) ||
+                (!scen.IsPlayer(foundLocation.BelongedFaction) && GlobalVariables.AIZhaoxianFixIdeal))
             {
-                String s;
-                int tries = 0;
-                do
+                GameObjectList ideals = scen.GameCommonData.AllIdealTendencyKinds;
+                IdealTendencyKind minIdeal = null;
+                foreach (IdealTendencyKind itk in ideals)
                 {
-                    s = givenNameList[GameObject.Random(givenNameList.Count)];
-                    tries++;
-                } while (s.Length > 1 && tries < 100);
-                r.GivenName += s;
+                    if (minIdeal == null || itk.Offset < minIdeal.Offset)
+                    {
+                        minIdeal = itk;
+                    }
+                }
+
+                r.IdealTendency = minIdeal;
+                r.Ideal = (foundLocation.BelongedFaction.Leader.Ideal + GameObject.Random(minIdeal.Offset * 2 + 1) - minIdeal.Offset) % 150;
+
+
             }
-            r.CalledName = "";
+            else
+            {
+                r.Ideal = GameObject.Random(150);
+            }
+        }
 
-           
-            int officerType = preferredType.ID ;
-            
+        private static void HandlePersonGeneratorType(GameScenario scen, bool inGame, PersonGeneratorType preferredType, Person r, PersonGeneratorSetting options, out int officerType, out int titleChance)
+        {
+            officerType = preferredType.ID;
 
-            int titleChance = 0;
+
+            titleChance = 0;
 
             PersonGeneratorType typeParam = (PersonGeneratorType)scen.GameCommonData.AllPersonGeneratorTypes.GetGameObject(officerType);
             r.BaseCommand = GameObject.RandomGaussianRange(typeParam.commandLo, typeParam.commandHi);
@@ -7871,7 +7908,7 @@
 
             setNewOfficerFace(r);
 
-           
+
 
             r.YearBorn = scen.Date.Year + GameObject.Random(options.bornLo, options.bornHi);
             r.YearAvailable = scen.Date.Year + (inGame ? 0 : GameObject.Random(options.debutLo, options.debutHi));
@@ -7883,85 +7920,115 @@
             r.ValuationOnGovernment = (PersonValuationOnGovernment)GameObject.Random(Enum.GetNames(typeof(PersonValuationOnGovernment)).Length);
             r.StrategyTendency = (PersonStrategyTendency)GameObject.Random(Enum.GetNames(typeof(PersonStrategyTendency)).Length);
             r.IdealTendency = scen.GameCommonData.AllIdealTendencyKinds.GetRandomList()[0] as IdealTendencyKind;
+        }
 
-            if ((scen.IsPlayer(foundLocation.BelongedFaction) && GlobalVariables.PlayerZhaoxianFixIdeal) ||
-                (!scen.IsPlayer(foundLocation.BelongedFaction) && GlobalVariables.AIZhaoxianFixIdeal))
+        private static void HandleName(Person r)
+        {
+            List<String> surnameList = Person.readTextList("CreateChildrenTextFile/surname.txt");
+            r.SurName = surnameList[GameObject.Random(surnameList.Count)];
+            List<String> givenNameList = r.Sex ? Person.readTextList("CreateChildrenTextFile/femalegivenname.txt") : Person.readTextList("CreateChildrenTextFile/malegivenname.txt");
+            r.GivenName = givenNameList[GameObject.Random(givenNameList.Count)];
+            if (r.GivenName.Length <= 1 && GameObject.Chance(r.Sex ? 90 : 10))
             {
-                GameObjectList ideals = scen.GameCommonData.AllIdealTendencyKinds;
-                IdealTendencyKind minIdeal = null;
-                foreach (IdealTendencyKind itk in ideals)
+                String s;
+                int tries = 0;
+                do
                 {
-                    if (minIdeal == null || itk.Offset < minIdeal.Offset)
-                    {
-                        minIdeal = itk;
-                    }
+                    s = givenNameList[GameObject.Random(givenNameList.Count)];
+                    tries++;
+                } while (s.Length > 1 && tries < 100);
+                r.GivenName += s;
+            }
+            r.CalledName = "";
+        }
+
+        private static PersonGeneratorSetting HandlePersonRelation(GameScenario scen, Architecture foundLocation, ref Person finder, Person r)
+        {
+            r.Scenario = scen;
+
+            r.Father = null;
+            r.Mother = null;
+            r.Generation = 1;
+            r.Strain = r.ID;
+            finder = foundLocation.BelongedFaction.Leader;
+
+            PersonGeneratorSetting options = scen.GameCommonData.PersonGeneratorSetting;
+
+            r.Sex = GameObject.Chance(options.femaleChance) ? true : false;
+            return options;
+        }
+
+        private static Person HandleID(GameScenario scen)
+        {
+            Person r = new Person();
+
+            //look for empty id
+            int id = 25000;
+            PersonList pl = scen.Persons as PersonList;
+            pl.SmallToBig = true;
+            pl.IsNumber = true;
+            pl.PropertyName = "ID";
+            pl.ReSort();
+            foreach (Person p in pl)
+            {
+                if (p.ID == id)
+                {
+                    id++;
+
                 }
+                else if (p.ID > id)
+                {
+                    break;
+                }
+            }
+            r.ID = id;
+            return r;
+        }
 
-                r.IdealTendency = minIdeal;
-                r.Ideal = (foundLocation.BelongedFaction.Leader.Ideal + GameObject.Random(minIdeal.Offset * 2 + 1) - minIdeal.Offset) % 150;
-            
-
+        private static void HandleStatus(GameScenario scen, Architecture foundLocation, bool autoJoin, Person r)
+        {
+            r.Alive = true;
+            r.Available = true;
+            r.LocationArchitecture = foundLocation;
+            if (autoJoin)
+            {
+                r.Status = PersonStatus.Normal;
+                r.Loyalty = 100;
             }
             else
             {
-                r.Ideal = GameObject.Random(150);
+                r.Status = PersonStatus.NoFaction;
+                r.Loyalty = 0;
             }
-            
+            r.YearJoin = scen.Date.Year;
 
-            r.BornRegion = (PersonBornRegion)GameObject.Random(Enum.GetNames(typeof(PersonBornRegion)).Length);
+            scen.Persons.Add(r);
 
+            ExtensionInterface.call("CreatePerson", new Object[] { scen, r });
+        }
+
+        private static void HandleBiography(GameScenario scen, Architecture foundLocation, Person finder, Person r)
+        {
+            String biography = "";
+            if (foundLocation != null && finder != null)
             {
-                Dictionary<CharacterKind, int> chances = new Dictionary<CharacterKind, int>();
-                foreach (CharacterKind t in scen.GameCommonData.AllCharacterKinds)
-                {
-                    chances.Add(t, t.GenerationChance[(int)officerType]);
-                }
-
-                int sum = 0;
-                foreach (int i in chances.Values)
-                {
-                    sum += i;
-                }
-
-                int p = GameObject.Random(sum);
-                double pt = 0;
-                foreach (KeyValuePair<CharacterKind, int> td in chances)
-                {
-                    pt += td.Value;
-                    if (p < pt)
-                    {
-                        r.Character = td.Key;
-                        break;
-                    }
-                }
+                biography += "于" + scen.Date.Year + "年" + scen.Date.Month + "月在" + foundLocation.Name + "被" + finder.Name + "发掘成才。";
             }
 
-            foreach (Skill s in scen.GameCommonData.AllSkills.Skills.Values)
-            {
-                if (s.CanBeChosenForGenerated())
-                {
-                    int chance = s.GenerationChance[(int)officerType];
-                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
-                    if (GameObject.Chance(chance))
-                    {
-                        r.Skills.AddSkill(s);
-                    }
-                }
-            }
+            biography += Person.GenerateBiography(r, scen);
 
-            foreach (Stunt s in scen.GameCommonData.AllStunts.Stunts.Values)
-            {
-                if (s.CanBeChosenForGenerated())
-                {
-                    int chance = s.GenerationChance[(int)officerType];
-                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
-                    if (GameObject.Random(1000) <= chance)
-                    {
-                        r.Stunts.AddStunt(s);
-                    }
-                }
-            }
+            Biography bio = new Biography();
+            bio.Brief = biography;
+            bio.ID = r.ID;
+            bio.FactionColor = 52;
+            bio.MilitaryKinds.AddBasicMilitaryKinds(scen);
+            scen.AllBiographies.AddBiography(bio);
 
+            r.PersonBiography = bio;
+        }
+
+        private static void HandleTitle(GameScenario scen, Person r, int officerType, int titleChance)
+        {
             if (GameObject.Chance(titleChance))
             {
                 Dictionary<TitleKind, List<Title>> titles = Title.GetKindTitleDictionary(scen);
@@ -7996,45 +8063,38 @@
                     }
                 }
             }
-            
-            
-            String biography = "";
-            if (foundLocation != null && finder != null)
+        }
+
+        private static void HandleStunt(GameScenario scen, Person r, int officerType)
+        {
+            foreach (Stunt s in scen.GameCommonData.AllStunts.Stunts.Values)
             {
-                biography += "于" + scen.Date.Year + "年" + scen.Date.Month + "月在" + foundLocation.Name + "被" + finder.Name + "发掘成才。";
+                if (s.CanBeChosenForGenerated())
+                {
+                    int chance = s.GenerationChance[(int)officerType];
+                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
+                    if (GameObject.Random(1000) <= chance)
+                    {
+                        r.Stunts.AddStunt(s);
+                    }
+                }
             }
+        }
 
-            biography += Person.GenerateBiography(r, scen);
-
-            Biography bio = new Biography();
-            bio.Brief = biography;
-            bio.ID = r.ID;
-            bio.FactionColor = 52;
-            bio.MilitaryKinds.AddBasicMilitaryKinds(scen);
-            scen.AllBiographies.AddBiography(bio);
-
-            r.PersonBiography = bio;
-            
-            r.Alive = true;
-            r.Available = true;
-            r.LocationArchitecture = foundLocation;
-            if (autoJoin)
+        private static void HandleSkill(GameScenario scen, Person r, int officerType)
+        {
+            foreach (Skill s in scen.GameCommonData.AllSkills.Skills.Values)
             {
-                r.Status = PersonStatus.Normal;
-                r.Loyalty = 100;
+                if (s.CanBeChosenForGenerated())
+                {
+                    int chance = s.GenerationChance[(int)officerType];
+                    chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);
+                    if (GameObject.Chance(chance))
+                    {
+                        r.Skills.AddSkill(s);
+                    }
+                }
             }
-            else
-            {
-                r.Status = PersonStatus.NoFaction;
-                r.Loyalty = 0;
-            }
-            r.YearJoin = scen.Date.Year;
-
-            scen.Persons.Add(r);
-
-            ExtensionInterface.call("CreatePerson", new Object[] { scen, r });
-
-            return r;
         }
 
         
