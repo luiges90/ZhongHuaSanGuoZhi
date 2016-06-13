@@ -3,20 +3,20 @@
     using GameObjects;
     using System;
 
-    internal class EventEffect600 : EventEffectKind
+    internal class EventEffect4000 : EventEffectKind
     {
-        private String tag;
+        private int type;
 
         public override void ApplyEffectKind(Person person, Event e)
         {
-            person.Tags += tag + ",";
+            person.PictureIndex = type;
         }
 
         public override void InitializeParameter(string parameter)
         {
             try
             {
-                this.tag = parameter;
+                this.type = int.Parse(parameter);
             }
             catch
             {
@@ -24,6 +24,3 @@
         }
     }
 }
-
-
- 

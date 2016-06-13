@@ -1280,13 +1280,19 @@
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect230.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect235.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect250.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect270.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect275.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect280.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect290.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect4000.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind450.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind520.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind530.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind540.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind680.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind690.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind750.cs" />
+    <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind760.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind808.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind809.cs" />
     <Compile Include="GameObjects\Conditions\ConditionKindPack\ConditionKind818.cs" />
@@ -1349,6 +1355,8 @@
     <Compile Include="GameObjects\PersonDetail\PersonGeneratorSetting.cs" />
     <Compile Include="GameObjects\PersonDetail\PersonGeneratorType.cs" />
     <Compile Include="GameObjects\PersonDetail\PersonGeneratorTypeList.cs" />
+    <Compile Include="GameObjects\PersonDetail\PersonRelationValue.cs" />
+    <Compile Include="GameObjects\PersonDetail\PersonRelationValueList.cs" />
     <Compile Include="GameObjects\TroopDetail\EventEffect\EventEffectKindPack\EventEffectKind80.cs" />
   </ItemGroup>
 </Project>

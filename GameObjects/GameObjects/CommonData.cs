@@ -106,6 +106,7 @@
             this.AllTroopEventEffects.Clear();
             this.suoyouguanjuezhonglei.Clear();
             this.suoyouzainanzhonglei.Clear();
+            this.AllPersonGeneratorTypes.Clear();
         }
 
         public List<string> LoadTerrainDetail(OleDbConnection connection, GameScenario scen)

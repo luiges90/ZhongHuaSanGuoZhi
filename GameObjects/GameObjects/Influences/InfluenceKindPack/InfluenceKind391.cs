@@ -29,7 +29,11 @@
             int pureFightingForce = source.PureFightingForce;
             foreach (Troop troop in source.GetAreaStratagemTroops(destination, false))
             {
-                int num3 = source.GetStratagemSuccessChanceCredit(troop, source.InevitableRaoluanOnLowerIntelligence || source.InevitableStratagemOnLowerIntelligence, (troop.NeverBeIntoChaos || troop.OutburstNeverBeIntoChaos) || troop.InvincibleRaoluan, troop.InvincibleStratagemFromLowerIntelligence);
+                int num3 = source.GetStratagemSuccessChanceCredit(troop, source.InevitableRaoluanOnLowerIntelligence || source.InevitableStratagemOnLowerIntelligence, (troop.NeverBeIntoChaos || troop.OutburstNeverBeIntoChaos) || troop.InvincibleRaoluan, troop.InvincibleStratagemFromLowerIntelligence); 
+                if (destination.ChaosDayLeft > 2)
+                {
+                    num3 /= (destination.ChaosDayLeft - 1);
+                }
                 if (num3 > 0)
                 {
                     num3 = (((num3 + ((120 - troop.Morale) / 2)) + ((troop.Army.Scales - 5) * 5)) * troop.PureFightingForce) / pureFightingForce;

@@ -4122,6 +4122,13 @@
 
         }
 
+        public void GenerateOfficer(PersonGeneratorType preferredType, bool success) //事件专用
+        {
+            PersonGenerateParam param = new PersonGenerateParam(Scenario, this, this.BelongedFaction.Leader, true, preferredType, false);
+            Person r = Person.createPerson(param, true);
+            //this.ZhaoXian(r);
+            this.DecreaseFund(preferredType.CostFund);
+        }
         
         public event Zhaoxian OnZhaoxian; //招贤
         public delegate void Zhaoxian(Person p, Person q);
@@ -4428,6 +4435,41 @@
                 }
             }
             this.BelongedFaction.RoutewayPathBuilder.ConsumptionMax = 0.7f;
+        }
+
+        private void RefreshNeutralBuilding()
+        {
+            if (this.Kind.ID == 250)
+            {
+                this.Endurance += 50;
+                this.Domination += 5;
+                this.Morale += 10;
+                this.BelongedFaction = null;
+                foreach (Troop troop in base.Scenario.Troops)
+                {
+                    if (troop.BelongedFaction != null && this.ViewArea.HasPoint(troop.Position))
+                    {
+                        if (troop.Army.Tiredness > 0)
+                        {
+                            troop.Army.Tiredness -= GlobalVariables.TroopTirednessDecrease;
+                        }
+
+                        if (troop.Morale < 100)
+                        {
+                            troop.Morale += 10;
+                        }
+
+                        if (troop.Combativity < 100)
+                        {
+                            troop.Combativity += 10;
+                        }
+                    }
+                    if (troop.Army.Tiredness < 0)
+                    {
+                        troop.Army.Tiredness = 0;
+                    }
+                }
+            }
         }
 
         private void CheckRobberTroop()
@@ -4992,7 +5034,7 @@
 
         public void DayEvent()
         {
-            //this.CheckMayor();
+            this.RefreshNeutralBuilding(); //  加buff中立建筑
             this.FundPacksDayEvent();
             this.FoodPacksDayEvent();
             this.PopulationPacksDayEvent();
@@ -5019,6 +5061,8 @@
             ExpectedFundCache = -1;
             this.SuspendTroopTransfer--;
         }
+
+
 
         private void RestEvent()
         {
@@ -5589,6 +5633,25 @@
                             t.Destroy(true, false);
                         }
                     }
+                }
+            }
+            else if (!this.HasPerson() && this.HasCampaignableMilitary())
+            {
+                int totalHostilePersonCount = 0;
+                foreach (Troop troop in this.GetHostileTroopsInView())
+                {
+                    totalHostilePersonCount += troop.PersonCount;
+                }
+                int send = totalHostilePersonCount / 2;
+                foreach (Architecture a in this.BelongedFaction.Architectures)
+                {
+                    if (a == this) continue;
+                    if (a.HasHostileTroopsInView()) continue;
+
+                    if (a.PersonCount <= send) continue;
+
+                    this.CallPeople(a, send);
+
                 }
             }
 

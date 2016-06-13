@@ -136,6 +136,11 @@
         public static int FactionMilitaryLimt = 5;
 
         public static float ZhaoXianSuccessRate = 30;
+
+        public static int FactionMilitaryLimt = 5;
+
+        public static int TroopTirednessDecrease = 10;
+
         public static float CreateRandomOfficerChance = 5;
         
         public static int ChildrenAvailableAge = 12;
@@ -865,14 +870,24 @@
                 exception = exception24;
                 throw new Exception("PermitManualAwardTitleAutoLearn:\n" + exception.ToString());
             }
+
             try
             {
                 zhaoxianOfficerMax = int.Parse(nextSibling.Attributes.GetNamedItem("zhaoxianOfficerMax").Value);
+			}
+            catch (Exception exception24)
+            {
+                exception = exception24;
+				throw new Exception("zhaoxianOfficerMax:\n" + exception.ToString());
+			}
+            try 
+            {
+                FactionMilitaryLimt = int.Parse(nextSibling.Attributes.GetNamedItem("FactionMilitaryLimt").Value);
             }
             catch (Exception exception24)
             {
                 exception = exception24;
-                throw new Exception("zhaoxianOfficerMax:\n" + exception.ToString());
+                throw new Exception("FactionMilitaryLimt:\n" + exception.ToString());
             }
             try
             {
