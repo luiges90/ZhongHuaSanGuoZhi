@@ -1208,8 +1208,9 @@
             }
         }
 
-        public void KilledInBattle(Person killer)
+        public void KilledInBattle(Troop killingTroop, Person killer)
         {
+            killingTroop.Army.OfficerKillCount++;
             killer.OfficerKillCount++;
             this.Scenario.YearTable.addKilledInBattleEntry(this.Scenario.Date, killer, this);
 
@@ -1259,7 +1260,7 @@
                 kill = killer.Persons.GetMaxStrengthPerson();
             }
 
-            this.KilledInBattle(kill);
+            this.KilledInBattle(killer, kill);
         }
 
         public void ToDeath(Person killerInBattle, Faction oldFaction)
