@@ -6765,16 +6765,14 @@
                         this.EventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
-
                     }
-                    if (!this.YesEventsToApply.ContainsKey(e))
+                    if (!this.YesEventsToApply.ContainsKey(e) && e.yesEffect.Count > 0)
                     {
                         this.YesEventsToApply.Add(e, triggerArch);
-
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
-                    if (!this.NoEventsToApply.ContainsKey(e))
+                    if (!this.NoEventsToApply.ContainsKey(e) && e.noEffect.Count > 0)
                     {
                         this.NoEventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
@@ -6797,17 +6795,15 @@
                         this.EventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
-
                     }
 
-                    if (!this.YesEventsToApply.ContainsKey(e))
+                    if (!this.YesEventsToApply.ContainsKey(e) && e.yesEffect.Count > 0)
                     {
                         this.YesEventsToApply.Add(e, triggerArch);
-
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
-                    if (!this.NoEventsToApply.ContainsKey(e))
+                    if (!this.NoEventsToApply.ContainsKey(e) && e.noEffect.Count > 0)
                     {
                         this.NoEventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
