@@ -4703,8 +4703,6 @@
                             e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
                             e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
 
-                            e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
-                            e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
                             try
                             {
                                 e.nextScenario = reader["NextScenario"].ToString();
@@ -4736,14 +4734,14 @@
                             {
 
                             }
-                           /* try
+                            try
                             {
                                 e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
                                 e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
                             }
                             catch
                             {
-                            }*/
+                            }
                             this.AllEvents.AddEventWithEvent(e);
                         }
                         catch (FormatException)
