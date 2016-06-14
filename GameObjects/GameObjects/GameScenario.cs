@@ -4703,8 +4703,6 @@
                             e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
                             e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
 
-                            e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
-                            e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
                             try
                             {
                                 e.nextScenario = reader["NextScenario"].ToString();
@@ -4736,14 +4734,14 @@
                             {
 
                             }
-                           /* try
+                            try
                             {
                                 e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
                                 e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
                             }
                             catch
                             {
-                            }*/
+                            }
                             this.AllEvents.AddEventWithEvent(e);
                         }
                         catch (FormatException)
@@ -6767,16 +6765,14 @@
                         this.EventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
-
                     }
-                    if (!this.YesEventsToApply.ContainsKey(e))
+                    if (!this.YesEventsToApply.ContainsKey(e) && e.yesEffect.Count > 0)
                     {
                         this.YesEventsToApply.Add(e, triggerArch);
-
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
-                    if (!this.NoEventsToApply.ContainsKey(e))
+                    if (!this.NoEventsToApply.ContainsKey(e) && e.noEffect.Count > 0)
                     {
                         this.NoEventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
@@ -6799,17 +6795,15 @@
                         this.EventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
-
                     }
 
-                    if (!this.YesEventsToApply.ContainsKey(e))
+                    if (!this.YesEventsToApply.ContainsKey(e) && e.yesEffect.Count > 0)
                     {
                         this.YesEventsToApply.Add(e, triggerArch);
-
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
-                    if (!this.NoEventsToApply.ContainsKey(e))
+                    if (!this.NoEventsToApply.ContainsKey(e) && e.noEffect.Count > 0)
                     {
                         this.NoEventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
