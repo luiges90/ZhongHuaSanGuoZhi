@@ -166,6 +166,29 @@ namespace ScenarioGenerator
                             p.ArrivingDays = 0;
                         }
                     }
+                    foreach (Architecture i in a.AILandLinks.GetList())
+                    {
+                        foreach (Architecture j in a.AILandLinks.GetList())
+                        {
+                            if (i != j && a != i && a != j && !i.AILandLinks.GameObjects.Contains(j) && !j.AILandLinks.GameObjects.Contains(i))
+                            {
+                                i.AILandLinks.Add(j);
+                                j.AILandLinks.Add(i);
+                            }
+                        }
+                    }
+
+                    foreach (Architecture i in a.AIWaterLinks.GetList())
+                    {
+                        foreach (Architecture j in a.AIWaterLinks.GetList())
+                        {
+                            if (i != j && a != i && a != j && !i.AIWaterLinks.GameObjects.Contains(j) && !j.AIWaterLinks.GameObjects.Contains(i))
+                            {
+                                i.AIWaterLinks.Add(j);
+                                j.AIWaterLinks.Add(i);
+                            }
+                        }
+                    }
                     this.scen.Architectures.Remove(a);
                     deleted++;
                     if (toDeleteCnt <= deleted) break;
@@ -175,16 +198,6 @@ namespace ScenarioGenerator
             }
 
             this.scen.ClearPersonStatusCache();
-
-            foreach (Architecture architecture2 in this.scen.Architectures)
-            {
-                architecture2.AILandLinks.Clear();
-                architecture2.AIWaterLinks.Clear();
-            }
-            foreach (Architecture architecture2 in this.scen.Architectures)
-            {
-                architecture2.FindLinks(this.scen.Architectures);
-            }
         }
 
         private void deletePerson()
