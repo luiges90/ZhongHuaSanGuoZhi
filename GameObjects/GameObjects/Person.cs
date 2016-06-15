@@ -1384,8 +1384,7 @@
                 }
                 else
                 {
-                    //yearDead = Math.Max(this.YearDead, this.YearBorn + 18 + this.PersonalLoyalty * 8 - this.Ambition * 8 + this.Intelligence / 4 + this.Strength / 4);
-                    yearDead = this.YearDead + 80;
+                    yearDead = Math.Max(this.YearDead, this.YearBorn + 18 + this.PersonalLoyalty * 8 - this.Ambition * 8 + this.Intelligence / 4 + this.Strength / 4);
                 }
 
                 if (yearDead - 5 <= base.Scenario.Date.Year && base.Scenario.Date.Year < this.YearDead &&
