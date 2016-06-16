@@ -1384,7 +1384,14 @@
                 }
                 else
                 {
-                    yearDead = Math.Max(this.YearDead, this.YearBorn + 18 + this.PersonalLoyalty * 8 - this.Ambition * 8 + this.Intelligence / 4 + this.Strength / 4);
+                    if (GlobalVariables.FixedUnnaturalDeathAge <= 0)
+                    {
+                        yearDead = Math.Max(this.YearDead, this.YearBorn + 18 + this.PersonalLoyalty * 8 - this.Ambition * 8 + this.Intelligence / 4 + this.Strength / 4);
+                    }
+                    else
+                    {
+                        yearDead = Math.Max(this.YearDead, this.YearBorn + GlobalVariables.FixedUnnaturalDeathAge);
+                    }
                 }
 
                 if (yearDead - 5 <= base.Scenario.Date.Year && base.Scenario.Date.Year < this.YearDead &&
