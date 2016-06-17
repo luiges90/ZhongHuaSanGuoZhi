@@ -133,9 +133,9 @@
         public static int MaxMilitaryExperience = 3000;
         public static float ArmyPopulationCap = 1.0f; //兵力上限 
 
-        public static float ZhaoXianSuccessRate = 30;
-
         public static int FactionMilitaryLimt = 5;
+
+        public static float ZhaoXianSuccessRate = 30;
 
         public static int TroopTirednessDecrease = 10;
 
@@ -880,23 +880,23 @@
                 exception = exception24;
 				throw new Exception("zhaoxianOfficerMax:\n" + exception.ToString());
 			}
-            try 
-            {
-                FactionMilitaryLimt = int.Parse(nextSibling.Attributes.GetNamedItem("FactionMilitaryLimt").Value);
-            }
-            catch (Exception exception24)
-            {
-                exception = exception24;
-                throw new Exception("FactionMilitaryLimt:\n" + exception.ToString());
-            }
+            
             try
             {
+
+                FactionMilitaryLimt = int.Parse(nextSibling.Attributes.GetNamedItem("FactionMilitaryLimt").Value);
+
                 FixedUnnaturalDeathAge = int.Parse(nextSibling.Attributes.GetNamedItem("FixedUnnaturalDeathAge").Value);
+
             }
             catch (Exception exception24)
             {
                 exception = exception24;
+
+                throw new Exception("FactionMilitaryLimt:\n" + exception.ToString());
+
                 throw new Exception("FixedUnnaturalDeathAge:\n" + exception.ToString());
+
             }
             return true;
         }
