@@ -891,14 +891,20 @@
             }
             try
             {
+
                 FactionMilitaryLimt = int.Parse(nextSibling.Attributes.GetNamedItem("FactionMilitaryLimt").Value);
+
                 FixedUnnaturalDeathAge = int.Parse(nextSibling.Attributes.GetNamedItem("FixedUnnaturalDeathAge").Value);
+
             }
             catch (Exception exception24)
             {
                 exception = exception24;
+
                 throw new Exception("FactionMilitaryLimt:\n" + exception.ToString());
+
                 throw new Exception("FixedUnnaturalDeathAge:\n" + exception.ToString());
+
             }
             return true;
         }
