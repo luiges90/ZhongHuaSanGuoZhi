@@ -159,6 +159,8 @@
         public static bool AIZhaoxianFixIdeal = true;
         public static bool PlayerZhaoxianFixIdeal = true;
 
+        public static int FixedUnnaturalDeathAge = 80;
+
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()
@@ -890,11 +892,13 @@
             try
             {
                 FactionMilitaryLimt = int.Parse(nextSibling.Attributes.GetNamedItem("FactionMilitaryLimt").Value);
+                FixedUnnaturalDeathAge = int.Parse(nextSibling.Attributes.GetNamedItem("FixedUnnaturalDeathAge").Value);
             }
             catch (Exception exception24)
             {
                 exception = exception24;
                 throw new Exception("FactionMilitaryLimt:\n" + exception.ToString());
+                throw new Exception("FixedUnnaturalDeathAge:\n" + exception.ToString());
             }
             return true;
         }

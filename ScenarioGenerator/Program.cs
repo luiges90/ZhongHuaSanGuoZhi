@@ -44,7 +44,6 @@ namespace ScenarioGenerator
 
                     sw.Close();
 
-                    String savePath = "CrashSave" + dateSuffix + (GameGlobal.GlobalVariables.EncryptSave ? ".zhs" : ".mdb");
                     MessageBox.Show("中华三国志遇到严重错误，请提交游戏目录下的'" + logPath + "'。", "游戏错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

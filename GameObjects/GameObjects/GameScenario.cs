@@ -3965,6 +3965,24 @@
                 catch
                 {
                 }
+                try
+                {
+                    military.RoutCount = (int)reader["RoutCount"];
+                    military.YearCreated = (int)reader["YearCreated"];
+                    military.TroopDamageDealt = (int)reader["TroopDamageDealt"];
+                    military.TroopBeDamageDealt = (int)reader["TroopBeDamageDealt"];
+                    military.ArchitectureDamageDealt = (int)reader["ArchitectureDamageDealt"];
+                    military.OfficerKillCount = (int)reader["OfficerKillCount"];
+                    military.CaptiveCount = (int)reader["CaptiveCount"];
+                    military.StratagemSuccessCount = (int)reader["StratagemSuccessCount"];
+                    military.StratagemFailCount = (int)reader["StratagemFailCount"];
+                    military.StratagemBeSuccessCount = (int)reader["StratagemBeSuccessCount"];
+                    military.StratagemBeFailCount = (int)reader["StratagemBeFailCount"];
+                }
+                catch
+                {
+                    
+                }
 
                 if (military.Kind != null)
                 {
@@ -4746,6 +4764,7 @@
                             e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
                             e.LoadYesArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["YesArchitectureEffect"].ToString());
                             e.LoadNoArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["NoArchitectureEffect"].ToString());
+
                             try
                             {
                                 e.nextScenario = reader["NextScenario"].ToString();
@@ -4777,14 +4796,14 @@
                             {
 
                             }
-                           /* try
+                            try
                             {
                                 e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
                                 e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
                             }
                             catch
                             {
-                            }*/
+                            }
                             this.AllEvents.AddEventWithEvent(e);
                         }
                         catch (FormatException)
@@ -5908,6 +5927,17 @@
                     row["ArrivingDays"] = military.ArrivingDays;
                     row["StartingArchitectureID"] = military.StartingArchitectureID;
                     row["TargetArchitectureID"] = military.TargetArchitectureID;
+                    row["RoutCount"] = military.RoutCount;
+                    row["YearCreated"] = military.YearCreated;
+                    row["TroopDamageDealt"] = military.TroopDamageDealt;
+                    row["TroopBeDamageDealt"] = military.TroopBeDamageDealt;
+                    row["ArchitectureDamageDealt"] = military.ArchitectureDamageDealt;
+                    row["OfficerKillCount"] = military.OfficerKillCount;
+                    row["CaptiveCount"] = military.CaptiveCount;
+                    row["StratagemSuccessCount"] = military.StratagemSuccessCount;
+                    row["StratagemFailCount"] = military.StratagemFailCount;
+                    row["StratagemBeSuccessCount"] = military.StratagemBeSuccessCount;
+                    row["StratagemBeFailCount"] = military.StratagemBeFailCount;
                     row.EndEdit();
                     dataSet.Tables["Military"].Rows.Add(row);
                 }
@@ -6810,16 +6840,14 @@
                         this.EventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
-
                     }
-                    if (!this.YesEventsToApply.ContainsKey(e))
+                    if (!this.YesEventsToApply.ContainsKey(e) && e.yesEffect.Count > 0)
                     {
                         this.YesEventsToApply.Add(e, triggerArch);
-
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
-                    if (!this.NoEventsToApply.ContainsKey(e))
+                    if (!this.NoEventsToApply.ContainsKey(e) && e.noEffect.Count > 0)
                     {
                         this.NoEventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
@@ -6857,17 +6885,15 @@
                         this.EventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
-
                     }
 
-                    if (!this.YesEventsToApply.ContainsKey(e))
+                    if (!this.YesEventsToApply.ContainsKey(e) && e.yesEffect.Count > 0)
                     {
                         this.YesEventsToApply.Add(e, triggerArch);
-
                         e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
-                    if (!this.NoEventsToApply.ContainsKey(e))
+                    if (!this.NoEventsToApply.ContainsKey(e) && e.noEffect.Count > 0)
                     {
                         this.NoEventsToApply.Add(e, triggerArch);
                         e.ApplyEventDialogs(triggerArch);

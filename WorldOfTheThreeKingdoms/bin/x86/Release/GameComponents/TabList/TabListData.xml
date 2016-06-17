@@ -3630,6 +3630,83 @@
                 FontColor="4294967295"
                 Align="Middle">
         </Column>
+		<Column ID="150" Name="RoutCount" IsNumber="true" DisplayName="击破" MinWidth="60" DetailLevel="3"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="151" Name="ServedYears" IsNumber="true" DisplayName="活躍年" MinWidth="60" DetailLevel="3"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="152" Name="TroopDamageDealt" IsNumber="true" DisplayName="总士兵伤害" MinWidth="80" DetailLevel="7"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="153" Name="TroopBeDamageDealt" IsNumber="true" DisplayName="总受士兵伤害" MinWidth="80" DetailLevel="7"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="154" Name="ArchitectureDamageDealt" IsNumber="true" DisplayName="总建筑伤害" MinWidth="80" DetailLevel="7"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="155" Name="CaptiveCount" IsNumber="true" DisplayName="俘获将领次数" MinWidth="80" DetailLevel="7"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="156" Name="StratagemSuccessCount" IsNumber="true" DisplayName="计略成功次数" MinWidth="80" DetailLevel="7"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="157" Name="StratagemFailCount" IsNumber="true" DisplayName="计略失败次数" MinWidth="80" DetailLevel="7"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="158" Name="StratagemBeSuccessCount" IsNumber="true" DisplayName="计略中计次数" MinWidth="80" DetailLevel="7"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="159" Name="StratagemBeFailCount" IsNumber="true" DisplayName="计略阻挡次数" MinWidth="80" DetailLevel="7"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
+		<Column ID="160" Name="OfficerKillCount" IsNumber="true" DisplayName="致战死数" MinWidth="80" DetailLevel="7"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Right">
+        </Column>
    </Columns>
       <Tabs Margin="5">
         <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 13 21 3 4 5 10 11 12 14" ListKind="Influence" ListMethod="GetInfluenceList">
@@ -3647,6 +3724,8 @@
         <Tab ID="7"  Name="Description" DisplayName="介绍" Columns="1 300" ListKind="Influence" ListMethod="GetInfluenceList">
 		</Tab>
         <Tab ID="8"  Name="Transport" DisplayName="运输" Columns="1 2 3  10 11 12 301 302 303" ListKind="Influence" ListMethod="GetInfluenceList">
+		</Tab>
+		<Tab ID="9"  Name="CombatTimes" DisplayName="战斗次数" Columns="1 150 151 152 153 154 155 156 157 158 159 160" ListKind="Influence" ListMethod="GetInfluenceList">
 		</Tab>
       </Tabs>
     </ListKind>

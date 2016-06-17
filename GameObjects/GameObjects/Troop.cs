@@ -788,6 +788,7 @@
                     this.Scenario.YearTable.addDefeatedManyTroopsEntry(this.Scenario.Date, person, person.RoutCount);
                 }
             }
+            this.Army.RoutCount++;
         }
 
         public void AddRoutedCount()
@@ -2641,6 +2642,7 @@
             person.LocationTroop = this;
 
             this.Leader.CaptiveCount++;
+            this.Army.CaptiveCount++;
         }
 
         private void CheckCaptiveOnOccupy(Architecture a)
@@ -2675,6 +2677,7 @@
                         person.LocationTroop = this;
 
                         this.Leader.CaptiveCount++;
+                        this.Army.CaptiveCount++;
 
                         ExtensionInterface.call("CapturedByTroopOccupy", new Object[] { this.Scenario, this, person });
                     }
@@ -5001,6 +5004,8 @@
 
                     this.Persons.GetMaxIntelligencePerson().StratagemSuccessCount++;
                     troop.Persons.GetMaxIntelligencePerson().StratagemBeSuccessCount++;
+                    this.Army.StratagemSuccessCount++;
+                    troop.Army.StratagemBeSuccessCount++;
 
                 }
                 else
@@ -5017,7 +5022,8 @@
 
                     this.Persons.GetMaxIntelligencePerson().StratagemFailCount++;
                     troop.Persons.GetMaxIntelligencePerson().StratagemBeFailCount++;
-
+                    this.Army.StratagemFailCount++;
+                    troop.Army.StratagemBeFailCount++;
                 }
             }
             else if (flag)
@@ -5027,11 +5033,13 @@
                     this.OnStratagemSuccess(this, troop, this.CurrentStratagem, false);
                 }
                 this.Persons.GetMaxIntelligencePerson().StratagemSuccessCount++;
+                this.Army.StratagemSuccessCount++;
             }
             else if ((troop != null) && (this.OnResistStratagem != null))
             {
                 this.OnResistStratagem(this, troop, this.CurrentStratagem, false);
                 this.Persons.GetMaxIntelligencePerson().StratagemFailCount++;
+                this.Army.StratagemFailCount++;
             }
             int increment = (2 + (flag ? 1 : 0)) + (this.WaitForDeepChaos ? 2 : 0);
             this.IncreaseStratagemExperience(increment, true);
@@ -6347,6 +6355,7 @@
                 damage.DestinationArchitecture.DecrementNumberList.AddNumber(num, CombatNumberKind.人数, damage.Position);
 
                 damage.SourceTroop.Leader.ArchitectureDamageDealt += num;
+                damage.SourceTroop.Army.ArchitectureDamageDealt += num;
 
                 if (damage.DestinationArchitecture.Endurance == 0)
                 {
@@ -6419,6 +6428,8 @@
 
             damage.SourceTroop.Leader.TroopDamageDealt += damage.Damage;
             damage.DestinationTroop.Leader.TroopBeDamageDealt += damage.Damage;
+            damage.SourceTroop.Army.TroopDamageDealt += damage.Damage;
+            damage.DestinationTroop.Army.TroopBeDamageDealt += damage.Damage;
 
             if (damage.AntiAttack)
             {

@@ -247,7 +247,7 @@
                 }
                 else
                 {
-                    challengePerson.KilledInBattle(killer);
+                    challengePerson.KilledInBattle(troop, killer);
                 }
             }
         }

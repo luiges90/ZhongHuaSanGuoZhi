@@ -33,8 +33,8 @@
         public Dictionary<Person, List<EventEffect>> matchedYesEffect;//
         public Dictionary<Person, List<EventEffect>> matchedNoEffect;
 
-        public Dictionary<int, List<EventEffect>> yesEffect;
-        public Dictionary<int, List<EventEffect>> noEffect;
+        public Dictionary<int, List<EventEffect>> yesEffect = new Dictionary<int,List<EventEffect>>();
+        public Dictionary<int, List<EventEffect>> noEffect = new Dictionary<int,List<EventEffect>>();
 
         public List<EventEffect> architectureEffect;
         public List<EventEffect> factionEffect;

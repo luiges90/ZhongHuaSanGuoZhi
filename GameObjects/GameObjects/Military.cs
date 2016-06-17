@@ -34,6 +34,19 @@
         private int startingArchitectureID = -1;
         private int targetArchitectureID = -1;
 
+        public int RoutCount { get; set; }
+        public int YearCreated { get; set; }
+        public int TroopDamageDealt { get; set; }
+        public int TroopBeDamageDealt { get; set; }
+        public int ArchitectureDamageDealt { get; set; }
+        public int OfficerKillCount { get; set; }
+        public int CaptiveCount { get; set; }
+        public int StratagemSuccessCount { get; set; }
+        public int StratagemFailCount { get; set; }
+        public int StratagemBeSuccessCount { get; set; }
+        public int StratagemBeFailCount { get; set; }
+
+
         public int Tiredness
         {
             get
@@ -95,6 +108,7 @@
                 military.Morale = military.MoraleCeiling;
                 military.Combativity = military.CombativityCeiling;
             }
+            military.YearCreated = scenario.Date.Year;
             return military;
         }
 
@@ -1863,6 +1877,17 @@
                 return "----";
             }
         }
+
+        public int ServedYears
+        {
+            get
+            {
+                int year = base.Scenario.Date.Year - this.YearCreated;
+                int sinceBeginning = base.Scenario.DaySince / 360;
+                return Math.Min(year, sinceBeginning);
+            }
+        }
+
     }
 }
 

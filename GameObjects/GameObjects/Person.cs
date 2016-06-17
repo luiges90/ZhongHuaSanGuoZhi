@@ -1208,8 +1208,9 @@
             }
         }
 
-        public void KilledInBattle(Person killer)
+        public void KilledInBattle(Troop killingTroop, Person killer)
         {
+            killingTroop.Army.OfficerKillCount++;
             killer.OfficerKillCount++;
             this.Scenario.YearTable.addKilledInBattleEntry(this.Scenario.Date, killer, this);
 
@@ -1259,7 +1260,7 @@
                 kill = killer.Persons.GetMaxStrengthPerson();
             }
 
-            this.KilledInBattle(kill);
+            this.KilledInBattle(killer, kill);
         }
 
         public void ToDeath(Person killerInBattle, Faction oldFaction)
@@ -1383,8 +1384,14 @@
                 }
                 else
                 {
-                    //yearDead = Math.Max(this.YearDead, this.YearBorn + 18 + this.PersonalLoyalty * 8 - this.Ambition * 8 + this.Intelligence / 4 + this.Strength / 4);
-                    yearDead = this.YearDead + 80;
+                    if (GlobalVariables.FixedUnnaturalDeathAge <= 0)
+                    {
+                        yearDead = Math.Max(this.YearDead, this.YearBorn + 18 + this.PersonalLoyalty * 8 - this.Ambition * 8 + this.Intelligence / 4 + this.Strength / 4);
+                    }
+                    else
+                    {
+                        yearDead = Math.Max(this.YearDead, this.YearBorn + GlobalVariables.FixedUnnaturalDeathAge);
+                    }
                 }
 
                 if (yearDead - 5 <= base.Scenario.Date.Year && base.Scenario.Date.Year < this.YearDead &&

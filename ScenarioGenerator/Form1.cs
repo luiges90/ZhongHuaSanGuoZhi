@@ -63,27 +63,35 @@ namespace ScenarioGenerator
 
             List<GameObject> types = this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects;
 
-            lblPersonType0.Text = ((PersonGeneratorType)types[0]).Name;
-            lblPersonType1.Text = ((PersonGeneratorType)types[1]).Name;
-            lblPersonType2.Text = ((PersonGeneratorType)types[2]).Name;
-            lblPersonType3.Text = ((PersonGeneratorType)types[3]).Name;
-            lblPersonType4.Text = ((PersonGeneratorType)types[4]).Name;
-            lblPersonType5.Text = ((PersonGeneratorType)types[5]).Name;
-            lblPersonType6.Text = ((PersonGeneratorType)types[6]).Name;
-            lblPersonType7.Text = ((PersonGeneratorType)types[7]).Name;
-            lblPersonType8.Text = ((PersonGeneratorType)types[8]).Name;
-            lblPersonType9.Text = ((PersonGeneratorType)types[9]).Name;
+            try
+            {
+                lblPersonType0.Text = ((PersonGeneratorType)types[0]).Name;
+                lblPersonType1.Text = ((PersonGeneratorType)types[1]).Name;
+                lblPersonType2.Text = ((PersonGeneratorType)types[2]).Name;
+                lblPersonType3.Text = ((PersonGeneratorType)types[3]).Name;
+                lblPersonType4.Text = ((PersonGeneratorType)types[4]).Name;
+                lblPersonType5.Text = ((PersonGeneratorType)types[5]).Name;
+                lblPersonType6.Text = ((PersonGeneratorType)types[6]).Name;
+                lblPersonType7.Text = ((PersonGeneratorType)types[7]).Name;
+                lblPersonType8.Text = ((PersonGeneratorType)types[8]).Name;
+                lblPersonType9.Text = ((PersonGeneratorType)types[9]).Name;
+            }
+            catch (ArgumentOutOfRangeException) { }
 
-            tbPersonType0.Text = ((PersonGeneratorType)types[0]).generationChance.ToString();
-            tbPersonType1.Text = ((PersonGeneratorType)types[1]).generationChance.ToString();
-            tbPersonType2.Text = ((PersonGeneratorType)types[2]).generationChance.ToString();
-            tbPersonType3.Text = ((PersonGeneratorType)types[3]).generationChance.ToString();
-            tbPersonType4.Text = ((PersonGeneratorType)types[4]).generationChance.ToString();
-            tbPersonType5.Text = ((PersonGeneratorType)types[5]).generationChance.ToString();
-            tbPersonType6.Text = ((PersonGeneratorType)types[6]).generationChance.ToString();
-            tbPersonType7.Text = ((PersonGeneratorType)types[7]).generationChance.ToString();
-            tbPersonType8.Text = ((PersonGeneratorType)types[8]).generationChance.ToString();
-            tbPersonType9.Text = ((PersonGeneratorType)types[9]).generationChance.ToString();
+            try
+            {
+                tbPersonType0.Text = ((PersonGeneratorType)types[0]).generationChance.ToString();
+                tbPersonType1.Text = ((PersonGeneratorType)types[1]).generationChance.ToString();
+                tbPersonType2.Text = ((PersonGeneratorType)types[2]).generationChance.ToString();
+                tbPersonType3.Text = ((PersonGeneratorType)types[3]).generationChance.ToString();
+                tbPersonType4.Text = ((PersonGeneratorType)types[4]).generationChance.ToString();
+                tbPersonType5.Text = ((PersonGeneratorType)types[5]).generationChance.ToString();
+                tbPersonType6.Text = ((PersonGeneratorType)types[6]).generationChance.ToString();
+                tbPersonType7.Text = ((PersonGeneratorType)types[7]).generationChance.ToString();
+                tbPersonType8.Text = ((PersonGeneratorType)types[8]).generationChance.ToString();
+                tbPersonType9.Text = ((PersonGeneratorType)types[9]).generationChance.ToString();
+            }
+            catch (ArgumentOutOfRangeException) { }
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
@@ -158,6 +166,29 @@ namespace ScenarioGenerator
                             p.ArrivingDays = 0;
                         }
                     }
+                    foreach (Architecture i in a.AILandLinks.GetList())
+                    {
+                        foreach (Architecture j in a.AILandLinks.GetList())
+                        {
+                            if (i != j && a != i && a != j && !i.AILandLinks.GameObjects.Contains(j) && !j.AILandLinks.GameObjects.Contains(i))
+                            {
+                                i.AILandLinks.Add(j);
+                                j.AILandLinks.Add(i);
+                            }
+                        }
+                    }
+
+                    foreach (Architecture i in a.AIWaterLinks.GetList())
+                    {
+                        foreach (Architecture j in a.AIWaterLinks.GetList())
+                        {
+                            if (i != j && a != i && a != j && !i.AIWaterLinks.GameObjects.Contains(j) && !j.AIWaterLinks.GameObjects.Contains(i))
+                            {
+                                i.AIWaterLinks.Add(j);
+                                j.AIWaterLinks.Add(i);
+                            }
+                        }
+                    }
                     this.scen.Architectures.Remove(a);
                     deleted++;
                     if (toDeleteCnt <= deleted) break;
@@ -167,16 +198,6 @@ namespace ScenarioGenerator
             }
 
             this.scen.ClearPersonStatusCache();
-
-            foreach (Architecture architecture2 in this.scen.Architectures)
-            {
-                architecture2.AILandLinks.Clear();
-                architecture2.AIWaterLinks.Clear();
-            }
-            foreach (Architecture architecture2 in this.scen.Architectures)
-            {
-                architecture2.FindLinks(this.scen.Architectures);
-            }
         }
 
         private void deletePerson()
@@ -236,16 +257,20 @@ namespace ScenarioGenerator
             this.scen.GameCommonData.PersonGeneratorSetting.dieHi = int.Parse(tbAgeHi.Text);
             this.scen.GameCommonData.PersonGeneratorSetting.debutAtLeast = int.Parse(tbDebutAtLeast.Text);
 
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[0]).generationChance = int.Parse(tbPersonType0.Text);
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[1]).generationChance = int.Parse(tbPersonType1.Text);
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[2]).generationChance = int.Parse(tbPersonType2.Text);
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[3]).generationChance = int.Parse(tbPersonType3.Text);
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[4]).generationChance = int.Parse(tbPersonType4.Text);
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[5]).generationChance = int.Parse(tbPersonType5.Text);
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[6]).generationChance = int.Parse(tbPersonType6.Text);
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[7]).generationChance = int.Parse(tbPersonType7.Text);
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[8]).generationChance = int.Parse(tbPersonType8.Text);
-            ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[9]).generationChance = int.Parse(tbPersonType9.Text);
+            try
+            {
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[0]).generationChance = int.Parse(tbPersonType0.Text);
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[1]).generationChance = int.Parse(tbPersonType1.Text);
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[2]).generationChance = int.Parse(tbPersonType2.Text);
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[3]).generationChance = int.Parse(tbPersonType3.Text);
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[4]).generationChance = int.Parse(tbPersonType4.Text);
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[5]).generationChance = int.Parse(tbPersonType5.Text);
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[6]).generationChance = int.Parse(tbPersonType6.Text);
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[7]).generationChance = int.Parse(tbPersonType7.Text);
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[8]).generationChance = int.Parse(tbPersonType8.Text);
+                ((PersonGeneratorType)this.scen.GameCommonData.AllPersonGeneratorTypes.GameObjects[9]).generationChance = int.Parse(tbPersonType9.Text);
+            }
+            catch (ArgumentOutOfRangeException) { }
 
             int count = GameObject.Random(int.Parse(tbAddPersonLo.Text), int.Parse(tbAddPersonHi.Text));
 
