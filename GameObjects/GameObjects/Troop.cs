@@ -1703,7 +1703,7 @@
             }
         }
 
-        private void AttackArchitecture(Architecture architecture)
+        public void AttackArchitecture(Architecture architecture)
         {
             if (architecture != null)
             {
@@ -1725,7 +1725,7 @@
             ExtensionInterface.call("AttackArchitecture", new Object[] { this.Scenario, this, architecture });
         }
 
-        private void AttackTroop(Troop troop)
+        public void AttackTroop(Troop troop)
         {
             if (troop != null)
             {

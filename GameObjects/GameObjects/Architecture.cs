@@ -240,6 +240,8 @@
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationIncrease { get; set; }
 
+        public ArchitectureList AIBattlingArchitectures { get; set; }
+
        // public OngoingBattle Battle { get; set; }
 
         private String oldFactionName = "";
@@ -5049,9 +5051,87 @@
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
             this.SuspendTroopTransfer--;
+            this.resolveAIQuickBattle();
         }
 
+        private void resolveAIQuickBattle()
+        {
+            foreach (Architecture a in this.AIBattlingArchitectures.GetList())
+            {
+                bool aborted = false;
+                foreach (Faction f in base.Scenario.PlayerFactions)
+                {
+                    if (f.IsArchitectureKnown(a))
+                    {
+                        this.AIBattlingArchitectures.Remove(a);
+                        aborted = true;
+                    }
+                }
 
+                if (!aborted)
+                {
+                    TroopList attackingTroops = new TroopList();
+                    TroopList defendingTroops = new TroopList();
+
+                    // offensive troop
+                    GameObjectList ml = this.Militaries.GetList();
+                    ml.PropertyName = "Merit";
+                    ml.SmallToBig = false;
+                    ml.IsNumber = true;
+                    ml.ReSort();
+
+                    GameObjectList pl = this.Persons.GetList();
+                    pl.PropertyName = "FightingForce";
+                    pl.SmallToBig = false;
+                    pl.IsNumber = true;
+                    pl.ReSort();
+
+                    for (int i = 0; i < pl.Count; ++i)
+                    {
+                        Person p = (Person) pl[i];
+                        Military m = (Military) ml[i];
+
+                        GameObjectList gol = new GameObjectList();
+                        gol.Add(p);
+                        Troop t = Troop.CreateSimulateTroop(gol, m, this.ArchitectureArea.Centre);
+                        attackingTroops.Add(t);
+                    }
+
+                    // defensive troop
+                    ml = a.Militaries.GetList();
+                    ml.PropertyName = "Merit";
+                    ml.SmallToBig = false;
+                    ml.IsNumber = true;
+                    ml.ReSort();
+
+                    pl = a.Persons.GetList();
+                    pl.PropertyName = "FightingForce";
+                    pl.SmallToBig = false;
+                    pl.IsNumber = true;
+                    pl.ReSort();
+
+                    for (int i = 0; i < pl.Count; ++i)
+                    {
+                        Person p = (Person)pl[i];
+                        Military m = (Military)ml[i];
+
+                        GameObjectList gol = new GameObjectList();
+                        gol.Add(p);
+                        Troop t = Troop.CreateSimulateTroop(gol, m, this.ArchitectureArea.Centre);
+                        defendingTroops.Add(t);
+                    }
+
+                    // fight
+                    foreach (Troop t in attackingTroops)
+                    {
+                        if (a.Endurance > 0)
+                        {
+                            t.AttackArchitecture(a);
+                        }
+                    }
+                }
+            }
+        }
 
         private void RestEvent()
         {
@@ -8258,6 +8338,17 @@
 
         public bool HasHostileTroopsInView()
         {
+            if (GlobalVariables.AIQuickBattle)
+            {
+                foreach (Architecture a in base.Scenario.Architectures)
+                {
+                    if (a.AIBattlingArchitectures.GameObjects.Contains(this))
+                    {
+                        return true;
+                    }
+                }
+            }
+
             GameArea viewArea = this.ViewArea;
             if ((this.RecentlyAttacked > 0) || (this.ArmyScale > this.NormalArmyScale))
             {
@@ -8276,6 +8367,17 @@
 
         public bool HasOwnFactionTroopsInView()
         {
+            if (GlobalVariables.AIQuickBattle)
+            {
+                foreach (Architecture a in base.Scenario.Architectures)
+                {
+                    if (a.AIBattlingArchitectures.GameObjects.Contains(this))
+                    {
+                        return true;
+                    }
+                }
+            }
+
             GameArea viewArea = this.LongViewArea;
             foreach (Point point in viewArea.Area)
             {
@@ -9921,81 +10023,87 @@
                         return;
                     }
 
-                    if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
+                    if (GlobalVariables.AIQuickBattle && !base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction))
                     {
-                        Routeway routeway = this.GetRouteway(wayToTarget, true);
+                        this.AIBattlingArchitectures.Add(wayToTarget.A);
+                    }
+                    else
+                    {
+                        if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
+                        {
+                            Routeway routeway = this.GetRouteway(wayToTarget, true);
 
-                        if (routeway == null)
-                        {
-                            this.PlanArchitecture = null;
-                        }
-                        else
-                        {
-                            Architecture bypass = routeway.ByPassHostileArchitecture;
-                            if (bypass != null)
+                            if (routeway == null)
                             {
                                 this.PlanArchitecture = null;
                             }
-                            else if ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) > this.Fund)
-                            {
-                                routeway.Building = false;
-                                this.PlanArchitecture = wayToTarget.A;
-                            }
                             else
                             {
-                                double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
-                                if (!(((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway)))
+                                Architecture bypass = routeway.ByPassHostileArchitecture;
+                                if (bypass != null)
+                                {
+                                    this.PlanArchitecture = null;
+                                }
+                                else if ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) > this.Fund)
                                 {
                                     routeway.Building = false;
                                     this.PlanArchitecture = wayToTarget.A;
                                 }
-                                else if (GlobalVariables.LiangdaoXitong && (routeway.LastPoint.ConsumptionRate >= 0.1f) && (((int)(routeway.Length * (routeway.LastPoint.ConsumptionRate + 0.2f))) > routeway.LastActivePointIndex))
-                                {
-                                    routeway.Building = true;
-                                    this.PlanArchitecture = wayToTarget.A;
-                                }
                                 else
                                 {
-                                    if (!routeway.IsActive)
+                                    double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
+                                    if (!(((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway)))
+                                    {
+                                        routeway.Building = false;
+                                        this.PlanArchitecture = wayToTarget.A;
+                                    }
+                                    else if (GlobalVariables.LiangdaoXitong && (routeway.LastPoint.ConsumptionRate >= 0.1f) && (((int)(routeway.Length * (routeway.LastPoint.ConsumptionRate + 0.2f))) > routeway.LastActivePointIndex))
                                     {
                                         routeway.Building = true;
+                                        this.PlanArchitecture = wayToTarget.A;
                                     }
-                                    bool hasCreatedTroop = this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true, ignoreReserve ? 0 : reserve);
-                                    if (armyScaleHere <= reserve || !hasCreatedTroop)
+                                    else
+                                    {
+                                        if (!routeway.IsActive)
+                                        {
+                                            routeway.Building = true;
+                                        }
+                                        bool hasCreatedTroop = this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true, ignoreReserve ? 0 : reserve);
+                                        if (armyScaleHere <= reserve || !hasCreatedTroop)
+                                        {
+                                            this.PlanArchitecture = null;
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        else if (this.InformationAvail())
+                        {
+                            Routeway routeway = this.GetRouteway(wayToTarget, true);
+                            if ((routeway != null) && ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
+                            {
+                                double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
+                                if (((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway))
+                                {
+                                    this.PlanArchitecture = wayToTarget.A;
+                                    Person firstHalfPerson = this.GetFirstHalfPerson("InformationAbility");
+                                    if (firstHalfPerson != null && firstHalfPerson.LocationArchitecture != null)
+                                    {
+                                        firstHalfPerson.CurrentInformationKind = this.GetFirstHalfInformationKind();
+                                        if (firstHalfPerson.CurrentInformationKind != null)
+                                        {
+                                            firstHalfPerson.GoForInformation(base.Scenario.GetClosestPoint(wayToTarget.A.ArchitectureArea, this.Position));
+                                        }
+                                    }
+                                    else
                                     {
                                         this.PlanArchitecture = null;
                                     }
                                 }
                             }
                         }
-
                     }
-                    else if (this.InformationAvail())
-                    {
-                        Routeway routeway = this.GetRouteway(wayToTarget, true);
-                        if ((routeway != null) && ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
-                        {
-                            double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
-                            if (((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway))
-                            {
-                                this.PlanArchitecture = wayToTarget.A;
-                                Person firstHalfPerson = this.GetFirstHalfPerson("InformationAbility");
-                                if (firstHalfPerson != null && firstHalfPerson.LocationArchitecture != null)
-                                {
-                                    firstHalfPerson.CurrentInformationKind = this.GetFirstHalfInformationKind();
-                                    if (firstHalfPerson.CurrentInformationKind != null)
-                                    {
-                                        firstHalfPerson.GoForInformation(base.Scenario.GetClosestPoint(wayToTarget.A.ArchitectureArea, this.Position));
-                                    }
-                                }
-                                else
-                                {
-                                    this.PlanArchitecture = null;
-                                }
-                            }
-                        }
-                    }
-
                 }
             }
         }

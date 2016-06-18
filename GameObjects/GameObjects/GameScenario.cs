@@ -4013,6 +4013,7 @@
             //}
             //DbConnection.Close();
             DbConnection.Open();
+            Dictionary<int, int[]> aiBattlingArchitectureStrings = new Dictionary<int, int[]>();
             reader = new OleDbCommand("Select * From Architecture", DbConnection).ExecuteReader();
             while (reader.Read())
             {
@@ -4185,6 +4186,20 @@
                 }
                 catch { }
 
+                try
+                {
+                    char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+                    string str = reader["AIBattlingArchitectures"].ToString();
+                    string[] strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+                    int[] intArray = new int[strArray.Length];
+                    for (int i = 0; i < strArray.Length; i++)
+                    {
+                        intArray[i] = int.Parse(strArray[i]);
+                    }
+                    aiBattlingArchitectureStrings.Add(architecture.ID, intArray);
+                }
+                catch { }
+
 
                 if (e.Count > 0)
                 {
@@ -4198,6 +4213,15 @@
                 }
             }
             DbConnection.Close();
+
+            foreach (KeyValuePair<int, int[]> a in aiBattlingArchitectureStrings)
+            {
+                foreach (int i in a.Value)
+                {
+                    (this.Architectures.GetGameObject(a.Key) as Architecture).AIBattlingArchitectures.Add((this.Architectures.GetGameObject(i) as Architecture));
+                }
+            }
+
             DbConnection.Open();
             reader = new OleDbCommand("Select * From Routeway", DbConnection).ExecuteReader();
             while (reader.Read())
@@ -5661,6 +5685,14 @@
                     row["SuspendTroopTransfer"] = architecture.SuspendTroopTransfer;
                     //row["Battle"] = architecture.Battle == null ? -1 : architecture.Battle.ID;
                     row["OldFactionName"] = architecture.OldFactionName;
+
+                    string s = "";
+                    foreach (Architecture i in architecture.AIBattlingArchitectures)
+                    {
+                        s += i.ID + " ";
+                    }
+                    row["AIBattlingArchitectures"] = s;
+
                     row.EndEdit();
                     dataSet.Tables["Architecture"].Rows.Add(row);
                 }

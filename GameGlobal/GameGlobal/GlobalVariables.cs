@@ -160,6 +160,7 @@
         public static bool PlayerZhaoxianFixIdeal = true;
 
         public static int FixedUnnaturalDeathAge = 80;
+        public static bool AIQuickBattle = false;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -897,6 +898,15 @@
             {
                 exception = exception24;
                 throw new Exception("FixedUnnaturalDeathAge:\n" + exception.ToString());
+            }
+            try
+            {
+                AIQuickBattle = bool.Parse(nextSibling.Attributes.GetNamedItem("AIQuickBattle").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("AIQuickBattle:\n" + exception.ToString());
             }
             return true;
         }
