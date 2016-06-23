@@ -4999,12 +4999,10 @@
                     if (!base.Scenario.YesEventsToApply.ContainsKey(e) && e.yesEffect.Count > 0)
                     {
                         base.Scenario.YesEventsToApply.Add(e, this);
-                        e.ApplyEventDialogs(this);
                     }
                     if (!base.Scenario.NoEventsToApply.ContainsKey(e) && e.noEffect.Count > 0)
                     {
                         base.Scenario.NoEventsToApply.Add(e, this);
-                        e.ApplyEventDialogs(this);
                     }
                 }
             }

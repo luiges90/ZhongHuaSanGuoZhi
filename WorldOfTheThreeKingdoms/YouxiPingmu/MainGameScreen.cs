@@ -2232,30 +2232,40 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 if (e.yesEffect.Count > 0 && e.noEffect.Count > 0)
                 {
-                    //throw new Exception("yesEffect != null " + ev.yesEffect);
-
-                    if (!this.Plugins.ConfirmationDialogPlugin.IsShowing)
+                    if (base.Scenario.CurrentPlayer != null)
                     {
-                        //this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(base.Scenario.ApplyEvents(true), new GameDelegates.VoidFunction(base.Scenario.ApplyEvents(false)));
-                        this.Plugins.ConfirmationDialogPlugin.ClearFunctions();
-                        this.Plugins.ConfirmationDialogPlugin.AddYesFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyYesEvents));
-                        this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
-                        this.Plugins.ConfirmationDialogPlugin.AddNoFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyNoEvents));
+
+                        if (!this.Plugins.ConfirmationDialogPlugin.IsShowing)
+                        {
+                            //this.Plugins.tupianwenziPlugin.SetConfirmationDialog(this.Plugins.ConfirmationDialogPlugin, new GameDelegates.VoidFunction(base.Scenario.ApplyEvents(true), new GameDelegates.VoidFunction(base.Scenario.ApplyEvents(false)));
+                            this.Plugins.ConfirmationDialogPlugin.ClearFunctions();
+                            this.Plugins.ConfirmationDialogPlugin.AddYesFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyYesEvents));
+                            this.Plugins.ConfirmationDialogPlugin.SetPosition(ShowPosition.Center);
+                            this.Plugins.ConfirmationDialogPlugin.AddNoFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyNoEvents));
 
 
 
-                        this.Plugins.ConfirmationDialogPlugin.IsShowing = true;
+                            this.Plugins.ConfirmationDialogPlugin.IsShowing = true;
+                        }
+                    }
+                    else
+                    {
+                        if (GameObject.Chance(50))
+                        {
+                            base.Scenario.ApplyYesEvents();
+                        }
+                        else
+                        {
+                            base.Scenario.ApplyNoEvents();
+                        }
                     }
                 }
 
                 if (GameGlobal.GlobalVariables.DialogShowTime > 0)
                 {
-                    
                     this.Plugins.tupianwenziPlugin.SetCloseFunction(new GameDelegates.VoidFunction(base.Scenario.ApplyEvents));
                     this.Plugins.tupianwenziPlugin.IsShowing = true;
                 }
-                
-
                 else
                 {
                     base.Scenario.ApplyEvents();

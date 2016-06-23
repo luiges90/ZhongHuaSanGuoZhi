@@ -766,6 +766,7 @@
                 i.Key.happened = true;
             }
             this.YesEventsToApply.Clear();
+            this.NoEventsToApply.Clear();
         }
 
         public void ApplyNoEvents()
@@ -775,6 +776,7 @@
                 i.Key.DoNoApplyEvent(i.Value);
                 i.Key.happened = true;
             }
+            this.YesEventsToApply.Clear();
             this.NoEventsToApply.Clear();
         }
 
@@ -6831,13 +6833,11 @@
                     if (!this.YesEventsToApply.ContainsKey(e) && e.yesEffect.Count > 0)
                     {
                         this.YesEventsToApply.Add(e, triggerArch);
-                        e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
                     if (!this.NoEventsToApply.ContainsKey(e) && e.noEffect.Count > 0)
                     {
                         this.NoEventsToApply.Add(e, triggerArch);
-                        e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
                 }
@@ -6862,13 +6862,11 @@
                     if (!this.YesEventsToApply.ContainsKey(e) && e.yesEffect.Count > 0)
                     {
                         this.YesEventsToApply.Add(e, triggerArch);
-                        e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
                     if (!this.NoEventsToApply.ContainsKey(e) && e.noEffect.Count > 0)
                     {
                         this.NoEventsToApply.Add(e, triggerArch);
-                        e.ApplyEventDialogs(triggerArch);
                         ran = true;
                     }
                 }
