@@ -4200,6 +4200,7 @@
                 }
                 catch { }
 
+                architecture.AIBattlingArchitectures = new ArchitectureList();
 
                 if (e.Count > 0)
                 {
@@ -6922,6 +6923,24 @@
                 }
             }
             return cnt;
+        }
+
+        public bool IsKnownToAnyPlayer(Architecture a)
+        {
+            foreach (Faction f in this.PlayerFactions)
+            {
+                if (f.IsArchitectureKnown(a)) return true;
+            }
+            return false;
+        }
+
+        public bool IsKnownToAnyPlayer(Troop a)
+        {
+            foreach (Faction f in this.PlayerFactions)
+            {
+                if (f.IsTroopKnown(a)) return true;
+            }
+            return false;
         }
     }
 }

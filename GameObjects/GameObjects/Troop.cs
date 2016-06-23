@@ -10013,12 +10013,16 @@
 
         internal void StartAttackArchitecture(Architecture architecture, ArchitectureDamage damage)
         {
-            this.ResetDirectionArchitecture();
-            this.Action = TroopAction.Attack;
-            if (this.PreAction == TroopPreAction.无)
+            if (base.Scenario.IsKnownToAnyPlayer(this) || base.Scenario.IsKnownToAnyPlayer(architecture))
             {
-                this.TryToPlaySound(this.Position, this.Army.Kind.Sounds.NormalAttackSoundPath, false);
+                this.ResetDirectionArchitecture();
+                this.Action = TroopAction.Attack;
+                if (this.PreAction == TroopPreAction.无)
+                {
+                    this.TryToPlaySound(this.Position, this.Army.Kind.Sounds.NormalAttackSoundPath, false);
+                }
             }
+
             this.AttackStarted = false;
             this.operationDone = true;
             if (architecture == this.TargetArchitecture)
@@ -10030,82 +10034,86 @@
 
         internal void StartAttackTroop(Troop troop, TroopDamage damage, bool area)
         {
-            if (this.CombatMethodApplied)
+            if (base.Scenario.IsKnownToAnyPlayer(this) || base.Scenario.IsKnownToAnyPlayer(troop))
             {
-                if (this.OnCombatMethodAttack != null)
+                if (this.CombatMethodApplied)
                 {
-                    if (this.CurrentCombatMethodID == 0)   // 如果是大盾
+                    if (this.OnCombatMethodAttack != null)
                     {
-                        this.AddSelfzhanfaAnimation();
-                    }
-                    else
-                    {
-                        this.AddzhanfaAnimation(troop, true);
-                    }
-                    //this.OnCombatMethodAttack(this, troop, this.CurrentCombatMethod);
-                }
-            }
-
-
-
-            if (!area)
-            {
-                if (!damage.Counter)
-                {
-                    bool meiyouyouPersonTextMessage = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.Leader.ID, TextMessageKind.Critical).Count > 0;
-
-                    //if ((this.CombatMethodApplied && !damage.Surround) && (!damage.Critical || (this.Leader.PersonTextMessage.CriticalStrike.Count == 0)))
-                    if ((this.CombatMethodApplied && !damage.Surround) && (!damage.Critical || meiyouyouPersonTextMessage))
-                    {
-                        if (this.OnCombatMethodAttack != null)
+                        if (this.CurrentCombatMethodID == 0)   // 如果是大盾
                         {
-                            /*if (this.CurrentCombatMethodID == 0)   // 如果是大盾
+                            this.AddSelfzhanfaAnimation();
+                        }
+                        else
+                        {
+                            this.AddzhanfaAnimation(troop, true);
+                        }
+                        //this.OnCombatMethodAttack(this, troop, this.CurrentCombatMethod);
+                    }
+                }
+
+
+
+                if (!area)
+                {
+                    if (!damage.Counter)
+                    {
+                        bool meiyouyouPersonTextMessage = base.Scenario.GameCommonData.AllTextMessages.GetTextMessage(this.Leader.ID, TextMessageKind.Critical).Count > 0;
+
+                        //if ((this.CombatMethodApplied && !damage.Surround) && (!damage.Critical || (this.Leader.PersonTextMessage.CriticalStrike.Count == 0)))
+                        if ((this.CombatMethodApplied && !damage.Surround) && (!damage.Critical || meiyouyouPersonTextMessage))
+                        {
+                            if (this.OnCombatMethodAttack != null)
                             {
-                                this.AddSelfzhanfaAnimation();
+                                /*if (this.CurrentCombatMethodID == 0)   // 如果是大盾
+                                {
+                                    this.AddSelfzhanfaAnimation();
+                                }
+                                else
+                                {
+                                    this.AddzhanfaAnimation(troop, true);
+                                }*/
+                                this.OnCombatMethodAttack(this, troop, this.CurrentCombatMethod);
                             }
-                            else
+                        }
+                        else if (damage.Waylay)                      //这些if判断成立的话仅仅只添加了部队说话
+                        {
+                            if (this.OnWaylay != null)
                             {
-                                this.AddzhanfaAnimation(troop, true);
-                            }*/
-                            this.OnCombatMethodAttack(this, troop, this.CurrentCombatMethod);
+                                this.OnWaylay(this, troop);
+                            }
                         }
-                    }
-                    else if (damage.Waylay)                      //这些if判断成立的话仅仅只添加了部队说话
-                    {
-                        if (this.OnWaylay != null)
+                        else if (damage.Critical)
                         {
-                            this.OnWaylay(this, troop);
+                            if (this.OnCriticalStrike != null)
+                            {
+                                this.OnCriticalStrike(this, troop);
+                            }
                         }
-                    }
-                    else if (damage.Critical)
-                    {
-                        if (this.OnCriticalStrike != null)
+                        else if (damage.Surround)
                         {
-                            this.OnCriticalStrike(this, troop);
+                            if (this.OnSurround != null)
+                            {
+                                this.OnSurround(this, troop);
+                            }
                         }
-                    }
-                    else if (damage.Surround)
-                    {
-                        if (this.OnSurround != null)
+                        else if (this.OnNormalAttack != null)
                         {
-                            this.OnSurround(this, troop);
+                            this.OnNormalAttack(this, troop);
                         }
                     }
-                    else if (this.OnNormalAttack != null)
+                    this.ResetDirectionTroop(troop);
+                    this.Action = TroopAction.Attack;
+                    if (this.PreAction == TroopPreAction.无 && !this.CombatMethodApplied)
                     {
-                        this.OnNormalAttack(this, troop);
+                        this.TryToPlaySound(this.Position, this.Army.Kind.Sounds.NormalAttackSoundPath, false);
                     }
-                }
-                this.ResetDirectionTroop(troop);
-                this.Action = TroopAction.Attack;
-                if (this.PreAction == TroopPreAction.无 && !this.CombatMethodApplied)
-                {
-                    this.TryToPlaySound(this.Position, this.Army.Kind.Sounds.NormalAttackSoundPath, false);
-                }
 
-                this.AttackStarted = false;
+                    this.AttackStarted = false;
+                }
+                troop.Action = TroopAction.BeAttacked;
             }
-            troop.Action = TroopAction.BeAttacked;
+
             this.operationDone = true;
             if (troop == this.TargetTroop)
             {
@@ -10122,18 +10130,22 @@
         private void StartCastSelf()
         {
             this.operationDone = true;
-
-            if (this.Position != this.SelfCastPosition)
-            {
-                this.ResetDirection(this.SelfCastPosition);
-            }
-            this.Action = TroopAction.Cast;
             this.StratagemApplyed = true;
-            this.AddSelfCastAnimation();
-            if (this.OnCastStratagem != null)
+
+            if (base.Scenario.IsKnownToAnyPlayer(this))
             {
-                this.OnCastStratagem(this, this, this.CurrentStratagem);
+                if (this.Position != this.SelfCastPosition)
+                {
+                    this.ResetDirection(this.SelfCastPosition);
+                }
+                this.Action = TroopAction.Cast;
+                this.AddSelfCastAnimation();
+                if (this.OnCastStratagem != null)
+                {
+                    this.OnCastStratagem(this, this, this.CurrentStratagem);
+                }
             }
+
             if (this == this.TargetTroop)
             {
                 //this.TargetTroop = null;
@@ -10149,33 +10161,36 @@
             if (troop != null)
             {
                 this.operationDone = true;
-
-                if (troop == this.TargetTroop)
-                {
-                    this.MovabilityLeft = -1;
-                }
-                this.ResetDirectionTroop(troop);
-                this.Action = TroopAction.Cast;
                 this.StratagemApplyed = true;
-                if (!this.CurrentStratagem.Friendly)
+
+                if (base.Scenario.IsKnownToAnyPlayer(this) || base.Scenario.IsKnownToAnyPlayer(troop))
                 {
-                    this.RecentlyFighting = 3;
-                    troop.RecentlyFighting = 3;
-                    troop.Action = TroopAction.BeCasted;
+                    if (troop == this.TargetTroop)
+                    {
+                        this.MovabilityLeft = -1;
+                    }
+                    this.ResetDirectionTroop(troop);
+                    this.Action = TroopAction.Cast;
+                    if (!this.CurrentStratagem.Friendly)
+                    {
+                        this.RecentlyFighting = 3;
+                        troop.RecentlyFighting = 3;
+                        troop.Action = TroopAction.BeCasted;
+                        foreach (Troop troop2 in this.AreaStratagemTroops)
+                        {
+                            troop2.RecentlyFighting = 3;
+                            troop2.Action = TroopAction.BeCasted;
+                        }
+                    }
+                    this.AddCastAnimation(troop, true);
                     foreach (Troop troop2 in this.AreaStratagemTroops)
                     {
-                        troop2.RecentlyFighting = 3;
-                        troop2.Action = TroopAction.BeCasted;
+                        this.AddCastAnimation(troop2, false);
                     }
-                }
-                this.AddCastAnimation(troop, true);
-                foreach (Troop troop2 in this.AreaStratagemTroops)
-                {
-                    this.AddCastAnimation(troop2, false);
-                }
-                if (this.OnCastStratagem != null)
-                {
-                    this.OnCastStratagem(this, troop, this.CurrentStratagem);
+                    if (this.OnCastStratagem != null)
+                    {
+                        this.OnCastStratagem(this, troop, this.CurrentStratagem);
+                    }
                 }
                 /*
                 if (this.BelongedFaction.IsFriendly(troop.BelongedFaction))
@@ -12250,6 +12265,8 @@
             {
                 if (!this.Destroyed)
                 {
+                    bool runAnimation = base.Scenario.IsKnownToAnyPlayer(this);
+
                     bool oldInWater = this.Army.bushiShuijunBingqieChuyuShuiyu(this.position);
                     bool newInWater = this.Army.bushiShuijunBingqieChuyuShuiyu(value);
                     bool changeArmyKind = oldInWater != newInWater;
@@ -12267,20 +12284,30 @@
                         this.postResetArmyKindData();
                     }
 
-                    if (this.position != this.PreviousPosition)
+                    // position updatd
+                    runAnimation = runAnimation || base.Scenario.IsKnownToAnyPlayer(this);
+
+                    if (runAnimation) 
                     {
-                        this.Action = TroopAction.Move;
+                        if (this.position != this.PreviousPosition)
+                        {
+                            this.Action = TroopAction.Move;
+                        }
+                        if ((this.position == this.destination) && (this.OnEndPath != null))
+                        {
+                            this.OnEndPath(this);
+                        }
                     }
-                    if ((this.position == this.destination) && (this.OnEndPath != null))
-                    {
-                        this.OnEndPath(this);
-                    }
+
                     int num = this.position.X - this.PreviousPosition.X;
                     int num2 = this.position.Y - this.PreviousPosition.Y;
                     base.Scenario.SetMapTileTroop(this);
                     if ((Math.Abs(num) + Math.Abs(num2)) > 0)
                     {
-                        this.TryToPlaySound(this.Position, this.Army.Kind.Sounds.MovingSoundPath, false);
+                        if (runAnimation)
+                        {
+                            this.TryToPlaySound(this.Position, this.Army.Kind.Sounds.MovingSoundPath, false);
+                        }
                         this.CheckCurrentPosition();
                         if (this.Destroyed)
                         {
@@ -12301,7 +12328,7 @@
                     {
                         this.StepNotFinished = false;
                     }
-                    if (this.FirstTierPath != null)
+                    if (this.FirstTierPath != null && runAnimation)
                     {
                         this.UpdateAnimation();
                     }

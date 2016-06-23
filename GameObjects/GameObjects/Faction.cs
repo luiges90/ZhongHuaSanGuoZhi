@@ -3610,6 +3610,11 @@
             return false;
         }
 
+        public bool IsTroopKnown(Troop t)
+        {
+            return this.getInformationLevel(t.Position) != InformationLevel.无;
+        }
+
         public bool IsFriendly(Faction faction)
         {
             if (faction == null)
