@@ -39,7 +39,8 @@
         public List<EventEffect> architectureEffect;
         public List<EventEffect> factionEffect;
 
-        public Dictionary<int, Person> matchedPersons = new Dictionary<int, Person>();
+        public List<EventEffect> yesArchitectureEffect;
+        public List<EventEffect> noArchitectureEffect;
 
         public List<PersonIdDialog> scenBiography = new List<PersonIdDialog>() ;
         public List<PersonDialog> matchedScenBiography = new List<PersonDialog> () ;
@@ -60,7 +61,6 @@
             {
                 this.OnApplyEvent(this, a);
             }
-            
             foreach (PersonDialog i in matchedScenBiography) 
             {
                 this.Scenario.YearTable.addPersonInGameBiography(i.SpeakingPerson, this.Scenario.Date, i.Text);
@@ -101,6 +101,14 @@
                     }
                 }
             }
+            if (this.yesArchitectureEffect != null)
+            {
+                foreach (EventEffect i in yesArchitectureEffect)
+                {
+                    i.ApplyEffect(a, this);
+                }
+
+            }
         }
 
         public void DoNoApplyEvent(Architecture a)
@@ -114,6 +122,14 @@
                         j.ApplyEffect(i.Key, this);
                     }
                 }
+            }
+            if (this.noArchitectureEffect != null)
+            {
+                foreach (EventEffect j in noArchitectureEffect)
+                {
+                    j.ApplyEffect(a, this);
+                }
+
             }
         }
 
@@ -247,7 +263,7 @@
                 if (i.Count == 0) return false;
             }
 
-            //Dictionary<int, Person> matchedPersons = new Dictionary<int, Person>();
+            Dictionary<int, Person> matchedPersons = new Dictionary<int, Person>();
             foreach (KeyValuePair<int, List<Person>> i in candidates)
             {
                 if (i.Value.Count <= 0) return false;
@@ -310,6 +326,11 @@
 
         public bool checkConditions(Architecture a)
         {
+            if (a.ID == 139)
+            {
+                int zz = 0;
+                zz++;
+            }
             if (this.happened && !this.repeatable) return false;
             if (GameObject.Random(this.happenChance) != 0)
             {
@@ -355,7 +376,7 @@
             if (architecture.Count > 0 || faction.Count > 0)
             {
                 bool contains = false;
-                if (this.architecture != null)
+                if (architecture != null)
                 {
                     foreach (Architecture archi in this.architecture)
                     {
@@ -366,9 +387,9 @@
                     }
                 }
 
-                if (this.faction != null)
+                if (faction != null)
                 {
-                    foreach (Faction f in this.faction)
+                    foreach (Faction f in faction)
                     {
                         if (a.BelongedFaction != null)
                         {
@@ -378,60 +399,22 @@
                             }
                         }
                     }
-                }
 
-                if (!contains)
+                }
+                if (contains)
+                {
+                    return true;
+                }
+                else
                 {
                     return false;
                 }
             }
             
+           
             return this.matchEventPersons(a);
-            
         }
-        /*
-        public bool CheckEventID(Architecture check)
-        {
 
-            if ((this.architecture.Count > 0 || this.faction.Count > 0))
-            {
-                bool contains = false;
-                if (this.architecture != null)
-                {
-                    foreach (Architecture archi in this.architecture)
-                    {
-                        if (archi.ID == check.ID)
-                        {
-                            contains = true;
-                        }
-                    }
-                }
-
-                if (this.faction != null)
-                {
-                    foreach (Faction f in this.faction)
-                    {
-                        if (check.BelongedFaction != null)
-                        {
-                            if (f.ID == check.BelongedFaction.ID)
-                            {
-                                contains = true;
-                            }
-                        }
-                    }
-                }
-
-
-
-
-                if (contains)
-                {
-                    return true;
-                }
-            }
-               return false;   
-        }*/
-        
         public bool IsStart(GameScenario scenario)
         {
             Condition cstart = scenario.GameCommonData.AllConditions.GetCondition(9998);
@@ -749,6 +732,52 @@
         {
             string result = "";
             foreach (EventEffect i in this.architectureEffect)
+            {
+                result += i.ID + " ";
+            }
+            return result;
+        }
+
+        public void LoadYesArchitectureEffectFromString(EventEffectTable allEffect, string data)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.yesArchitectureEffect = new List<EventEffect>();
+            foreach (string i in strArray)
+            {
+                if (!allEffect.EventEffects.ContainsKey(int.Parse(i))) continue;
+                this.yesArchitectureEffect.Add(allEffect.EventEffects[int.Parse(i)]);
+            }
+        }
+
+        public string SaveYesArchitectureEffectToString()
+        {
+            string result = "";
+            foreach (EventEffect i in this.yesArchitectureEffect)
+            {
+                result += i.ID + " ";
+            }
+            return result;
+        }
+
+        public void LoadNoArchitectureEffectFromString(EventEffectTable allEffect, string data)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.noArchitectureEffect = new List<EventEffect>();
+            foreach (string i in strArray)
+            {
+                if (!allEffect.EventEffects.ContainsKey(int.Parse(i))) continue;
+                this.noArchitectureEffect.Add(allEffect.EventEffects[int.Parse(i)]);
+            }
+        }
+
+        public string SaveNoArchitectureEffectToString()
+        {
+            string result = "";
+            foreach (EventEffect i in this.noArchitectureEffect)
             {
                 result += i.ID + " ";
             }

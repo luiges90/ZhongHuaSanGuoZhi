@@ -77,6 +77,9 @@
         public Dictionary<Event, Architecture> YesEventsToApply = new Dictionary<Event, Architecture>();
         public Dictionary<Event, Architecture> NoEventsToApply = new Dictionary<Event, Architecture>();
 
+       // public Dictionary<Event, Architecture> YesArchiEventsToApply = new Dictionary<Event, Architecture>();
+        //public Dictionary<Event, Architecture> NoArchiEventsToApply = new Dictionary<Event, Architecture>();
+
         public EventList AllEvents = new EventList();
         public String LoadedFileName;
         public bool UsingOwnCommonData;
@@ -778,7 +781,35 @@
             }
             this.YesEventsToApply.Clear();
             this.NoEventsToApply.Clear();
+            /*
+            foreach (KeyValuePair<Event, Architecture> i in this.NoArchiEventsToApply)
+            {
+                i.Key.DoNoApplyEvent(i.Value);
+                i.Key.happened = true;
+            }
+            this.NoArchiEventsToApply.Clear();
+             */
         }
+        /*
+        public void ApplyYesArchiEvents()
+        {
+            foreach (KeyValuePair<Event, Architecture> i in this.YesArchiEventsToApply)
+            {
+                i.Key.DoYesArchiApplyEvent(i.Value);
+                i.Key.happened = true;
+            }
+            this.YesArchiEventsToApply.Clear();
+        }
+
+        public void ApplyNoArchiEvents()
+        {
+            foreach (KeyValuePair<Event, Architecture> i in this.NoArchiEventsToApply)
+            {
+                i.Key.DoNoArchiApplyEvent(i.Value);
+                i.Key.happened = true;
+            }
+            this.NoArchiEventsToApply.Clear();
+        }*/
 
         public void ApplyEvents()
         {
@@ -4748,6 +4779,11 @@
                             e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
                             e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
 
+                            e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
+                            e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
+                            e.LoadYesArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["YesArchitectureEffect"].ToString());
+                            e.LoadNoArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["NoArchitectureEffect"].ToString());
+
                             try
                             {
                                 e.nextScenario = reader["NextScenario"].ToString();
@@ -6310,6 +6346,8 @@
                         row["EndMonth"] = e.EndMonth;
                         row["YesEffect"] = e.SaveYesEffectToString();
                         row["NoEffect"] = e.SaveNoEffectToString();
+                        row["YesArchitectureEffect"] = e.SaveYesArchitectureEffectToString();
+                        row["NoArchitectureEffect"] = e.SaveNoArchitectureEffectToString();
                         row.EndEdit();
                         dataSet.Tables["Event"].Rows.Add(row);
                     }
@@ -6840,6 +6878,21 @@
                         this.NoEventsToApply.Add(e, triggerArch);
                         ran = true;
                     }
+                    /*
+                    if (!this.YesArchiEventsToApply.ContainsKey(e))
+                    {
+                        this.YesArchiEventsToApply.Add(e, triggerArch);
+
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }
+                    if (!this.NoArchiEventsToApply.ContainsKey(e))
+                    {
+                        this.NoArchiEventsToApply.Add(e, triggerArch);
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }
+                    */
                 }
             }
             return ran;
@@ -6869,6 +6922,20 @@
                         this.NoEventsToApply.Add(e, triggerArch);
                         ran = true;
                     }
+                    /*
+                    if (!this.YesArchiEventsToApply.ContainsKey(e))
+                    {
+                        this.YesArchiEventsToApply.Add(e, triggerArch);
+
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }
+                    if (!this.NoArchiEventsToApply.ContainsKey(e))
+                    {
+                        this.NoArchiEventsToApply.Add(e, triggerArch);
+                        e.ApplyEventDialogs(triggerArch);
+                        ran = true;
+                    }*/
                 }
             }
             return ran;

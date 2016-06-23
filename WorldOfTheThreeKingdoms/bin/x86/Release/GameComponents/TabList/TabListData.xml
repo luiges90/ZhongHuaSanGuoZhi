@@ -4132,7 +4132,7 @@
         </Column>
       </Columns>
       <Tabs Margin="5">
-        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 5 6 8 7">
+        <Tab ID="1"  Name="Basic" DisplayName="基本" Columns="1 2 3 4 5 6 7">
         </Tab>
       </Tabs>
     </ListKind>
