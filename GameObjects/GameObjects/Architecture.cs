@@ -5095,7 +5095,19 @@
                     pl.IsNumber = true;
                     pl.ReSort();
 
-                    for (int i = 0; i < pl.Count; ++i)
+                    if (pl.Count <= 0 || ml.Count <= 0)
+                    {
+                        this.AIBattlingArchitectures.Remove(a);
+                        break;
+                    }
+
+                    if (this.ArmyScale < this.getArmyReserveForOffensive())
+                    {
+                        this.AIBattlingArchitectures.Remove(a);
+                        break;
+                    }
+
+                    for (int i = 0; i < pl.Count && i < ml.Count; ++i)
                     {
                         Person p = (Person) pl[i];
                         Military m = (Military) ml[i];
@@ -5103,7 +5115,13 @@
                         GameObjectList gol = new GameObjectList();
                         gol.Add(p);
                         Troop t = Troop.CreateSimulateTroop(gol, m, this.ArchitectureArea.Centre);
-                        attackingTroops.Add(t);
+                        t.BelongedFaction = this.BelongedFaction;
+                        attackingTroops.AddTroopWithEvent(t);
+
+                        if (this.ArmyScale < this.getArmyReserveForOffensive())
+                        {
+                            break;
+                        }
                     }
 
                     // defensive troop
@@ -5119,23 +5137,61 @@
                     pl.IsNumber = true;
                     pl.ReSort();
 
-                    for (int i = 0; i < pl.Count; ++i)
+                    for (int i = 0; i < pl.Count && i < ml.Count; ++i)
                     {
                         Person p = (Person)pl[i];
                         Military m = (Military)ml[i];
 
                         GameObjectList gol = new GameObjectList();
                         gol.Add(p);
-                        Troop t = Troop.CreateSimulateTroop(gol, m, this.ArchitectureArea.Centre);
-                        defendingTroops.Add(t);
+                        Troop t = Troop.CreateSimulateTroop(gol, m, a.ArchitectureArea.Centre);
+                        t.BelongedFaction = a.BelongedFaction;
+                        defendingTroops.AddTroopWithEvent(t);
                     }
 
                     // fight
+                    foreach (Troop t in defendingTroops)
+                    {
+                        if (attackingTroops.Count > 0)
+                        {
+                            Troop target = (Troop)attackingTroops[GameObject.Random(attackingTroops.Count)];
+                            t.AttackTroop(target);
+                            t.ApplyDamageList();
+                        }
+                        else
+                        {
+                            this.AIBattlingArchitectures.Remove(a);
+                        }
+                    }
                     foreach (Troop t in attackingTroops)
                     {
                         if (a.Endurance > 0)
                         {
                             t.AttackArchitecture(a);
+                            t.ApplyDamageList();
+                        }
+                        else
+                        {
+                            if (defendingTroops.Count > 0)
+                            {
+                                Troop target = (Troop)defendingTroops[GameObject.Random(defendingTroops.Count)];
+                                t.AttackTroop(target);
+                                t.ApplyDamageList();
+                            } 
+                            else 
+                            {
+                                Troop occupier = (Troop)attackingTroops[GameObject.Random(attackingTroops.Count)];
+                                occupier.Position = a.ArchitectureArea.Centre;
+                                occupier.Occupy();
+
+                                foreach (Troop u in attackingTroops)
+                                {
+                                    u.Position = a.ArchitectureArea.Centre;
+                                    u.Enter(a);
+                                }
+                                this.AIBattlingArchitectures.Remove(a);
+                            }
+                      
                         }
                     }
                 }
@@ -10020,8 +10076,6 @@
                 }
                 if (wayToTarget != null)
                 {
-                    // Quick AI battle? compare person, troop, endurance and resolve battle result after estimated days, if player don't see it
-                    // if player enter during estimated days, abort 
                     int reserve = Math.Max(0, reserveBase - wayToTarget.A.ArmyScale);
                     int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(wayToTarget);
                     int armyScaleHere = (wayToTarget.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));

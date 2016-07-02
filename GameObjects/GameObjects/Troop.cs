@@ -1616,7 +1616,7 @@
             ob.CalmDay = 0;
         }
         */
-        private void ApplyDamageList()
+        public void ApplyDamageList()
         {
             foreach (TroopDamage damage in this.TroopDamageList)
             {
@@ -8004,9 +8004,12 @@
                     currentArchitecture.Food /= 10;
                     this.BelongedFaction.AddArchitectureKnownData(currentArchitecture);
                     this.WillArchitecture = currentArchitecture;
-                    if (((((this.BelongedLegion.PreferredRouteway != null) && (this.BelongedLegion.PreferredRouteway.Length > 0)) && (this.BelongedLegion.PreferredRouteway.EndArchitecture == null)) && ((this.BelongedLegion.PreferredRouteway.DestinationArchitecture == null) || (this.BelongedLegion.PreferredRouteway.DestinationArchitecture == currentArchitecture))) && currentArchitecture.GetRoutewayStartPoints().HasPoint(this.BelongedLegion.PreferredRouteway.LastPoint.Position))
+                    if (this.BelongedLegion != null)
                     {
-                        this.BelongedLegion.PreferredRouteway.EndArchitecture = currentArchitecture;
+                        if (((((this.BelongedLegion.PreferredRouteway != null) && (this.BelongedLegion.PreferredRouteway.Length > 0)) && (this.BelongedLegion.PreferredRouteway.EndArchitecture == null)) && ((this.BelongedLegion.PreferredRouteway.DestinationArchitecture == null) || (this.BelongedLegion.PreferredRouteway.DestinationArchitecture == currentArchitecture))) && currentArchitecture.GetRoutewayStartPoints().HasPoint(this.BelongedLegion.PreferredRouteway.LastPoint.Position))
+                        {
+                            this.BelongedLegion.PreferredRouteway.EndArchitecture = currentArchitecture;
+                        }
                     }
                     if (this.BelongedFaction.Capital == null)
                     {
@@ -8016,11 +8019,18 @@
                     {
                         currentArchitecture.BelongedSection.RemoveArchitecture(currentArchitecture);
                     }
-                    if (((this.BelongedLegion.StartArchitecture != null) && (this.BelongedLegion.StartArchitecture.BelongedSection != null)) && (this.BelongedLegion.StartArchitecture.BelongedSection.BelongedFaction == this.BelongedFaction))
+                    if (this.BelongedLegion != null)
                     {
-                        this.BelongedLegion.StartArchitecture.BelongedSection.AddArchitecture(currentArchitecture);
+                        if (((this.BelongedLegion.StartArchitecture != null) && (this.BelongedLegion.StartArchitecture.BelongedSection != null)) && (this.BelongedLegion.StartArchitecture.BelongedSection.BelongedFaction == this.BelongedFaction))
+                        {
+                            this.BelongedLegion.StartArchitecture.BelongedSection.AddArchitecture(currentArchitecture);
+                        }
+                        else if (this.BelongedFaction.FirstSection != null)
+                        {
+                            this.BelongedFaction.FirstSection.AddArchitecture(currentArchitecture);
+                        }
                     }
-                    else if (this.BelongedFaction.FirstSection != null)
+                    else
                     {
                         this.BelongedFaction.FirstSection.AddArchitecture(currentArchitecture);
                     }
