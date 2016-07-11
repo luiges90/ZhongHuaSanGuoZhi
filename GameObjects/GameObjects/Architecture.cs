@@ -5068,12 +5068,15 @@
             foreach (Architecture a in this.AIBattlingArchitectures.GetList())
             {
                 bool aborted = false;
-                foreach (Faction f in base.Scenario.PlayerFactions)
+                if (!GlobalVariables.AIQuickBattleAuto)
                 {
-                    if (f.IsArchitectureKnown(a))
+                    foreach (Faction f in base.Scenario.PlayerFactions)
                     {
-                        this.AIBattlingArchitectures.Remove(a);
-                        aborted = true;
+                        if (f.IsArchitectureKnown(a))
+                        {
+                            this.AIBattlingArchitectures.Remove(a);
+                            aborted = true;
+                        }
                     }
                 }
 
@@ -5081,6 +5084,9 @@
                 {
                     TroopList attackingTroops = new TroopList();
                     TroopList defendingTroops = new TroopList();
+
+                    // FIXME sometimes troop have no BelongedFaction causing crash
+                    // FIXME unoccupied architectures change hands frequently
 
                     // offensive troop
                     GameObjectList ml = this.Militaries.GetList();
@@ -5124,29 +5130,32 @@
                         }
                     }
 
-                    // defensive troop
-                    ml = a.Militaries.GetList();
-                    ml.PropertyName = "Merit";
-                    ml.SmallToBig = false;
-                    ml.IsNumber = true;
-                    ml.ReSort();
-
-                    pl = a.Persons.GetList();
-                    pl.PropertyName = "FightingForce";
-                    pl.SmallToBig = false;
-                    pl.IsNumber = true;
-                    pl.ReSort();
-
-                    for (int i = 0; i < pl.Count && i < ml.Count; ++i)
+                    if (a.BelongedFaction != null)
                     {
-                        Person p = (Person)pl[i];
-                        Military m = (Military)ml[i];
+                        // defensive troop
+                        ml = a.Militaries.GetList();
+                        ml.PropertyName = "Merit";
+                        ml.SmallToBig = false;
+                        ml.IsNumber = true;
+                        ml.ReSort();
 
-                        GameObjectList gol = new GameObjectList();
-                        gol.Add(p);
-                        Troop t = Troop.CreateSimulateTroop(gol, m, a.ArchitectureArea.Centre);
-                        t.BelongedFaction = a.BelongedFaction;
-                        defendingTroops.AddTroopWithEvent(t);
+                        pl = a.Persons.GetList();
+                        pl.PropertyName = "FightingForce";
+                        pl.SmallToBig = false;
+                        pl.IsNumber = true;
+                        pl.ReSort();
+
+                        for (int i = 0; i < pl.Count && i < ml.Count; ++i)
+                        {
+                            Person p = (Person)pl[i];
+                            Military m = (Military)ml[i];
+
+                            GameObjectList gol = new GameObjectList();
+                            gol.Add(p);
+                            Troop t = Troop.CreateSimulateTroop(gol, m, a.ArchitectureArea.Centre);
+                            t.BelongedFaction = a.BelongedFaction;
+                            defendingTroops.AddTroopWithEvent(t);
+                        }
                     }
 
                     // fight
@@ -5169,6 +5178,7 @@
                         {
                             t.AttackArchitecture(a);
                             t.ApplyDamageList();
+                            if (a.Endurance <= 0) break;
                         }
                         else
                         {
@@ -10086,7 +10096,7 @@
                         return;
                     }
 
-                    if (GlobalVariables.AIQuickBattle && !base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction))
+                    if (GlobalVariables.AIQuickBattle && (!base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction) || GlobalVariables.AIQuickBattleAuto))
                     {
                         this.AIBattlingArchitectures.Add(wayToTarget.A);
                     }

@@ -161,6 +161,7 @@
 
         public static int FixedUnnaturalDeathAge = 80;
         public static bool AIQuickBattle = false;
+        public static bool AIQuickBattleAuto = true;
 
         public const string cryptKey = "A3g0c3%2";
 
