@@ -5085,8 +5085,7 @@
                     TroopList attackingTroops = new TroopList();
                     TroopList defendingTroops = new TroopList();
 
-                    // FIXME sometimes troop have no BelongedFaction causing crash
-                    // FIXME unoccupied architectures change hands frequently
+                    // FIXME it took too long, 
 
                     // offensive troop
                     GameObjectList ml = this.Militaries.GetList();
@@ -5118,16 +5117,24 @@
                         Person p = (Person) pl[i];
                         Military m = (Military) ml[i];
 
+                        if (m.Morale <= 0 || m.Quantity <= 0) continue;
+
+                        Point? nullable = this.GetRandomStartingPosition(m);
+                        if (!nullable.HasValue)
+                        {
+                            break;
+                        }
+
                         GameObjectList gol = new GameObjectList();
                         gol.Add(p);
-                        Troop t = Troop.CreateSimulateTroop(gol, m, this.ArchitectureArea.Centre);
-                        t.BelongedFaction = this.BelongedFaction;
-                        attackingTroops.AddTroopWithEvent(t);
+                        Troop t = Troop.Create(this, gol, p, m, -1, nullable.Value);
 
                         if (this.ArmyScale < this.getArmyReserveForOffensive())
                         {
                             break;
                         }
+
+                        attackingTroops.AddTroopWithEvent(t);
                     }
 
                     if (a.BelongedFaction != null)
@@ -5150,10 +5157,18 @@
                             Person p = (Person)pl[i];
                             Military m = (Military)ml[i];
 
+                            if (m.Morale <= 0 || m.Quantity <= 0) continue;
+
+                            Point? nullable = a.GetRandomStartingPosition(m);
+                            if (!nullable.HasValue)
+                            {
+                                break;
+                            }
+
                             GameObjectList gol = new GameObjectList();
                             gol.Add(p);
-                            Troop t = Troop.CreateSimulateTroop(gol, m, a.ArchitectureArea.Centre);
-                            t.BelongedFaction = a.BelongedFaction;
+                            Troop t = Troop.Create(a, gol, p, m, -1, nullable.Value);
+
                             defendingTroops.AddTroopWithEvent(t);
                         }
                     }
@@ -5178,7 +5193,6 @@
                         {
                             t.AttackArchitecture(a);
                             t.ApplyDamageList();
-                            if (a.Endurance <= 0) break;
                         }
                         else
                         {
@@ -5190,9 +5204,9 @@
                             } 
                             else 
                             {
-                                Troop occupier = (Troop)attackingTroops[GameObject.Random(attackingTroops.Count)];
-                                occupier.Position = a.ArchitectureArea.Centre;
-                                occupier.Occupy();
+                                t.Position = a.ArchitectureArea.Centre;
+                                t.BelongedFaction = this.BelongedFaction;
+                                t.Occupy();
 
                                 foreach (Troop u in attackingTroops)
                                 {
@@ -5202,6 +5216,22 @@
                                 this.AIBattlingArchitectures.Remove(a);
                             }
                       
+                        }
+
+                    }
+
+                    foreach (Troop t in defendingTroops)
+                    {
+                        if (t.ChaosDayLeft > 0)
+                        {
+                            t.SetRecoverFromChaos();
+                        }
+                    }
+                    foreach (Troop t in attackingTroops)
+                    {
+                        if (t.ChaosDayLeft > 0)
+                        {
+                            t.SetRecoverFromChaos();
                         }
                     }
                 }
@@ -11232,6 +11262,7 @@
             {
                 troop.RefreshViewArchitectureRelatedArea();
             }
+            this.AIBattlingArchitectures.Clear();
             foreach (LinkNode i in this.AIAllLinkNodes.Values)
             {
                 i.A.CheckIsFrontLine();

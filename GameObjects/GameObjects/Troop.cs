@@ -911,7 +911,7 @@
                     return false;
                 }
                 //retreat if the enemy base has > 30 endurance, morale <= 75, and routeway not started or don't have enough food
-                if (this.BelongedFaction != null)
+                if (this.BelongedFaction != null && this.BelongedLegion != null)
                 {
                     if ((((this.WillArchitecture.Endurance >= 30) && (this.WillArchitecture.BelongedFaction != this.BelongedFaction))
                         && (this.Morale <= 75))
@@ -1679,16 +1679,19 @@
 
         private void ApplyStratagemEffect()
         {
-            if (this.StratagemApplyed)
+            if (this.CurrentStratagem != null)
             {
-                this.CurrentStratagem.Apply(this);
-                this.StratagemApplyed = false;
-                this.AreaStratagemTroops.Clear();
-            }
-            else if (this.WaitForDeepChaos)
-            {
-                this.WaitForDeepChaos = false;
-                this.OrientationTroop.SetChaos(this.GenerateCastChaosDay(2));
+                if (this.StratagemApplyed)
+                {
+                    this.CurrentStratagem.Apply(this);
+                    this.StratagemApplyed = false;
+                    this.AreaStratagemTroops.Clear();
+                }
+                else if (this.WaitForDeepChaos)
+                {
+                    this.WaitForDeepChaos = false;
+                    this.OrientationTroop.SetChaos(this.GenerateCastChaosDay(2));
+                }
             }
         }
 
@@ -2329,7 +2332,7 @@
 
         private void CallTacticsHelp()
         {
-            if (this.BelongedFaction == null) return;
+            if (this.BelongedFaction == null || this.BelongedLegion == null) return;
             if (((this.WillArchitecture.BelongedFaction != null) && !this.IsFriendlyWithoutTruce(this.WillArchitecture.BelongedFaction)) && (base.Scenario.GetDistance(this.Position, this.WillArchitecture.Position) <= 10.0))
             {
                 if (this.BelongedFaction.IsArchitectureKnown(this.WillArchitecture) || GameObject.Chance(0x21))
