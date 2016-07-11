@@ -7587,6 +7587,14 @@
             {
                 return false;
             }
+            if (this.PersonalLoyalty >= 2 && f.IsAlien)
+            {
+                return false;
+            }
+            if (this.ProhibitedFactionID.ContainsKey(f.ID))
+            {
+                return false;
+            }
             return true;
         }
 
