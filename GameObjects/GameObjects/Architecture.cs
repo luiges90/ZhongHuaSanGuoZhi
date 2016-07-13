@@ -5085,7 +5085,7 @@
                     TroopList attackingTroops = new TroopList();
                     TroopList defendingTroops = new TroopList();
 
-                    // FIXME it took too long, 
+                    // FIXME sometimes troop.belongedFaction turns nullb 
 
                     // offensive troop
                     GameObjectList ml = this.Militaries.GetList();
@@ -5134,7 +5134,7 @@
                             break;
                         }
 
-                        attackingTroops.AddTroopWithEvent(t);
+                        attackingTroops.Add(t);
                     }
 
                     if (a.BelongedFaction != null)
@@ -5169,7 +5169,7 @@
                             gol.Add(p);
                             Troop t = Troop.Create(a, gol, p, m, -1, nullable.Value);
 
-                            defendingTroops.AddTroopWithEvent(t);
+                            defendingTroops.Add(t);
                         }
                     }
 

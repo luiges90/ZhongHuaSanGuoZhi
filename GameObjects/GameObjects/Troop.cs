@@ -2532,7 +2532,10 @@
             {
                 if (this.BelongedLegion != null && this.BelongedLegion.BelongedFaction != faction)
                 {
-                    this.BelongedLegion.BelongedFaction.RemoveLegion(this.BelongedLegion);
+                    if (this.BelongedLegion.BelongedFaction != null)
+                    {
+                        this.BelongedLegion.BelongedFaction.RemoveLegion(this.BelongedLegion);
+                    }
                     faction.AddLegion(this.BelongedLegion);
                     if ((this.BelongedLegion.Kind == LegionKind.Offensive) && (this.BelongedLegion.WillArchitecture.BelongedFaction == faction))
                     {
@@ -7797,7 +7800,7 @@
                     if ((troopByPositionNoCheck != null) && (troopByPositionNoCheck.BelongedFaction != this.BelongedFaction))
                     {
                         bool findSpace = false;
-                        for (int i = 1; ; ++i)
+                        for (int i = 1; i <= 5; ++i)
                         {
                             for (int j = -i; j <= i; ++j)
                             {
@@ -7817,6 +7820,10 @@
                                 if (findSpace) break;
                             }
                             if (findSpace) break;
+                        }
+                        if (!findSpace)
+                        {
+                            this.Destroy(true, true);
                         }
                         //troopByPositionNoCheck.DecreaseMorale(troopByPositionNoCheck.Army.MoraleCeiling);
                         //CheckTroopRout(troopByPositionNoCheck);
