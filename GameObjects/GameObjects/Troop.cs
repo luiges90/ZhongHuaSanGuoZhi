@@ -911,7 +911,7 @@
                     return false;
                 }
                 //retreat if the enemy base has > 30 endurance, morale <= 75, and routeway not started or don't have enough food
-                if (this.BelongedFaction != null && this.BelongedLegion != null)
+                if (this.BelongedFaction != null)
                 {
                     if ((((this.WillArchitecture.Endurance >= 30) && (this.WillArchitecture.BelongedFaction != this.BelongedFaction))
                         && (this.Morale <= 75))
@@ -2332,7 +2332,7 @@
 
         private void CallTacticsHelp()
         {
-            if (this.BelongedFaction == null || this.BelongedLegion == null) return;
+            if (this.BelongedFaction == null) return;
             if (((this.WillArchitecture.BelongedFaction != null) && !this.IsFriendlyWithoutTruce(this.WillArchitecture.BelongedFaction)) && (base.Scenario.GetDistance(this.Position, this.WillArchitecture.Position) <= 10.0))
             {
                 if (this.BelongedFaction.IsArchitectureKnown(this.WillArchitecture) || GameObject.Chance(0x21))
@@ -2532,10 +2532,7 @@
             {
                 if (this.BelongedLegion != null && this.BelongedLegion.BelongedFaction != faction)
                 {
-                    if (this.BelongedLegion.BelongedFaction != null)
-                    {
-                        this.BelongedLegion.BelongedFaction.RemoveLegion(this.BelongedLegion);
-                    }
+                    this.BelongedLegion.BelongedFaction.RemoveLegion(this.BelongedLegion);
                     faction.AddLegion(this.BelongedLegion);
                     if ((this.BelongedLegion.Kind == LegionKind.Offensive) && (this.BelongedLegion.WillArchitecture.BelongedFaction == faction))
                     {
@@ -7823,7 +7820,7 @@
                         }
                         if (!findSpace)
                         {
-                            this.Destroy(true, true);
+                            troopByPositionNoCheck.Destroy(true, true);
                         }
                         //troopByPositionNoCheck.DecreaseMorale(troopByPositionNoCheck.Army.MoraleCeiling);
                         //CheckTroopRout(troopByPositionNoCheck);

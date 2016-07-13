@@ -5135,6 +5135,15 @@
                         }
 
                         attackingTroops.Add(t);
+
+                        Legion legion = this.BelongedFaction.GetLegion(a);
+                        if (legion == null)
+                        {
+                            legion = this.CreateOffensiveLegion(a);
+                        }
+                        legion.AddTroop(t);
+
+                        a.TotalHostileForce += t.FightingForce;
                     }
 
                     if (a.BelongedFaction != null)
@@ -5170,6 +5179,14 @@
                             Troop t = Troop.Create(a, gol, p, m, -1, nullable.Value);
 
                             defendingTroops.Add(t);
+
+                            if (this.DefensiveLegion == null)
+                            {
+                                this.DefensiveLegion = this.CreateDefensiveLegion();
+                            }
+                            this.DefensiveLegion.AddTroop(t);
+
+                            this.TotalFriendlyForce += t.FightingForce;
                         }
                     }
 

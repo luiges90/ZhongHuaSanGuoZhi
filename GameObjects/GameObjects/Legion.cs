@@ -206,6 +206,11 @@
             this.StartArchitecture = null;
             this.WillArchitecture = null;
             this.CoreTroop = null;
+            foreach (Troop t in this.Troops)
+            {
+                t.BelongedLegion = null;
+            }
+
             this.Troops.Clear();
             if (this.BelongedFaction != null)
             {
