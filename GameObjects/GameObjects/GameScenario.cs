@@ -5222,37 +5222,41 @@
                             q.SetRelation(p, 0);
                             continue;
                         }
-                        if (!q.Available) continue;
 
-                        if (p.BelongedArchitecture == q.BelongedArchitecture && p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
-                            ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||
-                            ((p.OutsideTask == q.OutsideTask) && (p.OutsideTask != OutsideTaskKind.无)))
+                        if (q.Available && q.Alive && GameObject.Random(30) == 0)
                         {
-                            if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
+                            if (p.BelongedArchitecture == q.BelongedArchitecture && p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
+                                ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||
+                                ((p.OutsideTask == q.OutsideTask) && (p.OutsideTask != OutsideTaskKind.无)))
                             {
-                                if (!p.Hates(q))
+                                if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
                                 {
-                                    p.AdjustRelation(q, 0.2f / (p.BelongedArchitecture.Persons.Count - 1), 2);
+                                    if (!p.Hates(q))
+                                    {
+                                        p.AdjustRelation(q, 0.2f / (p.BelongedArchitecture.Persons.Count - 1), 2);
+                                    }
                                 }
                             }
                         }
 
                         if (p.GetRelation(q) > 0)
                         {
-                            int g = p.PersonalLoyalty - 4 + (GameObject.Random(5) - 2);
-                            float d = Parameters.CloseThreshold / p.GetRelation(q);
-                            if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
+                            if (!p.Closes(q) && GameObject.Chance((5 - p.PersonalLoyalty) * 20 - 10))
                             {
-                                p.AdjustRelation(q, -d / 20, g);
-                            }
-                            else
-                            {
-                                p.AdjustRelation(q, -d / 50, g);
-                            }
+                                float d = Parameters.CloseThreshold / p.GetRelation(q);
+                                if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
+                                {
+                                    p.AdjustRelation(q, -d / 20, 0);
+                                }
+                                else
+                                {
+                                    p.AdjustRelation(q, -d / 50, 0);
+                                }
 
-                            if (p.GetRelation(q) < 0)
-                            {
-                                p.SetRelation(q, 0);
+                                if (p.GetRelation(q) < 0)
+                                {
+                                    p.SetRelation(q, 0);
+                                }
                             }
                         }
                         else if (p.GetRelation(q) < 0)

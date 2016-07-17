@@ -9175,16 +9175,13 @@
             }
             if (val != 0)
             {
-                if (val > 1 || GameObject.Chance((int) (val * 100)))
+                if (this.relations.ContainsKey(p))
                 {
-                    if (this.relations.ContainsKey(p))
-                    {
-                        this.relations[p] = (int) (this.relations[p] + val);
-                    }
-                    else
-                    {
-                        this.relations.Add(p, (int) val);
-                    }
+                    this.relations[p] = (int) (this.relations[p] + val);
+                }
+                else
+                {
+                    this.relations.Add(p, (int) val);
                 }
             }
             else
