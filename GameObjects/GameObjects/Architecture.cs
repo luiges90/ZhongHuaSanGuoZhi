@@ -5082,11 +5082,6 @@
 
                 if (!aborted)
                 {
-                    TroopList attackingTroops = new TroopList();
-                    TroopList defendingTroops = new TroopList();
-
-                    // FIXME sometimes troop.belongedFaction turns nullb 
-
                     // offensive troop
                     GameObjectList ml = this.Militaries.GetList();
                     ml.PropertyName = "Merit";
@@ -5119,6 +5114,11 @@
 
                         if (m.Morale <= 0 || m.Quantity <= 0) continue;
 
+                        if (this.ArmyScale < this.getArmyReserveForOffensive())
+                        {
+                            break;
+                        }
+
                         Point? nullable = this.GetRandomStartingPosition(m);
                         if (!nullable.HasValue)
                         {
@@ -5127,14 +5127,7 @@
 
                         GameObjectList gol = new GameObjectList();
                         gol.Add(p);
-                        Troop t = Troop.Create(this, gol, p, m, -1, nullable.Value);
-
-                        if (this.ArmyScale < this.getArmyReserveForOffensive())
-                        {
-                            break;
-                        }
-
-                        attackingTroops.Add(t);
+                        Troop t = this.CreateTroop(gol, p, m, -1, nullable.Value);
 
                         Legion legion = this.BelongedFaction.GetLegion(a);
                         if (legion == null)
@@ -5144,6 +5137,13 @@
                         legion.AddTroop(t);
 
                         a.TotalHostileForce += t.FightingForce;
+
+                    }
+
+                    if (this.BelongedFaction.GetLegion(a) == null)
+                    {
+                        this.AIBattlingArchitectures.Remove(a);
+                        break;
                     }
 
                     if (a.BelongedFaction != null)
@@ -5176,34 +5176,38 @@
 
                             GameObjectList gol = new GameObjectList();
                             gol.Add(p);
-                            Troop t = Troop.Create(a, gol, p, m, -1, nullable.Value);
+                            Troop t = a.CreateTroop(gol, p, m, -1, nullable.Value);
 
-                            defendingTroops.Add(t);
-
-                            if (this.DefensiveLegion == null)
+                            if (a.DefensiveLegion == null)
                             {
-                                this.DefensiveLegion = this.CreateDefensiveLegion();
+                                a.DefensiveLegion = this.CreateDefensiveLegion();
                             }
-                            this.DefensiveLegion.AddTroop(t);
+                            a.DefensiveLegion.AddTroop(t);
 
                             this.TotalFriendlyForce += t.FightingForce;
                         }
                     }
 
                     // fight
-                    foreach (Troop t in defendingTroops)
+                    if (a.DefensiveLegion != null)
                     {
-                        if (attackingTroops.Count > 0)
+                        GameObjectList defList = a.DefensiveLegion.Troops.GetList();
+                        foreach (Troop t in defList)
                         {
-                            Troop target = (Troop)attackingTroops[GameObject.Random(attackingTroops.Count)];
-                            t.AttackTroop(target);
-                            t.ApplyDamageList();
-                        }
-                        else
-                        {
-                            this.AIBattlingArchitectures.Remove(a);
+                            if (this.BelongedFaction.GetLegion(a).Troops.Count > 0)
+                            {
+                                TroopList list = this.BelongedFaction.GetLegion(a).Troops;
+                                Troop target = (Troop)list[GameObject.Random(list.Count)];
+                                t.AttackTroop(target);
+                                t.ApplyDamageList();
+                            }
+                            else
+                            {
+                                this.AIBattlingArchitectures.Remove(a);
+                            }
                         }
                     }
+                    GameObjectList attackingTroops = this.BelongedFaction.GetLegion(a).Troops.GetList();
                     foreach (Troop t in attackingTroops)
                     {
                         if (a.Endurance > 0)
@@ -5213,9 +5217,9 @@
                         }
                         else
                         {
-                            if (defendingTroops.Count > 0)
+                            if (a.DefensiveLegion != null && a.DefensiveLegion.Troops.Count > 0)
                             {
-                                Troop target = (Troop)defendingTroops[GameObject.Random(defendingTroops.Count)];
+                                Troop target = (Troop)a.DefensiveLegion.Troops[GameObject.Random(a.DefensiveLegion.Troops.Count)];
                                 t.AttackTroop(target);
                                 t.ApplyDamageList();
                             } 
@@ -5231,20 +5235,24 @@
                                     u.Enter(a);
                                 }
                                 this.AIBattlingArchitectures.Remove(a);
+                                break;
                             }
                       
                         }
 
                     }
 
-                    foreach (Troop t in defendingTroops)
+                    if (a.DefensiveLegion != null)
                     {
-                        if (t.ChaosDayLeft > 0)
+                        foreach (Troop t in a.DefensiveLegion.Troops)
                         {
-                            t.SetRecoverFromChaos();
+                            if (t.ChaosDayLeft > 0)
+                            {
+                                t.SetRecoverFromChaos();
+                            }
                         }
                     }
-                    foreach (Troop t in attackingTroops)
+                    foreach (Troop t in this.BelongedFaction.GetLegion(a).Troops)
                     {
                         if (t.ChaosDayLeft > 0)
                         {

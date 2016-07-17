@@ -1051,7 +1051,7 @@
                             }
                             else
                             {
-                                p.BelongedTroop.ChangeFaction(newFaction);
+                                p.LocationTroop.ChangeFaction(newFaction);
                             }
                         }
                     }
