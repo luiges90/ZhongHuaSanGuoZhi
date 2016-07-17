@@ -5224,35 +5224,31 @@
                         }
                         if (!q.Available) continue;
 
-                        if (this.Date.Day == 1)
+                        if (p.BelongedArchitecture == q.BelongedArchitecture && p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
+                            ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||
+                            ((p.OutsideTask == q.OutsideTask) && (p.OutsideTask != OutsideTaskKind.无)))
                         {
-                            if (p.BelongedArchitecture == q.BelongedArchitecture && p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
-                                ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||
-                                ((p.OutsideTask == q.OutsideTask) && (p.OutsideTask != OutsideTaskKind.无)))
+                            if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
                             {
-                                if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
+                                if (!p.Hates(q))
                                 {
-                                    if (!p.Hates(q))
-                                    {
-                                        p.AdjustRelation(q, 0.2f / (p.BelongedArchitecture.Persons.Count - 1), 2);
-                                    }
+                                    p.AdjustRelation(q, 0.2f / (p.BelongedArchitecture.Persons.Count - 1), 2);
                                 }
                             }
                         }
 
                         if (p.GetRelation(q) > 0)
                         {
+                            int g = p.PersonalLoyalty - 4 + (GameObject.Random(5) - 2);
+                            float d = Parameters.CloseThreshold / p.GetRelation(q);
                             if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
                             {
-                                p.AdjustRelation(q, -0.3f, 1 + GameObject.Random(5));
+                                p.AdjustRelation(q, -d / 20, g);
                             }
-
-                            int g = p.PersonalLoyalty - 3 + (GameObject.Random(5) - 2);
-                            if (p.Closes(q)) 
+                            else
                             {
-                                g = Math.Max(g, 0);
+                                p.AdjustRelation(q, -d / 50, g);
                             }
-                            p.AdjustRelation(q, 0, g);
 
                             if (p.GetRelation(q) < 0)
                             {
@@ -5261,21 +5257,22 @@
                         }
                         else if (p.GetRelation(q) < 0)
                         {
-                            if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
+                            if (!p.Hates(q))
                             {
-                                p.AdjustRelation(q, 0.3f, -1 - GameObject.Random(5));
-                            }
+                                float d = Parameters.HateThreshold / -p.GetRelation(q) / 5;
+                                if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
+                                {
+                                    p.AdjustRelation(q, -d / 20, GameObject.Random(5));
+                                }
+                                else
+                                {
+                                    p.AdjustRelation(q, -d / 50, GameObject.Random(5));
+                                }
 
-                            int g = p.PersonalLoyalty - 1 + (GameObject.Random(5) - 2);
-                            if (p.Hates(q))
-                            {
-                                g = Math.Min(-5, g);
-                            }
-                            p.AdjustRelation(q, 0, g);
-
-                            if (p.GetRelation(q) > 0)
-                            {
-                                p.SetRelation(q, 0);
+                                if (p.GetRelation(q) > 0)
+                                {
+                                    p.SetRelation(q, 0);
+                                }
                             }
                         }
                     }
