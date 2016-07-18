@@ -7758,31 +7758,33 @@
             PersonGeneratorType gernrateType = new PersonGeneratorType();
             
             //int[] weights = new int[10];
-            int[] weights = { 100, 100, 100, 100, 60, 100, 1, 250, 250, 39 }; 
-            /*foreach (PersonGeneratorType type in scen.GameCommonData.AllPersonGeneratorTypes)
+            int typeCount = scen.GameCommonData.AllPersonGeneratorTypes.Count;
+            Dictionary<int, int> weights = new Dictionary<int, int>();
+
+            foreach (PersonGeneratorType type in scen.GameCommonData.AllPersonGeneratorTypes)
             {
                 weights[type.ID] = type.generationChance;
-            }*/
+            }
 
             int total = 0;
-            foreach (int i in weights)
+            foreach (int i in weights.Values)
             {
                 total += i;
             }
 
-            int officerType = 9;
+            int officerType = 0;
             int typeInt = GameObject.Random(total);
             int typeSum = 0;
-            for (int i = 0; i < weights.Length; ++i)
+            foreach (KeyValuePair<int, int> p in weights)
             {
-                typeSum += weights[i];
+                typeSum += p.Value;
                 if (typeInt < typeSum)
                 {
-                    officerType = i;
+                    officerType = p.Key;
                     break;
                 }
             }
-            gernrateType.ID = officerType  ;
+            gernrateType.ID = officerType;
 
             return gernrateType;
         }
