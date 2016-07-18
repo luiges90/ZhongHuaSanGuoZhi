@@ -5223,7 +5223,7 @@
                             continue;
                         }
 
-                        if (q.Available && q.Alive && GameObject.Random(30) == 0)
+                        if (q.Available && q.Alive && p.BelongedArchitecture.Persons.Count >= 2 && GameObject.Random(30) == 0)
                         {
                             if (p.BelongedArchitecture == q.BelongedArchitecture && p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
                                 ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||
@@ -5233,7 +5233,7 @@
                                 {
                                     if (!p.Hates(q))
                                     {
-                                        p.AdjustRelation(q, 0.2f / (p.BelongedArchitecture.Persons.Count - 1), 2);
+                                        p.AdjustRelation(q, 3f / (p.BelongedArchitecture.Persons.Count - 1), 2);
                                     }
                                 }
                             }
@@ -5243,14 +5243,13 @@
                         {
                             if (!p.Closes(q) && GameObject.Chance((5 - p.PersonalLoyalty) * 20 - 10))
                             {
-                                float d = Parameters.CloseThreshold / p.GetRelation(q);
                                 if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
                                 {
-                                    p.AdjustRelation(q, -d / 20, 0);
+                                    p.AdjustRelation(q, -0.5f, 0);
                                 }
                                 else
                                 {
-                                    p.AdjustRelation(q, -d / 50, 0);
+                                    p.AdjustRelation(q, -0.2f, 0);
                                 }
 
                                 if (p.GetRelation(q) < 0)
@@ -5263,14 +5262,13 @@
                         {
                             if (!p.Hates(q))
                             {
-                                float d = Parameters.HateThreshold / -p.GetRelation(q) / 5;
                                 if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
                                 {
-                                    p.AdjustRelation(q, -d / 20, GameObject.Random(5));
+                                    p.AdjustRelation(q, 0.5f, 0);
                                 }
                                 else
                                 {
-                                    p.AdjustRelation(q, -d / 50, GameObject.Random(5));
+                                    p.AdjustRelation(q, 0.2f, 0);
                                 }
 
                                 if (p.GetRelation(q) > 0)
