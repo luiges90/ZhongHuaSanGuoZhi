@@ -116,7 +116,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbLearnSkillSuccessRate;
         private TextBox tbAutosaveFrequency;
         private Label label59;
-        private CheckBox cbShowChallengeAnimation;
         private TabPage tabPageBasic;
         private Label lblOfficerDieInBattleRate;
         private TextBox tbOfficerDieInBattleRate;
@@ -246,6 +245,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbAIEncirclePlayerRate;
         private TextBox tbCreateRandomOfficerChance;
         private Label label1;
+        private CheckBox cbShowChallengeAnimation;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -275,6 +275,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
             this.tabPageBasic = new System.Windows.Forms.TabPage();
+            this.tbCreateRandomOfficerChance = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tbHougongGetChildrenRate = new System.Windows.Forms.TextBox();
             this.lblHougongGetChildrenRate = new System.Windows.Forms.Label();
             this.tbZhaoXianSuccessRate = new System.Windows.Forms.TextBox();
@@ -312,7 +314,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageEnvironment = new System.Windows.Forms.TabPage();
             this.cbFullScreen = new System.Windows.Forms.CheckBox();
             this.cbStopToControlOnAttack = new System.Windows.Forms.CheckBox();
-            this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
             this.label59 = new System.Windows.Forms.Label();
             this.tbAutosaveFrequency = new System.Windows.Forms.TextBox();
             this.tbBattleSpeed = new System.Windows.Forms.TextBox();
@@ -488,8 +489,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.tbCreateRandomOfficerChance = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -517,6 +517,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageBasic
             // 
+            this.tabPageBasic.Controls.Add(this.cbShowChallengeAnimation);
             this.tabPageBasic.Controls.Add(this.tbCreateRandomOfficerChance);
             this.tabPageBasic.Controls.Add(this.label1);
             this.tabPageBasic.Controls.Add(this.tbHougongGetChildrenRate);
@@ -554,6 +555,23 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageBasic.TabIndex = 4;
             this.tabPageBasic.Text = "基本";
             this.tabPageBasic.UseVisualStyleBackColor = true;
+            // 
+            // tbCreateRandomOfficerChance
+            // 
+            this.tbCreateRandomOfficerChance.Location = new System.Drawing.Point(382, 309);
+            this.tbCreateRandomOfficerChance.Name = "tbCreateRandomOfficerChance";
+            this.tbCreateRandomOfficerChance.Size = new System.Drawing.Size(51, 22);
+            this.tbCreateRandomOfficerChance.TabIndex = 143;
+            this.tbCreateRandomOfficerChance.Text = "100";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(286, 312);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 12);
+            this.label1.TabIndex = 142;
+            this.label1.Text = "搜索武将成功率";
             // 
             // tbHougongGetChildrenRate
             // 
@@ -880,7 +898,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // zainanbiaoqian
             // 
             this.zainanbiaoqian.AutoSize = true;
-            this.zainanbiaoqian.Location = new System.Drawing.Point(11, 349);
+            this.zainanbiaoqian.Location = new System.Drawing.Point(13, 371);
             this.zainanbiaoqian.Name = "zainanbiaoqian";
             this.zainanbiaoqian.Size = new System.Drawing.Size(194, 12);
             this.zainanbiaoqian.TabIndex = 117;
@@ -888,7 +906,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // zainanfashengjilv
             // 
-            this.zainanfashengjilv.Location = new System.Drawing.Point(211, 346);
+            this.zainanfashengjilv.Location = new System.Drawing.Point(213, 368);
             this.zainanfashengjilv.Name = "zainanfashengjilv";
             this.zainanfashengjilv.Size = new System.Drawing.Size(50, 22);
             this.zainanfashengjilv.TabIndex = 116;
@@ -898,7 +916,6 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             this.tabPageEnvironment.Controls.Add(this.cbFullScreen);
             this.tabPageEnvironment.Controls.Add(this.cbStopToControlOnAttack);
-            this.tabPageEnvironment.Controls.Add(this.cbShowChallengeAnimation);
             this.tabPageEnvironment.Controls.Add(this.label59);
             this.tabPageEnvironment.Controls.Add(this.tbAutosaveFrequency);
             this.tabPageEnvironment.Controls.Add(this.tbBattleSpeed);
@@ -946,20 +963,10 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbStopToControlOnAttack.Text = "被攻击时暂停游戏";
             this.cbStopToControlOnAttack.UseVisualStyleBackColor = true;
             // 
-            // cbShowChallengeAnimation
-            // 
-            this.cbShowChallengeAnimation.AutoSize = true;
-            this.cbShowChallengeAnimation.Location = new System.Drawing.Point(13, 299);
-            this.cbShowChallengeAnimation.Name = "cbShowChallengeAnimation";
-            this.cbShowChallengeAnimation.Size = new System.Drawing.Size(72, 16);
-            this.cbShowChallengeAnimation.TabIndex = 117;
-            this.cbShowChallengeAnimation.Text = "单挑演示";
-            this.cbShowChallengeAnimation.UseVisualStyleBackColor = true;
-            // 
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(130, 278);
+            this.label59.Location = new System.Drawing.Point(148, 278);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(29, 12);
             this.label59.TabIndex = 115;
@@ -967,7 +974,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAutosaveFrequency
             // 
-            this.tbAutosaveFrequency.Location = new System.Drawing.Point(106, 275);
+            this.tbAutosaveFrequency.Location = new System.Drawing.Point(115, 275);
             this.tbAutosaveFrequency.MaxLength = 2;
             this.tbAutosaveFrequency.Name = "tbAutosaveFrequency";
             this.tbAutosaveFrequency.Size = new System.Drawing.Size(27, 22);
@@ -976,7 +983,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbBattleSpeed
             // 
-            this.tbBattleSpeed.Location = new System.Drawing.Point(69, 368);
+            this.tbBattleSpeed.Location = new System.Drawing.Point(71, 357);
             this.tbBattleSpeed.MaxLength = 2;
             this.tbBattleSpeed.Name = "tbBattleSpeed";
             this.tbBattleSpeed.Size = new System.Drawing.Size(27, 22);
@@ -986,7 +993,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblBattleSpeed
             // 
             this.lblBattleSpeed.AutoSize = true;
-            this.lblBattleSpeed.Location = new System.Drawing.Point(10, 371);
+            this.lblBattleSpeed.Location = new System.Drawing.Point(12, 360);
             this.lblBattleSpeed.Name = "lblBattleSpeed";
             this.lblBattleSpeed.Size = new System.Drawing.Size(53, 12);
             this.lblBattleSpeed.TabIndex = 107;
@@ -995,7 +1002,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblDialogShowTime
             // 
             this.lblDialogShowTime.AutoSize = true;
-            this.lblDialogShowTime.Location = new System.Drawing.Point(11, 346);
+            this.lblDialogShowTime.Location = new System.Drawing.Point(13, 335);
             this.lblDialogShowTime.Name = "lblDialogShowTime";
             this.lblDialogShowTime.Size = new System.Drawing.Size(89, 12);
             this.lblDialogShowTime.TabIndex = 102;
@@ -1003,7 +1010,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbDialogShowTime
             // 
-            this.tbDialogShowTime.Location = new System.Drawing.Point(106, 343);
+            this.tbDialogShowTime.Location = new System.Drawing.Point(108, 332);
             this.tbDialogShowTime.MaxLength = 2;
             this.tbDialogShowTime.Name = "tbDialogShowTime";
             this.tbDialogShowTime.Size = new System.Drawing.Size(27, 22);
@@ -1033,7 +1040,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // lblTroopMoveSpeed
             // 
             this.lblTroopMoveSpeed.AutoSize = true;
-            this.lblTroopMoveSpeed.Location = new System.Drawing.Point(11, 323);
+            this.lblTroopMoveSpeed.Location = new System.Drawing.Point(13, 312);
             this.lblTroopMoveSpeed.Name = "lblTroopMoveSpeed";
             this.lblTroopMoveSpeed.Size = new System.Drawing.Size(185, 12);
             this.lblTroopMoveSpeed.TabIndex = 11;
@@ -1041,7 +1048,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbTroopMoveSpeed
             // 
-            this.tbTroopMoveSpeed.Location = new System.Drawing.Point(202, 320);
+            this.tbTroopMoveSpeed.Location = new System.Drawing.Point(204, 309);
             this.tbTroopMoveSpeed.MaxLength = 1;
             this.tbTroopMoveSpeed.Name = "tbTroopMoveSpeed";
             this.tbTroopMoveSpeed.Size = new System.Drawing.Size(27, 22);
@@ -2583,22 +2590,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // tbCreateRandomOfficerChance
+            // cbShowChallengeAnimation
             // 
-            this.tbCreateRandomOfficerChance.Location = new System.Drawing.Point(382, 309);
-            this.tbCreateRandomOfficerChance.Name = "tbCreateRandomOfficerChance";
-            this.tbCreateRandomOfficerChance.Size = new System.Drawing.Size(51, 22);
-            this.tbCreateRandomOfficerChance.TabIndex = 143;
-            this.tbCreateRandomOfficerChance.Text = "100";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(286, 312);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 12);
-            this.label1.TabIndex = 142;
-            this.label1.Text = "搜索武将成功率";
+            this.cbShowChallengeAnimation.AutoSize = true;
+            this.cbShowChallengeAnimation.Location = new System.Drawing.Point(13, 343);
+            this.cbShowChallengeAnimation.Name = "cbShowChallengeAnimation";
+            this.cbShowChallengeAnimation.Size = new System.Drawing.Size(72, 16);
+            this.cbShowChallengeAnimation.TabIndex = 144;
+            this.cbShowChallengeAnimation.Text = "单挑演示";
+            this.cbShowChallengeAnimation.UseVisualStyleBackColor = true;
             // 
             // formOptions
             // 

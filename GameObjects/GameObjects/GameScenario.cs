@@ -5223,7 +5223,7 @@
                             continue;
                         }
 
-                        if (q.Available && q.Alive && p.BelongedArchitecture.Persons.Count >= 2 && GameObject.Random(30) == 0)
+                        if (q.Available && q.Alive && p.BelongedArchitecture != null && p.BelongedArchitecture.Persons.Count >= 2 && GameObject.Random(30) == 0)
                         {
                             if (p.BelongedArchitecture == q.BelongedArchitecture && p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
                                 ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||

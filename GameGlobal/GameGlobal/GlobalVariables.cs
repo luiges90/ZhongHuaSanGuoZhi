@@ -184,7 +184,6 @@
             s.Add("DialogShowTime");
             s.Add("FastBattleSpeed");
             s.Add("AutoSaveFrequency");
-            s.Add("ShowChallengeAnimation");
             s.Add("StopToControlOnAttack");
 
             return s;
