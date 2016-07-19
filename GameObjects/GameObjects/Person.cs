@@ -9160,6 +9160,12 @@
                     this.relations.Add(p, val);
                 }
             }
+
+            if (this.relations.ContainsKey(p) && this.relations[p] < -2e9)
+            {
+                int z = 0;
+                z++;
+            }
         }
 
         public void AdjustRelation(Person p, float factor, float adjust)
@@ -9189,6 +9195,11 @@
             else
             {
                 return;
+            }
+            if (this.relations[p] < -2e9)
+            {
+                int z = 0;
+                z++;
             }
 
             if (this.relations.ContainsKey(p))

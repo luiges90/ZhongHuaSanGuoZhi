@@ -5243,13 +5243,14 @@
                         {
                             if (!p.Closes(q) && GameObject.Chance((5 - p.PersonalLoyalty) * 20 - 10))
                             {
+                                float d = Parameters.CloseThreshold / p.GetRelation(q);
                                 if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
                                 {
-                                    p.AdjustRelation(q, -0.5f, 0);
+                                    p.AdjustRelation(q, -d / 20, 0);
                                 }
                                 else
                                 {
-                                    p.AdjustRelation(q, -0.2f, 0);
+                                    p.AdjustRelation(q, -d / 50f, 0);
                                 }
 
                                 if (p.GetRelation(q) < 0)
@@ -5262,13 +5263,14 @@
                         {
                             if (!p.Hates(q))
                             {
+                                float d = Parameters.HateThreshold / -p.GetRelation(q) / 5;
                                 if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
                                 {
-                                    p.AdjustRelation(q, 0.5f, 0);
+                                    p.AdjustRelation(q, -d / 20, 0);
                                 }
                                 else
                                 {
-                                    p.AdjustRelation(q, 0.2f, 0);
+                                    p.AdjustRelation(q, -d / 50, 0);
                                 }
 
                                 if (p.GetRelation(q) > 0)
