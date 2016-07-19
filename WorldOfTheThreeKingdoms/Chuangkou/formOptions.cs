@@ -246,6 +246,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbCreateRandomOfficerChance;
         private Label label1;
         private CheckBox cbShowChallengeAnimation;
+        private CheckBox cbAIQuickBattle;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -490,6 +491,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
+            this.cbAIQuickBattle = new System.Windows.Forms.CheckBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -517,6 +519,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPageBasic
             // 
+            this.tabPageBasic.Controls.Add(this.cbAIQuickBattle);
             this.tabPageBasic.Controls.Add(this.cbShowChallengeAnimation);
             this.tabPageBasic.Controls.Add(this.tbCreateRandomOfficerChance);
             this.tabPageBasic.Controls.Add(this.label1);
@@ -898,7 +901,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // zainanbiaoqian
             // 
             this.zainanbiaoqian.AutoSize = true;
-            this.zainanbiaoqian.Location = new System.Drawing.Point(13, 371);
+            this.zainanbiaoqian.Location = new System.Drawing.Point(11, 400);
             this.zainanbiaoqian.Name = "zainanbiaoqian";
             this.zainanbiaoqian.Size = new System.Drawing.Size(194, 12);
             this.zainanbiaoqian.TabIndex = 117;
@@ -906,7 +909,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // zainanfashengjilv
             // 
-            this.zainanfashengjilv.Location = new System.Drawing.Point(213, 368);
+            this.zainanfashengjilv.Location = new System.Drawing.Point(211, 397);
             this.zainanfashengjilv.Name = "zainanfashengjilv";
             this.zainanfashengjilv.Size = new System.Drawing.Size(50, 22);
             this.zainanfashengjilv.TabIndex = 116;
@@ -2600,6 +2603,16 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbShowChallengeAnimation.Text = "单挑演示";
             this.cbShowChallengeAnimation.UseVisualStyleBackColor = true;
             // 
+            // cbAIQuickBattle
+            // 
+            this.cbAIQuickBattle.AutoSize = true;
+            this.cbAIQuickBattle.Location = new System.Drawing.Point(13, 365);
+            this.cbAIQuickBattle.Name = "cbAIQuickBattle";
+            this.cbAIQuickBattle.Size = new System.Drawing.Size(132, 16);
+            this.cbAIQuickBattle.TabIndex = 145;
+            this.cbAIQuickBattle.Text = "使用简易AI战斗算法";
+            this.cbAIQuickBattle.UseVisualStyleBackColor = true;
+            // 
             // formOptions
             // 
             this.ClientSize = new System.Drawing.Size(453, 485);
@@ -2704,6 +2717,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbEnablePersonRelations.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value);
             this.tbChildrenAvailableAge.Text = nextSibling.Attributes.GetNamedItem("ChildrenAvailableAge").Value;
             this.cbFullScreen.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("FullScreen").Value);
+            this.cbAIQuickBattle.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("AIQuickBattle").Value);
         }
 
         private void LoadParameterDoc()
@@ -2887,6 +2901,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value = this.cbEnablePersonRelations.Checked.ToString();
             if (!checkIntSave(nextSibling, "ChildrenAvailableAge", this.lblChildrenAvailableAge, this.tbChildrenAvailableAge)) { return false; }
             nextSibling.Attributes.GetNamedItem("FullScreen").Value = this.cbFullScreen.Checked.ToString();
+            nextSibling.Attributes.GetNamedItem("AIQuickBattle").Value = this.cbFullScreen.Checked.ToString();
             this.commonDoc.Save("GameData/GlobalVariables.xml");
             return true;
         }
