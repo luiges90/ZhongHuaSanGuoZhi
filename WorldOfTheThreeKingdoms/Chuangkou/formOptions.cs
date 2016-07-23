@@ -3212,7 +3212,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = true;
                     this.cbAIAutoTakePlayerCaptives.Checked = true;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = true;
-                    this.tbAIEncirclePlayerRate.Text = "20";
+                    this.tbAIEncirclePlayerRate.Text = "10";
                     this.tbAIExtraPerson.Text = "1.5";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.01";
                     this.AIEncircleRank = 70;
@@ -3248,7 +3248,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.cbAIAutoTakeNoFactionPerson.Checked = true;
                     this.cbAIAutoTakePlayerCaptives.Checked = true;
                     this.cbAIAutoTakePlayerCaptiveOnlyUnfull.Checked = false;
-                    this.tbAIEncirclePlayerRate.Text = "100";
+                    this.tbAIEncirclePlayerRate.Text = "20";
                     this.tbAIExtraPerson.Text = "3.0";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.05";
                     this.AIEncircleRank = 100;
