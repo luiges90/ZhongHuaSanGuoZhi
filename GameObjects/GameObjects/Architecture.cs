@@ -4987,7 +4987,13 @@
 
         public void checkEvent()
         {
-            foreach (Event e in base.Scenario.AllEvents.GetList())
+            GameObjectList list = base.Scenario.AllEvents.GetList();
+            list.PropertyName = "ID";
+            list.SmallToBig = true;
+            list.IsNumber = true;
+            list.ReSort();
+
+            foreach (Event e in list)
             {
                 if (e.checkConditions(this))
                 {

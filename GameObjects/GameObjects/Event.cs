@@ -326,11 +326,6 @@
 
         public bool checkConditions(Architecture a)
         {
-            if (a.ID == 139)
-            {
-                int zz = 0;
-                zz++;
-            }
             if (this.happened && !this.repeatable) return false;
             if (GameObject.Random(this.happenChance) != 0)
             {

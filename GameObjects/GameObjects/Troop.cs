@@ -1856,7 +1856,7 @@
                     foreach (Person q in this.persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f / (this.persons.Count - 1), -3);
+                        p.AdjustRelation(q, -0.5f / this.persons.Count, -3);
                     }
                 }
                 foreach (Person person in this.persons)
