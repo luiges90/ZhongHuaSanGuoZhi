@@ -5118,8 +5118,6 @@
                         Person p = (Person) pl[i];
                         Military m = (Military) ml[i];
 
-                        if (m.Morale <= 0 || m.Quantity <= 0) continue;
-
                         if (this.ArmyScale < this.getArmyReserveForOffensive())
                         {
                             break;
@@ -5131,18 +5129,22 @@
                             break;
                         }
 
-                        GameObjectList gol = new GameObjectList();
-                        gol.Add(p);
-                        Troop t = this.CreateTroop(gol, p, m, -1, nullable.Value);
-
-                        Legion legion = this.BelongedFaction.GetLegion(a);
-                        if (legion == null)
+                        if ((m.Scales > 5) && (m.Morale >= 80) && (m.Combativity >= 80) && (m.InjuryQuantity < m.Kind.MinScale))
                         {
-                            legion = this.CreateOffensiveLegion(a);
-                        }
-                        legion.AddTroop(t);
+                            GameObjectList gol = new GameObjectList();
+                            gol.Add(p);
 
-                        a.TotalHostileForce += t.FightingForce;
+                            Troop t = this.CreateTroop(gol, p, m, -1, nullable.Value);
+
+                            Legion legion = this.BelongedFaction.GetLegion(a);
+                            if (legion == null)
+                            {
+                                legion = this.CreateOffensiveLegion(a);
+                            }
+                            legion.AddTroop(t);
+
+                            a.TotalHostileForce += t.FightingForce;
+                        }
 
                     }
 
