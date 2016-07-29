@@ -5089,7 +5089,15 @@
                 if (!aborted)
                 {
                     // offensive troop
-                    GameObjectList ml = this.Militaries.GetList();
+                    GameObjectList mla = this.Militaries.GetList();
+                    GameObjectList ml = new GameObjectList();
+                    foreach (Military m in mla) 
+                    {
+                        if ((m.Scales > 5) && (m.Morale >= 80) && (m.Combativity >= 80) && (m.InjuryQuantity < m.Kind.MinScale)) {
+                            ml.Add(m);
+                        }
+                    }
+
                     ml.PropertyName = "Merit";
                     ml.SmallToBig = false;
                     ml.IsNumber = true;
@@ -5129,22 +5137,19 @@
                             break;
                         }
 
-                        if ((m.Scales > 5) && (m.Morale >= 80) && (m.Combativity >= 80) && (m.InjuryQuantity < m.Kind.MinScale))
+                        GameObjectList gol = new GameObjectList();
+                        gol.Add(p);
+
+                        Troop t = this.CreateTroop(gol, p, m, -1, nullable.Value);
+
+                        Legion legion = this.BelongedFaction.GetLegion(a);
+                        if (legion == null)
                         {
-                            GameObjectList gol = new GameObjectList();
-                            gol.Add(p);
-
-                            Troop t = this.CreateTroop(gol, p, m, -1, nullable.Value);
-
-                            Legion legion = this.BelongedFaction.GetLegion(a);
-                            if (legion == null)
-                            {
-                                legion = this.CreateOffensiveLegion(a);
-                            }
-                            legion.AddTroop(t);
-
-                            a.TotalHostileForce += t.FightingForce;
+                            legion = this.CreateOffensiveLegion(a);
                         }
+                        legion.AddTroop(t);
+
+                        a.TotalHostileForce += t.FightingForce;
 
                     }
 
