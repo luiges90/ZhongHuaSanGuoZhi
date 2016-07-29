@@ -900,7 +900,7 @@
                                 (b.Meinvkongjian > b.Feiziliebiao.Count || b.BelongedFaction.IsAlien) && 
                                 (a.withoutTruceFrontline || b.Meinvkongjian > a.Meinvkongjian))
                             {
-                                if (dest.Population > maxPop * 1.1)
+                                if (dest.Population > maxPop * 1.1 && dest.Endurance > Math.Min(500, dest.EnduranceCeiling * 0.5))
                                 {
                                     maxPop = dest.Population;
                                     dest = b;
