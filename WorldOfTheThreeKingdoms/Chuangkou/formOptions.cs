@@ -2901,7 +2901,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value = this.cbEnablePersonRelations.Checked.ToString();
             if (!checkIntSave(nextSibling, "ChildrenAvailableAge", this.lblChildrenAvailableAge, this.tbChildrenAvailableAge)) { return false; }
             nextSibling.Attributes.GetNamedItem("FullScreen").Value = this.cbFullScreen.Checked.ToString();
-            nextSibling.Attributes.GetNamedItem("AIQuickBattle").Value = this.cbFullScreen.Checked.ToString();
+            nextSibling.Attributes.GetNamedItem("AIQuickBattle").Value = this.cbAIQuickBattle.Checked.ToString();
             this.commonDoc.Save("GameData/GlobalVariables.xml");
             return true;
         }
