@@ -11166,7 +11166,7 @@
                     this.BelongedSection.RemoveArchitecture(this);
                 }
                 this.DefensiveLegion = null;
-                if (this == this.BelongedFaction.Capital)
+                if (this == this.BelongedFaction.Capital || this.BelongedFaction.ArchitectureCount <= 1)
                 {
                     Person leader = this.BelongedFaction.Leader;
                     while (this.Persons.Count > 0)

@@ -2332,7 +2332,7 @@
 
         private void CallTacticsHelp()
         {
-            if (this.BelongedFaction == null) return;
+            if (this.BelongedFaction == null || this.BelongedLegion == null || this.BelongedLegion.BelongedFaction == null) return;
             if (((this.WillArchitecture.BelongedFaction != null) && !this.IsFriendlyWithoutTruce(this.WillArchitecture.BelongedFaction)) && (base.Scenario.GetDistance(this.Position, this.WillArchitecture.Position) <= 10.0))
             {
                 if (this.BelongedFaction.IsArchitectureKnown(this.WillArchitecture) || GameObject.Chance(0x21))
@@ -2530,7 +2530,7 @@
         {
             if ((faction != null) && (this.BelongedFaction != null))
             {
-                if (this.BelongedLegion != null && this.BelongedLegion.BelongedFaction != faction)
+                if (this.BelongedLegion != null && this.BelongedLegion.BelongedFaction != null && this.BelongedLegion.BelongedFaction != faction)
                 {
                     this.BelongedLegion.BelongedFaction.RemoveLegion(this.BelongedLegion);
                     faction.AddLegion(this.BelongedLegion);
