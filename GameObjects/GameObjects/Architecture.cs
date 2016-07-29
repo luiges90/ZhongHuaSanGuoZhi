@@ -5078,7 +5078,7 @@
                 {
                     foreach (Faction f in base.Scenario.PlayerFactions)
                     {
-                        if (f.IsArchitectureKnown(a))
+                        if (f.IsArchitectureKnown(a) || f.Architectures.GameObjects.Contains(a))
                         {
                             this.AIBattlingArchitectures.Remove(a);
                             aborted = true;
