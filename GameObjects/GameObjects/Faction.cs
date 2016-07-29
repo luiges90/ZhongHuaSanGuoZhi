@@ -892,27 +892,36 @@
                 {
                     if (a.Feiziliebiao.Count > 0)
                     {
+                        Architecture dest = null;
+                        int maxPop = 0;
                         foreach (Architecture b in this.Architectures)
                         {
                             if (!b.withoutTruceFrontline && 
                                 (b.Meinvkongjian > b.Feiziliebiao.Count || b.BelongedFaction.IsAlien) && 
                                 (a.withoutTruceFrontline || b.Meinvkongjian > a.Meinvkongjian))
                             {
-                                int cnt = b.BelongedFaction.IsAlien ? 9999 : b.Meinvkongjian - b.Feiziliebiao.Count;
-                                GameObjectList list = a.Feiziliebiao.GetList();
-                                list.PropertyName = "Merit";
-                                list.IsNumber = true;
-                                list.SmallToBig = false;
-                                list.ReSort();
-                                int moved = 0;
-                                foreach (Person p in list)
+                                if (dest.Population > maxPop * 1.1)
                                 {
-                                    p.MoveToArchitecture(b);
-                                    moved++;
-                                    if (moved >= cnt) break;
+                                    maxPop = dest.Population;
+                                    dest = b;
                                 }
                             }
-                            if (a.Feiziliebiao.Count <= 0) break;
+                        }
+                        if (dest != null)
+                        {
+                            int cnt = dest.BelongedFaction.IsAlien ? 9999 : dest.Meinvkongjian - dest.Feiziliebiao.Count;
+                            GameObjectList list = a.Feiziliebiao.GetList();
+                            list.PropertyName = "Merit";
+                            list.IsNumber = true;
+                            list.SmallToBig = false;
+                            list.ReSort();
+                            int moved = 0;
+                            foreach (Person p in list)
+                            {
+                                p.MoveToArchitecture(dest);
+                                moved++;
+                                if (moved >= cnt) break;
+                            }
                         }
                     }
                 }
