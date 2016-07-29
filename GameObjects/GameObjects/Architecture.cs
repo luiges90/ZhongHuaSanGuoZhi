@@ -10157,14 +10157,15 @@
                         return;
                     }
 
-                    if (GlobalVariables.AIQuickBattle && (!base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction) || GlobalVariables.AIQuickBattleAuto))
+                    if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
                     {
-                        this.AIBattlingArchitectures.Add(wayToTarget.A);
-                    }
-                    else
-                    {
-                        if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
+                        if (GlobalVariables.AIQuickBattle && (!base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction) || GlobalVariables.AIQuickBattleAuto))
                         {
+                            this.AIBattlingArchitectures.Add(wayToTarget.A);
+                        }
+                        else
+                        {
+
                             Routeway routeway = this.GetRouteway(wayToTarget, true);
 
                             if (routeway == null)
@@ -10212,32 +10213,33 @@
                             }
 
                         }
-                        else if (this.InformationAvail())
+                    }
+                    else if (this.InformationAvail())
+                    {
+                        Routeway routeway = this.GetRouteway(wayToTarget, true);
+                        if ((routeway != null) && ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
                         {
-                            Routeway routeway = this.GetRouteway(wayToTarget, true);
-                            if ((routeway != null) && ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) <= this.Fund))
+                            double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
+                            if (((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway))
                             {
-                                double foodRateBySeason = base.Scenario.Date.GetFoodRateBySeason(base.Scenario.Date.GetSeason(routeway.Length));
-                                if (((this.Food * foodRateBySeason) >= (this.FoodCeiling / 3)) || this.IsSelfFoodEnoughForOffensive(wayToTarget, routeway))
+                                this.PlanArchitecture = wayToTarget.A;
+                                Person firstHalfPerson = this.GetFirstHalfPerson("InformationAbility");
+                                if (firstHalfPerson != null && firstHalfPerson.LocationArchitecture != null)
                                 {
-                                    this.PlanArchitecture = wayToTarget.A;
-                                    Person firstHalfPerson = this.GetFirstHalfPerson("InformationAbility");
-                                    if (firstHalfPerson != null && firstHalfPerson.LocationArchitecture != null)
+                                    firstHalfPerson.CurrentInformationKind = this.GetFirstHalfInformationKind();
+                                    if (firstHalfPerson.CurrentInformationKind != null)
                                     {
-                                        firstHalfPerson.CurrentInformationKind = this.GetFirstHalfInformationKind();
-                                        if (firstHalfPerson.CurrentInformationKind != null)
-                                        {
-                                            firstHalfPerson.GoForInformation(base.Scenario.GetClosestPoint(wayToTarget.A.ArchitectureArea, this.Position));
-                                        }
+                                        firstHalfPerson.GoForInformation(base.Scenario.GetClosestPoint(wayToTarget.A.ArchitectureArea, this.Position));
                                     }
-                                    else
-                                    {
-                                        this.PlanArchitecture = null;
-                                    }
+                                }
+                                else
+                                {
+                                    this.PlanArchitecture = null;
                                 }
                             }
                         }
                     }
+                    
                 }
             }
         }
