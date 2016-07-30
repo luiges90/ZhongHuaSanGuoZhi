@@ -10165,14 +10165,7 @@
                     }
 
                     if (this.BelongedFaction.IsArchitectureKnown(wayToTarget.A))
-                    {
-                        if (GlobalVariables.AIQuickBattle && (!base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction) || GlobalVariables.AIQuickBattleAuto))
-                        {
-                            this.AIBattlingArchitectures.Add(wayToTarget.A);
-                        }
-                        else
-                        {
-
+                    { 
                             Routeway routeway = this.GetRouteway(wayToTarget, true);
 
                             if (routeway == null)
@@ -10210,16 +10203,23 @@
                                         {
                                             routeway.Building = true;
                                         }
-                                        bool hasCreatedTroop = this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true, ignoreReserve ? 0 : reserve);
-                                        if (armyScaleHere <= reserve || !hasCreatedTroop)
+                                        if (GlobalVariables.AIQuickBattle && (!base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction) || GlobalVariables.AIQuickBattleAuto))
                                         {
+                                            this.AIBattlingArchitectures.Add(wayToTarget.A);
                                             this.PlanArchitecture = null;
+                                        }
+                                        else
+                                        {
+
+                                            bool hasCreatedTroop = this.BuildOffensiveTroop(wayToTarget.A, wayToTarget.Kind, true, ignoreReserve ? 0 : reserve);
+                                            if (armyScaleHere <= reserve || !hasCreatedTroop)
+                                            {
+                                                this.PlanArchitecture = null;
+                                            }
                                         }
                                     }
                                 }
                             }
-
-                        }
                     }
                     else if (this.InformationAvail())
                     {
