@@ -2387,7 +2387,7 @@
 
         public void AICampaign()
         {
-            this.DefensiveCampaign();
+            this.DefensiveCampaign(null);
             this.OffensiveCampaign();
         }
 
@@ -5089,114 +5089,34 @@
                 if (!aborted)
                 {
                     // offensive troop
-                    GameObjectList mla = this.Militaries.GetList();
-                    GameObjectList ml = new GameObjectList();
-                    foreach (Military m in mla) 
-                    {
-                        if ((m.Scales > 5) && (m.Morale >= 80) && (m.Combativity >= 80) && (m.InjuryQuantity < m.Kind.MinScale)) {
-                            ml.Add(m);
-                        }
-                    }
-
-                    ml.PropertyName = "Merit";
-                    ml.SmallToBig = false;
-                    ml.IsNumber = true;
-                    ml.ReSort();
-
-                    GameObjectList pl = this.Persons.GetList();
-                    pl.PropertyName = "FightingForce";
-                    pl.SmallToBig = false;
-                    pl.IsNumber = true;
-                    pl.ReSort();
-
-                    if (pl.Count <= 0 || ml.Count <= 0)
+                    int reserve = this.getArmyReserveForOffensive();
+                    if (this.ArmyScale < reserve)
                     {
                         this.AIBattlingArchitectures.Remove(a);
                         break;
                     }
 
-                    if (this.ArmyScale < this.getArmyReserveForOffensive())
+                    bool built = this.BuildOffensiveTroop(a, LinkKind.Land, true, reserve);
+                    if (!built)
                     {
                         this.AIBattlingArchitectures.Remove(a);
                         break;
                     }
 
-                    for (int i = 0; i < pl.Count && i < ml.Count; ++i)
+                    foreach (Troop t in this.BelongedFaction.GetLegion(a).Troops)
                     {
-                        Person p = (Person) pl[i];
-                        Military m = (Military) ml[i];
-
-                        if (this.ArmyScale < this.getArmyReserveForOffensive())
-                        {
-                            break;
-                        }
-
-                        Point? nullable = this.GetRandomStartingPosition(m);
-                        if (!nullable.HasValue)
-                        {
-                            break;
-                        }
-
-                        GameObjectList gol = new GameObjectList();
-                        gol.Add(p);
-
-                        Troop t = this.CreateTroop(gol, p, m, -1, nullable.Value);
-
-                        Legion legion = this.BelongedFaction.GetLegion(a);
-                        if (legion == null)
-                        {
-                            legion = this.CreateOffensiveLegion(a);
-                        }
-                        legion.AddTroop(t);
-
+                        t.TargetArchitecture = null;
+                        t.WillArchitecture = null;
                         a.TotalHostileForce += t.FightingForce;
-
-                    }
-
-                    if (this.BelongedFaction.GetLegion(a) == null)
-                    {
-                        this.AIBattlingArchitectures.Remove(a);
-                        break;
                     }
 
                     if (a.BelongedFaction != null)
                     {
                         // defensive troop
-                        ml = a.Militaries.GetList();
-                        ml.PropertyName = "Merit";
-                        ml.SmallToBig = false;
-                        ml.IsNumber = true;
-                        ml.ReSort();
+                        a.DefensiveCampaign(this.BelongedFaction.GetLegion(a).Troops);
 
-                        pl = a.Persons.GetList();
-                        pl.PropertyName = "FightingForce";
-                        pl.SmallToBig = false;
-                        pl.IsNumber = true;
-                        pl.ReSort();
-
-                        for (int i = 0; i < pl.Count && i < ml.Count; ++i)
+                        foreach (Troop t in a.DefensiveLegion.Troops)
                         {
-                            Person p = (Person)pl[i];
-                            Military m = (Military)ml[i];
-
-                            if (m.Morale <= 0 || m.Quantity <= 0) continue;
-
-                            Point? nullable = a.GetRandomStartingPosition(m);
-                            if (!nullable.HasValue)
-                            {
-                                break;
-                            }
-
-                            GameObjectList gol = new GameObjectList();
-                            gol.Add(p);
-                            Troop t = a.CreateTroop(gol, p, m, -1, nullable.Value);
-
-                            if (a.DefensiveLegion == null)
-                            {
-                                a.DefensiveLegion = this.CreateDefensiveLegion();
-                            }
-                            a.DefensiveLegion.AddTroop(t);
-
                             this.TotalFriendlyForce += t.FightingForce;
                         }
                     }
@@ -5741,13 +5661,22 @@
             return result;
         }
 
-        private void DefensiveCampaign()
+        private void DefensiveCampaign(TroopList quickBattleList)
         {
             DateTime beforeStart = DateTime.UtcNow;
 
             List<Point> orientations = new List<Point>();
-            TroopList hostileTroopsInView = this.GetHostileTroopsInView();
-            if (hostileTroopsInView.Count <= 0) return;
+            TroopList hostileTroopsInView;
+
+            if (quickBattleList == null)
+            {
+                hostileTroopsInView = this.GetHostileTroopsInView();
+                if (hostileTroopsInView.Count <= 0) return;
+            }
+            else
+            {
+                hostileTroopsInView = quickBattleList;
+            }
 
             foreach (Troop troop in hostileTroopsInView)
             {
@@ -5889,7 +5818,7 @@
 
             //not enough defensive troop, call for reinforcements!!
             float rate = (float)Math.Max(1, (200 - this.Endurance) * 0.005 + 1);
-            if (this.TotalFriendlyForce < this.TotalHostileForce * rate)
+            if (quickBattleList == null && this.TotalFriendlyForce < this.TotalHostileForce * rate)
             {
                 foreach (LinkNode i in this.AIAllLinkNodes.Values)
                 {
