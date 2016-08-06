@@ -8704,7 +8704,13 @@
 
         public void IncreaseAgriculture(int increment)
         {
-            this.Agriculture += increment;
+            float actualIncrement = increment * ((float)this.Agriculture / this.AgricultureCeiling);
+            this.Agriculture += (int) Math.Floor(actualIncrement);
+            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            {
+                this.Agriculture++;
+            }
+
             if (this.Agriculture > this.AgricultureCeiling)
             {
                 this.Agriculture = this.AgricultureCeiling;
@@ -8713,7 +8719,13 @@
 
         public void IncreaseCommerce(int increment)
         {
-            this.Commerce += increment;
+            float actualIncrement = increment * ((float)this.Commerce / this.CommerceCeiling);
+            this.Commerce += (int)Math.Floor(actualIncrement);
+            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            {
+                this.Commerce++;
+            }
+
             if (this.Commerce > this.CommerceCeiling)
             {
                 this.Commerce = this.CommerceCeiling;
@@ -8722,13 +8734,21 @@
 
         public int IncreaseDomination(int increment)
         {
-            int num = increment;
-            if ((this.Domination + increment) > this.DominationCeiling)
+            int old = this.Domination;
+
+            float actualIncrement = increment * ((float)this.Domination / this.DominationCeiling);
+            this.Domination += (int)Math.Floor(actualIncrement);
+            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
-                num = this.DominationCeiling - this.Domination;
+                this.Domination++;
             }
-            this.Domination += num;
-            return num;
+
+            if (this.Domination > this.DominationCeiling)
+            {
+                this.Domination = this.DominationCeiling;
+            }
+
+            return this.Domination - old;
         }
 
         public int IncreaseEndurance(int increment)
@@ -8737,21 +8757,27 @@
             {
                 return 0;
             }
-            int num = increment;
-            if ((this.Endurance + increment) > this.EnduranceCeiling)
+
+            int old = this.Endurance;
+
+            float actualIncrement = increment * ((float)this.Endurance / this.EnduranceCeiling);
+            this.Endurance += (int)Math.Floor(actualIncrement);
+            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
-                num = this.EnduranceCeiling - this.Endurance;
+                this.Endurance++;
             }
+
+            if (this.Endurance > this.EnduranceCeiling)
+            {
+                this.Endurance = this.EnduranceCeiling;
+            }
+
             if (this.Endurance == 0)
             {
-                this.Endurance += num;
                 this.WallStateChange();
             }
-            else
-            {
-                this.Endurance += num;
-            }
-            return num;
+
+            return this.Endurance - old;
         }
 
         public void IncreaseFood(int increment)
@@ -8789,7 +8815,13 @@
 
         public void IncreaseMorale(int increment)
         {
-            this.Morale += increment;
+            float actualIncrement = increment * ((float)this.Morale / this.MoraleCeiling);
+            this.Morale += (int)Math.Floor(actualIncrement);
+            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            {
+                this.Morale++;
+            }
+
             if (this.Morale > this.MoraleCeiling)
             {
                 this.Morale = this.MoraleCeiling;
@@ -8812,7 +8844,13 @@
 
         public void IncreaseTechnology(int increment)
         {
-            this.Technology += increment;
+            float actualIncrement = increment * ((float)this.Technology / this.TechnologyCeiling);
+            this.Technology += (int)Math.Floor(actualIncrement);
+            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            {
+                this.Technology++;
+            }
+
             if (this.Technology > this.TechnologyCeiling)
             {
                 this.Technology = this.TechnologyCeiling;
@@ -12541,6 +12579,7 @@
                     num *= 2;
                 }
                 num += 10000;
+                num *= 2;
                 ExpectedFoodCache = num;
                 return num;
             }
@@ -12591,6 +12630,7 @@
                     num *= 2;
                 }
                 num += 100;
+                num *= 2;
                 ExpectedFundCache = num;
                 return num;
             }
