@@ -4392,6 +4392,11 @@
                 catch
                 {
                 }
+                try
+                {
+                    troop.QuickBattling = (bool)reader["QuickBattling"];
+                }
+                catch { }
                 troop.minglingweizhi = troop.RealDestination;
 
                 if (errors.Count > 0)
@@ -5814,6 +5819,7 @@
                     row["mingling"] = troop.mingling;
                     row["ManualControl"] = troop.ManualControl;
                     row["ForceTroopTarget"] = troop.ForceTroopTargetId;
+                    row["QuickBattling"] = troop.QuickBattling;
                     row.EndEdit();
                     dataSet.Tables["Troop"].Rows.Add(row);
                 }

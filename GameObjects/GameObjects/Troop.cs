@@ -433,6 +433,8 @@
         private TroopList friendlyTroopsInView = new TroopList();
         private TroopList hostileTroopsInView = new TroopList();
 
+        public bool QuickBattling = false;
+
         private int forceTroopTargetId;
 
         private Troop forceTroopTarget;
@@ -844,6 +846,8 @@
             double distance;
 
             if (this.Destroyed) return false;
+
+            if (this.QuickBattling) return false;
 
             if (this.willArchitectureID < 0)
             {

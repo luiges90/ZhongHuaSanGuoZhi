@@ -5107,6 +5107,7 @@
                     {
                         t.TargetArchitecture = null;
                         t.WillArchitecture = null;
+                        t.QuickBattling = true;
                         a.TotalHostileForce += t.FightingForce;
                     }
 
