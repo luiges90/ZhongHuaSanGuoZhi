@@ -5115,10 +5115,13 @@
                     {
                         // defensive troop
                         a.DefensiveCampaign(this.BelongedFaction.GetLegion(a).Troops);
-
-                        foreach (Troop t in a.DefensiveLegion.Troops)
+                        if (a.DefensiveLegion != null)
                         {
-                            this.TotalFriendlyForce += t.FightingForce;
+                            foreach (Troop t in a.DefensiveLegion.Troops)
+                            {
+                                t.QuickBattling = true;
+                                this.TotalFriendlyForce += t.FightingForce;
+                            }
                         }
                     }
 
