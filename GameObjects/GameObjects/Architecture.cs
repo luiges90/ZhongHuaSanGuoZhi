@@ -8830,16 +8830,26 @@
 
         public int IncreasePopulation(int increment)
         {
-            if ((this.population + increment) > this.PopulationCeiling)
+            int old = this.Population;
+
+            float actualIncrement = increment * ((float)this.Population / this.PopulationCeiling);
+            this.Population += (int)Math.Floor(actualIncrement);
+            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
-                increment = this.PopulationCeiling - this.population;
+                this.Population++;
             }
-            this.population += increment;
+
+            if (this.Population > this.PopulationCeiling)
+            {
+                this.Population = this.PopulationCeiling;
+            }
+
             if (this.population < 0)
             {
                 this.population = 0;
             }
-            return increment;
+
+            return this.Population - old;
         }
 
         public void IncreaseTechnology(int increment)
