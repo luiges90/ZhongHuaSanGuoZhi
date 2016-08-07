@@ -8704,7 +8704,7 @@
 
         public void IncreaseAgriculture(int increment)
         {
-            float actualIncrement = increment * ((float)this.Agriculture / this.AgricultureCeiling);
+            float actualIncrement = increment > 0 ? increment * ((float)this.Agriculture / this.AgricultureCeiling) : increment;
             this.Agriculture += (int) Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8719,7 +8719,7 @@
 
         public void IncreaseCommerce(int increment)
         {
-            float actualIncrement = increment * ((float)this.Commerce / this.CommerceCeiling);
+            float actualIncrement = increment > 0 ? increment * ((float)this.Commerce / this.CommerceCeiling) : increment;
             this.Commerce += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8736,7 +8736,7 @@
         {
             int old = this.Domination;
 
-            float actualIncrement = increment * ((float)this.Domination / this.DominationCeiling);
+            float actualIncrement = increment > 0 ? increment * ((float)this.Domination / this.DominationCeiling) : increment;
             this.Domination += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8760,7 +8760,7 @@
 
             int old = this.Endurance;
 
-            float actualIncrement = increment * ((float)this.Endurance / this.EnduranceCeiling);
+            float actualIncrement = increment > 0 ? increment * ((float)this.Endurance / this.EnduranceCeiling):increment;
             this.Endurance += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8815,7 +8815,7 @@
 
         public void IncreaseMorale(int increment)
         {
-            float actualIncrement = increment * ((float)this.Morale / this.MoraleCeiling);
+            float actualIncrement = increment > 0 ? increment * ((float)this.Morale / this.MoraleCeiling) : increment;
             this.Morale += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8832,7 +8832,7 @@
         {
             int old = this.Population;
 
-            float actualIncrement = increment * ((float)this.Population / this.PopulationCeiling);
+            float actualIncrement = increment > 0 ? increment * ((float)this.Population / this.PopulationCeiling) : increment;
             this.Population += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8854,7 +8854,7 @@
 
         public void IncreaseTechnology(int increment)
         {
-            float actualIncrement = increment * ((float)this.Technology / this.TechnologyCeiling);
+            float actualIncrement = increment > 0 ? increment * ((float)this.Technology / this.TechnologyCeiling) : increment;
             this.Technology += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
