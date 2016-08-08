@@ -1888,6 +1888,22 @@
             }
         }
 
+        public int TransferDays(double distance)
+        {
+            return (int) Math.Ceiling(distance / this.Movability * 5);
+        }
+
+        public int TransferFundCost(double distance)
+        {
+            return (int) (distance * 5);
+        }
+
+        public int TransferFoodCost(double distance)
+        {
+            return (int)(TransferDays(distance) * this.Kind.FoodPerSoldier * this.Quantity);
+        }
+
+
     }
 }
 

@@ -571,17 +571,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
                 {
                     Architecture targetArchitecture = this.CurrentGameObjects[0] as Architecture;
+
+                    double distance = (double)gameScenario.GetDistance(this.CurrentArchitecture.ArchitectureArea, targetArchitecture.ArchitectureArea);
+
                     foreach (Military military in this.CurrentMilitaries)
                     {
-                        this.CurrentArchitecture.DecreaseFund(Parameters.TransferCostPerMilitary);
-                        this.CurrentArchitecture.DecreaseFood(Parameters.TransferFoodPerMilitary);
-                        military.StartingArchitecture = this.CurrentArchitecture;
-                        military.TargetArchitecture = targetArchitecture;
-                        military.ArrivingDays = Math.Max(1, (int)Math.Ceiling((double)gameScenario.GetDistance(this.CurrentArchitecture.ArchitectureArea, targetArchitecture.ArchitectureArea) / 5));
-                        this.CurrentArchitecture.RemoveMilitary(military);
-                        this.CurrentArchitecture.BelongedFaction.TransferingMilitaries.Add(military);
-                        this.CurrentArchitecture.BelongedFaction.TransferingMilitaryCount++;
-
+                        if (this.CurrentArchitecture.Fund >= military.TransferFundCost(distance) && 
+                            this.CurrentArchitecture.Food >= military.TransferFoodCost(distance))
+                        {
+                            this.CurrentArchitecture.DecreaseFund(military.TransferFundCost(distance));
+                            this.CurrentArchitecture.DecreaseFood(military.TransferFoodCost(distance));
+                            military.StartingArchitecture = this.CurrentArchitecture;
+                            military.TargetArchitecture = targetArchitecture;
+                            military.ArrivingDays = Math.Max(1, military.TransferDays(distance));
+                            this.CurrentArchitecture.RemoveMilitary(military);
+                            this.CurrentArchitecture.BelongedFaction.TransferingMilitaries.Add(military);
+                            this.CurrentArchitecture.BelongedFaction.TransferingMilitaryCount++;
+                        }
                     }
                 }
                 this.mainGameScreen.PlayNormalSound("GameSound/Tactics/Outside.wav");
