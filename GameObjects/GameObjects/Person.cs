@@ -1109,14 +1109,13 @@
         public void AwardedTreasure(Treasure t)
         {
             this.ReceiveTreasure(t);
-            if (this.Loyalty <= 110)
+
+            if (this.OnBeAwardedTreasure != null)
             {
-                if (this.OnBeAwardedTreasure != null)
-                {
-                    this.OnBeAwardedTreasure(this, t);
-                }
-                // this.AdjustIdealToFactionLeader(-t.Worth / 50);
+                this.OnBeAwardedTreasure(this, t);
             }
+            // this.AdjustIdealToFactionLeader(-t.Worth / 50);
+
         }
 
         private bool BeAvailable()
@@ -1517,21 +1516,12 @@
         public void ConfiscatedTreasure(Treasure t)
         {
             this.LoseTreasure(t);
-            if (this.Loyalty <= 110)
+
+            if (this.OnBeConfiscatedTreasure != null)
             {
-                if (this.OnBeConfiscatedTreasure != null)
-                {
-                    this.OnBeConfiscatedTreasure(this, t);
-                }
-                // this.AdjustIdealToFactionLeader(t.Worth / 10 + 1);
-                if (GameObject.Random(this.Loyalty) <= GameObject.Random(10))
-                {
-                    if (this.LocationArchitecture != null)
-                    {
-                        this.LeaveToNoFaction();
-                    }
-                }
+                this.OnBeConfiscatedTreasure(this, t);
             }
+
             ExtensionInterface.call("ConfiscatedTreasure", new Object[] { this.Scenario, this });
         }
 
@@ -2292,7 +2282,7 @@
                      && ((this.ConvincingPerson != this.ConvincingPerson.BelongedFaction.Leader) && (this.ConvincingPerson.Loyalty < 100))))
                      && (!this.ConvincingPerson.Hates(this.BelongedFaction.Leader))
                      && (!GlobalVariables.IdealTendencyValid || (idealOffset <= this.ConvincingPerson.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                     && (GameObject.Random((this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 2)) - ((int)this.ConvincingPerson.PersonalLoyalty * (int)((PersonLoyalty)0x19))) > this.ConvincingPerson.Loyalty);
+                     && ((this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 4)) - ((int)this.ConvincingPerson.PersonalLoyalty * 25) > 0);
 
                         ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(this.ConvincingPerson.BelongedFaction) &&
                             GlobalVariables.AIAutoTakePlayerCaptives && this.ConvincingPerson.IsCaptive &&
@@ -6312,10 +6302,17 @@
                 {
                     if (this == this.BelongedFaction.Leader) return 255;
 
-                    float v = 100;
+                    float v = 110;
+
+                    if (this.Status == PersonStatus.Captive)
+                    {
+                        v -= (4 - this.PersonalLoyalty) * 5;
+                    }
 
                     v += (this.PersonalLoyalty - 2) * 10;
                     v -= (this.Ambition - 2) * 4;
+
+                    v += this.ServedYears;
 
                     if (this.LocationArchitecture != null)
                     {
@@ -6388,7 +6385,7 @@
                     {
                         if (this.Spouse.HasStrainTo(this.BelongedFaction.Leader))
                         {
-                            v += 5;
+                            v += 10;
                         }
                         if (this.Spouse.HasCloseStrainTo(this.BelongedFaction.Leader))
                         {
@@ -8970,8 +8967,7 @@
         {
             get
             {
-                return this.Tiredness > this.Braveness * 10 + 30 || this.InjureRate < Math.Max(0.3, 0.8 - this.Braveness * 0.05)
-                    || this.Loyalty < 80;
+                return this.Tiredness > this.Braveness * 10 + 30 || this.InjureRate < Math.Max(0.3, 0.8 - this.Braveness * 0.05);
             }
         }
 

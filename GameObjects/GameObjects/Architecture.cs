@@ -2358,7 +2358,7 @@
             if (this.HasHostileTroopsInView()) return;
             foreach (Person person in this.Persons.GetList())
             {
-                if (person.WorkKind == ArchitectureWorkKind.无 && person.Loyalty >= 100 && person.Tiredness <= 0)
+                if (person.WorkKind == ArchitectureWorkKind.无 && person.Tiredness <= 0)
                 {
                     person.GoForSearch();
                 }
@@ -4976,7 +4976,14 @@
             {
                 if (person != this.BelongedFaction.Leader)
                 {
-                    person.TempLoyaltyChange = -(StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
+                    if (person.TempLoyaltyChange > -20)
+                    {
+                        person.TempLoyaltyChange -= (StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
+                        if (person.TempLoyaltyChange < -20)
+                        {
+                            person.TempLoyaltyChange = -20;
+                        }
+                    }
                 }
             }
             ExtensionInterface.call("GossipDamage", new Object[] { this.Scenario, this, damage });
@@ -9004,7 +9011,7 @@
                                     (!this.withoutTruceFrontline || GameObject.Random(person.FightingNumber) < 100)
                                 ))
                             {
-                                if (person.Loyalty >= 100 && person.Tiredness <= 0)
+                                if (person.Tiredness <= 0)
                                 {
                                     person.GoForSearch();
                                 }
