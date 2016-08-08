@@ -5151,6 +5151,10 @@
                         {
                             t.AttackArchitecture(a);
                             t.ApplyDamageList();
+                            if (a.Endurance <= 0)
+                            {
+                                break;
+                            }
                         }
                         else
                         {
