@@ -685,10 +685,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private void FrameFunction_Architecture_AfterGetRewardPerson() // 奖赏
         {
             this.CurrentGameObjects = this.CurrentArchitecture.RewardPersonList.GetSelectedList();
-            if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count > 0))
-            {
-                this.CurrentArchitecture.RewardByPersonList(this.CurrentGameObjects);
-            }
         }
 
         private void FrameFunction_Architecture_AfterGetSearchPerson() // 搜索

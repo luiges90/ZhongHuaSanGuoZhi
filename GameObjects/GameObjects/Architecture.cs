@@ -233,6 +233,8 @@
 
         public float ExperienceRate;
 
+        public int InfluenceIncrementOfLoyalty;
+
         public int CommandExperienceIncrease { get; set; }
         public int StrengthExperienceIncrease { get; set; }
         public int IntelligenceExperienceIncrease { get; set; }
@@ -2351,14 +2353,6 @@
             return new PersonList();
         }
 
-        private void AIAutoReward()
-        {
-            if ((this.BelongedFaction != null) && (this.Fund >= this.RewardPersonFund))
-            {
-                this.RewardPersonsUnderLoyalty(100);
-            }
-        }
-
         private void AIAutoSearch()
         {
             if (this.HasHostileTroopsInView()) return;
@@ -3932,7 +3926,6 @@
                if (p.ID == this.MayorID)
                {
                    this.Mayor = null;
-                   p.DecreaseLoyalty(GameObject.Random(5, 10));
                }
            }
        }
@@ -4007,7 +4000,6 @@
             }
             if (this.Mayor != null )
             {
-                this.Mayor.IncreaseLoyalty(GameObject.Random(10, 20));
                 //this.Mayor.LocationArchitecture = this;
                // this.IncrementOfEndurancePerDay = 100;
                 
@@ -4977,9 +4969,9 @@
         {
             foreach (Person person in this.Persons)
             {
-                if (person.Loyalty <= 110 && (person != this.BelongedFaction.Leader))
+                if (person != this.BelongedFaction.Leader)
                 {
-                    person.DecreaseLoyalty(StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
+                    person.TempLoyaltyChange = -(StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
                 }
             }
             ExtensionInterface.call("GossipDamage", new Object[] { this.Scenario, this, damage });
@@ -8962,21 +8954,6 @@
             //if (((this.PlanArchitecture == null) || GameObject.Chance(10)) && this.HasPerson())
             if (this.HasPerson())
             {
-                if (this.Fund >= this.RewardPersonFund)
-                {
-                    if (this.IsFundEnough)
-                    {
-                        this.RewardPersonsUnderLoyalty(100);
-                    }
-                    else
-                    {
-                        Person extremeLoyaltyPerson = this.GetExtremeLoyaltyPerson(true);
-                        if (!((extremeLoyaltyPerson.Loyalty >= 0x63) || extremeLoyaltyPerson.RewardFinished))
-                        {
-                            this.RewardPerson(extremeLoyaltyPerson);
-                        }
-                    }
-                }
                 if (((this.RecentlyAttacked <= 0) && (this.PlanArchitecture == null)) && !this.HasHostileTroopsInView())
                 {
                     //Label_0221:
@@ -10303,11 +10280,6 @@
             return this.BelongedFaction != null && (this.Fund > 0 || this.Food > 0) && this.BelongedFaction.ArchitectureCount > 1;
         }
 
-        public void PlayerAIReward()
-        {
-            this.AIAutoReward();
-        }
-
         public void PlayerAISearch()
         {
             this.AIAutoSearch();
@@ -10349,10 +10321,6 @@
 
         public void PlayerAutoAI()
         {
-            if (this.AutoRewarding)
-            {
-                this.PlayerAIReward();
-            }
             if (this.AutoWorking)
             {
                 this.PlayerAIWork();
@@ -11402,97 +11370,6 @@
             weighingMilitaries.IsNumber = true;
             weighingMilitaries.PropertyName = "Weighing";
             weighingMilitaries.ReSort();
-        }
-
-        public void RewardAll()
-        {
-            foreach (Architecture architecture in this.BelongedFaction.Architectures)
-            {
-                if (!architecture.HasPerson())
-                {
-                    continue;
-                }
-                int rewardPersonMaxCount = architecture.RewardPersonMaxCount;
-                if (rewardPersonMaxCount > 0)
-                {
-                    
-                    GameObjectList list = architecture.Persons.GetList();
-                    if (list.Count > 1 && rewardPersonMaxCount != this.PersonCount)
-                    {
-                        list.PropertyName = "Loyalty";
-                        list.SmallToBig = true;
-                        list.IsNumber = true;
-                        list.ReSort();
-                    }
-                    int num2 = 0;
-                    foreach (Person person in list)
-                    {
-                        if ((!person.RewardFinished && (person.Loyalty < 100)) && (person != person.BelongedFaction.Leader))
-                        {
-                            architecture.RewardPerson(person);
-                            num2++;
-                        }
-                        if (num2 >= rewardPersonMaxCount)
-                        {
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        public bool RewardAllAvail()
-        {
-            foreach (Architecture architecture in this.BelongedFaction.Architectures)
-            {
-                if (architecture.RewardPersonAvail())
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public void RewardByPersonList(GameObjectList personlist)
-        {
-            foreach (Person person in personlist)
-            {
-                this.RewardPerson(person);
-            }
-            if (this.OnRewardPersons != null)
-            {
-                this.OnRewardPersons(this, personlist);
-            }
-        }
-
-        public bool RewardPerson(Person p)
-        {
-            if (this.Fund < this.RewardPersonFund)
-            {
-                return false;
-            }
-            p.RewardFinished = true;
-            this.DecreaseFund(this.RewardPersonFund);
-            int idealOffset = Person.GetIdealOffset(p, this.BelongedFaction.Leader);
-            p.IncreaseLoyalty((15 - (idealOffset / 5)) + 4 - (int)p.PersonalLoyalty);
-            ExtensionInterface.call("RewardPerson", new Object[] { this.Scenario, this, p });
-            return true;
-        }
-
-        public bool RewardPersonAvail()
-        {
-            return ((this.GetRewardPersons().Count > 0) && (this.Fund >= this.RewardPersonFund));
-        }
-
-        public void RewardPersonsUnderLoyalty(int loyalty)
-        {
-            foreach (Person person in this.Persons)
-            {
-                if (((!person.RewardFinished && (person.Loyalty < loyalty)) && (person != this.BelongedFaction.Leader)) && !this.RewardPerson(person))
-                {
-                    break;
-                }
-            }
         }
 
         public bool RoutewayAvail()
@@ -14188,14 +14065,6 @@
                 else
                 {
                     this.Scenario.YearTable.addOutOfPrincessByLeaderDeathEntry(this.Scenario.Date, p, capturer);
-                }
-                if (!p.IsVeryCloseTo(this.BelongedFaction.Leader))
-                {
-                    p.Loyalty = (int)(40 + Math.Min(60, Math.Sqrt(p.NumberOfChildren) * 15));
-                }
-                else
-                {
-                    p.Loyalty = Math.Max(p.Loyalty, 150 + p.NumberOfChildren * 10);
                 }
             }
             return result;

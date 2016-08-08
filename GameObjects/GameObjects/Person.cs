@@ -108,7 +108,7 @@
         private float internalExperience;
         public bool InternalNoFundNeeded;
         private bool leaderPossibility;
-        private int loyalty;
+
         public int MonthIncrementOfFactionReputation = 0;
         public int MonthIncrementOfTechniquePoint = 0;
         private Person mother = null;
@@ -223,6 +223,8 @@
         public int BattleSelfDamage { get; set; }
         
         public String Tags {get; set;}
+
+        public int TempLoyaltyChange = 0;
 
         private Captive belongedCaptive;
         public Captive BelongedCaptive
@@ -1113,7 +1115,6 @@
                 {
                     this.OnBeAwardedTreasure(this, t);
                 }
-                this.IncreaseLoyalty(t.Worth);
                 // this.AdjustIdealToFactionLeader(-t.Worth / 50);
             }
         }
@@ -1139,7 +1140,6 @@
         {
             this.Status = PersonStatus.Normal;
             this.YearJoin = base.Scenario.Date.Year;
-            this.InitialLoyalty();
         }
 
         public static int ChanlengeWinningChance(Person source, Person destination)
@@ -1523,7 +1523,6 @@
                 {
                     this.OnBeConfiscatedTreasure(this, t);
                 }
-                this.DecreaseLoyalty(t.Worth * 2);
                 // this.AdjustIdealToFactionLeader(t.Worth / 10 + 1);
                 if (GameObject.Random(this.Loyalty) <= GameObject.Random(10))
                 {
@@ -2045,16 +2044,6 @@
             }
         }
 
-        public int DecreaseLoyalty(int decrement)
-        {
-            if (decrement > this.Loyalty)
-            {
-                decrement = this.Loyalty;
-            }
-            this.loyalty -= decrement;
-            return decrement;
-        }
-
         public void DoJailBreak()
         {
             this.OutsideTask = OutsideTaskKind.无;
@@ -2411,10 +2400,6 @@
             {
                 person.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Area[0]);
                 
-            }
-            if (person.Loyalty < 100)
-            {
-                person.Loyalty = 100 - GetIdealOffset(person, this.BelongedFaction.Leader)/5;
             }
             /*if (!(flag || (person.LocationArchitecture == null)))
             {
@@ -2836,10 +2821,6 @@
             shizhe.Scenario.GameScreen.xianshishijiantupian(shizhe, sourceFaction.Leader.Name, TextMessageKind.QuanXiang, "QuanXiangDiplomaticRelation", "QuanXiangDiplomaticRelation.jpg", "shilimiewang.wma", targetFaction.Name, true);
 
             shizhe.Scenario.YearTable.addChangeFactionEntry(shizhe.Scenario.Date, targetFaction, sourceFaction);
-            foreach (Person p in targetFaction.Persons.GetList())
-            {
-                p.InitialLoyalty();
-            }
             targetFaction.ChangeFaction(sourceFaction);
             
             targetFaction.AfterChangeLeader(targetFaction.Leader, sourceFaction.Leader);
@@ -4026,21 +4007,6 @@
         }
         */
 
-        public int IncreaseLoyalty(int increment)
-        {
-            //110为剧本阈值，加忠诚不超过，超过的不降忠诚
-            if (increment > (110 - this.Loyalty))
-            {
-                increment = 110 - this.Loyalty;
-            }
-            if (increment > 0)
-            {
-                this.loyalty += increment;
-                return increment;
-            }
-            return 0;
-        }
-
         public void DecreaseReputation(int v)
         {
             this.reputation -= v;
@@ -4072,61 +4038,6 @@
             {
                 this.BelongedFaction.IncreaseTechniquePoint(increment);
             }
-        }
-
-        public void InitialLoyalty()
-        {
-            if (this.BelongedFaction == null)
-            {
-                this.Loyalty = 0;
-                return;
-            }
-
-            if (this.Father != null && this.Mother != null && this.Father.childrenLoyalty > this.Mother.childrenLoyalty)
-            {
-                if (GameObject.Chance(this.Father.childrenLoyaltyRate))
-                {
-                    this.Loyalty = this.Father.childrenLoyalty;
-                    return;
-                }
-                if (GameObject.Chance(this.Mother.childrenLoyaltyRate))
-                {
-                    this.Loyalty = this.Mother.childrenLoyalty;
-                    return;
-                }
-            }
-            else if (this.Father != null && this.Mother != null)
-            {
-                if (GameObject.Chance(this.Mother.childrenLoyaltyRate))
-                {
-                    this.Loyalty = this.Mother.childrenLoyalty;
-                    return;
-                }
-                if (GameObject.Chance(this.Father.childrenLoyaltyRate))
-                {
-                    this.Loyalty = this.Father.childrenLoyalty;
-                    return;
-                }
-            }
-
-            int num = (60 + (10 * (int)this.PersonalLoyalty)) - (GetIdealOffset(this, this.BelongedFaction.Leader) / 5);
-            if (this.Ideal == this.BelongedFaction.Leader.Ideal)
-            {
-                num += 20;
-            }
-            if (this.Father == this.BelongedFaction.Leader || this.Mother == this.BelongedFaction.Leader)
-            {
-                num += 20;
-            }
-            if (this.Closes(this.BelongedFaction.Leader))
-            {
-                num += 30;
-            }
-            if (this.IsVeryCloseTo(this.BelongedFaction.Leader))
-            {
-                num += 50;
-            }
-            this.Loyalty = num;
         }
 
         public bool IsHirable(GameObjects.Faction faction)
@@ -4419,54 +4330,19 @@
 
         private void LoyaltyChange()
         {
-            if (((this.BelongedFaction != null) && (((this.LocationArchitecture == null) || this.IsCaptive) || !this.LocationArchitecture.DayLocationLoyaltyNoChange))
-                && (((this.LocationTroop == null) || this.IsCaptive) || !this.LocationTroop.LoyaltyNoChange)
-                && GameObject.Chance(100 - this.personalLoyalty * 25)
-                && (this.Loyalty <= 110) && GameObject.Chance(50))
+            if (TempLoyaltyChange > 0)
             {
-                int idealOffset = GetIdealOffset(this, this.BelongedFaction.Leader);
-                //亲爱武将性格差调整
-                if (this.Closes(this.BelongedFaction.Leader) && (idealOffset > 5))
+                if (GameObject.Chance((12 - this.Uncruelty) * 7))
                 {
-                    idealOffset = 5;
+                    TempLoyaltyChange--;
                 }
-
-                if (idealOffset > 0)
-                {
-
-                    int decrement = (int)(this.Ambition - ((PersonAmbition)((int)this.PersonalLoyalty)) + idealOffset / 10);
-
-                    if (!(!GlobalVariables.IdealTendencyValid || this.IsHirable(this.BelongedFaction)))
-                    {
-                        decrement += 2;
-                    }
-                    if (this.IsCaptive)
-                    {
-                        decrement *= 2;
-                    }
-                    if (decrement > 0 && !this.IsVeryCloseTo(this.BelongedFaction.Leader))
-                    {
-                        this.DecreaseLoyalty((int)Math.Sqrt(decrement));
-                    }
-                    else if (decrement < 0 && (this.Loyalty < 100))
-                    {
-                        this.IncreaseLoyalty((int)Math.Sqrt(Math.Abs(decrement)));
-                    }
-                }
-            }
-            if (this.IsCaptive && this.BelongedCaptive.LocationArchitecture != null)
+            } 
+            else if (TempLoyaltyChange < 0) 
             {
-                foreach (KeyValuePair<int, int> pair in this.BelongedCaptive.LocationArchitecture.captiveLoyaltyFall)
+                if (GameObject.Chance(this.Uncruelty * 7))
                 {
-                    if (this.Loyalty < pair.Key)
-                    {
-                        this.Loyalty -= pair.Value;
-                    }
+                    TempLoyaltyChange++;
                 }
-            }
-            if (this.BelongedFaction != null && this.Loyalty <= 110 && this.Hates(this.BelongedFaction.Leader))
-            {
-                this.Loyalty = (int) (this.Loyalty * 0.9);
             }
         }
 
@@ -6435,17 +6311,94 @@
                 if (this.BelongedFaction != null)
                 {
                     if (this == this.BelongedFaction.Leader) return 255;
-                    return this.loyalty + this.InfluenceIncrementOfLoyalty;
+
+                    float v = 100;
+
+                    v += (this.PersonalLoyalty - 2) * 10;
+                    v -= (this.Ambition - 2) * 4;
+
+                    if (this.LocationArchitecture != null)
+                    {
+                        v += this.LocationArchitecture.InfluenceIncrementOfLoyalty;
+                    }
+
+                    v -= ((Person.GetIdealOffset(this, this.BelongedFaction.Leader)) + (75.0f / 2)) / (75.0f / 2) * 20;
+                    v += (this.BelongedFaction.Leader.Glamour - 50) / 50 * 8;
+                    v += this.GetRelation(this.BelongedFaction.Leader) / 100.0f;
+
+                    if (this.Scenario.huangdisuozaijianzhu() != null)
+                    {
+                        v -= (Math.Abs(this.ValuationOnGovernment - this.BelongedFaction.Leader.ValuationOnGovernment) - 1) * 4;
+                    }
+                    switch (this.Qualification)
+                    {
+                        case PersonQualification.义理:
+                            v += (this.BelongedFaction.Leader.PersonalLoyalty - 2) * 5;
+                            break;
+                        case PersonQualification.功绩:
+                            v += Math.Max(-10, Math.Min(10, (this.BelongedFaction.Leader.ServedYears - this.ServedYears) * 3));
+                            break;
+                        case PersonQualification.名声:
+                            v += Math.Max(-10, Math.Min(10, (this.BelongedFaction.Leader.Reputation - this.Reputation) / 1000.0f));
+                            break;
+                        case PersonQualification.能力:
+                            v += Math.Max(-10, Math.Min(10, (this.BelongedFaction.Leader.UnalteredUntiredMerit - this.UnalteredUntiredMerit) / 10000.0f));
+                            break;
+                        case PersonQualification.任意:
+                            break;
+                    }
+
+                    if (this.Ideal == this.BelongedFaction.Leader.Ideal) 
+                    {
+                        v += 2;
+                    }
+                    if (this.Closes(this.BelongedFaction.Leader))
+                    {
+                        v += 5;
+                    }
+                    if (this.HasStrainTo(this.BelongedFaction.Leader))
+                    {
+                        v += 10;
+                    }
+                    if (this.HasCloseStrainTo(this.BelongedFaction.Leader))
+                    {
+                        v += 10;
+                    }
+                    if (this.Spouse == this.BelongedFaction.Leader)
+                    {
+                        v += 50;
+                    }
+                    if (this.Brothers.GameObjects.Contains(this.BelongedFaction.Leader))
+                    {
+                        v += 50;
+                    }
+                    if (this.Hates(this.BelongedFaction.Leader))
+                    {
+                        v -= 30;
+                    }
+
+                    v += this.MaxTreasureValue / 4.0f;
+
+                    if (this.BelongedArchitecture.Mayor == this)
+                    {
+                        v += this.Ambition * 3;
+                    }
+
+                    if (this.marriageGranter == this.BelongedFaction.Leader)
+                    {
+                        if (this.Spouse.HasStrainTo(this.BelongedFaction.Leader))
+                        {
+                            v += 5;
+                        }
+                        if (this.Spouse.HasCloseStrainTo(this.BelongedFaction.Leader))
+                        {
+                            v += 10;
+                        }
+                    }
+
+                    return (int) v;
                 }
                 return 0;
-            }
-            set
-            {
-                this.loyalty = value;
-                if (this.loyalty < 0)
-                {
-                    this.loyalty = 0;
-                }
             }
         }
 
@@ -6457,6 +6410,16 @@
                     (100 + this.TitleMerit + this.AllSkillMerit + this.TreasureMerit + Math.Sqrt(this.StuntCount) * 30));
             }
         }
+
+        public int UnalteredUntiredMerit
+        {
+            get
+            {
+                return (this.UntiredStrength + this.UntiredCommand + this.UntiredIntelligence + this.UntiredPolitics + this.UntiredGlamour) *
+                        (100 + this.TitleInheritableMerit + this.AllSkillMerit);
+            }
+        }
+
 
         public int UntiredMerit
         {
@@ -7327,6 +7290,23 @@
             }
         }
 
+        public int MaxTreasureValue
+        {
+            get
+            {
+                int num = 0;
+                foreach (Treasure treasure in this.effectiveTreasures.Values)
+                {
+                    if (num > treasure.Worth)
+                    {
+                        num = treasure.Worth;
+                    }
+                }
+                return num;
+            }
+        }
+
+
         public int TreasureMerit
         {
             get
@@ -8009,12 +7989,10 @@
             if (autoJoin)
             {
                 r.Status = PersonStatus.Normal;
-                r.Loyalty = 100;
             }
             else
             {
                 r.Status = PersonStatus.NoFaction;
-                r.Loyalty = 0;
             }
             r.YearJoin = scen.Date.Year;
 

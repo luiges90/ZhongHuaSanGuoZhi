@@ -30,10 +30,6 @@
 
             if (oldFaction != null && mergeFaction != null && person == oldFaction.Leader)
             {
-                foreach (Person p in oldFaction.Persons.GetList())
-                {
-                    p.InitialLoyalty();
-                }
                 oldFaction.ChangeFaction(mergeFaction);
                 
                 //oldFaction.Leader.InitialLoyalty();

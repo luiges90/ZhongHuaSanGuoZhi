@@ -262,7 +262,6 @@
         {
             if ((this.CaptivePerson != null) && (this.CaptivePerson.BelongedFaction != null))
             {
-                this.CaptivePerson.Loyalty = 0;
                 this.CaptiveFaction = null;
 
             }
@@ -274,7 +273,6 @@
         {
             if (this.CaptivePerson != null)
             {
-                this.CaptivePerson.Loyalty = 0;
                 this.CaptivePerson.Status = GameObjects.PersonDetail.PersonStatus.NoFaction;
                 if (this.LocationTroop == null)
                 {

@@ -3280,7 +3280,6 @@
                 p.GlamourExperience = int.Parse(this.tbGlamourExperience.Text);
                 p.Braveness = int.Parse(this.tbBraveness.Text);
                 p.Calmness = int.Parse(this.tbCalmness.Text);
-                p.Loyalty = int.Parse(this.tbLoyalty.Text);
                 p.Character = p.Scenario.GameCommonData.AllCharacterKinds[this.cbCharacter.SelectedIndex];
                 p.Strain = int.Parse(this.tbStrain.Text);
                 int t;

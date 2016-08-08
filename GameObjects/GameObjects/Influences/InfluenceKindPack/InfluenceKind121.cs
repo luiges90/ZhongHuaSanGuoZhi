@@ -6,48 +6,38 @@
 
     internal class InfluenceKind121 : InfluenceKind
     {
-
+        int i;
 
         public override void ApplyInfluenceKind(Person person)
         {
-            person.DayLocationLoyaltyNoChange = true;
-            if (person.BelongedFaction != null)
+            if (person.LocationArchitecture != null) 
             {
-                if (person.LocationArchitecture != null)
-                {
-                    person.LocationArchitecture.DayLocationLoyaltyNoChange = true;
-                }
-                if (person.LocationTroop != null)
-                {
-                    person.LocationTroop.LoyaltyNoChange = true;
-                }
+                person.LocationArchitecture.InfluenceIncrementOfLoyalty += i;
             }
         }
 
         public override void PurifyInfluenceKind(Person person)
         {
-            person.DayLocationLoyaltyNoChange = false;
-            if (person.BelongedFaction != null)
+            if (person.LocationArchitecture != null)
             {
-                if (person.LocationArchitecture != null)
-                {
-                    person.LocationArchitecture.DayLocationLoyaltyNoChange = false;
-                }
-                if (person.LocationTroop != null)
-                {
-                    person.LocationTroop.LoyaltyNoChange = false;
-                }
+                person.LocationArchitecture.InfluenceIncrementOfLoyalty -= i;
             }
         }
 
         public override void ApplyInfluenceKind(Troop troop)
         {
-            troop.LoyaltyNoChange = true;
+            foreach (Person p in troop.Persons)
+            {
+                p.InfluenceIncrementOfLoyalty += i;
+            }
         }
 
         public override void PurifyInfluenceKind(Troop troop)
         {
-            troop.LoyaltyNoChange = false;
+            foreach (Person p in troop.Persons)
+            {
+                p.InfluenceIncrementOfLoyalty -= i;
+            }
         }
     }
 }

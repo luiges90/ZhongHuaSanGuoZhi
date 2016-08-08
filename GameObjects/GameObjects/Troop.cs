@@ -5100,11 +5100,7 @@
                     {
                         foreach (Person p in troop.Persons)
                         {
-                            p.Loyalty -= this.stratagemLoyaltyDecrease;
-                            if (p.Loyalty < 0)
-                            {
-                                p.Loyalty = 0;
-                            }
+                            p.TempLoyaltyChange -= this.stratagemLoyaltyDecrease;
                         }
                     }
                     if (this.stratagemStealFood > 0 && troop.BelongedFaction != this.BelongedFaction)

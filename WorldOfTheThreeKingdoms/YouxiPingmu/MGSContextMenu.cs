@@ -525,10 +525,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.GetRewardPerson, false, true, true, true, this.CurrentArchitecture.GetRewardPersons(), null, "褒奖", "Personal");
                     break;
 
-                case ContextMenuResult.Person_RewardAll:
-                    this.CurrentArchitecture.RewardAll();
-                    break;
-
                 case ContextMenuResult.Person_Redeem:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Captive, FrameFunction.GetRedeemCaptive, false, true, true, false, this.CurrentArchitecture.GetRedeemCaptiveList(), null, "赎回俘虏", "");
                     break;
@@ -751,13 +747,6 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Section, FrameFunction.GetSectionToDemolish, false, true, true, true, this.CurrentArchitecture.BelongedFaction.Sections, null, "", "");
                     break;
 
-                case ContextMenuResult.Person_AutoReward:   //委任褒奖
-                    this.CurrentArchitecture.AutoRewarding = !this.CurrentArchitecture.AutoRewarding;
-                    if (this.CurrentArchitecture.AutoRewarding)
-                    {
-                        this.CurrentArchitecture.PlayerAIReward();
-                    }
-                    break;
 
                 case ContextMenuResult.Internal_AutoWorking:
                     this.CurrentArchitecture.AutoWorking = !this.CurrentArchitecture.AutoWorking;

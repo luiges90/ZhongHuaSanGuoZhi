@@ -11,7 +11,7 @@
         {
             if (person.BelongedFaction != null && person.BelongedFaction.Leader != person)
             {
-                person.Loyalty += increment;
+                person.TempLoyaltyChange += increment;
             }
         }
 

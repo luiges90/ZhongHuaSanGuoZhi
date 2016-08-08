@@ -618,7 +618,6 @@
                 {
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
-                    person.InitialLoyalty();
                     person.YearJoin = this.Date.Year;
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, TextMessageKind.ChildJoin, "ChildJoin", "", "", person.Name, false);
                     if (person.LocationArchitecture != null)
@@ -636,7 +635,6 @@
                 {
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
-                    person.InitialLoyalty();
                     person.YearJoin = this.Date.Year;
                     this.GameScreen.xianshishijiantupian(joinToPerson.BelongedFaction.Leader, joinToPerson.Name, TextMessageKind.ChildJoin, "ChildJoin", "", "", person.Name, false);
                     this.GameScreen.xianshishijiantupian(person, person.LocationArchitecture.Name, TextMessageKind.ChildJoinSelfTalk, "ChildJoinSelfTalk", "", "", false);
@@ -651,7 +649,6 @@
                 {
                     person.LocationArchitecture = joinToPerson.BelongedArchitecture;
                     person.Status = PersonStatus.Normal;
-                    person.InitialLoyalty();
                     person.YearJoin = this.Date.Year;
                     if (person.Sex) //女的
                     {
@@ -677,7 +674,6 @@
                         this.AvailablePersons.Add(person);
                         person.LocationArchitecture = f.Capital;
                         person.Status = PersonStatus.Normal;
-                        person.InitialLoyalty();
                         person.YearJoin = this.Date.Year;
                         this.GameScreen.xianshishijiantupian(person, f.Capital.Name, TextMessageKind.PersonJoin, "PersonJoin", "", "", f.Name, false);
                         this.YearTable.addGrownBecomeAvailableEntry(this.Date, person);
@@ -707,23 +703,7 @@
 
             if (muqin.IsCaptive)
             {
-                person.Loyalty = muqin.Loyalty;
                 Captive.Create(this, person, muqin.BelongedArchitecture.BelongedFaction);
-            }
-            else
-            {
-                if (GlobalVariables.lockChildrenLoyalty && father != null && father.BelongedFaction == person.LocationArchitecture.BelongedFaction)
-                {
-                    person.Loyalty = 120;
-                }
-                if (GameObject.Chance(father.childrenLoyaltyRate))
-                {
-                    person.Loyalty = father.childrenLoyalty;
-                }
-                else if (GameObject.Chance(muqin.childrenLoyaltyRate))
-                {
-                    person.Loyalty = muqin.childrenLoyalty;
-                }
             }
 
             ExtensionInterface.call("ChildrenJoinFaction", new Object[] { this, person });
@@ -964,7 +944,6 @@
                 }
             }
             newFaction.Leader = leader;
-            leader.Loyalty = 100;
             newFaction.Reputation = leader.Reputation;
             newFaction.Name = leader.Name;
             if (leader.PersonBiography != null)
@@ -1044,7 +1023,6 @@
                             {
                                 p.ChangeFaction(newFaction);
                             }
-                            p.InitialLoyalty();
                             if (p.LocationTroop == null)
                             {
                                 p.MoveToArchitecture(newFactionCapital);
@@ -3307,7 +3285,6 @@
                 person.RoutedCount = (int)reader["RoutedCount"];
                 person.Braveness = (short)reader["Braveness"];
                 person.Calmness = (short)reader["Calmness"];
-                person.Loyalty = (short)reader["Loyalty"];
                 if ((short)reader["DeadReason"] >= Enum.GetNames(typeof(PersonBornRegion)).Length || (short)reader["BornRegion"] < 0)
                 {
                     errors.Add("人物出生地点必须在0至" + Enum.GetNames(typeof(PersonBornRegion)).Length + "之间");
@@ -3634,6 +3611,11 @@
                 try
                 {
                     marriageGranterId.Add(person.ID, (int) reader["MarriageGranter"]);
+                }
+                catch { }
+                try
+                {
+                    person.TempLoyaltyChange = (int)reader["TempLoyaltyChange"];
                 }
                 catch { }
 
@@ -6156,6 +6138,7 @@
                     row["Tags"] = person.Tags;
                    // row["Guanzhis"] = person.Guanzhis.SaveToString();
                     row["marriageGranter"] = person.marriageGranter != null ? person.marriageGranter.ID : -1;
+                    row["TempLoyaltyChange"] = person.TempLoyaltyChange;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
@@ -6766,13 +6749,17 @@
             }
         }
 
+        private Architecture huangdisuozai = null;
         public Architecture huangdisuozaijianzhu()
         {
-            foreach (Architecture a in this.Architectures)
+            if (huangdisuozai == null)
             {
-                if (a.huangdisuozai) return a;
+                foreach (Architecture a in this.Architectures)
+                {
+                    if (a.huangdisuozai) huangdisuozai = a;
+                }
             }
-            return null;
+            return huangdisuozai;
         }
 
         public bool youhuangdi()
@@ -6799,6 +6786,7 @@
                 if (a.huangdisuozai)
                 {
                     a.huangdisuozai = false;
+                    this.huangdisuozai = null;
                 }
             }
 

@@ -1275,7 +1275,6 @@
             this.AITransfer();
             this.AIArchitectures();
             this.AILegions();
-            this.AIReward();
             this.AIFinished = true;
             base.Scenario.Threading = false;
         }
@@ -2333,20 +2332,6 @@
 
         public void AfterChangeLeader(Person oldLeader, Person newLeader)
         {
-            foreach (Person p in this.Persons)
-            {
-                if (p.Loyalty < 110 || (!oldLeader.IsCloseTo(newLeader) && !oldLeader.HasStrainTo(newLeader)))
-                {
-                    p.Loyalty -= (int)Math.Max(0, (Person.GetIdealOffset(p, newLeader) / 75.0f - 5) * 20);
-                    if (!oldLeader.IsCloseTo(newLeader) && !oldLeader.HasStrainTo(newLeader))
-                    {
-                        p.Loyalty -= (int)Math.Max(0, (Person.GetIdealOffset(p, newLeader) / 75.0f - 5) * 30);
-                    }
-                    p.Loyalty -= GameObject.Random(10);
-                    p.LeaveFaction();
-                }
-            }
-
             foreach (Architecture a in this.Architectures)
             {
                 foreach (Person p in a.Feiziliebiao)
@@ -2587,7 +2572,6 @@
             if (person2 != null)
             {
                 this.Leader = person2;
-                this.Leader.Loyalty = 100;
                 if (!((this.Leader.LocationTroop == null) || this.Leader.IsCaptive))
                 {
                     this.Leader.LocationTroop.RefreshWithPersonList(this.Leader.LocationTroop.Persons.GetList());
@@ -2968,52 +2952,6 @@
             
         }
 
-
-        private void AIReward()
-        {
-            if (!base.Scenario.IsPlayer(this) && this.RewardTroopPersonAvail())
-            {
-                this.RewardTroopPerson();
-            }
-        }
-
-        public bool RewardTroopPersonAvail()
-        {
-            return this.RewardableTroopPersons().Count > 0 && this.Capital.Fund > this.Capital .RewardPersonFund;
-        }
-
-        public PersonList RewardableTroopPersons()
-        {
-            PersonList list = new PersonList();
-            foreach (Troop troop in this.Troops)
-            {
-                foreach (Person person in troop.Persons)
-                {
-                    if ((!person.RewardFinished && (person.Loyalty < 100)) && (person != this.Leader))
-                    {
-                        list.Add(person);
-                    }
-                }
-            }
-            return list;
-        }
-             
-
-        public void RewardTroopPerson()
-        {
-            if (this.TroopCount == 0) return;
-
-            if (this.Capital.Fund < this.Capital.RewardPersonFund) return;
-
-            foreach (Person person in this.RewardableTroopPersons())
-            {
-                person.RewardFinished = true;
-                this.Capital.DecreaseFund(this.Capital.RewardPersonFund);
-                int idealOffset = Person.GetIdealOffset(person, this.Leader);
-                person.IncreaseLoyalty((15 - (idealOffset / 5)) + 4 - (int)person.PersonalLoyalty);
-            }
-
-        }
 
         private void AIchaotingshijian()
         {
@@ -3897,17 +3835,8 @@
             this.PlayerTechniqueAI();
             this.PlayerAIArchitectures();
             this.PlayerAILegions();
-            this.PlayerAIRewardTroopPerson();
             this.AIFinished = true;
             base.Scenario.Threading = false;
-        }
-
-        private void PlayerAIRewardTroopPerson()
-        {
-            if (base.Scenario.IsPlayer(this) && this.RewardTroopPersonAvail())
-            {
-                this.RewardTroopPerson();
-            }
         }
 
         private void PlayerAIArchitectures()
@@ -4838,19 +4767,17 @@
                 switch (person.ValuationOnGovernment)
                 {
                     case PersonValuationOnGovernment.无视:
-                        loyaltyMultiplier = 1f;
                         break;
                     case PersonValuationOnGovernment.普通:
-                        loyaltyMultiplier = 0.8f;
+                        person.TempLoyaltyChange = -10;
                         break;
                     case PersonValuationOnGovernment.重视:
-                        loyaltyMultiplier = 0.5f;
+                        person.TempLoyaltyChange = -60;
                         break;
                     default:
                         continue;
 
                 }
-                person.Loyalty = (int)(person.Loyalty * loyaltyMultiplier);
             }
             this.Scenario.GameScreen.xianshishijiantupian(this.Leader, "", TextMessageKind.SelfBecomeInfluenceConsequence, "SelfBecomeEmperorInfluence", "", "", true);
         }
