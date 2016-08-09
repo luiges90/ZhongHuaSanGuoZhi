@@ -5256,6 +5256,10 @@
         {
             foreach (Captive p in this.Captives.GetRandomList())
             {
+                if (GameObject.Random(15) == 0 && !GameObject.Chance(p.CaptivePerson.PersonalLoyalty * 25))
+                {
+                    p.CaptivePerson.TempLoyaltyChange--;
+                }
                 if (GameObject.Random((this.Domination * 10 + this.Morale) * 20) + 200 <= GameObject.Random(p.CaptivePerson.CaptiveAbility))
                 {
                     if (!GameObject.Chance(noEscapeChance) || GameObject.Chance(p.CaptivePerson.captiveEscapeChance))
@@ -12486,7 +12490,6 @@
                     num *= 2;
                 }
                 num += 10000;
-                num *= 2;
                 ExpectedFoodCache = num;
                 return num;
             }
@@ -12537,7 +12540,6 @@
                     num *= 2;
                 }
                 num += 100;
-                num *= 2;
                 ExpectedFundCache = num;
                 return num;
             }

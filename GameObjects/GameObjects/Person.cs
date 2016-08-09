@@ -4320,18 +4320,21 @@
 
         private void LoyaltyChange()
         {
-            if (TempLoyaltyChange > 0)
+            if (this.Status != PersonStatus.Captive)
             {
-                if (GameObject.Chance((12 - this.Uncruelty) * 7))
+                if (TempLoyaltyChange > 0)
                 {
-                    TempLoyaltyChange--;
+                    if (GameObject.Chance((13 - this.Uncruelty) * 5))
+                    {
+                        TempLoyaltyChange--;
+                    }
                 }
-            } 
-            else if (TempLoyaltyChange < 0) 
-            {
-                if (GameObject.Chance(this.Uncruelty * 7))
+                else if (TempLoyaltyChange < 0)
                 {
-                    TempLoyaltyChange++;
+                    if (GameObject.Chance(this.Uncruelty * 5))
+                    {
+                        TempLoyaltyChange++;
+                    }
                 }
             }
         }
@@ -6311,6 +6314,8 @@
 
                     v += (this.PersonalLoyalty - 2) * 10;
                     v -= (this.Ambition - 2) * 4;
+
+                    v += base.Scenario.GameCommonData.suoyouguanjuezhonglei.guanjuedezhongleizidian[this.BelongedFaction.guanjue].Loyalty;
 
                     v += this.ServedYears;
 

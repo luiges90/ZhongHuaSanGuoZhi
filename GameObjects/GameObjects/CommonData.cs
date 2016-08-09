@@ -669,6 +669,7 @@
                 guanjuedezhonglei.xuyaochengchi = (short)reader["需要城池"];
 
                 guanjuedezhonglei.ShowDialog = (bool)reader["ShowDialog"];
+                guanjuedezhonglei.Loyalty = (int)reader["Loyalty"];
 
 
                 this.suoyouguanjuezhonglei.Addguanjuedezhonglei(guanjuedezhonglei);
@@ -2289,6 +2290,7 @@
                     row["需要贡献度"] = i.xuyaogongxiandu;
                     row["需要城池"] = i.xuyaochengchi;
                     row["ShowDialog"] = i.ShowDialog;
+                    row["Loyalty"] = i.Loyalty;
                     row.EndEdit();
                     dataSet.Tables["guanjuezhonglei"].Rows.Add(row);
                 }

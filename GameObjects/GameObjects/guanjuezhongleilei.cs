@@ -28,6 +28,12 @@ namespace GameObjects
             get;
             set;
         }
+        public int Loyalty
+        {
+            get;
+            set;
+
+        }
         
 	}
 }
