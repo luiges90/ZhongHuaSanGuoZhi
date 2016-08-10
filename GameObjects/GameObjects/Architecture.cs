@@ -8716,7 +8716,7 @@
         {
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Agriculture / this.AgricultureCeiling) : increment;
             this.Agriculture += (int) Math.Floor(actualIncrement);
-            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
             {
                 this.Agriculture++;
             }
@@ -8731,7 +8731,7 @@
         {
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Commerce / this.CommerceCeiling) : increment;
             this.Commerce += (int)Math.Floor(actualIncrement);
-            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
             {
                 this.Commerce++;
             }
@@ -8748,7 +8748,7 @@
 
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Domination / this.DominationCeiling) : increment;
             this.Domination += (int)Math.Floor(actualIncrement);
-            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
             {
                 this.Domination++;
             }
@@ -8772,7 +8772,7 @@
 
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Endurance / this.EnduranceCeiling):increment;
             this.Endurance += (int)Math.Floor(actualIncrement);
-            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
             {
                 this.Endurance++;
             }
@@ -8827,7 +8827,7 @@
         {
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Morale / this.MoraleCeiling) : increment;
             this.Morale += (int)Math.Floor(actualIncrement);
-            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
             {
                 this.Morale++;
             }
@@ -8844,7 +8844,7 @@
 
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Population / this.PopulationCeiling) : increment;
             this.Population += (int)Math.Floor(actualIncrement);
-            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
             {
                 this.Population++;
             }
@@ -8866,7 +8866,7 @@
         {
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Technology / this.TechnologyCeiling) : increment;
             this.Technology += (int)Math.Floor(actualIncrement);
-            if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
+            if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
             {
                 this.Technology++;
             }
