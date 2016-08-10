@@ -444,6 +444,14 @@
             }
         }
 
+        public int Merit
+        {
+            get
+            {
+                return this.CaptivePerson.Merit;
+            }
+        }
+
         public delegate void PlayerRelease(Faction from, Faction to, Captive captive);
 
         public delegate void Release(bool success, Faction from, Faction to, Person person);

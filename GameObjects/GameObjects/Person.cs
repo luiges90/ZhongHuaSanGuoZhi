@@ -2237,6 +2237,69 @@
             }
         }
 
+        public bool CanConvince(Person target)
+        {
+            bool ConvinceSuccess;
+            Architecture architectureByPosition = target.BelongedArchitecture;
+
+            if (architectureByPosition == null) return false;
+
+            int idealOffset = Person.GetIdealOffset(target, this.BelongedFaction.Leader);
+
+            if (target.BelongedFaction == null)
+            {
+                ConvinceSuccess =
+                    (
+                        (target.IsCaptive &&
+                         architectureByPosition.IsCaptiveInArchitecture(target.BelongedCaptive)
+                         )
+                    || (target.LocationArchitecture == architectureByPosition)
+                )
+                && !target.Hates(this.BelongedFaction.Leader)
+                && (!GlobalVariables.IdealTendencyValid ||
+                    (idealOffset <= target.IdealTendency.Offset +
+                     (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
+                 && (this.ConvinceAbility + Person.GetIdealOffset2(this, target) * 30 > 0)
+                );
+
+                ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
+                // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
+                ConvinceSuccess |= target.Closes(this) || target.Closes(this.BelongedFaction.Leader);
+            }
+            else
+            {
+                ConvinceSuccess =
+                    (
+             ((target.IsCaptive && architectureByPosition.IsCaptiveInArchitecture(target.BelongedCaptive))
+             || (target.LocationArchitecture == architectureByPosition))
+             && (
+             (
+                 ((target.BelongedFaction != null) && (this.BelongedFaction != target.BelongedFaction))
+
+             )
+             && ((target != target.BelongedFaction.Leader) && (target.Loyalty < 100))))
+             && (!target.Hates(this.BelongedFaction.Leader))
+             && (!GlobalVariables.IdealTendencyValid || (idealOffset <= target.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
+             && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(this, target) * 3 > 0);
+
+                ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(target.BelongedFaction) &&
+                    GlobalVariables.AIAutoTakePlayerCaptives && target.IsCaptive &&
+                    (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || target.Loyalty < 100);
+            }
+            ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)target.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
+            //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
+            ConvinceSuccess |= target.IsVeryCloseTo(this);
+
+            // prohibitedFactionID overrides all.
+            if (target.ProhibitedFactionID.ContainsKey(this.BelongedFaction.ID))
+            {
+                ConvinceSuccess = false;
+            }
+
+            return ConvinceSuccess;
+        }
+
+
         public void DoConvince()
         {
             this.OutsideTask = OutsideTaskKind.无;
@@ -2246,61 +2309,15 @@
                 if ((architectureByPosition != null) && (
                     (this.ConvincingPerson.IsCaptive || this.ConvincingPerson.Status == PersonStatus.NoFaction || (architectureByPosition.BelongedFaction != this.BelongedFaction))))
                 {
-                    bool ConvinceSuccess;
-                    int idealOffset = Person.GetIdealOffset(this.ConvincingPerson, this.BelongedFaction.Leader);
+                    bool ConvinceSuccess = this.CanConvince(this.ConvincingPerson);
 
-                    if (this.ConvincingPerson.BelongedFaction == null)
+                    if (ConvinceSuccess)
                     {
-                        ConvinceSuccess =
-                            (
-                                (this.ConvincingPerson.IsCaptive &&
-                                 architectureByPosition.IsCaptiveInArchitecture(this.ConvincingPerson.BelongedCaptive)
-                                 )
-                            || (this.ConvincingPerson.LocationArchitecture == architectureByPosition)
-                        )
-                        && !this.ConvincingPerson.Hates(this.BelongedFaction.Leader)
-                        && (!GlobalVariables.IdealTendencyValid ||
-                            (idealOffset <= this.ConvincingPerson.IdealTendency.Offset +
-                             (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
-                         && (this.ConvinceAbility - ((int)this.ConvincingPerson.PersonalLoyalty * 25) + Person.GetIdealOffset2(this, this.ConvincingPerson) * 3 > 0)
-                        );
-
-                        ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
-                        // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
-                        ConvinceSuccess |= this.ConvincingPerson.Closes(this) || this.ConvincingPerson.Closes(this.BelongedFaction.Leader);
+                        ConvinceSuccess = GameObject.Chance((int) (this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 4) - ((int)this.ConvincingPerson.PersonalLoyalty * 25) + Person.GetIdealOffset2(this, this.ConvincingPerson) * 3) / 3);
                     }
-                    else
-                    {
-                        ConvinceSuccess =
-                            (
-                     ((this.ConvincingPerson.IsCaptive && architectureByPosition.IsCaptiveInArchitecture(this.ConvincingPerson.BelongedCaptive))
-                     || (this.ConvincingPerson.LocationArchitecture == architectureByPosition))
-                     && (
-                     (
-                         ((this.ConvincingPerson.BelongedFaction != null) && (this.BelongedFaction != this.ConvincingPerson.BelongedFaction))
-
-                     )
-                     && ((this.ConvincingPerson != this.ConvincingPerson.BelongedFaction.Leader) && (this.ConvincingPerson.Loyalty < 100))))
-                     && (!this.ConvincingPerson.Hates(this.BelongedFaction.Leader))
-                     && (!GlobalVariables.IdealTendencyValid || (idealOffset <= this.ConvincingPerson.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-                     && ((this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 4)) - ((int)this.ConvincingPerson.PersonalLoyalty * 25) + Person.GetIdealOffset2(this, this.ConvincingPerson) * 3 > 0);
-
-                        ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(this.ConvincingPerson.BelongedFaction) &&
-                            GlobalVariables.AIAutoTakePlayerCaptives && this.ConvincingPerson.IsCaptive &&
-                            (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || this.ConvincingPerson.Loyalty < 100);
-                    }
-                    ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)this.ConvincingPerson.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
-                    //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
-                    ConvinceSuccess |= this.ConvincingPerson.IsVeryCloseTo(this);
 
                     Person closest = this.ConvincingPerson.VeryClosePersonInArchitecture;
                     ConvinceSuccess &= closest == null || GameObject.Chance(1000 - this.ConvincingPerson.GetRelation(closest) / 10);
-
-                    // prohibitedFactionID overrides all.
-                    if (this.ConvincingPerson.ProhibitedFactionID.ContainsKey(this.BelongedFaction.ID))
-                    {
-                        ConvinceSuccess = false;
-                    }
 
                     if (ConvinceSuccess)
                     {
