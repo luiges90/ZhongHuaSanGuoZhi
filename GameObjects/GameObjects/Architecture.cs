@@ -1893,8 +1893,7 @@
 
         private void ConvinceNoFactionAI()
         {
-            if (this.HasPerson() && this.IsFundEnough && this.HasNoFactionPerson() && !this.HasHostileTroopsInView()
-                && GameObject.Chance((int)Math.Max(30, 800 / this.BelongedFaction.PersonCount)))
+            if (this.HasPerson() && this.IsFundEnough && this.HasNoFactionPerson() && !this.HasHostileTroopsInView())
             {
                 PersonList convincer = this.GetFirstHalfPersonList("ConvinceAbility");
                 if (convincer.Count <= 0) return;
@@ -1905,23 +1904,15 @@
                 convinced.IsNumber = true;
                 convinced.ReSort();
 
-                int cnt = 0;
                 foreach (Person p in convinced)
                 {
-                    if (p.RecruitableBy(this.BelongedFaction, 0))
+                    foreach (Person q in convincer)
                     {
-                        Person i = (Person)convincer[cnt];
-                        if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) ||
-                            (i != null && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33)) &&
-                            GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber) &&
-                            GameObject.Random(i.FightingNumber) < 100 &&
-                            GameObject.Random(i.ConvinceAbility) >= 200))
+                        if (q.CanConvince(p))
                         {
-                            i.OutsideDestination = this.ArchitectureArea.Centre;
-                            i.GoForConvince(p);
+                            q.OutsideDestination = this.ArchitectureArea.Centre;
+                            q.GoForConvince(p);
                         }
-                        cnt++;
-                        if (cnt >= convincer.Count) break;
                     }
                 }
             }
@@ -1932,23 +1923,23 @@
             if (this.BelongedFaction == null) return;
             if (this.HasHostileTroopsInView()) return;
 
-            Captive extremeLoyaltyCaptive = architecture2.GetLowestLoyaltyCaptiveRecruitable();
-            if (extremeLoyaltyCaptive != null && extremeLoyaltyCaptive.CaptivePerson != null &&
-                (extremeLoyaltyCaptive.Loyalty < 95 || (GlobalVariables.AIAutoTakePlayerCaptives && !GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull && base.Scenario.IsPlayer(extremeLoyaltyCaptive.CaptiveFaction)))
-                && (extremeLoyaltyCaptive.CaptiveFaction == null || extremeLoyaltyCaptive.CaptivePerson != extremeLoyaltyCaptive.CaptiveFaction.Leader))
+            PersonList convincer = this.GetFirstHalfPersonList("ConvinceAbility");
+            if (convincer.Count <= 0) return;
+
+            GameObjectList convinced = architecture2.Captives;
+            convinced.SmallToBig = false;
+            convinced.PropertyName = "Merit";
+            convinced.IsNumber = true;
+            convinced.ReSort();
+
+            foreach (Captive p in convinced)
             {
-                PersonList firstHalfPersonList = this.GetFirstHalfPersonList("ConvinceAbility");
-                foreach (Person i in firstHalfPersonList)
+                foreach (Person q in convincer)
                 {
-                    if ((GameObject.Random(this.BelongedFaction.PersonCount) < 5 && i != null) ||
-                            (i != null && (!this.HasFollowedLeaderMilitary(i) || GameObject.Chance(33)) &&
-                            GameObject.Random(i.NonFightingNumber) > GameObject.Random(i.FightingNumber) &&
-                            GameObject.Random(i.FightingNumber) < 100 &&
-                            GameObject.Random(i.ConvinceAbility) >= 200 &&
-                            GameObject.Random(i.ConvinceAbility) > GameObject.Random(extremeLoyaltyCaptive.Loyalty * 5)))
+                    if (q.CanConvince(p.CaptivePerson))
                     {
-                        i.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
-                        i.GoForConvince(extremeLoyaltyCaptive.CaptivePerson);
+                        q.OutsideDestination = this.ArchitectureArea.Centre;
+                        q.GoForConvince(p.CaptivePerson);
                     }
                 }
             }
@@ -2081,13 +2072,16 @@
                                     if ((extremeLoyaltyPerson != null) && ((extremeLoyaltyPerson.Loyalty < 100) && (extremeLoyaltyPerson.BelongedFaction != null)) && (extremeLoyaltyPerson != extremeLoyaltyPerson.BelongedFaction.Leader))
                                     {
                                         firstHalfPerson = this.GetFirstHalfPerson("ConvinceAbility");
-                                        if (firstHalfPerson != null && !firstHalfPerson.HasLeadingArmy &&
-                                            firstHalfPerson.NonFightingNumber > firstHalfPerson.FightingNumber &&
-                                            (firstHalfPerson != firstHalfPerson.BelongedFaction.Leader || firstHalfPerson.ImmunityOfCaptive) &&
-                                            GameObject.Random(firstHalfPerson.ConvinceAbility) > GameObject.Random(extremeLoyaltyPerson.Loyalty * 5))
+                                        if (firstHalfPerson != null)
                                         {
-                                            firstHalfPerson.OutsideDestination = new Point?(base.Scenario.GetClosestPoint(architecture2.ArchitectureArea, this.Position));
-                                            firstHalfPerson.GoForConvince(extremeLoyaltyPerson);
+                                            foreach (Person p in architecture2.Persons)
+                                            {
+                                                if (firstHalfPerson.CanConvince(p))
+                                                {
+                                                    firstHalfPerson.OutsideDestination = this.ArchitectureArea.Centre;
+                                                    firstHalfPerson.GoForConvince(p);
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -8720,7 +8714,7 @@
 
         public void IncreaseAgriculture(int increment)
         {
-            float actualIncrement = increment > 0 ? increment * ((float)this.Agriculture / this.AgricultureCeiling) : increment;
+            float actualIncrement = increment > 0 ? increment * (1-(float)this.Agriculture / this.AgricultureCeiling) : increment;
             this.Agriculture += (int) Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8735,7 +8729,7 @@
 
         public void IncreaseCommerce(int increment)
         {
-            float actualIncrement = increment > 0 ? increment * ((float)this.Commerce / this.CommerceCeiling) : increment;
+            float actualIncrement = increment > 0 ? increment * (1-(float)this.Commerce / this.CommerceCeiling) : increment;
             this.Commerce += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8752,7 +8746,7 @@
         {
             int old = this.Domination;
 
-            float actualIncrement = increment > 0 ? increment * ((float)this.Domination / this.DominationCeiling) : increment;
+            float actualIncrement = increment > 0 ? increment * (1-(float)this.Domination / this.DominationCeiling) : increment;
             this.Domination += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8776,7 +8770,7 @@
 
             int old = this.Endurance;
 
-            float actualIncrement = increment > 0 ? increment * ((float)this.Endurance / this.EnduranceCeiling):increment;
+            float actualIncrement = increment > 0 ? increment * (1-(float)this.Endurance / this.EnduranceCeiling):increment;
             this.Endurance += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8831,7 +8825,7 @@
 
         public void IncreaseMorale(int increment)
         {
-            float actualIncrement = increment > 0 ? increment * ((float)this.Morale / this.MoraleCeiling) : increment;
+            float actualIncrement = increment > 0 ? increment * (1-(float)this.Morale / this.MoraleCeiling) : increment;
             this.Morale += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8848,7 +8842,7 @@
         {
             int old = this.Population;
 
-            float actualIncrement = increment > 0 ? increment * ((float)this.Population / this.PopulationCeiling) : increment;
+            float actualIncrement = increment > 0 ? increment * (1-(float)this.Population / this.PopulationCeiling) : increment;
             this.Population += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
@@ -8870,7 +8864,7 @@
 
         public void IncreaseTechnology(int increment)
         {
-            float actualIncrement = increment > 0 ? increment * ((float)this.Technology / this.TechnologyCeiling) : increment;
+            float actualIncrement = increment > 0 ? increment * (1-(float)this.Technology / this.TechnologyCeiling) : increment;
             this.Technology += (int)Math.Floor(actualIncrement);
             if (GameObject.Chance((int)((actualIncrement - Math.Floor(actualIncrement)) * 100)))
             {
