@@ -11452,7 +11452,7 @@
             {
                 if (BuffAvail())
                 {
-                    return (int)(this.defence * this.TirednessFactor + (this.Leader.Command * (this.BelongedFaction != null && this.Scenario.IsPlayer(this.BelongedFaction) ? 20 : 50 ) + this.Leader.Calmness * 50));
+                    return (int)(this.defence * this.TirednessFactor * (1 + this.Leader.Command * 0.007 + this.Leader.Calmness * 0.03));
                 }
                 else 
                 {
@@ -12123,7 +12123,7 @@
             {      //县令加成公式
                 if (BuffAvail())
                 {
-                    return (int)(this.offence * this.TirednessFactor + (this.Leader.Strength * (this.BelongedFaction != null && this.Scenario.IsPlayer(this.BelongedFaction) ? 3 : 6 ) + this.Leader.Braveness * 10));
+                    return (int)(this.offence * this.TirednessFactor * (1 + this.Leader.Strength * 0.007 + this.Leader.Braveness * 0.03));
                 }
                 else 
                 {

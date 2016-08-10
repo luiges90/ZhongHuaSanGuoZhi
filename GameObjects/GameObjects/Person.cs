@@ -5258,6 +5258,14 @@
             }
         }
 
+        public int AbilitySum
+        {
+            get
+            {
+                return this.Command + this.Strength + this.Intelligence + this.Politics + this.Glamour;
+            }
+        }
+
         // precomputed values of y = 1.12 / (1+ 69.06e^(-0.428x))
         private static readonly float[] AGE_FACTORS = { 0.0160f, 0.0243f, 0.0369f, 0.0557f, 0.0832f, 0.1227f, 0.1779f, 0.2516f, 0.3446f, 0.4541f, 0.5726f, 0.6900f, 0.7965f, 0.8856f, 0.9552f };
         private float AbilityAgeFactor
@@ -6406,6 +6414,7 @@
                     }
 
                     v += (this.BelongedFaction.Leader.Glamour - 50) / 50 * 8;
+                    v += (this.BelongedArchitecture.Mayor != null ? (this.BelongedArchitecture.Mayor.Glamour - 50) / 50 * 4 : -2);
 
                     v += Person.GetIdealOffset2(this, this.BelongedFaction.Leader);
 
