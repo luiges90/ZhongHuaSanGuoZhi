@@ -6413,8 +6413,30 @@
                         v += this.LocationArchitecture.InfluenceIncrementOfLoyalty;
                     }
 
-                    v += (this.BelongedFaction.Leader.Glamour - 50) / 50 * 8;
-                    v += (this.BelongedArchitecture.Mayor != null ? (this.BelongedArchitecture.Mayor.Glamour - 50) / 50 * 4 : -2);
+                    if (this.BelongedFaction.Leader.Status == PersonStatus.Captive)
+                    {
+                        v -= 8 + (4 - this.PersonalLoyalty);
+                    }
+                    else
+                    {
+                        v += (this.BelongedFaction.Leader.Glamour - 50) / 50 * 8;
+                    }
+                    if (this.BelongedArchitecture.Mayor != null)
+                    {
+                        if (this.BelongedArchitecture.Mayor.Status == PersonStatus.Captive)
+                        {
+                            v -= 4 + (4 - this.PersonalLoyalty) / 2;
+                        }
+                        else
+                        {
+                            v += (this.BelongedArchitecture.Mayor.Glamour - 50) / 50 * 4;
+                        }
+
+                    }
+                    else
+                    {
+                        v -= 2;
+                    }
 
                     v += Person.GetIdealOffset2(this, this.BelongedFaction.Leader);
 
