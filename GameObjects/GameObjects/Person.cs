@@ -3691,11 +3691,11 @@
             }
             if (p1.Closes(p2))
             {
-                v += 5;
+                v += 10;
             }
             if (p1.HasStrainTo(p2))
             {
-                v += 10;
+                v += 5;
             }
             if (p1.HasCloseStrainTo(p2))
             {
