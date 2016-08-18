@@ -2259,7 +2259,7 @@
                 && (!GlobalVariables.IdealTendencyValid ||
                     (idealOffset <= target.IdealTendency.Offset +
                      (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
-                 && (this.ConvinceAbility + Person.GetIdealOffset2(this, target) * 30 > 0)
+                 && (this.ConvinceAbility + Person.GetIdealOffset2(this, target) * 20 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 20 > 0)
                 );
 
                 ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
@@ -2280,7 +2280,7 @@
              && ((target != target.BelongedFaction.Leader) && (target.Loyalty < 100))))
              && (!target.Hates(this.BelongedFaction.Leader))
              && (!GlobalVariables.IdealTendencyValid || (idealOffset <= target.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-             && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(this, target) * 3 > 0);
+             && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(this, target) * 5 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 5 > 0);
 
                 ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(target.BelongedFaction) &&
                     GlobalVariables.AIAutoTakePlayerCaptives && target.IsCaptive &&
@@ -2313,7 +2313,9 @@
 
                     if (ConvinceSuccess)
                     {
-                        ConvinceSuccess = GameObject.Chance((int) (this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 4) - ((int)this.ConvincingPerson.PersonalLoyalty * 25) + Person.GetIdealOffset2(this, this.ConvincingPerson) * 3) / 3);
+                        ConvinceSuccess = GameObject.Chance((int)
+                            (this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 4) - ((int)this.ConvincingPerson.PersonalLoyalty * 25) +
+                            Person.GetIdealOffset2(this, this.ConvincingPerson) * 5 + Person.GetIdealOffset2(this.BelongedFaction.Leader, this.ConvincingPerson) * 5) / 3 + 1);
                     }
 
                     Person closest = this.ConvincingPerson.VeryClosePersonInArchitecture;
@@ -3657,59 +3659,59 @@
             return list;
         }
 
-        public static float GetIdealOffset2(Person p1, Person p2)
+        public static float GetIdealOffset2(Person target, Person src)
         {
             float v = 0;
-            v -= ((Person.GetIdealOffset(p1, p2)) + (75.0f / 2)) / (75.0f / 2) * 20;
-            v += p1.GetRelation(p2) / 100.0f;
+            v -= (Person.GetIdealOffset(target, src) - (75 - target.IdealTendency.Offset));
+            v += target.GetRelation(src) / 100.0f;
 
-            if (p1.Scenario.huangdisuozaijianzhu() != null)
+            if (target.Scenario.huangdisuozaijianzhu() != null)
             {
-                v -= (Math.Abs(p1.ValuationOnGovernment - p2.ValuationOnGovernment) - 1) * 4;
+                v -= (Math.Abs(target.ValuationOnGovernment - src.ValuationOnGovernment) - 1) * 4;
             }
-            switch (p1.Qualification)
+            switch (target.Qualification)
             {
                 case PersonQualification.义理:
-                    v += (p2.PersonalLoyalty - 2) * 5;
+                    v += (src.PersonalLoyalty - 2) * 5;
                     break;
                 case PersonQualification.功绩:
-                    v += Math.Max(-10, Math.Min(10, (p2.ServedYears - p1.ServedYears) * 3));
+                    v += Math.Max(-10, Math.Min(10, (src.ServedYears - target.ServedYears) * 3));
                     break;
                 case PersonQualification.名声:
-                    v += Math.Max(-10, Math.Min(10, (p2.Reputation - p1.Reputation) / 1000.0f));
+                    v += Math.Max(-10, Math.Min(10, (src.Reputation - target.Reputation) / 1000.0f));
                     break;
                 case PersonQualification.能力:
-                    v += Math.Max(-10, Math.Min(10, (p2.UnalteredUntiredMerit - p1.UnalteredUntiredMerit) / 10000.0f));
+                    v += Math.Max(-10, Math.Min(10, (src.UnalteredUntiredMerit - target.UnalteredUntiredMerit) / 10000.0f));
                     break;
                 case PersonQualification.任意:
                     break;
             }
 
-            if (p1.Ideal == p2.Ideal)
+            if (target.Ideal == src.Ideal)
             {
                 v += 2;
             }
-            if (p1.Closes(p2))
+            if (target.Closes(src))
             {
                 v += 10;
             }
-            if (p1.HasStrainTo(p2))
+            if (target.HasStrainTo(src))
             {
                 v += 5;
             }
-            if (p1.HasCloseStrainTo(p2))
+            if (target.HasCloseStrainTo(src))
             {
                 v += 10;
             }
-            if (p1.Spouse == p2)
+            if (target.Spouse == src)
             {
                 v += 50;
             }
-            if (p1.Brothers.GameObjects.Contains(p2))
+            if (target.Brothers.GameObjects.Contains(src))
             {
                 v += 50;
             }
-            if (p1.Hates(p2))
+            if (target.Hates(src))
             {
                 v -= 30;
             }
@@ -6394,7 +6396,7 @@
                 {
                     if (this == this.BelongedFaction.Leader) return 255;
 
-                    float v = 110;
+                    float v = 100;
 
                     if (this.Status == PersonStatus.Captive)
                     {
@@ -6406,7 +6408,7 @@
 
                     v += base.Scenario.GameCommonData.suoyouguanjuezhonglei.guanjuedezhongleizidian[this.BelongedFaction.guanjue].Loyalty;
 
-                    v += this.ServedYears;
+                    v += Math.Min(20, this.ServedYears / 2);
 
                     if (this.LocationArchitecture != null)
                     {
@@ -9227,7 +9229,16 @@
             {
                 if (this.relations.ContainsKey(p))
                 {
-                    this.relations[p] = (int) (this.relations[p] + val);
+                    float actualVal;
+                    if (this.relations[p] > 0)
+                    {
+                        actualVal = val * (10000.0f - this.relations[p]) / 10000;
+                    }
+                    else
+                    {
+                        actualVal = val;
+                    }
+                    this.relations[p] = (int)(this.relations[p] + actualVal);
                 }
                 else
                 {
@@ -9237,11 +9248,6 @@
             else
             {
                 return;
-            }
-            if (this.relations[p] < -2e9)
-            {
-                int z = 0;
-                z++;
             }
 
             if (this.relations.ContainsKey(p))
