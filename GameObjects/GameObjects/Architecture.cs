@@ -1667,8 +1667,8 @@
                     need[0] &= !IsFoodIncomeEnough;
                     need[1] &= !IsFundIncomeEnough;
                     need[2] = false;
-                    need[3] &= this.PopulationDevelopingRate <= 0;
-                    need[4] &= this.PopulationDevelopingRate <= 0;
+                    need[3] &= this.PopulationDevelopingRate <= 0 && this.Domination <= this.DominationCeiling * 0.9;
+                    need[4] &= this.PopulationDevelopingRate <= 0 && this.Morale <= this.MoraleCeiling * 0.75;
                     need[5] = this.Endurance < 30;
                 }
 
@@ -9047,12 +9047,12 @@
 
         public bool IsGood()
         {
-            return (((((this.Agriculture >= (this.AgricultureCeiling * 0.6)) && (this.Commerce >= (this.CommerceCeiling * 0.6))) && ((this.Technology >= (this.TechnologyCeiling * 0.6)) && (this.Domination >= (this.DominationCeiling * 0.8)))) && (this.Morale >= (this.MoraleCeiling * 0.6))) && (this.Endurance >= (this.EnduranceCeiling * 0.6)));
+            return (((((this.Agriculture >= (this.AgricultureCeiling * 0.5)) && (this.Commerce >= (this.CommerceCeiling * 0.5))) && ((this.Technology >= (this.TechnologyCeiling * 0.5)) && (this.Domination >= (this.DominationCeiling * 0.8)))) && (this.Morale >= (this.MoraleCeiling * 0.5))) && (this.Endurance >= (this.EnduranceCeiling * 0.5)));
         }
 
         public bool IsVeryGood()
         {
-            return (((((this.Agriculture >= (this.AgricultureCeiling * 0.95)) && (this.Commerce >= (this.CommerceCeiling * 0.95))) && ((this.Technology >= (this.TechnologyCeiling * 0.95)) && (this.Domination >= (this.DominationCeiling * 0.95)))) && (this.Morale >= (this.MoraleCeiling * 0.95))) && (this.Endurance >= (this.EnduranceCeiling * 0.95)));
+            return (((((this.Agriculture >= (this.AgricultureCeiling * 0.8)) && (this.Commerce >= (this.CommerceCeiling * 0.8))) && ((this.Technology >= (this.TechnologyCeiling * 0.8)) && (this.Domination >= (this.DominationCeiling * 0.9)))) && (this.Morale >= (this.MoraleCeiling * 0.8))) && (this.Endurance >= (this.EnduranceCeiling * 0.8)));
         }
 
         public bool IsHostile(Faction faction)
