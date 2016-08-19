@@ -2455,7 +2455,7 @@
                 List<MilitaryKind> upgradable = new List<MilitaryKind>();
                 foreach (MilitaryKind mk in candidates)
                 {
-                    if (mk.LevelUpAvail(this))
+                    if (military.Kind.LevelUpAvail(this))
                     {
                         upgradable.Add(mk);
                     }
