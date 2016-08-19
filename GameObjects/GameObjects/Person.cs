@@ -2259,7 +2259,7 @@
                 && (!GlobalVariables.IdealTendencyValid ||
                     (idealOffset <= target.IdealTendency.Offset +
                      (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
-                 && (this.ConvinceAbility + Person.GetIdealOffset2(this, target) * 20 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 20 > 0)
+                 && (this.ConvinceAbility + Person.GetIdealOffset2(this, target) * 30 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 30 > 0)
                 );
 
                 ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
@@ -2280,7 +2280,7 @@
              && ((target != target.BelongedFaction.Leader) && (target.Loyalty < 100))))
              && (!target.Hates(this.BelongedFaction.Leader))
              && (!GlobalVariables.IdealTendencyValid || (idealOffset <= target.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-             && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(this, target) * 5 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 5 > 0);
+             && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(this, target) * 8 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 8 > 0);
 
                 ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(target.BelongedFaction) &&
                     GlobalVariables.AIAutoTakePlayerCaptives && target.IsCaptive &&
@@ -2315,7 +2315,7 @@
                     {
                         ConvinceSuccess = GameObject.Chance((int)
                             (this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 4) - ((int)this.ConvincingPerson.PersonalLoyalty * 25) +
-                            Person.GetIdealOffset2(this, this.ConvincingPerson) * 5 + Person.GetIdealOffset2(this.BelongedFaction.Leader, this.ConvincingPerson) * 5) / 3 + 1);
+                            Person.GetIdealOffset2(this, this.ConvincingPerson) * 8 + Person.GetIdealOffset2(this.BelongedFaction.Leader, this.ConvincingPerson) * 8) / 3 + 1);
                     }
 
                     Person closest = this.ConvincingPerson.VeryClosePersonInArchitecture;
@@ -3662,7 +3662,7 @@
         public static float GetIdealOffset2(Person target, Person src)
         {
             float v = 0;
-            v -= (Person.GetIdealOffset(target, src) - (75 - target.IdealTendency.Offset));
+            v += (-Person.GetIdealOffset(target, src) + (target.IdealTendency.Offset)) * 0.6f;
             v += target.GetRelation(src) / 100.0f;
 
             if (target.Scenario.huangdisuozaijianzhu() != null)
@@ -9239,6 +9239,10 @@
                         actualVal = val;
                     }
                     this.relations[p] = (int)(this.relations[p] + actualVal);
+                    if (this.relations[p] > 10000)
+                    {
+                        this.relations[p] = 10000;
+                    }
                 }
                 else
                 {
