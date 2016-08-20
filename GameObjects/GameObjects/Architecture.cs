@@ -5250,7 +5250,7 @@
         {
             foreach (Captive p in this.Captives.GetRandomList())
             {
-                if (GameObject.Random(15) == 0 && !GameObject.Chance(p.CaptivePerson.PersonalLoyalty * 25))
+                if (GameObject.Random(5) == 0 && !GameObject.Chance(p.CaptivePerson.PersonalLoyalty * 25))
                 {
                     p.CaptivePerson.TempLoyaltyChange--;
                 }
