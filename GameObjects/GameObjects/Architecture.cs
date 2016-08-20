@@ -1627,7 +1627,7 @@
         {
             this.StopAllWork();
             if (!this.HasPerson()) return;
-           
+  
             MilitaryList trainingMilitaryList = this.GetTrainingMilitaryList();
             bool needTrain = (trainingMilitaryList.Count > 0);
 
@@ -9047,12 +9047,12 @@
 
         public bool IsGood()
         {
-            return (((((this.Agriculture >= (this.AgricultureCeiling * 0.5)) && (this.Commerce >= (this.CommerceCeiling * 0.5))) && ((this.Technology >= (this.TechnologyCeiling * 0.5)) && (this.Domination >= (this.DominationCeiling * 0.8)))) && (this.Morale >= (this.MoraleCeiling * 0.5))) && (this.Endurance >= (this.EnduranceCeiling * 0.5)));
+            return (((((this.Agriculture >= (this.AgricultureCeiling * 0.5)) && (this.Commerce >= (this.CommerceCeiling * 0.5))) && ((this.Technology >= (this.TechnologyCeiling * 0.5)) && (this.Domination >= (this.DominationCeiling * 0.7)))) && (this.Morale >= (this.MoraleCeiling * 0.5))) && (this.Endurance >= (this.EnduranceCeiling * 0.5)));
         }
 
         public bool IsVeryGood()
         {
-            return (((((this.Agriculture >= (this.AgricultureCeiling * 0.8)) && (this.Commerce >= (this.CommerceCeiling * 0.8))) && ((this.Technology >= (this.TechnologyCeiling * 0.8)) && (this.Domination >= (this.DominationCeiling * 0.9)))) && (this.Morale >= (this.MoraleCeiling * 0.8))) && (this.Endurance >= (this.EnduranceCeiling * 0.8)));
+            return (((((this.Agriculture >= (this.AgricultureCeiling * 0.8)) && (this.Commerce >= (this.CommerceCeiling * 0.8))) && ((this.Technology >= (this.TechnologyCeiling * 0.8)) && (this.Domination >= (this.DominationCeiling * 0.8)))) && (this.Morale >= (this.MoraleCeiling * 0.8))) && (this.Endurance >= (this.EnduranceCeiling * 0.8)));
         }
 
         public bool IsHostile(Faction faction)
@@ -9935,7 +9935,7 @@
                 this.PlanArchitecture = null;
             }
             else if ((this.PlanArchitecture != null) || ((this.IsGood() || GameObject.Chance((int)(GameObject.Square((int)leader.Ambition) * Parameters.AIAttackChanceIfUnfull))) &&
-              (this.Domination >= this.DominationCeiling || this.Population <= this.Kind.PopulationBoundary / 2)))
+              (this.Domination >= this.DominationCeiling * 0.7 || this.Population <= this.Kind.PopulationBoundary / 2)))
             {
                 Architecture target = this.PlanArchitecture;
                 LinkNode wayToTarget = null;
