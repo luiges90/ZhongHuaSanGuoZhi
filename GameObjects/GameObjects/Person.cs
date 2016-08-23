@@ -4419,11 +4419,14 @@
             }
             else
             {
-                foreach (KeyValuePair<int, int> i in this.LocationArchitecture.captiveLoyaltyFall)
+                if (this.LocationArchitecture != null)
                 {
-                    if (this.Loyalty < i.Key)
+                    foreach (KeyValuePair<int, int> i in this.LocationArchitecture.captiveLoyaltyFall)
                     {
-                        TempLoyaltyChange -= i.Value;
+                        if (this.Loyalty < i.Key)
+                        {
+                            TempLoyaltyChange -= i.Value;
+                        }
                     }
                 }
             }
