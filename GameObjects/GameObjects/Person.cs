@@ -4384,7 +4384,6 @@
         {
             get
             {
-                if (this.Loyalty > 110) return false;
                 if (this.PersonalLoyalty >= 4) return false;
                 return true;
             }
@@ -4394,7 +4393,7 @@
         {
             get
             {
-                return true;
+                return WillLoseLoyalty || (this.BelongedCaptive.LocationArchitecture.captiveLoyaltyFall.Count > 0);
             }
         }
 
@@ -4421,7 +4420,7 @@
             {
                 if (this.LocationArchitecture != null)
                 {
-                    foreach (KeyValuePair<int, int> i in this.LocationArchitecture.captiveLoyaltyFall)
+                    foreach (KeyValuePair<int, int> i in this.BelongedCaptive.LocationArchitecture.captiveLoyaltyFall)
                     {
                         if (this.Loyalty < i.Key)
                         {
