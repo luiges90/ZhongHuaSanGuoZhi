@@ -4394,9 +4394,6 @@
         {
             get
             {
-                if (this.BelongedCaptive.LocationArchitecture.captiveLoyaltyFall.Count > 0) return true;
-                if (this.Loyalty > 110) return false;
-                if (this.PersonalLoyalty >= 4) return false;
                 return true;
             }
         }
@@ -4417,6 +4414,16 @@
                     if (GameObject.Chance(this.Uncruelty * 5))
                     {
                         TempLoyaltyChange++;
+                    }
+                }
+            }
+            else
+            {
+                foreach (KeyValuePair<int, int> i in this.LocationArchitecture.captiveLoyaltyFall)
+                {
+                    if (this.Loyalty < i.Key)
+                    {
+                        TempLoyaltyChange -= i.Value;
                     }
                 }
             }
