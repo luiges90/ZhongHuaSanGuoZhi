@@ -1643,15 +1643,15 @@
             }
             else                                                                                                       // 资金足够
             {
-                bool[] need = {this.Kind.HasAgriculture && this.Agriculture < this.AgricultureCeiling, 
-                               this.Kind.HasCommerce && this.Commerce < this.CommerceCeiling,
-                               this.Kind.HasTechnology && this.Technology < this.TechnologyCeiling,
-                               this.Kind.HasDomination && this.Domination < this.DominationCeiling,
-                               this.Kind.HasMorale && this.Morale < this.MoraleCeiling,
-                               this.Kind.HasEndurance && this.Endurance < this.EnduranceCeiling,
+                bool[] need = {this.Kind.HasAgriculture && this.Agriculture < this.AgricultureCeiling * 0.9, 
+                               this.Kind.HasCommerce && this.Commerce < this.CommerceCeiling * 0.9,
+                               this.Kind.HasTechnology && this.Technology < this.TechnologyCeiling * 0.9,
+                               this.Kind.HasDomination && this.Domination < this.DominationCeiling * 0.9,
+                               this.Kind.HasMorale && this.Morale < this.MoraleCeiling * 0.9,
+                               this.Kind.HasEndurance && this.Endurance < this.EnduranceCeiling * 0.9,
                                needTrain};
-                bool needOnlyOneDomination = this.Domination >= this.DominationCeiling - 2; // 因为补充导致的统治下降1或2点时，只需要选择1个武将进行统治就足够了
-                bool needOnlyOneMorale = this.Morale >= this.MoraleCeiling - 2;             // 因为补充导致的民心下降1或2点时，只需要选择1个武将进行民心就足够了
+                bool needOnlyOneDomination = false;
+                bool needOnlyOneMorale = false;
                 bool needOnlyOneTrain = false;
 
                 if (this.RecentlyAttacked > 0 && this.Endurance < this.EnduranceCeiling)
@@ -1670,6 +1670,17 @@
                     need[3] &= this.PopulationDevelopingRate <= 0 && this.Domination <= this.DominationCeiling * 0.9;
                     need[4] &= this.PopulationDevelopingRate <= 0 && this.Morale <= this.MoraleCeiling * 0.75;
                     need[5] = this.Endurance < 30;
+                }
+
+                if (!need[0] && !need[1] && !need[2] && !need[3] && !need[4] && !need[5] & !need[6])
+                {
+                     need = new bool[]{this.Kind.HasAgriculture && this.Agriculture < this.AgricultureCeiling, 
+                               this.Kind.HasCommerce && this.Commerce < this.CommerceCeiling,
+                               this.Kind.HasTechnology && this.Technology < this.TechnologyCeiling,
+                               this.Kind.HasDomination && this.Domination < this.DominationCeiling,
+                               this.Kind.HasMorale && this.Morale < this.MoraleCeiling,
+                               this.Kind.HasEndurance && this.Endurance < this.EnduranceCeiling,
+                               needTrain};
                 }
 
                 if (trainingMilitaryList.Count == 1)
