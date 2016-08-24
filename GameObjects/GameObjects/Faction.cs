@@ -1380,7 +1380,7 @@
                     {
                         if (p.Status == PersonStatus.Normal && p.LocationArchitecture != null && p.LocationTroop == null)
                         {
-                            if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection 
+                            if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal && p.Spouse.BelongedFaction == p.BelongedFaction && p.Spouse.BelongedArchitecture.BelongedSection.AIDetail.AutoRun 
                                 && p.LocationArchitecture != p.Spouse.LocationArchitecture && p.Spouse.LocationArchitecture != null && p.Spouse.LocationTroop == null)
                             {
                                 foreach (Military m in p.Spouse.LeadingArmies)
@@ -1394,7 +1394,7 @@
                             {
                                 foreach (Person q in p.Brothers)
                                 {
-                                    if (q != null && q.Status == PersonStatus.Normal && q.BelongedArchitecture.BelongedSection == p.BelongedArchitecture.BelongedSection 
+                                    if (q != null && q.Status == PersonStatus.Normal && q.BelongedFaction == p.BelongedFaction && q.BelongedArchitecture.BelongedSection.AIDetail.AutoRun 
                                             && p.LocationArchitecture != q.LocationArchitecture && q.LocationArchitecture != null && q.LocationTroop == null)
                                     {
                                         foreach (Military m in q.LeadingArmies)
