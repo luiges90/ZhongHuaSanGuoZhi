@@ -4637,6 +4637,8 @@
 
             //if (this.Status != PersonStatus.Normal) return;
 
+            if (this.LocationTroop != null) return;
+
             if (this.LocationArchitecture != a || startingPoint != null)
             {
                 Point position = this.Position;
