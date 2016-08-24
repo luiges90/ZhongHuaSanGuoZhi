@@ -8925,6 +8925,25 @@
             }
         }
 
+        public MilitaryList LeadingArmies
+        {
+            get
+            {
+                MilitaryList result = new MilitaryList();
+                if (this.LocationArchitecture != null)
+                {
+                    foreach (Military i in this.LocationArchitecture.Militaries)
+                    {
+                        if ((i.FollowedLeader == this || (i.Leader == this && i.Experience > 10)) && !i.IsTransport)
+                        {
+                            result.Add(i);
+                        }
+                    }
+                }
+                return result;
+            }
+        }
+
         public bool HasFollowingArmy
         {
             get

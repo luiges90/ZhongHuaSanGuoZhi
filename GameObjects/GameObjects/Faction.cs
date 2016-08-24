@@ -1370,6 +1370,48 @@
             }
         }
 
+        public void PersonRegroupTransfer(ArchitectureList archs)
+        {
+            if (GameObject.Random(90) == 0)
+            {
+                foreach (Architecture a in archs)
+                {
+                    foreach (Person p in a.Persons)
+                    {
+                        if (p.Status == PersonStatus.Normal && p.LocationArchitecture != null && p.LocationTroop == null)
+                        {
+                            if (p.Spouse != null && p.Spouse.Status == PersonStatus.Normal 
+                                && p.LocationArchitecture != p.Spouse.LocationArchitecture && p.Spouse.LocationArchitecture != null && p.Spouse.LocationTroop == null)
+                            {
+                                foreach (Military m in p.Spouse.LeadingArmies)
+                                {
+                                    p.Spouse.LocationArchitecture.TransferMilitary(m, p.LocationArchitecture);
+                                }
+                                p.Spouse.MoveToArchitecture(p.LocationArchitecture);
+                            }
+                            
+                            if (p.Brothers.Count > 0)
+                            {
+                                foreach (Person q in p.Brothers)
+                                {
+                                    if (q != null && q.Status == PersonStatus.Normal
+                                            && p.LocationArchitecture != q.LocationArchitecture && q.LocationArchitecture != null && q.LocationTroop == null)
+                                    {
+                                        foreach (Military m in q.LeadingArmies)
+                                        {
+                                            q.LocationArchitecture.TransferMilitary(m, p.LocationArchitecture);
+                                        }
+                                        q.MoveToArchitecture(p.LocationArchitecture);
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
         internal void AllocationTransfer(ArchitectureList srcArch, ArchitectureList destArch, bool resource, bool person, bool military)
         {
             ArchitectureList scope = new ArchitectureList();
@@ -1816,6 +1858,7 @@
         {
             WithdrwalTransfer(architectures);
             AllocationTransfer(architectures, architectures, true, true, true);
+            PersonRegroupTransfer(architectures);
             if (GameObject.Chance(10))
             {
                 FullTransfer(architectures, architectures, true, true, true);

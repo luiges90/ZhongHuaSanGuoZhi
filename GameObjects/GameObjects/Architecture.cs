@@ -2509,7 +2509,7 @@
 
         
 
-        private void  TransferMilitary(Military military, Architecture destination) // 运兵无需武将来运
+        public void  TransferMilitary(Military military, Architecture destination) // 运兵无需武将来运
         {
             if (this.MilitaryCount == 0) return ;
             MilitaryList list = new MilitaryList();
