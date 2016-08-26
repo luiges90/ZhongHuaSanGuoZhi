@@ -3661,13 +3661,18 @@
 
         public static float GetIdealOffset2(Person target, Person src)
         {
+            return GetIdealOffset2(target, src, 1.0f);
+        }
+
+        public static float GetIdealOffset2(Person target, Person src, float idealFactor)
+        {
             float v = 0;
-            v += (-Person.GetIdealOffset(target, src) + (target.IdealTendency.Offset)) * 0.6f;
+            v += (-Person.GetIdealOffset(target, src) + (target.IdealTendency.Offset)) * 0.6f * idealFactor;
             v += target.GetRelation(src) / 100.0f;
 
             if (target.Scenario.huangdisuozaijianzhu() != null)
             {
-                v -= (Math.Abs(target.ValuationOnGovernment - src.ValuationOnGovernment) - 1) * 4;
+                v -= (Math.Abs(target.ValuationOnGovernment - src.ValuationOnGovernment) - 1) * 5;
             }
             switch (target.Qualification)
             {
@@ -3713,7 +3718,7 @@
             }
             if (target.Hates(src))
             {
-                v -= 30;
+                v -= 50;
             }
 
             return v;
@@ -6414,8 +6419,8 @@
                         v -= (4 - this.PersonalLoyalty) * 5;
                     }
 
-                    v += (this.PersonalLoyalty - 2) * 10;
-                    v -= (this.Ambition - 2) * 4;
+                    v += (this.PersonalLoyalty - 2) * 15;
+                    v -= (this.Ambition - 2) * 5;
 
                     v += base.Scenario.GameCommonData.suoyouguanjuezhonglei.guanjuedezhongleizidian[this.BelongedFaction.guanjue].Loyalty;
 
@@ -6428,30 +6433,30 @@
 
                     if (this.BelongedFaction.Leader.Status == PersonStatus.Captive)
                     {
-                        v -= 8 + (4 - this.PersonalLoyalty);
+                        v -= 10 + (4 - this.PersonalLoyalty);
                     }
                     else
                     {
-                        v += (this.BelongedFaction.Leader.Glamour - 50) / 50 * 8;
+                        v += (this.BelongedFaction.Leader.Glamour - 50) / 50 * 10;
                     }
                     if (this.BelongedArchitecture.Mayor != null)
                     {
                         if (this.BelongedArchitecture.Mayor.Status == PersonStatus.Captive)
                         {
-                            v -= 4 + (4 - this.PersonalLoyalty) / 2;
+                            v -= 5 + (4 - this.PersonalLoyalty) / 2;
                         }
                         else
                         {
-                            v += (this.BelongedArchitecture.Mayor.Glamour - 50) / 50 * 4;
+                            v += (this.BelongedArchitecture.Mayor.Glamour - 50) / 50 * 5;
                         }
 
                     }
                     else
                     {
-                        v -= 2;
+                        v -= 3;
                     }
 
-                    v += Person.GetIdealOffset2(this, this.BelongedFaction.Leader);
+                    v += Person.GetIdealOffset2(this, this.BelongedFaction.Leader, 0.5f);
 
                     v += this.MaxTreasureValue / 4.0f;
 
