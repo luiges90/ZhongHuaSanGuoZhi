@@ -1642,13 +1642,24 @@
 
             if (this.LocationArchitecture == null) return result;
 
-            if (this.Spouse != null) return result;
+            if (this.Spouse != null)
+            {
+                if ((this.Spouse.LocationArchitecture == this.LocationArchitecture) && (this.Spouse.Spouse != this))
+                {
+                    result.Add(this.Spouse);
+                }
+                return result;
+            }
 
             foreach (Person p in this.LocationArchitecture.Persons)
             {
                 if (p == this) continue;
                 if (p.isLegalFeiZi(this) && this.isLegalFeiZi(p) && Person.GetIdealOffset(p, this) <= Parameters.MakeMarrigeIdealLimit
                     && !p.Hates(this) && !this.Hates(p) && p.Spouse == null)
+                {
+                    result.Add(p);
+                }
+                if (p.Spouse == this)
                 {
                     result.Add(p);
                 }
@@ -1678,9 +1689,12 @@
 
         public void Marry(Person p, Person maker)
         {
-            this.LocationArchitecture.DecreaseFund(Parameters.MakeMarriageCost);
+            if (!(this.Spouse == p || p.Spouse == this))
+            {
+                this.LocationArchitecture.DecreaseFund(Parameters.MakeMarriageCost);
 
-            makeHateCausedByAffair(this, p, maker);
+                makeHateCausedByAffair(this, p, maker);
+            }
 
             this.Spouse = p;
             p.Spouse = this;
