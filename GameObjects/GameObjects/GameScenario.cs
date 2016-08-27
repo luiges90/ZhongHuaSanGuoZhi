@@ -4222,7 +4222,7 @@
                     errorMsg.Add("建筑ID" + architecture.ID + "：");
                     errorMsg.AddRange(e);
                 }
-                else
+                
                 {
                     this.Architectures.AddArchitectureWithEvent(architecture);
                     this.AllArchitectures.Add(architecture.ID, architecture);
@@ -4268,7 +4268,7 @@
                     errorMsg.Add("粮道ID" + routeway.ID + "：");
                     errorMsg.AddRange(e);
                 }
-                else
+                
                 {
                     this.Routeways.AddRoutewayWithEvent(routeway);
                 }
@@ -4443,7 +4443,7 @@
                     errorMsg.Add("军区ID" + section.ID + "：");
                     errorMsg.AddRange(e);
                 }
-                else
+                
                 {
                     this.Sections.AddSectionWithEvent(section);
                 }
