@@ -4656,7 +4656,7 @@
 
             //if (this.Status != PersonStatus.Normal) return;
 
-            if (this.LocationTroop != null) return;
+            if (this.LocationTroop != null && !this.LocationTroop.Destroyed) return;
 
             if (this.LocationArchitecture != a || startingPoint != null)
             {
