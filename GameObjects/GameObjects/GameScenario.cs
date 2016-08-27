@@ -3944,12 +3944,12 @@
                 try
                 {
                     military.RoutCount = (int)reader["RoutCount"];
-                    military.YearCreated = (int)reader["YearCreated"];
+                    military.YearCreated = (short)reader["YearCreated"];
                     military.TroopDamageDealt = (int)reader["TroopDamageDealt"];
                     military.TroopBeDamageDealt = (int)reader["TroopBeDamageDealt"];
                     military.ArchitectureDamageDealt = (int)reader["ArchitectureDamageDealt"];
                     military.OfficerKillCount = (int)reader["OfficerKillCount"];
-                    military.CaptiveCount = (int)reader["CaptiveCount"];
+                    military.CaptiveCount = (short)reader["CaptiveCount"];
                     military.StratagemSuccessCount = (int)reader["StratagemSuccessCount"];
                     military.StratagemFailCount = (int)reader["StratagemFailCount"];
                     military.StratagemBeSuccessCount = (int)reader["StratagemBeSuccessCount"];
