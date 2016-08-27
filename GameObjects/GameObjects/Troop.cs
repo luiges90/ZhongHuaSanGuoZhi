@@ -11452,7 +11452,7 @@
             {
                 if (BuffAvail())
                 {
-                    return (int)(this.defence * this.TirednessFactor * (1 + this.Leader.Command * 0.07 + this.Leader.Calmness * 0.03));
+                    return (int)(this.defence * this.TirednessFactor * (1 + this.Leader.Command * 0.007 + this.Leader.Calmness * 0.03));
                 }
                 else 
                 {
