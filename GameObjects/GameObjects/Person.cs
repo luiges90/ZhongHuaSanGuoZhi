@@ -9266,13 +9266,16 @@
             if (!GlobalVariables.EnablePersonRelations) return;
             if (this == p || p == null) return;
             float val;
+
+            float offset = Math.Max(0, Math.Min(75, 75 - Person.GetIdealOffset2(this, p)));
+
             if (factor > 0)
             {
-                val = (int)(Math.Max(0, 75 - Person.GetIdealOffset(this, p)) * 30 * factor / 75 + adjust);
+                val = (int)(Math.Max(0, 75 - offset) * 30 * factor / 75 + adjust);
             }
             else
             {
-                val = (int)(Person.GetIdealOffset(this, p) * 30 * factor / 75 + adjust);
+                val = (int)(offset * 30 * factor / 75 + adjust);
             }
             if (val != 0)
             {
