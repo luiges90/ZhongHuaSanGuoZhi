@@ -11227,6 +11227,13 @@
                             (this.MovingPersons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital);
                         }
                     }
+                    foreach (Military m in this.BelongedFaction.TransferingMilitaries)
+                    {
+                        if (m.TargetArchitecture == this)
+                        {
+                            this.TransferMilitary(m, this.BelongedFaction.Capital);
+                        }
+                    }
                 }
                 if (this.BelongedFaction != null)
                 {
