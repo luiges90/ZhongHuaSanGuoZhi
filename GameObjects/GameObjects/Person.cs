@@ -2054,55 +2054,49 @@
             if (this.BelongedFaction != null)
             {
                 Architecture architectureByPosition = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
+                CaptiveList candidates = new CaptiveList();
                 if ((architectureByPosition != null) && (architectureByPosition.BelongedFaction != null))
                 {
                     bool success = false;
                     bool attempted = false;
-                    foreach (Captive c in architectureByPosition.Captives)
+                    foreach (Captive i in architectureByPosition.Captives)
                     {
-                        if (c.CaptiveFaction == this.BelongedFaction)
+                        if (i.CaptiveFaction == this.BelongedFaction)
                         {
                             attempted = true;
-                            if (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale) * 2) + 300 <=
+                            candidates.Add(i);
+                        }
+                    }
+
+                    if (candidates.Count > 0) 
+                    {
+                        Captive c = (Captive)architectureByPosition.Captives[GameObject.Random(architectureByPosition.Captives.Count)];
+
+                        if ((this.InevitableSuccessOfJailBreak || (
+                        (GameObject.Random((architectureByPosition.Domination * 10 + architectureByPosition.Morale) * 2) + 300 <=
                                 GameObject.Random(this.JailBreakAbility + c.CaptivePerson.CaptiveAbility))
+                                )))
+                        {
+                            if (!GameObject.Chance(architectureByPosition.noEscapeChance) || GameObject.Chance(c.CaptivePerson.captiveEscapeChance))
                             {
-                                if (!GameObject.Chance(architectureByPosition.noEscapeChance) || GameObject.Chance(c.CaptivePerson.captiveEscapeChance))
+                                success = true;
+                                this.AddStrengthExperience(10);
+                                this.AddIntelligenceExperience(10);
+                                this.AddTacticsExperience(60);
+                                this.IncreaseReputation(20);
+                                this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
+                                this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
+                                ExtensionInterface.call("DoJailBreakSuccess", new Object[] { this.Scenario, this, c });
+                                if (this.OnJailBreakSuccess != null)
                                 {
-                                    success = true;
-                                    this.AddStrengthExperience(10);
-                                    this.AddIntelligenceExperience(10);
-                                    this.AddTacticsExperience(60);
-                                    this.IncreaseReputation(20);
-                                    this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
-                                    this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
-                                    ExtensionInterface.call("DoJailBreakSuccess", new Object[] { this.Scenario, this, c });
-                                    if (this.OnJailBreakSuccess != null)
-                                    {
-                                        this.OnJailBreakSuccess(this, c);
-                                    }
-                                    c.CaptiveEscapeNoHint();
+                                    this.OnJailBreakSuccess(this, c);
                                 }
+                                c.CaptiveEscapeNoHint();
                             }
                         }
                     }
-                    if (this.InevitableSuccessOfJailBreak && !success && architectureByPosition.Captives.Count > 0)
-                    {
-                        Captive c = (Captive)architectureByPosition.Captives[GameObject.Random(architectureByPosition.Captives.Count)];
-                        attempted = true;
-                        success = true;
-                        this.AddStrengthExperience(10);
-                        this.AddIntelligenceExperience(10);
-                        this.AddTacticsExperience(60);
-                        this.IncreaseReputation(20);
-                        this.BelongedFaction.IncreaseReputation(10 * this.MultipleOfTacticsReputation);
-                        this.BelongedFaction.IncreaseTechniquePoint((10 * this.MultipleOfTacticsTechniquePoint) * 100);
-                        ExtensionInterface.call("DoJailBreakSuccess", new Object[] { this.Scenario, this, c });
-                        if (this.OnJailBreakSuccess != null)
-                        {
-                            this.OnJailBreakSuccess(this, c);
-                        }
-                        c.CaptiveEscapeNoHint();
-                    }
+                    
+                    
                     if (!success)
                     {
                         if (this.OnJailBreakFailed != null)
