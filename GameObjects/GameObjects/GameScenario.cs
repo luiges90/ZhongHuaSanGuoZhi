@@ -6987,6 +6987,7 @@
 
         public bool IsKnownToAnyPlayer(Architecture a)
         {
+            if (GlobalVariables.SkyEye) return true;
             foreach (Faction f in this.PlayerFactions)
             {
                 if (f.IsArchitectureKnown(a)) return true;
@@ -6996,6 +6997,7 @@
 
         public bool IsKnownToAnyPlayer(Troop a)
         {
+            if (GlobalVariables.SkyEye) return true;
             foreach (Faction f in this.PlayerFactions)
             {
                 if (f.IsTroopKnown(a)) return true;

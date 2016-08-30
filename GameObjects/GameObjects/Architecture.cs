@@ -5083,17 +5083,6 @@
             foreach (Architecture a in this.AIBattlingArchitectures.GetList())
             {
                 bool aborted = false;
-                if (!GlobalVariables.AIQuickBattleAuto)
-                {
-                    foreach (Faction f in base.Scenario.PlayerFactions)
-                    {
-                        if (f.IsArchitectureKnown(a) || f.Architectures.GameObjects.Contains(a))
-                        {
-                            this.AIBattlingArchitectures.Remove(a);
-                            aborted = true;
-                        }
-                    }
-                }
 
                 if (!aborted)
                 {
@@ -10186,7 +10175,7 @@
                                         {
                                             routeway.Building = true;
                                         }
-                                        if (GlobalVariables.AIQuickBattle && (!base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction) || GlobalVariables.AIQuickBattleAuto))
+                                        if (GlobalVariables.AIQuickBattle && !base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction))
                                         {
                                             this.AIBattlingArchitectures.Add(wayToTarget.A);
                                             this.PlanArchitecture = null;
