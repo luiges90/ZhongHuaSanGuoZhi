@@ -5230,7 +5230,7 @@
                         {
                             if (!p.Closes(q) && GameObject.Chance((5 - p.PersonalLoyalty) * 20 - 10))
                             {
-                                float d = Parameters.CloseThreshold / p.GetRelation(q);
+                                float d = Parameters.CloseThreshold / Math.Max(10, p.GetRelation(q));
                                 if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
                                 {
                                     p.AdjustRelation(q, -d / 20, 0);
