@@ -1923,6 +1923,7 @@
                         {
                             q.OutsideDestination = this.ArchitectureArea.Centre;
                             q.GoForConvince(p);
+                            break;
                         }
                     }
                 }
@@ -1947,10 +1948,11 @@
             {
                 foreach (Person q in convincer)
                 {
-                    if (q.CanConvince(p.CaptivePerson) && GameObject.Chance(20))
+                    if (q.CanConvince(p.CaptivePerson) && GameObject.Chance(50))
                     {
                         q.OutsideDestination = this.ArchitectureArea.Centre;
                         q.GoForConvince(p.CaptivePerson);
+                        break;
                     }
                 }
             }
@@ -2091,6 +2093,7 @@
                                                 {
                                                     firstHalfPerson.OutsideDestination = this.ArchitectureArea.Centre;
                                                     firstHalfPerson.GoForConvince(p);
+                                                    break;
                                                 }
                                             }
                                         }
