@@ -5065,6 +5065,10 @@
                     if (troop.BelongedFaction != this.BelongedFaction)
                     {
                         troop.army.Tiredness += this.stratagemTirednessIncrease;
+                        foreach (Person p in troop.Persons)
+                        {
+                            p.Tiredness += this.stratagemTirednessIncrease;
+                        }
                     }
                     if (this.stratagemStealTroop > 0 && troop.BelongedFaction != this.BelongedFaction)
                     {
