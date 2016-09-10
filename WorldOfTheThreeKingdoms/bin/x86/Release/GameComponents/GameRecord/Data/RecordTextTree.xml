@@ -566,7 +566,7 @@
   <Branch Name="BoyPersonBorn">
 	<Leaf Property="Name" Color="4278255360"></Leaf>
 	<Leaf Text="與" Color="4294967295"></Leaf>
-	<Leaf Property="TextResultString" Color="4278223103"></Leaf>
+	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
 	<Leaf Text="的兒子" Color="4294967295"></Leaf>
 	<Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
 	<Leaf Text="出生了。" Color="4294967295"></Leaf>
@@ -575,7 +575,7 @@
   <Branch Name="GirlPersonBorn">
 	<Leaf Property="Name" Color="4278255360"></Leaf>
 	<Leaf Text="與" Color="4294967295"></Leaf>
-	<Leaf Property="TextResultString" Color="4278223103"></Leaf>
+	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
 	<Leaf Text="的女兒" Color="4294967295"></Leaf>
 	<Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
 	<Leaf Text="出生了。" Color="4294967295"></Leaf>
@@ -664,14 +664,14 @@
   <Branch Name="OfficerInjured">
 	<Leaf Property="Name" Color="4278255360"></Leaf>
 	<Leaf Text="負傷了，現處於" Color="4294967295"></Leaf>
-	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
+	<Leaf Property="TextResultString" Color="4278223103"></Leaf>
 	<Leaf Text="狀態。" Color="4294967295"></Leaf>
 	<Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="OfficerSick">
 	<Leaf Property="Name" Color="4278255360"></Leaf>
 	<Leaf Text="生病了，現處於" Color="4294967295"></Leaf>
-	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
+	<Leaf Property="TextResultString" Color="4278223103"></Leaf>
 	<Leaf Text="狀態。" Color="4294967295"></Leaf>
 	<Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
@@ -681,7 +681,7 @@
 	<Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="OfficerExecute">
-	<Leaf Property="Name" Color="4278255360"></Leaf>
+	<Leaf Property="Name" Color="4278223103"></Leaf>
 	<Leaf Text="被" Color="4294967295"></Leaf>
 	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
 	<Leaf Text="处斩了。" Color="4294967295"></Leaf>

@@ -1493,8 +1493,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void OnTroopRout(Troop router, Troop routed)
         {
-            if ((base.Scenario.CurrentPlayer != null &&
-                (base.Scenario.IsCurrentPlayer(router.BelongedFaction) || base.Scenario.IsCurrentPlayer(routed.BelongedFaction))) || GlobalVariables.SkyEye)
+            if (routed != null && ((base.Scenario.CurrentPlayer != null &&
+                ((router == null && base.Scenario.IsCurrentPlayer(routed.BelongedFaction)) ||
+                (router != null && base.Scenario.IsCurrentPlayer(router.BelongedFaction) || base.Scenario.IsCurrentPlayer(routed.BelongedFaction)))) || GlobalVariables.SkyEye))
             {
                 if (router != null)
                 {
