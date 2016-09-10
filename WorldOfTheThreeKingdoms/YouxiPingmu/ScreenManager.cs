@@ -1439,8 +1439,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             captive = this.mainGameScreen.Plugins.TabListPlugin.SelectedItem as Captive;
             if (captive != null)
             {
-                this.mainGameScreen.xianshishijiantupian(this.gameScenario.NeutralPerson, captive.BelongedFaction.Leader.Name, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", captive.CaptivePerson.Name, true);
                 Person leader = captive.BelongedFaction.Leader;
+
+                this.mainGameScreen.OnExecute(leader, captive.CaptivePerson);
                 captive.CaptivePerson.execute(captive.BelongedFaction);
             }
         }

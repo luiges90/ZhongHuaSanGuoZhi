@@ -831,9 +831,7 @@
                 {
                     if (!this.BelongedFaction.Leader.HasStrainTo(i.CaptivePerson))
                     {
-
-                        this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.NeutralPerson, this.BelongedFaction.Leader.Name, TextMessageKind.KillCaptive, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", i.CaptivePerson.Name, true);
-
+                        this.Scenario.GameScreen.OnExecute(this.BelongedFaction.Leader, i.CaptivePerson);
                         i.CaptivePerson.execute(this.BelongedFaction);
                         
                         break;
@@ -5405,6 +5403,7 @@
                     while (GameObject.Chance(this.zainan.zainanzhonglei.OfficerDamage))
                     {
                         p.InjureRate *= 0.85f;
+                        base.Scenario.GameScreen.OnOfficerSick(p);
                         if (p.InjureRate < 0.05 && GlobalVariables.OfficerDieInBattleRate > 0)
                         {
                             p.ToDeath(null, this.BelongedFaction);

@@ -2791,6 +2791,7 @@
                 {
                     receiving.StartingArchitecture.AddPopulationPack((int)(receiving.Scenario.GetDistance(receiving.Position, receiving.StartingArchitecture.ArchitectureArea) / 2.0), receiving.GetPopulation());
                 }
+                receiving.Scenario.GameScreen.OnTroopRout(null, receiving);
                 receiving.BeRouted();
             }
         }
@@ -3055,7 +3056,7 @@
                         }
                     }
                 }
-
+                receiving.Scenario.GameScreen.OnTroopRout(sending, receiving);
                 receiving.BeRouted();
                 if (sending.Combativity < sending.Army.CombativityCeiling)
                 {
@@ -6490,6 +6491,7 @@
                     int c = GameObject.Random(damage.DestinationTroop.Persons.Count);
                     Person toInjure = damage.DestinationTroop.Persons[c] as Person;
                     toInjure.InjureRate -= damage.OfficerInjury;
+                    base.Scenario.GameScreen.OnOfficerInjured(toInjure);
                     if (toInjure.InjureRate < 0.05 && GlobalVariables.OfficerDieInBattleRate > 0)
                     {
                         if (damage.DestinationTroop == damage.DestinationTroop.StartingArchitecture.RobberTroop)

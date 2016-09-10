@@ -640,10 +640,51 @@
   <Branch Name="TransferMilitaryArrivesAtArchitecture">
     <Leaf Text="运输编队" Color="4294967295"></Leaf>
     <Leaf Property="Name" Color="4278255360"></Leaf>
-    <Leaf Text="已从" Color="4294967295"></Leaf>
-    <Leaf Property="TextResultString" Color="4278255360"></Leaf>
-    <Leaf Text="运达" Color="4294967295"></Leaf>
+    <Leaf Text="已运达" Color="4294967295"></Leaf>
     <Leaf Property="TextDestinationString" Color="4278223103"></Leaf>
+	<Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="OfficerPregnant">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+	<Leaf Text="懷孕了。" Color="4294967295"></Leaf>
+	<Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="OfficerInjured">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+	<Leaf Text="負傷了，現處於" Color="4294967295"></Leaf>
+	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
+	<Leaf Text="狀態。" Color="4294967295"></Leaf>
+	<Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="OfficerSick">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+	<Leaf Text="生病了，現處於" Color="4294967295"></Leaf>
+	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
+	<Leaf Text="狀態。" Color="4294967295"></Leaf>
+	<Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="OfficerRecovered">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+	<Leaf Text="从伤病中康复了。" Color="4294967295"></Leaf>
+	<Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="OfficerExecute">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+	<Leaf Text="被" Color="4294967295"></Leaf>
+	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
+	<Leaf Text="处斩了。" Color="4294967295"></Leaf>
+	<Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopRoutNoRouter">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+	<Leaf Text="队溃败了。" Color="4294967295"></Leaf>
+	<Leaf Text="\n" Color="4294967295"></Leaf>
+  </Branch>
+  <Branch Name="TroopRout">
+	<Leaf Property="Name" Color="4278255360"></Leaf>
+	<Leaf Text="队被" Color="4294967295"></Leaf>
+	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
+	<Leaf Text="队击破了。" Color="4294967295"></Leaf>
 	<Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
 </Root>

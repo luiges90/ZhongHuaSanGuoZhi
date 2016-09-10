@@ -942,6 +942,16 @@
         public virtual void ReloadScreenData()
         {
         }
+
+        public virtual void OnOfficerInjured(Person p) { }
+
+        public virtual void OnOfficerSick(Person p) { }
+
+        public virtual void OnOfficerRecovered(Person p) { }
+
+        public virtual void OnExecute(Person executor, Person executed) { }
+
+        public virtual void OnTroopRout(Troop router, Troop routed) { }
     }
 }
 

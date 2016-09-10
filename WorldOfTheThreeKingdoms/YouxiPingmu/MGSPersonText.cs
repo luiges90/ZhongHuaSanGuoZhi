@@ -361,12 +361,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     base.Scenario.IsCurrentPlayer(person.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 //person.TextResultString = t.Name;
-                reporter.TextResultString = person.Name;
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(reporter, reporter, TextMessageKind.CoupleFoundPregnant, "coupleFoundPregnant");
-                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-                this.Plugins.tupianwenziPlugin.IsShowing = true;
-
-
+                //reporter.TextResultString = person.Name;
+                //this.Plugins.tupianwenziPlugin.SetGameObjectBranch(reporter, reporter, TextMessageKind.CoupleFoundPregnant, "coupleFoundPregnant");
+                //this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                //this.Plugins.tupianwenziPlugin.IsShowing = true;
+                if (person.BelongedArchitecture != null)
+                {
+                    this.Plugins.GameRecordPlugin.AddBranch(person, "OfficerPregnant", person.Position);
+                }
             }
         }
 
@@ -1438,6 +1440,60 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 m.TextResultString = m.StartingArchitecture.Name;
                 m.TextDestinationString = a.Name;
                 this.Plugins.GameRecordPlugin.AddBranch(m, "TransferMilitaryArrivesAtArchitecture", a.Position);
+            }
+        }
+
+        public override void OnOfficerInjured(Person p) {
+            if (((base.Scenario.CurrentPlayer != null) && p.BelongedArchitecture != null &&
+                   base.Scenario.IsCurrentPlayer(p.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
+            {
+                p.TextResultString = p.InjuryString;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "OfficerInjured", p.Position);
+            }
+        }
+
+        public override void OnOfficerSick(Person p) {
+            if (((base.Scenario.CurrentPlayer != null) && p.BelongedArchitecture != null &&
+                  base.Scenario.IsCurrentPlayer(p.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
+            {
+                p.TextResultString = p.InjuryString;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "OfficerSick", p.Position);
+            }
+        }
+
+        public override void OnOfficerRecovered(Person p)
+        {
+            if (((base.Scenario.CurrentPlayer != null) && p.BelongedArchitecture != null &&
+                base.Scenario.IsCurrentPlayer(p.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
+            {
+                p.TextResultString = p.InjuryString;
+                this.Plugins.GameRecordPlugin.AddBranch(p, "OfficerRecovered", p.Position);
+            }
+        }
+
+        public override void OnExecute(Person executor, Person executed)
+        {
+
+            this.Scenario.GameScreen.xianshishijiantupian(this.Scenario.NeutralPerson, executor.Name, TextMessageKind.KillCaptive, "KillCaptive", "chuzhan.jpg", "chuzhan.wav", executed.Name, true);
+
+            executed.TextResultString = executor.Name;
+            this.Plugins.GameRecordPlugin.AddBranch(executed, "OfficerExecute", executed.Position);
+        }
+
+        public override void OnTroopRout(Troop router, Troop routed)
+        {
+            if ((base.Scenario.CurrentPlayer != null &&
+                (base.Scenario.IsCurrentPlayer(router.BelongedFaction) || base.Scenario.IsCurrentPlayer(routed.BelongedFaction))) || GlobalVariables.SkyEye)
+            {
+                if (router != null)
+                {
+                    routed.TextResultString = router.Name;
+                    this.Plugins.GameRecordPlugin.AddBranch(routed, "TroopRout", routed.Position);
+                }
+                else
+                {
+                    this.Plugins.GameRecordPlugin.AddBranch(routed, "TroopRoutNoRouter", routed.Position);
+                }
             }
         }
     }
