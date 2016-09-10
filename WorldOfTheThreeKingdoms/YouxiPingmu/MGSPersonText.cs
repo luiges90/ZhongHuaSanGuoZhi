@@ -386,20 +386,28 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
-        public override void xiaohaichusheng(Person father, Person person)
+        public override void xiaohaichusheng(Person father, Person mother, Person person)
         {
             if (((base.Scenario.CurrentPlayer != null) && father.BelongedArchitecture != null &&
                     base.Scenario.IsCurrentPlayer(father.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
-                person.TextResultString = person.Name;
-                this.Plugins.tupianwenziPlugin.SetGameObjectBranch(father, father, TextMessageKind.ChildrenBorn, "xiaohaichusheng");
-                this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-                this.Plugins.tupianwenziPlugin.IsShowing = true;
+                //person.TextResultString = person.Name;
+                //this.Plugins.tupianwenziPlugin.SetGameObjectBranch(father, father, TextMessageKind.ChildrenBorn, "xiaohaichusheng");
+                //this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+                //this.Plugins.tupianwenziPlugin.IsShowing = true;
 
-                if (person.BelongedArchitecture != null)
+                if (father.BelongedArchitecture != null)
                 {
-                    person.TextDestinationString = person.BelongedArchitecture.Name;
-                    this.Plugins.GameRecordPlugin.AddBranch(person, "PersonBorn", person.BelongedArchitecture.ArchitectureArea.Centre);
+                    father.TextResultString = mother.Name;
+                    father.TextDestinationString = mother.BelongedArchitecture.Name;
+                    if (person.Sex)
+                    {
+                        this.Plugins.GameRecordPlugin.AddBranch(father, "GirlPersonBorn", mother.Position);
+                    }
+                    else
+                    {
+                        this.Plugins.GameRecordPlugin.AddBranch(father, "BoyPersonBorn", mother.Position);
+                    }
                 }
             }
 
@@ -1456,8 +1464,11 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             if (((base.Scenario.CurrentPlayer != null) && p.BelongedArchitecture != null &&
                   base.Scenario.IsCurrentPlayer(p.BelongedArchitecture.BelongedFaction)) || GlobalVariables.SkyEye)
             {
-                p.TextResultString = p.InjuryString;
-                this.Plugins.GameRecordPlugin.AddBranch(p, "OfficerSick", p.Position);
+                if (Person.GetInjuryString(p.InjureRate) != Person.GetInjuryString(p.OldInjureRate) && p.OldInjureRate > p.InjureRate)
+                {
+                    p.TextResultString = p.InjuryString;
+                    this.Plugins.GameRecordPlugin.AddBranch(p, "OfficerSick", p.Position);
+                }
             }
         }
 

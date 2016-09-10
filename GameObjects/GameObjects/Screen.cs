@@ -898,7 +898,7 @@
         {
         }
 
-        public virtual void xiaohaichusheng(Person father, Person person)
+        public virtual void xiaohaichusheng(Person father, Person mother, Person person)
         {
         }
 

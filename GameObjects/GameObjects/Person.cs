@@ -248,6 +248,7 @@
             }
         }
 
+        private float oldInjuraRate = 1.0f;
         private float injureRate = 1.0f;
 
         public float InjureRate
@@ -266,6 +267,7 @@
             }
             set
             {
+                oldInjuraRate = injureRate;
                 if (this.Identity() != 0)
                 {
                     injureRate = value;
@@ -274,6 +276,14 @@
                 {
                     injureRate = 0;
                 }
+            }
+        }
+
+        public float OldInjureRate
+        {
+            get
+            {
+                return oldInjuraRate;
             }
         }
 
@@ -1930,7 +1940,7 @@
                                     haizi.AvailableLocation = this.BelongedArchitecture.ID;
                                 }
 
-                                base.Scenario.GameScreen.xiaohaichusheng(haizifuqin, haizi);
+                                base.Scenario.GameScreen.xiaohaichusheng(haizi.father, haizi.mother, haizi);
 
                                 haizifuqin.NumberOfChildren++;
                                 this.NumberOfChildren++;
@@ -9419,26 +9429,31 @@
             }
         }
 
+        public static String GetInjuryString(float rate)
+        {
+            if (rate >= 1)
+            {
+                return "健康";
+            }
+            else if (rate >= 0.7)
+            {
+                return "轻伤";
+            }
+            else if (rate >= 0.3)
+            {
+                return "重伤";
+            }
+            else
+            {
+                return "濒危";
+            }
+        }
+
         public String InjuryString
         {
             get
             {
-                if (this.InjureRate >= 1)
-                {
-                    return "健康";
-                }
-                else if (this.InjureRate >= 0.7)
-                {
-                    return "轻伤";
-                }
-                else if (this.InjureRate >= 0.3)
-                {
-                    return "重伤";
-                }
-                else
-                {
-                    return "濒危";
-                }
+                return GetInjuryString(this.InjureRate);
             }
         }
 
