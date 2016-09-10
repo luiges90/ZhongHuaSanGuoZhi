@@ -8741,6 +8741,8 @@
 
             if ((b.Age < 16 || b.Age > 50) && GlobalVariables.PersonNaturalDeath) return false;
 
+            if ((Math.Abs(this.Age - b.Age) > 25) && GlobalVariables.PersonNaturalDeath) return false;
+
             if (this.HasStrainTo(b)) return false;
 
             return true;
