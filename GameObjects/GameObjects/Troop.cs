@@ -3463,10 +3463,18 @@
             if (GameObject.Chance(this.TirednessIncreaseChanceByViewArea))
             {
                 this.Army.Tiredness += 1;
+                foreach (Person p in this.Persons)
+                {
+                    p.Tiredness += 1;
+                }
             }
             if (GameObject.Chance(this.TirednessDecreaseChanceByViewArea) && this.Army.Tiredness > 0)
             {
                 this.Army.Tiredness -= 1;
+                foreach (Person p in this.Persons)
+                {
+                    p.Tiredness -= 1;
+                }
             }
             if (this.InjuryLostByViewArea > 0)
             {
