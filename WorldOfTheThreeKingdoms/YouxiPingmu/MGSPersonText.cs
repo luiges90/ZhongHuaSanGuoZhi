@@ -399,7 +399,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 if (father.BelongedArchitecture != null)
                 {
                     father.TextResultString = mother.Name;
-                    father.TextDestinationString = mother.BelongedArchitecture.Name;
+                    father.TextDestinationString = person.Name;
                     if (person.Sex)
                     {
                         this.Plugins.GameRecordPlugin.AddBranch(father, "GirlPersonBorn", mother.Position);
