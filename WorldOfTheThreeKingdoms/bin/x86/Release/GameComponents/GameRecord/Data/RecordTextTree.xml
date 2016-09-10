@@ -677,14 +677,14 @@
   </Branch>
   <Branch Name="TroopRoutNoRouter">
 	<Leaf Property="Name" Color="4278255360"></Leaf>
-	<Leaf Text="队溃败了。" Color="4294967295"></Leaf>
+	<Leaf Text="溃败了。" Color="4294967295"></Leaf>
 	<Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
   <Branch Name="TroopRout">
 	<Leaf Property="Name" Color="4278255360"></Leaf>
-	<Leaf Text="队被" Color="4294967295"></Leaf>
+	<Leaf Text="被" Color="4294967295"></Leaf>
 	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
-	<Leaf Text="队击破了。" Color="4294967295"></Leaf>
+	<Leaf Text="击破了。" Color="4294967295"></Leaf>
 	<Leaf Text="\n" Color="4294967295"></Leaf>
   </Branch>
 </Root>
