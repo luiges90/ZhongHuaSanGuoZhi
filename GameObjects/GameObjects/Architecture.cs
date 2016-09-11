@@ -4985,10 +4985,6 @@
                     if (person.TempLoyaltyChange > -20)
                     {
                         person.TempLoyaltyChange -= (StaticMethods.GetRandomValue((int)(damage * (int)(Enum.GetNames(typeof(PersonLoyalty)).Length - person.PersonalLoyalty) * (Math.Min(person.Loyalty, 100) / 100.0)), 100));
-                        if (person.TempLoyaltyChange < -20)
-                        {
-                            person.TempLoyaltyChange = -20;
-                        }
                     }
                 }
             }

@@ -1149,6 +1149,7 @@
         {
             this.Status = PersonStatus.Normal;
             this.YearJoin = base.Scenario.Date.Year;
+            this.TempLoyaltyChange = 0;
         }
 
         public static int ChanlengeWinningChance(Person source, Person destination)
@@ -6433,7 +6434,7 @@
             {
                 if (this.BelongedFaction != null)
                 {
-                    if (this == this.BelongedFaction.Leader) return 255;
+                    if (this == this.BelongedFaction.Leader) return 999;
 
                     float v = 100;
 
@@ -6500,7 +6501,9 @@
                         }
                     }
 
-                    v += TempLoyaltyChange;
+                    v += Math.Max(-150, TempLoyaltyChange);
+
+                    v = Math.Max(0, v);
 
                     return (int) v;
                 }
