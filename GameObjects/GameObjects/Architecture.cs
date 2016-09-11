@@ -5081,6 +5081,14 @@
             {
                 bool aborted = false;
 
+                foreach (Faction f in base.Scenario.PlayerFactions)
+                {
+                    if (f.IsArchitectureKnown(this) || f.IsArchitectureKnown(a))
+                    {
+                        aborted = true;
+                    }
+                }
+
                 if (!aborted)
                 {
                     // offensive troop
@@ -10173,7 +10181,17 @@
                                         {
                                             routeway.Building = true;
                                         }
-                                        if (GlobalVariables.AIQuickBattle && !base.Scenario.PlayerFactions.GameObjects.Contains(wayToTarget.A.BelongedFaction))
+
+                                        bool playerKnown = false;
+                                        foreach (Faction f in base.Scenario.PlayerFactions)
+                                        {
+                                            if (f.IsArchitectureKnown(this) || f.IsArchitectureKnown(wayToTarget.A))
+                                            {
+                                                playerKnown = true;
+                                            }
+                                        }
+
+                                        if (GlobalVariables.AIQuickBattle && !playerKnown)
                                         {
                                             this.AIBattlingArchitectures.Add(wayToTarget.A);
                                             this.PlanArchitecture = null;
