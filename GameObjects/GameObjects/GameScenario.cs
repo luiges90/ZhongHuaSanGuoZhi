@@ -3803,11 +3803,11 @@
                         p.PersonBiography = biography;
                     }
                 }
-                DbConnection.Close();
             }
             catch (Exception ex)
             {
             }
+            DbConnection.Close();
 
             foreach (Person p in this.Persons)
             {
