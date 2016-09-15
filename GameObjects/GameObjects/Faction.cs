@@ -896,7 +896,7 @@
                         int maxPop = 0;
                         foreach (Architecture b in this.Architectures)
                         {
-                            if (!b.withoutTruceFrontline && 
+                            if (!b.withoutTruceFrontline && dest != null &&
                                 (b.Meinvkongjian > b.Feiziliebiao.Count || b.BelongedFaction.IsAlien) && 
                                 (a.withoutTruceFrontline || b.Meinvkongjian > a.Meinvkongjian))
                             {
