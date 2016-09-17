@@ -12,21 +12,21 @@
         public void ApplyEffect(Person person, Event e)
         {
             this.Kind.InitializeParameter(this.Parameter);
-            this.Kind.InitializeParameter(this.Parameter2);
+            this.Kind.InitializeParameter2(this.Parameter2);
             this.Kind.ApplyEffectKind(person, e);
         }
 
         public void ApplyEffect(Architecture a, Event e)
         {
             this.Kind.InitializeParameter(this.Parameter);
-            this.Kind.InitializeParameter(this.Parameter2);
+            this.Kind.InitializeParameter2(this.Parameter2);
             this.Kind.ApplyEffectKind(a, e);
         }
 
         public void ApplyEffect(Faction f, Event e)
         {
             this.Kind.InitializeParameter(this.Parameter);
-            this.Kind.InitializeParameter(this.Parameter2);
+            this.Kind.InitializeParameter2(this.Parameter2);
             this.Kind.ApplyEffectKind(f, e);
         }
 
