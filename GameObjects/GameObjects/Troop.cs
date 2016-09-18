@@ -9426,7 +9426,7 @@
             Architecture troopArch = base.Scenario.GetArchitectureByPositionNoCheck(troop.Position);
             if (troopArch != null && troopArch.Endurance > 0)
             {
-                damage.SourceOffence *= (1 + this.InCityOffenseRate);
+                damage.SourceOffence = (int) (damage.SourceOffence * (1 + this.InCityOffenseRate));
             }
 
             if ((!troop.StuntAvoidSurround && !counter) && (this.StuntMustSurround || !GameObject.Chance(troop.AvoidSurroundedChance)))

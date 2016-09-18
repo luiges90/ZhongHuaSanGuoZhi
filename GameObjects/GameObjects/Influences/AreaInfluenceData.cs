@@ -162,7 +162,7 @@
                     }
                     break;
 
-                case AreaInfluenceKind.hostileMoraleDecrease:
+                case AreaInfluenceKind.hostileMovabilityDecrease:
                     if (!this.Owner.IsFriendly(troop.BelongedFaction))
                     {
                         troop.MovabilityByViewArea -= this.Offset;
@@ -336,7 +336,7 @@
                     }
                     break;
 
-                case AreaInfluenceKind.hostileMoraleDecrease:
+                case AreaInfluenceKind.hostileMovabilityDecrease:
                     if (!this.Owner.IsFriendly(troop.BelongedFaction))
                     {
                         troop.MovabilityByViewArea += this.Offset;

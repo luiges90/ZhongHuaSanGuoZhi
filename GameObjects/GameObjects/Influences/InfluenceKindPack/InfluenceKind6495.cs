@@ -4,7 +4,7 @@
     using GameObjects.Influences;
     using System;
 
-    internal class InfluenceKind6480 : InfluenceKind
+    internal class InfluenceKind6495 : InfluenceKind
     {
         private float rate;
 
