@@ -430,6 +430,21 @@
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationIncrease { get; set; }
 
+        public int ViewRangeIncreaseByInfluence { get; set; }
+        public int AttackRangeIncreaseByInfluence { get; set; }
+        public float InCityOffenseRate { get; set; }
+        public int IncrementPerDayOfMorale { get; set; }
+        public int IncrementOfStuntDay { get; set; }
+        public int IncrementOfSpeed { get; set; }
+
+        public int MovabilityByViewArea;
+        public int SpeedByViewArea;
+
+        public int MovabilityIncreaseInViewArea;
+        public int MovabilityDecreaseInViewArea;
+        public int SpeedIncreaseInViewArea;
+        public int SpeedDecreaseInViewArea;
+
         private TroopList friendlyTroopsInView = new TroopList();
         private TroopList hostileTroopsInView = new TroopList();
 
@@ -697,6 +712,23 @@
             {
                 base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.hostileChaos, this.ChaosInViewArea, 0f);
             }
+            if (this.MovabilityIncreaseInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.friendlyMovabilityIncrease, this.MovabilityIncreaseInViewArea, 0f);
+            }
+            if (this.MovabilityDecreaseInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.hostileMovabilityDecrease, this.MovabilityDecreaseInViewArea, 0f);
+            }
+            if (this.SpeedIncreaseInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.friendlySpeedIncrease, this.SpeedIncreaseInViewArea, 0f);
+            }
+            if (this.SpeedDecreaseInViewArea > 0)
+            {
+                base.Scenario.AddPositionAreaInfluence(this, p, AreaInfluenceKind.hostileSpeedDecrease, this.SpeedDecreaseInViewArea, 0f);
+            }
+
 
             Troop troopByPositionNoCheck = base.Scenario.GetTroopByPositionNoCheck(p);
             if (troopByPositionNoCheck != null)
@@ -1475,6 +1507,7 @@
             if (this.CurrentStunt != null)
             {
                 this.CurrentStunt.Apply(this);
+                this.StuntDayLeft += this.IncrementOfStuntDay;
                 if (this.OnApplyStunt != null)
                 {
                     this.OnApplyStunt(this, this.CurrentStunt);
@@ -3489,9 +3522,9 @@
             {
                 this.DecreaseQuantity(this.TroopRecoverByViewArea);
             }
-            if (this.MoraleIncreaseByViewArea > 0)
+            if (this.MoraleIncreaseByViewArea + this.IncrementPerDayOfMorale  > 0)
             {
-                this.IncreaseMorale(this.MoraleIncreaseByViewArea);
+                this.IncreaseMorale(this.MoraleIncreaseByViewArea + this.IncrementPerDayOfMorale);
             }
             if (this.MoraleDecreaseByViewArea > 0)
             {
@@ -9389,6 +9422,13 @@
                 defence = 100;
             }
             damage.SourceOffence = this.Offence;
+
+            Architecture troopArch = base.Scenario.GetArchitectureByPositionNoCheck(troop.Position);
+            if (troopArch != null && troopArch.Endurance > 0)
+            {
+                damage.SourceOffence *= (1 + this.InCityOffenseRate);
+            }
+
             if ((!troop.StuntAvoidSurround && !counter) && (this.StuntMustSurround || !GameObject.Chance(troop.AvoidSurroundedChance)))
             {
                 TroopList surroundAttackingTroop = this.GetSurroundAttackingTroop(troop);
@@ -12219,22 +12259,22 @@
                     switch (this.Army.Kind.Type)
                     {
                         case MilitaryType.步兵:
-                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfBubing);
+                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfBubing + this.AttackRangeIncreaseByInfluence);
 
                         case MilitaryType.弩兵:
-                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfNubing);
+                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfNubing + this.AttackRangeIncreaseByInfluence);
 
                         case MilitaryType.骑兵:
-                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfQibing);
+                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfQibing + this.AttackRangeIncreaseByInfluence);
 
                         case MilitaryType.水军:
-                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfShuijun);
+                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfShuijun + this.AttackRangeIncreaseByInfluence);
 
                         case MilitaryType.器械:
-                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfQixie);
+                            return (this.Army.Kind.OffenceRadius + this.BelongedFaction.OffenceRadiusIncrementOfQixie + this.AttackRangeIncreaseByInfluence);
                     }
                 }
-                return this.Army.Kind.OffenceRadius;
+                return this.Army.Kind.OffenceRadius + this.AttackRangeIncreaseByInfluence;
             }
         }
 
@@ -12481,7 +12521,7 @@
         {
             get
             {
-                return (int)((this.Army.Kind.Movability + this.IncrementOfMovability) * this.RateOfMovability *
+                return (int)((this.Army.Kind.Movability + this.IncrementOfMovability + this.MovabilityByViewArea) * this.RateOfMovability *
                     (this.BelongedFaction == null ? 1 : this.BelongedFaction.SpeedOfMillitaryType[(int)this.Army.Kind.Type]));
             }
         }
@@ -12613,7 +12653,7 @@
         {
             get
             {
-                return (int)(((this.CurrentRate * this.Army.Kind.Speed) * this.Army.Morale) / ((float)this.Army.MoraleCeiling));
+                return (int)(((this.CurrentRate * this.Army.Kind.Speed) * this.Army.Morale) / ((float)this.Army.MoraleCeiling)) + this.SpeedByViewArea + this.IncrementOfSpeed;
             }
         }
 
@@ -13043,9 +13083,9 @@
                 if (this.BelongedFaction != null)
                 {
                     return (this.Army.Kind.ViewRadius + this.BelongedFaction.IncrementOfViewRadius
-                        + this.BelongedFaction.ViewAreaOfMillitaryType[(int)this.Army.Kind.Type]);
+                        + this.BelongedFaction.ViewAreaOfMillitaryType[(int)this.Army.Kind.Type] + this.ViewRangeIncreaseByInfluence);
                 }
-                return this.Army.Kind.ViewRadius;
+                return this.Army.Kind.ViewRadius + this.ViewRangeIncreaseByInfluence;
             }
         }
 

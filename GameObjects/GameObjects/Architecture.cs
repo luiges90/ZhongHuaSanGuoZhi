@@ -242,6 +242,10 @@
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationIncrease { get; set; }
 
+        public float TroopTransportDayRate { get; set; }
+        public float TroopTransportFundRate { get; set; }
+        public float TroopTransportFoodRate { get; set; }
+
         public ArchitectureList AIBattlingArchitectures { get; set; }
 
        // public OngoingBattle Battle { get; set; }
@@ -2546,14 +2550,16 @@
                      double distance = (double)this.Scenario.GetDistance(this.ArchitectureArea, destination.ArchitectureArea);
                      foreach (Military m in list)
                      {
-                         if (this.Fund >= military.TransferFundCost(distance) &&
-                            this.Food >= military.TransferFoodCost(distance))
+                         int fundCost = (int) (military.TransferFundCost(distance) * (1 - this.TroopTransportFundRate));
+                         int foodCost = (int) (military.TransferFoodCost(distance) * (1 - this.TroopTransportFoodRate));
+                         if (this.Fund >= fundCost &&
+                            this.Food >= foodCost)
                          {
                              this.DecreaseFund(military.TransferFundCost(distance));
                              this.DecreaseFood(military.TransferFoodCost(distance));
                              m.StartingArchitecture = this;
                              m.TargetArchitecture = destination;
-                             m.ArrivingDays = Math.Max(1, m.TransferDays(distance));
+                             m.ArrivingDays = Math.Max(1, (int) (m.TransferDays(distance) * (1 - this.TroopTransportDayRate)));
                              this.RemoveMilitary(m);
                              this.BelongedFaction.TransferingMilitaries.Add(m);
                              this.BelongedFaction.TransferingMilitaryCount++;

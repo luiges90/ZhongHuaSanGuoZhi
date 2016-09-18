@@ -219,6 +219,10 @@
         public int GlamourExperienceIncrease { get; set; }
         public int ReputationDayIncrease { get; set; }
 
+        public float MovementDaysBonus { get; set; }
+        public int ConvinceIdealSkip { get; set; }
+        public int LongetivityIncreaseByInfluence { get; set; }
+
         //public OngoingBattle Battle { get; set; }
         public int BattleSelfDamage { get; set; }
         
@@ -1403,6 +1407,7 @@
                         yearDead = Math.Max(this.YearDead, this.YearBorn + GlobalVariables.FixedUnnaturalDeathAge);
                     }
                 }
+                yearDead += this.LongetivityIncreaseByInfluence;
 
                 if (yearDead - 5 <= base.Scenario.Date.Year && base.Scenario.Date.Year < this.YearDead &&
                      GameObject.Random(60) == 0 && GameObject.Chance((6 - (yearDead - base.Scenario.Date.Year)) * 18))
@@ -2268,7 +2273,7 @@
 
             if (architectureByPosition == null) return false;
 
-            int idealOffset = Person.GetIdealOffset(target, this.BelongedFaction.Leader);
+            int idealOffset = Person.GetIdealOffset(target, this.BelongedFaction.Leader) - this.ConvinceIdealSkip;
 
             if (target.BelongedFaction == null)
             {
@@ -4702,6 +4707,10 @@
                 this.TargetArchitecture = a;
                 this.ArrivingDays = 1;
             }
+
+            this.ArrivingDays = (int) (this.ArrivingDays * (1 - MovementDaysBonus));
+            this.ArrivingDays = Math.Max(1, this.ArrivingDays);
+
             if (this.TargetArchitecture != null)
             {
 

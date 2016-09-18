@@ -23,13 +23,10 @@
 
         public override bool IsVaild(Person person)
         {
-            if (person.BelongedFaction != null)
+            Condition t = person.Scenario.GameCommonData.AllConditions.GetCondition(conditionID);
+            if (t.CheckCondition(person))
             {
-                Condition t = person.Scenario.GameCommonData.AllConditions.GetCondition(conditionID);
-                if (t != null)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }

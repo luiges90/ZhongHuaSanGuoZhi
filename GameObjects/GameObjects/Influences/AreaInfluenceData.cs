@@ -154,6 +154,34 @@
                         troop.TroopLostByViewArea += this.Offset;
                     }
                     break;
+
+                case AreaInfluenceKind.friendlyMovabilityIncrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.MovabilityByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileMoraleDecrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.MovabilityByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlySpeedIncrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.SpeedByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileSpeedDecrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.SpeedByViewArea -= this.Offset;
+                    }
+                    break;
             }
         }
 
@@ -298,6 +326,34 @@
                     if (!this.Owner.IsFriendly(troop.BelongedFaction))
                     {
                         troop.TroopLostByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlyMovabilityIncrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.MovabilityByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileMoraleDecrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.MovabilityByViewArea += this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.friendlySpeedIncrease:
+                    if (this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.SpeedByViewArea -= this.Offset;
+                    }
+                    break;
+
+                case AreaInfluenceKind.hostileSpeedDecrease:
+                    if (!this.Owner.IsFriendly(troop.BelongedFaction))
+                    {
+                        troop.SpeedByViewArea += this.Offset;
                     }
                     break;
             }

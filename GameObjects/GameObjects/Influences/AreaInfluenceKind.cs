@@ -23,7 +23,11 @@
         friendlyMoraleIncrease,
         hostileMoraleDecrease,
         friendlyRecoverChaos,
-        hostileChaos
+        hostileChaos,
+        friendlyMovabilityIncrease,
+        hostileMovabilityDecrease,
+        friendlySpeedIncrease,
+        hostileSpeedDecrease
     }
 }
 
