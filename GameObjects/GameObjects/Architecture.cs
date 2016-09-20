@@ -11176,7 +11176,14 @@
                         int hateDays = (int) (Math.Pow(5, person2.PersonalLoyalty - 2) * 10 + GameObject.Random(20) - 10);
                         if (hateDays > 0)
                         {
-                            person2.ProhibitedFactionID.Add(faction.ID, hateDays);
+                            if (person2.ProhibitedFactionID.ContainsKey(faction.ID))
+                            {
+                                person2.ProhibitedFactionID[faction.ID] += hateDays;
+                            }
+                            else
+                            {
+                                person2.ProhibitedFactionID.Add(faction.ID, hateDays);
+                            }
                         }
                     }
                     //this.Persons.Clear();
@@ -11203,7 +11210,14 @@
                         int hateDays = (int)(Math.Pow(5, person2.PersonalLoyalty - 2) * 10 + GameObject.Random(20) - 10);
                         if (hateDays > 0)
                         {
-                            person2.ProhibitedFactionID.Add(faction.ID, hateDays);
+                            if (person2.ProhibitedFactionID.ContainsKey(faction.ID))
+                            {
+                                person2.ProhibitedFactionID[faction.ID] += hateDays;
+                            }
+                            else
+                            {
+                                person2.ProhibitedFactionID.Add(faction.ID, hateDays);
+                            }
                         }
                     }
 
