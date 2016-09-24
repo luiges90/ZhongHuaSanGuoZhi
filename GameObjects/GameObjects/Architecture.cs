@@ -5091,6 +5091,18 @@
                 {
                     if (f.IsArchitectureKnown(this) || f.IsArchitectureKnown(a))
                     {
+                        foreach (Troop t in this.BelongedFaction.GetLegion(a).Troops)
+                        {
+                            t.TargetArchitecture = a;
+                            t.WillArchitecture = a;
+                            t.QuickBattling = false;
+                            a.TotalHostileForce -= t.FightingForce;
+                        }
+                        foreach (Troop t in a.DefensiveLegion.Troops)
+                        {
+                            t.QuickBattling = false;
+                            this.TotalFriendlyForce -= t.FightingForce;
+                        }
                         aborted = true;
                     }
                 }
@@ -5192,23 +5204,25 @@
 
                     }
 
-                    if (a.DefensiveLegion != null)
+                    int i = 0;
+                    foreach (Military m in this.Militaries)
                     {
-                        foreach (Troop t in a.DefensiveLegion.Troops)
+                        if (this.Persons.Count > i)
                         {
-                            if (t.ChaosDayLeft > 0)
+                            if (GameObject.Chance((m.Kind.OffenceRadius + 1) * (m.Kind.OffenceRadius + 1) * 100 / this.Militaries.Count))
                             {
-                                t.SetRecoverFromChaos();
+                                a.Endurance = a.Endurance - Math.Max(1, (int)(m.Offence / 4 * m.Kind.ArchitectureDamageRate * Parameters.ArchitectureDamageRate));
+                                if (a.Endurance <= 0) break;
                             }
                         }
-                    }
-                    foreach (Troop t in this.BelongedFaction.GetLegion(a).Troops)
-                    {
-                        if (t.ChaosDayLeft > 0)
+                        else
                         {
-                            t.SetRecoverFromChaos();
+                            break;
                         }
+                        i++;
                     }
+
+
                 }
             }
         }
