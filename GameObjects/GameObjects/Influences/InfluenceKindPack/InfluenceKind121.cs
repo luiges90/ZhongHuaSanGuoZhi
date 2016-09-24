@@ -39,6 +39,17 @@
                 p.InfluenceIncrementOfLoyalty -= i;
             }
         }
+
+        public override void InitializeParameter(string parameter)
+        {
+            try
+            {
+                this.i = int.Parse(parameter);
+            }
+            catch
+            {
+            }
+        }
     }
 }
 
