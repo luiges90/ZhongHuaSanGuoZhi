@@ -10,15 +10,12 @@
 
         public override void ApplyInfluenceKind(Architecture a)
         {
-            if (rate > a.facilityConstructionTimeRateDecrease)
-            {
-                a.facilityConstructionTimeRateDecrease = rate;
-            }
+            a.facilityConstructionTimeRateDecrease += rate;
         }
 
         public override void PurifyInfluenceKind(Architecture a)
         {
-            a.facilityConstructionTimeRateDecrease = 0;
+            a.facilityConstructionTimeRateDecrease -= rate;
         }
 
         public override void InitializeParameter(string parameter)
