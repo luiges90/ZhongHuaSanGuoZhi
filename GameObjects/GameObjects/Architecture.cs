@@ -5286,6 +5286,10 @@
                         p.CaptiveEscape();
                     }
                 }
+                if (p.CaptivePerson.ArrivingDays > 0 && (GameObject.Chance(p.CaptivePerson.JailBreakAbility / 50) || GameObject.Chance(p.CaptivePerson.captiveEscapeChance)))
+                {
+                    p.CaptiveEscape();
+                }
             }
         }
 
@@ -6979,6 +6983,12 @@
             get
             {
                 PersonList movableCaptives = new PersonList();
+
+                if (this.HasHostileTroopsInView())
+                {
+                    return movableCaptives;
+                }
+
                 foreach (Captive captive in this.Captives)
                 {
                     if (captive.CaptivePerson.ArrivingDays <= 0)
@@ -6999,6 +7009,11 @@
             {
 
                 if (architecture == this)
+                {
+                    continue;
+                }
+
+                if (architecture.HasHostileTroopsInView())
                 {
                     continue;
                 }
