@@ -564,8 +564,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         internal void FrameFunction_Architecture_AfterGetTransferMilitaryArchitectureBySelecting() //运输编队
         {
-            if (this.CurrentArchitecture != null && this.CurrentMilitaries.Count > 0
-                && this.CurrentArchitecture.Fund >= this.CurrentMilitaries.Count * Parameters.TransferCostPerMilitary && this.CurrentArchitecture.Food >= this.CurrentMilitaries.Count * Parameters.TransferFoodPerMilitary)
+            if (this.CurrentArchitecture != null && this.CurrentMilitaries.Count > 0)
             {
                 this.CurrentGameObjects = this.CurrentArchitecture.BelongedFaction.ArchitecturesExcluding(this.CurrentArchitecture).GetSelectedList();
                 if ((this.CurrentGameObjects != null) && (this.CurrentGameObjects.Count == 1))
@@ -577,7 +576,8 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     foreach (Military military in this.CurrentMilitaries)
                     {
                         if (this.CurrentArchitecture.Fund >= military.TransferFundCost(distance) && 
-                            this.CurrentArchitecture.Food >= military.TransferFoodCost(distance))
+                            this.CurrentArchitecture.Food >= military.TransferFoodCost(distance) &&
+                            !this.CurrentArchitecture.IsSurrounded() && !targetArchitecture.IsSurrounded())
                         {
                             this.CurrentArchitecture.DecreaseFund(military.TransferFundCost(distance));
                             this.CurrentArchitecture.DecreaseFood(military.TransferFoodCost(distance));

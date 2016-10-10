@@ -1890,12 +1890,12 @@
 
         public int TransferDays(double distance)
         {
-            return (int) Math.Ceiling(distance / this.Movability * 5);
+            return (int) Math.Ceiling(distance / this.Movability * 2);
         }
 
         public int TransferFundCost(double distance)
         {
-            return (int) (distance * 5);
+            return (int) (distance * 10);
         }
 
         public int TransferFoodCost(double distance)
