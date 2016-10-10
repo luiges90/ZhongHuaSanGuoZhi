@@ -1444,6 +1444,10 @@
                             case TerrainKind.森林:
                             case TerrainKind.山地:
                                 {
+                                    if (base.Scenario.GetArchitectureByPosition(this.Position) != null)
+                                    {
+                                        return false;
+                                    }
                                     GameArea area = GameArea.GetViewArea(this.Position, (3 > this.ViewRadius) ? this.ViewRadius : 3, false, base.Scenario, null);
                                     foreach (Point point in area.Area)
                                     {
