@@ -256,7 +256,7 @@
             if (this.Type == InfluenceType.建筑 || this.Type == InfluenceType.建筑战斗)
             {
                 ApplyingArchitecture t = new ApplyingArchitecture(person.LocationArchitecture, applier, applierID);
-                if (person.LocationTroop != null && i.appliedArch.Contains(t))
+                if (i.appliedArch.Contains(t))
                 {
                     i.appliedArch.Remove(t);
                     PurifyInfluenceKind(person.LocationArchitecture, i, applier, applierID);

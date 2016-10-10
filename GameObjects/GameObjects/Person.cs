@@ -4671,7 +4671,7 @@
 
             //if (this.Status != PersonStatus.Normal) return;
 
-            if (this.LocationTroop != null && !this.LocationTroop.Destroyed && this.LocationTroop.Persons.GameObjects.Contains(this)) return;
+            // if (this.LocationTroop != null && !this.LocationTroop.Destroyed && this.LocationTroop.Persons.GameObjects.Contains(this)) return;
 
             if (this.LocationArchitecture != a || startingPoint != null)
             {
@@ -4713,9 +4713,6 @@
 
             if (this.TargetArchitecture != null)
             {
-
-                this.LocationArchitecture = this.TargetArchitecture;
-
                 if (this.Status != PersonStatus.Princess   && this.Status != PersonStatus.Captive)
                 {
                     this.WorkKind = ArchitectureWorkKind.无;
@@ -4734,6 +4731,7 @@
                     this.Scenario.ClearPersonStatusCache();
                 }
 
+                this.LocationArchitecture = this.TargetArchitecture;
             }
         }
 
@@ -9307,7 +9305,7 @@
                     float actualVal;
                     if (this.relations[p] > 0)
                     {
-                        actualVal = val * (10000.0f - this.relations[p]) / 10000;
+                        actualVal = val * (10000.0f - this.relations[p]) / 10000 * 2;
                     }
                     else
                     {

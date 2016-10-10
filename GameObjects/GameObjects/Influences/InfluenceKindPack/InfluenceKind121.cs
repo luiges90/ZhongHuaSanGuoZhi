@@ -8,35 +8,19 @@
     {
         int i;
 
-        public override void ApplyInfluenceKind(Person person)
+        public override void ApplyInfluenceKind(Architecture person)
         {
-            if (person.LocationArchitecture != null) 
+            if (person != null) 
             {
-                person.LocationArchitecture.InfluenceIncrementOfLoyalty += i;
+                person.InfluenceIncrementOfLoyalty += i;
             }
         }
 
-        public override void PurifyInfluenceKind(Person person)
+        public override void PurifyInfluenceKind(Architecture person)
         {
-            if (person.LocationArchitecture != null)
+            if (person != null)
             {
-                person.LocationArchitecture.InfluenceIncrementOfLoyalty -= i;
-            }
-        }
-
-        public override void ApplyInfluenceKind(Troop troop)
-        {
-            foreach (Person p in troop.Persons)
-            {
-                p.InfluenceIncrementOfLoyalty += i;
-            }
-        }
-
-        public override void PurifyInfluenceKind(Troop troop)
-        {
-            foreach (Person p in troop.Persons)
-            {
-                p.InfluenceIncrementOfLoyalty -= i;
+                person.InfluenceIncrementOfLoyalty -= i;
             }
         }
 
