@@ -10,8 +10,8 @@
     public class PersonPortrait
     {
         internal GraphicsDevice Device;
-        internal Dictionary<int, PlayerImage> PlayerImages = new Dictionary<int, PlayerImage>();
-        private Dictionary<int, PortraitItem> portraits = new Dictionary<int, PortraitItem>();
+        internal Dictionary<float, PlayerImage> PlayerImages = new Dictionary<float, PlayerImage>();
+        private Dictionary<float, PortraitItem> portraits = new Dictionary<float, PortraitItem>();
         internal string TempImageFileName;
 
         private PlayerImage defaultImage;

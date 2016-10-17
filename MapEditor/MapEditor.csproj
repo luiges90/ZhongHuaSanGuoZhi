@@ -173,10 +173,6 @@
       <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
       <Name>GameObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WorldOfTheThreeKingdoms\AirViewPlugin\AirViewPlugin.csproj">
-      <Project>{F26B7073-978E-4B27-AA27-669D4F01C439}</Project>
-      <Name>AirViewPlugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WorldOfTheThreeKingdoms\PluginInterface\PluginInterface.csproj">
       <Project>{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}</Project>
       <Name>PluginInterface</Name>

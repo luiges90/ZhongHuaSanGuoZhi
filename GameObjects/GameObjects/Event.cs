@@ -31,10 +31,10 @@
         public Dictionary<Person, List<EventEffect>> matchedEffect;
 
 
-        public List<PersonDialog> matchedyesDialog;
-        public List<PersonDialog> matchednoDialog;
-        public List<PersonIdDialog> yesdialog;
-        public List<PersonIdDialog> nodialog;
+        public List<PersonDialog> matchedyesDialog = new List<PersonDialog>();
+        public List<PersonDialog> matchednoDialog = new List<PersonDialog>();
+        public List<PersonIdDialog> yesdialog = new List<PersonIdDialog>();
+        public List<PersonIdDialog> nodialog = new List<PersonIdDialog>();
 
         public Dictionary<Person, List<EventEffect>> matchedYesEffect;//
         public Dictionary<Person, List<EventEffect>> matchedNoEffect;
@@ -42,11 +42,11 @@
         public Dictionary<int, List<EventEffect>> yesEffect = new Dictionary<int,List<EventEffect>>();
         public Dictionary<int, List<EventEffect>> noEffect = new Dictionary<int,List<EventEffect>>();
 
-        public List<EventEffect> architectureEffect;
-        public List<EventEffect> factionEffect;
+        public List<EventEffect> architectureEffect = new List<EventEffect>();
+        public List<EventEffect> factionEffect = new List<EventEffect>();
 
-        public List<EventEffect> yesArchitectureEffect;
-        public List<EventEffect> noArchitectureEffect;
+        public List<EventEffect> yesArchitectureEffect = new List<EventEffect>();
+        public List<EventEffect> noArchitectureEffect = new List<EventEffect>();
 
         public List<PersonIdDialog> scenBiography = new List<PersonIdDialog>() ;
         public List<PersonDialog> matchedScenBiography = new List<PersonDialog> () ;

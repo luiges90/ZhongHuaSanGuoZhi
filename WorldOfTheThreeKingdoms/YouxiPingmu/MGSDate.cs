@@ -110,8 +110,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     Player.currentPlaylist.clear();
                     WMPLib.IWMPMedia media5;
                     string[] filePaths5 = Directory.GetFiles("GameMusic/Attack/", "*.mp3");
-                    Random rd5 = new Random();
-                    int index5 = rd5.Next(1, filePaths5.Length);
+                    int index5 = GameObject.Random(filePaths5.Length);
                     string path5 = filePaths5[index5];
                     foreach (String s in filePaths5)
                     {
@@ -130,8 +129,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     Player.currentPlaylist.clear();
                     WMPLib.IWMPMedia media6;
                     string[] filePaths6 = Directory.GetFiles("GameMusic/Defend/", "*.mp3");
-                    Random rd6 = new Random();
-                    int index6 = rd6.Next(1, filePaths6.Length);
+                    int index6 = GameObject.Random(filePaths6.Length);
                     string path6 = filePaths6[index6];
                     foreach (String s in filePaths6)
                     {
@@ -150,8 +148,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     Player.currentPlaylist.clear();
                     WMPLib.IWMPMedia media7;
                     string[] filePaths7 = Directory.GetFiles("GameMusic/Battle/", "*.mp3");
-                    Random rd7 = new Random();
-                    int index7 = rd7.Next(1, filePaths7.Length);
+                    int index7 = GameObject.Random(filePaths7.Length);
                     string path7 = filePaths7[index7];
                     foreach (String s in filePaths7)
                     {
@@ -174,8 +171,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         Player.currentPlaylist.clear();
                         WMPLib.IWMPMedia media;
                         string[] filePaths = Directory.GetFiles("GameMusic/Spring/", "*.mp3");
-                        Random rd = new Random();
-                        int index = rd.Next(1, filePaths.Length);
+                        int index = GameObject.Random(filePaths.Length);
                         string path = filePaths[index];
                         foreach (String s in filePaths)
                         {
@@ -193,8 +189,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         Player.currentPlaylist.clear();
                         WMPLib.IWMPMedia media2;
                         string[] filePaths2 = Directory.GetFiles("GameMusic/Summer/", "*.mp3");
-                        Random rd2 = new Random();
-                        int index2 = rd2.Next(1, filePaths2.Length);
+                        int index2 = GameObject.Random(filePaths2.Length);
                         string path2 = filePaths2[index2];
                         foreach (String s in filePaths2)
                         {
@@ -214,8 +209,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         Player.currentPlaylist.clear();
                         WMPLib.IWMPMedia media3;
                         string[] filePaths3 = Directory.GetFiles("GameMusic/Autumn/", "*.mp3");
-                        Random rd3 = new Random();
-                        int index3 = rd3.Next(1, filePaths3.Length);
+                        int index3 = GameObject.Random(filePaths3.Length);
                         string path3 = filePaths3[index3];
                         foreach (String s in filePaths3)
                         {
@@ -235,8 +229,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                         Player.currentPlaylist.clear();
                         WMPLib.IWMPMedia media4;
                         string[] filePaths4 = Directory.GetFiles("GameMusic/Autumn/", "*.mp3");
-                        Random rd4 = new Random();
-                        int index4 = rd4.Next(1, filePaths4.Length);
+                        int index4 = GameObject.Random(filePaths4.Length);
                         string path4 = filePaths4[index4];
                         foreach (String s in filePaths4)
                         {

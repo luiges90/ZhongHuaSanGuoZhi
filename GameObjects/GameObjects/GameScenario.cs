@@ -4766,13 +4766,21 @@
                             e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
                             e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
 
-                            e.LoadyesDialogFromString(reader["yesDialog"].ToString());
-                            e.LoadnoDialogFromString(reader["noDialog"].ToString());
+                            try
+                            {
+                                e.LoadyesDialogFromString(reader["yesDialog"].ToString());
+                                e.LoadnoDialogFromString(reader["noDialog"].ToString());
+                            }
+                            catch { }
 
-                            e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
-                            e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
-                            e.LoadYesArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["YesArchitectureEffect"].ToString());
-                            e.LoadNoArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["NoArchitectureEffect"].ToString());
+                            try
+                            {
+                                e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
+                                e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
+                                e.LoadYesArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["YesArchitectureEffect"].ToString());
+                                e.LoadNoArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["NoArchitectureEffect"].ToString());
+                            }
+                            catch { }
 
                             try
                             {

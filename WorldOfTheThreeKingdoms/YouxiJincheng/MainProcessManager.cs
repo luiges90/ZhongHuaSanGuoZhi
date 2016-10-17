@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.IO;
 
 using		GameGlobal;
 
@@ -30,7 +30,7 @@ namespace WorldOfTheThreeKingdoms.GameProcesses
             WMPLib.IWMPMedia media;
             string[] filePaths = Directory.GetFiles("GameMusic/Start/", "*.mp3");
             Random rd = new Random();
-            int index = rd.Next(1, filePaths.Length);
+            int index = rd.Next(0, filePaths.Length);
             string path = filePaths[index];
 
             foreach (String s in filePaths)
