@@ -6512,6 +6512,15 @@
 
                     v = Math.Max(0, v);
 
+                    if (this.Father != null && this.Father.BelongedFaction == this.BelongedFaction)
+                    {
+                        v += this.Father.childrenLoyalty;
+                    }
+                    if (this.Mother != null && this.Mother.BelongedFaction == this.BelongedFaction)
+                    {
+                        v += this.Mother.childrenLoyalty;
+                    }
+
                     return (int) v;
                 }
                 return 0;
