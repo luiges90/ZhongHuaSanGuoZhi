@@ -8,7 +8,7 @@
 
     public class PersonIdDialog
     {
-        public int id; public string dialog;
+        public int id; public string dialog; public string yesdialog; public string nodialog;
     }
 
     public class Event : GameObject
@@ -29,6 +29,12 @@
         public Dictionary<int, List<EventEffect>> effect;
         public List<PersonDialog> matchedDialog;
         public Dictionary<Person, List<EventEffect>> matchedEffect;
+
+
+        public List<PersonDialog> matchedyesDialog;
+        public List<PersonDialog> matchednoDialog;
+        public List<PersonIdDialog> yesdialog;
+        public List<PersonIdDialog> nodialog;
 
         public Dictionary<Person, List<EventEffect>> matchedYesEffect;//
         public Dictionary<Person, List<EventEffect>> matchedNoEffect;
@@ -100,6 +106,17 @@
                         j.ApplyEffect(i.Key, this);
                     }
                 }
+                foreach (PersonDialog yesdialog in this.matchedyesDialog)
+                {
+                    if (yesdialog.SpeakingPerson != null)
+                    {
+                        this.Scenario.GameScreen.xianshishijiantupian(yesdialog.SpeakingPerson, null, yesdialog.Text, true);
+                    }
+                    else
+                    {
+                        this.Scenario.GameScreen.xianshishijiantupian(a.BelongedFaction.Leader, null, yesdialog.Text, true);
+                    }
+                }
             }
             if (this.yesArchitectureEffect != null)
             {
@@ -120,6 +137,17 @@
                     foreach (EventEffect j in i.Value)
                     {
                         j.ApplyEffect(i.Key, this);
+                    }
+                }
+                foreach (PersonDialog nodialog in this.matchednoDialog)
+                {
+                    if (nodialog.SpeakingPerson != null)
+                    {
+                        this.Scenario.GameScreen.xianshishijiantupian(nodialog.SpeakingPerson, null, nodialog.Text, true);
+                    }
+                    else
+                    {
+                        this.Scenario.GameScreen.xianshishijiantupian(a.BelongedFaction.Leader, null, nodialog.Text, true);
                     }
                 }
             }
@@ -289,7 +317,37 @@
                 }
                 matchedDialog.Add(pd);
             }
-            
+
+            matchedyesDialog = new List<PersonDialog>();
+            foreach (PersonIdDialog i in this.yesdialog)
+            {
+                if (!matchedPersons.ContainsKey(i.id)) return false;
+
+                PersonDialog pd = new PersonDialog();
+                pd.SpeakingPerson = matchedPersons[i.id];
+                pd.Text = i.yesdialog;
+                for (int j = 0; j < matchedPersons.Count; ++j)
+                {
+                    pd.Text = pd.Text.Replace("%" + j, ' ' + matchedPersons[j].Name + ' ');
+                }
+                matchedyesDialog.Add(pd);
+            }
+
+            matchednoDialog = new List<PersonDialog>();
+            foreach (PersonIdDialog i in this.nodialog)
+            {
+                if (!matchedPersons.ContainsKey(i.id)) return false;
+
+                PersonDialog pd = new PersonDialog();
+                pd.SpeakingPerson = matchedPersons[i.id];
+                pd.Text = i.nodialog;
+                for (int j = 0; j < matchedPersons.Count; ++j)
+                {
+                    pd.Text = pd.Text.Replace("%" + j, ' ' + matchedPersons[j].Name + ' ');
+                }
+                matchednoDialog.Add(pd);
+            }
+
             matchedScenBiography = new List<PersonDialog>();
             foreach (PersonIdDialog i in this.scenBiography)
             {
@@ -578,6 +636,37 @@
                 this.dialog.Add(d);
             }
         }
+
+        public void LoadyesDialogFromString(string data)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.yesdialog = new List<PersonIdDialog>();
+            for (int i = 0; i < strArray.Length; i += 2)
+            {
+                PersonIdDialog d = new PersonIdDialog();
+                d.id = int.Parse(strArray[i]);
+                d.yesdialog = strArray[i + 1];
+                this.yesdialog.Add(d);
+            }
+        }
+
+
+        public void LoadnoDialogFromString(string data)
+        {
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = data.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            this.nodialog = new List<PersonIdDialog>();
+            for (int i = 0; i < strArray.Length; i += 2)
+            {
+                PersonIdDialog d = new PersonIdDialog();
+                d.id = int.Parse(strArray[i]);
+                d.nodialog = strArray[i + 1];
+                this.nodialog.Add(d);
+            }
+        }
         
         public void LoadScenBiographyFromString(string data)
         {
@@ -600,6 +689,26 @@
             foreach (PersonIdDialog i in this.dialog)
             {
                 result += i.id + " " + i.dialog + " ";
+            }
+            return result;
+        }
+
+        public string SaveyesDialogToString()
+        {
+            string result = "";
+            foreach (PersonIdDialog i in this.yesdialog)
+            {
+                result += i.id + " " + i.yesdialog + " ";
+            }
+            return result;
+        }
+
+        public string SavenoDialogToString()
+        {
+            string result = "";
+            foreach (PersonIdDialog i in this.nodialog)
+            {
+                result += i.id + " " + i.nodialog + " ";
             }
             return result;
         }

@@ -22,22 +22,22 @@
         {
         }
 
-        public bool HasPortrait(int id)
+        public bool HasPortrait(float id)
         {
             return this.personPortrait.HasPortrait(id);
         }
 
-        public Image GetImage(int id)
+        public Image GetImage(float id)
         {
             return this.personPortrait.GetImage(id);
         }
 
-        public Texture2D GetPortrait(int id)
+        public Texture2D GetPortrait(float id)
         {
             return this.personPortrait.GetPortrait(id);
         }
 
-        public Texture2D GetSmallPortrait(int id)
+        public Texture2D GetSmallPortrait(float id)
         {
             return this.personPortrait.GetSmallPortrait(id);
         }

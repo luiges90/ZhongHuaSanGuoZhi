@@ -1835,7 +1835,7 @@
             return "电脑";
         }
 
-        public Texture2D GetPortrait(int id)
+        public Texture2D GetPortrait(float id)
         {
             return this.GameScreen.GetPortrait(id);
         }
@@ -1980,7 +1980,7 @@
             return num;
         }
 
-        public Texture2D GetSmallPortrait(int id)
+        public Texture2D GetSmallPortrait(float id)
         {
             return this.GameScreen.GetSmallPortrait(id);
         }
@@ -4766,6 +4766,9 @@
                             e.LoadArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["ArchitectureEffect"].ToString());
                             e.LoadFactionEffectFromString(this.GameCommonData.AllEventEffects, reader["FactionEffect"].ToString());
 
+                            e.LoadyesDialogFromString(reader["yesDialog"].ToString());
+                            e.LoadnoDialogFromString(reader["noDialog"].ToString());
+
                             e.LoadYesEffectFromString(this.GameCommonData.AllEventEffects, reader["YesEffect"].ToString());
                             e.LoadNoEffectFromString(this.GameCommonData.AllEventEffects, reader["NoEffect"].ToString());
                             e.LoadYesArchitectureEffectFromString(this.GameCommonData.AllEventEffects, reader["YesArchitectureEffect"].ToString());
@@ -6334,6 +6337,10 @@
                         row["StartMonth"] = e.StartMonth;
                         row["EndYear"] = e.EndYear;
                         row["EndMonth"] = e.EndMonth;
+
+                        row["yesDialog"] = e.SaveyesDialogToString();
+                        row["noDialog"] = e.SavenoDialogToString();
+
                         row["YesEffect"] = e.SaveYesEffectToString();
                         row["NoEffect"] = e.SaveNoEffectToString();
                         row["YesArchitectureEffect"] = e.SaveYesArchitectureEffectToString();

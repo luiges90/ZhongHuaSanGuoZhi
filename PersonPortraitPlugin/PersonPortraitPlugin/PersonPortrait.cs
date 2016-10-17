@@ -21,12 +21,12 @@
             defaultImage = LoadImage(9999);
         }
 
-        public bool HasPortrait(int id) 
+        public bool HasPortrait(float id) 
         {
             return GetImage(id) != defaultImage.Portrait;
         }
 
-        internal Image GetImage(int id)
+        internal Image GetImage(float id)
         {
             Image portrait = null;
             PlayerImage image = null;
@@ -47,7 +47,7 @@
             return portrait;
         }
 
-        private PortraitItem GetItem(int id)
+        private PortraitItem GetItem(float id)
         {
             PortraitItem item;
             this.portraits.TryGetValue(id, out item);
@@ -61,7 +61,11 @@
                     this.PlayerImages.Add(id, image);
                     if (image == null)
                     {
-                        image = defaultImage;
+                        image = this.LoadImage((int)id);
+                        if (image == null)
+                        {
+                            image = defaultImage;
+                        }
                     }
                 }
                 item = new PortraitItem();
@@ -74,7 +78,7 @@
             return item;
         }
 
-        internal Texture2D GetPortrait(int id)
+        internal Texture2D GetPortrait(float id)
         {
             PortraitItem item = this.GetItem(id);
             if (item != null)
@@ -84,7 +88,7 @@
             return null;
         }
 
-        internal Texture2D GetSmallPortrait(int id)
+        internal Texture2D GetSmallPortrait(float id)
         {
             PortraitItem item = this.GetItem(id);
             if (item != null)
@@ -94,7 +98,7 @@
             return null;
         }
 
-        private PlayerImage LoadImage(string path, int id)
+        private PlayerImage LoadImage(string path, float id)
         {
             if (File.Exists(path + @"\" + id + "s.jpg"))
             {
@@ -108,7 +112,7 @@
             return null;
         }
 
-        private PlayerImage LoadImage(int id)
+        private PlayerImage LoadImage(float id)
         {
             PlayerImage result = this.LoadImage(@"GameComponents\PersonPortrait\Images\Player", id);
             if (result == null)

@@ -26,8 +26,24 @@ namespace WorldOfTheThreeKingdoms.GameProcesses
             {
                 mainGame = MainProcessManager.mainGame
             };
-            mainGame.Player.URL = @"GameMusic\Start.mp3";
+            mainGame.Player.currentPlaylist.clear();
+            WMPLib.IWMPMedia media;
+            string[] filePaths = Directory.GetFiles("GameMusic/Start/", "*.mp3");
+            Random rd = new Random();
+            int index = rd.Next(1, filePaths.Length);
+            string path = filePaths[index];
+
+            foreach (String s in filePaths)
+            {
+                media = mainGame.Player.newMedia(s);
+                mainGame.Player.currentPlaylist.appendItem(media);
+            }
+            media = mainGame.Player.newMedia(path);
+            mainGame.Player.currentPlaylist.appendItem(media);
+            mainGame.Player.currentItem = media;
             mainGame.Player.play();
+            mainGame.Player.settings.setMode("loop", true);
+
             if (menu.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.globalVariables.InitialGlobalVariables();

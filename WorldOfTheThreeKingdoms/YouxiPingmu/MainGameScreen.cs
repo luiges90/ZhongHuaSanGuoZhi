@@ -499,7 +499,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             return this.mainMapLayer.GetTopCenterPoint(mapPosition);
         }
 
-        public override Texture2D GetPortrait(int id)
+        public override Texture2D GetPortrait(float id)
         {
             return this.Plugins.PersonPortraitPlugin.GetPortrait(id);
         }
@@ -524,7 +524,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             return "空 白 存 档";
         }
 
-        public override Texture2D GetSmallPortrait(int id)
+        public override Texture2D GetSmallPortrait(float id)
         {
             return this.Plugins.PersonPortraitPlugin.GetSmallPortrait(id);
         }

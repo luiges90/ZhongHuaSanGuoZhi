@@ -107,15 +107,63 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 if (this.Scenario.CurrentPlayer.BattleState == ZhandouZhuangtai.进攻)
                 {
-                    this.PlayMusic("GameMusic/Attack.mp3");
+                    Player.currentPlaylist.clear();
+                    WMPLib.IWMPMedia media5;
+                    string[] filePaths5 = Directory.GetFiles("GameMusic/Attack/", "*.mp3");
+                    Random rd5 = new Random();
+                    int index5 = rd5.Next(1, filePaths5.Length);
+                    string path5 = filePaths5[index5];
+                    foreach (String s in filePaths5)
+                    {
+                        media5 = Player.newMedia(s);
+                        Player.currentPlaylist.appendItem(media5);
+                    }
+                    media5 = Player.newMedia(path5);
+                    Player.currentPlaylist.appendItem(media5);
+                    Player.currentItem = media5;
+                    Player.play();
+                    Player.settings.setMode("loop", true);
+                    //this.PlayMusic("GameMusic/Attack.mp3");
                 }
                 else if (this.Scenario.CurrentPlayer.BattleState == ZhandouZhuangtai.防守)
                 {
-                    this.PlayMusic("GameMusic/Defend.mp3");
+                    Player.currentPlaylist.clear();
+                    WMPLib.IWMPMedia media6;
+                    string[] filePaths6 = Directory.GetFiles("GameMusic/Defend/", "*.mp3");
+                    Random rd6 = new Random();
+                    int index6 = rd6.Next(1, filePaths6.Length);
+                    string path6 = filePaths6[index6];
+                    foreach (String s in filePaths6)
+                    {
+                        media6 = Player.newMedia(s);
+                        Player.currentPlaylist.appendItem(media6);
+                    }
+                    media6 = Player.newMedia(path6);
+                    Player.currentPlaylist.appendItem(media6);
+                    Player.currentItem = media6;
+                    Player.play();
+                    Player.settings.setMode("loop", true);
+                    // this.PlayMusic("GameMusic/Defend.mp3");
                 }
                 else
                 {
-                    this.PlayMusic("GameMusic/Battle.mp3");
+                    Player.currentPlaylist.clear();
+                    WMPLib.IWMPMedia media7;
+                    string[] filePaths7 = Directory.GetFiles("GameMusic/Battle/", "*.mp3");
+                    Random rd7 = new Random();
+                    int index7 = rd7.Next(1, filePaths7.Length);
+                    string path7 = filePaths7[index7];
+                    foreach (String s in filePaths7)
+                    {
+                        media7 = Player.newMedia(s);
+                        Player.currentPlaylist.appendItem(media7);
+                    }
+                    media7 = Player.newMedia(path7);
+                    Player.currentPlaylist.appendItem(media7);
+                    Player.currentItem = media7;
+                    Player.play();
+                    Player.settings.setMode("loop", true);
+                    //this.PlayMusic("GameMusic/Battle.mp3");
                 }
             }
             else
@@ -123,19 +171,84 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 switch (season)
                 {
                     case GameSeason.春:
-                        this.PlayMusic("GameMusic/Spring.mp3");
+                        Player.currentPlaylist.clear();
+                        WMPLib.IWMPMedia media;
+                        string[] filePaths = Directory.GetFiles("GameMusic/Spring/", "*.mp3");
+                        Random rd = new Random();
+                        int index = rd.Next(1, filePaths.Length);
+                        string path = filePaths[index];
+                        foreach (String s in filePaths)
+                        {
+                            media = Player.newMedia(s);
+                            Player.currentPlaylist.appendItem(media);
+                        }
+                        media = Player.newMedia(path);
+                        Player.currentPlaylist.appendItem(media);
+                        Player.currentItem = media;
+                        Player.play();
+                        Player.settings.setMode("loop", true);
+                        //this.PlayMusic("GameMusic/Spring.mp3");
                         break;
-
                     case GameSeason.夏:
-                        this.PlayMusic("GameMusic/Summer.mp3");
+                        Player.currentPlaylist.clear();
+                        WMPLib.IWMPMedia media2;
+                        string[] filePaths2 = Directory.GetFiles("GameMusic/Summer/", "*.mp3");
+                        Random rd2 = new Random();
+                        int index2 = rd2.Next(1, filePaths2.Length);
+                        string path2 = filePaths2[index2];
+                        foreach (String s in filePaths2)
+                        {
+                            media2 = Player.newMedia(s);
+                            Player.currentPlaylist.appendItem(media2);
+                        }
+                        media2 = Player.newMedia(path2);
+                        Player.currentPlaylist.appendItem(media2);
+                        Player.currentItem = media2;
+                        Player.play();
+                        Player.settings.setMode("loop", true);
+                        // this.PlayMusic("GameMusic/Summer.mp3");
                         break;
 
                     case GameSeason.秋:
-                        this.PlayMusic("GameMusic/Autumn.mp3");
+
+                        Player.currentPlaylist.clear();
+                        WMPLib.IWMPMedia media3;
+                        string[] filePaths3 = Directory.GetFiles("GameMusic/Autumn/", "*.mp3");
+                        Random rd3 = new Random();
+                        int index3 = rd3.Next(1, filePaths3.Length);
+                        string path3 = filePaths3[index3];
+                        foreach (String s in filePaths3)
+                        {
+                            media3 = Player.newMedia(s);
+                            Player.currentPlaylist.appendItem(media3);
+                        }
+                        media3 = Player.newMedia(path3);
+                        Player.currentPlaylist.appendItem(media3);
+                        Player.currentItem = media3;
+                        Player.play();
+                        Player.settings.setMode("loop", true);
+                        //this.PlayMusic("GameMusic/Autumn.mp3");
                         break;
 
                     case GameSeason.冬:
-                        this.PlayMusic("GameMusic/Winter.mp3");
+
+                        Player.currentPlaylist.clear();
+                        WMPLib.IWMPMedia media4;
+                        string[] filePaths4 = Directory.GetFiles("GameMusic/Autumn/", "*.mp3");
+                        Random rd4 = new Random();
+                        int index4 = rd4.Next(1, filePaths4.Length);
+                        string path4 = filePaths4[index4];
+                        foreach (String s in filePaths4)
+                        {
+                            media4 = Player.newMedia(s);
+                            Player.currentPlaylist.appendItem(media4);
+                        }
+                        media4 = Player.newMedia(path4);
+                        Player.currentPlaylist.appendItem(media4);
+                        Player.currentItem = media4;
+                        Player.play();
+                        Player.settings.setMode("loop", true);
+                        //this.PlayMusic("GameMusic/Winter.mp3");
                         break;
                 }
             }

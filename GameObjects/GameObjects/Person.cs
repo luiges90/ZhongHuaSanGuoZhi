@@ -6930,6 +6930,15 @@
             get
             {
                 Texture2D result = base.Scenario.GetPortrait(this.PictureIndex);
+                if (this.Age >= 50)
+                {
+                    result = base.Scenario.GetPortrait(this.PictureIndex + 0.5f);
+                }
+
+                if (this.Age <= 20)
+                {
+                    result = base.Scenario.GetPortrait(this.PictureIndex + 0.2f);
+                }
                 return result == null ? base.Scenario.GetPortrait(9999) : result;
             }
         }
@@ -7195,6 +7204,14 @@
             get
             {
                 Texture2D result = base.Scenario.GetSmallPortrait(this.PictureIndex);
+                if (this.Age >= 50)
+                {
+                    result = base.Scenario.GetSmallPortrait(this.PictureIndex + 0.5f);
+                }
+                if (this.Age <= 20)
+                {
+                    result = base.Scenario.GetSmallPortrait(this.PictureIndex + 0.2f);
+                }
                 return result == null ? base.Scenario.GetSmallPortrait(9999) : result;
             }
         }

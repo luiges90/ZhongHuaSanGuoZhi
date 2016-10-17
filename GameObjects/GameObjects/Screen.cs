@@ -280,7 +280,7 @@
             return Point.Zero;
         }
 
-        public virtual Texture2D GetPortrait(int id)
+        public virtual Texture2D GetPortrait(float id)
         {
             return null;
         }
@@ -292,7 +292,7 @@
 
         [DllImport("Kernel32", CharSet=CharSet.Auto)]
         private static extern int GetShortPathName(string path, StringBuilder shortPath, int shortPathLength);
-        public virtual Texture2D GetSmallPortrait(int id)
+        public virtual Texture2D GetSmallPortrait(float id)
         {
             return null;
         }
@@ -684,6 +684,10 @@
         }
 
         public virtual void xianshishijiantupian(Person p, string TextResultString, TextMessageKind msgKind, string shijian, string tupian, string shengyin, string TextDestinationString, bool zongshixianshi)
+        {
+        }
+
+        public virtual void xianshishijiantupian(object person, object gameObject, string branchName, bool zongshixianshi)
         {
         }
 

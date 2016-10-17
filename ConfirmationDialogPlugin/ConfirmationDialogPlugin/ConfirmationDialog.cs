@@ -202,9 +202,10 @@
                     }
                     else
                     {
-                        if (this.screen.PopUndoneWork().Kind != UndoneWorkKind.Dialog)
+                       // if (this.screen.PopUndoneWork().Kind != UndoneWorkKind.Dialog)
+                        if (this.screen.PopUndoneWork().Kind != UndoneWorkKind.tupianwenzi)
                         {
-                            throw new Exception("The UndoneWork is not a Dialog.");
+                          //  throw new Exception("The UndoneWork is not a Dialog.");
                         }
                         this.screen.OnMouseLeftDown -= new Screen.MouseLeftDown(this.screen_OnMouseLeftDown);
                         this.screen.OnMouseMove -= new Screen.MouseMove(this.screen_OnMouseMove);

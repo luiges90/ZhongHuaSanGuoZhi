@@ -550,6 +550,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void xianshishijiantupian(object person, object gameObject, string branchName, bool zongshixianshi)
+        {
+            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(person, gameObject, branchName);
+            this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
+            this.Plugins.tupianwenziPlugin.IsShowing = true;
+        }
+
         public override void PersonBeConfiscatedTreasure(Person person, Treasure t)
         {
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(person.BelongedFaction)) || GlobalVariables.SkyEye)
