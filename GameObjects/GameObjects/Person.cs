@@ -1469,17 +1469,19 @@
                 {
                     foreach (Influences.Influence i in t.Influences.Influences.Values)
                     {
-                        if (i.Kind.Type != GameObjects.Influences.InfluenceType.战斗)
-                        {
-                            i.ApplyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID, excludePersonal);
-                        }
-                        else
+
+                        if (i.Kind.Type == GameObjects.Influences.InfluenceType.战斗 || i.Kind.Type == GameObjects.Influences.InfluenceType.建筑战斗)
                         {
                             Troop a = this.LocationTroop;
                             if (a != null && a.Leader == this)
                             {
                                 i.ApplyInfluence(a, GameObjects.Influences.Applier.Technique, t.ID);
                             }
+                        }
+
+                        if (i.Kind.Type == InfluenceType.个人 || i.Kind.Type == InfluenceType.势力 || i.Kind.Type == InfluenceType.多选一)
+                        {
+                            i.ApplyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID, excludePersonal);
                         }
                     }
                 }
@@ -1494,17 +1496,18 @@
                 {
                     foreach (Influences.Influence i in t.Influences.Influences.Values)
                     {
-                        if (i.Kind.Type != GameObjects.Influences.InfluenceType.战斗)
-                        {
-                            i.PurifyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID, excludePersonal);
-                        }
-                        else
+                        if (i.Kind.Type == GameObjects.Influences.InfluenceType.战斗 || i.Kind.Type == GameObjects.Influences.InfluenceType.建筑战斗)
                         {
                             Troop a = this.LocationTroop;
                             if (a != null && a.Leader == this)
                             {
                                 i.PurifyInfluence(a, GameObjects.Influences.Applier.Technique, t.ID);
                             }
+                        }
+
+                        if (i.Kind.Type == InfluenceType.个人 || i.Kind.Type == InfluenceType.势力 || i.Kind.Type == InfluenceType.多选一)
+                        {
+                            i.PurifyInfluence(this, GameObjects.Influences.Applier.Technique, t.ID, excludePersonal);
                         }
                     }
                 }

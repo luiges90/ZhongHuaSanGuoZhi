@@ -20,10 +20,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginServices", "WorldOfTh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScenarioGenerator", "ScenarioGenerator\ScenarioGenerator.csproj", "{B3F6DEED-88DB-4A1E-8653-EC325C6AD725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonPortraitPlugin", "PersonPortraitPlugin\PersonPortraitPlugin.csproj", "{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfirmationDialogPlugin", "ConfirmationDialogPlugin\ConfirmationDialogPlugin.csproj", "{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,26 +129,6 @@ Global
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Release|Any CPU.ActiveCfg = Release|x86
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Release|x86.ActiveCfg = Release|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Debug|x86.ActiveCfg = Debug|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Debug|x86.Build.0 = Debug|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|Any CPU.ActiveCfg = Release|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|Mixed Platforms.Build.0 = Release|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|x86.ActiveCfg = Release|x86
-		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|x86.Build.0 = Release|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Debug|x86.ActiveCfg = Debug|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Debug|x86.Build.0 = Debug|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Release|Any CPU.ActiveCfg = Release|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Release|Mixed Platforms.Build.0 = Release|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Release|x86.ActiveCfg = Release|x86
-		{9A927AAF-2A2E-4AA6-B29B-3A2AE3FFBC57}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
