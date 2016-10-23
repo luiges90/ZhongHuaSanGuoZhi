@@ -1668,7 +1668,7 @@
 
             if (this.Spouse != null)
             {
-                if ((this.Spouse.LocationArchitecture == this.LocationArchitecture) && (this.Spouse.Spouse != this))
+                if ((this.Spouse.LocationArchitecture == this.LocationArchitecture) && (this.Spouse.Spouse == null))
                 {
                     result.Add(this.Spouse);
                 }
