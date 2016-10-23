@@ -1387,6 +1387,14 @@
             ExtensionInterface.call("PersonDie", new Object[] { this.Scenario, this });
         }
 
+        public int EstimatedLongetivity
+        {
+            get
+            {
+                return this.YearBorn + 18 + this.PersonalLoyalty * 8 - this.Ambition * 8 + this.Intelligence / 4 + this.Strength / 4;
+            }
+        }
+
         private void CheckDeath()
         {
             if (GlobalVariables.PersonNaturalDeath && this.LocationArchitecture != null && this.Alive)
@@ -1400,7 +1408,7 @@
                 {
                     if (GlobalVariables.FixedUnnaturalDeathAge <= 0)
                     {
-                        yearDead = Math.Max(this.YearDead, this.YearBorn + 18 + this.PersonalLoyalty * 8 - this.Ambition * 8 + this.Intelligence / 4 + this.Strength / 4);
+                        yearDead = Math.Max(this.YearDead, this.EstimatedLongetivity);
                     }
                     else
                     {
@@ -8597,9 +8605,22 @@
 
         private static void HandleChildrenStatus(Person father, Person r)
         {
+            int longetivity = r.yearDead - r.yearBorn;
             r.YearBorn = father.Scenario.Date.Year;
             r.YearAvailable = father.Scenario.Date.Year + GlobalVariables.ChildrenAvailableAge;
-            r.YearDead = r.YearBorn + GameObject.Random(69) + 30;
+            if (longetivity > GlobalVariables.ChildrenAvailableAge)
+            {
+                r.YearDead = r.YearBorn + longetivity;
+            }
+            else
+            {
+                r.YearDead = r.YearBorn + r.EstimatedLongetivity + GameObject.Random(-5, 5);
+            }
+            if (r.Spouse != null && GlobalVariables.PersonNaturalDeath && Math.Abs(r.Spouse.YearBorn - r.YearBorn) > 25)
+            {
+                r.Spouse.Spouse = null;
+                r.Spouse = null;
+            }
         }
 
         private static void HandleChildrenType(Person father, Person mother, Person r)
