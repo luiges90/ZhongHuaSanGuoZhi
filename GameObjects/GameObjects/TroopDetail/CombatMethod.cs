@@ -19,8 +19,8 @@
         private string description;
         public InfluenceTable Influences = new InfluenceTable();
         private bool viewingHostile;
-        public Dictionary<Condition, float> AIConditionWeightSelf;
-        public Dictionary<Condition, float> AIConditionWeightEnemy;
+        public Dictionary<Condition, float> AIConditionWeightSelf = new Dictionary<Condition,float>();
+        public Dictionary<Condition, float> AIConditionWeightEnemy = new Dictionary<Condition,float>();
 
         public void Apply(Troop troop)
         {
