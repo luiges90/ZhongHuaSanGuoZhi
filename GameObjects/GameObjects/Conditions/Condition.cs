@@ -2,6 +2,7 @@
 {
     using GameObjects;
     using System;
+    using System.Collections.Generic;
 
     public class Condition : GameObject
     {
@@ -110,6 +111,35 @@
             {
                 this.parameter2 = value;
             }
+        }
+
+        public static List<string> LoadConditionWeightFromString(ConditionTable conditions, string str, out Dictionary<Condition, float> result)
+        {
+            result = new Dictionary<Condition, float>();
+            char[] separator = new char[] { ' ', '\n', '\r', '\t' };
+            string[] strArray = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+
+            Condition condition = null;
+            List<string> errorMsg = new List<string>();
+            try
+            {
+                for (int i = 0; i < strArray.Length; i += 2)
+                {
+                    if (conditions.Conditions.TryGetValue(int.Parse(strArray[i]), out condition))
+                    {
+                        result.Add(condition, float.Parse(strArray[i + 1]));
+                    }
+                    else
+                    {
+                        errorMsg.Add("条件ID" + int.Parse(strArray[i]) + "不存在");
+                    }
+                }
+            }
+            catch
+            {
+                errorMsg.Add("条件AI应为半型空格分隔的条件ID及数值相间");
+            }
+            return errorMsg;
         }
     }
 }

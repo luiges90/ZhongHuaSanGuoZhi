@@ -5,6 +5,7 @@
     using GameObjects.Influences;
     using System;
     using GameObjects.Animations;
+    using System.Collections.Generic;
 
     public class CombatMethod : GameObject
     {
@@ -18,6 +19,8 @@
         private string description;
         public InfluenceTable Influences = new InfluenceTable();
         private bool viewingHostile;
+        public Dictionary<Condition, float> AIConditionWeightSelf;
+        public Dictionary<Condition, float> AIConditionWeightEnemy;
 
         public void Apply(Troop troop)
         {

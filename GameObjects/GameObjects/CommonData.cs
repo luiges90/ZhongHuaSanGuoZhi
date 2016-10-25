@@ -1234,6 +1234,14 @@
                 }
                 combatMethod.ViewingHostile = (bool)reader["ViewingHostile"];
                 combatMethod.AnimationKind = (TileAnimationKind)((short)reader["AnimationKind"]);
+                try
+                {
+                    e.AddRange(Condition.LoadConditionWeightFromString(scen.GameCommonData.AllConditions, (string)reader["aiConditionWeightSelf"], out combatMethod.AIConditionWeightSelf));
+                    e.AddRange(Condition.LoadConditionWeightFromString(scen.GameCommonData.AllConditions, (string)reader["AIConditionWeightEnemy"], out combatMethod.AIConditionWeightEnemy));
+                }
+                catch
+                {
+                }
                 this.AllCombatMethods.AddCombatMethod(combatMethod);
             }
             connection.Close();

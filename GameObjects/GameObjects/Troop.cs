@@ -3,6 +3,7 @@
     using GameGlobal;
     using GameObjects.Animations;
     using GameObjects.Influences;
+    using GameObjects.Conditions;
     using GameObjects.MapDetail;
     using GameObjects.PersonDetail;
     using GameObjects.TroopDetail;
@@ -1196,6 +1197,21 @@
                                 if (((!nullable.HasValue || hasTargetTroopFlag) || (nullable.Value == point)) && ((this.BelongedLegion == null) || (this.BelongedLegion.TakenPositions.IndexOf(point) < 0)))
                                 {
                                     moveCreditByPosition = GetCreditByPosition(point);
+                                    foreach (KeyValuePair<Condition, float> weight in method.AIConditionWeightSelf)
+                                    {
+                                        if (weight.Key.CheckCondition(this))
+                                        {
+                                            moveCreditByPosition.Credit = (int) (moveCreditByPosition.Credit * weight.Value);
+                                        }
+                                    }
+                                    foreach (KeyValuePair<Condition, float> weight in method.AIConditionWeightEnemy)
+                                    {
+                                        if (weight.Key.CheckCondition(troop))
+                                        {
+                                            moveCreditByPosition.Credit = (int)(moveCreditByPosition.Credit * weight.Value);
+                                        }
+                                    }
+
                                     moveCreditByPosition.CurrentCombatMethod = method;
                                     moveCreditByPosition.Credit -= method.Combativity;
                                     if (moveCreditByPosition.Credit >= credit)
