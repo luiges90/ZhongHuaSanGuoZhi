@@ -228,7 +228,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                         Player.currentPlaylist.clear();
                         WMPLib.IWMPMedia media4;
-                        string[] filePaths4 = Directory.GetFiles("GameMusic/Autumn/", "*.mp3");
+                        string[] filePaths4 = Directory.GetFiles("GameMusic/Winter/", "*.mp3");
                         int index4 = GameObject.Random(filePaths4.Length);
                         string path4 = filePaths4[index4];
                         foreach (String s in filePaths4)
