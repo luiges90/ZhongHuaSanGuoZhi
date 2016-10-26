@@ -4,6 +4,7 @@
     using GameObjects.Influences;
     using GameObjects.Conditions;
     using System;
+    using System.Collections.Generic;
 
     public class FacilityKind : GameObject
     {
@@ -19,6 +20,7 @@
         private int technologyNeeded;
         private int architectureLimit;
         private int factionLimit;
+        public Dictionary<Condition, float> AIBuildConditionWeight = new Dictionary<Condition, float>();
 
         public float AILevel
         {

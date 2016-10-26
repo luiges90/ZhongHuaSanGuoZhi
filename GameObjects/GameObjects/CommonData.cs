@@ -601,6 +601,7 @@
                 facilityKind.rongna = (short)reader["rongna"];
                 facilityKind.bukechaichu = (bool)reader["bukechaichu"];
                 e.AddRange(facilityKind.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString()));
+                e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, reader["AIBuildConditionWeight"].ToString(), out facilityKind.AIBuildConditionWeight));
                 if (e.Count > 0)
                 {
                     errorMsg.Add("设施ID" + facilityKind.ID);
@@ -1236,8 +1237,8 @@
                 combatMethod.AnimationKind = (TileAnimationKind)((short)reader["AnimationKind"]);
                 try
                 {
-                    e.AddRange(Condition.LoadConditionWeightFromString(scen.GameCommonData.AllConditions, (string)reader["aiConditionWeightSelf"], out combatMethod.AIConditionWeightSelf));
-                    e.AddRange(Condition.LoadConditionWeightFromString(scen.GameCommonData.AllConditions, (string)reader["AIConditionWeightEnemy"], out combatMethod.AIConditionWeightEnemy));
+                    e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, (string)reader["AIConditionWeightSelf"], out combatMethod.AIConditionWeightSelf));
+                    e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, (string)reader["AIConditionWeightEnemy"], out combatMethod.AIConditionWeightEnemy));
                 }
                 catch
                 {

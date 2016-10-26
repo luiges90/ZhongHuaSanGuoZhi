@@ -917,7 +917,15 @@
                     {
                         foreach (Facility i in this.Facilities)
                         {
-                            if (i.Kind.AIValue(this) < 0 && this.CanRemoveFacility(i) && i.Kind.rongna == 0)
+                            float value = (float) i.Kind.AIValue(this);
+                            foreach (KeyValuePair<Condition, float> weight in i.Kind.AIBuildConditionWeight)
+                            {
+                                if (weight.Key.CheckCondition(this))
+                                {
+                                    value *= weight.Value;
+                                }
+                            }
+                            if (value < 0 && this.CanRemoveFacility(i) && i.Kind.rongna == 0)
                             {
                                 if (this.FacilityEnabled || i.MaintenanceCost <= 0)
                                 {
@@ -966,7 +974,14 @@
                         {
                             continue;
                         }
-                        double value = kind.AIValue(this);
+                        float value = (float)kind.AIValue(this);
+                        foreach (KeyValuePair<Condition, float> weight in kind.AIBuildConditionWeight)
+                        {
+                            if (weight.Key.CheckCondition(this))
+                            {
+                                value *= weight.Value;
+                            }
+                        }
                         if (value > 0)
                         {
                             int fundMonthToWait = (kind.FundCost - (this.Fund - this.EnoughFund)) / this.ExpectedFund + 1;
