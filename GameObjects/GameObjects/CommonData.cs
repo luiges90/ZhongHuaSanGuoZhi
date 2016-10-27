@@ -601,7 +601,11 @@
                 facilityKind.rongna = (short)reader["rongna"];
                 facilityKind.bukechaichu = (bool)reader["bukechaichu"];
                 e.AddRange(facilityKind.Conditions.LoadFromString(this.AllConditions, reader["Conditions"].ToString()));
-                e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, reader["AIBuildConditionWeight"].ToString(), out facilityKind.AIBuildConditionWeight));
+                try
+                {
+                    e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, reader["AIBuildConditionWeight"].ToString(), out facilityKind.AIBuildConditionWeight));
+                }
+                catch { }
                 if (e.Count > 0)
                 {
                     errorMsg.Add("设施ID" + facilityKind.ID);

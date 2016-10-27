@@ -5102,23 +5102,31 @@
             {
                 bool aborted = false;
 
-                foreach (Faction f in base.Scenario.PlayerFactions)
+                if (this.BelongedFaction.GetLegion(a) == null)
                 {
-                    if (f.IsArchitectureKnown(this) || f.IsArchitectureKnown(a))
+                    aborted = true;
+                }
+                else
+                {
+
+                    foreach (Faction f in base.Scenario.PlayerFactions)
                     {
-                        foreach (Troop t in this.BelongedFaction.GetLegion(a).Troops)
+                        if (f.IsArchitectureKnown(this) || f.IsArchitectureKnown(a))
                         {
-                            t.TargetArchitecture = a;
-                            t.WillArchitecture = a;
-                            t.QuickBattling = false;
-                            a.TotalHostileForce -= t.FightingForce;
+                            foreach (Troop t in this.BelongedFaction.GetLegion(a).Troops)
+                            {
+                                t.TargetArchitecture = a;
+                                t.WillArchitecture = a;
+                                t.QuickBattling = false;
+                                a.TotalHostileForce -= t.FightingForce;
+                            }
+                            foreach (Troop t in a.DefensiveLegion.Troops)
+                            {
+                                t.QuickBattling = false;
+                                this.TotalFriendlyForce -= t.FightingForce;
+                            }
+                            aborted = true;
                         }
-                        foreach (Troop t in a.DefensiveLegion.Troops)
-                        {
-                            t.QuickBattling = false;
-                            this.TotalFriendlyForce -= t.FightingForce;
-                        }
-                        aborted = true;
                     }
                 }
 
