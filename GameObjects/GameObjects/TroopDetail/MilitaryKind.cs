@@ -81,6 +81,11 @@
 
         private int morphToKindId = -1;
 
+        public Dictionary<Condition, float> AICreateArchitectureConditionWeight = new Dictionary<Condition, float>();
+        public Dictionary<Condition, float> AIUpgradeArchitectureConditionWeight = new Dictionary<Condition, float>();
+        public Dictionary<Condition, float> AIUpgradeLeaderConditionWeight = new Dictionary<Condition, float>();
+        public Dictionary<Condition, float> AILeaderConditionWeight = new Dictionary<Condition, float>();
+
         public ConditionTable CreateConditions = new ConditionTable();
 
         public MilitaryKindTable successor;

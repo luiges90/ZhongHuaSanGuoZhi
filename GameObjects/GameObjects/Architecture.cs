@@ -2483,18 +2483,33 @@
             foreach (Military military in this.GetLevelUpMilitaryList())
             {
                 List<MilitaryKind> candidates = military.Kind.GetLevelUpKinds(this);
-                List<MilitaryKind> upgradable = new List<MilitaryKind>();
+                Dictionary<MilitaryKind, float> upgradable = new Dictionary<MilitaryKind, float>();
                 foreach (MilitaryKind mk in candidates)
                 {
                     if (military.Kind.LevelUpAvail(this))
                     {
-                        upgradable.Add(mk);
+                        float weight = 1;
+                        foreach (KeyValuePair<Condition, float> c in military.Kind.AIUpgradeArchitectureConditionWeight)
+                        {
+                            if (c.Key.CheckCondition(this))
+                            {
+                                weight *= c.Value;
+                            }
+                        }
+                        foreach (KeyValuePair<Condition, float> c in military.Kind.AIUpgradeLeaderConditionWeight)
+                        {
+                            if (c.Key.CheckCondition(military.Leader))
+                            {
+                                weight *= c.Value;
+                            }
+                        }
+                        upgradable.Add(mk, weight);
                     }
                 }
 
                 if (upgradable.Count > 0)
                 {
-                    this.LevelUpMilitary(military, upgradable[GameObject.Random(upgradable.Count)]);
+                    this.LevelUpMilitary(military, GameObject.WeightedRandom(upgradable));
                 }
             }
 
@@ -2710,8 +2725,12 @@
             {
                 MilitaryKind current;
                 Dictionary<int, MilitaryKind>.ValueCollection.Enumerator enumerator;
-                MilitaryKindList list = new MilitaryKindList();
-                MilitaryKindList allMilitaries = new MilitaryKindList();
+
+                Dictionary<MilitaryKind, float> list = new Dictionary<MilitaryKind, float>();
+                MilitaryKindList list2 = new MilitaryKindList();
+                Dictionary<MilitaryKind, float> allMilitaries = new Dictionary<MilitaryKind, float>();
+                MilitaryKindList allMilitaries2 = new MilitaryKindList();
+
                 using (enumerator = this.BelongedFaction.AvailableMilitaryKinds.MilitaryKinds.Values.GetEnumerator())
                 {
                     while (enumerator.MoveNext())
@@ -2720,15 +2739,27 @@
                         if (current.IsTransport) continue;
                         if (current.Type == MilitaryType.水军 && this.AIWaterLinks.Count == 0) continue;
                         if (current.Type != MilitaryType.水军 && this.AILandLinks.Count == 0) continue;
+
+                        float weight = 1;
+                        foreach (KeyValuePair<Condition, float> c in current.AICreateArchitectureConditionWeight)
+                        {
+                            if (c.Key.CheckCondition(this))
+                            {
+                                weight *= c.Value;
+                            }
+                        }
+
                         if (((water && current.Type == MilitaryType.水军) || (!water && current.Type != MilitaryType.水军))
                             && ((siege && current.Type == MilitaryType.器械) || (!siege && current.Type != MilitaryType.器械))
                             && current.CreateAvail(this))
                         {
-                            list.Add(current);
+                            list2.Add(current);
+                            list.Add(current, weight);
                         }
                         if (current.CreateAvail(this))
                         {
-                            allMilitaries.Add(current);
+                            allMilitaries2.Add(current);
+                            allMilitaries.Add(current, weight);
                         }
                         /*if ((((this.ValueWater == (current.Type == MilitaryType.水军)) || (!water && GameObject.Chance(20))) && current.CreateAvail(this)) && (current.ID != 29))
                         {
@@ -2744,27 +2775,53 @@
                         if (current.IsTransport) continue;
                         if (current.Type == MilitaryType.水军 && this.AIWaterLinks.Count == 0) continue;
                         if (current.Type != MilitaryType.水军 && this.AILandLinks.Count == 0) continue;
+
+                        float weight = 1;
+                        foreach (KeyValuePair<Condition, float> c in current.AICreateArchitectureConditionWeight)
+                        {
+                            if (c.Key.CheckCondition(this))
+                            {
+                                weight *= c.Value;
+                            }
+                        }
+
                         if (((water && current.Type == MilitaryType.水军) || (!water && current.Type != MilitaryType.水军))
                             && ((siege && current.Type == MilitaryType.器械) || (!siege && current.Type != MilitaryType.器械))
                             && current.CreateAvail(this))
                         {
-                            list.Add(current);
+                            list2.Add(current);
+                            if (list.ContainsKey(current))
+                            {
+                                list[current] *= weight;
+                            }
+                            else
+                            {
+                                list.Add(current, weight);
+                            }
                         }
                         if (current.CreateAvail(this))
                         {
-                            allMilitaries.Add(current);
+                            allMilitaries2.Add(current);
+                            if (allMilitaries.ContainsKey(current))
+                            {
+                                allMilitaries[current] *= weight;
+                            }
+                            else
+                            {
+                                allMilitaries.Add(current, weight);
+                            }
                         }
                     }
                 }
                 if (list.Count > 0)
                 {
-                    current = list[GameObject.Random(list.Count)] as MilitaryKind;
-                    this.CreateMilitary(current.findSuccessorCreatable(list, this));
+                    current = GameObject.WeightedRandom(list);
+                    this.CreateMilitary(current.findSuccessorCreatable(list2, this));
                 }
                 else if (allMilitaries.Count > 0)
                 {
-                    current = allMilitaries[GameObject.Random(allMilitaries.Count)] as MilitaryKind;
-                    this.CreateMilitary(current.findSuccessorCreatable(allMilitaries, this));
+                    current = GameObject.WeightedRandom(allMilitaries);
+                    this.CreateMilitary(current.findSuccessorCreatable(allMilitaries2, this));
                 }
                 /*if (GameObject.Chance(90))
                 {
@@ -5671,7 +5728,15 @@
 
         private bool isPersonAllowedIntoTroop(Person person, Military military, bool offensive)
         {
-            return person.LocationArchitecture == this && !person.TooTiredToBattle && GameObject.Random(person.Tiredness) == 0 && (person.Command >= military.Kind.MinCommand);
+            bool r = person.LocationArchitecture == this && !person.TooTiredToBattle && GameObject.Random(person.Tiredness) == 0 && (person.Command >= military.Kind.MinCommand);
+            foreach (KeyValuePair<Condition, float> c in military.Kind.AILeaderConditionWeight)
+            {
+                if (c.Key.CheckCondition(person) && c.Value <= 0)
+                {
+                    return false;
+                }
+            }
+            return r;
         }
 
         private TroopList AISelectPersonIntoTroop(Architecture from, Military military, bool offensive)

@@ -8181,7 +8181,7 @@
                 Dictionary<TitleKind, List<Title>> titles = Title.GetKindTitleDictionary(scen);
                 foreach (KeyValuePair<TitleKind, List<Title>> kv in titles)
                 {
-                    Dictionary<Title, double> chances = new Dictionary<Title, double>();
+                    Dictionary<Title, float> chances = new Dictionary<Title, float>();
                     foreach (Title t in kv.Value)
                     {
                         if (t.CanBeChosenForGenerated())
@@ -8190,24 +8190,7 @@
                         }
                     }
 
-                    int randMax = 10000;
-                    double sum = 0;
-                    foreach (double i in chances.Values)
-                    {
-                        sum += i;
-                    }
-
-                    int p = GameObject.Random(randMax);
-                    double pt = 0;
-                    foreach (KeyValuePair<Title, double> td in chances)
-                    {
-                        pt += td.Value / sum * randMax;
-                        if (p < pt)
-                        {
-                            r.RealTitles.Add(td.Key);
-                            break;
-                        }
-                    }
+                    r.RealTitles.Add(GameObject.WeightedRandom(chances));
                 }
             }
         }

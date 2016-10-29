@@ -17,6 +17,7 @@
     using System.Linq;
     using GameObjects.Influences;
     using System.Text;
+    using GameObjects.Conditions;
 
 
     public class Faction : GameObject
@@ -2077,7 +2078,7 @@
                 {
                     if (this.PreferredTechniqueKinds.Count > 0)
                     {
-                        List<Technique> list = new List<Technique>();
+                        Dictionary<Technique, float> list = new Dictionary<Technique, float>();
                         float preferredTechniqueComplition = this.GetPreferredTechniqueComplition();
                         foreach (Technique technique in base.Scenario.GameCommonData.AllTechniques.Techniques.Values)
                         {
@@ -2086,35 +2087,45 @@
                                 continue;
                             }
                             if (this.GetTechniqueUsefulness(technique) <= 0) continue;
+
+                            float weight = 1;
+                            foreach (KeyValuePair<Condition, float> c in technique.AIConditionWeight)
+                            {
+                                if (c.Key.CheckCondition(this))
+                                {
+                                    weight *= c.Value;  
+                                }
+                            }
+
                             if (preferredTechniqueComplition < 0.5f)
                             {
                                 if (this.PreferredTechniqueKinds.IndexOf(technique.Kind) >= 0)
                                 {
-                                    list.Add(technique);
+                                    list.Add(technique, weight);
                                 }
                             }
                             else if (preferredTechniqueComplition < 0.75f)
                             {
                                 if ((this.PreferredTechniqueKinds.IndexOf(technique.Kind) >= 0) || GameObject.Chance(0x19))
                                 {
-                                    list.Add(technique);
+                                    list.Add(technique, weight);
                                 }
                             }
                             else if (preferredTechniqueComplition < 1f)
                             {
                                 if ((this.PreferredTechniqueKinds.IndexOf(technique.Kind) >= 0) || GameObject.Chance(50))
                                 {
-                                    list.Add(technique);
+                                    list.Add(technique, weight);
                                 }
                             }
                             else if ((this.PreferredTechniqueKinds.IndexOf(technique.Kind) >= 0) || GameObject.Chance(0x4b))
                             {
-                                list.Add(technique);
+                                list.Add(technique, weight);
                             }
                         }
                         if (list.Count > 0)
                         {
-                            this.PlanTechnique = list[GameObject.Random(list.Count)];
+                            this.PlanTechnique = GameObject.WeightedRandom(list);
                         }
                         else
                         {
@@ -3385,17 +3396,26 @@
 
         private Technique GetRandomTechnique()
         {
-            List<Technique> list = new List<Technique>();
+            Dictionary<Technique, float> list = new Dictionary<Technique, float>();
             foreach (Technique technique in base.Scenario.GameCommonData.AllTechniques.Techniques.Values)
             {
                 if (this.IsTechniqueUpgradable(technique) && this.GetTechniqueUsefulness(technique) > 0)
                 {
-                    list.Add(technique);
+                    float weight = 1;
+                    foreach (KeyValuePair<Condition, float> c in technique.AIConditionWeight)
+                    {
+                        if (c.Key.CheckCondition(this))
+                        {
+                            weight *= c.Value;
+                        }
+                    }
+
+                    list.Add(technique, weight);
                 }
             }
             if (list.Count > 0)
             {
-                return list[GameObject.Random(list.Count)];
+                return GameObject.WeightedRandom(list);
             }
             return null;
         }

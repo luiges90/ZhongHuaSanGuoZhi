@@ -22,6 +22,9 @@
         public InfluenceTable Influences = new InfluenceTable();
 
         public ConditionTable CastConditions = new ConditionTable();
+        public Dictionary<Condition, float> AIConditionWeightSelf = new Dictionary<Condition, float>();
+        public Dictionary<Condition, float> AIConditionWeightEnemy = new Dictionary<Condition, float>();
+
 
         private bool self;
         private int techniquePoint;

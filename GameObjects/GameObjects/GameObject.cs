@@ -2,6 +2,7 @@
 {
     using GameGlobal;
     using System;
+    using System.Collections.Generic;
 
     public class GameObject
     {
@@ -132,6 +133,28 @@
             {
                 this.textResultString = value;
             }
+        }
+
+        public static T WeightedRandom<T>(Dictionary<T, float> weights)
+        {
+            int randMax = 10000;
+            double sum = 0;
+            foreach (double i in weights.Values)
+            {
+                sum += i;
+            }
+
+            int p = GameObject.Random(randMax);
+            double pt = 0;
+            foreach (KeyValuePair<T, float> td in weights)
+            {
+                pt += td.Value / sum * randMax;
+                if (p < pt)
+                {
+                    return td.Key;
+                }
+            }
+            return default(T);
         }
     }
 }

@@ -1232,9 +1232,19 @@
                     {
                         if (this.HasStratagem(stratagem.ID))
                         {
+
                             if (stratagem.Self)
                             {
                                 moveCreditByPosition = this.GetSelfStratagemCredit(stratagem);
+
+                                foreach (KeyValuePair<Condition, float> weight in stratagem.AIConditionWeightSelf)
+                                {
+                                    if (weight.Key.CheckCondition(this))
+                                    {
+                                        moveCreditByPosition.Credit = (int)(moveCreditByPosition.Credit * weight.Value);
+                                    }
+                                }
+
                                 moveCreditByPosition.Credit -= stratagem.Combativity;
                                 if (moveCreditByPosition.Credit >= credit)
                                 {
@@ -1251,6 +1261,22 @@
                                     foreach (Troop troop in friendlyTroopList)
                                     {
                                         moveCreditByPosition = this.GetStratagemCreditByPosition(stratagem, troop);
+
+                                        foreach (KeyValuePair<Condition, float> weight in stratagem.AIConditionWeightSelf)
+                                        {
+                                            if (weight.Key.CheckCondition(this))
+                                            {
+                                                moveCreditByPosition.Credit = (int)(moveCreditByPosition.Credit * weight.Value);
+                                            }
+                                        }
+                                        foreach (KeyValuePair<Condition, float> weight in stratagem.AIConditionWeightEnemy)
+                                        {
+                                            if (weight.Key.CheckCondition(troop))
+                                            {
+                                                moveCreditByPosition.Credit = (int)(moveCreditByPosition.Credit * weight.Value);
+                                            }
+                                        }
+
                                         moveCreditByPosition.Credit -= stratagem.Combativity;
                                         if (moveCreditByPosition.Credit >= credit)
                                         {
@@ -1264,7 +1290,24 @@
                                 {
                                     foreach (Troop troop in hostileTroopList)
                                     {
+                                       
                                         moveCreditByPosition = this.GetStratagemCreditByPosition(stratagem, troop);
+
+                                        foreach (KeyValuePair<Condition, float> weight in stratagem.AIConditionWeightSelf)
+                                        {
+                                            if (weight.Key.CheckCondition(this))
+                                            {
+                                                moveCreditByPosition.Credit = (int)(moveCreditByPosition.Credit * weight.Value);
+                                            }
+                                        }
+                                        foreach (KeyValuePair<Condition, float> weight in stratagem.AIConditionWeightEnemy)
+                                        {
+                                            if (weight.Key.CheckCondition(troop))
+                                            {
+                                                moveCreditByPosition.Credit = (int)(moveCreditByPosition.Credit * weight.Value);
+                                            }
+                                        }
+
                                         moveCreditByPosition.Credit -= stratagem.Combativity;
                                         if (moveCreditByPosition.Credit >= credit)
                                         {

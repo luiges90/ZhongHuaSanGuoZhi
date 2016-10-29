@@ -4,6 +4,7 @@
     using GameObjects.Influences;
     using GameObjects.Conditions;
     using System;
+    using System.Collections.Generic;
 
     public class Technique : GameObject
     {
@@ -19,6 +20,7 @@
         private int postID;
         private int preID;
         private int reputation;
+        public Dictionary<Condition, float> AIConditionWeight = new Dictionary<Condition, float>();
 
         public GameObjectList GetInfluenceList()
         {

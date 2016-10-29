@@ -724,6 +724,11 @@
                 catch
                 {
                 }
+                try
+                {
+                    errorMsg.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, reader["AIConditionWeight"].ToString(), out technique.AIConditionWeight));
+                }
+                catch { }
                 this.AllTechniques.AddTechnique(technique);
             }
             connection.Close();
@@ -1136,6 +1141,16 @@
                     e.AddRange(militaryKind.CreateConditions.LoadFromString(this.AllConditions, reader["CreateConditions"].ToString()));
                 }
                 catch { }
+
+                try
+                {
+                    e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, reader["AICreateArchitectureConditionWeight"].ToString(), out militaryKind.AICreateArchitectureConditionWeight));
+                    e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, reader["AIUpgradeArchitectureConditionWeight"].ToString(), out militaryKind.AIUpgradeArchitectureConditionWeight));
+                    e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, reader["AIUpgradeLeaderConditionWeight"].ToString(), out militaryKind.AIUpgradeLeaderConditionWeight));
+                    e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, reader["AILeaderConditionWeight"].ToString(), out militaryKind.AILeaderConditionWeight));
+                }
+                catch { }
+
                 if (e.Count > 0)
                 {
                     errorMsg.Add("称号ID" + militaryKind.ID);
@@ -1367,6 +1382,14 @@
                 stratagem.CastTarget = this.AllCastTargetKinds.GetGameObject((short)reader["CastTarget"]) as CastTargetKind;
                 stratagem.ArchitectureTarget = (bool)reader["ArchitectureTarget"];
                 stratagem.RequireInfluenceToUse = (bool)reader["RequireInfluneceToUse"];
+                try
+                {
+                    e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, (string)reader["AIConditionWeightSelf"], out stratagem.AIConditionWeightSelf));
+                    e.AddRange(Condition.LoadConditionWeightFromString(this.AllConditions, (string)reader["AIConditionWeightEnemy"], out stratagem.AIConditionWeightEnemy));
+                }
+                catch
+                {
+                }
                 this.AllStratagems.AddStratagem(stratagem);
             }
             connection.Close();
