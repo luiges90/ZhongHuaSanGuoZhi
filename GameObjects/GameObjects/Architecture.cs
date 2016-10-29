@@ -5894,6 +5894,11 @@
                             //this.PostCreateTroop(troop2, false);
                             this.TotalFriendlyForce += troop2.FightingForce;
                             troopSent++;
+
+                            if (this.Endurance > this.EnduranceCeiling * 0.2f && this.TotalFriendlyForce * 5 > this.TotalHostileForce)
+                            {
+                                break;
+                            }
                         }
 
                         foreach (Troop t in list4)
