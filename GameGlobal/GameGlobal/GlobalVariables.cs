@@ -162,6 +162,8 @@
         public static int FixedUnnaturalDeathAge = 80;
         public static bool AIQuickBattle = false;
 
+        public static bool PlayerAutoSectionHasAIResourceBonus = false;
+
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()

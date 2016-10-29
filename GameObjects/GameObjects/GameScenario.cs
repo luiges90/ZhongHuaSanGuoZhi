@@ -2530,6 +2530,18 @@
             return ((faction != null) && (this.PlayerFactions.GetGameObject(faction.ID) != null));
         }
 
+        public bool HasAIResourceBonus(Section section)
+        {
+            if (GlobalVariables.PlayerAutoSectionHasAIResourceBonus)
+            {
+                return section != null && (!IsPlayer(section.BelongedFaction) || !section.AIDetail.AutoRun);
+            }
+            else
+            {
+                return section != null && !IsPlayer(section.BelongedFaction);
+            }
+        }
+
         public bool IsPlayerControlling()
         {
             return (((this.CurrentPlayer != null) && (this.CurrentFaction == this.CurrentPlayer)) && this.CurrentPlayer.Controlling);

@@ -12620,7 +12620,7 @@
                     num = (int)(num * this.BelongedFaction.InternalSurplusRate);
                 }
                 num = (int)(num * Parameters.FoodRate);
-                if (!base.Scenario.IsPlayer(this.BelongedFaction))
+                if (!base.Scenario.HasAIResourceBonus(this.BelongedSection))
                 {
                     num = (int)(num * Parameters.AIFoodRate);
                 }
@@ -12670,7 +12670,7 @@
                     num = (int)(num * this.BelongedFaction.InternalSurplusRate);
                 }
                 num = (int)(num * Parameters.FundRate);
-                if (!base.Scenario.IsPlayer(this.BelongedFaction))
+                if (!base.Scenario.HasAIResourceBonus(this.BelongedSection))
                 {
                     num = (int)(num * Parameters.AIFundRate);
                 }
