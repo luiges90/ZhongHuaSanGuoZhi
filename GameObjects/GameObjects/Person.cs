@@ -8190,7 +8190,10 @@
                         }
                     }
 
-                    r.RealTitles.Add(GameObject.WeightedRandom(chances));
+                    if (chances.Count > 0)
+                    {
+                        r.RealTitles.Add(GameObject.WeightedRandom(chances));
+                    }
                 }
             }
         }

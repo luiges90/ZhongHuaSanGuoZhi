@@ -154,7 +154,7 @@
                     return td.Key;
                 }
             }
-            return default(T);
+            throw new InvalidOperationException("null resulted in WeightedRandom");
         }
     }
 }
