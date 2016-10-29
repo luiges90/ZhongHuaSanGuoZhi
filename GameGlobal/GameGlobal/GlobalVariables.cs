@@ -909,6 +909,15 @@
                 exception = exception24;
                 throw new Exception("AIQuickBattle:\n" + exception.ToString());
             }
+            try
+            {
+                PlayerAutoSectionHasAIResourceBonus = bool.Parse(nextSibling.Attributes.GetNamedItem("PlayerAutoSectionHasAIResourceBonus").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("PlayerAutoSectionHasAIResourceBonus:\n" + exception.ToString());
+            }
             return true;
         }
     }
