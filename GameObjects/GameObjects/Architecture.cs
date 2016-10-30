@@ -12625,7 +12625,7 @@
                     num = (int)(num * this.BelongedFaction.InternalSurplusRate);
                 }
                 num = (int)(num * Parameters.FoodRate);
-                if (!base.Scenario.HasAIResourceBonus(this.BelongedSection))
+                if (base.Scenario.HasAIResourceBonus(this.BelongedSection))
                 {
                     num = (int)(num * Parameters.AIFoodRate);
                 }
