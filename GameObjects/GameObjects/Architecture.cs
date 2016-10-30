@@ -12675,7 +12675,7 @@
                     num = (int)(num * this.BelongedFaction.InternalSurplusRate);
                 }
                 num = (int)(num * Parameters.FundRate);
-                if (!base.Scenario.HasAIResourceBonus(this.BelongedSection))
+                if (base.Scenario.HasAIResourceBonus(this.BelongedSection))
                 {
                     num = (int)(num * Parameters.AIFundRate);
                 }
