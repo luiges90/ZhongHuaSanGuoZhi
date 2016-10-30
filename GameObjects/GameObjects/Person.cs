@@ -1418,7 +1418,7 @@
                 yearDead += this.LongetivityIncreaseByInfluence;
 
                 if (yearDead - 5 <= base.Scenario.Date.Year && base.Scenario.Date.Year < this.YearDead &&
-                     GameObject.Random(10) == 0 && GameObject.Chance((6 - (yearDead - base.Scenario.Date.Year)) * 18))
+                     GameObject.Random(60) == 0 && GameObject.Chance((6 - (yearDead - base.Scenario.Date.Year)) * 18))
                 {
                     this.InjureRate -= 0.1f;
                     base.Scenario.GameScreen.OnOfficerSick(this);
@@ -1428,25 +1428,30 @@
                     if (this.DeadReason == PersonDeadReason.被杀死 && GameObject.Chance(50))
                     {
                         this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
-                        base.Scenario.GameScreen.OnOfficerSick(this);
                     }
                     else if (this.DeadReason == PersonDeadReason.郁郁而终 && GameObject.Chance(50) &&
                         (this.BelongedFaction == null || this.Status == PersonStatus.Captive || this.BelongedFaction.ArchitectureTotalSize <= 8))
                     {
                         this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
-                        base.Scenario.GameScreen.OnOfficerSick(this);
                     }
                     else if (this.DeadReason == PersonDeadReason.操劳过度 && GameObject.Chance(50) &&
-                        this.InternalExperience + this.StratagemExperience + this.TacticsExperience 
+                        this.InternalExperience + this.StratagemExperience + this.TacticsExperience
                         + this.BubingExperience + this.QibingExperience + this.NubingExperience + this.ShuijunExperience + this.QixieExperience >= 30000)
                     {
                         this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
-                        base.Scenario.GameScreen.OnOfficerSick(this);
+                    }
+                    else
+                    {
+                        this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
                     }
 
                     if (this.InjureRate <= 0)
                     {
                         this.ToDeath(null, this.BelongedFaction);
+                    }
+                    else
+                    {
+                        base.Scenario.GameScreen.OnOfficerSick(this);
                     }
                 }
                 
