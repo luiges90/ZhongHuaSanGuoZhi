@@ -8675,7 +8675,7 @@
             r.Generation = father.Generation + 1;
             r.Strain = father.Strain;
 
-            r.Sex = GameObject.Chance(father.Scenario.GameCommonData.PersonGeneratorSetting.femaleChance) ? true : false;
+            r.Sex = GameObject.Chance(father.Scenario.GameCommonData.PersonGeneratorSetting.ChildrenFemaleChance) ? true : false;
         }
 
         private static Person HandleChildrenId(Person father)

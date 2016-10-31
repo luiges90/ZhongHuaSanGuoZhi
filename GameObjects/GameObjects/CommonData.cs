@@ -1614,6 +1614,14 @@
                 this.PersonGeneratorSetting.dieHi = (int)reader["DieHi"];
                 this.PersonGeneratorSetting.femaleChance = (int)reader["FemaleChance"];
                 this.PersonGeneratorSetting.debutAtLeast = (int)reader["DebutAtLeast"];
+                try
+                {
+                    this.PersonGeneratorSetting.ChildrenFemaleChance = (int)reader["ChildrenFemaleChance"];
+                }
+                catch
+                {
+                    this.PersonGeneratorSetting.ChildrenFemaleChance = this.PersonGeneratorSetting.femaleChance;
+                }
             }  
             connection.Close();
 
@@ -3040,6 +3048,7 @@
                 row["Diehi"] = PersonGeneratorSetting.dieHi;
                 row["FemaleChance"] = PersonGeneratorSetting.femaleChance;
                 row["DebutAtLeast"] = PersonGeneratorSetting.debutAtLeast;
+                row["ChildrenFemaleChance"] = PersonGeneratorSetting.ChildrenFemaleChance;
                 row.EndEdit();
                 dataSet.Tables["PersonGenerator"].Rows.Add(row);
                 adapter.Update(dataSet, "PersonGenerator");
