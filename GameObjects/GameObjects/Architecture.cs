@@ -4023,15 +4023,7 @@
        {
            get
            {
-               PersonList result = new PersonList();
-               foreach (Person p in this.Persons)
-               {
-                   if (!this.BelongedFaction.MayorList.GameObjects.Contains(p))
-                   {
-                       result.Add(p);
-                   }
-               }
-               return result;
+               return this.Persons;
            }
        }
 
@@ -4042,7 +4034,7 @@
                 PersonList result = new PersonList() ;
                 foreach (Person p in this.Persons)
                 {
-                    if (p != this.BelongedFaction.Leader && !this.BelongedFaction.MayorList.GameObjects.Contains(p))
+                    if (p != this.BelongedFaction.Leader && this.Mayor != p)
                     {
                         result.Add(p);
                     }
@@ -4057,21 +4049,15 @@
             get 
             {
                 PersonList result = new PersonList();
-                if (!this.Scenario.IsPlayer(this.BelongedFaction))
+
+                foreach (Person p in this.MayorCandicate)
                 {
-
-                    foreach (Person p in this.Persons)
-                    {
-                        if (p != this.BelongedFaction.Leader && !this.BelongedFaction.MayorList.GameObjects.Contains(p) && p.Politics >= 60 && p.Intelligence >= 60 && p.Command < 70)
-                        {
-                            result.Add(p);
-                        }
-                    }
-
+                    result.Add(p);
                 }
-                result.PropertyName = "Politics";
+
+                result.PropertyName = "AbilitySum";
                 result.IsNumber = true;
-                result.SmallToBig = true;
+                result.SmallToBig = false;
                 result.ReSort();
                 return result;
             }

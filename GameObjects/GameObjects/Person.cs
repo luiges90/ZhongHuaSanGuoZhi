@@ -1425,22 +1425,26 @@
                 }
                 else if (base.Scenario.Date.Year >= yearDead)
                 {
-                    if (this.DeadReason == PersonDeadReason.被杀死 && GameObject.Chance(50))
+                    if (this.DeadReason == PersonDeadReason.被杀死 && GameObject.Random(30) == 0)
                     {
                         this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
                     }
-                    else if (this.DeadReason == PersonDeadReason.郁郁而终 && GameObject.Chance(50) &&
+                    else if (this.DeadReason == PersonDeadReason.郁郁而终 && GameObject.Random(30) == 0 &&
                         (this.BelongedFaction == null || this.Status == PersonStatus.Captive || this.BelongedFaction.ArchitectureTotalSize <= 8))
                     {
                         this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
                     }
-                    else if (this.DeadReason == PersonDeadReason.操劳过度 && GameObject.Chance(50) &&
+                    else if (this.DeadReason == PersonDeadReason.操劳过度 && GameObject.Random(30) == 0 &&
                         this.InternalExperience + this.StratagemExperience + this.TacticsExperience
                         + this.BubingExperience + this.QibingExperience + this.NubingExperience + this.ShuijunExperience + this.QixieExperience >= 30000)
                     {
                         this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
                     }
-                    else
+                    else if (this.DeadReason == PersonDeadReason.自然死亡 && GameObject.Random(20) == 0)
+                    {
+                        this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
+                    }
+                    else if (GameObject.Random(90) == 0)
                     {
                         this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
                     }
@@ -4732,6 +4736,12 @@
                 if (this.Status != PersonStatus.Princess   && this.Status != PersonStatus.Captive)
                 {
                     this.WorkKind = ArchitectureWorkKind.无;
+
+                    if (this.BelongedArchitecture.Mayor == this)
+                    {
+                        this.BelongedArchitecture.Mayor = null;
+                    }
+
                     if (this.BelongedFaction != null)
                     {
                         this.Status = PersonStatus.Moving;
