@@ -2885,7 +2885,7 @@
             shizhe.Scenario.YearTable.addChangeFactionEntry(shizhe.Scenario.Date, targetFaction, sourceFaction);
             targetFaction.ChangeFaction(sourceFaction);
             
-            targetFaction.AfterChangeLeader(targetFaction.Leader, sourceFaction.Leader);
+            targetFaction.AfterChangeLeader(sourceFaction, targetFaction.Leader, sourceFaction.Leader);
                 
             foreach (Treasure treasure in targetFaction.Leader.Treasures.GetList())
             {
@@ -3786,7 +3786,7 @@
         public bool YoukenengChuangjianXinShili()
         {
             if (this.IsCaptive || this.LocationArchitecture == null ||
-                (this.Status != PersonStatus.Normal && this.Status != PersonStatus.NoFaction))
+                (this.Status != PersonStatus.Normal && this.Status != PersonStatus.NoFaction && this.Status != PersonStatus.Moving))
             {
                 return false;
             }
@@ -3799,6 +3799,9 @@
             else
             {
                 if (this == this.BelongedFaction.Leader) return false;
+
+                if (this.Hates(this.BelongedFaction.Leader)) return true;
+
                 if (this.Father == this.BelongedFaction.Leader) return false;  //隐含父亲活着，下同。
                 if (this.Mother == this.BelongedFaction.Leader) return false;
                 if (this.IsCloseTo(this.BelongedFaction.Leader)) return false;
@@ -4689,9 +4692,9 @@
 
             if (a == null) return;
 
-            //if (this.Status != PersonStatus.Normal) return;
+            // if (this.Status != PersonStatus.Normal) return;
 
-            // if (this.LocationTroop != null && !this.LocationTroop.Destroyed && this.LocationTroop.Persons.GameObjects.Contains(this)) return;
+            if (this.LocationTroop != null && !this.LocationTroop.Destroyed && this.LocationTroop.Army.BelongedArchitecture != null) return;
 
             if (this.LocationArchitecture != a || startingPoint != null)
             {

@@ -5326,11 +5326,11 @@
         {
             if (GameObject.Random(15) == 0) 
             {
-                this.NewFaction(this.AvailablePersons);
+                this.NewFaction(this.AvailablePersons, false, false);
             }
         }
 
-        internal void NewFaction(PersonList candidates)
+        internal void NewFaction(PersonList candidates, bool leaderChange, bool nonInherited)
         {
             if (GlobalVariables.WujiangYoukenengDuli == false) return;
 
@@ -5346,27 +5346,45 @@
                     }
                 }
             }
-            if (list.Count > 0)
+
+            if (list.Count == 0) return;
+
+            Person p = (Person) list[GameObject.Random(list.Count)];
+            int cnt = 0;
+            foreach (Person person8 in list)
             {
-                Person person3 = list[GameObject.Random(list.Count)] as Person;
-                Architecture location = person3.BelongedArchitecture;
-                Faction faction = person3.BelongedFaction;
-                if (location == null) return;
-                if (faction != null && !person3.Hates(faction.Leader))
+                cnt++;
+                if (!leaderChange && cnt > 1)
                 {
-                    if (person3.Loyalty >= 100) return;
-                    if (person3.Loyalty >= 90 && !person3.LeaderPossibility) return;
+                    break;
                 }
-                if (faction != null && Person.GetIdealOffset(faction.Leader, person3) <= 10 && !person3.Hates(faction.Leader)) return;
-                if (faction != null && location == faction.Capital) return;
+
+                if (leaderChange)
+                {
+                    p = person8;
+                }
+
+                Architecture location = p.BelongedArchitecture;
+                Faction faction = p.BelongedFaction;
+                if (location == null) continue;
+                if (faction != null && !p.Hates(faction.Leader))
+                {
+                    if (p.Loyalty >= 100) continue;
+                    if (p.Loyalty >= 90 && !p.LeaderPossibility) continue;
+                }
+                if (faction != null && Person.GetIdealOffset(faction.Leader, p) <= 10 && !p.Hates(faction.Leader)) continue;
+                if (faction != null && location == faction.Capital) continue;
                 //if (GameObject.Random(15) != 0) return;
+
                 if (GameObject.Random(location.Population + location.ArmyScale * 5000 +
                         location.Domination * 200 + location.Morale * 10) >
-                    GameObject.Random(person3.Reputation *
-                    (person3.LeaderPossibility ? 3 : 1) *
-                    (faction != null && person3.Hates(faction.Leader) ? 10 : 1) *
-                    (faction == null ? 2 : 1))) return;
-                this.CreateNewFaction(person3);
+                    GameObject.Random(p.Reputation *
+                    (p.LeaderPossibility ? 3 : 1) *
+                    (leaderChange && nonInherited ? p.Ambition * p.Ambition : 1) *
+                    (faction != null && leaderChange && nonInherited ? Person.GetIdealOffset(p, faction.Leader) / 10 + 1 : 1) *
+                    (faction != null && (p.Hates(faction.Leader) || faction.Leader.Hates(p)) ? (leaderChange ? 1000 : 3) : 1) *
+                    (faction == null ? 2 : 1))) continue;
+                this.CreateNewFaction(p);
             }
         }
 

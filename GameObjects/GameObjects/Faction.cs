@@ -2384,7 +2384,7 @@
             ExtensionInterface.call("ChangeFaction", new Object[] { this.Scenario, this });
         }
 
-        public void AfterChangeLeader(Person oldLeader, Person newLeader)
+        public void AfterChangeLeader(Faction newFaction, Person oldLeader, Person newLeader)
         {
             foreach (Architecture a in this.Architectures)
             {
@@ -2394,10 +2394,7 @@
                 }
             }
 
-            do
-            {
-                base.Scenario.NewFaction(this.Persons);
-            } while (GameObject.Chance(50));
+            base.Scenario.NewFaction(newFaction.Persons, true, oldLeader.Strain != newLeader.Strain && !newLeader.IsVeryCloseTo(oldLeader));
         }
 
         public Faction ChangeLeaderAfterLeaderDeath()
@@ -2556,7 +2553,7 @@
                         leader.LoseTreasure(treasure);
                         treasure.Available = false;
                     }
-                    this.AfterChangeLeader(leader, maxFriendlyDiplomaticRelation.Leader);
+                    this.AfterChangeLeader(maxFriendlyDiplomaticRelation, leader, maxFriendlyDiplomaticRelation.Leader);
                     return maxFriendlyDiplomaticRelation;
                 }
             }
@@ -2637,7 +2634,7 @@
                 }
                 ExtensionInterface.call("ChangeKing", new Object[] { this.Scenario, this });
                 base.Scenario.YearTable.addChangeKingEntry(base.Scenario.Date, this.Leader, this, leader);
-                this.AfterChangeLeader(leader, this.Leader);
+                this.AfterChangeLeader(this, leader, this.Leader);
                 return this;
             }
             foreach (Treasure treasure in leader.Treasures.GetList())
