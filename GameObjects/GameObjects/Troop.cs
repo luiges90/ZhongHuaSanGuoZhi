@@ -4890,8 +4890,8 @@
                                                 attackArchitecutreCredit /= 2;
                                             }
                                         }
-                                        surroundingCredit = this.GetSurroundingCredit(troopByPositionNoCheck);
-                                        if (surroundingCredit > 0)
+                                        surroundingCredit = this.GetSurroundingCredit(troopByPositionNoCheck) * GlobalVariables.SurroundFactor;
+                                        if (surroundingCredit > 0 && !troopByPositionNoCheck.StuntAvoidSurround)
                                         {
                                             attackArchitecutreCredit += surroundingCredit * (100 - troopByPositionNoCheck.AvoidSurroundedChance);
                                         }
@@ -4937,8 +4937,8 @@
                                         attackArchitecutreCredit /= 2;
                                     }
                                 }
-                                surroundingCredit = this.GetSurroundingCredit(troopByPositionNoCheck);
-                                if (surroundingCredit > 0)
+                                surroundingCredit = this.GetSurroundingCredit(troopByPositionNoCheck) * GlobalVariables.SurroundFactor;
+                                if (surroundingCredit > 0 && !troopByPositionNoCheck.StuntAvoidSurround)
                                 {
                                     attackArchitecutreCredit += surroundingCredit * (100 - troopByPositionNoCheck.AvoidSurroundedChance);
                                 }
@@ -4983,7 +4983,32 @@
                 {
                     if (base.Scenario.GetSimpleDistance(position, p) <= 1)
                     {
-                        num *= 2;
+                        int cnt = 0;
+                        Architecture a = base.Scenario.GetArchitectureByPosition(new Point(position.X, position.Y - 1));
+                        if (a != null && a.IsHostile(this.BelongedFaction))
+                        {
+                            cnt++;
+                        }
+                        a = base.Scenario.GetArchitectureByPosition(new Point(position.X, position.Y + 1));
+                        if (a != null && a.IsHostile(this.BelongedFaction))
+                        {
+                            cnt++;
+                        }
+                        a = base.Scenario.GetArchitectureByPosition(new Point(position.X - 1, position.Y));
+                        if (a != null && a.IsHostile(this.BelongedFaction))
+                        {
+                            cnt++;
+                        }
+                        a = base.Scenario.GetArchitectureByPosition(new Point(position.X + 1, position.Y));
+                        if (a != null && a.IsHostile(this.BelongedFaction))
+                        {
+                            cnt++;
+                        }
+
+                        if (cnt < 2)
+                        {
+                            num *= 2;
+                        }
                     }
                 }
 
