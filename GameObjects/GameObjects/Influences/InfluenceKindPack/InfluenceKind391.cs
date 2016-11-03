@@ -34,6 +34,12 @@
                 {
                     num3 /= (destination.ChaosDayLeft - 1);
                 }
+                num3 *= (1 - troop.ChaosRecoverByViewArea / 100);
+                num3 *= (1 - troop.ChaosRecoverInViewArea / 100);
+                if (troop.ChaosLastOneDay)
+                {
+                    num3 /= 5;
+                }
                 if (num3 > 0)
                 {
                     num3 = (((num3 + ((120 - troop.Morale) / 2)) + ((troop.Army.Scales - 5) * 5)) * troop.PureFightingForce) / pureFightingForce;
