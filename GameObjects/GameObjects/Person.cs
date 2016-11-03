@@ -3901,7 +3901,10 @@
             PersonRelationValueList list = new PersonRelationValueList();
             foreach (KeyValuePair<Person, int> i in relations) 
             {
-                list.Add(new PersonRelationValue(this, i.Key, i.Value));
+                if (i.Key.Alive && i.Key.Available)
+                {
+                    list.Add(new PersonRelationValue(this, i.Key, i.Value));
+                }
             }
             return list;
         }
