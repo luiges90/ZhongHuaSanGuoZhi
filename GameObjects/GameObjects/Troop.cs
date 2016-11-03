@@ -4979,38 +4979,9 @@
                 num += this.GetHostileRoutewayCredit(position);
                 num += this.GetTerrainCredit(position);
 
-                foreach (Point p in this.WillArchitecture.ArchitectureArea.Area) 
-                {
-                    if (base.Scenario.GetSimpleDistance(position, p) <= 1)
-                    {
-                        int cnt = 0;
-                        Architecture a = base.Scenario.GetArchitectureByPosition(new Point(position.X, position.Y - 1));
-                        if (a != null && a.IsHostile(this.BelongedFaction))
-                        {
-                            cnt++;
-                        }
-                        a = base.Scenario.GetArchitectureByPosition(new Point(position.X, position.Y + 1));
-                        if (a != null && a.IsHostile(this.BelongedFaction))
-                        {
-                            cnt++;
-                        }
-                        a = base.Scenario.GetArchitectureByPosition(new Point(position.X - 1, position.Y));
-                        if (a != null && a.IsHostile(this.BelongedFaction))
-                        {
-                            cnt++;
-                        }
-                        a = base.Scenario.GetArchitectureByPosition(new Point(position.X + 1, position.Y));
-                        if (a != null && a.IsHostile(this.BelongedFaction))
-                        {
-                            cnt++;
-                        }
-
-                        if (cnt < 2)
-                        {
-                            num *= 2;
-                        }
-                    }
-                }
+                num *= this.GetNextToArchitectureCredit(position);
+                // TODO complete this
+                // num *= this.GetBlockingTroopCredit(position);
 
                 pack.Credit = num;
                 pack.TargetTroop = troop;
@@ -5026,6 +4997,143 @@
             }
             pack.HasUnAttackableTroop = flag2;
             return pack;
+        }
+
+        private int GetNextToArchitectureCredit(Point position)
+        {
+            foreach (Point p in this.WillArchitecture.ArchitectureArea.Area)
+            {
+                if (base.Scenario.GetSimpleDistance(position, p) <= 1)
+                {
+                    int cnt = 0;
+                    Architecture a = base.Scenario.GetArchitectureByPosition(new Point(position.X, position.Y - 1));
+                    if (a != null && a.IsHostile(this.BelongedFaction))
+                    {
+                        cnt++;
+                    }
+                    a = base.Scenario.GetArchitectureByPosition(new Point(position.X, position.Y + 1));
+                    if (a != null && a.IsHostile(this.BelongedFaction))
+                    {
+                        cnt++;
+                    }
+                    a = base.Scenario.GetArchitectureByPosition(new Point(position.X - 1, position.Y));
+                    if (a != null && a.IsHostile(this.BelongedFaction))
+                    {
+                        cnt++;
+                    }
+                    a = base.Scenario.GetArchitectureByPosition(new Point(position.X + 1, position.Y));
+                    if (a != null && a.IsHostile(this.BelongedFaction))
+                    {
+                        cnt++;
+                    }
+
+                    if (cnt < 2)
+                    {
+                        return 2;
+                    }
+                }
+            }
+            return 1;
+        }
+
+        private double GetBlockingTroopCredit(Point position)
+        {
+            double result = 1;
+            Point p;
+            Troop u;
+
+            p = new Point(position.X, position.Y - 1);
+            u = base.Scenario.GetTroopByPosition(p);
+            if (u != null && u.BelongedFaction.IsHostile(this.BelongedFaction))
+            {
+                int ms = u.GetMovingSpaces();
+                result *= 1 + (4 - ms) * (4 - ms) * 0.1;
+            }
+
+            p = new Point(position.X, position.Y + 1);
+            u = base.Scenario.GetTroopByPosition(p);
+            if (u != null && u.BelongedFaction.IsHostile(this.BelongedFaction))
+            {
+                int ms = u.GetMovingSpaces();
+                result *= 1 + (4 - ms) * (4 - ms) * 0.1;
+            }
+
+            p = new Point(position.X - 1, position.Y);
+            u = base.Scenario.GetTroopByPosition(p);
+            if (u != null && u.BelongedFaction.IsHostile(this.BelongedFaction))
+            {
+                int ms = u.GetMovingSpaces();
+                result *= 1 + (4 - ms) * (4 - ms) * 0.1;
+            }
+
+            p = new Point(position.X + 1, position.Y);
+            u = base.Scenario.GetTroopByPosition(p);
+            if (u != null && u.BelongedFaction.IsHostile(this.BelongedFaction))
+            {
+                int ms = u.GetMovingSpaces();
+                result *= 1 + (4 - ms) * (4 - ms) * 0.1;
+            }
+
+            
+
+            return result;
+        }
+
+
+        private int GetMovingSpaces()
+        {
+            int result = 0;
+
+            Point p;
+            Troop u;
+            Architecture a;
+            TerrainDetail d;
+
+            p = new Point(this.Position.X, this.Position.Y - 1);
+            u = base.Scenario.GetTroopByPosition(p);
+            a = base.Scenario.GetArchitectureByPosition(p);
+            d = base.Scenario.GetTerrainDetailByPosition(p);
+            if ((u == null || u.BelongedFaction.IsFriendly(this.BelongedFaction)) &&
+                (a == null || a.BelongedFaction.IsFriendly(this.BelongedFaction)) &&
+                this.Army.Kind.Adaptabilities[d.ID] > this.Army.Kind.Movability)
+            {
+                result++;
+            }
+
+            p = new Point(this.Position.X, this.Position.Y + 1);
+            u = base.Scenario.GetTroopByPosition(p);
+            a = base.Scenario.GetArchitectureByPosition(p);
+            d = base.Scenario.GetTerrainDetailByPosition(p);
+            if ((u == null || u.BelongedFaction.IsFriendly(this.BelongedFaction)) &&
+                (a == null || a.BelongedFaction.IsFriendly(this.BelongedFaction)) &&
+                this.Army.Kind.Adaptabilities[d.ID] > this.Army.Kind.Movability)
+            {
+                result++;
+            }
+
+            p = new Point(this.Position.X - 1, this.Position.Y);
+            u = base.Scenario.GetTroopByPosition(p);
+            a = base.Scenario.GetArchitectureByPosition(p);
+            d = base.Scenario.GetTerrainDetailByPosition(p);
+            if ((u == null || u.BelongedFaction.IsFriendly(this.BelongedFaction)) &&
+                (a == null || a.BelongedFaction.IsFriendly(this.BelongedFaction)) &&
+                this.Army.Kind.Adaptabilities[d.ID] > this.Army.Kind.Movability)
+            {
+                result++;
+            }
+
+            p = new Point(this.Position.X + 1, this.Position.Y);
+            u = base.Scenario.GetTroopByPosition(p);
+            a = base.Scenario.GetArchitectureByPosition(p);
+            d = base.Scenario.GetTerrainDetailByPosition(p);
+            if ((u == null || u.BelongedFaction.IsFriendly(this.BelongedFaction)) &&
+                (a == null || a.BelongedFaction.IsFriendly(this.BelongedFaction)) &&
+                this.Army.Kind.Adaptabilities[d.ID] > this.Army.Kind.Movability)
+            {
+                result++;
+            }
+
+            return result;
         }
 
         public Rectangle GetCurrentDirectionAnimationRectangle(Rectangle origin)
