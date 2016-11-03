@@ -5983,6 +5983,11 @@
             {
                 num2 += (this.ChaosAfterStratagemSuccessChance * num2) / 100;
             }
+            num -= troop.MoraleIncreaseByViewArea * 5;
+            num -= troop.MoraleIncreaseInViewArea * 5;
+            num += troop.MoraleDecreaseByViewArea * 5;
+            num += troop.MoraleDecreaseInViewArea * 5;
+            num -= troop.IncrementPerDayOfMorale * 5;
             return num2;
         }
 
