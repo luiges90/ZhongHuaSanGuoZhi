@@ -12,8 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginInterface", "WorldOfT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldOfTheThreeKingdoms", "WorldOfTheThreeKingdoms\WorldOfTheThreeKingdoms.csproj", "{2E2F316D-58E4-4D37-A6D5-2918AF7CBEBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEditor", "MapEditor\MapEditor.csproj", "{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirViewPlugin", "WorldOfTheThreeKingdoms\AirViewPlugin\AirViewPlugin.csproj", "{F26B7073-978E-4B27-AA27-669D4F01C439}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameFreeText", "GameFreeText\GameFreeText.csproj", "{E13A763D-DC5B-447F-AF3F-392343B8875B}"
@@ -72,16 +70,6 @@ Global
 		{2E2F316D-58E4-4D37-A6D5-2918AF7CBEBB}.Release|Mixed Platforms.Build.0 = Release|x86
 		{2E2F316D-58E4-4D37-A6D5-2918AF7CBEBB}.Release|x86.ActiveCfg = Release|x86
 		{2E2F316D-58E4-4D37-A6D5-2918AF7CBEBB}.Release|x86.Build.0 = Release|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Debug|x86.ActiveCfg = Debug|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Debug|x86.Build.0 = Debug|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Release|Any CPU.ActiveCfg = Release|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Release|Mixed Platforms.Build.0 = Release|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Release|x86.ActiveCfg = Release|x86
-		{8A58A0F7-3E6B-460D-9880-0C2CD05ECA11}.Release|x86.Build.0 = Release|x86
 		{F26B7073-978E-4B27-AA27-669D4F01C439}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{F26B7073-978E-4B27-AA27-669D4F01C439}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{F26B7073-978E-4B27-AA27-669D4F01C439}.Debug|Mixed Platforms.Build.0 = Debug|x86

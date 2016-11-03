@@ -9501,6 +9501,42 @@
             return result;
         }
 
+
+
+        private Person Belongedperson;
+
+        public Person belongedperson
+        {
+            get
+            {
+                return this.Belongedperson;
+            }
+            set
+            {
+                this.Belongedperson = value;
+            }
+        }
+
+
+        private string belongedPersonName="";
+
+
+        public string BelongedPersonName
+        {
+            get
+            {
+                if (this.belongedperson != null)
+                {
+                      return belongedperson.Name.ToString(); ;
+                }
+                else return belongedPersonName;
+            }
+            set
+            {
+                belongedPersonName = value;
+            }
+        }
+
     }
 }
 

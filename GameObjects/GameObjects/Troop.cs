@@ -3236,6 +3236,14 @@
             //troop.Persons.ApplyInfluences();
             troop.RefreshAllData();
             ExtensionInterface.call("CreateTroop", new Object[] { troop.Scenario, troop });
+            foreach (Person p in troop.persons)
+            {
+                if (p != troop.Leader)
+                {
+                    p.belongedperson = troop.Leader;
+                }
+                else p.belongedperson = null;
+            }
             return troop;
         }
 

@@ -3407,6 +3407,13 @@
                 person.RecruitmentMilitary = null;
                 person.ArrivingDays = (short)reader["ArrivingDays"];
                 person.TaskDays = (short)reader["TaskDays"];
+                try
+                {
+                    person.BelongedPersonName = reader["belongedperson"].ToString();
+
+                }
+                catch { }
+
                 if ((short)reader["OutsideTask"] >= Enum.GetNames(typeof(OutsideTaskKind)).Length || (short)reader["OutsideTask"] < 0)
                 {
                     errors.Add("人物在外工作在0至" + Enum.GetNames(typeof(OutsideTaskKind)).Length + "之间");
@@ -6139,6 +6146,7 @@
                    // row["Guanzhis"] = person.Guanzhis.SaveToString();
                     row["marriageGranter"] = person.marriageGranter != null ? person.marriageGranter.ID : -1;
                     row["TempLoyaltyChange"] = person.TempLoyaltyChange;
+                    row["belongedperson"] =person.BelongedPersonName;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
