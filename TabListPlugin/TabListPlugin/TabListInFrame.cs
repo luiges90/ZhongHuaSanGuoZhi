@@ -412,7 +412,15 @@
 
                                         this.SelectingRows = true;
                                         this.SelectingBool = gameObjectByPosition.Selected;
+
                                         this.SelectedItemList = this.gameObjectList.GetSelectedList();
+                                        if (this.screen.KeyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl))
+                                        {
+                                            foreach (GameObject g in this.gameObjectList)
+                                            {
+                                                g.Selected = !g.Selected;
+                                            }
+                                        }
                                     }
                                     else
                                     {
@@ -424,7 +432,7 @@
                                         this.SelectedItem = gameObjectByPosition;
                                         if (!(this.MultiSelecting || !GlobalVariables.SingleSelectionOneClick))
                                         {
-                                            //this.iGameFrame.OK();
+                                           // this.iGameFrame.OK();
                                         }
                                         else
                                         {
