@@ -48,10 +48,6 @@
     <Compile Include="TabListPlugin\Tab.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConmentTextPlugin\CommentTextPlugin.csproj">
-      <Project>{3581EBAE-3767-401F-B63B-B8C6B05DD979}</Project>
-      <Name>CommentTextPlugin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameFreeText\GameFreeText.csproj">
       <Project>{E13A763D-DC5B-447F-AF3F-392343B8875B}</Project>
       <Name>GameFreeText</Name>
