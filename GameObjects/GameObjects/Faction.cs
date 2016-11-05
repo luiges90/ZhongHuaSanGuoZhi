@@ -1359,7 +1359,7 @@
                     int toSend = a.ArmyScale / 2;
                     foreach (Architecture b in candidates)
                     {
-                        if ((!b.IsTroopExceedsLimit || b.FrontLine) && b.IsFoodTwiceAbundant && !b.Abandoned & b != a)
+                        if (b.FrontLine && b.IsFoodTwiceAbundant && !b.Abandoned & b != a)
                         {
                             int sent = b.CallMilitary(a, toSend);
                             toSend -= sent;
@@ -1427,6 +1427,18 @@
             Dictionary<Architecture, int> goodTroop = new Dictionary<Architecture, int>();
             bool urgent = false;
 
+            int totalPerson = 0;
+            int totalFrontline = 0;
+            foreach (Architecture a in srcArch)
+            {
+                totalPerson += a.PersonCount;
+                if (a.FrontLine)
+                {
+                    totalFrontline++;
+                }
+            }
+            int avgFrontlinePerson = totalPerson / totalFrontline;
+
             foreach (Architecture a in srcArch.GameObjects.Union(destArch.GameObjects))
             {
                 if (!a.Abandoned)
@@ -1441,13 +1453,18 @@
                     }
                     else if (a.PlanArchitecture != null)
                     {
+                        minPerson.Add(a, Math.Min(avgFrontlinePerson, a.EnoughPeople));
+                        minTroop.Add(a, a.TroopReserveScale);
+                    }
+                    else if (a.FrontLine)
+                    {
                         minPerson.Add(a, Math.Min(3, a.EnoughPeople));
                         minTroop.Add(a, a.TroopReserveScale);
                     }
-                    else if (a.FrontLine || a.IsNetLosingPopulation)
+                    else if (a.IsNetLosingPopulation)
                     {
-                        minPerson.Add(a, Math.Min(3, a.EnoughPeople) / 2);
-                        minTroop.Add(a, a.TroopReserveScale);
+                        minPerson.Add(a, a.EnoughPeople);
+                        minTroop.Add(a, 0);
                     }
                     else
                     {
@@ -1462,13 +1479,20 @@
                         int troop = Math.Max(a.HostileScale, a.OrientationScale);
                         if (a.IsVeryGood())
                         {
-                            goodPerson.Add(a, Math.Max(3, minPerson[a]));
+                            goodPerson.Add(a, Math.Max(avgFrontlinePerson, minPerson[a]));
                         }
                         else
                         {
-                            goodPerson.Add(a, Math.Max(a.EnoughPeople, minPerson[a]));
+                            goodPerson.Add(a, Math.Max(Math.Max(avgFrontlinePerson, a.EnoughPeople), minPerson[a]));
                         }
                         goodTroop.Add(a, Math.Max(troop, minTroop[a]));
+                        goodFood.Add(a, Math.Min(a.FoodCeiling, Math.Max(a.AbundantFood * 2, minFood[a])));
+                        goodFund.Add(a, Math.Min(a.FundCeiling, Math.Max(a.AbundantFund, minFund[a])));
+                    }
+                    else if (a.FrontLine)
+                    {
+                        goodPerson.Add(a, Math.Max(avgFrontlinePerson, minPerson[a]));
+                        goodTroop.Add(a, Math.Max(a.TroopReserveScale, minTroop[a]));
                         goodFood.Add(a, Math.Min(a.FoodCeiling, Math.Max(a.AbundantFood * 2, minFood[a])));
                         goodFund.Add(a, Math.Min(a.FundCeiling, Math.Max(a.AbundantFund, minFund[a])));
                     }

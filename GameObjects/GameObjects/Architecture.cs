@@ -3771,12 +3771,6 @@
                     }
                 }
 
-                if (this.IsTroopExceedsLimit)
-                {
-                    int z = 0;
-                    z++;
-                }
-
                 if (willCreateScale > destScale || (this.IsTroopExceedsLimit && GameObject.Chance(10)) 
                     || willCreate.Count == this.GetAllAvailableArea(false).Area.Count)
                 {
@@ -10138,8 +10132,14 @@
                             }
                         }
 
+                        int minRequiredFactor = Math.Max(20, (5 - leader.Ambition) * 20 + (leader.Calmness - leader.Braveness) * 2);
+                        if (this.IsTroopExceedsLimit && this.IsVeryGood() && this.HasEnoughPeople)
+                        {
+                            minRequiredFactor = Math.Min(33, minRequiredFactor);
+                        }
+
                         int reserve = Math.Max(0, reserveBase - i.A.ArmyScale);
-                        int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(i);
+                        int armyScaleRequiredForAttack = (int) (this.getArmyScaleRequiredForAttack(i) * (GameObject.Random(minRequiredFactor, 100) / 100.0f));
                         int armyScaleHere = (i.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
                         if ((this.IsTroopExceedsLimit || this.ArmyScale > this.MaxSupportableTroopScale) && GameObject.Random(20 * (5 - this.BelongedFaction.Leader.Ambition)) == 0)
                         {
@@ -10245,8 +10245,14 @@
                 }
                 if (wayToTarget != null)
                 {
+                    int minRequiredFactor = Math.Max(20, (5 - leader.Ambition) * 20 + (leader.Calmness - leader.Braveness) * 2);
+                    if (this.IsTroopExceedsLimit && this.IsVeryGood() && this.HasEnoughPeople)
+                    {
+                        minRequiredFactor = Math.Min(33, minRequiredFactor);
+                    }
+
                     int reserve = Math.Max(0, reserveBase - wayToTarget.A.ArmyScale);
-                    int armyScaleRequiredForAttack = this.getArmyScaleRequiredForAttack(wayToTarget);
+                    int armyScaleRequiredForAttack = (int)(this.getArmyScaleRequiredForAttack(wayToTarget) * (GameObject.Random(minRequiredFactor, 100) / 100.0f));
                     int armyScaleHere = (wayToTarget.Kind == LinkKind.Land ? this.LandArmyScale : (this.WaterArmyScale + this.LandArmyScale / 2));
 
                     if (armyScaleHere < armyScaleRequiredForAttack && !this.IsTroopExceedsLimit)
