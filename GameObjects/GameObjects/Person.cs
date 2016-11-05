@@ -229,6 +229,7 @@
         public String Tags {get; set;}
 
         public int TempLoyaltyChange = 0;
+        public bool wasMayor = false;
 
         private Captive belongedCaptive;
         public Captive BelongedCaptive
@@ -4701,6 +4702,8 @@
 
             if (this.LocationArchitecture != a || startingPoint != null)
             {
+                this.wasMayor = this.LocationArchitecture.Mayor == this;
+
                 Point position = this.Position;
                 this.TargetArchitecture = a;
                 if (startingPoint.HasValue)
@@ -5072,6 +5075,12 @@
                                 this.TargetArchitecture.TodayPersonArriveNote = true;
                                 this.Scenario.GameScreen.renwudaodatishi(this, this.TargetArchitecture);
                             }
+                            if (this.TargetArchitecture.Mayor == null && this.wasMayor)
+                            {
+                                this.TargetArchitecture.MayorID = this.ID;
+                            }
+                            this.wasMayor = false;
+
                             this.TargetArchitecture = null;
                         }
                         else if (this.TargetArchitecture.BelongedFaction != this.BelongedFaction && this.Status == PersonStatus .Captive) //转移俘虏

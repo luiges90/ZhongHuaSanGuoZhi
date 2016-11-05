@@ -3422,6 +3422,7 @@
                 try
                 {
                     person.BelongedPersonName = reader["belongedperson"].ToString();
+                    person.wasMayor = (bool)reader["wasMayor"];
 
                 }
                 catch { }
@@ -6188,6 +6189,7 @@
                     row["marriageGranter"] = person.marriageGranter != null ? person.marriageGranter.ID : -1;
                     row["TempLoyaltyChange"] = person.TempLoyaltyChange;
                     row["belongedperson"] =person.BelongedPersonName;
+                    row["wasMayor"] = person.wasMayor;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
