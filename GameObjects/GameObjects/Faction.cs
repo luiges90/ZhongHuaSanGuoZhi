@@ -2920,11 +2920,11 @@
 
         private void AIAppointMayor()
         {
-            if (!base.Scenario.IsPlayer(this))
+            if (GameObject.Random(10) == 0)
             {
-                if (GameObject.Random(10) == 0)
+                foreach (Architecture a in this.Architectures)
                 {
-                    foreach (Architecture a in this.Architectures)
+                    if (!base.Scenario.IsPlayer(this) || a.BelongedSection.AIDetail.AutoRun)
                     {
                         if (a.AppointMayorAvail())
                         {
