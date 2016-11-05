@@ -3771,9 +3771,6 @@
                     }
                 }
 
-                if (willCreateScale > destScale || (this.IsTroopExceedsLimit && GameObject.Chance(10)) 
-                    || willCreate.Count == this.GetAllAvailableArea(false).Area.Count)
-                {
                     foreach (CreateTroopInfo info in willCreate)
                     {
                         troop = this.CreateTroop(info.candidates, info.leader, info.military, -1, info.position);
@@ -3787,7 +3784,7 @@
                         //this.PostCreateTroop(troop, false);
                         hasCreatedTroop = true;
                     }
-                }
+
             }
             foreach (Troop t in list)
             {
@@ -10274,7 +10271,7 @@
                                 Architecture bypass = routeway.ByPassHostileArchitecture;
                                 if (bypass != null)
                                 {
-                                    this.PlanArchitecture = null;
+                                    this.PlanArchitecture = bypass;
                                 }
                                 else if ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) > this.Fund)
                                 {

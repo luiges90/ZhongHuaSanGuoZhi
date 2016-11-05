@@ -1437,7 +1437,15 @@
                     totalFrontline++;
                 }
             }
-            int avgFrontlinePerson = totalPerson / totalFrontline;
+            int avgFrontlinePerson;
+            if (totalFrontline == 0)
+            {
+                avgFrontlinePerson = 0;
+            }
+            else
+            {
+                avgFrontlinePerson = totalPerson / totalFrontline;
+            }
 
             foreach (Architecture a in srcArch.GameObjects.Union(destArch.GameObjects))
             {
