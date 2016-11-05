@@ -10134,6 +10134,10 @@
                         {
                             minRequiredFactor = Math.Min(33, minRequiredFactor);
                         }
+                        if (base.Scenario.IsPlayer(i.A.BelongedFaction))
+                        {
+                            minRequiredFactor = 100;
+                        }
 
                         int reserve = Math.Max(0, reserveBase - i.A.ArmyScale);
                         int armyScaleRequiredForAttack = (int) (this.getArmyScaleRequiredForAttack(i) * (GameObject.Random(minRequiredFactor, 100) / 100.0f));
@@ -10246,6 +10250,10 @@
                     if (this.IsTroopExceedsLimit && this.IsVeryGood() && this.HasEnoughPeople)
                     {
                         minRequiredFactor = Math.Min(33, minRequiredFactor);
+                    }
+                    if (base.Scenario.IsPlayer(wayToTarget.A.BelongedFaction))
+                    {
+                        minRequiredFactor = 100;
                     }
 
                     int reserve = Math.Max(0, reserveBase - wayToTarget.A.ArmyScale);
