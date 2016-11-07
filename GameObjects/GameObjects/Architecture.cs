@@ -5153,10 +5153,13 @@
                                 t.QuickBattling = false;
                                 a.TotalHostileForce -= t.FightingForce;
                             }
-                            foreach (Troop t in a.DefensiveLegion.Troops)
+                            if (a.DefensiveLegion != null)
                             {
-                                t.QuickBattling = false;
-                                this.TotalFriendlyForce -= t.FightingForce;
+                                foreach (Troop t in a.DefensiveLegion.Troops)
+                                {
+                                    t.QuickBattling = false;
+                                    this.TotalFriendlyForce -= t.FightingForce;
+                                }
                             }
                         }
                         aborted = true;

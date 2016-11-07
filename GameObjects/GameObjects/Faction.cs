@@ -879,8 +879,6 @@
 
         private void AIHouGong()
         {
-            if (GlobalVariables.hougongGetChildrenRate <= 0) return;
-
             if (base.Scenario.IsPlayer(this)) return;
 
             int uncruelty = this.Leader.Uncruelty;
@@ -930,6 +928,8 @@
 
             
             // if (this.Leader.LocationArchitecture == null || this.Leader.LocationArchitecture.HasHostileTroopsInView()) return;
+
+            if (GlobalVariables.hougongGetChildrenRate <= 0) return;
 
             if (this.Leader.NumberOfChildren >= GlobalVariables.OfficerChildrenLimit) return;
 

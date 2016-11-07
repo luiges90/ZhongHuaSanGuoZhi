@@ -5208,7 +5208,7 @@
 
         public void TryToBeAvailable()
         {
-            if (GameObject.Chance(10) && this.MeetAvailableCondition())
+            if (GameObject.Chance(20) && this.MeetAvailableCondition())
             {
                 this.BeAvailable();
             }
