@@ -2783,6 +2783,49 @@
             }
         }
 
+        private bool GeDiSuccess(Faction sourceFaction, Faction targetFaction, Person shizhe)
+        {
+            if (sourceFaction == null || targetFaction == null) return false;
+
+            if (sourceFaction.ArchitectureCount < 2) return false;
+
+            if (sourceFaction == targetFaction) return false;
+
+            return true;
+
+        }
+
+        public void DoGeDiDiplomatic() //割地
+        {
+            this.OutsideTask = OutsideTaskKind.无;
+            this.TargetArchitecture = base.Scenario.GetArchitectureByPosition(this.OutsideDestination.Value);
+            Faction targetFaction = this.TargetArchitecture.BelongedFaction;
+            this.OutsideDestination = null;
+
+            if (GeDiSuccess(this.BelongedFaction, targetFaction, this))
+            {
+                AfterGeDi(this.BelongedFaction, targetFaction, this);
+            }
+        }
+
+        private static void AfterGeDi(Faction sourceFaction, Faction targetFaction, Person shizhe)
+        {
+            shizhe.Scenario.GameScreen.xianshishijiantupian(shizhe, sourceFaction.Leader.Name, TextMessageKind.GeDi, "GeDiDiplomaticRelation", "GeDiDiplomaticRelation.jpg", "shilimiewang.wma", targetFaction.Name, true);
+
+            Architecture a = sourceFaction.GetGeDiArchitecture()[0] as Architecture;
+            a.ChangeFaction(targetFaction);
+
+            //停战5年
+            if (sourceFaction.Scenario.DiplomaticRelations.GetDiplomaticRelation(sourceFaction.Scenario, sourceFaction.ID, targetFaction.ID).Truce < 1800)
+            {
+                sourceFaction.Scenario.DiplomaticRelations.GetDiplomaticRelation(sourceFaction.Scenario, sourceFaction.ID, targetFaction.ID).Truce = 1800;
+            }
+
+            shizhe.TargetArchitecture = shizhe.LocationArchitecture;
+            shizhe.AddPoliticsExperience(50);
+            shizhe.IncreaseReputation(500);
+        }
+
         public void DoQuanXiangDiplomatic()
         {
             /*
@@ -2823,13 +2866,14 @@
             
         }
 
-        private  bool QuanXiangChance(Faction sourceFaction, Faction targetFaction, Person shizhe)
+        private bool QuanXiangChance(Faction sourceFaction, Faction targetFaction, Person shizhe)
         {
             if (sourceFaction == null || targetFaction == null) return false;
 
             if (targetFaction == sourceFaction) return false;
 
-           // if (base.Scenario.IsPlayer(sourceFaction)) return true;
+            //玩家不能被劝降
+            if (base.Scenario.IsPlayer(targetFaction)) return false;
 
             if (sourceFaction.Army == 0) return false;
 
@@ -2841,11 +2885,16 @@
 
             if (targetFaction.Leader.Hates(shizhe)) return false;
 
-            if (GameObject.Random(targetFaction.Leader.Intelligence) + GameObject.Random( shizhe.Intelligence) >= 45) return false;
+            //提高劝降几率
+            if (!GameObject.Chance(30)) return false;
 
-            if (targetFaction.Leader.PersonalLoyalty > 3) return false;
+            //野心越高越不容易投降
+            if (!GameObject.Chance((100 / targetFaction.Leader.Ambition + 1))) return false;
 
-            int c = targetFaction.Leader.IsCloseTo(shizhe) ? 50 : 10 ;
+            //城池数量越多越不容易投降
+            if (GameObject.Random(targetFaction.ArchitectureCount) != 0) return false;
+
+            int c = targetFaction.Leader.IsCloseTo(shizhe) ? 50 : 10;
 
             int g = (c * 10 + shizhe.ConvinceAbility + (shizhe.Politics + shizhe.Intelligence) * shizhe.Calmness - ((GetIdealOffset(shizhe, targetFaction.Leader) * 20) + (targetFaction.Leader.Intelligence + targetFaction.Leader.Politics) * targetFaction.Leader.Calmness));
 
@@ -3029,6 +3078,10 @@
                 case OutsideTaskKind.劝降:
                     this.DoQuanXiangDiplomatic();
                     break ;
+
+                case OutsideTaskKind.割地:
+                    this.DoGeDiDiplomatic();
+                    break;
             }
         }
 
@@ -4725,6 +4778,58 @@
                     this.Scenario.ClearPersonStatusCache();
                 }
 
+            }
+        }
+
+        public void GoToGeDiDiplomatic(DiplomaticRelationDisplay a) //割地
+        {
+            if (a == null) return;
+
+            Faction targetFaction = this.BelongedFaction.GetFactionByName(a.FactionName);
+            //bool isAI = !base.Scenario.IsPlayer(this.BelongedFaction);
+            //bool isPlayer = base.Scenario.IsPlayer(targetFaction);
+            //if (isAI && isPlayer) return;
+            //Architecture targetArchitecture = targetFaction.Leader.BelongedArchitecture;
+            Architecture targetArchitecture = targetFaction.Capital;
+
+
+            if (targetArchitecture == null)
+            {
+                this.Scenario.GameScreen.xianshishijiantupian(this, this.BelongedFaction.Leader.Name, TextMessageKind.QuanXiang, "QuanXiangDiplomaticRelation", "TruceDiplomaticRelation.jpg", "TruceDiplomaticRelation.wav", "啊，出错了!", true);
+                return;
+            }
+
+            if (this.LocationArchitecture != targetArchitecture)
+            {
+                this.outsideDestination = targetArchitecture.Position;
+                Point position = this.BelongedArchitecture.Position;
+                this.TargetArchitecture = targetArchitecture;
+
+                this.TaskDays = (int)Math.Ceiling((double)(base.Scenario.GetDistance(position, targetArchitecture.Position) / 10.0));
+                if (this.taskDays == 0)
+                {
+                    this.taskDays = 1;
+                }
+                if (this.taskDays > 5)
+                {
+                    this.taskDays = 5;
+                }
+
+                this.arrivingDays = this.TaskDays * 2;
+
+                this.LocationArchitecture = this.BelongedArchitecture;
+                this.WorkKind = ArchitectureWorkKind.无;
+                this.OutsideTask = OutsideTaskKind.割地;
+                this.Scenario.GameScreen.renwukaishitishi(this, this.TargetArchitecture);
+
+                if (this.BelongedFaction != null)
+                {
+                    this.Status = PersonStatus.Moving;
+                }
+                else
+                {
+                    this.Status = PersonStatus.NoFactionMoving;
+                }
             }
         }
 

@@ -136,6 +136,7 @@
                     <MenuItem ID="4" Name="DenounceDiplomaticRelation" DisplayName="声讨" DisplayIfTrue="DenounceDiplomaticRelationAvail" />
                     <MenuItem ID="5" Name="TruceDiplomaticRelation" DisplayName="停战" DisplayIfTrue="TruceDiplomaticRelationAvail" />
                     <MenuItem ID="6" Name="QuanXiangDiplomaticRelation" DisplayName="劝降" DisplayIfTrue="QuanXiangDiplomaticRelationAvail" />
+                    <MenuItem ID="7" Name="GeDiDiplomaticRelation" DisplayName="割地" DisplayIfTrue="GeDiDiplomaticRelationAvail" />
                 </MenuItem>
                 <MenuItem ID="4" Name="Techniques" DisplayName="技巧" />
                 <MenuItem ID="5" Name="KillRelease" DisplayName="处置">
