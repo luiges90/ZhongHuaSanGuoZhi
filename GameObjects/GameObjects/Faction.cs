@@ -895,13 +895,14 @@
                         int maxPop = 0;
                         foreach (Architecture b in this.Architectures)
                         {
-                            if (!b.withoutTruceFrontline && dest != null &&
+                            if (a == b) continue;
+                            if (!b.withoutTruceFrontline && 
                                 (b.Meinvkongjian > b.Feiziliebiao.Count || b.BelongedFaction.IsAlien) && 
                                 (a.withoutTruceFrontline || b.Meinvkongjian > a.Meinvkongjian))
                             {
-                                if (dest.Population > maxPop * 1.1 && dest.Endurance > Math.Min(500, dest.EnduranceCeiling * 0.5))
+                                if (b.Population > maxPop * 1.1 && b.Endurance > Math.Min(500, b.EnduranceCeiling * 0.5))
                                 {
-                                    maxPop = dest.Population;
+                                    maxPop = b.Population;
                                     dest = b;
                                 }
                             }
