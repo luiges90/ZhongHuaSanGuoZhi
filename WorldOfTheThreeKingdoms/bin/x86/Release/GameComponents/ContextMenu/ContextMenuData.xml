@@ -197,7 +197,7 @@
                 <MenuItem ID="2" Name="AllSkills" DisplayName="所有技能" />
                 <MenuItem ID="3" Name="AllMilitaryKinds" DisplayName="所有兵种" />
                 <MenuItem ID="4" Name="AllStunts" DisplayName="所有特技" />
-                <MenuItem ID="5" Name="AllFactions" DisplayName="所有势力*" />
+                <MenuItem ID="5" Name="AllFactions" DisplayName="所有势力" />
                 <MenuItem ID="6" Name="AllArchitectures" DisplayName="所有建筑*" />
                 <MenuItem ID="7" Name="AllTroops" DisplayName="所有部队*" />
                 <MenuItem ID="8" Name="AllPersons" DisplayName="所有人物*" />
