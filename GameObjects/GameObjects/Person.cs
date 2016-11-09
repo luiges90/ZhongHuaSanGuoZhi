@@ -6537,6 +6537,11 @@
                         v += this.Ambition * 3;
                     }
 
+                    if (this.PersonalLoyalty >= 2 && this.BelongedFaction.IsAlien)
+                    {
+                        v -= (this.PersonalLoyalty - 1) * 10;
+                    }
+
                     if (this.marriageGranter == this.BelongedFaction.Leader)
                     {
                         if (this.Spouse.HasStrainTo(this.BelongedFaction.Leader))
@@ -6548,11 +6553,7 @@
                             v += 10;
                         }
                     }
-
-                    v += Math.Max(-150, TempLoyaltyChange);
-
-                    v = Math.Max(0, v);
-
+                   
                     if (this.Father != null && this.Father.BelongedFaction == this.BelongedFaction)
                     {
                         v += this.Father.childrenLoyalty;
@@ -6561,6 +6562,10 @@
                     {
                         v += this.Mother.childrenLoyalty;
                     }
+
+                    v += Math.Max(-150, TempLoyaltyChange);
+
+                    v = Math.Max(0, v);
 
                     return (int) v;
                 }
