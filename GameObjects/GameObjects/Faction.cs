@@ -6377,6 +6377,11 @@
             return result;
         }
 
+        public Architecture[] GetGeDiArchitecture()
+        {
+            return new Architecture[1];
+        }
+
         public bool HasInformation()
         {
             return this.GetAllInformationList().Count > 0;

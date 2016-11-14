@@ -135,5 +135,6 @@
         AppointMayor, // 128
         QuanXiang, //129
         QuanXiangFailed, // 130
+        GeDi, // 131
     }
 }

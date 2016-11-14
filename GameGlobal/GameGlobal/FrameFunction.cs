@@ -100,7 +100,8 @@
         SelectLandLink,
         SelectWaterLink,
         SelectMarryablePerson,
-        SelectMarryTo
+        SelectMarryTo,
+        GetGeDiDiplomaticRelation
     }
 }
 

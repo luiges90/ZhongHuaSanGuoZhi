@@ -5133,6 +5133,7 @@
 
         private void resolveAIQuickBattle()
         {
+
             foreach (Architecture a in this.AIBattlingArchitectures.GetList())
             {
                 bool aborted = false;
@@ -5244,8 +5245,8 @@
                                 Troop target = (Troop)a.DefensiveLegion.Troops[GameObject.Random(a.DefensiveLegion.Troops.Count)];
                                 t.AttackTroop(target);
                                 t.ApplyDamageList();
-                            } 
-                            else 
+                            }
+                            else
                             {
                                 t.Position = a.ArchitectureArea.Centre;
                                 t.BelongedFaction = this.BelongedFaction;
@@ -5259,7 +5260,7 @@
                                 this.AIBattlingArchitectures.Remove(a);
                                 break;
                             }
-                      
+
                         }
 
                     }
@@ -5283,6 +5284,14 @@
                     }
 
 
+                }
+                else
+                {
+                    foreach (Architecture x in this.AIBattlingArchitectures)
+                    {
+                        x.AIBattlingArchitectures.Remove(this);
+                    }
+                    this.AIBattlingArchitectures.Clear();
                 }
             }
         }

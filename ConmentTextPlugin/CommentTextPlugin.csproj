@@ -31,28 +31,8 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Reference Include="GameFreeText, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameFreeText.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GameGlobal, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameGlobal.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="GameObjects, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\GameObjects.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Game" />
-    <Reference Include="PluginInterface, Version=1.0.1.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorldOfTheThreeKingdoms\bin\x86\Debug\PluginInterface.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -62,5 +42,23 @@
     <Compile Include="Global.cs" />
     <Compile Include="CommentTextPlugin\CommentTextPlugin.cs" />
     <Compile Include="CommentTextPlugin\CommentText.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameFreeText\GameFreeText.csproj">
+      <Project>{E13A763D-DC5B-447F-AF3F-392343B8875B}</Project>
+      <Name>GameFreeText</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameGlobal\GameGlobal.csproj">
+      <Project>{56DC58D6-46BC-4F4A-A7CF-D3D23EC2A831}</Project>
+      <Name>GameGlobal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameObjects\GameObjects.csproj">
+      <Project>{BB0FAD70-2894-44D2-A6EB-F7FD876B0FDA}</Project>
+      <Name>GameObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorldOfTheThreeKingdoms\PluginInterface\PluginInterface.csproj">
+      <Project>{2DA0B513-64BF-4FB8-8775-1C9A5F6C9B21}</Project>
+      <Name>PluginInterface</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
