@@ -100,6 +100,7 @@
         Monarch_Diplomatic_DenounceDiplomaticRelation,
         Monarch_Diplomatic_TruceDiplomaticRelation,
         Monarch_Diplomatic_QuanXiangDiplomaticRelation,//劝降
+        Monarch_Diplomatic_GeDiDiplomaticRelation,//割地
         Monarch_officePosition_jingongzijin,
         Monarch_officePosition_jingongliangcao,
         Monarch_officePosition_SelfBecomeEmperor,

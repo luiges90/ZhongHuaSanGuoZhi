@@ -189,6 +189,7 @@
         public GameObjectList TruceDiplomaticRelationList = new GameObjectList();
         public GameObjectList DenounceDiplomaticRelationList = new GameObjectList();
         public GameObjectList QuanXiangDiplomaticRelationList = new GameObjectList(); //劝降
+        public GameObjectList GeDiDiplomaticRelationList = new GameObjectList(); //割地
         public PersonList RewardPersonList = new PersonList();
         public Troop RobberTroop;
         public int RobberTroopID;
@@ -6392,10 +6393,40 @@
         private void AIDiplomaticTactics()
         {
            // this.AIQuanXiang();
-
+            this.AIGeDi();
         }
 
-        
+        private void AIGeDi()
+        {
+            if (!this.HasHostileTroopsInView()) return;
+
+            if (this.MovablePersons.Count > 0)
+            {
+                TroopList hostileTroopInView = this.GetHostileTroopsInView();
+                TroopList friendlyTroopsInView = this.GetFriendlyTroopsInView();
+                int hostileFightingForce = 0;
+                int friendlyFightingForce = 0;
+
+                foreach (Troop t in hostileTroopInView)
+                {
+                    hostileFightingForce += t.FightingForce;
+                }
+                foreach (Troop t in friendlyTroopsInView)
+                {
+                    friendlyFightingForce += t.FightingForce;
+                }
+
+                if (hostileFightingForce > friendlyFightingForce && GameObject.Chance(30))
+                {
+                    Person shizhe = this.MovablePersons[Random(this.MovablePersons.Count)] as Person;
+                    DiplomaticRelationDisplay display = this.GetGeDiDiplomaticRelationList()[GameObject.Random(this.GetGeDiDiplomaticRelationList().Count)] as DiplomaticRelationDisplay; ;
+
+                    shizhe.GoToGeDiDiplomatic(display);
+
+                }
+            }
+        }
+
         /*
         private void AIQuanXiang()
         {
@@ -11196,6 +11227,33 @@
             }
             return ((this.Fund > 10000) && (this.Persons.Count > 0));
         }
+
+        public GameObjectList GetGeDiDiplomaticRelationList() //割地
+        {
+            this.GeDiDiplomaticRelationList.Clear();
+            if (this.BelongedFaction != null)
+            {
+                foreach (DiplomaticRelationDisplay display in base.Scenario.DiplomaticRelations.GetDiplomaticRelationDisplayListByFactionID(this.BelongedFaction.ID))
+                {
+                    if (display.LinkedFaction1 != null && display.LinkedFaction2 != null)
+                    {
+                        this.GeDiDiplomaticRelationList.Add(display);
+                    }
+                }
+            }
+            return this.GeDiDiplomaticRelationList;
+        }
+
+        public bool GeDiDiplomaticRelationAvail() //割地
+        {
+            if (this.BelongedFaction == null)
+            {
+                return false;
+            }
+
+            return (this.BelongedFaction.ArchitectureCount > 1 && this.MovablePersons.Count > 0);
+        }
+
 
         public bool QuanXiangDiplomaticRelationAvail() //劝降
         {

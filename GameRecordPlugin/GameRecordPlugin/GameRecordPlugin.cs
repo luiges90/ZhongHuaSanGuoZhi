@@ -25,6 +25,7 @@
         public void AddBranch(object gameObject, string branchName, Microsoft.Xna.Framework.Point position)
         {
             this.gameRecord.AddBranch(gameObject as GameObject, branchName, position);
+           // this.gameRecord.AddBranch1(gameObject as GameObject, branchName, position);
         }
 
         public void AddDisableRects()
@@ -72,12 +73,17 @@
             this.gameRecord.RecordShowPosition = (ShowPosition) Enum.Parse(typeof(ShowPosition), node.Attributes.GetNamedItem("Position").Value);
             node = nextSibling.ChildNodes.Item(3);
             this.gameRecord.Record.ClientWidth = this.gameRecord.RecordBackgroundClient.Width;
-            this.gameRecord.Record.ClientHeight = this.gameRecord.RecordBackgroundClient.Height;
+            this.gameRecord.Record.ClientHeight = 600;
             this.gameRecord.Record.RowMargin = int.Parse(node.Attributes.GetNamedItem("RowMargin").Value);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
             this.gameRecord.Record.Builder.SetFreeTextBuilder(this.graphicsDevice, font);
             this.gameRecord.Record.DefaultColor = color;
             this.gameRecord.TextTree.LoadFromXmlFile(@"GameComponents\GameRecord\Data\RecordTextTree.xml");
+            node = nextSibling.ChildNodes.Item(4);
+            this.gameRecord.Tool1Texture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\GameRecord\Data\" + node.Attributes.GetNamedItem("FileName").Value);
+            this.gameRecord.Tool1SelectedTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\GameRecord\Data\" + node.Attributes.GetNamedItem("Selected").Value);
+            this.gameRecord.Tool1DisplayTexture = this.gameRecord.Tool1Texture;
+            this.gameRecord.Tool1Client = StaticMethods.LoadRectangleFromXMLNode(node);
         }
 
         public void RemoveDisableRects()
