@@ -144,6 +144,7 @@
         public static int ChildrenAvailableAge = 12;
 
         public static float CreatedOfficerAbilityFactor = 0.8f;
+        public static float ChildrenAbilityFactor = 1.0f;
         public static bool EnablePersonRelations = true;
 
         public static int FriendlyDiplomacyThreshold = 300;

@@ -247,6 +247,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private Label label1;
         private CheckBox cbShowChallengeAnimation;
         private CheckBox cbAIQuickBattle;
+        private TextBox tbChildrenAbilityFactor;
+        private Label lblChildrenAbilityFactor;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -276,6 +278,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         {
             this.tcOptions = new System.Windows.Forms.TabControl();
             this.tabPageBasic = new System.Windows.Forms.TabPage();
+            this.cbAIQuickBattle = new System.Windows.Forms.CheckBox();
+            this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
             this.tbCreateRandomOfficerChance = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbHougongGetChildrenRate = new System.Windows.Forms.TextBox();
@@ -490,8 +494,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.cbShowChallengeAnimation = new System.Windows.Forms.CheckBox();
-            this.cbAIQuickBattle = new System.Windows.Forms.CheckBox();
+            this.tbChildrenAbilityFactor = new System.Windows.Forms.TextBox();
+            this.lblChildrenAbilityFactor = new System.Windows.Forms.Label();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -558,6 +562,26 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageBasic.TabIndex = 4;
             this.tabPageBasic.Text = "基本";
             this.tabPageBasic.UseVisualStyleBackColor = true;
+            // 
+            // cbAIQuickBattle
+            // 
+            this.cbAIQuickBattle.AutoSize = true;
+            this.cbAIQuickBattle.Location = new System.Drawing.Point(13, 365);
+            this.cbAIQuickBattle.Name = "cbAIQuickBattle";
+            this.cbAIQuickBattle.Size = new System.Drawing.Size(132, 16);
+            this.cbAIQuickBattle.TabIndex = 145;
+            this.cbAIQuickBattle.Text = "使用简易AI战斗算法";
+            this.cbAIQuickBattle.UseVisualStyleBackColor = true;
+            // 
+            // cbShowChallengeAnimation
+            // 
+            this.cbShowChallengeAnimation.AutoSize = true;
+            this.cbShowChallengeAnimation.Location = new System.Drawing.Point(13, 343);
+            this.cbShowChallengeAnimation.Name = "cbShowChallengeAnimation";
+            this.cbShowChallengeAnimation.Size = new System.Drawing.Size(72, 16);
+            this.cbShowChallengeAnimation.TabIndex = 144;
+            this.cbShowChallengeAnimation.Text = "单挑演示";
+            this.cbShowChallengeAnimation.UseVisualStyleBackColor = true;
             // 
             // tbCreateRandomOfficerChance
             // 
@@ -1150,6 +1174,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.tbChildrenAbilityFactor);
+            this.tabPagePerson.Controls.Add(this.lblChildrenAbilityFactor);
             this.tabPagePerson.Controls.Add(this.lblChildrenAvailableAge);
             this.tabPagePerson.Controls.Add(this.tbChildrenAvailableAge);
             this.tabPagePerson.Controls.Add(this.cbEnablePersonRelations);
@@ -2593,25 +2619,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // cbShowChallengeAnimation
+            // tbChildrenAbilityFactor
             // 
-            this.cbShowChallengeAnimation.AutoSize = true;
-            this.cbShowChallengeAnimation.Location = new System.Drawing.Point(13, 343);
-            this.cbShowChallengeAnimation.Name = "cbShowChallengeAnimation";
-            this.cbShowChallengeAnimation.Size = new System.Drawing.Size(72, 16);
-            this.cbShowChallengeAnimation.TabIndex = 144;
-            this.cbShowChallengeAnimation.Text = "单挑演示";
-            this.cbShowChallengeAnimation.UseVisualStyleBackColor = true;
+            this.tbChildrenAbilityFactor.Location = new System.Drawing.Point(271, 325);
+            this.tbChildrenAbilityFactor.Name = "tbChildrenAbilityFactor";
+            this.tbChildrenAbilityFactor.Size = new System.Drawing.Size(51, 22);
+            this.tbChildrenAbilityFactor.TabIndex = 152;
+            this.tbChildrenAbilityFactor.Text = "0.8";
             // 
-            // cbAIQuickBattle
+            // lblChildrenAbilityFactor
             // 
-            this.cbAIQuickBattle.AutoSize = true;
-            this.cbAIQuickBattle.Location = new System.Drawing.Point(13, 365);
-            this.cbAIQuickBattle.Name = "cbAIQuickBattle";
-            this.cbAIQuickBattle.Size = new System.Drawing.Size(132, 16);
-            this.cbAIQuickBattle.TabIndex = 145;
-            this.cbAIQuickBattle.Text = "使用简易AI战斗算法";
-            this.cbAIQuickBattle.UseVisualStyleBackColor = true;
+            this.lblChildrenAbilityFactor.AutoSize = true;
+            this.lblChildrenAbilityFactor.Location = new System.Drawing.Point(168, 328);
+            this.lblChildrenAbilityFactor.Name = "lblChildrenAbilityFactor";
+            this.lblChildrenAbilityFactor.Size = new System.Drawing.Size(101, 12);
+            this.lblChildrenAbilityFactor.TabIndex = 151;
+            this.lblChildrenAbilityFactor.Text = "生成子女能力乘数";
             // 
             // formOptions
             // 
@@ -2714,6 +2737,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbCreateRandomOfficerChance.Text = nextSibling.Attributes.GetNamedItem("CreateRandomOfficerChance").Value;
             
             this.tbCreatedOfficerAbilityFactor.Text = nextSibling.Attributes.GetNamedItem("CreatedOfficerAbilityFactor").Value;
+            this.tbChildrenAbilityFactor.Text = nextSibling.Attributes.GetNamedItem("ChildrenAbilityFactor").Value;
             this.cbEnablePersonRelations.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value);
             this.tbChildrenAvailableAge.Text = nextSibling.Attributes.GetNamedItem("ChildrenAvailableAge").Value;
             this.cbFullScreen.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("FullScreen").Value);
@@ -2898,6 +2922,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkFloatSave(nextSibling, "CreateRandomOfficerChance", this.lblCreateRandomOfficerChance, this.tbCreateRandomOfficerChance)) { return false; }
             
             if (!checkFloatSave(nextSibling, "CreatedOfficerAbilityFactor", this.lblCreatedOfficerAbilityFactor, this.tbCreatedOfficerAbilityFactor)) { return false; }
+            if (!checkFloatSave(nextSibling, "ChildrenAbilityFactor", this.lblChildrenAbilityFactor, this.tbChildrenAbilityFactor)) { return false; }
             nextSibling.Attributes.GetNamedItem("EnablePersonRelations").Value = this.cbEnablePersonRelations.Checked.ToString();
             if (!checkIntSave(nextSibling, "ChildrenAvailableAge", this.lblChildrenAvailableAge, this.tbChildrenAvailableAge)) { return false; }
             nextSibling.Attributes.GetNamedItem("FullScreen").Value = this.cbFullScreen.Checked.ToString();
