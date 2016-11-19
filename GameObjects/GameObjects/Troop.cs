@@ -3854,10 +3854,17 @@
             }
             if (removeReferences)
             {
-                /*if (this.Persons.Count > 0)
+                if (this.Persons.Count > 0)
                 {
+                    foreach (Person p in this.Persons)
+                    {
+                        if (p.LocationArchitecture == null)
+                        {
+                            p.LocationArchitecture = this.StartingArchitecture;
+                        }
+                    }
                     this.Persons.Clear();
-                }*/
+                }
                 this.Scenario.ResetMapTileTroop(this.Position);
                 foreach (Influence i in this.InfluencesApplying)
                 {
