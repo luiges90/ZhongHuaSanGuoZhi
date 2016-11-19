@@ -1716,6 +1716,8 @@
 
             if (this.Spouse != null) return result;
 
+            if (this.BelongedFaction == null) return result;
+
             foreach (Person p in this.BelongedFaction.Persons)
             {
                 if (p == this) continue;
