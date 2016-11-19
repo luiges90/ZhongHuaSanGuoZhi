@@ -14503,7 +14503,8 @@
                     this.mayor = base .Scenario.Persons.GetGameObject(this.MayorID)as Person ;
                 }
 
-                if (this.mayor != null && (this.mayor == this.BelongedFaction .Leader || !this.mayor.Alive || !this.mayor.Available 
+                if (this.mayor != null && this.BelongedFaction != null &&
+                    (this.mayor == this.BelongedFaction .Leader || !this.mayor.Alive || !this.mayor.Available 
                     || this.mayor.BelongedFaction != this.BelongedFaction
                     || this.mayor.BelongedFaction == null || (this.mayor.LocationArchitecture != this && this.mayor.BelongedTroop == null )))
                 {

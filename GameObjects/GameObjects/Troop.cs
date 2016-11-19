@@ -3854,7 +3854,10 @@
             }
             if (removeReferences)
             {
-                this.Persons.Clear();
+                /*if (this.Persons.Count > 0)
+                {
+                    this.Persons.Clear();
+                }*/
                 this.Scenario.ResetMapTileTroop(this.Position);
                 foreach (Influence i in this.InfluencesApplying)
                 {
