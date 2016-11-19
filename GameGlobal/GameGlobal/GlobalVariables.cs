@@ -157,8 +157,8 @@
         public static bool PermitManualAwardTitleAutoLearn = false;
 
         public static int zhaoxianOfficerMax = 500;
-        public static bool AIZhaoxianFixIdeal = true;
-        public static bool PlayerZhaoxianFixIdeal = true;
+        public static bool AIZhaoxianFixIdeal = false;
+        public static bool PlayerZhaoxianFixIdeal = false;
 
         public static int FixedUnnaturalDeathAge = 80;
         public static bool AIQuickBattle = false;
