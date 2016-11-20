@@ -1509,15 +1509,15 @@
                     {
                         goodPerson.Add(a, Math.Max(a.EnoughPeople, minPerson[a]));
                         goodTroop.Add(a, Math.Max(a.TroopReserveScale, minTroop[a]));
-                        goodFund.Add(a, Math.Min(a.FundCeiling, Math.Max(a.AbundantFund, minFund[a])));
-                        goodFood.Add(a, Math.Min(a.FoodCeiling, Math.Max(a.AbundantFood * 2, minFood[a])));
+                        goodFund.Add(a, Math.Min(a.FundCeiling * 9 / 10, Math.Max(a.AbundantFund, minFund[a])));
+                        goodFood.Add(a, Math.Min(a.FoodCeiling * 9 / 10, Math.Max(a.AbundantFood * 2, minFood[a])));
                     }
                     else
                     {
                         goodPerson.Add(a, Math.Max(1, minPerson[a]));
                         goodTroop.Add(a, Math.Max(a.TroopReserveScale, minTroop[a]));
-                        goodFund.Add(a, Math.Min(a.FundCeiling, Math.Max(a.AbundantFund, minFund[a])));
-                        goodFood.Add(a, Math.Min(a.FoodCeiling, Math.Max(a.AbundantFood * 2, minFood[a])));
+                        goodFund.Add(a, Math.Min(a.FundCeiling * 9 / 10, Math.Max(a.AbundantFund, minFund[a])));
+                        goodFood.Add(a, Math.Min(a.FoodCeiling * 9 / 10, Math.Max(a.AbundantFood * 2, minFood[a])));
                     }
                 }
             }
@@ -1650,12 +1650,12 @@
 
                     }
 
-                    if ((a.Fund < minFund[a] || a.Food < minFood[a]) && resource)
+                    if ((a.Fund + a.FundInPack < minFund[a] || a.Food + a.FoodInPack < minFood[a]) && resource)
                     {
                         int deficitFund = Math.Max(0, minFund[a] * 2 - a.Fund - a.FundInPack);
                         int deficitFood = Math.Max(0, minFood[a] * 2 - a.Food - a.FoodInPack);
-                        deficitFood = Math.Min(deficitFood, a.FoodCeiling - a.FoodInPack - a.Food);
-                        deficitFund = Math.Min(deficitFund, a.FundCeiling - a.FundInPack - a.Fund);
+                        deficitFood = Math.Min(deficitFood, a.FoodCeiling * 9 / 10 - a.FoodInPack - a.Food);
+                        deficitFund = Math.Min(deficitFund, a.FundCeiling * 9 / 10- a.FundInPack - a.Fund);
 
                         if (deficitFund > 0 || deficitFood > 0)
                         {
@@ -1793,12 +1793,12 @@
                     }
                 }
 
-                if ((a.Fund < goodFund[a] || a.Food < goodFood[a]) && resource)
+                if ((a.Fund + a.FundInPack < goodFund[a] || a.Food + a.FoodInPack < goodFood[a]) && resource)
                 {
                     int deficitFund = Math.Max(0, goodFund[a] * 2 - a.Fund - a.FundInPack);
                     int deficitFood = Math.Max(0, goodFood[a] * 2 - a.Food - a.FoodInPack);
-                    deficitFood = Math.Min(deficitFood, a.FoodCeiling - a.FoodInPack - a.Food);
-                    deficitFund = Math.Min(deficitFund, a.FundCeiling - a.FundInPack - a.Fund);
+                    deficitFood = Math.Min(deficitFood, a.FoodCeiling * 9 / 10 - a.FoodInPack - a.Food);
+                    deficitFund = Math.Min(deficitFund, a.FundCeiling * 9 / 10 - a.FundInPack - a.Fund);
 
                     if (deficitFund > 0 || deficitFood > 0)
                     {
