@@ -2891,10 +2891,10 @@
             }
             a.ChangeFaction(targetFaction);
 
-            //停战5年
-            if (sourceFaction.Scenario.DiplomaticRelations.GetDiplomaticRelation(sourceFaction.Scenario, sourceFaction.ID, targetFaction.ID).Truce < 1800)
+            //停战1年
+            if (sourceFaction.Scenario.DiplomaticRelations.GetDiplomaticRelation(sourceFaction.Scenario, sourceFaction.ID, targetFaction.ID).Truce < 360)
             {
-                sourceFaction.Scenario.DiplomaticRelations.GetDiplomaticRelation(sourceFaction.Scenario, sourceFaction.ID, targetFaction.ID).Truce = 1800;
+                sourceFaction.Scenario.DiplomaticRelations.GetDiplomaticRelation(sourceFaction.Scenario, sourceFaction.ID, targetFaction.ID).Truce = 360;
             }
 
             shizhe.TargetArchitecture = shizhe.LocationArchitecture;
