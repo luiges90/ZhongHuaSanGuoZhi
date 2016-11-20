@@ -23,8 +23,6 @@
         public void ApplyInfluence(Architecture architecture, Applier applier, int applierID)
         {
             ApplyingArchitecture a = new ApplyingArchitecture(architecture, applier, applierID);
-            if (appliedArch.Contains(a)) return;
-            appliedArch.Add(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -41,8 +39,6 @@
         public void ApplyInfluence(Faction faction, Applier applier, int applierID)
         {
             ApplyingFaction a = new ApplyingFaction(faction, applier, applierID);
-            if (appliedFaction.Contains(a)) return;
-            appliedFaction.Add(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -57,10 +53,6 @@
         public void ApplyInfluence(Person person, Applier applier, int applierID, bool excludePersonal)
         {
             ApplyingPerson a = new ApplyingPerson(person, applier, applierID);
-            if (appliedPerson.Contains(a) && 
-                (person.LocationTroop == null || appliedTroop.Contains(new ApplyingTroop(person.LocationTroop, applier, applierID)) 
-                    || this.Type != InfluenceType.战斗)) return;
-            appliedPerson.Add(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -75,9 +67,6 @@
         public void ApplyInfluence(Troop troop, Applier applier, int applierID)
         {
             ApplyingTroop a = new ApplyingTroop(troop, applier, applierID);
-            if (appliedTroop.Contains(a) && (this.ID < 390 || this.ID > 399 && (this.ID != 720 && this.ID != 721))) return;
-            appliedTroop.Add(a);
-            troop.InfluencesApplying.Add(this);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -126,8 +115,6 @@
         public void PurifyInfluence(Architecture architecture, Applier applier, int applierID)
         {
             ApplyingArchitecture a = new ApplyingArchitecture(architecture, applier, applierID);
-            if (!appliedArch.Contains(a)) return;
-            appliedArch.Remove(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -144,8 +131,6 @@
         public void PurifyInfluence(Faction faction, Applier applier, int applierID)
         {
             ApplyingFaction a = new ApplyingFaction(faction, applier, applierID);
-            if (!appliedFaction.Contains(a)) return;
-            appliedFaction.Remove(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -160,8 +145,6 @@
         public void PurifyInfluence(Person person, Applier applier, int applierID, bool excludePersonal)
         {
             ApplyingPerson a = new ApplyingPerson(person, applier, applierID);
-            if (!appliedPerson.Contains(a)) return;
-            appliedPerson.Remove(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try
@@ -181,8 +164,6 @@
         public void PurifyInfluence(Troop troop, Applier applier, int applierID)
         {
             ApplyingTroop a = new ApplyingTroop(troop, applier, applierID);
-            if (!appliedTroop.Contains(a)) return;
-            appliedTroop.Remove(a);
             this.Kind.InitializeParameter(this.Parameter);
             this.Kind.InitializeParameter2(this.Parameter2);
             try

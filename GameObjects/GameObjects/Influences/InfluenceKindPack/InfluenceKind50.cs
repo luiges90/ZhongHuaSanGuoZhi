@@ -8,16 +8,14 @@
     {
         private float rate = 1f;
 
-        public override void ApplyInfluenceKind(Person person)
+        public override void ApplyInfluenceKind(Architecture person)
         {
-            person.DayRateIncrementOfInternal += this.rate ;
-            person.LocationArchitecture.DayRateIncrementOfInternal += this.rate;
+            person.DayRateIncrementOfInternal += this.rate;
         }
 
-        public override void PurifyInfluenceKind(Person person)
+        public override void PurifyInfluenceKind(Architecture person)
         {
             person.DayRateIncrementOfInternal -= this.rate;
-            person.LocationArchitecture.DayRateIncrementOfInternal -= this.rate;
         }
 
         public override void InitializeParameter(string parameter)

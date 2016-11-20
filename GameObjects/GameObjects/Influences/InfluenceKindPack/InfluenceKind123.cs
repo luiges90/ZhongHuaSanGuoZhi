@@ -6,22 +6,14 @@
 
     internal class InfluenceKind123 : InfluenceKind
     {
-        public override void ApplyInfluenceKind(Person person)
+        public override void ApplyInfluenceKind(Architecture person)
         {
             person.DayAvoidPopulationEscape = true;
-            if ((person.BelongedFaction != null) && (person.LocationArchitecture != null))
-            {
-                person.LocationArchitecture.DayAvoidPopulationEscape = true;
-            }
         }
 
-        public override void PurifyInfluenceKind(Person person)
+        public override void PurifyInfluenceKind(Architecture person)
         {
             person.DayAvoidPopulationEscape = false;
-            if ((person.BelongedFaction != null) && (person.LocationArchitecture != null))
-            {
-                person.LocationArchitecture.DayAvoidPopulationEscape = false;
-            }
         }
     }
 }

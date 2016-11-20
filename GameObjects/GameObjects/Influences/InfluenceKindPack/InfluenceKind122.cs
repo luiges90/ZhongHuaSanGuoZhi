@@ -6,22 +6,14 @@
 
     internal class InfluenceKind122 : InfluenceKind
     {
-        public override void ApplyInfluenceKind(Person person)
+        public override void ApplyInfluenceKind(Architecture person)
         {
             person.DayAvoidInfluenceByBattle = true;
-            if ((person.BelongedFaction != null) && (person.LocationArchitecture != null))
-            {
-                person.LocationArchitecture.DayAvoidInfluenceByBattle = true;
-            }
         }
 
-        public override void PurifyInfluenceKind(Person person)
+        public override void PurifyInfluenceKind(Architecture person)
         {
             person.DayAvoidInfluenceByBattle = false;
-            if ((person.BelongedFaction != null) && (person.LocationArchitecture != null))
-            {
-                person.LocationArchitecture.DayAvoidInfluenceByBattle = false;
-            }
         }
     }
 }

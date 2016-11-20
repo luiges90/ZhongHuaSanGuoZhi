@@ -3666,6 +3666,7 @@
                 }
             }
             this.RealTitles.Add(title);
+            title.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Title, title.ID, false);
             base.Scenario.YearTable.addObtainedTitleEntry(base.Scenario.Date, this, title);
         }
 
@@ -3696,6 +3697,7 @@
                 }
             }
             this.RealTitles.Add(title);
+            title.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Title, title.ID, false);
             if (base.Scenario.IsPlayer(this.BelongedFaction))
             {
                 base.Scenario.GameScreen.xianshishijiantupian(this.BelongedFaction.Leader, this.Name, "AwardTitle", "AwardTitle.jpg", "AwardTitle.wav", title.Name, true);
@@ -3705,6 +3707,7 @@
 
         public void RemoveTitle(Title title)
         {
+            title.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Title, title.ID, false);
             this.RealTitles.Remove(title);
         }
 
@@ -3721,16 +3724,16 @@
                     {
                         if (t.Kind == this.StudyingTitle.Kind)
                         {
+                            t.Influences.PurifyInfluence(this, GameObjects.Influences.Applier.Title, t.ID, false);
                             this.RealTitles.Remove(t);
                             break;
                         }
 
                     }
                     this.RealTitles.Add(this.StudyingTitle);
-                    base.Scenario.YearTable.addObtainedTitleEntry(base.Scenario.Date, this, this.StudyingTitle);
+                    this.StudyingTitle.Influences.ApplyInfluence(this, GameObjects.Influences.Applier.Title, this.StudyingTitle.ID, false);
 
-                    this.ApplyTitles(false);
-                    this.ApplySkills(false);
+                    base.Scenario.YearTable.addObtainedTitleEntry(base.Scenario.Date, this, this.StudyingTitle);
 
                     ExtensionInterface.call("StudyTitleSuccess", new Object[] { this.Scenario, this, this.StudyingTitle });
                     if (this.OnStudyTitleFinished != null && this.ManualStudy)
@@ -5248,40 +5251,6 @@
         private void SetDayInfluence()
         {
             this.RewardFinished = false;
-            if (this.Status == PersonStatus.Normal)
-            {
-                if (((this.DayRateIncrementOfInternal > 0f) && ((this.BelongedFaction != null) && (this.LocationArchitecture != null))) && (this.LocationArchitecture.DayRateIncrementOfInternal < this.DayRateIncrementOfInternal))
-                {
-                    this.LocationArchitecture.DayRateIncrementOfInternal = this.DayRateIncrementOfInternal;
-                }
-                if ((this.LocationArchitecture != null) && (this.DayLearnTitleDay < this.LocationArchitecture.DayLearnTitleDay))
-                {
-                    this.LocationArchitecture.DayLearnTitleDay = this.DayLearnTitleDay;
-                }
-                if (this.DayLocationLoyaltyNoChange && (this.BelongedFaction != null))
-                {
-                    if (this.LocationArchitecture != null)
-                    {
-                        this.LocationArchitecture.DayLocationLoyaltyNoChange = true;
-                    }
-                    if (this.LocationTroop != null)
-                    {
-                        this.LocationTroop.LoyaltyNoChange = true;
-                    }
-                }
-                if ((this.DayAvoidInfluenceByBattle && (this.BelongedFaction != null)) && (this.LocationArchitecture != null))
-                {
-                    this.LocationArchitecture.DayAvoidInfluenceByBattle = true;
-                }
-                if ((this.DayAvoidPopulationEscape && (this.BelongedFaction != null)) && (this.LocationArchitecture != null))
-                {
-                    this.LocationArchitecture.DayAvoidPopulationEscape = true;
-                }
-                if ((this.DayAvoidInternalDecrementOnBattle && (this.BelongedFaction != null)) && (this.LocationArchitecture != null))
-                {
-                    this.LocationArchitecture.DayAvoidInternalDecrementOnBattle = true;
-                }
-            }
         }
         /*
         public void ShowPersonMessage(PersonMessage personMessage)

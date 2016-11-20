@@ -11185,12 +11185,6 @@
 
         private void ResetDayInfluence()
         {
-            this.DayRateIncrementOfInternal = 0f;
-            this.DayLearnTitleDay = Parameters.LearnTitleDays;
-            this.DayLocationLoyaltyNoChange = false;
-            this.DayAvoidInfluenceByBattle = false;
-            this.DayAvoidPopulationEscape = false;
-            this.DayAvoidInternalDecrementOnBattle = false;
             if (this.RecentlyAttacked > 0)
             {
                 this.RecentlyAttacked--;

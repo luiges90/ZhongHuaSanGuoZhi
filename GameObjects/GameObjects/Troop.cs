@@ -3845,8 +3845,6 @@
             this.FinalizeOffenceArea();
             this.FinalizeStratagemArea();
             this.FinalizeViewArea();
-            this.Persons.PurifyInfluences();
-            this.PurifyFactionInfluences();
             if (this.CurrentCombatMethod != null)
             {
                 this.CurrentCombatMethod.Purify(this);
