@@ -4905,10 +4905,6 @@
                 {
                     this.taskDays = 1;
                 }
-                if (this.taskDays > 5)
-                {
-                    this.taskDays = 5;
-                }
 
                 this.arrivingDays = this.TaskDays * 2;
 
