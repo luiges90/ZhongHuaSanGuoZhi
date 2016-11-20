@@ -8130,10 +8130,10 @@
                     if (!currentArchitecture.PrincessChangeLeader(true, this.BelongedFaction, p))
                     {
                         Captive captive = Captive.Create(base.Scenario, p, this.BelongedFaction);
-                        captive.CaptivePerson.LocationTroop = this;
-                        captive.CaptivePerson.LocationArchitecture = null;
                         if (captive != null)
                         {
+                            captive.CaptivePerson.LocationTroop = this;
+                            captive.CaptivePerson.LocationArchitecture = null;
                             this.AddCaptive(captive);
                         }
                     }
