@@ -123,7 +123,7 @@
         {
             if (this.Type == InfluenceType.战斗 || this.Type == InfluenceType.建筑战斗)
             {
-                if (i.appliedTroop.Add(new ApplyingTroop(troop, applier, applierID)))
+                if (i.appliedTroop.Add(new ApplyingTroop(troop, applier, applierID)) || (this.ID >= 390 && this.ID <= 399) || this.ID == 720 || this.ID == 721)
                 {
                     troop.InfluencesApplying.Add(i);
                     ApplyInfluenceKind(troop);

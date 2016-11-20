@@ -6425,7 +6425,7 @@
                     friendlyFightingForce += t.FightingForce;
                 }
 
-                if (hostileFightingForce > friendlyFightingForce && GameObject.Chance(30))
+                if (hostileFightingForce > friendlyFightingForce * 3 && GameObject.Chance(40 - this.BelongedFaction.Leader.PersonalLoyalty * 10))
                 {
                     Person shizhe = this.MovablePersons[Random(this.MovablePersons.Count)] as Person;
                     DiplomaticRelationDisplay display = this.GetGeDiDiplomaticRelationList()[GameObject.Random(this.GetGeDiDiplomaticRelationList().Count)] as DiplomaticRelationDisplay; ;

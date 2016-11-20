@@ -6377,18 +6377,35 @@
             return result;
         }
 
-        public ArchitectureList GetGeDiArchitecture()
+        public Architecture GetGeDiArchitecture(Faction targetFaction)
         {
-            ArchitectureList al = new ArchitectureList();
+            Architecture result = null;
+            int dist = int.MaxValue;
+
             foreach (Architecture a in this.Architectures)
             {
                 if (a != this.Capital)
                 {
-                    al.Add(a);
+                    int innerDist = int.MaxValue;
+                    foreach (Architecture b in targetFaction.Architectures)
+                    {
+                        int d = base.Scenario.GetSimpleDistance(a.ArchitectureArea.Centre, b.ArchitectureArea.Centre);
+
+                        if (d < innerDist)
+                        {
+                            d = innerDist;
+                        }
+                    }
+
+                    if (innerDist < dist && !a.HasHostileTroopsInView())
+                    {
+                        dist = innerDist;
+                        result = a;
+                    }
                 }
             }
 
-            return al;
+            return result;
         }
 
         public bool HasInformation()

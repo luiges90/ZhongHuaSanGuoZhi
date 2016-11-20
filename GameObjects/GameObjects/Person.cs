@@ -1538,7 +1538,19 @@
             {
                 foreach (Influences.Influence i in this.LocationArchitecture.Characteristics.Influences.Values)
                 {
-                    i.ApplyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0, excludePersonal);
+                    if (i.Kind.Type == GameObjects.Influences.InfluenceType.战斗 || i.Kind.Type == GameObjects.Influences.InfluenceType.建筑战斗)
+                    {
+                        Troop a = this.LocationTroop;
+                        if (a != null && a.Leader == this)
+                        {
+                            i.ApplyInfluence(a, GameObjects.Influences.Applier.Characteristics, 0);
+                        }
+                    }
+
+                    if (i.Kind.Type == InfluenceType.个人 || i.Kind.Type == InfluenceType.势力 || i.Kind.Type == InfluenceType.多选一)
+                    {
+                        i.ApplyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0, excludePersonal);
+                    }
                 }
             }
         }
@@ -1549,7 +1561,19 @@
             {
                 foreach (Influences.Influence i in this.LocationArchitecture.Characteristics.Influences.Values)
                 {
-                    i.PurifyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0, excludePersonal);
+                    if (i.Kind.Type == GameObjects.Influences.InfluenceType.战斗 || i.Kind.Type == GameObjects.Influences.InfluenceType.建筑战斗)
+                    {
+                        Troop a = this.LocationTroop;
+                        if (a != null && a.Leader == this)
+                        {
+                            i.PurifyInfluence(a, GameObjects.Influences.Applier.Characteristics, 0);
+                        }
+                    }
+
+                    if (i.Kind.Type == InfluenceType.个人 || i.Kind.Type == InfluenceType.势力 || i.Kind.Type == InfluenceType.多选一)
+                    {
+                        i.PurifyInfluence(this, GameObjects.Influences.Applier.Characteristics, 0, excludePersonal);
+                    }
                 }
             }
         }
@@ -2830,17 +2854,41 @@
             Faction targetFaction = this.TargetArchitecture.BelongedFaction;
             this.OutsideDestination = null;
 
+            Architecture a = this.BelongedFaction.GetGeDiArchitecture(targetFaction);
+
+            if (a == null) return;
+
             if (GeDiSuccess(this.BelongedFaction, targetFaction, this))
             {
-                AfterGeDi(this.BelongedFaction, targetFaction, this);
+                AfterGeDi(this.BelongedFaction, targetFaction, a, this);
             }
         }
 
-        private static void AfterGeDi(Faction sourceFaction, Faction targetFaction, Person shizhe)
+        private static void AfterGeDi(Faction sourceFaction, Faction targetFaction, Architecture a, Person shizhe)
         {
             shizhe.Scenario.GameScreen.xianshishijiantupian(shizhe, sourceFaction.Leader.Name, TextMessageKind.GeDi, "GeDiDiplomaticRelation", "GeDiDiplomaticRelation.jpg", "shilimiewang.wma", targetFaction.Name, true);
 
-            Architecture a = sourceFaction.GetGeDiArchitecture()[0] as Architecture;
+            foreach (Person p in a.Persons)
+            {
+                p.MoveToArchitecture(sourceFaction.Capital);
+            }
+            foreach (Person p in a.MovingPersons)
+            {
+                p.MoveToArchitecture(sourceFaction.Capital);
+            }
+            foreach (Military m in a.movableMilitaries)
+            {
+                a.TransferMilitary(m, sourceFaction.Capital);
+            }
+            foreach (Military m in sourceFaction.TransferingMilitaries)
+            {
+                if (m.TargetArchitecture == a)
+                {
+                    double distance = shizhe.Scenario.GetDistance(a.ArchitectureArea, sourceFaction.Capital.ArchitectureArea);
+                    m.TargetArchitecture = sourceFaction.Capital;
+                    m.ArrivingDays += Math.Max(1, (int)(m.TransferDays(distance) * (1 - a.TroopTransportDayRate)));
+                }
+            }
             a.ChangeFaction(targetFaction);
 
             //停战5年
