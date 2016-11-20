@@ -6377,9 +6377,18 @@
             return result;
         }
 
-        public Architecture[] GetGeDiArchitecture()
+        public ArchitectureList GetGeDiArchitecture()
         {
-            return new Architecture[1];
+            ArchitectureList al = new ArchitectureList();
+            foreach (Architecture a in this.Architectures)
+            {
+                if (a != this.Capital)
+                {
+                    al.Add(a);
+                }
+            }
+
+            return al;
         }
 
         public bool HasInformation()

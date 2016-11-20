@@ -2838,7 +2838,6 @@
 
         private static void AfterGeDi(Faction sourceFaction, Faction targetFaction, Person shizhe)
         {
-            return;
             shizhe.Scenario.GameScreen.xianshishijiantupian(shizhe, sourceFaction.Leader.Name, TextMessageKind.GeDi, "GeDiDiplomaticRelation", "GeDiDiplomaticRelation.jpg", "shilimiewang.wma", targetFaction.Name, true);
 
             Architecture a = sourceFaction.GetGeDiArchitecture()[0] as Architecture;
@@ -4828,7 +4827,6 @@
 
         public void GoToGeDiDiplomatic(DiplomaticRelationDisplay a) //割地
         {
-            return;
             if (a == null) return;
 
             Faction targetFaction = this.BelongedFaction.GetFactionByName(a.FactionName);
