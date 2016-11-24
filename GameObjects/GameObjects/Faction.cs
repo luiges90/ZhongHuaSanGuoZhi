@@ -2917,8 +2917,6 @@
             }
         }
 
-        
-
         private void AIAppointMayor()
         {
             if (GameObject.Random(10) == 0)
@@ -3928,6 +3926,7 @@
             this.PlayerTechniqueAI();
             this.PlayerAIArchitectures();
             this.PlayerAILegions();
+            this.PlayerAIAppointMayor();
             this.AIFinished = true;
             base.Scenario.Threading = false;
         }
@@ -3971,6 +3970,11 @@
                     legion.AIWithAuto();
                 }
             }
+        }
+
+        private void PlayerAIAppointMayor()
+        {
+            AIAppointMayor();
         }
 
         private void PlayerTechniqueAI()
