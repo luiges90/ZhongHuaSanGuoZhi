@@ -330,6 +330,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void PersonBeAwardedTreasure(Person person, Treasure t)
         {
+            /*
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(person.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 person.TextResultString = t.Name;
@@ -338,7 +339,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
 
 
-            }
+            }*/
         }
 
         public override void selfFoundPregnant(Person person)
@@ -559,6 +560,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void PersonBeConfiscatedTreasure(Person person, Treasure t)
         {
+            /*
             if (((base.Scenario.CurrentPlayer == null) || base.Scenario.IsCurrentPlayer(person.BelongedFaction)) || GlobalVariables.SkyEye)
             {
                 person.TextResultString = t.Name;
@@ -566,7 +568,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
                 this.Plugins.tupianwenziPlugin.IsShowing = true;
             }
-
+            */
 
         }
 
@@ -1412,7 +1414,9 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void Appointmayor(Person p, Person q)  //太守
         {
-            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction)) && base.Scenario.IsCurrentPlayer(q.BelongedFaction))
+            if ((base.Scenario.IsCurrentPlayer(p.BelongedFaction)) && base.Scenario.IsCurrentPlayer(q.BelongedFaction) && 
+                p.BelongedArchitecture != null && p.BelongedArchitecture.BelongedSection != null &&
+                !p.BelongedArchitecture.BelongedSection.AIDetail.AutoRun)
             {
                 p.TextResultString = q.Name;
                 q.TextResultString = p.Name;
