@@ -1355,7 +1355,7 @@
                     }
                 }
 
-                if (a.IsTroopExceedsLimit && military && !a.FrontLine && a.HasPerson())
+                if (a.IsTroopExceedsLimit && military && !a.FrontLine)
                 {
                     int toSend = a.ArmyScale / 2;
                     foreach (Architecture b in candidates)
@@ -1365,7 +1365,6 @@
                             int sent = b.CallMilitary(a, toSend);
                             toSend -= sent;
                             if (toSend <= 0) break;
-                            if (!a.HasPerson()) break;
                         }
                     }
                 }
@@ -1480,8 +1479,8 @@
                         minPerson.Add(a, 0);
                         minTroop.Add(a, 0);
                     }
-                    minFund.Add(a, Math.Min(a.FundCeiling, a.EnoughFund));
-                    minFood.Add(a, Math.Min(a.FoodCeiling, a.EnoughFood));
+                    minFund.Add(a, Math.Min(a.FundCeiling * 9 / 10, a.EnoughFund));
+                    minFood.Add(a, Math.Min(a.FoodCeiling * 9 / 10, a.EnoughFood));
 
                     if (a.HostileLine || a.orientationFrontLine)
                     {
@@ -1495,15 +1494,15 @@
                             goodPerson.Add(a, Math.Max(Math.Max(avgFrontlinePerson, a.EnoughPeople), minPerson[a]));
                         }
                         goodTroop.Add(a, Math.Max(troop, minTroop[a]));
-                        goodFood.Add(a, Math.Min(a.FoodCeiling, Math.Max(a.AbundantFood * 2, minFood[a])));
-                        goodFund.Add(a, Math.Min(a.FundCeiling, Math.Max(a.AbundantFund, minFund[a])));
+                        goodFood.Add(a, Math.Min(a.FoodCeiling * 9 / 10, Math.Max(a.AbundantFood * 2, minFood[a])));
+                        goodFund.Add(a, Math.Min(a.FundCeiling * 9 / 10, Math.Max(a.AbundantFund, minFund[a])));
                     }
                     else if (a.FrontLine)
                     {
                         goodPerson.Add(a, Math.Max(avgFrontlinePerson, minPerson[a]));
                         goodTroop.Add(a, Math.Max(a.TroopReserveScale, minTroop[a]));
-                        goodFood.Add(a, Math.Min(a.FoodCeiling, Math.Max(a.AbundantFood * 2, minFood[a])));
-                        goodFund.Add(a, Math.Min(a.FundCeiling, Math.Max(a.AbundantFund, minFund[a])));
+                        goodFood.Add(a, Math.Min(a.FoodCeiling * 9 / 10, Math.Max(a.AbundantFood * 2, minFood[a])));
+                        goodFund.Add(a, Math.Min(a.FundCeiling * 9 / 10, Math.Max(a.AbundantFund, minFund[a])));
                     }
                     else if (!a.IsVeryGood())
                     {
