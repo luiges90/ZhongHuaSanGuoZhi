@@ -4172,6 +4172,7 @@
             //type.ID = preferredType; 
             PersonGenerateParam param = new PersonGenerateParam(Scenario,this,this.BelongedFaction.Leader ,true,preferredType ,isAI);
             Person r = Person.createPerson(param, true);
+            r.Ideal = (this.BelongedFaction.Leader.Ideal + GameObject.Random(r.IdealTendency.Offset * 2 + 1) - r.IdealTendency.Offset) % 150;
             this.ZhaoXian(r);
             this.BelongedFaction.YearOfficialLimit++;
             preferredType.TypeCount++;
@@ -6407,6 +6408,7 @@
 
         private void AIGeDi()
         {
+            return;
             if (!this.HasHostileTroopsInView()) return;
 
             if (this.MovablePersons.Count > 0)

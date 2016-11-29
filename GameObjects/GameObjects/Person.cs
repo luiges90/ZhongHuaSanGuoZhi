@@ -3299,6 +3299,7 @@
                         GlobalVariables.CreateRandomOfficerChance * 100)
                     {
                         pack.FoundPerson = Person.createPerson(base.Scenario, this.TargetArchitecture, this, true, false);
+                        pack.FoundPerson.Ideal = (this.BelongedFaction.Leader.Ideal + GameObject.Random(pack.FoundPerson.IdealTendency.Offset * 2 + 1) - pack.FoundPerson.IdealTendency.Offset) % 150;
                         return true;
                     }
                     else if (!base.Scenario.IsPlayer(this.BelongedFaction) &&
