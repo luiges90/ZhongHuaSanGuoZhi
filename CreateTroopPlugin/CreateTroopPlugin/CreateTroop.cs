@@ -751,6 +751,7 @@
         {
             if (this.screen.PeekUndoneWork().Kind == UndoneWorkKind.Dialog)
             {
+                this.CreatingTroop.Destroy(true, false);
                 this.IsShowing = false;
             }
         }
