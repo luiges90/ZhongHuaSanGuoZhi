@@ -5230,7 +5230,7 @@
                                 this.TargetArchitecture.TodayPersonArriveNote = true;
                                 this.Scenario.GameScreen.renwudaodatishi(this, this.TargetArchitecture);
                             }
-                            if (this.TargetArchitecture.Mayor == null && this.wasMayor)
+                            if (this.TargetArchitecture.Mayor == null && this.wasMayor && this.TargetArchitecture.BelongedFaction == this.BelongedFaction)
                             {
                                 this.TargetArchitecture.MayorID = this.ID;
                             }
