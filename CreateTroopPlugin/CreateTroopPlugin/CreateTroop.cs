@@ -751,7 +751,10 @@
         {
             if (this.screen.PeekUndoneWork().Kind == UndoneWorkKind.Dialog)
             {
-                this.CreatingTroop.Destroy(true, false);
+                if (this.CreatingTroop.Army != null)
+                {
+                    this.CreatingTroop.Destroy(true, false);
+                }
                 this.IsShowing = false;
             }
         }
