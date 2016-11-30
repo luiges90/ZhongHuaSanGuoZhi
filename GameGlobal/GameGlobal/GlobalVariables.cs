@@ -164,6 +164,7 @@
         public static bool AIQuickBattle = false;
 
         public static bool PlayerAutoSectionHasAIResourceBonus = false;
+        public static float ProhibitFactionAgainstDestroyer = 1.0f;
 
         public const string cryptKey = "A3g0c3%2";
 
@@ -918,6 +919,15 @@
             {
                 exception = exception24;
                 throw new Exception("PlayerAutoSectionHasAIResourceBonus:\n" + exception.ToString());
+            }
+            try
+            {
+                ProhibitFactionAgainstDestroyer = float.Parse(nextSibling.Attributes.GetNamedItem("ProhibitFactionAgainstDestroyer").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("ProhibitFactionAgainstDestroyer:\n" + exception.ToString());
             }
             return true;
         }

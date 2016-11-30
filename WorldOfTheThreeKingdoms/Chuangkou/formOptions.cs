@@ -249,6 +249,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private CheckBox cbAIQuickBattle;
         private TextBox tbChildrenAbilityFactor;
         private Label lblChildrenAbilityFactor;
+        private Label lblProhibitFactionAgainstDestroyer;
+        private TextBox tbProhibitFactionAgainstDestroyer;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -339,6 +341,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbRunWhileNotFocused = new System.Windows.Forms.CheckBox();
             this.cbDoAutoSave = new System.Windows.Forms.CheckBox();
             this.tabPagePerson = new System.Windows.Forms.TabPage();
+            this.tbChildrenAbilityFactor = new System.Windows.Forms.TextBox();
+            this.lblChildrenAbilityFactor = new System.Windows.Forms.Label();
             this.lblChildrenAvailableAge = new System.Windows.Forms.Label();
             this.tbChildrenAvailableAge = new System.Windows.Forms.TextBox();
             this.cbEnablePersonRelations = new System.Windows.Forms.CheckBox();
@@ -494,8 +498,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.tbChildrenAbilityFactor = new System.Windows.Forms.TextBox();
-            this.lblChildrenAbilityFactor = new System.Windows.Forms.Label();
+            this.lblProhibitFactionAgainstDestroyer = new System.Windows.Forms.Label();
+            this.tbProhibitFactionAgainstDestroyer = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1174,6 +1178,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.lblProhibitFactionAgainstDestroyer);
+            this.tabPagePerson.Controls.Add(this.tbProhibitFactionAgainstDestroyer);
             this.tabPagePerson.Controls.Add(this.tbChildrenAbilityFactor);
             this.tabPagePerson.Controls.Add(this.lblChildrenAbilityFactor);
             this.tabPagePerson.Controls.Add(this.lblChildrenAvailableAge);
@@ -1224,6 +1230,23 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPagePerson.Text = "人物";
             this.tabPagePerson.UseVisualStyleBackColor = true;
             // 
+            // tbChildrenAbilityFactor
+            // 
+            this.tbChildrenAbilityFactor.Location = new System.Drawing.Point(271, 325);
+            this.tbChildrenAbilityFactor.Name = "tbChildrenAbilityFactor";
+            this.tbChildrenAbilityFactor.Size = new System.Drawing.Size(51, 22);
+            this.tbChildrenAbilityFactor.TabIndex = 152;
+            this.tbChildrenAbilityFactor.Text = "0.8";
+            // 
+            // lblChildrenAbilityFactor
+            // 
+            this.lblChildrenAbilityFactor.AutoSize = true;
+            this.lblChildrenAbilityFactor.Location = new System.Drawing.Point(168, 328);
+            this.lblChildrenAbilityFactor.Name = "lblChildrenAbilityFactor";
+            this.lblChildrenAbilityFactor.Size = new System.Drawing.Size(101, 12);
+            this.lblChildrenAbilityFactor.TabIndex = 151;
+            this.lblChildrenAbilityFactor.Text = "生成子女能力乘数";
+            // 
             // lblChildrenAvailableAge
             // 
             this.lblChildrenAvailableAge.AutoSize = true;
@@ -1243,7 +1266,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // cbEnablePersonRelations
             // 
             this.cbEnablePersonRelations.AutoSize = true;
-            this.cbEnablePersonRelations.Location = new System.Drawing.Point(13, 353);
+            this.cbEnablePersonRelations.Location = new System.Drawing.Point(13, 379);
             this.cbEnablePersonRelations.Name = "cbEnablePersonRelations";
             this.cbEnablePersonRelations.Size = new System.Drawing.Size(144, 16);
             this.cbEnablePersonRelations.TabIndex = 148;
@@ -2619,22 +2642,21 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // tbChildrenAbilityFactor
+            // lblProhibitFactionAgainstDestroyer
             // 
-            this.tbChildrenAbilityFactor.Location = new System.Drawing.Point(271, 325);
-            this.tbChildrenAbilityFactor.Name = "tbChildrenAbilityFactor";
-            this.tbChildrenAbilityFactor.Size = new System.Drawing.Size(51, 22);
-            this.tbChildrenAbilityFactor.TabIndex = 152;
-            this.tbChildrenAbilityFactor.Text = "0.8";
+            this.lblProhibitFactionAgainstDestroyer.AutoSize = true;
+            this.lblProhibitFactionAgainstDestroyer.Location = new System.Drawing.Point(11, 354);
+            this.lblProhibitFactionAgainstDestroyer.Name = "lblProhibitFactionAgainstDestroyer";
+            this.lblProhibitFactionAgainstDestroyer.Size = new System.Drawing.Size(77, 12);
+            this.lblProhibitFactionAgainstDestroyer.TabIndex = 154;
+            this.lblProhibitFactionAgainstDestroyer.Text = "禁仕天数乘数";
             // 
-            // lblChildrenAbilityFactor
+            // tbProhibitFactionAgainstDestroyer
             // 
-            this.lblChildrenAbilityFactor.AutoSize = true;
-            this.lblChildrenAbilityFactor.Location = new System.Drawing.Point(168, 328);
-            this.lblChildrenAbilityFactor.Name = "lblChildrenAbilityFactor";
-            this.lblChildrenAbilityFactor.Size = new System.Drawing.Size(101, 12);
-            this.lblChildrenAbilityFactor.TabIndex = 151;
-            this.lblChildrenAbilityFactor.Text = "生成子女能力乘数";
+            this.tbProhibitFactionAgainstDestroyer.Location = new System.Drawing.Point(94, 351);
+            this.tbProhibitFactionAgainstDestroyer.Name = "tbProhibitFactionAgainstDestroyer";
+            this.tbProhibitFactionAgainstDestroyer.Size = new System.Drawing.Size(71, 22);
+            this.tbProhibitFactionAgainstDestroyer.TabIndex = 153;
             // 
             // formOptions
             // 
@@ -2742,6 +2764,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbChildrenAvailableAge.Text = nextSibling.Attributes.GetNamedItem("ChildrenAvailableAge").Value;
             this.cbFullScreen.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("FullScreen").Value);
             this.cbAIQuickBattle.Checked = bool.Parse(nextSibling.Attributes.GetNamedItem("AIQuickBattle").Value);
+            this.tbProhibitFactionAgainstDestroyer.Text = nextSibling.Attributes.GetNamedItem("ProhibitFactionAgainstDestroyer").Value;
         }
 
         private void LoadParameterDoc()
@@ -2927,6 +2950,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkIntSave(nextSibling, "ChildrenAvailableAge", this.lblChildrenAvailableAge, this.tbChildrenAvailableAge)) { return false; }
             nextSibling.Attributes.GetNamedItem("FullScreen").Value = this.cbFullScreen.Checked.ToString();
             nextSibling.Attributes.GetNamedItem("AIQuickBattle").Value = this.cbAIQuickBattle.Checked.ToString();
+            if (!checkFloatSave(nextSibling, "ProhibitFactionAgainstDestroyer", this.lblProhibitFactionAgainstDestroyer, this.tbProhibitFactionAgainstDestroyer)) {return false;}
             this.commonDoc.Save("GameData/GlobalVariables.xml");
             return true;
         }

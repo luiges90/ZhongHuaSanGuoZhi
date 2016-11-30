@@ -11364,7 +11364,7 @@
                             person2.Reputation = (int)(person2.Reputation * 0.95);
                         }
 
-                        int hateDays = (int) (Math.Pow(5, person2.PersonalLoyalty - 2) * 10 + GameObject.Random(20) - 30);
+                        int hateDays = (int)((Math.Pow(5, person2.PersonalLoyalty - 2) * 10 + GameObject.Random(20) - 30) * GlobalVariables.ProhibitFactionAgainstDestroyer);
                         if (hateDays > 0)
                         {
                             if (person2.ProhibitedFactionID.ContainsKey(faction.ID))
