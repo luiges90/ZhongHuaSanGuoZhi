@@ -4107,11 +4107,14 @@
 
         private void FinalizeContactArea()
         {
-            foreach (Point point in this.ContactArea.Area)
+            if (this.ContactArea != null)
             {
-                base.Scenario.RemovePositionContactingTroop(this, point);
+                foreach (Point point in this.ContactArea.Area)
+                {
+                    base.Scenario.RemovePositionContactingTroop(this, point);
+                }
+                this.ContactArea = null;
             }
-            this.ContactArea = null;
         }
 
         public void FinalizeInQueue()
@@ -4147,20 +4150,26 @@
 
         private void FinalizeOffenceArea()
         {
-            foreach (Point point in this.OffenceArea.Area)
+            if (this.OffenceArea != null)
             {
-                base.Scenario.RemovePositionOffencingTroop(this, point);
+                foreach (Point point in this.OffenceArea.Area)
+                {
+                    base.Scenario.RemovePositionOffencingTroop(this, point);
+                }
+                this.OffenceArea = null;
             }
-            this.OffenceArea = null;
         }
 
         private void FinalizeStratagemArea()
         {
-            foreach (Point point in this.StratagemArea.Area)
+            if (this.StratagemArea != null)
             {
-                base.Scenario.RemovePositionStratagemingTroop(this, point);
+                foreach (Point point in this.StratagemArea.Area)
+                {
+                    base.Scenario.RemovePositionStratagemingTroop(this, point);
+                }
+                this.StratagemArea = null;
             }
-            this.StratagemArea = null;
         }
 
         private void FinalizeViewArea()
@@ -4169,15 +4178,18 @@
             {
                 this.BelongedFaction.RemoveTroopKnownAreaData(this);
             }
-            foreach (Point point in this.ViewArea.Area)
+            if (this.ViewArea != null)
             {
-                if (!base.Scenario.PositionOutOfRange(point))
+                foreach (Point point in this.ViewArea.Area)
                 {
-                    base.Scenario.RemovePositionViewingTroopNoCheck(this, point);
-                    this.RemoveAreaInfluences(point);
+                    if (!base.Scenario.PositionOutOfRange(point))
+                    {
+                        base.Scenario.RemovePositionViewingTroopNoCheck(this, point);
+                        this.RemoveAreaInfluences(point);
+                    }
                 }
+                this.ViewArea = null;
             }
-            this.ViewArea = null;
         }
 
         public int GenerateAttackChaosDay(int maxDays)
