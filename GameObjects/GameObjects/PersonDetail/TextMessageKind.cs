@@ -136,5 +136,6 @@
         QuanXiang, //129
         QuanXiangFailed, // 130
         GeDi, // 131
+        AIMergeAgainstPlayer, //132
     }
 }

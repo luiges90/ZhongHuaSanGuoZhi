@@ -166,6 +166,8 @@
         public static bool PlayerAutoSectionHasAIResourceBonus = false;
         public static float ProhibitFactionAgainstDestroyer = 1.0f;
 
+        public static float AIMergeAgainstPlayer = 1.0f;
+
         public const string cryptKey = "A3g0c3%2";
 
         public static List<String> getFieldsExcludedFromSave()
@@ -928,6 +930,15 @@
             {
                 exception = exception24;
                 throw new Exception("ProhibitFactionAgainstDestroyer:\n" + exception.ToString());
+            }
+            try
+            {
+                AIMergeAgainstPlayer = float.Parse(nextSibling.Attributes.GetNamedItem("AIMergeAgainstPlayer").Value);
+            }
+            catch (Exception exception24)
+            {
+                exception = exception24;
+                throw new Exception("AIMergeAgainstPlayer:\n" + exception.ToString());
             }
             return true;
         }

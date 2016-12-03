@@ -5187,9 +5187,74 @@
         }
         private int oldDialogShowTime = -1;
 
+        private void AIMergeAgainstPlayer()
+        {
+            if (this.PlayerFactions.Count == 0) return;
+            if (this.Factions.Count < 3) return;
+
+            Faction strongestAI = null;
+            Faction strongestPlayer = null;
+            int strongestAIPower = int.MinValue;
+            int strongestPlayerPower = int.MinValue;
+
+            foreach (Faction f in this.Factions)
+            {
+                if (this.IsPlayer(f))
+                {
+                    if (f.Power > strongestPlayerPower)
+                    {
+                        strongestPlayerPower = f.Power;
+                        strongestPlayer = f;
+                    }
+                }
+                else
+                {
+                    if (f.Power > strongestAIPower)
+                    {
+                        strongestAIPower = f.Power;
+                        strongestAI = f;
+                    }
+                }
+            }
+
+            if (strongestAI == null || strongestPlayer == null) return;
+
+
+            if (GameObject.Chance((int) ((strongestPlayerPower / strongestAIPower - GlobalVariables.AIMergeAgainstPlayer) * 100)))
+            {
+                GameObjectList fl = this.Factions.GetList();
+                fl.IsNumber = true;
+                fl.PropertyName = "Power";
+                fl.SmallToBig = false;
+                fl.ReSort();
+
+                Faction toMerge = null;
+                foreach (Faction f in fl)
+                {
+                    if (this.IsPlayer(f) || f == strongestAI) continue;
+                    if (GameObject.Chance((int) (100 - Person.GetIdealOffset2(f.Leader, strongestAI.Leader))))
+                    {
+                        toMerge = f;
+                        break;
+                    }
+                }
+                if (toMerge != null)
+                {
+                    this.GameScreen.OnAIMergeAgainstPlayer(strongestPlayer, strongestAI, toMerge);
+                    this.YearTable.addChangeFactionEntry(this.Date, toMerge, strongestAI);
+                    toMerge.ChangeFaction(strongestAI);
+                    toMerge.AfterChangeLeader(strongestAI, toMerge.Leader, strongestAI.Leader);
+                }
+            }
+            
+        }
+
         public void MonthPassedEvent()
         {
             ExtensionInterface.call("MonthEvent", new Object[] { this });
+
+            this.AIMergeAgainstPlayer();
+
             foreach (Faction faction in this.Factions.GetRandomList())
             {
                 faction.MonthEvent();   

@@ -956,6 +956,8 @@
         public virtual void OnExecute(Person executor, Person executed) { }
 
         public virtual void OnTroopRout(Troop router, Troop routed) { }
+
+        public virtual void OnAIMergeAgainstPlayer(Faction strongestPlayer, Faction merger, Faction merged) { }
     }
 }
 
