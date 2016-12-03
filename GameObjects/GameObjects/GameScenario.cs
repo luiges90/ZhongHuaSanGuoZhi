@@ -5233,7 +5233,7 @@
                 foreach (Faction f in fl)
                 {
                     if (this.IsPlayer(f) || f == strongestAI) continue;
-                    if (GameObject.Chance((int) (100 - Person.GetIdealOffset2(f.Leader, strongestAI.Leader))))
+                    if (GameObject.Chance((int)(100 - Person.GetIdealOffset2(f.Leader, strongestAI.Leader) + strongestPlayerPower / strongestAIPower * 100)))
                     {
                         toMerge = f;
                         break;
