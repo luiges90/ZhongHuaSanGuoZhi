@@ -1950,6 +1950,7 @@
                     //flag = true;
                 }
                 Faction f = this.BelongedFaction;
+                Architecture starting = this.StartingArchitecture;
                 this.Destroy(true, true);
                 foreach (Person p in this.persons)
                 {
@@ -1962,17 +1963,17 @@
                 foreach (Person person in this.persons)
                 {
                     Point from = this.Position;
-                    if ((this.StartingArchitecture == null) || (f != this.StartingArchitecture.BelongedFaction))
+                    if ((starting == null) || (f != starting.BelongedFaction))
                     {
                         if (f.Capital != null)
                         {
-                            this.StartingArchitecture = f.Capital;
+                            starting = f.Capital;
                         }
                     }
-                    if (this.StartingArchitecture != null)
+                    if (starting != null)
                     {
-                        person.LocationArchitecture = this.StartingArchitecture;
-                        person.MoveToArchitecture(this.StartingArchitecture, from);
+                        person.LocationArchitecture = starting;
+                        person.MoveToArchitecture(starting, from);
                     }
                     person.LocationTroop = null;
                     if (this.Leader == person)
