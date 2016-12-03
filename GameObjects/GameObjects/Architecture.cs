@@ -3592,6 +3592,14 @@
             ExtensionInterface.call("StartBuildFacility", new Object[] { this.Scenario, this, facilityKind });
         }
 
+        public void StopBuildingFacility()
+        {
+            FacilityKind fac = base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKind(this.BuildingFacility);
+            this.IncreaseFund((int)(fac.FundCost * 0.5 * this.BuildingDaysLeft / fac.Days));
+            this.BuildingFacility = -1;
+            this.BuildingDaysLeft = 0;
+        }
+
         public void BuildFacility(FacilityKind facilityKind)
         {
             Facility facility = new Facility();
@@ -3615,6 +3623,11 @@
         public bool BuildFacilityAvail()
         {
             return ((this.BuildingFacility < 0) && (this.GetBuildableFacilityKindList().Count > 0));
+        }
+
+        public bool StopBuildingFacilityAvail()
+        {
+            return ((this.BuildingFacility >= 0));
         }
 
         private struct CreateTroopInfo
@@ -6439,6 +6452,7 @@
             }
         }
 
+        
         /*
         private void AIQuanXiang()
         {

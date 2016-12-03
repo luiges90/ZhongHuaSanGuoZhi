@@ -41,6 +41,8 @@ namespace ArchitectureSurveyPlugin
         public FreeText PopulationText;
         public FreeText MilitaryPopulationText;
         public FreeText FacilityCountText;
+        public FreeText BuildingDaysLeftText;
+        public FreeText MayorNameText;
         public FreeText TechnologyText;
         public int Top;
         public Faction ViewingFaction;
@@ -61,6 +63,7 @@ namespace ArchitectureSurveyPlugin
                 this.ArmyText.Draw(spriteBatch, 0.05f);
                 this.DominationText.Draw(spriteBatch, 0.05f);
                 this.EnduranceText.Draw(spriteBatch, 0.05f);
+                this.MayorNameText.Draw(spriteBatch, 0.05f);
             }
             else
             {
@@ -84,6 +87,8 @@ namespace ArchitectureSurveyPlugin
                 this.CommerceText.Draw(spriteBatch, 0.05f);
                 this.TechnologyText.Draw(spriteBatch, 0.05f);
                 this.MoraleText.Draw(spriteBatch, 0.05f);
+                this.BuildingDaysLeftText.Draw(spriteBatch, 0.05f);
+                this.MayorNameText.Draw(spriteBatch, 0.05f);
             }
         }
 
@@ -106,6 +111,8 @@ namespace ArchitectureSurveyPlugin
             this.CommerceText.DisplayOffset = this.displayOffset;
             this.TechnologyText.DisplayOffset = this.displayOffset;
             this.MoraleText.DisplayOffset = this.displayOffset;
+            this.BuildingDaysLeftText.DisplayOffset = this.displayOffset;
+            this.MayorNameText.DisplayOffset = this.displayOffset;
         }
 
         public void Update()
@@ -143,6 +150,7 @@ namespace ArchitectureSurveyPlugin
                 /////////////////////////////////////////////////////////////
                 this.DominationText.Text = this.ArchitectureToSurvey.DominationInInformationLevel(this.Level);
                 this.EnduranceText.Text = this.ArchitectureToSurvey.EnduranceInInformationLevel(this.Level);
+                this.MayorNameText.Text = this.ArchitectureToSurvey.MayorName;
             }
             else
             {
@@ -157,7 +165,7 @@ namespace ArchitectureSurveyPlugin
                 this.FactionText.Text = this.ArchitectureToSurvey.FactionString;
                 this.PopulationText.Text = this.ArchitectureToSurvey.Population.ToString();
                 this.MilitaryPopulationText.Text = this.ArchitectureToSurvey.MilitaryPopulation.ToString();
-                this.ArmyText.Text =this.ArchitectureToSurvey.MilitaryCount.ToString()+"/"+   this.ArchitectureToSurvey.ArmyQuantity.ToString();
+                this.ArmyText.Text = this.ArchitectureToSurvey.MilitaryCount.ToString() + "/" + this.ArchitectureToSurvey.ArmyQuantity.ToString();
                 this.DominationText.Text = this.ArchitectureToSurvey.DominationString;
                 this.EnduranceText.Text = this.ArchitectureToSurvey.EnduranceString;
                 this.FundText.Text = this.ArchitectureToSurvey.Fund.ToString();
@@ -170,24 +178,26 @@ namespace ArchitectureSurveyPlugin
                 {
                     this.FoodText.Text = Math.Floor(this.ArchitectureToSurvey.Food / 10000.0f).ToString() + "万";
                 }
-                this.PersonCountText.Text =meigongzuoderenshuzifuchuan +"/"+ this.ArchitectureToSurvey.PersonCount.ToString();
+                this.PersonCountText.Text = meigongzuoderenshuzifuchuan + "/" + this.ArchitectureToSurvey.PersonCount.ToString();
                 this.FacilityCountText.Text = this.ArchitectureToSurvey.SheshiMiaoshu;
                 this.NoFactionPersonCountText.Text = this.ArchitectureToSurvey.NoFactionPersonCount.ToString();
                 this.AgricultureText.Text = this.ArchitectureToSurvey.AgricultureString;
                 this.CommerceText.Text = this.ArchitectureToSurvey.CommerceString;
                 this.TechnologyText.Text = this.ArchitectureToSurvey.TechnologyString;
                 this.MoraleText.Text = this.ArchitectureToSurvey.MoraleString;
+                this.BuildingDaysLeftText.Text = this.ArchitectureToSurvey.BuildingDaysLeft.ToString();
+                this.MayorNameText.Text = this.ArchitectureToSurvey.MayorName;
             }
         }
 
-        private int  meigongzuoderenshu(Architecture jianzhu)
+        private int meigongzuoderenshu(Architecture jianzhu)
         {
             int renshu = 0;
-            foreach (Person person in jianzhu.Persons.GetList())    
+            foreach (Person person in jianzhu.Persons.GetList())
             {
                 if (person.WorkKind == ArchitectureWorkKind.无)
                 {
-                    renshu ++;
+                    renshu++;
                 }
             }
             return renshu;
@@ -207,6 +217,6 @@ namespace ArchitectureSurveyPlugin
         }
     }
 
- 
+
 
 }

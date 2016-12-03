@@ -150,7 +150,7 @@ namespace ArchitectureSurveyPlugin
             this.architectureSurvey.MoraleText = new FreeText(this.graphicsDevice, font, color);
             this.architectureSurvey.MoraleText.Position = rectangle;
             this.architectureSurvey.MoraleText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
-            
+
             node = nextSibling.ChildNodes.Item(18);
             rectangle = StaticMethods.LoadRectangleFromXMLNode(node);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
@@ -160,9 +160,22 @@ namespace ArchitectureSurveyPlugin
             node = nextSibling.ChildNodes.Item(19);
             rectangle = StaticMethods.LoadRectangleFromXMLNode(node);
             StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
-            this.architectureSurvey.FacilityCountText  = new FreeText(this.graphicsDevice, font, color);
+            this.architectureSurvey.FacilityCountText = new FreeText(this.graphicsDevice, font, color);
             this.architectureSurvey.FacilityCountText.Position = rectangle;
             this.architectureSurvey.FacilityCountText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
+
+            node = nextSibling.ChildNodes.Item(20);
+            rectangle = StaticMethods.LoadRectangleFromXMLNode(node);
+            StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
+            this.architectureSurvey.BuildingDaysLeftText = new FreeText(this.graphicsDevice, font, color);
+            this.architectureSurvey.BuildingDaysLeftText.Position = rectangle;
+            this.architectureSurvey.BuildingDaysLeftText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
+            node = nextSibling.ChildNodes.Item(21);
+            rectangle = StaticMethods.LoadRectangleFromXMLNode(node);
+            StaticMethods.LoadFontAndColorFromXMLNode(node, out font, out color);
+            this.architectureSurvey.MayorNameText = new FreeText(this.graphicsDevice, font, color);
+            this.architectureSurvey.MayorNameText.Position = rectangle;
+            this.architectureSurvey.MayorNameText.Align = (TextAlign)Enum.Parse(typeof(TextAlign), node.Attributes.GetNamedItem("Align").Value);
 
         }
 
@@ -266,6 +279,6 @@ namespace ArchitectureSurveyPlugin
         }
     }
 
- 
+
 
 }

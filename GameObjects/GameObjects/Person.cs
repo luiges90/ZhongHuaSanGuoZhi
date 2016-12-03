@@ -2942,7 +2942,7 @@
             
         }
 
-        private bool QuanXiangChance(Faction sourceFaction, Faction targetFaction, Person shizhe)
+        private  bool QuanXiangChance(Faction sourceFaction, Faction targetFaction, Person shizhe)
         {
             if (sourceFaction == null || targetFaction == null) return false;
 

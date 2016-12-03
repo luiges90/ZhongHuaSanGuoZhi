@@ -41,6 +41,7 @@
         Internal_Endurance,
         Internal_Facility_Build,
         Internal_Facility_Demolish,
+        Internal_Facility_StopBuilding,//停止建设
         Internal_Trade_BuyFood,
         Internal_Trade_SellFood,
         Internal_Expand,

@@ -51,6 +51,7 @@
                 <MenuItem ID="8" Name="Facility" DisplayName="设施">
                     <MenuItem ID="1" Name="Build" DisplayName="新建" DisplayIfTrue="BuildFacilityAvail" />
                     <MenuItem ID="2" Name="Demolish" DisplayName="拆除" DisplayIfTrue="HaskechaichuFacility" />
+                    <MenuItem ID="3" Name="StopBuilding" DisplayName="停工" DisplayIfTrue="StopBuildingFacilityAvail" />
                 </MenuItem>
                 <MenuItem ID="9" Name="Trade" DisplayName="交易">
                     <MenuItem ID="1" Name="BuyFood" DisplayName="买粮" DisplayIfTrue="BuyFoodAvail" />

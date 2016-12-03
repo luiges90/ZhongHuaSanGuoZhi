@@ -320,6 +320,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                 case ContextMenuResult.Internal_Facility_Demolish:
                     this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Facility, FrameFunction.GetFacilityToDemolish, false, true, true, true, this.CurrentArchitecture.kechaichudesheshi(), null, "选择设施", "");
                     break;
+                    
+                case ContextMenuResult.Internal_Facility_StopBuilding:
+                    this.CurrentArchitecture.StopBuildingFacility();
+                    break;
 
                 case ContextMenuResult.Internal_Trade_BuyFood:
                     this.Plugins.NumberInputerPlugin.SetMax(this.CurrentArchitecture.Fund);
