@@ -753,13 +753,13 @@ Color="4294967295"></Leaf>
   </Branch>
   
   <Branch Name="AIMergeAgainstPlayer">
-	<Leaf Text="为应对" Color="4294967295"></Lead>
+	<Leaf Text="为应对" Color="4294967295"></Leaf>
 	<Leaf Property="TextDestinationString" Color="4294901760"></Leaf>
-	<Leaf Text="的威胁，" Color="4294967295"></Lead>
+	<Leaf Text="的威胁，" Color="4294967295"></Leaf>
 	<Leaf Property="TextResultString" Color="4278255360"></Leaf>
-	<Leaf Text="并入" Color="4294967295"></Lead>
+	<Leaf Text="并入" Color="4294967295"></Leaf>
 	<Leaf Property="Name" Color="4278255360"></Leaf>
-	<Leaf Text="的势力了。" Color="4294967295"></Lead>
+	<Leaf Text="的势力了。" Color="4294967295"></Leaf>
   </Branch>
 </Root>
 
