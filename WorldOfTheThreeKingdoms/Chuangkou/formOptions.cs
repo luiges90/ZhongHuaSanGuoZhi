@@ -2675,9 +2675,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tbAIMergeAgainstPlayer
             // 
-            this.tbAIMergeAgainstPlayer.Location = new System.Drawing.Point(366, 256);
+            this.tbAIMergeAgainstPlayer.Location = new System.Drawing.Point(370, 252);
             this.tbAIMergeAgainstPlayer.Name = "tbAIMergeAgainstPlayer";
-            this.tbAIMergeAgainstPlayer.Size = new System.Drawing.Size(66, 22);
+            this.tbAIMergeAgainstPlayer.Size = new System.Drawing.Size(60, 22);
             this.tbAIMergeAgainstPlayer.TabIndex = 78;
             // 
             // formOptions
