@@ -211,6 +211,13 @@
                     foreach (Person p in t.Persons)
                         result.Add(p);
                 }
+                foreach (Captive c in base.Scenario.Captives)
+                {
+                    if (c.CaptiveFaction == this)
+                    {
+                        result.Add(c.CaptivePerson);
+                    }
+                }
 
                 return result;
             }
@@ -6078,6 +6085,13 @@
                 foreach (Troop t in Troops)
                 {
                     result += t.PersonCount;
+                }
+                foreach (Captive c in base.Scenario.Captives)
+                {
+                    if (c.CaptiveFaction == this)
+                    {
+                        result++;
+                    }
                 }
                 
                 
