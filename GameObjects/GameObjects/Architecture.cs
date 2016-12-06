@@ -9015,6 +9015,7 @@
 
         public int IncreasePopulation(int increment)
         {
+            if (this.PopulationCeiling == 0) return 0;
             int old = this.Population;
 
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Population / this.PopulationCeiling) : increment;
