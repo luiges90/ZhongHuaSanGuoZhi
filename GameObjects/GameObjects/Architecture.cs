@@ -8884,6 +8884,7 @@
 
         public void IncreaseAgriculture(int increment)
         {
+            if (this.AgricultureCeiling == 0) return;
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Agriculture / this.AgricultureCeiling) : increment;
             this.Agriculture += (int) Math.Floor(actualIncrement);
             if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
@@ -8899,6 +8900,7 @@
 
         public void IncreaseCommerce(int increment)
         {
+            if (this.CommerceCeiling == 0) return;
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Commerce / this.CommerceCeiling) : increment;
             this.Commerce += (int)Math.Floor(actualIncrement);
             if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
@@ -8914,6 +8916,7 @@
 
         public int IncreaseDomination(int increment)
         {
+            if (this.DominationCeiling == 0) return 0;
             int old = this.Domination;
 
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Domination / this.DominationCeiling) : increment;
@@ -8937,6 +8940,7 @@
             {
                 return 0;
             }
+            if (this.EnduranceCeiling == 0) return 0;
 
             int old = this.Endurance;
 
@@ -8995,6 +8999,7 @@
 
         public void IncreaseMorale(int increment)
         {
+            if (this.MoraleCeiling == 0) return;
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Morale / this.MoraleCeiling) : increment;
             this.Morale += (int)Math.Floor(actualIncrement);
             if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
@@ -9034,6 +9039,7 @@
 
         public void IncreaseTechnology(int increment)
         {
+            if (this.TechnologyCeiling == 0) return;
             float actualIncrement = increment > 0 ? increment * (1-(float)this.Technology / this.TechnologyCeiling) : increment;
             this.Technology += (int)Math.Floor(actualIncrement);
             if (GameObject.Random(1000000) < (actualIncrement - Math.Floor(actualIncrement)) * 1000000)
@@ -13507,6 +13513,11 @@
             }
             set
             {
+                if (this.morale == -2147483648)
+                {
+                    int z = 0;
+                    z++;
+                }
                 this.morale = value;
             }
         }
