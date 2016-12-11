@@ -5369,7 +5369,7 @@
                         p.CaptiveEscape();
                     }
                 }
-                if (p.CaptivePerson.ArrivingDays > 0 && (GameObject.Chance(p.CaptivePerson.JailBreakAbility / 50) || GameObject.Chance(p.CaptivePerson.captiveEscapeChance)))
+                if (p.CaptivePerson.ArrivingDays > 0 && (GameObject.Chance(p.CaptivePerson.JailBreakAbility / 100) || GameObject.Chance(p.CaptivePerson.captiveEscapeChance)))
                 {
                     p.CaptiveEscape();
                 }
