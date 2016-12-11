@@ -5221,7 +5221,7 @@
             if (strongestAI == null || strongestPlayer == null) return;
 
 
-            if (GameObject.Chance((int) ((strongestPlayerPower / strongestAIPower - GlobalVariables.AIMergeAgainstPlayer) * 100)))
+            if (GameObject.Chance((int) (((float) strongestPlayerPower / strongestAIPower - GlobalVariables.AIMergeAgainstPlayer) * 100)))
             {
                 GameObjectList fl = this.Factions.GetList();
                 fl.IsNumber = true;
