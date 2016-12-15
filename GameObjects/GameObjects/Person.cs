@@ -1185,13 +1185,15 @@
             {
                 if (this.IsCaptive)
                 {
-                    foreach (Captive c in base.Scenario.Captives)
+                    if (this.BelongedCaptive.CaptiveFaction != null)
                     {
-                        if (c.ID == this.ID && c.CaptiveFaction != null)
-                        {
-                            return c.CaptiveFaction.Capital;
-                        }
+                        return this.BelongedCaptive.CaptiveFaction.Capital;
                     }
+                    else
+                    {
+                        return this.BelongedCaptive.LocationArchitecture;
+                    }
+                    
                 }
                     
 
@@ -5510,6 +5512,23 @@
             {
                 if (this.huaiyun)
                 {
+                    return Math.Min(1, (360 - this.huaiyuntianshu) / 90.0f);
+                }
+                if (this.huaiyuntianshu < -1)
+                {
+                    return Math.Min(1, 1 + this.huaiyuntianshu / 180.0f);
+                }
+
+                return 1;
+            }
+        }
+
+        private float huaiyunStrengthFactor
+        {
+            get
+            {
+                if (this.huaiyun)
+                {
                     return Math.Min(1, (360 - this.huaiyuntianshu) / 180.0f);
                 }
                 if (this.huaiyuntianshu < -1)
@@ -6906,7 +6925,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunAbilityFactor * this.InjureRate);
+                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.RelationAbilityFactor * this.huaiyunStrengthFactor * this.InjureRate);
             }
         }
 
@@ -6915,7 +6934,7 @@
         {
             get
             {
-                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.huaiyunAbilityFactor * this.InjureRate);
+                return (int)(Math.Min((int)((this.StrengthIncludingExperience + this.InfluenceIncrementOfStrength) * this.InfluenceRateOfStrength), GlobalVariables.MaxAbility) * this.TirednessFactor * this.AbilityAgeFactor * this.huaiyunStrengthFactor * this.InjureRate);
             }
         }
 
