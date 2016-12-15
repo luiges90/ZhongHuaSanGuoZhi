@@ -1611,7 +1611,19 @@
 
         public void RecoverFromInjury()
         {
-            if (this.InjureRate < 1 && GameObject.Chance(this.Strength + 10))
+            int chance = this.Strength + 10;
+
+            if (this.LocationArchitecture != null)
+            {
+                if (this.Spouse != null && this.Spouse.LocationArchitecture == this.LocationArchitecture)
+                {
+                    chance *= 2;
+                }
+                
+                chance = (int)(chance * this.LocationArchitecture.MultipleOfRecovery);
+            }
+
+            if (this.InjureRate < 1 && GameObject.Chance(chance))
             {
                 this.InjureRate += (GameObject.Random(30) + 1) / 1000.0f;
                 if (this.InjureRate > 1)
