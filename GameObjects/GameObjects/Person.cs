@@ -8778,17 +8778,14 @@
 
         private static void HandleChildrenStatus(Person father, Person r)
         {
-            int longetivity = r.yearDead - r.yearBorn;
             r.YearBorn = father.Scenario.Date.Year;
             r.YearAvailable = father.Scenario.Date.Year + GlobalVariables.ChildrenAvailableAge;
-            if (longetivity > GlobalVariables.ChildrenAvailableAge)
+            r.YearDead = r.YearBorn + GameObject.Random(father.Scenario.GameCommonData.PersonGeneratorSetting.dieLo, father.Scenario.GameCommonData.PersonGeneratorSetting.dieHi);
+            if (r.YearDead - r.YearAvailable < father.Scenario.GameCommonData.PersonGeneratorSetting.debutAtLeast)
             {
-                r.YearDead = r.YearBorn + longetivity;
+                r.YearDead = r.YearAvailable + father.Scenario.GameCommonData.PersonGeneratorSetting.debutAtLeast;
             }
-            else
-            {
-                r.YearDead = r.YearBorn + r.EstimatedLongetivity + GameObject.Random(-5, 5);
-            }
+
             if (r.Spouse != null && GlobalVariables.PersonNaturalDeath && Math.Abs(r.Spouse.YearBorn - r.YearBorn) > 25)
             {
                 r.Spouse.Spouse = null;
