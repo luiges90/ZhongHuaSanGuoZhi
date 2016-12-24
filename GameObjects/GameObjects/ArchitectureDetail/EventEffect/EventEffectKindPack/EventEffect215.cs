@@ -13,6 +13,16 @@
             {
                 person.suoshurenwu = person.BelongedFactionWithPrincess.LeaderID;
                 person.BelongedFactionWithPrincess.Leader.suoshurenwu = person.ID;
+
+                if (!person.suoshurenwuList.GameObjects.Contains(person.BelongedFactionWithPrincess.Leader))
+                {
+                    person.suoshurenwuList.Add(person.BelongedFactionWithPrincess.Leader);
+                }
+                if (!person.BelongedFactionWithPrincess.Leader.suoshurenwuList.GameObjects.Contains(person))
+                {
+                    person.BelongedFactionWithPrincess.Leader.suoshurenwuList.Add(person);
+                }
+
             }
             else
             {
