@@ -61,7 +61,7 @@ namespace WorldOfTheThreeKingdoms
             base.Window.AllowUserResizing = true;
             DateTime buildDate = new FileInfo(Assembly.GetExecutingAssembly().Location).LastWriteTime;
 
-            base.Window.Title = "中华三国志开发版(已命名修改版 v.32-dev - build-" + buildDate.Year + "-" + buildDate.Month + "-" + buildDate.Day + ")";
+            base.Window.Title = "中华三国志开发版(已命名修改版 v.32 - build-" + buildDate.Year + "-" + buildDate.Month + "-" + buildDate.Day + ")";
 
             //System.Windows.Forms.Control control = System.Windows.Forms.Control.FromHandle(base.Window.Handle);
             this.GameForm = (System.Windows.Forms.Form)System.Windows.Forms.Form.FromHandle(this.Window.Handle);
