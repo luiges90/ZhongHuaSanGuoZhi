@@ -5210,6 +5210,19 @@
                 }
                 else
                 {
+                    FactionList adjacent = f.GetAdjecentFactions();
+                    bool nextToPlayer = false;
+                    foreach (Faction g in adjacent) 
+                    {
+                        if (this.IsPlayer(g) && this.GetDiplomaticRelation(f.ID, g.ID) < -100)
+                        {
+                            nextToPlayer = true;
+                            break;
+                        }
+                    }
+
+                    if (!nextToPlayer) continue;
+
                     if (f.Power > strongestAIPower)
                     {
                         strongestAIPower = f.Power;
@@ -5233,10 +5246,17 @@
                 foreach (Faction f in fl)
                 {
                     if (this.IsPlayer(f) || f == strongestAI) continue;
-                    if (GameObject.Chance((int)(100 - Person.GetIdealOffset2(f.Leader, strongestAI.Leader) + strongestPlayerPower / strongestAIPower * 100)))
+
+                    if (!f.Leader.Hates(strongestAI.Leader))
                     {
-                        toMerge = f;
-                        break;
+                        if (GameObject.Chance((int)(100 - Person.GetIdealOffset2(f.Leader, strongestAI.Leader) + strongestPlayerPower / strongestAIPower * 100)))
+                        {
+                            if (strongestAI.adjacentTo(f) && this.GetDiplomaticRelation(strongestAI.ID, f.ID) > 0)
+                            {
+                                toMerge = f;
+                                break;
+                            }
+                        }
                     }
                 }
                 if (toMerge != null)
