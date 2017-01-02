@@ -199,7 +199,7 @@
         public bool CanLearn(Person person, bool ignoreAutoLearn)
         {
             if (AutoLearn > 0 && !ignoreAutoLearn) return false;
-            if (this.ManualAward) return false;
+            if (this.ManualAward && !ignoreAutoLearn) return false;
             foreach (Condition condition in this.Conditions.Conditions.Values)
             {
                 if (!condition.CheckCondition(person))

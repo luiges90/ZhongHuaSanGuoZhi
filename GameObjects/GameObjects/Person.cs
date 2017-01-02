@@ -2979,7 +2979,7 @@
             if (!GameObject.Chance(30)) return false;
 
             //野心越高越不容易投降
-            if (!GameObject.Chance((100 / targetFaction.Leader.Ambition + 1))) return false;
+            if (targetFaction.Leader.Ambition > -1 && !GameObject.Chance((100 / (targetFaction.Leader.Ambition + 1)))) return false;
 
             //城池数量越多越不容易投降
             if (GameObject.Random(targetFaction.ArchitectureCount) != 0) return false;
