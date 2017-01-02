@@ -3840,12 +3840,20 @@
 
         public void Destroy(bool removeReferences, bool removeArmy)
         {
+            this.Destroy(removeReferences, removeArmy, false);
+        }
+
+        public void Destroy(bool removeReferences, bool removeArmy, bool skipViewArea)
+        {
             this.Destroyed = true;
             base.Scenario.ResetMapTileTroop(this.Position);
             this.FinalizeContactArea();
             this.FinalizeOffenceArea();
             this.FinalizeStratagemArea();
-            this.FinalizeViewArea();
+            if (!skipViewArea)
+            {
+                this.FinalizeViewArea();
+            }
             if (this.CurrentCombatMethod != null)
             {
                 this.CurrentCombatMethod.Purify(this);

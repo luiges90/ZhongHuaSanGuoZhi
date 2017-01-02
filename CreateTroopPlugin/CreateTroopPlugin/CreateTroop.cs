@@ -753,7 +753,7 @@
             {
                 if (this.CreatingTroop.Army != null)
                 {
-                    this.CreatingTroop.Destroy(true, false);
+                    this.CreatingTroop.Destroy(true, false, true);
                 }
                 this.IsShowing = false;
             }
