@@ -1940,6 +1940,22 @@
             }
             else
             {
+                foreach (Point p in this.ViewArea.Area)
+                {
+                    Troop t = base.Scenario.GetTroopByPosition(p);
+                    if (t != null)
+                    {
+                        if (this.BelongedFaction == t.BelongedFaction)
+                        {
+                            t.Morale -= 12 - (t.Leader.Command / 10);
+                        }
+                        else
+                        {
+                            t.Morale += t.Leader.Command / 20;
+                        }
+                    }
+                }
+
                 if (this.IsTransport && this.WillArchitecture != null)
                 {
                     this.WillArchitecture.SuspendTroopTransfer = 0;
@@ -9721,9 +9737,6 @@
                 damage.DestinationMoraleChange -= (int) (2 * troop.RateOfFireProtection + 1);
             }
 
-            damage.DestinationMoraleChange -= (int) (Math.Sqrt(damage.Damage) / 15.0f);
-            damage.SourceMoraleChange += (int)(Math.Sqrt(damage.Damage) / 25.0f);
-
             damage.InjuredDamage = (int)(this.reduceInjuredOnAttack * damage.DestinationTroop.Army.Kind.MinScale);
             damage.TirednessIncrease = this.TirednessIncreaseOnAttack;
             damage.StealFood = Math.Min(damage.DestinationTroop.Food, this.StealFood);
@@ -9819,6 +9832,10 @@
                     damage.OfficerInjury = 0;
                 }
             }
+
+            damage.DestinationMoraleChange -= (int)(Math.Sqrt(damage.Damage) / 5.0f);
+            damage.SourceMoraleChange += (int)(Math.Sqrt(damage.Damage) / 10.0f);
+
             ExtensionInterface.call("TroopSendTroopDamage", new Object[] { this.Scenario, this, damage, troop, counter });
             return damage;
         }

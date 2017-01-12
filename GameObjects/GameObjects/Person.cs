@@ -8286,7 +8286,10 @@
             r.Mother = null;
             r.Generation = 1;
             r.Strain = r.ID;
-            finder = foundLocation.BelongedFaction.Leader;
+            if (foundLocation.BelongedFaction != null)
+            {
+                finder = foundLocation.BelongedFaction.Leader;
+            }
 
             PersonGeneratorSetting options = scen.GameCommonData.PersonGeneratorSetting;
 
