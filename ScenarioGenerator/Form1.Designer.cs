@@ -739,9 +739,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(5, 136);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 12);
+            this.label7.Size = new System.Drawing.Size(101, 12);
             this.label7.TabIndex = 10;
-            this.label7.Text = "登場年齡";
+            this.label7.Text = "登場年：劇本年後";
             // 
             // tabControl1
             // 
