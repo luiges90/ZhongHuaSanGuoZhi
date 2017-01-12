@@ -3603,6 +3603,9 @@
                 this.DecreaseMorale(this.MoraleDecreaseByViewArea);
             }
 
+
+            this.IncreaseMorale(GameObject.Random(this.Army.Leader.Command) + GameObject.Random(this.Army.Leader.Command));
+
             if ((this.InjuryRecoveryPerDayRate > 0f || this.InjuryRecoverByViewArea > 0) && (this.InjuryQuantity > 0))
             {
                 int number = this.Army.Recovery(this.InjuryRecoveryPerDayRate + this.InjuryRecoverByViewArea);
@@ -9715,7 +9718,12 @@
                     num5 = (int)(num5 * troop.RateOfFireProtection);
                 }
                 damage.FireDamage = num5;
+                damage.DestinationMoraleChange -= (int) (2 * troop.RateOfFireProtection + 1);
             }
+
+            damage.DestinationMoraleChange -= (int) (Math.Sqrt(damage.Damage) / 15.0f);
+            damage.SourceMoraleChange += (int)(Math.Sqrt(damage.Damage) / 25.0f);
+
             damage.InjuredDamage = (int)(this.reduceInjuredOnAttack * damage.DestinationTroop.Army.Kind.MinScale);
             damage.TirednessIncrease = this.TirednessIncreaseOnAttack;
             damage.StealFood = Math.Min(damage.DestinationTroop.Food, this.StealFood);
