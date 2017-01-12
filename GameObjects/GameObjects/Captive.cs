@@ -2,6 +2,7 @@
 {
     using System;
     using System.Runtime.CompilerServices;
+    using GameGlobal;
 
     public class Captive : GameObject
     {
@@ -403,8 +404,8 @@
             {
                 if (this.CaptivePerson != null)
                 {
-
-                    return 10 * (int)(((float)((this.CaptivePerson.UntiredMerit * ((this.CaptiveFaction.Leader == this.CaptivePerson) ? 2 : 1)) / 50)) / ((this.CaptiveFaction != null) ? (this.CaptiveFaction.InternalSurplusRate / 2f) : 1f));
+                    return (int)(this.CaptivePerson.UntiredMerit * Parameters.RansomRate);
+                    //return 10 * (int)(((float)((this.CaptivePerson.UntiredMerit * ((this.CaptiveFaction.Leader == this.CaptivePerson) ? 2 : 1)) / 50)) ));
                 }
                 return 0;
             }

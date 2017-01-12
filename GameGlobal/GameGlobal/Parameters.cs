@@ -186,6 +186,8 @@
         public static int AIEncircleRank = 0;
         public static int AIEncircleVar = 0;
 
+        public static float RansomRate = 1.0f;
+
         public static List<int> ExpandConditions = new List<int>();
 
         public static float SearchPersonArchitectureCountPower = 0;
@@ -356,6 +358,8 @@
             SearchPersonArchitectureCountPower = float.Parse(nextSibling.Attributes.GetNamedItem("SearchPersonArchitectureCountPower").Value);
             AIEncircleRank = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncircleRank").Value);
             AIEncircleVar = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncircleVar").Value);
+
+            RansomRate = float.Parse(nextSibling.Attributes.GetNamedItem("RansomRate").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;
