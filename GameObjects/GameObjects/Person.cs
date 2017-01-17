@@ -2377,14 +2377,15 @@
                     (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || target.Loyalty < 100);
             }
             ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)target.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
-            //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
-            ConvinceSuccess |= target.IsVeryCloseTo(this);
 
             // prohibitedFactionID overrides all.
             if (target.ProhibitedFactionID.ContainsKey(this.BelongedFaction.ID))
             {
                 ConvinceSuccess = false;
             }
+
+            //这样配偶和义兄可以无视一切条件强登被登用武将 (当是君主的配偶或者义兄弟)
+            ConvinceSuccess |= target.IsVeryCloseTo(this);
 
             return ConvinceSuccess;
         }
@@ -2409,7 +2410,7 @@
                     }
 
                     Person closest = this.ConvincingPerson.VeryClosePersonInArchitecture;
-                    ConvinceSuccess &= closest == null || GameObject.Chance(1000 - this.ConvincingPerson.GetRelation(closest) / 10);
+                    ConvinceSuccess &= closest == null || GameObject.Chance(500 - this.ConvincingPerson.GetRelation(closest) / 5);
 
                     if (ConvinceSuccess)
                     {
