@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Media;
 
 using		GameObjects;
 
@@ -29,6 +29,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         public string SaveFilePath;
         private List<string> SaveFilePaths = new List<string>();
         private ToolStripMenuItem 删除存档ToolStripMenuItem;
+        private PictureBox pictureBox1;
         private ToolStripMenuItem 删除所有存档ToolStripMenuItem;
 
         public formSelectSaveFile()
@@ -36,8 +37,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.InitializeComponent();
         }
 
+        private void btnOK_MouseEnter(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/SaveSelect/Select.wav");
+            player.Play();
+            this.btnOK.BackgroundImage = Image.FromFile("Resources/SaveSelect/OKButtonSelected.png");
+        }
+
+        private void btnOK_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnOK.BackgroundImage = Image.FromFile("Resources/SaveSelect/OKButton.png");
+        }
+
         private void btnOK_Click(object sender, EventArgs e)
         {
+            SoundPlayer player = new SoundPlayer("Resources/SaveSelect/Open.wav");
+            player.Play();
             if (this.lbSaveFiles.SelectedIndex >= 0)
             {
                 this.SaveFilePath = this.SaveFilePaths[this.lbSaveFiles.SelectedIndex];
@@ -48,6 +63,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
                 MessageBox.Show("请选择存档。");
             }
         }
+
+
 
         protected override void Dispose(bool disposing)
         {
@@ -60,14 +77,40 @@ namespace WorldOfTheThreeKingdoms.GameForms
 
         private void formSelectSaveFile_MouseClick(object sender, MouseEventArgs e)
         {
+            SoundPlayer player = new SoundPlayer("Resources/SaveSelect/OK.wav");
+            player.Play();
             if (e.Button == MouseButtons.Right)
             {
                 base.DialogResult = DialogResult.Cancel;
             }
         }
 
+        private void btnCancel_MouseEnter(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/SaveSelect/Select.wav");
+            player.Play();
+            this.btnCancel.BackgroundImage = Image.FromFile("Resources/SaveSelect/CancelButtonSelected.png");
+        }
+
+        private void btnCancel_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnCancel.BackgroundImage = Image.FromFile("Resources/SaveSelect/CancelButton.png");
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/SaveSelect/NO.wav");
+            player.Play();
+            base.DialogResult = DialogResult.No;
+        }
+
         private void frmSelectSaveFile_Load(object sender, EventArgs e)
         {
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.Image = Image.FromFile("Resources/SaveSelect/LOGO.png");
+            this.btnOK.BackgroundImage = Image.FromFile("Resources/SaveSelect/OKButton.png");
+            this.btnCancel.BackgroundImage = Image.FromFile("Resources/SaveSelect/CancelButton.png");
+            this.BackgroundImage = Image.FromFile("Resources/SaveSelect/Background.jpg");
             this.RefreshSaveFiles();
         }
 
@@ -80,29 +123,46 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cmsDelete = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除存档ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除所有存档ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cmsDelete.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
+            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(544, 390);
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Location = new System.Drawing.Point(518, 382);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(100, 30);
             this.btnCancel.TabIndex = 5;
-            this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.MouseLeave += new System.EventHandler(this.btnCancel_MouseLeave);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.MouseEnter += new System.EventHandler(this.btnCancel_MouseEnter);
             // 
             // btnOK
             // 
+            this.btnOK.BackColor = System.Drawing.Color.Transparent;
+            this.btnOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(463, 390);
+            this.btnOK.FlatAppearance.BorderSize = 0;
+            this.btnOK.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOK.Location = new System.Drawing.Point(399, 382);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(100, 30);
             this.btnOK.TabIndex = 4;
-            this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.MouseLeave += new System.EventHandler(this.btnOK_MouseLeave);
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.MouseEnter += new System.EventHandler(this.btnOK_MouseEnter);
             // 
             // lbSaveFiles
             // 
@@ -125,26 +185,36 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.删除存档ToolStripMenuItem,
             this.删除所有存档ToolStripMenuItem});
             this.cmsDelete.Name = "cmsDelete";
-            this.cmsDelete.Size = new System.Drawing.Size(147, 48);
+            this.cmsDelete.Size = new System.Drawing.Size(149, 48);
             // 
             // 删除存档ToolStripMenuItem
             // 
             this.删除存档ToolStripMenuItem.Name = "删除存档ToolStripMenuItem";
-            this.删除存档ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.删除存档ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.删除存档ToolStripMenuItem.Text = "删除存档";
             this.删除存档ToolStripMenuItem.Click += new System.EventHandler(this.删除存档ToolStripMenuItem_Click);
             // 
             // 删除所有存档ToolStripMenuItem
             // 
             this.删除所有存档ToolStripMenuItem.Name = "删除所有存档ToolStripMenuItem";
-            this.删除所有存档ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.删除所有存档ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.删除所有存档ToolStripMenuItem.Text = "删除所有存档";
             this.删除所有存档ToolStripMenuItem.Click += new System.EventHandler(this.删除所有存档ToolStripMenuItem_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 382);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(355, 30);
+            this.pictureBox1.TabIndex = 7;
+            this.pictureBox1.TabStop = false;
             // 
             // formSelectSaveFile
             // 
             this.ClientSize = new System.Drawing.Size(630, 425);
             this.Controls.Add(this.lbSaveFiles);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -157,6 +227,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.Load += new System.EventHandler(this.frmSelectSaveFile_Load);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.formSelectSaveFile_MouseClick);
             this.cmsDelete.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

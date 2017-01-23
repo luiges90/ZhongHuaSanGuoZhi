@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Media;
 using		GameObjects;
 
 
@@ -34,6 +34,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         public string ScenarioPath;
         private List<string> ScenarioPaths = new List<string>();
         public List<int> SelectedFactionIDs = new List<int>();
+        private PictureBox pictureBox1;
         private TextBox tbScenarioDescription;
 
         public formSelectScenario()
@@ -41,8 +42,23 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.InitializeComponent();
         }
 
+        private void btnOK_MouseEnter(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/ScenarioSelect/Select.wav");
+            player.Play();
+            this.btnOK.BackgroundImage = Image.FromFile("Resources/ScenarioSelect/OKButtonSelected.png");
+        }
+
+        private void btnOK_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnOK.BackgroundImage = Image.FromFile("Resources/ScenarioSelect/OKButton.png");
+        }
+
         private void btnOK_Click(object sender, EventArgs e)
         {
+            SoundPlayer player = new SoundPlayer("Resources/ScenarioSelect/OK.wav");
+            player.Play();
+            pictureBox1.Image = Image.FromFile("Resources/ScenarioSelect/OKButtonPressed.png");           
             if (this.lbScenarios.SelectedIndex >= 0)
             {
                 this.ScenarioPath = this.ScenarioPaths[this.lbScenarios.SelectedIndex];
@@ -62,6 +78,26 @@ namespace WorldOfTheThreeKingdoms.GameForms
             }
         }
 
+        private void btnCancel_MouseEnter(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/ScenarioSelect/Select.wav");
+            player.Play();
+            this.btnCancel.BackgroundImage = Image.FromFile("Resources/ScenarioSelect/CancelButtonSelected.png");
+        }
+
+        private void btnCancel_MouseLeave(object sender, EventArgs e)
+        {
+            this.btnCancel.BackgroundImage = Image.FromFile("Resources/ScenarioSelect/CancelButton.png");
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/ScenarioSelect/NO.wav");
+            player.Play();
+            base.DialogResult = DialogResult.No;
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (this.components != null))
@@ -73,6 +109,17 @@ namespace WorldOfTheThreeKingdoms.GameForms
 
         private void formSelectScenario_Load(object sender, EventArgs e)
         {
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            label1.Image = Image.FromFile("Resources/ScenarioSelect/Scenarios.png");
+            label2.Image = Image.FromFile("Resources/ScenarioSelect/Factions.png");
+            label3.Image = Image.FromFile("Resources/ScenarioSelect/ScenarioDescription.png");
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.Image = Image.FromFile("Resources/ScenarioSelect/Background.png");
+            this.btnOK.BackgroundImage = Image.FromFile("Resources/ScenarioSelect/OKButton.png");
+            this.btnCancel.BackgroundImage = Image.FromFile("Resources/ScenarioSelect/CancelButton.png");
+            this.BackgroundImage = Image.FromFile("Resources/ScenarioSelect/Background.jpg");
             string path = "GameData/Scenario/";
             if (!Directory.Exists(path))
             {
@@ -97,97 +144,149 @@ namespace WorldOfTheThreeKingdoms.GameForms
             }
         }
 
+
+
+
         private void InitializeComponent()
         {
-            this.components = new Container();
-            this.lbScenarios = new ListBox();
-            this.clbFactions = new CheckedListBox();
-            this.btnOK = new Button();
-            this.btnCancel = new Button();
-            this.label1 = new Label();
-            this.label2 = new Label();
-            this.gameScenarioBindingSource = new BindingSource(this.components);
-            this.tbScenarioDescription = new TextBox();
-            this.label3 = new Label();
-            ((ISupportInitialize)this.gameScenarioBindingSource).BeginInit();
-            base.SuspendLayout();
+            this.components = new System.ComponentModel.Container();
+            this.lbScenarios = new System.Windows.Forms.ListBox();
+            this.clbFactions = new System.Windows.Forms.CheckedListBox();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.gameScenarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tbScenarioDescription = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.gameScenarioBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // lbScenarios
+            // 
             this.lbScenarios.FormattingEnabled = true;
             this.lbScenarios.ItemHeight = 12;
-            this.lbScenarios.Location = new Point(12, 0x25);
+            this.lbScenarios.Location = new System.Drawing.Point(12, 37);
             this.lbScenarios.Name = "lbScenarios";
-            this.lbScenarios.Size = new Size(0x173, 0x94);
+            this.lbScenarios.Size = new System.Drawing.Size(371, 196);
             this.lbScenarios.TabIndex = 0;
-            this.lbScenarios.MouseClick += new MouseEventHandler(this.formSelectScenario_MouseClick);
-            this.lbScenarios.SelectedIndexChanged += new EventHandler(this.lbScenarios_SelectedIndexChanged);
+            this.lbScenarios.MouseClick += new System.Windows.Forms.MouseEventHandler(this.formSelectScenario_MouseClick);
+            this.lbScenarios.SelectedIndexChanged += new System.EventHandler(this.lbScenarios_SelectedIndexChanged);
+            // 
+            // clbFactions
+            // 
             this.clbFactions.CheckOnClick = true;
             this.clbFactions.FormattingEnabled = true;
-            this.clbFactions.Location = new Point(0x185, 0x25);
+            this.clbFactions.Location = new System.Drawing.Point(389, 37);
             this.clbFactions.Name = "clbFactions";
-            this.clbFactions.Size = new Size(0x125, 0x144);
+            this.clbFactions.Size = new System.Drawing.Size(293, 324);
             this.clbFactions.TabIndex = 1;
-            this.btnOK.Location = new Point(0x20a, 380);
+            // 
+            // btnOK
+            // 
+            this.btnOK.BackColor = System.Drawing.Color.Transparent;
+            this.btnOK.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnOK.FlatAppearance.BorderSize = 0;
+            this.btnOK.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOK.Location = new System.Drawing.Point(393, 370);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new Size(0x4b, 0x17);
+            this.btnOK.Size = new System.Drawing.Size(135, 45);
             this.btnOK.TabIndex = 2;
-            this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new EventHandler(this.btnOK_Click);
-            this.btnCancel.DialogResult = DialogResult.Cancel;
-            this.btnCancel.Location = new Point(0x25b, 380);
+            this.btnOK.MouseLeave += new System.EventHandler(this.btnOK_MouseLeave);
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.MouseEnter += new System.EventHandler(this.btnOK_MouseEnter);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Location = new System.Drawing.Point(543, 370);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new Size(0x4b, 0x17);
+            this.btnCancel.Size = new System.Drawing.Size(135, 45);
             this.btnCancel.TabIndex = 3;
-            this.btnCancel.Text = "取消";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.label1.AutoSize = true;
-            this.label1.Location = new Point(12, 0x12);
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.MouseLeave += new System.EventHandler(this.btnCancel_MouseLeave);
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.MouseEnter += new System.EventHandler(this.btnCancel_MouseEnter);
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(20, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new Size(0x35, 12);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "剧本列表";
-            this.label2.AutoSize = true;
-            this.label2.Location = new Point(0x184, 0x12);
+            this.label1.Size = new System.Drawing.Size(100, 25);
+            this.label1.TabIndex = 8;
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(398, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new Size(0x35, 12);
+            this.label2.Size = new System.Drawing.Size(100, 25);
             this.label2.TabIndex = 5;
-            this.label2.Text = "势力列表";
-            this.gameScenarioBindingSource.DataSource = typeof(GameScenario);
-            this.tbScenarioDescription.BackColor = SystemColors.Window;
-            this.tbScenarioDescription.Location = new Point(13, 0xda);
+            // 
+            // gameScenarioBindingSource
+            // 
+            this.gameScenarioBindingSource.DataSource = typeof(GameObjects.GameScenario);
+            // 
+            // tbScenarioDescription
+            // 
+            this.tbScenarioDescription.BackColor = System.Drawing.SystemColors.Window;
+            this.tbScenarioDescription.Location = new System.Drawing.Point(12, 272);
             this.tbScenarioDescription.Multiline = true;
             this.tbScenarioDescription.Name = "tbScenarioDescription";
             this.tbScenarioDescription.ReadOnly = true;
-            this.tbScenarioDescription.Size = new Size(370, 0x8f);
+            this.tbScenarioDescription.Size = new System.Drawing.Size(370, 143);
             this.tbScenarioDescription.TabIndex = 6;
-            this.label3.AutoSize = true;
-            this.label3.Location = new Point(11, 0xc7);
+            // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(20, 244);
             this.label3.Name = "label3";
-            this.label3.Size = new Size(0x35, 12);
+            this.label3.Size = new System.Drawing.Size(100, 25);
             this.label3.TabIndex = 7;
-            this.label3.Text = "剧本介绍";
-            base.AutoScaleDimensions = new SizeF(6f, 12f);
-            base.AutoScaleMode = AutoScaleMode.Font;
-            base.ClientSize = new Size(0x2b4, 0x1a1);
-            base.Controls.Add(this.label3);
-            base.Controls.Add(this.tbScenarioDescription);
-            base.Controls.Add(this.label2);
-            base.Controls.Add(this.label1);
-            base.Controls.Add(this.btnCancel);
-            base.Controls.Add(this.btnOK);
-            base.Controls.Add(this.clbFactions);
-            base.Controls.Add(this.lbScenarios);
-            base.FormBorderStyle = FormBorderStyle.Fixed3D;
-            base.MaximizeBox = false;
-            base.MinimizeBox = false;
-            base.Name = "formSelectScenario";
-            base.ShowInTaskbar = false;
-            base.StartPosition = FormStartPosition.CenterScreen;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(700, 440);
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
+            // formSelectScenario
+            // 
+            this.ClientSize = new System.Drawing.Size(700, 440);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.tbScenarioDescription);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.clbFactions);
+            this.Controls.Add(this.lbScenarios);
+            this.Controls.Add(this.pictureBox1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "formSelectScenario";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "选择剧本";
-            base.Load += new EventHandler(this.formSelectScenario_Load);
-            base.MouseClick += new MouseEventHandler(this.formSelectScenario_MouseClick);
-            ((ISupportInitialize)this.gameScenarioBindingSource).EndInit();
-            base.ResumeLayout(false);
-            base.PerformLayout();
+            this.Load += new System.EventHandler(this.formSelectScenario_Load);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.formSelectScenario_MouseClick);
+            ((System.ComponentModel.ISupportInitialize)(this.gameScenarioBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         private void lbScenarios_SelectedIndexChanged(object sender, EventArgs e)
@@ -224,6 +323,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             string gameScenarioSurveyText = GameScenario.GetGameScenarioSurveyText(dbConnection);
             this.lbScenarios.Items.Add(gameScenarioSurveyText);
         }
+
+
     }
 
  

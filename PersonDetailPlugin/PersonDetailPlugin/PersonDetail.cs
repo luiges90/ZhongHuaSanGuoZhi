@@ -16,6 +16,38 @@
         internal FreeTextList AllSkillTexts;
         internal Point BackgroundSize;
         internal Texture2D BackgroundTexture;
+     
+        internal Texture2D TitleButtonTexture;
+        internal Texture2D SkillButtonTexture;
+        internal Texture2D StuntButtonTexture;
+        internal Texture2D TreasureButtonTexture;
+        internal Texture2D BiographyButtonTexture;
+        internal Texture2D TitleButtonPressedTexture;
+        internal Texture2D SkillButtonPressedTexture;
+        internal Texture2D StuntButtonPressedTexture;
+        internal Texture2D TreasureButtonPressedTexture;
+        internal Texture2D BiographyButtonPressedTexture;
+        internal Texture2D TitleBackgroundTexture;
+        internal Texture2D SkillBackgroundTexture;
+        internal Texture2D StuntBackgroundTexture;
+        internal Texture2D TreasureBackgroundTexture;
+        internal Texture2D BiographyBackgroundTexture;
+        internal Rectangle TitleButtonClient;
+        internal Rectangle SkillButtonClient;
+        internal Rectangle StuntButtonClient;
+        internal Rectangle TreasureButtonClient;
+        internal Rectangle BiographyButtonClient;
+        internal Rectangle TitleButtonPressedClient;
+        internal Rectangle SkillButtonPressedClient;
+        internal Rectangle StuntButtonPressedClient;
+        internal Rectangle TreasureButtonPressedClient;
+        internal Rectangle BiographyButtonPressedClient;
+        internal Rectangle TitleBackgroundClient;
+        internal Rectangle SkillBackgroundClient;
+        internal Rectangle StuntBackgroundClient;
+        internal Rectangle TreasureBackgroundClient;
+        internal Rectangle BiographyBackgroundClient;
+         
         internal Rectangle BiographyClient;
         internal FreeRichText BiographyText = new FreeRichText();
         internal FreeText CalledNameText;
@@ -43,29 +75,168 @@
         internal Rectangle StuntClient;
         internal FreeRichText StuntText = new FreeRichText();
         internal FreeText SurNameText;
-
+        //下面是添加的内容
+        bool TitleButton = false;
+        bool SkillButton = true;
+        bool StuntButton = false;
+        bool TreasureButton = false;
+        bool BiographyButton = false;
+        //上面是添加的内容
         internal void Draw(SpriteBatch spriteBatch)
         {
             if (this.ShowingPerson != null)
             {
                 Rectangle? sourceRectangle = null;
-                spriteBatch.Draw(this.BackgroundTexture, this.BackgroundDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.2f);
+                spriteBatch.Draw(this.BackgroundTexture, this.BackgroundDisplayPosition, sourceRectangle, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.19f);
                 try
                 {
-                    spriteBatch.Draw(this.ShowingPerson.Portrait, this.PortraitDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.199f);
+                    spriteBatch.Draw(this.ShowingPerson.Portrait, this.PortraitDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.18f);
+
+                 if (TitleButton == true && SkillButton == false && StuntButton == false && TreasureButton == false && BiographyButton == false)
+                    {
+                        spriteBatch.Draw(this.TitleButtonTexture, this.TitleButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.SkillButtonTexture, this.SkillButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.StuntButtonTexture, this.StuntButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TreasureButtonTexture, this.TreasureButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.BiographyButtonTexture, this.BiographyButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TitleButtonPressedTexture, this.TitleButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.SkillButtonPressedTexture, this.SkillButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.StuntButtonPressedTexture, this.StuntButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TreasureButtonPressedTexture, this.TreasureButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.BiographyButtonPressedTexture, this.BiographyButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TitleBackgroundTexture, this.TitleBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.187f);
+                        spriteBatch.Draw(this.SkillBackgroundTexture, this.SkillBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.StuntBackgroundTexture, this.StuntBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.TreasureBackgroundTexture, this.TreasureBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        this.TitleText.Draw(spriteBatch, 0.185f);
+                        this.AllSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.StuntText.Draw(spriteBatch, 0.189f);
+                        this.InfluenceText.Draw(spriteBatch, 0.185f);
+                        this.ConditionText.Draw(spriteBatch, 0.185f);
+                        this.BiographyText.Draw(spriteBatch, 0.189f);
+                    }
+                    else if (TitleButton == false && SkillButton == true && StuntButton == false && TreasureButton == false && BiographyButton == false)
+                    {
+                        spriteBatch.Draw(this.TitleButtonTexture, this.TitleButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.SkillButtonTexture, this.SkillButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.StuntButtonTexture, this.StuntButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TreasureButtonTexture, this.TreasureButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.BiographyButtonTexture, this.BiographyButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TitleButtonPressedTexture, this.TitleButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.SkillButtonPressedTexture, this.SkillButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.StuntButtonPressedTexture, this.StuntButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TreasureButtonPressedTexture, this.TreasureButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.BiographyButtonPressedTexture, this.BiographyButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TitleBackgroundTexture, this.TitleBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.SkillBackgroundTexture, this.SkillBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.187f);
+                        spriteBatch.Draw(this.StuntBackgroundTexture, this.StuntBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.TreasureBackgroundTexture, this.TreasureBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        this.TitleText.Draw(spriteBatch, 0.189f);
+                        this.AllSkillTexts.Draw(spriteBatch, (float)0.185f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.185f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.185f);
+                        this.StuntText.Draw(spriteBatch, 0.189f);
+                        this.InfluenceText.Draw(spriteBatch, 0.185f);
+                        this.ConditionText.Draw(spriteBatch, 0.185f);
+                        this.BiographyText.Draw(spriteBatch, 0.189f);
+                    }
+                    else if (TitleButton == false && SkillButton == false && StuntButton == true && TreasureButton == false && BiographyButton == false)
+                    {
+                        spriteBatch.Draw(this.TitleButtonTexture, this.TitleButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.SkillButtonTexture, this.SkillButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.StuntButtonTexture, this.StuntButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TreasureButtonTexture, this.TreasureButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.BiographyButtonTexture, this.BiographyButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TitleButtonPressedTexture, this.TitleButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.SkillButtonPressedTexture, this.SkillButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.StuntButtonPressedTexture, this.StuntButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TreasureButtonPressedTexture, this.TreasureButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.BiographyButtonPressedTexture, this.BiographyButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TitleBackgroundTexture, this.TitleBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.SkillBackgroundTexture, this.SkillBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.StuntBackgroundTexture, this.StuntBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.187f);
+                        spriteBatch.Draw(this.TreasureBackgroundTexture, this.TreasureBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        this.TitleText.Draw(spriteBatch, 0.189f);
+                        this.AllSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.StuntText.Draw(spriteBatch, 0.185f);
+                        this.InfluenceText.Draw(spriteBatch, 0.185f);
+                        this.ConditionText.Draw(spriteBatch, 0.185f);
+                        this.BiographyText.Draw(spriteBatch, 0.189f);
+                    }
+                    else if (TitleButton == false && SkillButton == false && StuntButton == false && TreasureButton == true && BiographyButton == false)
+                    {
+                        spriteBatch.Draw(this.TitleButtonTexture, this.TitleButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.SkillButtonTexture, this.SkillButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.StuntButtonTexture, this.StuntButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TreasureButtonTexture, this.TreasureButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.BiographyButtonTexture, this.BiographyButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TitleButtonPressedTexture, this.TitleButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.SkillButtonPressedTexture, this.SkillButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.StuntButtonPressedTexture, this.StuntButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TreasureButtonPressedTexture, this.TreasureButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.BiographyButtonPressedTexture, this.BiographyButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TitleBackgroundTexture, this.TitleBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.SkillBackgroundTexture, this.SkillBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.StuntBackgroundTexture, this.StuntBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.TreasureBackgroundTexture, this.TreasureBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.187f);
+                        spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        this.TitleText.Draw(spriteBatch, 0.189f);
+                        this.AllSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.StuntText.Draw(spriteBatch, 0.189f);
+                        this.InfluenceText.Draw(spriteBatch, 0.189f);
+                        this.ConditionText.Draw(spriteBatch, 0.189f);
+                        this.BiographyText.Draw(spriteBatch, 0.189f);
+                    }
+                    else if (TitleButton == false && SkillButton == false && StuntButton == false && TreasureButton == false && BiographyButton == true)
+                    {
+                        spriteBatch.Draw(this.TitleButtonTexture, this.TitleButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.SkillButtonTexture, this.SkillButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.StuntButtonTexture, this.StuntButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TreasureButtonTexture, this.TreasureButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.BiographyButtonTexture, this.BiographyButtonDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TitleButtonPressedTexture, this.TitleButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.SkillButtonPressedTexture, this.SkillButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.StuntButtonPressedTexture, this.StuntButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.TreasureButtonPressedTexture, this.TreasureButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.186f);
+                        spriteBatch.Draw(this.BiographyButtonPressedTexture, this.BiographyButtonPressedDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.184f);
+                        spriteBatch.Draw(this.TitleBackgroundTexture, this.TitleBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.SkillBackgroundTexture, this.SkillBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.StuntBackgroundTexture, this.StuntBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.TreasureBackgroundTexture, this.TreasureBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
+                        spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.187f);
+                        this.TitleText.Draw(spriteBatch, 0.189f);
+                        this.AllSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.StuntText.Draw(spriteBatch, 0.189f);
+                        this.InfluenceText.Draw(spriteBatch, 0.189f);
+                        this.ConditionText.Draw(spriteBatch, 0.189f);
+                        this.BiographyText.Draw(spriteBatch, 0.185f);
+                    }
+                    
                 }
                 catch
                 {
                 }
-                this.SurNameText.Draw(spriteBatch, 0.1999f);
-                this.GivenNameText.Draw(spriteBatch, 0.1999f);
-                this.CalledNameText.Draw(spriteBatch, 0.1999f);
+                this.SurNameText.Draw(spriteBatch, 0.18f);
+                this.GivenNameText.Draw(spriteBatch, 0.18f);
+                this.CalledNameText.Draw(spriteBatch, 0.18f);
                 foreach (LabelText text in this.LabelTexts)
                 {
-                    text.Label.Draw(spriteBatch, 0.1999f);
-                    text.Text.Draw(spriteBatch, 0.1999f);
+                    text.Label.Draw(spriteBatch, 0.18f);
+                    text.Text.Draw(spriteBatch, 0.18f);
                 }
-                this.TitleText.Draw(spriteBatch, 0.1999f);
+                
+                /*this.TitleText.Draw(spriteBatch, 0.1999f);
                 //this.GuanzhiText.Draw(spriteBatch, 0.1999f);
                 this.AllSkillTexts.Draw(spriteBatch, (float) 0.1999f);
                 this.PersonSkillTexts.Draw(spriteBatch, (float) 0.1998f);
@@ -74,6 +245,7 @@
                 this.InfluenceText.Draw(spriteBatch, 0.1999f);
                 this.ConditionText.Draw(spriteBatch, 0.1999f);
                 this.BiographyText.Draw(spriteBatch, 0.1999f);
+                */
             }
         }
 
@@ -95,12 +267,53 @@
                     this.BiographyText.FirstPage();
                 }
             }
+            if (TitleButton == false && StaticMethods.PointInRectangle(position, new Rectangle(this.TitleButtonClient.X + this.DisplayOffset.X, this.TitleButtonClient.Y + this.DisplayOffset.Y, this.TitleButtonClient.Width, this.TitleButtonClient.Height)))
+            {
+                TitleButton = true;
+                SkillButton = false;
+                StuntButton = false;
+                TreasureButton = false;
+                BiographyButton = false;
+            }
+            if (SkillButton == false && StaticMethods.PointInRectangle(position, new Rectangle(this.SkillButtonClient.X + this.DisplayOffset.X, this.SkillButtonClient.Y + this.DisplayOffset.Y, this.SkillButtonClient.Width, this.SkillButtonClient.Height)))
+            {
+                TitleButton = false;
+                SkillButton = true;
+                StuntButton = false;
+                TreasureButton = false;
+                BiographyButton = false;
+            }
+            if (StuntButton == false && StaticMethods.PointInRectangle(position, new Rectangle(this.StuntButtonClient.X + this.DisplayOffset.X, this.StuntButtonClient.Y + this.DisplayOffset.Y, this.StuntButtonClient.Width, this.StuntButtonClient.Height)))
+            {
+                TitleButton = false;
+                SkillButton = false;
+                StuntButton = true;
+                TreasureButton = false;
+                BiographyButton = false;
+            }
+            if (TreasureButton == false && StaticMethods.PointInRectangle(position, new Rectangle(this.TreasureButtonClient.X + this.DisplayOffset.X, this.TreasureButtonClient.Y + this.DisplayOffset.Y, this.TreasureButtonClient.Width, this.TreasureButtonClient.Height)))
+            {
+                TitleButton = false;
+                SkillButton = false;
+                StuntButton = false;
+                TreasureButton = true;
+                BiographyButton = false;
+            }
+            if (BiographyButton == false && StaticMethods.PointInRectangle(position, new Rectangle(this.BiographyButtonClient.X + this.DisplayOffset.X, this.BiographyButtonClient.Y + this.DisplayOffset.Y, this.BiographyButtonClient.Width, this.BiographyButtonClient.Height)))
+            {
+                TitleButton = false;
+                SkillButton = false;
+                StuntButton = false;
+                TreasureButton = false;
+                BiographyButton = true;
+            }
+
         }
 
         private void screen_OnMouseMove(Point position, bool leftDown)
         {
             bool flag = false;
-            if (!flag && StaticMethods.PointInRectangle(position, this.TitleDisplayPosition))
+            if (TitleButton == true && StaticMethods.PointInRectangle(position, this.TitleDisplayPosition))
             {
                 int num2 = (position.Y - this.TitleText.DisplayOffset.Y) / this.TitleText.RowHeight;
                 if (num2 >= 0)
@@ -113,7 +326,7 @@
                         {
                             if (this.current != title)
                             {
-                                this.BiographyText.Clear();
+                                //this.BiographyText.Clear();
                                 this.InfluenceText.Clear();
                                 this.InfluenceText.AddText(title.DetailedName, this.InfluenceText.TitleColor);
                                 this.InfluenceText.AddNewLine();
@@ -242,8 +455,8 @@
                     }
                 }
             }*/
-                   
-            if (!flag && StaticMethods.PointInRectangle(position, this.StuntDisplayPosition))
+
+            if (StuntButton == true && StaticMethods.PointInRectangle(position, this.StuntDisplayPosition))
             {
                 int num2 = (position.Y - this.StuntText.DisplayOffset.Y) / this.StuntText.RowHeight;
                 if (num2 > 1)
@@ -256,7 +469,7 @@
                         {
                             if (this.current != stunt)
                             {
-                                this.BiographyText.Clear();
+                                //this.BiographyText.Clear();
                                 this.InfluenceText.Clear();
                                 this.InfluenceText.AddText("战斗特技", this.InfluenceText.TitleColor);
                                 this.InfluenceText.AddText(stunt.Name, this.InfluenceText.SubTitleColor);
@@ -324,11 +537,11 @@
             {
                 for (int i = 0; i < this.AllSkillTexts.Count; i++)
                 {
-                    if (StaticMethods.PointInRectangle(position, this.AllSkillTexts[i].AlignedPosition))
+                    if (SkillButton == true && StaticMethods.PointInRectangle(position, this.AllSkillTexts[i].AlignedPosition))
                     {
                         if (this.current != this.LinkedSkills[i])
                         {
-                            this.BiographyText.Clear();
+                            //this.BiographyText.Clear();
                             this.InfluenceText.Clear();
                             if (this.LinkedSkills[i].InfluenceCount > 0)
                             {
@@ -401,6 +614,11 @@
 
         private void screen_OnMouseRightUp(Point position)
         {
+            TitleButton = false;
+            SkillButton = true;
+            StuntButton = false;
+            TreasureButton = false;
+            BiographyButton = false;
             this.IsShowing = false;
         }
 
@@ -601,6 +819,112 @@
             get
             {
                 return new Rectangle(this.PortraitClient.X + this.DisplayOffset.X, this.PortraitClient.Y + this.DisplayOffset.Y, this.PortraitClient.Width, this.PortraitClient.Height);
+            }
+        }
+          
+        private Rectangle TitleButtonDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.TitleButtonClient.X + this.DisplayOffset.X, this.TitleButtonClient.Y + this.DisplayOffset.Y, this.TitleButtonClient.Width, this.TitleButtonClient.Height);
+            }
+        }
+        private Rectangle SkillButtonDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.SkillButtonClient.X + this.DisplayOffset.X, this.SkillButtonClient.Y + this.DisplayOffset.Y, this.SkillButtonClient.Width, this.SkillButtonClient.Height);
+            }
+        }
+        private Rectangle StuntButtonDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.StuntButtonClient.X + this.DisplayOffset.X, this.StuntButtonClient.Y + this.DisplayOffset.Y, this.StuntButtonClient.Width, this.StuntButtonClient.Height);
+            }
+        }
+        private Rectangle TreasureButtonDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.TreasureButtonClient.X + this.DisplayOffset.X, this.TreasureButtonClient.Y + this.DisplayOffset.Y, this.TreasureButtonClient.Width, this.TreasureButtonClient.Height);
+            }
+        }
+        private Rectangle BiographyButtonDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.BiographyButtonClient.X + this.DisplayOffset.X, this.BiographyButtonClient.Y + this.DisplayOffset.Y, this.BiographyButtonClient.Width, this.BiographyButtonClient.Height);
+            }
+        }
+        private Rectangle TitleButtonPressedDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.TitleButtonPressedClient.X + this.DisplayOffset.X, this.TitleButtonPressedClient.Y + this.DisplayOffset.Y, this.TitleButtonPressedClient.Width, this.TitleButtonPressedClient.Height);
+            }
+        }
+        private Rectangle SkillButtonPressedDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.SkillButtonPressedClient.X + this.DisplayOffset.X, this.SkillButtonPressedClient.Y + this.DisplayOffset.Y, this.SkillButtonPressedClient.Width, this.SkillButtonPressedClient.Height);
+            }
+        }
+        private Rectangle StuntButtonPressedDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.StuntButtonPressedClient.X + this.DisplayOffset.X, this.StuntButtonPressedClient.Y + this.DisplayOffset.Y, this.StuntButtonPressedClient.Width, this.StuntButtonPressedClient.Height);
+            }
+        }
+        private Rectangle TreasureButtonPressedDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.TreasureButtonPressedClient.X + this.DisplayOffset.X, this.TreasureButtonPressedClient.Y + this.DisplayOffset.Y, this.TreasureButtonPressedClient.Width, this.TreasureButtonPressedClient.Height);
+            }
+        }
+        private Rectangle BiographyButtonPressedDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.BiographyButtonPressedClient.X + this.DisplayOffset.X, this.BiographyButtonPressedClient.Y + this.DisplayOffset.Y, this.BiographyButtonPressedClient.Width, this.BiographyButtonPressedClient.Height);
+            }
+        }
+        private Rectangle TitleBackgroundDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.TitleBackgroundClient.X + this.DisplayOffset.X, this.TitleBackgroundClient.Y + this.DisplayOffset.Y, this.TitleBackgroundClient.Width, this.TitleBackgroundClient.Height);
+            }
+        }
+        private Rectangle SkillBackgroundDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.SkillBackgroundClient.X + this.DisplayOffset.X, this.SkillBackgroundClient.Y + this.DisplayOffset.Y, this.SkillBackgroundClient.Width, this.SkillBackgroundClient.Height);
+            }
+        }
+        private Rectangle StuntBackgroundDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.StuntBackgroundClient.X + this.DisplayOffset.X, this.StuntBackgroundClient.Y + this.DisplayOffset.Y, this.StuntBackgroundClient.Width, this.StuntBackgroundClient.Height);
+            }
+        }
+        private Rectangle TreasureBackgroundDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.TreasureBackgroundClient.X + this.DisplayOffset.X, this.TreasureBackgroundClient.Y + this.DisplayOffset.Y, this.TreasureBackgroundClient.Width, this.TreasureBackgroundClient.Height);
+            }
+        }
+        private Rectangle BiographyBackgroundDisplayPosition
+        {
+            get
+            {
+                return new Rectangle(this.BiographyBackgroundClient.X + this.DisplayOffset.X, this.BiographyBackgroundClient.Y + this.DisplayOffset.Y, this.BiographyBackgroundClient.Width, this.BiographyBackgroundClient.Height);
             }
         }
 

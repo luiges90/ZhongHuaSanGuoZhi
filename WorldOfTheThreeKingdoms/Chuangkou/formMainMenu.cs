@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Media;
 using		System.Drawing;
 using System.Windows.Forms;
 
@@ -28,6 +28,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private PictureBox pictureBox3;
         private PictureBox pictureBox4;
         private PictureBox pictureBox5;
+        private Label label1;
         //public MainMenuOption menuState = MainMenuOption.Logo;
         public MainMenuOption menuState = MainMenuOption.Selecting ;
 
@@ -83,8 +84,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             }
         }
 
+        private void pictureBox1_MouseEnter(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/Start/Select.wav");
+            player.Play();
+            pictureBox1.Image = Image.FromFile("Resources/Start/NewGameSelected.png");
+        }
+
+        private void pictureBox1_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox1.Image = Image.FromFile("Resources/Start/NewGame.png");
+        }
+
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            SoundPlayer player = new SoundPlayer("Resources/Start/Open.wav");
+            player.Play();
             this.menuState = MainMenuOption.StartGame;
             formSelectScenario scenario = new formSelectScenario();
             if (scenario.ShowDialog() == DialogResult.OK)
@@ -96,8 +111,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             }
         }
 
+        private void pictureBox2_MouseEnter(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/Start/Select.wav");
+            player.Play();
+            pictureBox2.Image = Image.FromFile("Resources/Start/SaveSelectSelected.png");
+        }
+
+        private void pictureBox2_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox2.Image = Image.FromFile("Resources/Start/SaveSelect.png");
+        }
+
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            SoundPlayer player = new SoundPlayer("Resources/Start/Open.wav");
+            player.Play();
             this.menuState = MainMenuOption.LoadGame;
             formSelectSaveFile file = new formSelectSaveFile();
             if (file.ShowDialog() == DialogResult.OK)
@@ -108,8 +137,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             }
         }
 
+        private void pictureBox3_MouseEnter(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/Start/Select.wav");
+            player.Play();
+            pictureBox3.Image = Image.FromFile("Resources/Start/FormOptionsSelected.png");
+        }
+
+        private void pictureBox3_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox3.Image = Image.FromFile("Resources/Start/FormOptions.png");
+        }
+
         private void pictureBox3_Click(object sender, EventArgs e)
         {
+            SoundPlayer player = new SoundPlayer("Resources/Start/OK.wav");
+            player.Play();
             this.menuState = MainMenuOption.Options;
             formOptions options = new formOptions();
             if (options.ShowDialog() == DialogResult.OK)
@@ -117,14 +160,42 @@ namespace WorldOfTheThreeKingdoms.GameForms
             }
         }
 
+        private void pictureBox4_MouseEnter(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/Start/Select.wav");
+            player.Play();
+            pictureBox4.Image = Image.FromFile("Resources/Start/FormAboutSelected.png");
+        }
+
+        private void pictureBox4_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox4.Image = Image.FromFile("Resources/Start/FormAbout.png");
+        }
+
         private void pictureBox4_Click(object sender, EventArgs e)
         {
+            SoundPlayer player = new SoundPlayer("Resources/Start/OK.wav");
+            player.Play();
             this.menuState = MainMenuOption.About;
             new formAbout().ShowDialog();
         }
 
+        private void pictureBox5_MouseEnter(object sender, EventArgs e)
+        {
+            SoundPlayer player = new SoundPlayer("Resources/Start/Select.wav");
+            player.Play();
+            pictureBox5.Image = Image.FromFile("Resources/Start/ExitGameSelected.png");
+        }
+
+        private void pictureBox5_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBox5.Image = Image.FromFile("Resources/Start/ExitGame.png");
+        }
+
         private void pictureBox5_Click(object sender, EventArgs e)
         {
+            SoundPlayer player = new SoundPlayer("Resources/Start/NO.wav");
+            player.Play();
             this.menuState = MainMenuOption.ExitGame;
             base.DialogResult = DialogResult.No;
         }
@@ -170,6 +241,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -282,50 +354,68 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Location = new System.Drawing.Point(464, 223);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(178, 39);
+            this.pictureBox1.Size = new System.Drawing.Size(200, 45);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseLeave += new System.EventHandler(this.pictureBox1_MouseLeave);
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.pictureBox1.MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
             // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox2.Location = new System.Drawing.Point(464, 280);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(178, 39);
+            this.pictureBox2.Size = new System.Drawing.Size(200, 45);
             this.pictureBox2.TabIndex = 6;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.MouseLeave += new System.EventHandler(this.pictureBox2_MouseLeave);
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.pictureBox2.MouseEnter += new System.EventHandler(this.pictureBox2_MouseEnter);
             // 
             // pictureBox3
             // 
             this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox3.Location = new System.Drawing.Point(464, 337);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(178, 39);
+            this.pictureBox3.Size = new System.Drawing.Size(200, 45);
             this.pictureBox3.TabIndex = 7;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.MouseLeave += new System.EventHandler(this.pictureBox3_MouseLeave);
             this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            this.pictureBox3.MouseEnter += new System.EventHandler(this.pictureBox3_MouseEnter);
             // 
             // pictureBox4
             // 
             this.pictureBox4.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox4.Location = new System.Drawing.Point(464, 394);
             this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(178, 39);
+            this.pictureBox4.Size = new System.Drawing.Size(200, 45);
             this.pictureBox4.TabIndex = 8;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.MouseLeave += new System.EventHandler(this.pictureBox4_MouseLeave);
             this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click);
+            this.pictureBox4.MouseEnter += new System.EventHandler(this.pictureBox4_MouseEnter);
             // 
             // pictureBox5
             // 
             this.pictureBox5.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox5.Location = new System.Drawing.Point(464, 451);
             this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(178, 39);
+            this.pictureBox5.Size = new System.Drawing.Size(200, 45);
             this.pictureBox5.TabIndex = 9;
             this.pictureBox5.TabStop = false;
+            this.pictureBox5.MouseLeave += new System.EventHandler(this.pictureBox5_MouseLeave);
             this.pictureBox5.Click += new System.EventHandler(this.pictureBox5_Click);
+            this.pictureBox5.MouseEnter += new System.EventHandler(this.pictureBox5_MouseEnter);
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(789, 593);
+            this.label1.TabIndex = 10;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // formMainMenu
             // 
@@ -342,6 +432,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.Controls.Add(this.btnOptions);
             this.Controls.Add(this.btnLoadFile);
             this.Controls.Add(this.btnStartNewGame);
+            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "formMainMenu";
@@ -373,6 +464,23 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private void formMainMenu_Load(object sender, EventArgs e)
         {
             this.BackgroundImage = Image.FromFile("Resources/Start/Start.jpg");
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            pictureBox1.Parent = label1;
+            pictureBox2.Parent = label1;
+            pictureBox3.Parent = label1;
+            pictureBox4.Parent = label1;
+            pictureBox5.Parent = label1;
+            label1.Image = Image.FromFile("Resources/Start/Start01.gif");
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.Image = Image.FromFile("Resources/Start/NewGame.png");
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.Image = Image.FromFile("Resources/Start/SaveSelect.png");
+            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox3.Image = Image.FromFile("Resources/Start/FormOptions.png");
+            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox4.Image = Image.FromFile("Resources/Start/FormAbout.png");
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox5.Image = Image.FromFile("Resources/Start/ExitGame.png");
 
             /*
             this.btnStartNewGame.BackgroundImage = Image.FromFile("Resources/Start/StartButton.png");
@@ -384,7 +492,25 @@ namespace WorldOfTheThreeKingdoms.GameForms
 
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+            label1.Image = Image.FromFile("Resources/Start/Start02.gif");
+        }
 
+        private void label1_Paint(object sender, PaintEventArgs e)
+        {
+            PictureBox pb = sender as PictureBox;
+            foreach (Control C in pb.Controls)
+            {
+                if (C is Label)
+                {
+                    Label L = (Label)C;
+                    L.Visible = false;
+                    e.Graphics.DrawString(L.Text, L.Font, new SolidBrush(L.ForeColor),
+                        new RectangleF(L.Left - pb.Left, L.Top - pb.Top, L.Width, L.Height));
+                }
+            }
+        }  
     }
 
  
