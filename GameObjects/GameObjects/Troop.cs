@@ -3620,7 +3620,7 @@
             }
 
 
-            this.IncreaseMorale(GameObject.Random(this.Army.Leader.Command) + GameObject.Random(this.Army.Leader.Command));
+            this.IncreaseMorale((GameObject.Chance(this.Army.Leader.Command) ? 1 : 0) + (GameObject.Chance(this.Army.Leader.Command) ? 1 : 0));
 
             if ((this.InjuryRecoveryPerDayRate > 0f || this.InjuryRecoverByViewArea > 0) && (this.InjuryQuantity > 0))
             {
@@ -9834,7 +9834,7 @@
             }
 
             damage.DestinationMoraleChange -= (int)(Math.Sqrt(damage.Damage) / 5.0f);
-            damage.SourceMoraleChange += (int)(Math.Sqrt(damage.Damage) / 10.0f);
+            //damage.SourceMoraleChange += (int)(Math.Sqrt(damage.Damage) / 10.0f);
 
             ExtensionInterface.call("TroopSendTroopDamage", new Object[] { this.Scenario, this, damage, troop, counter });
             return damage;
