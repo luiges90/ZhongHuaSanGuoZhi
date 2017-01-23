@@ -42,6 +42,11 @@
             return this.personPortrait.GetSmallPortrait(id);
         }
 
+        public Texture2D GetTroopPortrait(float id)
+        {
+            return this.personPortrait.GetTroopPortrait(id);
+        }
+
         public void Initialize()
         {
             this.personPortrait.TempImageFileName = @"GameComponents\PersonPortrait\~tmp.image";

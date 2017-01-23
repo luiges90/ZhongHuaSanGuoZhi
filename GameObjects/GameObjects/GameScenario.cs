@@ -1985,6 +1985,12 @@
             return this.GameScreen.GetSmallPortrait(id);
         }
 
+        public Texture2D GetTroopPortrait(float id)
+        {
+            return this.GameScreen.GetTroopPortrait(id);
+        }
+
+
         public ArchitectureList GetSupplyArchitecturesByPositionAndFaction(Point position, Faction faction)
         {
             ArchitectureList list = new ArchitectureList();

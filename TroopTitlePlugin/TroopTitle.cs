@@ -68,7 +68,7 @@ namespace TroopTitlePlugin
                 sourceRectangle = null;
                 try
                 {
-                    spriteBatch.Draw(troop.Leader.SmallPortrait, new Rectangle(this.displayOffset.X + this.PortraitPosition.X, this.displayOffset.Y + this.PortraitPosition.Y, this.PortraitPosition.Width, this.PortraitPosition.Height), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4687f);
+                    spriteBatch.Draw(troop.Leader.TroopPortrait, new Rectangle(this.displayOffset.X + this.PortraitPosition.X, this.displayOffset.Y + this.PortraitPosition.Y, this.PortraitPosition.Width, this.PortraitPosition.Height), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.4687f);
                 }
                 catch
                 {

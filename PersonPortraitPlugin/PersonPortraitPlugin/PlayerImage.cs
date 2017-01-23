@@ -7,6 +7,7 @@
     {
         internal Image Portrait;
         internal Image SmallPortrait;
+        internal Image TroopPortrait;
     }
 }
 

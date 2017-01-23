@@ -2349,7 +2349,7 @@
                 && (!GlobalVariables.IdealTendencyValid ||
                     (idealOffset <= target.IdealTendency.Offset +
                      (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
-                 && (this.ConvinceAbility + Person.GetIdealOffset2(target, this) * 30 + Person.GetIdealOffset2(target, this.BelongedFaction.Leader) * 30 > 0)
+                 && (this.ConvinceAbility + Person.GetIdealOffset2(this, target) * 30 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 30 > 0)
                 );
 
                 ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
@@ -7412,6 +7412,23 @@
                     result = base.Scenario.GetSmallPortrait(this.PictureIndex + 0.2f);
                 }
                 return result == null ? base.Scenario.GetSmallPortrait(9999) : result;
+            }
+        }
+
+        public Texture2D TroopPortrait
+        {
+            get
+            {
+                Texture2D result = base.Scenario.GetTroopPortrait(this.PictureIndex);
+                if (this.Age >= 50)
+                {
+                    result = base.Scenario.GetTroopPortrait(this.PictureIndex + 0.5f);
+                }
+                if (this.Age <= 20)
+                {
+                    result = base.Scenario.GetTroopPortrait(this.PictureIndex + 0.2f);
+                }
+                return result == null ? base.Scenario.GetTroopPortrait(9999) : result;
             }
         }
 

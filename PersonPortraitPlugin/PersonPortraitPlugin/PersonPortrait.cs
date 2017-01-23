@@ -73,6 +73,9 @@
                 item.PortraitTexture = Texture2D.FromFile(this.Device, this.TempImageFileName);
                 image.SmallPortrait.Save(this.TempImageFileName);
                 item.SmallPortraitTexture = Texture2D.FromFile(this.Device, this.TempImageFileName);
+                image.TroopPortrait.Save(this.TempImageFileName);
+                item.TroopPortraitTexture = Texture2D.FromFile(this.Device, this.TempImageFileName);
+
                 this.portraits.Add(id, item);
             }
             return item;
@@ -98,16 +101,40 @@
             return null;
         }
 
+        internal Texture2D GetTroopPortrait(float id)
+        {
+            PortraitItem item = this.GetItem(id);
+            if (item != null)
+            {
+                return item.TroopPortraitTexture;
+            }
+            return null;
+        }
+
         private PlayerImage LoadImage(string path, float id)
         {
             if (File.Exists(path + @"\" + id + "s.jpg"))
             {
-                PlayerImage image = new PlayerImage
+                if (File.Exists(path + @"\" + id + "t.jpg"))
                 {
-                    Portrait = Image.FromFile(path + @"\" + id + ".jpg"),
-                    SmallPortrait = Image.FromFile(path + @"\" + id + "s.jpg")
-                };
-                return image;
+                    PlayerImage image = new PlayerImage
+                    {
+                        Portrait = Image.FromFile(path + @"\" + id + ".jpg"),
+                        SmallPortrait = Image.FromFile(path + @"\" + id + "s.jpg"),
+                        TroopPortrait = Image.FromFile(path + @"\" + id + "t.jpg")
+                    };
+                    return image;
+                }
+                else
+                {
+                    PlayerImage image = new PlayerImage
+                    {
+                        Portrait = Image.FromFile(path + @"\" + id + ".jpg"),
+                        SmallPortrait = Image.FromFile(path + @"\" + id + "s.jpg"),
+                        TroopPortrait = Image.FromFile(path + @"\" + id + "s.jpg")
+                    };
+                    return image;
+                }
             }
             return null;
         }

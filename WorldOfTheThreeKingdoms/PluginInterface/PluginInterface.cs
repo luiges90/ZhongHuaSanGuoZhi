@@ -287,6 +287,7 @@ namespace PluginInterface
         System.Drawing.Image GetImage(float id);
         Texture2D GetPortrait(float id);
         Texture2D GetSmallPortrait(float id);
+        Texture2D GetTroopPortrait(float id);
         void SetGraphicsDevice(GraphicsDevice device);
     }
 

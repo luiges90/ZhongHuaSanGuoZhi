@@ -529,7 +529,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             return this.Plugins.PersonPortraitPlugin.GetSmallPortrait(id);
         }
 
-
+        public override Texture2D GetTroopPortrait(float id)
+        {
+            return this.Plugins.PersonPortraitPlugin.GetTroopPortrait(id);
+        }
 
         private void HandleDialogResult(Enum kind)
         {

@@ -297,6 +297,11 @@
             return null;
         }
 
+        public virtual Texture2D GetTroopPortrait(float id)
+        {
+            return null;
+        }
+
         public override void Initialize()
         {
             base.Initialize();

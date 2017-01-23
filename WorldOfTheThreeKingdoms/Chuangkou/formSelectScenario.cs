@@ -192,9 +192,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnOK.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnOK.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnOK.Location = new System.Drawing.Point(393, 370);
+            this.btnOK.Location = new System.Drawing.Point(390, 365);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(135, 45);
+            this.btnOK.Size = new System.Drawing.Size(135, 50);
             this.btnOK.TabIndex = 2;
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.MouseLeave += new System.EventHandler(this.btnOK_MouseLeave);
@@ -209,9 +209,9 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(543, 370);
+            this.btnCancel.Location = new System.Drawing.Point(545, 365);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(135, 45);
+            this.btnCancel.Size = new System.Drawing.Size(135, 50);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.MouseLeave += new System.EventHandler(this.btnCancel_MouseLeave);
@@ -220,14 +220,15 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(20, 9);
+            this.label1.Location = new System.Drawing.Point(10, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 25);
             this.label1.TabIndex = 8;
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(398, 9);
+            
+            this.label2.Location = new System.Drawing.Point(388, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(100, 25);
             this.label2.TabIndex = 5;
@@ -248,7 +249,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(20, 244);
+            this.label3.Location = new System.Drawing.Point(10, 244);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 25);
             this.label3.TabIndex = 7;
