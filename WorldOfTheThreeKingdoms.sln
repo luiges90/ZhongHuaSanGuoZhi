@@ -161,6 +161,16 @@ Global
 		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|Mixed Platforms.Build.0 = Release|x86
 		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|x86.ActiveCfg = Release|x86
 		{AFA1D09A-FC47-43EF-A6D3-AAE6C939C27D}.Release|x86.Build.0 = Release|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|x86.ActiveCfg = Debug|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|x86.Build.0 = Debug|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|Any CPU.ActiveCfg = Release|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|Mixed Platforms.Build.0 = Release|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|x86.ActiveCfg = Release|x86
+		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|x86.Build.0 = Release|x86
 		{C93EC368-BCF8-43A7-B30A-96166A276B1A}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{C93EC368-BCF8-43A7-B30A-96166A276B1A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{C93EC368-BCF8-43A7-B30A-96166A276B1A}.Debug|x86.ActiveCfg = Debug|x86
@@ -179,16 +189,6 @@ Global
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Release|Any CPU.ActiveCfg = Release|x86
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{F1438E32-40BA-420F-B601-8C9A4698B2FE}.Release|x86.ActiveCfg = Release|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|x86.ActiveCfg = Debug|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Debug|x86.Build.0 = Debug|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|Any CPU.ActiveCfg = Release|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|Mixed Platforms.Build.0 = Release|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|x86.ActiveCfg = Release|x86
-		{A20F04A4-5271-4DBA-8B78-916A67D75720}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
