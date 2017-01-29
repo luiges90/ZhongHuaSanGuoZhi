@@ -2938,6 +2938,21 @@
                     sending.Scenario.ChangeDiplomaticRelation(sending.BelongedFaction.ID, receiving.BelongedFaction.ID, -10);
                     sending.Scenario.ReflectDiplomaticRelations(sending.BelongedFaction.ID, receiving.BelongedFaction.ID, -10);
                 }
+                foreach (Point a in receiving.ViewArea.Area)
+                {
+                    Troop t = receiving.Scenario.GetTroopByPositionNoCheck(a);
+                    if (t != null)
+                    {
+                        if (t.BelongedFaction == receiving.BelongedFaction)
+                        {
+                            t.DecreaseMorale(10 - (t.Leader.Command / 20));
+                        }
+                        else if (t.BelongedFaction == sending.BelongedFaction)
+                        {
+                            t.IncreaseMorale(t.Leader.Command / 20 + 5);
+                        }
+                    }
+                }
                 foreach (Person p in sending.persons)
                 {
                     if (sending.Leader == p)
@@ -3619,8 +3634,18 @@
                 this.DecreaseMorale(this.MoraleDecreaseByViewArea);
             }
 
-
-            this.IncreaseMorale((GameObject.Chance(this.Army.Leader.Command) ? 1 : 0) + (GameObject.Chance(this.Army.Leader.Command) ? 1 : 0));
+            if (this.Tiredness <= 20)
+            {
+                this.IncreaseMorale((GameObject.Chance(this.Army.Leader.Command) ? 1 : 0) + (GameObject.Chance(this.Army.Leader.Command) ? 1 : 0));
+            }
+            else if (this.Tiredness <= 40)
+            {
+                this.IncreaseMorale(GameObject.Chance(this.Army.Leader.Command) ? 1 : 0);
+            }
+            else if (this.Tiredness > 60)
+            {
+                this.DecreaseMorale((this.Tiredness - 30) / 30 + (GameObject.Chance(this.Army.Leader.Command) ? 1 : 0));
+            }
 
             if ((this.InjuryRecoveryPerDayRate > 0f || this.InjuryRecoverByViewArea > 0) && (this.InjuryQuantity > 0))
             {
@@ -9734,7 +9759,7 @@
                     num5 = (int)(num5 * troop.RateOfFireProtection);
                 }
                 damage.FireDamage = num5;
-                damage.DestinationMoraleChange -= (int) (2 * troop.RateOfFireProtection + 1);
+                damage.DestinationMoraleChange -= (int) (5 * troop.RateOfFireProtection + 1);
             }
 
             damage.InjuredDamage = (int)(this.reduceInjuredOnAttack * damage.DestinationTroop.Army.Kind.MinScale);
@@ -9833,7 +9858,7 @@
                 }
             }
 
-            damage.DestinationMoraleChange -= (int)(Math.Sqrt(damage.Damage) / 5.0f);
+            damage.DestinationMoraleChange -= (int)(Math.Sqrt(damage.Damage) / 2.5f);
             //damage.SourceMoraleChange += (int)(Math.Sqrt(damage.Damage) / 10.0f);
 
             ExtensionInterface.call("TroopSendTroopDamage", new Object[] { this.Scenario, this, damage, troop, counter });
