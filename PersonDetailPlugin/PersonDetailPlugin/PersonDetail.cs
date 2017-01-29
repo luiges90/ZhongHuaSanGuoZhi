@@ -111,8 +111,8 @@
                         spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
                         this.TitleText.Draw(spriteBatch, 0.185f);
                         this.AllSkillTexts.Draw(spriteBatch, (float)0.189f);
-                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.189f);
-                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.188f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.188f);
                         this.StuntText.Draw(spriteBatch, 0.189f);
                         this.InfluenceText.Draw(spriteBatch, 0.185f);
                         this.ConditionText.Draw(spriteBatch, 0.185f);
@@ -137,8 +137,8 @@
                         spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
                         this.TitleText.Draw(spriteBatch, 0.189f);
                         this.AllSkillTexts.Draw(spriteBatch, (float)0.185f);
-                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.185f);
-                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.185f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.184f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.184f);
                         this.StuntText.Draw(spriteBatch, 0.189f);
                         this.InfluenceText.Draw(spriteBatch, 0.185f);
                         this.ConditionText.Draw(spriteBatch, 0.185f);
@@ -163,8 +163,8 @@
                         spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
                         this.TitleText.Draw(spriteBatch, 0.189f);
                         this.AllSkillTexts.Draw(spriteBatch, (float)0.189f);
-                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.189f);
-                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.188f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.188f);
                         this.StuntText.Draw(spriteBatch, 0.185f);
                         this.InfluenceText.Draw(spriteBatch, 0.185f);
                         this.ConditionText.Draw(spriteBatch, 0.185f);
@@ -189,8 +189,8 @@
                         spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.188f);
                         this.TitleText.Draw(spriteBatch, 0.189f);
                         this.AllSkillTexts.Draw(spriteBatch, (float)0.189f);
-                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.189f);
-                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.188f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.188f);
                         this.StuntText.Draw(spriteBatch, 0.189f);
                         this.InfluenceText.Draw(spriteBatch, 0.189f);
                         this.ConditionText.Draw(spriteBatch, 0.189f);
@@ -215,8 +215,8 @@
                         spriteBatch.Draw(this.BiographyBackgroundTexture, this.BiographyBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.187f);
                         this.TitleText.Draw(spriteBatch, 0.189f);
                         this.AllSkillTexts.Draw(spriteBatch, (float)0.189f);
-                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.189f);
-                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.189f);
+                        this.PersonSkillTexts.Draw(spriteBatch, (float)0.188f);
+                        this.LearnableSkillTexts.Draw(spriteBatch, (float)0.188f);
                         this.StuntText.Draw(spriteBatch, 0.189f);
                         this.InfluenceText.Draw(spriteBatch, 0.189f);
                         this.ConditionText.Draw(spriteBatch, 0.189f);
@@ -624,14 +624,28 @@
 
         internal void SetPerson(Person person)
         {
-            foreach (Skill skill in screen.Scenario.GameCommonData.AllSkills.Skills.Values)
+            this.PersonSkillTexts.SimpleClear();
+            this.LearnableSkillTexts.SimpleClear();
+            foreach (Skill skill in this.screen.Scenario.GameCommonData.AllSkills.Skills.Values)
             {
                 Rectangle position = new Rectangle(this.SkillDisplayOffset.X + (skill.DisplayCol * this.SkillBlockSize.X), this.SkillDisplayOffset.Y + (skill.DisplayRow * this.SkillBlockSize.Y), this.SkillBlockSize.X, this.SkillBlockSize.Y);
+                if (person.Skills.GetSkill(skill.ID) != null)
+                {
+                    this.PersonSkillTexts.AddText(skill.Name, position);
+                }
+                else if (skill.CanLearn(person))
+                {
+                    this.LearnableSkillTexts.AddText(skill.Name, position);
+                }
                 this.AllSkillTexts.AddText(skill.Name, position);
                 this.LinkedSkills.Add(skill);
             }
             this.AllSkillTexts.ResetAllTextTextures();
             this.AllSkillTexts.ResetAllAlignedPositions();
+            this.PersonSkillTexts.ResetAllTextTextures();
+            this.PersonSkillTexts.ResetAllAlignedPositions();
+            this.LearnableSkillTexts.ResetAllTextTextures();
+            this.LearnableSkillTexts.ResetAllAlignedPositions();
 
             this.ShowingPerson = person;
             this.SurNameText.Text = person.SurName;
@@ -656,24 +670,7 @@
             }
             this.GuanzhiText.ResortTexts();
             */
-            this.PersonSkillTexts.SimpleClear();
-            this.LearnableSkillTexts.SimpleClear();
-            foreach (Skill skill in this.screen.Scenario.GameCommonData.AllSkills.Skills.Values)
-            {
-                Rectangle position = new Rectangle(this.SkillDisplayOffset.X + (skill.DisplayCol * this.SkillBlockSize.X), this.SkillDisplayOffset.Y + (skill.DisplayRow * this.SkillBlockSize.Y), this.SkillBlockSize.X, this.SkillBlockSize.Y);
-                if (person.Skills.GetSkill(skill.ID) != null)
-                {
-                    this.PersonSkillTexts.AddText(skill.Name, position);
-                }
-                else if (skill.CanLearn(person))
-                {
-                    this.LearnableSkillTexts.AddText(skill.Name, position);
-                }
-            }
-            this.PersonSkillTexts.ResetAllTextTextures();
-            this.PersonSkillTexts.ResetAllAlignedPositions();
-            this.LearnableSkillTexts.ResetAllTextTextures();
-            this.LearnableSkillTexts.ResetAllAlignedPositions();
+           
             this.StuntText.Clear();
             this.StuntText.AddText("战斗特技", Color.Yellow);
             this.StuntText.AddNewLine();
