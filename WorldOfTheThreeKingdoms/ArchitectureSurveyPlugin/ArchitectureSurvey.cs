@@ -756,7 +756,7 @@ namespace ArchitectureSurveyPlugin
         {
             get
             {
-                if (this.ArchitectureToSurvey.MilitaryCount == 0 && this.ArchitectureToSurvey.ArmyQuantity == 0)
+                if (this.ArchitectureToSurvey.ArmyQuantity == 0)
                 {
                  return new Rectangle(this.ArmyBarClient.X + this.DisplayOffset.X, this.ArmyBarClient.Y + this.DisplayOffset.Y, 0, this.ArmyBarClient.Height);
                
