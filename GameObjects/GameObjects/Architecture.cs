@@ -1658,12 +1658,6 @@
             this.StopAllWork();
             if (!this.HasPerson()) return;
 
-            if (this.ID == 131)
-            {
-                int z = 0;
-                z++;
-            }
-  
             MilitaryList trainingMilitaryList = this.GetTrainingMilitaryList();
             bool needTrain = (trainingMilitaryList.Count > 0);
 
@@ -10119,12 +10113,6 @@
         private Dictionary<LinkNode, Routeway> linkNodeRouteway = new Dictionary<LinkNode, Routeway>();
         private void OffensiveCampaign()
         {
-            if (this.ID == 132)
-            {
-                int z = 0;
-                z++;
-            }
-
             DateTime beforeStart = DateTime.UtcNow;
 
             Person leader = this.BelongedFaction.Leader;
