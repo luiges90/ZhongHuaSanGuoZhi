@@ -755,14 +755,14 @@
             int maxMerit = 0;
             foreach (Person i in leaderHaters)
             {
-                if (i.Alive && i != p && i != this.Leader && i.UntiredMerit > maxMerit)
+                if (i.Alive && i != p && i != this.Leader && !i.Hates(this.Leader) && i.UntiredMerit > maxMerit)
                 {
                     spousePerson = i;
                     maxMerit = i.UntiredMerit;
                 }
             }
             return p.UntiredMerit > ((unAmbition - 1) * Parameters.AINafeiAbilityThresholdRate) && leader.isLegalFeiZi(p) && p.LocationArchitecture != null && !p.IsCaptive && !p.Hates(this.Leader) &&
-                            (spousePerson == null || spousePerson.Hates(this.Leader) || (leader.PersonalLoyalty <= (int)PersonLoyalty.普通 && spousePerson.UntiredMerit * (leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd) < p.UntiredMerit)) &&
+                            (spousePerson == null || (leader.PersonalLoyalty <= (int)PersonLoyalty.普通 && spousePerson.UntiredMerit * (leader.PersonalLoyalty * Parameters.AINafeiStealSpouseThresholdRateMultiply + Parameters.AINafeiStealSpouseThresholdRateAdd) < this.Leader.UntiredMerit / 2)) &&
                             (!GlobalVariables.PersonNaturalDeath || (p.Age >= 16 && p.Age <= Parameters.AINafeiMaxAgeThresholdAdd + (int)leader.Ambition * Parameters.AINafeiMaxAgeThresholdMultiply)) &&
                             p.marriageGranter != this.Leader;
         }
