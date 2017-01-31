@@ -5265,15 +5265,15 @@
                         }
                     }
                 }
-
-                if (toMerge.Power > strongestAI.Power)
-                {
-                    Faction temp = toMerge;
-                    toMerge = strongestAI;
-                    strongestAI = temp;
-                }
+                
                 if (toMerge != null)
                 {
+                    if (toMerge.Power > strongestAI.Power)
+                    {
+                        Faction temp = toMerge;
+                        toMerge = strongestAI;
+                        strongestAI = temp;
+                    }
                     this.GameScreen.OnAIMergeAgainstPlayer(strongestPlayer, strongestAI, toMerge);
                     this.YearTable.addChangeFactionEntry(this.Date, toMerge, strongestAI);
                     toMerge.ChangeFaction(strongestAI);

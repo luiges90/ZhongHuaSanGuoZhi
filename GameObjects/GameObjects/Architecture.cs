@@ -908,7 +908,7 @@
                     {
                         this.PlanFacilityKind = null;
                     }
-                    if (this.PlanFacilityKind.FundCost > this.FundCeiling / 2)
+                    if (this.PlanFacilityKind != null && this.PlanFacilityKind.FundCost > this.FundCeiling / 2)
                     {
                         this.PlanFacilityKind = null;
                     }
