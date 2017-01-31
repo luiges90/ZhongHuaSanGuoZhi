@@ -2514,30 +2514,46 @@
                 }
             }
 
-            foreach (Military i in this.GetMergeMilitaryList())
+            bool merged = false;
+            if (GlobalVariables.PopulationRecruitmentLimit && this.ArmyQuantity > this.Population)
             {
-                if (i.Leader == null) continue;
-                foreach (Military j in this.BeMergedMilitaryList)
+                MilitaryList merger = this.GetMergeMilitaryList();
+                merger.SmallToBig = false;
+                merger.PropertyName = "LeaderFightingForce";
+                merger.IsNumber = true;
+                merger.ReSort();
+                foreach (Military i in merger)
                 {
-                    if (i.Quantity + j.Quantity <= i.Kind.MaxScale)
+                    MilitaryList list = this.GetBeMergedMilitaryList(i);
+                    list.SmallToBig = true;
+                    list.PropertyName = "LeaderFightingForce";
+                    list.IsNumber = true;
+                    list.ReSort();
+                    foreach (Military j in list)
                     {
-                        int increment = j.Quantity + i.Quantity - i.Kind.MaxScale;
-                        if (increment > 0)
+                        if (i.Quantity + j.Quantity <= i.Kind.MaxScale)
                         {
-                            this.IncreasePopulation(increment);
+                            int increment = j.Quantity + i.Quantity - i.Kind.MaxScale;
+                            if (increment > 0)
+                            {
+                                this.IncreasePopulation(increment);
+                            }
+                            if (j.LeaderID == i.LeaderID)
+                            {
+                                i.IncreaseQuantity(j.Quantity, j.Morale, j.Combativity, j.Experience, j.LeaderExperience);
+                            }
+                            else
+                            {
+                                i.IncreaseQuantity(j.Quantity, j.Morale, j.Combativity, j.Experience, 0);
+                            }
+                            this.RemoveMilitary(j);
+                            this.BelongedFaction.RemoveMilitary(j);
+                            this.Scenario.Militaries.Remove(j);
+                            merged = true;
+                            break;
                         }
-                        if (j.LeaderID == i.LeaderID)
-                        {
-                            i.IncreaseQuantity(j.Quantity, j.Morale, j.Combativity, j.Experience, j.LeaderExperience);
-                        }
-                        else
-                        {
-                            i.IncreaseQuantity(j.Quantity, j.Morale, j.Combativity, j.Experience, 0);
-                        }
-                        this.RemoveMilitary(j);
-                        this.BelongedFaction.RemoveMilitary(j);
-                        this.Scenario.Militaries.Remove(j);
                     }
+                    if (merged) break;
                 }
             }
  

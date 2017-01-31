@@ -1940,7 +1940,7 @@
             }
             else
             {
-                foreach (Point p in this.ViewArea.Area)
+                foreach (Point p in this.BaseViewArea.Area)
                 {
                     Troop t = base.Scenario.GetTroopByPosition(p);
                     if (t != null)
@@ -3634,17 +3634,31 @@
                 this.DecreaseMorale(this.MoraleDecreaseByViewArea);
             }
 
+            int moraleRate = 1;
+            foreach (Point p in this.BaseViewArea.Area)
+            {
+                Architecture a = base.Scenario.GetArchitectureByPositionNoCheck(p);
+                if (a != null && a.Endurance > 0 && a.BelongedFaction == this.BelongedFaction)
+                {
+                    moraleRate = 2;
+                }
+            }
+            Architecture a2 = base.Scenario.GetArchitectureByPositionNoCheck(this.Position);
+            if (a2 != null && a2.Endurance > 0 && a2.BelongedFaction == this.BelongedFaction)
+            {
+                moraleRate = 3;
+            }
             if (this.Tiredness <= 20)
             {
-                this.IncreaseMorale((GameObject.Chance(this.Army.Leader.Command) ? 1 : 0) + (GameObject.Chance(this.Army.Leader.Command) ? 1 : 0));
+                this.IncreaseMorale(((GameObject.Chance(this.Army.Leader.Command) ? 1 : 0) + (GameObject.Chance(this.Army.Leader.Command) ? 1 : 0)) * moraleRate);
             }
             else if (this.Tiredness <= 40)
             {
-                this.IncreaseMorale(GameObject.Chance(this.Army.Leader.Command) ? 1 : 0);
+                this.IncreaseMorale((GameObject.Chance(this.Army.Leader.Command) ? 1 : 0) * moraleRate);
             }
             else if (this.Tiredness > 60)
             {
-                this.DecreaseMorale((this.Tiredness - 30) / 30 + (GameObject.Chance(this.Army.Leader.Command) ? 1 : 0));
+                this.DecreaseMorale((this.Tiredness - 30) / 30 + ((GameObject.Chance(this.Army.Leader.Command) ? 1 : 0)) * moraleRate);
             }
 
             if ((this.InjuryRecoveryPerDayRate > 0f || this.InjuryRecoverByViewArea > 0) && (this.InjuryQuantity > 0))
@@ -6704,10 +6718,22 @@
                         }
                         if (damage.SourceTroop.Morale < damage.SourceTroop.Army.MoraleCeiling)
                         {
-                            damage.SourceTroop.IncreaseMorale(5);
+                            damage.SourceTroop.IncreaseMorale(damage.SourceTroop.Leader.Command / 20);
                             if (damage.SourceTroop.PreAction == TroopPreAction.无)
                             {
                                 damage.SourceTroop.PreAction = TroopPreAction.鼓舞;
+                            }
+                        }
+                        foreach (Point p in damage.DestinationArchitecture.ViewArea.Area)
+                        {
+                            Troop t = base.Scenario.GetTroopByPositionNoCheck(p);
+                            if (t.BelongedFaction == damage.DestinationArchitecture.BelongedFaction)
+                            {
+                                t.DecreaseMorale(10 - t.Leader.Command / 20);
+                            }
+                            else if (t.BelongedFaction == damage.SourceTroop.BelongedFaction)
+                            {
+                                t.IncreaseMorale(t.Leader.Command / 20);
                             }
                         }
                     }

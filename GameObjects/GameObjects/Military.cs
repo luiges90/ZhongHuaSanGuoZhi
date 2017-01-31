@@ -743,6 +743,14 @@
             }
         }
 
+        public int LeaderFightingForce
+        {
+            get
+            {
+                return this.Leader == null ? 0 : this.Leader.FightingForce;
+            }
+        }
+
         public Person Leader
         {
             get
