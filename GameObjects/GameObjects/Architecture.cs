@@ -908,6 +908,10 @@
                     {
                         this.PlanFacilityKind = null;
                     }
+                    if (this.PlanFacilityKind.FundCost > this.FundCeiling / 2)
+                    {
+                        this.PlanFacilityKind = null;
+                    }
                 }
                 else
                 {
@@ -975,6 +979,10 @@
                         {
                             continue;
                         }
+                        if (kind.FundCost > this.FundCeiling / 2)
+                        {
+                            continue;
+                        }
                         float value = (float)kind.AIValue(this);
                         foreach (KeyValuePair<Condition, float> weight in kind.AIBuildConditionWeight)
                         {
@@ -1011,6 +1019,10 @@
                                             maxValue = value;
                                             toBuild = kind;
                                             realToDestroy = toDestroy;
+                                        } 
+                                        else 
+                                        {
+                                            continue;
                                         }
                                     }
                                 }
@@ -1645,6 +1657,12 @@
         {
             this.StopAllWork();
             if (!this.HasPerson()) return;
+
+            if (this.ID == 131)
+            {
+                int z = 0;
+                z++;
+            }
   
             MilitaryList trainingMilitaryList = this.GetTrainingMilitaryList();
             bool needTrain = (trainingMilitaryList.Count > 0);
@@ -10101,6 +10119,12 @@
         private Dictionary<LinkNode, Routeway> linkNodeRouteway = new Dictionary<LinkNode, Routeway>();
         private void OffensiveCampaign()
         {
+            if (this.ID == 132)
+            {
+                int z = 0;
+                z++;
+            }
+
             DateTime beforeStart = DateTime.UtcNow;
 
             Person leader = this.BelongedFaction.Leader;
@@ -10364,7 +10388,7 @@
                                 {
                                     this.PlanArchitecture = bypass;
                                 }
-                                else if ((routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) > this.Fund)
+                                else if (GlobalVariables.LiangdaoXitong && (routeway.LastPoint.BuildFundCost * (4 + ((wayToTarget.A.AreaCount >= 4) ? 2 : 0))) > this.Fund)
                                 {
                                     routeway.Building = false;
                                     this.PlanArchitecture = wayToTarget.A;
