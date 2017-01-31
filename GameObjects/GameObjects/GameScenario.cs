@@ -5265,6 +5265,13 @@
                         }
                     }
                 }
+
+                if (toMerge.Power > strongestAI.Power)
+                {
+                    Faction temp = toMerge;
+                    toMerge = strongestAI;
+                    strongestAI = temp;
+                }
                 if (toMerge != null)
                 {
                     this.GameScreen.OnAIMergeAgainstPlayer(strongestPlayer, strongestAI, toMerge);
