@@ -2336,29 +2336,8 @@
 
             int idealOffset = Person.GetIdealOffset(target, this.BelongedFaction.Leader) - this.ConvinceIdealSkip;
 
-            if (target.BelongedFaction == null)
-            {
-                ConvinceSuccess =
-                    (
-                        (target.IsCaptive &&
-                         architectureByPosition.IsCaptiveInArchitecture(target.BelongedCaptive)
-                         )
-                    || (target.LocationArchitecture == architectureByPosition)
-                )
-                && !target.Hates(this.BelongedFaction.Leader)
-                && (!GlobalVariables.IdealTendencyValid ||
-                    (idealOffset <= target.IdealTendency.Offset +
-                     (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75)
-                 && (this.ConvinceAbility + Person.GetIdealOffset2(this, target) * 30 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 30 > 0)
-                );
-
-                ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && GlobalVariables.AIAutoTakeNoFactionCaptives;
-                // 当被登用武将在野并且亲爱登用武将的君主或登用武将自己时，一定被登用
-                ConvinceSuccess |= target.Closes(this) || target.Closes(this.BelongedFaction.Leader);
-            }
-            else
-            {
-                ConvinceSuccess =
+            
+            ConvinceSuccess =
                     (
              ((target.IsCaptive && architectureByPosition.IsCaptiveInArchitecture(target.BelongedCaptive))
              || (target.LocationArchitecture == architectureByPosition))
@@ -2372,10 +2351,20 @@
              && (!GlobalVariables.IdealTendencyValid || (idealOffset <= target.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
              && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(target, this) * 8 + Person.GetIdealOffset2(target, this.BelongedFaction.Leader) * 8 > 0);
 
-                ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(target.BelongedFaction) &&
-                    GlobalVariables.AIAutoTakePlayerCaptives && target.IsCaptive &&
-                    (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || target.Loyalty < 100);
+            if (target.BelongedFaction != null)
+            {
+                int thr = (4 - this.PersonalLoyalty) * 25;
+                if (this.Status != PersonStatus.Captive)
+                {
+                    thr -= 25;
+                }
+                ConvinceSuccess &= this.Loyalty < thr;
             }
+
+            ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(target.BelongedFaction) &&
+                GlobalVariables.AIAutoTakePlayerCaptives && target.IsCaptive &&
+                (!GlobalVariables.AIAutoTakePlayerCaptiveOnlyUnfull || target.Loyalty < 100);
+            
             ConvinceSuccess = ConvinceSuccess && (!this.BelongedFaction.IsAlien || (int)target.PersonalLoyalty < 2);  //异族只能说服义理为2以下的武将。
 
             // prohibitedFactionID overrides all.
