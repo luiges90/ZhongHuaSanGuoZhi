@@ -2331,6 +2331,10 @@
         {
             bool ConvinceSuccess;
             Architecture architectureByPosition = target.BelongedArchitecture;
+            if (target.IsCaptive)
+            {
+                architectureByPosition = target.BelongedCaptive.LocationArchitecture;
+            }
 
             if (architectureByPosition == null) return false;
 
@@ -2343,22 +2347,22 @@
              || (target.LocationArchitecture == architectureByPosition))
              && (
              (
-                 ((target.BelongedFaction != null) && (this.BelongedFaction != target.BelongedFaction))
+                 ((target.BelongedFaction == null) || (this.BelongedFaction != target.BelongedFaction))
 
              )
-             && ((target != target.BelongedFaction.Leader) && (target.Loyalty < 100))))
+             && (target.BelongedFaction == null || (target != target.BelongedFaction.Leader) && (target.Loyalty < 100))))
              && (!target.Hates(this.BelongedFaction.Leader))
              && (!GlobalVariables.IdealTendencyValid || (idealOffset <= target.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
              && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(target, this) * 8 + Person.GetIdealOffset2(target, this.BelongedFaction.Leader) * 8 > 0);
 
             if (target.BelongedFaction != null)
             {
-                int thr = (4 - this.PersonalLoyalty) * 25;
-                if (this.Status != PersonStatus.Captive)
+                int thr = (4 - target.PersonalLoyalty) * 25;
+                if (!target.IsCaptive)
                 {
                     thr -= 25;
                 }
-                ConvinceSuccess &= this.Loyalty < thr;
+                ConvinceSuccess &= target.Loyalty < thr;
             }
 
             ConvinceSuccess |= !base.Scenario.IsPlayer(this.BelongedFaction) && base.Scenario.IsPlayer(target.BelongedFaction) &&
