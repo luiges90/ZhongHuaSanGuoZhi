@@ -2448,9 +2448,19 @@
             PersonList list = new PersonList();
             if (person2 == null)
             {
-                foreach (Person person3 in this.Persons)
+                if (this.Prince != null && this.Prince != this.Leader && this.Prince.BelongedFaction == this)
                 {
-                    if (this.Prince != null && person3 == this.Prince && person3 != this.Leader)
+                    person2 = this.Prince;
+                }
+            }
+
+            if (person2 == null)
+            {
+                list.Clear();
+                foreach (Person person3 in base.Scenario.Persons)
+                {
+                    if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && (this.Leader == person3.Father) && person3 != this.Leader
+                         && (person3.BelongedFaction == this || !person3.Available) && person3.Alive)
                     {
                         list.Add(person3);
                     }
@@ -2471,33 +2481,10 @@
             if (person2 == null)
             {
                 list.Clear();
-                foreach (Person person3 in this.Persons)
-                {
-                    if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && (this.Leader == person3.Father) && person3 != this.Leader)
-                    {
-                        list.Add(person3);
-                    }
-                }
-                if (list.Count > 0)
-                {
-                    if (list.Count > 1)
-                    {
-                        list.PropertyName = "YearBorn";
-                        list.IsNumber = true;
-                        list.SmallToBig = true;
-                        list.ReSort();
-                    }
-                    person2 = list[0] as Person;
-                }
-            }
-
-            if (person2 == null)
-            {
-                list.Clear();
-                foreach (Person person3 in this.Persons)
+                foreach (Person person3 in base.Scenario.Persons)
                 {
                     if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && (this.Leader.Father == person3.Father)
-                        && person3 != this.Leader)
+                        && person3 != this.Leader && (person3.BelongedFaction == this || !person3.Available) && person3.Alive)
                     {
                         list.Add(person3);
                     }
@@ -2517,9 +2504,10 @@
             if (person2 == null)
             {
                 list.Clear();
-                foreach (Person person3 in this.Persons)
+                foreach (Person person3 in base.Scenario.Persons)
                 {
-                    if ((person3.Strain >= 0) && (person3.Sex == this.Leader.Sex) && (this.Leader.Strain == person3.Strain) && person3 != this.Leader)
+                    if ((person3.Strain >= 0) && (person3.Sex == this.Leader.Sex) && (this.Leader.Strain == person3.Strain) && person3 != this.Leader
+                         && (person3.BelongedFaction == this || !person3.Available) && person3.Alive)
                     {
                         list.Add(person3);
                     }
@@ -2559,10 +2547,10 @@
             }
             if (person2 == null)
             {
-                foreach (Person person3 in this.Persons)
+                foreach (Person person3 in base.Scenario.Persons)
                 {
                     if ((person3.Mother != null) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Mother == person3.Mother) || (person3.Mother == this.Leader))
-                        && person3 != this.Leader && person3.BelongedFaction == this)
+                        && person3 != this.Leader && person3.BelongedFaction == this && person3.BelongedFaction == this && person3.Alive)
                     {
                         list.Add(person3);
                     }
@@ -2661,6 +2649,12 @@
             }
             if (person2 != null)
             {
+                if (!person2.Available)
+                {
+                    person2.BeAvailable();
+                    person2.LocationArchitecture = this.Capital;
+                    person2.Status = PersonStatus.Normal;
+                }
                 this.Leader = person2;
                 if (!((this.Leader.LocationTroop == null) || this.Leader.IsCaptive))
                 {
