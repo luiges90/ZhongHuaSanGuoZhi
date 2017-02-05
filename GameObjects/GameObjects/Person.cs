@@ -1133,7 +1133,7 @@
 
         }
 
-        private bool BeAvailable()
+        public bool BeAvailable()
         {
             Architecture gameObject = base.Scenario.Architectures.GetGameObject(this.AvailableLocation) as Architecture;
             if (gameObject == null)
