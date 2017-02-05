@@ -9884,8 +9884,7 @@
                 }
             }
 
-            damage.DestinationMoraleChange -= (int)(Math.Sqrt(damage.Damage) / 2.5f);
-            //damage.SourceMoraleChange += (int)(Math.Sqrt(damage.Damage) / 10.0f);
+            damage.DestinationMoraleChange -= (int)(damage.Damage / 100.0f * ((75 - troop.Leader.Command) / 50 + 1));
 
             ExtensionInterface.call("TroopSendTroopDamage", new Object[] { this.Scenario, this, damage, troop, counter });
             return damage;
