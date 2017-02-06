@@ -10546,7 +10546,7 @@
             {
                 if (this.NoFactionPersons.Count > 0)
                 {
-                    for (int i = 0; i < this.NoFactionPersonCount / 2; ++i)
+                    for (int i = 0; i < this.NoFactionPersonCount / 2 + 1; ++i)
                     {
                         ConvinceNoFactionAI();
                     }
@@ -10554,7 +10554,7 @@
 
                 if (this.Captives.Count > 0)
                 {
-                    for (int i = 0; i < this.Captives.Count / 2; ++i)
+                    for (int i = 0; i < this.Captives.Count / 2 + 1; ++i)
                     {
                         ConvinceCaptivesAI(this);
                     }
