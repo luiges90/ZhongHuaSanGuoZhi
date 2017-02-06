@@ -1452,7 +1452,7 @@
                         this.InjureRate -= (base.Scenario.Date.Year - yearDead + 1) * 0.1f;
                     }
 
-                    if (this.InjureRate <= 0)
+                    if (this.InjureRate <= 0.05)
                     {
                         this.ToDeath(null, this.BelongedFaction);
                     }
