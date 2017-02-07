@@ -1967,16 +1967,17 @@
                 }
                 Faction f = this.BelongedFaction;
                 Architecture starting = this.StartingArchitecture;
+                GameObjectList persons = this.persons.GetList();
                 this.Destroy(true, true);
-                foreach (Person p in this.persons)
+                foreach (Person p in persons)
                 {
-                    foreach (Person q in this.persons)
+                    foreach (Person q in persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f / this.persons.Count, -3);
+                        p.AdjustRelation(q, -0.5f / persons.Count, -3);
                     }
                 }
-                foreach (Person person in this.persons)
+                foreach (Person person in persons)
                 {
                     Point from = this.Position;
                     if ((starting == null) || (f != starting.BelongedFaction))
