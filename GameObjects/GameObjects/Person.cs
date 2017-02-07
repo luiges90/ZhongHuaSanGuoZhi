@@ -9121,8 +9121,8 @@
                 foreach (Person p in this.BelongedFaction.GetFeiziList())
                 {
                     if (p == nvren) continue;
-                    p.AdjustRelation(this, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -5);
-                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (5 - p.PersonalLoyalty), -5);
+                    p.AdjustRelation(this, -houGongDays / 60.0f * (4 - p.PersonalLoyalty), -2);
+                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (4 - p.PersonalLoyalty), -2);
                 }
 
                 makeHateCausedByAffair(this, nvren, this);
