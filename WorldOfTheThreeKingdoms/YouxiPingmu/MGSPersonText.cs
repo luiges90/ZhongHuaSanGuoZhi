@@ -1528,7 +1528,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             merger.TextDestinationString = strongestPlayer.Name;
 
             this.Plugins.tupianwenziPlugin.SetPosition(ShowPosition.Bottom);
-            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(merger.Leader, merger.Leader.LocationArchitecture, TextMessageKind.AIMergeAgainstPlayer, "AIMergeAgainstPlayer", "AIMergeAgainstPlayer.jpg", "");
+            this.Plugins.tupianwenziPlugin.SetGameObjectBranch(merger.Leader, merger, TextMessageKind.AIMergeAgainstPlayer, "AIMergeAgainstPlayer", "AIMergeAgainstPlayer.jpg", "");
             this.Plugins.tupianwenziPlugin.IsShowing = true;
         }
     }
