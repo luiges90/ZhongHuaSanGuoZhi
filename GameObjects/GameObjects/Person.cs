@@ -2353,7 +2353,7 @@
              && (target.BelongedFaction == null || (target != target.BelongedFaction.Leader) && (target.Loyalty < 100))))
              && (!target.Hates(this.BelongedFaction.Leader))
              && (!GlobalVariables.IdealTendencyValid || (idealOffset <= target.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-             && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(target, this) * 8 + Person.GetIdealOffset2(target, this.BelongedFaction.Leader) * 8 > 0);
+             && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(target, this) * 8 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 8 > 0);
 
             if (target.BelongedFaction != null)
             {
@@ -2399,7 +2399,7 @@
                     {
                         ConvinceSuccess = GameObject.Chance((int)
                             (this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 4) - ((int)this.ConvincingPerson.PersonalLoyalty * 25) +
-                            Person.GetIdealOffset2(this.ConvincingPerson, this) * 8 + Person.GetIdealOffset2(this.ConvincingPerson, this.BelongedFaction.Leader) * 8) / 3 + 1);
+                            Person.GetIdealOffset2(this, this.ConvincingPerson) * 8 + Person.GetIdealOffset2(this.BelongedFaction.Leader, this.ConvincingPerson) * 8) / 3 + 1);
                     }
 
                     Person closest = this.ConvincingPerson.VeryClosePersonInArchitecture;
@@ -3832,57 +3832,57 @@
         public static float GetIdealOffset2(Person target, Person src, float idealFactor)
         {
             float v = 0;
-            v += (-Person.GetIdealOffset(target, src) + (target.IdealTendency.Offset)) * 0.6f * idealFactor;
+            v += (-Person.GetIdealOffset(target, src) + (src.IdealTendency.Offset)) * 0.6f * idealFactor;
             v += target.GetRelation(src) / 100.0f;
-            v += src.Glamour / 10.0f - 5.0f;
+            v += target.Glamour / 10.0f - 5.0f;
 
             if (target.Scenario.huangdisuozaijianzhu() != null)
             {
                 v -= (Math.Abs(target.ValuationOnGovernment - src.ValuationOnGovernment) - 1) * 5;
             }
-            switch (target.Qualification)
+            switch (src.Qualification)
             {
                 case PersonQualification.义理:
-                    v += (src.PersonalLoyalty - 2) * 5;
+                    v += (target.PersonalLoyalty - 2) * 5;
                     break;
                 case PersonQualification.功绩:
-                    v += Math.Max(-10, Math.Min(10, (src.ServedYears - target.ServedYears) * 3));
+                    v += Math.Max(-10, Math.Min(10, (target.ServedYears - src.ServedYears) * 3));
                     break;
                 case PersonQualification.名声:
-                    v += Math.Max(-10, Math.Min(10, (src.Reputation - target.Reputation) / 1000.0f));
+                    v += Math.Max(-10, Math.Min(10, (target.Reputation - src.Reputation) / 1000.0f));
                     break;
                 case PersonQualification.能力:
-                    v += Math.Max(-10, Math.Min(10, (src.UnalteredUntiredMerit - target.UnalteredUntiredMerit) / 10000.0f));
+                    v += Math.Max(-10, Math.Min(10, (target.UnalteredUntiredMerit - src.UnalteredUntiredMerit) / 10000.0f));
                     break;
                 case PersonQualification.任意:
                     break;
             }
 
-            if (target.Ideal == src.Ideal)
+            if (src.Ideal == target.Ideal)
             {
                 v += 2;
             }
-            if (target.Closes(src))
+            if (src.Closes(target))
             {
                 v += 10;
             }
-            if (target.HasStrainTo(src))
+            if (src.HasStrainTo(target))
             {
                 v += 5;
             }
-            if (target.HasCloseStrainTo(src))
+            if (src.HasCloseStrainTo(target))
             {
                 v += 10;
             }
-            if (target.Spouse == src)
+            if (src.Spouse == target)
             {
                 v += 50;
             }
-            if (target.Brothers.GameObjects.Contains(src))
+            if (src.Brothers.GameObjects.Contains(target))
             {
                 v += 50;
             }
-            if (target.Hates(src))
+            if (src.Hates(target))
             {
                 v -= 50;
             }
@@ -9530,7 +9530,7 @@
             if (this == p || p == null) return;
             float val;
 
-            float offset = Math.Max(0, Math.Min(75, 75 - Person.GetIdealOffset2(p, this)));
+            float offset = Math.Max(0, Math.Min(75, 37.5f - Person.GetIdealOffset2(p, this) / 2));
 
             if (factor > 0)
             {
