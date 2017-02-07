@@ -2353,7 +2353,7 @@
              && (target.BelongedFaction == null || (target != target.BelongedFaction.Leader) && (target.Loyalty < 100))))
              && (!target.Hates(this.BelongedFaction.Leader))
              && (!GlobalVariables.IdealTendencyValid || (idealOffset <= target.IdealTendency.Offset + (double)this.BelongedFaction.Reputation / this.BelongedFaction.MaxPossibleReputation * 75))
-             && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealOffset2(target, this) * 8 + Person.GetIdealOffset2(this.BelongedFaction.Leader, target) * 8 > 0);
+             && (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) + Person.GetIdealAttraction(target, this) * 8 + Person.GetIdealAttraction(this.BelongedFaction.Leader, target) * 8 > 0);
 
             if (target.BelongedFaction != null)
             {
@@ -2399,7 +2399,7 @@
                     {
                         ConvinceSuccess = GameObject.Chance((int)
                             (this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 4) - ((int)this.ConvincingPerson.PersonalLoyalty * 25) +
-                            Person.GetIdealOffset2(this, this.ConvincingPerson) * 8 + Person.GetIdealOffset2(this.BelongedFaction.Leader, this.ConvincingPerson) * 8) / 3 + 1);
+                            Person.GetIdealAttraction(this, this.ConvincingPerson) * 8 + Person.GetIdealAttraction(this.BelongedFaction.Leader, this.ConvincingPerson) * 8) / 3 + 1);
                     }
 
                     Person closest = this.ConvincingPerson.VeryClosePersonInArchitecture;
@@ -3824,12 +3824,12 @@
             return list;
         }
 
-        public static float GetIdealOffset2(Person target, Person src)
+        public static float GetIdealAttraction(Person target, Person src)
         {
-            return GetIdealOffset2(target, src, 1.0f);
+            return GetIdealAttraction(target, src, 1.0f);
         }
 
-        public static float GetIdealOffset2(Person target, Person src, float idealFactor)
+        public static float GetIdealAttraction(Person target, Person src, float idealFactor)
         {
             float v = 0;
             v += (-Person.GetIdealOffset(target, src) * 0.6f + src.IdealTendency.Offset * 0.2f + target.IdealTendency.Offset * 0.2f) * idealFactor;
@@ -6675,7 +6675,7 @@
                         v -= 3;
                     }
 
-                    v += Person.GetIdealOffset2(this.BelongedFaction.Leader, this, 0.5f);
+                    v += Person.GetIdealAttraction(this.BelongedFaction.Leader, this, 0.5f);
 
                     v += this.MaxTreasureValue / 4.0f;
 
@@ -9530,7 +9530,7 @@
             if (this == p || p == null) return;
             float val;
 
-            float offset = Math.Max(0, Math.Min(75, 37.5f - Person.GetIdealOffset2(p, this) / 2));
+            float offset = Math.Max(0, Math.Min(75, 37.5f - Person.GetIdealAttraction(p, this) / 2));
 
             if (factor > 0)
             {

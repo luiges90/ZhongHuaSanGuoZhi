@@ -5255,7 +5255,7 @@
 
                     if (!f.Leader.Hates(strongestAI.Leader))
                     {
-                        if (GameObject.Chance((int)(Person.GetIdealOffset2(strongestAI.Leader, f.Leader) + strongestPlayerPower / strongestAIPower * 100)))
+                        if (GameObject.Chance((int)(Person.GetIdealAttraction(strongestAI.Leader, f.Leader) + strongestPlayerPower / strongestAIPower * 100)))
                         {
                             if (strongestAI.adjacentTo(f) && this.GetDiplomaticRelation(strongestAI.ID, f.ID) > 0)
                             {
