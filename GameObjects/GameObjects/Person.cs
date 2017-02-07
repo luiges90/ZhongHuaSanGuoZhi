@@ -3834,6 +3834,7 @@
             float v = 0;
             v += (-Person.GetIdealOffset(target, src) + (target.IdealTendency.Offset)) * 0.6f * idealFactor;
             v += target.GetRelation(src) / 100.0f;
+            v += src.Glamour / 10.0f - 5.0f;
 
             if (target.Scenario.huangdisuozaijianzhu() != null)
             {
