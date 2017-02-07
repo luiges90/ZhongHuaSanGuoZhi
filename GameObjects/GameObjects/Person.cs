@@ -3832,7 +3832,7 @@
         public static float GetIdealOffset2(Person target, Person src, float idealFactor)
         {
             float v = 0;
-            v += (-Person.GetIdealOffset(target, src) + (src.IdealTendency.Offset)) * 0.6f * idealFactor;
+            v += (-Person.GetIdealOffset(target, src) * 0.6f + src.IdealTendency.Offset * 0.2f + target.IdealTendency.Offset * 0.2f) * idealFactor;
             v += target.GetRelation(src) / 100.0f;
             v += target.Glamour / 10.0f - 5.0f;
 
