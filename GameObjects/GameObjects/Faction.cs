@@ -2460,7 +2460,7 @@
                 foreach (Person person3 in base.Scenario.Persons)
                 {
                     if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && (this.Leader == person3.Father) && person3 != this.Leader
-                         && (person3.BelongedFaction == this || !person3.Available) && person3.Alive)
+                         && (person3.BelongedFaction == this || !person3.Available) && person3.Alive && (person3.ID < 7000 || person3.ID >= 8000))
                     {
                         list.Add(person3);
                     }
@@ -2484,7 +2484,7 @@
                 foreach (Person person3 in base.Scenario.Persons)
                 {
                     if ((person3.Father != null) && (person3.Sex == this.Leader.Sex) && (this.Leader.Father == person3.Father)
-                        && person3 != this.Leader && (person3.BelongedFaction == this || !person3.Available) && person3.Alive)
+                        && person3 != this.Leader && (person3.BelongedFaction == this || !person3.Available) && person3.Alive && (person3.ID < 7000 || person3.ID >= 8000))
                     {
                         list.Add(person3);
                     }
@@ -2507,7 +2507,7 @@
                 foreach (Person person3 in base.Scenario.Persons)
                 {
                     if ((person3.Strain >= 0) && (person3.Sex == this.Leader.Sex) && (this.Leader.Strain == person3.Strain) && person3 != this.Leader
-                         && (person3.BelongedFaction == this || !person3.Available) && person3.Alive)
+                         && (person3.BelongedFaction == this || !person3.Available) && person3.Alive && (person3.ID < 7000 || person3.ID >= 8000))
                     {
                         list.Add(person3);
                     }
@@ -2550,7 +2550,7 @@
                 foreach (Person person3 in base.Scenario.Persons)
                 {
                     if ((person3.Mother != null) && (person3.Sex == this.Leader.Sex) && ((this.Leader.Mother == person3.Mother) || (person3.Mother == this.Leader))
-                        && person3 != this.Leader && person3.BelongedFaction == this && person3.BelongedFaction == this && person3.Alive)
+                        && person3 != this.Leader && person3.BelongedFaction == this && person3.BelongedFaction == this && person3.Alive && (person3.ID < 7000 || person3.ID >= 8000))
                     {
                         list.Add(person3);
                     }
