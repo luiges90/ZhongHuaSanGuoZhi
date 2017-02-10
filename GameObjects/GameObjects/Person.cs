@@ -9118,12 +9118,22 @@
                     this.AdjustRelation(nvren, houGongDays / 30.0f, 0);
                     nvren.AdjustRelation(this, houGongDays / 30.0f, 0);
                 }
-               
+
+                float factor = 1;
+                foreach (Person p in this.BelongedFaction.GetFeiziList())
+                {
+                    if (GlobalVariables.PersonNaturalDeath && p.Age > 50)
+                    {
+                        factor *= 0.9f + (100 - p.Glamour) * 0.001f;
+                    }
+                }
+
                 foreach (Person p in this.BelongedFaction.GetFeiziList())
                 {
                     if (p == nvren) continue;
-                    p.AdjustRelation(this, -houGongDays / 60.0f * (4 - p.PersonalLoyalty), -2);
-                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (4 - p.PersonalLoyalty), -2);
+
+                    p.AdjustRelation(this, -houGongDays / 60.0f * (4 - p.PersonalLoyalty) * factor, -2);
+                    p.AdjustRelation(nvren, -houGongDays / 60.0f * (4 - p.PersonalLoyalty) * factor, -2);
                 }
 
                 makeHateCausedByAffair(this, nvren, this);
