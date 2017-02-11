@@ -5340,17 +5340,26 @@
                             continue;
                         }
 
-                        if (q.Available && q.Alive && p.BelongedArchitecture != null && p.BelongedArchitecture.Persons.Count >= 2 && GameObject.Random(30) == 0)
+                        if (q.Available && q.Alive && p.BelongedFactionWithPrincess != null && GameObject.Random(30) == 0)
                         {
-                            if (p.BelongedArchitecture == q.BelongedArchitecture && p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
-                                ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||
-                                ((p.OutsideTask == q.OutsideTask) && (p.OutsideTask != OutsideTaskKind.无)))
+                            if (p.BelongedFactionWithPrincess == q.BelongedFactionWithPrincess && 
+                                    (p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
+                                    ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||
+                                    ((p.OutsideTask == q.OutsideTask) && (p.OutsideTask != OutsideTaskKind.无))) || 
+                                (p.Status == PersonStatus.Princess && q.Status == PersonStatus.Princess))
                             {
                                 if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
                                 {
                                     if (!p.Hates(q))
                                     {
-                                        p.AdjustRelation(q, 3f / (p.BelongedArchitecture.Persons.Count - 1), 2);
+                                        if (p.Status == PersonStatus.Normal)
+                                        {
+                                            p.AdjustRelation(q, 3f / (p.BelongedArchitecture.Persons.Count - 1), 2);
+                                        }
+                                        else
+                                        {
+                                            p.AdjustRelation(q, 3f / (p.BelongedFactionWithPrincess.feiziCount() - 1), 2);
+                                        }
                                     }
                                 }
                             }
@@ -5381,6 +5390,10 @@
                             if (!p.Hates(q))
                             {
                                 float d = Parameters.HateThreshold / -p.GetRelation(q) / 5;
+                                if (p.Status == PersonStatus.Princess && q.Status == PersonStatus.Princess)
+                                {
+                                    d *= 4;
+                                }
                                 if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
                                 {
                                     p.AdjustRelation(q, -d / 20, 0);
