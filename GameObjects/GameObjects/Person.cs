@@ -336,7 +336,8 @@
             }
         }
 
-        private Dictionary<int, Treasure> effectiveTreasures = new Dictionary<int, Treasure>();
+        //private Dictionary<int, Treasure> effectiveTreasures = new Dictionary<int, Treasure>();
+        public Dictionary<int, Treasure> effectiveTreasures = new Dictionary<int, Treasure>();
 
         private int tiredness;
 
@@ -375,6 +376,299 @@
             return -1;
         }
 
+        //以下添加20170226
+        //↓获取某类的宝物中最大价值物品的ID
+        public int IDforMaxTreasureGroupValue(int id)
+        {
+            int num = 0;
+            int idnum = 0;
+            foreach (Treasure t in this.Treasures)
+            {
+                if (t.TreasureGroup == id)
+                {
+                    if (num < t.Worth)
+                    {
+                        num = t.Worth;
+                        idnum = t.ID;
+                    }
+                    else if ((num == t.Worth && idnum < t.ID))
+                    {
+                        num = t.Worth;
+                        idnum = t.ID;
+                    }
+                }
+            }
+            return idnum;
+
+        }
+        //↓获取最大价值宝物名称
+        public string TreasureNameforGroup(int id)
+        {
+            foreach (Treasure t in this.Treasures)
+            {
+                if (t.TreasureGroup == id)
+                {
+                    if (t.ID == IDforMaxTreasureGroupValue(id))
+                    {
+                        return t.Name;
+                    }
+                }
+            }
+            return "无";
+        }
+        //↓获取最大价值宝物价值
+        public int TreasureWorthforGroup(int id)
+        {
+            foreach (Treasure t in this.Treasures)
+            {
+                if (t.TreasureGroup == id)
+                {
+                    if (t.ID == IDforMaxTreasureGroupValue(id))
+                    {
+                        return t.Worth;
+                    }
+                }
+            }
+            return -1;
+        }
+        //↓获取最大价值宝物介绍
+        public string TreasureDescriptionforGroup(int id)
+        {
+            foreach (Treasure t in this.Treasures)
+            {
+                if (t.TreasureGroup == id)
+                {
+                    if (t.ID == IDforMaxTreasureGroupValue(id))
+                    {
+                        return t.Description;
+                    }
+                }
+            }
+            return "无";
+        }
+        //↓获取最大价值宝物图片
+        public Texture2D TreasurePictureforGroup(int id)
+        {
+            foreach (Treasure t in this.Treasures)
+            {
+                if (t.TreasureGroup == id)
+                {
+                    if (t.ID == IDforMaxTreasureGroupValue(id))
+                    {
+
+                        return t.Picture;
+                    }
+                }
+            }
+            return null;
+        }
+        //↓判定是否拥有某类的宝物
+        public bool HasTreasureforGroup(int id)
+        {
+            foreach (Treasure t in this.Treasures)
+            {
+                if (t.TreasureGroup == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //↓获取人物某类称号的名称
+        public string TitleNameforGroup(int id)
+        {
+
+            foreach (Title t in this.Titles)
+            {
+                if (t.Kind.ID == id)
+                {
+                    return t.Name;
+                }
+            }
+            return "无";
+        }
+        //↓获取人物某类称号的称号种类
+        public string TitleKindforGroup(int id)
+        {
+
+            foreach (Title t in this.Titles)
+            {
+                if (t.Kind.ID == id)
+                {
+                    return t.KindName;
+                }
+            }
+            return "无";
+        }
+        //↓获取人物某类称号的称号等级
+        public int TitleLevelforGroup(int id)
+        {
+
+            foreach (Title t in this.Titles)
+            {
+                if (t.Kind.ID == id)
+                {
+                    return t.Level;
+                }
+            }
+            return -1;
+        }
+        //↓获取人物某类称号的称号说明
+        public string TitleDescriptionforGroup(int id)
+        {
+
+            foreach (Title t in this.Titles)
+            {
+                if (t.Kind.ID == id)
+                {
+                    return t.Description;
+                }
+            }
+            return "无";
+        }
+        //↓判定是否拥有某类称号
+        public bool HasTitleforGroup(int id)
+        {
+            foreach (Title t in this.Titles)
+            {
+                if (t.Kind.ID == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        //↓获取人物某类特技的名称
+        public string StuntNameforGroup(int id)
+        {
+
+            foreach (Stunt t in this.Stunts.Stunts.Values)
+            {
+                if (t.ID == id)
+                {
+                    return t.Name;
+                }
+            }
+            return "无";
+        }
+        //↓获取人物某类特技的消耗
+        public int StuntCombativityforGroup(int id)
+        {
+
+            foreach (Stunt t in this.Stunts.Stunts.Values)
+            {
+                if (t.ID == id)
+                {
+                    return t.Combativity;
+                }
+            }
+            return -1;
+        }
+        //↓获取人物某类特技的持久
+        public int StuntPeriodforGroup(int id)
+        {
+
+            foreach (Stunt t in this.Stunts.Stunts.Values)
+            {
+                if (t.ID == id)
+                {
+                    return t.Period;
+                }
+            }
+            return -1;
+        }
+        //↓获取人物某类特技的使用说明
+        public string StuntDescriptionforGroup(int id)
+        {
+
+            foreach (Stunt t in this.Stunts.Stunts.Values)
+            {
+                if (t.ID == id)
+                {
+                    return t.CastConditionString;
+                }
+            }
+            return "无";
+        }
+        //↓判定是否拥有某特技
+        public bool HasStuntforGroup(int id)
+        {
+            foreach (Stunt t in this.Stunts.Stunts.Values)
+            {
+                if (t.ID == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        //↓获取人物某技能的名称
+        public string SkillNameforGroup(int id)
+        {
+
+            foreach (Skill t in this.Skills.Skills.Values)
+            {
+                if (t.ID == id)
+                {
+                    return t.Name;
+                }
+            }
+            return "无";
+        }
+        //↓获取人物某技能的技能种类
+        public string SkillKindforGroup(int id)
+        {
+            foreach (Skill t in this.Skills.Skills.Values)
+            {
+                if (t.ID == id)
+                {
+                    if (t.Combat == true)
+                    {
+                        return "战斗";
+                    }
+                }
+            }
+            return "非战斗";
+        }
+        //↓获取人物某类技能的等级
+        public int SkillLevelforGroup(int id)
+        {
+            foreach (Skill t in this.Skills.Skills.Values)
+            {
+                if (t.ID == id)
+                {
+                    return t.Level;
+                }
+            }
+            return -1;
+        }
+        //↓获取人物某类技能的技能说明
+        public string SkillDescriptionforGroup(int id)
+        {
+
+            foreach (Skill t in this.Skills.Skills.Values)
+            {
+                if (t.ID == id)
+                {
+                    return t.Description;
+                }
+            }
+            return "无";
+        }
+        //↓判定是否拥有某技能
+        public bool HasSkillforGroup(int id)
+        {
+            foreach (Skill t in this.Skills.Skills.Values)
+            {
+                if (t.ID == id)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        //以上添加
         public bool CanOwnTitleByAge(Title t)
         {
             if (!GlobalVariables.EnableAgeAbilityFactor) return true;
@@ -4512,10 +4806,6 @@
         public void LeaveToNoFaction() // 下野
         {
             Architecture locationArchitecture = this.LocationArchitecture;
-            if (this.ProhibitedFactionID.ContainsKey(this.BelongedFaction.ID))
-            {
-                this.ProhibitedFactionID.Remove(this.BelongedFaction.ID);
-            }
             this.ProhibitedFactionID.Add(this.BelongedFaction.ID, 90);
 
             if (TargetArchitecture != null)
@@ -5730,7 +6020,32 @@
                 this.brothers = value;
             }
         }
-
+        //以下添加20170226
+        //获取亲近人物列表
+        public PersonList ClosePersons
+        {
+            get
+            {
+                return this.closePersons;
+            }
+            set
+            {
+                this.brothers = value;
+            }
+        }
+        //获取厌恶人物列表
+        public PersonList HatedPersons
+        {
+            get
+            {
+                return this.hatedPersons;
+            }
+            set
+            {
+                this.brothers = value;
+            }
+        }
+        //以上添加
         public String BrotherName
         {
             get
@@ -7430,6 +7745,22 @@
             }
         }
 
+        public Texture2D FullPortrait
+        {
+            get
+            {
+                Texture2D result = base.Scenario.GetFullPortrait(this.PictureIndex);
+                if (this.Age >= 50)
+                {
+                    result = base.Scenario.GetFullPortrait(this.PictureIndex + 0.5f);
+                }
+                if (this.Age <= 20)
+                {
+                    result = base.Scenario.GetFullPortrait(this.PictureIndex + 0.2f);
+                }
+                return result == null ? base.Scenario.GetFullPortrait(9999) : result;
+            }
+        }
         public Person Spouse
         {
             get
@@ -7645,7 +7976,22 @@
                 return this.Treasures.Count;
             }
         }
-
+        //以下添加20170226
+        public int EffectiveTreasureCount
+        {
+            get
+            {
+                return this.effectiveTreasures.Values.Count;
+            }
+        }
+        public int TitleCount
+        {
+            get
+            {
+                return this.Titles.Count;
+            }
+        }
+        //以上添加
         public int MaxTreasureValue
         {
             get
@@ -7838,7 +8184,33 @@
                 return Spouse.Name;
             }
         }
-
+        //以下添加20170226
+        //获取亲人小头像        
+        public Texture2D FatherSmallPortrait
+        {
+            get
+            {
+                if (Father == null) return null;
+                return Father.SmallPortrait;
+            }
+        }
+        public Texture2D MotherSmallPortrait
+        {
+            get
+            {
+                if (Mother == null) return null;
+                return Mother.SmallPortrait;
+            }
+        }
+        public Texture2D SpouseSmallPortrait
+        {
+            get
+            {
+                if (Spouse == null) return null;
+                return Spouse.SmallPortrait;
+            }
+        }
+        //以上添加
 
         public delegate void BeAwardedTreasure(Person person, Treasure t);
 
@@ -9696,7 +10068,67 @@
                 return s;
             }
         }
+        //以下添加20170226
+        public String PersonSpecialRelationString1
+        {
+            get
+            {
+                String s = "";
 
+                List<KeyValuePair<int, Person>> reverseRel = new List<KeyValuePair<int, Person>>();
+                foreach (KeyValuePair<Person, int> pr in this.relations)
+                {
+                    reverseRel.Add(new KeyValuePair<int, Person>(pr.Value, pr.Key));
+                }
+                reverseRel.Sort(new PersonSpecialRelationComparer());
+
+                int shown = 0;
+                foreach (KeyValuePair<int, Person> pr in reverseRel)
+                {
+                    if (pr.Key < -100 && shown < 6)
+                    {
+                        if (pr.Value.Alive && pr.Value.Available)
+                        {
+                            s += pr.Value.Name + ":" + pr.Key + " ";
+                            shown++;
+                        }
+                    }
+                    else break;
+                }
+                return s;
+            }
+        }
+        public String PersonSpecialRelationString2
+        {
+            get
+            {
+                String s = "";
+
+                List<KeyValuePair<int, Person>> reverseRel = new List<KeyValuePair<int, Person>>();
+                foreach (KeyValuePair<Person, int> pr in this.relations)
+                {
+                    reverseRel.Add(new KeyValuePair<int, Person>(pr.Value, pr.Key));
+                }
+                reverseRel.Sort(new PersonSpecialRelationComparer());
+
+                int shown = 0;
+                reverseRel.Reverse();
+                foreach (KeyValuePair<int, Person> pr in reverseRel)
+                {
+                    if (pr.Key > 100 && shown < 6)
+                    {
+                        if (pr.Value.Alive && pr.Value.Available)
+                        {
+                            s += pr.Value.Name + ":" + pr.Key + " ";
+                            shown++;
+                        }
+                    }
+                    else break;
+                }
+                return s;
+            }
+        }
+        //以上添加
         public static String GetInjuryString(float rate)
         {
             if (rate >= 1)

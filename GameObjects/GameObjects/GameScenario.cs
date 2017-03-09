@@ -1989,7 +1989,10 @@
         {
             return this.GameScreen.GetTroopPortrait(id);
         }
-
+        public Texture2D GetFullPortrait(float id)
+        {
+            return this.GameScreen.GetFullPortrait(id);
+        }
 
         public ArchitectureList GetSupplyArchitecturesByPositionAndFaction(Point position, Faction faction)
         {
@@ -5342,7 +5345,7 @@
 
                         if (q.Available && q.Alive && p.BelongedFactionWithPrincess != null && GameObject.Random(30) == 0)
                         {
-                            if (p.BelongedArchitecture == q.BelongedArchitecture && 
+                            if (p.BelongedFactionWithPrincess == q.BelongedFactionWithPrincess && 
                                     (p.Status == PersonStatus.Normal && q.Status == PersonStatus.Normal &&
                                     ((p.WorkKind == q.WorkKind) && (p.WorkKind != ArchitectureWorkKind.无)) ||
                                     ((p.OutsideTask == q.OutsideTask) && (p.OutsideTask != OutsideTaskKind.无))) || 

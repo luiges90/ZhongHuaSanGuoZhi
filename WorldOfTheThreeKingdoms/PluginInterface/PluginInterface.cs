@@ -288,6 +288,7 @@ namespace PluginInterface
         Texture2D GetPortrait(float id);
         Texture2D GetSmallPortrait(float id);
         Texture2D GetTroopPortrait(float id);
+        Texture2D GetFullPortrait(float id);
         void SetGraphicsDevice(GraphicsDevice device);
     }
 

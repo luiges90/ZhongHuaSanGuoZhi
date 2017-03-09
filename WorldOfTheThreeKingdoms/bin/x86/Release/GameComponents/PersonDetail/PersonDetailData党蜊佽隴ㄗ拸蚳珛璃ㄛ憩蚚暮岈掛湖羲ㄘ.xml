@@ -1,28 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
+  1.这个XML只是说明文件，非程序执行文件
+  2.以下是相关设定的说明
+  3.【】里面是改项目的中文意思，在程序执行的XML中是不存在的
+  4.""里面为该项目的设定值，若有特定要求的，我会特别注明，其他根据类似式样来填就可以了
+  5.修改前请先将所有项目先看一下，因为在新UI中，有些项目是相关联的
+  6.Switchs 中NewUI是新界面的开关，在其为off的情况下所有新功能（除了宝物文字显示）将关闭
+
+
   <Background Mask1="BackgroundMask1.png" Mask2="BackgroundMask2.png" Background="Background.png" PictureNull="Null.png" X="-200" Y="0" Width="1065" Height="568" SizeX="665" SizeY="568"></Background>
+  //这里的SizeX="665" SizeY="568"不要随便改，用来定位界面原点地位置的
+
   <SurNameText X="250" Y="40" Width="60" Height="30"
             FontName="Microsoft YaHei UI"
             FontSize="18"
             FontStyle="Bold"
             FontColor="4294967040"
             Align="Left">
-  </SurNameText>
+  </SurNameText>//人物·姓
   <GivenNameText X="320" Y="40" Width="60" Height="30"
             FontName="Microsoft YaHei UI"
             FontSize="18"
             FontStyle="Bold"
             FontColor="4294967040"
             Align="Left">
-  </GivenNameText>
+  </GivenNameText>//人物·名
   <CalledNameText X="390" Y="40" Width="60" Height="30"
             FontName="Microsoft YaHei UI"
             FontSize="16"
             FontStyle="Bold"
             FontColor="4294967040"
             Align="Left">
-  </CalledNameText>
-  <PortraitTexturePosition X="15" Y="79" Width="218" Height="203" ></PortraitTexturePosition>
+  </CalledNameText>//人物·字
+  ****************************************************以下旧界面（单页显示所有信息）相关设定************************************************************************
+  //////////以下设定在NewUI="on"的时候生效
+  <PortraitTexturePosition X="15" Y="79" Width="218" Height="203" ></PortraitTexturePosition>//人物头像
   <Labels>
     <Label X="0" Y="0" Width="0" Height="0" Label ="性别"
                 FontName="Microsoft YaHei UI"
@@ -557,13 +569,13 @@
                 Align="Middle">
     </Text>
     
-  </Labels>
+  </Labels>//人物信息
   <Title X="285" Y="320" Width="165" Height="224" RowMargin="0"
             FontName="Microsoft YaHei UI"
             FontSize="11"
             FontStyle="Bold"
             FontColor="4286643968">
-  </Title>
+  </Title>//人物称号
   <SkillBlock Width="34" Height="20" OffsetX="21" OffsetY="305"
               FontName="Microsoft YaHei UI"
               FontSize="10"
@@ -572,78 +584,113 @@
               SkillColor="4286643968"
               LearnableColor="4294967040"
               Align="Middle">
-  </SkillBlock>
+  </SkillBlock>//人物技能
   <Stunt X="477" Y="320" Width="165" Height="224" RowMargin="0"
             FontName="Microsoft YaHei UI"
             FontSize="11"
             FontStyle="Bold"
             FontColor="4294967295">
-  </Stunt>
+  </Stunt>//人物特技
   <Influence X="672" Y="63" Width="187" Height="394" RowMargin="0" TitleColor="4294967040"
 			SubTitleColor="4294901760" SubTitleColor2="4286611711" SubTitleColor3="4278255360"
             FontName="Microsoft YaHei UI"
             FontSize="11"
             FontStyle="Regular"
             FontColor="4294967295">
-  </Influence>
+  </Influence>//人物影响
   <Condition X="-194" Y="63" Width="187" Height="394" RowMargin="0" TitleColor="4294934783" SubTitleColor="4294934783"
 			PositiveColor="4278255360" NegativeColor="4294901760"
             FontName="Microsoft YaHei UI"
             FontSize="11"
             FontStyle="Regular"
             FontColor="4294967295">
-  </Condition>
+  </Condition>//人物条件
   <Biography X="665" Y="40" Width="200" Height="520" RowMargin="1" TitleColor="4294967040" SubTitleColor="4278255360" SubTitleColor2="4294901760"
             FontName="Microsoft YaHei UI"
             FontSize="12"
             FontStyle="Regular"
             FontColor="4294967295">
-  </Biography>
-  <Item12></Item12>
-  <PersonTreasuresText   ShowPersonTreasuresCount="on" ShowPersonTreasuresWorth="on" ShowPersonTreasuresDescription="on"
+  </Biography>//人物列传
+  <Item12></Item12>//人物官职，现已取消，位置先留着
+  <PersonTreasuresText   ShowPersonTreasuresCount【显示宝物数量】="on/off"   ShowPersonTreasuresWorth【显示宝物价值】="on/off" ShowPersonTreasuresDescription【显示宝物介绍】="on/off"
                  X="-190" Y="40" Width="200" Height="520" RowMargin="1"
-                 TitleColor1="4294967040" TitleColor2="4294901760" WorthColor="4286644096" DescriptionColor="4278255360" FileName0="InformationButton9998.png"
+                 TitleColor1="4294967040" TitleColor2="4294901760" WorthColor="4286644096" DescriptionColor="4278255360" 《--相关文字颜色设定
                  FontName="Microsoft YaHei UI"
                  FontSize="12"
                  FontStyle="Regular"
                  FontColor="4294967295"
-                 Text1="宝物数量：" Text2="[" Text3="/" Text4=" ]" Text5="(有效宝物/所有宝物)" Text6="有效宝物：" Text7="多余(未生效)宝物："
+                 Text1="宝物数量：" Text2="[" Text3="/" Text4=" ]" Text5="(有效宝物/所有宝物)" Text6="有效宝物：" Text7="多余(未生效)宝物：" 《--相关辅助文字设定，具体用在哪就不说了
                  Text8="名称：" Text9="价值：" Text10="说明：" Text11="『" Text12="』" Text13="〖" Text14="〗">
-  </PersonTreasuresText>
+  </PersonTreasuresText>//人物宝物
+  //
   <Item14></Item14>
-  <Switchs NewUI="on" TheFirstShowItem="1" UISound="on" PersonSound="on"
-           PersonInformation="on" PersonDetail="on" PersonSkill="on" PersonTitle="off" PersonStunt="off" PersonTreasure="off" PersonBiography="off" PersonSpecialtyShow="off" PersonTreasureShow="off" PersonOtherShow="off"
-           BiographyInDetail="on" TitleAndStuntInSkill="on" TreasuresInSkill="off"  BiographySeparate="on" TheFirstShowOfBiography="1" BiographyBrief="on" BiographRomance="on" BiographyHistory="on" BiographyInGame="on" 
-           PortraitInInformation="on" PortraitInDetail="on" PortraitInSkill="on" PortraitInTitle="on" PortraitInStunt="on" PortraitInTreasure="off" PortraitInBiography="on" PortraitInSpecialtyShow="off" PortraitInTreasureShow="off" PortraitInOtherShow="off"
-           PictureInInformation="off" PictureInDetail="off" PictureInSkill="off" PictureInTitle="off" PictureInStunt="off" PictureInTreasure="off" PictureInBiography="off" PictureInSpecialtyShow="off" PictureInTreasureShow="off" PictureInOtherShow="off"
-           TextInInformation="on" TextInDetail="on" TextInSkill="on" TextInTitle="on" TextInStunt="on" TextInBiography="on" TextInTreasure="on" TextInSpecialtyShow="on" TextInTreasureShow="on" TextInOtherShow="on"
-           CharacterPicture="on" BravenessBar="on" CalmnessBar="on" FactionPicture="off" FactionName="on" FactionColour="on" FiveDimensionPicture="on" FiveDimensionExpBar="on" LeadingTroopsExpBar="on"
-           ImportantTreasure="on" GeneralTreasure="on" ThePersonPictureInTreasure="on" ImportantTitle="on" ImportantStunt="off"
-           Relative="on" Relation1="on" Relation2="on" Standings="on" 
-           ConditionAndInfluenceBackground="on" SkillBackground="on" TitleBackground="on" StuntBackground="on"
-           ShowEffectiveTreasures="on" ShowEffectiveTreasuresName="on" ShowEffectiveTreasuresWorth="on" ShowEffectiveTreasuresDescription="on" ShowAllTreasures="on" ShowAllTreasuresName="on" ShowAllTreasuresWorth="on" ShowAllTreasuresDescription="on"          
-           SkillInSpecialtyShow="on" SkillNameTextInSpecialtyShow="on" SkillNameBackgroundInSpecialtyShow="on" SkillPictureInSpecialtyShow="off" MaxSkillShowNumber="20" MaxSkillShow1Number="5" MaxSkillShow2Number="5" MaxSkillShow3Number="4" MaxSkillShow4Number="4" MaxSkillShow5Number="2"
-           TitleInSpecialtyShow="on" TitleNameTextInSpecialtyShow="on" TitleNameBackgroundInSpecialtyShow="on" TitlePictureInSpecialtyShow="off" MaxTitleShowNumber="20" MaxTitleShow1Number="5" MaxTitleShow2Number="5" MaxTitleShow3Number="4" MaxTitleShow4Number="4" MaxTitleShow5Number="2"
-           StuntInSpecialtyShow="on" StuntNameTextInSpecialtyShow="on" StuntNameBackgroundInSpecialtyShow="on" StuntPictureInSpecialtyShow="off" MaxStuntShowNumber="20" MaxStuntShow1Number="5" MaxStuntShow2Number="5" MaxStuntShow3Number="4" MaxStuntShow4Number="4" MaxStuntShow5Number="2"
-           TheTreasureKindInTreasureShow="on" MaxTreasureShowNumber="96" MaxTreasureShowPage="4"
-           TheHelpInOtherShow="on" MaxHelpShowPage="8" >     
-  </Switchs>
+  ****************************************************以下新界面相关设定************************************************************************
+  //////////以下设定在NewUI="on"的时候生效
+  <Switchs NewUI【新界面】="on/off" TheFirstShowItem【界面默认显示页】="1-人物信息；2-人物详情；3-人物技能；4-人物称号；5-人物特技；6-人物宝物；7-人物列传；8-特技图片；9-宝物图片；10-其他图片" UISound【新界面声音】="on/off" PersonSound【人物声音（在UISound为on的情况下生效）；打开某人物信息界面的时候播放在\GameComponents\PersonDetail\Data\Sound\Person文件夹中对应ID的音乐】="on/off"
+         PersonInformation【人物信息页】="on/off" PersonDetail【人物详情页】="on/off" PersonSkill【人物技能页】="on/off" PersonTitle【人物称号页】="on/off" PersonStunt【人物特技页】="on/off" PersonTreasure【人物宝物页】="on/off" PersonBiography【人物列传页】="on/off" PersonSpecialtyShow【特长图片页】="on/off" PersonTreasureShow【宝物图片页】="on/off" PersonOtherShow【其他图片页】="on/off"
+         BiographyInDetail【在详情页显示列传信息；打开后会在人物详情页显示列传信息，并强制关闭人物列传页】="on/off" TitleAndStuntInSkill【在技能页显示称号与特技信息；打开后会在人物技能页显示称号与特技信息，并强制关闭人物称号与特技页】="on/off" TreasuresInSkill【在技能页显示宝物信息；打开后会在人物技能页显示宝物信息，并强制关闭人物宝物页】="on/off"
+         BiographySeparate【列传分页显示；打开后人物列传将分页显示】="on/off" TheFirstShowOfBiography【人物列传默认显示页（在BiographySeparate为on的情况下生效）】="1-列传；2-演义；3-历史；4-剧本" BiographyBrief【列传】="on/off" BiographRomance【演义】="on/off" BiographyHistory【历史】="on/off" BiographyInGame【剧本】="on/off"
+           
+         PortraitInInformation【在人物信息页显示头像】="on/off" PortraitInDetail【在人物详情页显示头像】="on/off" PortraitInSkill【在人物技能页显示头像】="on/off" PortraitInTitle="on/off" PortraitInStunt="on/off" PortraitInTreasure="on/off" PortraitInBiography="on/off" PortraitInSpecialtyShow="on/off" PortraitInTreasureShow="on/off" PortraitInOtherShow="on/off"
+          《-----在各页面是否显示显示人物头像，可以显示全身像或者半身像，具体头像种类设定在下面的对应头像设定中
+           
+         PictureInInformation【在人物信息页显示图片】="on/off" PictureInDetail【在人物详情页显示图片】="on/off" PictureInSkill="on/off" PictureInTitle="on/off" PictureInStunt="on/off" PictureInTreasure="on/off" PictureInBiography="on/off" PictureInSpecialtyShow="on/off" PictureInTreasureShow="on/off" PictureInOtherShow="on/off"
+          《-----在各页面显示是否显示人物图片，显示“\GameComponents\PersonDetail\Data\Backgrounds\PictureInItem”中人物对应ID的图片，如98a.png、98b.png、98c.png、98d.png、98e.png、98f.png、98g.png、98h.png、98i.png、98j.png="" 为当打开ID为98的人物对应信息页（a）、详情页（b）、技能页（c）、称号页（d）、特技页（e）、宝物页（f）、列传页（g）、特长图片页（h）、宝物图片页（i）、其他图片页（j）的时候，显示该后缀字母对应的图片
+                 也就是说，每个人物在每个页面都可以显示两张不同的个性图片,一张是头像，一张是人物ID+字母后缀的图片
+         TextInInformation【在人物信息页显示信息】="on/off" TextInDetail="on/off" TextInSkill="on/off" TextInTitle="on/off" TextInStunt="on/off" TextInTreasure="on/off" TextInBiography="on/off" TextInSpecialtyShow="on/off" TextInTreasureShow="on/off" TextInOtherShow="on/off"
+          《-----在各页面是否显示人物文字信息可以根据已有的项目添加或删除
+           
+         
+         CharacterPicture【性格】="on/off" BravenessBar【勇猛】="on/off" CalmnessBar【冷静】="on/off" FactionPicture【势力图片】="on/off" FactionName【势力名称】="on/off" FactionColour【势力颜色图片】="on/off" FiveDimensionPicture【五维】="on/off" FiveDimensionExpBar【五维经验】="on/off" LeadingTroopsExpBar【部队经验】="on/off"
+         ImportantTreasure【重要宝物】="on/off" GeneralTreasure【一般宝物】="on/off" ThePersonPictureInTreasure【在重要宝物页显示图像】="on/off" ImportantTitle【重要称号】="on/off" ImportantStunt【重要特技】="on/off"
+         《-----以上人物文字信息页中的各项目开关，图片位置在“\GameComponents\PersonDetail\Data\Backgrounds”里的对应文件夹中
+          
+          
+         Relative【人物亲人】="on/off" Relation1【兄弟喜恶】="on/off" Relation2【人物关系】="""on/off" Standings【人物战绩】="on/off"
+         《-----以上人物文字信息页中的各项目开关，背景图片位置在“\GameComponents\PersonDetail\Data\Backgrounds\DetailBackgrounds”文件夹中
+           
+           
+         ConditionAndInfluenceBackground【条件影响背景图】="on/off" SkillBackground【技能背景图】="on/off" TitleBackground【称号背景图】="on/off" StuntBackground【特技背景图】="on/off"
+         《-----打开后可以在对应文字下显示背景图，背景图片位置在“\GameComponents\PersonDetail\Data\Backgrounds\DetailBackgrounds”文件夹中
+          
+           
+         ShowEffectiveTreasures【显示有效宝物相关】="on/off" ShowEffectiveTreasuresName【显示有效宝物名称】="on/off" ShowEffectiveTreasuresWorth【显示有效宝物价值】="on/off" ShowEffectiveTreasuresDescription【显示有效宝物信息】="on/off" ShowAllTreasures【显示所有宝物相关】="on/off" ShowAllTreasuresName【显示所有宝物名称】="on" ShowAllTreasuresWorth【显示所有宝物价值】="on" ShowAllTreasuresDescription【显示所有宝物信息】="on"
+         《-----这里的有效宝物和所有宝物是指两个显示的类别，宝物名称价值及介绍可以都显示也可只显示其中一项或几项，可以单独显示其中一类，也可以都显现，用按钮自行选择，类似分页后的列传
+          
+           
+         SkillInSpecialtyShow【显示技能相关】="on/off" SkillNameTextInSpecialtyShow【显示技能名称】="on/off" SkillNameBackgroundInSpecialtyShow【技能名称位置显示背景图片】="on/off" SkillPictureInSpecialtyShow【技能图片】="on/off" MaxSkillShowNumber【所显示技能最大数量】="0~100" MaxSkillShow1Number【在第一页显示的技能数量】="5" MaxSkillShow2Numbe【在第二页显示的技能数量】r="5" MaxSkillShow3Number【在第三页显示的技能数量】="4" MaxSkillShow4Number【在第四页显示的技能数量】="4" MaxSkillShow5Number【在第五页显示的技能数量】="2"
+         TitleInSpecialtyShow【显示称号相关】="on/off" TitleNameTextInSpecialtyShow="on/off" TitleNameBackgroundInSpecialtyShow="on/off" TitlePictureInSpecialtyShow="on/off" MaxTitleShowNumber="0~100" MaxTitleShow1Number="5" MaxTitleShow2Number="5" MaxTitleShow3Number="4" MaxTitleShow4Number="4" MaxTitleShow5Number="2"
+         StuntInSpecialtyShow【显示特技相关】="on/off" StuntNameTextInSpecialtyShow="on/off" StuntNameBackgroundInSpecialtyShow="on/off" StuntPictureInSpecialtyShow="on/off" MaxStuntShowNumber="0~100" MaxStuntShow1Number="5" MaxStuntShow2Number="5" MaxStuntShow3Number="4" MaxStuntShow4Number="4" MaxStuntShow5Number="2"
+         《-----以上是特技图片页相关技能，称号，特技图片显示的相关开关，当人物拥有某技能（特技、称号）时最多能显示两张图片，图片位置可以不相同，一张为背景图（在称号名称位置），一张为其他图片，但只有鼠标移到背景图位置的时候才会显示对应介绍信息
+           
+           
+         TheTreasureKindInTreasureShow【显示宝物图片】="on/off" MaxTreasureShowNumber【显示宝物的上限】="无上限，但多了吃内存" MaxTreasureShowPage【每页显示的宝物上限】="8"
+         《-----以上是宝物图片页相关开关，宝物的可以分页显示的，打开显示宝物开关，若显示宝物的上限＞每页显示的宝物上限时，宝物会自动分页显示
+
+           
+         TheHelpInOtherShow【在其他图片页显示帮助图片】="on/off" MaxHelpShowPage【帮助图片数量】="8"
+          《-----以上是其他图片页相关设定，目前只有显示图片的功能，可以显示“\GameComponents\PersonDetail\Data\Backgrounds\HelpPictures”中的图片
+
+   ></Switchs>//新项目开关，一般情况下"on"为开，"off"为关
+  //////////以下新界面各项目的具体设定，一般只有在上面Switchs中对应项目为“on”的情况下生效
   <Item16></Item16>
   <Item17></Item17>
   <Item18></Item18>
   <Item19></Item19>
   <Item20></Item20>
-  <InformationButton FileName0="InformationButton.png" FileName1="InformationPressed.png" X="307" Y="15" Width="50" Height="17"></InformationButton>
-  <DetailButton FileName0="DetailButton.png" FileName1="DetailPressed.png" X="237" Y="19" Width="50" Height="17"></DetailButton>
-  <TreasureButton FileName0="TreasureButton.png" FileName1="TreasurePressed.png" X="505" Y="19" Width="50" Height="17"></TreasureButton>
-  <SkillBotton FileName0="SkillBotton.png" FileName1="SkillPressed.png" X="377" Y="19" Width="50" Height="17"></SkillBotton>
-  <TitleButton FileName0="TitleButton.png" FileName1="TitlePressed.png" X="170" Y="19" Width="50" Height="17"></TitleButton>
-  <StuntButton FileName0="StuntButton.png" FileName1="StuntPressed.png" X="110" Y="19" Width="50" Height="17"></StuntButton>
-  <BiographyButton FileName0="BiographyButton.png" FileName1="BiographyPressed.png" X="565" Y="19" Width="50" Height="17"></BiographyButton>
-  <SpecialtyShowButton FileName0="AButton.png" FileName1="APressed.png" X="0" Y="0" Width="45" Height="18"></SpecialtyShowButton>
-  <TreasureShowButton FileName0="BButton.png" FileName1="BPressed.png" X="92" Y="0" Width="45" Height="18"></TreasureShowButton>
-  <OtherShowButton FileName0="CButton.png" FileName1="CPressed.png" X="46" Y="0" Width="45" Height="18"></OtherShowButton>
-  <InformationBackground Mask1="InformationMask.png" Mask2="Null.png" Background="InformationBackground.png" X="0" Y="0" Width="665" Height="568"></InformationBackground>
+  ////以下是几个主界面的按钮设定
+  <InformationButton FileName0【按钮样式】="InformationButton.png" FileName1【当按钮被选择时的样式】="InformationPressed.png" X="307" Y="9" Width="50" Height="17"></InformationButton>//人物信息页按钮
+  <DetailButton FileName0="DetailButton.png" FileName1="DetailPressed.png" X="445" Y="9" Width="50" Height="17"></DetailButton>
+  <TreasureButton FileName0="TreasureButton.png" FileName1="TreasurePressed.png" X="505" Y="9" Width="50" Height="17"></TreasureButton>
+  <SkillBotton FileName0="SkillBotton.png" FileName1="SkillPressed.png" X="50" Y="9" Width="50" Height="17"></SkillBotton>
+  <TitleButton FileName0="TitleButton.png" FileName1="TitlePressed.png" X="170" Y="9" Width="50" Height="17"></TitleButton>
+  <StuntButton FileName0="StuntButton.png" FileName1="StuntPressed.png" X="110" Y="9" Width="50" Height="17"></StuntButton>
+  <BiographyButton FileName0="BiographyButton.png" FileName1="BiographyPressed.png" X="565" Y="9" Width="50" Height="17"></BiographyButton>
+  <SpecialtyShowButton FileName0="AButton.png" FileName1="APressed.png" X="0" Y="-20" Width="45" Height="18"></SpecialtyShowButton>
+  <TreasureShowButton FileName0="CButton.png" FileName1="CPressed.png" X="92" Y="-20" Width="45" Height="18"></TreasureShowButton>
+  <OtherShowButton FileName0="BButton.png" FileName1="BPressed.png" X="46" Y="-20" Width="45" Height="18"></OtherShowButton>
+  ////以下是几个主界面的背景图设定设定，大致的图层顺序是 Mask1在界面大部分显示内容的上面，Mask1在界面所有显示内容的倒数第二层，Background在界面所有显示内容的底层，Mask1是为了装饰用的，Mask2是为了偷懒用的，呵呵
+  <InformationBackground Mask1【遮挡图片1】="InformationMask.png" Mask2【遮挡图片2】="Null.png" Background【底层背景图】="InformationBackground.png" X="0" Y="0" Width="665" Height="568"></InformationBackground>//人物信息页背景
   <DetailBackground Mask1="DetailMask.png" Mask2="Mask4.png" Background="DetailBackground.png" X="0" Y="0" Width="665" Height="568"></DetailBackground>
   <TreasureBackground Mask1="TreasureMask.png" Mask2="Null.png" Background="TreasureBackground.png" X="0" Y="0" Width="665" Height="568"></TreasureBackground>
   <SkillBackground Mask1="Mask2.png" Mask2="Mask4.png" Background="SkillBackground.png" X="0" Y="0" Width="665" Height="568"></SkillBackground>
@@ -653,19 +700,19 @@
   <SpecialtyShowBackground Mask1="Null.png" Mask2="Null.png" Background="TreasureBackground.png" X="0" Y="0" Width="665" Height="568"></SpecialtyShowBackground>
   <TreasureShowBackground Mask1="Null.png" Mask2="Null.png" Background="TreasureBackground.png" X="0" Y="0" Width="665" Height="568"></TreasureShowBackground>
   <OtherShowBackground Mask1="Null.png" Mask2="Null.png" Background="TreasureBackground.png" X="0" Y="0" Width="665" Height="568"></OtherShowBackground>
-  
-  <PortraitInInformationPosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInInformationPosition>
-  <PortraitInDetailPosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInDetailPosition>
-  <PortraitInTreasurePosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInTreasurePosition>
-  <PortraitInSkillPosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInSkillPosition>
-  <PortraitInTitlePosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInTitlePosition>
-  <PortraitInStuntPosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInStuntPosition>
-  <PortraitInBiographyPosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInBiographyPosition>
-  <PortraitInSpecialtyShowPosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInSpecialtyShowPosition>
-  <PortraitInTreasureShowPosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInTreasureShowPosition>
-  <PortraitInOtherShowPosition PortraitKind="1" X="15" Y="79" Width="218" Height="203" ></PortraitInOtherShowPosition>
-  
-  <PictureInInformationPosition X="0" Y="0" Width="400" Height="400" ></PictureInInformationPosition>
+  ////以下是个主界面的头像设定
+  <PortraitInInformationPosition PortraitKind【头像类型】="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInInformationPosition>//人物信息页中头像设定
+  <PortraitInDetailPosition PortraitKind="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInDetailPosition>
+  <PortraitInTreasurePosition PortraitKind="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInTreasurePosition>
+  <PortraitInSkillPosition PortraitKind="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInSkillPosition>
+  <PortraitInTitlePosition PortraitKind="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInTitlePosition>
+  <PortraitInStuntPosition PortraitKind="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInStuntPosition>
+  <PortraitInBiographyPosition PortraitKind="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInBiographyPosition>
+  <PortraitInSpecialtyShowPosition PortraitKind="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInSpecialtyShowPosition>
+  <PortraitInTreasureShowPosition PortraitKind="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInTreasureShowPosition>
+  <PortraitInOtherShowPosition PortraitKind="1-半身像；2-全身像" X="15" Y="79" Width="218" Height="203" ></PortraitInOtherShowPosition>
+  ////以下是个主界面的人物图片设定
+  <PictureInInformationPosition X="0" Y="0" Width="400" Height="400" ></PictureInInformationPosition>//人物信息页中人物图片设定
   <PictureInDetailPosition X="15" Y="79" Width="218" Height="203" ></PictureInDetailPosition>
   <PictureInTreasurePosition X="15" Y="79" Width="218" Height="203" ></PictureInTreasurePosition>
   <PictureInSkillPosition X="15" Y="79" Width="218" Height="203" ></PictureInSkillPosition>
@@ -675,7 +722,7 @@
   <PictureInSpecialtyShowPosition X="15" Y="79" Width="218" Height="203" ></PictureInSpecialtyShowPosition>
   <PictureInTreasureShowPosition X="15" Y="79" Width="218" Height="203" ></PictureInTreasureShowPosition>
   <PictureInOtherShowPosition X="15" Y="79" Width="218" Height="203" ></PictureInOtherShowPosition>
-
+  ////以下是各主界面的人物信息介绍设定，可以参考已有的项目添加或删除，一个Label对应一个Text，Label是项目标题，Text是项目引用的具体值（就是PropertyName中所填的东西，这东西不能随便填，由源码决定的）
   <PersonInInformationTexts>
     <Label X="0" Y="0" Width="0" Height="0" Label ="武勇"
                 FontName="Microsoft YaHei UI"
@@ -688,7 +735,7 @@
                 FontName="Microsoft YaHei UI"
                 FontSize="13"
                 FontStyle="Regular"
-                FontColor="4294934528"
+                FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="0" Y="0" Width="0" Height="0" Label ="统率"
@@ -702,7 +749,7 @@
                 FontName="Microsoft YaHei UI"
                 FontSize="13"
                 FontStyle="Regular"
-                FontColor="4294934528"
+                FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="0" Y="0" Width="0" Height="0" Label ="智谋"
@@ -716,7 +763,7 @@
                 FontName="Microsoft YaHei UI"
                 FontSize="13"
                 FontStyle="Regular"
-                FontColor="4294934528"
+                FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="0" Y="0" Width="0" Height="0" Label ="政治"
@@ -730,7 +777,7 @@
                 FontName="Microsoft YaHei UI"
                 FontSize="13"
                 FontStyle="Regular"
-                FontColor="4294934528"
+                FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="0" Y="0" Width="0" Height="0" Label ="魅力"
@@ -744,7 +791,7 @@
                 FontName="Microsoft YaHei UI"
                 FontSize="13"
                 FontStyle="Regular"
-                FontColor="4294934528"
+                FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="0" Y="0" Width="0" Height="0" Label ="勇猛"
@@ -758,7 +805,7 @@
                 FontName="Microsoft YaHei UI"
                 FontSize="15"
                 FontStyle="Regular"
-                FontColor="4294934528"
+                FontColor="4278255615"
                 Align="Middle">
     </Text>
     <Label X="0" Y="0" Width="0" Height="0" Label ="冷静"
@@ -929,7 +976,7 @@
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
-  </PersonInInformationTexts>
+  </PersonInInformationTexts>//人物信息页中人物文字信息设定
   <PersonInDetailTexts>
     <Label X="0" Y="0" Width="0" Height="0" Label ="性别"
                 FontName="Microsoft YaHei UI"
@@ -3663,59 +3710,64 @@
                 FontColor="4294934528"
                 Align="Middle">
     </Text>
-  </PersonInOtherShowTexts>  
-  <Characterpicture  X="472" Y="178" Width="70" Height="35"></Characterpicture>
-  <BravenessPicture  X="494" Y="250" Width="125" Height="10" BravenessMax="10" BravenessRotation="3.1415926" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png"></BravenessPicture>
-  <CalmnessPicture  X="521" Y="240" Width="125" Height="10" CalmnessMax="10" CalmnessRotation="0" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png"></CalmnessPicture> 
-  <Factionpicture X="281" Y="121" Width="131" Height="92"></Factionpicture>
+  </PersonInOtherShowTexts>
+  ////以下是个人物信息页相关项目具体设定
+  <Characterpicture  X="472" Y="178" Width="70" Height="35"></Characterpicture>//性格图片
+  <BravenessPicture  X="494" Y="250" Width="125" Height="10" BravenessMax【勇猛上限】="10" BravenessRotation【图片旋转角度，π为180°】="3.1415926" FileName1【当勇猛值小于上限30%显示的图片】="1.png" FileName2【当勇猛值小于上限50%显示的图片】="2.png" FileName3【当勇猛值小于上限70%显示的图片】="3.png" FileName4【当勇猛值小于上限90%显示的图片】="4.png" FileName5【当勇猛值小于大于等于90%显示的图片】="5.png"></BravenessPicture>、、勇猛图片
+  <CalmnessPicture  X="521" Y="240" Width="125" Height="10" CalmnessMax【冷静上限】="10" CalmnessRotation【图片旋转角度，π为180°】="0" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png"></CalmnessPicture> 
+  <Factionpicture X="281" Y="121" Width="131" Height="92"></Factionpicture>//势力图片
   <FactionNameText X="290" Y="134" Width="60" Height="35"
               FontName="Microsoft YaHei UI"
               FontSize="18"
               FontStyle="Bold"
               FontColor="4290822336"
               Align="Middle"
-              FactionNameKind="4"
-              ShowFactionNameBackground="off" Background="FactionBackground.png">
-  </FactionNameText>
-  <FactionColour ColourPicture="FactionBackground.png" X="281" Y="121" Width="131" Height="92"></FactionColour>
+              FactionNameKind【势力名称先美容】="0-空白；1-势力名；2-君主姓；3-君主名；4-默认显示势力名，若势力名与君主姓名相同的情况下显示君主姓"
+              ShowFactionNameBackground【是否显示名称背景图】="on/off" Background="FactionBackground.png">
+  </FactionNameText>//势力名称
+  <FactionColour ColourPicture="FactionBackground.png" X="281" Y="121" Width="131" Height="92"></FactionColour>//势力颜色图片，最好是白色图片，会根据势力颜色进行填充显示
   <Item77></Item77>
   <Item78></Item78>
   <Item79></Item79>
   <Item80></Item80>
-  <StrengthPTexture  X="134" Y="426" Width="72" Height="16" StrengthRotation="-1.5707963" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></StrengthPTexture>
-  <CommandPTexture  X="141" Y="417" Width="72" Height="16" CommandRotation="-0.3141593" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></CommandPTexture>
-  <IntelligencePTexture  X="149" Y="421" Width="72" Height="16" IntelligenceRotation="0.9424778" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></IntelligencePTexture>
-  <PoliticsPTexture  X="149" Y="430" Width="72" Height="16" PoliticsRotation="2.1991148" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></PoliticsPTexture>
-  <GlamourPTexture  X="139" Y="433" Width="72" Height="16" GlamourRotation="3.4557519" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></GlamourPTexture>
-  <FiveDimension  FiveDimensionMAX="100" FiveDimension1="30" FiveDimension2="50" FiveDimension3="70" FiveDimension4="90" FiveDimension5="100" FiveDimension6="110" FiveDimension7="130"></FiveDimension>
+  ///以下五维设定
+  <StrengthPTexture  X="134" Y="426" Width="72" Height="16" StrengthRotation【图片旋转角度，π为180°】="-1.5707963" FileName1【小于阈值1时显示的图片】="1.png" FileName2【小于阈值2时显示的图片】="2.png" FileName3【小于阈值3时显示的图片】="3.png" FileName4【小于阈值4时显示的图片】="4.png" FileName5【小于阈值5时显示的图片】="5.png" FileName6【小于阈值6时显示的图片】="6.png" FileName7【小于阈值7时显示的图片】="7.png" FileName8【大于等于于阈值7时显示的图片】="8.png"></StrengthPTexture>//武勇
+  <CommandPTexture  X="141" Y="417" Width="72" Height="16" CommandRotation="-0.3141593" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></CommandPTexture>//统率
+  <IntelligencePTexture  X="149" Y="421" Width="72" Height="16" IntelligenceRotation="0.9424778" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></IntelligencePTexture>//智谋
+  <PoliticsPTexture  X="149" Y="430" Width="72" Height="16" PoliticsRotation="2.1991148" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></PoliticsPTexture>//政治
+  <GlamourPTexture  X="139" Y="433" Width="72" Height="16" GlamourRotation="3.4557519" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></GlamourPTexture>//魅力
+  <FiveDimension  FiveDimensionMAX【五维上限】="0-根据游戏开始设定的执行；若填了具体数字，则按所填数值进行计算" FiveDimension1【阈值1（%）】="30" FiveDimension2【阈值2（%）】="50" FiveDimension3【阈值3（%）】="70" FiveDimension4【阈值4（%）】="90" FiveDimension5【阈值5（%）】="100" FiveDimension6【阈值6（%）】="110" FiveDimension7【阈值7（%）】="130"></FiveDimension>
   <Item87></Item87>
   <Item88></Item88>
   <Item89></Item89>
   <Item90></Item90>
+  ///以下五维设定，方法同五维
   <StrengthExpTexture  X="387" Y="304" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></StrengthExpTexture>
   <CommandExpTexture  X="387" Y="329" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></CommandExpTexture>
   <IntelligenceExpTexture  X="387" Y="354" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></IntelligenceExpTexture>
   <PoliticsExpTexture  X="387" Y="379" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></PoliticsExpTexture>
   <GlamourExpTexture  X="387" Y="404" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></GlamourExpTexture>
-  <FiveDimensionExp  FiveDimensionExpMAX="15000" FiveDimensionExp1="30" FiveDimensionExp2="50" FiveDimensionExp3="70" FiveDimensionExp4="90" FiveDimensionExp5="100" FiveDimensionExp6="110" FiveDimensionExp7="130"></FiveDimensionExp>
+  <FiveDimensionExp  FiveDimensionExpMAX="0" FiveDimensionExp1="30" FiveDimensionExp2="50" FiveDimensionExp3="70" FiveDimensionExp4="90" FiveDimensionExp5="100" FiveDimensionExp6="110" FiveDimensionExp7="130"></FiveDimensionExp>
   <Item97></Item97>
   <Item98></Item98>
   <Item99></Item99>
   <Item100></Item100>
+  ///以下部队经验设定，方法同五维
   <BubingExpTexture  X="387" Y="432" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></BubingExpTexture>
   <NubingExpTexture  X="387" Y="452" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></NubingExpTexture>
   <QibingExpTexture  X="387" Y="472" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></QibingExpTexture>
   <ShuijunExpTexture  X="387" Y="492" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></ShuijunExpTexture>
   <QixieExpTexture  X="387" Y="512" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></QixieExpTexture>
   <StratagemExpTexture  X="387" Y="532" Width="200" Height="10" FileName1="1.png" FileName2="2.png" FileName3="3.png" FileName4="4.png" FileName5="5.png" FileName6="6.png" FileName7="7.png" FileName8="8.png"></StratagemExpTexture>
-  <LeadingTroopsExp  LeadingTroopsExpMAX="7000" LeadingTroopsExp1="30" LeadingTroopsExp2="50" LeadingTroopsExp3="70" LeadingTroopsExp4="90" LeadingTroopsExp5="100" LeadingTroopsExp6="110" LeadingTroopsExp7="130"></LeadingTroopsExp>
+  <LeadingTroopsExp  LeadingTroopsExpMAX="0" LeadingTroopsExp1="30" LeadingTroopsExp2="50" LeadingTroopsExp3="70" LeadingTroopsExp4="90" LeadingTroopsExp5="100" LeadingTroopsExp6="110" LeadingTroopsExp7="130"></LeadingTroopsExp>
   <Item108></Item108>
   <Item109></Item109>
   <Item110></Item110>
-  <ImportantTreasureButton FileName0="ImportantTreasureButton.png" FileName1="ImportantTreasurePressed.png" X="240" Y="240" Width="50" Height="17" ></ImportantTreasureButton>
-  <ImportantTreasureBackground MaxImportantTreasureShowNumber="10" Background="ImportantTreasureBackground.png" Mask="Mask1.png" TreasureMask="TreasureMask2.png" X="-200" Y="28" Width="200" Height="310"></ImportantTreasureBackground>
-  <GeneralTreasureBackground MaxGeneralTreasureShowNumber="25" Background="GeneralTreasureBackground.png" ShowNullTreasurePicture="on" Mask="Mask2.png" X="-200" Y="338" Width="200" Height="220"></GeneralTreasureBackground>
-  <ImportantTreasureTextBackground ImportantTreasureTextFollowTheMouse="1" Background="ImportantTreasureTextBackground.png" Mask="ImportantTreasureTextMask.png" X="10" Y="10" Width="400" Height="200"></ImportantTreasureTextBackground>
+  ///以下信息页中的宝物设定
+  <ImportantTreasureButton FileName0="ImportantTreasureButton.png" FileName1="ImportantTreasurePressed.png" X="240" Y="240" Width="50" Height="17" ></ImportantTreasureButton>//按钮
+  <ImportantTreasureBackground MaxImportantTreasureShowNumber【重要宝物上限】="小于等于20" Background="ImportantTreasureBackground.png" Mask="Mask.png" TreasureMask【宝物边框】="TreasureMask2.png" X="-200" Y="28" Width="200" Height="310"></ImportantTreasureBackground>//重要宝物页背景图
+  <GeneralTreasureBackground MaxGeneralTreasureShowNumber【一般宝物上限】="随意，但太多了吃内存" Background="GeneralTreasureBackground.png" ShowNullTreasurePicture【显示空宝物栏】="on/off" Mask="Mask.png" X="-200" Y="338" Width="200" Height="220"></GeneralTreasureBackground>//一般宝物页背景图
+  <ImportantTreasureTextBackground  ImportantTreasureTextFollowTheMouse【介绍页跟随鼠标移动】="0-固定位置；1-跟随鼠标" Background="ImportantTreasureTextBackground.png" Mask="ImportantTreasureMask2.png" X="10" Y="10" Width="400" Height="200"></ImportantTreasureTextBackground>//宝物介绍页背景图
   <ImportantTreasureText    Text1="宝物名称：" Text2="宝物价值：" Text3="宝物介绍：" Text4="预留" Text5="预留"
                            X="176" Y="40" Width="230" Height="160" RowMargin="0"
                            TitleColor="4294967040" NameColor="4294901760" WorthColor="4286644096" DescriptionColor="4278255360"
@@ -3723,22 +3775,23 @@
                            FontSize="12"
                            FontStyle="Bold"
                            FontColor="4294967295">
-  </ImportantTreasureText>
-  <ImportantTreasureTextPicture  X="19" Y="40" Width="150" Height="150"></ImportantTreasureTextPicture>
-  <ThePersonPictureInTreasure  ThePictureKindInTreasure="1" SexPicture1="0.png" SexPicture2="1.png" X="-168" Y="85" Width="137" Height="262"></ThePersonPictureInTreasure>
+  </ImportantTreasureText>//宝物介绍中相关文字设定
+  <ImportantTreasureTextPicture  X="19" Y="40" Width="150" Height="150"></ImportantTreasureTextPicture>//宝物介绍中宝物图片
+  <ThePersonPictureInTreasure  ThePictureKindInTreasure【图片类型】="1-性别图；2-全身像" SexPicture1【女】="0.png" SexPicture2【男】="1.png" X="-160" Y="80" Width="120" Height="200"></ThePersonPictureInTreasure>
   <Item118></Item118>
   <Item119></Item119>
   <Item120></Item120>
-  <ImportantTreasure1  Group="5" X="-165" Y="243" Width="30" Height="30"></ImportantTreasure1>
-  <ImportantTreasure2  Group="1100" X="-180" Y="198" Width="30" Height="30"></ImportantTreasure2>
-  <ImportantTreasure3  Group="3100" X="-165" Y="153" Width="30" Height="30"></ImportantTreasure3>
-  <ImportantTreasure4  Group="4700" X="-165" Y="108" Width="30" Height="30"></ImportantTreasure4>
-  <ImportantTreasure5  Group="4100" X="-115" Y="78" Width="30" Height="30"></ImportantTreasure5>
-  <ImportantTreasure6  Group="4400" X="-55" Y="80" Width="30" Height="30"></ImportantTreasure6>
-  <ImportantTreasure7  Group="3000" X="-50" Y="153" Width="30" Height="30"></ImportantTreasure7>
-  <ImportantTreasure8  Group="4000" X="-50" Y="198" Width="30" Height="30"></ImportantTreasure8>
-  <ImportantTreasure9  Group="4700" X="-50" Y="243" Width="30" Height="30"></ImportantTreasure9>
-  <ImportantTreasure10  Group="300" X="-50" Y="298" Width="30" Height="30"></ImportantTreasure10>
+  //以下重要宝物显示位置设定
+  <ImportantTreasure1  Group【宝物类型】="5" X="-172" Y="182" Width="30" Height="30"></ImportantTreasure1>
+  <ImportantTreasure2  Group="1100" X="-185" Y="145" Width="30" Height="30"></ImportantTreasure2>
+  <ImportantTreasure3  Group="3100" X="-172" Y="107" Width="30" Height="30"></ImportantTreasure3>
+  <ImportantTreasure4  Group="4700" X="-160" Y="70" Width="30" Height="30"></ImportantTreasure4>
+  <ImportantTreasure5  Group="4100" X="-112" Y="45" Width="30" Height="30"></ImportantTreasure5>
+  <ImportantTreasure6  Group="4400" X="-65" Y="70" Width="30" Height="30"></ImportantTreasure6>
+  <ImportantTreasure7  Group="3000" X="-40" Y="107" Width="30" Height="30"></ImportantTreasure7>
+  <ImportantTreasure8  Group="4000" X="-40" Y="135" Width="30" Height="30"></ImportantTreasure8>
+  <ImportantTreasure9  Group="4700" X="-40" Y="75" Width="30" Height="30"></ImportantTreasure9>
+  <ImportantTreasure10  Group="300" X="-40" Y="225" Width="30" Height="30"></ImportantTreasure10>
   <ImportantTreasure11  Group="1200" X="-175" Y="270" Width="30" Height="30"></ImportantTreasure11>
   <ImportantTreasure12  Group="1300" X="-145" Y="270" Width="30" Height="30"></ImportantTreasure12>
   <ImportantTreasure13  Group="1400" X="-115" Y="270" Width="30" Height="30"></ImportantTreasure13>
@@ -3749,9 +3802,10 @@
   <ImportantTreasure18  Group="2600" X="-115" Y="300" Width="30" Height="30"></ImportantTreasure18>
   <ImportantTreasure19  Group="2700" X="-85" Y="300" Width="30" Height="30"></ImportantTreasure19>
   <ImportantTreasure20  Group="2900" X="-55" Y="300" Width="30" Height="30"></ImportantTreasure20>
-  <GeneralTreasure Mask="TreasureMask1.png"  Background="NullTreasurePicture.png"
-                       X="-195" Y="365" Width="35" Height="35"
-                       HSpace="4" VSpace="4" HNumber="5" VNumber="5">    
+  //以下一般宝物显示位置设定
+  <GeneralTreasure Mask【宝物边框】="ImportantTreasureMask1.png"  Background【空宝物图片】="NullTreasurePicture.png"
+                       X【第一个宝物栏的X轴坐标】="-195" Y【第一个宝物栏的Y轴坐标】="360" Width="35" Height="35"
+                       HSpace【水平间距】="4" VSpace【竖直间距】="4" HNumber【每行显示宝物数量】="5" VNumber【显示宝物行数】="5">    
   </GeneralTreasure>
   <Item142></Item142>
   <Item143></Item143>
@@ -3762,10 +3816,12 @@
   <Item148></Item148>
   <Item149></Item149>
   <Item150></Item150>
-  <ImportantTitleTextBackground MaxImportantTitleShowNumber="10" ShowImportantTitleName="on" ShowImportantTitleNameBackground="on" ShowImportantTitlePicture="off" 
-                                ImportantTitleTextFollowTheMouse ="1" FileName="ImportantTitleTextBackground.png" 
-                                X="10" Y="10" Width="400" Height="200">    
-  </ImportantTitleTextBackground>
+  ///以下信息页中的称号设定
+  <ImportantTitleTextBackground MaxImportantTitleShowNumber【重要称号上限】="小于等于20" ShowImportantTitleName【显示称号名称】="on" ShowImportantTitleNameBackground【显示称号名称的背景图】="on" ShowImportantTitlePicture【显示称号图片】="off"
+                                ImportantTitleTextFollowTheMouse【介绍页跟随鼠标移动】="0-固定位置；1-跟随鼠标" FileName="ImportantTitleTextBackground.png" 
+                                X="10" Y="10" Width="400" Height="200">
+    //若介绍页选择跟随鼠标移动，则背景及文字说明中的X,Y代表的是鼠标的偏离值，即原点是鼠标位置，图片文字会随鼠标移动而移动
+  </ImportantTitleTextBackground>重要称号介绍背景图
   <ImportantTitleText    Text1="称号类型：" Text2="称号等级：" Text3="称号说明：" Text4="预留" Text5="预留"
                          X="20" Y="40" Width="380" Height="155" RowMargin="0"
                          TitleColor="4294967040" KindColor="4294901760" LevelColor="4286644096" DescriptionColor="4278255360"
@@ -3773,7 +3829,7 @@
                          FontSize="15"
                          FontStyle="Bold"
                          FontColor="4294967295">
-  </ImportantTitleText>
+  </ImportantTitleText>重要称号介绍文字说明
   <Item153></Item153>
   <Item154></Item154>
   <Item155></Item155>
@@ -3782,12 +3838,13 @@
   <Item158></Item158>
   <Item159></Item159>
   <Item160></Item160>
+  //以下重要称号名称及背景图设定
   <ImportantTitle1NameText X="458" Y="85" Width="95" Height="25" RowMargin="0"
-                           Group="3" Background="Background1.png"
+                           Group【称号类型】="3" Background【称号背景图】="Background1.png"
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294934528"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle1NameText>
   <ImportantTitle2NameText X="458" Y="115" Width="95" Height="25" RowMargin="0"
@@ -3795,7 +3852,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4278223103"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle2NameText>
   <ImportantTitle3NameText X="458" Y="145" Width="95" Height="25" RowMargin="0"
@@ -3803,7 +3860,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294901888"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle3NameText>
   <ImportantTitle4NameText X="400" Y="260" Width="95" Height="25" RowMargin="0"
@@ -3811,7 +3868,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4286644223"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle4NameText>
   <ImportantTitle5NameText X="520" Y="260" Width="95" Height="25" RowMargin="0"
@@ -3819,7 +3876,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4286578688"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle5NameText>
   <ImportantTitle6NameText X="285" Y="85" Width="95" Height="25" RowMargin="0"
@@ -3827,7 +3884,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4282384512"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle6NameText>
   <ImportantTitle7NameText X="560" Y="50" Width="95" Height="25" RowMargin="0"
@@ -3835,7 +3892,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294934528"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle7NameText>
   <ImportantTitle8NameText X="560" Y="85" Width="95" Height="25" RowMargin="0"
@@ -3843,7 +3900,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle8NameText>
   <ImportantTitle9NameText X="560" Y="115" Width="95" Height="25" RowMargin="0"
@@ -3851,7 +3908,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294934528"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle9NameText>
   <ImportantTitle10NameText X="560" Y="145" Width="95" Height="25" RowMargin="0"
@@ -3859,7 +3916,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294934528"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle10NameText>
   <ImportantTitle11NameText X="458" Y="85" Width="95" Height="25" RowMargin="0"
@@ -3942,6 +3999,7 @@
                            FontColor="4278222848"
                            Align="Middle" >
   </ImportantTitle20NameText>
+  //以下重要称号图片设定
   <ImportantTitle1Picture  FileName="Background.png" X="458" Y="85" Width="95" Height="50"></ImportantTitle1Picture>
   <ImportantTitle2Picture  FileName="Background.png" X="458" Y="115" Width="95" Height="50"></ImportantTitle2Picture>
   <ImportantTitle3Picture  FileName="Background.png" X="458" Y="145" Width="95" Height="50"></ImportantTitle3Picture>
@@ -3962,8 +4020,9 @@
   <ImportantTitle18Picture  FileName="Background.png" X="560" Y="85" Width="95" Height="50"></ImportantTitle18Picture>
   <ImportantTitle19Picture  FileName="Background.png" X="560" Y="115" Width="95" Height="50"></ImportantTitle19Picture>
   <ImportantTitle20Picture  FileName="Background.png" X="560" Y="145" Width="95" Height="50"></ImportantTitle20Picture>
-  <ImportantStuntTextBackground MaxImportantStuntShowNumber="14" ShowImportantStuntName="on" ShowImportantStuntNameBackground="on" ShowImportantStuntPicture="off"
-                              ImportantStuntTextFollowTheMouse ="1" FileName="ImportantStuntTextBackground.png"
+  ///以下信息页中的特技设定方法同称号
+  <ImportantStuntTextBackground MaxImportantStuntShowNumber【重要特技上限】="小于等于20" ShowImportantStuntName="on" ShowImportantStuntNameBackground="on" ShowImportantStuntPicture="off"
+                              ImportantStuntTextFollowTheMouse【介绍页跟随鼠标移动】="0-固定位置；1-跟随鼠标" FileName="ImportantStuntTextBackground.png"
                               X="10" Y="10" Width="400" Height="200">
   </ImportantStuntTextBackground>
   <ImportantStuntText    Text1="特技名称：" Text2="战意消耗：" Text3="特技说明：" Text4="预留" Text5="预留"
@@ -3987,7 +4046,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt1NameText>
   <ImportantStunt2NameText X="254" Y="211" Width="50" Height="25" RowMargin="0"
@@ -3995,7 +4054,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt2NameText>
   <ImportantStunt3NameText X="304" Y="219" Width="50" Height="25" RowMargin="0"
@@ -4003,7 +4062,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt3NameText>
   <ImportantStunt4NameText X="240" Y="186" Width="50" Height="25" RowMargin="0"
@@ -4011,7 +4070,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt4NameText>
   <ImportantStunt5NameText X="237" Y="163" Width="50" Height="25" RowMargin="0"
@@ -4019,7 +4078,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt5NameText>
   <ImportantStunt6NameText X="240" Y="139" Width="50" Height="25" RowMargin="0"
@@ -4027,7 +4086,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt6NameText>
   <ImportantStunt7NameText X="304" Y="219" Width="50" Height="25" RowMargin="0"
@@ -4035,7 +4094,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt7NameText>
   <ImportantStunt8NameText X="304" Y="219" Width="50" Height="25" RowMargin="0"
@@ -4043,7 +4102,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt8NameText>
   <ImportantStunt9NameText X="375" Y="181" Width="50" Height="25" RowMargin="0"
@@ -4051,7 +4110,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt9NameText>
   <ImportantStunt10NameText X="304" Y="219" Width="50" Height="25" RowMargin="0"
@@ -4059,7 +4118,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt10NameText>
   <ImportantStunt11NameText X="381" Y="156" Width="50" Height="25" RowMargin="0"
@@ -4067,7 +4126,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt11NameText>
   <ImportantStunt12NameText X="375" Y="131" Width="50" Height="25" RowMargin="0"
@@ -4075,7 +4134,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt12NameText>
   <ImportantStunt13NameText X="304" Y="219" Width="50" Height="25" RowMargin="0"
@@ -4083,7 +4142,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt13NameText>
   <ImportantStunt14NameText X="361" Y="106" Width="50" Height="25" RowMargin="0"
@@ -4091,7 +4150,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt14NameText>
   <ImportantStunt15NameText X="665" Y="350" Width="50" Height="25" RowMargin="0"
@@ -4099,7 +4158,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt15NameText>
   <ImportantStunt16NameText X="285" Y="85" Width="95" Height="25" RowMargin="0"
@@ -4107,7 +4166,7 @@
                            FontName="Microsoft YaHei UI"
                            FontSize="15"
                            FontStyle="Bold"
-                           FontColor="4294902015"
+                           FontColor="4278222848"
                            Align="Middle" >
   </ImportantStunt16NameText>
   <ImportantStunt17NameText X="560" Y="50" Width="95" Height="25" RowMargin="0"
@@ -4162,75 +4221,78 @@
   <ImportantStunt18Picture  FileName="Background.png" X="560" Y="85" Width="95" Height="25"></ImportantStunt18Picture>
   <ImportantStunt19Picture  FileName="Background.png" X="560" Y="115" Width="95" Height="25"></ImportantStunt19Picture>
   <ImportantStunt20Picture  FileName="Background.png" X="560" Y="145" Width="95" Height="25"></ImportantStunt20Picture>
-  <BiographyBriefButton FileName0="BiographyBriefButton.png" FileName1="BiographyBriefPressed.png" X="115" Y="295" Width="45" Height="18"></BiographyBriefButton>
-  <BiographRomanceButton FileName0="BiographRomanceButton.png" FileName1="BiographRomancePressed.png" X="160" Y="295" Width="45" Height="18"></BiographRomanceButton>
-  <BiographyHistoryButton FileName0="BiographyHistoryButton.png" FileName1="BiographyHistoryPressed.png" X="205" Y="295" Width="45" Height="18"></BiographyHistoryButton>
-  <BiographyInGameButton FileName0="BiographyInGameButton.png" FileName1="BiographyInGamePressed.png" X="250" Y="295" Width="45" Height="18"></BiographyInGameButton>
+  ////以下列传相关设定
+  <BiographyBriefButton FileName0="BiographyBriefButton.png" FileName1="BiographyBriefPressed.png" X="115" Y="295" Width="45" Height="18"></BiographyBriefButton>//列传按钮
+  <BiographRomanceButton FileName0="BiographRomanceButton.png" FileName1="BiographRomancePressed.png" X="160" Y="295" Width="45" Height="18"></BiographRomanceButton>//演义按钮
+  <BiographyHistoryButton FileName0="BiographyHistoryButton.png" FileName1="BiographyHistoryPressed.png" X="205" Y="295" Width="45" Height="18"></BiographyHistoryButton>//历史按钮
+  <BiographyInGameButton FileName0="BiographyInGameButton.png" FileName1="BiographyInGamePressed.png" X="250" Y="295" Width="45" Height="18"></BiographyInGameButton>//剧本按钮
+ 
   <PersonBiographyText    Text1="预留" Text2="预留" Text3="预留" Text4="预留" Text5="预留"
                    X="35" Y="315" Width="595" Height="220" RowMargin="0"
                    BriefColor="4294934528" RomanceColor="4278222848" HistoryColor="4286611456" InGameColor="4278222976"
                    FontName="方正隶变_GBK"
                    FontSize="14"
                    FontStyle="Bold"
-                   FontColor="4294967295">
+                   FontColor="4294967295">//列传显示位置
   </PersonBiographyText>
   <Item256></Item256>
   <Item257></Item257>
   <Item258></Item258>
   <Item259></Item259>
   <Item260></Item260>  
-  <RelativeButton FileName0="RelativeButton.png" FileName1="RelativePressed.png" X="499" Y="40" Width="50" Height="17"></RelativeButton>
-  <RelationButton FileName0="RelationButton.png" FileName1="RelationPressed.png" X="601" Y="40" Width="50" Height="17"></RelationButton>
-  <PersonRelationButton FileName0="PersonRelationButton.png" FileName1="PersonRelationPressed.png" X="807" Y="28" Width="50" Height="17"></PersonRelationButton>
-  <StandingsButton FileName0="StandingsButton.png" FileName1="StandingsPressed.png" X="550" Y="57" Width="50" Height="17"></StandingsButton>
+  ////
+  <RelativeButton FileName0="RelativeButton.png" FileName1="RelativePressed.png" X="499" Y="40" Width="50" Height="17"></RelativeButton>//人物亲人按钮
+  <RelationButton FileName0="RelationButton.png" FileName1="RelationPressed.png" X="601" Y="40" Width="50" Height="17"></RelationButton>//兄弟喜恶按钮
+  <PersonRelationButton FileName0="PersonRelationButton.png" FileName1="PersonRelationPressed.png" X="807" Y="28" Width="50" Height="17"></PersonRelationButton>//人物关系按钮
+  <StandingsButton FileName0="StandingsButton.png" FileName1="StandingsPressed.png" X="550" Y="57" Width="50" Height="17"></StandingsButton>//人物战绩按钮
   <Item265></Item265>
-  <RelativeBackground Background="RelativeBackground.png" Mask="Null.png" X="665" Y="0" Width="243" Height="317"></RelativeBackground>
+  <RelativeBackground Background="RelativeBackground.png" Mask="Null.png" X="665" Y="0" Width="243" Height="317"></RelativeBackground>//人物亲人背景图
   <GenerationText X="685" Y="137" Width="45" Height="20"
               FontName="Microsoft YaHei UI"
               FontSize="14"
               FontStyle="Bold"
-              FontColor="4290822336"
+              FontColor="4286578816"
               Align="Middle">
-  </GenerationText>
+  </GenerationText>//世代
   <StrainText X="679" Y="84" Width="60" Height="20"
             FontName="Microsoft YaHei UI"
             FontSize="14"
             FontStyle="Bold"
-            FontColor="4290822336"
+            FontColor="4294901760"
             Align="Middle">
-  </StrainText>
-  <SmallPortrait X="807" Y="198" Width="25" Height="24" ></SmallPortrait>
+  </StrainText>//血缘
+  <SmallPortrait X="807" Y="198" Width="25" Height="24" ></SmallPortrait>//小头像
   <FatherNameText X="755" Y="142" Width="38" Height="17"
             FontName="Microsoft YaHei UI"
             FontSize="8"
             FontStyle="Bold"
             FontColor="4290822336"
             Align="Middle">
-  </FatherNameText>
-  <FatherSmallPortrait X="750" Y="86" Width="48" Height="48" ></FatherSmallPortrait>
+  </FatherNameText>//父亲名
+  <FatherSmallPortrait X="750" Y="86" Width="48" Height="48" ></FatherSmallPortrait>//父亲头像
   <MotherName X="842" Y="142" Width="38" Height="17"
             FontName="Microsoft YaHei UI"
             FontSize="8"
             FontStyle="Bold"
             FontColor="4290822336"
             Align="Middle">
-  </MotherName>
-  <MotherSmallPortrait X="838" Y="86" Width="48" Height="48" ></MotherSmallPortrait>
+  </MotherName>//母亲名
+  <MotherSmallPortrait X="838" Y="86" Width="48" Height="48" ></MotherSmallPortrait>//母亲头像
   <SpouseNameText X="842" Y="243" Width="38" Height="17"
             FontName="Microsoft YaHei UI"
             FontSize="8"
             FontStyle="Bold"
             FontColor="4290822336"
             Align="Middle">
-  </SpouseNameText>
-  <SpouseSmallPortrait X="838" Y="187" Width="48" Height="48" ></SpouseSmallPortrait>
+  </SpouseNameText>//配偶名
+  <SpouseSmallPortrait X="838" Y="187" Width="48" Height="48" ></SpouseSmallPortrait>//配偶头像
   <ChildrenNumberText X="727" Y="169" Width="36" Height="12"
           FontName="Microsoft YaHei UI"
           FontSize="12"
           FontStyle="Bold"
           FontColor="4290822336"
           Align="Middle">
-  </ChildrenNumberText>
+  </ChildrenNumberText>孩子数量
   <ChildrenText    Text1="" Text2="/" Text3="/" Text4="-*-*-*-*-*-*-*-*-*-*-" Text5="-*-*-*-*-*-*-*-*-*-*-"
                  X="695" Y="188" Width="105" Height="115" RowMargin="0"
                  NameColor1="4294901888" NameColor2="4286611711" DisplayedAgeColor="4294934528" LocationColor="4286611520"
@@ -4238,11 +4300,11 @@
                  FontSize="8"
                  FontStyle="Bold"
                  FontColor="4294967295">
-  </ChildrenText>
+  </ChildrenText>//孩子信息
   <Item278></Item278>
   <Item279></Item279>
   <Item280></Item280>
-  <RelationBackground Background="RelationBackground.png" Mask="Null.png" X="665" Y="0" Width="201" Height="356"></RelationBackground>
+  <RelationBackground Background="RelationBackground.png" Mask="Null.png" X="665" Y="0" Width="201" Height="356"></RelationBackground>//兄弟喜恶背景图片
   <BrothersText    Text1="" Text2="" Text3="-" Text4="〖 -" Text5="〗"
                  X="676" Y="75" Width="177" Height="85" RowMargin="0" Vertical="off"
                  NameColor="4294934528" Text1and2Color="4294901760" Text3Color="4286644096" Text4and5Color="4278255360"
@@ -4250,7 +4312,7 @@
                  FontSize="13"
                  FontStyle="Bold"
                  FontColor="4294967295">
-  </BrothersText>
+  </BrothersText>//兄弟
   <ClosePersonsText    Text1="" Text2="" Text3="" Text4="︽---︽" Text5="︾---︾"
                X="676" Y="199" Width="86" Height="142" RowMargin="0" Vertical="on"
                NameColor="4278255360" Text1and2Color="4294901760" Text3Color="4286644096" Text4and5Color="4278255360"
@@ -4258,7 +4320,7 @@
                FontSize="13"
                FontStyle="Bold"
                FontColor="4294967295">
-  </ClosePersonsText>
+  </ClosePersonsText>//亲近人物
   <HatedPersonsText    Text1="" Text2="" Text3="" Text4="︹---︹" Text5="︺---︺"
                X="768" Y="199" Width="86" Height="142" RowMargin="0" Vertical="on"
                NameColor="4294901760" Text1and2Color="4294901760" Text3Color="4286644096" Text4and5Color="4278255360"
@@ -4266,9 +4328,9 @@
                FontSize="13"
                FontStyle="Bold"
                FontColor="4294967295">
-  </HatedPersonsText>
+  </HatedPersonsText>//厌恶人物
   <Item285></Item285>
-  <PersonRelationBackground Background="PersonRelationBackground.png" Mask="Null.png" X="665" Y="356" Width="201" Height="200"></PersonRelationBackground>
+  <PersonRelationBackground Background="PersonRelationBackground.png" Mask="Null.png" X="665" Y="356" Width="201" Height="200"></PersonRelationBackground>//人物关系背景图片
   <PersonRelationText    Text1="『-" Text2="-』" Text3="〔-" Text4="-〕" Text5="预留"
                X="688" Y="383" Width="158" Height="148" RowMargin="0"
                Text1and2Color="4286611456" Relation1Color="4278222848" Text3and4Color="4294934592" Relation2Color="4286578688"
@@ -4276,8 +4338,8 @@
                FontSize="13"
                FontStyle="Bold"
                FontColor="4294967295">
-  </PersonRelationText> 
-  <StandingsBackground Background="StandingsBackground.png" Mask="Null.png" X="665" Y="0" Width="201" Height="471"></StandingsBackground>
+  </PersonRelationText> //人物关系
+  <StandingsBackground Background="StandingsBackground.png" Mask="Null.png" X="665" Y="0" Width="201" Height="471"></StandingsBackground>//人物战绩背景图片
   <StandingsTexts>
     <Label X="0" Y="0" Width="0" Height="0" Label ="击破次数"
                 FontName="Microsoft YaHei UI"
@@ -4489,13 +4551,13 @@
                 FontColor="4278255615"
                 Align="Middle">
     </Text>
-  </StandingsTexts>
+  </StandingsTexts>//人物战绩显示项目
   <Item290></Item290>
-  <SkillTextBackground PersonSkill="Background1.png" LearnableSkill="Background2.png" AllSkill="Background3.png"></SkillTextBackground>
-  <TitleTextBackground FileName="TextBackground1.png" X="287" Y="320" Width="160" Height="225" TextHeight="18"></TitleTextBackground>
-  <StuntTextBackground FileName="TextBackground2.png" X="479" Y="320" Width="160" Height="225" TextHeight="18"></StuntTextBackground>
-  <ConditionBackground FileName="ConditionBackground.png" X="-201" Y="10" Width="201" Height="550"></ConditionBackground>
-  <InfluenceBackground FileName="InfluenceBackground.png" X="665" Y="10" Width="201" Height="550"></InfluenceBackground>   
+  <SkillTextBackground PersonSkill【已学技能】="Background1.png" LearnableSkill【可学技能】="Background2.png" AllSkill【所有技能】="Background3.png"></SkillTextBackground>//技能背景图
+  <TitleTextBackground FileName="TextBackground1.png" X="287" Y="320" Width="160" Height="225" TextHeight【每行文字的高度】="18"></TitleTextBackground>//称号背景图
+  <StuntTextBackground FileName="TextBackground1.png" X="479" Y="320" Width="160" Height="225" TextHeight【每行文字的高度】="18"></StuntTextBackground>//特技背景图
+  <ConditionBackground FileName="ConditionBackground.png" X="-201" Y="10" Width="201" Height="550"></ConditionBackground>//条件背景图
+  <InfluenceBackground FileName="InfluenceBackground.png" X="665" Y="10" Width="201" Height="550"></InfluenceBackground>//影响背景图   
   <SkillBlock Width="34" Height="20" OffsetX="21" OffsetY="305"
               FontName="Microsoft YaHei UI"
               FontSize="10"
@@ -4504,35 +4566,35 @@
               SkillColor="4286643968"
               LearnableColor="4294967040"
               Align="Middle">
-  </SkillBlock>
+  </SkillBlock>//技能栏
   <Title X="285" Y="320" Width="165" Height="224" RowMargin="0"
               FontName="Microsoft YaHei UI"
               FontSize="11"
               FontStyle="Bold"
               FontColor="4286643968">
-  </Title>
+  </Title>//称号
   <Stunt X="477" Y="320" Width="165" Height="224" RowMargin="0"
             FontName="Microsoft YaHei UI"
             FontSize="11"
             FontStyle="Bold"
             FontColor="4294967295">
-  </Stunt>
+  </Stunt>//特技
   <Condition X="-194" Y="80" Width="187" Height="480" RowMargin="0" TitleColor="4294934783" SubTitleColor="4294934783"
 			PositiveColor="4278255360" NegativeColor="4294901760"
             FontName="Microsoft YaHei UI"
             FontSize="11"
             FontStyle="Regular"
             FontColor="4294967295">
-  </Condition>
+  </Condition>//条件
   <Influence X="672" Y="80" Width="187" Height="480" RowMargin="0" TitleColor="4294967040"
        SubTitleColor="4294901760" SubTitleColor2="4286611711" SubTitleColor3="4278255360"
              FontName="Microsoft YaHei UI"
              FontSize="11"
              FontStyle="Regular"
              FontColor="4294967295">
-  </Influence>
-  <EffectiveTreasuresTextButton FirstShouwInEffectiveTreasuresOrAllTreasures="1" FileName0="EffectiveTreasuresTextButton.png" FileName1="EffectiveTreasuresTextPressed.png" X="503" Y="49" Width="69" Height="41"></EffectiveTreasuresTextButton>
-  <TreasuresTextButton FileName0="TreasuresTextButton.png" FileName1="TreasuresTextPressed.png" X="573" Y="49" Width="69" Height="41"></TreasuresTextButton>
+  </Influence>//影响
+  <EffectiveTreasuresTextButton FirstShouwInEffectiveTreasuresOrAllTreasures【默认显示页】="1-有效宝物；2-所有宝物" FileName0="EffectiveTreasuresTextButton.png" FileName1="EffectiveTreasuresTextPressed.png" X="503" Y="49" Width="69" Height="41"></EffectiveTreasuresTextButton>//有效宝物页按钮
+  <TreasuresTextButton FileName0="TreasuresTextButton.png" FileName1="TreasuresTextPressed.png" X="573" Y="49" Width="69" Height="41"></TreasuresTextButton>//所有宝物页按钮
   <EffectiveTreasuresText    Text1="『" Text2="名称：" Text3="价值：" Text4="说明：" Text5="』"
                  X="20" Y="82" Width="625" Height="455" RowMargin="0"
                  TitleColor="4294967040" NameColor="4294901760" WorthColor="4286644096" DescriptionColor="4278255360"
@@ -4540,7 +4602,7 @@
                  FontSize="14"
                  FontStyle="Bold"
                  FontColor="4294967295">
-  </EffectiveTreasuresText>
+  </EffectiveTreasuresText>//有效宝物项文字显示设定
   <TreasuresText    Text1="〖" Text2="名称：" Text3="价值：" Text4="说明：" Text5="〗"
                  X="20" Y="82" Width="625" Height="455" RowMargin="0"
                  TitleColor="4294967040" NameColor="4294901760" WorthColor="4286644096" DescriptionColor="4278255360"
@@ -4548,31 +4610,34 @@
                  FontSize="14"
                  FontStyle="Bold"
                  FontColor="4294967295">
-  </TreasuresText>
+  </TreasuresText>//所有宝物项文件显示设定
   <Item305></Item305>
-  <SpecialtyShow1Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="0" Width="100" Height="18"></SpecialtyShow1Button>
-  <SpecialtyShow2Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="20" Width="100" Height="18"></SpecialtyShow2Button>
-  <SpecialtyShow3Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="40" Width="100" Height="18"></SpecialtyShow3Button>
-  <SpecialtyShow4Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="60" Width="100" Height="18"></SpecialtyShow4Button>
-  <SpecialtyShow5Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="80" Width="100" Height="18"></SpecialtyShow5Button>
-  <SpecialtyShow1Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background1.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow1Background>
-  <SpecialtyShow2Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background2.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow2Background>
-  <SpecialtyShow3Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background3.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow3Background>
-  <SpecialtyShow4Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background4.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow4Background>
-  <SpecialtyShow5Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background5.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow5Background>
+  ////以下特长图片页相关
+  <SpecialtyShow1Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="0" Width="100" Height="18"></SpecialtyShow1Button>//特长图片页第一页按钮
+  <SpecialtyShow2Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="20" Width="100" Height="18"></SpecialtyShow2Button>//特长图片页第二页按钮
+  <SpecialtyShow3Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="40" Width="100" Height="18"></SpecialtyShow3Button>//特长图片页第三页按钮
+  <SpecialtyShow4Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="60" Width="100" Height="18"></SpecialtyShow4Button>//特长图片页第四页按钮
+  <SpecialtyShow5Button FileName0="AButton.png" FileName1="APressed.png" X="665" Y="80" Width="100" Height="18"></SpecialtyShow5Button>//特长图片页第五页按钮
+  <SpecialtyShow1Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background1.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow1Background>//特长图片页第一页背景图
+  <SpecialtyShow2Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background2.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow2Background>//特长图片页第二页背景图
+  <SpecialtyShow3Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background3.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow3Background>//特长图片页第三页背景图
+  <SpecialtyShow4Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background4.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow4Background>//特长图片页第四页背景图
+  <SpecialtyShow5Background Mask1="Null.PNG" Mask2="Null.PNG" Background="Background5.PNG" X="10" Y="10" Width="400" Height="200"></SpecialtyShow5Background>//特长图片页第五页背景图
   <Item316></Item316>
   <Item317></Item317>
   <Item318></Item318>
   <Item319></Item319>
   <Item320></Item320>
+  //以下称号，特技，技能的设定与上面的重要称号和重要特技相同，设定好名称位置，图片位置后，当人物拥有该类型时就会显示，再次说明，只有鼠标在名称或背景图设定的位置范围内才会显示对应介绍，
+  称号，特技，技能图片只是辅助用的。当你拥有某技能时，但又不想鼠标移过时显示碍眼的文字介绍的时候，就可以使用技能图片。
   <Title1 X="50" Y="100" Width="100" Height="25" RowMargin="0"
                        FontName="Microsoft YaHei UI"
                        FontSize="15"
                        FontStyle="Bold"
                        FontColor="4278222848"
                        Align="Middle"
-            Group="20" Background="Background1.png" Rotation="0">
-  </Title1>
+            Group【类型】="20" Background【背景图】="Background1.png" Rotation="0">
+  </Title1>//第一类称号的显示位置（名称及背景图）
   <Title2 X="155" Y="100" Width="100" Height="25" RowMargin="0"
                        FontName="Microsoft YaHei UI"
                        FontSize="15"
@@ -7265,7 +7330,7 @@
   <Skill98Picture FileName="Background1.png" X="665" Y="0" Width="100" Height="18"></Skill98Picture>
   <Skill99Picture FileName="Background1.png" X="665" Y="0" Width="100" Height="18"></Skill99Picture>
   <Skill100Picture FileName="Background1.png" X="665" Y="0" Width="100" Height="18"></Skill100Picture>
-  <TitleShowTextBackground TitleShowTextFollowTheMouse ="1" Mask="Null.PNG" Background="ImportantTitleTextBackground.png" X="10" Y="10" Width="400" Height="200"></TitleShowTextBackground>
+  <TitleShowTextBackground TitleShowTextFollowTheMouse【介绍页跟随鼠标移动】="0-固定位置；1-跟随鼠标" Mask="Null.PNG" Background="ImportantTitleTextBackground.png" X="10" Y="10" Width="400" Height="200"></TitleShowTextBackground>
   <TitleShowText    Text1="称号类型：" Text2="称号等级：" Text3="称号说明：" Text4="预留" Text5="预留"
                    X="20" Y="40" Width="380" Height="155" RowMargin="0"
                    TitleColor="4294967040" KindColor="4294901760" LevelColor="4286644096" DescriptionColor="4278255360"
@@ -7274,7 +7339,7 @@
                    FontStyle="Bold"
                    FontColor="4294967295">
   </TitleShowText>
-  <StuntShowTextBackground TitleShowTextFollowTheMouse ="1" Mask="Null.PNG" Background="Background9.png" X="10" Y="10" Width="400" Height="200"></StuntShowTextBackground>
+  <StuntShowTextBackground TitleShowTextFollowTheMouse【介绍页跟随鼠标移动】="0-固定位置；1-跟随鼠标" Mask="Null.PNG" Background="Background9.png" X="10" Y="10" Width="400" Height="200"></StuntShowTextBackground>
   <StuntShowText    Text1="特技名称：" Text2="战意消耗：" Text3="特技说明：" Text4="预留" Text5="预留"
                    X="20" Y="40" Width="380" Height="155" RowMargin="0"
                    TitleColor="4294967040" KindColor="4294901760" LevelColor="4286644096" DescriptionColor="4278255360"
@@ -7283,7 +7348,7 @@
                    FontStyle="Bold"
                    FontColor="4294967295">
   </StuntShowText>  
-  <SKillShowTextBackground TitleShowTextFollowTheMouse ="1" Mask="Null.PNG" Background="Background8.png" X="10" Y="10" Width="400" Height="200"></SKillShowTextBackground>
+  <SKillShowTextBackground TitleShowTextFollowTheMouse【介绍页跟随鼠标移动】="0-固定位置；1-跟随鼠标" Mask="Null.PNG" Background="Background8.png" X="10" Y="10" Width="400" Height="200"></SKillShowTextBackground>
   <SKillShowText    Text1="技能种类：" Text2="技能等级：" Text3="技能说明：" Text4="预留" Text5="预留"
                    X="20" Y="40" Width="380" Height="155" RowMargin="0"
                    TitleColor="4294967040" KindColor="4294901760" LevelColor="4286644096" DescriptionColor="4278255360"
@@ -7296,23 +7361,24 @@
   <Item928></Item928>
   <Item929></Item929>
   <Item930></Item930>
-  <FirstPageButtonInTreasure FileName0="FirstPageButton1.png" FileName1="FirstPageButton2.png" X="490" Y="40" Width="35" Height="30"></FirstPageButtonInTreasure>
-  <PreviousPageButtonInTreasure FileName0="PreviousPageButton1.png" FileName1="PreviousPageButton2.png" X="525" Y="40" Width="35" Height="30"></PreviousPageButtonInTreasure>
-  <NextPageButtonInTreasure FileName0="NextPageButton1.png" FileName1="NextPageButton2.png" X="580" Y="40" Width="35" Height="30"></NextPageButtonInTreasure>
-  <LastPageButtonInTreasure FileName0="LastPageButton1.png" FileName1="LastPageButton2.png" X="615" Y="40" Width="35" Height="30"></LastPageButtonInTreasure>
-  <TheTreasurePageNumberText X="560" Y="40" Width="20" Height="41" RowMargin="0"
+  ////以下宝物显示页相关设定
+  <FirstPageButtonInTreasure FileName0="FirstPageButton1.png" FileName1="FirstPageButton2.png" X="490" Y="49" Width="35" Height="41"></FirstPageButtonInTreasure>//第一页
+  <PreviousPageButtonInTreasure FileName0="PreviousPageButton1.png" FileName1="PreviousPageButton2.png" X="525" Y="49" Width="35" Height="41"></PreviousPageButtonInTreasure>//上一页
+  <NextPageButtonInTreasure FileName0="NextPageButton1.png" FileName1="NextPageButton2.png" X="580" Y="49" Width="35" Height="41"></NextPageButtonInTreasure>//下一页
+  <LastPageButtonInTreasure FileName0="LastPageButton1.png" FileName1="LastPageButton2.png" X="615" Y="49" Width="35" Height="41"></LastPageButtonInTreasure>//最后一页
+  <TheTreasurePageNumberText X="560" Y="49" Width="20" Height="41" RowMargin="0"
                      FontName="Microsoft YaHei UI"
                      FontSize="20"
                      FontStyle="Bold"
                      FontColor="4294901760"
                      Align="Middle">
-  </TheTreasurePageNumberText>
+  </TheTreasurePageNumberText>//页码
   <Item936></Item936>
   <Item937></Item937>
   <Item938></Item938>
   <Item939></Item939>
   <Item940></Item940>
-  <TreasureShowTextBackground TreasureShowTextFollowTheMouse ="1" Mask="TreasureTextMask.png" Background="TreasureTextBackground.png" X="10" Y="10" Width="400" Height="200"></TreasureShowTextBackground>
+  <TreasureShowTextBackground TreasureShowTextFollowTheMouse【介绍页跟随鼠标移动】="0-固定位置；1-跟随鼠标" Mask="Null.PNG" Background="Background7.png" X="10" Y="10" Width="400" Height="200"></TreasureShowTextBackground>//宝物介绍背景图
   <TreasureShowText    Text1="宝物名称：" Text2="宝物价值：" Text3="宝物介绍：" Text4="预留" Text5="预留"
                    X="20" Y="40" Width="380" Height="155" RowMargin="0"
                    TitleColor="4294967040" KindColor="4294901760" LevelColor="4286644096" DescriptionColor="4278255360"
@@ -7320,22 +7386,25 @@
                    FontSize="15"
                    FontStyle="Bold"
                    FontColor="4294967295">
-  </TreasureShowText>
-  <TreasureShowPicture  X="19" Y="40" Width="150" Height="150"></TreasureShowPicture>
+  </TreasureShowText>//宝物介绍页相关文字设定
+  <TreasureShowPicture  X="10" Y="10" Width="200" Height="200"></TreasureShowPicture>//宝物介绍页中的宝物图片
   <Item944></Item944>
   <Item945></Item945>
-  <TheTreasureShowClient TreasureMask="Mask1.png" EffectiveTreasureMask="Mask2.png"  ShowTheNullTreasurePicture="on" TheNullTreasurePicture="NullTreasurePicture.png"
-                         X="13" Y="88" Width="100" Height="100" 
-                         HSpace="8" VSpace="10" HNumber="6" VNumber="4"></TheTreasureShowClient>
+  <TheTreasureShowClient TreasureMask【无效宝物的边框样式】="Mask1.png" EffectiveTreasureMask【有效宝物的边框样式】="Mask2.png"  ShowTheNullTreasurePicture【显示空宝物栏】="on/off" TheNullTreasurePicture【空宝物栏图片】="Background8.png"
+                         X【第一个宝物图片的X轴坐标】="50" Y【第一个宝物图片的Y轴坐标】="50" Width【宝物图片的宽度】="200" Height【宝物图片的高度】="200" 
+                         HSpace【横向间距】="1" VSpace【纵向间距】="1" HNumber【每行数量】="2" VNumber【每页行数】="2">
+    
+  </TheTreasureShowClient>宝物显示位置
   <Item947></Item947>
   <Item948></Item948>
   <Item949></Item949>
   <Item950></Item950>
-  <FirstPageButtonInOther FileName0="FirstPageButton1.png" FileName1="FirstPageButton2.png" X="490" Y="40" Width="35" Height="30"></FirstPageButtonInOther>
-  <PreviousPageButtonInOther FileName0="PreviousPageButton1.png" FileName1="PreviousPageButton2.png" X="525" Y="40" Width="35" Height="30"></PreviousPageButtonInOther>
-  <NextPageButtonInOther FileName0="NextPageButton1.png" FileName1="NextPageButton2.png" X="580" Y="40" Width="35" Height="30"></NextPageButtonInOther>
-  <LastPageButtonInOther FileName0="LastPageButton1.png" FileName1="LastPageButton2.png" X="615" Y="40" Width="35" Height="30"></LastPageButtonInOther>
-  <TheHelpPageNumber X="560" Y="40" Width="20" Height="41" RowMargin="0"
+  ////以下其他图片相关
+  <FirstPageButtonInOther FileName0="FirstPageButton1.png" FileName1="FirstPageButton2.png" X="490" Y="49" Width="35" Height="41"></FirstPageButtonInOther>//第一页
+  <PreviousPageButtonInOther FileName0="PreviousPageButton1.png" FileName1="PreviousPageButton2.png" X="525" Y="49" Width="35" Height="41"></PreviousPageButtonInOther>//上一页
+  <NextPageButtonInOther FileName0="NextPageButton1.png" FileName1="NextPageButton2.png" X="580" Y="49" Width="35" Height="41"></NextPageButtonInOther>//下一页
+  <LastPageButtonInOther FileName0="LastPageButton1.png" FileName1="LastPageButton2.png" X="615" Y="49" Width="35" Height="41"></LastPageButtonInOther>//最后一页
+  <TheHelpPageNumber X="560" Y="49" Width="20" Height="41" RowMargin="0"
                      FontName="Microsoft YaHei UI"
                      FontSize="20"
                      FontStyle="Bold"

@@ -301,7 +301,10 @@
         {
             return null;
         }
-
+        public virtual Texture2D GetFullPortrait(float id)
+        {
+            return null;
+        }
         public override void Initialize()
         {
             base.Initialize();

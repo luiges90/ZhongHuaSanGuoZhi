@@ -6,8 +6,9 @@
     internal class PlayerImage
     {
         internal Image Portrait;
+        internal Image FullPortrait;
         internal Image SmallPortrait;
-        internal Image TroopPortrait;
+        internal Image TroopPortrait;        
     }
 }
 
