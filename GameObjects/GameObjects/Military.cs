@@ -455,7 +455,7 @@
         {
             get
             {
-                return ((this.Kind.Defence + (this.Kind.DefencePerScale * this.Scales)) + (this.Kind.DefencePer100Experience * (this.Experience / 100)));
+                return (int) ((this.Kind.Defence + (this.Kind.DefencePerScale * this.Scales)) + (this.Kind.DefencePer100Experience * (Math.Sqrt(this.Experience) / 10)));
             }
         }
 
@@ -930,7 +930,7 @@
         {
             get
             {
-                return ((this.Kind.Offence + (this.Kind.OffencePerScale * this.Scales)) + (this.Kind.OffencePer100Experience * (this.Experience / 100)));
+                return (int) ((this.Kind.Offence + (this.Kind.OffencePerScale * this.Scales)) + (this.Kind.OffencePer100Experience * (Math.Sqrt(this.Experience) / 10)));
             }
         }
 
