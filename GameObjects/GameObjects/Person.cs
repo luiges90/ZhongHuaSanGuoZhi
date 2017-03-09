@@ -4512,6 +4512,10 @@
         public void LeaveToNoFaction() // 下野
         {
             Architecture locationArchitecture = this.LocationArchitecture;
+            if (this.ProhibitedFactionID.ContainsKey(this.BelongedFaction.ID))
+            {
+                this.ProhibitedFactionID.Remove(this.BelongedFaction.ID);
+            }
             this.ProhibitedFactionID.Add(this.BelongedFaction.ID, 90);
 
             if (TargetArchitecture != null)
