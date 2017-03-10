@@ -2498,6 +2498,7 @@
                 person.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Area[0]);
                 
             }
+            person.Status = PersonStatus.Moving;
             /*if (!(flag || (person.LocationArchitecture == null)))
             {
                 person.LocationArchitecture.RemovePerson(person);
