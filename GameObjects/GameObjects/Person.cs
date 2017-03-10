@@ -2792,6 +2792,7 @@
                 person.MoveToArchitecture(this.TargetArchitecture, from.ArchitectureArea.Area[0]);
                 
             }
+            person.Status = PersonStatus.Moving;
             /*if (!(flag || (person.LocationArchitecture == null)))
             {
                 person.LocationArchitecture.RemovePerson(person);
@@ -5571,6 +5572,12 @@
                         this.TargetArchitecture = null;
                     }
                     ExtensionInterface.call("ArrivedAtArchitecture", new Object[] { this.Scenario, this, this.TargetArchitecture });
+                }
+                if ((this.ArrivingDays == 0) && (this.TargetArchitecture == null) && (this.LocationArchitecture != null) && (this.Status == PersonStatus.NoFactionMoving))
+                {
+                    this.Status = PersonStatus.NoFaction;
+                    this.Scenario.GameScreen.NoFactionPersonArrivesAtArchitecture(this, this.LocationArchitecture);
+                    ExtensionInterface.call("ArrivedAtArchitecture", new Object[] { this.Scenario, this, this.LocationArchitecture });
                 }
             }
         }
