@@ -104,6 +104,10 @@
                                 {
                                     this.OnPlayerRelease(this.BelongedFaction, this.CaptiveFaction, this);
                                 }
+                                else
+                                {
+                                    this.Scenario.GameScreen.CaptivePlayerRelease(this.BelongedFaction, this.CaptiveFaction, this);
+                                }
                             }
                             else
                             {
