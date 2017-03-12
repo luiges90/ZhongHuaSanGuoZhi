@@ -5201,6 +5201,7 @@
             if (this.PlayerFactions.Count == 0) return;
             if (this.Factions.Count < 3) return;
             if (!GlobalVariables.PermitFactionMerge) return;
+            if (GlobalVariables.AIMergeAgainstPlayer < 0) return;
 
             Faction strongestAI = null;
             Faction strongestPlayer = null;

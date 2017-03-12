@@ -3180,7 +3180,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "0";
                     this.tbAIExtraPerson.Text = "1.0";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.0";
-                    this.tbAIMergeAgainstPlayer.Text = "100.0";
+                    this.tbAIMergeAgainstPlayer.Text = "-1";
                     this.AIEncircleRank = 0;
                     this.AIEncircleVar = 0;
                     break;
@@ -3217,7 +3217,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "0";
                     this.tbAIExtraPerson.Text = "1.0";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.0";
-                    this.tbAIMergeAgainstPlayer.Text = "2.0";
+                    this.tbAIMergeAgainstPlayer.Text = "-1";
                     this.AIEncircleRank = 15;
                     this.AIEncircleVar = 15;
                     break;
@@ -3254,7 +3254,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "5";
                     this.tbAIExtraPerson.Text = "1.2";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.0";
-                    this.tbAIMergeAgainstPlayer.Text = "1.2";
+                    this.tbAIMergeAgainstPlayer.Text = "-1";
                     this.AIEncircleRank = 30;
                     this.AIEncircleVar = 30;
                     break;
@@ -3291,7 +3291,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "10";
                     this.tbAIExtraPerson.Text = "1.5";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.01";
-                    this.tbAIMergeAgainstPlayer.Text = "1.0";
+                    this.tbAIMergeAgainstPlayer.Text = "-1";
                     this.AIEncircleRank = 70;
                     this.AIEncircleVar = 30;
                     break;
@@ -3328,7 +3328,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
                     this.tbAIEncirclePlayerRate.Text = "20";
                     this.tbAIExtraPerson.Text = "3.0";
                     this.tbAIExtraPersonIncreaseRate.Text = "0.05";
-                    this.tbAIMergeAgainstPlayer.Text = "0.5";
+                    this.tbAIMergeAgainstPlayer.Text = "-1";
                     this.AIEncircleRank = 100;
                     this.AIEncircleVar = 0;
                     break;
