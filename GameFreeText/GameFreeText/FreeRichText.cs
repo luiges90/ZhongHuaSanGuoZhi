@@ -388,7 +388,7 @@
         {
             get
             {
-                if (this.Texts.Count > 0)
+                if (this.Texts.Count > 0 && this.Texts[0].TextTexture != null)
                 {
                     return (this.Texts[0].TextTexture.Height + this.RowMargin);
                 }
