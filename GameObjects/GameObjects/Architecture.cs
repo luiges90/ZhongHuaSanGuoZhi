@@ -2516,6 +2516,7 @@
                                 weight *= c.Value;
                             }
                         }
+                        weight *= military.Kind.Merit;
                         upgradable.Add(mk, weight);
                     }
                 }
@@ -2813,6 +2814,7 @@
                                 weight *= c.Value;
                             }
                         }
+                        weight *= current.Merit;
 
                         if (((water && current.Type == MilitaryType.水军) || (!water && current.Type != MilitaryType.水军))
                             && ((siege && current.Type == MilitaryType.器械) || (!siege && current.Type != MilitaryType.器械))
