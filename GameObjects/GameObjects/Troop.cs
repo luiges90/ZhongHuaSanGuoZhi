@@ -1967,17 +1967,16 @@
                 }
                 Faction f = this.BelongedFaction;
                 Architecture starting = this.StartingArchitecture;
-                GameObjectList persons = this.persons.GetList();
                 this.Destroy(true, true);
-                foreach (Person p in persons)
+                foreach (Person p in this.persons)
                 {
-                    foreach (Person q in persons)
+                    foreach (Person q in this.persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f / persons.Count, -3);
+                        p.AdjustRelation(q, -0.5f / this.persons.Count, -3);
                     }
                 }
-                foreach (Person person in persons)
+                foreach (Person person in this.persons)
                 {
                     Point from = this.Position;
                     if ((starting == null) || (f != starting.BelongedFaction))
@@ -12284,7 +12283,21 @@
                 return this.Army.Kind.Name;
             }
         }
+        //以下添加
+        public int TheMilitaryType
+        {
+            get
+            {
+                if(this.Army.Kind.Type==MilitaryType.步兵){return 0;}
+                else if(this.Army.Kind.Type==MilitaryType.弩兵){return 1;}
+                else if(this.Army.Kind.Type==MilitaryType.骑兵){return 2;}
+                else if(this.Army.Kind.Type==MilitaryType.水军){return 3;}
+                else if(this.Army.Kind.Type==MilitaryType.器械){return 4;}
+                else{return 5;}
+            }
+        }
 
+        //
         public int MarshAdaptability
         {
             get

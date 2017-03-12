@@ -16,6 +16,7 @@
         public InfluenceTable Influences = new InfluenceTable();
         public ConditionTable LearnConditions = new ConditionTable();
         private int period;
+        public ConditionTable GenerateConditions = new ConditionTable();
 
         private int[] generationChance = new int[10];
         public int[] GenerationChance
@@ -122,17 +123,33 @@
             return true;
         }
 
-        public virtual bool CanBeBorn(Person person)
+        public bool CanBeChosenForGenerated(Person p)
+        {
+            foreach (Condition condition in this.LearnConditions.Conditions.Values)
+            {
+                if (condition.Kind.ID == 902) return false;
+            }
+            foreach (Condition c in this.GenerateConditions.Conditions.Values)
+            {
+                if (!c.CheckCondition(p))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool CanBeBorn(Person person)
         {
             foreach (Condition condition in this.LearnConditions.Conditions.Values)
             {
                 if (condition.Kind.ID == 901) return false;
-                if (new List<int> { 600, 610, 970, 971 }.Contains(condition.Kind.ID))
+            }
+            foreach (Condition c in this.GenerateConditions.Conditions.Values)
+            {
+                if (!c.CheckCondition(person))
                 {
-                    if (!condition.CheckCondition(person))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;

@@ -1007,6 +1007,11 @@
                 {
                     title.ManualAward = ((title.Kind.ID == 5 || title.Kind.ID == 10 ) && title.Level >= 7) ? true : false;
                 }
+                try
+                {
+                    e.AddRange(title.GenerateConditions.LoadFromString(this.AllConditions, reader["GenerateConditions"].ToString()));
+                }
+                catch { }
                
                 title.RelatedAbility = (int)reader["Ability"];
                 this.AllTitles.AddTitle(title);

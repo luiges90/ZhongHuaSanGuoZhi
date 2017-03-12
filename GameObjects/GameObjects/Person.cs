@@ -8769,7 +8769,7 @@
                     Dictionary<Title, float> chances = new Dictionary<Title, float>();
                     foreach (Title t in kv.Value)
                     {
-                        if (t.CanBeChosenForGenerated())
+                        if (t.CanBeChosenForGenerated(r))
                         {
                             chances.Add(t, t.GenerationChance[(int)officerType]);
                         }
@@ -8803,7 +8803,7 @@
         {
             foreach (Skill s in scen.GameCommonData.AllSkills.Skills.Values)
             {
-                if (s.CanBeChosenForGenerated())
+                if (s.CanBeChosenForGenerated(r))
                 {
                     int chance = s.GenerationChance[(int)officerType];
                     chance = (int)(chance * Math.Max(0, s.GetRelatedAbility(r) - 50) / 10.0 + 1);

@@ -3718,7 +3718,7 @@
                     (military.Merit > 0)
                     )) //do not use transport teams to attack
                 {
-                    TroopList candidates = this.AISelectPersonIntoOffensiveTroop(this, military, true);
+                    TroopList candidates = this.AISelectPersonIntoTroop(this, military, true);
                     foreach (Troop t in candidates)
                     {
                         if (t.FightingForce < 10000 && offensive)
@@ -5694,67 +5694,6 @@
                 leader.Selected = true;
             }
             return persons;
-        }
-
-        private PersonList AISelectPersonIntoOffensiveTroop_inner(Person leader, PersonList otherPersons, bool markSelected) //offensiveTroop will use it
-        {
-            PersonList persons = new PersonList();
-            persons.Add(leader);
-            if (markSelected)
-            {
-                leader.Selected = true;
-            }
-            return persons;
-        }
-
-        private TroopList AISelectPersonIntoOffensiveTroop(Architecture from, Military military, bool offensive)
-        {
-            TroopList result = new TroopList();
-            if (military.FollowedLeader != null && from.MovablePersons.HasGameObject(military.FollowedLeader) && military.FollowedLeader.LocationTroop == null
-                && isPersonAllowedIntoTroop(military.FollowedLeader, military, offensive))
-            {
-                if (isPersonAllowedIntoTroop(military.FollowedLeader, military, offensive))
-                {
-                    result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoOffensiveTroop_inner(military.FollowedLeader, from.MovablePersons, true), military, from.Position));
-                }
-            }
-            else if (military.Leader != null && military.LeaderExperience >= 10 && (military.Leader.Strength >= 80 || military.Leader.Command >= 80 || military.Leader.HasLeaderValidTitle)
-                && from.MovablePersons.HasGameObject(military.Leader) && military.Leader.LocationTroop == null && isPersonAllowedIntoTroop(military.Leader, military, offensive)
-               )
-            {
-                if (isPersonAllowedIntoTroop(military.Leader, military, offensive))
-                {
-                    result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoOffensiveTroop_inner(military.Leader, from.MovablePersons, true), military, from.Position));
-                }
-            }
-            else
-            {
-                GameObjectList pl = from.MovablePersons.GetList();
-                pl.PropertyName = "FightingForce";
-                pl.IsNumber = true;
-                pl.SmallToBig = false;
-                pl.ReSort();
-                foreach (Person person in pl)
-                {
-                    if (!person.Selected && isPersonAllowedIntoTroop(person, military, offensive))
-                    {
-                        if (person.HasMilitaryKindTitle(military.Kind))
-                        {
-                            result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoOffensiveTroop_inner(person, from.MovablePersons, false), military, from.Position));
-                        }
-                        else if (person.HasMilitaryTypeTitle(military.Kind.Type))
-                        {
-                            result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoOffensiveTroop_inner(person, from.MovablePersons, false), military, from.Position));
-                        }
-                        else if ((this.BelongedFaction.AvailableMilitaryKinds.GetMilitaryKindList().GameObjects.Contains(military.Kind) && military.Kind.RecruitLimit > 10) ||
-                            person.FightingForce >= Parameters.AIUniqueTroopFightingForceThreshold || (this.Endurance < 30 && !offensive))
-                        {
-                            result.Add(Troop.CreateSimulateTroop(this.AISelectPersonIntoOffensiveTroop_inner(person, from.MovablePersons, false), military, from.Position));
-                        }
-                    }
-                }
-            }
-            return result;
         }
 
         private bool isPersonAllowedIntoTroop(Person person, Military military, bool offensive)

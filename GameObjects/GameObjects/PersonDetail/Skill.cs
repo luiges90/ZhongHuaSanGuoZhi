@@ -16,6 +16,7 @@
         public InfluenceTable Influences = new InfluenceTable();
         private int kind;
         private int level;
+        public ConditionTable GenerateConditions = new ConditionTable();
 
         private int[] generationChance = new int[10];
         public int[] GenerationChance
@@ -62,22 +63,6 @@
                 if (!condition.CheckCondition(person))
                 {
                     return false;
-                }
-            }
-            return true;
-        }
-
-        public virtual bool CanBeBorn(Person person)
-        {
-            foreach (Condition condition in this.Conditions.Conditions.Values)
-            {
-                if (condition.Kind.ID == 901) return false;
-                if (new List<int> { 600, 610, 970, 971 }.Contains(condition.Kind.ID))
-                {
-                    if (!condition.CheckCondition(person))
-                    {
-                        return false;
-                    }
                 }
             }
             return true;
@@ -225,11 +210,34 @@
             }
         }
 
-        public bool CanBeChosenForGenerated()
+        public bool CanBeChosenForGenerated(Person p)
         {
             foreach (Condition condition in this.Conditions.Conditions.Values)
             {
                 if (condition.Kind.ID == 902) return false;
+            }
+            foreach (Condition c in this.GenerateConditions.Conditions.Values)
+            {
+                if (!c.CheckCondition(p))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool CanBeBorn(Person person)
+        {
+            foreach (Condition condition in this.Conditions.Conditions.Values)
+            {
+                if (condition.Kind.ID == 901) return false;
+            }
+            foreach (Condition c in this.GenerateConditions.Conditions.Values)
+            {
+                if (!c.CheckCondition(person))
+                {
+                    return false;
+                }
             }
             return true;
         }

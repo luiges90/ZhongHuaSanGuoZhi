@@ -23,6 +23,7 @@
 
         public ConditionTable ArchitectureConditions = new ConditionTable();
         public ConditionTable FactionConditions = new ConditionTable();
+        public ConditionTable GenerateConditions = new ConditionTable();
 
         public bool ManualAward
         {
@@ -221,11 +222,18 @@
             return CheckLimit(person);
         }
 
-        public bool CanBeChosenForGenerated()
+        public bool CanBeChosenForGenerated(Person p)
         {
             foreach (Condition condition in this.Conditions.Conditions.Values)
             {
                 if (condition.Kind.ID == 902) return false;
+            }
+            foreach (Condition c in this.GenerateConditions.Conditions.Values)
+            {
+                if (!c.CheckCondition(p))
+                {
+                    return false;
+                }
             }
             return true;
         }
@@ -244,12 +252,12 @@
             foreach (Condition condition in this.Conditions.Conditions.Values)
             {
                 if (condition.Kind.ID == 901) return false;
-                if (new List<int> { 600, 610, 970, 971 }.Contains(condition.Kind.ID))
+            }
+            foreach (Condition c in this.GenerateConditions.Conditions.Values)
+            {
+                if (!c.CheckCondition(person))
                 {
-                    if (!condition.CheckCondition(person))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;
