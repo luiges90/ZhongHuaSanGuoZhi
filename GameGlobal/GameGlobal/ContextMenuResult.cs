@@ -115,6 +115,7 @@
         Monarch_ZhaoXianBang_DismissOfficer, //遣散
         Monarch_Techniques,
         Monarch_MakeMarriage,
+        Monarch_TrainChildren,
         Monarch_KillRelease_ReleaseSelfPerson,
         Monarch_KillRelease_MoveCaptive, //转移俘虏
         Monarch_KillRelease_ReleaseCaptive,

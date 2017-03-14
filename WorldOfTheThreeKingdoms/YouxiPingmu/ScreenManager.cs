@@ -512,6 +512,25 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             this.CurrentArchitecture.Persons.ClearSelected();
         }
 
+        private void FrameFunction_Architecture_AfterSelectTrainableChildren()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.Persons.GetSelectedList();
+            if ((selectedList != null) && (selectedList.Count == 1))
+            {
+                this.CurrentPerson = selectedList[0] as Person;
+                this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.TrainPolicy, FrameFunction.SelectTrainPolicy, false, true, true, false, this.CurrentPerson.TrainPolicies(), null, "选择培育方针", "");
+            }
+        }
+
+        private void FrameFunction_Architecture_AfterSelectTrainPolicy()
+        {
+            GameObjectList selectedList = this.CurrentArchitecture.Persons.GetSelectedList();
+            if ((selectedList != null) && (selectedList.Count == 1))
+            {
+                this.CurrentPerson.TrainPolicy = (TrainPolicy) selectedList[0];
+            }
+        }
+
         private void FrameFunction_Architecture_AfterGetNewCapital()
         {
             GameObjectList selectedList = this.CurrentArchitecture.ChangeCapitalArchitectureList.GetSelectedList();
@@ -1187,6 +1206,14 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
                 case FrameFunction.SelectMarryTo:
                     this.FrameFunction_Architecture_AfterSelectMarryTo();
+                    break;
+
+                case FrameFunction.SelectTrainableChildren:
+                    this.FrameFunction_Architecture_AfterSelectTrainableChildren();
+                    break;
+
+                case FrameFunction.SelectTrainPolicy:
+                    this.FrameFunction_Architecture_AfterSelectTrainPolicy();
                     break;
 
                 case FrameFunction.GetNewCapital:

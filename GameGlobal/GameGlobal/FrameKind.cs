@@ -35,7 +35,8 @@
         YearTable,
         Information,
         Guanjue,
-        PersonGeneratorType
+        PersonGeneratorType,
+        TrainPolicy
     }
 }
 

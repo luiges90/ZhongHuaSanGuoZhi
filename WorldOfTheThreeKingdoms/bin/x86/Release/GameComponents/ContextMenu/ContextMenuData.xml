@@ -152,6 +152,7 @@
                     <MenuItem ID="2" Name="hougong" DisplayName="宠幸" DisplayIfTrue="kejinhougong" />
 					<MenuItem ID="3" Name="moveFeizi" DisplayName="移动妃子" DisplayIfTrue="CanMoveFeizi" />
                 </MenuItem>
+				<MenuItem ID="10" Name="TrainChildren" DisplayName="子女培育" DisplayIfTrue="HasChildrenToTrain" />
                 <MenuItem ID="7" Name="Refuse" DisplayName="自动拒绝" OppositeName="手动拒绝" OppositeIfTrue="FactionAutoRefuse" />
                 <MenuItem ID="8" Name="Treasure" DisplayName="宝物">
                     <MenuItem ID="1" Name="Confiscate" DisplayName="没收" DisplayIfTrue="HasTreasureToConfiscate" />

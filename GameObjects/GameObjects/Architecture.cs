@@ -8843,6 +8843,11 @@
             return this.makeMarryablePersons().Count > 0 && this.BelongedFaction.Leader.Status == PersonStatus.Normal;
         }
 
+        public bool HasChildrenToTrain()
+        {
+            return this.BelongedFaction.Leader.TrainableChildren.Count > 0;
+        }
+
         public bool HasUnavailablePerson(PersonList personlist)
         {
             foreach (Person person in personlist)

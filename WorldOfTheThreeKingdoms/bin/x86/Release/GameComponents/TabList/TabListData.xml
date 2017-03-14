@@ -4707,5 +4707,27 @@
 		</Tab>
       </Tabs>
     </ListKind>
+	<ListKind ID="34" Name="TrainPolicy" DisplayName="培育方针" ShowPortrait ="false">
+	  <Columns>
+		<Column ID="1" Name="Name" CountToDisplay="False" IsNumber="false" DisplayName="名称" MinWidth="80" DetailLevel="8"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Left">
+        </Column>
+		<Column ID="2" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="300" DetailLevel="8"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Left">
+        </Column>
+	  </Columns>
+	  <Tabs Margin="5">
+		<Tab ID="1"  Name="Basic" DisplayName="培育方针" Columns="1 2">
+		</Tab>
+      </Tabs>
+	</ListKind>
   </TabList>
 </Root>

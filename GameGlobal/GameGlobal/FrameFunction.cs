@@ -101,6 +101,8 @@
         SelectWaterLink,
         SelectMarryablePerson,
         SelectMarryTo,
+        SelectTrainableChildren,
+        SelectTrainPolicy,
         GetGeDiDiplomaticRelation
     }
 }

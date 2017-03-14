@@ -10281,6 +10281,28 @@
                     (this.Status == PersonStatus.Moving && (this.OutsideTask == null || this.OutsideTask == OutsideTaskKind.搜索)));
             }
         }
+
+        public PersonList TrainableChildren
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person p in this.ChildrenList)
+                {
+                    if (p.IsGeneratedChildren && p.Alive && p.Age >= 4 && GameObject.Random(30) == 0)
+                    {
+                        result.Add(p);
+                    }
+                }
+                return result;
+            }
+        }
+
+        public TrainPolicyList TrainPolicies()
+        {
+            return base.Scenario.GameCommonData.AllTrainPolicies;
+        }
+
     }
 }
 
