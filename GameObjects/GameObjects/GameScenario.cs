@@ -7211,7 +7211,7 @@
         {
             foreach (Person p in Persons)
             {
-                if (Trainable && GameObject.Random(30) == 0)
+                if (p.Trainable && GameObject.Random(30) == 0)
                 {
                     int siblingCount = p.Father.ChildrenList.Count;
                     int r = GameObject.WeightedRandom(p.TrainPolicy.Weighting);

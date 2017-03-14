@@ -10286,7 +10286,7 @@
         {
             get
             {
-                return p.IsGeneratedChildren && p.Alive && p.Age >= 4;
+                return this.IsGeneratedChildren && this.Alive && this.Age >= 4;
             }
         }
 
