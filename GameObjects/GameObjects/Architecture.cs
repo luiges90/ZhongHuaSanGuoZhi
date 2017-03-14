@@ -309,6 +309,20 @@
             }
         }
 
+        public PersonList PersonAndChildren
+        {
+            get
+            {
+                PersonList p = base.Scenario.GetPersonList(this);
+                foreach (Person q in p)
+                {
+                    p.AddRange(q.ChildrenList);
+                }
+                p.SetImmutable();
+                return p;
+            }
+        }
+
         public PersonList Persons
         {
             get

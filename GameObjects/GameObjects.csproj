@@ -1379,6 +1379,8 @@
     <Compile Include="GameObjects\PersonDetail\PersonGeneratorTypeList.cs" />
     <Compile Include="GameObjects\PersonDetail\PersonRelationValue.cs" />
     <Compile Include="GameObjects\PersonDetail\PersonRelationValueList.cs" />
+    <Compile Include="GameObjects\PersonDetail\TrainPolicy.cs" />
+    <Compile Include="GameObjects\PersonDetail\TrainPolicyList.cs" />
     <Compile Include="GameObjects\TroopDetail\EventEffect\EventEffectKindPack\EventEffectKind80.cs" />
   </ItemGroup>
 </Project>

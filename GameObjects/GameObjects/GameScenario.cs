@@ -1125,9 +1125,12 @@
             
             this.Troops.FinalizeQueue();
             this.Factions.BuildQueue(false);
+
+            this.TrainChildren();
             this.Architectures.NoFactionDevelop();
             this.FireDayEvent();
             this.NoFoodPositionDayEvent();
+
             this.NewFaction();
 
             //this.GameProgressCaution.Text = "运行外交";
@@ -3133,6 +3136,15 @@
                 errorMsg.AddRange(this.GameCommonData.LoadBiographyAdjectives(commonConn, this));
                 UsingOwnCommonData = false;
             }
+            try
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTrainPolicy(DbConnection, this));
+            }
+            catch
+            {
+                errorMsg.AddRange(this.GameCommonData.LoadTrainPolicy(commonConn, this));
+                UsingOwnCommonData = false;
+            }
 
             DbConnection.Close();
 
@@ -3645,6 +3657,18 @@
                 try
                 {
                     person.TempLoyaltyChange = (int)reader["TempLoyaltyChange"];
+                }
+                catch { }
+
+                try
+                {
+                    person.IsGeneratedChildren = (bool)reader["IsGeneratedChildren"];
+                    person.CommandPotential = (int)reader["CommandPotential"];
+                    person.StrengthPotential = (int)reader["StrengthPotential"];
+                    person.IntelligencePotential = (int)reader["IntelligencePotential"];
+                    person.PoliticsPotential = (int)reader["PoliticsPotential"];
+                    person.GlamourPotential = (int)reader["GlamourPotential"];
+                    person.TrainPolicy = (TrainPolicy) this.GameCommonData.AllTrainPolicies.GetGameObject((int)reader["TrainPolicy"]);
                 }
                 catch { }
 
@@ -6306,6 +6330,13 @@
                     row["TempLoyaltyChange"] = person.TempLoyaltyChange;
                     row["belongedperson"] =person.BelongedPersonName;
                     row["wasMayor"] = person.wasMayor;
+                    row["IsGeneratedChildren"] = person.IsGeneratedChildren;
+                    row["CommandPotential"] = person.CommandPotential;
+                    row["StrengthPotential"] = person.StrengthPotential;
+                    row["IntelligencePotential"] = person.IntelligencePotential;
+                    row["PoliticsPotential"] = person.PoliticsPotential;
+                    row["GlamourPotential"] = person.GlamourPotential;
+                    row["TrainPolicy"] = person.TrainPolicy.ID;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
@@ -7174,6 +7205,587 @@
                 if (f.IsTroopKnown(a)) return true;
             }
             return false;
+        }
+
+        public void TrainChildren()
+        {
+            foreach (Person p in Persons)
+            {
+                if (p.IsGeneratedChildren && p.Alive && p.Age >= 4 && GameObject.Random(30) == 0)
+                {
+                    int siblingCount = p.Father.ChildrenList.Count;
+                    int r = GameObject.WeightedRandom(p.TrainPolicy.Weighting);
+                    switch (r)
+                    {
+                        case 1:
+                            {
+                                PersonList teachers = new PersonList();
+                                if (p.Strength < p.Father.Strength && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Father);
+                                }
+                                if (p.Strength < p.Mother.Strength && p.Mother.Location == p.Father.Location && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Mother);
+                                }
+
+                                {
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Strength > p.Strength && q.IsValidTeacher && GameObject.Chance(50 / siblingCount))
+                                        {
+                                            if ((q.HasStrainTo(p.Father) && !q.Hates(p.Father)) || (q.HasStrainTo(p.Mother) && !q.Hates(p.Mother))
+                                                || q.Closes(p.Father) || q.Closes(p.Mother))
+                                            {
+                                                teachers.Add(q);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Strength > p.Strength && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Father) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Strength > p.Strength && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Mother) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+                                }
+                                foreach (Person q in teachers)
+                                {
+                                    if (GameObject.Chance((int)((q.Strength - p.Strength) * ((float)p.StrengthPotential / p.Strength))))
+                                    {
+                                        q.Strength += GameObject.Random(Math.Max((100 - q.Strength) / 10, 1));
+                                        p.AdjustRelation(q, 0, 5);
+                                        if (GameObject.Chance(30))
+                                        {
+                                            Dictionary<Person, int> rels = q.GetAllRelations();
+                                            foreach (KeyValuePair<Person, int> rel in rels) 
+                                            {
+                                                if (GameObject.Chance(100 / rels.Count))
+                                                {
+                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                break;
+                            }
+                        case 2:
+                            {
+                                PersonList teachers = new PersonList();
+                                if (p.Command < p.Father.Command && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Father);
+                                }
+                                if (p.Command < p.Mother.Command && p.Mother.Location == p.Father.Location && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Mother);
+                                }
+
+                                {
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Command > p.Command && q.IsValidTeacher && GameObject.Chance(50 / siblingCount))
+                                        {
+                                            if ((q.HasStrainTo(p.Father) && !q.Hates(p.Father)) || (q.HasStrainTo(p.Mother) && !q.Hates(p.Mother))
+                                                || q.Closes(p.Father) || q.Closes(p.Mother))
+                                            {
+                                                teachers.Add(q);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Command > p.Command && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Father) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Command > p.Command && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Mother) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+                                }
+                                foreach (Person q in teachers)
+                                {
+                                    if (GameObject.Chance((int)((q.Command - p.Command) * ((float)p.CommandPotential / p.Command))))
+                                    {
+                                        q.Command += GameObject.Random(Math.Max((100 - q.Command) / 10, 1));
+                                        p.AdjustRelation(q, 0, 5);
+                                        if (GameObject.Chance(30))
+                                        {
+                                            Dictionary<Person, int> rels = q.GetAllRelations();
+                                            foreach (KeyValuePair<Person, int> rel in rels)
+                                            {
+                                                if (GameObject.Chance(100 / rels.Count))
+                                                {
+                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                break;
+                            }
+                        case 3:
+                            {
+                                PersonList teachers = new PersonList();
+                                if (p.Intelligence < p.Father.Intelligence && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Father);
+                                }
+                                if (p.Intelligence < p.Mother.Intelligence && p.Mother.Location == p.Father.Location && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Mother);
+                                }
+
+                                {
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Intelligence > p.Intelligence && q.IsValidTeacher && GameObject.Chance(50 / siblingCount))
+                                        {
+                                            if ((q.HasStrainTo(p.Father) && !q.Hates(p.Father)) || (q.HasStrainTo(p.Mother) && !q.Hates(p.Mother))
+                                                || q.Closes(p.Father) || q.Closes(p.Mother))
+                                            {
+                                                teachers.Add(q);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Intelligence > p.Intelligence && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Father) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Intelligence > p.Intelligence && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Mother) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+                                }
+                                foreach (Person q in teachers)
+                                {
+                                    if (GameObject.Chance((int)((q.Intelligence - p.Intelligence) * ((float)p.IntelligencePotential / p.Intelligence))))
+                                    {
+                                        q.Intelligence += GameObject.Random(Math.Max((100 - q.Intelligence) / 10, 1));
+                                        p.AdjustRelation(q, 0, 5);
+                                        if (GameObject.Chance(30))
+                                        {
+                                            Dictionary<Person, int> rels = q.GetAllRelations();
+                                            foreach (KeyValuePair<Person, int> rel in rels)
+                                            {
+                                                if (GameObject.Chance(100 / rels.Count))
+                                                {
+                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                break;
+                            }
+                        case 4:
+                            {
+                                PersonList teachers = new PersonList();
+                                if (p.Politics < p.Father.Politics && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Father);
+                                }
+                                if (p.Politics < p.Mother.Politics && p.Mother.Location == p.Father.Location && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Mother);
+                                }
+
+                                {
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Politics > p.Politics && q.IsValidTeacher && GameObject.Chance(50 / siblingCount))
+                                        {
+                                            if ((q.HasStrainTo(p.Father) && !q.Hates(p.Father)) || (q.HasStrainTo(p.Mother) && !q.Hates(p.Mother))
+                                                || q.Closes(p.Father) || q.Closes(p.Mother))
+                                            {
+                                                teachers.Add(q);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Politics > p.Politics && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Father) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Politics > p.Politics && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Mother) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+                                }
+                                foreach (Person q in teachers)
+                                {
+                                    if (GameObject.Chance((int)((q.Politics - p.Politics) * ((float)p.PoliticsPotential / p.Politics))))
+                                    {
+                                        q.Politics += GameObject.Random(Math.Max((100 - q.Politics) / 10, 1));
+                                        p.AdjustRelation(q, 0, 5);
+                                        if (GameObject.Chance(30))
+                                        {
+                                            Dictionary<Person, int> rels = q.GetAllRelations();
+                                            foreach (KeyValuePair<Person, int> rel in rels)
+                                            {
+                                                if (GameObject.Chance(100 / rels.Count))
+                                                {
+                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                break;
+                            }
+                        case 5:
+                            {
+                                PersonList teachers = new PersonList();
+                                if (p.Glamour < p.Father.Glamour && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Father);
+                                }
+                                if (p.Glamour < p.Mother.Glamour && p.Mother.Location == p.Father.Location && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Mother);
+                                }
+
+                                {
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Glamour > p.Glamour && q.IsValidTeacher && GameObject.Chance(50 / siblingCount))
+                                        {
+                                            if ((q.HasStrainTo(p.Father) && !q.Hates(p.Father)) || (q.HasStrainTo(p.Mother) && !q.Hates(p.Mother))
+                                                || q.Closes(p.Father) || q.Closes(p.Mother))
+                                            {
+                                                teachers.Add(q);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Glamour > p.Glamour && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Father) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (q.Glamour > p.Glamour && q.IsValidTeacher && GameObject.Chance(q.GetRelation(p.Mother) / 10 / siblingCount))
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+                                }
+                                foreach (Person q in teachers)
+                                {
+                                    if (GameObject.Chance((int)((q.Glamour - p.Glamour) * ((float)p.GlamourPotential / p.Glamour))))
+                                    {
+                                        q.Glamour += GameObject.Random(Math.Max((100 - q.Glamour) / 10, 1));
+                                        p.AdjustRelation(q, 0, 5);
+                                        if (GameObject.Chance(30))
+                                        {
+                                            Dictionary<Person, int> rels = q.GetAllRelations();
+                                            foreach (KeyValuePair<Person, int> rel in rels)
+                                            {
+                                                if (GameObject.Chance(100 / rels.Count))
+                                                {
+                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                break;
+                            }
+                        case 6:
+                            {
+                                PersonList teachers = new PersonList();
+                                if (p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Father);
+                                }
+                                if (p.Mother.Location == p.Father.Location && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Mother);
+                                }
+
+                                {
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (GameObject.Chance(50 / siblingCount) && q.IsValidTeacher)
+                                        {
+                                            if ((q.HasStrainTo(p.Father) && !q.Hates(p.Father)) || (q.HasStrainTo(p.Mother) && !q.Hates(p.Mother))
+                                                || q.Closes(p.Father) || q.Closes(p.Mother))
+                                            {
+                                                teachers.Add(q);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (GameObject.Chance(q.GetRelation(p.Father) / 10 / siblingCount) && q.IsValidTeacher)
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (GameObject.Chance(q.GetRelation(p.Mother) / 10 / siblingCount) && q.IsValidTeacher)
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+                                }
+                                foreach (Person q in teachers)
+                                {
+                                    if (q.Skills.Count <= 0) continue;
+                                    List<Skill> skillToTeach = new List<Skill>();
+                                    foreach (Skill s in q.Skills.Skills.Values)
+                                    {
+                                        skillToTeach.Add(s);
+                                    }
+                                    Skill t = skillToTeach[GameObject.Random(skillToTeach.Count)];
+                                    if (GameObject.Chance(90 / t.Level))
+                                    {
+                                        q.Skills.AddSkill(t);
+                                        p.AdjustRelation(q, 0, 5);
+                                        if (GameObject.Chance(30))
+                                        {
+                                            Dictionary<Person, int> rels = q.GetAllRelations();
+                                            foreach (KeyValuePair<Person, int> rel in rels)
+                                            {
+                                                if (GameObject.Chance(100 / rels.Count))
+                                                {
+                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                break;
+                            }
+                        case 7:
+                            {
+                                PersonList teachers = new PersonList();
+                                if (p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Father);
+                                }
+                                if (p.Mother.Location == p.Father.Location && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Mother);
+                                }
+
+                                {
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (GameObject.Chance(50 / siblingCount) && q.IsValidTeacher)
+                                        {
+                                            if ((q.HasStrainTo(p.Father) && !q.Hates(p.Father)) || (q.HasStrainTo(p.Mother) && !q.Hates(p.Mother))
+                                                || q.Closes(p.Father) || q.Closes(p.Mother))
+                                            {
+                                                teachers.Add(q);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (GameObject.Chance(q.GetRelation(p.Father) / 10 / siblingCount) && q.IsValidTeacher)
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (GameObject.Chance(q.GetRelation(p.Mother) / 10 / siblingCount) && q.IsValidTeacher)
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+                                }
+                                foreach (Person q in teachers)
+                                {
+                                    if (q.Stunts.Count <= 0) continue;
+                                    List<Stunt> stuntToTeach = new List<Stunt>();
+                                    foreach (Stunt s in q.Stunts.Stunts.Values)
+                                    {
+                                        stuntToTeach.Add(s);
+                                    }
+                                    Stunt t = stuntToTeach[GameObject.Random(stuntToTeach.Count)];
+                                    if (GameObject.Chance(10))
+                                    {
+                                        q.Stunts.AddStunt(t);
+                                        p.AdjustRelation(q, 0, 10);
+                                        if (GameObject.Chance(30))
+                                        {
+                                            Dictionary<Person, int> rels = q.GetAllRelations();
+                                            foreach (KeyValuePair<Person, int> rel in rels)
+                                            {
+                                                if (GameObject.Chance(100 / rels.Count))
+                                                {
+                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                break;
+                            }
+                        case 8:
+                            {
+                                PersonList teachers = new PersonList();
+                                if (p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Father);
+                                }
+                                if (p.Mother.Location == p.Father.Location && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                {
+                                    teachers.Add(p.Mother);
+                                }
+
+                                {
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (GameObject.Chance(50 / siblingCount) && q.IsValidTeacher)
+                                        {
+                                            if ((q.HasStrainTo(p.Father) && !q.Hates(p.Father)) || (q.HasStrainTo(p.Mother) && !q.Hates(p.Mother))
+                                                || q.Closes(p.Father) || q.Closes(p.Mother))
+                                            {
+                                                teachers.Add(q);
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (GameObject.Chance(q.GetRelation(p.Father) / 10 / siblingCount) && q.IsValidTeacher)
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+
+                                    foreach (Person q in p.Father.LocationArchitecture.PersonAndChildren)
+                                    {
+                                        if (GameObject.Chance(q.GetRelation(p.Mother) / 10 / siblingCount) && q.IsValidTeacher)
+                                        {
+                                            teachers.Add(q);
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                foreach (Person q in teachers)
+                                {
+                                    foreach (Title t in q.Titles)
+                                    {
+                                        if (GameObject.Chance(10) && GameObject.Chance(t.InheritChance))
+                                        {
+                                            Title existing = null;
+                                            foreach (Title u in q.Titles)
+                                            {
+                                                if (u.Kind == t.Kind)
+                                                {
+                                                    existing = u;
+                                                    break; 
+                                                }
+                                            }
+
+                                            // TODO let player choose
+                                            if (existing == null || existing.Level < t.Level || GameObject.Chance(50))
+                                            {
+                                                if (existing != null)
+                                                {
+                                                    q.Titles.Remove(existing);
+                                                }
+                                                q.Titles.Add(t);
+                                            }
+
+                                            p.AdjustRelation(q, 0, 5 * t.Level);
+                                            if (GameObject.Chance(30))
+                                            {
+                                                Dictionary<Person, int> rels = q.GetAllRelations();
+                                                foreach (KeyValuePair<Person, int> rel in rels)
+                                                {
+                                                    if (GameObject.Chance(100 / rels.Count))
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                break;
+                            }
+                    }
+
+                }
+            }
         }
     }
 }

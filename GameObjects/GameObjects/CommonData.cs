@@ -68,6 +68,8 @@
         public PersonGeneratorSetting PersonGeneratorSetting = new PersonGeneratorSetting();
         public PersonGeneratorTypeList AllPersonGeneratorTypes = new PersonGeneratorTypeList();
 
+        public TrainPolicyList AllTrainPolicies = new TrainPolicyList();
+
         public void Clear()
         {
             this.AllArchitectureKinds.Clear();
@@ -107,6 +109,7 @@
             this.suoyouguanjuezhonglei.Clear();
             this.suoyouzainanzhonglei.Clear();
             this.AllPersonGeneratorTypes.Clear();
+            this.AllTrainPolicies.Clear();
         }
 
         public List<string> LoadTerrainDetail(OleDbConnection connection, GameScenario scen)
@@ -1605,6 +1608,32 @@
             return new List<string>();
         }
 
+        public List<string> LoadTrainPolicy(OleDbConnection connection, GameScenario scen)
+        {
+            connection.Open();
+            OleDbDataReader reader = new OleDbCommand("Select * From TrainPolicy", connection).ExecuteReader();
+            while (reader.Read())
+            {
+                TrainPolicy t = new TrainPolicy();
+
+                t.Name = reader["TName"].ToString();
+                t.Description = reader["Description"].ToString();
+                t.Strength = (float)reader["Strength"];
+                t.Command = (float)reader["Command"];
+                t.Intelligence = (float)reader["Intelligence"];
+                t.Politics = (float)reader["Politics"];
+                t.Glamour = (float)reader["Glamour"];
+                t.Skill = (float)reader["Skill"];
+                t.Stunt = (float)reader["Stunt"];
+                t.Title = (float)reader["Title"];
+
+                this.AllTrainPolicies.Add(t);
+            }
+            connection.Close();
+
+            return new List<string>();
+        }
+
         public List<string> LoadPersonGeneratorSetting(OleDbConnection connection, GameScenario scen)
         {
             connection.Open();
@@ -1924,7 +1953,12 @@
                     new OleDbCommand("drop table PersonGeneratorType", selectConnection).ExecuteNonQuery();
                 }
                 catch { }
-                
+
+                try
+                {
+                    new OleDbCommand("drop table TrainPolicy", selectConnection).ExecuteNonQuery();
+                }
+                catch { }
                 
                 selectConnection.Close();
             }
@@ -3103,6 +3137,34 @@
                 adapter.Update(dataSet, "PersonGeneratorType");
                 dataSet.Clear();
 
+                new OleDbCommand("Delete from TrainPolicy", selectConnection).ExecuteNonQuery();
+                adapter = new OleDbDataAdapter("Select * from TrainPolicy", selectConnection);
+                builder = new OleDbCommandBuilder(adapter);
+                adapter.Fill(dataSet, "TrainPolicy");
+                dataSet.Tables["TrainPolicy"].Rows.Clear();
+                storedIds.Clear();
+                foreach (TrainPolicy i in this.AllTrainPolicies)
+                {
+                    if (storedIds.Contains(i.ID)) continue;
+                    storedIds.Add(i.ID);
+                    row = dataSet.Tables["TrainPolicy"].NewRow();
+                    row.BeginEdit();
+                    row["ID"] = i.ID;
+                    row["TName"] = i.Name;
+                    row["Description"] = i.Description;
+                    row["Strength"] = i.Strength;
+                    row["Command"] = i.Command;
+                    row["Intelligence"] = i.Intelligence;
+                    row["Politics"] = i.Politics;
+                    row["Glamour"] = i.Glamour;
+                    row["Skill"] = i.Skill;
+                    row["Stunt"] = i.Stunt;
+                    row["Title"] = i.Title;
+                    row.EndEdit();
+                    dataSet.Tables["PersonGeneratorType"].Rows.Add(row);
+                }
+                adapter.Update(dataSet, "PersonGeneratorType");
+                dataSet.Clear();
 
                 new OleDbCommand("Delete from GameParameters", selectConnection).ExecuteNonQuery();
                 adapter = new OleDbDataAdapter("Select * from GameParameters", selectConnection);

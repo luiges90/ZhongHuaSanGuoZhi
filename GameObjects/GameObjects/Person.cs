@@ -225,6 +225,15 @@
 
         //public OngoingBattle Battle { get; set; }
         public int BattleSelfDamage { get; set; }
+
+        public bool IsGeneratedChildren { get; set; }
+        public int StrengthPotential { get; set; }
+        public int CommandPotential { get; set; }
+        public int IntelligencePotential { get; set; }
+        public int PoliticsPotential { get; set; }
+        public int GlamourPotential { get; set; }
+
+        public TrainPolicy TrainPolicy { get; set; }
         
         public String Tags {get; set;}
 
@@ -2267,16 +2276,14 @@
 
                                     haizi.father = this.Sex ? haizifuqin : this;
                                     haizi.mother = this.Sex ? this : haizifuqin;
+
+                                    haizi.muqinyingxiangnengli(this);
                                 }
                                 else
                                 {
                                     haizi = Person.createChildren(this.Scenario.Persons.GetGameObject(this.suoshurenwu) as Person, this);
                                 }
 
-                                if (origChildren.Count > 0)
-                                {
-                                    haizi.muqinyingxiangnengli(this);
-                                }
                                 if (haizi.BaseCommand < 1) haizi.BaseCommand = 1;
                                 if (haizi.BaseStrength < 1) haizi.BaseStrength = 1;
                                 if (haizi.BaseIntelligence < 1) haizi.BaseIntelligence = 1;
@@ -8820,36 +8827,58 @@
         {
             Person r = HandleChildrenId(father);
 
-            HandleChildrenRelation(father, mother, r);
+            if (GlobalVariables.PersonNaturalDeath)
+            {
+                HandleChildrenRelation(father, mother, r);
 
-            HandleChildrenName(father, r);
+                HandleChildrenName(father, r);
 
-            HandleChildrenType(father, mother, r);
+                HandleChildrenStatus(father, r);
 
-            HandleChildrenStatus(father, r);
+                AdjustChildrenIdeal(father, mother, r);
 
-            HandleChildrenProperty(father, mother, r);
+                HandleChildrenCharacter(father, mother, r);
 
-            AdjustChildrenIdeal(father, mother, r);
+                Architecture bornArch = HandleChildrenRegion(father, mother, r);
 
-            Architecture bornArch = HandleChildrenRegion(father, mother, r);
+                HandleChildrenFaction(father, mother, r);
 
-            HandleChildrenCharacter(father, mother, r);
+                r.IsGeneratedChildren = true;
+                r.TrainPolicy = (TrainPolicy) father.Scenario.GameCommonData.AllTrainPolicies.GetGameObject(1);
+            }
+            else
+            {
+                HandleChildrenRelation(father, mother, r);
 
-            HandleChildrenSkill(father, mother, r);
+                HandleChildrenName(father, r);
 
-            HandleChildrenStunt(father, mother, r);
+                HandleChildrenType(father, mother, r);
 
-            HandleChildrenTitle(father, mother, r);
+                HandleChildrenStatus(father, r);
 
-            HandleChildrenBiography(father, mother, r, bornArch);
+                HandleChildrenProperty(father, mother, r);
 
-            /*r.LocationArchitecture = father.BelongedArchitecture; //mother has no location arch!
-            r.BelongedFaction = r.BelongedArchitecture.BelongedFaction;
-            r.Available = true;*/
-            HandleChildrenFaction(father, mother, r);
+                AdjustChildrenIdeal(father, mother, r);
 
-            AdjustChildrenRelation(father, mother, r);
+                Architecture bornArch = HandleChildrenRegion(father, mother, r);
+
+                HandleChildrenCharacter(father, mother, r);
+
+                HandleChildrenSkill(father, mother, r);
+
+                HandleChildrenStunt(father, mother, r);
+
+                HandleChildrenTitle(father, mother, r);
+
+                HandleChildrenBiography(father, mother, r, bornArch);
+
+                /*r.LocationArchitecture = father.BelongedArchitecture; //mother has no location arch!
+                r.BelongedFaction = r.BelongedArchitecture.BelongedFaction;
+                r.Available = true;*/
+                HandleChildrenFaction(father, mother, r);
+
+                AdjustChildrenRelation(father, mother, r);
+            }
 
             return r;
         }
@@ -9917,6 +9946,11 @@
             }
         }
 
+        public Dictionary<Person, int> GetAllRelations()
+        {
+            return this.relations;
+        }
+
         public void AdjustRelation(Person p, float factor, float adjust)
         {
             if (!GlobalVariables.EnablePersonRelations) return;
@@ -10239,6 +10273,14 @@
             }
         }
 
+        public bool IsValidTeacher
+        {
+            get
+            {
+                return this.Alive && (this.Status == PersonStatus.Normal || this.Status == PersonStatus.NoFaction || this.Status == PersonStatus.NoFactionMoving || this.Status == PersonStatus.Princess ||
+                    (this.Status == PersonStatus.Moving && (this.OutsideTask == null || this.OutsideTask == OutsideTaskKind.搜索)));
+            }
+        }
     }
 }
 
