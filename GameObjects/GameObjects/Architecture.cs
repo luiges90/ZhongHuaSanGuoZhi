@@ -3679,8 +3679,15 @@
             SortedBoundedSet<Troop> list = new SortedBoundedSet<Troop>(Parameters.MaxAITroopCountCandidates, new SimulatingFightingForceComparer());
 
             this.Persons.ClearSelected();
+
+            GameObjectList mList = this.Militaries.GetList();
+            mList.PropertyName = "Merit";
+            mList.IsNumber = true;
+            mList.SmallToBig = false;
+            mList.ReSort();
+
             //Label_0309:
-            foreach (Military military in this.Militaries.GetRandomList())
+            foreach (Military military in mList)
             {
                 if (military.Scales < military.RetreatScale * 1.5) continue;
                 if (!military.Kind.Movable) continue;
