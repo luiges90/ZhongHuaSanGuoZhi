@@ -10282,6 +10282,14 @@
             }
         }
 
+        public bool Trainable
+        {
+            get
+            {
+                return p.IsGeneratedChildren && p.Alive && p.Age >= 4;
+            }
+        }
+
         public PersonList TrainableChildren
         {
             get
@@ -10289,7 +10297,7 @@
                 PersonList result = new PersonList();
                 foreach (Person p in this.ChildrenList)
                 {
-                    if (p.IsGeneratedChildren && p.Alive && p.Age >= 4 && GameObject.Random(30) == 0)
+                    if (Trainable)
                     {
                         result.Add(p);
                     }
@@ -10301,6 +10309,14 @@
         public TrainPolicyList TrainPolicies()
         {
             return base.Scenario.GameCommonData.AllTrainPolicies;
+        }
+
+        public string TrainPolicyString
+        {
+            get
+            {
+                return Trainable && this.TrainPolicy == null ? "----" : this.TrainPolicy.Name;
+            }
         }
 
     }
