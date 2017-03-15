@@ -6336,7 +6336,7 @@
                     row["IntelligencePotential"] = person.IntelligencePotential;
                     row["PoliticsPotential"] = person.PoliticsPotential;
                     row["GlamourPotential"] = person.GlamourPotential;
-                    row["TrainPolicy"] = person.TrainPolicy.ID;
+                    row["TrainPolicy"] = person.TrainPolicy == null ? -1 : person.TrainPolicy.ID;
                     row.EndEdit();
                     dataSet.Tables["Person"].Rows.Add(row);
                 }
@@ -7597,7 +7597,10 @@
                                     List<Skill> skillToTeach = new List<Skill>();
                                     foreach (Skill s in q.Skills.Skills.Values)
                                     {
-                                        skillToTeach.Add(s);
+                                        if (s.CanBeBorn(p))
+                                        {
+                                            skillToTeach.Add(s);
+                                        }
                                     }
                                     Skill t = skillToTeach[GameObject.Random(skillToTeach.Count)];
                                     if (GameObject.Chance(90 / t.Level))
@@ -7670,7 +7673,10 @@
                                     List<Stunt> stuntToTeach = new List<Stunt>();
                                     foreach (Stunt s in q.Stunts.Stunts.Values)
                                     {
-                                        stuntToTeach.Add(s);
+                                        if (s.CanBeBorn(p))
+                                        {
+                                            stuntToTeach.Add(s);
+                                        }
                                     }
                                     Stunt t = stuntToTeach[GameObject.Random(stuntToTeach.Count)];
                                     if (GameObject.Chance(10))
@@ -7742,7 +7748,7 @@
                                 {
                                     foreach (Title t in q.Titles)
                                     {
-                                        if (GameObject.Chance(10) && GameObject.Chance(t.InheritChance))
+                                        if (GameObject.Chance(10) && GameObject.Chance(t.InheritChance) && t.CanBeBorn(p))
                                         {
                                             Title existing = null;
                                             foreach (Title u in q.Titles)
