@@ -26,6 +26,7 @@
                 <MenuItem ID="2" Name="Architectures" DisplayName="建筑列表" />
                 <MenuItem ID="3" Name="Troops" DisplayName="部队列表" />
                 <MenuItem ID="4" Name="Persons" DisplayName="人物列表" />
+				<MenuItem ID="15" Name="Children" DisplayName="子女列表" />
                 <MenuItem ID="5" Name="Militaries" DisplayName="编队列表" />
 				<MenuItem ID="13" Name="Informations" DisplayName="情报列表" DisplayIfTrue="FactionHasInformation" />
                 <MenuItem ID="6" Name="AvailableMilitaryKinds" DisplayName="兵种列表" />

@@ -204,6 +204,13 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     }
                     break;
 
+                case ContextMenuResult.Faction_Children:
+                    if (this.CurrentArchitecture.BelongedFaction != null)
+                    {
+                        this.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.Person, FrameFunction.Browse, false, true, false, false, this.CurrentArchitecture.BelongedFaction.Children.GetList(), null, "", "");
+                    }
+                    break;
+
                 case ContextMenuResult.Faction_Militaries:
                     if (this.CurrentArchitecture.BelongedFaction != null)
                     {

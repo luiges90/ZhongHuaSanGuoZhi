@@ -21,6 +21,7 @@
         Faction_Architectures,
         Faction_Troops,
         Faction_Persons,
+        Faction_Children,
         Faction_Militaries,
         Faction_TransferingMilitaries,
         Faction_AvailableMilitaryKinds,

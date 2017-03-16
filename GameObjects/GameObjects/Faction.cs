@@ -6509,6 +6509,22 @@
             }
             return result;
         }
+
+        public PersonList Children
+        {
+            get
+            {
+                PersonList result = new PersonList();
+                foreach (Person p in base.Scenario.Persons)
+                {
+                    if (p.Alive && !p.Available && (p.Father != null && p.Father.BelongedFaction == this) || (p.Mother != null && p.Mother.BelongedFaction == this))
+                    {
+                        result.Add(p);
+                    }
+                }
+                return result;
+            }
+        }
     }
 }
 
