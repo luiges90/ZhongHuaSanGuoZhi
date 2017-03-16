@@ -492,6 +492,7 @@
                 }
                 else
                 {
+                    return this.Experience.ToString();
                 }
             }
         }
