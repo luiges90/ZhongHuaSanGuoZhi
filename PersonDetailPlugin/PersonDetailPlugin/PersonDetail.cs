@@ -5282,12 +5282,7 @@
                     BiographyHistoryButton = false;
                     BiographyInGameButton = true;
                     this.PersonBiographyText.Clear();
-                    String[] lineBrokenText = ShowingPerson.PersonBiography.InGame.Split('\n');
-                    foreach (String s in lineBrokenText)
-                    {
-                        this.BiographyText.AddText(s, this.PersonBiographyText.SubTitleColor3);
-                        this.BiographyText.AddNewLine();
-                    }
+                    this.PersonBiographyText.AddText(this.ShowingPerson.PersonBiography.InGame, this.PersonBiographyText.SubTitleColor3);
                     this.PersonBiographyText.ResortTexts();
                 }
                 /////
@@ -6735,7 +6730,7 @@
                     this.screen.PlayNormalSound(this.ThePersonSound);
                 }
                 SexN = person.Sex;
-                FactionN = person.BelongedFaction.ID;
+                FactionN = person.BelongedFaction == null? -1 : person.BelongedFaction.ID;
                 CharacterN = person.Character.ID;
                 BravenessN = person.Braveness;
                 CalmnessN = person.Calmness;
@@ -6791,7 +6786,7 @@
                         string factionName;
                         string leaderName;
                         factionName = person.Faction;
-                        leaderName = person.BelongedFaction.Leader.Name;
+                        leaderName = person.BelongedFaction == null ? "" : person.BelongedFaction.Leader.Name;
                         if (factionName == leaderName)
                         { FactionName = person.BelongedFaction.Leader.SurName; }
                         else
