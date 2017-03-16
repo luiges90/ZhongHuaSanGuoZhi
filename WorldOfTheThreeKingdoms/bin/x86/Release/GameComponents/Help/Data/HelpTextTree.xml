@@ -1121,7 +1121,7 @@ Color="4294967295" />
     </Branch>
 	<Branch Name="Monarch_hougongTop_moveFeizi">
 		<Leaf Text="君主" Color="4294967295" />
-        <Leaf Text="宠幸" Color="4278232306" />
+        <Leaf Text="移动妃子" Color="4278232306" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
@@ -1129,6 +1129,19 @@ Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
         <Leaf Text="\n" Color="4294967295" />
 		<Leaf Text="移动目的地必须有充足的妃子空间。另外如果城池视野范围内有敌军，则不可移动妃子。" Color="4294967295" />
+	</Branch>
+	<Branch Name="Monarch_TrainChildren">
+		<Leaf Text="君主" Color="4294967295" />
+        <Leaf Text="子女培育" Color="4278232306" />
+		<Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="为君主的子女选择一项培育方针。" Color="4294967295" />
+		<Leaf Text="\n" Color="4294967295" />
+        <Leaf Text="\n" Color="4294967295" />
+		<Leaf Text="子女当达到四岁时，能力就会开始成长，亦会习得新的技能、称号及特技。子女达十二岁时，就会成为武将，加入势力。\n" Color="4294967295" />
+		<Leaf Text="\n" Color="4294967295" />
+		<Leaf Text="其他武将的子女也会成长，但只有君主的子女才能指定方针。" Color="4294967295" />
 	</Branch>
     <Branch Name="Section_New">
         <Leaf Text="委任" Color="4294967295" />
