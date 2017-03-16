@@ -1616,6 +1616,7 @@
             {
                 TrainPolicy t = new TrainPolicy();
 
+                t.ID = (int) reader["ID"];
                 t.Name = reader["TName"].ToString();
                 t.Description = reader["Description"].ToString();
                 t.Strength = (float)reader["Strength"];
@@ -3161,9 +3162,9 @@
                     row["Stunt"] = i.Stunt;
                     row["Title"] = i.Title;
                     row.EndEdit();
-                    dataSet.Tables["PersonGeneratorType"].Rows.Add(row);
+                    dataSet.Tables["TrainPolicy"].Rows.Add(row);
                 }
-                adapter.Update(dataSet, "PersonGeneratorType");
+                adapter.Update(dataSet, "TrainPolicy");
                 dataSet.Clear();
 
                 new OleDbCommand("Delete from GameParameters", selectConnection).ExecuteNonQuery();

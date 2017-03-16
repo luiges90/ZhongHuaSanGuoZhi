@@ -8833,7 +8833,21 @@
 
                 HandleChildrenName(father, r);
 
+                HandleChildrenType(father, mother, r);
+                r.CommandPotential = r.BaseCommand;
+                r.StrengthPotential = r.BaseStrength;
+                r.IntelligencePotential = r.BaseIntelligence;
+                r.PoliticsPotential = r.BasePolitics;
+                r.GlamourPotential = r.BaseGlamour;
+                r.BaseCommand = 1;
+                r.BaseStrength = 1;
+                r.BaseIntelligence = 1;
+                r.BasePolitics = 1;
+                r.BaseGlamour = 1;
+
                 HandleChildrenStatus(father, r);
+
+                HandleChildrenProperty(father, mother, r);
 
                 AdjustChildrenIdeal(father, mother, r);
 
@@ -9178,7 +9192,7 @@
             r.Ideal = GameObject.Chance(50) ? father.Ideal + GameObject.Random(10) - 5 : mother.Ideal + GameObject.Random(10) - 5;
             r.Ideal = (r.Ideal + 150) % 150;
 
-            r.Reputation = (int)((father.Reputation + mother.Reputation) * (GameObject.Random(100) / 100.0 * 0.1 + 0.05)) + father.childrenReputationIncrease + mother.childrenReputationIncrease;
+            //r.Reputation = (int)((father.Reputation + mother.Reputation) * (GameObject.Random(100) / 100.0 * 0.1 + 0.05)) + father.childrenReputationIncrease + mother.childrenReputationIncrease;
 
             r.PersonalLoyalty = (GameObject.Chance(50) ? father.PersonalLoyalty : mother.PersonalLoyalty) + GameObject.Random(3) - 1;
             if (r.PersonalLoyalty < 0) r.PersonalLoyalty = 0;
