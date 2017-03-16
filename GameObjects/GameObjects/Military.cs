@@ -492,7 +492,6 @@
                 }
                 else
                 {
-                    return this.Experience + "/" + GlobalVariables.MaxMilitaryExperience;
                 }
             }
         }
