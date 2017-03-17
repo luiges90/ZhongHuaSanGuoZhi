@@ -191,7 +191,7 @@
 
         public bool matchEventPersons(Architecture a)
         {
-            GameObjectList allPersons = a.Persons.GetList();
+            GameObjectList allPersons = a.PersonAndChildren.GetList();
             foreach (Person p in a.NoFactionPersons)
             {
                 allPersons.Add(p);
