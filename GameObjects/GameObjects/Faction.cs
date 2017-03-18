@@ -6514,15 +6514,22 @@
         {
             get
             {
-                PersonList result = new PersonList();
+                HashSet<Person> result = new HashSet<Person>();
                 foreach (Person p in base.Scenario.Persons)
                 {
-                    if (p.Alive && !p.Available && (p.Father != null && p.Father.BelongedFaction == this) || (p.Mother != null && p.Mother.BelongedFaction == this))
+                    if (p.Alive && !p.Available && p.Age >= 0 && ((p.Father != null && p.Father.BelongedFaction == this) || (p.Mother != null && p.Mother.BelongedFaction == this))
+                        && (p.ID < 7000 || p.ID > 8000))
                     {
                         result.Add(p);
                     }
                 }
-                return result;
+                PersonList result2 = new PersonList();
+                foreach (Person q in result)
+                {
+                    result2.Add(q);
+                }
+                result2.SetImmutable();
+                return result2;
             }
         }
     }

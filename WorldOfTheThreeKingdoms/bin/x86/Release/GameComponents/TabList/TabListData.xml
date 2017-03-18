@@ -4716,14 +4716,14 @@
     </ListKind>
 	<ListKind ID="34" Name="TrainPolicy" DisplayName="培育方针" ShowPortrait ="false">
 	  <Columns>
-		<Column ID="1" Name="Name" CountToDisplay="False" IsNumber="false" DisplayName="名称" MinWidth="80" DetailLevel="8"
+		<Column ID="1" Name="Name" CountToDisplay="False" IsNumber="false" DisplayName="名称" MinWidth="80" DetailLevel="1"
                 FontName="方正隶变_GBK"
                 FontSize="14"
                 FontStyle="Regular"
                 FontColor="4294967295"
                 Align="Left">
         </Column>
-		<Column ID="2" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="300" DetailLevel="8"
+		<Column ID="2" Name="Description" IsNumber="false" DisplayName="描述" MinWidth="600" DetailLevel="1"
                 FontName="方正隶变_GBK"
                 FontSize="14"
                 FontStyle="Regular"

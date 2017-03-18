@@ -313,13 +313,46 @@
         {
             get
             {
-                PersonList p = base.Scenario.GetPersonList(this);
+                GameObjectList p = base.Scenario.GetPersonList(this).GetList();
+                HashSet<Person> result = new HashSet<Person>();
                 foreach (Person q in p)
                 {
-                    p.AddRange(q.ChildrenList);
+                    result.Add(q);
+                    foreach (Person r in q.ChildrenList)
+                    {
+                        result.Add(r);
+                    }
                 }
-                p.SetImmutable();
-                return p;
+                PersonList result2 = new PersonList();
+                foreach (Person q in result)
+                {
+                    result2.Add(q);
+                }
+                result2.SetImmutable();
+                return result2;
+            }
+        }
+
+        public PersonList Children
+        {
+            get
+            {
+                GameObjectList p = base.Scenario.GetPersonList(this).GetList();
+                HashSet<Person> result = new HashSet<Person>();
+                foreach (Person q in p)
+                {
+                    foreach (Person r in q.ChildrenList)
+                    {
+                        result.Add(r);
+                    }
+                }
+                PersonList result2 = new PersonList();
+                foreach (Person q in result)
+                {
+                    result2.Add(q);
+                }
+                result2.SetImmutable();
+                return result2;
             }
         }
 

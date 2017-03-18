@@ -514,21 +514,23 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void FrameFunction_Architecture_AfterSelectTrainableChildren()
         {
-            GameObjectList selectedList = this.CurrentArchitecture.Persons.GetSelectedList();
+            GameObjectList selectedList = this.CurrentArchitecture.Children.GetSelectedList();
             if ((selectedList != null) && (selectedList.Count == 1))
             {
                 this.CurrentPerson = selectedList[0] as Person;
                 this.mainGameScreen.ShowTabListInFrame(UndoneWorkKind.Frame, FrameKind.TrainPolicy, FrameFunction.SelectTrainPolicy, false, true, true, false, this.CurrentPerson.TrainPolicies(), null, "选择培育方针", "");
             }
+            this.CurrentArchitecture.Persons.ClearSelected();
         }
 
         private void FrameFunction_Architecture_AfterSelectTrainPolicy()
         {
-            GameObjectList selectedList = this.CurrentArchitecture.Persons.GetSelectedList();
+            GameObjectList selectedList = this.gameScenario.GameCommonData.AllTrainPolicies.GetSelectedList();
             if ((selectedList != null) && (selectedList.Count == 1))
             {
                 this.CurrentPerson.TrainPolicy = (TrainPolicy) selectedList[0];
             }
+            this.CurrentArchitecture.Persons.ClearSelected();
         }
 
         private void FrameFunction_Architecture_AfterGetNewCapital()

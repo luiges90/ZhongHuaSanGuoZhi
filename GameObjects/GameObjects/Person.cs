@@ -682,8 +682,8 @@
         {
             if (!GlobalVariables.EnableAgeAbilityFactor) return true;
             if (t == null) return true;
-	    if (t.Trainable) return true;
-	    if (t.Age >= GlobalVariables.ChildrenAvailableAge) return true;
+	        if (this.Trainable) return true;
+	        if (this.Age >= GlobalVariables.ChildrenAvailableAge) return true;
 	    
             return (this.ID * 953
                     + (this.Name.Length > 0 ? this.Name[0] : 753) * 866
@@ -2412,7 +2412,7 @@
                 PersonList list = new PersonList();
                 foreach (Person p in base.Scenario.Persons)
                 {
-                    if ((p.Father == this || p.Mother == this) && (((p.Available || p.YearBorn <= base.Scenario.Date.Year) && p.Alive) || (p.Available && !p.Alive)))
+                    if ((p.Father == this || p.Mother == this) && p.Age >= 0 && (((p.Available || p.YearBorn <= base.Scenario.Date.Year) && p.Alive) || (p.Available && !p.Alive)))
                     {
                         list.Add(p);
                     }
@@ -9956,12 +9956,6 @@
                     this.relations.Add(p, val);
                 }
             }
-
-            if (this.relations.ContainsKey(p) && this.relations[p] < -2e9)
-            {
-                int z = 0;
-                z++;
-            }
         }
 
         public Dictionary<Person, int> GetAllRelations()
@@ -10315,7 +10309,7 @@
                 PersonList result = new PersonList();
                 foreach (Person p in this.ChildrenList)
                 {
-                    if (Trainable)
+                    if (p.Trainable)
                     {
                         result.Add(p);
                     }
@@ -10333,7 +10327,7 @@
         {
             get
             {
-                return Trainable && this.TrainPolicy == null ? "----" : this.TrainPolicy.Name;
+                return !this.Trainable || this.TrainPolicy == null ? "----" : this.TrainPolicy.Name;
             }
         }
 
