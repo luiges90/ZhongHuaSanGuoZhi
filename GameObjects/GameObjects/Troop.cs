@@ -1973,7 +1973,7 @@
                     foreach (Person q in this.persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f / this.persons.Count, -3);
+                        p.AdjustRelation(q, -0.5f / Math.Max(1, this.persons.Count), -3);
                     }
                 }
                 foreach (Person person in this.persons)
@@ -2730,7 +2730,7 @@
 
                         foreach (Person q in this.Persons)
                         {
-                            person.AdjustRelation(q, -1f / this.Persons.Count, -3);
+                            person.AdjustRelation(q, -1f / Math.Max(1, this.persons.Count), -3);
                         }
 
                         ExtensionInterface.call("CapturedByTroop", new Object[] { this.Scenario, this, person });
@@ -2745,7 +2745,7 @@
                     foreach (Person q in this.Persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, 1f / this.Persons.Count, 3);
+                        p.AdjustRelation(q, 1f / Math.Max(1, this.persons.Count), 3);
                     }
                 }
             }
@@ -2978,7 +2978,7 @@
                                 if (p.Hates(q)) continue;
                                 if (GameObject.Chance((p.Uncruelty * 5 + q.Glamour / 2) / 2))
                                 {
-                                    p.AdjustRelation(q, 0.2f / sending.persons.Count, 2);
+                                    p.AdjustRelation(q, 0.2f / Math.Max(1, sending.persons.Count), 2);
                                 }
                             }
                         }
@@ -2992,7 +2992,7 @@
                             {
                                 if (GameObject.Chance(((5 - p.PersonalLoyalty) * 10 - q.Glamour / 2) / 2))
                                 {
-                                    p.AdjustRelation(q, -0.2f / sending.persons.Count, -2);
+                                    p.AdjustRelation(q, -0.2f / Math.Max(1, sending.persons.Count), -2);
                                 }
                             }
                         }
@@ -3005,7 +3005,7 @@
                             if (p.Hates(q)) continue;
                             if (GameObject.Chance(p.Uncruelty * 5 + q.Glamour / 2))
                             {
-                                p.AdjustRelation(q, 1f / sending.persons.Count, 3);
+                                p.AdjustRelation(q, 1f / Math.Max(1, sending.persons.Count), 3);
                             }
                         }
                     }
@@ -3155,7 +3155,7 @@
                             {
                                 if (GameObject.Chance(((5 - p.PersonalLoyalty) * 10 - q.Glamour / 2) / 2))
                                 {
-                                    p.AdjustRelation(q, -0.2f, -2);
+                                    p.AdjustRelation(q, -0.2f / Math.Max(1, sending.persons.Count), -2);
                                 }
                             }
                         }
@@ -3167,7 +3167,7 @@
                             if (p == q) continue;
                             if (GameObject.Chance(((5 - p.PersonalLoyalty) * 10 - q.Glamour / 2)))
                             {
-                                p.AdjustRelation(q, -0.5f / sending.persons.Count, -3);
+                                p.AdjustRelation(q, -0.5f / Math.Max(1, sending.persons.Count), -3);
                             }
 
                         }
@@ -3179,7 +3179,7 @@
                             if (p == q) continue;
                             if (GameObject.Chance(((5 - p.PersonalLoyalty) * 10 - q.Glamour / 2)))
                             {
-                                p.AdjustRelation(q, -0.5f / sending.persons.Count, -3);
+                                p.AdjustRelation(q, -0.5f / Math.Max(1, sending.persons.Count), -3);
                             }
                         }
                     }

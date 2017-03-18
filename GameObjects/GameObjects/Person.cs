@@ -2338,8 +2338,7 @@
                     }
                 }
                 else if (this.Spouse != null && !this.huaiyun && !this.Spouse.huaiyun && GlobalVariables.getChildrenRate > 0 &&
-                    (this.LocationArchitecture != null && this.Spouse.LocationArchitecture == this.LocationArchitecture ||
-                        (this.LocationTroop != null && this.Spouse.LocationTroop == this.LocationTroop)) &&
+                    this.SameLocationAs(this.Spouse) &&
                     this.Status == PersonStatus.Normal && this.Spouse.Status == PersonStatus.Normal &&
                     this.isLegalFeiZi(this.Spouse) && this.Spouse.isLegalFeiZi(this) &&
                     this.NumberOfChildren < GlobalVariables.OfficerChildrenLimit &&
@@ -6934,6 +6933,12 @@
             {
                 this.leaderPossibility = value;
             }
+        }
+
+        public bool SameLocationAs(Person b)
+        {
+            return (this.LocationArchitecture != null && this.LocationArchitecture == b.LocationArchitecture) ||
+                (this.LocationTroop != null && this.LocationTroop == b.LocationTroop);
         }
 
         public string Location
