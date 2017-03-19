@@ -7219,7 +7219,12 @@
                     {
                         p.TrainPolicy = (TrainPolicy) this.GameCommonData.AllTrainPolicies.GetGameObject(1);
                     }
-                    int r = GameObject.WeightedRandom(p.TrainPolicy.Weighting);
+                    Dictionary<int, float> weighting = p.TrainPolicy.Weighting;
+                    if (p.Age < 8) // No attempt to learn title until age 8
+                    {
+                        weighting.Remove(8);
+                    }
+                    int r = GameObject.WeightedRandom(weighting);
 
                     Person parental = p.Father;
                     if (!parental.Alive)
@@ -7302,7 +7307,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Strength - p.Strength) * ((float)p.StrengthPotential / p.Strength))))
                                     {
-                                        q.Strength += GameObject.Random(Math.Max((100 - q.Strength) / 10, 1));
+                                        p.Strength += GameObject.Random(Math.Max((100 - q.Strength) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7351,7 +7356,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Command - p.Command) * ((float)p.CommandPotential / p.Command))))
                                     {
-                                        q.Command += GameObject.Random(Math.Max((100 - q.Command) / 10, 1));
+                                        p.Command += GameObject.Random(Math.Max((100 - q.Command) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7399,7 +7404,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Intelligence - p.Intelligence) * ((float)p.IntelligencePotential / p.Intelligence))))
                                     {
-                                        q.Intelligence += GameObject.Random(Math.Max((100 - q.Intelligence) / 10, 1));
+                                        p.Intelligence += GameObject.Random(Math.Max((100 - q.Intelligence) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7448,7 +7453,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Politics - p.Politics) * ((float)p.PoliticsPotential / p.Politics))))
                                     {
-                                        q.Politics += GameObject.Random(Math.Max((100 - q.Politics) / 10, 1));
+                                        p.Politics += GameObject.Random(Math.Max((100 - q.Politics) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7497,7 +7502,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Glamour - p.Glamour) * ((float)p.GlamourPotential / p.Glamour))))
                                     {
-                                        q.Glamour += GameObject.Random(Math.Max((100 - q.Glamour) / 10, 1));
+                                        p.Glamour += GameObject.Random(Math.Max((100 - q.Glamour) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7553,19 +7558,26 @@
                                             skillToTeach.Add(s);
                                         }
                                     }
-                                    Skill t = skillToTeach[GameObject.Random(skillToTeach.Count)];
-                                    if (GameObject.Chance(90 / t.Level))
+
+                                    List<Skill> realSkillToTeach = new List<Skill>();
+                                    realSkillToTeach.Add(skillToTeach[GameObject.Random(skillToTeach.Count)]);
+                                    realSkillToTeach.Add(skillToTeach[GameObject.Random(skillToTeach.Count)]);
+                                    
+                                    foreach (Skill t in realSkillToTeach)
                                     {
-                                        q.Skills.AddSkill(t);
-                                        p.AdjustRelation(q, 0, 5);
-                                        if (GameObject.Chance(30))
+                                        if (GameObject.Chance(90 / t.Level))
                                         {
-                                            Dictionary<Person, int> rels = q.GetAllRelations();
-                                            foreach (KeyValuePair<Person, int> rel in rels)
+                                            p.Skills.AddSkill(t);
+                                            p.AdjustRelation(q, 0, 5);
+                                            if (GameObject.Chance(30))
                                             {
-                                                if (GameObject.Chance(100 / rels.Count))
+                                                Dictionary<Person, int> rels = q.GetAllRelations();
+                                                foreach (KeyValuePair<Person, int> rel in rels)
                                                 {
-                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    if (GameObject.Chance(100 / rels.Count))
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    }
                                                 }
                                             }
                                         }
@@ -7614,9 +7626,9 @@
                                         }
                                     }
                                     Stunt t = stuntToTeach[GameObject.Random(stuntToTeach.Count)];
-                                    if (GameObject.Chance(10))
+                                    if (GameObject.Chance(20))
                                     {
-                                        q.Stunts.AddStunt(t);
+                                        p.Stunts.AddStunt(t);
                                         p.AdjustRelation(q, 0, 10);
                                         if (GameObject.Chance(30))
                                         {
@@ -7652,7 +7664,7 @@
                                     {
                                         if (GameObject.Chance(50 / siblingCount) && q.IsValidTeacher && q.Age > 8)
                                         {
-                                            if (q.HasStrainTo(p) || q.Closes(p.Father) || q.Closes(p.Mother) || q.Closes(parental) || GameObject.Chance(q.GetRelation(parental) / 10 / siblingCount))
+                                            if (q.HasStrainTo(p) || q.Closes(p.Father) || q.Closes(p.Mother) || q.Closes(parental) || GameObject.Chance(q.GetRelation(parental) / 10 / siblingCount + 10))
                                             {
                                                 teachers.Add(q);
                                                 break;
@@ -7664,9 +7676,10 @@
 
                                 foreach (Person q in teachers)
                                 {
-                                    foreach (Title t in q.Titles)
+                                    List<Title> toTeach = q.Titles;
+                                    foreach (Title t in toTeach)
                                     {
-                                        if (GameObject.Chance(10) && GameObject.Chance(t.InheritChance) && t.CanBeBorn(p))
+                                        if (GameObject.Chance(40) && GameObject.Chance(t.InheritChance) && t.CanBeBorn(p))
                                         {
                                             Title existing = null;
                                             foreach (Title u in q.Titles)
@@ -7679,13 +7692,13 @@
                                             }
 
                                             // TODO let player choose
-                                            if (existing == null || existing.Level < t.Level || GameObject.Chance(50))
+                                            if (existing == null || existing.Level < t.Level || (GameObject.Chance(50) && existing.Level == t.Level))
                                             {
                                                 if (existing != null)
                                                 {
-                                                    q.Titles.Remove(existing);
+                                                    p.RealTitles.Remove(existing);
                                                 }
-                                                q.Titles.Add(t);
+                                                p.RealTitles.Add(t);
                                             }
 
                                             p.AdjustRelation(q, 0, 5 * t.Level);
