@@ -52,7 +52,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
         private MainMapLayer mainMapLayer;
         private MapVeilLayer mapVeilLayer;
         private int oldScrollWheelValue;
-        private WindowsMediaPlayerClass Player;
+        public WindowsMediaPlayerClass Player;
         internal GamePlugin Plugins;
         private Point position;
         private RoutewayLayer routewayLayer;
@@ -3412,6 +3412,25 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             {
                 return this.viewMove;
             }
+        }
+
+        public override void 减小音量()
+        {
+            this.Player.settings.volume -= 10;
+        }
+
+        public override void 增加音量()
+        {
+            this.Player.settings.volume += 10;
+        }
+
+        public override void 返回初始菜单()
+        {
+            System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo myProcessStartInfo = new System.Diagnostics.ProcessStartInfo(@"WorldOfTheThreeKingdoms.exe", "");
+            myProcess.StartInfo = myProcessStartInfo;
+            myProcess.Start();
+            System.Environment.Exit(0);
         }
     }
 
