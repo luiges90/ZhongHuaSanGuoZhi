@@ -119,6 +119,14 @@
                     int yRight = int.Parse(yMatch.Groups[2].ToString());
                     result = xRight == yRight ? xLeft - yLeft : xRight - yRight;
                 }
+                else if (xMatch.Success)
+                {
+                    result = -1;
+                }
+                else if (yMatch.Success)
+                {
+                    result = 1;
+                }
                 else
                 {
                     xMatch = dateMatcher.Match(xStr);
