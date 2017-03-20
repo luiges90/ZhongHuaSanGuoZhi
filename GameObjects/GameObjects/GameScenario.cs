@@ -7214,7 +7214,15 @@
             {
                 if (p.Trainable && GameObject.Random(30) == 0)
                 {
-                    int siblingCount = p.Father.ChildrenList.Count;
+                    int siblingCount = 0;
+
+                    foreach (Person q in p.Father.ChildrenList)
+                    {
+                        if (q.Trainable)
+                        {
+                            siblingCount++;
+                        }
+                    }
                     if (p.TrainPolicy == null)
                     {
                         p.TrainPolicy = (TrainPolicy) this.GameCommonData.AllTrainPolicies.GetGameObject(1);
@@ -7307,7 +7315,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Strength - p.Strength) * ((float)p.StrengthPotential / p.Strength))))
                                     {
-                                        p.Strength += GameObject.Random(Math.Max((100 - q.Strength) / 10, 1));
+                                        p.Strength += GameObject.Random(Math.Max((100 - q.Strength) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7356,7 +7364,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Command - p.Command) * ((float)p.CommandPotential / p.Command))))
                                     {
-                                        p.Command += GameObject.Random(Math.Max((100 - q.Command) / 10, 1));
+                                        p.Command += GameObject.Random(Math.Max((100 - q.Command) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7404,7 +7412,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Intelligence - p.Intelligence) * ((float)p.IntelligencePotential / p.Intelligence))))
                                     {
-                                        p.Intelligence += GameObject.Random(Math.Max((100 - q.Intelligence) / 10, 1));
+                                        p.Intelligence += GameObject.Random(Math.Max((100 - q.Intelligence) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7453,7 +7461,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Politics - p.Politics) * ((float)p.PoliticsPotential / p.Politics))))
                                     {
-                                        p.Politics += GameObject.Random(Math.Max((100 - q.Politics) / 10, 1));
+                                        p.Politics += GameObject.Random(Math.Max((100 - q.Politics) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7502,7 +7510,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Glamour - p.Glamour) * ((float)p.GlamourPotential / p.Glamour))))
                                     {
-                                        p.Glamour += GameObject.Random(Math.Max((100 - q.Glamour) / 10, 1));
+                                        p.Glamour += GameObject.Random(Math.Max((100 - q.Glamour) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
