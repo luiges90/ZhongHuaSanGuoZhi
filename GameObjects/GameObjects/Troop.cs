@@ -3738,6 +3738,7 @@
                         this.DecreaseCombativity(5);
                         this.DecreaseMorale(5);
                     }
+                    this.DecreaseQuantity(this.Quantity / 10);
                     CheckTroopRout(this);
                 }
                 else
