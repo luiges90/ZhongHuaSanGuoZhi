@@ -9965,7 +9965,7 @@
 
         public Dictionary<Person, int> GetAllRelations()
         {
-            return this.relations;
+            return new Dictionary<Person, int>(this.relations);
         }
 
         public void AdjustRelation(Person p, float factor, float adjust)

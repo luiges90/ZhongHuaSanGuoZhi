@@ -7296,7 +7296,7 @@
                                     teachers.Add(p.Mother);
                                 }
 
-                                if (parental.LocationArchitecture != null) 
+                                if (parental != null && parental.LocationArchitecture != null) 
                                 {
                                     foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
                                     {
@@ -7315,7 +7315,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Strength - p.Strength) * ((float)p.StrengthPotential / p.Strength))))
                                     {
-                                        p.Strength += GameObject.Random(Math.Max((100 - q.Strength) / 5, 1));
+                                        p.Strength += GameObject.Random(Math.Max((100 - p.Strength) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7352,7 +7352,7 @@
                                     teachers.Add(p.Mother);
                                 }
 
-                                if (parental.LocationArchitecture != null) 
+                                if (parental != null && parental.LocationArchitecture != null) 
                                 {
                                     foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
                                     {
@@ -7371,7 +7371,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Command - p.Command) * ((float)p.CommandPotential / p.Command))))
                                     {
-                                        p.Command += GameObject.Random(Math.Max((100 - q.Command) / 5, 1));
+                                        p.Command += GameObject.Random(Math.Max((100 - p.Command) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7408,7 +7408,7 @@
                                     teachers.Add(p.Mother);
                                 }
 
-                                if (parental.LocationArchitecture != null) 
+                                if (parental != null && parental.LocationArchitecture != null) 
                                 {
                                     foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
                                     {
@@ -7426,7 +7426,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Intelligence - p.Intelligence) * ((float)p.IntelligencePotential / p.Intelligence))))
                                     {
-                                        p.Intelligence += GameObject.Random(Math.Max((100 - q.Intelligence) / 5, 1));
+                                        p.Intelligence += GameObject.Random(Math.Max((100 - p.Intelligence) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7463,7 +7463,7 @@
                                     teachers.Add(p.Mother);
                                 }
 
-                                if (parental.LocationArchitecture != null) 
+                                if (parental != null && parental.LocationArchitecture != null) 
                                 {
                                     foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
                                     {
@@ -7482,7 +7482,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Politics - p.Politics) * ((float)p.PoliticsPotential / p.Politics))))
                                     {
-                                        p.Politics += GameObject.Random(Math.Max((100 - q.Politics) / 5, 1));
+                                        p.Politics += GameObject.Random(Math.Max((100 - p.Politics) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7519,7 +7519,7 @@
                                     teachers.Add(p.Mother);
                                 }
 
-                                if (parental.LocationArchitecture != null) 
+                                if (parental != null && parental.LocationArchitecture != null) 
                                 {
                                     foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
                                     {
@@ -7538,7 +7538,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Glamour - p.Glamour) * ((float)p.GlamourPotential / p.Glamour))))
                                     {
-                                        p.Glamour += GameObject.Random(Math.Max((100 - q.Glamour) / 5, 1));
+                                        p.Glamour += GameObject.Random(Math.Max((100 - p.Glamour) / 5, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7575,7 +7575,7 @@
                                     teachers.Add(p.Mother);
                                 }
 
-                                if (parental.LocationArchitecture != null) 
+                                if (parental != null && parental.LocationArchitecture != null) 
                                 {
                                     foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
                                     {
@@ -7648,7 +7648,7 @@
                                     teachers.Add(p.Mother);
                                 }
 
-                                if (parental.LocationArchitecture != null) 
+                                if (parental != null && parental.LocationArchitecture != null) 
                                 {
                                     foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
                                     {
@@ -7715,7 +7715,7 @@
                                     teachers.Add(p.Mother);
                                 }
 
-                                if (parental.LocationArchitecture != null) 
+                                if (parental != null && parental.LocationArchitecture != null) 
                                 {
                                     foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
                                     {
