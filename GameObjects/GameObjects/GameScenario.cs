@@ -7324,7 +7324,14 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    if (rel.Value > 0)
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    }
+                                                    else
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                    }
                                                 }
                                             }
                                         }
@@ -7373,7 +7380,14 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    if (rel.Value > 0)
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    }
+                                                    else
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                    }
                                                 }
                                             }
                                         }
@@ -7421,7 +7435,14 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    if (rel.Value > 0)
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    }
+                                                    else
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                    }
                                                 }
                                             }
                                         }
@@ -7470,7 +7491,14 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    if (rel.Value > 0)
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    }
+                                                    else
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                    }
                                                 }
                                             }
                                         }
@@ -7519,7 +7547,14 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    if (rel.Value > 0)
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    }
+                                                    else
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                    }
                                                 }
                                             }
                                         }
@@ -7584,7 +7619,14 @@
                                                 {
                                                     if (GameObject.Chance(100 / rels.Count))
                                                     {
-                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                        if (rel.Value > 0)
+                                                        {
+                                                            p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                        }
+                                                        else
+                                                        {
+                                                            p.AdjustRelation(rel.Key, 0, -100);
+                                                        }
                                                     }
                                                 }
                                             }
@@ -7645,7 +7687,14 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    if (rel.Value > 0)
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                    }
+                                                    else
+                                                    {
+                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                    }
                                                 }
                                             }
                                         }
@@ -7687,7 +7736,7 @@
                                     List<Title> toTeach = q.Titles;
                                     foreach (Title t in toTeach)
                                     {
-                                        if (GameObject.Chance(40) && GameObject.Chance(t.InheritChance) && t.CanBeBorn(p))
+                                        if (GameObject.Chance(t.InheritChance) && t.CanBeBorn(p))
                                         {
                                             Title existing = null;
                                             foreach (Title u in q.Titles)
@@ -7717,7 +7766,14 @@
                                                 {
                                                     if (GameObject.Chance(100 / rels.Count))
                                                     {
-                                                        p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                        if (rel.Value > 0)
+                                                        {
+                                                            p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                        }
+                                                        else
+                                                        {
+                                                            p.AdjustRelation(rel.Key, 0, -100);
+                                                        }
                                                     }
                                                 }
                                             }
