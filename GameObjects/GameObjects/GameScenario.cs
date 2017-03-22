@@ -7315,7 +7315,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Strength - p.Strength) * ((float)p.StrengthPotential / p.Strength))))
                                     {
-                                        p.Strength += GameObject.Random(Math.Max((100 - p.Strength) / 5, 1));
+                                        p.Strength += GameObject.Random(Math.Max((100 - p.Strength) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7371,7 +7371,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Command - p.Command) * ((float)p.CommandPotential / p.Command))))
                                     {
-                                        p.Command += GameObject.Random(Math.Max((100 - p.Command) / 5, 1));
+                                        p.Command += GameObject.Random(Math.Max((100 - p.Command) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7426,7 +7426,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Intelligence - p.Intelligence) * ((float)p.IntelligencePotential / p.Intelligence))))
                                     {
-                                        p.Intelligence += GameObject.Random(Math.Max((100 - p.Intelligence) / 5, 1));
+                                        p.Intelligence += GameObject.Random(Math.Max((100 - p.Intelligence) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7482,7 +7482,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Politics - p.Politics) * ((float)p.PoliticsPotential / p.Politics))))
                                     {
-                                        p.Politics += GameObject.Random(Math.Max((100 - p.Politics) / 5, 1));
+                                        p.Politics += GameObject.Random(Math.Max((100 - p.Politics) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7538,7 +7538,7 @@
                                 {
                                     if (GameObject.Chance((int)((q.Glamour - p.Glamour) * ((float)p.GlamourPotential / p.Glamour))))
                                     {
-                                        p.Glamour += GameObject.Random(Math.Max((100 - p.Glamour) / 5, 1));
+                                        p.Glamour += GameObject.Random(Math.Max((100 - p.Glamour) / 10, 1));
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7734,6 +7734,14 @@
                                 foreach (Person q in teachers)
                                 {
                                     List<Title> toTeach = q.Titles;
+                                    int allTitleCount = this.GameCommonData.AllTitles.Count;
+                                    foreach (Title t in this.GameCommonData.AllTitles.Titles.Values)
+                                    {
+                                        if (GameObject.Chance((10 - t.Level) * 5) && GameObject.Chance(t.InheritChance) && GameObject.Random(allTitleCount) < 5 && t.CanBeBorn(p))
+                                        {
+                                            toTeach.Add(t);
+                                        }
+                                    }
                                     foreach (Title t in toTeach)
                                     {
                                         if (GameObject.Chance(t.InheritChance) && t.CanBeBorn(p))
