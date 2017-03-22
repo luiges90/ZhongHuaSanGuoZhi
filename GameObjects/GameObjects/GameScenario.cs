@@ -7734,14 +7734,32 @@
                                 foreach (Person q in teachers)
                                 {
                                     List<Title> toTeach = q.Titles;
+                                    int maxLevel = 1;
+                                    foreach (Title t in toTeach)
+                                    {
+                                        if (t.Level > maxLevel && t.Kind.RandomTeachable)
+                                        {
+                                            maxLevel = t.Level;
+                                        }
+                                    }
+
+                                    List<Title> extraTeach = new List<Title>();
                                     int allTitleCount = this.GameCommonData.AllTitles.Count;
                                     foreach (Title t in this.GameCommonData.AllTitles.Titles.Values)
                                     {
-                                        if (GameObject.Chance((10 - t.Level) * 5) && GameObject.Chance(t.InheritChance) && GameObject.Random(allTitleCount) < 5 && t.CanBeBorn(p))
+                                        if (t.Kind.RandomTeachable && t.Level <= maxLevel && GameObject.Chance((10 - t.Level) * 5) && GameObject.Chance(t.InheritChance) && t.CanBeBorn(p))
                                         {
-                                            toTeach.Add(t);
+                                            extraTeach.Add(t);
                                         }
                                     }
+
+                                    if (extraTeach.Count > 0)
+                                    {
+                                        toTeach.Add(extraTeach[GameObject.Random(extraTeach.Count - 1)]);
+                                        toTeach.Add(extraTeach[GameObject.Random(extraTeach.Count - 1)]);
+                                        toTeach.Add(extraTeach[GameObject.Random(extraTeach.Count - 1)]);
+                                    }
+
                                     foreach (Title t in toTeach)
                                     {
                                         if (GameObject.Chance(t.InheritChance) && t.CanBeBorn(p))

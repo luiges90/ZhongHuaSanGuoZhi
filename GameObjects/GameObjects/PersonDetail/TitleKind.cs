@@ -12,7 +12,7 @@
         public int StudyDay { get; set; }
         public int SuccessRate { get; set; }
         public bool Recallable { get; set; }
-
+        public bool RandomTeachable { get; set; }
 
         private bool? inheritable;
         public bool IsInheritable(TitleTable allTitles)

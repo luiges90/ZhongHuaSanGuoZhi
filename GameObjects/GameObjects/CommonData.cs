@@ -897,6 +897,14 @@
                     {
                         tk.Recallable = (tk.ID == 5) || (tk.ID == 10) || (tk.ID == 20) || (tk.ID == 21);
                     }
+                    try
+                    {
+                        tk.RandomTeachable = (bool)reader["RandomTeachable"];
+                    }
+                    catch
+                    {
+                        tk.RandomTeachable = tk.ID == 1;
+                    }
                     this.AllTitleKinds.AddTitleKind(tk);
                 }
             }
@@ -2894,6 +2902,7 @@
                     row["StudyDay"] = i.StudyDay;
                     row["SuccessRate"] = i.SuccessRate;
                     row["Recallable"] = i.Recallable;
+                    row["RandomTeachable"] = i.RandomTeachable;
                     row.EndEdit();
                     dataSet.Tables["TitleKind"].Rows.Add(row);
                 }
