@@ -7313,9 +7313,9 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Strength - p.Strength) * ((float)p.StrengthPotential / p.Strength))))
+                                    if (GameObject.Chance((int)((q.Strength - p.Strength + 50) * ((float)p.StrengthPotential / p.Strength))))
                                     {
-                                        p.Strength += GameObject.Random(Math.Max((100 - p.Strength) / 10, 1));
+                                        p.Strength += GameObject.Random(Math.Max((p.StrengthPotential * 6 / 5 - p.Strength) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7369,9 +7369,9 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Command - p.Command) * ((float)p.CommandPotential / p.Command))))
+                                    if (GameObject.Chance((int)((q.Command - p.Command + 50) * ((float)p.CommandPotential / p.Command))))
                                     {
-                                        p.Command += GameObject.Random(Math.Max((100 - p.Command) / 10, 1));
+                                        p.Command += GameObject.Random(Math.Max((p.CommandPotential * 6 / 5 - p.Command) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7424,9 +7424,9 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Intelligence - p.Intelligence) * ((float)p.IntelligencePotential / p.Intelligence))))
+                                    if (GameObject.Chance((int)((q.Intelligence - p.Intelligence + 50) * ((float)p.IntelligencePotential / p.Intelligence))))
                                     {
-                                        p.Intelligence += GameObject.Random(Math.Max((100 - p.Intelligence) / 10, 1));
+                                        p.Intelligence += GameObject.Random(Math.Max((p.IntelligencePotential * 6 / 5 - p.Intelligence) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7480,9 +7480,9 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Politics - p.Politics) * ((float)p.PoliticsPotential / p.Politics))))
+                                    if (GameObject.Chance((int)((q.Politics - p.Politics + 50) * ((float)p.PoliticsPotential / p.Politics))))
                                     {
-                                        p.Politics += GameObject.Random(Math.Max((100 - p.Politics) / 10, 1));
+                                        p.Politics += GameObject.Random(Math.Max((p.PoliticsPotential * 6 / 5 - p.Politics) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7536,9 +7536,9 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Glamour - p.Glamour) * ((float)p.GlamourPotential / p.Glamour))))
+                                    if (GameObject.Chance((int)((q.Glamour - p.Glamour + 50) * ((float)p.GlamourPotential / p.Glamour))))
                                     {
-                                        p.Glamour += GameObject.Random(Math.Max((100 - p.Glamour) / 10, 1));
+                                        p.Glamour += GameObject.Random(Math.Max((p.GlamourPotential * 6 / 5 - p.Glamour) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
@@ -7608,7 +7608,7 @@
                                     
                                     foreach (Skill t in realSkillToTeach)
                                     {
-                                        if (GameObject.Chance(90 / t.Level))
+                                        if (GameObject.Chance(100 / t.Level))
                                         {
                                             p.Skills.AddSkill(t);
                                             p.AdjustRelation(q, 0, 5);
@@ -7755,9 +7755,9 @@
 
                                     if (extraTeach.Count > 0)
                                     {
-                                        toTeach.Add(extraTeach[GameObject.Random(extraTeach.Count - 1)]);
-                                        toTeach.Add(extraTeach[GameObject.Random(extraTeach.Count - 1)]);
-                                        toTeach.Add(extraTeach[GameObject.Random(extraTeach.Count - 1)]);
+                                        toTeach.Add(extraTeach[GameObject.Random(extraTeach.Count)]);
+                                        toTeach.Add(extraTeach[GameObject.Random(extraTeach.Count)]);
+                                        toTeach.Add(extraTeach[GameObject.Random(extraTeach.Count)]);
                                     }
 
                                     foreach (Title t in toTeach)
