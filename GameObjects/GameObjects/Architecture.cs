@@ -1669,7 +1669,7 @@
 
         private void AutoRecruit()
         {
-            if (RecruitmentAvail())
+            if (RecruitmentAvail() && (this.IsFundEnough || this.HasHostileTroopsInView()))
             {
                 MilitaryList recruitmentMilitaryList = this.GetRecruitmentMilitaryList();
 
@@ -2798,7 +2798,7 @@
         {
             if (base.Scenario.IsPlayer(this.BelongedFaction) && this.BelongedSection != null  && this.BelongedSection.AIDetail .AutoRun && !this.BelongedSection.AIDetail.AllowNewMilitary) return;
 
-            if (this.Population > 0)
+            if (this.Population > 0 && (this.IsFundEnough || this.HasHostileTroopsInView()))
             {
                 MilitaryKind current;
                 Dictionary<int, MilitaryKind>.ValueCollection.Enumerator enumerator;
