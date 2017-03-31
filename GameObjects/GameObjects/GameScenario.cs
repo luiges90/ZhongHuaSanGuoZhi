@@ -7313,7 +7313,7 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Strength - p.Strength + 50) * ((float)p.StrengthPotential / p.Strength))))
+                                    if (GameObject.Chance((int)((q.Strength - p.Strength + 50 + q.childrenAbilityIncrease) * ((float)p.StrengthPotential / p.Strength))))
                                     {
                                         p.Strength += GameObject.Random(Math.Max((p.StrengthPotential * 6 / 5 - p.Strength) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
@@ -7324,7 +7324,7 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    if (rel.Value > 0)
+                                                    if (rel.Value > Parameters.HateThreshold)
                                                     {
                                                         p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
                                                     }
@@ -7369,7 +7369,7 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Command - p.Command + 50) * ((float)p.CommandPotential / p.Command))))
+                                    if (GameObject.Chance((int)((q.Command - p.Command + 50 + q.childrenAbilityIncrease) * ((float)p.CommandPotential / p.Command))))
                                     {
                                         p.Command += GameObject.Random(Math.Max((p.CommandPotential * 6 / 5 - p.Command) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
@@ -7380,7 +7380,7 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    if (rel.Value > 0)
+                                                    if (rel.Value > Parameters.HateThreshold)
                                                     {
                                                         p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
                                                     }
@@ -7424,7 +7424,7 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Intelligence - p.Intelligence + 50) * ((float)p.IntelligencePotential / p.Intelligence))))
+                                    if (GameObject.Chance((int)((q.Intelligence - p.Intelligence + 50 + q.childrenAbilityIncrease) * ((float)p.IntelligencePotential / p.Intelligence))))
                                     {
                                         p.Intelligence += GameObject.Random(Math.Max((p.IntelligencePotential * 6 / 5 - p.Intelligence) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
@@ -7435,7 +7435,7 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    if (rel.Value > 0)
+                                                    if (rel.Value > Parameters.HateThreshold)
                                                     {
                                                         p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
                                                     }
@@ -7480,7 +7480,7 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Politics - p.Politics + 50) * ((float)p.PoliticsPotential / p.Politics))))
+                                    if (GameObject.Chance((int)((q.Politics - p.Politics + 50 + q.childrenAbilityIncrease) * ((float)p.PoliticsPotential / p.Politics))))
                                     {
                                         p.Politics += GameObject.Random(Math.Max((p.PoliticsPotential * 6 / 5 - p.Politics) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
@@ -7491,7 +7491,7 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    if (rel.Value > 0)
+                                                    if (rel.Value > Parameters.HateThreshold)
                                                     {
                                                         p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
                                                     }
@@ -7536,7 +7536,7 @@
                                 }
                                 foreach (Person q in teachers)
                                 {
-                                    if (GameObject.Chance((int)((q.Glamour - p.Glamour + 50) * ((float)p.GlamourPotential / p.Glamour))))
+                                    if (GameObject.Chance((int)((q.Glamour - p.Glamour + 50 + q.childrenAbilityIncrease) * ((float)p.GlamourPotential / p.Glamour))))
                                     {
                                         p.Glamour += GameObject.Random(Math.Max((p.GlamourPotential * 6 / 5 - p.Glamour) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
@@ -7547,7 +7547,7 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    if (rel.Value > 0)
+                                                    if (rel.Value > Parameters.HateThreshold)
                                                     {
                                                         p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
                                                     }
@@ -7608,7 +7608,7 @@
                                     
                                     foreach (Skill t in realSkillToTeach)
                                     {
-                                        if (GameObject.Chance(100 / t.Level))
+                                        if (GameObject.Chance(100 / t.Level + q.childrenSkillChanceIncrease))
                                         {
                                             p.Skills.AddSkill(t);
                                             p.AdjustRelation(q, 0, 5);
@@ -7619,7 +7619,7 @@
                                                 {
                                                     if (GameObject.Chance(100 / rels.Count))
                                                     {
-                                                        if (rel.Value > 0)
+                                                        if (rel.Value > Parameters.HateThreshold)
                                                         {
                                                             p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
                                                         }
@@ -7676,7 +7676,7 @@
                                         }
                                     }
                                     Stunt t = stuntToTeach[GameObject.Random(stuntToTeach.Count)];
-                                    if (GameObject.Chance(20))
+                                    if (GameObject.Chance(10 + q.childrenStuntChanceIncrease))
                                     {
                                         p.Stunts.AddStunt(t);
                                         p.AdjustRelation(q, 0, 10);
@@ -7687,7 +7687,7 @@
                                             {
                                                 if (GameObject.Chance(100 / rels.Count))
                                                 {
-                                                    if (rel.Value > 0)
+                                                    if (rel.Value > Parameters.HateThreshold)
                                                     {
                                                         p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
                                                     }
@@ -7762,7 +7762,7 @@
 
                                     foreach (Title t in toTeach)
                                     {
-                                        if (GameObject.Chance(t.InheritChance) && t.CanBeBorn(p))
+                                        if (GameObject.Chance(t.InheritChance + q.childrenTitleChanceIncrease) && t.CanBeBorn(p))
                                         {
                                             Title existing = null;
                                             foreach (Title u in q.Titles)
@@ -7792,7 +7792,7 @@
                                                 {
                                                     if (GameObject.Chance(100 / rels.Count))
                                                     {
-                                                        if (rel.Value > 0)
+                                                        if (rel.Value > Parameters.HateThreshold)
                                                         {
                                                             p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
                                                         }
