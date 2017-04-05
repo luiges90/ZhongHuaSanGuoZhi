@@ -11015,8 +11015,8 @@
                     if (increment > 0)
                     {
                         military.RecruitmentPerson.AddRecruitmentExperience(increment);
-                        military.RecruitmentPerson.AddCommandExperience(increment);
-                        military.RecruitmentPerson.AddGlamourExperience(increment);
+                        military.RecruitmentPerson.AddCommandExperience(increment / 2);
+                        military.RecruitmentPerson.AddGlamourExperience(increment / 2);
                         military.RecruitmentPerson.IncreaseReputation(increment * 4);
                         military.RecruitmentPerson.BelongedFaction.IncreaseReputation(increment * 2);
                         military.RecruitmentPerson.BelongedFaction.IncreaseTechniquePoint(increment * 100);
