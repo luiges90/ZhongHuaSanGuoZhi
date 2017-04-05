@@ -684,6 +684,7 @@
             if (t == null) return true;
 	        if (this.Trainable) return true;
 	        if (this.Age >= GlobalVariables.ChildrenAvailableAge) return true;
+            if (this.IsGeneratedChildren) return true;
 	    
             return (this.ID * 953
                     + (this.Name.Length > 0 ? this.Name[0] : 753) * 866
@@ -5804,14 +5805,14 @@
             {
                 if (!GlobalVariables.EnableAgeAbilityFactor) return 1;
                 if (!this.Alive) return 1;
-		if (this.Trainable) return 1;
+		        if (this.Trainable) return 1;
 
                 float factor = 1;
-                if (this.Age < 0)
+                if (this.Age < 0 && !this.IsGeneratedChildren)
                 {
                     factor = AGE_FACTORS[0];
                 }
-                else if (this.Age < GlobalVariables.ChildrenAvailableAge && this.Age < 15)
+                else if (this.Age < GlobalVariables.ChildrenAvailableAge && this.Age < 15 && !this.IsGeneratedChildren)
                 {
                     factor = AGE_FACTORS[this.Age];
                 }

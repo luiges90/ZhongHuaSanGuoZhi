@@ -7762,7 +7762,7 @@
 
                                     foreach (Title t in toTeach)
                                     {
-                                        if (GameObject.Chance(t.InheritChance + q.childrenTitleChanceIncrease) && t.CanBeBorn(p))
+                                        if (GameObject.Chance(t.InheritChance * 3 + q.childrenTitleChanceIncrease) && t.CanBeBorn(p))
                                         {
                                             Title existing = null;
                                             foreach (Title u in q.Titles)
