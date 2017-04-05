@@ -253,6 +253,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
         private TextBox tbProhibitFactionAgainstDestroyer;
         private Label lblAIMergeAgainstPlayer;
         private TextBox tbAIMergeAgainstPlayer;
+        private Label lblAbilityExperienceRate;
+        private TextBox tbAbilityExperienceRate;
         private TextBox tbJailBreakArchitectureCost;
 
         public formOptions()
@@ -449,6 +451,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.lblInternalRate = new System.Windows.Forms.Label();
             this.tbInternalRate = new System.Windows.Forms.TextBox();
             this.tabPageAIParameter = new System.Windows.Forms.TabPage();
+            this.lblAIMergeAgainstPlayer = new System.Windows.Forms.Label();
+            this.tbAIMergeAgainstPlayer = new System.Windows.Forms.TextBox();
             this.lblAIEncirclePlayerRate = new System.Windows.Forms.Label();
             this.tbAIEncirclePlayerRate = new System.Windows.Forms.TextBox();
             this.tbAIExtraPersonIncreaseRate = new System.Windows.Forms.TextBox();
@@ -502,8 +506,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.cbInternalSurplusRateForAI = new System.Windows.Forms.CheckBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.lblAIMergeAgainstPlayer = new System.Windows.Forms.Label();
-            this.tbAIMergeAgainstPlayer = new System.Windows.Forms.TextBox();
+            this.lblAbilityExperienceRate = new System.Windows.Forms.Label();
+            this.tbAbilityExperienceRate = new System.Windows.Forms.TextBox();
             this.tcOptions.SuspendLayout();
             this.tabPageBasic.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -1182,6 +1186,8 @@ namespace WorldOfTheThreeKingdoms.GameForms
             // 
             // tabPagePerson
             // 
+            this.tabPagePerson.Controls.Add(this.lblAbilityExperienceRate);
+            this.tabPagePerson.Controls.Add(this.tbAbilityExperienceRate);
             this.tabPagePerson.Controls.Add(this.lblProhibitFactionAgainstDestroyer);
             this.tabPagePerson.Controls.Add(this.tbProhibitFactionAgainstDestroyer);
             this.tabPagePerson.Controls.Add(this.tbChildrenAbilityFactor);
@@ -2212,6 +2218,22 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tabPageAIParameter.Text = "电脑";
             this.tabPageAIParameter.UseVisualStyleBackColor = true;
             // 
+            // lblAIMergeAgainstPlayer
+            // 
+            this.lblAIMergeAgainstPlayer.AutoSize = true;
+            this.lblAIMergeAgainstPlayer.Location = new System.Drawing.Point(252, 259);
+            this.lblAIMergeAgainstPlayer.Name = "lblAIMergeAgainstPlayer";
+            this.lblAIMergeAgainstPlayer.Size = new System.Drawing.Size(113, 12);
+            this.lblAIMergeAgainstPlayer.TabIndex = 77;
+            this.lblAIMergeAgainstPlayer.Text = "电脑因玩家合併参数";
+            // 
+            // tbAIMergeAgainstPlayer
+            // 
+            this.tbAIMergeAgainstPlayer.Location = new System.Drawing.Point(370, 252);
+            this.tbAIMergeAgainstPlayer.Name = "tbAIMergeAgainstPlayer";
+            this.tbAIMergeAgainstPlayer.Size = new System.Drawing.Size(60, 22);
+            this.tbAIMergeAgainstPlayer.TabIndex = 78;
+            // 
             // lblAIEncirclePlayerRate
             // 
             this.lblAIEncirclePlayerRate.AutoSize = true;
@@ -2664,21 +2686,21 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // lblAIMergeAgainstPlayer
+            // lblAbilityExperienceRate
             // 
-            this.lblAIMergeAgainstPlayer.AutoSize = true;
-            this.lblAIMergeAgainstPlayer.Location = new System.Drawing.Point(252, 259);
-            this.lblAIMergeAgainstPlayer.Name = "lblAIMergeAgainstPlayer";
-            this.lblAIMergeAgainstPlayer.Size = new System.Drawing.Size(113, 12);
-            this.lblAIMergeAgainstPlayer.TabIndex = 77;
-            this.lblAIMergeAgainstPlayer.Text = "电脑因玩家合併参数";
+            this.lblAbilityExperienceRate.AutoSize = true;
+            this.lblAbilityExperienceRate.Location = new System.Drawing.Point(294, 128);
+            this.lblAbilityExperienceRate.Name = "lblAbilityExperienceRate";
+            this.lblAbilityExperienceRate.Size = new System.Drawing.Size(65, 12);
+            this.lblAbilityExperienceRate.TabIndex = 156;
+            this.lblAbilityExperienceRate.Text = "经验增长率";
             // 
-            // tbAIMergeAgainstPlayer
+            // tbAbilityExperienceRate
             // 
-            this.tbAIMergeAgainstPlayer.Location = new System.Drawing.Point(370, 252);
-            this.tbAIMergeAgainstPlayer.Name = "tbAIMergeAgainstPlayer";
-            this.tbAIMergeAgainstPlayer.Size = new System.Drawing.Size(60, 22);
-            this.tbAIMergeAgainstPlayer.TabIndex = 78;
+            this.tbAbilityExperienceRate.Location = new System.Drawing.Point(361, 125);
+            this.tbAbilityExperienceRate.Name = "tbAbilityExperienceRate";
+            this.tbAbilityExperienceRate.Size = new System.Drawing.Size(71, 22);
+            this.tbAbilityExperienceRate.TabIndex = 155;
             // 
             // formOptions
             // 
@@ -2799,6 +2821,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             this.tbLearnSkillDays.Text = nextSibling.Attributes.GetNamedItem("LearnSkillDays").Value;
             this.tbLearnStuntDays.Text = nextSibling.Attributes.GetNamedItem("LearnStuntDays").Value;
             this.tbLearnTitleDays.Text = nextSibling.Attributes.GetNamedItem("LearnTitleDays").Value;
+            this.tbAbilityExperienceRate.Text = nextSibling.Attributes.GetNamedItem("AbilityExperienceRate").Value;
             this.tbSearchDays.Text = nextSibling.Attributes.GetNamedItem("SearchDays").Value;
             this.tbFollowedLeaderOffenceRateIncrement.Text = nextSibling.Attributes.GetNamedItem("FollowedLeaderOffenceRateIncrement").Value;
             this.tbFollowedLeaderDefenceRateIncrement.Text = nextSibling.Attributes.GetNamedItem("FollowedLeaderDefenceRateIncrement").Value;
@@ -2986,6 +3009,7 @@ namespace WorldOfTheThreeKingdoms.GameForms
             if (!checkIntSave(nextSibling, "LearnSkillDays", this.lblLearnSkillDays, this.tbLearnSkillDays)) { return false; }
             if (!checkIntSave(nextSibling, "LearnStuntDays", this.lblLearnStuntDays, this.tbLearnStuntDays)) { return false; }
             if (!checkIntSave(nextSibling, "LearnTitleDays", this.lblLearnTitleDays, this.tbLearnTitleDays)) { return false; }
+            if (!checkFloatSave(nextSibling, "AbilityExperienceRate", this.lblAbilityExperienceRate, this.tbAbilityExperienceRate)) { return false; }
             if (!checkIntSave(nextSibling, "SearchDays", this.lblSearchDays, this.tbSearchDays)) { return false; }
             if (!checkFloatSave(nextSibling, "FollowedLeaderOffenceRateIncrement", this.lblFollowedLeaderOffenceRateIncrement, this.tbFollowedLeaderOffenceRateIncrement)) { return false; }
             if (!checkFloatSave(nextSibling, "FollowedLeaderDefenceRateIncrement", this.lblFollowedLeaderDefenceRateIncrement, this.tbFollowedLeaderDefenceRateIncrement)) { return false; }
