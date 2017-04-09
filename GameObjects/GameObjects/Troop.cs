@@ -304,7 +304,7 @@
         private bool showNumber;
         public bool ShowPath = false;
         private TierPathFinder simplepathFinder = new TierPathFinder();
-        private bool Simulating;
+        public bool Simulating;
         public CombatMethod SimulatingCombatMethod;
         private string SoundFileLocation;
         public Architecture StartingArchitecture;
@@ -3931,7 +3931,6 @@
                     }
                     this.Persons.Clear();
                 }
-                this.Scenario.ResetMapTileTroop(this.Position);
                 foreach (Influence i in this.InfluencesApplying)
                 {
                     i.TroopDestroyed(this);
@@ -3948,6 +3947,8 @@
                 {
                     this.BelongedLegion.RemoveTroop(this);
                 }
+                this.Scenario.ReallyResetMapTileTroop();
+                this.pathFinder = null;
                 if (removeArmy)
                 {
                     if (this.Army.ShelledMilitary == null)

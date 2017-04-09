@@ -89,11 +89,15 @@
                 this.CheckAdjacentSquares(square, end);
                 if (this.openDictionary.Count == 0)
                 {
+                    openDictionary = new Dictionary<Point, RoutewaySquare>();
+                    closeDictionary = new Dictionary<Point, RoutewaySquare>();
                     return flag;
                 }
                 square = this.AddToCloseList();
                 if (square == null)
                 {
+                    openDictionary = new Dictionary<Point, RoutewaySquare>();
+                    closeDictionary = new Dictionary<Point, RoutewaySquare>();
                     return flag;
                 }
                 flag = square.Position == end;
@@ -101,12 +105,18 @@
                 {
                     if ((this.closeList.Count <= 1) || hasEnd)
                     {
+                        openDictionary = new Dictionary<Point, RoutewaySquare>();
+                        closeDictionary = new Dictionary<Point, RoutewaySquare>();
                         return flag;
                     }
                     //this.closeList.RemoveAt(this.closeList.Count - 1);
                     flag = true;
                 }
             } while (!flag);
+
+            // throw away the old dictionary to free up memory
+            openDictionary = new Dictionary<Point, RoutewaySquare>();
+            closeDictionary = new Dictionary<Point, RoutewaySquare>();
             return flag;
         }
 

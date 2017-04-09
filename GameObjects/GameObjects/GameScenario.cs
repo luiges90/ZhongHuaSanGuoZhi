@@ -5693,6 +5693,120 @@
             }
         }
 
+        public void ReallyResetMapTileTroop()
+        {
+            for (int i = 0; i < this.MapTileData.GetLength(0); ++i)
+            {
+                for (int j = 0; j < this.MapTileData.GetLength(1); ++j) 
+                {
+                    TileData t = this.MapTileData[i, j];
+                    if (t.ContactingTroops != null)
+                    {
+                        t.ContactingTroops.RemoveAll(u => u == null || u.Destroyed || u.Simulating);
+                        if (t.ContactingTroops.Count == 0)
+                        {
+                            // Yes I mean it. Too many empty lists kill the memory.......
+                            this.MapTileData[i, j].ContactingTroops = null;
+                        }
+                        else
+                        {
+                            t.ContactingTroops.Capacity = t.ContactingTroops.Count;
+                        }
+                    }
+                    if (t.OffencingTroops != null)
+                    {
+                        t.OffencingTroops.RemoveAll(u => u == null || u.Destroyed || u.Simulating);
+                        if (t.OffencingTroops.Count == 0)
+                        {
+                            this.MapTileData[i, j].OffencingTroops = null;
+                        }
+                        else
+                        {
+                            t.OffencingTroops.Capacity = t.OffencingTroops.Count;
+                        }
+                    }
+                    if (t.StratagemingTroops != null)
+                    {
+                        t.StratagemingTroops.RemoveAll(u => u == null || u.Destroyed || u.Simulating);
+                        if (t.StratagemingTroops.Count == 0)
+                        {
+                            this.MapTileData[i, j].StratagemingTroops = null;
+                        }
+                        else
+                        {
+                            t.StratagemingTroops.Capacity = t.StratagemingTroops.Count;
+                        }
+                    }
+                    if (t.ViewingTroops != null)
+                    {
+                        t.ViewingTroops.RemoveAll(u => u == null || u.Destroyed || u.Simulating);
+                        if (t.ViewingTroops.Count == 0)
+                        {
+                            this.MapTileData[i, j].ViewingTroops = null;
+                        }
+                        else
+                        {
+                            t.ViewingTroops.Capacity = t.ViewingTroops.Count;
+                        }
+                    }
+
+                    if (t.AreaInfluenceList != null)
+                    {
+                        t.AreaInfluenceList.RemoveAll(u => u == null || u.Owner.Destroyed || u.Owner.Simulating);
+                        if (t.AreaInfluenceList.Count == 0)
+                        {
+                            this.MapTileData[i, j].AreaInfluenceList = null;
+                        }
+                        else
+                        {
+                            t.AreaInfluenceList.Capacity = t.AreaInfluenceList.Count;
+                        }
+                    }
+
+                    if (t.TileRouteways != null)
+                    {
+                        if (t.TileRouteways.Count == 0)
+                        {
+                            this.MapTileData[i, j].TileRouteways = null;
+                        }
+                        else
+                        {
+                            t.TileRouteways.Capacity = t.TileRouteways.Count;
+                        }
+                    }
+
+                    if (t.SupplyingRoutePoints != null)
+                    {
+                        if (t.SupplyingRoutePoints.Count == 0)
+                        {
+                            this.MapTileData[i, j].SupplyingRoutePoints = null;
+                        }
+                        else
+                        {
+                            t.SupplyingRoutePoints.Capacity = t.SupplyingRoutePoints.Count;
+                        }
+                    }
+
+                    if (t.SupplyingRoutePoints != null)
+                    {
+                        if (t.SupplyingRoutePoints.Count == 0)
+                        {
+                            this.MapTileData[i, j].SupplyingRoutePoints = null;
+                        }
+                        else
+                        {
+                            t.SupplyingRoutePoints.Capacity = t.SupplyingRoutePoints.Count;
+                        }
+                    }
+
+                    if (t.TileTroop != null && (t.TileTroop.Destroyed || t.TileTroop.Simulating))
+                    {
+                        this.MapTileData[i, j].TileTroop = null;
+                    }
+                }
+            }
+        }
+
         public bool SaveGameScenarioToDatabase(string connectionString, bool saveMap, bool saveCommonData)
         {
             this.GameTime += (int) DateTime.Now.Subtract(sessionStartTime).TotalSeconds;

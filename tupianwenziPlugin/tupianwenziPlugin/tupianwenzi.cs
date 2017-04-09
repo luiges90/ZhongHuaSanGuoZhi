@@ -105,14 +105,9 @@
                     this.screen.PlayNormalSound(this.shijianshengyin);
                     this.diyigeshengyin = false;
                 }
-                if (name.gameObject == null)
-                {
-                    this.RichText.AddText(name.branchName);
-                }
-                else
-                {
-                    this.RichText.Texts = name.texts;
-                }
+
+                this.RichText.Texts = name.texts;
+
                 this.RichText.ResortTexts();
                 if (name.iConfirmationDialog != null)
                 {
@@ -237,13 +232,13 @@
             }
             if (this.HasConfirmationDialog)
             {
-                this.DisplayQueue.Enqueue(new GameObjectAndBranchName(gongfang, gameObject, this.BuildingRichText.Texts, branchName, this.iConfirmationDialog, this.YesFunction, this.NoFunction));
+                this.DisplayQueue.Enqueue(new GameObjectAndBranchName(gongfang, this.BuildingRichText.Texts, branchName, this.iConfirmationDialog, this.YesFunction, this.NoFunction));
                 this.YesFunction = null;
                 this.NoFunction = null;
             }
             else
             {
-                this.DisplayQueue.Enqueue(new GameObjectAndBranchName(gongfang, gameObject, this.BuildingRichText.Texts, branchName, null, null, null));
+                this.DisplayQueue.Enqueue(new GameObjectAndBranchName(gongfang, this.BuildingRichText.Texts, branchName, null, null, null));
             }
             this.HasConfirmationDialog = false;
         }
