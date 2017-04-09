@@ -1322,6 +1322,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens
             }
         }
 
+        public override void TechniqueComplete(Faction f, Technique t)
+        {
+            f.TextResultString = t.Name;
+            this.Plugins.GameRecordPlugin.AddBranch(f, "TechniqueComplete", f.Capital.Position);
+        }
+
         public override void xiejinxingjilu(string shijian, string TextResultString, string TextDestinationString,Point point)
         {
             Person p = new Person();

@@ -574,6 +574,8 @@
         {
         }
 
+        public virtual void TechniqueComplete(Faction f, Technique t) { }
+
         public virtual void Shutdown()
         {
             if (this.batch != null)
