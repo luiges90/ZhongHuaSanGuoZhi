@@ -224,11 +224,27 @@
             this.BuildingRichText.Clear();
             if (gameObject != null)
             {
-                this.BuildingRichText.AddGameObjectTextBranch(gameObject, this.TextTree.GetBranch(branchName));
+                GameObjectTextBranch a = this.TextTree.GetBranch(branchName);
+                if (a != null)
+                {
+                    this.BuildingRichText.AddGameObjectTextBranch(gameObject, a);
+                }
+                else
+                {
+                    this.BuildingRichText.AddText(branchName);
+                }
             }
             else
             {
-                this.BuildingRichText.AddGameObjectTextBranch(gongfang, this.TextTree.GetBranch(branchName));
+                GameObjectTextBranch a = this.TextTree.GetBranch(branchName);
+                if (a != null)
+                {
+                    this.BuildingRichText.AddGameObjectTextBranch(gongfang, a);
+                }
+                else
+                {
+                    this.BuildingRichText.AddText(branchName);
+                }
             }
             if (this.HasConfirmationDialog)
             {
