@@ -30,6 +30,7 @@
                 this.OptionDialogPlugin.AddOption("读取进度", null, new GameDelegates.VoidFunction(this.screen.LoadGame));
             }
             this.OptionDialogPlugin.AddOption("退出游戏", null, new GameDelegates.VoidFunction(this.screen.TryToExit));
+            this.OptionDialogPlugin.AddOption("返回初始界面", null, new GameDelegates.VoidFunction(this.screen.返回初始菜单));
             this.OptionDialogPlugin.AddOption("继续游戏", null, null);
             this.OptionDialogPlugin.EndAddOptions();
         }

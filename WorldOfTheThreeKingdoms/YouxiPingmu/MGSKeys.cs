@@ -23,6 +23,7 @@ using WorldOfTheThreeKingdoms.GameLogic;
 using WorldOfTheThreeKingdoms.GameScreens;
 using WorldOfTheThreeKingdoms.GameScreens.ScreenLayers;
 using WorldOfTheThreeKingdoms.Resources;
+using System.Diagnostics;
 
 namespace WorldOfTheThreeKingdoms.GameScreens
 {
@@ -253,7 +254,18 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                     this.Plugins.DateRunnerPlugin.Run();
                 }
             }
+            if (this.keyState.IsKeyDown(Keys.Z) && this.keyState.IsKeyDown(Keys.LeftControl))
+            {
 
+                this.currentKey = Keys.Z;
+                this.Player.settings.volume += 10;
+            }
+            if (this.keyState.IsKeyDown(Keys.X) && this.keyState.IsKeyDown(Keys.LeftControl))
+            {
+
+                this.currentKey = Keys.X;
+                this.Player.settings.volume -= 10;
+            }
         }
 
 

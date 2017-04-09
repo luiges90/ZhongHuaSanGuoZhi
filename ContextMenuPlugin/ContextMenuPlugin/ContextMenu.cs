@@ -164,11 +164,27 @@
                     {
                         bool open = itemByPosition.Open;
                         itemByPosition.Open = !itemByPosition.Open;
-                        if (open || itemByPosition.Open)
+                        if (open || itemByPosition.Open )
                         {
                             this.screen.PlayNormalSound(this.OpenSoundFile);
                             this.Result = ContextMenuResult.KeepShowing;
                         }
+                        else if (itemByPosition.Name == "减小音量")
+                        {
+                            this.screen.PlayNormalSound(this.ClickSoundFile);
+                            this.screen.减小音量();
+                        }
+                        else if (itemByPosition.Name == "增加音量")
+                        {
+                            this.screen.PlayNormalSound(this.ClickSoundFile);
+                            this.screen.增加音量();
+                        }
+                        else if (itemByPosition.Name == "返回初始菜单")
+                        {
+                            this.screen.PlayNormalSound(this.ClickSoundFile);
+                            this.screen.返回初始菜单();
+                        }
+
                         else
                         {
                             this.screen.PlayNormalSound(this.ClickSoundFile);
@@ -300,7 +316,6 @@
                 return 0;
             }
         }
-
         internal bool IsShowing
         {
             get
@@ -312,7 +327,7 @@
                 if (this.IsShowing != value)
                 {
                     this.isShowing = value;
-                    if (value)
+                    if (value )
                     {
                         this.screen.PushUndoneWork(new UndoneWorkItem(UndoneWorkKind.ContextMenu, UndoneWorkSubKind.None));
                         this.screen.OnMouseMove += new Screen.MouseMove(this.screen_OnMouseMove);

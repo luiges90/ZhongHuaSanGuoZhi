@@ -184,6 +184,10 @@
                 <MenuItem ID="1" Name="Smog" DisplayName="显示地图烟幕" OppositeName="隐藏地图烟幕" OppositeIfTrue="IsShowingSmog" />
                 <MenuItem ID="2" Name="TroopTitle" DisplayName="显示部队标题" OppositeName="隐藏部队标题" OppositeIfTrue="IsShowingTroopTitle" />
                 <MenuItem ID="3" Name="Music" DisplayName="播放游戏音乐" OppositeName="停止游戏音乐" OppositeIfTrue="IsPlayingMusic" />
+            <MenuItem ID="16" Name="Music" DisplayName="调整声音大小">
+				 <MenuItem ID="1" Name="增加音量" DisplayName="增加音量" />
+				 <MenuItem ID="2" Name="减小音量" DisplayName="减小音量" />
+			</MenuItem>
                 <MenuItem ID="4" Name="NormalSound" DisplayName="播放一般音效" OppositeName="关闭一般音效" OppositeIfTrue="IsPlayingNormalSound" />
                 <MenuItem ID="5" Name="BattleSound" DisplayName="播放战斗音效" OppositeName="关闭战斗音效" OppositeIfTrue="IsPlayingBattleSound" />
                 <MenuItem ID="6" Name="TroopAnimation" DisplayName="显示部队动画" OppositeName="省略部队动画" OppositeIfTrue="IsPlayingTroopAnimation" />

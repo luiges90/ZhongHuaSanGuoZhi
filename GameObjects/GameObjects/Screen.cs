@@ -966,6 +966,16 @@
         public virtual void OnTroopRout(Troop router, Troop routed) { }
 
         public virtual void OnAIMergeAgainstPlayer(Faction strongestPlayer, Faction merger, Faction merged) { }
+
+        public virtual void 减小音量()
+        {
+        }
+        public virtual void 增加音量()
+        {
+        }
+        public virtual void 返回初始菜单()
+        {
+        }
     }
 }
 
