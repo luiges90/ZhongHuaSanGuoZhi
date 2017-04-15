@@ -7444,7 +7444,7 @@
                                                     }
                                                     else
                                                     {
-                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                        p.AdjustRelation(rel.Key, 0, -200);
                                                     }
                                                 }
                                             }
@@ -7500,7 +7500,7 @@
                                                     }
                                                     else
                                                     {
-                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                        p.AdjustRelation(rel.Key, 0, -200);
                                                     }
                                                 }
                                             }
@@ -7555,7 +7555,7 @@
                                                     }
                                                     else
                                                     {
-                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                        p.AdjustRelation(rel.Key, 0, -200);
                                                     }
                                                 }
                                             }
@@ -7611,7 +7611,7 @@
                                                     }
                                                     else
                                                     {
-                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                        p.AdjustRelation(rel.Key, 0, -200);
                                                     }
                                                 }
                                             }
@@ -7667,7 +7667,7 @@
                                                     }
                                                     else
                                                     {
-                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                        p.AdjustRelation(rel.Key, 0, -200);
                                                     }
                                                 }
                                             }
@@ -7739,7 +7739,7 @@
                                                         }
                                                         else
                                                         {
-                                                            p.AdjustRelation(rel.Key, 0, -100);
+                                                            p.AdjustRelation(rel.Key, 0, -200);
                                                         }
                                                     }
                                                 }
@@ -7807,7 +7807,7 @@
                                                     }
                                                     else
                                                     {
-                                                        p.AdjustRelation(rel.Key, 0, -100);
+                                                        p.AdjustRelation(rel.Key, 0, -200);
                                                     }
                                                 }
                                             }
@@ -7879,7 +7879,7 @@
                                         if (GameObject.Chance(t.InheritChance * 3 + q.childrenTitleChanceIncrease) && t.CanBeBorn(p))
                                         {
                                             Title existing = null;
-                                            foreach (Title u in q.Titles)
+                                            foreach (Title u in p.Titles)
                                             {
                                                 if (u.Kind == t.Kind)
                                                 {
@@ -7889,34 +7889,35 @@
                                             }
 
                                             // TODO let player choose
-                                            if (existing == null || existing.Level < t.Level || (GameObject.Chance(50) && existing.Level == t.Level))
+                                            if (existing == null || existing.Level < t.Level || (existing.Level == t.Level && existing.Merit < t.Merit))
                                             {
                                                 if (existing != null)
                                                 {
                                                     p.RealTitles.Remove(existing);
                                                 }
                                                 p.RealTitles.Add(t);
-                                            }
 
-                                            p.AdjustRelation(q, 0, 5 * t.Level);
-                                            if (GameObject.Chance(30))
-                                            {
-                                                Dictionary<Person, int> rels = q.GetAllRelations();
-                                                foreach (KeyValuePair<Person, int> rel in rels)
+                                                p.AdjustRelation(q, 0, 5 * t.Level);
+                                                if (GameObject.Chance(30))
                                                 {
-                                                    if (GameObject.Chance(100 / rels.Count))
+                                                    Dictionary<Person, int> rels = q.GetAllRelations();
+                                                    foreach (KeyValuePair<Person, int> rel in rels)
                                                     {
-                                                        if (rel.Value > Parameters.HateThreshold)
+                                                        if (GameObject.Chance(100 / rels.Count))
                                                         {
-                                                            p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
-                                                        }
-                                                        else
-                                                        {
-                                                            p.AdjustRelation(rel.Key, 0, -100);
+                                                            if (rel.Value > Parameters.HateThreshold)
+                                                            {
+                                                                p.AdjustRelation(rel.Key, 0, Math.Min(5, rel.Value / 250));
+                                                            }
+                                                            else
+                                                            {
+                                                                p.AdjustRelation(rel.Key, 0, -200);
+                                                            }
                                                         }
                                                     }
                                                 }
                                             }
+
                                         }
                                     }
                                 }
