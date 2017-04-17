@@ -2868,6 +2868,7 @@
                     row["FactionLimit"] = i.FactionLimit;
                     row["InheritChance"] = i.InheritChance;
                     row["ManualAward"] = i.ManualAward;
+                    row["GenerateConditions"] = i.GenerateConditions.SaveToString();
                     /*try
                     {
                         row["AIPersonValue"] = i.AIPersonValue;
