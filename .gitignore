@@ -94,13 +94,14 @@ WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Common/archive
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Save
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/generatedScen.mdb
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/archive
-WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario/L*
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/ScenarioErrors.txt
 [Rr]esources
 WorldOfTheThreeKingdoms/bin/x86/Release/Dantiao
 WorldOfTheThreeKingdoms/bin/x86/Release/GameSound
 WorldOfTheThreeKingdoms/bin/x86/Release/GameMusic
 WorldOfTheThreeKingdoms/bin/x86/Release/GameData/Scenario
+
+WorldOfTheThreeKingdoms/bin/x64
 ~*
 *.log
 *.ldb
