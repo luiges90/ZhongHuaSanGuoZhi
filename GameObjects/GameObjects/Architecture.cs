@@ -11487,14 +11487,14 @@
                     {
                         if ((this.Persons[0] as Person).LocationArchitecture != null)
                         {
-                            (this.Persons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital);
+                            (this.Persons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital, this.Position);
                         }
                     }
                     while (this.MovingPersons.Count > 0)
                     {
                         if ((this.MovingPersons[0] as Person).LocationArchitecture != null)
                         {
-                            (this.MovingPersons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital);
+                            (this.MovingPersons[0] as Person).MoveToArchitecture(this.BelongedFaction.Capital, this.Position);
                         }
                     }
                     foreach (Military m in this.BelongedFaction.TransferingMilitaries)

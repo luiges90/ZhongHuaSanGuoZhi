@@ -145,14 +145,14 @@
 
         private void DoRelease()
         {
-            
+            Architecture starting = this.CaptivePerson.LocationArchitecture;
             if (this.CaptivePerson.BelongedFaction != null && this.CaptivePerson.BelongedFaction.Capital != null)
             {
                 if (this.CaptivePerson.LocationArchitecture == null)
                 {
                     this.CaptivePerson.LocationArchitecture = this.CaptivePerson.BelongedFaction.Capital;
                     this.CaptivePerson.Status = GameObjects.PersonDetail.PersonStatus.Normal;
-                    this.CaptivePerson.MoveToArchitecture(this.CaptivePerson.BelongedFaction.Capital, null );
+                    this.CaptivePerson.MoveToArchitecture(this.CaptivePerson.BelongedFaction.Capital, starting.Position);
                 }
                 else
                 {
