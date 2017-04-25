@@ -1967,16 +1967,18 @@
                 }
                 Faction f = this.BelongedFaction;
                 Architecture starting = this.StartingArchitecture;
+                GameObjectList persons = this.persons.GetList();
+                this.persons.Clear();
                 this.Destroy(true, true);
-                foreach (Person p in this.persons)
+                foreach (Person p in persons)
                 {
-                    foreach (Person q in this.persons)
+                    foreach (Person q in persons)
                     {
                         if (p == q) continue;
-                        p.AdjustRelation(q, -0.5f / Math.Max(1, this.persons.Count), -3);
+                        p.AdjustRelation(q, -0.5f / Math.Max(1, persons.Count), -3);
                     }
                 }
-                foreach (Person person in this.persons)
+                foreach (Person person in persons)
                 {
                     Point from = this.Position;
                     if ((starting == null) || (f != starting.BelongedFaction))
@@ -2001,7 +2003,7 @@
                         person.DecreaseReputation(30);
                     }
                 }
-                this.persons.Clear();
+
                 if (flag)
                 {
                     TroopList list = new TroopList();
