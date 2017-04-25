@@ -1927,15 +1927,17 @@
         {
             if (this.BelongedFaction == null)
             {
+                Architecture startingArchitecture = this.StartingArchitecture;
+                Troop orientationTroop = this.OrientationTroop;
                 this.Destroy(true, true);
-                if (this.StartingArchitecture != null && this.StartingArchitecture.RobberTroop == this)  //盗贼队
+                if (startingArchitecture != null && startingArchitecture.RobberTroop == this)  //盗贼队
                 {
-                    this.StartingArchitecture.RobberTroop = null;
-                    this.StartingArchitecture.RobberTroopID = -1;
+                    startingArchitecture.RobberTroop = null;
+                    startingArchitecture.RobberTroopID = -1;
                 }
-                if (this.OrientationTroop != null)
+                if (orientationTroop != null)
                 {
-                    this.OrientationTroop.OperationDone = !this.OrientationTroop.CanAttackAfterRout;
+                    orientationTroop.OperationDone = !orientationTroop.CanAttackAfterRout;
                 }
             }
             else
@@ -4141,15 +4143,20 @@
                     a.IncreaseFund(this.zijin);
                 }
                 this.MoveCaptiveIntoArchitecture(a);
+                GameObjectList golPersons = this.persons.GetList();
+                PersonList persons = new PersonList();
+                foreach (Person p in golPersons)
+                {
+                    persons.Add(p);
+                }
                 this.Destroy(true, false);
-                foreach (Person p in this.persons)
+                foreach (Person p in persons)
                 {
                     p.LocationTroop = null;
                     p.LocationArchitecture = a;
                     p.WorkKind = p.OldWorkKind;
                 }
-                this.persons.ApplyInfluences();
-                this.persons.Clear();
+                persons.ApplyInfluences();
                 ExtensionInterface.call("EnterArchitecture", new Object[] { this.Scenario, this, a });
             }
         }
@@ -5634,7 +5641,7 @@
             GameArea area = new GameArea();
             foreach (Point point in sourceArea.Area)
             {
-                PersonList originalPersons = this.Persons;
+                GameObjectList originalPersons = this.Persons.GetList();
                 Troop troop = CreateSimulateTroop(this.Candidates, this.Army, point);
                 int fightingForce = troop.FightingForce;
                 troop.Destroy(true, false);
