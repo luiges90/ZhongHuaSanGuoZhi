@@ -148,7 +148,7 @@
             Architecture starting = this.CaptivePerson.LocationArchitecture;
             if (this.CaptivePerson.BelongedFaction != null && this.CaptivePerson.BelongedFaction.Capital != null)
             {
-                if (this.CaptivePerson.LocationArchitecture == null)
+                if (starting != null)
                 {
                     this.CaptivePerson.LocationArchitecture = this.CaptivePerson.BelongedFaction.Capital;
                     this.CaptivePerson.Status = GameObjects.PersonDetail.PersonStatus.Normal;
