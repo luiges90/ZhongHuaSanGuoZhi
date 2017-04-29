@@ -3520,7 +3520,80 @@
             }
             return cnt;
         }
-
+        //以下添加20170426
+        public int GetFacilityCountForKind(int id)
+        {
+            int cnt = 0;
+            foreach (Facility facility in this.Facilities)
+            {
+                if (facility.KindID == id)
+                {
+                    cnt++;
+                }
+            }
+            return cnt;
+        }
+        public string GetFacilityNameForKind(int id)
+        {
+            string N = "";
+            foreach (Facility facility in this.Facilities)
+            {
+                if (facility.KindID == id)
+                {
+                    N = facility.Name;
+                }
+            }
+            return N;
+        }
+        public string GetFacilityDescriptionForKind(int id)
+        {
+            string D = "";
+            foreach (Facility facility in this.Facilities)
+            {
+                if (facility.KindID == id)
+                {
+                    D = facility.Description;
+                }
+            }
+            return D;
+        }
+        public int GetFacilityPositionOccupiedForKind(int id)
+        {
+            int D = -1;
+            foreach (Facility facility in this.Facilities)
+            {
+                if (facility.KindID == id)
+                {
+                    D = facility.PositionOccupied;
+                }
+            }
+            return D;
+        }
+        public int GetFacilityMaintenanceCostForKind(int id)
+        {
+            int D = -1;
+            foreach (Facility facility in this.Facilities)
+            {
+                if (facility.KindID == id)
+                {
+                    D = facility.MaintenanceCost;
+                }
+            }
+            return D;
+        }
+        public bool HasTheFacilityForKind(int id)
+        {
+            bool H = false;
+            foreach (Facility facility in this.Facilities)
+            {
+                if (facility.KindID == id)
+                {
+                    H = true;
+                }
+            }
+            return H;
+        }
+        //
         public string ArmyQuantityInInformationLevel(InformationLevel level)
         {
             switch (level)

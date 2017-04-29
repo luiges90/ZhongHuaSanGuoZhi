@@ -181,10 +181,12 @@ namespace ArchitectureSurveyPlugin
             //↓功能开关
             node = nextSibling.ChildNodes.Item(22);
             this.architectureSurvey.Switch1 = node.Attributes.GetNamedItem("ArchitectureKinds").Value;
-            this.architectureSurvey.Switch2 = node.Attributes.GetNamedItem("Bars").Value;
-
-            //↓建筑种类
+            this.architectureSurvey.Switch2 = node.Attributes.GetNamedItem("Bars").Value;            
             node = nextSibling.ChildNodes.Item(23);
+            this.architectureSurvey.NewControllingMaskTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\" + node.Attributes.GetNamedItem("Mask").Value);
+            this.architectureSurvey.NewControllingBackgroundTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\" + node.Attributes.GetNamedItem("Background").Value);
+            //↓建筑种类
+            node = nextSibling.ChildNodes.Item(24);
             this.architectureSurvey.AKBackground0Client = StaticMethods.LoadRectangleFromXMLNode(node);
             this.architectureSurvey.AKBackground0Client.X = int.Parse(node.Attributes.GetNamedItem("X").Value);
             this.architectureSurvey.AKBackground0Client.Y = int.Parse(node.Attributes.GetNamedItem("Y").Value);
@@ -247,19 +249,7 @@ namespace ArchitectureSurveyPlugin
             this.architectureSurvey.AKBackground26Texture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\ArchitectureKind\" + node.Attributes.GetNamedItem("FileName26").Value);
             this.architectureSurvey.AKBackground27Texture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\ArchitectureKind\" + node.Attributes.GetNamedItem("FileName27").Value);
             this.architectureSurvey.AKBackground28Texture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\ArchitectureKind\" + node.Attributes.GetNamedItem("FileName28").Value);
-            //↓进度条
-            node = nextSibling.ChildNodes.Item(24);
-            this.architectureSurvey.ArmyBarClient = StaticMethods.LoadRectangleFromXMLNode(node);
-            this.architectureSurvey.ArmyBarClient.X = int.Parse(node.Attributes.GetNamedItem("X").Value);
-            this.architectureSurvey.ArmyBarClient.Y = int.Parse(node.Attributes.GetNamedItem("Y").Value);
-            this.architectureSurvey.ArmyBarClient.Width = int.Parse(node.Attributes.GetNamedItem("Width").Value);
-            this.architectureSurvey.ArmyBarClient.Height = int.Parse(node.Attributes.GetNamedItem("Height").Value);
-            this.architectureSurvey.Army1BarTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\Bar\" + node.Attributes.GetNamedItem("FileName0").Value);
-            this.architectureSurvey.Army2BarTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\Bar\" + node.Attributes.GetNamedItem("FileName1").Value);
-            this.architectureSurvey.Army3BarTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\Bar\" + node.Attributes.GetNamedItem("FileName2").Value);
-            this.architectureSurvey.Army4BarTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\Bar\" + node.Attributes.GetNamedItem("FileName3").Value);
-            this.architectureSurvey.Army5BarTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\Bar\" + node.Attributes.GetNamedItem("FileName4").Value);
-            this.architectureSurvey.Army6BarTexture = Texture2D.FromFile(this.graphicsDevice, @"GameComponents\ArchitectureSurvey\Data\Backgrounds\Bar\" + node.Attributes.GetNamedItem("FileName5").Value);
+            //↓进度条           
             node = nextSibling.ChildNodes.Item(25);
             this.architectureSurvey.DominationBarClient = StaticMethods.LoadRectangleFromXMLNode(node);
             this.architectureSurvey.DominationBarClient.X = int.Parse(node.Attributes.GetNamedItem("X").Value);

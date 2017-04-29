@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <Background FileName="Background.png" Width="800" Height="540"></Background>
+  <Background FileName="Background.png" PictureNull="Null.png" Width="800" Height="540"></Background>
   <Labels>
     <Label X="60" Y="30" Width="80" Height="25" Label ="建筑名称"
                 FontName="方正隶变_GBK"
@@ -472,512 +472,1378 @@
             FontColor="4294967295">
   </Characteristic>
   <Facility X="440" Y="320" Width="360" Height="200" RowMargin="0"
+			TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360" 
+            FontName="方正隶变_GBK"
+            FontSize="14"
+            FontStyle="Bold"
+            FontColor="4294967295">
+  </Facility>
+  <Item4></Item4>  
+  <Switchs NewUI="on" UISound="on"
+           ArchitectureInformation="on" InformationBar="on" CharacteristicShow="on" CharacteristicTextInInformation="off" FacilityTextInInformation="off" ShowPictureforArchitectureKindOrArchitectureIDInInformationPage="on"          
+           ArchitectureFacility="on" ArchitectureInFacilityTexts="off" FacilityTextInFacility="on" FacilityPageForArchitectureKind="off" FacilityPageForArchitectureCharacteristic="off" ShowTheFacilityPictureB="on" ShowTheFacilityTextPicture="on" >     
+  </Switchs>
+  <Item6></Item6>
+  <Item7></Item7>
+  <Item8></Item8>
+  <Item9></Item9>
+  <Item10></Item10>
+  <InformationButton FileName="InformationButton.png" PressedName="InformationPressed.png" X="20" Y="2"  Width="80" Height="20"></InformationButton>
+  <Item12></Item12>
+  <FacilityButton FileName="FacilityButton.png" PressedName="FacilityPressed.png" X="180" Y="2"  Width="80" Height="20"></FacilityButton>
+  <Item14></Item14>
+  <Item15></Item15>
+  <Item16></Item16>
+  <Item17></Item17>
+  <Item18></Item18>
+  <Item19></Item19>
+  <Item20></Item20>
+  <TheInformationPage Mask1="Mask1.png" Mask2="Mask2.png" Background="Background.png" X="0" Y="0" Width="1000" Height="600"></TheInformationPage>
+  <ArchitectureInInformationTexts>
+    <Label X="60" Y="30" Width="80" Height="0" Label ="建筑名称"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="483" Y="83" Width="80" Height="30" PropertyName="Name"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Bold"
+                FontColor="4294967040"
+                Align="Middle">
+    </Text>
+    <Label X="160" Y="30" Width="80" Height="0" Label ="建筑类别"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="355" Y="91" Width="110" Height="0" PropertyName="KindString"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Bold"
+                FontColor="4294967295"
+                Align="Middle">
+    </Text>
+    <Label X="260" Y="30" Width="80" Height="0" Label ="所属势力"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="355" Y="91" Width="110" Height="20" PropertyName="FactionString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Bold"
+                FontColor="4294901862"
+                Align="Middle">
+    </Text>
+    <Label X="360" Y="30" Width="80" Height="0" Label ="所在州"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="580" Y="91" Width="55" Height="20" PropertyName="StateString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Bold"
+                FontColor="4294967295"
+                Align="Middle">
+    </Text>
+    <Label X="460" Y="30" Width="80" Height="0" Label ="地域"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="635" Y="91" Width="55" Height="20" PropertyName="RegionString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Bold"
+                FontColor="4294967295"
+                Align="Middle">
+    </Text>
+    <Label X="560" Y="30" Width="80" Height="0" Label ="规模"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="467" Y="149" Width="110" Height="20" PropertyName="AreaCount"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Bold"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="660" Y="30" Width="80" Height="0" Label ="人口"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="467" Y="189" Width="110" Height="20" PropertyName="Population"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4286119584"
+                Align="Middle">
+    </Text>
+    <Label X="60" Y="90" Width="80" Height="0" Label ="资金"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="337" Y="149" Width="110" Height="20" PropertyName="Fund"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="160" Y="90" Width="80" Height="0" Label ="资金收入"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="597" Y="149" Width="110" Height="20" PropertyName="ExpectedFundString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="260" Y="90" Width="80" Height="0" Label ="军粮"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="337" Y="189" Width="110" Height="20" PropertyName="Food"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="360" Y="90" Width="80" Height="0" Label ="军粮收入"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="597" Y="189" Width="110" Height="20" PropertyName="ExpectedFoodString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="460" Y="90" Width="80" Height="0" Label ="设施空间"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="337" Y="229" Width="110" Height="20" PropertyName="FacilityPositionString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="560" Y="90" Width="80" Height="0" Label ="设施维持费"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="597" Y="229" Width="110" Height="20" PropertyName="FacilityMaintenanceCostString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="660" Y="90" Width="80" Height="0" Label ="设施有效"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="467" Y="229" Width="110" Height="20" PropertyName="FacilityEnabledString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="60" Y="150" Width="80" Height="0" Label ="农业"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="337" Y="269" Width="110" Height="20" PropertyName="AgricultureString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="160" Y="150" Width="80" Height="0" Label ="商业"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="337" Y="309" Width="110" Height="20" PropertyName="CommerceString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="260" Y="150" Width="80" Height="0" Label ="技术"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="597" Y="269" Width="110" Height="20" PropertyName="TechnologyString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="360" Y="150" Width="80" Height="0" Label ="统治"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="467" Y="269" Width="110" Height="20" PropertyName="DominationString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="460" Y="150" Width="80" Height="0" Label ="民心"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="472" Y="309" Width="110" Height="20" PropertyName="MoraleString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="560" Y="150" Width="80" Height="0" Label ="耐久"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="597" Y="309" Width="110" Height="20" PropertyName="EnduranceString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="660" Y="150" Width="80" Height="0" Label ="内政效率"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="467" Y="349" Width="110" Height="20" PropertyName="CurrentRateOfInternal"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Bold"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="60" Y="210" Width="80" Height="0" Label ="人物数量"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="337" Y="349" Width="110" Height="20" PropertyName="PersonCount"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="160" Y="210" Width="80" Height="0" Label ="在野数量"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="597" Y="349" Width="110" Height="20" PropertyName="NoFactionPersonCount"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="260" Y="210" Width="80" Height="0" Label ="编队数量"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="467" Y="389" Width="110" Height="20" PropertyName="MilitaryCount"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="360" Y="210" Width="80" Height="0" Label ="军队数量"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="337" Y="389" Width="110" Height="20" PropertyName="ArmyQuantity"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="460" Y="210" Width="80" Height="0" Label ="军队规模"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="597" Y="389" Width="110" Height="20" PropertyName="ArmyScale"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="560" Y="210" Width="80" Height="0" Label ="粮道维持费"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="337" Y="429" Width="110" Height="20" PropertyName="RoutewayActiveCostString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="660" Y="210" Width="80" Height="0" Label ="情报维持费"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="337" Y="469" Width="110" Height="20" PropertyName="InformationCostString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="60" Y="270" Width="80" Height="0" Label ="人口增长(％％)"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="597" Y="429" Width="110" Height="20" PropertyName="PopulationDevelopingRateString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="160" Y="270" Width="80" Height="0" Label ="州效果"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="467" Y="429" Width="110" Height="20" PropertyName="StateEffectString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="260" Y="270" Width="80" Height="0" Label ="地区效果"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="467" Y="469" Width="110" Height="20" PropertyName="RegionEffectString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="360" Y="270" Width="80" Height="0" Label ="战略要冲"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="467" Y="509" Width="110" Height="20" PropertyName="IsStrategicCenterString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+    <Label X="460" Y="270" Width="80" Height="0" Label ="粮草衰减率"
+                FontName="方正隶变_GBK"
+                FontSize="1"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="597" Y="469" Width="110" Height="20" PropertyName="FoodReduceDayRateString"
+                FontName="方正隶变_GBK"
+                FontSize="15"
+                FontStyle="Regular"
+                FontColor="4278255615"
+                Align="Middle">
+    </Text>
+  </ArchitectureInInformationTexts>
+  <Characteristic X="40" Y="320" Width="360" Height="200" RowMargin="0" TitleColor="4294967040" SubTitleColor="4286644096"
+            FontName="方正隶变_GBK"
+            FontSize="14"
+            FontStyle="Bold"
+            FontColor="4294967295">
+  </Characteristic>
+  <Facility X="440" Y="320" Width="360" Height="200" RowMargin="0"
 			TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
             FontName="方正隶变_GBK"
             FontSize="14"
             FontStyle="Bold"
             FontColor="4294967295">
   </Facility>
-  <Switchs OldBackground="1" NewBackground="1" ButtonLinkage="1"
-           FacilityforA="1" FacilityforB="1" FacilityforC="1" FacilityforD="1" FacilityforE="0"
-           ArchitectureKind="1" ArchitectureID="1" Characteristic="1" Bars="1" Auxiliary="1" FacilityIntroduce="1"> </Switchs>
-  <BackgroundforArchitecture X="0" Y="0" Width="1000" Height="600"
-          FileName0="NewBackground.png">        
-  </BackgroundforArchitecture>
-  <ArchitectureKind Name1="都城" Name2="关隘" Name3="港口" Name4="军营" Name5="荒城" Name6="关城" Name7="异族据点"
-          Name8="中原城池" Name9="河北城池" Name10="西北城池" Name11="吴越城池" Name12="巴蜀城池" Name13="荆楚城池" Name14="漠北城池"
-          Name15="南中城池" Name16="预留" Name17="预留" Name18="预留" Name19="预留" Name20="预留" Name21="预留"
-          Name22="预留" Name23="预留" Name24="预留" Name25="预留" Name26="预留" Name27="预留" Name28="预留"
-          X="38" Y="114" Width="242" Height="80" 
-           FileName0="Background0.jpg" 
-           FileName1="Background1.jpg"  FileName2="Background2.jpg"  FileName3="Background3.jpg"  FileName4="Background4.jpg"  FileName5="Background5.jpg"  FileName6="Background6.jpg"
-           FileName7="Background7.jpg"  FileName8="Background8.jpg"  FileName9="Background9.jpg"  FileName10="Background10.jpg"  FileName11="Background11.jpg"  FileName12="Background12.jpg"
-           FileName13="Background13.jpg"  FileName14="Background14.jpg"  FileName15="Background15.jpg"  FileName16="Background0.jpg"  FileName17="Background0.jpg"  FileName18="Background0.jpg"
-           FileName19="Background0.jpg"  FileName20="Background0.jpg"  FileName21="Background0.jpg"  FileName22="Background0.jpg"  FileName23="Background0.jpg"  FileName24="Background0.jpg"
-           FileName25="Background0.jpg"  FileName26="Background0.jpg"  FileName27="Background0.jpg"  FileName28="Background0.jpg" >
-  </ArchitectureKind>
-  <ArchitectureID Name1="8" Name2="9999" Name3="9999" Name4="9999" Name5="9999" Name6="9999" Name7="9999" Name8="9999" Name9="9999" Name10="9999"
-                 Name11="9999" Name12="9999" Name13="9999" Name14="9999" Name15="9999" Name16="9999" Name17="9999" Name18="9999" Name19="9999" Name20="9999"
-                 Name21="9999" Name22="9999" Name23="9999" Name24="9999" Name25="9999" Name26="9999" Name27="9999" Name28="9999" Name29="9999" Name30="9999"
-                 Name31="9999" Name32="9999" Name33="9999" Name34="9999" Name35="9999" Name36="9999" Name37="9999" Name38="9999" Name39="9999" Name40="9999"
-                 Name41="9999" Name42="9999" Name43="9999" Name44="9999" Name45="9999" Name46="9999" Name47="9999" Name48="9999" Name49="9999" Name50="9999"
-                 Name51="9999" Name52="9999" Name53="9999" Name54="9999" Name55="9999" Name56="9999" Name57="9999" Name58="9999" Name59="9999" Name60="9999"
-                 Name61="9999" Name62="9999" Name63="9999" Name64="9999" Name65="9999" Name66="9999" Name67="9999" Name68="9999" Name69="9999" Name70="9999"
-                 Name71="9999" Name72="9999" Name73="9999" Name74="9999" Name75="9999" Name76="9999" Name77="9999" Name78="9999" Name79="9999" Name80="9999"
-                 Name81="9999" Name82="9999" Name83="9999" Name84="9999" Name85="9999" Name86="9999" Name87="9999" Name88="9999" Name89="9999" Name90="9999"
-                 Name91="9999" Name92="9999" Name93="9999" Name94="9999" Name95="9999" Name96="9999" Name97="9999" Name98="9999" Name99="9999"
-                 X="24" Y="388" Width="271" Height="188"
-                 FileName1="Background8.png" FileName2="Background0.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-                 FileName11="Background0.png" FileName12="Background0.png" FileName13="Background0.png" FileName14="Background0.png" FileName15="Background0.png" FileName16="Background0.png" FileName17="Background0.png" FileName18="Background0.png" FileName19="Background0.png" FileName20="Background0.png"
-                 FileName21="Background0.png" FileName22="Background0.png" FileName23="Background0.png" FileName24="Background0.png" FileName25="Background0.png" FileName26="Background0.png" FileName27="Background0.png" FileName28="Background0.png" FileName29="Background0.png" FileName30="Background0.png"
-                 FileName31="Background0.png" FileName32="Background0.png" FileName33="Background0.png" FileName34="Background0.png" FileName35="Background0.png" FileName36="Background0.png" FileName37="Background0.png" FileName38="Background0.png" FileName39="Background0.png" FileName40="Background0.png"
-                 FileName41="Background0.png" FileName42="Background0.png" FileName43="Background0.png" FileName44="Background0.png" FileName45="Background0.png" FileName46="Background0.png" FileName47="Background0.png" FileName48="Background0.png" FileName49="Background0.png" FileName50="Background0.png"
-                 FileName51="Background0.png" FileName52="Background0.png" FileName53="Background0.png" FileName54="Background0.png" FileName55="Background0.png" FileName56="Background0.png" FileName57="Background0.png" FileName58="Background0.png" FileName59="Background0.png" FileName60="Background0.png"
-                 FileName61="Background0.png" FileName62="Background0.png" FileName63="Background0.png" FileName64="Background0.png" FileName65="Background0.png" FileName66="Background0.png" FileName67="Background0.png" FileName68="Background0.png" FileName69="Background0.png" FileName70="Background0.png"
-                 FileName71="Background0.png" FileName72="Background0.png" FileName73="Background0.png" FileName74="Background0.png" FileName75="Background0.png" FileName76="Background0.png" FileName77="Background0.png" FileName78="Background0.png" FileName79="Background0.png" FileName80="Background0.png"
-                 FileName81="Background0.png" FileName82="Background0.png" FileName83="Background0.png" FileName84="Background0.png" FileName85="Background0.png" FileName86="Background0.png" FileName87="Background0.png" FileName88="Background0.png" FileName89="Background0.png" FileName90="Background0.png"
-                 FileName91="Background0.png" FileName92="Background0.png" FileName93="Background0.png" FileName94="Background0.png" FileName95="Background0.png" FileName96="Background0.png" FileName97="Background0.png" FileName98="Background0.png" FileName99="Background0.png" FileName0="Background0.png">              
-  </ArchitectureID>
-  <PositionCounts Name1="1" Name2="5" Name3="10" Name4="15" Name5="20" Name6="25" Name7="30"
-          Name8="40" Name9="50" Name10="60" Name11="70" Name12="80" Name13="100" Name14="120"
-          Name15="140" Name16="160" Name17="180" Name18="200" Name19="300" Name20="400" Name21="500"
-          Name22="600" Name23="700" Name24="800" Name25="900" Name26="1000" Name27="1500" Name28="2000"
-          X="37" Y="435" Width="248" Height="93"
-          FileName0="BackgroundZ0.png"
-          FileName1="BackgroundZ0.png"  FileName2="BackgroundZ.png"  FileName3="BackgroundZ.png"  FileName4="BackgroundZ.png"  FileName5="BackgroundZ.png"  FileName6="BackgroundZ.png"
-          FileName7="BackgroundZ.png"  FileName8="BackgroundZ.png"  FileName9="BackgroundZ.png"  FileName10="BackgroundZ.png"  FileName11="BackgroundZ.png"  FileName12="BackgroundZ.png"
-          FileName13="BackgroundZ.png"  FileName14="BackgroundZ.png"  FileName15="BackgroundZ.png"  FileName16="BackgroundZ.png"  FileName17="BackgroundZ.png"  FileName18="BackgroundZ.png"
-          FileName19="BackgroundZ.png"  FileName20="BackgroundZ.png"  FileName21="BackgroundZ.png"  FileName22="BackgroundZ.png"  FileName23="BackgroundZ.png"  FileName24="BackgroundZ.png"
-          FileName25="BackgroundZ.png"  FileName26="BackgroundZ.png"  FileName27="BackgroundZ.png"  FileName28="BackgroundZ.png" >
-          
-  </PositionCounts>
-  <FacilityPositionBackgroundForA X="0" Y="0" Width="1000" Height="600"
-          FileName0="BackgroundA0.png"
-          FileName1="BackgroundA0.png"  FileName2="BackgroundA.png"  FileName3="BackgroundA.png"  FileName4="BackgroundA.png"  FileName5="BackgroundA.png"  FileName6="BackgroundA.png"
-          FileName7="BackgroundA.png"  FileName8="BackgroundA.png"  FileName9="BackgroundA.png"  FileName10="BackgroundA.png"  FileName11="BackgroundA.png"  FileName12="BackgroundA.png"
-          FileName13="BackgroundA.png"  FileName14="BackgroundA.png"  FileName15="BackgroundA.png"  FileName16="BackgroundA.png"  FileName17="BackgroundA.png"  FileName18="BackgroundA.png"
-          FileName19="BackgroundA.png"  FileName20="BackgroundA.png"  FileName21="BackgroundA.png"  FileName22="BackgroundA.png"  FileName23="BackgroundA.png"  FileName24="BackgroundA.png"
-          FileName25="BackgroundA.png"  FileName26="BackgroundA.png"  FileName27="BackgroundA.png"  FileName28="BackgroundA.png" >
-  </FacilityPositionBackgroundForA>
-  <FacilityPositionBackgroundForB X="0" Y="0" Width="1000" Height="600"
-          FileName0="BackgroundB0.png"
-          FileName1="BackgroundB0.png"  FileName2="BackgroundB.png"  FileName3="BackgroundB.png"  FileName4="BackgroundB.png"  FileName5="BackgroundB.png"  FileName6="BackgroundB.png"
-          FileName7="BackgroundB.png"  FileName8="BackgroundB.png"  FileName9="BackgroundB.png"  FileName10="BackgroundB.png"  FileName11="BackgroundB.png"  FileName12="BackgroundB.png"
-          FileName13="BackgroundB.png"  FileName14="BackgroundB.png"  FileName15="BackgroundB.png"  FileName16="BackgroundB.png"  FileName17="BackgroundB.png"  FileName18="BackgroundB.png"
-          FileName19="BackgroundB.png"  FileName20="BackgroundB.png"  FileName21="BackgroundB.png"  FileName22="BackgroundB.png"  FileName23="BackgroundB.png"  FileName24="BackgroundB.png"
-          FileName25="BackgroundB.png"  FileName26="BackgroundB.png"  FileName27="BackgroundB.png"  FileName28="BackgroundB.png" >
-  </FacilityPositionBackgroundForB>
-  <FacilityPositionBackgroundForC X="0" Y="0" Width="1000" Height="600"
-          FileName0="BackgroundC0.png"
-          FileName1="BackgroundC0.png"  FileName2="BackgroundC.png"  FileName3="BackgroundC.png"  FileName4="BackgroundC.png"  FileName5="BackgroundC.png"  FileName6="BackgroundC.png"
-          FileName7="BackgroundC.png"  FileName8="BackgroundC.png"  FileName9="BackgroundC.png"  FileName10="BackgroundC.png"  FileName11="BackgroundC.png"  FileName12="BackgroundC.png"
-          FileName13="BackgroundC.png"  FileName14="BackgroundC.png"  FileName15="BackgroundC.png"  FileName16="BackgroundC.png"  FileName17="BackgroundC.png"  FileName18="BackgroundC.png"
-          FileName19="BackgroundC.png"  FileName20="BackgroundC.png"  FileName21="BackgroundC.png"  FileName22="BackgroundC.png"  FileName23="BackgroundC.png"  FileName24="BackgroundC.png"
-          FileName25="BackgroundC.png"  FileName26="BackgroundC.png"  FileName27="BackgroundC.png"  FileName28="BackgroundC.png" >
+  <Item25></Item25>
+  <IntegrationBar  X="83" Y="204" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png"></IntegrationBar>
+  <DominationBar  X="83" Y="227" Width="200" Height="8" FileName0="Red.png" FileName1="Orange.png" FileName2="Yellow.png" FileName3="Green.png" FileName4="Blue.png" FileName5="Purple.png"></DominationBar>
+  <EnduranceBar  X="83" Y="250" Width="200" Height="8" FileName0="Red.png" FileName1="Orange.png" FileName2="Yellow.png" FileName3="Green.png" FileName4="Blue.png" FileName5="Purple.png"></EnduranceBar>
+  <AgricultureBar  X="83" Y="273" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png"></AgricultureBar>
+  <CommerceBar  X="83" Y="296" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png"></CommerceBar>
+  <TechnologyBar  X="83" Y="319" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png"></TechnologyBar>
+  <MoraleBar  X="83" Y="342" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png"></MoraleBar>
+  <FacilityCountBar  X="83" Y="365" Width="200" Height="8" FileName0="Blue.png" FileName1="Cyan.png" FileName2="Green.png" FileName3="Yellow.png" FileName4="Orange.png" FileName5="Red.png"></FacilityCountBar>
+  <Item34></Item34>
+  <Item35></Item35>
+  <CharacteristicShowBackground Mask="Null.png" Background="CharacteristicBackground.png" ShowNullCharacteristicPicture="off" X="762" Y="55" Width="200" Height="490"></CharacteristicShowBackground>
+  <CharacteristicShow Mask="Null.png"  NullCharacteristicPicture="Null.png" 
+                      X="770" Y="96" Width="191" Height="45" 
+                      XNumber="1" YNumber="9" XSpacing="5" YSpacing="5"></CharacteristicShow>
+  <ImportantArchitectureKindPicture ShowArchitectureKindPicture="on" X="38" Y="114" Width="244" Height="80"></ImportantArchitectureKindPicture>
+  <ImportantArchitectureIDPicture ShowArchitectureIDPicture="off" X="22" Y="385" Width="276" Height="193"></ImportantArchitectureIDPicture>
+  <Item40></Item40>
+  <Item41></Item41>
+  <Item42></Item42>
+  <Item43></Item43>
+  <Item44></Item44>
+  <Item45></Item45>
+  <Item46></Item46>
+  <Item47></Item47>
+  <Item48></Item48>
+  <Item49></Item49>
+  <Item50></Item50>
+  <Item51></Item51>
+  <Item52></Item52>
+  <Item53></Item53>
+  <Item54></Item54>
+  <Item55></Item55>
+  <Item56></Item56>
+  <Item57></Item57>
+  <Item58></Item58>
+  <Item59></Item59>
+  <Item60></Item60>
+  <Item61></Item61>
+  <Item62></Item62>
+  <Item63></Item63>
+  <Item64></Item64>
+  <Item65></Item65>
+  <Item66></Item66>
+  <Item67></Item67>
+  <Item68></Item68>
+  <Item69></Item69>
+  <Item70></Item70>
+  <Item71></Item71>
+  <Item72></Item72>
+  <Item73></Item73>
+  <Item74></Item74>
+  <Item75></Item75>
+  <Item76></Item76>
+  <Item77></Item77>
+  <Item78></Item78>
+  <Item79></Item79>
+  <Item80></Item80>
+  <Item81></Item81>
+  <Item82></Item82>
+  <Item83></Item83>
+  <Item84></Item84>
+  <Item85></Item85>
+  <Item86></Item86>
+  <Item87></Item87>
+  <Item88></Item88>
+  <Item89></Item89>
+  <Item90></Item90>
+  <Item91></Item91>
+  <Item92></Item92>
+  <Item93></Item93>
+  <Item94></Item94>
+  <Item95></Item95>
+  <Item96></Item96>
+  <Item97></Item97>
+  <Item98></Item98>
+  <Item99></Item99>
+  <Item100></Item100>
+  <Item101></Item101>
+  <Item102></Item102>
+  <Item103></Item103>
+  <Item104></Item104>
+  <Item105></Item105>
+  <Item106></Item106>
+  <Item107></Item107>
+  <Item108></Item108>
+  <Item109></Item109>
+  <Item110></Item110>
+  <Item111></Item111>
+  <Item112></Item112>
+  <Item113></Item113>
+  <Item114></Item114>
+  <Item115></Item115>
+  <Item116></Item116>
+  <Item117></Item117>
+  <Item118></Item118>
+  <Item119></Item119>
+  <Item120></Item120>
+  <Item121></Item121>
+  <Item122></Item122>
+  <Item123></Item123>
+  <Item124></Item124>
+  <Item125></Item125>
+  <Item126></Item126>
+  <Item127></Item127>
+  <Item128></Item128>
+  <Item129></Item129>
+  <Item130></Item130>
+  <Item131></Item131>
+  <Item132></Item132>
+  <Item133></Item133>
+  <Item134></Item134>
+  <Item135></Item135>
+  <Item136></Item136>
+  <Item137></Item137>
+  <Item138></Item138>
+  <Item139></Item139>
+  <Item140></Item140>
+  <Item141></Item141>
+  <Item142></Item142>
+  <Item143></Item143>
+  <Item144></Item144>
+  <Item145></Item145>
+  <Item146></Item146>
+  <Item147></Item147>
+  <Item148></Item148>
+  <Item149></Item149>
+  <Item150></Item150>
+  <Item151></Item151>
+  <Item152></Item152>
+  <Item153></Item153>
+  <Item154></Item154>
+  <Item155></Item155>
+  <Item156></Item156>
+  <Item157></Item157>
+  <Item158></Item158>
+  <Item159></Item159>
+  <Item160></Item160>
+  <Item161></Item161>
+  <Item162></Item162>
+  <Item163></Item163>
+  <Item164></Item164>
+  <Item165></Item165>
+  <Item166></Item166>
+  <Item167></Item167>
+  <Item168></Item168>
+  <Item169></Item169>
+  <Item170></Item170>
+  <Item171></Item171>
+  <Item172></Item172>
+  <Item173></Item173>
+  <Item174></Item174>
+  <Item175></Item175>
+  <Item176></Item176>
+  <Item177></Item177>
+  <Item178></Item178>
+  <Item179></Item179>
+  <Item180></Item180>
+  <Item181></Item181>
+  <Item182></Item182>
+  <Item183></Item183>
+  <Item184></Item184>
+  <Item185></Item185>
+  <Item186></Item186>
+  <Item187></Item187>
+  <Item188></Item188>
+  <Item189></Item189>
+  <Item190></Item190>
+  <Item191></Item191>
+  <Item192></Item192>
+  <Item193></Item193>
+  <Item194></Item194>
+  <Item195></Item195>
+  <Item196></Item196>
+  <Item197></Item197>
+  <Item198></Item198>
+  <Item199></Item199>
+  <Item200></Item200>
+  <TheFacilityPage Mask1="Null.png" Mask2="Null.png" Background="AuxiliaryBackground.png" AllFacilityNumber="69" X="0" Y="0" Width="1000" Height="600"></TheFacilityPage>
+  <ArchitectureInFacilityTexts>
+    <Label X="60" Y="30" Width="80" Height="25" Label ="建筑名称"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Regular"
+                FontColor="4294967295"
+                Align="Middle">
+    </Label>
+    <Text X="60" Y="55" Width="80" Height="25" PropertyName="Name"
+                FontName="方正隶变_GBK"
+                FontSize="14"
+                FontStyle="Bold"
+                FontColor="4294967040"
+                Align="Middle">
+    </Text>
+  </ArchitectureInFacilityTexts>
+  <PageShowConditionAndSetting X="0" Y="0" Width="1000" Height="600" Mask="Null.png" Background="Background0.png"
+                               TheFirstPage="0"
+                               PageForFacilityPositionCountNumber="4" 
+                               TheFacilityPositionCount1="1" Mask1="Null.png" Background1="BackgroundA.png"
+                               TheFacilityPositionCount2="1" Mask2="Null.png" Background2="BackgroundB.png"
+                               TheFacilityPositionCount3="1" Mask3="Null.png" Background3="BackgroundC.png"
+                               TheFacilityPositionCount4="1" Mask4="Null.png" Background4="BackgroundD.png"
+                               TheFacilityPositionCount5="1" Mask5="Null.png" Background5="BackgroundE.png"
+                               TheFacilityPositionCount6="99" Mask6="Null.png" Background6="Background.png"
+                               TheFacilityPositionCount7="99" Mask7="Null.png" Background7="Background.png"
+                               TheFacilityPositionCount8="99" Mask8="Null.png" Background8="Background.png"
+                               TheFacilityPositionCount9="99" Mask9="Null.png" Background9="Background.png"
+                               TheFacilityPositionCount10="99" Mask10="Null.png" Background10="Background.png"
+                               PageForArchitectureKindNumber="0" 
+                               TheArchitectureKind1="1" Mask11="Null.png" Background11="Background.png"
+                               TheArchitectureKind2="1" Mask12="Null.png" Background12="Background.png"
+                               TheArchitectureKind3="1" Mask13="Null.png" Background13="Background.png"
+                               TheArchitectureKind4="1" Mask14="Null.png" Background14="Background.png"
+                               TheArchitectureKind5="1" Mask15="Null.png" Background15="Background.png"
+                               TheArchitectureKind6="1" Mask16="Null.png" Background16="Background.png"
+                               TheArchitectureKind7="1" Mask17="Null.png" Background17="Background.png"
+                               TheArchitectureKind8="1" Mask18="Null.png" Background18="Background.png"
+                               TheArchitectureKind9="1" Mask19="Null.png" Background19="Background.png"
+                               TheArchitectureKind10="1" Mask20="Null.png" Background20="Background.png"
+                               PageForArchitectureCharacteristicNumber="0"
+                               TheArchitectureCharacteristic1="1001" Mask21="Null.png" Background21="Background.png"
+                               TheArchitectureCharacteristic2="1001" Mask22="Null.png" Background22="Background.png"
+                               TheArchitectureCharacteristic3="1001" Mask23="Null.png" Background23="Background.png"
+                               TheArchitectureCharacteristic4="1001" Mask24="Null.png" Background24="Background.png"
+                               TheArchitectureCharacteristic5="1001" Mask25="Null.png" Background25="Background.png"
+                               TheArchitectureCharacteristic6="1001" Mask26="Null.png" Background26="Background.png"
+                               TheArchitectureCharacteristic7="1001" Mask27="Null.png" Background27="Background.png"
+                               TheArchitectureCharacteristic8="1001" Mask28="Null.png" Background28="Background.png"
+                               TheArchitectureCharacteristic9="1001" Mask29="Null.png" Background29="Background.png"
+                               TheArchitectureCharacteristic10="1001" Mask30="Null.png" Background30="Background.png">
+  </PageShowConditionAndSetting>
+  <Item204></Item204>
+  <Item205></Item205>
+  <FacilityforPage1Button FileName="FacilityforAButton.png" PressedName="FacilityforAPressed.png" X="320" Y="2"  Width="80" Height="20"></FacilityforPage1Button>
+  <FacilityforPage2Button FileName="FacilityforBButton.png" PressedName="FacilityforBPressed.png" X="400" Y="2"  Width="80" Height="20"></FacilityforPage2Button>
+  <FacilityforPage3Button FileName="FacilityforCButton.png" PressedName="FacilityforCPressed.png" X="480" Y="2"  Width="80" Height="20"></FacilityforPage3Button>
+  <FacilityforPage4Button FileName="FacilityforDButton.png" PressedName="FacilityforDPressed.png" X="560" Y="2"  Width="80" Height="20"></FacilityforPage4Button>
+  <FacilityforPage5Button FileName="FacilityforEButton.png" PressedName="FacilityforEPressed.png" X="640" Y="2"  Width="80" Height="20"></FacilityforPage5Button>
+  <FacilityforPage6Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage6Button>
+  <FacilityforPage7Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage7Button>
+  <FacilityforPage8Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage8Button>
+  <FacilityforPage9Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage9Button>
+  <FacilityforPage10Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage10Button>
+  <FacilityforPage11Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage11Button>
+  <FacilityforPage12Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage12Button>
+  <FacilityforPage13Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage13Button>
+  <FacilityforPage14Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage14Button>
+  <FacilityforPage15Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage15Button>
+  <FacilityforPage16Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage16Button>
+  <FacilityforPage17Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage17Button>
+  <FacilityforPage18Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage18Button>
+  <FacilityforPage19Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage19Button>
+  <FacilityforPage20Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage20Button>
+  <FacilityforPage21Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage21Button>
+  <FacilityforPage22Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage22Button>
+  <FacilityforPage23Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage23Button>
+  <FacilityforPage24Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage24Button>
+  <FacilityforPage25Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage25Button>
+  <FacilityforPage26Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage26Button>
+  <FacilityforPage27Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage27Button>
+  <FacilityforPage28Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage28Button>
+  <FacilityforPage29Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage29Button>
+  <FacilityforPage30Button FileName="Null.png" PressedName="Null.png" X="220" Y="2"  Width="80" Height="20"></FacilityforPage30Button>
+  <FacilityRichText  ShowFacilityAllCount="on" ShowTheFacilityCount="on" ShowThePositionOccupied="off" ShowTheMaintenanceCost="off" ShowTheFacilityDescription="off" 
+                     Text1="在建设施：" Text2="[" Text3="剩余"  Text4="天]" Text5="已建设施" Text6="«" Text7="»：" Text8="︽︽︽︽︽︽︽" Text9="︾︾︾︾︾︾︾"                     
+                     Text10="数量(" Text11=");" Text12="占用空间{" Text13="};" Text14="维持费用[" Text15="];" Text16="介绍【" Text17="】"
+                     Text18="预留" Text19="预留" 
+                     X="54" Y="188" Width="160" Height="350" RowMargin="0" 
+			               TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
+                     FontName="方正隶变_GBK"
+                     FontSize="14"
+                     FontStyle="Bold"
+                     FontColor="4294967295">
+  </FacilityRichText >
+  <Item237></Item237>
+  <Item238></Item238>
+  <Item239></Item239>
+  <Item240></Item240>
+  <FacilityDescriptionTextBackground Mask="Null.png" Background="TextBackground.png" X="49" Y="152" Width="172" Height="287"></FacilityDescriptionTextBackground>
+  <FacilityDescriptionText  TheFacilityDescriptionTextFrom="xml"  FacilityDescriptionTextFollowTheMouse="off" 
+                            TheBuildingFacilityPictureA="Ing.png" TheBuildingFacilityPictureB="Ings.png" TheBuildingFacilityTextPicture="Ingt.png"
+                            Text1="设施名称：" Text2="[" Text3="]" Text4="设施数量：" Text5="〔" Text6="〕" Text7="设施说明：" Text8="✎『" Text9="』"                            
+                            Text10="该设施正在建造中·····" Text11="请耐心等待" Text12="天" 
+                            Text13="预留" Text14="预留" Text15="预留" Text16="预留" Text17="预留" Text18="预留" Text19="预留" 
+                            X="54" Y="188" Width="170" Height="350" RowMargin="0"
+                            TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
+                            FontName="方正隶变_GBK"
+                            FontSize="14"
+                            FontStyle="Bold"
+                            FontColor="4294967295">
+  </FacilityDescriptionText>
+  <Item243></Item243>
+  <Item244></Item244>
+  <Item245></Item245>
+  <Item246></Item246>
+  <Item247></Item247>
+  <Item248></Item248>
+  <Item249></Item249>
+  <Item250></Item250>
+  <Item251></Item251>
+  <Item252></Item252>
+  <Item253></Item253>
+  <Item254></Item254>
+  <Item255></Item255>
+  <Item256></Item256>
+  <Item257></Item257>
+  <Item258></Item258>
+  <Item259></Item259>
+  <Item260></Item260>
+  <Item261></Item261>
+  <Item262></Item262>
+  <Item263></Item263>
+  <Item264></Item264>
+  <Item265></Item265>
+  <Item266></Item266>
+  <Item267></Item267>
+  <Item268></Item268>
+  <Item269></Item269>
+  <Item270></Item270>
+  <Item271></Item271>
+  <Item272></Item272>
+  <Item273></Item273>
+  <Item274></Item274>
+  <Item275></Item275>
+  <Item276></Item276>
+  <Item277></Item277>
+  <Item278></Item278>
+  <Item279></Item279>
+  <Item280></Item280>
+  <Item281></Item281>
+  <Item282></Item282>
+  <Item283></Item283>
+  <Item284></Item284>
+  <Item285></Item285>
+  <Item286></Item286>
+  <Item287></Item287>
+  <Item288></Item288>
+  <Item289></Item289>
+  <Item290></Item290>
+  <Item291></Item291>
+  <Item292></Item292>
+  <Item293></Item293>
+  <Item294></Item294>
+  <Item295></Item295>
+  <Item296></Item296>
+  <Item297></Item297>
+  <Item298></Item298>
+  <Item299></Item299>
+  <Item300></Item300>
+  <Facility1 ID="101" Name="乡村草市" Description="少量增加资金收入。" Page="1" PictureA="101.png" PictureB="101s.png" X="272" Y="271" Width="97" Height="57"></Facility1>
+  <Facility2 ID="0" Name="治所" Description="城池统治每天增加1点，并对人口增长有少许增益。" Page="1" PictureA="0.png" PictureB="0s.png" X="663" Y="286" Width="75" Height="42"></Facility2>
+  <Facility3 ID="2" Name="金曹" Description="城池商业每天增加1点，并对人口增长有少许增益。" Page="1" PictureA="2.png" PictureB="2s.png" X="461" Y="192" Width="75" Height="44"></Facility3>
+  <Facility4 ID="3" Name="议曹" Description="城池技术每天增加1点，并对人口增长有少许增益。" Page="1" PictureA="3.png" PictureB="3s.png" X="246" Y="204" Width="78" Height="45"></Facility4>
+  <Facility5 ID="6" Name="户曹" Description="城池民心每天增加1点，并对人口增长有少许增益。" Page="1" PictureA="6.png" PictureB="6s.png" X="603" Y="253" Width="75" Height="47"></Facility5>
+  <Facility6 ID="20" Name="市集" Description="增加城池每月资金收入，并能吸引少量人口聚集。" Page="1" PictureA="20.png" PictureB="20s.png" X="445" Y="360" Width="90" Height="57"></Facility6>
+  <Facility7 ID="21" Name="商行" Description="对城池每月的资金收入有加成作用，并对人口增长有所增益。" Page="1" PictureA="21.png" PictureB="21s.png" X="345" Y="240" Width="75" Height="47"></Facility7>
+  <Facility8 ID="22" Name="巨贾" Description="大商家入驻。能对城池每月的资金收入有很大的加成，并能加大城池商业每天的增长量，提高城池资金上限。" Page="1" PictureA="22.png" PictureB="22s.png" X="551" Y="145" Width="76" Height="43"></Facility8>
+  <Facility9 ID="25" Name="大市集" Description="对城池每月的资金收入有很大的提高，并能吸引大量人口入住。" Page="1" PictureA="25.png" PictureB="25s.png" X="423" Y="253" Width="167" Height="85"></Facility9>
+  <Facility10 ID="100" Name="医馆" Description="治愈病人，减少瘟疫的影响，加快伤病的恢复，并能吸引大量人口聚集。" Page="1" PictureA="100.png" PictureB="100s.png" X="669" Y="131" Width="62" Height="52"></Facility10>
+  <Facility11 ID="211" Name="督邮" Description="能增加城池的统治上限，并扩大城池的视野范围。" Page="1" PictureA="211.png" PictureB="211s.png" X="528" Y="226" Width="78" Height="41"></Facility11>
+  <Facility12 ID="221" Name="乐府" Description="使人愉悦，能增加大家的工作效率，并对城池民心的提升有影响。" Page="1" PictureA="221.png" PictureB="221s.png" X="520" Y="330" Width="92" Height="54"></Facility12>
+  <Facility13 ID="60" Name="民房" Description="对城市人口增长有少许增益。" Page="1" PictureA="60.png" PictureB="60s.png" X="741" Y="108" Width="74" Height="42"></Facility13>
+  <Facility14 ID="61" Name="义舍" Description="减少城池旱灾的破坏，并对城池民心的提升有很大的影响。" Page="1" PictureA="61.png" PictureB="61s.png" X="161" Y="387" Width="75" Height="43"></Facility14>
+  <Facility15 ID="62" Name="道观" Description="增加城内女性怀孕几率，并对城池的民心提升略有影响，对人口增长有少许增益。" Page="1" PictureA="62.png" PictureB="62s.png" X="694" Y="195" Width="74" Height="64"></Facility15>
+  <Facility16 ID="63" Name="寺庙" Description="降低城池灾害发生几率，并对城池的民心提升略有影响。" Page="1" PictureA="63.png" PictureB="63s.png" X="842" Y="406" Width="107" Height="66"></Facility16>
+  <Facility17 ID="5" Name="郡司空" Description="加快城池耐久的恢复，减少水灾产生的影响。" Page="1" PictureA="5.png" PictureB="5s.png" X="669" Y="344" Width="79" Height="50"></Facility17>
+  <Facility18 ID="4" Name="兵曹" Description="对新兵进行思想教育，提高新兵的士气和战意。" Page="2" PictureA="4.png" PictureB="4s.png" X="554" Y="167" Width="79" Height="47"></Facility18>
+  <Facility19 ID="7" Name="法曹" Description="减少俘虏的逃跑率。" Page="2" PictureA="7.png" PictureB="7s.png" X="231" Y="227" Width="74" Height="44"></Facility19>
+  <Facility20 ID="40" Name="军营" Description="极大的提升了城内部队的训练速度。" Page="2" PictureA="40.png" PictureB="40s.png" X="357" Y="300" Width="334" Height="154"></Facility20>
+  <Facility21 ID="42" Name="将军府" Description="对城池的军事力量有决定性的作用。" Page="2" PictureA="42.png" PictureB="42s.png" X="504" Y="129" Width="78" Height="56"></Facility21>
+  <Facility22 ID="43" Name="骑兵训练营" Description="增加出征骑兵的战斗力。" Page="2" PictureA="43.png" PictureB="43s.png" X="242" Y="284" Width="142" Height="86"></Facility22>
+  <Facility23 ID="44" Name="羽林骑营" Description="可以使城池组件羽林郎。" Page="2" PictureA="44.png" PictureB="44s.png" X="652" Y="180" Width="148" Height="86"></Facility23>
+  <Facility24 ID="45" Name="步兵训练营" Description="增加出征步兵的战斗力。" Page="2" PictureA="45.png" PictureB="45s.png" X="203" Y="401" Width="135" Height="77"></Facility24>
+  <Facility25 ID="46" Name="弓手训练营" Description="增加出征弓弩的战斗力。" Page="2" PictureA="46.png" PictureB="46s.png" X="426" Y="191" Width="141" Height="91"></Facility25>
+  <Facility26 ID="47" Name="武库署" Description="增加出征器械的战斗力。" Page="2" PictureA="47.png" PictureB="47s.png" X="163" Y="344" Width="73" Height="51"></Facility26>
+  <Facility27 ID="48" Name="演武厅" Description="高级将领练武的地方。" Page="2" PictureA="48.png" PictureB="48s.png" X="337" Y="135" Width="108" Height="72"></Facility27>
+  <Facility28 ID="55" Name="望楼" Description="扩大城池视野范围。" Page="2" PictureA="55.png" PictureB="55s.png" X="112" Y="357" Width="67" Height="63"></Facility28>
+  <Facility29 ID="56" Name="鼓楼" Description="增加城池附件部队的战意。" Page="2" PictureA="56.png" PictureB="56s.png" X="314" Y="469" Width="64" Height="56"></Facility29>
+  <Facility30 ID="57" Name="督造司" Description="增加城池的牢固度，降低城池地震产生的破坏。" Page="2" PictureA="57.png" PictureB="57s.png" X="564" Y="448" Width="77" Height="48"></Facility30>
+  <Facility31 ID="1" Name="仓曹" Description="城池农业每天增加1点，并对人口增长有少许增益。" Page="3" PictureA="1.png" PictureB="1s.png" X="632" Y="268" Width="165" Height="91"></Facility31>
+  <Facility32 ID="11" Name="农田" Description="增加城池每月粮食收入有加成作用，并能吸引少量人口聚集。" Page="3" PictureA="11.png" PictureB="11s.png" X="528" Y="223" Width="150" Height="83"></Facility32>
+  <Facility33 ID="12" Name="粮仓" Description="降低蝗灾对该城的影响，大幅度减少城池内粮食的消耗，并对人口增长有所增益。" Page="3" PictureA="12.png" PictureB="12s.png" X="429" Y="160" Width="129" Height="90"></Facility33>
+  <Facility34 ID="13" Name="农具制造所" Description="对城池每月的粮食收入有加成作用，并对人口增长有所增益。" Page="3" PictureA="13.png" PictureB="13s.png" X="266" Y="117" Width="79" Height="42"></Facility34>
+  <Facility35 ID="14" Name="军屯" Description="寓兵于农。能对城池每月的粮食收入有很大的加成，并能加大城池农业每天的增长量，提高城池粮食上限。" Page="3" PictureA="14.png" PictureB="14s.png" X="514" Y="312" Width="151" Height="82"></Facility35>
+  <Facility36 ID="15" Name="大农田" Description="大量增加城池每月军粮收入，并能吸引大量人口入住。" Page="3" PictureA="15.png" PictureB="15s.png" X="251" Y="223" Width="263" Height="146"></Facility36>
+  <Facility37 ID="230" Name="渔港" Description="少量增加城池每月资金收入。" Page="3" PictureA="230.png" PictureB="230s.png" X="191" Y="371" Width="72" Height="45"></Facility37>
+  <Facility38 ID="300" Name="翻车" Description="大幅提高城池的农业上限，并对人口增长有少许增益。" Page="3" PictureA="300.png" PictureB="300s.png" X="312" Y="186" Width="79" Height="50"></Facility38>
+  <Facility39 ID="301" Name="官营作坊" Description="增加城池的技术上限和商业上限，并对人口增长有少许增益。" Page="3" PictureA="301.png" PictureB="301s.png" X="644" Y="127" Width="76" Height="48"></Facility39>
+  <Facility40 ID="302" Name="马场" Description="可以使城池组建骑兵，增加城池商业上限，并对人口增长有少许增益。" Page="3" PictureA="302.png" PictureB="302.png" X="442" Y="359" Width="112" Height="70"></Facility40>
+  <Facility41 ID="303" Name="制陶场" Description="大幅提高城池的商业上限，并对人口增长有少许增益。" Page="3" PictureA="303.png" PictureB="303s.png" X="228" Y="161" Width="77" Height="43"></Facility41>
+  <Facility42 ID="304" Name="织丝作坊" Description="大幅提高城池的商业上限，并对人口增长有少许增益。" Page="3" PictureA="304.png" PictureB="304s.png" X="580" Y="159" Width="75" Height="43"></Facility42>
+  <Facility43 ID="305" Name="铸币厂" Description="对城池商业上限的提高有决定性作用，并对人口增长有少许增益。" Page="3" PictureA="305.png" PictureB="305s.png" X="633" Y="449" Width="77" Height="43"></Facility43>
+  <Facility44 ID="306" Name="织锦作坊" Description="大幅提高城池的商业上限，并对人口增长有少许增益。" Page="3" PictureA="306.png" PictureB="306s.png" X="723" Y="167" Width="74" Height="44"></Facility44>
+  <Facility45 ID="307" Name="矿场" Description="对城池商业上限的提高有关键性作用，能大幅度减少新编步弩的费用。并对人口增长有少许增益。" Page="3" PictureA="307.png" PictureB="307s.png" X="751" Y="512" Width="72" Height="48"></Facility45>
+  <Facility46 ID="308" Name="制漆场" Description="大幅提高城池的商业上限，并对人口增长有少许增益。" Page="3" PictureA="308.png" PictureB="308s.png" X="227" Y="61" Width="78" Height="40"></Facility46>
+  <Facility47 ID="309" Name="制盐场" Description="对城池商业上限的提高有关键性作用，并对人口增长有少许增益。" Page="3" PictureA="309.png" PictureB="309s.png" X="286" Y="418" Width="77" Height="43"></Facility47>
+  <Facility48 ID="310" Name="织麻作坊" Description="大幅提高城池的商业上限，并对人口增长有少许增益。" Page="3" PictureA="310.png" PictureB="310s.png" X="682" Y="216" Width="78" Height="49"></Facility48>
+  <Facility49 ID="206" Name="将作监" Description="城池耐久度每天增加1，并提升设施新建速度，减少风灾的破坏。" Page="3" PictureA="206.png" PictureB="206s.png" X="452" Y="97" Width="82" Height="50"></Facility49>
+  <Facility50 ID="231" Name="楼船士训练营" Description="增加出征水军的战斗力。" Page="3" PictureA="231.png" PictureB="231s.png" X="109" Y="426" Width="101" Height="86"></Facility50>
+  <Facility51 ID="102" Name="天牢" Description="降低俘虏忠诚，大幅减少俘虏逃跑率。" Page="4" PictureA="102.png" PictureB="102s.png" X="581" Y="362" Width="125" Height="69"></Facility51>
+  <Facility52 ID="200" Name="皇宫" Description="这是信仰，不解释。" Page="4" PictureA="200.png" PictureB="200s.png" X="429" Y="240" Width="145" Height="95"></Facility52>
+  <Facility53 ID="201" Name="州府" Description="能大幅提高城池的内政上限。" Page="4" PictureA="201.png" PictureB="201s.png" X="251" Y="214" Width="75" Height="45"></Facility53>
+  <Facility54 ID="202" Name="尚书台" Description="对提高大家的工作效率有重要作用，并加快新技巧的研发。" Page="4" PictureA="202.png" PictureB="202s.png" X="324" Y="295" Width="88" Height="61"></Facility54>
+  <Facility55 ID="203" Name="廷尉府" Description="增加城池统治上限，并很大程度的减少俘虏逃跑率。" Page="4" PictureA="203.png" PictureB="203s.png" X="251" Y="259" Width="92" Height="67"></Facility55>
+  <Facility56 ID="204" Name="太医署" Description="对伤兵的恢复能起到关键性作用。" Page="4" PictureA="204.png" PictureB="204s.png" X="462" Y="367" Width="86" Height="55"></Facility56>
+  <Facility57 ID="205" Name="太学" Description="扩大势力声望，促进势力技巧的研发。" Page="4" PictureA="205.png" PictureB="205s.png" X="399" Y="336" Width="75" Height="52"></Facility57>
+  <Facility58 ID="30" Name="察举司" Description="减少城内人事的消耗费用，能大幅提高工作效率" Page="4" PictureA="30.png" PictureB="30s.png" X="662" Y="313" Width="116" Height="83"></Facility58>
+  <Facility59 ID="31" Name="观星台" Description="降低灾难发生几率。" Page="4" PictureA="31.png" PictureB="31s.png" X="320" Y="230" Width="97" Height="68"></Facility59>
+  <Facility60 ID="41" Name="幕府" Description="执行破坏、煽动、流言和劫牢的资金消耗减半" Page="4" PictureA="41.png" PictureB="41s.png" X="345" Y="401" Width="75" Height="44"></Facility60>
+  <Facility61 ID="400" Name="思民堂" Description="将领讨论政事的地方。" Page="4" PictureA="400.png" PictureB="400s.png" X="203" Y="338" Width="73" Height="42"></Facility61>
+  <Facility62 ID="401" Name="修身居" Description="将领修身养性的地方。" Page="4" PictureA="401.png" PictureB="401s.png" X="324" Y="185" Width="75" Height="44"></Facility62>
+  <Facility63 ID="64" Name="藏娇阁" Description="不解释" Page="4" PictureA="64.png" PictureB="64s.png" X="456" Y="178" Width="94" Height="58"></Facility63>
+  <Facility64 ID="65" Name="绿玉轩" Description="不解释" Page="4" PictureA="65.png" PictureB="65s.png" X="663" Y="279" Width="93" Height="52"></Facility64>
+  <Facility65 ID="66" Name="尝香楼" Description="不解释" Page="4" PictureA="66.png" PictureB="66s.png" X="520" Y="214" Width="94" Height="56"></Facility65>
+  <Facility66 ID="67" Name="铜雀台" Description="不解释" Page="4" PictureA="67.png" PictureB="67s.png" X="586" Y="245" Width="94" Height="58"></Facility66>
+  <Facility67 ID="992" Name="和氏璧" Description="不解释" Page="4" PictureA="992.png" PictureB="992s.png" X="523" Y="328" Width="104" Height="69"></Facility67>
+  <Facility68 ID="991" Name="东厂" Description="凑数量的" Page="4" PictureA="991.png" PictureB="991s.png" X="593" Y="307" Width="94" Height="55"></Facility68>
+  <Facility69 ID="993" Name="西厂" Description="凑数量的" Page="4" PictureA="993.png" PictureB="993s.png" X="388" Y="213" Width="88" Height="51"></Facility69>
+  <Facility70 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility70>
+  <Facility71 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility71>
+  <Facility72 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility72>
+  <Facility73 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility73>
+  <Facility74 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility74>
+  <Facility75 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility75>
+  <Facility76 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility76>
+  <Facility77 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility77>
+  <Facility78 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility78>
+  <Facility79 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility79>
+  <Facility80 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility80>
+  <Facility81 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility81>
+  <Facility82 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility82>
+  <Facility83 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility83>
+  <Facility84 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility84>
+  <Facility85 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility85>
+  <Facility86 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility86>
+  <Facility87 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility87>
+  <Facility88 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility88>
+  <Facility89 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility89>
+  <Facility90 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility90>
+  <Facility91 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility91>
+  <Facility92 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility92>
+  <Facility93 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility93>
+  <Facility94 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility94>
+  <Facility95 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility95>
+  <Facility96 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility96>
+  <Facility97 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility97>
+  <Facility98 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility98>
+  <Facility99 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility99>
+  <Facility100 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility100>
+  <Facility101 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility101>
+  <Facility102 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility102>
+  <Facility103 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility103>
+  <Facility104 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility104>
+  <Facility105 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility105>
+  <Facility106 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility106>
+  <Facility107 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility107>
+  <Facility108 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility108>
+  <Facility109 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility109>
+  <Facility110 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility110>
+  <Facility111 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility111>
+  <Facility112 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility112>
+  <Facility113 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility113>
+  <Facility114 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility114>
+  <Facility115 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility115>
+  <Facility116 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility116>
+  <Facility117 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility117>
+  <Facility118 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility118>
+  <Facility119 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility119>
+  <Facility120 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility120>
+  <Facility121 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility121>
+  <Facility122 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility122>
+  <Facility123 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility123>
+  <Facility124 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility124>
+  <Facility125 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility125>
+  <Facility126 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility126>
+  <Facility127 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility127>
+  <Facility128 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility128>
+  <Facility129 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility129>
+  <Facility130 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility130>
+  <Facility131 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility131>
+  <Facility132 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility132>
+  <Facility133 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility133>
+  <Facility134 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility134>
+  <Facility135 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility135>
+  <Facility136 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility136>
+  <Facility137 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility137>
+  <Facility138 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility138>
+  <Facility139 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility139>
+  <Facility140 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility140>
+  <Facility141 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility141>
+  <Facility142 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility142>
+  <Facility143 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility143>
+  <Facility144 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility144>
+  <Facility145 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility145>
+  <Facility146 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility146>
+  <Facility147 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility147>
+  <Facility148 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility148>
+  <Facility149 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility149>
+  <Facility150 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility150>
+  <Facility151 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility151>
+  <Facility152 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility152>
+  <Facility153 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility153>
+  <Facility154 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility154>
+  <Facility155 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility155>
+  <Facility156 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility156>
+  <Facility157 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility157>
+  <Facility158 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility158>
+  <Facility159 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility159>
+  <Facility160 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility160>
+  <Facility161 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility161>
+  <Facility162 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility162>
+  <Facility163 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility163>
+  <Facility164 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility164>
+  <Facility165 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility165>
+  <Facility166 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility166>
+  <Facility167 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility167>
+  <Facility168 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility168>
+  <Facility169 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility169>
+  <Facility170 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility170>
+  <Facility171 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility171>
+  <Facility172 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility172>
+  <Facility173 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility173>
+  <Facility174 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility174>
+  <Facility175 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility175>
+  <Facility176 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility176>
+  <Facility177 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility177>
+  <Facility178 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility178>
+  <Facility179 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility179>
+  <Facility180 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility180>
+  <Facility181 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility181>
+  <Facility182 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility182>
+  <Facility183 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility183>
+  <Facility184 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility184>
+  <Facility185 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility185>
+  <Facility186 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility186>
+  <Facility187 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility187>
+  <Facility188 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility188>
+  <Facility189 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility189>
+  <Facility190 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility190>
+  <Facility191 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility191>
+  <Facility192 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility192>
+  <Facility193 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility193>
+  <Facility194 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility194>
+  <Facility195 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility195>
+  <Facility196 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility196>
+  <Facility197 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility197>
+  <Facility198 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility198>
+  <Facility199 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility199>
+  <Facility200 ID="99999" Name="设施名称" Description="设施介绍" Page="1" PictureA="Null.png" PictureB="Null.png" X="272" Y="271" Width="97" Height="57"></Facility200>
+  <Item501></Item501>
+  <Item502></Item502>
+  <Item503></Item503>
+  <Item504></Item504>
+  <Item505></Item505>
+  <Item506></Item506>
+  <Item507></Item507>
+  <Item508></Item508>
+  <Item509></Item509>
+  <Item510></Item510>
+  <Item511></Item511>
+  <Item512></Item512>
+  <Item513></Item513>
+  <Item514></Item514>
+  <Item515></Item515>
+  <Item516></Item516>
+  <Item517></Item517>
+  <Item518></Item518>
+  <Item519></Item519>
+  <Item520></Item520>
+  <Item521></Item521>
+  <Item522></Item522>
+  <Item523></Item523>
+  <Item524></Item524>
+  <Item525></Item525>
+  <Item526></Item526>
+  <Item527></Item527>
+  <Item528></Item528>
+  <Item529></Item529>
+  <Item530></Item530>
+  <Item531></Item531>
+  <Item532></Item532>
+  <Item533></Item533>
+  <Item534></Item534>
+  <Item535></Item535>
+  <Item536></Item536>
+  <Item537></Item537>
+  <Item538></Item538>
+  <Item539></Item539>
+  <Item540></Item540>
+  <Item541></Item541>
+  <Item542></Item542>
+  <Item543></Item543>
+  <Item544></Item544>
+  <Item545></Item545>
+  <Item546></Item546>
+  <Item547></Item547>
+  <Item548></Item548>
+  <Item549></Item549>
+  <Item550></Item550>
+  <Item551></Item551>
+  <Item552></Item552>
+  <Item553></Item553>
+  <Item554></Item554>
+  <Item555></Item555>
+  <Item556></Item556>
+  <Item557></Item557>
+  <Item558></Item558>
+  <Item559></Item559>
+  <Item560></Item560>
+  <Item561></Item561>
+  <Item562></Item562>
+  <Item563></Item563>
+  <Item564></Item564>
+  <Item565></Item565>
+  <Item566></Item566>
+  <Item567></Item567>
+  <Item568></Item568>
+  <Item569></Item569>
+  <Item570></Item570>
+  <Item571></Item571>
+  <Item572></Item572>
+  <Item573></Item573>
+  <Item574></Item574>
+  <Item575></Item575>
+  <Item576></Item576>
+  <Item577></Item577>
+  <Item578></Item578>
+  <Item579></Item579>
+  <Item580></Item580>
+  <Item581></Item581>
+  <Item582></Item582>
+  <Item583></Item583>
+  <Item584></Item584>
+  <Item585></Item585>
+  <Item586></Item586>
+  <Item587></Item587>
+  <Item588></Item588>
+  <Item589></Item589>
+  <Item590></Item590>
+  <Item591></Item591>
+  <Item592></Item592>
+  <Item593></Item593>
+  <Item594></Item594>
+  <Item595></Item595>
+  <Item596></Item596>
+  <Item597></Item597>
+  <Item598></Item598>
+  <Item599></Item599>
+  <Item600></Item600>
+  <Facility1TextPosition Picture="101t.png" X="280" Y="274" Width="80" Height="50"></Facility1TextPosition>
+  <Facility2TextPosition Picture="0t.png" X="660" Y="282" Width="80" Height="50"></Facility2TextPosition>
+  <Facility3TextPosition Picture="2t.png" X="485" Y="189" Width="80" Height="50"></Facility3TextPosition>
+  <Facility4TextPosition Picture="3t.png" X="245" Y="201" Width="80" Height="50"></Facility4TextPosition>
+  <Facility5TextPosition Picture="6t.png" X="600" Y="251" Width="80" Height="50"></Facility5TextPosition>
+  <Facility6TextPosition Picture="20t.png" X="450" Y="363" Width="80" Height="50"></Facility6TextPosition>
+  <Facility7TextPosition Picture="21t.png" X="342" Y="238" Width="80" Height="50"></Facility7TextPosition>
+  <Facility8TextPosition Picture="22t.png" X="549" Y="141" Width="80" Height="50"></Facility8TextPosition>
+  <Facility9TextPosition Picture="25t.png" X="466" Y="270" Width="80" Height="50"></Facility9TextPosition>
+  <Facility10TextPosition Picture="100t.png" X="660" Y="132" Width="80" Height="50"></Facility10TextPosition>
+  <Facility11TextPosition Picture="211t.png" X="527" Y="221" Width="80" Height="50"></Facility11TextPosition>
+  <Facility12TextPosition Picture="221t.png" X="526" Y="332" Width="80" Height="50"></Facility12TextPosition>
+  <Facility13TextPosition Picture="60t.png" X="738" Y="104" Width="80" Height="50"></Facility13TextPosition>
+  <Facility14TextPosition Picture="61t.png" X="158" Y="383" Width="80" Height="50"></Facility14TextPosition>
+  <Facility15TextPosition Picture="62t.png" X="694" Y="195" Width="80" Height="50"></Facility15TextPosition>
+  <Facility16TextPosition Picture="63t.png" X="855" Y="414" Width="80" Height="50"></Facility16TextPosition>
+  <Facility17TextPosition Picture="5t.png" X="668" Y="344" Width="80" Height="50"></Facility17TextPosition>
+  <Facility18TextPosition Picture="4t.png" X="553" Y="165" Width="80" Height="50"></Facility18TextPosition>
+  <Facility19TextPosition Picture="7t.png" X="228" Y="224" Width="80" Height="50"></Facility19TextPosition>
+  <Facility20TextPosition Picture="40t.png" X="484" Y="352" Width="80" Height="50"></Facility20TextPosition>
+  <Facility21TextPosition Picture="42t.png" X="503" Y="132" Width="80" Height="50"></Facility21TextPosition>
+  <Facility22TextPosition Picture="43t.png" X="273" Y="302" Width="80" Height="50"></Facility22TextPosition>
+  <Facility23TextPosition Picture="44t.png" X="686" Y="198" Width="80" Height="50"></Facility23TextPosition>
+  <Facility24TextPosition Picture="45t.png" X="230" Y="414" Width="80" Height="50"></Facility24TextPosition>
+  <Facility25TextPosition Picture="46t.png" X="456" Y="211" Width="80" Height="50"></Facility25TextPosition>
+  <Facility26TextPosition Picture="47t.png" X="159" Y="344" Width="80" Height="50"></Facility26TextPosition>
+  <Facility27TextPosition Picture="48t.png" X="351" Y="146" Width="80" Height="50"></Facility27TextPosition>
+  <Facility28TextPosition Picture="55t.png" X="105" Y="363" Width="80" Height="50"></Facility28TextPosition>
+  <Facility29TextPosition Picture="56t.png" X="306" Y="472" Width="80" Height="50"></Facility29TextPosition>
+  <Facility30TextPosition Picture="57t.png" X="562" Y="447" Width="80" Height="50"></Facility30TextPosition>
+  <Facility31TextPosition Picture="1t.png" X="674" Y="288" Width="80" Height="50"></Facility31TextPosition>
+  <Facility32TextPosition Picture="11t.png" X="563" Y="239" Width="80" Height="50"></Facility32TextPosition>
+  <Facility33TextPosition Picture="12t.png" X="453" Y="180" Width="80" Height="50"></Facility33TextPosition>
+  <Facility34TextPosition Picture="13t.png" X="265" Y="113" Width="80" Height="50"></Facility34TextPosition>
+  <Facility35TextPosition Picture="14t.png" X="549" Y="328" Width="80" Height="50"></Facility35TextPosition>
+  <Facility36TextPosition Picture="15t.png" X="342" Y="271" Width="80" Height="50"></Facility36TextPosition>
+  <Facility37TextPosition Picture="230t.png" X="187" Y="368" Width="80" Height="50"></Facility37TextPosition>
+  <Facility38TextPosition Picture="300t.png" X="311" Y="186" Width="80" Height="50"></Facility38TextPosition>
+  <Facility39TextPosition Picture="301t.png" X="642" Y="126" Width="80" Height="50"></Facility39TextPosition>
+  <Facility40TextPosition Picture="302t.png" X="458" Y="369" Width="80" Height="50"></Facility40TextPosition>
+  <Facility41TextPosition Picture="303t.png" X="226" Y="157" Width="80" Height="50"></Facility41TextPosition>
+  <Facility42TextPosition Picture="304t.png" X="577" Y="155" Width="80" Height="50"></Facility42TextPosition>
+  <Facility43TextPosition Picture="305t.png" X="631" Y="445" Width="80" Height="50"></Facility43TextPosition>
+  <Facility44TextPosition Picture="306t.png" X="720" Y="164" Width="80" Height="50"></Facility44TextPosition>
+  <Facility45TextPosition Picture="307t.png" X="751" Y="511" Width="80" Height="50"></Facility45TextPosition>
+  <Facility46TextPosition Picture="308t.png" X="226" Y="56" Width="80" Height="50"></Facility46TextPosition>
+  <Facility47TextPosition Picture="309t.png" X="284" Y="414" Width="80" Height="50"></Facility47TextPosition>
+  <Facility48TextPosition Picture="310t.png" X="681" Y="215" Width="80" Height="50"></Facility48TextPosition>
+  <Facility49TextPosition Picture="206t.png" X="453" Y="97" Width="80" Height="50"></Facility49TextPosition>
+  <Facility50TextPosition Picture="231t.png" X="119" Y="444" Width="80" Height="50"></Facility50TextPosition>
+  <Facility51TextPosition Picture="102t.png" X="603" Y="371" Width="80" Height="50"></Facility51TextPosition>
+  <Facility52TextPosition Picture="200t.png" X="461" Y="262" Width="80" Height="50"></Facility52TextPosition>
+  <Facility53TextPosition Picture="201t.png" X="248" Y="211" Width="80" Height="50"></Facility53TextPosition>
+  <Facility54TextPosition Picture="202t.png" X="928" Y="93" Width="80" Height="50"></Facility54TextPosition>
+  <Facility55TextPosition Picture="203t.png" X="257" Y="267" Width="80" Height="50"></Facility55TextPosition>
+  <Facility56TextPosition Picture="204t.png" X="465" Y="369" Width="80" Height="50"></Facility56TextPosition>
+  <Facility57TextPosition Picture="205t.png" X="396" Y="337" Width="80" Height="50"></Facility57TextPosition>
+  <Facility58TextPosition Picture="30t.png" X="680" Y="329" Width="80" Height="50"></Facility58TextPosition>
+  <Facility59TextPosition Picture="31t.png" X="328" Y="239" Width="80" Height="50"></Facility59TextPosition>
+  <Facility60TextPosition Picture="41t.png" X="342" Y="398" Width="80" Height="50"></Facility60TextPosition>
+  <Facility61TextPosition Picture="400t.png" X="199" Y="334" Width="80" Height="50"></Facility61TextPosition>
+  <Facility62TextPosition Picture="401t.png" X="321" Y="182" Width="80" Height="50"></Facility62TextPosition>
+  <Facility63TextPosition Picture="64t.png" X="463" Y="182" Width="80" Height="50"></Facility63TextPosition>
+  <Facility64TextPosition Picture="65t.png" X="669" Y="280" Width="80" Height="50"></Facility64TextPosition>
+  <Facility65TextPosition Picture="66t.png" X="527" Y="217" Width="80" Height="50"></Facility65TextPosition>
+  <Facility66TextPosition Picture="67t.png" X="593" Y="249" Width="80" Height="50"></Facility66TextPosition>
+  <Facility67TextPosition Picture="992t.png" X="535" Y="337" Width="80" Height="50"></Facility67TextPosition>
+  <Facility68TextPosition Picture="991t.png" X="600" Y="309" Width="80" Height="50"></Facility68TextPosition>
+  <Facility69TextPosition Picture="993t.png" X="392" Y="213" Width="80" Height="50"></Facility69TextPosition>
+  <Facility70TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility70TextPosition>
+  <Facility71TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility71TextPosition>
+  <Facility72TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility72TextPosition>
+  <Facility73TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility73TextPosition>
+  <Facility74TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility74TextPosition>
+  <Facility75TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility75TextPosition>
+  <Facility76TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility76TextPosition>
+  <Facility77TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility77TextPosition>
+  <Facility78TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility78TextPosition>
+  <Facility79TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility79TextPosition>
+  <Facility80TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility80TextPosition>
+  <Facility81TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility81TextPosition>
+  <Facility82TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility82TextPosition>
+  <Facility83TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility83TextPosition>
+  <Facility84TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility84TextPosition>
+  <Facility85TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility85TextPosition>
+  <Facility86TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility86TextPosition>
+  <Facility87TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility87TextPosition>
+  <Facility88TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility88TextPosition>
+  <Facility89TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility89TextPosition>
+  <Facility90TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility90TextPosition>
+  <Facility91TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility91TextPosition>
+  <Facility92TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility92TextPosition>
+  <Facility93TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility93TextPosition>
+  <Facility94TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility94TextPosition>
+  <Facility95TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility95TextPosition>
+  <Facility96TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility96TextPosition>
+  <Facility97TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility97TextPosition>
+  <Facility98TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility98TextPosition>
+  <Facility99TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility99TextPosition>
+  <Facility100TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility100TextPosition>
+  <Facility101TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility101TextPosition>
+  <Facility102TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility102TextPosition>
+  <Facility103TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility103TextPosition>
+  <Facility104TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility104TextPosition>
+  <Facility105TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility105TextPosition>
+  <Facility106TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility106TextPosition>
+  <Facility107TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility107TextPosition>
+  <Facility108TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility108TextPosition>
+  <Facility109TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility109TextPosition>
+  <Facility110TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility110TextPosition>
+  <Facility111TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility111TextPosition>
+  <Facility112TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility112TextPosition>
+  <Facility113TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility113TextPosition>
+  <Facility114TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility114TextPosition>
+  <Facility115TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility115TextPosition>
+  <Facility116TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility116TextPosition>
+  <Facility117TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility117TextPosition>
+  <Facility118TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility118TextPosition>
+  <Facility119TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility119TextPosition>
+  <Facility120TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility120TextPosition>
+  <Facility121TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility121TextPosition>
+  <Facility122TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility122TextPosition>
+  <Facility123TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility123TextPosition>
+  <Facility124TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility124TextPosition>
+  <Facility125TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility125TextPosition>
+  <Facility126TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility126TextPosition>
+  <Facility127TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility127TextPosition>
+  <Facility128TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility128TextPosition>
+  <Facility129TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility129TextPosition>
+  <Facility130TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility130TextPosition>
+  <Facility131TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility131TextPosition>
+  <Facility132TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility132TextPosition>
+  <Facility133TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility133TextPosition>
+  <Facility134TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility134TextPosition>
+  <Facility135TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility135TextPosition>
+  <Facility136TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility136TextPosition>
+  <Facility137TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility137TextPosition>
+  <Facility138TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility138TextPosition>
+  <Facility139TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility139TextPosition>
+  <Facility140TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility140TextPosition>
+  <Facility141TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility141TextPosition>
+  <Facility142TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility142TextPosition>
+  <Facility143TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility143TextPosition>
+  <Facility144TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility144TextPosition>
+  <Facility145TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility145TextPosition>
+  <Facility146TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility146TextPosition>
+  <Facility147TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility147TextPosition>
+  <Facility148TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility148TextPosition>
+  <Facility149TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility149TextPosition>
+  <Facility150TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility150TextPosition>
+  <Facility151TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility151TextPosition>
+  <Facility152TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility152TextPosition>
+  <Facility153TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility153TextPosition>
+  <Facility154TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility154TextPosition>
+  <Facility155TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility155TextPosition>
+  <Facility156TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility156TextPosition>
+  <Facility157TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility157TextPosition>
+  <Facility158TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility158TextPosition>
+  <Facility159TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility159TextPosition>
+  <Facility160TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility160TextPosition>
+  <Facility161TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility161TextPosition>
+  <Facility162TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility162TextPosition>
+  <Facility163TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility163TextPosition>
+  <Facility164TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility164TextPosition>
+  <Facility165TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility165TextPosition>
+  <Facility166TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility166TextPosition>
+  <Facility167TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility167TextPosition>
+  <Facility168TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility168TextPosition>
+  <Facility169TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility169TextPosition>
+  <Facility170TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility170TextPosition>
+  <Facility171TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility171TextPosition>
+  <Facility172TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility172TextPosition>
+  <Facility173TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility173TextPosition>
+  <Facility174TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility174TextPosition>
+  <Facility175TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility175TextPosition>
+  <Facility176TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility176TextPosition>
+  <Facility177TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility177TextPosition>
+  <Facility178TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility178TextPosition>
+  <Facility179TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility179TextPosition>
+  <Facility180TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility180TextPosition>
+  <Facility181TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility181TextPosition>
+  <Facility182TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility182TextPosition>
+  <Facility183TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility183TextPosition>
+  <Facility184TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility184TextPosition>
+  <Facility185TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility185TextPosition>
+  <Facility186TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility186TextPosition>
+  <Facility187TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility187TextPosition>
+  <Facility188TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility188TextPosition>
+  <Facility189TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility189TextPosition>
+  <Facility190TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility190TextPosition>
+  <Facility191TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility191TextPosition>
+  <Facility192TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility192TextPosition>
+  <Facility193TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility193TextPosition>
+  <Facility194TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility194TextPosition>
+  <Facility195TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility195TextPosition>
+  <Facility196TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility196TextPosition>
+  <Facility197TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility197TextPosition>
+  <Facility198TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility198TextPosition>
+  <Facility199TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility199TextPosition>
+  <Facility200TextPosition Picture="Null.png" X="0" Y="0" Width="80" Height="50"></Facility200TextPosition>
 
-  </FacilityPositionBackgroundForC>
-  <FacilityPositionBackgroundForD X="0" Y="0" Width="1000" Height="600"
-          FileName0="BackgroundD0.png"
-          FileName1="BackgroundD0.png"  FileName2="BackgroundD.png"  FileName3="BackgroundD.png"  FileName4="BackgroundD.png"  FileName5="BackgroundD.png"  FileName6="BackgroundD.png"
-          FileName7="BackgroundD.png"  FileName8="BackgroundD.png"  FileName9="BackgroundD.png"  FileName10="BackgroundD.png"  FileName11="BackgroundD.png"  FileName12="BackgroundD.png"
-          FileName13="BackgroundD.png"  FileName14="BackgroundD.png"  FileName15="BackgroundD.png"  FileName16="BackgroundD.png"  FileName17="BackgroundD.png"  FileName18="BackgroundD.png"
-          FileName19="BackgroundD.png"  FileName20="BackgroundD.png"  FileName21="BackgroundD.png"  FileName22="BackgroundD.png"  FileName23="BackgroundD.png"  FileName24="BackgroundD.png"
-          FileName25="BackgroundD.png"  FileName26="BackgroundD.png"  FileName27="BackgroundD.png"  FileName28="BackgroundD.png" >
 
-  </FacilityPositionBackgroundForD>
-  <FacilityPositionBackgroundForE X="0" Y="0" Width="1000" Height="600"
-          FileName0="BackgroundE0.png"
-          FileName1="BackgroundE0.png"  FileName2="BackgroundE.png"  FileName3="BackgroundE.png"  FileName4="BackgroundE.png"  FileName5="BackgroundE.png"  FileName6="BackgroundE.png"
-          FileName7="BackgroundE.png"  FileName8="BackgroundE.png"  FileName9="BackgroundE.png"  FileName10="BackgroundE.png"  FileName11="BackgroundE.png"  FileName12="BackgroundE.png"
-          FileName13="BackgroundE.png"  FileName14="BackgroundE.png"  FileName15="BackgroundE.png"  FileName16="BackgroundE.png"  FileName17="BackgroundE.png"  FileName18="BackgroundE.png"
-          FileName19="BackgroundE.png"  FileName20="BackgroundE.png"  FileName21="BackgroundE.png"  FileName22="BackgroundE.png"  FileName23="BackgroundE.png"  FileName24="BackgroundE.png"
-          FileName25="BackgroundE.png"  FileName26="BackgroundE.png"  FileName27="BackgroundE.png"  FileName28="BackgroundE.png" >
-  </FacilityPositionBackgroundForE>
-  <FacilityforA Name1="乡村草市" Name2="治所" Name3="金曹" Name4="议曹" Name5="户曹" Name6="市集" Name7="商行"
-                Name8="巨贾" Name9="大市集" Name10="医馆" Name11="督邮" Name12="乐府" Name13="民房" Name14="义舍"
-                Name15="道观" Name16="寺庙" Name17="郡司空" Name18="预留" Name19="预留" Name20="预留" Name21="预留"
-                Name22="预留" Name23="预留" Name24="预留" Name25="预留" Name26="预留" Name27="预留" Name28="预留"
-                Text1="少量增加资金收入。" Text2="城池统治每天增加1点，并对人口增长有少许增益。" Text3="城池商业每天增加1点，并对人口增长有少许增益。" Text4="城池技术每天增加1点，并对人口增长有少许增益。" Text5="城池民心每天增加1点，并对人口增长有少许增益。"  Text6="增加城池每月资金收入，并能吸引少量人口聚集。" Text7="对城池每月的资金收入有加成作用，并对人口增长有所增益。" 
-                Text8="大商家入驻。能对城池每月的资金收入有很大的加成，并能加大城池商业每天的增长量，提高城池资金上限。" Text9="对城池每月的资金收入有很大的提高，并能吸引大量人口入住。" Text10="治愈病人，减少瘟疫的影响，加快伤病的恢复，并能吸引大量人口聚集。" Text11="能增加城池的统治上限，并扩大城池的视野范围。" Text12="使人愉悦，能增加大家的工作效率，并对城池民心的提升有影响。" Text13="对城市人口增长有少许增益。" Text14="减少城池旱灾的破坏，并对城池民心的提升有很大的影响。" 
-                Text15="增加城内女性怀孕几率，并对城池的民心提升略有影响，对人口增长有少许增益。" Text16="降低城池灾害发生几率，并对城池的民心提升略有影响。" Text17="加快城池耐久的恢复，减少水灾产生的影响。" Text18="预留" Text19="预留" Text20="预留" Text21="预留"
-                Text22="预留" Text23="预留" Text24="预留" Text25="预留" Text26="预留" Text27="预留" Text28="预留"
-                X="54" Y="188" Width="160" Height="241" RowMargin="0"
-                TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
-                FontName="方正隶变_GBK"
-                FontSize="14"
-                FontStyle="Bold"
-                FontColor="4294967295"> 
-                >
-    
-  </FacilityforA>
-  <FacilityforB Name1="兵曹" Name2="法曹" Name3="军营" Name4="将军府" Name5="骑兵训练营" Name6="羽林骑营" Name7="步兵训练营"
-                Name8="弓手训练营" Name9="武库署" Name10="演武厅" Name11="望楼" Name12="鼓楼" Name13="督造司" Name14="预留"
-                Name15="预留" Name16="预留" Name17="预留" Name18="预留" Name19="预留" Name20="预留" Name21="预留"
-                Name22="预留" Name23="预留" Name24="预留" Name25="预留" Name26="预留" Name27="预留" Name28="预留" 
-                Text1="对新兵进行思想教育，提高新兵的士气和战意。" Text2="减少俘虏的逃跑率。" Text3="极大的提升了城内部队的训练速度。" Text4="兴建将军府。对城池的军事力量有决定性的作用。" Text5="增加出征骑兵的战斗力。" Text6="可以使城池组件羽林郎。" Text7="增加出征步兵的战斗力。"
-                Text8="增加出征弓弩的战斗力。" Text9="增加出征器械的战斗力。" Text10="高级将领练武的地方。" Text11="扩大城池视野范围。" Text12="增加城池附件部队的战意。" Text13="增加城池的牢固度，降低城池地震产生的破坏。" Text14="预留"
-                Text15="预留" Text16="预留" Text17="预留" Text18="预留" Text19="预留" Text20="预留" Text21="预留"
-                Text22="预留" Text23="预留" Text24="预留" Text25="预留" Text26="预留" Text27="预留" Text28="预留"
-                X="54" Y="188" Width="160" Height="241" RowMargin="0" 
-                TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
-                FontName="方正隶变_GBK"
-                FontSize="14"
-                FontStyle="Bold"
-                FontColor="4294967295">
-    
-  </FacilityforB>
-  <FacilityforC Name1="仓曹" Name2="农田" Name3="粮仓" Name4="农具制造所" Name5="军屯" Name6="大农田" Name7="渔港"
-                Name8="翻车" Name9="官营作坊" Name10="马场" Name11="制陶场" Name12="织丝作坊" Name13="铸币厂" Name14="织锦作坊"
-                Name15="矿场" Name16="制漆场" Name17="制盐场" Name18="织麻作坊" Name19="将作监" Name20="楼船士训练营" Name21="预留"
-                Name22="预留" Name23="预留" Name24="预留" Name25="预留" Name26="预留" Name27="预留" Name28="预留" 
-                Text1="城池农业每天增加1点，并对人口增长有少许增益。" Text2="增加城池每月粮食收入有加成作用，并能吸引少量人口聚集。" Text3="降低蝗灾对该城的影响，大幅度减少城池内粮食的消耗，并对人口增长有所增益。" Text4="对城池每月的粮食收入有加成作用，并对人口增长有所增益。" Text5="寓兵于农。能对城池每月的粮食收入有很大的加成，并能加大城池农业每天的增长量，提高城池粮食上限。" Text6="大量增加城池每月军粮收入，并能吸引大量人口入住。" Text7="少量增加城池每月资金收入。"
-                Text8="大幅提高城池的农业上限，并对人口增长有少许增益。" Text9="增加城池的技术上限和商业上限，并对人口增长有少许增益。" Text10="可以使城池组建骑兵，增加城池商业上限，并对人口增长有少许增益。" Text11="大幅提高城池的商业上限，并对人口增长有少许增益。" Text12="大幅提高城池的商业上限，并对人口增长有少许增益。" Text13="对城池商业上限的提高有决定性作用，并对人口增长有少许增益。" Text14="大幅提高城池的商业上限，并对人口增长有少许增益。"
-                Text15="对城池商业上限的提高有关键性作用，能大幅度减少新编步弩的费用。并对人口增长有少许增益。" Text16="大幅提高城池的商业上限，并对人口增长有少许增益。" Text17="对城池商业上限的提高有关键性作用，并对人口增长有少许增益。" Text18="大幅提高城池的商业上限，并对人口增长有少许增益。" Text19="城池耐久度每天增加1，并提升设施新建速度，减少风灾的破坏。" Text20="增加出征水军的战斗力。" Text21="预留"
-                Text22="预留" Text23="预留" Text24="预留" Text25="预留" Text26="预留" Text27="预留" Text28="预留"
-                X="54" Y="188" Width="160" Height="241" RowMargin="0" 
-                TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
-                FontName="方正隶变_GBK"
-                FontSize="14"
-                FontStyle="Bold"
-                FontColor="4294967295">
-  </FacilityforC>
-  <FacilityforD Name1="天牢" Name2="皇宫" Name3="州府" Name4="尚书台" Name5="廷尉府" Name6="太医署" Name7="太学"
-                Name8="察举司" Name9="观星台" Name10="幕府" Name11="思民堂" Name12="修身居" Name13="藏娇阁" Name14="绿玉轩"
-                Name15="尝香楼" Name16="铜雀台" Name17="和氏璧" Name18="东厂" Name19="西厂" Name20="预留" Name21="预留"
-                Name22="预留" Name23="预留" Name24="预留" Name25="预留" Name26="预留" Name27="预留" Name28="预留" 
-                Text1="降低俘虏忠诚，大幅减少俘虏逃跑率。" Text2="这是信仰，不解释。" Text3="能大幅提高城池的内政上限。" Text4="对提高大家的工作效率有重要作用，并加快新技巧的研发。" Text5="增加城池统治上限，并很大程度的减少俘虏逃跑率。" Text6="对伤兵的恢复能起到关键性作用。" Text7="扩大势力声望，促进势力技巧的研发"
-                Text8="减少城内人事的消耗费用，能大幅提高工作效率" Text9="降低灾难发生几率。" Text10="执行破坏、煽动、流言和劫牢的资金消耗减半" Text11="将领讨论政事的地方。" Text12="将领修身养性的地方。" Text13="不解释" Text14="不解释"
-                Text15="不解释" Text16="不解释" Text17="凑数量的" Text18="凑数量的" Text19="凑数量的留" Text20="预留" Text21="预留"
-                Text22="预留" Text23="预留" Text24="预留" Text25="预留" Text26="预留" Text27="预留" Text28="预留"
-                X="54" Y="188" Width="160" Height="241" RowMargin="0" 
-                TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
-                FontName="方正隶变_GBK"
-                FontSize="14"
-                FontStyle="Bold"
-                FontColor="4294967295">
-  </FacilityforD>
-  <FacilityforE Name1="预留" Name2="预留" Name3="预留" Name4="预留" Name5="预留" Name6="预留" Name7="预留"
-                Name8="预留" Name9="预留" Name10="预留" Name11="预留" Name12="预留" Name13="预留" Name14="预留"
-                Name15="预留" Name16="预留" Name17="预留" Name18="预留" Name19="预留" Name20="预留" Name21="预留"
-                Name22="预留" Name23="预留" Name24="预留" Name25="预留" Name26="预留" Name27="预留" Name28="预留" 
-                Text1="这是治所" Text2="这是仓曹" Text3="预留" Text4="预留" Text5="预留" Text6="预留" Text7="预留"
-                Text8="预留" Text9="预留" Text10="预留" Text11="预留" Text12="预留" Text13="预留" Text14="预留"
-                Text15="预留" Text16="预留" Text17="预留" Text18="预留" Text19="预留" Text20="预留" Text21="预留"
-                Text22="预留" Text23="预留" Text24="预留" Text25="预留" Text26="预留" Text27="预留" Text28="预留"
-                X="54" Y="188" Width="160" Height="241" RowMargin="0" 
-                TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
-                FontName="方正隶变_GBK"
-                FontSize="14"
-                FontStyle="Bold"
-                FontColor="4294967295">
-  </FacilityforE>
-  <FBackgroundA1 FileName="A1.png" X="272" Y="271" Width="97" Height="57"></FBackgroundA1>
-  <FBackgroundA2 FileName="A2.png" X="663" Y="286" Width="75" Height="42"></FBackgroundA2>
-  <FBackgroundA3 FileName="A3.png" X="461" Y="192" Width="75" Height="44"></FBackgroundA3>
-  <FBackgroundA4 FileName="A4.png" X="246" Y="204" Width="78" Height="45"></FBackgroundA4>
-  <FBackgroundA5 FileName="A5.png" X="603" Y="253" Width="75" Height="47"></FBackgroundA5>
-  <FBackgroundA6 FileName="A6.png" X="445" Y="360" Width="90" Height="57"></FBackgroundA6>
-  <FBackgroundA7 FileName="A7.png" X="345" Y="240" Width="75" Height="47"></FBackgroundA7>
-  <FBackgroundA8 FileName="A8.png" X="551" Y="145" Width="76" Height="43"></FBackgroundA8>
-  <FBackgroundA9 FileName="A9.png" X="423" Y="253" Width="167" Height="85"></FBackgroundA9>
-  <FBackgroundA10 FileName="A10.png" X="669" Y="131" Width="62" Height="52"></FBackgroundA10>
-  <FBackgroundA11 FileName="A11.png" X="528" Y="226" Width="78" Height="41"></FBackgroundA11>
-  <FBackgroundA12 FileName="A12.png" X="520" Y="330" Width="92" Height="54"></FBackgroundA12>
-  <FBackgroundA13 FileName="A13.png" X="741" Y="108" Width="74" Height="42"></FBackgroundA13>
-  <FBackgroundA14 FileName="A14.png" X="161" Y="387" Width="75" Height="43"></FBackgroundA14>
-  <FBackgroundA15 FileName="A15.png" X="694" Y="195" Width="74" Height="64"></FBackgroundA15>
-  <FBackgroundA16 FileName="A16.png" X="842" Y="406" Width="107" Height="66"></FBackgroundA16>
-  <FBackgroundA17 FileName="A17.png" X="669" Y="344" Width="79" Height="50"></FBackgroundA17>
-  <FBackgroundA18 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA18>
-  <FBackgroundA19 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA19>
-  <FBackgroundA20 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA20>
-  <FBackgroundA21 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA21>
-  <FBackgroundA22 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA22>
-  <FBackgroundA23 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA23>
-  <FBackgroundA24 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA24>
-  <FBackgroundA25 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA25>
-  <FBackgroundA26 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA26>
-  <FBackgroundA27 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA27>
-  <FBackgroundA28 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundA28>
-  <FBackgroundB1 FileName="B1.png" X="554" Y="167" Width="79" Height="47"></FBackgroundB1>
-  <FBackgroundB2 FileName="B2.png" X="231" Y="227" Width="74" Height="44"></FBackgroundB2>
-  <FBackgroundB3 FileName="B3.png" X="357" Y="300" Width="334" Height="154"></FBackgroundB3>
-  <FBackgroundB4 FileName="B4.png" X="504" Y="129" Width="78" Height="56"></FBackgroundB4>
-  <FBackgroundB5 FileName="B5.png" X="242" Y="284" Width="142" Height="86"></FBackgroundB5>
-  <FBackgroundB6 FileName="B6.png" X="652" Y="180" Width="148" Height="86"></FBackgroundB6>
-  <FBackgroundB7 FileName="B7.png" X="203" Y="401" Width="135" Height="77"></FBackgroundB7>
-  <FBackgroundB8 FileName="B8.png" X="426" Y="191" Width="141" Height="91"></FBackgroundB8>
-  <FBackgroundB9 FileName="B9.png" X="163" Y="344" Width="73" Height="51"></FBackgroundB9>
-  <FBackgroundB10 FileName="B10.png" X="337" Y="135" Width="108" Height="72"></FBackgroundB10>
-  <FBackgroundB11 FileName="B11.png" X="112" Y="357" Width="67" Height="63"></FBackgroundB11>
-  <FBackgroundB12 FileName="B12.png" X="314" Y="469" Width="64" Height="56"></FBackgroundB12>
-  <FBackgroundB13 FileName="B13.png" X="564" Y="448" Width="77" Height="48"></FBackgroundB13>
-  <FBackgroundB14 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB14>
-  <FBackgroundB15 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB15>
-  <FBackgroundB16 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB16>
-  <FBackgroundB17 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB17>
-  <FBackgroundB18 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB18>
-  <FBackgroundB19 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB19>
-  <FBackgroundB20 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB20>
-  <FBackgroundB21 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB21>
-  <FBackgroundB22 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB22>
-  <FBackgroundB23 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB23>
-  <FBackgroundB24 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB24>
-  <FBackgroundB25 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB25>
-  <FBackgroundB26 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB26>
-  <FBackgroundB27 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB27>
-  <FBackgroundB28 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundB28>
-  <FBackgroundC1 FileName="C1.png" X="632" Y="268" Width="165" Height="91"></FBackgroundC1>
-  <FBackgroundC2 FileName="C2.png" X="528" Y="223" Width="150" Height="83"></FBackgroundC2>
-  <FBackgroundC3 FileName="C3.png" X="429" Y="160" Width="129" Height="90"></FBackgroundC3>
-  <FBackgroundC4 FileName="C4.png" X="266" Y="117" Width="79" Height="42"></FBackgroundC4>
-  <FBackgroundC5 FileName="C5.png" X="514" Y="312" Width="151" Height="82"></FBackgroundC5>
-  <FBackgroundC6 FileName="C6.png" X="251" Y="223" Width="263" Height="146"></FBackgroundC6>
-  <FBackgroundC7 FileName="C7.png" X="191" Y="371" Width="72" Height="45"></FBackgroundC7>
-  <FBackgroundC8 FileName="C8.png" X="312" Y="186" Width="79" Height="50"></FBackgroundC8>
-  <FBackgroundC9 FileName="C9.png" X="644" Y="127" Width="76" Height="48"></FBackgroundC9>
-  <FBackgroundC10 FileName="C10.png" X="442" Y="359" Width="112" Height="70"></FBackgroundC10>
-  <FBackgroundC11 FileName="C11.png" X="228" Y="161" Width="77" Height="43"></FBackgroundC11>
-  <FBackgroundC12 FileName="C12.png" X="580" Y="159" Width="75" Height="43"></FBackgroundC12>
-  <FBackgroundC13 FileName="C13.png" X="633" Y="449" Width="77" Height="43"></FBackgroundC13>
-  <FBackgroundC14 FileName="C14.png" X="723" Y="167" Width="74" Height="44"></FBackgroundC14>
-  <FBackgroundC15 FileName="C15.png" X="751" Y="512" Width="72" Height="48"></FBackgroundC15>
-  <FBackgroundC16 FileName="C16.png" X="227" Y="61" Width="78" Height="40"></FBackgroundC16>
-  <FBackgroundC17 FileName="C17.png" X="286" Y="418" Width="77" Height="43"></FBackgroundC17>
-  <FBackgroundC18 FileName="C18.png" X="682" Y="216" Width="78" Height="49"></FBackgroundC18>
-  <FBackgroundC19 FileName="C19.png" X="452" Y="97" Width="82" Height="50"></FBackgroundC19>
-  <FBackgroundC20 FileName="C20.png" X="109" Y="426" Width="101" Height="86"></FBackgroundC20>
-  <FBackgroundC21 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundC21>
-  <FBackgroundC22 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundC22>
-  <FBackgroundC23 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundC23>
-  <FBackgroundC24 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundC24>
-  <FBackgroundC25 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundC25>
-  <FBackgroundC26 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundC26>
-  <FBackgroundC27 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundC27>
-  <FBackgroundC28 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundC28>
-  <FBackgroundD1 FileName="D1.png" X="581" Y="362" Width="125" Height="69"></FBackgroundD1>
-  <FBackgroundD2 FileName="D2.png" X="429" Y="240" Width="145" Height="95"></FBackgroundD2>
-  <FBackgroundD3 FileName="D3.png" X="251" Y="214" Width="75" Height="45"></FBackgroundD3>
-  <FBackgroundD4 FileName="D4.png" X="324" Y="295" Width="88" Height="61"></FBackgroundD4>
-  <FBackgroundD5 FileName="D5.png" X="251" Y="259" Width="92" Height="67"></FBackgroundD5>
-  <FBackgroundD6 FileName="D6.png"  X="462" Y="367" Width="86" Height="55"></FBackgroundD6>
-  <FBackgroundD7 FileName="D7.png" X="399" Y="336" Width="75" Height="52"></FBackgroundD7>
-  <FBackgroundD8 FileName="D8.png" X="662" Y="313" Width="116" Height="83"></FBackgroundD8>
-  <FBackgroundD9 FileName="D9.png" X="320" Y="230" Width="97" Height="68"></FBackgroundD9>
-  <FBackgroundD10 FileName="D10.png" X="345" Y="401" Width="75" Height="44"></FBackgroundD10>
-  <FBackgroundD11 FileName="D11.png" X="203" Y="338" Width="73" Height="42"></FBackgroundD11>
-  <FBackgroundD12 FileName="D12.png" X="324" Y="185" Width="75" Height="44"></FBackgroundD12>
-  <FBackgroundD13 FileName="D13.png" X="456" Y="178" Width="94" Height="58"></FBackgroundD13>
-  <FBackgroundD14 FileName="D14.png" X="663" Y="279" Width="93" Height="52"></FBackgroundD14>
-  <FBackgroundD15 FileName="D15.png" X="520" Y="214" Width="94" Height="56"></FBackgroundD15>
-  <FBackgroundD16 FileName="D16.png" X="586" Y="245" Width="94" Height="58"></FBackgroundD16>
-  <FBackgroundD17 FileName="D17.png" X="523" Y="328" Width="104" Height="69"></FBackgroundD17>
-  <FBackgroundD18 FileName="D18.png" X="593" Y="307" Width="94" Height="55"></FBackgroundD18>
-  <FBackgroundD19 FileName="D19.png" X="388" Y="213" Width="88" Height="51"></FBackgroundD19>
-  <FBackgroundD20 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundD20>
-  <FBackgroundD21 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundD21>
-  <FBackgroundD22 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundD22>
-  <FBackgroundD23 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundD23>
-  <FBackgroundD24 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundD24>
-  <FBackgroundD25 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundD25>
-  <FBackgroundD26 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundD26>
-  <FBackgroundD27 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundD27>
-  <FBackgroundD28 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundD28>
-  <FBackgroundE1 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE1>
-  <FBackgroundE2 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE2>
-  <FBackgroundE3 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE3>
-  <FBackgroundE4 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE4>
-  <FBackgroundE5 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE5>
-  <FBackgroundE6 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE6>
-  <FBackgroundE7 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE7>
-  <FBackgroundE8 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE8>
-  <FBackgroundE9 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE9>
-  <FBackgroundE10 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE10>
-  <FBackgroundE11 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE11>
-  <FBackgroundE12 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE12>
-  <FBackgroundE13 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE13>
-  <FBackgroundE14 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE14>
-  <FBackgroundE15 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE15>
-  <FBackgroundE16 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE16>
-  <FBackgroundE17 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE17>
-  <FBackgroundE18 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE18>
-  <FBackgroundE19 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE19>
-  <FBackgroundE20 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE20>
-  <FBackgroundE21 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE21>
-  <FBackgroundE22 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE22>
-  <FBackgroundE23 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE23>
-  <FBackgroundE24 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE24> 
-  <FBackgroundE25 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE25>
-  <FBackgroundE26 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE26>
-  <FBackgroundE27 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE27>
-  <FBackgroundE28 FileName="Background.png" X="100" Y="89" Width="80" Height="54"></FBackgroundE28>
-  <ArchitectureButton FileName="ArchitectureButton.png" PressedName="ArchitecturePressed.png" X="50" Y="2" Width="80" Height="20"></ArchitectureButton>
-  <NewArchitectureButton FileName="ArchitectureKindButton.png" PressedName="ArchitectureKindPressed.png" X="135" Y="2"  Width="80" Height="20"></NewArchitectureButton>
-  <FacilityforAButton FileName="FacilityforAButton.png" PressedName="FacilityforAPressed.png" X="220" Y="2"  Width="80" Height="20"></FacilityforAButton>
-  <FacilityforBButton FileName="FacilityforBButton.png" PressedName="FacilityforBPressed.png" X="305" Y="2"  Width="80" Height="20"></FacilityforBButton>
-  <FacilityforCButton FileName="FacilityforCButton.png" PressedName="FacilityforCPressed.png" X="390" Y="2"  Width="80" Height="20"></FacilityforCButton>
-  <FacilityforDButton FileName="FacilityforDButton.png" PressedName="FacilityforDPressed.png" X="475" Y="2"  Width="80" Height="20"></FacilityforDButton>
-  <FacilityforEButton FileName="FacilityforEButton.png" PressedName="FacilityforEPressed.png" X="560" Y="2"  Width="80" Height="20"></FacilityforEButton>
-  <FacilityforZ    Text1="设施名称：" Text2="设施说明：" Text3="设施数量：" Text4="该设施正在建造中" Text5="请耐心等待" Text6="天" Text7="城池类型："
-                   Text8="正在建设的设施：" Text9="已经建成的设施：" Text10="预留" Text11="预留" Text12="预留" Text13="预留" Text14="预留"
-                   Text15="预留" Text16="预留" Text17="预留" Text18="预留" Text19="预留" Text20="预留" Text21="预留"
-                   Text22="预留" Text23="预留" Text24="预留" Text25="预留" Text26="预留" Text27="预留" Text28="预留"
-                   FileName="Ing.png"
-                   X="54" Y="188" Width="160" Height="241" RowMargin="0" 
-                   TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
-                   FontName="方正隶变_GBK"
-                   FontSize="14"
-                   FontStyle="Bold"
-                   FontColor="4294967295">
-  </FacilityforZ>
-  <TextBackground FileName="TextBackground.png" X="49" Y="152" Width="172" Height="287"></TextBackground>
-  <ArmyBar  X="83" Y="204" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png">  </ArmyBar>
-  <DominationBar  X="83" Y="227" Width="200" Height="8" FileName0="Red.png" FileName1="Orange.png" FileName2="Yellow.png" FileName3="Green.png" FileName4="Blue.png" FileName5="Purple.png">  </DominationBar>
-  <EnduranceBar  X="83" Y="250" Width="200" Height="8" FileName0="Red.png" FileName1="Orange.png" FileName2="Yellow.png" FileName3="Green.png" FileName4="Blue.png" FileName5="Purple.png">  </EnduranceBar>
-  <AgricultureBar  X="83" Y="273" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png">  </AgricultureBar>
-  <CommerceBar  X="83" Y="296" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png">  </CommerceBar>
-  <TechnologyBar  X="83" Y="319" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png">  </TechnologyBar>
-  <MoraleBar  X="83" Y="342" Width="200" Height="8" FileName0="Green.png" FileName1="Cyan.png" FileName2="Cyan.png" FileName3="Blue.png" FileName4="Blue.png" FileName5="Purple.png">  </MoraleBar>
-  <FacilityCountBar  X="83" Y="365" Width="200" Height="8" FileName0="Blue.png" FileName1="Cyan.png" FileName2="Green.png" FileName3="Yellow.png" FileName4="Orange.png" FileName5="Red.png">  </FacilityCountBar>
-  <Characteristic1 X="383" Y="90" Width="235" Height="50"
-                   Name1="1120" Name2="1121" Name3="1122" Name4="1123" Name5="18120" Name6="18121" Name7="18122" Name8="18123" Name9="18124" Name10="18125"
-                   Name11="18126" Name12="18127" Name13="18128" Name14="18129" Name15="18130" Name16="18131" Name17="18132" Name18="18133" Name19="18134" Name20="18135"
-                   Name21="18136" Name22="18137" Name23="18138" Name24="18139" Name25="18140" Name26="18141" Name27="30031" Name28="30032" Name29="1124" Name30="预留"
-                   Name31="预留" Name32="预留" Name33="预留" Name34="预留" Name35="预留" Name36="预留" Name37="预留" Name38="预留" Name39="预留" Name40="预留"
-                   Name41="预留" Name42="预留" Name43="预留" Name44="预留" Name45="预留" Name46="预留" Name47="预留" Name48="预留" Name49="预留" Name50="预留"
-                   Name51="预留" Name52="预留" Name53="预留" Name54="预留" Name55="预留"
-                   FileName1="1120.png" FileName2="1121.png" FileName3="1122.png" FileName4="1123.png" FileName5="18120.png" FileName6="18121.png" FileName7="18122.png" FileName8="18123.png" FileName9="18124.png" FileName10="18125.png"
-                   FileName11="18126.png" FileName12="18127.png" FileName13="18128.png" FileName14="18129.png" FileName15="18130.png" FileName16="18131.png" FileName17="18132.png" FileName18="18133.png" FileName19="18134.png" FileName20="18135.png"
-                   FileName21="18136.png" FileName22="18137.png" FileName23="18138.png" FileName24="18139.png" FileName25="18140.png" FileName26="18141.png" FileName27="30031.png" FileName28="30032.png" FileName29="1124.png" FileName30="Background0.png"
-                   FileName31="Background0.png" FileName32="Background0.png" FileName33="Background0.png" FileName34="Background0.png" FileName35="Background0.png" FileName36="Background0.png" FileName37="Background0.png" FileName38="Background0.png" FileName39="Background0.png" FileName40="Background0.png"
-                   FileName41="Background0.png" FileName42="Background0.png" FileName43="Background0.png" FileName44="Background0.png" FileName45="Background0.png" FileName46="Background0.png" FileName47="Background0.png" FileName48="Background0.png" FileName49="Background0.png" FileName50="Background0.png"
-                   FileName51="Background0.png" FileName52="Background0.png" FileName53="Background0.png" FileName54="Background0.png" FileName55="Background0.png" FileName0="NoTroop.png">
-  </Characteristic1>
-  <Characteristic2 X="412" Y="435" Width="195" Height="42"
-                   Name1="1103" Name2="1104" Name3="1100" Name4="1101" Name5="1102" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-                   Name11="预留" Name12="预留" Name13="预留" Name14="预留" Name15="预留" 
-                   FileName1="1103.png" FileName2="1104.png" FileName3="1100.png" FileName4="1101.png" FileName5="1102.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-                   FileName11="Background0.png" FileName12="Background0.png" FileName13="Background0.png" FileName14="Background0.png" FileName15="Background0.png" FileName0="Background0.png">
-  </Characteristic2>
-  <Characteristic3 X="383" Y="145" Width="113" Height="50"
-                   Name1="1200" Name2="1201" Name3="预留" Name4="预留" Name5="预留"
-                   FileName1="BG1.png" FileName2="BG2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName0="BG0.png">
-  </Characteristic3>
-  <Characteristic4 X="506" Y="145" Width="113" Height="50"
-                   Name1="1300" Name2="1301" Name3="预留" Name4="预留" Name5="预留" 
-                   FileName1="BF1.png" FileName2="BF2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png"  FileName0="BF0.png">
-  </Characteristic4>
-  <Characteristic5 X="383" Y="200" Width="113" Height="50"
-                  Name1="1210" Name2="1211" Name3="预留" Name4="预留" Name5="预留"
-                  FileName1="NG1.png" FileName2="NG2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName0="NG0.png">
-  </Characteristic5>
-  <Characteristic6 X="506" Y="200" Width="113" Height="50"
-                   Name1="1310" Name2="1311" Name3="预留" Name4="预留" Name5="预留"
-                   FileName1="NF1.png" FileName2="NF2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png"  FileName0="NF0.png">
-  </Characteristic6>
-  <Characteristic7 X="383" Y="255" Width="113" Height="50"
-                 Name1="1220" Name2="1211" Name3="预留" Name4="预留" Name5="预留"
-                 FileName1="QG1.png" FileName2="QG2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName0="QG0.png">
-  </Characteristic7>
-  <Characteristic8 X="506" Y="255" Width="113" Height="50"
-                   Name1="1320" Name2="1321" Name3="预留" Name4="预留" Name5="预留"
-                   FileName1="QF1.png" FileName2="QF2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png"  FileName0="QF0.png">
-  </Characteristic8>
-  <Characteristic9 X="383" Y="310" Width="113" Height="50"
-                 Name1="1230" Name2="1231" Name3="预留" Name4="预留" Name5="预留"
-                 FileName1="SG1.png" FileName2="SG2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName0="SG0.png">
-  </Characteristic9>
-  <Characteristic10 X="506" Y="310" Width="113" Height="50"
-                   Name1="1330" Name2="1331" Name3="预留" Name4="预留" Name5="预留"
-                   FileName1="SF1.png" FileName2="SF2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png"  FileName0="SF0.png">
-  </Characteristic10>
-  <Characteristic11 X="383" Y="365" Width="113" Height="50"
-                 Name1="1240" Name2="1241" Name3="预留" Name4="预留" Name5="预留"
-                 FileName1="QXG1.png" FileName2="QXG2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName0="QXG0.png">
-  </Characteristic11>
-  <Characteristic12 X="506" Y="365" Width="113" Height="50"
-                   Name1="1340" Name2="1341" Name3="预留" Name4="预留" Name5="预留"
-                   FileName1="QXF1.png" FileName2="QXF2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png"  FileName0="QXF0.png">
-  </Characteristic12>
-  <Characteristic13 X="725" Y="305" Width="194" Height="34"
-                 Name1="1000" Name2="1010" Name3="1070" Name4="1080" Name5="1090" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-                 FileName1="Agriculture1.png" FileName2="Agriculture2.png" FileName3="Agriculture2.png" FileName4="Agriculture3.png" FileName5="Agriculture4.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-                 FileName0="Agriculture0.png">
-  </Characteristic13>
-  <Characteristic14 X="725" Y="345" Width="194" Height="34"
-               Name1="1001" Name2="1011" Name3="1081" Name4="1091" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-               FileName1="Commerce1.png" FileName2="Commerce2.png" FileName3="Commerce3.png" FileName4="Commerce4.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-               FileName0="Commerce0.png">
-  </Characteristic14>
-  <Characteristic15 X="725" Y="383" Width="194" Height="34"
-               Name1="1002" Name2="1012" Name3="1062" Name4="1072" Name5="1082" Name6="1092" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-               FileName1="Technology1.png" FileName2="Technology2.png" FileName3="Technology1.png" FileName4="Technology2.png" FileName5="Technology3.png" FileName6="Technology4.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-               FileName0="Technology0.png">
-  </Characteristic15>
-  <Characteristic16 X="718" Y="435"  Width="195" Height="44"
-               Name1="1003" Name2="1013" Name3="1063" Name4="1073" Name5="1083" Name6="1093" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-               FileName1="Endurance1.png" FileName2="Endurance2.png" FileName3="Endurance1.png" FileName4="Endurance2.png" FileName5="Endurance3.png" FileName6="Endurance4.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-               FileName0="Endurance0.png">
-  </Characteristic16>
-  <Characteristic17 X="725" Y="92" Width="194" Height="39"
-               Name1="1004" Name2="1014" Name3="预留" Name4="预留" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-               FileName1="Domination1.png" FileName2="Domination2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-               FileName0="Domination0.png">
-  </Characteristic17>
-  <Characteristic18 X="725" Y="139" Width="194" Height="39"
-               Name1="1005" Name2="1015" Name3="预留" Name4="预留" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-               FileName1="Morale1.png" FileName2="Morale2.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-               FileName0="Morale0.png">
-  </Characteristic18>
-  <Characteristic19 X="718" Y="485" Width="195" Height="44"
-                 Name1="1020" Name2="1021" Name3="1022" Name4="1023" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-                 FileName1="FacilityPosition1.png" FileName2="FacilityPosition2.png" FileName3="FacilityPosition3.png" FileName4="FacilityPosition4.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-               FileName0="FacilityPosition0.png">
-  </Characteristic19>
-  <Characteristic20 X="725" Y="186" Width="194" Height="34"
-               Name1="31050" Name2="31051" Name3="31052" Name4="31053" Name5="31054" Name6="31055" Name7="31056" Name8="预留" Name9="预留" Name10="预留"
-               FileName1="Population1.png" FileName2="Population2.png" FileName3="Population3.png" FileName4="Population4.png" FileName5="Population6.png" FileName6="Population7.png" FileName7="Population8.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-               FileName0="Population0.png">
-  </Characteristic20>
-  <Characteristic21 X="725" Y="225" Width="194" Height="34"
-               Name1="1404" Name2="1405" Name3="1406" Name4="1407" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-               FileName1="Food1.png" FileName2="Food2.png" FileName3="Food3.png" FileName4="Food4.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-               FileName0="Food0.png">
-  </Characteristic21>
-  <Characteristic22 X="725" Y="264" Width="194" Height="34"
-               Name1="1401" Name2="1402" Name3="1403" Name4="1404" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-               FileName1="Fund1.png" FileName2="Fund2.png" FileName3="Fund3.png" FileName4="Fund4.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-               FileName0="Fund0.png">
-  </Characteristic22>
-  <Characteristic23 X="412" Y="484" Width="195" Height="44"
-                   Name1="3060" Name2="3100" Name3="3251" Name4="3400" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-                   Name11="SQGA5" Name12="BJWG" Name13="DYWD2" Name14="JTPJ" Name15="预留" Name16="预留" Name17="预留" Name18="预留" Name19="预留" Name20="预留"
-                   FileName1="Background0.png" FileName2="Background0.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-                   FileName11="Background0.png" FileName12="Background0.png" FileName13="Background0.png" FileName14="Background0.png" FileName15="Background0.png" FileName16="Background0.png" FileName17="Background0.png" FileName18="Background0.png" FileName19="Background0.png" FileName20="Background0.png"
-                   FileName0="Background0.png">
-  </Characteristic23>
-  <Characteristic24 X="412" Y="484" Width="0" Height="0"
-                  Name1="预留" Name2="预留" Name3="预留" Name4="预留" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-                  Name11="预留" Name12="预留" Name13="预留" Name14="预留" Name15="预留" Name16="预留" Name17="预留" Name18="预留" Name19="预留" Name20="预留"
-                  FileName1="Background0.png" FileName2="Background0.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-                  FileName11="Background0.png" FileName12="Background0.png" FileName13="Background0.png" FileName14="Background0.png" FileName15="Background0.png" FileName16="Background0.png" FileName17="Background0.png" FileName18="Background0.png" FileName19="Background0.png" FileName20="Background0.png"
-                  FileName0="Background0.png">
-  </Characteristic24>
-  <Characteristic25 X="500" Y="100" Width="0" Height="0"
-                 Name1="预留" Name2="预留" Name3="预留" Name4="预留" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-                 Name11="预留" Name12="预留" Name13="预留" Name14="预留" Name15="预留" Name16="预留" Name17="预留" Name18="预留" Name19="预留" Name20="预留"
-                 FileName1="Background0.png" FileName2="Background0.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-                 FileName11="Background0.png" FileName12="Background0.png" FileName13="Background0.png" FileName14="Background0.png" FileName15="Background0.png" FileName16="Background0.png" FileName17="Background0.png" FileName18="Background0.png" FileName19="Background0.png" FileName20="Background0.png"
-                 FileName0="Background0.png">
-  </Characteristic25>
-  <Characteristic26 X="500" Y="200" Width="0" Height="0"
-                 Name1="预留" Name2="预留" Name3="预留" Name4="预留" Name5="预留" Name6="预留" Name7="预留" Name8="预留" Name9="预留" Name10="预留"
-                 Name11="预留" Name12="预留" Name13="预留" Name14="预留" Name15="预留" Name16="预留" Name17="预留" Name18="预留" Name19="预留" Name20="预留"
-                 FileName1="Background0.png" FileName2="Background0.png" FileName3="Background0.png" FileName4="Background0.png" FileName5="Background0.png" FileName6="Background0.png" FileName7="Background0.png" FileName8="Background0.png" FileName9="Background0.png" FileName10="Background0.png"
-                 FileName11="Background0.png" FileName12="Background0.png" FileName13="Background0.png" FileName14="Background0.png" FileName15="Background0.png" FileName16="Background0.png" FileName17="Background0.png" FileName18="Background0.png" FileName19="Background0.png" FileName20="Background0.png"
-                 FileName0="Background0.png">
-  </Characteristic26>
-  <AuxiliaryButton FileName="AuxiliaryButton.png" PressedName="AuxiliaryPressed.png" X="700" Y="2"  Width="80" Height="20"></AuxiliaryButton>
-  <AuxiliaryBackground X="0" Y="0" Width="1000" Height="600" FileName0="AuxiliaryBackground.png"></AuxiliaryBackground>
-  <FacilityIntroduce  X="54" Y="188" Width="160" Height="350" RowMargin="0" 
-                   TitleColor="4294967040" SubTitleColor="4294901760" SubTitleColor2="4286644096" SubTitleColor3="4278255360"
-                   FontName="方正隶变_GBK"
-                   FontSize="14"
-                   FontStyle="Bold"
-                   FontColor="4294967295">
-  </FacilityIntroduce>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </Root>

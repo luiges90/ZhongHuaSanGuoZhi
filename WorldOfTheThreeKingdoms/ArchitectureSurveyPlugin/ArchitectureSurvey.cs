@@ -51,6 +51,9 @@ namespace ArchitectureSurveyPlugin
         internal string Switch1;//建筑种类图片
         internal string Switch2;//进度条图片
 
+        //public Point NewControllingBackgroundSize;
+        public Texture2D NewControllingBackgroundTexture;
+        public Texture2D NewControllingMaskTexture;
         //↓建筑种类相关定义
         internal string AKinds;
         internal string AKindfor1;
@@ -114,15 +117,7 @@ namespace ArchitectureSurveyPlugin
         internal Texture2D AKBackground28Texture;
         internal Rectangle AKBackground0Client; 
         //进度条相关定义
-        internal Texture2D ArmyBarTexture;
-        internal Texture2D Army1BarTexture;
-        internal Texture2D Army2BarTexture;
-        internal Texture2D Army3BarTexture;
-        internal Texture2D Army4BarTexture;
-        internal Texture2D Army5BarTexture;
-        internal Texture2D Army6BarTexture;
-        internal Rectangle ArmyBarClient;
-
+       
         internal Texture2D DominationBarTexture;
         internal Texture2D Domination1BarTexture;
         internal Texture2D Domination2BarTexture;
@@ -185,8 +180,7 @@ namespace ArchitectureSurveyPlugin
         internal Texture2D FacilityCount5BarTexture;
         internal Texture2D FacilityCount6BarTexture;
         internal Rectangle FacilityCountBarClient;
-
-        float Bar1 = 0;
+                
         float Bar2 = 0;
         float Bar3 = 0;
         float Bar4 = 0;
@@ -218,22 +212,30 @@ namespace ArchitectureSurveyPlugin
             else
             {
                 nullable = null;
-                spriteBatch.Draw(this.ControllingBackgroundTexture, new Rectangle(this.displayOffset.X, this.displayOffset.Y, this.ControllingBackgroundSize.X, this.ControllingBackgroundSize.Y), nullable, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.053f);
-                spriteBatch.Draw(this.FactionTexture, new Rectangle(this.displayOffset.X + this.FactionPosition.X, this.displayOffset.Y + this.FactionPosition.Y, this.FactionPosition.Width, this.FactionPosition.Height), null, this.FactionColor, 0f, Vector2.Zero, SpriteEffects.None, 0.052f);
-                if (Switch1 == "1")
+                if (Switch1 != "on")
+                {
+                    spriteBatch.Draw(this.ControllingBackgroundTexture, new Rectangle(this.displayOffset.X, this.displayOffset.Y, this.ControllingBackgroundSize.X, this.ControllingBackgroundSize.Y), nullable, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.053f);
+                }
+                    spriteBatch.Draw(this.FactionTexture, new Rectangle(this.displayOffset.X + this.FactionPosition.X, this.displayOffset.Y + this.FactionPosition.Y, this.FactionPosition.Width, this.FactionPosition.Height), null, this.FactionColor, 0f, Vector2.Zero, SpriteEffects.None, 0.052f);
+                if (Switch1 == "on")
                 {
                     spriteBatch.Draw(this.AKBackgroundTexture, this.AKBackgroundDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.0491f);
+                    spriteBatch.Draw(this.NewControllingBackgroundTexture, new Rectangle(this.displayOffset.X, this.displayOffset.Y, this.ControllingBackgroundSize.X, this.ControllingBackgroundSize.Y), nullable, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.053f);
                 }
-                if (Switch2 == "1")
+                if (Switch2 == "on")
                 {
-                    spriteBatch.Draw(this.ArmyBarTexture, this.ArmyBarDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
-                    spriteBatch.Draw(this.DominationBarTexture, this.DominationBarDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
-                    spriteBatch.Draw(this.EnduranceBarTexture, this.EnduranceBarDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
-                    spriteBatch.Draw(this.AgricultureBarTexture, this.AgricultureBarDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
-                    spriteBatch.Draw(this.CommerceBarTexture, this.CommerceBarDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
-                    spriteBatch.Draw(this.TechnologyBarTexture, this.TechnologyBarDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
-                    spriteBatch.Draw(this.MoraleBarTexture, this.MoraleBarDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
-                    spriteBatch.Draw(this.FacilityCountBarTexture, this.FacilityCountBarDisplayPosition, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
+                    try
+                    {
+                        spriteBatch.Draw(this.DominationBarTexture, this.DominationBarDisplayPosition, this.DominationDisplayPosition, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
+                        spriteBatch.Draw(this.EnduranceBarTexture, this.EnduranceBarDisplayPosition, this.EnduranceDisplayPosition, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
+                        spriteBatch.Draw(this.AgricultureBarTexture, this.AgricultureBarDisplayPosition, this.AgricultureDisplayPosition, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
+                        spriteBatch.Draw(this.CommerceBarTexture, this.CommerceBarDisplayPosition, this.CommerceDisplayPosition, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
+                        spriteBatch.Draw(this.TechnologyBarTexture, this.TechnologyBarDisplayPosition, this.TechnologyDisplayPosition, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
+                        spriteBatch.Draw(this.MoraleBarTexture, this.MoraleBarDisplayPosition, this.MoraleDisplayPosition, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
+                        spriteBatch.Draw(this.FacilityCountBarTexture, this.FacilityCountBarDisplayPosition, this.FacilityCountDisplayPosition, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.051f);
+                        spriteBatch.Draw(this.NewControllingMaskTexture, new Rectangle(this.displayOffset.X, this.displayOffset.Y, this.ControllingBackgroundSize.X, this.ControllingBackgroundSize.Y), nullable, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0.049f);
+                    }
+                    catch { }
                 }
 
                 this.NameText.Draw(spriteBatch, 0.05f);
@@ -327,7 +329,21 @@ namespace ArchitectureSurveyPlugin
 
                 this.DisplayOffset = new Point(rectangle.X, rectangle.Y);
                 this.NameText.Text = this.ArchitectureToSurvey.Name;
-                this.KindText.Text = this.ArchitectureToSurvey.KindString;
+                if (Switch1 == "on")
+                {
+                    if (this.ArchitectureToSurvey.FactionString == "----")
+                    {
+                        this.KindText.Text = "----";
+                    }
+                    else
+                    {
+                        this.KindText.Text = this.ArchitectureToSurvey.BelongedFaction.LeaderName;
+                    }
+                }
+                else 
+                { 
+                    this.KindText.Text = this.ArchitectureToSurvey.KindString;
+                }
                 this.FactionText.Text = this.ArchitectureToSurvey.FactionString;
                 this.PopulationText.Text = this.ArchitectureToSurvey.Population.ToString();
                 this.MilitaryPopulationText.Text = this.ArchitectureToSurvey.MilitaryPopulation.ToString();
@@ -354,14 +370,13 @@ namespace ArchitectureSurveyPlugin
                 this.BuildingDaysLeftText.Text = this.ArchitectureToSurvey.BuildingDaysLeft.ToString();
                 this.MayorNameText.Text = this.ArchitectureToSurvey.MayorName;
                 //↓判断建筑种类对应文理
-                if (Switch1 == "1")
+                if (Switch1 == "on")
                 {
                     AKinds = this.ArchitectureToSurvey.KindString;
                     if (AKinds == AKindfor1)
                     {
                         AKBackgroundTexture = AKBackground1Texture;
                     }
-
                     else if (AKinds == AKindfor2)
                     {
                         AKBackgroundTexture = AKBackground2Texture;
@@ -438,7 +453,6 @@ namespace ArchitectureSurveyPlugin
                     {
                         AKBackgroundTexture = AKBackground20Texture;
                     }
-
                     else if (AKinds == AKindfor21)
                     {
                         AKBackgroundTexture = AKBackground21Texture;
@@ -477,242 +491,64 @@ namespace ArchitectureSurveyPlugin
                     }
                 }
                 //↓进度条对应文理
-                if (Switch2 == "1")
-                {
-                    if (this.ArchitectureToSurvey.MilitaryCount == 0 || this.ArchitectureToSurvey.ArmyQuantity == 0)
-                    {
-                        Bar1 = 0;
-                    }
-                    else
-                    {
-                        Bar1 = 100 * this.ArchitectureToSurvey.MilitaryCount / this.ArchitectureToSurvey.ArmyQuantity;
-                    }
-                    if (this.ArchitectureToSurvey.Domination == 0 || this.ArchitectureToSurvey.DominationCeiling == 0)
-                    {
-                        Bar2 = 0;
-                    }
-                    else
-                    {
-                        Bar2 = 100 * this.ArchitectureToSurvey.Domination / this.ArchitectureToSurvey.DominationCeiling;
-                    }
-                    if (this.ArchitectureToSurvey.Endurance == 0 || this.ArchitectureToSurvey.EnduranceCeiling == 0)
-                    {
-                        Bar3 = 0;
-                    }
-                    else
-                    {
-                        Bar3 = 100 * this.ArchitectureToSurvey.Endurance / this.ArchitectureToSurvey.EnduranceCeiling;
-                    }
-                    if (this.ArchitectureToSurvey.Agriculture == 0 || this.ArchitectureToSurvey.AgricultureCeiling == 0)
-                    {
-                        Bar4 = 0;
-                    }
-                    else
-                    {
-                        Bar4 = 100 * this.ArchitectureToSurvey.Agriculture / this.ArchitectureToSurvey.AgricultureCeiling;
-                    }
-                    if (this.ArchitectureToSurvey.Commerce == 0 || this.ArchitectureToSurvey.CommerceCeiling == 0)
-                    {
-                        Bar5 = 0;
-                    }
-                    else
-                    {
-                        Bar5 = 100 * this.ArchitectureToSurvey.Commerce / this.ArchitectureToSurvey.CommerceCeiling;
-                    }
-                    if (this.ArchitectureToSurvey.Technology == 0 || this.ArchitectureToSurvey.TechnologyCeiling == 0)
-                    {
-                        Bar6 = 0;
-                    }
-                    else
-                    {
-                        Bar6 = 100 * this.ArchitectureToSurvey.Technology / this.ArchitectureToSurvey.TechnologyCeiling;
-                    }
-                    if (this.ArchitectureToSurvey.Morale == 0 || this.ArchitectureToSurvey.MoraleCeiling == 0)
-                    {
-                        Bar7 = 0;
-                    }
-                    else
-                    {
-                        Bar7 = 100 * this.ArchitectureToSurvey.Morale / this.ArchitectureToSurvey.MoraleCeiling;
-                    }
-                    if (this.ArchitectureToSurvey.FacilityPositionCount - this.ArchitectureToSurvey.FacilityPositionLeft == 0 || this.ArchitectureToSurvey.FacilityPositionCount == 0)
-                    {
-                        Bar8 = 0;
-                    }
-                    else
-                    {
-                        Bar8 = 100 * (this.ArchitectureToSurvey.FacilityPositionCount - this.ArchitectureToSurvey.FacilityPositionLeft) / this.ArchitectureToSurvey.FacilityPositionCount;
-                    }
-                    ArmyBarTexture = Army6BarTexture;
-                    if (Bar1 < 10)
-                    {
-                        ArmyBarTexture = Army1BarTexture;
-                    }
-                    else if (Bar1 < 20)
-                    {
-                        ArmyBarTexture = Army2BarTexture;
-                    }
-                    else if (Bar1 < 50)
-                    {
-                        ArmyBarTexture = Army3BarTexture;
-                    }
-                    else if (Bar1 < 80)
-                    {
-                        ArmyBarTexture = Army4BarTexture;
-                    }
-                    else if (Bar1 < 100)
-                    {
-                        ArmyBarTexture = Army5BarTexture;
-                    }
+                if (Switch2 == "on")
+                {                    
+                    if (this.ArchitectureToSurvey.Domination == 0 || this.ArchitectureToSurvey.DominationCeiling == 0) { Bar2 = 0; }
+                    else { Bar2 = 100 * this.ArchitectureToSurvey.Domination / this.ArchitectureToSurvey.DominationCeiling; }
+                    if (this.ArchitectureToSurvey.Endurance == 0 || this.ArchitectureToSurvey.EnduranceCeiling == 0) { Bar3 = 0; }
+                    else { Bar3 = 100 * this.ArchitectureToSurvey.Endurance / this.ArchitectureToSurvey.EnduranceCeiling; }
+                    if (this.ArchitectureToSurvey.Agriculture == 0 || this.ArchitectureToSurvey.AgricultureCeiling == 0) { Bar4 = 0; }
+                    else { Bar4 = 100 * this.ArchitectureToSurvey.Agriculture / this.ArchitectureToSurvey.AgricultureCeiling; }
+                    if (this.ArchitectureToSurvey.Commerce == 0 || this.ArchitectureToSurvey.CommerceCeiling == 0) { Bar5 = 0; }
+                    else { Bar5 = 100 * this.ArchitectureToSurvey.Commerce / this.ArchitectureToSurvey.CommerceCeiling; }
+                    if (this.ArchitectureToSurvey.Technology == 0 || this.ArchitectureToSurvey.TechnologyCeiling == 0) { Bar6 = 0; }
+                    else { Bar6 = 100 * this.ArchitectureToSurvey.Technology / this.ArchitectureToSurvey.TechnologyCeiling; }
+                    if (this.ArchitectureToSurvey.Morale == 0 || this.ArchitectureToSurvey.MoraleCeiling == 0) { Bar7 = 0; }
+                    else { Bar7 = 100 * this.ArchitectureToSurvey.Morale / this.ArchitectureToSurvey.MoraleCeiling; }
+                    if (this.ArchitectureToSurvey.FacilityPositionCount - this.ArchitectureToSurvey.FacilityPositionLeft == 0 || this.ArchitectureToSurvey.FacilityPositionCount == 0) { Bar8 = 0; }
+                    else { Bar8 = 100 * (this.ArchitectureToSurvey.FacilityPositionCount - this.ArchitectureToSurvey.FacilityPositionLeft) / this.ArchitectureToSurvey.FacilityPositionCount; }
                     DominationBarTexture = Domination6BarTexture;
-                    if (Bar2 < 10)
-                    {
-                        DominationBarTexture = Domination1BarTexture;
-                    }
-                    else if (Bar2 < 20)
-                    {
-                        DominationBarTexture = Domination2BarTexture;
-                    }
-                    else if (Bar2 < 50)
-                    {
-                        DominationBarTexture = Domination3BarTexture;
-                    }
-                    else if (Bar2 < 80)
-                    {
-                        DominationBarTexture = Domination4BarTexture;
-                    }
-                    else if (Bar2 < 100)
-                    {
-                        DominationBarTexture = Domination5BarTexture;
-                    }
+                    if (Bar2 < 10) { DominationBarTexture = Domination1BarTexture; }
+                    else if (Bar2 < 20) { DominationBarTexture = Domination2BarTexture; }
+                    else if (Bar2 < 50) { DominationBarTexture = Domination3BarTexture; }
+                    else if (Bar2 < 80) { DominationBarTexture = Domination4BarTexture; }
+                    else if (Bar2 < 100) { DominationBarTexture = Domination5BarTexture; }
                     EnduranceBarTexture = Endurance6BarTexture;
-                    if (Bar3 < 10)
-                    {
-                        EnduranceBarTexture = Endurance1BarTexture;
-                    }
-                    else if (Bar3 < 20)
-                    {
-                        EnduranceBarTexture = Endurance2BarTexture;
-                    }
-                    else if (Bar3 < 50)
-                    {
-                        EnduranceBarTexture = Endurance3BarTexture;
-                    }
-                    else if (Bar3 < 80)
-                    {
-                        EnduranceBarTexture = Endurance4BarTexture;
-                    }
-                    else if (Bar3 < 100)
-                    {
-                        EnduranceBarTexture = Endurance5BarTexture;
-                    }
+                    if (Bar3 < 10) { EnduranceBarTexture = Endurance1BarTexture; }
+                    else if (Bar3 < 20) { EnduranceBarTexture = Endurance2BarTexture; }
+                    else if (Bar3 < 50) { EnduranceBarTexture = Endurance3BarTexture; }
+                    else if (Bar3 < 80) { EnduranceBarTexture = Endurance4BarTexture; }
+                    else if (Bar3 < 100) { EnduranceBarTexture = Endurance5BarTexture; }
                     AgricultureBarTexture = Agriculture6BarTexture;
-                    if (Bar4 < 10)
-                    {
-                        AgricultureBarTexture = Agriculture1BarTexture;
-                    }
-                    else if (Bar4 < 20)
-                    {
-                        AgricultureBarTexture = Agriculture2BarTexture;
-                    }
-                    else if (Bar4 < 50)
-                    {
-                        AgricultureBarTexture = Agriculture3BarTexture;
-                    }
-                    else if (Bar4 < 80)
-                    {
-                        AgricultureBarTexture = Agriculture4BarTexture;
-                    }
-                    else if (Bar4 < 100)
-                    {
-                        AgricultureBarTexture = Agriculture5BarTexture;
-                    }
+                    if (Bar4 < 10) { AgricultureBarTexture = Agriculture1BarTexture; }
+                    else if (Bar4 < 20) { AgricultureBarTexture = Agriculture2BarTexture; }
+                    else if (Bar4 < 50) { AgricultureBarTexture = Agriculture3BarTexture; }
+                    else if (Bar4 < 80) { AgricultureBarTexture = Agriculture4BarTexture; }
+                    else if (Bar4 < 100) { AgricultureBarTexture = Agriculture5BarTexture; }
                     CommerceBarTexture = Commerce6BarTexture;
-                    if (Bar5 < 10)
-                    {
-                        CommerceBarTexture = Commerce1BarTexture;
-                    }
-                    else if (Bar5 < 20)
-                    {
-                        CommerceBarTexture = Commerce2BarTexture;
-                    }
-                    else if (Bar5 < 50)
-                    {
-                        CommerceBarTexture = Commerce3BarTexture;
-                    }
-                    else if (Bar5 < 80)
-                    {
-                        CommerceBarTexture = Commerce4BarTexture;
-                    }
-                    else if (Bar5 < 100)
-                    {
-                        CommerceBarTexture = Commerce5BarTexture;
-                    }
+                    if (Bar5 < 10) { CommerceBarTexture = Commerce1BarTexture; }
+                    else if (Bar5 < 20) { CommerceBarTexture = Commerce2BarTexture; }
+                    else if (Bar5 < 50) { CommerceBarTexture = Commerce3BarTexture; }
+                    else if (Bar5 < 80) { CommerceBarTexture = Commerce4BarTexture; }
+                    else if (Bar5 < 100) { CommerceBarTexture = Commerce5BarTexture; }
                     TechnologyBarTexture = Technology6BarTexture;
-                    if (Bar6 < 10)
-                    {
-                        TechnologyBarTexture = Technology1BarTexture;
-                    }
-                    else if (Bar6 < 20)
-                    {
-                        TechnologyBarTexture = Technology2BarTexture;
-                    }
-                    else if (Bar6 < 50)
-                    {
-                        TechnologyBarTexture = Technology3BarTexture;
-                    }
-                    else if (Bar6 < 80)
-                    {
-                        TechnologyBarTexture = Technology4BarTexture;
-                    }
-                    else if (Bar6 < 100)
-                    {
-                        TechnologyBarTexture = Technology5BarTexture;
-                    }
+                    if (Bar6 < 10) { TechnologyBarTexture = Technology1BarTexture; }
+                    else if (Bar6 < 20) { TechnologyBarTexture = Technology2BarTexture; }
+                    else if (Bar6 < 50) { TechnologyBarTexture = Technology3BarTexture; }
+                    else if (Bar6 < 80) { TechnologyBarTexture = Technology4BarTexture; }
+                    else if (Bar6 < 100) { TechnologyBarTexture = Technology5BarTexture; }
                     MoraleBarTexture = Morale6BarTexture;
-                    if (Bar7 < 10)
-                    {
-                        MoraleBarTexture = Morale1BarTexture;
-                    }
-                    else if (Bar7 < 20)
-                    {
-                        MoraleBarTexture = Morale2BarTexture;
-                    }
-                    else if (Bar7 < 50)
-                    {
-                        MoraleBarTexture = Morale3BarTexture;
-                    }
-                    else if (Bar7 < 80)
-                    {
-                        MoraleBarTexture = Morale4BarTexture;
-                    }
-                    else if (Bar7 < 100)
-                    {
-                        MoraleBarTexture = Morale5BarTexture;
-                    }
+                    if (Bar7 < 10) { MoraleBarTexture = Morale1BarTexture; }
+                    else if (Bar7 < 20) { MoraleBarTexture = Morale2BarTexture; }
+                    else if (Bar7 < 50) { MoraleBarTexture = Morale3BarTexture; }
+                    else if (Bar7 < 80) { MoraleBarTexture = Morale4BarTexture; }
+                    else if (Bar7 < 100) { MoraleBarTexture = Morale5BarTexture; }
                     FacilityCountBarTexture = FacilityCount6BarTexture;
-                    if (Bar8 < 10)
-                    {
-                        FacilityCountBarTexture = FacilityCount1BarTexture;
-                    }
-                    else if (Bar8 < 20)
-                    {
-                        FacilityCountBarTexture = FacilityCount2BarTexture;
-                    }
-                    else if (Bar8 < 50)
-                    {
-                        FacilityCountBarTexture = FacilityCount3BarTexture;
-                    }
-                    else if (Bar8 < 80)
-                    {
-                        FacilityCountBarTexture = FacilityCount4BarTexture;
-                    }
-                    else if (Bar8 < 100)
-                    {
-                        FacilityCountBarTexture = FacilityCount5BarTexture;
-                    }
-
-
+                    if (Bar8 < 10) { FacilityCountBarTexture = FacilityCount1BarTexture; }
+                    else if (Bar8 < 20) { FacilityCountBarTexture = FacilityCount2BarTexture; }
+                    else if (Bar8 < 50) { FacilityCountBarTexture = FacilityCount3BarTexture; }
+                    else if (Bar8 < 80) { FacilityCountBarTexture = FacilityCount4BarTexture; }
+                    else if (Bar8 < 100) { FacilityCountBarTexture = FacilityCount5BarTexture; }     
                 }
             }
         }
@@ -749,84 +585,117 @@ namespace ArchitectureSurveyPlugin
             get
             {
                     return new Rectangle(this.AKBackground0Client.X + this.DisplayOffset.X, this.AKBackground0Client.Y + this.DisplayOffset.Y, this.AKBackground0Client.Width, this.AKBackground0Client.Height);
-
             }
-        }
-        private Rectangle ArmyBarDisplayPosition
-        {
-            get
-            {
-                if (this.ArchitectureToSurvey.ArmyQuantity == 0)
-                {
-                 return new Rectangle(this.ArmyBarClient.X + this.DisplayOffset.X, this.ArmyBarClient.Y + this.DisplayOffset.Y, 0, this.ArmyBarClient.Height);
-               
-                }
-                 return new Rectangle(this.ArmyBarClient.X + this.DisplayOffset.X, this.ArmyBarClient.Y + this.DisplayOffset.Y, this.ArmyBarClient.Width * this.ArchitectureToSurvey.MilitaryCount / this.ArchitectureToSurvey.ArmyQuantity, this.ArmyBarClient.Height);
-            }
-        }
+        }        
         private Rectangle DominationBarDisplayPosition
         {
             get
             {
-                if (this.ArchitectureToSurvey.Domination == 0 && this.ArchitectureToSurvey.DominationCeiling == 0)
+                if (this.ArchitectureToSurvey.Domination == 0 || this.ArchitectureToSurvey.DominationCeiling == 0)
                 {
-                    return new Rectangle(this.DominationBarClient.X + this.DisplayOffset.X, this.DominationBarClient.Y + this.DisplayOffset.Y, 0, this.DominationBarClient.Height);
-
+                    return new Rectangle(0, 0, 0, 0);
                 }
                 return new Rectangle(this.DominationBarClient.X + this.DisplayOffset.X, this.DominationBarClient.Y + this.DisplayOffset.Y, this.DominationBarClient.Width * this.ArchitectureToSurvey.Domination / this.ArchitectureToSurvey.DominationCeiling, this.DominationBarClient.Height);
-
+            }
+        }
+        private Rectangle DominationDisplayPosition
+        {
+            get
+            {
+                if (this.ArchitectureToSurvey.Domination == 0 || this.ArchitectureToSurvey.DominationCeiling == 0)
+                {
+                    return new Rectangle(0, 0, 0, 0);
+                }
+                return new Rectangle(0, 0, this.DominationBarClient.Width * this.ArchitectureToSurvey.Domination / this.ArchitectureToSurvey.DominationCeiling, this.DominationBarClient.Height);
             }
         }
         private Rectangle EnduranceBarDisplayPosition
         {
             get
             {
-                if (this.ArchitectureToSurvey.Endurance == 0 && this.ArchitectureToSurvey.EnduranceCeiling == 0)
+                if (this.ArchitectureToSurvey.Endurance == 0 || this.ArchitectureToSurvey.EnduranceCeiling == 0)
                 {
                     return new Rectangle(this.EnduranceBarClient.X + this.DisplayOffset.X, this.EnduranceBarClient.Y + this.DisplayOffset.Y, 0, this.EnduranceBarClient.Height);
 
                 }
                 return new Rectangle(this.EnduranceBarClient.X + this.DisplayOffset.X, this.EnduranceBarClient.Y + this.DisplayOffset.Y, this.EnduranceBarClient.Width * this.ArchitectureToSurvey.Endurance / this.ArchitectureToSurvey.EnduranceCeiling, this.EnduranceBarClient.Height);
-
+            }
+        }
+        private Rectangle EnduranceDisplayPosition
+        {
+            get
+            {
+                if (this.ArchitectureToSurvey.Endurance == 0 || this.ArchitectureToSurvey.EnduranceCeiling == 0)
+                {
+                    return new Rectangle(0, 0, 0, 0);
+                }
+                return new Rectangle(0, 0, this.EnduranceBarClient.Width * this.ArchitectureToSurvey.Endurance / this.ArchitectureToSurvey.EnduranceCeiling, this.EnduranceBarClient.Height);
             }
         }
         private Rectangle AgricultureBarDisplayPosition
         {
             get
             {
-                if (this.ArchitectureToSurvey.Agriculture == 0 && this.ArchitectureToSurvey.AgricultureCeiling == 0)
+                if (this.ArchitectureToSurvey.Agriculture == 0 || this.ArchitectureToSurvey.AgricultureCeiling == 0)
                 {
-                    return new Rectangle(this.AgricultureBarClient.X + this.DisplayOffset.X, this.AgricultureBarClient.Y + this.DisplayOffset.Y, 0, this.AgricultureBarClient.Height);                 
-
+                    return new Rectangle(0, 0, 0, 0);
                 }
                 return new Rectangle(this.AgricultureBarClient.X + this.DisplayOffset.X, this.AgricultureBarClient.Y + this.DisplayOffset.Y, this.AgricultureBarClient.Width * this.ArchitectureToSurvey.Agriculture / this.ArchitectureToSurvey.AgricultureCeiling, this.AgricultureBarClient.Height);
-
+            }
+        }
+        private Rectangle AgricultureDisplayPosition
+        {
+            get
+            {
+                if (this.ArchitectureToSurvey.Agriculture == 0 || this.ArchitectureToSurvey.AgricultureCeiling == 0)
+                {
+                    return new Rectangle(0, 0, 0, 0);
+                }
+                return new Rectangle(0, 0, this.AgricultureBarClient.Width * this.ArchitectureToSurvey.Agriculture / this.ArchitectureToSurvey.AgricultureCeiling, this.AgricultureBarClient.Height);
             }
         }
         private Rectangle CommerceBarDisplayPosition
         {
             get
             {
-                if (this.ArchitectureToSurvey.Commerce == 0 && this.ArchitectureToSurvey.CommerceCeiling == 0)
+                if (this.ArchitectureToSurvey.Commerce == 0 || this.ArchitectureToSurvey.CommerceCeiling == 0)
                 {
-                    return new Rectangle(this.CommerceBarClient.X + this.DisplayOffset.X, this.CommerceBarClient.Y + this.DisplayOffset.Y, 0, this.CommerceBarClient.Height);
-
+                    return new Rectangle(0, 0, 0, 0);
                 }
                 return new Rectangle(this.CommerceBarClient.X + this.DisplayOffset.X, this.CommerceBarClient.Y + this.DisplayOffset.Y, this.CommerceBarClient.Width * this.ArchitectureToSurvey.Commerce / this.ArchitectureToSurvey.CommerceCeiling, this.CommerceBarClient.Height);
-
+            }
+        }
+        private Rectangle CommerceDisplayPosition
+        {
+            get
+            {
+                if (this.ArchitectureToSurvey.Commerce == 0 || this.ArchitectureToSurvey.CommerceCeiling == 0)
+                {
+                    return new Rectangle(0, 0, 0, 0);
+                }
+                return new Rectangle(0, 0, this.CommerceBarClient.Width * this.ArchitectureToSurvey.Commerce / this.ArchitectureToSurvey.CommerceCeiling, this.CommerceBarClient.Height);
             }
         }
         private Rectangle TechnologyBarDisplayPosition
         {
             get
             {
-                if (this.ArchitectureToSurvey.Technology == 0 && this.ArchitectureToSurvey.TechnologyCeiling == 0)
+                if (this.ArchitectureToSurvey.Technology == 0 || this.ArchitectureToSurvey.TechnologyCeiling == 0)
                 {
-                    return new Rectangle(this.TechnologyBarClient.X + this.DisplayOffset.X, this.TechnologyBarClient.Y + this.DisplayOffset.Y, 0, this.TechnologyBarClient.Height);
-
+                    return new Rectangle(0, 0, 0, 0);
                 }
                 return new Rectangle(this.TechnologyBarClient.X + this.DisplayOffset.X, this.TechnologyBarClient.Y + this.DisplayOffset.Y, this.TechnologyBarClient.Width * this.ArchitectureToSurvey.Technology / this.ArchitectureToSurvey.TechnologyCeiling, this.TechnologyBarClient.Height);
-
+            }
+        }
+        private Rectangle TechnologyDisplayPosition
+        {
+            get
+            {
+                if (this.ArchitectureToSurvey.Technology == 0 || this.ArchitectureToSurvey.TechnologyCeiling == 0)
+                {
+                    return new Rectangle(0, 0, 0, 0);
+                }
+                return new Rectangle(0, 0, this.TechnologyBarClient.Width * this.ArchitectureToSurvey.Technology / this.ArchitectureToSurvey.TechnologyCeiling, this.TechnologyBarClient.Height);
             }
         }
         private Rectangle MoraleBarDisplayPosition
@@ -835,11 +704,20 @@ namespace ArchitectureSurveyPlugin
             {
                 if (this.ArchitectureToSurvey.Morale == 0 || this.ArchitectureToSurvey.MoraleCeiling == 0)
                 {
-                    return new Rectangle(this.MoraleBarClient.X + this.DisplayOffset.X, this.MoraleBarClient.Y + this.DisplayOffset.Y, 0, this.MoraleBarClient.Height);
-
+                    return new Rectangle(0, 0, 0, 0);
                 }
                 return new Rectangle(this.MoraleBarClient.X + this.DisplayOffset.X, this.MoraleBarClient.Y + this.DisplayOffset.Y, this.MoraleBarClient.Width * this.ArchitectureToSurvey.Morale / this.ArchitectureToSurvey.MoraleCeiling, this.MoraleBarClient.Height);
-
+            }
+        }
+        private Rectangle MoraleDisplayPosition
+        {
+            get
+            {
+                if (this.ArchitectureToSurvey.Morale == 0 || this.ArchitectureToSurvey.MoraleCeiling == 0)
+                {
+                    return new Rectangle(0, 0, 0, 0);
+                }
+                return new Rectangle(0, 0, this.MoraleBarClient.Width * this.ArchitectureToSurvey.Morale / this.ArchitectureToSurvey.MoraleCeiling, this.MoraleBarClient.Height);
             }
         }
         private Rectangle FacilityCountBarDisplayPosition
@@ -848,13 +726,22 @@ namespace ArchitectureSurveyPlugin
             {
                 if (this.ArchitectureToSurvey.FacilityPositionCount - this.ArchitectureToSurvey.FacilityPositionLeft == 0 || this.ArchitectureToSurvey.FacilityPositionCount == 0)
                 {
-                    return new Rectangle(this.FacilityCountBarClient.X + this.DisplayOffset.X, this.FacilityCountBarClient.Y + this.DisplayOffset.Y, 0, this.FacilityCountBarClient.Height);
+                    return new Rectangle(0, 0, 0, 0);
                 }
                 return new Rectangle(this.FacilityCountBarClient.X + this.DisplayOffset.X, this.FacilityCountBarClient.Y + this.DisplayOffset.Y, this.FacilityCountBarClient.Width * (this.ArchitectureToSurvey.FacilityPositionCount - this.ArchitectureToSurvey.FacilityPositionLeft) / this.ArchitectureToSurvey.FacilityPositionCount, this.FacilityCountBarClient.Height);
-
             }
         }
-
+        private Rectangle FacilityCountDisplayPosition
+        {
+            get
+            {
+                if (this.ArchitectureToSurvey.FacilityPositionCount - this.ArchitectureToSurvey.FacilityPositionLeft == 0 || this.ArchitectureToSurvey.FacilityPositionCount == 0)
+                {
+                    return new Rectangle(0, 0, 0, 0);
+                }
+                return new Rectangle(0, 0, this.FacilityCountBarClient.Width * (this.ArchitectureToSurvey.FacilityPositionCount - this.ArchitectureToSurvey.FacilityPositionLeft) / this.ArchitectureToSurvey.FacilityPositionCount, this.FacilityCountBarClient.Height);
+            }
+        }
 
 
 

@@ -34,12 +34,12 @@
   <Item18></Item18>
   <Item19></Item19>
   <Item20></Item20>
-  <TheBackground1 Mask1="Null.png" Mask2="Mask12.png" Mask3="Null.png" Mask4="Mask14.png" Background="Background1.png" X="0" Y="0" Width="93" Height="40"></TheBackground1>
-  <PersonPortrait1Position X="7" Y="6" Width="27" Height="27" ></PersonPortrait1Position>
+  <TheBackground1 Mask1="Null.png" Mask2="Null.png" Mask3="Mask13.png" Mask4="Mask14.png" Background="Background1.png" X="0" Y="0" Width="90" Height="56"></TheBackground1>
+  <PersonPortrait1Position X="13" Y="12" Width="26" Height="34" ></PersonPortrait1Position>
   <Item23></Item23>
   <Item24></Item24>
   <Item25></Item25>
-  <FactionNameText X="3" Y="-15" Width="20" Height="10"
+  <FactionNameText X="3" Y="-13" Width="20" Height="10"
           FontName="宋体"
           FontSize="9"
           FontStyle="Regular"
@@ -47,11 +47,11 @@
           Align="Left"
           FactionNameKind="1" ShowFactionNameBackground="off" Background="Null.png">
   </FactionNameText>
-  <FactionColor ColorPicture="Faction.png" ColorBackground="qizi.png" X="0" Y="-27" Width="50" Height="38"></FactionColor>
+  <FactionColor ColorPicture="Faction.png" ColorBackground="qizi.png" X="0" Y="-25" Width="50" Height="38"></FactionColor>
   <Item28></Item28>
   <Item29></Item29>
   <Item30></Item30>
-  <TroopName X="50" Y="5" Width="32" Height="10"
+  <TroopName X="47" Y="5" Width="25" Height="42"
             FontName="宋体"
             FontSize="9"
             FontStyle="Regular"
@@ -62,8 +62,8 @@
   <Item33></Item33>
   <Item34></Item34>
   <Item35></Item35>
-  <TroopKind1Position X="32" Y="1" Width="17" Height="17" TroopKind1="0.png" TroopKind2="1.png" TroopKind3="2.png" TroopKind4="3.png" TroopKind5="4.png"></TroopKind1Position>
-  <Thebingli1Text X="43" Y="21" Width="45" Height="14"
+  <TroopKind1Position X="47" Y="5" Width="17" Height="17" TroopKind1="0.png" TroopKind2="1.png" TroopKind3="2.png" TroopKind4="3.png" TroopKind5="4.png"></TroopKind1Position>
+  <Thebingli1Text X="47" Y="30" Width="42" Height="25"
       FontName="宋体"
       FontSize="10"
       FontStyle="Regular"
@@ -73,13 +73,13 @@
   <Item38></Item38>
   <Item39></Item39>
   <Item40></Item40>
-  <TheActionIcon1 Done="ActionDone1.png" Undone="ActionUndone1.png" Auto="ActionAuto1.png" AutoDone="ActionAutoDone1.png" X="0" Y="0" Width="81" Height="40"></TheActionIcon1>
-  <TheFoodIcon1 Normal="FoodNormal.png" Shortage="FoodShortage1.png" X="0" Y="0" Width="81" Height="40"></TheFoodIcon1>
-  <TheControl1 NoControl="NoControl1.png" X="0" Y="0" Width="81" Height="40"></TheControl1>
+  <TheActionIcon1 Done="ActionDone1.png" Undone="ActionUndone1.png" Auto="ActionAuto1.png" AutoDone="ActionAutoDone1.png" X="42" Y="45" Width="11" Height="11"></TheActionIcon1>
+  <TheFoodIcon1 Normal="FoodNormal.png" Shortage="FoodShortage1.png" X="62" Y="0" Width="23" Height="23"></TheFoodIcon1>
+  <TheControl1 NoControl="NoControl1.png" X="42" Y="45" Width="11" Height="11"></TheControl1>
   <TheStunt1 Stunt="Stunt1.png" X="0" Y="0" Width="81" Height="40"></TheStunt1>
   <Item45></Item45>
-  <Theshiqi1 FileName="shiqi1.png" X="0" Y="0" Width="81" Height="40"></Theshiqi1>
-  <Thezhanyi1 FileName="zhanyi1.png" X="0" Y="0" Width="81" Height="40"></Thezhanyi1>
+  <Theshiqi1 FileName="shiqi1.png" X="0" Y="2" Width="27" Height="54"></Theshiqi1>
+  <Thezhanyi1 FileName="zhanyi1.png" X="25" Y="2" Width="27" Height="54"></Thezhanyi1>
   <Item48></Item48>
   <Item49></Item49>
   <Item50></Item50>
