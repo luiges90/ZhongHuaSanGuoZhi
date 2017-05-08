@@ -172,7 +172,7 @@
 
         public void Clear()
         {
-            this.CaptivePerson.SetBelongedCaptive(null, GameObjects.PersonDetail.PersonStatus.Normal);
+            this.CaptivePerson.SetBelongedCaptive(null, this.CaptivePerson.ArrivingDays > 0 ? GameObjects.PersonDetail.PersonStatus.Moving : GameObjects.PersonDetail.PersonStatus.Normal);
             this.RansomArchitecture = null;
             this.RansomFund = 0;
         }
