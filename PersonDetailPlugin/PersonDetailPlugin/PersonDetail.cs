@@ -152,7 +152,6 @@
         ////↓人物信息
         internal int IDN;       
         //↓势力
-        internal int FactionN;
         internal string FactionName;
         internal string FactionNameKind;
         internal string ShowFactionNameBackground;
@@ -2373,7 +2372,7 @@
             } 
             ///////////以下新界面
             if (Switch1 == "on")
-            {
+            {                
                 //初始化
                 InformationButton = true;
                 BiographyButton = false;
@@ -2416,11 +2415,10 @@
                     this.screen.PlayNormalSound(this.ThePersonSound);
                 }
                 SexN = person.Sex;
-                FactionN = person.BelongedFaction.ID;
                 //
                 FactionName = "";
-                if (Switch105 == "on")
-                {
+                if (Switch105 == "on" && person.Faction != "----")
+                {                    
                     if (FactionNameKind == "1") { FactionName = person.Faction; }//势力名
                     else if (FactionNameKind == "2") { FactionName = person.BelongedFaction.Leader.SurName; }//君主姓
                     else if (FactionNameKind == "3") { FactionName = person.BelongedFaction.Leader.Name; }//君主名
