@@ -514,7 +514,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void FrameFunction_Architecture_AfterSelectTrainableChildren()
         {
-            GameObjectList selectedList = this.CurrentArchitecture.Children.GetSelectedList();
+            GameObjectList selectedList = this.CurrentArchitecture.BelongedFaction.Children.GetSelectedList();
             if ((selectedList != null) && (selectedList.Count == 1))
             {
                 this.CurrentPerson = selectedList[0] as Person;
