@@ -69,7 +69,10 @@
             }
             foreach (PersonDialog i in matchedScenBiography) 
             {
-                this.Scenario.YearTable.addPersonInGameBiography(i.SpeakingPerson, this.Scenario.Date, i.Text);
+                if (i.SpeakingPerson != null)
+                {
+                    this.Scenario.YearTable.addPersonInGameBiography(i.SpeakingPerson, this.Scenario.Date, i.Text);
+                }
             }
             if (nextScenario.Length > 0)
             {
