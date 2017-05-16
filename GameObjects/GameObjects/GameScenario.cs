@@ -7328,15 +7328,6 @@
             {
                 if (p.Trainable && GameObject.Random(30) == 0)
                 {
-                    int siblingCount = 0;
-
-                    foreach (Person q in p.Father.ChildrenList)
-                    {
-                        if (q.Trainable)
-                        {
-                            siblingCount++;
-                        }
-                    }
                     if (p.TrainPolicy == null)
                     {
                         p.TrainPolicy = (TrainPolicy) this.GameCommonData.AllTrainPolicies.GetGameObject(1);
@@ -7396,16 +7387,31 @@
                         parental = null;
                     }
 
+                    int siblingCount = 0;
+
+                    if (parental != null)
+                    {
+                        foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
+                        {
+                            if (q.Trainable)
+                            {
+                                siblingCount++;
+                            }
+                        }
+                    }
+
+                    siblingCount++;
+
                     switch (r)
                     {
                         case 1:
                             {
                                 PersonList teachers = new PersonList();
-                                if (p.Strength < p.Father.Strength && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Strength < p.Father.Strength && p.Father.IsValidTeacher)
                                 {
                                     teachers.Add(p.Father);
                                 }
-                                if (p.Strength < p.Mother.Strength && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Strength < p.Mother.Strength && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher)
                                 {
                                     teachers.Add(p.Mother);
                                 }
@@ -7457,11 +7463,11 @@
                         case 2:
                             {
                                 PersonList teachers = new PersonList();
-                                if (p.Command < p.Father.Command && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Command < p.Father.Command && p.Father.IsValidTeacher)
                                 {
                                     teachers.Add(p.Father);
                                 }
-                                if (p.Command < p.Mother.Command && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Command < p.Mother.Command && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher)
                                 {
                                     teachers.Add(p.Mother);
                                 }
@@ -7513,11 +7519,11 @@
                         case 3:
                             {
                                 PersonList teachers = new PersonList();
-                                if (p.Intelligence < p.Father.Intelligence && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Intelligence < p.Father.Intelligence && p.Father.IsValidTeacher)
                                 {
                                     teachers.Add(p.Father);
                                 }
-                                if (p.Intelligence < p.Mother.Intelligence && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Intelligence < p.Mother.Intelligence && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher)
                                 {
                                     teachers.Add(p.Mother);
                                 }
@@ -7568,11 +7574,11 @@
                         case 4:
                             {
                                 PersonList teachers = new PersonList();
-                                if (p.Politics < p.Father.Politics && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Politics < p.Father.Politics && p.Father.IsValidTeacher)
                                 {
                                     teachers.Add(p.Father);
                                 }
-                                if (p.Politics < p.Mother.Politics && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Politics < p.Mother.Politics && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher)
                                 {
                                     teachers.Add(p.Mother);
                                 }
@@ -7624,11 +7630,11 @@
                         case 5:
                             {
                                 PersonList teachers = new PersonList();
-                                if (p.Glamour < p.Father.Glamour && p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Glamour < p.Father.Glamour && p.Father.IsValidTeacher)
                                 {
                                     teachers.Add(p.Father);
                                 }
-                                if (p.Glamour < p.Mother.Glamour && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Glamour < p.Mother.Glamour && (p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher)
                                 {
                                     teachers.Add(p.Mother);
                                 }
@@ -7680,11 +7686,11 @@
                         case 6:
                             {
                                 PersonList teachers = new PersonList();
-                                if (p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Father.IsValidTeacher)
                                 {
                                     teachers.Add(p.Father);
                                 }
-                                if ((p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if ((p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher)
                                 {
                                     teachers.Add(p.Mother);
                                 }
@@ -7753,11 +7759,11 @@
                         case 7:
                             {
                                 PersonList teachers = new PersonList();
-                                if (p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Father.IsValidTeacher)
                                 {
                                     teachers.Add(p.Father);
                                 }
-                                if ((p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if ((p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher)
                                 {
                                     teachers.Add(p.Mother);
                                 }
@@ -7820,11 +7826,11 @@
                         case 8:
                             {
                                 PersonList teachers = new PersonList();
-                                if (p.Father.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if (p.Father.IsValidTeacher)
                                 {
                                     teachers.Add(p.Father);
                                 }
-                                if ((p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher && GameObject.Chance(400 / siblingCount))
+                                if ((p.Mother.SameLocationAs(p.Father) || !p.Father.IsValidTeacher) && p.Mother.IsValidTeacher)
                                 {
                                     teachers.Add(p.Mother);
                                 }
