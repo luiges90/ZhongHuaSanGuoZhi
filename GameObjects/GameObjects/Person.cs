@@ -5113,13 +5113,18 @@
 
         public void MoveToArchitecture(Architecture a, Point? startingPoint)
         {
+            this.MoveToArchitecture(a, startingPoint, false);
+        }
+
+        public void MoveToArchitecture(Architecture a, Point? startingPoint, bool removeFromTroop)
+        {
             Architecture targetArchitecture = this.TargetArchitecture;
 
             if (a == null) return;
 
             // if (this.Status != PersonStatus.Normal) return;
 
-            if (this.LocationTroop != null && !this.LocationTroop.Destroyed) return;
+            if (this.LocationTroop != null && !this.LocationTroop.Destroyed && !removeFromTroop) return;
 
             if (this.LocationArchitecture != a || startingPoint != null)
             {
