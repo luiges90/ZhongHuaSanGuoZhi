@@ -7389,7 +7389,7 @@
 
                     int siblingCount = 0;
 
-                    if (parental != null)
+                    if (parental != null && parental.LocationArchitecture != null)
                     {
                         foreach (Person q in parental.LocationArchitecture.PersonAndChildren)
                         {
