@@ -110,7 +110,7 @@ namespace ScenarioGenerator
             File.Copy(Application.StartupPath + "/GameData/Common/SaveTemplate.mdb", generatedFileName);
 
             this.connectionStringBuilder.DataSource = generatedFileName;
-            this.scen.SaveGameScenarioToDatabase(this.connectionStringBuilder.ConnectionString, true, true);
+            this.scen.SaveGameScenarioToDatabase(this.connectionStringBuilder.ConnectionString, true, true, false);
 
             MessageBox.Show("劇本已生成，檔案為" + generatedFileName);
 

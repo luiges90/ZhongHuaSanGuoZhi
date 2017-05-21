@@ -1649,7 +1649,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
             GC.Collect();
 
-            base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveMap, saveMap);
+            base.Scenario.SaveGameScenarioToDatabase(builder.ConnectionString, saveMap, saveMap, true);
 
             File.Delete(tempFilePath);
 

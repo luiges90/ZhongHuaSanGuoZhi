@@ -5807,7 +5807,7 @@
             }
         }
 
-        public bool SaveGameScenarioToDatabase(string connectionString, bool saveMap, bool saveCommonData)
+        public bool SaveGameScenarioToDatabase(string connectionString, bool saveMap, bool saveCommonData, bool saveSettings)
         {
             this.GameTime += (int) DateTime.Now.Subtract(sessionStartTime).TotalSeconds;
 
@@ -6756,6 +6756,89 @@
                 {
                     GameCommonData.DeleteCommonDataTables(connectionString);
                 }
+
+                if (saveSettings)
+                {
+                    new OleDbCommand("Delete from GameParameters", selectConnection).ExecuteNonQuery();
+                    adapter = new OleDbDataAdapter("Select * from GameParameters", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    builder.QuotePrefix = "[";
+                    builder.QuoteSuffix = "]";
+                    adapter.Fill(dataSet, "GameParameters");
+                    dataSet.Tables["GameParameters"].Rows.Clear();
+                    foreach (FieldInfo i in typeof(Parameters).GetFields(BindingFlags.Public | BindingFlags.Static))
+                    {
+                        if (i.IsLiteral) continue;
+
+                        row = dataSet.Tables["GameParameters"].NewRow();
+                        row.BeginEdit();
+                        row["Name"] = i.Name;
+                        if (i.Name.Equals("ExpandConditions"))
+                        {
+                            row["Value"] = StaticMethods.SaveToString((List<int>)i.GetValue(null));
+                        }
+                        else
+                        {
+                            try
+                            {
+                                row["Value"] = (int)i.GetValue(null);
+                            }
+                            catch (InvalidCastException)
+                            {
+                                try
+                                {
+                                    row["Value"] = (double)i.GetValue(null);
+                                }
+                                catch (InvalidCastException)
+                                {
+                                    row["Value"] = i.GetValue(null).ToString();
+                                }
+                            }
+                        }
+                        row.EndEdit();
+                        dataSet.Tables["GameParameters"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "GameParameters");
+                    dataSet.Clear();
+
+                    new OleDbCommand("Delete from GlobalVariables", selectConnection).ExecuteNonQuery();
+                    adapter = new OleDbDataAdapter("Select * from GlobalVariables", selectConnection);
+                    builder = new OleDbCommandBuilder(adapter);
+                    builder.QuotePrefix = "[";
+                    builder.QuoteSuffix = "]";
+                    adapter.Fill(dataSet, "GlobalVariables");
+                    dataSet.Tables["GlobalVariables"].Rows.Clear();
+                    foreach (FieldInfo i in typeof(GlobalVariables).GetFields(BindingFlags.Public | BindingFlags.Static))
+                    {
+                        if (i.IsLiteral) continue;
+
+                        if (GlobalVariables.getFieldsExcludedFromSave().Contains(i.Name)) continue;
+
+                        row = dataSet.Tables["GlobalVariables"].NewRow();
+                        row.BeginEdit();
+                        row["Name"] = i.Name;
+                        try
+                        {
+                            row["Value"] = (int)i.GetValue(null);
+                        }
+                        catch (InvalidCastException)
+                        {
+                            try
+                            {
+                                row["Value"] = (double)i.GetValue(null);
+                            }
+                            catch (InvalidCastException)
+                            {
+                                row["Value"] = i.GetValue(null).ToString();
+                            }
+                        }
+                        row.EndEdit();
+                        dataSet.Tables["GlobalVariables"].Rows.Add(row);
+                    }
+                    adapter.Update(dataSet, "GlobalVariables");
+                    dataSet.Clear();
+                }
+
                 selectConnection.Close();
             }
             /*catch 
