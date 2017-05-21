@@ -7520,6 +7520,7 @@
                                     {
                                         p.Strength += GameObject.Random(Math.Max((p.StrengthPotential * 6 / 5 - p.Strength) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
+                                        q.AdjustRelation(p, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
                                             Dictionary<Person, int> rels = q.GetAllRelations();
@@ -7576,6 +7577,7 @@
                                     {
                                         p.Command += GameObject.Random(Math.Max((p.CommandPotential * 6 / 5 - p.Command) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
+                                        q.AdjustRelation(p, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
                                             Dictionary<Person, int> rels = q.GetAllRelations();
@@ -7631,6 +7633,7 @@
                                     {
                                         p.Intelligence += GameObject.Random(Math.Max((p.IntelligencePotential * 6 / 5 - p.Intelligence) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
+                                        q.AdjustRelation(p, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
                                             Dictionary<Person, int> rels = q.GetAllRelations();
@@ -7687,6 +7690,7 @@
                                     {
                                         p.Politics += GameObject.Random(Math.Max((p.PoliticsPotential * 6 / 5 - p.Politics) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
+                                        q.AdjustRelation(p, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
                                             Dictionary<Person, int> rels = q.GetAllRelations();
@@ -7743,6 +7747,7 @@
                                     {
                                         p.Glamour += GameObject.Random(Math.Max((p.GlamourPotential * 6 / 5 - p.Glamour) / 10, 1) + 1);
                                         p.AdjustRelation(q, 0, 5);
+                                        q.AdjustRelation(p, 0, 5);
                                         if (GameObject.Chance(30))
                                         {
                                             Dictionary<Person, int> rels = q.GetAllRelations();
@@ -7815,6 +7820,7 @@
                                         {
                                             p.Skills.AddSkill(t);
                                             p.AdjustRelation(q, 0, 5);
+                                            q.AdjustRelation(p, 0, 5);
                                             if (GameObject.Chance(30))
                                             {
                                                 Dictionary<Person, int> rels = q.GetAllRelations();
@@ -7883,6 +7889,7 @@
                                     {
                                         p.Stunts.AddStunt(t);
                                         p.AdjustRelation(q, 0, 10);
+                                        q.AdjustRelation(p, 0, 10);
                                         if (GameObject.Chance(30))
                                         {
                                             Dictionary<Person, int> rels = q.GetAllRelations();
@@ -7987,6 +7994,7 @@
                                                 p.RealTitles.Add(t);
 
                                                 p.AdjustRelation(q, 0, 5 * t.Level);
+                                                q.AdjustRelation(p, 0, 5 * t.Level);
                                                 if (GameObject.Chance(30))
                                                 {
                                                     Dictionary<Person, int> rels = q.GetAllRelations();
