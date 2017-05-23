@@ -1450,6 +1450,7 @@
             }
             if (gameObject != null)
             {
+                this.IsGeneratedChildren = false;
                 ExtensionInterface.call("PersonBecomeAvailable", new Object[] { this.Scenario, this });
                 base.Scenario.PreparedAvailablePersons.Add(this);
                 return true;
@@ -5658,10 +5659,6 @@
             {
                 this.BeAvailable();
             }
-        }
-
-        public void YearEvent()
-        {
         }
 
         public int Age
@@ -10310,7 +10307,7 @@
         {
             get
             {
-                return this.IsGeneratedChildren && this.Alive && this.Age >= 4 && !this.Available;
+                return this.IsGeneratedChildren && this.Alive && this.Age >= 4;
             }
         }
 

@@ -7108,11 +7108,14 @@
 
             foreach (Faction faction in this.Factions)
             {
-
-               //faction.CreatePersonTimes = 0;
                faction.YearOfficialLimit = 0;
-                 
-                
+            }
+            foreach (Person p in this.Persons)
+            {
+                if (p.Available && p.IsGeneratedChildren && p.Age >= GlobalVariables.ChildrenAvailableAge)
+                {
+                    p.IsGeneratedChildren = false;
+                }
             }
         }
 

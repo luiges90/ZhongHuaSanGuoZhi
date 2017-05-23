@@ -2651,7 +2651,9 @@
             {
                 if (!person2.Available)
                 {
+                    bool wasGeneratedChildren = person2.IsGeneratedChildren;
                     person2.BeAvailable();
+                    person2.IsGeneratedChildren = wasGeneratedChildren;
                     person2.LocationArchitecture = this.Capital;
                     person2.Status = PersonStatus.Normal;
                 }
