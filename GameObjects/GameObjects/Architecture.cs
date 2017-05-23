@@ -249,6 +249,8 @@
 
         public ArchitectureList AIBattlingArchitectures { get; set; }
 
+        public int MayorOnDutyDays {get;set;}
+
        // public OngoingBattle Battle { get; set; }
 
         private String oldFactionName = "";
@@ -12648,7 +12650,7 @@
                 //县令内政加成系数
                 if (this.Mayor != null && this.Mayor.BelongedCaptive == null)
                 {
-                    return (this.RateOfInternal + this.DayRateIncrementOfInternal + ((float)this.Mayor.Politics / 100 + (float)this.Mayor.Intelligence / 100) / 2);
+                    return (this.RateOfInternal + this.DayRateIncrementOfInternal + ((float)this.Mayor.Politics / 100 + (float)this.Mayor.Intelligence / 100) / 2 * Math.Max(1, this.MayorOnDutyDays / 90.0f));
                 }
 
                 else

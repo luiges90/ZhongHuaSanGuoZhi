@@ -4269,6 +4269,12 @@
                 }
                 catch { }
 
+                try
+                {
+                    architecture.MayorOnDutyDays = (int) reader["MayorOnDutyDays"];
+                }
+                catch { }
+
                 architecture.AIBattlingArchitectures = new ArchitectureList();
 
                 if (e.Count > 0)
@@ -6023,6 +6029,7 @@
                         s += i.ID + " ";
                     }
                     row["AIBattlingArchitectures"] = s;
+                    row["MayorOnDutyDays"] = architecture.MayorOnDutyDays;
 
                     row.EndEdit();
                     dataSet.Tables["Architecture"].Rows.Add(row);
