@@ -6265,7 +6265,7 @@
         {
             get
             {
-                return (this.CommandExperience / 0x3e8);
+                return (int) Math.Pow(this.CommandExperience / 0x3e8, 0.9);
             }
         }
 
@@ -6582,7 +6582,7 @@
         {
             get
             {
-                return (this.GlamourExperience / 0x3e8);
+                return (int)Math.Pow(this.GlamourExperience / 0x3e8, 0.9);
             }
         }
 
@@ -6898,7 +6898,7 @@
         {
             get
             {
-                return (this.IntelligenceExperience / 0x3e8);
+                return (int) Math.Pow(this.IntelligenceExperience / 0x3e8, 0.9);
             }
         }
 
@@ -7455,7 +7455,7 @@
         {
             get
             {
-                return (this.PoliticsExperience / 0x3e8);
+                return (int)Math.Pow(this.PoliticsExperience / 0x3e8, 0.9);
             }
         }
 
@@ -7883,7 +7883,7 @@
         {
             get
             {
-                return (this.StrengthExperience / 0x3e8);
+                return  (int) Math.Pow(this.StrengthExperience / 0x3e8, 0.9);
             }
         }
 
