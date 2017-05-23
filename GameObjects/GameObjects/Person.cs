@@ -5870,6 +5870,46 @@
             }
         }
 
+        public int InheritableCommand
+        {
+            get
+            {
+                return this.IsGeneratedChildren ? this.CommandPotential : this.command;
+            }
+        }
+
+        public int InheritableStrength
+        {
+            get
+            {
+                return this.IsGeneratedChildren ? this.StrengthPotential : this.strength;
+            }
+        }
+
+        public int InheritableIntelligence
+        {
+            get
+            {
+                return this.IsGeneratedChildren ? this.IntelligencePotential : this.intelligence;
+            }
+        }
+
+        public int InheritablePolitics
+        {
+            get
+            {
+                return this.IsGeneratedChildren ? this.PoliticsPotential : this.politics;
+            }
+        }
+
+        public int InheritableGlamour
+        {
+            get
+            {
+                return this.IsGeneratedChildren ? this.GlamourPotential : this.glamour;
+            }
+        }
+
         public int BaseCommand
         {
             get
@@ -9250,11 +9290,11 @@
         private static void HandleChildrenType(Person father, Person mother, Person r)
         {
             int var = 5; //variance / maximum divert from parent ability
-            r.BaseCommand = GameObject.Random(Math.Abs(father.BaseCommand - mother.BaseCommand) + 2 * var + 1) + Math.Min(father.BaseCommand, mother.BaseCommand) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BaseStrength = GameObject.Random(Math.Abs(father.BaseStrength - mother.BaseStrength) + 2 * var + 1) + Math.Min(father.BaseStrength, mother.BaseStrength) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BaseIntelligence = GameObject.Random(Math.Abs(father.BaseIntelligence - mother.BaseIntelligence) + 2 * var + 1) + Math.Min(father.BaseIntelligence, mother.BaseIntelligence) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BasePolitics = GameObject.Random(Math.Abs(father.BasePolitics - mother.BasePolitics) + 2 * var + 1) + Math.Min(father.BasePolitics, mother.BasePolitics) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
-            r.BaseGlamour = GameObject.Random(Math.Abs(father.BaseGlamour - mother.BaseGlamour) + 2 * var + 1) + Math.Min(father.BaseGlamour, mother.BaseGlamour) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseCommand = GameObject.Random(Math.Abs(father.InheritableCommand - mother.InheritableCommand) + 2 * var + 1) + Math.Min(father.InheritableCommand, mother.InheritableCommand) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseStrength = GameObject.Random(Math.Abs(father.InheritableStrength - mother.InheritableStrength) + 2 * var + 1) + Math.Min(father.InheritableStrength, mother.InheritableStrength) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseIntelligence = GameObject.Random(Math.Abs(father.InheritableIntelligence - mother.InheritableIntelligence) + 2 * var + 1) + Math.Min(father.InheritableIntelligence, mother.InheritableIntelligence) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BasePolitics = GameObject.Random(Math.Abs(father.InheritablePolitics - mother.InheritablePolitics) + 2 * var + 1) + Math.Min(father.InheritablePolitics, mother.InheritablePolitics) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
+            r.BaseGlamour = GameObject.Random(Math.Abs(father.InheritableGlamour - mother.InheritableGlamour) + 2 * var + 1) + Math.Min(father.InheritableGlamour, mother.InheritableGlamour) - var + father.childrenAbilityIncrease + mother.childrenAbilityIncrease;
 
             r.BaseCommand = (int) (r.BaseCommand * GlobalVariables.ChildrenAbilityFactor);
             r.BaseStrength = (int)(r.BaseStrength * GlobalVariables.ChildrenAbilityFactor);
