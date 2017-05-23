@@ -5301,6 +5301,12 @@
             ExpectedFoodCache = -1;
             ExpectedFundCache = -1;
             this.SuspendTroopTransfer--;
+
+            if (this.Mayor != null)
+            {
+                this.MayorOnDutyDays++;
+            }
+
             this.resolveAIQuickBattle();
         }
 
@@ -14662,6 +14668,7 @@
             set
             {
                 this.mayorID = value;
+                this.MayorOnDutyDays = 0;
             }
         }
 
