@@ -11819,7 +11819,7 @@
             {
                 if (BuffAvail())
                 {
-                    float mayorFactor = Math.Max(1, this.StartingArchitecture.MayorOnDutyDays / 90.0f);
+                    float mayorFactor = Math.Min(1, this.StartingArchitecture.MayorOnDutyDays / 90.0f);
                     return (int)(this.defence * this.TirednessFactor * (1 + this.Leader.Command * 0.007 * mayorFactor + this.Leader.Calmness * 0.03 * mayorFactor));
                 }
                 else 
@@ -12505,7 +12505,7 @@
             {      //县令加成公式
                 if (BuffAvail())
                 {
-                    float mayorFactor = Math.Max(1, this.StartingArchitecture.MayorOnDutyDays / 90.0f);
+                    float mayorFactor = Math.Min(1, this.StartingArchitecture.MayorOnDutyDays / 90.0f);
                     return (int)(this.offence * this.TirednessFactor * (1 + this.Leader.Strength * 0.007 * mayorFactor + this.Leader.Braveness * 0.03 * mayorFactor));
                 }
                 else 

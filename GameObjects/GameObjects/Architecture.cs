@@ -12656,7 +12656,7 @@
                 //县令内政加成系数
                 if (this.Mayor != null && this.Mayor.BelongedCaptive == null)
                 {
-                    return (this.RateOfInternal + this.DayRateIncrementOfInternal + ((float)this.Mayor.Politics / 100 + (float)this.Mayor.Intelligence / 100) / 2 * Math.Max(1, this.MayorOnDutyDays / 90.0f));
+                    return (this.RateOfInternal + this.DayRateIncrementOfInternal + ((float)this.Mayor.Politics / 100 + (float)this.Mayor.Intelligence / 100) / 2 * Math.Min(1, this.MayorOnDutyDays / 90.0f));
                 }
 
                 else

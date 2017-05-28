@@ -7052,7 +7052,7 @@
                         }
                         else
                         {
-                            v += (int) ((this.BelongedArchitecture.Mayor.Glamour - 50) / 50 * 5 * Math.Max(1, this.BelongedArchitecture.MayorOnDutyDays / 90.0f));
+                            v += (int)((this.BelongedArchitecture.Mayor.Glamour - 50) / 50 * 5 * Math.Min(1, this.BelongedArchitecture.MayorOnDutyDays / 90.0f));
                         }
 
                     }
