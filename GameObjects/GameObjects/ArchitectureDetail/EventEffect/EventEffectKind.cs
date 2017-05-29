@@ -15,22 +15,15 @@
         */
         public virtual void ApplyEffectKind(Architecture architecture, Event e)
         {
-            foreach (Person p in architecture.Persons)
+            if (architecture.Mayor != null)
             {
-                this.ApplyEffectKind(p, e);
+                this.ApplyEffectKind(architecture.Mayor, e);
             }
         }
 
         public virtual void ApplyEffectKind(Faction faction, Event e)
         {
-            foreach (Person p in faction.Persons)
-            {
-                this.ApplyEffectKind(p, e);
-            }
-            foreach (Architecture a in faction.Architectures)
-            {
-                this.ApplyEffectKind(a, e);
-            }
+            this.ApplyEffectKind(faction.Leader, e);
         }
 
         public virtual void InitializeParameter(string parameter)
