@@ -14,7 +14,9 @@
             }
             else if (person.LocationArchitecture != null && person.BelongedCaptive != null)
             {
-                person.ChangeFaction(person.BelongedCaptive.LocationArchitecture.BelongedFaction);
+                Faction f = person.BelongedCaptive.LocationArchitecture.BelongedFaction;
+                person.SetBelongedCaptive(null, GameObjects.PersonDetail.PersonStatus.Normal);
+                person.ChangeFaction(f);
             }
         }
 
