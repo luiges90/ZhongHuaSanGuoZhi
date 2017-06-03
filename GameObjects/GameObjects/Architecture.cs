@@ -14465,7 +14465,7 @@
         public bool CanRemoveFacility(Facility f)
         {
             if (f.Kind.bukechaichu) return false;
-            if (this.Meinvkongjian - this.Feiziliebiao.Count < f.Kind.rongna && this.BelongedFaction != null && !this.BelongedFaction.IsAlien) return false;
+            // if (this.Meinvkongjian - this.Feiziliebiao.Count < f.Kind.rongna && this.BelongedFaction != null && !this.BelongedFaction.IsAlien) return false;
             return true;
         }
 
