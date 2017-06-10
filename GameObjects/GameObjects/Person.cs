@@ -7036,15 +7036,19 @@
                         v += this.LocationArchitecture.InfluenceIncrementOfLoyalty;
                     }
 
-                    if (this.BelongedFaction.Leader.Status == PersonStatus.Captive)
+                    if (this.BelongedFaction.Leader != null)
                     {
-                        v -= 10 + (4 - this.PersonalLoyalty);
+                        if (this.BelongedFaction.Leader.Status == PersonStatus.Captive)
+                        {
+                            v -= 10 + (4 - this.PersonalLoyalty);
+                        }
+                        else
+                        {
+                            v += (this.BelongedFaction.Leader.Glamour - 50) / 50 * 10;
+                        }
+                        v += Person.GetIdealAttraction(this.BelongedFaction.Leader, this, 0.5f);
                     }
-                    else
-                    {
-                        v += (this.BelongedFaction.Leader.Glamour - 50) / 50 * 10;
-                    }
-                    if (this.BelongedArchitecture.Mayor != null)
+                    if (this.BelongedArchitecture != null && this.BelongedArchitecture.Mayor != null)
                     {
                         if (this.BelongedArchitecture.Mayor.Status == PersonStatus.Captive)
                         {
@@ -7060,8 +7064,6 @@
                     {
                         v -= 3;
                     }
-
-                    v += Person.GetIdealAttraction(this.BelongedFaction.Leader, this, 0.5f);
 
                     v += this.MaxTreasureValue / 4.0f;
 
