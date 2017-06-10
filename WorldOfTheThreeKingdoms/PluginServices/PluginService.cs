@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 
 
-using		PluginInterface;
+using PluginInterface;
 //using PluginServices;
 using System.IO;
 using System.Reflection;
@@ -89,15 +89,45 @@ namespace PluginServices
             {
                 foreach (string str in Directory.GetDirectories(Path))
                 {
-                    foreach (string str2 in Directory.GetFiles(str))
+                    //修改By兔巴哥 2017.06.09
+
+                    string dirName = System.IO.Path.GetFileName(str);
+
+                    string[] files = Directory.GetFiles(str).Where(fi => fi.Contains(".dll")).ToArray();
+
+                    string plugFile = files.FirstOrDefault(fi => System.IO.Path.GetFileName(fi).Contains(dirName));
+
+                    if (String.IsNullOrEmpty(plugFile))
                     {
-                        FileInfo info = new FileInfo(str2);
-                        if (info.Extension.Equals(".dll"))
-                        {
-                            this.AddPlugin(str2);
-                            break;
-                        }
+                        plugFile = files.FirstOrDefault(fi => System.IO.Path.GetFileName(fi).Substring(0, 3) == dirName.Substring(0, 3));
                     }
+
+                    if (String.IsNullOrEmpty(plugFile))
+                    {
+                        plugFile = files.FirstOrDefault();
+                    }
+
+                    if (String.IsNullOrEmpty(plugFile))
+                    {
+                        throw new Exception(String.Format("插件{0}加载失败！", dirName));
+                    }
+                    else
+                    {
+                        this.AddPlugin(plugFile);
+                    }
+
+                    //string str2 = str + "\\" + System.IO.Path.GetFileName(str) + "Plugin.dll";
+                    //this.AddPlugin(str2);
+
+                    //foreach (string str2 in Directory.GetFiles(str))
+                    //{
+                    //    FileInfo info = new FileInfo(str2);
+                    //    if (info.Extension.Equals(".dll"))
+                    //    {
+                    //        this.AddPlugin(str2);
+                    //        break;
+                    //    }
+                    //}
                 }
             }
         }
@@ -129,6 +159,6 @@ namespace PluginServices
         }
     }
 
- 
+
 
 }

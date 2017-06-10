@@ -438,6 +438,97 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
             }
         }
 
+        private int[] GetCurrentViewMapTileNums1()
+        {
+            lock (this.DisplayingMapTiles)
+            {
+                var disNums = this.DisplayingMapTiles.Select(di => int.Parse(di.number)).ToArray();
+                return disNums;
+            }
+        }
+
+        private int[] GetCurrentViewMapTileNums2()
+        {
+            var disNums = GetCurrentViewMapTileNums1();
+            var nums = new int[] { -1, +1, -30, +30, -31, -29, +29, +31 };
+            var expandNums = disNums.SelectMany(nu => nums.Select(num => num + nu)).Where(num => 0 <= num && num <= 899 && !disNums.Contains(num)).ToArray();
+            return expandNums.Distinct().ToArray();
+        }
+
+        private int[] GetCurrentViewMapTileNumsAll()
+        {
+            var disNums = GetCurrentViewMapTileNums1();
+            var nums = new int[] { -1, +1, -30, +30, -31, -29, +29, +31 };
+            var exceptNums = disNums.SelectMany(nu => nums.Select(num => num + nu)).Where(num => 0 <= num && num <= 899).ToArray();
+            return disNums.Union(exceptNums).Distinct().ToArray();
+        }
+
+        Thread MapThread1;
+        Thread MapThread2;
+
+        private void ProcessMapTileTextureSync()
+        {
+            if (MapThread1 == null)
+            {
+                MapThread1 = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        MapTile mapTile = null;
+
+                        //var tileNums1 = GetCurrentViewMapTileNums1();                            
+
+                        var maps = this.DisplayingMapTiles.Where(ma => ma != null && ma.TileTexture == null).ToArray();  // tileNums1.Select(num => this.MapTiles[num / 30, num % 30]).Where(ma => ma.TileTexture == null).ToArray();
+
+                        if (maps != null && maps.Length > 0)
+                        {
+                            mapTile = maps.FirstOrDefault();
+                            CheckMapTileTexture(mapTile);
+                        }
+
+                        Thread.Sleep(20);
+                    }
+                }
+                );
+                MapThread1.Start();
+            }
+            if (MapThread2 == null)
+            {
+                MapThread2 = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        MapTile mapTile = null;
+
+                        var maps = this.DisplayingMapTiles.Where(ma => ma != null && ma.TileTexture == null).ToArray();
+
+                        //如果当前地图未绘制完，暂停绘制周边
+                        if (maps != null && maps.Length > 0)
+                        {
+                            mapTile = maps.FirstOrDefault();
+                            CheckMapTileTexture(mapTile);
+                            Thread.Sleep(50);
+                            continue;
+                        }
+
+                        var tileNums2 = GetCurrentViewMapTileNums2();
+
+                        maps = tileNums2.Select(num => this.MapTiles[num / 30, num % 30]).Where(ma => ma != null && ma.TileTexture == null).ToArray();
+
+                        if (maps != null && maps.Length > 0)
+                        {
+                            mapTile = maps.FirstOrDefault();
+                            CheckMapTileTexture(mapTile);
+                        }
+                        Thread.Sleep(30);
+                    }
+                });
+                MapThread2.Start();
+            }
+
+        }
+
+
         public void Draw(SpriteBatch spriteBatch, Point viewportSize)
         {
             if (spriteBatch != null)
@@ -445,6 +536,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
 
                 if (this.mainMap.MapName != null)
                 {
+                    ProcessMapTileTextureSync();
 
                     foreach (MapTile maptile in this.DisplayingMapTiles)
                     {
