@@ -463,6 +463,12 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
             return disNums.Union(exceptNums).Distinct().ToArray();
         }
 
+        public void StopThreads()
+        {
+            MapThread1.Abort();
+            MapThread2.Abort();
+        }
+
         Thread MapThread1;
         Thread MapThread2;
 
@@ -474,19 +480,40 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                 {
                     while (true)
                     {
-                        MapTile mapTile = null;
-
-                        //var tileNums1 = GetCurrentViewMapTileNums1();                            
-
-                        var maps = this.DisplayingMapTiles.Where(ma => ma != null && ma.TileTexture == null).ToArray();  // tileNums1.Select(num => this.MapTiles[num / 30, num % 30]).Where(ma => ma.TileTexture == null).ToArray();
-
-                        if (maps != null && maps.Length > 0)
+                        try
                         {
-                            mapTile = maps.FirstOrDefault();
-                            CheckMapTileTexture(mapTile);
-                        }
+                            MapTile mapTile = null;
 
-                        Thread.Sleep(20);
+                            //var tileNums1 = GetCurrentViewMapTileNums1();                            
+
+                            var maps = this.DisplayingMapTiles.Where(ma => ma != null && ma.TileTexture == null).ToArray();  // tileNums1.Select(num => this.MapTiles[num / 30, num % 30]).Where(ma => ma.TileTexture == null).ToArray();
+
+                            if (maps != null && maps.Length > 0)
+                            {
+                                mapTile = maps.FirstOrDefault();
+                                CheckMapTileTexture(mapTile);
+                            }
+
+                            Thread.Sleep(20);
+                        }
+                        catch (ThreadAbortException)
+                        {
+                            break;
+                        }
+                        catch (Exception e)
+                        {
+                            DateTime dt = System.DateTime.Now;
+                            String dateSuffix = "_" + dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "h" + dt.Minute;
+                            String logPath = "CrashLog" + dateSuffix + ".log";
+                            StreamWriter sw = new StreamWriter(new FileStream(logPath, FileMode.Create));
+
+                            sw.WriteLine("==================== Message ====================");
+                            sw.WriteLine(e.Message);
+                            sw.WriteLine("=================== StackTrace ==================");
+                            sw.WriteLine(e.StackTrace);
+
+                            sw.Close();
+                        }
                     }
                 }
                 );
@@ -498,29 +525,50 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                 {
                     while (true)
                     {
-                        MapTile mapTile = null;
-
-                        var maps = this.DisplayingMapTiles.Where(ma => ma != null && ma.TileTexture == null).ToArray();
-
-                        //如果当前地图未绘制完，暂停绘制周边
-                        if (maps != null && maps.Length > 0)
+                        try
                         {
-                            mapTile = maps.FirstOrDefault();
-                            CheckMapTileTexture(mapTile);
-                            Thread.Sleep(50);
-                            continue;
+                            MapTile mapTile = null;
+
+                            var maps = this.DisplayingMapTiles.Where(ma => ma != null && ma.TileTexture == null).ToArray();
+
+                            //如果当前地图未绘制完，暂停绘制周边
+                            if (maps != null && maps.Length > 0)
+                            {
+                                mapTile = maps.FirstOrDefault();
+                                CheckMapTileTexture(mapTile);
+                                Thread.Sleep(50);
+                                continue;
+                            }
+
+                            var tileNums2 = GetCurrentViewMapTileNums2();
+
+                            maps = tileNums2.Select(num => this.MapTiles[num / 30, num % 30]).Where(ma => ma != null && ma.TileTexture == null).ToArray();
+
+                            if (maps != null && maps.Length > 0)
+                            {
+                                mapTile = maps.FirstOrDefault();
+                                CheckMapTileTexture(mapTile);
+                            }
+                            Thread.Sleep(30);
                         }
-
-                        var tileNums2 = GetCurrentViewMapTileNums2();
-
-                        maps = tileNums2.Select(num => this.MapTiles[num / 30, num % 30]).Where(ma => ma != null && ma.TileTexture == null).ToArray();
-
-                        if (maps != null && maps.Length > 0)
+                        catch (ThreadAbortException)
                         {
-                            mapTile = maps.FirstOrDefault();
-                            CheckMapTileTexture(mapTile);
+                            break;
                         }
-                        Thread.Sleep(30);
+                        catch (Exception e)
+                        {
+                            DateTime dt = System.DateTime.Now;
+                            String dateSuffix = "_" + dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "h" + dt.Minute;
+                            String logPath = "CrashLog" + dateSuffix + ".log";
+                            StreamWriter sw = new StreamWriter(new FileStream(logPath, FileMode.Create));
+
+                            sw.WriteLine("==================== Message ====================");
+                            sw.WriteLine(e.Message);
+                            sw.WriteLine("=================== StackTrace ==================");
+                            sw.WriteLine(e.StackTrace);
+
+                            sw.Close();
+                        }
                     }
                 });
                 MapThread2.Start();

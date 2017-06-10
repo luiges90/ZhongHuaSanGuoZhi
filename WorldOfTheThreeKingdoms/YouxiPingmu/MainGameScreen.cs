@@ -2636,6 +2636,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         private void saveBeforeExit()
         {
+            this.mainMapLayer.StopThreads();
             if (GlobalVariables.HardcoreMode)
             {
                 this.SaveGameQuitPosition();
