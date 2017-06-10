@@ -1998,7 +1998,7 @@
                 {
                     foreach (Person q in convincer)
                     {
-                        if (q.CanConvinceChance(p) > 20)
+                        if (q.CanConvinceChance(p) > 10)
                         {
                             q.OutsideDestination = this.ArchitectureArea.Centre;
                             q.GoForConvince(p);
