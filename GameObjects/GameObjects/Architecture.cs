@@ -14414,7 +14414,7 @@
         public bool PrincessChangeLeader(bool byOccupy, Faction capturer, Person p)
         {
             bool result = false;
-             if (this.BelongedFaction != null && this.BelongedFaction.IsAlien && this.BelongedFaction.Leader.isLegalFeiZi(p))
+            if (this.BelongedFaction != null && this.BelongedFaction.IsAlien && capturer.Leader.isLegalFeiZi(p))
              {
                 if (byOccupy)
                 {
