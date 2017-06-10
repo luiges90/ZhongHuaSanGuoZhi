@@ -1998,7 +1998,7 @@
                 {
                     foreach (Person q in convincer)
                     {
-                        if (q.CanConvince(p))
+                        if (q.CanConvinceChance(p) > 20)
                         {
                             q.OutsideDestination = this.ArchitectureArea.Centre;
                             q.GoForConvince(p);
@@ -2027,7 +2027,7 @@
             {
                 foreach (Person q in convincer)
                 {
-                    if (q.CanConvince(p.CaptivePerson) && GameObject.Chance(50))
+                    if (q.CanConvinceChance(p.CaptivePerson) > 20)
                     {
                         q.OutsideDestination = this.ArchitectureArea.Centre;
                         q.GoForConvince(p.CaptivePerson);
@@ -2168,7 +2168,7 @@
                                         {
                                             foreach (Person p in architecture2.Persons)
                                             {
-                                                if (firstHalfPerson.CanConvince(p) && GameObject.Chance(50))
+                                                if (firstHalfPerson.CanConvinceChance(p) > 20)
                                                 {
                                                     firstHalfPerson.OutsideDestination = this.ArchitectureArea.Centre;
                                                     firstHalfPerson.GoForConvince(p);

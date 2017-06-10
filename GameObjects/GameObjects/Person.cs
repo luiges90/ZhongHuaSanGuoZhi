@@ -2688,6 +2688,18 @@
             return ConvinceSuccess;
         }
 
+        public int CanConvinceChance(Person target)
+        {
+            if (!CanConvince(target)) return 0;
+            Person closest = target.VeryClosePersonInArchitecture;
+
+            return (int)
+                (this.ConvinceAbility - (target.Loyalty * 4) - ((int)target.PersonalLoyalty * 25) +
+                Person.GetIdealAttraction(this, target) * 8 + Person.GetIdealAttraction(this.BelongedFaction.Leader, target) * 8) / 3 
+                + (500 - target.GetRelation(closest) / 5)
+                + 1;
+        }
+
 
         public void DoConvince()
         {
@@ -2702,13 +2714,8 @@
 
                     if (ConvinceSuccess)
                     {
-                        ConvinceSuccess = GameObject.Chance((int)
-                            (this.ConvinceAbility - (this.ConvincingPerson.Loyalty * 4) - ((int)this.ConvincingPerson.PersonalLoyalty * 25) +
-                            Person.GetIdealAttraction(this, this.ConvincingPerson) * 8 + Person.GetIdealAttraction(this.BelongedFaction.Leader, this.ConvincingPerson) * 8) / 3 + 1);
+                        ConvinceSuccess = GameObject.Chance(this.CanConvinceChance(this.ConvincingPerson));
                     }
-
-                    Person closest = this.ConvincingPerson.VeryClosePersonInArchitecture;
-                    ConvinceSuccess &= closest == null || GameObject.Chance(500 - this.ConvincingPerson.GetRelation(closest) / 5);
 
                     if (ConvinceSuccess)
                     {
