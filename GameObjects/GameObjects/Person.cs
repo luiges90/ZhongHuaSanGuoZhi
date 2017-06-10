@@ -4013,8 +4013,7 @@
 
         public bool HasHigherLevelTitle(Title title)
         {
-            List<Title> oldTitles = new List<Title>(this.RealTitles);
-            foreach (Title t in oldTitles)
+            foreach (Title t in this.RealTitles)
             {
                 if (t.Kind == title.Kind && t.Level >= title.Level)
                 {

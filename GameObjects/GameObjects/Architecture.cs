@@ -5220,15 +5220,20 @@
             ExtensionInterface.call("GossipDamage", new Object[] { this.Scenario, this, damage });
         }
 
+        private GameObjectList eventListSortedById = null;
+
         public void checkEvent()
         {
-            GameObjectList list = base.Scenario.AllEvents.GetList();
-            list.PropertyName = "ID";
-            list.SmallToBig = true;
-            list.IsNumber = true;
-            list.ReSort();
-
-            foreach (Event e in list)
+            if (eventListSortedById == null)
+            {
+                GameObjectList list = base.Scenario.AllEvents.GetList();
+                list.PropertyName = "ID";
+                list.SmallToBig = true;
+                list.IsNumber = true;
+                list.ReSort();
+                eventListSortedById = list;
+            }
+            foreach (Event e in eventListSortedById)
             {
                 if (e.checkConditions(this))
                 {
