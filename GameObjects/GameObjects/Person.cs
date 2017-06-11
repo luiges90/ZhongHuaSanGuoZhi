@@ -5129,6 +5129,8 @@
 
             if (a == null) return;
 
+            if (this.LocationArchitecture == null) return;
+
             // if (this.Status != PersonStatus.Normal) return;
 
             if (this.LocationTroop != null && !this.LocationTroop.Destroyed && !removeFromTroop) return;
