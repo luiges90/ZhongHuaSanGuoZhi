@@ -5983,50 +5983,12 @@
             }
         }
 
+        private MilitaryList militaries = new MilitaryList();
         public MilitaryList Militaries
         {
             get
             {
-                MilitaryList list = new MilitaryList();
-                /*
-                foreach (Military military in base.Scenario.Militaries)
-                {
-                    if (military.BelongedArchitecture != null && military.BelongedArchitecture.BelongedFaction == this)
-                    {
-                        Militaries.Add(military);
-                    }
-
-                }*/
-                foreach (Architecture a in this.Architectures)
-                {
-                    foreach (Military military in a.Militaries)
-                    {
-                        list.Add(military);
-                    }
-                }
-
-                foreach (Military military in this.TransferingMilitaries)
-                {
-                    list.Add(military);
-                }
-
-                foreach (Troop troop in this.Troops)
-                {
-                    if (troop.Army != null)
-                    {
-                        if (troop.Army.ShelledMilitary == null)
-                        {
-                            list.Add(troop.Army);
-                        }
-                        else
-                        {
-                            list.Add(troop.Army.ShelledMilitary);
-                        }
-                    }
-                }
-
-                return list;
-
+                return militaries;
             }
         }
 
