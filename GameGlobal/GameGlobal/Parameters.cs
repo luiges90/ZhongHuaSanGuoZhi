@@ -192,6 +192,8 @@
 
         public static float SearchPersonArchitectureCountPower = 0;
 
+        public static float InternalSurplusMinEffect = 0.2f;
+
         public void InitializeGameParameters()
         {
             XmlDocument document = new XmlDocument();
@@ -360,6 +362,7 @@
             AIEncircleVar = int.Parse(nextSibling.Attributes.GetNamedItem("AIEncircleVar").Value);
 
             RansomRate = float.Parse(nextSibling.Attributes.GetNamedItem("RansomRate").Value);
+            InternalSurplusMinEffect = float.Parse(nextSibling.Attributes.GetNamedItem("InternalSurplusMinEffect").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;

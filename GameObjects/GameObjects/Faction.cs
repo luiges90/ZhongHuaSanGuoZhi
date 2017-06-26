@@ -5836,9 +5836,9 @@
                 float num = (Parameters.InternalSurplusFactor - this.Power) / (float) Parameters.InternalSurplusFactor;
                 num = num * num;
 
-                if (num < 0.2f)
+                if (num < Parameters.InternalSurplusMinEffect)
                 {
-                    num = 0.2f;
+                    num = Parameters.InternalSurplusMinEffect;
                 }
 
                 InternalSurplusRateCache = num;
