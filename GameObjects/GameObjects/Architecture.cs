@@ -2277,7 +2277,7 @@
             foreach (Information i in this.Informations)
             {
                 bool stop = true;
-                if (i.DaysStarted <= 3)
+                if (i.DaysStarted <= 3 * Parameters.DayInTurn)
                 {
                     stop = false;
                 }
@@ -4592,8 +4592,8 @@
         {
             if (this.BuildingDaysLeft > 0)
             {
-                this.BuildingDaysLeft--;
-                if (this.BuildingDaysLeft == 0)
+                this.BuildingDaysLeft -= Parameters.DayInTurn;
+                if (this.BuildingDaysLeft <= 0)
                 {
                     FacilityKind facilityKind = base.Scenario.GameCommonData.AllFacilityKinds.GetFacilityKind(this.BuildingFacility);
                     if (facilityKind != null)
@@ -5309,7 +5309,7 @@
 
             if (this.Mayor != null)
             {
-                this.MayorOnDutyDays++;
+                this.MayorOnDutyDays += Parameters.DayInTurn;
             }
 
             this.resolveAIQuickBattle();
@@ -5556,15 +5556,15 @@
 
         private void zainanshijian()
         {
-            if (base.Scenario.DaySince < 720) return;
+            if (base.Scenario.DaySince < 720 * Parameters.DayInTurn) return;
             if (this.youzainan)
             {
                 //this.DecreaseFood(this.ZhenzaiWorkingPersons.Count * 3000);
                 this.DecreaseFund(this.ZhenzaiWorkingPersons.Count * this.InternalFundCost);
                 this.zhixingzainanshanghai();
 
-                this.zainan.shengyutianshu--;
-                this.zainan.shengyutianshu -= this.zhenzaijianshaotianshu();
+                this.zainan.shengyutianshu -= Parameters.DayInTurn;
+                this.zainan.shengyutianshu -= this.zhenzaijianshaotianshu() * Parameters.DayInTurn;
 
                 if (this.zainan.shengyutianshu <= 0)
                 {
@@ -6788,7 +6788,7 @@
             for (int i = this.FundPacks.Count - 1; i >= 0; i--)
             {
                 FundPack local1 = this.FundPacks[i];
-                local1.Days--;
+                local1.Days -= Parameters.DayInTurn;
                 if (this.FundPacks[i].Days <= 0)
                 {
                     this.IncreaseFund(this.FundPacks[i].Fund);
@@ -6802,7 +6802,7 @@
             for (int i = this.FoodPacks.Count - 1; i >= 0; i--)
             {
                 FoodPack local1 = this.FoodPacks[i];
-                local1.Days--;
+                local1.Days -= Parameters.DayInTurn;
                 if (this.FoodPacks[i].Days <= 0)
                 {
                     this.IncreaseFood(this.FoodPacks[i].Food);
@@ -9243,11 +9243,6 @@
             {
                 this.RemoveAllInformations();
             }
-            foreach (Information information in this.Informations)
-            {
-                information.CheckAmbushTroop();
-                information.DaysStarted++;
-            }
         }
 
         private void InsideTacticsAI()
@@ -10708,7 +10703,7 @@
                 {
                     if (architecture.Kind.HasPopulation)
                     {
-                        architecture.AddPopulationPack((int)(base.Scenario.GetDistance(this.ArchitectureArea, architecture.ArchitectureArea) / 2.0), 1 + GameObject.Random(maxValue));
+                        architecture.AddPopulationPack((int)(base.Scenario.GetDistance(this.ArchitectureArea, architecture.ArchitectureArea) / 2.0) * Parameters.DayInTurn, 1 + GameObject.Random(maxValue));
                         num++;
                     }
                     if (num >= 100)
@@ -10785,7 +10780,7 @@
             for (int i = this.PopulationPacks.Count - 1; i >= 0; i--)
             {
                 PopulationPack local1 = this.PopulationPacks[i];
-                local1.Days--;
+                local1.Days -= Parameters.DayInTurn;
                 if (this.PopulationPacks[i].Days <= 0)
                 {
                     this.ReceivePopulation(this.PopulationPacks[i].Population);
@@ -11980,7 +11975,7 @@
                         }
                     }
                 }
-                if (base.Scenario.Date.Day == 30)
+                if (GameObject.Random(30 / Parameters.DayInTurn) == 0)
                 {
                     GameObjectList aILinks = this.GetAILinks();
                     aILinks.Add(this);

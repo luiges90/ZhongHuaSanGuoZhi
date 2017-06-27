@@ -2906,7 +2906,7 @@
                 }
                 if (receiving.StartingArchitecture != null)
                 {
-                    receiving.StartingArchitecture.AddPopulationPack((int)(receiving.Scenario.GetDistance(receiving.Position, receiving.StartingArchitecture.ArchitectureArea) / 2.0), receiving.GetPopulation());
+                    receiving.StartingArchitecture.AddPopulationPack((int)(receiving.Scenario.GetDistance(receiving.Position, receiving.StartingArchitecture.ArchitectureArea) / 2.0) * Parameters.DayInTurn, receiving.GetPopulation());
                 }
                 receiving.Scenario.GameScreen.OnTroopRout(null, receiving);
                 receiving.BeRouted();
@@ -3039,7 +3039,7 @@
                 }
                 if (sending.StartingArchitecture != null)
                 {
-                    sending.StartingArchitecture.AddPopulationPack((int)(sending.Scenario.GetDistance(receiving.Position, sending.StartingArchitecture.ArchitectureArea) / 2.0), receiving.GetPopulation());
+                    sending.StartingArchitecture.AddPopulationPack((int)(sending.Scenario.GetDistance(receiving.Position, sending.StartingArchitecture.ArchitectureArea) / 2.0 * Parameters.DayInTurn), receiving.GetPopulation());
                 }
                 Architecture oldLandedArch = sending.Scenario.GetArchitectureByPosition(receiving.Position);
                 if (sending.Army.Kind.ArchitectureCounterDamageRate <= 0 && oldLandedArch != null && !sending.BelongedFaction.IsFriendly(oldLandedArch.BelongedFaction))
@@ -7640,7 +7640,7 @@
             information.Radius = this.InvestigateRadius;
             information.Position = this.SelfCastPosition;
             information.Oblique = false;
-            information.DaysLeft = days;
+            information.DaysLeft = days * Parameters.DayInTurn;
             base.Scenario.Informations.AddInformation(information);
             this.BelongedFaction.AddInformation(information);
             information.Apply();

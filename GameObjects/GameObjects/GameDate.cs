@@ -2,6 +2,7 @@
 {
     using System;
     using System.Runtime.CompilerServices;
+    using GameGlobal;
 
     public class GameDate
     {
@@ -42,13 +43,13 @@
             {
                 return false;
             }
-            if (this.Day == 30)
+            if (this.Day >= 30)
             {
                 if ((this.OnMonthPassed != null) && !this.OnMonthPassed())
                 {
                     return false;
                 }
-                if ((this.Month == 12) && ((this.OnYearPassed != null) && !this.OnYearPassed()))
+                if ((this.Month >= 12) && ((this.OnYearPassed != null) && !this.OnYearPassed()))
                 {
                     return false;
                 }
@@ -87,10 +88,10 @@
 
         public void Go()
         {
-            this.Day++;
+            this.Day += Parameters.DayInTurn;
             if (this.Day > 30)
             {
-                this.Day = 1;
+                this.Day -= 30;
                 this.Month++;
                 if (this.Month > 12)
                 {

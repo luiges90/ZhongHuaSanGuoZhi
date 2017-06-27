@@ -142,13 +142,13 @@
                     this.BelongedFaction.IncreaseReputation(lastActiveNode.Value.ActiveFundCost / 40);
                     if (this.InefficiencyDays > 0)
                     {
-                        this.InefficiencyDays--;
+                        this.InefficiencyDays -= Parameters.DayInTurn;
                     }
                 }
                 else
                 {
-                    this.InefficiencyDays++;
-                    if (this.InefficiencyDays >= 10)
+                    this.InefficiencyDays += Parameters.DayInTurn;
+                    if (this.InefficiencyDays >= 10 * Parameters.DayInTurn)
                     {
                         this.Close();
                         return;

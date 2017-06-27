@@ -88,7 +88,7 @@
 
             if (((this.BelongedFaction != null) && (this.CaptiveFaction != null)) && (this.RansomArriveDays > 0))
             {
-                this.RansomArriveDays--;
+                this.RansomArriveDays -= Parameters.DayInTurn;
                 if (this.RansomArriveDays == 0)
                 {
                     if (this.BelongedFaction.Capital != null)
@@ -128,7 +128,7 @@
                         }
                         else
                         {
-                            this.RansomArriveDays = (int) (base.Scenario.GetDistance(this.RansomArchitecture.ArchitectureArea, this.BelongedFaction.Capital.ArchitectureArea) / 5.0);
+                            this.RansomArriveDays = (int)(base.Scenario.GetDistance(this.RansomArchitecture.ArchitectureArea, this.BelongedFaction.Capital.ArchitectureArea) / 5.0) * Parameters.DayInTurn;
                             if (this.RansomArriveDays <= 0)
                             {
                                 this.RansomArriveDays = 1;
@@ -175,7 +175,7 @@
         {
             if ((this.CaptiveFaction!=null) && ((this.CaptiveFaction.Capital != null)) && (this.BelongedFaction != null) && (this.BelongedFaction.Capital != null))
             {
-                int num = (int) (base.Scenario.GetDistance(this.CaptiveFaction.Capital.ArchitectureArea, this.BelongedFaction.Capital.ArchitectureArea) / 5.0);
+                int num = (int) (base.Scenario.GetDistance(this.CaptiveFaction.Capital.ArchitectureArea, this.BelongedFaction.Capital.ArchitectureArea) / 5.0) * Parameters.DayInTurn;
                 if (num <= 0)
                 {
                     num = 1;
@@ -250,7 +250,7 @@
             this.RansomFund = this.Ransom;
             from.DecreaseFund(this.RansomFund);
             this.RansomArchitecture = to;
-            this.RansomArriveDays = (int) (base.Scenario.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 5.0);
+            this.RansomArriveDays = (int)(base.Scenario.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 5.0) * Parameters.DayInTurn;
             if (this.RansomArriveDays <= 0)
             {
                 this.RansomArriveDays = 1;

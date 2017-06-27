@@ -1955,7 +1955,7 @@
                             {
                                 num2 = this.Capital.Fund - this.Capital.EnoughFund;
                                 this.Capital.DecreaseFund(num2);
-                                architecture.AddFundPack(num2, (int)(base.Scenario.GetDistance(this.Capital.ArchitectureArea, architecture.ArchitectureArea) / 5.0));
+                                architecture.AddFundPack(num2, (int)(base.Scenario.GetDistance(this.Capital.ArchitectureArea, architecture.ArchitectureArea) / 5.0) * Parameters.DayInTurn);
                             }
                             this.ChangeCapital(architecture);
                         }
@@ -1971,7 +1971,7 @@
                         {
                             num2 = this.Capital.Fund - this.Capital.EnoughFund;
                             this.Capital.DecreaseFund(num2);
-                            architecture.AddFundPack(num2, (int)(base.Scenario.GetDistance(this.Capital.ArchitectureArea, architecture.ArchitectureArea) / 5.0));
+                            architecture.AddFundPack(num2, (int)(base.Scenario.GetDistance(this.Capital.ArchitectureArea, architecture.ArchitectureArea) / 5.0) * Parameters.DayInTurn);
                         }
                         this.ChangeCapital(architecture);
                     }
@@ -2848,10 +2848,10 @@
 
             foreach (Military m in this.TransferingMilitaries)
             {
-                m.ArrivingDays--;
+                m.ArrivingDays -= Parameters.DayInTurn;
 
 
-                if (m.ArrivingDays == 0)
+                if (m.ArrivingDays <= 0)
                 {
                     if (m.StartingArchitecture != null && m.TargetArchitecture != null  && m.TargetArchitecture.BelongedFaction != null 
                         && m.TargetArchitecture.BelongedFaction == this && m.BelongedArchitecture == null )
@@ -3619,9 +3619,9 @@
             InformationList list = new InformationList();
             foreach (Information information in this.Informations)
             {
-                information.DaysLeft--;
-                information.DaysStarted++;
-                if (information.DaysLeft == 0)
+                information.DaysLeft -= Parameters.DayInTurn;
+                information.DaysStarted += Parameters.DayInTurn;
+                if (information.DaysLeft <= 0)
                 {
                     list.Add(information);
                 }
@@ -5464,7 +5464,7 @@
         {
             if (this.UpgradingTechnique >= 0)
             {
-                this.UpgradingDaysLeft--;
+                this.UpgradingDaysLeft -= Parameters.DayInTurn;
                 if (this.UpgradingDaysLeft == 0)
                 {
                     Technique technique = base.Scenario.GameCommonData.AllTechniques.GetTechnique(this.UpgradingTechnique);

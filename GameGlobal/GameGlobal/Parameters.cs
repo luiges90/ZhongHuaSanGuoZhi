@@ -193,6 +193,7 @@
         public static float SearchPersonArchitectureCountPower = 0;
 
         public static float InternalSurplusMinEffect = 0.2f;
+        public static int DayInTurn = 1;
 
         public void InitializeGameParameters()
         {
@@ -363,6 +364,8 @@
 
             RansomRate = float.Parse(nextSibling.Attributes.GetNamedItem("RansomRate").Value);
             InternalSurplusMinEffect = float.Parse(nextSibling.Attributes.GetNamedItem("InternalSurplusMinEffect").Value);
+
+            DayInTurn = int.Parse(nextSibling.Attributes.GetNamedItem("DayInTurn").Value);
 
             BasicAIFundRate = AIFundRate;
             BasicAIFoodRate = AIFoodRate;

@@ -1204,7 +1204,7 @@
             }
             this.CheckGameEnd();
 
-            this.DaySince++;
+            this.DaySince += Parameters.DayInTurn;
 
             ExtensionInterface.call("PostDayEvent", new Object[] { this });
 
@@ -2077,7 +2077,7 @@
 
         public int GetTransferFundDays(Architecture from, Architecture to)
         {
-            return (int)Math.Ceiling(this.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 2.5);
+            return (int)Math.Ceiling(this.GetDistance(from.ArchitectureArea, to.ArchitectureArea) / 2.5 * Parameters.DayInTurn);
         }
 
 
@@ -5389,11 +5389,11 @@
                                     {
                                         if (p.Status == PersonStatus.Normal)
                                         {
-                                            p.AdjustRelation(q, 3f / Math.Max(1, (p.BelongedArchitecture.Persons.Count - 1)), 2);
+                                            p.AdjustRelation(q, 3f / Math.Max(1, (p.BelongedArchitecture.Persons.Count - 1)) * Parameters.DayInTurn, 2 * Parameters.DayInTurn);
                                         }
                                         else
                                         {
-                                            p.AdjustRelation(q, 3f / Math.Max(1, (p.BelongedFactionWithPrincess.feiziCount() - 1)), 2);
+                                            p.AdjustRelation(q, 3f / Math.Max(1, (p.BelongedFactionWithPrincess.feiziCount() - 1)) * Parameters.DayInTurn, 2 * Parameters.DayInTurn);
                                         }
                                     }
                                 }
@@ -5407,11 +5407,11 @@
                                 float d = Parameters.CloseThreshold / Math.Max(10, p.GetRelation(q));
                                 if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
                                 {
-                                    p.AdjustRelation(q, -d / 20f, 0);
+                                    p.AdjustRelation(q, -d / 20f * Parameters.DayInTurn, 0);
                                 }
                                 else
                                 {
-                                    p.AdjustRelation(q, -d / 50f, 0);
+                                    p.AdjustRelation(q, -d / 50f * Parameters.DayInTurn, 0);
                                 }
 
                                 if (p.GetRelation(q) < 0)
@@ -5431,11 +5431,11 @@
                                 }
                                 if (p.LocationArchitecture == q.LocationArchitecture || p.LocationTroop == q.LocationTroop)
                                 {
-                                    p.AdjustRelation(q, -d / 20, 0);
+                                    p.AdjustRelation(q, -d / 20 * Parameters.DayInTurn, 0);
                                 }
                                 else
                                 {
-                                    p.AdjustRelation(q, -d / 50, 0);
+                                    p.AdjustRelation(q, -d / 50 * Parameters.DayInTurn, 0);
                                 }
 
                                 if (p.GetRelation(q) > 0)
@@ -7419,7 +7419,7 @@
         {
             foreach (Person p in this.Persons)
             {
-                if (p.Trainable && GameObject.Random(30) == 0)
+                if (p.Trainable && GameObject.Random(30 / Parameters.DayInTurn) == 0)
                 {
                     if (p.TrainPolicy == null)
                     {

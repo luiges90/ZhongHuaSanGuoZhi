@@ -1460,7 +1460,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
 
         public override void TransferMilitaryArrivesAtArchitecture(Military m, Architecture a)
         {
-            if (base.Scenario.IsCurrentPlayer(a.BelongedFaction) && m.ArrivingDays == 0)
+            if (base.Scenario.IsCurrentPlayer(a.BelongedFaction) && m.ArrivingDays <= 0)
             {
                 m.TextResultString = m.StartingArchitecture.Name;
                 m.TextDestinationString = a.Name;

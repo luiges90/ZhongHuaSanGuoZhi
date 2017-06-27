@@ -604,7 +604,7 @@ namespace WorldOfTheThreeKingdoms.GameScreens
                             this.CurrentArchitecture.DecreaseFood(military.TransferFoodCost(distance));
                             military.StartingArchitecture = this.CurrentArchitecture;
                             military.TargetArchitecture = targetArchitecture;
-                            military.ArrivingDays = Math.Max(1, military.TransferDays(distance));
+                            military.ArrivingDays = Math.Max(1, military.TransferDays(distance)) * Parameters.DayInTurn;
                             this.CurrentArchitecture.RemoveMilitary(military);
                             this.CurrentArchitecture.BelongedFaction.TransferingMilitaries.Add(military);
                             this.CurrentArchitecture.BelongedFaction.TransferingMilitaryCount++;
