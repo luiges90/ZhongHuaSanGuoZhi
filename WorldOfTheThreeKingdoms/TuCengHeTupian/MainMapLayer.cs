@@ -500,6 +500,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                         {
                             break;
                         }
+                        catch (InvalidOperationException)
+                        {
+                            // TODO eliminate this exception, tho it does not appear to affect anything...
+                        }
                         catch (Exception e)
                         {
                             DateTime dt = System.DateTime.Now;
@@ -554,6 +558,10 @@ namespace WorldOfTheThreeKingdoms.GameScreens.ScreenLayers
                         catch (ThreadAbortException)
                         {
                             break;
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            // TODO eliminate this exception, tho it does not appear to affect anything...
                         }
                         catch (Exception e)
                         {
