@@ -9065,9 +9065,11 @@
 
         internal void RefreshOffence()
         {
+            float commandRate = GlobalVariables.LeadershipOffenceRate * Math.Max(1, this.Quantity / 1000.0f);
+
             this.offence = this.Army.Offence;
             this.offence += this.TechnologyIncrement;
-            this.offence = (this.offence * SquareChance((int)(((1 - GlobalVariables.LeadershipOffenceRate) * this.TroopStrength + GlobalVariables.LeadershipOffenceRate * this.TroopCommand) + this.Morale), 100)) / 400;
+            this.offence = (this.offence * SquareChance((int)(((1 - commandRate) * this.TroopStrength + commandRate * this.TroopCommand) + this.Morale), 100)) / 400;
             this.offence = (int)(this.offence * ((this.RateOfOffence + this.OffenceRateIncrementByViewArea) + this.OffenceRateDecrementByViewArea));
             this.offence = (int)(this.offence * this.terrainRate);
             if (this.Army.Quantity < this.Army.Kind.MinScale)
