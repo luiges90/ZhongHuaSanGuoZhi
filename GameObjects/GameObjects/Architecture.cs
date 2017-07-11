@@ -1345,7 +1345,7 @@
                 }
                 if (i.Scales + transferredScale <= scale)
                 {
-                    src.TransferMilitary(i, this);
+                    src.TransferMilitary(i, this, false);
                     transferredScale += i.Scales;
                     if (transferredScale >= scale) return transferredScale;
                 }
@@ -2623,9 +2623,12 @@
 
         
 
-        public void  TransferMilitary(Military military, Architecture destination) // 运兵无需武将来运
+        public void  TransferMilitary(Military military, Architecture destination, bool ignoreLimit) // 运兵无需武将来运
         {
             if (this.MilitaryCount == 0) return ;
+
+            if (GlobalVariables.PopulationRecruitmentLimit && !ignoreLimit && destination.ArmyQuantityIncludingTransfering > destination.Population) return;
+
             MilitaryList list = new MilitaryList();
             if ((military.Scales > 5) && (military.Morale >= 80) && (military.Combativity >= 80) && (military.InjuryQuantity < military.Kind.MinScale)
                 && !military.IsFewScaleNeedRetreat && military.Kind.Movable && military.Kind.Type != MilitaryType.水军)
@@ -11576,7 +11579,7 @@
                     {
                         if (m.TargetArchitecture == this)
                         {
-                            this.TransferMilitary(m, this.BelongedFaction.Capital);
+                            this.TransferMilitary(m, this.BelongedFaction.Capital, true);
                         }
                     }
                 }
@@ -12357,6 +12360,19 @@
                     num += military.Quantity;
                 }
                 return num;
+            }
+        }
+
+        public int ArmyQuantityIncludingTransfering
+        {
+            get
+            {
+                int n = 0;
+                foreach (Military m in this.TransferingMilitaries)
+                {
+                    n += m.Quantity;
+                }
+                return n + ArmyQuantity;
             }
         }
 

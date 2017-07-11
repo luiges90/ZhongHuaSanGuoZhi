@@ -1393,7 +1393,7 @@
                             {
                                 foreach (Military m in p.Spouse.LeadingArmies)
                                 {
-                                    p.Spouse.LocationArchitecture.TransferMilitary(m, p.LocationArchitecture);
+                                    p.Spouse.LocationArchitecture.TransferMilitary(m, p.LocationArchitecture, false);
                                 }
                                 p.Spouse.MoveToArchitecture(p.LocationArchitecture);
                             }
@@ -1407,7 +1407,7 @@
                                     {
                                         foreach (Military m in q.LeadingArmies)
                                         {
-                                            q.LocationArchitecture.TransferMilitary(m, p.LocationArchitecture);
+                                            q.LocationArchitecture.TransferMilitary(m, p.LocationArchitecture, false);
                                         }
                                         q.MoveToArchitecture(p.LocationArchitecture);
                                     }

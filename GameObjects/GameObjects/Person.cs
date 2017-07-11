@@ -3199,7 +3199,7 @@
             }
             foreach (Military m in a.movableMilitaries)
             {
-                a.TransferMilitary(m, sourceFaction.Capital);
+                a.TransferMilitary(m, sourceFaction.Capital, false);
             }
             foreach (Military m in sourceFaction.TransferingMilitaries)
             {
@@ -9523,7 +9523,7 @@
                         tookSpouse = p;
                         this.LoseReputationBy(0.05f);
 
-                        p.AddHated(this.BelongedFaction.Leader);
+                        p.AddHated(this.BelongedFactionWithPrincess.Leader);
                     }
                 }
             }// end if (this.CurrentPerson.Spouse != -1)
