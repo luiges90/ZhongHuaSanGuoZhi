@@ -1284,6 +1284,16 @@
     <Compile Include="GameObjects\SortedBoundedSet.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect816.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect815.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect814.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect260.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect813.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect820.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect812.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect811.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect810.cs" />
+    <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect800.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect25.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect35.cs" />
     <Compile Include="GameObjects\ArchitectureDetail\EventEffect\EventEffectKindPack\EventEffect45.cs" />

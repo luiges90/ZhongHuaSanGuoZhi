@@ -8,7 +8,7 @@
     {
         public override bool CheckConditionKind(Person person)
         {
-            return !person.Scenario.IsPlayer(person.BelongedFaction);
+            return !person.Scenario.IsPlayer(person.BelongedFactionWithPrincess);
         }
 
         public override bool CheckConditionKind(Architecture architecture)
